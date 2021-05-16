@@ -5,7 +5,6 @@
 
 #include "ACL.h"
 #include "Channel.h"
-#include "ChannelListener.h"
 #include "Connection.h"
 #include "Group.h"
 #include "Message.h"
@@ -469,7 +468,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (!u->qsHash.isEmpty())
 			mpus.set_hash(u8(u->qsHash));
 
-		foreach (int channelID, ChannelListener::getListenedChannelsForUser(u)) {
+		foreach (int channelID, m_channelListenerManager.getListenedChannelsForUser(u->uiSession)) {
 			mpus.add_listening_channel_add(channelID);
 		}
 
@@ -700,7 +699,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 
 		if (Meta::mp.iMaxListenersPerChannel >= 0
-			&& Meta::mp.iMaxListenersPerChannel - ChannelListener::getListenerCountForChannel(c) - 1 < 0) {
+			&& Meta::mp.iMaxListenersPerChannel - m_channelListenerManager.getListenerCountForChannel(c->iId) - 1 < 0) {
 			// A limit for the amount of listener proxies per channel is set and it has been reached already
 			PERM_DENIED_FALLBACK(ChannelListenerLimit, 0x010400,
 								 QLatin1String("No more listeners allowed in this channel"));
@@ -708,7 +707,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 
 		if (Meta::mp.iMaxListenerProxiesPerUser >= 0
-			&& Meta::mp.iMaxListenerProxiesPerUser - ChannelListener::getListenedChannelCountForUser(uSource)
+			&& Meta::mp.iMaxListenerProxiesPerUser - m_channelListenerManager.getListenedChannelCountForUser(uSource->uiSession)
 					   - passedChannelListener - 1
 				   < 0) {
 			// A limit for the amount of listener proxies per user is set and it has been reached already
@@ -927,7 +926,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Handle channel listening
 	// Note that it is important to handle the listening channels after channel-joins
 	foreach (Channel *c, listeningChannelsAdd) {
-		ChannelListener::addListener(uSource, c);
+		m_channelListenerManager.addListener(uSource->uiSession, c->iId);
 
 		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
 	}
@@ -935,7 +934,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		Channel *c = qhChannels.value(msg.listening_channel_remove(i));
 
 		if (c) {
-			ChannelListener::removeListener(uSource, c);
+			m_channelListenerManager.removeListener(uSource->uiSession, c->iId);
 
 			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
 		}
@@ -1420,7 +1419,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
 
 		// Users only listening in that channel
-		foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
+		foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
 			ServerUser *currentUser = qhUsers.value(session);
 			if (currentUser) {
 				users.insert(currentUser);
@@ -1460,7 +1459,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			// Users directly in that channel
 			foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
 			// Users only listening in that channel
-			foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
+			foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
 				ServerUser *currentUser = qhUsers.value(session);
 				if (currentUser) {
 					users.insert(currentUser);

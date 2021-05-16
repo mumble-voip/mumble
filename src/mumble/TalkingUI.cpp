@@ -5,7 +5,7 @@
 
 #include "TalkingUI.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ClientUser.h"
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
@@ -772,7 +772,7 @@ void TalkingUI::on_settingsChanged() {
 	removeAllListeners();
 	if (Global::get().s.bTalkingUI_ShowLocalListeners) {
 		if (self) {
-			const QSet< int > channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
+			const QSet< int > channels = Global::get().channelListenerManager->getListenedChannelsForUser(self->uiSession);
 
 			for (int currentChannelID : channels) {
 				const Channel *channel = Channel::get(currentChannelID);

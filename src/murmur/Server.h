@@ -14,6 +14,7 @@
 
 #include "ACL.h"
 #include "Ban.h"
+#include "ChannelListenerManager.h"
 #include "HostAddress.h"
 #include "Message.h"
 #include "Mumble.pb.h"
@@ -167,6 +168,8 @@ public:
 	Timer tUptime;
 
 	bool bValid;
+
+	ChannelListenerManager m_channelListenerManager;
 
 	void readParams();
 

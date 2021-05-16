@@ -15,7 +15,7 @@
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
@@ -1972,7 +1972,7 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 	if (isChannelListener) {
 		if (parentChannel && user.uiSession == Global::get().uiSession) {
 			// Only the listener of the local user can have a volume adjustment
-			volumeAdjustment = ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId);
+			volumeAdjustment = Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(parentChannel->iId);
 		}
 	} else {
 		volumeAdjustment = user.getLocalVolumeAdjustments();

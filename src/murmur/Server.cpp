@@ -7,7 +7,6 @@
 
 #include "ACL.h"
 #include "Channel.h"
-#include "ChannelListener.h"
 #include "Connection.h"
 #include "EnvUtils.h"
 #include "Group.h"
@@ -1170,7 +1169,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		buffer[0] = static_cast< char >(type | SpeechFlags::Normal);
 
 		// Send audio to all users that are listening to the channel
-		foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(c)) {
+		foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(c->iId)) {
 			ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 			if (pDst) {
 				listeningUsers << pDst;
@@ -1200,16 +1199,16 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 					// Send the audio stream to all users that are listening to the linked channel but are not
 					// in the original channel the audio is coming from nor are they listening to the orignal
 					// channel (in these cases they have received the audio already).
-					foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(l)) {
+					foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(l->iId)) {
 						ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
-						if (pDst && pDst->cChannel != c && !ChannelListener::isListening(pDst, c)) {
+						if (pDst && pDst->cChannel != c && !m_channelListenerManager.isListening(pDst->uiSession, c->iId)) {
 							listeningUsers << pDst;
 						}
 					}
 
 					// Send audio to users in the linked channel
 					foreach (User *p, l->qlUsers) {
-						if (!ChannelListener::isListening(p->uiSession, c->iId)) {
+						if (!m_channelListenerManager.isListening(p->uiSession, c->iId)) {
 							ServerUser *pDst = static_cast< ServerUser * >(p);
 
 							// As we send the audio to this particular user here, we want to make sure to not send it
@@ -1248,7 +1247,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, &acCache)) {
 								foreach (User *p, wc->qlUsers) { channel.insert(static_cast< ServerUser * >(p)); }
 
-								foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(wc)) {
+								foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(wc->iId)) {
 									ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
 									if (pDst) {
@@ -1276,7 +1275,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 										}
 									}
 
-									foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(tc)) {
+									foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(tc->iId)) {
 										ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
 										if (pDst && (!group || Group::isMember(tc, tc, qsg, pDst))) {
@@ -1637,17 +1636,17 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	setLastDisconnect(u);
 
 	if (u->sState == ServerUser::Authenticated) {
-		if (ChannelListener::isListeningToAny(u)) {
+		if (m_channelListenerManager.isListeningToAny(u->uiSession)) {
 			// Send nessage to all other clients that this particular user won't be listening
 			// to any channel anymore
 			MumbleProto::UserState mpus;
 			mpus.set_session(u->uiSession);
 
-			foreach (int channelID, ChannelListener::getListenedChannelsForUser(u)) {
+			foreach (int channelID, m_channelListenerManager.getListenedChannelsForUser(u->uiSession)) {
 				mpus.add_listening_channel_remove(channelID);
 
 				// Also remove the client from the list on the server
-				ChannelListener::removeListener(u->uiSession, channelID);
+				m_channelListenerManager.removeListener(u->uiSession, channelID);
 			}
 
 			sendExcept(u, mpus);
@@ -1868,8 +1867,8 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		emit userStateChanged(p);
 	}
 
-	foreach (unsigned int userSession, ChannelListener::getListenersForChannel(chan)) {
-		ChannelListener::removeListener(userSession, chan->iId);
+	foreach (unsigned int userSession, m_channelListenerManager.getListenersForChannel(chan->iId)) {
+		m_channelListenerManager.removeListener(userSession, chan->iId);
 
 		// Notify that all clients that have been listening to this channel, will do so no more
 		MumbleProto::UserState mpus;
