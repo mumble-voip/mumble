@@ -134,6 +134,7 @@ set(MUMBLE_SOURCES
 	"Database.h"
 	"DeveloperConsole.cpp"
 	"DeveloperConsole.h"
+	"EchoCancelOption.cpp"
 	"EchoCancelOption.h"
 	"Global.cpp"
 	"Global.h"

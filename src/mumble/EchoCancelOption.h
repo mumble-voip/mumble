@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_ECHOCANCELLATIONOPTION_H
 
 #include <QtCore/QObject>
+#include <vector>
 
 
 /// This enum lists a series of echo cancellation options
@@ -23,23 +24,10 @@ struct EchoCancelOption {
 	EchoCancelOptionID id;
 	QString description;
 	QString explanation;
-};
 
-// Please strictly follow the order of the EchoCancelOptionID when adding items to this array.
-static const EchoCancelOption echoCancelOptions[] = {
-	{ EchoCancelOptionID::DISABLED, QObject::tr("Disabled"), QObject::tr("Echo cancellation is disabled.") },
-	{ EchoCancelOptionID::SPEEX_MIXED, QObject::tr("Mixed echo cancellation (speex)"),
-	  QObject::tr("Mixed has low CPU impact, but only works well if your "
-				  "speakers are equally loud and equidistant from the microphone.") },
-	{ EchoCancelOptionID::SPEEX_MULTICHANNEL, QObject::tr("Multichannel echo cancellation (speex)"),
-	  QObject::tr("Multichannel echo cancellation provides much better echo "
-				  "cancellation, but at a higher CPU cost. "
-				  "Multichannel echo cancellation requires more CPU, so "
-				  "you should try mixed first.") },
-	// Available only on Apple devices
-	{ EchoCancelOptionID::APPLE_AEC, QObject::tr("EXPERIMENTAL: Acoustic echo cancellation (Apple)."),
-	  QObject::tr("The support for this option is experimental only! This option works best when using built-in "
-				  "microphone and speaker.") }
+	/// @returns A vector of EchoCancelOption objects in the same order as specified in the
+	/// EchoCancelOptionID enum. Thus the enums can be used as an index for the returned vector.
+	static const std::vector< EchoCancelOption > &getOptions();
 };
 
 #endif // MUMBLE_ECHOCANCELLATIONOPTION_H
