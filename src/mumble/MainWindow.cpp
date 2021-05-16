@@ -331,8 +331,8 @@ void MainWindow::setupGui() {
 	QObject::connect(
 		this, &MainWindow::userRemovedChannelListener, pmModel,
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
-	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged, pmModel,
-					 &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
+	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
+					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -1696,7 +1696,8 @@ void MainWindow::qmListener_aboutToShow() {
 		qmListener->addAction(qaListenerLocalVolume);
 		if (cContextChannel) {
 			qmListener->addAction(qaChannelListen);
-			qaChannelListen->setChecked(Global::get().channelListenerManager->isListening(Global::get().uiSession, cContextChannel->iId));
+			qaChannelListen->setChecked(
+				Global::get().channelListenerManager->isListening(Global::get().uiSession, cContextChannel->iId));
 		}
 	} else {
 		qmListener->addAction(qaEmpty);

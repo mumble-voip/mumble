@@ -124,7 +124,7 @@ Global::Global(const QString &qsConfigPath) {
 	bDebugDumpInput  = false;
 	bDebugPrintQueue = false;
 
-	channelListenerManager = std::make_unique<ChannelListenerManager>();
+	channelListenerManager = std::make_unique< ChannelListenerManager >();
 
 #if defined(Q_OS_WIN)
 	QString appdata;

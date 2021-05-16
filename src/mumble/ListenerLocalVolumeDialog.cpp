@@ -36,8 +36,8 @@ void ListenerLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int value) {
 
 	// Decibel formula: +6db = *2
 	// Calculate the volume-factor for the set db-shift
-	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId,
-													  static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
+	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(
+		m_channel->iId, static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
 }
 
 void ListenerLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *button) {

@@ -772,7 +772,8 @@ void TalkingUI::on_settingsChanged() {
 	removeAllListeners();
 	if (Global::get().s.bTalkingUI_ShowLocalListeners) {
 		if (self) {
-			const QSet< int > channels = Global::get().channelListenerManager->getListenedChannelsForUser(self->uiSession);
+			const QSet< int > channels =
+				Global::get().channelListenerManager->getListenedChannelsForUser(self->uiSession);
 
 			for (int currentChannelID : channels) {
 				const Channel *channel = Channel::get(currentChannelID);
