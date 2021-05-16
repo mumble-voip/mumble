@@ -1215,10 +1215,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>&lt;b&gt;Imposta il margine minimo di sicurezza per il jitter del buffer.&lt;/b&gt;&lt;br /&gt;Tutto l&apos;audio in ingresso è messo nel buffer, ed il jitter del buffer cerca continuamente di tenere il buffer al minimo sostenibile dalla tua rete, in modo da avere una latenza quanto più bassa possibile. Imposta la dimensione minima del buffer da utilizzare. Se all&apos;inizio delle frasi c&apos;è un rumore distorto, aumenta questo valore.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Distanza minima dall&apos;utente prima che il volume del suono inizi a diminuire</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Imposta la distanza minima per i calcoli sonori. Il volume della voce degli altri utenti non diminuirà fino a che non saranno almeno a questa distanza da voi.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Maximum Distance</source>
         <translation>Distanza massima</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Distanza massima, dopo la quale il volume del discorso non diminuirà piú</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Attenuazione</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <source>%</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Loopback</source>
         <translation>Loopback</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

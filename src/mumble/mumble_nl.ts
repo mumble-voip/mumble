@@ -1215,10 +1215,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>&lt;b&gt;Bepaalt minimum jitter buffer veiligheidsmarge.&lt;/b&gt;&lt;br /&gt;Al het inkomend geluid wordt gebufferd, en de jitter buffer probeert voortdurend om de buffer te reduceren tot het minimale wat je netwerk aankan, zodat latentie minimaal blijft. Omvat minimale bufferomvang. Als de zinnen zenuwachtig klinken verhoog het getal.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimumafstand tot gebruiker totwaar geluidsvolume afneemt</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Bepaalt minimumafstand voor geluidsberekeningen. Spraakvolume van andere gebruikers daalt niet, totdat ze minstens tot ongeveer zover van jou af bevinden.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>Maximum Distance</source>
         <translation>Maximumafstand</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>De maximale afstand waarna het spraakvolume stopt met afnemen</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>Verafzwakking</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>Het laagste volume waarop het geluid van een speler gezet mag worden als een fade-out plaatsvindt naargelang zijn afstand verhoogt. Zet dit op 0% om ervoor te zorgen dat je spelers helemaal niet meer hoort als ze te ver weg zijn, net zoals in de werkelijkheid.</translation>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>Loopback</source>
         <translation>Terugkoppeling</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished">Het laagste volume waarop het geluid van een speler gezet mag worden als een fade-out plaatsvindt naargelang zijn afstand verhoogt. Zet dit op 0% om ervoor te zorgen dat je spelers helemaal niet meer hoort als ze te ver weg zijn, net zoals in de werkelijkheid.</translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

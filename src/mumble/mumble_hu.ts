@@ -1211,10 +1211,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;A nyávogás elleni puffer minimális méretét állítja be.&lt;/b&gt;&lt;br /&gt;Minden bejövő hang pufferelve van és azért, hogy a késleltetés minél kisebb legyen, a nyávogásmentesítő pufferelés folyamán, a puffer méretét, a hálózat szempontjából fenntartható, legkisebb méretűre kell csökkenteni. Ha az ön által hallott mondatok eleje nyávogós, akkor növelje meg ezt az értéket.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>A minimális távolság a felhasználótól, mielőtt a hangerő csökkenne</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>A hang számításaihoz beállítja a minimális távolságot. A többi felhasználó hangereje nem fog csökkenni míg legfeljebb ilyen távolságra vannak öntől.</translation>
     </message>
@@ -1282,10 +1278,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Maximum Distance</source>
         <translation>Maximális távolság</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>A maximális távolság, ami felett a hangerő nem csökken</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1433,8 +1425,12 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <source>%</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1462,10 +1458,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1517,6 +1509,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Loopback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

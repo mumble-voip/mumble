@@ -1215,10 +1215,6 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>&lt;b&gt;Detta ställer in den lägsta säkerhetsmarginalen för jitterbufferten.&lt;/b&gt;&lt;br /&gt;Allt inkommande ljud buffras och jitterbufferten fortsätter att tvinga bufferten så lågt som möjligt av ditt nätverk, för att få en så låg latens som möjligt. Detta ställer in den lägsta buffertstorleken att använda. Om början på meningar är skakiga, öka detta värde.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Lägsta avstånd att använda innan ljudvolymen sänks</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Detta ställer in det lägsta avståndet att använda för ljudberäkningar. Volymen för andra användares tal kommer inte att sänkas tills de är så här långt ifrån dig.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <source>Maximum Distance</source>
         <translation>Högsta avstånd</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Högsta avstånd, under detta kommer volymen inte kommer att minska</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>Dämpning</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <source>%</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <source>Loopback</source>
         <translation>Tillbakalop</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

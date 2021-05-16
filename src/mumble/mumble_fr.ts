@@ -1215,10 +1215,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>&lt;b&gt;C&apos;est la valeur minimale de sécurité du tampon de gigue.&lt;/b&gt;&lt;br /&gt;Tout le son qui arrive est temporisé, et le tampon de gigue essaie de maintenir le tampon à la valeur minimale soutenable par votre réseau, la latence est donc maintenue au niveau le plus bas possible. Ce paramètre définit la taille minimale du tampon à utiliser. Si le début des phrases que vous entendez est vraiment mauvais, augmentez cette valeur.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Distance minimale de l&apos;utilisateur avant que le volume sonore diminue</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Spécifie la distance minimale pour le calcul du son. Le volume des autres utilisateurs ne sera pas diminué tant qu&apos;ils ne seront pas plus éloignés de vous.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>Maximum Distance</source>
         <translation>Distance maximale</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Distance maximale, au-delà de laquelle le volume n&apos;est pas diminué</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Atténuation</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <source>%</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>Loopback</source>
         <translation>Boucle locale</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

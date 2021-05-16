@@ -3,37 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
-
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-   - Redistributions of source code must retain the above copyright notice,
-	 this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright notice,
-	 this list of conditions and the following disclaimer in the documentation
-	 and/or other materials provided with the distribution.
-   - Neither the name of the Mumble Developers nor the names of its
-	 contributors may be used to endorse or promote products derived from this
-	 software without specific prior written permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 #include "AudioConfigDialog.h"
 
 #include "AudioInput.h"
@@ -42,6 +11,8 @@
 #include "NetworkConfig.h"
 #include "Utils.h"
 #include "Global.h"
+
+#include <QSignalBlocker>
 
 const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
 const QString AudioInputDialog::name  = QLatin1String("AudioInputWidget");
@@ -635,7 +606,7 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qsOtherVolume->setAccessibleName(tr("Attenuation of other applications during speech"));
 	qsMinDistance->setAccessibleName(tr("Minimum distance"));
 	qsMaxDistance->setAccessibleName(tr("Maximum distance"));
-	qsMaxDistVolume->setAccessibleName(tr("Minimum volume"));
+	qsMinimumVolume->setAccessibleName(tr("Minimum volume"));
 	qsBloom->setAccessibleName(tr("Bloom"));
 	qsPacketDelay->setAccessibleName(tr("Delay variance"));
 	qsPacketLoss->setAccessibleName(tr("Packet loss"));
@@ -652,6 +623,40 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qcbLoopback->addItem(tr("Server"), Settings::Server);
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
+
+	// Distance in cm
+	qsMinDistance->setRange(0, 200);
+	// Distance in m
+	qsbMinimumDistance->setRange(0.0, 50.0);
+	// Distance in cm
+	qsMaxDistance->setRange(10, 2000);
+	// Distance in m
+	qsbMaximumDistance->setRange(1.0, 1000.0);
+	qsMinimumVolume->setRange(0, 100);
+	qsbMinimumVolume->setRange(qsMinimumVolume->minimum(), qsMinimumVolume->maximum());
+	qsBloom->setRange(0, 75);
+	qsbBloom->setRange(qsBloom->minimum(), qsBloom->maximum());
+
+	QString minDistanceTooltip = tr("Distance at which audio volume from another player starts decreasing");
+	QString maxDistanceTooltip = tr("Distance at which a player's audio volume has reached its minimum value");
+	QString minVolumeTooltip =
+		tr("The minimum volume a player's audio will fade out to with increasing distance. Set to 0% for it to fade "
+		   "into complete silence for a realistic maximum hearing distance.");
+	QString bloomTooltip = tr("If an audio source is close enough, blooming will cause the audio to be played on all "
+							  "speakers more or less regardless of their position (albeit with lower volume)");
+
+	qlMinDistance->setToolTip(minDistanceTooltip);
+	qsMinDistance->setToolTip(minDistanceTooltip);
+	qsbMinimumDistance->setToolTip(minDistanceTooltip);
+	qlMaxDistance->setToolTip(maxDistanceTooltip);
+	qsMaxDistance->setToolTip(maxDistanceTooltip);
+	qsbMaximumDistance->setToolTip(maxDistanceTooltip);
+	qlMinimumVolume->setToolTip(minVolumeTooltip);
+	qsMinimumVolume->setToolTip(minVolumeTooltip);
+	qsbMinimumVolume->setToolTip(minVolumeTooltip);
+	qlBloom->setToolTip(bloomTooltip);
+	qsBloom->setToolTip(bloomTooltip);
+	qsbBloom->setToolTip(bloomTooltip);
 }
 
 QString AudioOutputDialog::title() const {
@@ -706,10 +711,10 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast< int >(r.dMaxPacketDelay));
 	loadSlider(qsPacketLoss, iroundf(r.dPacketLoss * 100.0f + 0.5f));
-	loadSlider(qsMinDistance, iroundf(r.fAudioMinDistance * 10.0f + 0.5f));
-	loadSlider(qsMaxDistance, iroundf(r.fAudioMaxDistance * 10.0f + 0.5f));
-	loadSlider(qsMaxDistVolume, iroundf(r.fAudioMaxDistVolume * 100.0f + 0.5f));
-	loadSlider(qsBloom, iroundf(r.fAudioBloom * 100.0f + 0.5f));
+	qsbMinimumDistance->setValue(r.fAudioMinDistance);
+	qsbMaximumDistance->setValue(r.fAudioMaxDistance);
+	qsbMinimumVolume->setValue(r.fAudioMaxDistVolume * 100);
+	qsbBloom->setValue(r.fAudioBloom * 100);
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
 
@@ -732,10 +737,10 @@ void AudioOutputDialog::save() const {
 	s.lmLoopMode                     = static_cast< Settings::LoopMode >(qcbLoopback->currentIndex());
 	s.dMaxPacketDelay                = static_cast< float >(qsPacketDelay->value());
 	s.dPacketLoss                    = static_cast< float >(qsPacketLoss->value()) / 100.0f;
-	s.fAudioMinDistance              = static_cast< float >(qsMinDistance->value()) / 10.0f;
-	s.fAudioMaxDistance              = static_cast< float >(qsMaxDistance->value()) / 10.0f;
-	s.fAudioMaxDistVolume            = static_cast< float >(qsMaxDistVolume->value()) / 100.0f;
-	s.fAudioBloom                    = static_cast< float >(qsBloom->value()) / 100.0f;
+	s.fAudioMinDistance              = static_cast< float >(qsbMinimumDistance->value());
+	s.fAudioMaxDistance              = static_cast< float >(qsbMaximumDistance->value());
+	s.fAudioMaxDistVolume            = static_cast< float >(qsbMinimumVolume->value()) / 100.0f;
+	s.fAudioBloom                    = static_cast< float >(qsbBloom->value()) / 100.0f;
 	s.bPositionalAudio               = qcbPositional->isChecked();
 	s.bPositionalHeadphone           = qcbHeadphones->isChecked();
 	s.bExclusiveOutput               = qcbExclusive->isChecked();
@@ -831,24 +836,43 @@ void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 	qlPacketLoss->setEnabled(ena);
 }
 
-void AudioOutputDialog::on_qsMinDistance_valueChanged(int v) {
-	qlMinDistance->setText(tr("%1 m").arg(v / 10.0, 0, 'f', 1));
-	if (qsMaxDistance->value() < v)
-		qsMaxDistance->setValue(v);
+void AudioOutputDialog::on_qsMinDistance_valueChanged(int value) {
+	QSignalBlocker blocker(qsbMinimumDistance);
+	qsbMinimumDistance->setValue(value / 10.0f);
 }
 
-void AudioOutputDialog::on_qsMaxDistance_valueChanged(int v) {
-	qlMaxDistance->setText(tr("%1 m").arg(v / 10.0, 0, 'f', 1));
-	if (qsMinDistance->value() > v)
-		qsMinDistance->setValue(v);
+void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
+	QSignalBlocker blocker(qsMinDistance);
+	qsMinDistance->setValue(value * 10);
 }
 
-void AudioOutputDialog::on_qsMaxDistVolume_valueChanged(int v) {
-	qlMaxDistVolume->setText(tr("%1 %").arg(v));
+void AudioOutputDialog::on_qsMaxDistance_valueChanged(int value) {
+	QSignalBlocker blocker(qsbMaximumDistance);
+	qsbMaximumDistance->setValue(value / 10.0f);
+}
+void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
+	QSignalBlocker blocker(qsMaxDistance);
+	qsMaxDistance->setValue(value * 10);
 }
 
-void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
-	qlBloom->setText(tr("%1 %").arg(v + 100));
+void AudioOutputDialog::on_qsMinimumVolume_valueChanged(int value) {
+	QSignalBlocker blocker(qsbMinimumVolume);
+	qsbMinimumVolume->setValue(value);
+}
+
+void AudioOutputDialog::on_qsbMinimumVolume_valueChanged(int value) {
+	QSignalBlocker blocker(qsMinimumVolume);
+	qsMinimumVolume->setValue(value);
+}
+
+void AudioOutputDialog::on_qsBloom_valueChanged(int value) {
+	QSignalBlocker blocker(qsbBloom);
+	qsbBloom->setValue(value);
+}
+
+void AudioOutputDialog::on_qsbBloom_valueChanged(int value) {
+	QSignalBlocker blocker(qsBloom);
+	qsBloom->setValue(value);
 }
 
 void AudioOutputDialog::on_qcbAttenuateOthersOnTalk_clicked(bool checked) {

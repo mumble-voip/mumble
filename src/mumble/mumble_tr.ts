@@ -1215,10 +1215,6 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>&lt;b&gt;Jitter (titreme) tamponu için asgari emniyet aralığını aralar.&lt;/b&gt;&lt;br /&gt;İçeriye gelen tüm ses arabelleğe alınır, ve gecikmeyi en aza indirmek için jitter tamponu devamlı şebekenin kaldırabileceği asgari değere itmeye çalışır. Bu seçenek kullanılacak asgari tampon boyutunu belirler. Duyduğunuz cümlelerin başında bozukluk varsa bu değeri arttırınız.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Ses seviyesi düşülmeden önce asgari mesafe</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Ses hesapları için asgari mesafeyi belirler. Diğer kullanıcıların ses seviyesi sizden en az bu kadar uzaklaşmadıkları sürece düşürülmeyecektir.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <source>Maximum Distance</source>
         <translation>Azami Mesafe</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Azami mesafe, geçildiğinde ses seviyesi düşürülmeyecektir</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>Kısma</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>Bir oyuncunun sesinin mesafe arttıkça azalacağı asgari ses seviyesi. Gerçekçi bir azami işitme mesafesi için tam sessizliğe geçmesi için %0 olarak ayarlayın.</translation>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished">m</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <source>Loopback</source>
         <translation>Geridöngü</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished">Bir oyuncunun sesinin mesafe arttıkça azalacağı asgari ses seviyesi. Gerçekçi bir azami işitme mesafesi için tam sessizliğe geçmesi için %0 olarak ayarlayın.</translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
