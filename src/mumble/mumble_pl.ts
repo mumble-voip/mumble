@@ -1430,11 +1430,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished">m</translation>
+        <translation>m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Odległość, przy której głośność dźwięku innego odtwarzającego zaczyna się zmniejszać</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Odległość, przy której głośność dźwięku odtwarzającego osiągnęła minimalną wartość</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">Minimalna głośność, przy której dźwięk odtwarzania będzie wyciszany wraz ze wzrostem odległości. Ustaw na 0%, aby przejść do całkowitej ciszy i uzyskać realistyczną maksymalną odległość słyszenia.</translation>
+        <translation>Minimalna głośność, przy której dźwięk odtwarzającego będzie zanikał wraz ze wzrostem odległości. Ustaw na 0%, aby przejść do całkowitej ciszy i uzyskać realistyczną maksymalną odległość słyszalności.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli źródło dźwięku jest wystarczająco blisko, blooming spowoduje, że dźwięk będzie odtwarzany na wszystkich głośnikach mniej więcej niezależnie od ich położenia (choć przy niższej głośności)</translation>
     </message>
 </context>
 <context>
@@ -3340,7 +3340,7 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>This will add a new global shortcut</source>
-        <translation>Dodaje nowy, globalny skrót</translation>
+        <translation>Dodaje nowy skrót globalny</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -3789,15 +3789,15 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation>Link FTP do %1</translation>
+        <translation>link FTP do %1</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation>link do gracza</translation>
+        <translation>link odtwarzającego</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation>link do kanału</translation>
+        <translation>link kanału</translation>
     </message>
     <message>
         <source>%1 link</source>

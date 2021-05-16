@@ -1434,7 +1434,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>m</source>
@@ -1521,11 +1521,11 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanz, ab der die Lautstärke eines sprechenden Spielers beginnt geringer zu werden</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanz ab welcher die Lautstärke eines sprechenden Spielers ihr Minimum erreicht hat</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
@@ -1533,7 +1533,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn eine Audioquelle nah genug ist, sorgt Blooming dafür, dass der Ton über alle Lautsprecher gespielt wird (wenn auch leiser) - weitestgehend ohne Berücksichtigung der Position der Audioquelle</translation>
     </message>
 </context>
 <context>
@@ -2066,7 +2066,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble unterstützt bei einigen Spielen Positional Audio und positioniert die Stimme anderer Benutzer relativ zu ihrer Position im Spiel. Abhängig von deren Position wird die Lautstärke der Stimme zwischen den Lautsprechern geändert, um die Richtung und Entfernung des anderen Benutzers zu simulieren. Diese Positionierung hängt davon ab, dass die Lautsprecherkonfiguration in Ihrem Betriebssystem korrekt ist, daher wird hier ein Test durchgeführt. &lt;/p&gt;&lt;p&gt;Das folgende Diagramm zeigt die Position von &lt;span style=&quot; color:#56b4e9;&quot;&gt;Sie&lt;/span&gt;, den &lt;span style=&quot; color:#d55e00;&quot;&gt;Lautsprechern&lt;/span&gt; und einer &lt;span style=&quot; color:#009e73;&quot;&gt;bewegten Schallquelle&lt;/span&gt; wie von oben gesehen. Sie sollten hören, wie sich der Ton zwischen den Kanälen bewegt. &lt;/p&gt;&lt;p&gt;Sie können die &lt;span style=&quot; color:#009e73;&quot;&gt;Schallquelle&lt;/span&gt; auch manuell mit der Maus positionieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
