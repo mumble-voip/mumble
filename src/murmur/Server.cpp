@@ -1201,7 +1201,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 					// channel (in these cases they have received the audio already).
 					foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(l->iId)) {
 						ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
-						if (pDst && pDst->cChannel != c && !m_channelListenerManager.isListening(pDst->uiSession, c->iId)) {
+						if (pDst && pDst->cChannel != c
+							&& !m_channelListenerManager.isListening(pDst->uiSession, c->iId)) {
 							listeningUsers << pDst;
 						}
 					}
@@ -1247,7 +1248,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, &acCache)) {
 								foreach (User *p, wc->qlUsers) { channel.insert(static_cast< ServerUser * >(p)); }
 
-								foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(wc->iId)) {
+								foreach (unsigned int currentSession,
+										 m_channelListenerManager.getListenersForChannel(wc->iId)) {
 									ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
 									if (pDst) {
@@ -1275,7 +1277,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 										}
 									}
 
-									foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(tc->iId)) {
+									foreach (unsigned int currentSession,
+											 m_channelListenerManager.getListenersForChannel(tc->iId)) {
 										ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
 										if (pDst && (!group || Group::isMember(tc, tc, qsg, pDst))) {

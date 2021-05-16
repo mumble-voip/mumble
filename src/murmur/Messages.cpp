@@ -707,7 +707,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 
 		if (Meta::mp.iMaxListenerProxiesPerUser >= 0
-			&& Meta::mp.iMaxListenerProxiesPerUser - m_channelListenerManager.getListenedChannelCountForUser(uSource->uiSession)
+			&& Meta::mp.iMaxListenerProxiesPerUser
+					   - m_channelListenerManager.getListenedChannelCountForUser(uSource->uiSession)
 					   - passedChannelListener - 1
 				   < 0) {
 			// A limit for the amount of listener proxies per user is set and it has been reached already
