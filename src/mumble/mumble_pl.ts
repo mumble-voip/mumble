@@ -382,7 +382,7 @@ Zawiera listę członków odziedziczonych z innych kanałów. Odznacz &lt;i&gt;D
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Hasło&lt;/b&gt;&lt;br /&gt;To pole pozwala na łatwe ustawienie i zmianę hasła kanału. W tle używa funkcji haseł dostępu. Aby dokładniej określać uprawnienia, używaj bezpośrednio edytora ACL oraz grup.</translation>
+        <translation>&lt;b&gt;Hasło&lt;/b&gt;&lt;br /&gt;To pole pozwala na łatwe ustawienie i zmianę hasła kanału. W tle używa funkcji tokenów dostępu. Aby dokładniej określać uprawnienia, używaj bezpośrednio edytora ACL oraz grup.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
@@ -742,7 +742,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Określa sposób detekcji głosu na analizę Amplitudy..&lt;/b&gt;&lt;br /&gt;W tym trybie źródło dźwięku jest analizowane pod kątem siły sygnału, mocniejszy sygnał uaktywnia transmisję głosu.</translation>
+        <translation>&lt;b&gt;Określa sposób detekcji głosu na analizę amplitudy.&lt;/b&gt;&lt;br /&gt;W tym trybie źródło dźwięku jest analizowane pod kątem siły sygnału, mocniejszy sygnał uaktywnia transmisję głosu.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -1712,7 +1712,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation>Miłej zabawy z Mumble</translation>
+        <translation>Miłego korzystania z Mumble</translation>
     </message>
     <message>
         <source>Device selection</source>
@@ -2099,7 +2099,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - edycja banów</translation>
+        <translation>Mumble - Edycja banów</translation>
     </message>
     <message>
         <source>&amp;Address</source>
@@ -2670,7 +2670,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Uprawnienie to umożliwia używanie szeptu do tego kanału z zewnątrz. Działa dokładnie tak samo jak uprawnienie &lt;i&gt;Mowa&lt;/i&gt;, lecz jest stosowany do pakietów mowy, gdy użyty jest przycisk Szeptu. Może zostać użyte do wygłaszania przemówień do całego drzewa kanałów bez potrzeby ich linkowania.</translation>
+        <translation>Uprawnienie to umożliwia używanie szeptu do tego kanału z zewnątrz. Działa dokładnie tak samo jak uprawnienie &lt;i&gt;Mowa&lt;/i&gt;, lecz jest stosowany do pakietów mowy, gdy użyty jest przycisk Szeptu. Może zostać użyte do wygłaszania przemówień do całego drzewa kanałów bez potrzeby ich połączenia.</translation>
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
@@ -2678,7 +2678,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>Uprawnienie to umożliwia przenoszenie użytkowników na inne kanały oraz wykopanie ich z serwera. Aby przenieść użytkownika, użytkownik przenoszący musi mieć uprawnienie &lt;i&gt;Przenoszenie użytkowników&lt;/i&gt; w docelowym kanale. Użytkownicy z tym uprawnieniem mogą przenosić innych użytkowników na kanały, na które sami nie mogliby normalnie wejść.</translation>
+        <translation>Uprawnienie to umożliwia przenoszenie użytkowników na inne kanały oraz wyrzucanie ich z serwera. Aby przenieść użytkownika, użytkownik przenoszący musi mieć uprawnienie &lt;i&gt;Przenoszenie użytkowników&lt;/i&gt; w docelowym kanale. Użytkownicy z tym uprawnieniem mogą przenosić innych użytkowników na kanały, na które sami nie mogliby normalnie wejść.</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
@@ -2710,7 +2710,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation>Uprawnienie to umożliwia rejestrację samego siebie na serwerze.</translation>
+        <translation>Uprawnienie to umożliwia rejestrację siebie na serwerze.</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -2726,7 +2726,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Kick</source>
-        <translation>Kopanie użytkowników</translation>
+        <translation>Wyrzucanie użytkowników</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -2738,7 +2738,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Register Self</source>
-        <translation>Rejestrację samego siebie</translation>
+        <translation>Rejestracja siebie</translation>
     </message>
     <message>
         <source>Write ACL</source>
@@ -2770,7 +2770,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation>&lt;center&gt;Wpisz wiadomość&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Wpisz tutaj wiadomość&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Unable to send image: too large.</source>
@@ -3239,7 +3239,7 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Prosimy o krótki opis czynności w języku Angielskim, które były wykonane podczas wystąpienia błędu</translation>
+        <translation>Prosimy o krótki opis czynności, w języku angielskim, które były wykonane podczas wystąpienia błędu</translation>
     </message>
     <message>
         <source>Send Report</source>
@@ -3247,7 +3247,7 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation>Nie wysyłaj</translation>
+        <translation>Nie wysyłaj raportu</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
@@ -3283,7 +3283,7 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>Baza danych &apos;%1&apos; jest tylko do odczytu. Mumble nie może przechowywać ustawień serwera (np. certyfikatów SSL) dopóki nie naprawisz tego problemu.</translation>
+        <translation>Baza danych &apos;%1&apos; jest tylko do odczytu. Mumble nie może przechowywać ustawień serwera (np. certyfikatów SSL), dopóki nie naprawisz tego problemu.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
@@ -3500,7 +3500,7 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation>Gdy zaznaczone - tylko użytkownicy tej grupy usłyszą szept.</translation>
+        <translation>Gdy zaznaczone, tylko użytkownicy tej grupy usłyszą szept.</translation>
     </message>
     <message>
         <source>List of users</source>
@@ -3637,7 +3637,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;p&gt;
 Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w znakach, w zależności od urządzenia.&lt;/p&gt;
 &lt;h3&gt;Włączone:&lt;/h3&gt;
-&lt;p&gt;Te pole decyduje czy Mumble powinno używać danego urządzenia LCD czy nie.&lt;/p&gt;</translation>
+&lt;p&gt;To decyduje, czy Mumble powinno używać danego urządzenia LCD.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Size</source>
@@ -3715,11 +3715,11 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation>Wykopanie użytkownika (ciebie lub przez ciebie)</translation>
+        <translation>Wyrzucenie użytkownika (ciebie lub przez ciebie)</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation>Wykopanie użytkownika</translation>
+        <translation>Wyrzucenie użytkownika</translation>
     </message>
     <message>
         <source>You self-muted</source>
@@ -3785,23 +3785,23 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <source>link to %1</source>
-        <translation>link do %1</translation>
+        <translation>łącze do %1</translation>
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation>link FTP do %1</translation>
+        <translation>łącze FTP do %1</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation>link odtwarzającego</translation>
+        <translation>łącze odtwarzającego</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation>link kanału</translation>
+        <translation>łącze kanału</translation>
     </message>
     <message>
         <source>%1 link</source>
-        <translation>link %1</translation>
+        <translation>łącze %1</translation>
     </message>
     <message>
         <source>Server connected</source>
@@ -4115,7 +4115,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Jeżeli ustawione - program będzie sprawdzać czy chcesz go zamknąć, gdy jesteś na serwerze.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Jeżeli ustawione, program będzie sprawdzać; czy chcesz go zamknąć, gdy jesteś na serwerze.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
@@ -4196,7 +4196,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Gdy zaznaczone - minimalizacja głównego okna Mumble sprawi, że okno zostanie ukryte a dostęp do niego będzie możliwy tylko przez ikonę w zasobniku systemowym. Jeżeli opcja jest niezaznaczona - minimalizacja Mumble ukryje okno w normalny sposób (na pasku zadań).&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Gdy zaznaczone, minimalizacja głównego okna Mumble sprawi, że okno zostanie ukryte a dostęp do niego będzie możliwy tylko przez ikonę w zasobniku systemowym. Jeżeli opcja jest niezaznaczona, minimalizacja Mumble ukryje okno w normalny sposób (na pasku zadań).&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Hide in tray when minimized</source>
@@ -4499,7 +4499,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <name>MainWindow</name>
     <message>
         <source>Root</source>
-        <translation>Root</translation>
+        <translation>Główny</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -4592,12 +4592,12 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Wyciszenie</translation>
+        <translation>Wyciszenie siebie</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza stan wyciszenia (Włącza/Wyłącza).</translation>
+        <translation>Przełącza stan wyciszenia.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
@@ -4607,12 +4607,12 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Ogłuszenie</translation>
+        <translation>Ogłuszenie siebie</translation>
     </message>
     <message>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza stan ogłuszenia (Włącza/Wyłącza).</translation>
+        <translation>Przełącza stan ogłuszenia.</translation>
     </message>
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
@@ -4695,7 +4695,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation>Wykopywanie użytkownika %1</translation>
+        <translation>Wyrzucanie użytkownika %1</translation>
     </message>
     <message>
         <source>Banning user %1</source>
@@ -4715,7 +4715,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Oczekiwany odcisk certyfikatu (SHA-1):⇥%1&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Oczekiwany odcisk certyfikatu (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>Server presented a certificate which failed verification.</source>
@@ -4899,12 +4899,12 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Message to tree %1</source>
-        <translation>Wyślij do drzewa kanałów %1</translation>
+        <translation>Wiadomość do drzewa %1</translation>
     </message>
     <message>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>(Do drzewa kanałów) %1: %2</translation>
+        <translation>Do %1 (drzewa): %2</translation>
     </message>
     <message>
         <source>Unmuted and undeafened.</source>
@@ -4948,7 +4948,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Odcisk certyfikatu serwera (SHA-1):⇥%1&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Odcisk certyfikatu serwera (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
@@ -4956,7 +4956,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Ten serwer używa starego standardu kodowania, który nie jest już wspierany przez współczesne wersje Mumble.</translation>
+        <translation>Ten serwer używa starszego standardu szyfrowania, który nie jest już obsługiwany przez współczesne wersje Mumble.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5128,7 +5128,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Kick user (with reason)</source>
-        <translation>Kopnij użytkownika (z podaniem powodu)</translation>
+        <translation>Wyrzuć użytkownika (z podaniem powodu)</translation>
     </message>
     <message>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
@@ -5144,7 +5144,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation>Wykop i zbanuj użytkownika (z podaniem powodu)</translation>
+        <translation>Wyrzuć i zbanuj użytkownika (z podaniem powodu)</translation>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
@@ -5202,31 +5202,31 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Resetuje preprocessor audio wliczając w to usuwanie echa oraz wykrywanie mowy. Jeżeli coś ci nagle pogarsza dźwięk i jest to stan przejściowy, użyj tej opcji by nie czekać na automatyczną rekonfigurację preprocesora.</translation>
+        <translation>Resetuje preprocessor audio, wliczając w to usuwanie echa oraz wykrywanie mowy. Jeżeli coś ci nagle pogarsza dźwięk i jest to stan przejściowy, użyj tej opcji, aby nie czekać na automatyczną rekonfigurację preprocesora.</translation>
     </message>
     <message>
         <source>&amp;Mute Self</source>
-        <translation>&amp;Wycisz</translation>
+        <translation>&amp;Wycisz siebie</translation>
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation>Wycisz mikrofon</translation>
+        <translation>Wycisz się</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Wycisza lub wyłącza wyciszenie. Gdy jesteś wyciszony nie wysyłasz żadnych danych na serwer. Wyłączenie wyciszenia również wyłącza ogłuszenie.</translation>
+        <translation>Wycisza lub wyłącza wyciszenie siebie. Gdy jesteś wyciszony, nie wysyłasz żadnych danych na serwer. Wyłączenie wyciszenia również wyłącza ogłuszenie.</translation>
     </message>
     <message>
         <source>&amp;Deafen Self</source>
-        <translation>&amp;Ogłusz</translation>
+        <translation>&amp;Ogłusz siebie</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
-        <translation>Ogłusz</translation>
+        <translation>Ogłusz się</translation>
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Ogłusza lub wyłącza ogłuszenie. Gdy jesteś ogłuszony nie będziesz nic słyszał. Ogłuszenie samego siebie włącza również wyciszenie mikrofonu.</translation>
+        <translation>Ogłusza lub wyłącza ogłuszenie siebie. Gdy jesteś ogłuszony, nie będziesz nic słyszał. Ogłuszenie samego siebie włącza również wyciszenie mikrofonu.</translation>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
@@ -5294,19 +5294,19 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Information about Speex</source>
-        <translation>Informacje na temat Speex</translation>
+        <translation>Informacje na temat formatu Speex</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation>Wyświetla małe okno z informacjami na temat Speex.</translation>
+        <translation>Wyświetla małe okno z informacjami na temat formatu Speex.</translation>
     </message>
     <message>
         <source>Information about Qt</source>
-        <translation>Informacje na temat Qt</translation>
+        <translation>Informacje na temat biblioteki Qt</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation>Wyświetla małe okno z informacjami na temat Qt.</translation>
+        <translation>Wyświetla małe okno z informacjami na temat biblioteki Qt.</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
@@ -5314,11 +5314,11 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Check for new version of Mumble</source>
-        <translation>Sprawdź czy jest nowa wersja Mumble</translation>
+        <translation>Sprawdź, czy jest nowa wersja Mumble</translation>
     </message>
     <message>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Łączy się ze stroną Mumble by sprawdzić czy jest dostępna nowsza wersja, następnie powiadamia użytkownika odpowiednim adresem URL, gdy jest tak potrzeba.</translation>
+        <translation>Łączy się ze stroną Mumble, aby sprawdzić, czy jest dostępna nowsza wersja, następnie powiadamia użytkownika odpowiednim adresem URL, gdy jest tak potrzeba.</translation>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
@@ -5386,7 +5386,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Add or remove text-based access tokens</source>
-        <translation>Dodaje lub usuwa hasła dostępu</translation>
+        <translation>Dodaje lub usuwa tokeny dostępu</translation>
     </message>
     <message>
         <source>&amp;Minimal View</source>
@@ -5701,19 +5701,19 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>Zostałeś wykopany z serwera przez %1 z powodu: %2.</translation>
+        <translation>Zostałeś wyrzucony z serwera przez %1 z powodu: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 został wykopany z serwera przez %1 z powodu: %2.</translation>
+        <translation>%3 został wyrzucony z serwera przez %1 z powodu: %2.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Zostałeś zbanowany oraz wykopany z serwera przez %1 z powodu %2.</translation>
+        <translation>Zostałeś wyrzucony oraz zbanowany z serwera przez %1 z powodu %2.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 został zbanowany oraz wykopany z serwera przez %1 z powodu: %2.</translation>
+        <translation>%3 został wyrzucony oraz zbanowany z serwera przez %1 z powodu: %2.</translation>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
@@ -5959,7 +5959,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation>&amp;Kopnij...</translation>
+        <translation>&amp;Wyrzuć...</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
@@ -6007,11 +6007,11 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
-        <translation>O &amp;Speex...</translation>
+        <translation>O formacie &amp;Speex...</translation>
     </message>
     <message>
         <source>About &amp;Qt...</source>
-        <translation>O &amp;Qt...</translation>
+        <translation>O bibliotece &amp;Qt...</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
@@ -6031,7 +6031,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>&amp;Access Tokens...</source>
-        <translation>&amp;Hasła dostępu...</translation>
+        <translation>&amp;Tokeny dostępu...</translation>
     </message>
     <message>
         <source>Reset &amp;Comment...</source>
@@ -6622,7 +6622,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Nazwa użytkownika serwera pośredniczącego.&lt;/b&gt;&lt;br /&gt;To pole określa nazwę użytkownika, którą chcesz użyć do autoryzacji z serwerem pośredniczącym. W przypadku, gdy serwer pośredniczący nie wymaga autoryzacji lub chcesz się połączyć anonimowo zostaw to pole puste.</translation>
+        <translation>&lt;b&gt;Nazwa użytkownika serwera pośredniczącego.&lt;/b&gt;&lt;br /&gt;To pole określa nazwę użytkownika, którą chcesz użyć do autoryzacji z serwerem pośredniczącym. W przypadku, gdy serwer pośredniczący nie wymaga autoryzacji lub chcesz się połączyć anonimowo, zostaw to pole puste.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -6634,7 +6634,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Hasło serwera pośredniczącego.&lt;/b&gt;&lt;br /&gt;To pole określa hasło wymagane do autoryzacji z serwerem pośredniczącym. W przypadku, gdy serwer pośredniczący nie wymaga autoryzacji lub chcesz się połączyć anonimowo zostaw to pole puste.</translation>
+        <translation>&lt;b&gt;Hasło serwera pośredniczącego.&lt;/b&gt;&lt;br /&gt;To pole określa hasło wymagane do autoryzacji z serwerem pośredniczącym. W przypadku, gdy serwer pośredniczący nie wymaga autoryzacji lub chcesz się połączyć anonimowo, zostaw to pole puste.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -6754,7 +6754,7 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Talking and recently active</source>
-        <translation>Mówiący oraz &quot;ostatnio&quot; aktywni</translation>
+        <translation>Mówiący oraz ostatnio aktywni</translation>
     </message>
     <message>
         <source>All in current channel</source>
@@ -6766,11 +6766,11 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Always show yourself</source>
-        <translation>Zawsze mnie wyświetlaj w nakładce</translation>
+        <translation>Zawsze się wyświetlaj</translation>
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation>Określ czas &quot;ostatniej&quot; aktywności (%1 sek.)...</translation>
+        <translation>Określ czas ostatniej aktywności (%1 sek.)...</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -6798,7 +6798,7 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Configure recently active time</source>
-        <translation>Czas &quot;ostatniej&quot; aktywności</translation>
+        <translation>Określ czas ostatniej aktywności</translation>
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
@@ -7705,7 +7705,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Insert Link</source>
-        <translation>Wstaw link</translation>
+        <translation>Wstaw łącze</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -7720,11 +7720,11 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation>Dodaj link</translation>
+        <translation>Dodaj łącze</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation>URL</translation>
+        <translation>Adres URL</translation>
     </message>
     <message>
         <source>Text</source>
@@ -7975,7 +7975,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>LAN</source>
-        <translation>LAN</translation>
+        <translation>Lokalne</translation>
     </message>
     <message>
         <source>Public Internet</source>
@@ -8001,7 +8001,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Przełączanie</translation>
+        <translation>Przełącz</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8020,7 +8020,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <name>ShortcutTargetDialog</name>
     <message>
         <source>Root</source>
-        <translation>Źródło</translation>
+        <translation>Główny</translation>
     </message>
     <message>
         <source>Parent</source>
@@ -8047,7 +8047,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Root</source>
-        <translation>Źródło</translation>
+        <translation>Główny</translation>
     </message>
     <message>
         <source>Parent</source>
@@ -8083,7 +8083,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Przełączenie</translation>
+        <translation>Przełącz</translation>
     </message>
     <message>
         <source>On</source>
@@ -8113,29 +8113,29 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <name>Tokens</name>
     <message>
         <source>Empty Token</source>
-        <translation>Puste hasło</translation>
+        <translation>Pusty token</translation>
     </message>
     <message>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Hasła dostępu</translation>
+        <translation>Mumble - Tokeny dostępu</translation>
     </message>
     <message>
         <source>List of access tokens on current server</source>
-        <translation>Lista haseł dostępu na obecnym serwerze</translation>
+        <translation>Lista tokenów dostępu na obecnym serwerze</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation>&lt;b&gt;To jest edytowalna lista haseł użytych na serwerze.&lt;/b&gt;
+        <translation>&lt;b&gt;To jest edytowalna lista tokenów dostępu użytych na serwerze.&lt;/b&gt;
 &lt;br /&gt;
-Hasło dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo prostego zarządzania dostępem do kanałów. Mumble zapamięta użyte hasła i wyśle je ponownie na serwer przy następnym połączeniu, więc nie musisz ich wprowadzać za każdym razem.
+Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo prostego zarządzania dostępem do kanałów. Mumble zapamięta użyte tokeny i wyśle je ponownie na serwer przy następnym połączeniu, więc nie musisz ich wprowadzać za każdym razem.
 </translation>
     </message>
     <message>
         <source>Add a token</source>
-        <translation>Dodaj hasło</translation>
+        <translation>Dodaj token</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -8143,7 +8143,7 @@ Hasło dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo 
     </message>
     <message>
         <source>Remove a token</source>
-        <translation>Usuń hasło</translation>
+        <translation>Usuń token</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
