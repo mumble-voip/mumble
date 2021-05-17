@@ -11,7 +11,7 @@ class CommitFormatError(Exception):
         Exception(msg)
 
 class CommitMessage:
-    knownTypes = ["BREAK", "FEAT", "FIX", "FORMAT", "DOCS", "TEST", "MAINT", "CI", "REFAC", "BUILD", "TRANSLATION", "CHANGE"]
+    knownTypes = ["BREAK", "FEAT", "FIX", "FORMAT", "DOCS", "TEST", "MAINT", "CI", "REFAC", "BUILD", "TRANSLATION", "CHANGE", "REVERT"]
 
     def __init__(self, commitString):
         lines = commitString.strip().split("\n")

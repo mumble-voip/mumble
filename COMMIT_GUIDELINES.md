@@ -52,6 +52,7 @@ The `TYPE` is one of the following:
 | BUILD    | Changes related to the build process / buildsystem | Fix cmake script |
 | TRANSLATION | Translation updates and changes | Update translation files |
 | CHANGE   | Something was changed without falling into existing categories | Changed the default of a setting |
+| REVERT   | A previous commit had to be reverted because e.g. it was buggy | - |
 
 The `TYPE` has to be in **all-uppercase** in order for it to stand out.
 
