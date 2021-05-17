@@ -94,6 +94,8 @@ def main():
                 prefix = "Fixed: "
             elif "CHANGE" in commit.m_types:
                 prefix = "Changed: "
+            elif "REVERT" in commit.m_types:
+                prefix = "Reverted: "
             else:
                 prefix = "Unknown: "
 
