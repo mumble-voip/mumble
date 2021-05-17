@@ -248,32 +248,14 @@ class DiskImage(FolderObject):
 			Create the disk image itself.
 		'''
 		print ' * Creating diskimage. Please wait...'
-		if not self.filename.endswith(".dmg"):
-			self.filename += ".dmg"
 		if os.path.exists(self.filename):
 			os.remove(self.filename)
-		# First create an intermediate, uncompressed image. We do this as otherwise it often happens that
-		# hdiutils fails with the message "no space left on device" which doesn't seem to appear without compression
-                intermediateName = self.filename.replace(".dmg", "_intermediate.dmg")
 		p = Popen(['hdiutil', 'create',
 		           '-srcfolder', self.tmp,
-		           '-format', 'UDRW',
-		           '-volname', self.volname,
-                           '-verbose',
-		           intermediateName])
-		retval = p.wait()
-		if retval != 0:
-			raise Exception("Creating intermediate dmg file failed")
-
-		# Now take that intermediate and compress it
-		p = Popen(['hdiutil', 'convert',
-		           intermediateName,
 		           '-format', 'UDBZ',
-                           '-verbose', '-o',
+		           '-volname', self.volname,
 		           self.filename])
 		retval = p.wait()
-		if retval != 0:
-			raise Exception("Compressing dmg file failed")
 		print ' * Removing temporary directory.'
 		shutil.rmtree(self.tmp)
 		print ' * Done!'
