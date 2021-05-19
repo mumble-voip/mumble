@@ -1429,11 +1429,11 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
+        <source> m</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

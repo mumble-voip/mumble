@@ -1429,12 +1429,12 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>Verafzwakking</translation>
     </message>
     <message>
-        <source>%</source>
-        <translation>%</translation>
+        <source> %</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation>m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
