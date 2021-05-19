@@ -1429,12 +1429,12 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>衰减</translation>
     </message>
     <message>
-        <source>%</source>
-        <translation>%</translation>
+        <source> %</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation>米</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
