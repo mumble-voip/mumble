@@ -497,7 +497,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Wytwarzanie sterownika ASIO nie powiodło się</translation>
+        <translation>Nie udało się utworzyć wystąpienia sterownika ASIO</translation>
     </message>
     <message>
         <source>ASIO</source>
@@ -1224,7 +1224,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Włącza jeden z trybów testowych.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Brak&lt;/i&gt; - Tryb testowy wyłączony&lt;br /&gt;&lt;i&gt;Lokalny&lt;/i&gt; - Emuluj serwera lokalnego.&lt;br /&gt;&lt;i&gt;Serwer&lt;/i&gt; - Test na serwerze.&lt;br /&gt;Prosimy zauważyć, gdy tryb testowy jest włączony, żaden użytkownik cię nie usłyszy, więc możesz mówić swobodnie. Tryb testowy jest wyłączany przy wyjściu z programu.</translation>
+        <translation>&lt;b&gt;Włącza jeden z trybów testowych.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Brak&lt;/i&gt; - Tryb testowy wyłączony&lt;br /&gt;&lt;i&gt;Lokalny&lt;/i&gt; - Emulacja lokalnego serwera.&lt;br /&gt;&lt;i&gt;Serwer&lt;/i&gt; - Test na serwerze.&lt;br /&gt;Pamiętaj, że gdy tryb testowy jest włączony, żaden użytkownik ciebie nie usłyszy, więc możesz mówić swobodnie. Tryb testowy jest wyłączany przy wyjściu z programu.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1382,11 +1382,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation>Jeśli zaznaczone, Mumble wytłumi tylko aplikacje, które używają tego samego urządzenia wyjścia co Mumble</translation>
+        <translation>Jeśli zaznaczone, Mumble wytłumi tylko aplikacje, które używają tego samego urządzenia wyjścia, co Mumble</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation>&lt;b&gt;Tłum aplikacje używające tego samego urządzenia wyjścia co Mumble&lt;/b&gt;&lt;br /&gt;Aplikacje, które używają innego urządzenia wyjścia nie będą wytłumiane.</translation>
+        <translation>&lt;b&gt;Tłum aplikacje używające tego samego urządzenia wyjścia, co Mumble&lt;/b&gt;&lt;br /&gt;Aplikacje, które używają innego urządzenia wyjścia, nie będą wytłumiane.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
@@ -1398,7 +1398,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation>&lt;b&gt;Tłumienie aplikacji&lt;/b&gt;&lt;br /&gt;Jeśli aplikacje używają tego samego urządzenia wyjścia co Mumble, zostaną wytłumione.</translation>
+        <translation>&lt;b&gt;Tłumienie aplikacji&lt;/b&gt;&lt;br /&gt;Jeśli aplikacje używają tego samego urządzenia wyjścia, co Mumble, zostaną wytłumione.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
@@ -1414,11 +1414,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Tłum innych użytkowników podczas mówienia jako Mówca priorytetowy&lt;/b&gt;&lt;br /&gt;Mumble obsługuje zmniejszanie głośności innych użytkowników podczas mówienia jako &lt;i&gt;Mówca priorytetowy &lt;/i&gt;, aby uniknąć bycia zakłóconym. Zaznaczenie tego pola wyboru spowoduje włączenie tej funkcji.</translation>
+        <translation>&lt;b&gt;Tłum innych użytkowników podczas mówienia jako nadrzędny mówca&lt;/b&gt;&lt;br /&gt;Mumble obsługuje zmniejszanie głośności innych użytkowników podczas mówienia jako &lt;i&gt;Nadrzędny mówca &lt;/i&gt;, aby uniknąć bycia zakłóconym. Zaznaczenie tego pola wyboru spowoduje włączenie tej funkcji.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation>Tłum innych użytkowników podczas mówienia jako Mówca priorytetowy</translation>
+        <translation>Tłum innych użytkowników podczas mówienia jako nadrzędny mówca</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -1513,7 +1513,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Loopback</source>
-        <translation>Loopback</translation>
+        <translation>Pętla zwrotna</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
@@ -2278,7 +2278,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>Self-signed</source>
-        <translation>Własnoręcznie podpisany</translation>
+        <translation>Samodzielnie podpisany</translation>
     </message>
 </context>
 <context>
@@ -2911,7 +2911,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Nieznany</translation>
+        <translation>Nieznane</translation>
     </message>
     <message>
         <source>Users</source>
@@ -3684,7 +3684,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation>Dopasowywanie lokalnej głośności do słuchania %1</translation>
+        <translation>Dostosowywanie lokalnej głośności do słuchania %1</translation>
     </message>
 </context>
 <context>
@@ -4066,7 +4066,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>None</source>
-        <translation>Żadne</translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -4320,11 +4320,11 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Mówiący interfejs</translation>
+        <translation>Interfejs mówiących</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation>Użytkownik milczący przez określoną liczbę sekund zostanie usunięty z Mówiącego interfejsu.</translation>
+        <translation>Użytkownik milczący przez określoną liczbę sekund zostanie usunięty z Interfejsu mówiących.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
@@ -4332,7 +4332,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation>Jeśli ta opcja jest zaznaczona, lokalny użytkownik (ty) zawsze będzie widoczny w Mówiącym interfejsie (niezależnie od stanu mówienia).</translation>
+        <translation>Jeśli ta opcja jest zaznaczona, lokalny użytkownik (Ty) zawsze będzie widoczny w Interfejsie mówiących (niezależnie od stanu mówienia).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4356,7 +4356,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation>Nazwy, ile kanałów nadrzędnych powinno być uwzględnionych w nazwie kanału podczas wyświetlania go w Mówiącym interfejsie?</translation>
+        <translation>Ile nazw kanałów nadrzędnych powinno znajdować się w nazwie kanału podczas wyświetlania jej w Interfejsie mówiących?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
@@ -4392,7 +4392,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation>Preferowana maksymalna długość nazwy kanału (hierarchii) w Mówiącym interfejsie. Pamiętaj jednak, że nie jest to twardy limit.</translation>
+        <translation>Preferowana maksymalna długość nazwy kanału (hierarchii) w Interfejsie mówiących. Pamiętaj jednak, że nie jest to twardy limit.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
@@ -4400,7 +4400,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Względny rozmiar czcionki do użycia w Mówiącym interfejsie w procentach.</translation>
+        <translation>Względny rozmiar czcionki do użycia w Interfejsie mówiących w procentach.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4456,7 +4456,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation>Określa, czy pokazywać wszystkich słuchaczy (uszy) lokalnego użytkownika w Mówiącym interfejsie (a tym samym także kanały, w których się znajdują). </translation>
+        <translation>Określa, czy pokazywać wszystkich słuchaczy (uszy) lokalnego użytkownika w Interfejsie mówiących (a tym samym także kanały, w których się znajdują). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
@@ -4597,7 +4597,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza stan wyciszenia.</translation>
+        <translation>Przełącza stan wyciszenia siebie.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
@@ -4612,7 +4612,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza stan ogłuszenia.</translation>
+        <translation>Przełącza stan ogłuszenia siebie.</translation>
     </message>
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
@@ -4635,7 +4635,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Opening URL %1</source>
-        <translation>Otwieranie adresu %1</translation>
+        <translation>Otwieranie adresu URL %1</translation>
     </message>
     <message>
         <source>File does not exist</source>
@@ -4655,7 +4655,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Ta wersja Mumble nie obsługuje URL starszych wersji Mumble %1.%2.%3</translation>
+        <translation>Ta wersja Mumble nie obsługuje adresów URL starszych wersji Mumble %1.%2.%3</translation>
     </message>
     <message>
         <source>Connecting to %1</source>
@@ -5214,7 +5214,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Wycisza lub wyłącza wyciszenie siebie. Gdy jesteś wyciszony, nie wysyłasz żadnych danych na serwer. Wyłączenie wyciszenia również wyłącza ogłuszenie.</translation>
+        <translation>Wycisza lub wyłącza wyciszenie się. Gdy jesteś wyciszony, nie wysyłasz żadnych danych na serwer. Wyłączenie wyciszenia również wyłącza ogłuszenie.</translation>
     </message>
     <message>
         <source>&amp;Deafen Self</source>
@@ -5226,7 +5226,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Ogłusza lub wyłącza ogłuszenie siebie. Gdy jesteś ogłuszony, nie będziesz nic słyszał. Ogłuszenie samego siebie włącza również wyciszenie mikrofonu.</translation>
+        <translation>Ogłusza lub wyłącza ogłuszenie się. Gdy jesteś ogłuszony, nie będziesz nic słyszał. Ogłuszenie samego siebie włącza również wyciszenie mikrofonu.</translation>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
@@ -5829,7 +5829,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Register yourself on the server</source>
-        <translation>Zarejestruj siebie na serwerze</translation>
+        <translation>Zarejestruj się na serwerze</translation>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
@@ -5861,7 +5861,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>&amp;Copy URL</source>
-        <translation>&amp;Kopiuj URL</translation>
+        <translation>&amp;Skopiuj adres URL</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
@@ -5873,7 +5873,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation>Ignoruje lokalnie wiadomości tekstowe użytkownika.</translation>
+        <translation>Lokalnie ignoruj wiadomości tekstowe użytkownika na czacie.</translation>
     </message>
     <message>
         <source>Silently drops all text messages from the user.</source>
@@ -5915,7 +5915,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Lokalne dostosowanie głośności mowy użytkownika.</translation>
+        <translation>Lokalnie dostosuj głośność mowy użytkownika.</translation>
     </message>
     <message>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
@@ -6079,7 +6079,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Lokalne dostosowanie głośności tego wirtualnego ucha.</translation>
+        <translation>Lokalnie dostosuj głośność tego wirtualnego ucha.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6119,11 +6119,11 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Mówiący interfejs</translation>
+        <translation>Interfejs mówiących</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation>Przełącza widoczność Mówiącego interfejsu.</translation>
+        <translation>Przełącza widoczność Interfejsu mówiących.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
@@ -6167,7 +6167,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation>Prywatny</translation>
+        <translation>Prywatna</translation>
     </message>
     <message>
         <source>%1: %2</source>
@@ -6381,12 +6381,12 @@ Prawidłowe opcje to:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation>Przełącz Mówiący interfejs</translation>
+        <translation>Przełącz Interfejs mówiących</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza widoczność Mówiącego interfejsu.</translation>
+        <translation>Przełącza widoczność Interfejsu mówiących.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6578,7 +6578,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation>Używaj &quot;Quality of Service&quot;</translation>
+        <translation>Używaj Quality of Service (QoS)</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
@@ -6642,7 +6642,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation>Automatycznie sprawdzaj czy są nowe wersje Mumble.</translation>
+        <translation>Automatycznie sprawdzaj, czy są nowe wersje Mumble.</translation>
     </message>
     <message>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
@@ -6650,11 +6650,11 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation>Sprawdzaj dostępność aktualizacji przy starcie</translation>
+        <translation>Sprawdzaj aktualizacje aplikacji podczas uruchamiania</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
-        <translation>Automatycznie sprawdzaj czy są nowe wersje wtyczek.</translation>
+        <translation>Automatycznie sprawdzaj, czy są nowe wersje wtyczek.</translation>
     </message>
     <message>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
@@ -6678,7 +6678,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
-        <translation>Przy starcie połącz ponownie do ostatniego serwera</translation>
+        <translation>Połącz ponownie do ostatniego serwera podczas uruchamiania</translation>
     </message>
     <message>
         <source>Privacy</source>
@@ -6708,7 +6708,7 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation>Sprawdź aktualizacje wtyczek podczas uruchamiania</translation>
+        <translation>Sprawdzaj aktualizacje wtyczek podczas uruchamiania</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
@@ -6766,7 +6766,7 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Always show yourself</source>
-        <translation>Zawsze się wyświetlaj</translation>
+        <translation>Zawsze wyświetlaj siebie</translation>
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
@@ -7273,7 +7273,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>PA</source>
-        <translation>PA</translation>
+        <translation>Dźwięk pozycyjny</translation>
     </message>
     <message>
         <source>KeyEvents</source>
@@ -7494,7 +7494,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Mówiący interfejs</translation>
+        <translation>Interfejs mówiących</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
@@ -7508,7 +7508,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Wyciszenie lokalne</translation>
+        <translation>Lokalne wyciszenie</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7572,7 +7572,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation>Korekta lokalnego pseudonimu...</translation>
+        <translation>Lokalne dopasowanie pseudonimu...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
@@ -8417,11 +8417,11 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Dopasuj głośność innych użytkowników lokalnie&lt;/b&gt;&lt;br /&gt;Mumble wspiera lokalne ustawienie głośności innych użytkowników.</translation>
+        <translation>&lt;b&gt;Dostosuj lokalnie głośność innych użytkowników&lt;/b&gt;&lt;br /&gt;Mumble wspiera lokalne ustawienie głośności innych użytkowników.</translation>
     </message>
     <message>
         <source>Adjusting local volume for %1</source>
-        <translation>Dopasowywanie lokalnej głośności dla %1</translation>
+        <translation>Dostosowywanie lokalnej głośności dla %1</translation>
     </message>
     <message>
         <source> dB</source>
@@ -8489,7 +8489,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>Muted (manually muted by self)</source>
-        <translation>Wyciszony (przez siebie)</translation>
+        <translation>Wyciszony (ręcznie wyciszony przez siebie)</translation>
     </message>
     <message>
         <source>Muted (manually muted by admin)</source>
