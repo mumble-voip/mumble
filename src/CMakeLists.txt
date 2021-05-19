@@ -120,9 +120,8 @@ set(SHARED_HEADERS
 )
 
 target_sources(shared
-	PUBLIC
-		${SHARED_HEADERS}
 	PRIVATE
+		${SHARED_HEADERS}
 		${SHARED_SOURCES}
 )
 
