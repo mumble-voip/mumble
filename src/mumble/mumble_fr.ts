@@ -1429,12 +1429,12 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Atténuation</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1429,11 +1429,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>볼륨 감소</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
+        <source> m</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

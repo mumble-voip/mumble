@@ -1429,12 +1429,12 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
         <translation>Atenuación</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

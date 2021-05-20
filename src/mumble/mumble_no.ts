@@ -1431,12 +1431,12 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <translation>Demping</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
