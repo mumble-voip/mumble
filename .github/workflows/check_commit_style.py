@@ -19,6 +19,14 @@ def cmd(args):
 
 
 def main():
+    targetBranch = ""
+    if len(sys.argv) > 1:
+        targetBranch = sys.argv[1]
+    else:
+        raise RuntimeError("Target branch not specified!")
+
+    print("Checking commit styles - target branch: \"{}\"".format(targetBranch))
+
     try:
         # Set up remote 
         remoteName = "mumble-upstream"
@@ -28,7 +36,7 @@ def main():
         cmd(["git", "fetch", "--no-recurse-submodules", remoteName])
 
         # get new commits
-        commitHashes = [x for x in cmd(["git", "rev-list", "{}/master..HEAD".format(remoteName)]).split("\n") if x]
+        commitHashes = [x for x in cmd(["git", "rev-list", "{}/{}..HEAD".format(remoteName, targetBranch)]).split("\n") if x]
         # Reverse the order of the commits so that oldest comes first
         commitHashes.reverse()
 
