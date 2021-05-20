@@ -1429,12 +1429,12 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>Vaimennus</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

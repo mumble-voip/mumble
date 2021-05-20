@@ -1429,12 +1429,12 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
         <translation>Dämpfung</translation>
     </message>
     <message>
-        <source>%</source>
-        <translation>%</translation>
+        <source> %</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation>m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

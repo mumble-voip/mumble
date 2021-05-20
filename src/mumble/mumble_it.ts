@@ -1429,12 +1429,12 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Attenuazione</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

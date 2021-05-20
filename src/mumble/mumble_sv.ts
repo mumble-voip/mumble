@@ -1429,12 +1429,12 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>Dämpning</translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation type="unfinished">m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

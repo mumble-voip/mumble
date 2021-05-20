@@ -1415,11 +1415,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%</source>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
+        <source> m</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

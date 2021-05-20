@@ -1429,12 +1429,12 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>Kısma</translation>
     </message>
     <message>
-        <source>%</source>
-        <translation>%</translation>
+        <source> %</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>m</source>
-        <translation>m</translation>
+        <source> m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
