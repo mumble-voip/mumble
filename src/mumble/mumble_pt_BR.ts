@@ -477,7 +477,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha ao obter o nome da placa de som: %1</translation>
     </message>
 </context>
 <context>
@@ -647,7 +647,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por&lt;br /&gt;Morris Arozi Moraes &lt;morrisarozi@gmail.com&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilidade de conversa por voz para gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Um programa de chamadas de voz de alta qualidade e baixa latência de Código Aberto&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1430,7 +1430,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
@@ -1517,19 +1517,19 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distância na qual o volume de áudio de outro jogador começa a diminuir</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distância na qual o volume de áudio de um jogador atingiu seu valor mínimo</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>O volume mínimo de áudio de um jogador diminuirá com o aumento da distância. Defina como 0% para desvanecer em silêncio total para uma distância de audição máxima realista.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Se uma fonte de áudio estiver próxima o suficiente, blooming fará com que o áudio seja reproduzido em todos os alto-falantes, mais ou menos, independentemente de sua posição (embora com volume mais baixo)</translation>
     </message>
 </context>
 <context>
@@ -3270,7 +3270,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -3422,7 +3422,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inicia o processo de captura: todos os botões que você pressionar serão adicionados à árvore.&lt;/p&gt;&lt;p&gt;Assim que todos os botões forem soltos, o processo de captura será interrompido automaticamente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>

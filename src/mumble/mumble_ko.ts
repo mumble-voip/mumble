@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>%1 권한이 부여됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
+        <translation>%1 권한이 허용됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>%1 권한이 취소됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
+        <translation>%1 권한이 거부됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -97,7 +97,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation>&amp;그룹</translation>
+        <translation>그룹(&amp;G)</translation>
     </message>
     <message>
         <source>Group</source>
@@ -157,7 +157,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation>ACL(&amp;A)</translation>
     </message>
     <message>
         <source>Active ACLs</source>
@@ -189,7 +189,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation>&amp;위로</translation>
+        <translation>위로(&amp;U)</translation>
     </message>
     <message>
         <source>Move entry down</source>
@@ -201,7 +201,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation>&amp;아래로</translation>
+        <translation>아래로(&amp;D)</translation>
     </message>
     <message>
         <source>Add new entry</source>
@@ -213,7 +213,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;추가</translation>
+        <translation>추가(&amp;A)</translation>
     </message>
     <message>
         <source>Remove entry</source>
@@ -225,7 +225,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;삭제</translation>
+        <translation>삭제(&amp;R)</translation>
     </message>
     <message>
         <source>Context</source>
@@ -324,7 +324,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;속성</translation>
+        <translation>속성(&amp;P)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -404,7 +404,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
         <translation>&lt;b&gt;최대 유저&lt;/b&gt;&lt;br /&gt;
-이 값을 사용하면 채널에서 허용되는 최대 사용자 수를 설정할 수 있습니다. 값이 0보다 크면 해당 유저 수만 채널에 입력할 수 있습니다. 값이 0인 경우 채널의 최대 유저 수는 서버의 기본 제한으로 지정됩니다.</translation>
+이 값을 사용하면 채널에서 허용되는 최대 유저 수를 설정할 수 있습니다. 값이 0보다 크면 해당 유저 수만 채널에 입장할 수 있습니다. 값이 0인 경우 채널의 최대 유저 수는 서버의 기본 제한으로 지정됩니다.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
@@ -473,11 +473,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation>사운드 카드 이름(긴 이름) 가져 오기 실패: %1</translation>
+        <translation>사운드 카드 이름(긴 이름) 가져오기 실패: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation>사운드 카드 이름 가져 오기 실패: %1</translation>
+        <translation>사운드 카드 이름 가져오기 실패: %1</translation>
     </message>
 </context>
 <context>
@@ -529,7 +529,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation>&amp;조회</translation>
+        <translation>조회(&amp;Q)</translation>
     </message>
     <message>
         <source>Configure selected device</source>
@@ -541,7 +541,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>&amp;설정</translation>
+        <translation>설정(&amp;C)</translation>
     </message>
     <message>
         <source>Capabilities</source>
@@ -615,19 +615,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Mumble 정보</translation>
+        <translation>Mumble 정보(&amp;A)</translation>
     </message>
     <message>
         <source>&amp;License</source>
-        <translation>&amp;라이선스</translation>
+        <translation>라이선스(&amp;L)</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation>&amp;저자</translation>
+        <translation>저자(&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation>&amp;타사 라이선스</translation>
+        <translation>타사 라이선스(&amp;T)</translation>
     </message>
     <message>
         <source>OK</source>
@@ -682,7 +682,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Transmit</source>
-        <translation>&amp;전송방법</translation>
+        <translation>전송방법(&amp;T)</translation>
     </message>
     <message>
         <source>When to transmit your speech</source>
@@ -698,11 +698,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>눌러서 말하기 키를 두 번 누르면 잠깁니다.</translation>
+        <translation>눌러서-말하기 키를 두 번 누르면 잠깁니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;두 번 누르기 시간&lt;/b&gt;&lt;br /&gt;설정된 시간 간격 동안 눌러서 말하기 키를 두 번 누르면 잠깁니다. 잠금을 해제하기 위해 눌러서 말하기 키를 한 번 더 누를 때까지 Mumble은 계속 전송합니다.</translation>
+        <translation>&lt;b&gt;두 번 누르기 시간&lt;/b&gt;&lt;br /&gt;설정된 시간 간격 동안 눌러서-말하기 키를 두 번 누르면 잠깁니다. 잠금을 해제하기 위해 눌러서-말하기 키를 한 번 더 누를 때까지 Mumble은 계속 전송합니다.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -750,7 +750,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Voice &amp;Hold</source>
-        <translation>&amp;음성 고정</translation>
+        <translation>음성 고정(&amp;H)</translation>
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
@@ -778,11 +778,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Quality</source>
-        <translation>&amp;품질</translation>
+        <translation>품질(&amp;Q)</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>압축 품질 (최대 대역폭)</translation>
+        <translation>압축 품질 (최고 대역폭)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
@@ -802,7 +802,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;사용 된 최대 송신 대역폭을 보여줍니다.&lt;/b&gt;&lt;br /&gt;컴퓨터에서 보낸 최대 대역폭 양을 보여줍니다. 오디오 비트 레이트는 오디오 데이터 전용의 최대 비트 레이트(VBR 사용 시)입니다. 위치는 위치 정보에 사용되는 비트레이트입니다. 오버헤드는 프레임 및 IP 패킷 헤더입니다(IP 및 UDP는이 오버헤드의 75%).</translation>
+        <translation>&lt;b&gt;사용 된 최고 송신 대역폭을 보여줍니다.&lt;/b&gt;&lt;br /&gt;컴퓨터에서 보낸 최고 대역폭 양을 보여줍니다. 오디오 비트 레이트는 오디오 데이터 전용의 최대 비트 레이트(VBR 사용 시)입니다. 위치는 위치 정보에 사용되는 비트레이트입니다. 오버헤드는 프레임 및 IP 패킷 헤더입니다(IP 및 UDP는이 오버헤드의 75%).</translation>
     </message>
     <message>
         <source>Audio Processing</source>
@@ -822,7 +822,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;입력의 최대 증폭입니다.&lt;/b&gt;&lt;br /&gt;Mumble은 압축하기 전에 입력 볼륨을 정규화하고 증폭 할 수 있는 정도를 설정합니다&lt;br /&gt;실제 수준은 현재 음성 패턴에 따라 지속해서 업데이트되지만, 여기서 지정한 수준 이상은 되지 않습니다.&lt;br /&gt;오디오 통계에서 &lt;i&gt;마이크 음량&lt;/i&gt; 수준이 100%를 맴돌면 2.0 정도로 설정하는 것이 좋지만 100%에 도달할 수 없는 경우 이 값을 훨씬 더 높게 설정하세요.&lt;br /&gt; 부드럽게 말하는 경우에는 &lt;i&gt;마이크 음량 * 증폭 량 &gt;= 100&lt;/i&gt;으로 설정하는 이상적입니다.&lt;br /&gt;&lt;br /&gt;이 값을 최대로 설정해도 문제가 없지만, 다른 대화가 들어갈 수 있습니다.</translation>
+        <translation>&lt;b&gt;입력의 최대 증폭입니다.&lt;/b&gt;&lt;br /&gt;Mumble은 압축하기 전에 입력 볼륨을 정규화하고 증폭 할 수 있는 정도를 설정합니다&lt;br /&gt;실제 수준은 현재 음성 패턴에 따라 지속해서 변경되지만, 여기서 지정한 수준 이상은 되지 않습니다.&lt;br /&gt;오디오 통계에서 &lt;i&gt;마이크 음량&lt;/i&gt; 수준이 100%를 맴돌면 2.0 정도로 설정하는 것이 좋지만 100%에 도달할 수 없는 경우 이 값을 훨씬 더 높게 설정하세요.&lt;br /&gt; 부드럽게 말하는 경우에는 &lt;i&gt;마이크 음량 * 증폭 량 &gt;= 100&lt;/i&gt;으로 설정하는 이상적입니다.&lt;br /&gt;&lt;br /&gt;이 값을 최대로 설정해도 문제가 없지만, 다른 대화가 들어갈 수 있습니다.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -838,7 +838,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;신호 대 잡음 비를 사용하도록 음성 감지를 설정합니다.&lt;/b&gt;&lt;br /&gt;이 모드에서 입력은 명확한 신호와 유사한 것으로 분석되며, 해당 신호의 선명도는 음성 감지에 사용됩니다.</translation>
+        <translation>&lt;b&gt;신호 대 잡음비를 사용하도록 음성 감지를 설정합니다.&lt;/b&gt;&lt;br /&gt;이 모드에서 입력은 명확한 신호와 유사한 것으로 분석되며, 해당 신호의 선명도는 음성 감지에 사용됩니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -874,19 +874,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation>&amp;재설정</translation>
+        <translation>재설정(&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;찾아보기...</translation>
+        <translation>찾아보기(&amp;B)...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>&amp;찾아보기...</translation>
+        <translation>찾아보기(&amp;R)...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;미리보기</translation>
+        <translation>미리보기(&amp;P)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -894,7 +894,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>눌러서 말하기 버튼을 항상 위에 상태로 표시</translation>
+        <translation>눌러서 말하기 버튼 창을 항상 위에 표시</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
@@ -930,7 +930,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>눌러서 말하기 키를 놓은 후 마이크가 켜져 있는 시간</translation>
+        <translation>눌러서-말하기 키를 놓은 후 마이크가 켜져 있는 시간</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
@@ -962,7 +962,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>after</source>
-        <translation>후</translation>
+        <translation>뒤에</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
@@ -1030,11 +1030,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation>&amp;찾아보기...</translation>
+        <translation>찾아보기(&amp;O)...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation>&amp;미리보기</translation>
+        <translation>미리보기(&amp;V)</translation>
     </message>
 </context>
 <context>
@@ -1097,11 +1097,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation>눌러서 말하기 잠금 임계 값</translation>
+        <translation>눌러서-말하기 잠금 임계 값</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation>눌러서 말하기 유지 임계 값</translation>
+        <translation>눌러서-말하기 유지 임계 값</translation>
     </message>
     <message>
         <source>Silence below</source>
@@ -1125,7 +1125,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>압축 품질 (최대 대역폭)</translation>
+        <translation>압축 품질 (최고 대역폭)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
@@ -1204,7 +1204,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>기본 &amp;지터 버퍼</translation>
+        <translation>기본 지터 버퍼(&amp;J)</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
@@ -1265,7 +1265,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>이것은 스피커가 연결되어 있지 않고 헤드폰만 연결되어 있다는 것을 나타냅니다. 스피커는 일반적으로 사용자 앞에 있고 헤드폰은 왼쪽/오른쪽에 있기 때문에 중요합니다.</translation>
+        <translation>스피커가 연결되어 있지 않고 헤드폰만 연결되어 있다는 것을 나타냅니다. 스피커는 일반적으로 앞에 있고 헤드폰은 왼쪽/오른쪽에 있기 때문에 중요합니다.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1322,7 +1322,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Loopback</source>
-        <translation>&amp;루프백</translation>
+        <translation>루프백(&amp;L)</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
@@ -1430,11 +1430,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1605,19 +1605,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>현재 입력 볼륨이 얼마나 이상적인지 보여줍니다. 마이크 레벨을 조정하려면 녹음 볼륨을 조정하는 데 사용하는 프로그램을 열고 말하면서 이 값을 확인하십시오.&lt;br /&gt;&lt;b&gt;화가 났을 때처럼 큰 소리로 말하세요.&lt;/b&gt;&lt;br /&gt;이 값이 100%에 가까워질 때까지 볼륨을 조정하되 초과하지 않도록 하세요. 그 이상이 되면 당신의 음성 일부가 잘려 음질이 저하 될 수 있습니다.</translation>
+        <translation>현재 입력 볼륨이 얼마나 이상적인지 보여줍니다. 마이크 레벨을 조정하려면 녹음 볼륨을 조정하는 데 사용하는 프로그램을 열고 말하면서 이 값을 확인하세요.&lt;br /&gt;&lt;b&gt;화가 났을 때처럼 큰 소리로 말하세요.&lt;/b&gt;&lt;br /&gt;이 값이 100%에 가까워질 때까지 볼륨을 조정하되 초과하지 않도록 하세요. 그 이상이 되면 당신의 음성 일부가 잘려 음질이 저하 될 수 있습니다.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation>신호 대 잡음 비</translation>
+        <translation>신호-대-잡음비</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>마이크의 신호 대 잡음 비</translation>
+        <translation>마이크의 신호-대-잡음비</translation>
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>마지막 프레임(20ms)에서 마이크의 신호 대 잡음 비 (SNR) 입니다. 소음보다 음성이 얼마나 더 선명한지 보여줍니다.&lt;br /&gt;이 값이 1.0 미만이면 신호에서 음성보다 잡음이 더 많이 발생하므로 품질이 저하됩니다.&lt;br /&gt;이 값에는 상한선이 없지만, 사운드 스튜디오 없이 40-50을 훨씬 넘어설 것이라고 기대하지는 마세요.</translation>
+        <translation>마지막 프레임(20ms)에서 마이크의 신호-대-잡음비 (SNR) 입니다. 소음보다 음성이 얼마나 더 선명한지 보여줍니다.&lt;br /&gt;이 값이 1.0 미만이면 신호에서 음성보다 잡음이 더 많이 발생하므로 품질이 저하됩니다.&lt;br /&gt;이 값에는 상한선이 없지만, 사운드 스튜디오 없이 40-50을 훨씬 넘어설 것이라고 기대하지는 마세요.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
@@ -1649,7 +1649,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>마지막 두 번째의 눌러서 말하기를 누르는 사이의 시간</translation>
+        <translation>마지막 두 번째의 눌러서-말하기를 누르는 사이의 시간</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -1685,7 +1685,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>시간이 아래로 증가하고 주파수가 오른쪽으로 증가함에 따라 에코 제거의 가중치가 표시됩니다.&lt;br /&gt;이상적으로, 이것은 검은색이어야 하며, 이는 에코가 전혀 존재하지 않음을 나타냅니다. 일반적으로 시간 지연 에코를 나타내는 파란색의 가로줄 무늬가 하나 이상 있습니다. 실시간으로 업데이트된 가중치를 볼 수 있어야 합니다.&lt;br /&gt;에코가 없는 한 여기서는 유용한 데이터를 많이 볼 수 없습니다. 음악을 틀면 안정될 것입니다&lt;br /&gt;주파수 영역 가중치의 실제 또는 가상 부분을 보거나, 계산된 계수와 위상을 번갈아 보도록 선택할 수 있습니다. 이 중 가장 유용한 것은 에코의 진폭 계수이며, 해당 단계에서 제거되고 있는 송신 신호의 양을 보여줍니다. 다른보기 모드는 에코 제거 알고리즘을 조정하려는 사람들에게 주로 유용합니다.&lt;br /&gt;참고: 계수 모드에서 전체 이미지가 크게 변동하는 경우 에코 제거가 두 입력 소스(스피커와 마이크) 간에 상관관계를 찾지 못합니다. 에코에서 지연 시간이 매우 길거나 입력 소스 중 하나가 잘못 구성되었습니다.</translation>
+        <translation>시간이 아래로 증가하고 주파수가 오른쪽으로 증가함에 따라 에코 제거의 가중치가 표시됩니다.&lt;br /&gt;이상적으로, 이것은 검은색이어야 하며, 이는 에코가 전혀 존재하지 않음을 나타냅니다. 일반적으로 시간 지연 에코를 나타내는 파란색의 가로줄 무늬가 하나 이상 있습니다. 실시간으로 변경된 가중치를 볼 수 있어야 합니다.&lt;br /&gt;에코가 없는 한 여기서는 유용한 데이터를 많이 볼 수 없습니다. 음악을 틀면 안정될 것입니다&lt;br /&gt;주파수 영역 가중치의 실제 또는 가상 부분을 보거나, 계산된 계수와 위상을 번갈아 보도록 선택할 수 있습니다. 이 중 가장 유용한 것은 에코의 진폭 계수이며, 해당 단계에서 제거되고 있는 송신 신호의 양을 보여줍니다. 다른보기 모드는 에코 제거 알고리즘을 조정하려는 사람들에게 주로 유용합니다.&lt;br /&gt;참고: 계수 모드에서 전체 이미지가 크게 변동하는 경우 에코 제거가 두 입력 소스(스피커와 마이크) 간에 상관관계를 찾지 못합니다. 에코에서 지연 시간이 매우 길거나 입력 소스 중 하나가 잘못 구성되었습니다.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -1804,20 +1804,20 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-연결 지연을 최소한으로 동작 하려면 사운드 카드 음성 버퍼를 최대한으로 줄이는 것이 중요합니다. 하지만 여러 사운드 카드가 요구하는 버퍼는 실제로 작동 가능한 크기보다 상당히 작습니다. 그래서 이 값을 설정하려면 여러번 시도해 볼 수 밖에 없습니다. 
+지연 시간을 최소로 유지하려면 사운드 카드에서 가능한 한 적은 양의 오디오 버퍼를 사용하는 것이 중요합니다. 그러나 대부분의 사운드 카드는 실제로 사용할 수 있는 것보다 훨씬 작은 버퍼가 필요하므로 이 값을 설정하는 유일한 방법은 시도하는 것입니다.
 &lt;/p&gt;
 &lt;p&gt;
-주파수가 바뀐 1개의 음색이 들립니다. 소리가 끊기거나 불안정 하다면&lt;b&gt;안되는 경우 입니다&lt;/b&gt;가장 작은 값까지 아래의 슬라이더를 보고 움직여 주세요. 또 음성 경로의 인식률 향상을 위해 이 테스트 동안에는 로컬 에코를 비활성화 하는 것을 잊지 마세요. 
+음성 샘플을 들어야 합니다. 아래 슬라이더를 사운드나 지터가 &lt;b&gt;없는&lt;/b&gt; 가장 낮은 값으로 변경합니다. 이 테스트 중에는 로컬 에코가 비활성화됩니다.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation>버퍼 데이터량</translation>
+        <translation>버퍼 할 데이터 양</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>출력 버퍼의 프리 버퍼의 양을 설정합니다. 여러가지 값으로 해보세요, 갑작스럽게 불안정 해지지 않는 가장 작은 값으로 설정하세요.</translation>
+        <translation>출력 버퍼에서 사전 버퍼의 데이터 양을 설정합니다. 다른 값으로 실험하고 사운드에서 빠르게 지터를 일으키지 않는 가장 낮은 값으로 설정하세요.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1828,24 +1828,24 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-볼륨 컨트롤 패널을 열고 녹음 설정 화면으로 이동합니다. 그리고 마이크를 선택되어, 음량 상태가 최대라는 사실을 확인해 주세요. 또 &quot;마이크 증폭&quot;을 활성화 하는 옵션이 있다면 이것 또한 체크되어 있는지 확인해 주세요. 
+사운드 제어판을 열고 녹음 설정으로 이동합니다. 마이크가 최대 녹음 볼륨과 활성 입력으로 선택되어 있는지 확인합니다. &quot;마이크 증폭&quot;을 활성화하는 옵션이 있는 경우 해당 옵션이 선택되어 있는지 확인합니다.
 &lt;/p&gt;
 &lt;p&gt;
-큰 목소리로 말해 보세요. 말하는 동안 아래에 있는 바가 푸른색과 녹색 범위에 가능하면 붉은색에 가까운 곳에 멈출 때까지 사운드 제어판에서 음량을 낮추어 보세요.(붉은색 영역에는&lt;b&gt;들어가지 않도록&lt;/b&gt; 합니다.)
+짜증이 나거나 흥분할 때처럼 큰 소리로 말하세요. 말하는 동안 아래 막대가 파란색과 녹색에서 가능한 한 높게 유지되지만, 빨간색 영역이 &lt;b&gt;아닐 때&lt;/b&gt;까지 사운드 제어판에서 볼륨을 줄이세요.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished">음향 위치</translation>
+        <translation>위치 오디오</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>위치 오디오 볼륨 감소를 조절합니다.</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>스피커 대신 헤드폰 사용</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1855,7 +1855,13 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+축하합니다. 이제 Mumble로 더 풍부한 사운드 경험을 즐길 준비가 되었습니다.
+&lt;/p&gt;
+&lt;p&gt;
+Mumble은 지속해서 개발 중이며 개발팀은 대부분의 유저에게 유익한 기능에 집중하려고 합니다. 이를 위해 Mumble은 당신의 구성을 익명 통계로 개발자에게 제출할 수 있도록 지원합니다. 이러한 통계는 향후 개발을 위해 필수적이며, 특정 기능이 사용 여부를 확인하는 데 사용됩니다.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Use headphones</source>
@@ -1863,7 +1869,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>OS 스피커 구성이 무시되고 대신 헤드폰의 위치가 구성됩니다.</translation>
     </message>
     <message>
         <source>Volume tuning</source>
@@ -1871,60 +1877,60 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>마이크 음량을 최적 상태가 되도록 설정합니다.</translation>
+        <translation>마이크 하드웨어 볼륨을 최적의 설정으로 조절합니다.</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>이제 밤늦게 말할 때와 같이 부드럽게 말하고 누구에게 방해하고 싶지 않을 것입니다. 아래의 슬라이더를 말할 때는 막대가 녹색으로 이동하고 침묵하는 동안에는 파란색으로 유지되도록 조절하세요.</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>음성 감지</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble이 당신이 말할 때와 침묵할 때를 알아내도록 합니다.</translation>
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble이 당신이 말할 때를 알아내는 데 도움이 될 것입니다. 첫 번째 단계는 사용할 데이터 값을 선택하는 것입니다.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"></translation>
+        <translation>입력 원시 진폭</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation>Signal-To-Noise 비율</translation>
+        <translation>신호-대-잡음비</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>다음 슬라이더를 조정해야 합니다. 당신의 처음 몇 마디의 말은 녹색 영역(definitive speech)에서 끝나야 합니다. 말하는 동안 노란색(might be speech) 안에 있어야 하고, 말하지 않을 때는 빨간색(definitively not speech)이어야 합니다.</translation>
     </message>
     <message>
         <source>Device tuning</source>
-        <translation>디바이스 조절</translation>
+        <translation>장치 조절</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>하드웨어의 출력 지연이 최소치가 되도록 변경합니다.</translation>
+        <translation>하드웨어 출력 지연을 최소값으로 변경합니다.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished">Mumble프로젝트에 익명으로 통계를 송신한다.</translation>
+        <translation>Mumble 프로젝트 익명 통계 제출</translation>
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>누르며 말하기:</translation>
+        <translation>눌러서 말하기:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation>품질&amp;알림</translation>
+        <translation>품질 &amp; 알림</translation>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>품질 및 알림 설정을 조절합니다.</translation>
     </message>
     <message>
         <source>Quality settings</source>
@@ -1944,11 +1950,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트-음성-변환을 사용하여 알림 및 메시지를 읽습니다.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트-음성-변환을 비활성화하고 소리를 사용합니다.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1956,11 +1962,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"></translation>
+        <translation>유저가 대화하는 동안 다른 응용 프로그램의 볼륨 감소 활성화</translation>
     </message>
     <message>
         <source>Attenuate applications while other users talk</source>
-        <translation>다른 사용자가 말할 때 다른 애플리케이션의 음량을 줄인다</translation>
+        <translation>다른 유저가 말하는 동안 다른 응용 프로그램 볼륨 감소</translation>
     </message>
     <message>
         <source>High</source>
@@ -1972,23 +1978,23 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>당신은 이미 사용자 지정 음질 설정을 하고 있습니다. 이 설정을 유지하고 싶은 경우는 선택하세요.</translation>
+        <translation>이미 Mumble에서 사용자 정의 품질 구성을 설정했습니다. 유지하려면 이 설정을 선택하세요.</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>사용자가 대화하는 때에 다른 애플리케이션의 감쇠를 설정합니다. Mumble에서 누군가가 당신에게 말을 건다면 즉시 다른 모든 어플리케이션의 음량은 (상대방의 음성을 잘 들을수 있도록) 감쇠됩니다.</translation>
+        <translation>유저가 대화하는 동안 다른 응용 프로그램의 볼륨 감소를 활성화합니다. Mumble은 누군가가 당신에게 말을 걸기 시작하면 다른 응용 프로그램(오디오 플레이어 등)의 볼륨이 감소하여 더욱 명확하게 들을 수 있습니다.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>시각 장애인을 위해 하이 콘트라스트에 최적화합니다</translation>
+        <translation>시각 장애가 있는 유저를 위한 고대비 최적화 적용</translation>
     </message>
     <message>
         <source>Use high contrast graphics</source>
-        <translation>하이 콘트라스트 그래픽을 사용</translation>
+        <translation>고대비 그래픽 사용</translation>
     </message>
     <message>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>커스텀 Text-To-Speech 설정을 유지합니다.</translation>
+        <translation>커스텀 텍스트-음성-변환 설정을 유지합니다.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2006,88 +2012,94 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+사운드 제어판을 열고 녹음 설정으로 이동합니다. 마이크가 최대 녹음 볼륨과 활성 입력으로 선택되어 있는지 확인합니다. &quot;마이크 증폭&quot;을 활성화하는 옵션이 있는 경우 해당 옵션이 선택되어 있는지 확인합니다.
+&lt;/p&gt;
+&lt;p&gt;
+짜증이 나거나 흥분할 때처럼 큰 소리로 말하세요. 아래 막대가 줄무늬와 빈 영역에서 최대한 높게 유지될 때까지 사운드 제어판에서 볼륨을 줄이세요. 그러나 당신이 말하는 동안 교차한 구역은 &lt;b&gt;아닙니다&lt;/b&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>이제 밤늦게 말할 때와 같이 부드럽게 말하고 누구에게 방해하고 싶지 않을 것입니다. 아래의 슬라이더를 말할 때는 막대가 빈 영역으로 이동하고 침묵하는 동안에는 줄무늬 영역에 있도록 조절하세요.</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>다음 슬라이더를 조정해야 합니다. 당신의 처음 몇 마디의 말은 빈 영역(definitive speech)에 있어야 합니다. 말하는 동안 줄무늬(might be speech) 안에 있어야 하고, 말하지 않을 때는 모든 것이 십자형(definitively not speech)에 있어야 합니다.</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>이 구성에서는 Mumble이 &lt;b&gt;낮은 양의 대역폭&lt;/b&gt;을 사용합니다. 이로 인해 지연 시간이 길어지고 품질이 저하 될 수 있습니다. 연결이 다른 설정을 처리할 수 없는 경우에만 선택하세요. (16kbit/s, 패킷 당 60ms)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;권장되는 기본&lt;/b&gt; 구성입니다. 품질, 지연 시간 및 대역폭 사용 간의 균형을 유지합니다. (40kbit/s, 패킷 당 20ms)</translation>
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>LAN과 같이 대역폭이 문제가 되지 않는 설정에서만 사용하는 것이 좋습니다. Mumble이 지원하는 가장 낮은 지연 시간과 &lt;b&gt;높은 품질&lt;/b&gt;을 제공합니다. (72kbit/s, 패킷 당 10ms)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;오디오에 사용할 입력 방법입니다.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;오디오에 사용할 입력 방법입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;오디오에 사용할 출력 방법입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 오디오 조정 마법사입니다. 사운드 카드의 입력 레벨을 올바르게 설정하고, Mumble에서 사운드 처리를 위한 올바른 매개 변수를 설정할 수 있습니다.&lt;/p&gt;&lt;p&gt;마법사가 활성화되어 있는 동안에는 오디오를 반복해서 들을 수 있으며, 오디오는 서버로 전송되지 않습니다.&lt;/p&gt;&lt;p&gt;현재 오디오 시스템에 영향을 미치지 않고 언제든지 마법사를 취소할 수 있습니다. 설정은 이 마법사가 완료된 후에만 적용됩니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble은 일부 게임을 위한 위치 오디오를 지원하며, 게임 내 위치에 따라 다른 사용자의 음성을 배치합니다. 위치에 따라 다른 사용자가 있는 방향과 거리를 시뮬레이션하기 위해 스피커 간에 볼륨이 변경됩니다. 이러한 위치는 운영 체제에서 올바른 스피커 구성에 따라 다르므로 여기에서 테스트를 수행합니다.&lt;/p&gt;&lt;p&gt;아래 그래프는 위에서 본 것처럼 &lt;span style=&quot; color:#56b4e9;&quot;&gt;사용자&lt;/span&gt;, &lt;span style=&quot; color:#d55e00;&quot;&gt;스피커&lt;/span&gt; 및 &lt;span style=&quot; color:#009e73;&quot;&gt;움직이는 음원&lt;/span&gt;의 위치를 보여줍니다. 채널 간에 오디오가 이동하는 소리가 들어야 합니다.&lt;/p&gt;&lt;p&gt;마우스를 사용하여 수동으로 &lt;span style=&quot; color:#009e73;&quot;&gt;음원&lt;/span&gt;을 배치할 수도 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>입력 시스템</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished">입력 장치</translation>
+        <translation>입력 장치</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished">출력 시스템</translation>
+        <translation>출력 시스템</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished">출력 장치</translation>
+        <translation>출력 장치</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished">출력 지연</translation>
+        <translation>출력 지연</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">최대 증폭</translation>
+        <translation>최대 증폭</translation>
     </message>
     <message>
         <source>VAD level</source>
-        <translation type="unfinished"></translation>
+        <translation>VAD 레벨</translation>
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>눌러서-말하기 단축키</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>할당된 버튼 없음</translation>
     </message>
 </context>
 <context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - 차단 편집</translation>
+        <translation>Mumble - 편집 금지</translation>
     </message>
     <message>
         <source>&amp;Address</source>
@@ -2099,7 +2111,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Reason</source>
-        <translation>사유</translation>
+        <translation>이유</translation>
     </message>
     <message>
         <source>Start</source>
@@ -2107,7 +2119,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>End</source>
-        <translation>끝</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <source>User</source>
@@ -2123,31 +2135,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>업데이트</translation>
+        <translation>변경(&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>삭제</translation>
+        <translation>삭제(&amp;R)</translation>
     </message>
     <message>
         <source>Ban List</source>
-        <translation>차단 리스트</translation>
+        <translation>차단 목록</translation>
     </message>
     <message>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>검색 필드</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>검색 필드입니다. 유저 이름 필드에서 차단된 유저 이름을 찾을 수 있습니다.</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished">누구를 찾고 계신가요?</translation>
+        <translation>누구를 찾고 있습니까?</translation>
     </message>
     <message>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>이름 없음</translation>
     </message>
     <message>
         <source>IP address</source>
@@ -2155,31 +2167,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No IP address</source>
-        <translation>아닌 IP 주소</translation>
+        <translation>IP 주소 없음</translation>
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>금지 이유</translation>
     </message>
     <message>
         <source>No reason</source>
-        <translation>사유 없음</translation>
+        <translation>이유 없음</translation>
     </message>
     <message>
         <source>Ban end date</source>
-        <translation>차단 해제 날짜</translation>
+        <translation>차단 종료 날짜</translation>
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>차단 종료 날짜. 만약 시작 날짜와 종료 날짜를 동일하게 설정하면 영구 차단이 적용됩니다(만료되지 않음).</translation>
     </message>
     <message>
         <source>Certificate hash</source>
-        <translation>인증 해시</translation>
+        <translation>인증서 해시</translation>
     </message>
     <message>
         <source>No certificate hash</source>
-        <translation>인증이 안된 해시</translation>
+        <translation>인증서 해시 없음</translation>
     </message>
     <message>
         <source>Banned users</source>
@@ -2187,57 +2199,57 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>차단된 유저 목록입니다.</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>새로운 차단을 추가하려면 이 버튼을 사용하세요.</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"></translation>
+        <translation>차단 정보를 변경하려면 이 버튼을 사용하세요.</translation>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>유저를 차단 목록에서 삭제하려면 이 버튼을 사용하세요.</translation>
     </message>
     <message>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 필드 지우기</translation>
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 모든 필드를 지웁니다. 새 차단을 추가하려면 이것을 사용하세요.</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>청소</translation>
+        <translation>지우기</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>차단 리스트-%n Ban(s)</numerusform>
+            <numerusform>차단 목록 - %n 차단</numerusform>
         </translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>검색</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished">IP 주소</translation>
+        <translation>IP 주소</translation>
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>마스크</translation>
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>시작 날짜/시간</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>종료 날짜/시간</translation>
     </message>
 </context>
 <context>
@@ -2256,7 +2268,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation>만료일</translation>
+        <translation>만료 날짜</translation>
     </message>
     <message>
         <source>(none)</source>
@@ -2264,94 +2276,94 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Self-signed</source>
-        <translation>자기 서명</translation>
+        <translation>자체 서명</translation>
     </message>
 </context>
 <context>
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation>이메일을 확인할 수 없습니다.&lt;br /&gt;계속하려면 유효한 (또는 빈) 이메일을 입력하세요.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>인증서 생성에서 에러가 발생했습니다.&lt;br/&gt;다시 한번 시도해 보세요.</translation>
+        <translation>인증서를 생성하는 동안 오류가 발생했습니다.&lt;br /&gt;다시 시도하세요.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>인증서와 키는 PKCS#12형식으로 변환할 수 없습니다. 인증서에 에러가 있을 가능성이 있습니다.</translation>
+        <translation>인증서와 키를 PKCS#12 형식으로 내보낼 수 없습니다. 인증서에 오류가 있을 수 있습니다.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 쓰기 위해 열 수 없습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>이 파일의 사용 권한을 설정할 수 없습니다. 인증서와 키는 저장 되지 않았습니다. 다른 파일을 사용해 주세요.</translation>
+        <translation>파일의 권한을 설정할 수 없습니다. 인증서 및 키가 생성되지 않았습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 쓸 수 없습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 읽기 위해 열 수 없습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>파일이 비어 있거나 읽을 수 없습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>그 파일은 올바른 인증서와 키를 포함하지 않습니다. 다른 파일을 사용해 주세요.</translation>
+        <translation>파일에 유효한 인증서와 키가 없습니다. 다른 파일을 사용하세요.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation>인증서를 내보내기 위한 파일을 선택하세요</translation>
+        <translation>인증서를 내보낼 파일 선택</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation>인증서를 가져올 위한 파일을 선택하세요</translation>
+        <translation>인증서를 가져올 파일 선택</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"></translation>
+        <translation>가져올 수 없습니다. 비밀번호가 없거나 호환되지 않는 파일 형식입니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;인증서의 유효 기간:&lt;/b&gt;당신의 인증서의 유효 기한이 곧 종료 됩니다. 인증서를 갱신할 필요가 있습니다. 갱신을 하지 않는다면 등록한 서버에 접속할 수 없게 될 것입니다.</translation>
+        <translation>&lt;b&gt;인증서 만료:&lt;/b&gt; 인증서가 곧 만료됩니다. 갱신하지 않으면 등록 된 서버에 더 이상 연결할 수 없습니다.</translation>
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished">현재 인증서</translation>
+        <translation>현재 인증서</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>가져올 인증서 파일</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>인증서 비밀번호</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished">인증서를 가져 온다.</translation>
+        <translation>가져올 인증서</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished">새 인증</translation>
+        <translation>새 인증서</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>인증서를 내보낼 파일</translation>
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>이메일 주소</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>당신의 이름</translation>
     </message>
 </context>
 <context>
@@ -2362,11 +2374,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation>인증서 증명</translation>
+        <translation>인증서 인증</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호를 사용하지 않고 서버에 인증</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2374,80 +2386,80 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Mumble이 현재 사용하고 있는 인증서 입니다.</translation>
+        <translation>Mumble이 현재 사용하는 인증서입니다.</translation>
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation>현재 인증</translation>
+        <translation>현재 인증서</translation>
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation>새 인증서 발급</translation>
+        <translation>새 인증서 생성</translation>
     </message>
     <message>
         <source>This will create a new certificate.</source>
-        <translation>새로운 증명서를 생성합니다.</translation>
+        <translation>새 인증서가 생성됩니다.</translation>
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation>파일에서 인증서를 가져 옵니다.</translation>
+        <translation>파일에서 인증서 가져오기</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
-        <translation>이 파일에서 인증서를 가져 옵니다.</translation>
+        <translation>파일에서 인증서를 가져옵니다.</translation>
     </message>
     <message>
         <source>Import a certificate</source>
-        <translation>인증서를 가져 온다.</translation>
+        <translation>인증서 가져오기</translation>
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation>인증서를 내보낸다.</translation>
+        <translation>인증서 내보내기</translation>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
-        <translation>이 파일에 인증서를 내보냅니다.</translation>
+        <translation>인증서를 파일로 내보냅니다.</translation>
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation>현재 인증서를 내보낸다.</translation>
+        <translation>현재 인증서 내보내기</translation>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation>인증서를 가져 온다.</translation>
+        <translation>인증서 가져오기</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
-        <translation>PKCS #12 인증서를 가져 온다.</translation>
+        <translation>PKCS #12 인증서 가져오기</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Mumble PKCS#12형식으로 저장된 인증서를 가져올 수 있습니다. 이는 Mumble 키를 내보낼 때 쓰이는 형식 입니다. FireFox와 Internet Explorer, Opera등에서도 사용됩니다.&lt;/p&gt;&lt;p&gt;이 파일이 패스워드로 보호 되어 있다면 인증서를 가져올때 패스워드가 필요하게 됩니다.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble은 PKCS #12 형식으로 저장된 인증서를 가져올 수 있습니다. 이것은 Mumble, Firefox, Internet Explorer, Opera 등에서 키를 내보낼 때 사용되는 형식입니다.&lt;/p&gt;&lt;p&gt;파일이 비밀번호로 보호된 경우 인증서를 가져오려면 비밀번호가 필요합니다.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
-        <translation type="unfinished"></translation>
+        <translation>가져오기 위치</translation>
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>가져올 파일 이름</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>이것은 인증서를 가져올 파일 이름입니다.</translation>
+        <translation>인증서를 가져올 파일 이름입니다.</translation>
     </message>
     <message>
         <source>Select file to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>가져올 파일 선택</translation>
     </message>
     <message>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>인증서를 내보낼 기본 파일을 선택하기 위해 대화 상자를 엽니다.</translation>
+        <translation>인증서를 가져올 파일을 선택할 수 있는 파일 선택 대화 상자가 열립니다.</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>열기</translation>
+        <translation>열기...</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2459,27 +2471,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>인증서를 포함한 PKCS#12파일에 쓰일 패스워드입니다.</translation>
+        <translation>인증서가 포함 된 PKCS#12 파일의 비밀번호입니다.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>인증서를 가져 온다.</translation>
+        <translation>가져올 인증서</translation>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation>이것은 당신이 가져오는 인증서 입니다.</translation>
+        <translation>가져오려는 인증서입니다.</translation>
     </message>
     <message>
         <source>Certificate Details</source>
-        <translation>인증서 설명</translation>
+        <translation>인증서 세부 정보</translation>
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation>인증서의 치환</translation>
+        <translation>인증서 교체</translation>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>현재 인증서를 새로운 인증서로 바꾸시겠습니까?</translation>
+        <translation>기존 인증서를 새 인증서로 바꾸시겠습니까?</translation>
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
@@ -2491,63 +2503,63 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;당신은 이미 Mumble에 저장된 인증서가 있으며 이를 대체 합니다.&lt;/p&gt;
-&lt;p&gt;신뢰된 인증 의해 발행된 인증서로 업그레이드 하려고 합니다. 새로운 인증서의 Email 주소가 현재 당신의 인증서와 같은 것이라면 문제는 없습니다만 지금까지 유저 등록을 한 서버는 당신의 Email 주소를 바탕으로 보다 나은 인증서를 자동적으로 판별할 것입니다. 
+        <translation>&lt;p&gt;이미 Mumble에 저장된 인증서가 있으며 인증서를 바꾸려고 합니다. &lt;/p&gt;
+&lt;p&gt;신뢰할 수 있는 CA에서 발급한 인증서로 업그레이드하는 경우 이메일 주소가 현재 인증서와 일치하면 완전히 안전하며, 연결하는 서버가 이메일 주소에 대한 강력한 인증서를 자동으로 인식합니다.
 &lt;/p&gt;
-&lt;p&gt; 만약에 그렇지 않다면 어느 서버에서 받은 인증이 없어집니다. 아직 어느 서버에도 유저 등록 되어 있지 않다면 이 걱정은 따로 할 필요가 없습니다. 
+&lt;p&gt;그렇지 않으면 이전에 인증한 서버에서 더 이상 인식되지 않습니다. 아직 서버에 등록되지 않았다면 걱정할 필요가 없습니다.
 &lt;/p&gt;
 &lt;p&gt;
-정말로 인증서를 바꾸시겠습니까?
+인증서를 바꾸시겠습니까?
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Mumble이 현재 사용하고 있는 인증서입니다. 이는 새로운 것으로 바뀝니다.</translation>
+        <translation>Mumble이 현재 사용하는 인증서입니다. 그것은 교체될 것입니다.</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation>새 인증</translation>
+        <translation>새 인증서</translation>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"></translation>
+        <translation>이전 인증서를 대체할 새 인증서입니다.</translation>
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>새 인증</translation>
+        <translation>새 인증서</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>인증서 백업 만들기</translation>
     </message>
     <message>
         <source>Export to</source>
-        <translation type="unfinished"></translation>
+        <translation>내보낼 위치</translation>
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation type="unfinished"></translation>
+        <translation>내보낼 파일 이름</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"></translation>
+        <translation>인증서를 내보낼 파일 이름입니다.</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation>다른 이름으로 저장</translation>
+        <translation>다른 이름으로 저장...</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble이 현재 사용하는 인증서입니다. 그것은 내보내 질 것입니다.</translation>
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>강력한 인증을 위한 새 인증서 생성</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble은 서버에 대한 인증을 위한 강력한 인증서를 생성합니다.&lt;/p&gt;&lt;p&gt;원하는 경우 인증서에 저장할 추가 정보를 제공할 수 있으며, 이 정보는 연결할 때 서버에 제공됩니다. 유효한 이메일 주소를 제공하는 경우 나중에 CA에서 발급한 전자 메일 인증서로 업그레이드하여 강력한 식별 기능을 제공할 수 있습니다.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2559,19 +2571,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>당신의 이메일 주소 (e.g. johndoe@mumble.info)</translation>
+        <translation>이메일 주소 (예: johndoe@mumble.info)</translation>
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation type="unfinished"></translation>
+        <translation>당신의 이메일 주소입니다. 인증 문제없이 강력한 인증서로 업그레이드할 수 있음으로 올바른 이메일 주소를 제공하는 것이 좋습니다.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
-        <translation>당신의 이름 (e.g. John Doe)</translation>
+        <translation>이름 (예: John Doe)</translation>
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"></translation>
+        <translation>이것은 당신의 이름이며, 인증서에 작성됩니다. 이 필드는 선택 사항입니다.</translation>
     </message>
     <message>
         <source>Finish</source>
@@ -2579,39 +2591,40 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
-        <translation type="unfinished"></translation>
+        <translation>인증서 기반 인증을 사용할 준비</translation>
     </message>
     <message>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation type="unfinished"></translation>
+        <translation>강력한 인증으로 Mumble을 즐기세요.</translation>
     </message>
     <message>
         <source>Automatic certificate creation</source>
-        <translation>자동 인증서 생성</translation>
+        <translation>인증서 자동 생성</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;컴퓨터에 하드웨어 오류가 발생하거나 컴퓨터를 다시 설치할 경우 현재 인증서를 분실하면 등록된 서버에 인증할 수 없습니다. 따라서 인증서를 &lt;b&gt;반드시&lt;/b&gt; 백업해야 합니다. 이 백업을 USB 플래시 드라이브와 같은 이동식 저장소에 저장하는 것이 좋습니다.&lt;/p&gt;
+&lt;p&gt;이 파일은 암호화되지 않으며 파일에 접근할 수 있는 사용자가 있으면 가장할 수 있으므로 주의하여 보관하세요.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble은 인증서를 사용하여 서버를 인증할 수 있습니다. 인증서를 사용하면 비밀번호가 사용되지 않음으로 원격 사이트에 비밀번호를 노출할 필요가 없습니다. 또한, 서버와 관계없이 매우 쉬운 유저 등록과 클라이언트 측 친구 목록을 사용할 수 있습니다.&lt;/p&gt;&lt;p&gt;Mumble은 인증서 없이 작동할 수 있지만, 대부분의 서버는 유저가 인증서를 가질 것으로 예상합니다.&lt;/p&gt;&lt;p&gt;새 인증서를 자동으로 만드는 것은 대부분의 사용 사례에 충분합니다. 그러나 Mumble은 이메일 주소의 유저 소유권에 대한 신뢰를 나타내는 인증서도 지원합니다. 이러한 인증서는 제삼자가 발급합니다. 자세한 내용은 &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;유저 인증서 문서&lt;/a&gt;를 참조하세요.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>ChanACL</name>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation>없음</translation>
     </message>
     <message>
         <source>Traverse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">트래버스</translation>
     </message>
     <message>
         <source>Enter</source>
-        <translation>엔터</translation>
+        <translation>입장</translation>
     </message>
     <message>
         <source>Speak</source>
@@ -2619,7 +2632,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation>발언 금지/청취 금지</translation>
+        <translation>마이크/오디오 음소거</translation>
     </message>
     <message>
         <source>Make channel</source>
@@ -2627,75 +2640,75 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Make temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>임시 만들기</translation>
     </message>
     <message>
         <source>Link channel</source>
-        <translation>채널 링크</translation>
+        <translation>링크 채널</translation>
     </message>
     <message>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>이것은 권한이 없음을 나타냅니다.</translation>
     </message>
     <message>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>그룹 및 ACL 정보를 변경하는 기능을 포함하여 채널에 대한 전체 접근을 나타냅니다. 이 권한은 다른 모든 권한을 의미합니다.</translation>
     </message>
     <message>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널을 이동할 수 있는 권한을 나타냅니다. 유저의 이 권한이 거부되면 하위 채널의 다른 권한과 관계없이 이 채널과 하위 채널에 접근할 수 없습니다.</translation>
     </message>
     <message>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널에 입장할 수 있는 권한을 나타냅니다. 계층적 채널 구조를 가진 경우 모든 사용자에게 트래버스를 제공하지만 계층 구조의 루트에 입장을 제한할 수 있습니다.</translation>
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>이것은 채널에서 말할 수 있는 권한을 나타냅니다. 이 권한이 없는 유저는 서버에 의해 차단되고(마이크 음소거 표시) 적절한 권한을 가진 유저가 마이크 음소거를 해제할 때까지 말할 수 없습니다.</translation>
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"></translation>
+        <translation>외부에서 이 채널에 귓속말을 할 수 있는 권한을 나타냅니다. 이것은 &lt;i&gt;말하기&lt;/i&gt; 권한과 똑같이 작동하지만, 귓속말 키를 누른 상태에서 말한 패킷에 적용됩니다. 이것은 연결 없이 채널 계층으로 방송하는 데 사용될 수 있습니다.</translation>
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>다른 유저의 마이크 음소거 및 오디오 음소거에 대한 권한을 나타냅니다. 일단 마이크 음소거가 되면 다른 권한 있는 유저가 마이크 음소거가 해제되거나 서버에 다시 연결될 때까지 마이크 음소거를 유지합니다.</translation>
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>유저를 다른 채널로 이동시키거나 서버에서 유저를 추방할 수 있는 권한을 나타냅니다. 실제로 유저가 채널을 이동하려면 대상 채널에 대한 이동 권한이 있거나 해당 채널에 들어갈 수 있도록 허용되어야 합니다. 이 권한이 있는 유저는 대상 유저에게 일반적으로 입장할 수 없는 채널로 사용자를 이동할 수 있습니다.</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>하위 채널을 만들 수 있는 권한을 나타냅니다. 하위 채널을 만드는 유저는 하위 채널의 관리자 그룹에 추가됩니다.</translation>
     </message>
     <message>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"></translation>
+        <translation>임시 하위 채널을 만들 수 있는 권한을 나타냅니다. 하위 채널을 만드는 유저는 하위 채널의 관리자 그룹에 추가됩니다. 임시 채널은 저장되지 않으며 마지막 유저가 나갈 때 사라집니다.</translation>
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널을 연결할 수 있는 권한을 나타냅니다. 연결된 채널의 유저는 말하는 유저가 듣는 채널의 &lt;i&gt;말하기&lt;/i&gt; 권한을 있으면 들을 수 있습니다. 링크를 만들려면 두 채널 모두에 링크 권한이 있어야 하며, 링크를 제거하려면 두 채널 중 하나만 필요합니다.</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 채널에서 다른 유저에게 문자 메시지를 쓸 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>서버에서 유저를 추방할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>서버에서 유저를 차단할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>서버에서 유저를 등록 및 취소할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>서버에 자신을 등록할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -2707,15 +2720,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Text message</source>
-        <translation>텍스트 메세지</translation>
+        <translation>문자 메시지</translation>
     </message>
     <message>
         <source>Kick</source>
-        <translation>강퇴</translation>
+        <translation>추방</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation>밴</translation>
+        <translation>차단</translation>
     </message>
     <message>
         <source>Register User</source>
@@ -2723,7 +2736,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Register Self</source>
-        <translation type="unfinished"></translation>
+        <translation>본인 등록</translation>
     </message>
     <message>
         <source>Write ACL</source>
@@ -2731,19 +2744,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널을 들어가지 않고 채널을 청취할 수 있는 청취 기능을 사용할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>듣기</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>유저의 댓글 또는 아바타를 재설정할 수 있는 권한을 나타냅니다.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 콘텐츠 재설정</translation>
     </message>
 </context>
 <context>
@@ -2751,34 +2764,34 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>붙여넣기 및 보내기(&amp;S)</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation>&lt;center&gt;여기에 메시지를 입력하세요.&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;여기에 채팅 메시지 입력&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>이미지를 보낼 수 없음: 너무 큽니다.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>이미지를 보낼 수 없음 %1: 너무 큽니다.</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 서버는 이미지 전송을 허용하지 않습니다.</translation>
     </message>
 </context>
 <context>
     <name>ClientUser</name>
     <message>
         <source>Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>친구</translation>
     </message>
     <message>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>인증됨</translation>
     </message>
     <message>
         <source>Priority speaker</source>
@@ -2790,113 +2803,113 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 (서버)</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 음소거 (서버)</translation>
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 무시 (문자 메시지)</translation>
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 마이크 음소거</translation>
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 (자신)</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 음소거 (자신)</translation>
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 무시 (텍스트-음성-변환)</translation>
     </message>
 </context>
 <context>
     <name>ConfigDialog</name>
     <message>
         <source>Accept changes</source>
-        <translation>변경 확인</translation>
+        <translation>변경 내용 저장</translation>
     </message>
     <message>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 현재 설정을 저장하고 응용 프로그램으로 돌아갑니다.&lt;br /&gt;응용 프로그램을 종료하면 설정이 디스크에 저장됩니다.</translation>
     </message>
     <message>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation>변경 내용 취소</translation>
     </message>
     <message>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 모든 변경 내용을 취소하고 응용 프로그램으로 돌아갑니다.&lt;br /&gt;설정이 이전 상태로 재설정됩니다.</translation>
     </message>
     <message>
         <source>Apply changes</source>
-        <translation>변경한 것을 적용</translation>
+        <translation>변경 내용 적용</translation>
     </message>
     <message>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 모든 변경 내용을 즉시 적용합니다.</translation>
     </message>
     <message>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 페이지 변경 취소</translation>
     </message>
     <message>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 현재 페이지에서 변경한 내용을 가장 최근에 적용한 설정으로 되돌립니다.</translation>
     </message>
     <message>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 페이지 기본값 복원</translation>
     </message>
     <message>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble 구성</translation>
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>구성 범주</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 현재 페이지의 설정에 대한 기본값을 복원합니다. 다른 페이지는 변경되지 않습니다.&lt;br /&gt;모든 설정을 기본값으로 복원하려면 &quot;기본값 (모두)&quot;버튼을 누르세요.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 기본값 복원</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 버튼은 모든 설정의 기본값을 복원합니다.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>기본값 (모두)</translation>
     </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
         <source>Connecting to %1</source>
-        <translation>%1에 접속 중</translation>
+        <translation>%1에 연결 중</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation>유저이름 입력</translation>
+        <translation>유저 이름 입력</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation>서버이름</translation>
+        <translation>서버 이름</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>알 수 없음</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2904,7 +2917,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"></translation>
+        <translation>서버 목록 가져오기 실패</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
@@ -2920,7 +2933,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Add custom server</source>
-        <translation>커스텀 서버를 추가</translation>
+        <translation>커스텀 서버 추가</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -2928,7 +2941,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>클립보드에 즐겨찾기 링크 복사</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -2936,79 +2949,79 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>클립보드에서 즐겨찾기 붙여넣기</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>편집(&amp;E)</translation>
+        <translation>편집(&amp;E)...</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation>새롭게 추가...</translation>
+        <translation>새로 추가(&amp;A)...</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation>즐겨찾기 추가</translation>
+        <translation>즐겨찾기 추가(&amp;F)</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation>웹페이지 열기(&amp;W)</translation>
+        <translation>웹 페이지 열기(&amp;W)</translation>
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>서버 목록</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>검색</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>위치</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">필터</translation>
+        <translation>필터</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 표시</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>채워짐 표시</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>연결 가능 표시</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">전부</translation>
+        <translation>모두</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>아프리카</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>아시아</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>유럽</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>북아메리카</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>오세아니아</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>남아메리카</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3016,23 +3029,23 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;공용 서버의 지연 시간(ping)을 측정하고 활성 유저 수를 확인하려면 IP 주소를 각 공용 서버로 전송해야 합니다.&lt;/p&gt;&lt;p&gt;IP 주소 전송에 동의하십니까? 아니오로 응답하면 공용 서버 목록이 비활성화됩니다. 그러나 네트워크 설정에서 언제든지 다시 활성화할 수 있습니다.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">연결(&amp;C)</translation>
+        <translation>연결(&amp;O)</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>호스트 %1 추가 중</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation>호스트이름</translation>
+        <translation>호스트 이름</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour 이름</translation>
     </message>
     <message>
         <source>Port</source>
@@ -3040,7 +3053,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Addresses</source>
-        <translation>주소록</translation>
+        <translation>주소</translation>
     </message>
     <message>
         <source>Website</source>
@@ -3083,7 +3096,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name of the server</source>
-        <translation>서버의 이름</translation>
+        <translation>서버 이름</translation>
     </message>
     <message>
         <source>A&amp;ddress</source>
@@ -3092,14 +3105,15 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"></translation>
+        <translation>서버의 인터넷 주소입니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;주소&lt;/b&gt;&lt;br/&gt;
+서버의 인터넷 주소입니다. 이것은 정상적인 호스트 이름, IPv4/IPv6 주소 또는 Bonjour 서비스 식별자가 될 수 있습니다. Bonjour 서비스 식별자는 Mumble에서 인식하기 위해 &apos;@&apos; 접두사가 붙어야 합니다.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
@@ -3107,29 +3121,31 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation>서버가 수신하는 포트</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;포트&lt;/b&gt;&lt;br/&gt;
+서버가 수신 중인 포트입니다. 서버가 Bonjour 서비스 식별자로 식별되면 이 필드는 무시됩니다.</translation>
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation>유저 이름</translation>
+        <translation>유저 이름(&amp;U)</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>서버로 보낼 유저 이름</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;유저 이름&lt;/b&gt;&lt;br/&gt;
+서버로 보낼 유저 이름입니다. 서버가 유저 이름을 제한할 수 있습니다. 또한 유저 이름을 다른 유저가 이미 가져갔을 수도 있습니다.</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation>라벨</translation>
+        <translation>레이블</translation>
     </message>
     <message>
         <source>Add Server</source>
@@ -3139,13 +3155,17 @@ Username to send to the server. Be aware that the server can impose restrictions
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 서버에 연결되어 있습니다.
+이 서버의 연결 데이터로 대화 상자를 채우시겠습니까?
+호스트: %1 포트: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>클립보드에 URL이 있습니다.
+이 데이터로 대화 상자를 채우시겠습니까?
+호스트: %1 포트: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3153,25 +3173,27 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation>서버에 비밀번호를 보냅니다.</translation>
+        <translation>서버로 보낼 비밀번호</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;비밀번호&lt;/b&gt;&lt;br/&gt;
+연결할 때 서버로 보낼 비밀번호입니다. 이 비밀번호는 &lt;i&gt;슈퍼 유저&lt;/i&gt;로 연결하거나 비밀번호 인증을 사용하여 서버에 연결할 때 필요합니다. 여기에 비밀번호를 입력하지 않으면 연결할 때 요구됩니다.</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation>비밀번호 보기</translation>
+        <translation>비밀번호 표시</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;레이블&lt;/b&gt;&lt;br/&gt;
+서버의 레이블입니다. 서버 목록에서 서버의 이름이며 자유롭게 선택할 수 있습니다.</translation>
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 서버 레이블</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
@@ -3183,7 +3205,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Your username</source>
-        <translation>사용자 이름</translation>
+        <translation>유저 이름</translation>
     </message>
     <message>
         <source>Your password</source>
@@ -3191,11 +3213,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>채우기(&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>무시(&amp;I)</translation>
     </message>
 </context>
 <context>
@@ -3206,16 +3228,16 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;b&gt;정말 죄송하지만, Mumble이 충돌한 것 같습니다. Mumble 개발자에게 충돌 보고서를 보내시겠습니까?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;충돌 보고서에는 충돌 당시 Mumble 메모리 일부 복사본이 포함되어 있으며, 개발자들이 문제를 해결하는 데 도움이 될 것입니다.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation>Email 주소 (옵션)</translation>
+        <translation>이메일 주소 (옵션)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>충돌 당시 무엇을 하고 있었는지 영어로 간략하게 설명해주세요</translation>
     </message>
     <message>
         <source>Send Report</source>
@@ -3227,31 +3249,31 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation>충돌 보고서를 업로드 했습니다.</translation>
+        <translation>충돌 업로드 성공</translation>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>멈블 제작에 도움을 주셔서 감사합니다.</translation>
+        <translation>Mumble을 개선하는 데 도움을 주셔서 감사합니다!</translation>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation>충돌 보고서를 보내지 못했습니다.</translation>
+        <translation>충돌 업로드 실패</translation>
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation>충돌 보고서 업로드 중</translation>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 중단</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP 오류 %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CrashReporter.cpp에서 발생한 내부 오류: 수신된 네트워크 응답에 HTTP 상태 코드가 포함되어 있지 않습니다. 오류 코드 %1에 대해 개발자에게 알리세요</translation>
     </message>
 </context>
 <context>
@@ -3259,29 +3281,29 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>데이터베이스 &quot;%1&quot;는 읽기 전용입니다. 이 문제를 고칠 때까지 Mumble은 서버의 설정(예를 들면 SSL증명서)을 저장할 수 없습니다.</translation>
+        <translation>데이터베이스 &apos;%1&apos;은(는) 읽기 전용입니다. 이 문제를 해결할 때까지 Mumble은 서버 설정(예: SSL 인증서)을 저장할 수 없습니다.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>구성 파일에 설정된 데이터베이스 파일 &apos;%1&apos;이(가) 없습니다. 이 위치에 새 데이터베이스 파일을 생성하시겠습니까?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble이 가능한 모든 위치에서 데이터베이스를 초기화하지 못했습니다.</translation>
     </message>
 </context>
 <context>
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>개발자 콘솔</translation>
     </message>
 </context>
 <context>
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation>잡고 드래그 하세요.</translation>
+        <translation>여기로 드래그</translation>
     </message>
 </context>
 <context>
@@ -3292,7 +3314,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>List of configured shortcuts</source>
-        <translation>설정된 단축키 리스트</translation>
+        <translation>구성된 단축키 목록</translation>
     </message>
     <message>
         <source>Function</source>
@@ -3308,39 +3330,39 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Suppress</source>
-        <translation>단축키 금지</translation>
+        <translation>억제</translation>
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation>새로운 단축키를 추가</translation>
+        <translation>새 단축키 추가</translation>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
-        <translation>이에 따른 새 전체 단축키를 추가 합니다.</translation>
+        <translation>새 전역 단축키 추가</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>추가</translation>
+        <translation>추가(&amp;A)</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation>선택한 단축키를 삭제</translation>
+        <translation>선택한 단축키 삭제</translation>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 단축키가 삭제됩니다.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>삭제</translation>
+        <translation>삭제(&amp;R)</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble은 현재 전역 단축키에 마우스 버튼과 키보드 한정자 키(Alt, Ctrl, Cmd 등)만 사용할 수 있습니다.&lt;/p&gt;&lt;p&gt;더 많은 유연성을 원하면 시스템의 접근성 기본 설정에서 &lt;span style=&quot; font-style:italic;&quot;&gt;보조 장치 접근&lt;/span&gt;을 활성화 할 수 있습니다. 그러나 이러한 변경으로 인해 악성 프로그램이 키보드에 입력된 내용을 읽을 수도 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>접근성 환경 설정 열기</translation>
     </message>
     <message>
         <source>Skip</source>
@@ -3348,75 +3370,77 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>전역 단축키 사용</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;부가 단축키 엔진&lt;/b&gt;&lt;br /&gt;이 부분에서는 부가 전역 단축키 엔진 사용을 구성할 수 있습니다.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"></translation>
+        <translation>부가 단축키 엔진</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;G키 활성화&lt;/b&gt;&lt;br /&gt;이 설정을 사용하면 로지텍 키보드에 있는 &quot;G&quot; 키에 대한 G키 단축키 엔진을 지원할 수 있습니다.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"></translation>
+        <translation>G키 활성화</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;X입력 활성화&lt;/b&gt;&lt;br /&gt;이 설정을 사용하면 Xbox 호환 컨트롤러의 Xinput 단축키 엔진을 지원할 수 있습니다.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>X입력 활성화</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;권한 있는 응용 프로그램의 단축키 활성화&lt;/b&gt;.&lt;br /&gt;&quot;UIAccess&quot;라고 알려져 있습니다. 이를 통해 Mumble은 관리자 명령 프롬프트 또는 관리자 권한으로 실행되는 이전 게임과 같이 높은 권한 수준에서 실행되는 프로그램에서 전역 단축키 이벤트를 수신할 수 있습니다.
+&lt;br /&gt;&lt;br /&gt;
+이 옵션을 활성화하지 않으면 권한 있는 응용 프로그램에서 Mumble의 전역 단축키를 사용할 수 없습니다. 이것은 일관성이 없어 보일 수 있습니다: 예를 들어 권한이 없는 프로그램에서 눌러서-말하기 버튼을 눌렀지만 권한이 있는 응용 프로그램에서 해제된 경우 Mumble은 눌러서-말하기 버튼을 다시 누를 때까지 계속 대화합니다.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"></translation>
+        <translation>권한 있는 응용 프로그램의 단축키 활성화</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>단축키 편집</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>캡처 프로세스 시작</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;캡처 프로세스를 시작합니다: 누르는 모든 버튼이 추가됩니다.&lt;/p&gt;&lt;p&gt;모든 버튼을 놓으면 캡처 프로세스가 자동으로 중지됩니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">추가</translation>
+        <translation>추가</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 선택한 항목 삭제</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">삭제</translation>
+        <translation>삭제</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble은 현재 전역 단축키에 마우스 버튼과 키보드 한정자 키(Alt, Ctrl, Cmd 등)만 사용할 수 있습니다.&lt;/p&gt;&lt;p&gt;더 많은 유연성을 원한다면 Mac 시스템 환경 설정의 보안 및 개인 정보 부분에서 신뢰할 수 있는 접근성 프로그램으로 Mumble을 추가 할 수 있습니다.&lt;/p&gt;&lt;p&gt;보안 및 개인 정보 환경 설정 창에서 개인 정보 탭으로 변경합니다. 그런 다음 왼쪽 목록에서 접근성(아래쪽 근처)을 선택합니다. 마지막으로 신뢰할 수 있는 접근성 프로그램 목록에 Mumble을 추가합니다.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Shortcuts</source>
@@ -3425,56 +3449,56 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;이것은 전역 단축키 조합입니다.&lt;/b&gt;&lt;br /&gt;이 필드를 클릭한 다음 원하는 키/버튼 콤보를 눌러 다시 바인딩합니다. 지우려면 두 번 클릭하세요.</translation>
     </message>
     <message>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>다른 응용 프로그램의 키 억제</translation>
     </message>
     <message>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;이것은 다른 응용 프로그램에서 누르는 버튼을 숨깁니다.&lt;/b&gt;&lt;br /&gt;이 옵션을 활성화하면 버튼(또는 여러 버튼의 마지막 버튼)이 다른 응용프로그램에서 숨겨집니다. 모든 버튼을 억제 할 수 있는 것은 아닙니다.</translation>
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>단축키 구성</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>알 수 없음</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>마우스</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>키보드</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutTarget</name>
     <message>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation>귓속말 대상</translation>
     </message>
     <message>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 대상</translation>
     </message>
     <message>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation>그룹 제한</translation>
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"></translation>
+        <translation>지정된 경우 이 그룹의 멤버들만 귓속말을 받습니다.</translation>
     </message>
     <message>
         <source>List of users</source>
@@ -3490,106 +3514,106 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation>수정자</translation>
     </message>
     <message>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 귓속말 단축키를 사용할 때 위치 오디오 정보를 보내지 마세요.</translation>
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>위치 오디오 무시</translation>
     </message>
     <message>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>연결된 채널에 외치기</translation>
     </message>
     <message>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>하위 채널에 외치기</translation>
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>귓속말은 연결된 채널로도 전송됩니다.</translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>귓속말은 채널 대상의 하위 채널로도 전송됩니다.</translation>
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>외치기/귓속말 대상:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 선택</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>채널에 외칠 때:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>연결된 채널에 외치기</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">채널</translation>
+        <translation>채널</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>마우스</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>키보드</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>키보드</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>마우스</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>하드웨어 포트</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>모노</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>스테레오</translation>
     </message>
 </context>
 <context>
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation>연결 되지 않았습니다.</translation>
+        <translation>연결되지 않음</translation>
     </message>
 </context>
 <context>
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>이 장치 활성화</translation>
     </message>
     <message>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <source>Devices</source>
@@ -3606,12 +3630,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;당신의 시스템상에 있는 이용 가능한 LCD디바이스의 리스트입니다. 디바이스를 나열합니다. 또 화면 사이즈도 포함하고 있습니다. Mumble은 여러개의 LCD디바이스에 동시에 출력하는 것을 지원하고 있습니다.&lt;/p&gt;
-&lt;h3&gt;사이즈:&lt;/h3&gt;
+        <translation>&lt;p&gt;시스템에서 사용 가능한 LCD 장치 목록입니다. 장치 이름은 나열되지만 디스플레이 크기도 포함됩니다. Mumble은 한 번에 여러 LCD 장치에 대한 출력을 지원합니다.&lt;/p&gt;
+&lt;h3&gt;크기:&lt;/h3&gt;
 &lt;p&gt;
-이 필드는 LCD디바이스 크기를 나타냅니다. 사이즈는 픽셀(LCD의 화상)이나 문자 수(LCD의 문자)로 주어집니다.&lt;/p&gt;
-&lt;h3&gt;활성화:&lt;/h3&gt;
-&lt;p&gt;Mumble이 특정 LCD디바이스에 묘화 할지 결정합니다.&lt;/p&gt;</translation>
+이 필드는 LCD 장치의 크기를 설명합니다. 크기는 픽셀(그래픽 LCD의 경우) 또는 문자(문자 LCD의 경우)로 지정됩니다.&lt;/p&gt;
+&lt;h3&gt;활성화&lt;/h3&gt;
+&lt;p&gt;이것은 Mumble이 특정 LCD 장치에 그려야 하는지 여부를 결정한다.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Size</source>
@@ -3619,44 +3643,46 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">유효</translation>
+        <translation>활성화</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>보기</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>최소 열 너비</translation>
     </message>
     <message>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;이 옵션은 사용자 보기에서 열의 최소 너비를 결정합니다.&lt;/p&gt;
+&lt;p&gt;한 번에 너무 많은 사용자가 말하는 경우 사용자 보기가 열로 분할됩니다. 이 옵션을 사용하여 LCD에 표시된 사용자 수와 사용자 이름의 너비 사이에서 절충안을 선택할 수 있습니다.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 설정은 열 분할기의 너비를 결정합니다.</translation>
     </message>
     <message>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>스플리터 너비</translation>
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>최소 열 너비</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>스플리터 너비</translation>
     </message>
 </context>
 <context>
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1에게 듣기 위한 로컬 볼륨 조절</translation>
     </message>
 </context>
 <context>
@@ -3667,7 +3693,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Critical</source>
-        <translation>치명적 오류</translation>
+        <translation>치명적</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -3679,63 +3705,63 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>타인 마이크 음소거됨/오디오 음소거됨</translation>
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 녹음 상태 변경됨</translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 추방됨 (당신 또는 당신에 의해)</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation>유저 강퇴</translation>
+        <translation>유저 추방됨</translation>
     </message>
     <message>
         <source>You self-muted</source>
-        <translation>자신을 발언 금지 하기</translation>
+        <translation>자신의 마이크 음소거됨</translation>
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 마이크 음소거됨 (당신)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 마이크 음소거됨 (당신에 의해)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 마이크 음소거됨 (기타)</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>자신의 마이크 음소거 해제됨</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>자신의 오디오 음소거됨</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>자신의 오디오 음소거 해제됨</translation>
     </message>
     <message>
         <source>User renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 이름 변경됨</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 연결됨 및 채널 입장됨</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 채널 퇴장됨 및 연결 종료됨</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>개인 문자 메시지</translation>
     </message>
     <message>
         <source>the server</source>
@@ -3743,142 +3769,143 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ 잘못된 크기 ]]</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ 텍스트 개체가 너무 커서 표시할 수 없음 ]]</translation>
     </message>
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>[날짜가 %1로 변경됨]
+</translation>
     </message>
     <message>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1의 링크</translation>
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1의 FTP 링크</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 링크</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 링크</translation>
     </message>
     <message>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 링크</translation>
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>서버 연결됨</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>서버 연결 종료됨</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 서버 입장됨</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 서버 퇴장됨</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 채널 입장됨</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>유저 채널 퇴장됨</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>권한 거부됨</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished">텍스트 메세지</translation>
+        <translation>문자 메시지</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 입장됨</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 입장됨 (이동됨)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>유저의 채널 듣기가 시작됨</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>유저의 채널 듣기가 중지됨</translation>
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>플러그인 메시지</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 콘솔 전환</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 팝업 알림 전환</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대해 텍스트-음성-변환 전환</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 소리 알림을 전환하려면 여기를 클릭</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대해 윈도우 강조 표시(활성화되지 않은 경우) 전환</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트의 경우 소리 알림에 사용되는 사운드 파일의 경로&lt;br /&gt;한 번 클릭하여 재생&lt;br /&gt;두 번 클릭하여 변경</translation>
     </message>
     <message>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>이벤트&quot;%1&quot;의 콘솔 출력을 바꾸려면 이곳을 클릭하세요.&lt;br/&gt;체크된 경우 메시지 로그에 모든 이벤트&quot;%1&quot;을 출력합니다.</translation>
+        <translation>%1 이벤트에 대한 콘솔 출력을 전환하려면 여기를 클릭하세요.&lt;br /&gt;이 옵션을 선택하면 Mumble이 메시지 로그에 있는 모든 %1 이벤트를 출력합니다.</translation>
     </message>
     <message>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 팝업 알림을 전환하려면 여기를 클릭하세요.&lt;br /&gt;이 옵션을 선택하면 %1 이벤트마다 Mumble에 의해 알림 팝업이 생성됩니다.</translation>
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 윈도우 강조 표시를 전환하려면 여기를 클릭하세요.&lt;br /&gt;이 옵션을 선택하면 Mumble의 창이 활성화되지 않은 경우 %1 이벤트마다 강조 표시됩니다.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트의 경우 소리 알림에 사용되는 사운드 파일의 경로입니다.&lt;br /&gt;한 번 클릭하여 재생&lt;br /&gt;두 번 클릭하여 변경&lt;br /&gt;이러한 이벤트에 대한 소리 알림이 활성화되어있지 않으면 이 필드가 아무런 영향도 미치지 않습니다.</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대해 텍스트-음성-변환을 전환하려면 여기를 클릭하세요.&lt;br /&gt;이 옵션을 선택하면 Mumble이텍스트-음성-변환을 사용하여 %1 이벤트를 읽어줍니다. 텍스트-음성-변환은 사운드 파일에 적용되지 않는 이벤트 내용을 읽을 수 있습니다. 텍스트-음성-변환과 사운드 파일을 동시에 사용할 수 없습니다.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 소리 알림을 전환하려면 여기를 클릭하세요.&lt;br /&gt;이 옵션을 선택하면 Mumble은 %1 이벤트의 미리 정의한 사운드 파일을 사용합니다. 사운드 파일과 텍스트-음성-변환은 동시에 사용할 수 없습니다.</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -3898,11 +3925,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation>음성 알림</translation>
+        <translation>텍스트-음성-변환</translation>
     </message>
     <message>
         <source>Soundfile</source>
-        <translation>사운드파일</translation>
+        <translation>사운드 파일</translation>
     </message>
     <message>
         <source>Path</source>
@@ -3910,7 +3937,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation>음성 알림</translation>
+        <translation>텍스트 음성 변환</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -3918,27 +3945,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트-음성-변환 엔진의 볼륨</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;음성 합성에 사용되는 볼륨입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>길이 임계값</translation>
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트-음성-변환 엔진의 메시지 길이 임계값</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;텍스트 음성 변환 엔진에 사용되는 길이 임계값입니다.&lt;/b&gt;&lt;br /&gt;이 제한보다 긴 메시지는 전체 길이로 읽지 않습니다.</translation>
     </message>
     <message>
         <source> Characters</source>
-        <translation type="unfinished"></translation>
+        <translation> 문자</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -3946,19 +3973,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 옵션을 선택하면 친구 목록에 추가한 유저의 귓속말만 들을 수 있습니다.</translation>
     </message>
     <message>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"></translation>
+        <translation>친구의 귓속말만 받기</translation>
     </message>
     <message>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>활성화 된 경우 보내는 문자 메시지를 텍스트-음성-변환으로 읽기</translation>
     </message>
     <message>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>자신의 메시지 읽기</translation>
     </message>
     <message>
         <source>Chat Log</source>
@@ -3966,72 +3993,74 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>최대 채팅 길이</translation>
     </message>
     <message>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>무제한</translation>
     </message>
     <message>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> 줄</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>강조</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"></translation>
+        <translation>활성화된 경우 텍스트-음성-변환은 메시지 범위를 지시하지 않습니다.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>메시지 범위 생략</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"></translation>
+        <translation>활성화된 경우 텍스트-음성-변환은 메시지 작성자를 포함하지 않습니다.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>메시지 작성자 생략</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 옵션을 선택하면 메시지 시작 시간이 24시간 형식으로 표시됩니다.
+
+이 설정은 새 메시지에만 적용되며, 이미 표시된 메시지는 이전 시간 형식을 유지합니다.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>24시간제 사용</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
-        <translation type="unfinished"></translation>
+        <translation>개별 메시지가 서로 떨어져 있는 간격입니다.</translation>
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>메시지 여백</translation>
     </message>
     <message>
         <source>Log messages</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 메시지</translation>
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트-음성-변환 엔진 볼륨</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>채팅 메시지 여백</translation>
     </message>
 </context>
 <context>
     <name>LookConfig</name>
     <message>
         <source>System default</source>
-        <translation>기본 시스템</translation>
+        <translation>시스템 기본값</translation>
     </message>
     <message>
         <source>None</source>
@@ -4039,19 +4068,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation>유저만</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>전부</translation>
+        <translation>모두</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation>말하기</translation>
+        <translation>물어보기</translation>
     </message>
     <message>
         <source>Do Nothing</source>
-        <translation>하지않는다</translation>
+        <translation>아무것도 안 함</translation>
     </message>
     <message>
         <source>Move</source>
@@ -4068,31 +4097,31 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"></translation>
+        <translation>자동으로 확장할 채널을 설정합니다. &lt;i&gt;없음&lt;/i&gt;과 &lt;i&gt;모두&lt;/i&gt;는 없음 또는 모든 채널이 확장되고, &lt;i&gt;유저만&lt;/i&gt;은 유저가 입장 및 퇴장하면 채널이 확장 및 축소됩니다.</translation>
     </message>
     <message>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation>하위 채널 위에 유저를 나열합니다(다시 시작 필요).</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;설정된 경우 채널 보기에서 유저는 하위 채널 위에 표시됩니다.&lt;/b&gt;&lt;br /&gt;변경 내용을 확인하려면 Mumble을 다시 시작해야 합니다.</translation>
     </message>
     <message>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 위의 유저</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;설정된 경우 연결되면 종료할지 확인합니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>각 채널의 유저 수 표시</translation>
     </message>
     <message>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 유저 수 표시</translation>
     </message>
     <message>
         <source>Language</source>
@@ -4100,15 +4129,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation>사용하는 언어(다시 실행 필요)</translation>
+        <translation>사용할 언어 (다시 시작 필요)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation>&lt;b&gt;Mumble이 사용하는 언어를 선택 합니다.&lt;/b&gt;&lt;br/&gt; 새로운 언어를 사용하기 위해서는 재시작이 필요합니다.</translation>
+        <translation>&lt;b&gt;Mumble이 사용하는 언어를 설정합니다.&lt;/b&gt;&lt;br /&gt;새 언어를 사용하려면 Mumble을 다시 시작해야 합니다.</translation>
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation>스킨 / 스타일 설정</translation>
+        <translation>룩 앤드 필</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -4116,11 +4145,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Classic</source>
-        <translation>기본</translation>
+        <translation>클래식</translation>
     </message>
     <message>
         <source>Stacked</source>
-        <translation>변형</translation>
+        <translation>스택드</translation>
     </message>
     <message>
         <source>Hybrid</source>
@@ -4132,12 +4161,12 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널을 이동할 때 동작이 변경됩니다.</translation>
     </message>
     <message>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>채널 드래그의 동작을 설정합니다. 실수로 드래그하는 것을 방지하기 위해 사용할 수 있습니다. &lt;i&gt;이동&lt;/i&gt;은 확인 없이 채널을 이동합니다. &lt;i&gt;아무것도 안 함&lt;/i&gt;은 아무 동작도 하지 않고 오류 메시지를 출력합니다. &lt;i&gt;물어보기&lt;/i&gt;는 메시지 박스를 사용하여 채널을 이동할지 여부를 확인합니다.</translation>
     </message>
     <message>
         <source>Expand</source>
@@ -4145,23 +4174,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>채널을 자동으로 확장하는 경우</translation>
     </message>
     <message>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 드래그</translation>
     </message>
     <message>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble을 종료할 때 닫을 것인지 아니면 최소화할지 묻습니다.</translation>
     </message>
     <message>
         <source>Ask on quit while connected</source>
-        <translation>접속 중에 종료를 할지 확인한다.</translation>
+        <translation>연결된 상태에서 종료 시 묻기</translation>
     </message>
     <message>
         <source>Always On Top</source>
-        <translation>항상 위에 표시</translation>
+        <translation>항상 위에</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
@@ -4473,7 +4502,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>누르며 말하기</translation>
+        <translation>눌러서-말하기</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -4796,7 +4825,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation type="unfinished">누르며 말하기</translation>
+        <translation>눌러서-말하기</translation>
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
@@ -5421,7 +5450,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>환영 메세지: %1</translation>
+        <translation>환영 메시지: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
@@ -5716,7 +5745,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation>채널을 드래그 했을 때 &quot;아무것도 하지 않는다&quot; 로 하겠습니까?; 한다면 다른 채널로 이동하지 못합니다.</translation>
+        <translation>채널이 이동되지 않도록 채널 끌기가 &quot;아무것도 안 함&quot;으로 설정되어 있습니다.</translation>
     </message>
     <message>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
@@ -5742,7 +5771,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation>멈블에 오신것을 환영 합니다</translation>
+        <translation>멈블에 오신 것을 환영합니다</translation>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
@@ -5834,7 +5863,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation>메세지를 무시한다.</translation>
+        <translation>메시지 무시</translation>
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
@@ -6129,7 +6158,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>개인</translation>
     </message>
     <message>
         <source>%1: %2</source>
@@ -7388,7 +7417,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished">메세지를 무시한다.</translation>
+        <translation>메시지 무시</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7536,7 +7565,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message is too long.</source>
-        <translation>메세지가 너무 깁니다.</translation>
+        <translation>메시지가 너무 깁니다.</translation>
     </message>
     <message>
         <source>Display</source>
@@ -7610,7 +7639,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>없음</translation>
     </message>
     <message>
         <source>Join</source>
@@ -7827,7 +7856,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>알 수 없음</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
@@ -8430,7 +8459,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>정말 이 채널을 드래그 합니까?</translation>
+        <translation>이 채널을 이동하시겠습니까?</translation>
     </message>
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
@@ -8647,7 +8676,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;찾아보기...</translation>
+        <translation>찾아보기(&amp;B)...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
@@ -8726,11 +8755,11 @@ Please contact your server administrator for further information.</source>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>멈블 PTT</translation>
+        <translation>Mumble 눌러서-말하기</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>누르며 말하기</translation>
+        <translation>눌러서 말하기</translation>
     </message>
 </context>
 </TS>
