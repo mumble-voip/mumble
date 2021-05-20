@@ -395,11 +395,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>מספר משתמשים מקסימלי</translation>
+        <translation>מספר משתמשים מרבי</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>מספר המשתמש המרבי המותר בערוץ</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -2699,7 +2699,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>מייצג את ההרשאה לנדות (להשעות) משתמשים מהשרת. </translation>
+        <translation>מייצג את ההרשאה להדיח משתמשים מהשרת לצמיתות.</translation>
     </message>
     <message>
         <source>This represents the permission to register and unregister users on the server.</source>
@@ -5568,7 +5568,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation>%1 ביטל את עדיפות הדיבור של %2 </translation>
+        <translation>%1 שלל את עדיפות הדיבור של %2.</translation>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
