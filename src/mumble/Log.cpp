@@ -525,8 +525,8 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 }
 
 QString Log::imageToImg(QImage img, int maxSize) {
-	if ((img.width() > 480) || (img.height() > 270)) {
-		img = img.scaled(480, 270, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	if ((img.width() > 800) || (img.height() > 600)) {
+		img = img.scaled(800, 600, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;
