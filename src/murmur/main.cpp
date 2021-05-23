@@ -320,6 +320,9 @@ int main(int argc, char **argv) {
 			}
 #ifdef Q_OS_UNIX
 		} else if ((arg == "-readsupw")) {
+			// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
+			// handling the readPw = true part has to be moved up so that it is executed before fork is called on Unix
+			// systems.
 			detach = false;
 			readPw = true;
 			if (i + 1 < args.size()) {
@@ -497,6 +500,59 @@ int main(int argc, char **argv) {
 	unixhandler.setuid();
 #endif
 
+#ifdef Q_OS_UNIX
+	// It is really important that these fork calls come before creating the
+	// ServerDB object because sqlite uses POSIX locks on Unix systems (see
+	// https://sqlite.org/lockingv3.html#:~:text=SQLite%20uses%20POSIX%20advisory%20locks,then%20database%20corruption%20can%20result.)
+	// POSIX locks are automatically released if a process calls close() on any of
+	// its open file descriptors for that file. If the ServerDB object, which
+	// opens the sqlite database, is created before the fork, then the child will
+	// inherit all open file descriptors and then close them on exit, releasing
+	// all these POSIX locks. If another process (i.e. not murmur) makes any
+	// connections to the database, it will think nobody else is connected
+	// (because nothing is locked) and database corruption can (and likely will!)
+	// ensue. This is particularly nasty if you have WAL mode enabled, because the
+	// WAL file is deleted when the last connection to the database closes.
+	if (detach) {
+		if (fork() != 0) {
+			_exit(0);
+		}
+		setsid();
+		if (fork() != 0) {
+			_exit(0);
+		}
+
+		if (!Meta::mp.qsPid.isEmpty()) {
+			QFile pid(Meta::mp.qsPid);
+			if (pid.open(QIODevice::WriteOnly)) {
+				QFileInfo fi(pid);
+				Meta::mp.qsPid = fi.absoluteFilePath();
+
+				QTextStream out(&pid);
+				out << getpid();
+				pid.close();
+			}
+		}
+
+		if (chdir("/") != 0)
+			fprintf(stderr, "Failed to chdir to /");
+		int fd;
+
+		fd = open("/dev/null", O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
+
+		fd = open("/dev/null", O_WRONLY);
+		dup2(fd, 1);
+		close(fd);
+
+		fd = open("/dev/null", O_WRONLY);
+		dup2(fd, 2);
+		close(fd);
+	}
+	unixhandler.finalcap();
+#endif
+
 	MumbleSSL::addSystemCA();
 
 	ServerDB db;
@@ -506,6 +562,8 @@ int main(int argc, char **argv) {
 	QObject::connect(meta, SIGNAL(started(Server *)), &db, SLOT(clearLastDisconnect(Server *)));
 
 #ifdef Q_OS_UNIX
+	// It doesn't matter that this code comes after the forking because detach is
+	// set to false when readPw is set to true.
 	if (readPw) {
 		char password[256];
 		char *p;
@@ -554,47 +612,6 @@ int main(int argc, char **argv) {
 		qWarning("Removing all log entries from the database.");
 		ServerDB::wipeLogs();
 	}
-
-#ifdef Q_OS_UNIX
-	if (detach) {
-		if (fork() != 0) {
-			_exit(0);
-		}
-		setsid();
-		if (fork() != 0) {
-			_exit(0);
-		}
-
-		if (!Meta::mp.qsPid.isEmpty()) {
-			QFile pid(Meta::mp.qsPid);
-			if (pid.open(QIODevice::WriteOnly)) {
-				QFileInfo fi(pid);
-				Meta::mp.qsPid = fi.absoluteFilePath();
-
-				QTextStream out(&pid);
-				out << getpid();
-				pid.close();
-			}
-		}
-
-		if (chdir("/") != 0)
-			fprintf(stderr, "Failed to chdir to /");
-		int fd;
-
-		fd = open("/dev/null", O_RDONLY);
-		dup2(fd, 0);
-		close(fd);
-
-		fd = open("/dev/null", O_WRONLY);
-		dup2(fd, 1);
-		close(fd);
-
-		fd = open("/dev/null", O_WRONLY);
-		dup2(fd, 2);
-		close(fd);
-	}
-	unixhandler.finalcap();
-#endif
 
 #ifdef USE_DBUS
 	MurmurDBus::registerTypes();
