@@ -393,6 +393,7 @@ void AudioWizard::reject() {
 		ao->wipe();
 	}
 
+	Global::get().bPosTest = false;
 	restartAudio();
 	Global::get().bInAudioWizard = false;
 
