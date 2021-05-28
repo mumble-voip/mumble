@@ -12,6 +12,8 @@
 
 #include <sstream>
 
+#include <memory>
+
 std::unique_ptr< Game > game;
 
 static inline bool inGame(const AmongUsClient_Fields &fields) {

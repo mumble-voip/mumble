@@ -15,6 +15,7 @@
 
 #include <cstring>
 #include <sstream>
+#include <memory>
 
 std::unique_ptr< Process > proc;
 
