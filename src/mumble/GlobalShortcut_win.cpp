@@ -19,6 +19,8 @@
 
 #include <QTimer>
 
+#include <sstream>
+
 extern "C" {
 // clang-format off
 // Do NOT change the order of the includes below or compile errors will occur!
