@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:cc="http://creativecommons.org/ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" sodipodi:docname="mumble.svg" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:version="0.47pre1" sodipodi:version="0.32"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="400px" height="400px"
+	 viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="200" y1="6.758" x2="200" y2="395.242" gradientTransform="matrix(1 0 0 -1 0 401)">
+		<stop  offset="0" style="stop-color:#E0E0E1"/>
+		<stop  offset="1" style="stop-color:#FFFFFF"/>
+	</linearGradient>
+	<circle fill="url(#SVGID_1_)" stroke="#333333" stroke-width="4" stroke-miterlimit="10" cx="200" cy="200" r="194.242"/>
+</g>
+<linearGradient id="rect908-1-6_1_" gradientUnits="userSpaceOnUse" x1="200" y1="372.2291" x2="200" y2="27.7709">
+	<stop  offset="0" style="stop-color:#0D0D0D"/>
+	<stop  offset="1" style="stop-color:#4D4D4D"/>
+</linearGradient>
+<path id="rect908-1-6_2_" fill="url(#rect908-1-6_1_)" stroke="#000000" stroke-width="4" stroke-miterlimit="10" d="
+	M231.94,351.901c0.096-0.007,0.192-0.01,0.289-0.01h34.684c0,0,1.992-0.171,4.429-1.344c3.097-1.491,6.403-3.682,9.484-5.708
+	c3.431-2.257,6.633-4.662,10.006-7.172c0.484-0.36,0.925-0.727,1.326-1.093c-14.387,1.894-8.444-31.131-8.444-39.595
+	c0-32.397,0-64.794,0-97.191c0-30.201,0-60.403,0-90.604c0-21.108,0.309-55.955-30.833-53.681c0,12.738,0,25.477,0,38.215
+	c0,12.375,1.881,26.286-0.65,38.45c-5.397,25.934-27.61,31.294-50.703,31.057c-21.564-0.221-43.319-0.073-53.304-23.237
+	c-5.145-11.934-3.016-26.852-3.022-39.528c-0.007-15.02,0.104-30.039,0.03-45.059c-37.888-0.431-29.234,56.503-29.234,79.971
+	c0,45.081,0,90.162,0,135.243c0,16.776,0,33.551,0,50.327c0,13.156,1.133,16.682-14.462,16.773
+	c-29.951,0.176-52.396-31.962-60.156-57.258c-10.082-32.862-5.323-72.112,16.304-99.488c8.131-10.292,18.818-18.762,31.335-22.987
+	c0-16.889,0-33.779,0-50.668c0-15.811-0.956-32.214,6.622-46.67c10.526-20.08,33.343-32.533,55.814-31.986
+	c8.67-0.348,17.368,0.967,21.664,9.655c-0.163,17.965-0.142,35.931-0.134,53.897c0.006,12.412-3.546,31.71,3.145,42.911
+	c6.826,11.429,26.005,13.771,37.473,8.644c16.104-7.199,13.163-25.026,13.205-39.572c0.057-19.791,0.004-39.582-0.073-59.372
+	c-0.13-33.482,56.22-9.509,68.359,3.228c22.719,23.84,15.714,62.504,15.714,92.5c0,6.628-3.031,14.901,3.654,17.579
+	c5.4,2.163,10.46,5.131,15.064,8.68c11.022,8.495,19.36,20.152,25.017,32.788c20.518,45.825,7.596,124.753-50.139,136.449
+	c0.124,1.355-0.492,2.727-1.736,3.532c0,0-10.182,8.197-15.687,11.719c-5.179,3.08-8.109,5.592-12.606,7.565
+	c-1.804,0.791-4.836,1.674-5.676,1.674h-36.471l-1.258-0.203c-3.855,6.902-14.998,11.892-28.147,11.896
+	c-16.35,0.004-29.609-7.704-29.617-17.216c0-0.005,0-0.01,0-0.015c-0.007-9.512,13.241-17.227,29.59-17.231
+	c13.979-0.004,25.699,5.631,28.809,13.21L231.94,351.901z"/>
+</svg>

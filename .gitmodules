@@ -19,9 +19,6 @@
 [submodule "3rdparty/rnnoise-src"]
 	path = 3rdparty/rnnoise-src
 	url = https://github.com/mumble-voip/rnnoise.git
-[submodule "themes/Mumble"]
-	path = themes/Mumble
-	url = https://github.com/mumble-voip/mumble-theme.git
 [submodule "3rdparty/FindPythonInterpreter"]
 	path = 3rdparty/FindPythonInterpreter
 	url = https://github.com/Krzmbrzl/FindPythonInterpreter.git

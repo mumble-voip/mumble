@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g id="svg2383" xmlns:svg="http://www.w3.org/2000/svg" display="none">
+	<g id="layer3" display="inline">
+	</g>
+	<g id="layer1" display="inline">
+		<path id="path2454" fill="#AFDDE9" stroke="#AFDDE9" stroke-width="0.227" stroke-linecap="round" stroke-linejoin="round" d="
+			M13.627,45.318L3.218,45.27V27.908V10.545h14.364h14.364V28v17.455l-3.955-0.044C25.816,45.386,19.352,45.345,13.627,45.318
+			L13.627,45.318z"/>
+		<path id="path2456" fill="#37C8AB" stroke="#37C8AB" stroke-width="0.2275" stroke-linecap="round" stroke-linejoin="round" d="
+			M33.128,30.091V10.546h14.181H61.49v19.545v19.545H47.309H33.128V30.091z"/>
+		<path id="path2458" fill="#3771C8" stroke="#3771C8" stroke-width="0.227" stroke-linecap="round" stroke-linejoin="round" d="
+			M3.218,47.971v-1.666l6.03,0.12c3.316,0.066,9.78,0.12,14.364,0.12h8.334v1.545v1.545H17.582H3.218V47.971z"/>
+	</g>
+	<g id="layer2" display="inline">
+		<text transform="matrix(1 0 0 1 9.4546 49.2727)" font-family="'ArialMT'" font-size="3.5">Chatbar</text>
+		<text transform="matrix(0 -1 1 0 51.7437 43.0049)" font-family="'ArialMT'" font-size="12">Tree</text>
+		
+			<rect id="rect2393" x="2.545" y="9.818" fill="none" stroke="#000000" stroke-width="1.247" stroke-linecap="round" stroke-linejoin="round" width="59.636" height="40.545"/>
+		<path id="path2403" fill="none" stroke="#000000" d="M32.545,50.182V9.818"/>
+		<path id="path2405" fill="none" stroke="#000000" d="M2.545,45.818l30,0.182"/>
+		<text transform="matrix(0 -1 1 0 20.5618 37.8232)" font-family="'ArialMT'" font-size="12">Log</text>
+	</g>
+</g>
+<g id="Layer_2">
+	<rect x="0.62" y="12.388" opacity="0.25" fill="#7F7F7F" enable-background="new    " width="62.764" height="39.228"/>
+	<g opacity="0.75">
+		<g>
+			<rect x="3.902" y="15.646" opacity="0.5" fill="#7F7F7F" enable-background="new    " width="18.026" height="32.606"/>
+		</g>
+		<g>
+			<rect x="22.987" y="15.698" opacity="0.5" fill="#7F7F7F" enable-background="new    " width="18.026" height="32.606"/>
+		</g>
+		<g>
+			<rect x="42.072" y="15.698" opacity="0.5" fill="#7F7F7F" enable-background="new    " width="18.026" height="32.606"/>
+		</g>
+	</g>
+	<g>
+		<path fill="#7F7F7F" d="M29.018,36.595c-0.569-1.467-0.407-3.278,0.469-4.587c0.973-1.454,2.812-2.231,3.519-3.877
+			c0.671-1.561-0.141-3.255-1.896-3.395c-1.869-0.149-3.775,0.776-5.146,1.981c0-1.43,0-2.86,0-4.289
+			c0-0.828,2.161-1.249,2.83-1.401c1.766-0.4,3.704-0.416,5.45,0.095c3.157,0.924,4.598,4.253,3.425,7.296
+			c-0.665,1.725-2.135,2.803-3.467,3.989c-1.159,1.033-2.168,2.652-1.187,4.19C31.687,36.599,30.34,36.64,29.018,36.595z
+			 M31.237,43.253c-1.435,0-2.827-0.992-2.827-2.524c0-1.535,1.396-2.492,2.827-2.492c1.432,0,2.782,0.97,2.782,2.491
+			C34.019,42.273,32.7,43.253,31.237,43.253z"/>
+	</g>
+</g>
+</svg>
