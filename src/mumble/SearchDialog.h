@@ -47,6 +47,21 @@ struct SearchResult {
 		// A search result is only valid if it has start and end
 		return begin >= 0 && length > 0;
 	}
+
+#if _MSC_VER == 1900
+	SearchResult()
+	{}
+	
+	SearchResult(int32_t begin, int32_t length, SearchType type, QString fullText, QString channelHierarchy)
+	{
+		this->begin = begin;
+		this->length = length;
+		this->type = type;
+		this->fullText = fullText;
+		this->channelHierarchy = channelHierarchy;
+	}
+#endif
+
 };
 
 class SearchResultItem;
