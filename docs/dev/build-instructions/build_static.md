@@ -45,6 +45,7 @@ Once vcpkg is installed on your system, you have to switch into the directory vc
 qt5-base
 qt5-svg
 qt5-tools
+qt5-translations
 grpc
 boost-accumulators
 opus
