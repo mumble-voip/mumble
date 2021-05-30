@@ -1425,11 +1425,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1512,15 +1512,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние, на котором громкость звука от другого игрока начинает уменьшаться</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние, на котором громкость звука игрока достигает своего минимального значения</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">Минимальная громкость звука игрока затухающая с увеличением расстояния. Установите значение 0%, чтобы он плавно переходил в полную тишину для максимально реалистичного звука.</translation>
+        <translation>Минимальная громкость звука игрока, затухающая с увеличением расстояния. Установите значение 0%, чтобы он плавно переходил в полную тишину для максимально реалистичного звука.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
@@ -7170,7 +7170,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>События Клавиатуры</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
@@ -7659,11 +7659,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Должен ли поиск выполняться с учетом регистра</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>С учетом регистра</translation>
     </message>
     <message>
         <source>Options:</source>
