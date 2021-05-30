@@ -151,13 +151,15 @@ if(packaging)
 	file(COPY 
 		${CMAKE_SOURCE_DIR}/installer/gpl.txt
 		${CMAKE_SOURCE_DIR}/installer/lgpl.txt
-		${CMAKE_SOURCE_DIR}/installer/Mumble.rtf
+		${CMAKE_SOURCE_DIR}/LICENSE
 		${CMAKE_SOURCE_DIR}/installer/portaudio.txt
 		${CMAKE_SOURCE_DIR}/installer/qt.txt
 		${CMAKE_SOURCE_DIR}/installer/speex.txt
 		DESTINATION 
 			${CMAKE_BINARY_DIR}/licenses
 	)
+	file(RENAME "${CMAKE_BINARY_DIR}/licenses/LICENSE" "${CMAKE_BINARY_DIR}/licenses/Mumble.txt")
+
 	if(WIN32)
 		file(COPY
 			${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp

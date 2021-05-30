@@ -26,7 +26,7 @@ public class ServerInstaller : MumbleInstall {
 			"gpl.txt",
 			"speex.txt",
 			"lgpl.txt",
-			"Mumble.rtf"
+			"Mumble.txt"
 		};
 
 		if (arch == "x64") {

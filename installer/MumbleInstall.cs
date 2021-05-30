@@ -16,7 +16,7 @@ public class MumbleInstall : Project {
 		this.PreserveTempFiles = true;
 		this.BackgroundImage = @"..\dlgbmp.bmp";
 		this.BannerImage = @"..\bannrbmp.bmp";
-		this.LicenceFile = @"..\..\licenses\Mumble.rtf";
+		this.LicenceFile = @"..\..\licenses\Mumble.txt";
 		this.UI = WUI.WixUI_Minimal;
 		this.ControlPanelInfo.Comments = "Mumble is a free, open source, low latency, high quality voice chat application.";
 		this.ControlPanelInfo.Manufacturer = "Mumble VoIP";
