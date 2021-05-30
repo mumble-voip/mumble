@@ -1430,11 +1430,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -4935,7 +4935,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation>Sommige instellingen worden pas toegepast als Mumble herstart wordt. Mumble nu herstarten?</translation>
+        <translation>Sommige instellingen worden pas van kracht nadat Mumble herstart wordt. Mumble nu herstarten?</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -4947,19 +4947,19 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Server certificaatsignatuur (SHA-1):	%1&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Handtekening certificaat server (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;Waarschuwing:&lt;/b&gt; Servercertificaat⇎ opgeslagene.</translation>
+        <translation>&lt;b&gt;WAARSCHUWING:&lt;/b&gt; Het door de server aangeboden certificaat is verschillend van het onthouden certificaat (van vorige keer).</translation>
     </message>
     <message>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Server gebruikt oude versleutelingsstandaard, wordt niet meer ondersteund door moderne Mumble-versies.</translation>
+        <translation>Deze server gebruikt een verouderde versleutelingsstandaard, die niet meer ondersteund wordt door moderne Mumble-versies.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
-        <translation>Serververbindingsfout: %1.</translation>
+        <translation>Verbinding met server mislukt: %1.</translation>
     </message>
     <message>
         <source>Disconnected from server.</source>
@@ -4967,7 +4967,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Invalid username</source>
-        <translation>Gebruikersnaam ongeldig</translation>
+        <translation>Ongeldige gebruikersnaam</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -4979,11 +4979,11 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>That username is already in use, please try another username.</source>
-        <translation>Gebruikersnaam is al bezet; probeer een andere naam.</translation>
+        <translation>Deze gebruikersnaam is al bezet, gelieve een andere te proberen.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation>Verkeerde certificaat of wachtwoord</translation>
+        <translation>Verkeerd certificaat of wachtwoord</translation>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
@@ -4995,11 +4995,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation>Verkeerde wachtwoord</translation>
+        <translation>Verkeerd wachtwoord</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Verkeerd serverwachtwoord voor ongeregistreerde account; opnieuw proberen.</translation>
+        <translation>Verkeerd server-wachtwoord voor ongeregistreerde account, gelieve opnieuw te proberen.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
@@ -5031,7 +5031,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation>Verlaat het programma.</translation>
+        <translation>Sluit het programma af.</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -5059,7 +5059,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Toont uitgebreide serververbindingsinformatie.</translation>
+        <translation>Dit toont uitgebreide informatie omtrent de verbinding met de server.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
@@ -5095,19 +5095,19 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
-        <translation>Verwijdert kanaal inclusief ↳-kanalen.</translation>
+        <translation>Dit verwijdert een kanaal, samen met alle subkanalen.</translation>
     </message>
     <message>
         <source>Edit Groups and ACL for channel</source>
-        <translation>Groepen en ACL bewerken (kanaal)</translation>
+        <translation>Bewerk Groepen en ACL&apos;s voor kanaal</translation>
     </message>
     <message>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation>Opent groep- &amp; ACL-venster van kanaal (rechten-beheer).</translation>
+        <translation>Dit opent het dialoogvenster om groepen en ACL&apos;s te beheren voor het kanaal, om hierlangs rechten te beheren.</translation>
     </message>
     <message>
         <source>&amp;Link</source>
-        <translation>&amp;Koppelen</translation>
+        <translation>&amp;Koppel</translation>
     </message>
     <message>
         <source>Link your channel to another channel</source>
@@ -5127,11 +5127,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Kick user (with reason)</source>
-        <translation>Gebruiker schoppen (met reden)</translation>
+        <translation>Gebruiker eruit schoppen (met reden)</translation>
     </message>
     <message>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Geselecteerde gebruiker schoppen (met reden).</translation>
+        <translation>Schop de geselecteerde gebruiker eruit. Je zal een reden moeten opgeven.</translation>
     </message>
     <message>
         <source>Mute user</source>
@@ -5143,11 +5143,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation>Gebruiker permanent wegschoppen (ban met opgaaf van reden)</translation>
+        <translation>Schop gebruiker eruit en verban gebruiker (met reden)</translation>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Gebruiker wegschoppen (met reden).</translation>
+        <translation>Schop de gebruiker eruit en verban hem van de server. Je zal een reden moeten opgeven.</translation>
     </message>
     <message>
         <source>Deafen user</source>
@@ -5173,11 +5173,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     <message>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>&amp;Ontkoppelen</translation>
+        <translation>&amp;Ontkoppel</translation>
     </message>
     <message>
         <source>Unlink your channel from another channel</source>
-        <translation>Kanaal ↚ ander kanaal (ontkoppelen)</translation>
+        <translation>Ontkoppel je kanaal van een ander kanaal</translation>
     </message>
     <message>
         <source>This unlinks your current channel from the selected channel.</source>
