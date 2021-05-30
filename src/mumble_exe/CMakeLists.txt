@@ -59,6 +59,18 @@ if(packaging)
 		"--arch" ${ARCH}
 	)
 
+	if(overlay)
+		list(APPEND installer_vars
+			"--overlay"
+		)
+	endif()
+
+	if(g15)
+		list(APPEND installer_vars
+			"--g15"
+		)
+	endif()
+
 	file(COPY 
 		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
 		${CMAKE_SOURCE_DIR}/installer/ClientInstaller.cs
