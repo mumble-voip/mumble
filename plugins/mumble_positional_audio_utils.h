@@ -40,6 +40,32 @@ static inline std::wstring utf8ToUtf16(const std::string &str) {
 	}
 }
 
+// https://social.msdn.microsoft.com/Forums/en-US/8f40dcd8-c67f-4eba-9134-a19b9178e481/vs-2015-rc-linker-stdcodecvt-error
+#if _MSC_VER >= 1900
+
+/// Converts from UTF-16 to UTF-8.
+/// Meant to be used when "wchar_t" is 2 bytes, usually with Windows processes.
+static inline std::string utf16ToUtf8(const std::u16string &str) {
+	try {
+		std::wstring_convert< std::codecvt_utf8_utf16< int16_t >, int16_t > conv;
+		auto p = reinterpret_cast<const int16_t *>(str.data());
+		return conv.to_bytes(p, p + str.size());
+	} catch (std::range_error &) {
+		return {};
+	}
+}
+
+static inline std::string utf16ToUtf8(const std::u32string &str) {
+	try {
+		std::wstring_convert< std::codecvt_utf8_utf16< int32_t >, int32_t > conv;
+		auto p = reinterpret_cast<const int32_t *>(str.data());
+		return conv.to_bytes(p, p + str.size());
+	} catch (std::range_error &) {
+		return {};
+	}
+}
+#else
+
 /// Converts from UTF-16 to UTF-8.
 /// Meant to be used when "wchar_t" is 2 bytes, usually with Windows processes.
 static inline std::string utf16ToUtf8(const std::u16string &str) {
@@ -61,6 +87,7 @@ static inline std::string utf16ToUtf8(const std::u32string &str) {
 		return {};
 	}
 }
+#endif
 
 // escape lossily converts the given
 // string to ASCII, replacing any
