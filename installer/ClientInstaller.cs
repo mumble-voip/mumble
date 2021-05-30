@@ -11,13 +11,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Collections.Generic;
 using WixSharp;
 using WixSharp.CommonTasks;
 
 public class ClientInstaller : MumbleInstall {
 	public ClientInstaller(string version, string arch) {
 		string upgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
-		string[] binaries = null;
+		List<string> binaries = new List<string>();
 		string[] plugins = {
 			"amongus.dll",
 			"aoc.dll",
@@ -79,7 +80,7 @@ public class ClientInstaller : MumbleInstall {
 		if (arch == "x64") {
 			// 64 bit
 			this.Platform = WixSharp.Platform.x64;
-			binaries = new string[] {
+			binaries = new List<string>() {
 				"celt0.0.7.0.dll",
 				"opus.dll",
 				"rnnoise.dll",
@@ -95,7 +96,7 @@ public class ClientInstaller : MumbleInstall {
 		} else if (arch == "x86") {
 			// 32 bit
 			this.Platform = WixSharp.Platform.x86;
-			binaries = new string[] {
+			binaries = new List<string>() {
 				"celt0.0.7.0.dll",
 				"opus.dll",
 				"rnnoise.dll",
@@ -131,11 +132,11 @@ public class ClientInstaller : MumbleInstall {
 		shortcutDir.Shortcuts = new ExeFileShortcut[] { menuShortcut };
 		desktopDir.Shortcuts = new ExeFileShortcut[] { deskShortcut };
 
-		var binaryFiles = new File[binaries.Length];
+		var binaryFiles = new File[binaries.Count];
 		var licenseFiles = new File[licenses.Length];
 		var pluginFiles = new File[plugins.Length];
 
-		for (int i = 0; i < binaries.Length; i++) {
+		for (int i = 0; i < binaries.Count; i++) {
 			binaryFiles[i] = new File(@"..\..\" + binaries[i]);
 		}
 
