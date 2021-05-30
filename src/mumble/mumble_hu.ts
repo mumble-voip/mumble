@@ -469,11 +469,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A hangkártya (longname) lekérdezése nem sikerült: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A hangkártya lekérdezése nem sikerült: %1</translation>
     </message>
 </context>
 <context>
@@ -1426,11 +1426,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1461,11 +1461,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Kimeneti rendszer</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Kimeneti eszköz</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
@@ -1485,15 +1485,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Legkisebb távolság</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Legnagyobb távolság</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Legkisebb hangerő</translation>
     </message>
     <message>
         <source>Bloom</source>
@@ -1692,7 +1692,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation>Hangbeállító varázsló</translation>
+        <translation>Hangbeállítások varázsló</translation>
     </message>
     <message>
         <source>Introduction</source>
@@ -1700,7 +1700,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Üdvözli a Mumble hangbeállító varázslója</translation>
+        <translation>Üdvözli a Mumble hangbeállítások varázslója</translation>
     </message>
     <message>
         <source>Finished</source>
@@ -2042,7 +2042,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ez a Mumble hangbeállítások varázslója. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -2050,19 +2050,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendszer</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Bemeneti eszköz</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendszer</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Kimeneti eszköz</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -2173,7 +2173,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiltás lejárati ideje. Ha a kezdete és a lejárata azonos, akkor a tiltás visszavonásig marad érvényben.</translation>
     </message>
     <message>
         <source>Certificate hash</source>
@@ -2231,15 +2231,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maszk</translation>
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kezdete</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejárata</translation>
     </message>
 </context>
 <context>
@@ -2317,7 +2317,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Betöltés sikertelen. Nem található jelszó vagy a fájltípus ismeretlen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
@@ -2360,7 +2360,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation>Tanúsítvány kezelés</translation>
+        <translation>Tanúsítványkezelő varázsló</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
@@ -2392,7 +2392,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation>Tanúsítvány importálása fájlból</translation>
+        <translation>Meglévő tanúsítvány betöltése fájlból</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
@@ -3758,7 +3758,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ Ismeretlen méret ]]</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
@@ -3767,7 +3767,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation>[Dátum módosítva: %1]
+        <translation>[A dátum mostantól %1]
 </translation>
     </message>
     <message>
@@ -4790,7 +4790,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Üzenet írása</translation>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
@@ -5840,7 +5840,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiemelés</translation>
     </message>
     <message>
         <source>&amp;Copy URL</source>
@@ -5919,7 +5919,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejlesztői parancssor megjelenítése</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
@@ -5975,7 +5975,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hangbeállítások...</translation>
     </message>
     <message>
         <source>Developer &amp;Console...</source>
@@ -7220,35 +7220,35 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmény telepítő</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy bővítmény telepítésére készül. Folytatja?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Név:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Verzió:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Fejlesztő(k):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Leírás:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nem</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Igen</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
@@ -7306,7 +7306,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmény frissítő</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
@@ -7314,19 +7314,19 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Összes kijelölése</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmény</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltési hivatkozás</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Biztos benne, hogy frissíti a kijelölt bővítmény(eke)t?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
@@ -7342,7 +7342,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>„%1” bővítmény frissítése befejeződött</translation>
     </message>
 </context>
 <context>
@@ -7407,7 +7407,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Szövegfelolvasás tiltása</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -7427,7 +7427,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden üzenet</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
@@ -7455,7 +7455,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Töröl minden beállítást?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
@@ -7625,11 +7625,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatlakozás</translation>
     </message>
 </context>
 <context>
@@ -7652,7 +7652,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Felhasználók</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -7660,11 +7660,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kis-; és nagybetűk megkülönböztetése</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beállítások:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
@@ -7676,7 +7676,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Csatornák</translation>
     </message>
     <message>
         <source>Search for:</source>
@@ -8286,15 +8286,15 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Felhasználó becenevének módosítása egyénileg&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasználó beceneve</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 felhasználó becenevének módosítása</translation>
     </message>
 </context>
 <context>
