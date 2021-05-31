@@ -14,6 +14,7 @@
 #include "ProcessWindows.h"
 
 #include <cstring>
+#include <memory>
 #include <sstream>
 
 std::unique_ptr< Process > proc;

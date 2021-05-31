@@ -10,6 +10,8 @@
 
 #include "../mumble_positional_audio_utils.h"
 
+#include <memory>
+
 std::unique_ptr< ProcessWindows > process;
 
 static inline bool inGame() {
