@@ -105,7 +105,7 @@ Dieser Wert erlaubt es Ihnen die Reihenfolge der Kanäle innerhalb des Baumes fe
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Liste von Gruppen</translation>
+        <translation>Liste der Gruppen</translation>
     </message>
     <message>
         <source>Remove selected group</source>
@@ -378,7 +378,7 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dieses Feld legt fest, für welche Gruppe dieser Eintrag gilt.&lt;br /&gt;Beachten Sie, dass diese Gruppe im Kontext des Kanals des Eintrags evaluiert wird. Zum Beispiel gibt die Standardberechtigung der admin-Gruppe im Wurzel-Kanal &lt;i&gt;Schreib&lt;/i&gt;rechte. Dieser Eintrag, wenn von einem Kanal geerbt, gibt einem Benutzer Schreibrechte wenn er in diesem Kanal zur &lt;i&gt;admin&lt;/i&gt;-Gruppe gehört, selbst wenn er nicht zur &lt;i&gt;admin&lt;/i&gt;-Gruppe des Kanals, in welchem die Berechtigung ursprünglich definiert wurde, gehört.&lt;br /&gt;Wenn ein Gruppenname mit &apos;!&apos; beginnt, werden seine Mitgliedschaften umgekehrt und wenn sie mit einem &apos;~&apos; beginnt werden die Mitgliedschaften im Kanal, in welchem die Berechtigung definiert wurde, geprüft statt in jenem, in dem die Berechtigung gerade aktiv ist.&lt;br /&gt;Wenn ein Gruppenname mit einem &apos;#&apos;-Zeichen beginnt wird dieser als Zugriffscode interpretiert. Benutzer müssen das was hinter dem &apos;#&apos;-Zeichen stehen in ihre Zugriffscode-Liste eingegeben haben um die entsprechende Berechtigung zu erhalten. Dies kann für einen einfachen Passwortschutz, auch für nicht authentifizierte Benutzer, verwendet werden.&lt;br /&gt;Wenn ein Gruppenname mit &apos;$&apos; beginnt gilt der Eintrag nur für Benutzer deren Zertifikat-Hash mit dem dem &apos;$&apos;-Zeichen folgenden übereinstimmt.&lt;br /&gt;Einige spezielle, vordefinierte Gruppen sind:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;: Trifft auf jeden Benutzer zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt;: Trifft auf alle authentifizierten Benutzer.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt;: Benutzer in einem Unterkanal mit mindestens &lt;i&gt;a&lt;/i&gt; gemeinsamen übgeordneten Kanälen und zwischen &lt;i&gt;b&lt;/i&gt; und &lt;i&gt;c&lt;/i&gt; Kanälen dazwischen (zwischen gemeinsamem übergeordneten Kanal und aktuellem Kanal). Auf der Webseite gibt es hierzu eine weiterführende Dokumentation.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt;: Trifft auf Benutzer im aktuellen Kanal zu (Kurzform für &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt;: Trifft auf Benutzer die nicht im aktuellen Kanal sind zu (Kurzform für &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Beachten Sie, dass ein Eintrag entweder für einen bestimmten Benutzer oder eine Gruppe zutrifft, nicht für beide gleichzeitig.</translation>
+        <translation>Dieses Feld legt fest, für welche Gruppe dieser Eintrag gilt.&lt;br /&gt;Beachten Sie, dass diese Gruppe im Kontext des Kanals des Eintrags evaluiert wird. Zum Beispiel gibt die Standardberechtigung der &lt;i&gt;admin&lt;/i&gt;-Gruppe im Wurzel-Kanal &lt;i&gt;Schreib&lt;/i&gt;rechte. Dieser Eintrag, wenn von einem Kanal geerbt, gibt einem Benutzer Schreibrechte wenn er in diesem Kanal zur &lt;i&gt;admin&lt;/i&gt;-Gruppe gehört, selbst wenn er nicht zur &lt;i&gt;admin&lt;/i&gt;-Gruppe des Kanals, in welchem die Berechtigung ursprünglich definiert wurde, gehört.&lt;br /&gt;Wenn ein Gruppenname mit &apos;!&apos; beginnt, werden seine Mitgliedschaften umgekehrt und wenn sie mit einem &apos;~&apos; beginnt werden die Mitgliedschaften im Kanal, in welchem die Berechtigung definiert wurde, geprüft statt in jenem, in dem die Berechtigung gerade aktiv ist.&lt;br /&gt;Wenn ein Gruppenname mit einem &apos;#&apos;-Zeichen beginnt wird dieser als Zugriffscode interpretiert. Benutzer müssen das was hinter dem &apos;#&apos;-Zeichen stehen in ihre Zugriffscode-Liste eingegeben haben um die entsprechende Berechtigung zu erhalten. Dies kann für einen einfachen Passwortschutz, auch für nicht authentifizierte Benutzer, verwendet werden.&lt;br /&gt;Wenn ein Gruppenname mit &apos;$&apos; beginnt gilt der Eintrag nur für Benutzer deren Zertifikat-Hash mit dem dem &apos;$&apos;-Zeichen folgenden übereinstimmt.&lt;br /&gt;Einige spezielle, vordefinierte Gruppen sind:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;: Trifft auf jeden Benutzer zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt;: Trifft auf alle authentifizierten Benutzer.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt;: Benutzer in einem Unterkanal mit mindestens &lt;i&gt;a&lt;/i&gt; gemeinsamen übgeordneten Kanälen und zwischen &lt;i&gt;b&lt;/i&gt; und &lt;i&gt;c&lt;/i&gt; Kanälen dazwischen (zwischen gemeinsamem übergeordneten Kanal und aktuellem Kanal). Auf der Webseite gibt es hierzu eine weiterführende Dokumentation.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt;: Trifft auf Benutzer im aktuellen Kanal zu (Kurzform für &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt;: Trifft auf Benutzer die nicht im aktuellen Kanal sind zu (Kurzform für &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Beachten Sie, dass ein Eintrag entweder für einen bestimmten Benutzer oder eine Gruppe zutrifft, nicht für beide gleichzeitig.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -1430,11 +1430,11 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1804,12 +1804,10 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Um die Latenz (Übertragungsverzögerung) auf einem absoluten Minimum zu halten ist es wichtig so wenig Ton wie möglich auf der Soundkarte zwischenzuspeichern (auch “puffern” genannt).
-Leider geben viele Soundkarten an mit geringeren Puffern zu funktionieren, als Sie tatsächlich unterstützen. Daher müssen Sie selbst den optimalen Wert durch ausprobieren finden.
+Um die Latenz (Übertragungsverzögerung) auf einem absoluten Minimum zu halten ist es wichtig so wenig Ton wie möglich auf der Soundkarte zwischenzuspeichern (auch “puffern” genannt). Leider geben viele Soundkarten an, mit geringeren Puffern zu funktionieren, als Sie tatsächlich unterstützen. Daher müssen Sie selbst den optimalen Wert durch ausprobieren finden.
 &lt;/p&gt;
 &lt;p&gt;
-Sie sollten eine Beispielaufnahme hören. Ändern Sie den Schieberegler zum niedrigst möglichen Wert, welcher noch &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Tonstörungen verursacht.
-Bitte beachten Sie, dass die lokale Wiedergabe Ihrer Aufnahmegeräte für diesen Test deaktiviert ist.
+Sie sollten eine Beispielaufnahme hören. Ändern Sie den Schieberegler zum niedrigst möglichen Wert, welcher noch &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Tonstörungen verursacht. Bitte beachten Sie, dass die lokale Wiedergabe Ihrer Aufnahmegeräte für diesen Test deaktiviert ist.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1830,13 +1828,10 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen.
-Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt.
-Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
+Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
 &lt;/p&gt;
 &lt;p&gt;
-Sprechen Sie so laut als wären Sie wütend oder aufgeregt.
-Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im blauen und grünen, aber &lt;b&gt;nicht&lt;/b&gt; im roten Bereich ist, so lange Sie sprechen.
+Sprechen Sie so laut als wären Sie wütend oder aufgeregt. Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im blauen und grünen, aber &lt;b&gt;nicht&lt;/b&gt; im roten Bereich ist, so lange Sie sprechen.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1861,12 +1856,10 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Herzlichen Glückwunsch.
-Sie sollten Mumble nun optimal benutzen können.
+Herzlichen Glückwunsch. Sie sollten Mumble nun optimal benutzen können.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble wird ständig weiterentwickelt! Das Entwicklungsteam möchte sich auf Funktionen konzentrieren, welche den meisten Benutzern von Vorteil sind, deshalb kann Mumble anonyme Statistiken über Ihre Konfiguration an die Entwickler senden.
-Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sicher, dass jene Funktionen die Sie verwenden nicht wegfallen.
+Mumble wird ständig weiterentwickelt! Das Entwicklungsteam möchte sich auf Funktionen konzentrieren, welche den meisten Benutzern von Vorteil sind, deshalb kann Mumble anonyme Statistiken über Ihre Konfiguration an die Entwickler senden. Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sicher, dass jene Funktionen die Sie verwenden nicht wegfallen.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2020,13 +2013,10 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen.
-Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt.
-Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
+Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
 &lt;/p&gt;
 &lt;p&gt;
-Sprechen Sie so laut als wären Sie wütend oder aufgeregt.
-Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im gestreiften und leeren, aber &lt;b&gt;nicht&lt;/b&gt; im karierten Bereich ist während Sie sprechen.
+Sprechen Sie so laut als wären Sie wütend oder aufgeregt. Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im gestreiften und leeren, aber &lt;b&gt;nicht&lt;/b&gt; im karierten Bereich ist während Sie sprechen.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2294,8 +2284,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>E-Mail-Adresse konnte nicht validiert werden.&lt;br /&gt;
-Geben Sie eine korrekte (oder leere) E-Mail-Adresse an um fortzufahren.</translation>
+        <translation>E-Mail-Adresse konnte nicht validiert werden.&lt;br /&gt;Geben Sie eine korrekte (oder leere) E-Mail-Adresse an um fortzufahren.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
@@ -2303,13 +2292,11 @@ Geben Sie eine korrekte (oder leere) E-Mail-Adresse an um fortzufahren.</transla
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Ihr Zertifikat und der Schlüssel konnten nicht in das Format PKCS#12 exportiert werden.
-Ihr Zertifikat könnte einen Fehler enthalten.</translation>
+        <translation>Ihr Zertifikat und der Schlüssel konnten nicht in das Format PKCS#12 exportiert werden. Ihr Zertifikat könnte einen Fehler enthalten.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Die Datei konnte nicht zum Schreiben geöffnet werden.
-Bitte verwenden Sie eine andere Datei.</translation>
+        <translation>Die Datei konnte nicht zum Schreiben geöffnet werden. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
@@ -2317,23 +2304,19 @@ Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>Die Datei konnte nicht beschrieben werden.
-Bitte verwenden Sie eine andere Datei.</translation>
+        <translation>Die Datei konnte nicht beschrieben werden. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>Die Datei konnte nicht zum Lesen geöffnet werden.
-Bitte verwenden Sie eine andere Datei.</translation>
+        <translation>Die Datei konnte nicht zum Lesen geöffnet werden. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>Die Datei ist leer oder konnte nicht gelesen werden.
-Bitte verwenden Sie eine andere Datei.</translation>
+        <translation>Die Datei ist leer oder konnte nicht gelesen werden. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Die Datei enthielt kein gültiges Zertifikat und Schlüssel.
-Bitte verwenden Sie eine andere Datei.</translation>
+        <translation>Die Datei enthielt kein gültiges Zertifikat und Schlüssel. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
@@ -2453,13 +2436,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;
-Mumble kann Zertifikate, welche im PKCS#12-Format gespeichert sind, importieren.
-Dieses Format wird beim exportieren eines Schlüssels aus Mumble verwendet, genauso wie beim exportieren von Schlüsseln aus FireFox, dem Internet Explorer, Opera usw.
-&lt;/p&gt;
-&lt;p&gt;
-Wenn die Datei passwortgeschützt ist benötigen Sie dieses, um das Zertifikat zu importieren.
-&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kann Zertifikate, welche im PKCS#12-Format gespeichert sind, importieren. Dieses Format wird beim exportieren eines Schlüssels aus Mumble verwendet, genauso wie beim exportieren von Schlüsseln aus FireFox, dem Internet Explorer, Opera usw.&lt;/p&gt;&lt;p&gt;Wenn die Datei passwortgeschützt ist benötigen Sie dieses, um das Zertifikat zu importieren.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
@@ -2530,12 +2507,12 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;p&gt;Sie haben bereits ein Zertifikat in Mumble gespeichert und sind dabei dieses zu ersetzen.&lt;/p&gt;
 &lt;p&gt;Wenn Sie ein vorhandenes, von einer vertrauenswürdigen Zertifizierungsstelle erzeugtes Zertifikat mit gleicher E-Mail Adresse nur aktualisieren ist dies sicher. Server werden automatisch Ihr vertrauenswürdiges Zertifikat für Ihre E-Mail Adresse erkennen.&lt;/p&gt;
 &lt;p&gt;
-Sollte dies nicht der Fall sein werden Sie von keinem Server mehr erkannt, bei dem Sie sich bisher authentifiziert haben.
-Wenn Sie sich noch nirgends registriert haben müssen Sie sich darüber keine Gedanken machen.
+Sollte dies nicht der Fall sein werden Sie von keinem Server mehr erkannt, bei dem Sie sich bisher authentifiziert haben. Wenn Sie sich noch nirgends registriert haben müssen Sie sich darüber keine Gedanken machen.
 &lt;/p&gt;
 &lt;p&gt;
 Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
@@ -2583,12 +2560,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;
-&lt;p&gt;
-Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben.
-Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt.
-Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt.
-&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;&lt;p&gt;Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben. Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt. Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2604,8 +2576,7 @@ Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Ze
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Dies ist Ihre E-Mail-Adresse.
-Es wird dringend empfohlen hier eine korrekte E-Mail-Adresse anzugeben, dieses erlaubt Ihnen später ohne Probleme zu einem vertrauenswürdigen Zertifikat zu gelangen.</translation>
+        <translation>Dies ist Ihre E-Mail-Adresse. Es wird dringend empfohlen hier eine korrekte E-Mail-Adresse anzugeben, dieses erlaubt Ihnen später ohne Probleme zu einem vertrauenswürdigen Zertifikat zu gelangen.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
@@ -2613,8 +2584,7 @@ Es wird dringend empfohlen hier eine korrekte E-Mail-Adresse anzugeben, dieses e
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>Dies ist Ihr Name und wird in Ihrem Zertifikat gespeichert.
-Dieses Feld ist optional.</translation>
+        <translation>Dies ist Ihr Name und wird in Ihrem Zertifikat gespeichert. Dieses Feld ist optional.</translation>
     </message>
     <message>
         <source>Finish</source>
@@ -2640,11 +2610,7 @@ Dieses Feld ist optional.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich beim Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Ausserdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;
-&lt;p&gt;
-Es wird &lt;b&gt;sehr&lt;/b&gt; empfohlen, dass Sie &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;ihr eigenes Zertifikat erstellen&lt;/a&gt;.
-&lt;/p&gt;
-</translation>
+        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich gegenüber dem Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Ausserdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;&lt;p&gt;Darüber hinaus verfügt kann Mumble auch mit Zertifikaten umgehen, die den Besitz der zugehörigen Email-Adresse verifizieren. Diese Zertifikate werden von externen Anbietern ausgestellt. Für weitere Informationen sehen Sie bitte &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;in unserer Zertifikats-Dokumentation&lt;/a&gt; nach.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2703,9 +2669,7 @@ Es wird &lt;b&gt;sehr&lt;/b&gt; empfohlen, dass Sie &lt;a href=&quot;http://mumb
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Dies repräsentiert das Recht von außerhalb in diesen Kanal zu flüstern.
-Dies funktioniert exakt wie das &lt;i&gt;Sprechen&lt;/i&gt;-Recht gilt aber für Sprachpakete mit gedrückter Flüstern-Taste.
-Dies kann verwendet werden, um zu einer Hierarchie von Kanälen zu sprechen ohne diese zu verbinden.</translation>
+        <translation>Dies repräsentiert das Recht von außerhalb in diesen Kanal zu flüstern. Dies funktioniert exakt wie das &lt;i&gt;Sprechen&lt;/i&gt;-Recht, gilt aber für Sprachpakete mit gedrückter Flüstern-Taste. Dies kann verwendet werden, um zu einer Hierarchie von Kanälen zu sprechen ohne diese zu verbinden.</translation>
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
@@ -2713,26 +2677,19 @@ Dies kann verwendet werden, um zu einer Hierarchie von Kanälen zu sprechen ohne
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>Dies repräsentiert das Recht einen Benutzer in einen anderen Kanal zu verschieben oder ihn vom Server zu kicken.
-Um einen Benutzer auch wirklich zu verschieben muss der verschiebende Benutzer entweder Verschieben/Kick-Rechte im Zielkanal haben oder dem verschobenen Benutzer muss es erlaubt sein, den Zielkanal zu betreten.
-Benutzer mit diesem Recht können also (ausreichende Rechte im Zielkanal vorausgesetzt) andere Benutzer in Kanäle verschieben, die diese normalerweise nicht betreten dürfen.</translation>
+        <translation>Dies repräsentiert das Recht einen Benutzer in einen anderen Kanal zu verschieben oder ihn vom Server zu kicken. Um einen Benutzer auch wirklich zu verschieben muss der verschiebende Benutzer entweder Verschieben/Kick-Rechte im Zielkanal haben oder dem verschobenen Benutzer muss es erlaubt sein, den Zielkanal zu betreten. Benutzer mit diesem Recht können also (ausreichende Rechte im Zielkanal vorausgesetzt) andere Benutzer in Kanäle verschieben, die diese normalerweise nicht betreten dürfen.</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation>Dies repräsentiert das Recht Unterkanäle zu erstellen.
-Der Benutzer, welcher den Unterkanal erstellt, wird automatisch zur admin-Gruppe des Kanals hinzugefügt.</translation>
+        <translation>Dies repräsentiert das Recht Unterkanäle zu erstellen. Der Benutzer, welcher den Unterkanal erstellt, wird automatisch zur admin-Gruppe des Kanals hinzugefügt.</translation>
     </message>
     <message>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation>Dies repräsentiert das Recht temporäre Unterkanäle zu erstellen.
-Der Benutzer, welcher den Unterkanal erstellt, wird automatisch zur admin-Gruppe des Unterkanals hinzugefügt.
-Temporäre Kanäle werden nicht gespeichert und verschwinden, sobald der letzte Benutzer den Kanal verlässt.</translation>
+        <translation>Dies repräsentiert das Recht temporäre Unterkanäle zu erstellen. Der Benutzer, welcher den Unterkanal erstellt, wird automatisch zur admin-Gruppe des Unterkanals hinzugefügt. Temporäre Kanäle werden nicht gespeichert und verschwinden, sobald der letzte Benutzer den Kanal verlässt.</translation>
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Dies repräsentiert das Recht Kanäle zu verbinden.
-Benutzer in verbundenen Kanälen können sich gegenseitig hören, so lange der sprechende Benutzer das &lt;i&gt;Sprechen&lt;/i&gt;-Recht im Kanal des Hörers hat.
-Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen, aber nur in einem der Beiden um sie aufzuheben.</translation>
+        <translation>Dies repräsentiert das Recht Kanäle zu verbinden. Benutzer in verbundenen Kanälen können sich gegenseitig hören, so lange der sprechende Benutzer das &lt;i&gt;Sprechen&lt;/i&gt;-Recht im Kanal des Hörers hat. Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen, aber nur in einem der Beiden um sie aufzuheben.</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
@@ -2949,7 +2906,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Servername</source>
-        <translation>Servername</translation>
+        <translation>Server-Name</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -3272,10 +3229,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Es tut uns sehr leid, aber es scheint so, als sei Mumble abgestürzt. Möchten Sie einen Absturz-Bericht an die Mumble-Entwickler senden?&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;
-Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt des Absturzes und wird den Entwicklern helfen, das Problem zu beheben.
-&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Es tut uns sehr leid, aber es scheint so, als sei Mumble abgestürzt. Möchten Sie einen Absturz-Bericht an die Mumble-Entwickler senden?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt des Absturzes und wird den Entwicklern helfen, das Problem zu beheben.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
@@ -3421,7 +3375,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation>&lt;b&gt;Zusätzliche Verknüpfungen &lt;/b&gt;&lt;br /&gt;In diesem Abschnitt können Sie Sie die Verwendung von zusätzlichen GlobalShortcut Verknüpfungen konfigurieren.</translation>
+        <translation>&lt;b&gt;Zusätzliche Verknüpfungen &lt;/b&gt;&lt;br /&gt;In diesem Abschnitt können Sie die Verwendung von zusätzlichen GlobalShortcut Verknüpfungen konfigurieren.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
@@ -3677,7 +3631,8 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Dies ist die Liste der verfügbaren LCD-Geräte in Ihrem System. Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des Displays. Mumble kann Ausgaben zeitgleich an mehrere LCD Geräte ausgeben.&lt;/p&gt;
+        <translation>&lt;p&gt;Dies ist die Liste der verfügbaren LCD-Geräte in Ihrem System.
+Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des Displays. Mumble kann Ausgaben zeitgleich an mehrere LCD Geräte ausgeben.&lt;/p&gt;
 &lt;h3&gt;Größe:&lt;/h3&gt;
 &lt;p&gt;Dieses Feld beschreibt die Größe eines LCD Gerätes. Die Größe ist entweder in Pixel (für grafische LCDs) oder in Zeichen (für Zeichen-LCDs) angegeben.&lt;/p&gt;
 &lt;h3&gt;Aktiviert:&lt;/h3&gt;
@@ -3704,7 +3659,8 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Diese Option legt die minimale Spaltenbreite fest.&lt;/p&gt;
-&lt;p&gt;Wenn zu viele Benutzer gleichzeitig reden wird die Benutzeransicht in mehrere Spalten geteilt. Sie können diese Option verwenden, um einen Kompromiss zwischen auf dem LCD angezeigten Benutzern oder der Breite der angezeigten Benutzernamen zu finden.&lt;/p&gt;</translation>
+&lt;p&gt;Wenn zu viele Benutzer gleichzeitig reden wird die Benutzeransicht in mehrere Spalten geteilt. Sie können diese Option verwenden, um einen Kompromiss zwischen auf dem LCD angezeigten Benutzern oder der Breite der angezeigten Benutzernamen zu finden.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
@@ -3766,7 +3722,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You self-muted</source>
-        <translation>Selbst stumm gestellt.</translation>
+        <translation>Selbst stumm gestellt</translation>
     </message>
     <message>
         <source>User muted (you)</source>
@@ -3782,15 +3738,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation>Stummstellung aufgehoben.</translation>
+        <translation>Stummstellung aufgehoben</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation>Selbst taub gestellt.</translation>
+        <translation>Selbst taub gestellt</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation>Taubstellung deaktiviert.</translation>
+        <translation>Taubstellung deaktiviert</translation>
     </message>
     <message>
         <source>User renamed</source>
@@ -3932,8 +3888,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Klicken Sie hier, um die Pop-up Benachrichtigungen für %1 Ereignisse zu aktivieren oder zu deaktivieren.&lt;br /&gt;
-Wenn gewählt, wird für jedes %1 Ereignis ein Benachrichtigungs-Pop-up erzeugt.</translation>
+        <translation>Klicken Sie hier, um die Pop-up Benachrichtigungen für %1 Ereignisse zu aktivieren oder zu deaktivieren.&lt;br /&gt;Wenn gewählt, wird für jedes %1 Ereignis ein Benachrichtigungs-Pop-up erzeugt.</translation>
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
@@ -3946,8 +3901,7 @@ Wenn gewählt, wird für jedes %1 Ereignis ein Benachrichtigungs-Pop-up erzeugt.
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Klicken Sie hier, um Text-zu-Sprache für %1 Ereignisse zu aktivieren oder zu deaktivieren.&lt;br /&gt;
-Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-Sprache kann auch den Inhalt von Ereignissen vorlesen, was Sounddateien nicht können. Text-zu-Sprache und Sounddateien können nicht gleichzeitig verwendet werden.</translation>
+        <translation>Klicken Sie hier, um Text-zu-Sprache für %1 Ereignisse zu aktivieren oder zu deaktivieren.&lt;br /&gt;Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-Sprache kann auch den Inhalt von Ereignissen vorlesen, was Sounddateien nicht können. Text-zu-Sprache und Sounddateien können nicht gleichzeitig verwendet werden.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
@@ -4213,7 +4167,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     <message>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Dies verändert das Verhalten beim Verschieben von Kanälen. Es kann verwendet werden, um versehentliches Verschieben von Kanälen zu verhindern. &lt;i&gt;Nichts tun&lt;/i&gt; tut nichts und gibt eine Fehlermeldung aus. &lt;i&gt;Fragen&lt;/i&gt; fragt in einem Nachrichtenfenster ob der Kanal wirklich verschoben werden soll.</translation>
+        <translation>Dies verändert das Verhalten beim Verschieben von Kanälen. Es kann verwendet werden, um versehentliches Verschieben von Kanälen zu verhindern. &lt;i&gt;Verschieben&lt;/i&gt; verschiebt den Kanal ohne Nachfrage. &lt;i&gt;Nichts tun&lt;/i&gt; tut nichts und gibt eine Fehlermeldung aus. &lt;i&gt;Fragen&lt;/i&gt; fragt in einem Nachrichtenfenster ob der Kanal wirklich verschoben werden soll.</translation>
     </message>
     <message>
         <source>Expand</source>
@@ -4345,7 +4299,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation>Diese legt das Verhalten der Benutzer beim Verschieben von Kanälen. Es kann verwendet werden, um versehentliches Verschieben von Kanälen zu verhindern. &lt;i&gt;Nichts tun&lt;/i&gt; tut nichts und gibt eine Fehlermeldung aus. &lt;i&gt;Fragen&lt;/i&gt; fragt in einem Nachrichtenfenster ob der Kanal wirklich verschoben werden soll.</translation>
+        <translation>Diese legt das Verhalten der Benutzer beim Verschieben von Kanälen. Es kann verwendet werden, um versehentliches Verschieben von Kanälen zu verhindern. &lt;i&gt;Verschieben&lt;/i&gt; verschiebt den Kanal ohne Nachfrage. &lt;i&gt;Nichts tun&lt;/i&gt; tut nichts und gibt eine Fehlermeldung aus. &lt;i&gt;Fragen&lt;/i&gt; fragt in einem Nachrichtenfenster ob der Kanal wirklich verschoben werden soll.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
@@ -4736,9 +4690,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Sie sind dabei %1 auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und %1 wird sich, auch wenn Sie Ihr Serverpasswort ändern, weiterhin mit dem Server verbinden können.&lt;/p&gt;
-&lt;p&gt;Von diesem Punkt an wird %1 mit dem Zertifikat welches er momentan verwendet, authentifiziert.&lt;/p&gt;
-&lt;p&gt;Sind Sie sicher, dass Sie %1 registrieren möchten?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Sie sind dabei %1 auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und %1 wird sich, auch wenn Sie Ihr Serverpasswort ändern, weiterhin mit dem Server verbinden können.&lt;/p&gt;&lt;p&gt;Von diesem Punkt an wird %1 mit dem Zertifikat welches er momentan verwendet, authentifiziert.&lt;/p&gt;&lt;p&gt;Sind Sie sicher, dass Sie %1 registrieren möchten?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Kicking user %1</source>
@@ -4770,8 +4722,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Die Fehler dieses Zertifikats sind: 
-&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Die Fehler dieses Zertifikats sind:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>SSL Version mismatch</source>
@@ -5038,7 +4989,8 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Sie sicher sind, dass dieser Benutzer mit einem Passwort geschützt ist, versuchen Sie es bitte erneut.
+        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Siesicher sind,
+dass dieser Benutzer mit einem Passwort geschützt ist,versuchen Sie es bitte erneut.
 Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
     <message>
@@ -5163,12 +5115,11 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation>Dies ist die Chatbar&lt;br /&gt;
-Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer oder Kanal gesendet, welcher ausgewählt ist. Sofern nichts selektiert ist wird die Nachricht an den aktuellen Kanal gesendet.</translation>
+        <translation>Dies ist die Chatbar&lt;br /&gt;Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer oder Kanal gesendet, welcher ausgewählt ist. Sofern nichts selektiert ist wird die Nachricht an den aktuellen Kanal gesendet.</translation>
     </message>
     <message>
         <source>Chatbar</source>
-        <translation>Chatbar</translation>
+        <translation>Chatfenster</translation>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
@@ -5663,7 +5614,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <source>You joined %1.</source>
-        <translation>Beigetreten in %1</translation>
+        <translation>Beigetreten in %1.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -5946,7 +5897,8 @@ You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
         <translation>Aktiviere oder deaktiviere die Filterung von ausgewählten Kanälen.
 Per Voreinstellung werden alle leeren Kanäle herausgefiltert.
-Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals auswählen.</translation>
+Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü
+des Kanals auswählen.</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -5978,7 +5930,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>Hides the main Mumble window.</source>
-        <translation>Versteckt das Mumble Hauptfenster</translation>
+        <translation>Versteckt das Mumble Hauptfenster.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
@@ -6078,7 +6030,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>&amp;Access Tokens...</source>
-        <translation>&amp;Zugriffscodes</translation>
+        <translation>&amp;Zugriffscodes...</translation>
     </message>
     <message>
         <source>Reset &amp;Comment...</source>
@@ -6106,7 +6058,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation>Zeigt das Mumble-Hauptfenster an</translation>
+        <translation>Zeigt das Mumble-Hauptfenster an.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6551,8 +6503,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Dies verhindert das senden von Identitäts-Informationen vom Client.&lt;/b&gt;
-&lt;p&gt;Der Client wird sich nicht mit einem Zertifikat identifizieren, selbst wenn der Zugriff dann verweigert wird, und wird keine Passwörter für Verbindungen zwischenspeichern. Dies ist hauptsächlich eine Test-Option und wird daher nicht gespeichert.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Dies verhindert das senden von Identitäts-Informationen vom Client.&lt;/b&gt;&lt;p&gt;Der Client wird sich nicht mit einem Zertifikat identifizieren, selbst wenn der Zugriff dann verweigert wird, und wird keine Passwörter für Verbindungen zwischenspeichern. Dies ist hauptsächlich eine Test-Option und wird daher nicht gespeichert.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate and password storage</source>
@@ -6564,8 +6515,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Hostname des Proxys.&lt;/b&gt;&lt;br/&gt;
-Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten versenden möchten, fest.</translation>
+        <translation>&lt;b&gt;Hostname des Proxys.&lt;/b&gt;&lt;br /&gt;Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten versenden möchten, fest.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -6577,7 +6527,7 @@ Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten 
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation>&lt;b&gt;Portnummer des Proxys.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert die Portnummer auf der der Proxy eine Verbindung erwartet.</translation>
+        <translation>&lt;b&gt;Portnummer des Proxys.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert die Portnummer auf welcher der Proxy eine Verbindung erwartet.</translation>
     </message>
     <message>
         <source>Username</source>
@@ -6629,8 +6579,7 @@ Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten 
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Anonyme Statistiken senden&lt;/b&gt;&lt;br/&gt;
-Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf die wichtigsten Dinge konzentriert werden. Indem Sie einige anonymisierte Daten senden, helfen Sie beim festlegen der Entwicklungsprioritäten.</translation>
+        <translation>&lt;b&gt;Anonyme Statistiken senden&lt;/b&gt;&lt;br /&gt;Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf die wichtigsten Dinge konzentriert werden. Indem Sie einige anonymisierte Daten senden, helfen Sie beim festlegen der Entwicklungsprioritäten.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
@@ -6836,8 +6785,7 @@ Verhindert, dass potenziell identifizierende Informationen über das Betriebssys
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
-Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
+        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br /&gt;Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -6937,7 +6885,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation>Zeige eine Uhr im Overlay, die die aktuelle, lokale Zeit (Systemzeit) anzeigt.</translation>
+        <translation>Zeige eine Uhr im Overlay, welche die aktuelle, lokale Zeit (Systemzeit) anzeigt.</translation>
     </message>
     <message>
         <source>Show Clock</source>
@@ -8099,7 +8047,8 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Dies ist eine editierbare Liste von Zugriffscodes auf dem verbundenen Server.&lt;/b&gt;
 &lt;br /&gt;
-Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches Zugriffsmanagement für Kanäle verwendet werden kann. Mumble merkt sich die von Ihnen verwendeten Zugriffscodes und sendet diese das nächste Mal automatisch an den Server, damit Sie sie nicht jedes Mal eingeben müssen.</translation>
+Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches Zugriffsmanagement für Kanäle verwendet werden kann. Mumble merkt sich die von Ihnen verwendeten Zugriffscodes und sendet diese das nächste Mal automatisch an den Server, damit Sie sie nicht jedes Mal eingeben müssen.
+</translation>
     </message>
     <message>
         <source>Add a token</source>
@@ -8769,7 +8718,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation>Das schließen des Aufnahme-Fensters führt dazu, dass die die aufgezeichnete Audio-Sequenz nicht gespeichert wird. Möchtest du die Aufnahme wirklich beenden?</translation>
+        <translation>Das schließen des Aufnahme-Fensters führt dazu, dass die aufgezeichnete Audio-Sequenz nicht gespeichert wird. Möchtest du die Aufnahme wirklich beenden?</translation>
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
@@ -8778,7 +8727,8 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Der Server mit dem Sie aktuell verbunden sind hat die Version 1.2.2 oder älter. Aus Gründen der Privatsphäre sind Aufnahmen auf Servern älter als 1.2.3 nicht möglich.</translation>
+        <translation>Der Server mit dem Sie aktuell verbunden sind hat die Version 1.2.2 oder älter. Aus Gründen der Privatsphäre sind Aufnahmen auf Servern älter als 1.2.3 nicht möglich.
+Bitte kontaktieren Sie den Server-Administrator für weitere Informationen.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
