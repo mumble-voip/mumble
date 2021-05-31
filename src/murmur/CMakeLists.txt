@@ -50,12 +50,12 @@ set(MURMUR_SOURCES
 )
 
 if(WIN32)
-	add_executable(murmur WIN32 ${MURMUR_SOURCES})
+	add_executable(mumble-server WIN32 ${MURMUR_SOURCES})
 else()
-	add_executable(murmur ${MURMUR_SOURCES})
+	add_executable(mumble-server ${MURMUR_SOURCES})
 endif()
 
-set_target_properties(murmur
+set_target_properties(mumble-server
 	PROPERTIES
 		AUTOMOC ON
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -65,48 +65,48 @@ set(AUTOGEN_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/murmur_autogen")
 message(STATUS "File: ${AUTOGEN_BUILD_DIR}")
 set_source_files_properties("${AUTOGEN_BUILD_DIR}/mocs_compilation.cpp" PROPERTIES COMPILE_FLAGS "-w")
 
-target_compile_definitions(murmur
+target_compile_definitions(mumble-server
 	PRIVATE
 		"MURMUR"
 		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
-target_include_directories(murmur PRIVATE
+target_include_directories(mumble-server PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
 	${SHARED_SOURCE_DIR}
 )
 
-target_link_libraries(murmur PRIVATE shared Qt5::Sql)
+target_link_libraries(mumble-server PRIVATE shared Qt5::Sql)
 
 if(static)
 	# MariaDB and MySQL
 	if(TARGET Qt5::QMYSQLDriverPlugin)
-		include_qt_plugin(murmur PRIVATE "QMYSQLDriverPlugin")
-		target_link_libraries(murmur PRIVATE Qt5::QMYSQLDriverPlugin)
+		include_qt_plugin(mumble-server PRIVATE "QMYSQLDriverPlugin")
+		target_link_libraries(mumble-server PRIVATE Qt5::QMYSQLDriverPlugin)
 	endif()
 	# Open DataBase Connectivity
 	if(TARGET Qt5::QODBCDriverPlugin)
-		include_qt_plugin(murmur PRIVATE "QODBCDriverPlugin")
-		target_link_libraries(murmur PRIVATE Qt5::QODBCDriverPlugin)
+		include_qt_plugin(mumble-server PRIVATE "QODBCDriverPlugin")
+		target_link_libraries(mumble-server PRIVATE Qt5::QODBCDriverPlugin)
 		if(WIN32)
 			find_library(LIB_ODBC32 "odbc32")
-			target_link_libraries(murmur PRIVATE ${LIB_ODBC32})
+			target_link_libraries(mumble-server PRIVATE ${LIB_ODBC32})
 		endif()
 	endif()
 	# PostgreSQL
 	if(TARGET Qt5::QPSQLDriverPlugin)
-		include_qt_plugin(murmur PRIVATE "QPSQLDriverPlugin")
-		target_link_libraries(murmur PRIVATE Qt5::QPSQLDriverPlugin)
+		include_qt_plugin(mumble-server PRIVATE "QPSQLDriverPlugin")
+		target_link_libraries(mumble-server PRIVATE Qt5::QPSQLDriverPlugin)
 	endif()
 	# SQLite
 	if(TARGET Qt5::QSQLiteDriverPlugin)
-		include_qt_plugin(murmur PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(murmur PRIVATE Qt5::QSQLiteDriverPlugin)
+		include_qt_plugin(mumble-server PRIVATE "QSQLiteDriverPlugin")
+		target_link_libraries(mumble-server PRIVATE Qt5::QSQLiteDriverPlugin)
 	endif()
 endif()
 
 if(WIN32)
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"About.cpp"
 			"About.h"
@@ -120,7 +120,7 @@ if(WIN32)
 
 	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
 
-	target_link_libraries(murmur 
+	target_link_libraries(mumble-server 
 		PRIVATE 
 			Qt5::Widgets
 			dbghelp.lib
@@ -129,11 +129,11 @@ if(WIN32)
 	)
 
 	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
-		include_qt_plugin(murmur PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(murmur PRIVATE Qt5::QWindowsIntegrationPlugin)
+		include_qt_plugin(mumble-server PRIVATE QWindowsIntegrationPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt5::QWindowsIntegrationPlugin)
 	endif()
 else()
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"UnixMurmur.cpp"
 			"UnixMurmur.h"
@@ -141,32 +141,30 @@ else()
 
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 		find_library(CAP_LIBRARY NAMES cap)
-		target_link_libraries(murmur PRIVATE ${CAP_LIBRARY})
+		target_link_libraries(mumble-server PRIVATE ${CAP_LIBRARY})
 	endif()
-
-	set_target_properties(murmur PROPERTIES OUTPUT_NAME "murmurd")
 endif()
 
 if(zeroconf)
 	if(NOT APPLE)
 		find_pkg(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
-			target_include_directories(murmur PRIVATE ${avahi-compat-libdns_sd_INCLUDE_DIRS})
-			target_link_libraries(murmur PRIVATE ${avahi-compat-libdns_sd_LIBRARIES})
+			target_include_directories(mumble-server PRIVATE ${avahi-compat-libdns_sd_INCLUDE_DIRS})
+			target_link_libraries(mumble-server PRIVATE ${avahi-compat-libdns_sd_LIBRARIES})
 		else()
 			find_library(LIB_DNSSD "dnssd")
 			if(${LIB_DNSSD} STREQUAL "LIB_DNSSD-NOTFOUND")
 				message(FATAL_ERROR "DNS-SD library not found!")
 			endif()
-			target_link_libraries(murmur PRIVATE ${LIB_DNSSD})
+			target_link_libraries(mumble-server PRIVATE ${LIB_DNSSD})
 		endif()
 	endif()
 
-	target_compile_definitions(murmur PRIVATE "USE_ZEROCONF")
+	target_compile_definitions(mumble-server PRIVATE "USE_ZEROCONF")
 
-	target_include_directories(murmur PRIVATE "${3RDPARTY_DIR}/qqbonjour")
+	target_include_directories(mumble-server PRIVATE "${3RDPARTY_DIR}/qqbonjour")
 
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"Zeroconf.cpp"
 			"Zeroconf.h"
@@ -181,14 +179,14 @@ endif()
 if(dbus AND NOT WIN32 AND NOT APPLE)
 	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
 
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"DBus.cpp"
 			"DBus.h"
 	)
 
-	target_compile_definitions(murmur PRIVATE "USE_DBUS")
-	target_link_libraries(murmur PRIVATE Qt5::DBus)
+	target_compile_definitions(mumble-server PRIVATE "USE_DBUS")
+	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
 endif()
 
 if(grpc)
@@ -196,7 +194,7 @@ if(grpc)
 	# the cmake sub-dir at the project's root.
 	find_pkg("gRPC;GRPC" REQUIRED)
 
-	protobuf_generate(LANGUAGE cpp TARGET murmur PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
+	protobuf_generate(LANGUAGE cpp TARGET mumble-server PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
 
 	add_subdirectory("${SHARED_SOURCE_DIR}/murmur_grpcwrapper_protoc_plugin" "${CMAKE_CURRENT_BINARY_DIR}/murmur_grpcwrapper_protoc_plugin")
 
@@ -238,9 +236,9 @@ if(grpc)
 			${GRPC_GENERATED_FILES}
 	)
 
-	add_dependencies(murmur generate-grpc-files)
+	add_dependencies(mumble-server generate-grpc-files)
 
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"MurmurGRPCImpl.cpp"
 			"MurmurGRPCImpl.h"
@@ -253,13 +251,13 @@ if(grpc)
 		set_source_files_properties("MurmurGRPCImpl.cpp" PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter")
 	endif()
 
-	target_compile_definitions(murmur PRIVATE "USE_GRPC")
-	target_include_directories(murmur PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+	target_compile_definitions(mumble-server PRIVATE "USE_GRPC")
+	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
-	target_link_libraries(murmur PRIVATE gRPC::grpc++)
+	target_link_libraries(mumble-server PRIVATE gRPC::grpc++)
 
 	if (TARGET gRPC::gpr)
-		target_link_libraries(murmur PRIVATE gRPC::gpr)
+		target_link_libraries(mumble-server PRIVATE gRPC::gpr)
 	endif()
 endif()
 
@@ -303,21 +301,21 @@ if(ice)
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
 
-	target_sources(murmur
+	target_sources(mumble-server
 		PRIVATE
 			"MurmurIce.cpp"
 			"MurmurIce.h"
 			${ICE_GENERATED_FILES}
 	)
-	target_compile_definitions(murmur
+	target_compile_definitions(mumble-server
 		PRIVATE
 			"USE_ICE"
 			"ICE_STATIC_LIBS"
 	)
 
-	target_include_directories(murmur PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
-	target_link_libraries(murmur
+	target_link_libraries(mumble-server
 		PRIVATE
 			Ice::Ice
 			Ice::IceSSL
@@ -329,7 +327,7 @@ if(ice)
 	file(COPY "Murmur.ice" DESTINATION ${CMAKE_BINARY_DIR})
 endif()
 
-install(TARGETS murmur RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
+install(TARGETS mumble-server RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
 
 file(COPY "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION ${CMAKE_BINARY_DIR})
 
@@ -357,7 +355,7 @@ if(packaging)
 				${CMAKE_BINARY_DIR}/installer/server
 		)
 
-		add_custom_command(TARGET murmur
+		add_custom_command(TARGET mumble-server
 			POST_BUILD
 			COMMAND cscs.exe -cd MumbleInstall.cs 
 			COMMAND cscs.exe ServerInstaller.cs ${installer_vars}
