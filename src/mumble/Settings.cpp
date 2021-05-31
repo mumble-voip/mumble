@@ -413,6 +413,9 @@ Settings::Settings() {
 	qsALSAInput  = QLatin1String("default");
 	qsALSAOutput = QLatin1String("default");
 
+	pipeWireInput  = 1;
+	pipeWireOutput = 2;
+
 	qsJackClientName  = QLatin1String("mumble");
 	qsJackAudioOutput = QLatin1String("1");
 	bJackStartServer  = false;
