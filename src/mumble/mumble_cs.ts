@@ -3964,10 +3964,6 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation> Znaků</translation>
     </message>
     <message>
-        <source>Whisper</source>
-        <translation>Šepot</translation>
-    </message>
-    <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
         <translation>Je-li zaškrtnuto, šepoty budete slyšet pouze od uživatelů, které jste přidali na seznam přátel.</translation>
     </message>
@@ -4047,6 +4043,42 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Chat message margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of users that will trigger message limiting functionality.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit notifications when there are more than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User limit for message limiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle message limiting behavior for %1 events </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

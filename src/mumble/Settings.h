@@ -186,6 +186,7 @@ struct Settings {
 	bool bTTS;
 	bool bUserTop;
 	bool bWhisperFriends;
+	int iMessageLimitUserThreshold;
 	bool bTTSMessageReadBack;
 	bool bTTSNoScope;
 	bool bTTSNoAuthor;
@@ -292,13 +293,15 @@ struct Settings {
 	QList< Shortcut > qlShortcuts;
 
 	enum MessageLog {
-		LogNone      = 0x00,
-		LogConsole   = 0x01,
-		LogTTS       = 0x02,
-		LogBalloon   = 0x04,
-		LogSoundfile = 0x08,
-		LogHighlight = 0x10
+		LogNone         = 0x00,
+		LogConsole      = 0x01,
+		LogTTS          = 0x02,
+		LogBalloon      = 0x04,
+		LogSoundfile    = 0x08,
+		LogHighlight    = 0x10,
+		LogMessageLimit = 0x20,
 	};
+
 	int iMaxLogBlocks;
 	bool bLog24HourClock;
 	int iChatMessageMargins;

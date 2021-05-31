@@ -3968,10 +3968,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation> Caractères</translation>
     </message>
     <message>
-        <source>Whisper</source>
-        <translation>Chuchotement</translation>
-    </message>
-    <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
         <translation>Si cochée, vous n&apos;entendrez les chuchotements que des utilisateurs que vous avez ajoutés à votre liste d&apos;amis.</translation>
     </message>
@@ -4054,6 +4050,42 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     <message>
         <source>Chat message margins</source>
         <translation>Marges des messages du chat</translation>
+    </message>
+    <message>
+        <source>Limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of users that will trigger message limiting functionality.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit notifications when there are more than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User limit for message limiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle message limiting behavior for %1 events </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7507,7 +7539,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossible d&apos;accéder au micro. Autorisez Mumble à accéder à votre micro en changeant vos préférences dans Préférences -&gt; Sécurité et Vie Privée &gt; Vie Privée &gt; Microphone</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>

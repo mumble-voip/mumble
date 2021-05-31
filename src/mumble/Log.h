@@ -32,7 +32,16 @@ protected:
 public:
 	/// The unique name of this ConfigWidget
 	static const QString name;
-	enum Column { ColMessage, ColConsole, ColNotification, ColHighlight, ColTTS, ColStaticSound, ColStaticSoundPath };
+	enum Column {
+		ColMessage,
+		ColConsole,
+		ColNotification,
+		ColHighlight,
+		ColTTS,
+		ColMessageLimit,
+		ColStaticSound,
+		ColStaticSoundPath
+	};
 	LogConfig(Settings &st);
 	QString title() const Q_DECL_OVERRIDE;
 	const QString &getName() const Q_DECL_OVERRIDE;

@@ -3968,10 +3968,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation> 문자</translation>
     </message>
     <message>
-        <source>Whisper</source>
-        <translation>귓속말</translation>
-    </message>
-    <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
         <translation>이 옵션을 선택하면 친구 목록에 추가한 유저의 귓속말만 들을 수 있습니다.</translation>
     </message>
@@ -4054,6 +4050,42 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Chat message margins</source>
         <translation>채팅 메시지 여백</translation>
+    </message>
+    <message>
+        <source>Limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of users that will trigger message limiting functionality.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit notifications when there are more than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User limit for message limiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle message limiting behavior for %1 events </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6296,7 +6328,7 @@ Valid options are:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">대화 UI의 표시 여부를 전환합니다.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6308,7 +6340,7 @@ Valid options are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">검색</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -7416,7 +7448,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">로컬 마이크 음소거</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7424,7 +7456,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">텍스트-음성-변환 비활성화</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -7432,7 +7464,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">로컬 볼륨 조절...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7653,7 +7685,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">검색</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -7916,7 +7948,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">할당된 버튼 없음</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
@@ -7979,7 +8011,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">현재 선택</translation>
     </message>
 </context>
 <context>
@@ -8107,7 +8139,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">검색</translation>
     </message>
     <message>
         <source>User list</source>
