@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_AUDIOOUTPUTUSER_H_
 
 #include <QtCore/QObject>
+#include <memory>
 
 class AudioOutputUser : public QObject {
 private:
@@ -28,7 +29,8 @@ public:
 	const QString qsName;
 	float *pfBuffer = nullptr;
 	float *pfVolume = nullptr;
-	float fPos[3]   = { 0.0, 0.0, 0.0 };
+	std::unique_ptr< unsigned int[] > piOffset;
+	float fPos[3] = { 0.0, 0.0, 0.0 };
 	bool bStereo;
 	virtual bool prepareSampleBuffer(unsigned int snum) = 0;
 };
