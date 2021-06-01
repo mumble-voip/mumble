@@ -17,11 +17,6 @@
 #	include <fenv.h>
 #endif
 
-#ifdef _MSC_VER
-#	include <corecrt_math_defines.h>
-#	include <intrin.h>
-#endif
-
 /// This union is used by isBigEndian() to determine the endianness.
 union SingleSplit4Bytes {
 	uint32_t single;
