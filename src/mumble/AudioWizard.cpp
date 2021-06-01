@@ -386,12 +386,11 @@ void AudioWizard::reject() {
 
 	Global::get().s.lmLoopMode = Settings::None;
 
-	aosSource = nullptr;
-
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao) {
 		ao->wipe();
 	}
+	ao.reset();
 
 	Global::get().bPosTest = false;
 	restartAudio();
