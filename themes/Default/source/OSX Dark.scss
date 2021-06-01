@@ -1,0 +1,62 @@
+/*
+ * Mumble Dark Theme for OSX
+ * https://github.com/mumble-voip/mumble-theme
+ *
+ * Based on MetroMumble Theme by xPoke
+ * https://github.com/xPoke
+ *
+ * Originally forked from Flat Mumble Theme by xPaw (xpaw.ru)
+ *
+ * Licensed under The Do What The Fuck You Want To Public License (WTFPL)
+ */
+// This is a file you could modify if you are making your own skin.
+// See README.md
+
+// Add your own custom QSS at the end of this file
+
+// Import skin definitions
+@import 'Imports/Dark Definitions';
+
+// OSX specific definitions
+$font-family: -apple-system, ".SF NS Text", "Helvetica Neue", "Lucida Grande";
+$font-size-bigger: 16pt;
+$font-size-big: 15pt;
+$font-size-normal: 13pt;
+$font-size-medium: 12pt;
+$font-size-small: 11pt;
+$font-size-extra-small: 10pt;
+$font-size-qslider-groove: 6pt;
+$font-size-qslider-handle: 5pt;
+
+// Import base theme CSS
+@import 'Imports/Base Theme';
+
+// OSX specific CSS
+QToolBar
+{
+	background-color:transparent;
+	border: 0px;
+	spacing:0;
+}
+
+QToolButton:hover
+{
+	background-color:transparent;
+}
+
+QToolButton:pressed
+{
+	background-color:transparent;
+}
+
+QToolButton:on
+{
+	background-color:transparent;
+}
+
+QToolButton:on:pressed
+{
+	background-color:transparent;
+}
+
+// Add or import your own custom QSS below
