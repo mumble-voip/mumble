@@ -49,7 +49,7 @@ void Themes::applyFallback() {
 	qWarning() << "Applying fallback style sheet";
 
 	QStringList skinPaths;
-	skinPaths << QLatin1String(":/themes/Mumble");
+	skinPaths << QLatin1String(":/themes/Default");
 	QString defaultTheme = getDefaultStylesheet();
 	setTheme(defaultTheme, skinPaths);
 }
