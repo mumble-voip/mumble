@@ -11,13 +11,19 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Collections.Generic;
 using WixSharp;
 using WixSharp.CommonTasks;
 
+public struct Features {
+	public bool overlay;
+	public bool g15;
+}
+
 public class ClientInstaller : MumbleInstall {
-	public ClientInstaller(string version, string arch) {
+	public ClientInstaller(string version, string arch, Features features) {
 		string upgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
-		string[] binaries = null;
+		List<string> binaries = new List<string>();
 		string[] plugins = {
 			"amongus.dll",
 			"aoc.dll",
@@ -79,33 +85,45 @@ public class ClientInstaller : MumbleInstall {
 		if (arch == "x64") {
 			// 64 bit
 			this.Platform = WixSharp.Platform.x64;
-			binaries = new string[] {
+			binaries = new List<string>() {
 				"celt0.0.7.0.dll",
 				"opus.dll",
 				"rnnoise.dll",
 				"speex.dll",
 				"mumble.exe",
 				"mumble_app.dll",
-				"mumble_ol.dll",
-				"mumble_ol_helper.exe",
-				"mumble_ol_helper_x64.exe",
-				"mumble_ol_x64.dll",
-				"mumble-g15-helper.exe"
 			};
+
+			if (features.overlay) {
+				binaries.Add("mumble_ol.dll");
+				binaries.Add("mumble_ol_helper.exe");
+				binaries.Add("mumble_ol_helper_x64.exe");
+				binaries.Add("mumble_ol_x64.dll");
+			}
+
+			if (features.g15) {
+				binaries.Add("mumble-g15-helper.exe");
+			}
 		} else if (arch == "x86") {
 			// 32 bit
 			this.Platform = WixSharp.Platform.x86;
-			binaries = new string[] {
+			binaries = new List<string>() {
 				"celt0.0.7.0.dll",
 				"opus.dll",
 				"rnnoise.dll",
 				"speex.dll",
 				"mumble.exe",
 				"mumble_app.dll",
-				"mumble_ol.dll",
-				"mumble_ol_helper.exe",
-				"mumble-g15-helper.exe"
 			};
+
+			if (features.overlay) {
+				binaries.Add("mumble_ol.dll");
+				binaries.Add("mumble_ol_helper.exe");
+			}
+
+			if (features.g15) {
+				binaries.Add("mumble-g15-helper.exe");
+			}
 		}
 
 		this.Name = "Mumble (client)";
@@ -131,11 +149,11 @@ public class ClientInstaller : MumbleInstall {
 		shortcutDir.Shortcuts = new ExeFileShortcut[] { menuShortcut };
 		desktopDir.Shortcuts = new ExeFileShortcut[] { deskShortcut };
 
-		var binaryFiles = new File[binaries.Length];
+		var binaryFiles = new File[binaries.Count];
 		var licenseFiles = new File[licenses.Length];
 		var pluginFiles = new File[plugins.Length];
 
-		for (int i = 0; i < binaries.Length; i++) {
+		for (int i = 0; i < binaries.Count; i++) {
 			binaryFiles[i] = new File(@"..\..\" + binaries[i]);
 		}
 
@@ -170,6 +188,7 @@ class BuildInstaller
 		string version = "";
 		string arch = "";
 		bool isAllLangs = false;
+		Features features = new Features();
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){3}[0-9]+$")) {
@@ -183,10 +202,18 @@ class BuildInstaller
 			if (args[i] == "--all-languages") {
 				isAllLangs = true;
 			}
+
+			if (args[i] == "--g15") {
+				features.g15 = true;
+			}
+
+			if (args[i] == "--overlay") {
+				features.overlay = true;
+			}
 		}
 
 		if (version != null && arch != null) {
-			var clInstaller = new ClientInstaller(version, arch);
+			var clInstaller = new ClientInstaller(version, arch, features);
 			clInstaller.Version = new Version(version);
 
 			if (isAllLangs) {
