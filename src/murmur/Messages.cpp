@@ -1886,7 +1886,7 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 	}
 
 	log(uSource, QString("Client version %1 (%2 %3: %4)")
-					 .arg(MumbleVersion::toString(uSource->uiVersion))
+					 .arg(Version::toString(uSource->uiVersion))
 					 .arg(uSource->qsOS)
 					 .arg(uSource->qsOSVersion)
 					 .arg(uSource->qsRelease));
