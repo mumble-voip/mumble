@@ -38,6 +38,11 @@ Mumble supports various languages. We are always looking for qualified people to
 
 We are using Weblate as a translation platform. [Register on Weblate](https://hosted.weblate.org/accounts/register/), and join [our translation project](https://hosted.weblate.org/projects/mumble/).
 
+### Writing plugins
+
+Mumble supports general-purpose plugins that can provide functionality that is not implemented in the main Mumble application. You can find more
+information on how this works and on how these have to be created in the [plugin documentation](docs/dev/plugins/README.md).
+
 ## Building
 
 For information on how to build Mumble, checkout [the dedicated documentation](docs/dev/build-instructions/README.md).
