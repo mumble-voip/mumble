@@ -5,8 +5,8 @@
 
 /// This header file contains the definition of Mumble's API
 
-#ifndef MUMBLE_PLUGIN_API_H_
-#define MUMBLE_PLUGIN_API_H_
+#ifndef EXTERNAL_MUMBLE_PLUGIN_API_H_
+#define EXTERNAL_MUMBLE_PLUGIN_API_H_
 
 #include "PluginComponents_v_1_0_x.h"
 #include <stdint.h>
@@ -527,4 +527,4 @@ struct MumbleAPI_v_1_0_x {
 	mumble_error_t(PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID, const char *samplePath);
 };
 
-#endif
+#endif // EXTERNAL_MUMBLE_PLUGIN_API_H_

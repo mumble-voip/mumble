@@ -5,8 +5,8 @@
 
 /// This header file contains definitions of types and other components used in Mumble's plugin system
 
-#ifndef MUMBLE_PLUGINCOMPONENT_H_
-#define MUMBLE_PLUGINCOMPONENT_H_
+#ifndef EXTERNAL_MUMBLE_PLUGINCOMPONENT_H_
+#define EXTERNAL_MUMBLE_PLUGINCOMPONENT_H_
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -406,4 +406,4 @@ static const mumble_error_t MUMBLE_STATUS_OK = MUMBLE_EC_OK;
 /// A constant holding the version object that is considered to correspond to an unknown version
 static const mumble_version_t MUMBLE_VERSION_UNKNOWN = { 0, 0, 0 };
 
-#endif // MUMBLE_PLUGINCOMPONENT_H_
+#endif // EXTERNAL_MUMBLE_PLUGINCOMPONENT_H_
