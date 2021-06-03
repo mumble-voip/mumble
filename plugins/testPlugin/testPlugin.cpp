@@ -55,18 +55,18 @@ mumble_error_t mumble_init(uint32_t id) {
 
 	// Little showcase for how to retrieve a setting from Mumble
 	int64_t voiceHold;
-	mumble_error_t error = mumAPI.getMumbleSetting_int(ownID, MSK_AUDIO_INPUT_VOICE_HOLD, &voiceHold);
-	if (error == STATUS_OK) {
+	mumble_error_t error = mumAPI.getMumbleSetting_int(ownID, MUMBLE_SK_AUDIO_INPUT_VOICE_HOLD, &voiceHold);
+	if (error == MUMBLE_STATUS_OK) {
 		pLog() << "The voice hold is set to " << voiceHold << std::endl;
 	} else {
 		pluginLog("Failed to retrieve voice hold");
-		pLog() << errorMessage(error) << std::endl;
+		pLog() << mumble_errorMessage(error) << std::endl;
 	}
 
-	// STATUS_OK is a macro set to the appropriate status flag (ErrorCode)
+	// MUMBLE_STATUS_OK is a macro set to the appropriate status flag (ErrorCode)
 	// If you need to return any other status have a look at the ErrorCode enum
 	// inside PluginComponents.h and use one of its values
-	return STATUS_OK;
+	return MUMBLE_STATUS_OK;
 }
 
 void mumble_shutdown() {
@@ -176,7 +176,7 @@ uint32_t mumble_getFeatures() {
 	// Tells Mumble whether this plugin delivers some known common functionality. See the PluginFeature enum in
 	// PluginComponents.h for what is available.
 	// If you want your plugin to deliver positional data, you'll want to return FEATURE_POSITIONAL
-	return FEATURE_NONE;
+	return MUMBLE_FEATURE_NONE;
 }
 
 uint32_t mumble_deactivateFeatures(uint32_t features) {
@@ -198,7 +198,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 	// As this plugin doesn't provide PD, we return PDEC_ERROR_PERM to indicate that even in the future we won't do so
 	// If your plugin is indeed delivering positional data but is only temporarily unable to do so, return
 	// PDEC_ERROR_TEMP. and if you deliver PD and succeeded initializing return PDEC_OK.
-	return PDEC_ERROR_PERM;
+	return MUMBLE_PDEC_ERROR_PERM;
 }
 
 #define SET_TO_ZERO(name) \
@@ -242,7 +242,7 @@ void mumble_onServerDisconnected(mumble_connection_t connection) {
 	activeConnection = -1;
 
 	const char *serverHash;
-	if (mumAPI.getServerHash(ownID, connection, &serverHash) == STATUS_OK) {
+	if (mumAPI.getServerHash(ownID, connection, &serverHash) == MUMBLE_STATUS_OK) {
 		pLog() << "Disconnected from server-connection with ID " << connection << "(hash: " << serverHash << ")"
 			   << std::endl;
 
@@ -255,7 +255,7 @@ void mumble_onServerDisconnected(mumble_connection_t connection) {
 void mumble_onServerSynchronized(mumble_connection_t connection) {
 	// The client has finished synchronizing with the server. Thus we can now obtain a list of all users on this server
 	const char *serverHash;
-	if (mumAPI.getServerHash(ownID, connection, &serverHash) == STATUS_OK) {
+	if (mumAPI.getServerHash(ownID, connection, &serverHash) == MUMBLE_STATUS_OK) {
 		pLog() << "Server has finished synchronizing (ServerConnection: " << connection << "; hash: " << serverHash
 			   << ")" << std::endl;
 
@@ -267,13 +267,13 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 	size_t userCount;
 	mumble_userid_t *userIDs;
 
-	if (mumAPI.getAllUsers(ownID, activeConnection, &userIDs, &userCount) != STATUS_OK) {
+	if (mumAPI.getAllUsers(ownID, activeConnection, &userIDs, &userCount) != MUMBLE_STATUS_OK) {
 		pluginLog("[ERROR]: Can't obtain user list");
 		return;
 	}
 
 	mumble_userid_t localUserID;
-	if (mumAPI.getLocalUserID(ownID, connection, &localUserID) != STATUS_OK) {
+	if (mumAPI.getLocalUserID(ownID, connection, &localUserID) != MUMBLE_STATUS_OK) {
 		pluginLog("[ERROR]: Can't obtain ID of local user");
 		return;
 	}
@@ -282,13 +282,13 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 
 	for (size_t i = 0; i < userCount; i++) {
 		const char *userName;
-		if (mumAPI.getUserName(ownID, connection, userIDs[i], &userName) != STATUS_OK) {
+		if (mumAPI.getUserName(ownID, connection, userIDs[i], &userName) != MUMBLE_STATUS_OK) {
 			pLog() << "<Unable to fetch user name>" << std::endl;
 			continue;
 		}
 
 		const char *userHash;
-		if (mumAPI.getUserHash(ownID, connection, userIDs[i], &userHash) != STATUS_OK) {
+		if (mumAPI.getUserHash(ownID, connection, userIDs[i], &userHash) != MUMBLE_STATUS_OK) {
 			pluginLog("<Unable to get user-hash>");
 		}
 
@@ -296,7 +296,7 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 
 		// Mute the user "MuteMe" if this is not the name of the local user (in which case it'd fail)
 		if (userIDs[i] != localUserID && std::strcmp(userName, "MuteMe") == 0) {
-			if (mumAPI.requestLocalMute(ownID, connection, userIDs[i], true) != STATUS_OK) {
+			if (mumAPI.requestLocalMute(ownID, connection, userIDs[i], true) != MUMBLE_STATUS_OK) {
 				pluginLog("[ERROR]: Failed at muting user \"MuteMe\"!");
 			}
 		}
@@ -310,7 +310,7 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 	size_t channelCount;
 	mumble_channelid_t *channelIDs;
 
-	if (mumAPI.getAllChannels(ownID, activeConnection, &channelIDs, &channelCount) != STATUS_OK) {
+	if (mumAPI.getAllChannels(ownID, activeConnection, &channelIDs, &channelCount) != MUMBLE_STATUS_OK) {
 		pluginLog("[ERROR]: Failed to fetch channel list!");
 		return;
 	}
@@ -320,14 +320,14 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 	mumAPI.freeMemory(ownID, channelIDs);
 
 	mumble_userid_t localUser;
-	if (mumAPI.getLocalUserID(ownID, activeConnection, &localUser) != STATUS_OK) {
+	if (mumAPI.getLocalUserID(ownID, activeConnection, &localUser) != MUMBLE_STATUS_OK) {
 		pluginLog("Failed to retrieve local user ID");
 		return;
 	}
 
 	if (mumAPI.sendData(ownID, activeConnection, &localUser, 1, reinterpret_cast< const uint8_t * >("Just a test"), 12,
 						"testMsg")
-		== STATUS_OK) {
+		== MUMBLE_STATUS_OK) {
 		pluginLog("Successfully sent plugin message");
 
 		// Try break the rate-limiter for plugin messages
@@ -343,7 +343,7 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 
 	if (mumAPI.requestSetLocalUserComment(ownID, connection,
 										  "This user has the TestPlugin enabled - <b>hand over a cookie!</b>")
-		!= STATUS_OK) {
+		!= MUMBLE_STATUS_OK) {
 		pluginLog("Failed at setting the local user's comment");
 	}
 }
@@ -371,19 +371,19 @@ void mumble_onUserTalkingStateChanged(mumble_connection_t connection, mumble_use
 
 	// The possible values are contained in the TalkingState enum inside PluginComponent.h
 	switch (talkingState) {
-		case INVALID:
+		case MUMBLE_TS_INVALID:
 			stream << "Invalid";
 			break;
-		case PASSIVE:
+		case MUMBLE_TS_PASSIVE:
 			stream << "Passive";
 			break;
-		case TALKING:
+		case MUMBLE_TS_TALKING:
 			stream << "Talking";
 			break;
-		case WHISPERING:
+		case MUMBLE_TS_WHISPERING:
 			stream << "Whispering";
 			break;
-		case SHOUTING:
+		case MUMBLE_TS_SHOUTING:
 			stream << "Shouting";
 			break;
 		default:

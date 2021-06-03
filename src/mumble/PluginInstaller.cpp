@@ -146,8 +146,8 @@ void PluginInstaller::init() {
 	mumble_version_t usedAPIVersion = m_plugin->getAPIVersion();
 	qlVersion->setText(
 		QString::fromLatin1("%1 (API %2)")
-			.arg(pluginVersion == VERSION_UNKNOWN ? "Unknown" : static_cast< QString >(pluginVersion))
-			.arg(usedAPIVersion == VERSION_UNKNOWN ? "Unknown" : static_cast< QString >(usedAPIVersion)));
+			.arg(pluginVersion == MUMBLE_VERSION_UNKNOWN ? "Unknown" : static_cast< QString >(pluginVersion))
+			.arg(usedAPIVersion == MUMBLE_VERSION_UNKNOWN ? "Unknown" : static_cast< QString >(usedAPIVersion)));
 
 	qlAuthor->setText(m_plugin->getAuthor());
 

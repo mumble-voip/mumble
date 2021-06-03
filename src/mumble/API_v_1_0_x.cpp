@@ -37,21 +37,21 @@
 
 #define VERIFY_PLUGIN_ID(id)                              \
 	if (!Global::get().pluginManager->pluginExists(id)) { \
-		EXIT_WITH(EC_INVALID_PLUGIN_ID);                  \
+		EXIT_WITH(MUMBLE_EC_INVALID_PLUGIN_ID);           \
 	}
 
 // Right now there can only be one connection managed by the current ServerHandler
 #define VERIFY_CONNECTION(connection)                                             \
 	if (!Global::get().sh || Global::get().sh->getConnectionID() != connection) { \
-		EXIT_WITH(EC_CONNECTION_NOT_FOUND);                                       \
+		EXIT_WITH(MUMBLE_EC_CONNECTION_NOT_FOUND);                                \
 	}
 
 // Right now whether or not a connection has finished synchronizing is indicated by Global::get().uiSession. If it is
 // zero, synchronization is not done yet (or there is no connection to begin with). The connection parameter in the
 // macro is only present in case it will be needed in the future
-#define ENSURE_CONNECTION_SYNCHRONIZED(connection) \
-	if (Global::get().uiSession == 0) {            \
-		EXIT_WITH(EC_CONNECTION_UNSYNCHRONIZED);   \
+#define ENSURE_CONNECTION_SYNCHRONIZED(connection)      \
+	if (Global::get().uiSession == 0) {                 \
+		EXIT_WITH(MUMBLE_EC_CONNECTION_UNSYNCHRONIZED); \
 	}
 
 #define UNUSED(var) (void) var;
@@ -153,9 +153,9 @@ void MumbleAPI::freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr,
 		// Remove pointer from curator
 		m_curator.m_entries.erase(it);
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_POINTER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_POINTER_NOT_FOUND);
 	}
 }
 
@@ -175,9 +175,9 @@ void MumbleAPI::getActiveServerConnection_v_1_0_x(mumble_plugin_id_t callerID, m
 	if (Global::get().sh) {
 		*connection = Global::get().sh->getConnectionID();
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_NO_ACTIVE_CONNECTION);
+		EXIT_WITH(MUMBLE_EC_NO_ACTIVE_CONNECTION);
 	}
 }
 
@@ -199,7 +199,7 @@ void MumbleAPI::isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID, mu
 	// not finished yet (or there is no connection to begin with)
 	*synchronized = Global::get().uiSession != 0;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -220,7 +220,7 @@ void MumbleAPI::getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 	*userID = Global::get().uiSession;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getUserName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
@@ -255,9 +255,9 @@ void MumbleAPI::getUserName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 
 		*name = nameArray;
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 }
 
@@ -293,9 +293,9 @@ void MumbleAPI::getChannelName_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 		*name = nameArray;
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_CHANNEL_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 	}
 }
 
@@ -337,7 +337,7 @@ void MumbleAPI::getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 	*users     = userIDs;
 	*userCount = amount;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -379,7 +379,7 @@ void MumbleAPI::getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 	*channels     = channelIDs;
 	*channelCount = amount;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -403,15 +403,15 @@ void MumbleAPI::getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_con
 	const ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	if (user->cChannel) {
 		*channelID = user->cChannel->iId;
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_GENERIC_ERROR);
+		EXIT_WITH(MUMBLE_EC_GENERIC_ERROR);
 	}
 }
 
@@ -436,7 +436,7 @@ void MumbleAPI::getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 	const Channel *channel = Channel::get(channelID);
 
 	if (!channel) {
-		EXIT_WITH(EC_CHANNEL_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 	}
 
 	size_t amount = channel->qlUsers.size();
@@ -455,7 +455,7 @@ void MumbleAPI::getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 	*users     = userIDs;
 	*userCount = amount;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID,
@@ -474,18 +474,18 @@ void MumbleAPI::getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID
 
 	switch (Global::get().s.atTransmit) {
 		case Settings::AudioTransmit::Continuous:
-			*transmissionMode = TM_CONTINOUS;
-			EXIT_WITH(STATUS_OK);
+			*transmissionMode = MUMBLE_TM_CONTINOUS;
+			EXIT_WITH(MUMBLE_STATUS_OK);
 		case Settings::AudioTransmit::VAD:
-			*transmissionMode = TM_VOICE_ACTIVATION;
-			EXIT_WITH(STATUS_OK);
+			*transmissionMode = MUMBLE_TM_VOICE_ACTIVATION;
+			EXIT_WITH(MUMBLE_STATUS_OK);
 		case Settings::AudioTransmit::PushToTalk:
-			*transmissionMode = TM_PUSH_TO_TALK;
-			EXIT_WITH(STATUS_OK);
+			*transmissionMode = MUMBLE_TM_PUSH_TO_TALK;
+			EXIT_WITH(MUMBLE_STATUS_OK);
 	}
 
 	// Unable to resolve transmission mode
-	EXIT_WITH(EC_GENERIC_ERROR);
+	EXIT_WITH(MUMBLE_EC_GENERIC_ERROR);
 }
 
 void MumbleAPI::isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -508,12 +508,12 @@ void MumbleAPI::isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID, mumble_c
 	const ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	*muted = user->bLocalMute;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted, api_promise_t *promise) {
@@ -530,7 +530,7 @@ void MumbleAPI::isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *mute
 
 	*muted = Global::get().s.bMute;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened, api_promise_t *promise) {
@@ -547,7 +547,7 @@ void MumbleAPI::isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *d
 
 	*deafened = Global::get().s.bDeaf;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
@@ -570,7 +570,7 @@ void MumbleAPI::getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 	const ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	// The user's hash is already in hexadecimal representation, so we don't have to worry about null-bytes in it
@@ -585,7 +585,7 @@ void MumbleAPI::getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 
 	*hash = hashArray;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char **hash,
@@ -619,7 +619,7 @@ void MumbleAPI::getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connec
 
 	*hash = hashArray;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID,
@@ -637,18 +637,18 @@ void MumbleAPI::requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t call
 	VERIFY_PLUGIN_ID(callerID);
 
 	switch (transmissionMode) {
-		case TM_CONTINOUS:
+		case MUMBLE_TM_CONTINOUS:
 			Global::get().s.atTransmit = Settings::AudioTransmit::Continuous;
-			EXIT_WITH(STATUS_OK);
-		case TM_VOICE_ACTIVATION:
+			EXIT_WITH(MUMBLE_STATUS_OK);
+		case MUMBLE_TM_VOICE_ACTIVATION:
 			Global::get().s.atTransmit = Settings::AudioTransmit::VAD;
-			EXIT_WITH(STATUS_OK);
-		case TM_PUSH_TO_TALK:
+			EXIT_WITH(MUMBLE_STATUS_OK);
+		case MUMBLE_TM_PUSH_TO_TALK:
 			Global::get().s.atTransmit = Settings::AudioTransmit::PushToTalk;
-			EXIT_WITH(STATUS_OK);
+			EXIT_WITH(MUMBLE_STATUS_OK);
 	}
 
-	EXIT_WITH(EC_UNKNOWN_TRANSMISSION_MODE);
+	EXIT_WITH(MUMBLE_EC_UNKNOWN_TRANSMISSION_MODE);
 }
 
 void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -671,7 +671,7 @@ void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 	ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	if (user->qsComment.isEmpty() && !user->qbaCommentHash.isEmpty()) {
@@ -679,7 +679,7 @@ void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 		if (user->qsComment.isEmpty()) {
 			// The user's comment hasn't been synchronized to this client yet
-			EXIT_WITH(EC_UNSYNCHRONIZED_BLOB);
+			EXIT_WITH(MUMBLE_EC_UNSYNCHRONIZED_BLOB);
 		}
 	}
 
@@ -694,7 +694,7 @@ void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 	*comment = nameArray;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -718,7 +718,7 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	Channel *channel = Channel::get(channelID);
 
 	if (!channel) {
-		EXIT_WITH(EC_CHANNEL_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 	}
 
 	if (channel->qsDesc.isEmpty() && !channel->qbaDescHash.isEmpty()) {
@@ -726,7 +726,7 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 
 		if (channel->qsDesc.isEmpty()) {
 			// The channel's description hasn't been synchronized to this client yet
-			EXIT_WITH(EC_UNSYNCHRONIZED_BLOB);
+			EXIT_WITH(MUMBLE_EC_UNSYNCHRONIZED_BLOB);
 		}
 	}
 
@@ -741,7 +741,7 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 
 	*description = nameArray;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -765,13 +765,13 @@ void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_conn
 	const ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	const Channel *channel = Channel::get(channelID);
 
 	if (!channel) {
-		EXIT_WITH(EC_CHANNEL_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 	}
 
 	if (channel != user->cChannel) {
@@ -784,7 +784,7 @@ void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_conn
 		Global::get().sh->joinChannel(user->uiSession, channel->iId, passwordList);
 	}
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t callerID, bool activate,
@@ -802,7 +802,7 @@ void MumbleAPI::requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t 
 
 	PluginData::get().overwriteMicrophoneActivation.store(activate);
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -823,18 +823,18 @@ void MumbleAPI::requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID, mumble_con
 
 	if (userID == Global::get().uiSession) {
 		// Can't locally mute the local user
-		EXIT_WITH(EC_INVALID_MUTE_TARGET);
+		EXIT_WITH(MUMBLE_EC_INVALID_MUTE_TARGET);
 	}
 
 	ClientUser *user = ClientUser::get(userID);
 
 	if (!user) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	user->setLocalMute(muted);
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted, api_promise_t *promise) {
@@ -850,12 +850,12 @@ void MumbleAPI::requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool m
 	VERIFY_PLUGIN_ID(callerID);
 
 	if (!Global::get().mw) {
-		EXIT_WITH(EC_INTERNAL_ERROR);
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
 	Global::get().mw->setAudioMute(muted);
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool deafened, api_promise_t *promise) {
@@ -871,12 +871,12 @@ void MumbleAPI::requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool d
 	VERIFY_PLUGIN_ID(callerID);
 
 	if (!Global::get().mw) {
-		EXIT_WITH(EC_INTERNAL_ERROR);
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
 	Global::get().mw->setAudioDeaf(deafened);
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -898,16 +898,16 @@ void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, 
 	ClientUser *localUser = ClientUser::get(Global::get().uiSession);
 
 	if (!localUser) {
-		EXIT_WITH(EC_USER_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
 	if (!Global::get().mw || !Global::get().mw->pmModel) {
-		EXIT_WITH(EC_INTERNAL_ERROR);
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
 	Global::get().mw->pmModel->setComment(localUser, QString::fromUtf8(comment));
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -936,13 +936,13 @@ void MumbleAPI::findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 		if (it.value()->qsName == qsUserName) {
 			*userID = it.key();
 
-			EXIT_WITH(STATUS_OK);
+			EXIT_WITH(MUMBLE_STATUS_OK);
 		}
 
 		it++;
 	}
 
-	EXIT_WITH(EC_USER_NOT_FOUND);
+	EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 }
 
 void MumbleAPI::findChannelByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -972,13 +972,13 @@ void MumbleAPI::findChannelByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 		if (it.value()->qsName == qsChannelName) {
 			*channelID = it.key();
 
-			EXIT_WITH(STATUS_OK);
+			EXIT_WITH(MUMBLE_STATUS_OK);
 		}
 
 		it++;
 	}
 
-	EXIT_WITH(EC_CHANNEL_NOT_FOUND);
+	EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 }
 
 QVariant getMumbleSettingHelper(mumble_settings_key_t key) {
@@ -988,28 +988,28 @@ QVariant getMumbleSettingHelper(mumble_settings_key_t key) {
 	// get float values but there is one for doubles. Therefore floats have to be cast to doubles in order for the
 	// type checking to work out.
 	switch (key) {
-		case MSK_AUDIO_INPUT_VOICE_HOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VOICE_HOLD:
 			value = static_cast< int >(Global::get().s.iVoiceHold);
 			break;
-		case MSK_AUDIO_INPUT_VAD_SILENCE_THRESHOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VAD_SILENCE_THRESHOLD:
 			value = static_cast< double >(Global::get().s.fVADmin);
 			break;
-		case MSK_AUDIO_INPUT_VAD_SPEECH_THRESHOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VAD_SPEECH_THRESHOLD:
 			value = static_cast< double >(Global::get().s.fVADmax);
 			break;
-		case MSK_AUDIO_OUTPUT_PA_MINIMUM_DISTANCE:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MINIMUM_DISTANCE:
 			value = static_cast< double >(Global::get().s.fAudioMinDistance);
 			break;
-		case MSK_AUDIO_OUTPUT_PA_MAXIMUM_DISTANCE:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MAXIMUM_DISTANCE:
 			value = static_cast< double >(Global::get().s.fAudioMaxDistance);
 			break;
-		case MSK_AUDIO_OUTPUT_PA_BLOOM:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_BLOOM:
 			value = static_cast< double >(Global::get().s.fAudioBloom);
 			break;
-		case MSK_AUDIO_OUTPUT_PA_MINIMUM_VOLUME:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MINIMUM_VOLUME:
 			value = static_cast< double >(Global::get().s.fAudioMaxDistVolume);
 			break;
-		case MSK_INVALID:
+		case MUMBLE_SK_INVALID:
 			// There is no setting associated with this key
 			break;
 	}
@@ -1038,17 +1038,17 @@ void MumbleAPI::getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	QVariant value = getMumbleSettingHelper(key);
 
 	if (!value.isValid()) {
-		// We also return that for MSK_INVALID
-		EXIT_WITH(EC_UNKNOWN_SETTINGS_KEY);
+		// We also return that for MUMBLE_SK_INVALID
+		EXIT_WITH(MUMBLE_EC_UNKNOWN_SETTINGS_KEY);
 	}
 
 	if (IS_NOT_TYPE(value, QMetaType::Bool)) {
-		EXIT_WITH(EC_WRONG_SETTINGS_TYPE);
+		EXIT_WITH(MUMBLE_EC_WRONG_SETTINGS_TYPE);
 	}
 
 	*outValue = value.toBool();
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, int64_t *outValue,
@@ -1067,17 +1067,17 @@ void MumbleAPI::getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID, mumble
 	QVariant value = getMumbleSettingHelper(key);
 
 	if (!value.isValid()) {
-		// We also return that for MSK_INVALID
-		EXIT_WITH(EC_UNKNOWN_SETTINGS_KEY);
+		// We also return that for MUMBLE_SK_INVALID
+		EXIT_WITH(MUMBLE_EC_UNKNOWN_SETTINGS_KEY);
 	}
 
 	if (IS_NOT_TYPE(value, QMetaType::Int)) {
-		EXIT_WITH(EC_WRONG_SETTINGS_TYPE);
+		EXIT_WITH(MUMBLE_EC_WRONG_SETTINGS_TYPE);
 	}
 
 	*outValue = value.toInt();
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key,
@@ -1096,17 +1096,17 @@ void MumbleAPI::getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID, mum
 	QVariant value = getMumbleSettingHelper(key);
 
 	if (!value.isValid()) {
-		// We also return that for MSK_INVALID
-		EXIT_WITH(EC_UNKNOWN_SETTINGS_KEY);
+		// We also return that for MUMBLE_SK_INVALID
+		EXIT_WITH(MUMBLE_EC_UNKNOWN_SETTINGS_KEY);
 	}
 
 	if (IS_NOT_TYPE(value, QMetaType::Double)) {
-		EXIT_WITH(EC_WRONG_SETTINGS_TYPE);
+		EXIT_WITH(MUMBLE_EC_WRONG_SETTINGS_TYPE);
 	}
 
 	*outValue = value.toDouble();
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key,
@@ -1125,12 +1125,12 @@ void MumbleAPI::getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mum
 	QVariant value = getMumbleSettingHelper(key);
 
 	if (!value.isValid()) {
-		// We also return that for MSK_INVALID
-		EXIT_WITH(EC_UNKNOWN_SETTINGS_KEY);
+		// We also return that for MUMBLE_SK_INVALID
+		EXIT_WITH(MUMBLE_EC_UNKNOWN_SETTINGS_KEY);
 	}
 
 	if (IS_NOT_TYPE(value, QMetaType::QString)) {
-		EXIT_WITH(EC_WRONG_SETTINGS_TYPE);
+		EXIT_WITH(MUMBLE_EC_WRONG_SETTINGS_TYPE);
 	}
 
 	const QString stringValue = value.toString();
@@ -1146,73 +1146,73 @@ void MumbleAPI::getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mum
 
 	*outValue = valueArray;
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 mumble_error_t setMumbleSettingHelper(mumble_settings_key_t key, QVariant value) {
 	switch (key) {
-		case MSK_AUDIO_INPUT_VOICE_HOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VOICE_HOLD:
 			if (IS_TYPE(value, QMetaType::Int)) {
 				Global::get().s.iVoiceHold = value.toInt();
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_INPUT_VAD_SILENCE_THRESHOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VAD_SILENCE_THRESHOLD:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fVADmin = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_INPUT_VAD_SPEECH_THRESHOLD:
+		case MUMBLE_SK_AUDIO_INPUT_VAD_SPEECH_THRESHOLD:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fVADmax = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_OUTPUT_PA_MINIMUM_DISTANCE:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MINIMUM_DISTANCE:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fAudioMinDistance = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_OUTPUT_PA_MAXIMUM_DISTANCE:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MAXIMUM_DISTANCE:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fAudioMaxDistance = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_OUTPUT_PA_BLOOM:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_BLOOM:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fAudioBloom = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_AUDIO_OUTPUT_PA_MINIMUM_VOLUME:
+		case MUMBLE_SK_AUDIO_OUTPUT_PA_MINIMUM_VOLUME:
 			if (IS_TYPE(value, QMetaType::Double)) {
 				Global::get().s.fAudioMaxDistVolume = static_cast< float >(value.toDouble());
 
-				return STATUS_OK;
+				return MUMBLE_STATUS_OK;
 			} else {
-				return EC_WRONG_SETTINGS_TYPE;
+				return MUMBLE_EC_WRONG_SETTINGS_TYPE;
 			}
-		case MSK_INVALID:
+		case MUMBLE_SK_INVALID:
 			// Do nothing
 			break;
 	}
 
-	return EC_UNKNOWN_SETTINGS_KEY;
+	return MUMBLE_EC_UNKNOWN_SETTINGS_KEY;
 }
 
 void MumbleAPI::setMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, bool value,
@@ -1304,10 +1304,10 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
 	if (dataLength > Mumble::Plugins::PluginMessage::MAX_DATA_LENGTH) {
-		EXIT_WITH(EC_DATA_TOO_BIG);
+		EXIT_WITH(MUMBLE_EC_DATA_TOO_BIG);
 	}
 	if (std::strlen(dataID) > Mumble::Plugins::PluginMessage::MAX_DATA_ID_LENGTH) {
-		EXIT_WITH(EC_DATA_ID_TOO_LONG);
+		EXIT_WITH(MUMBLE_EC_DATA_ID_TOO_LONG);
 	}
 
 	MumbleProto::PluginDataTransmission mpdt;
@@ -1319,7 +1319,7 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 		if (user) {
 			mpdt.add_receiversessions(users[i]);
 		} else {
-			EXIT_WITH(EC_USER_NOT_FOUND);
+			EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 		}
 	}
 
@@ -1329,9 +1329,9 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 	if (Global::get().sh) {
 		Global::get().sh->sendMessage(mpdt);
 
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_CONNECTION_NOT_FOUND);
+		EXIT_WITH(MUMBLE_EC_CONNECTION_NOT_FOUND);
 	}
 }
 
@@ -1347,7 +1347,7 @@ void MumbleAPI::log_v_1_0_x(mumble_plugin_id_t callerID, const char *message, ap
 	// We verify the plugin manually as we need a handle to it later
 	const_plugin_ptr_t plugin = Global::get().pluginManager->getPlugin(callerID);
 	if (!plugin) {
-		EXIT_WITH(EC_INVALID_PLUGIN_ID);
+		EXIT_WITH(MUMBLE_EC_INVALID_PLUGIN_ID);
 	}
 
 	QString msg = QString::fromLatin1("<b>%1:</b> %2")
@@ -1357,7 +1357,7 @@ void MumbleAPI::log_v_1_0_x(mumble_plugin_id_t callerID, const char *message, ap
 	// Use static method that handles the case in which the Log object doesn't exist yet
 	Log::logOrDefer(Log::PluginMessage, msg);
 
-	EXIT_WITH(STATUS_OK);
+	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
 void MumbleAPI::playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath, api_promise_t *promise) {
@@ -1372,13 +1372,13 @@ void MumbleAPI::playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samp
 	VERIFY_PLUGIN_ID(callerID);
 
 	if (!Global::get().ao) {
-		EXIT_WITH(EC_AUDIO_NOT_AVAILABLE);
+		EXIT_WITH(MUMBLE_EC_AUDIO_NOT_AVAILABLE);
 	}
 
 	if (Global::get().ao->playSample(QString::fromUtf8(samplePath), false)) {
-		EXIT_WITH(STATUS_OK);
+		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
-		EXIT_WITH(EC_INVALID_SAMPLE);
+		EXIT_WITH(MUMBLE_EC_INVALID_SAMPLE);
 	}
 }
 
@@ -1831,7 +1831,7 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 
 #define MAP(qtName, apiName) \
 	case Qt::Key_##qtName:   \
-		return KC_##apiName
+		return MUMBLE_KC_##apiName
 
 mumble_keycode_t qtKeyCodeToAPIKeyCode(unsigned int keyCode) {
 	switch (keyCode) {
@@ -1841,7 +1841,7 @@ mumble_keycode_t qtKeyCodeToAPIKeyCode(unsigned int keyCode) {
 		case Qt::Key_Return:
 			// Fallthrough
 		case Qt::Key_Enter:
-			return KC_ENTER;
+			return MUMBLE_KC_ENTER;
 			MAP(Delete, DELETE);
 			MAP(Print, PRINT);
 			MAP(Home, HOME);
@@ -1882,7 +1882,7 @@ mumble_keycode_t qtKeyCodeToAPIKeyCode(unsigned int keyCode) {
 		case Qt::Key_Super_L:
 			// Fallthrough
 		case Qt::Key_Super_R:
-			return KC_SUPER;
+			return MUMBLE_KC_SUPER;
 			MAP(Space, SPACE);
 			MAP(Exclam, EXCLAMATION_MARK);
 			MAP(QuoteDbl, DOUBLE_QUOTE);
@@ -1954,7 +1954,7 @@ mumble_keycode_t qtKeyCodeToAPIKeyCode(unsigned int keyCode) {
 			MAP(degree, DEGREE_SIGN);
 	}
 
-	return KC_INVALID;
+	return MUMBLE_KC_INVALID;
 }
 
 #undef MAP
