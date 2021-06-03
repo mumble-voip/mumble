@@ -113,19 +113,19 @@ void PluginConfig::save() const {
 					// potentially deactivate plugin features
 					// A plugin's feature is considered to be enabled by default after loading. Thus we only need to
 					// deactivate the ones we don't want
-					uint32_t featuresToDeactivate = FEATURE_NONE;
+					uint32_t featuresToDeactivate = MUMBLE_FEATURE_NONE;
 					const uint32_t pluginFeatures = plugin->getFeatures();
 
-					if (!positionalDataEnabled && (pluginFeatures & FEATURE_POSITIONAL)) {
+					if (!positionalDataEnabled && (pluginFeatures & MUMBLE_FEATURE_POSITIONAL)) {
 						// deactivate this feature only if it is available in the first place
-						featuresToDeactivate |= FEATURE_POSITIONAL;
+						featuresToDeactivate |= MUMBLE_FEATURE_POSITIONAL;
 					}
 
-					if (featuresToDeactivate != FEATURE_NONE) {
+					if (featuresToDeactivate != MUMBLE_FEATURE_NONE) {
 						uint32_t remainingFeatures =
 							Global::get().pluginManager->deactivateFeaturesFor(plugin->getID(), featuresToDeactivate);
 
-						if (remainingFeatures != FEATURE_NONE) {
+						if (remainingFeatures != MUMBLE_FEATURE_NONE) {
 							Global::get().l->log(Log::Warning,
 												 tr("Unable to deactivate all requested features for plugin \"%1\"")
 													 .arg(plugin->getName()));
@@ -217,7 +217,7 @@ void PluginConfig::refillPluginList() {
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, currentPlugin->isLoaded() ? Qt::Checked : Qt::Unchecked);
 
-		if (currentPlugin->getFeatures() & FEATURE_POSITIONAL) {
+		if (currentPlugin->getFeatures() & MUMBLE_FEATURE_POSITIONAL) {
 			i->setCheckState(2, currentPlugin->isPositionalDataEnabled() ? Qt::Checked : Qt::Unchecked);
 			i->setToolTip(2, tr("Whether the positional audio feature of this plugin should be enabled"));
 		} else {
