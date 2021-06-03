@@ -758,7 +758,7 @@ void ServerHandler::serverConnectionConnected() {
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
 
-	unsigned int version = MumbleVersion::getRaw();
+	unsigned int version = Version::getRaw();
 	if (version) {
 		mpv.set_version(version);
 	}

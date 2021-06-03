@@ -299,7 +299,7 @@ mumble_error_t Plugin::init() {
 
 	// Get Mumble version
 	int mumbleMajor, mumbleMinor, mumblePatch;
-	MumbleVersion::get(&mumbleMajor, &mumbleMinor, &mumblePatch);
+	Version::get(&mumbleMajor, &mumbleMinor, &mumblePatch);
 
 	// Require API version 1.0.0 as the minimal supported one
 	setMumbleInfo({ mumbleMajor, mumbleMinor, mumblePatch }, MUMBLE_PLUGIN_API_VERSION, { 1, 0, 0 });

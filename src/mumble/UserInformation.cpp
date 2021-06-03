@@ -129,7 +129,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 		const MumbleProto::Version &mpv = msg.version();
 
-		qlVersion->setText(tr("%1 (%2)").arg(MumbleVersion::toString(mpv.version())).arg(u8(mpv.release())));
+		qlVersion->setText(tr("%1 (%2)").arg(Version::toString(mpv.version())).arg(u8(mpv.release())));
 		qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
 	}
 	if (msg.celt_versions_size() > 0) {
