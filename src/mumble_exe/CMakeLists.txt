@@ -80,6 +80,8 @@ if(packaging)
 		)
 	endif()
 
+	message(STATUS "Installer is called with ${installer_vars}")
+
 	file(COPY 
 		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
 		${CMAKE_SOURCE_DIR}/installer/ClientInstaller.cs
