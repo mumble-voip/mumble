@@ -77,6 +77,9 @@ public:
 
 	static QString getInstallDir();
 
+	/// @returns The suffix a plugin for the current OS and architecture should have
+	static QLatin1String getPluginSuffix();
+
 public slots:
 	/// Slot called when the user clicks the yes button
 	void on_qpbYesClicked();

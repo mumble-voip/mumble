@@ -85,20 +85,36 @@ void PluginInstaller::init() {
 
 			// Iterate over all files in the archive to see which ones could be the correct plugin library
 			QString pluginName;
-			auto it = archive.fileInfoBegin();
+			bool fileNameContainsSuffix = false;
+			auto it                     = archive.fileInfoBegin();
 			while (it != archive.fileInfoEnd()) {
 				QString currentFileName = QString::fromStdString(it->first);
 				if (QLibrary::isLibrary(currentFileName)) {
+					bool currentFileNameContainsSuffix =
+						currentFileName.contains(getPluginSuffix(), Qt::CaseInsensitive);
+
+					bool accept = true;
 					if (!pluginName.isEmpty()) {
-						// There seem to be multiple plugins in here. That's not allowed
-						throw PluginInstallException(
-							tr("Found more than one plugin library for the current OS in \"%1\" (\"%2\" and \"%3\")!")
-								.arg(m_pluginArchive.fileName())
-								.arg(pluginName)
-								.arg(currentFileName));
+						if (currentFileNameContainsSuffix && !fileNameContainsSuffix) {
+							// This one is the more precise definition and therefore it will overwrite the more lax
+							// definition from before
+						} else if (!currentFileNameContainsSuffix && fileNameContainsSuffix) {
+							// The previous definition was more precise and therefore overwrites this one
+							accept = false;
+						} else {
+							// There seem to be multiple plugins in here. That's not allowed
+							throw PluginInstallException(tr("Found more than one plugin library for the current OS in "
+															"\"%1\" (\"%2\" and \"%3\")!")
+															 .arg(m_pluginArchive.fileName())
+															 .arg(pluginName)
+															 .arg(currentFileName));
+						}
 					}
 
-					pluginName = currentFileName;
+					if (accept) {
+						pluginName             = currentFileName;
+						fileNameContainsSuffix = currentFileNameContainsSuffix;
+					}
 				}
 
 				it++;
@@ -192,6 +208,10 @@ QString PluginInstaller::getInstallDir() {
 	// Get the path to the plugin-dir in "user-land" (aka: the user definitely has write access to this
 	// location).
 	return Global::get().qdBasePath.absolutePath() + QLatin1String("/Plugins");
+}
+
+QLatin1String PluginInstaller::getPluginSuffix() {
+	return QLatin1String("_" MUMBLE_TARGET_OS "_" MUMBLE_TARGET_ARCH);
 }
 
 void PluginInstaller::on_qpbYesClicked() {
