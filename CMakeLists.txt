@@ -47,6 +47,7 @@ list(APPEND CMAKE_MODULE_PATH
 
 include(pkg-utils)
 include(project-utils)
+include(TargetArch)
 
 
 option(tests "Build tests" OFF)
@@ -74,16 +75,13 @@ endif()
 include(compiler)
 include(os)
 
-if (64_BIT)
-	set(ARCH "x64")
-else()
-	set(ARCH "x86")
-endif()
+target_architecture(MUMBLE_TARGET_ARCH)
+string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
 
 message(STATUS "##################################################")
 message(STATUS "Mumble release ID:       ${RELEASE_ID}")
 message(STATUS "Mumble version:          ${PROJECT_VERSION}")
-message(STATUS "Architecture:            ${ARCH}")
+message(STATUS "Architecture:            ${MUMBLE_TARGET_ARCH}")
 if(NOT IS_MULTI_CONFIG)
     message(STATUS "Build type:              ${CMAKE_BUILD_TYPE}")
 else()
@@ -115,6 +113,10 @@ add_compile_definitions(MUMBLE_BUILD_YEAR=${MUMBLE_BUILD_YEAR})
 
 # Make sure that math constants are always defined
 add_compile_definitions(_USE_MATH_DEFINES)
+
+# Provide the information about the target architecture to all Mumble source files in form of a macro
+add_compile_definitions(MUMBLE_TARGET_ARCH="${MUMBLE_TARGET_ARCH}")
+
 
 set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 

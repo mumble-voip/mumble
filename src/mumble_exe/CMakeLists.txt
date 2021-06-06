@@ -54,6 +54,15 @@ if(packaging)
 		list(APPEND installer_vars "--all-languages")
 	endif()
 
+	# The installer uses different architecture naming and thus we have to convert at this point
+	if(MUMBLE_TARGET_ARCH STREQUAL "x86_64")
+		set(ARCH "x64")
+	elseif(MUMBLE_TARGET_ARCH STREQUAL "i386")
+		set(ARCH "x86")
+	else()
+		message(FATAL_ERROR "Unexpected target architecture ${MUMBLE_TARGET_ARCH}")
+	endif()
+
 	list(APPEND installer_vars
 		"--version" ${PROJECT_VERSION}
 		"--arch" ${ARCH}
