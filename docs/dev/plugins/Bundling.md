@@ -22,6 +22,7 @@ The OS specifier may be one of the following
 
 and the architecture specifier is one of
 | **Architecture** | **Specifier** |
+| ---------------- | ------------- |
 | x86 (64-bit) | `_x86_64` |
 | x86 (32-bit) | `_i386` |
 | ARM (v5)     | `_armv5` |
