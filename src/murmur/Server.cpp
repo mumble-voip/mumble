@@ -372,13 +372,13 @@ static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
 	// We handle both cases the same: by pretending the
 	// suggestversion is a version string in both cases.
 	//
-	// If it is a version string, the call to MumbleVersion::getRaw()
+	// If it is a version string, the call to Version::getRaw()
 	// will return the bitmasked representation.
 	//
-	// If it is not a version string, the call to MumbleVersion::getRaw()
+	// If it is not a version string, the call to Version::getRaw()
 	// will return 0, so it is effectively a no-op.
 	if (integerValue == 0) {
-		integerValue = MumbleVersion::getRaw(suggestVersion.toString());
+		integerValue = Version::getRaw(suggestVersion.toString());
 	}
 
 	if (integerValue != 0) {

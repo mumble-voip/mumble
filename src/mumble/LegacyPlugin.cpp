@@ -23,8 +23,8 @@ static const QRegularExpression
 
 
 LegacyPlugin::LegacyPlugin(QString path, bool isBuiltIn, QObject *p)
-	: Plugin(path, isBuiltIn, p), m_name(), m_description(), m_version(VERSION_UNKNOWN), m_mumPlug(0), m_mumPlug2(0),
-	  m_mumPlugQt(0) {
+	: Plugin(path, isBuiltIn, p), m_name(), m_description(), m_version(MUMBLE_VERSION_UNKNOWN), m_mumPlug(0),
+	  m_mumPlug2(0), m_mumPlugQt(0) {
 }
 
 LegacyPlugin::~LegacyPlugin() {
@@ -126,7 +126,7 @@ mumble_error_t LegacyPlugin::init() {
 
 	// No-op as legacy plugins never have anything to initialize
 	// The only init function they care about is the one that inits positional audio
-	return STATUS_OK;
+	return MUMBLE_STATUS_OK;
 }
 
 QString LegacyPlugin::getName() const {
@@ -212,11 +212,11 @@ uint8_t LegacyPlugin::initPositionalData(const char *const *programNames, const 
 
 		m_positionalDataIsActive = true;
 
-		return PDEC_OK;
+		return MUMBLE_PDEC_OK;
 	} else {
 		// legacy plugins don't have the concept of indicating a permanent error
 		// so we'll return a temporary error for them
-		return PDEC_ERROR_TEMP;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 }
 
@@ -248,7 +248,7 @@ void LegacyPlugin::shutdownPositionalData() {
 }
 
 uint32_t LegacyPlugin::getFeatures() const {
-	return FEATURE_POSITIONAL;
+	return MUMBLE_FEATURE_POSITIONAL;
 }
 
 mumble_version_t LegacyPlugin::getVersion() const {

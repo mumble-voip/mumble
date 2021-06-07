@@ -584,5 +584,5 @@ void Meta::connectListener(QObject *obj) {
 void Meta::getVersion(int &major, int &minor, int &patch, QString &string) {
 	string = QLatin1String(MUMBLE_RELEASE);
 	major = minor = patch = 0;
-	MumbleVersion::get(&major, &minor, &patch);
+	Version::get(&major, &minor, &patch);
 }

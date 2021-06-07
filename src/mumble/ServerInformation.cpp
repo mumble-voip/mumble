@@ -72,7 +72,7 @@ void ServerInformation::updateServerInformation() {
 	serverInfo_host->setText(host);
 	serverInfo_port->setText(QString::number(port));
 	serverInfo_users->setText(QString::fromLatin1("%1 / %2").arg(userCount).arg(maxUserCount));
-	serverInfo_protocol->setText(MumbleVersion::toString(Global::get().sh->uiVersion));
+	serverInfo_protocol->setText(Version::toString(Global::get().sh->uiVersion));
 	serverInfo_release->setText(release);
 	serverInfo_os->setText(os);
 }

@@ -223,7 +223,7 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 
 		if (currentPlugin->isPositionalDataEnabled() && currentPlugin->isLoaded()) {
 			switch (currentPlugin->initPositionalData(names.data(), pids.data(), procRes.amountOfProcesses())) {
-				case PDEC_OK:
+				case MUMBLE_PDEC_OK:
 					// the plugin is ready to provide positional data
 					m_activePositionalDataPlugin = currentPlugin;
 
@@ -232,7 +232,7 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 
 					return true;
 
-				case PDEC_ERROR_PERM:
+				case MUMBLE_PDEC_ERROR_PERM:
 					// the plugin encountered a permanent error -> disable it
 					Global::get().l->log(Log::Warning,
 										 tr("Plugin \"%1\" encountered a permanent error in positional data gathering")
@@ -241,7 +241,7 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 					currentPlugin->enablePositionalData(false);
 					break;
 
-				case PDEC_ERROR_TEMP:
+				case MUMBLE_PDEC_ERROR_TEMP:
 					// The plugin encountered a temporary error -> skip it for now (that is: do nothing)
 					break;
 			}
@@ -352,9 +352,9 @@ void PluginManager::rescanPlugins() {
 
 					const uint32_t features = plugin->getFeatures();
 
-					if (!setting.positionalDataEnabled && (features & FEATURE_POSITIONAL)) {
+					if (!setting.positionalDataEnabled && (features & MUMBLE_FEATURE_POSITIONAL)) {
 						// try to deactivate the feature if the setting says so
-						plugin->deactivateFeatures(FEATURE_POSITIONAL);
+						plugin->deactivateFeatures(MUMBLE_FEATURE_POSITIONAL);
 					}
 				}
 
@@ -520,7 +520,7 @@ bool PluginManager::loadPlugin(plugin_id_t pluginID) const {
 			return true;
 		}
 
-		return plugin->init() == STATUS_OK;
+		return plugin->init() == MUMBLE_STATUS_OK;
 	}
 
 	return false;
@@ -570,7 +570,7 @@ uint32_t PluginManager::deactivateFeaturesFor(plugin_id_t pluginID, uint32_t fea
 		return plugin->deactivateFeatures(features);
 	}
 
-	return FEATURE_NONE;
+	return MUMBLE_FEATURE_NONE;
 }
 
 void PluginManager::allowKeyboardMonitoringFor(plugin_id_t pluginID, bool allow) const {
@@ -694,27 +694,27 @@ void PluginManager::on_userTalkingStateChanged() const {
 
 	if (user) {
 		// Convert Mumble's talking state to the TalkingState used in the API
-		mumble_talking_state_t ts = INVALID;
+		mumble_talking_state_t ts = MUMBLE_TS_INVALID;
 
 		switch (user->tsState) {
 			case Settings::TalkState::Passive:
-				ts = PASSIVE;
+				ts = MUMBLE_TS_PASSIVE;
 				break;
 			case Settings::TalkState::Talking:
-				ts = TALKING;
+				ts = MUMBLE_TS_TALKING;
 				break;
 			case Settings::TalkState::Whispering:
-				ts = WHISPERING;
+				ts = MUMBLE_TS_WHISPERING;
 				break;
 			case Settings::TalkState::Shouting:
-				ts = SHOUTING;
+				ts = MUMBLE_TS_SHOUTING;
 				break;
 			case Settings::TalkState::MutedTalking:
-				ts = TALKING_MUTED;
+				ts = MUMBLE_TS_TALKING_MUTED;
 				break;
 		}
 
-		if (ts == INVALID) {
+		if (ts == MUMBLE_TS_INVALID) {
 			qWarning("PluginManager.cpp: Invalid talking state encountered");
 			// An error occured
 			return;
