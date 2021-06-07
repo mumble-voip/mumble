@@ -7,7 +7,9 @@
 
 #include <QtCore/QRegExp>
 
-unsigned int MumbleVersion::getRaw(const QString &version) {
+namespace Version {
+
+unsigned int getRaw(const QString &version) {
 	int major, minor, patch;
 
 	if (get(&major, &minor, &patch, version))
@@ -16,13 +18,13 @@ unsigned int MumbleVersion::getRaw(const QString &version) {
 	return 0;
 }
 
-QString MumbleVersion::toString(unsigned int v) {
+QString toString(unsigned int v) {
 	int major, minor, patch;
 	fromRaw(v, &major, &minor, &patch);
 	return QString::fromLatin1("%1.%2.%3").arg(major).arg(minor).arg(patch);
 }
 
-bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &version) {
+bool get(int *major, int *minor, int *patch, const QString &version) {
 	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
 
 	if (rx.exactMatch(version)) {
@@ -38,12 +40,14 @@ bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &versi
 	return false;
 }
 
-unsigned int MumbleVersion::toRaw(int major, int minor, int patch) {
+unsigned int toRaw(int major, int minor, int patch) {
 	return (major << 16) | (minor << 8) | patch;
 }
 
-void MumbleVersion::fromRaw(unsigned int version, int *major, int *minor, int *patch) {
+void fromRaw(unsigned int version, int *major, int *minor, int *patch) {
 	*major = (version & 0xFFFF0000) >> 16;
 	*minor = (version & 0xFF00) >> 8;
 	*patch = (version & 0xFF);
 }
+
+}; // namespace Version

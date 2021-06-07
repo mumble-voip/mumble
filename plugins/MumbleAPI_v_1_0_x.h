@@ -5,8 +5,8 @@
 
 /// This header file contains the definition of Mumble's API
 
-#ifndef MUMBLE_PLUGIN_API_H_
-#define MUMBLE_PLUGIN_API_H_
+#ifndef EXTERNAL_MUMBLE_PLUGIN_API_H_
+#define EXTERNAL_MUMBLE_PLUGIN_API_H_
 
 #include "PluginComponents_v_1_0_x.h"
 #include <stdint.h>
@@ -17,9 +17,9 @@
 #define MUMBLE_PLUGIN_API_MINOR_MACRO 0
 #define MUMBLE_PLUGIN_API_PATCH_MACRO 0
 
-constexpr int32_t MUMBLE_PLUGIN_API_MAJOR        = MUMBLE_PLUGIN_API_MAJOR_MACRO;
-constexpr int32_t MUMBLE_PLUGIN_API_MINOR        = MUMBLE_PLUGIN_API_MINOR_MACRO;
-constexpr int32_t MUMBLE_PLUGIN_API_PATCH        = MUMBLE_PLUGIN_API_PATCH_MACRO;
+const int32_t MUMBLE_PLUGIN_API_MAJOR            = MUMBLE_PLUGIN_API_MAJOR_MACRO;
+const int32_t MUMBLE_PLUGIN_API_MINOR            = MUMBLE_PLUGIN_API_MINOR_MACRO;
+const int32_t MUMBLE_PLUGIN_API_PATCH            = MUMBLE_PLUGIN_API_PATCH_MACRO;
 const mumble_version_t MUMBLE_PLUGIN_API_VERSION = { MUMBLE_PLUGIN_API_MAJOR, MUMBLE_PLUGIN_API_MINOR,
 													 MUMBLE_PLUGIN_API_PATCH };
 
@@ -527,4 +527,4 @@ struct MumbleAPI_v_1_0_x {
 	mumble_error_t(PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID, const char *samplePath);
 };
 
-#endif
+#endif // EXTERNAL_MUMBLE_PLUGIN_API_H_

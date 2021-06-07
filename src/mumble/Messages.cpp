@@ -1329,10 +1329,9 @@ void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 ///
 /// @param msg The message object containing the suggestions
 void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
-	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
-		Global::get().l->log(
-			Log::Warning,
-			tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));
+	if (msg.has_version() && (msg.version() > Version::getRaw())) {
+		Global::get().l->log(Log::Warning,
+							 tr("The server requests minimum client version %1").arg(Version::toString(msg.version())));
 	}
 	if (msg.has_positional() && (msg.positional() != Global::get().s.doPositionalAudio())) {
 		if (msg.positional())
