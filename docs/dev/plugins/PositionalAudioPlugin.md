@@ -15,7 +15,7 @@ uint32_t mumble_getFeatures() {
     return MUMBLE_FEATURE_POSITIONAL;
 }
 
-uint8_t mumble_initPositionalData(const char *const programNames, const uint64_t programPIDs, size_t programCount) {
+uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_t *programPIDs, size_t programCount) {
     // Check if the supported game is in the list of programs and if yes
 	// check if the position can be obtained from the program
 
