@@ -19,6 +19,7 @@
 #include <string>
 
 #include <Poco/Exception.h>
+#include <Poco/FileStream.h>
 #include <Poco/StreamCopier.h>
 #include <Poco/Zip/ZipArchive.h>
 #include <Poco/Zip/ZipStream.h>
@@ -80,7 +81,7 @@ void PluginInstaller::init() {
 	} else {
 		// We have been provided with a zip-file
 		try {
-			std::ifstream zipInput(m_pluginArchive.filePath().toStdString());
+			Poco::FileInputStream zipInput(m_pluginArchive.filePath().toStdString());
 			Poco::Zip::ZipArchive archive(zipInput);
 
 			// Iterate over all files in the archive to see which ones could be the correct plugin library
@@ -88,6 +89,7 @@ void PluginInstaller::init() {
 			auto it = archive.fileInfoBegin();
 			while (it != archive.fileInfoEnd()) {
 				QString currentFileName = QString::fromStdString(it->first);
+
 				if (QLibrary::isLibrary(currentFileName)) {
 					if (!pluginName.isEmpty()) {
 						// There seem to be multiple plugins in here. That's not allowed
@@ -115,7 +117,7 @@ void PluginInstaller::init() {
 			auto pluginIt         = archive.findHeader(pluginName.toStdString());
 			zipInput.clear();
 			Poco::Zip::ZipInputStream zipin(zipInput, pluginIt->second);
-			std::ofstream out(tmpPluginPath.toStdString());
+			std::ofstream out(tmpPluginPath.toStdString(), std::ios::out | std::ios::binary);
 			Poco::StreamCopier::copyStream(zipin, out);
 
 			m_pluginSource = QFileInfo(tmpPluginPath);
