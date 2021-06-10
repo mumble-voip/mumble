@@ -233,53 +233,53 @@ void GlobalShortcutMac::dumpEventTaps() {
 }
 
 void GlobalShortcutMac::forwardEvent(void *evt) {
-	NSEvent *event = (NSEvent *)evt;
+	NSEvent *event = (NSEvent *) evt;
 #ifdef USE_OVERLAY
 	SEL sel = nil;
 
-	if (! Global::get().ocIntercept) {
+	if (!Global::get().ocIntercept) {
 		[event release];
 		return;
 	}
 
-	QWidget *vp = Global::get().ocIntercept->qgv.viewport();
+	QWidget *vp  = Global::get().ocIntercept->qgv.viewport();
 	NSView *view = (NSView *) vp->winId();
 
 	switch ([event type]) {
-		case NSLeftMouseDown:
+		case NSEventTypeLeftMouseDown:
 			sel = @selector(mouseDown:);
 			break;
-		case NSLeftMouseUp:
+		case NSEventTypeLeftMouseUp:
 			sel = @selector(mouseUp:);
 			break;
-		case NSLeftMouseDragged:
+		case NSEventTypeLeftMouseDragged:
 			sel = @selector(mouseDragged:);
 			break;
-		case NSRightMouseDown:
+		case NSEventTypeRightMouseDown:
 			sel = @selector(rightMouseDown:);
 			break;
-		case NSRightMouseUp:
+		case NSEventTypeRightMouseUp:
 			sel = @selector(rightMouseUp:);
 			break;
-		case NSRightMouseDragged:
+		case NSEventTypeRightMouseDragged:
 			sel = @selector(rightMouseDragged:);
 			break;
-		case NSOtherMouseDown:
+		case NSEventTypeOtherMouseDown:
 			sel = @selector(otherMouseDown:);
 			break;
-		case NSOtherMouseUp:
+		case NSEventTypeOtherMouseUp:
 			sel = @selector(otherMouseUp:);
 			break;
-		case NSOtherMouseDragged:
+		case NSEventTypeOtherMouseDragged:
 			sel = @selector(otherMouseDragged:);
 			break;
-		case NSMouseEntered:
+		case NSEventTypeMouseEntered:
 			sel = @selector(mouseEntered:);
 			break;
-		case NSMouseExited:
+		case NSEventTypeMouseExited:
 			sel = @selector(mouseExited:);
 			break;
-		case NSMouseMoved:
+		case NSEventTypeMouseMoved:
 			sel = @selector(mouseMoved:);
 			break;
 		default:
@@ -300,16 +300,16 @@ void GlobalShortcutMac::forwardEvent(void *evt) {
 	}
 
 	switch ([event type]) {
-		case NSKeyDown:
+		case NSEventTypeKeyDown:
 			sel = @selector(keyDown:);
 			break;
-		case NSKeyUp:
+		case NSEventTypeKeyUp:
 			sel = @selector(keyUp:);
 			break;
-		case NSFlagsChanged:
+		case NSEventTypeFlagsChanged:
 			sel = @selector(flagsChanged:);
 			break;
-		case NSScrollWheel:
+		case NSEventTypeScrollWheel:
 			sel = @selector(scrollWheel:);
 			break;
 		default:
