@@ -4053,23 +4053,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>限制</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>杂项</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>触发消息限制功能所需用户数。</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>时，限制通知数量。</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>当服务器上的用户数超过</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
@@ -4077,15 +4077,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>点击此处开关所有事件的消息限制——使用此选项时，请确保修改下方的用户限制。</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>开关 %1 事件的消息限制 </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>点击此处开关 %1 事件的消息限制。&lt;br /&gt;勾选后，如果服务器上的用户超过设置的阈值，此类型事件的通知将不会被触发。</translation>
     </message>
 </context>
 <context>
