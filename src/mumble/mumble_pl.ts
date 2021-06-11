@@ -1529,7 +1529,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation>Jeśli źródło dźwięku jest wystarczająco blisko, blooming spowoduje, że dźwięk będzie odtwarzany na wszystkich głośnikach mniej więcej niezależnie od ich położenia (choć przy niższej głośności)</translation>
+        <translation>Jeśli źródło dźwięku jest wystarczająco blisko, zmienna głośność spowoduje, że dźwięk będzie odtwarzany na wszystkich głośnikach mniej więcej niezależnie od ich położenia (choć przy niższej głośności)</translation>
     </message>
 </context>
 <context>
@@ -4055,39 +4055,39 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograniczenie</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Różne</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczba użytkowników, dla których zostanie uruchomiona funkcja ograniczania wiadomości.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>użytkowników na serwerze.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogranicz powiadomienia, gdy jest ich więcej niż</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit użytkowników dla ograniczenia wiadomości</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij tutaj, aby przełączyć ograniczenie wiadomości dla wszystkich zdarzeń - jeśli używasz tej opcji, pamiętaj o zmianie limitu użytkowników poniżej.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Przełącz zachowanie ograniczania wiadomości dla %1 zdarzeń </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij tutaj, aby przełączyć ograniczanie dla %1 wydarzeń. &lt;br /&gt; Jeśli zaznaczone, powiadomienia dla tego typu zdarzenia nie będą odtwarzane, gdy liczba użytkowników na serwerze przekroczy ustawiony próg.</translation>
     </message>
 </context>
 <context>
