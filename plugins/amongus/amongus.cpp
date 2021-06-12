@@ -5,33 +5,113 @@
 
 #include "Game.h"
 
-#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
-#include "../mumble_legacy_plugin.h"
+#include "MumblePlugin_v_1_0_x.h"
 
-#include "../mumble_positional_audio_utils.h"
-
+#include <cstring>
 #include <memory>
 #include <sstream>
 
-std::unique_ptr< Game > game;
+static std::unique_ptr< Game > game;
 
-static inline bool inGame(const AmongUsClient_Fields &fields) {
-	if (fields.gameMode != GameMode::FreePlay && fields.gameState != GameState::NotJoined) {
-		return true;
-	}
-
-	return false;
+mumble_error_t mumble_init(uint32_t) {
+	return MUMBLE_STATUS_OK;
 }
 
-static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *cameraPos, float *cameraFront,
-				 float *cameraTop, std::string &context, std::wstring &identity) {
+void mumble_shutdown() {
+}
+
+MumbleStringWrapper mumble_getName() {
+	static const char name[] = "Among Us";
+
+	MumbleStringWrapper wrapper;
+	wrapper.data           = name;
+	wrapper.size           = strlen(name);
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+mumble_version_t mumble_getAPIVersion() {
+	return MUMBLE_PLUGIN_API_VERSION;
+}
+
+void mumble_registerAPIFunctions(void *) {
+}
+
+void mumble_releaseResource(const void *) {
+}
+
+MumbleStringWrapper mumble_getAuthor() {
+	static const char author[] = "MumbleDevelopers";
+
+	MumbleStringWrapper wrapper;
+	wrapper.data           = author;
+	wrapper.size           = strlen(author);
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+MumbleStringWrapper mumble_getDescription() {
+	static const char description[] = "Provides positional audio functionality for Among Us. "
+									  "Context and identity are provided.";
+
+	MumbleStringWrapper wrapper;
+	wrapper.data           = description;
+	wrapper.size           = strlen(description);
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+uint32_t mumble_getFeatures() {
+	return MUMBLE_FEATURE_POSITIONAL;
+}
+
+uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_t *programPIDs, size_t programCount) {
+	auto ret = MUMBLE_PDEC_ERROR_TEMP;
+
+	for (size_t i = 0; i < programCount; ++i) {
+		if (strcmp(programNames[i], "Among Us.exe") != 0) {
+			continue;
+		}
+
+		game = std::make_unique< Game >(programPIDs[i], programNames[i]);
+
+		ret = game->init();
+		if (ret == MUMBLE_PDEC_OK) {
+			const auto fields = game->clientFields();
+			if (!game->isMultiplayer(fields)) {
+				ret = MUMBLE_PDEC_ERROR_TEMP;
+			}
+		}
+
+		if (ret != MUMBLE_PDEC_OK) {
+			game.reset();
+		}
+
+		break;
+	}
+
+	return ret;
+}
+
+void mumble_shutdownPositionalData() {
+	game.reset();
+}
+
+bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos,
+								float *cameraDir, float *cameraAxis, const char **contextPtr,
+								const char **identityPtr) {
 	for (uint8_t i = 0; i < 3; ++i) {
-		avatarPos[i] = avatarFront[i] = avatarTop[i] = cameraPos[i] = cameraFront[i] = cameraTop[i] = 0.f;
+		avatarPos[i] = cameraPos[i] = 0.f;
+		avatarDir[i] = cameraDir[i] = 0.f;
+		avatarAxis[i] = cameraAxis[i] = 0.f;
 	}
 
 	const auto fields = game->clientFields();
 
-	if (!inGame(fields)) {
+	if (!game->isMultiplayer(fields)) {
 		return false;
 	}
 
@@ -45,82 +125,14 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 	// X      | X
 	// Y      | -
 	// Z      | Y
-	const auto position = game->playerPosition(playerControlFields.netTransform);
+	const auto position = game->playerPosition(playerControlFields);
 	avatarPos[0] = cameraPos[0] = position.x;
 	avatarPos[2] = cameraPos[2] = position.y;
 
-	// Context
-	std::ostringstream stream;
-	stream << " {\"Game ID\": " << fields.gameId << "}";
-	context = stream.str();
+	*contextPtr = game->context(fields).c_str();
 
-	stream.str(std::string());
-	stream.clear();
-
-	// Identity
-	const auto playerFields = game->playerInfoFields(playerControlFields.cachedData);
-
-	stream << "Name: " << game->string(playerFields.playerName) << '\n';
-	stream << "Client ID: " << std::to_string(fields.clientId) << '\n';
-	stream << "Player ID: " << std::to_string(playerFields.playerId) << '\n';
-	stream << "Color ID: " << std::to_string(playerFields.colorId) << '\n';
-	stream << "Skin ID: " << std::to_string(playerFields.skinId) << '\n';
-	stream << "Hat ID: " << std::to_string(playerFields.hatId) << '\n';
-	stream << "Pet ID: " << std::to_string(playerFields.petId) << '\n';
-	stream << "Dead: " << (playerFields.isDead ? "true" : "false") << '\n';
-	stream << "Host ID: " << std::to_string(fields.hostId) << '\n';
-	stream << "Public game: " << (fields.isGamePublic ? "true" : "false");
-
-	identity = utf8ToUtf16(stream.str());
+	const auto playerFields = game->playerInfoFields(playerControlFields);
+	*identityPtr            = game->identity(fields, playerFields).c_str();
 
 	return true;
-}
-
-static int tryLock(const std::multimap< std::wstring, unsigned long long int > &pids) {
-	const std::string name = "Among Us.exe";
-	const auto id          = Process::find(name, pids);
-	if (!id) {
-		return false;
-	}
-
-	game = std::make_unique< Game >(id, name);
-	if (!game->isOk()) {
-		game.reset();
-		return false;
-	}
-
-	const auto fields = game->clientFields();
-	if (!inGame(fields)) {
-		game.reset();
-		return false;
-	}
-
-	return true;
-}
-
-static const std::wstring longDesc() {
-	return std::wstring(L"Supports Among Us with context and identity support.");
-}
-
-static std::wstring description(L"Among Us");
-static std::wstring shortName(L"Among Us");
-
-static int tryLock1() {
-	return tryLock(std::multimap< std::wstring, unsigned long long int >());
-}
-
-static void nullUnlock() {
-}
-
-static MumblePlugin amongusPlug = { MUMBLE_PLUGIN_MAGIC, description, shortName, nullptr, nullptr, tryLock1,
-									nullUnlock,          longDesc,    fetch };
-
-static MumblePlugin2 amongusPlug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, tryLock };
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
-	return &amongusPlug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &amongusPlug2;
 }
