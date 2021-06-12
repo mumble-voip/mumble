@@ -636,19 +636,35 @@ void MumbleAPI::requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t call
 
 	VERIFY_PLUGIN_ID(callerID);
 
+	Settings::AudioTransmit mode;
+	bool identifiedTransmissionMode = false;
+
 	switch (transmissionMode) {
 		case MUMBLE_TM_CONTINOUS:
-			Global::get().s.atTransmit = Settings::AudioTransmit::Continuous;
-			EXIT_WITH(MUMBLE_STATUS_OK);
+			mode                       = Settings::Continuous;
+			identifiedTransmissionMode = true;
+			break;
 		case MUMBLE_TM_VOICE_ACTIVATION:
-			Global::get().s.atTransmit = Settings::AudioTransmit::VAD;
-			EXIT_WITH(MUMBLE_STATUS_OK);
+			mode                       = Settings::VAD;
+			identifiedTransmissionMode = true;
+			break;
 		case MUMBLE_TM_PUSH_TO_TALK:
-			Global::get().s.atTransmit = Settings::AudioTransmit::PushToTalk;
-			EXIT_WITH(MUMBLE_STATUS_OK);
+			mode                       = Settings::PushToTalk;
+			identifiedTransmissionMode = true;
+			break;
 	}
 
-	EXIT_WITH(MUMBLE_EC_UNKNOWN_TRANSMISSION_MODE);
+	if (identifiedTransmissionMode) {
+		if (!Global::get().mw) {
+			EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+		}
+
+		Global::get().mw->setTransmissionMode(mode);
+
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	} else {
+		EXIT_WITH(MUMBLE_EC_UNKNOWN_TRANSMISSION_MODE);
+	}
 }
 
 void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
