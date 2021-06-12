@@ -177,6 +177,17 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 	MSG_SETUP(ServerUser::Connected);
 
+	// As the first thing, assign a session ID to this client. Given that the client initiated
+	// the authentication procedure we can be sure that this is not just a random TCP connection.
+	// Thus it is about time we assign the ID to this client in order to be able to reference it
+	// in the following.
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->uiSession = qqIds.dequeue();
+		qhUsers.insert(uSource->uiSession, uSource);
+		qhHostUsers[uSource->haAddress].insert(uSource);
+	}
+
 	Channel *root = qhChannels.value(0);
 	Channel *c;
 
@@ -379,10 +390,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
-		uSource->uiSession = qqIds.dequeue();
-		uSource->sState    = ServerUser::Authenticated;
-		qhUsers.insert(uSource->uiSession, uSource);
-		qhHostUsers[uSource->haAddress].insert(uSource);
+		uSource->sState = ServerUser::Authenticated;
 	}
 
 	mpus.set_session(uSource->uiSession);
