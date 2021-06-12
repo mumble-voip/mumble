@@ -770,7 +770,7 @@ void PluginManager::on_audioOutputAboutToPlay(float *outputPCM, unsigned int sam
 #endif
 	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, modifiedAudio](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			if (plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, sampleRate, channelCount)) {
+			if (plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, channelCount, sampleRate)) {
 				*modifiedAudio = true;
 			}
 		}
