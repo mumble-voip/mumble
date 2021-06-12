@@ -7,15 +7,18 @@
 
 #include "../mumble_positional_audio_utils.h"
 
-Game::Game(const procid_t id, const std::string name) : m_ok(false), m_proc(id, name) {
+Game::Game(const uint64_t id, const std::string name) : m_proc(static_cast< procid_t >(id), name) {
+}
+
+Mumble_PositionalDataErrorCode Game::init() {
 	if (!m_proc.isOk()) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	const auto &modules = m_proc.modules();
 	const auto iter     = modules.find("GameAssembly.dll");
 	if (iter == modules.cend()) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	// 75 58             jnz    short loc_????????
@@ -25,23 +28,23 @@ Game::Game(const procid_t id, const std::string name) : m_ok(false), m_proc(id, 
 	m_client                                   = m_proc.findPattern(clientPattern, iter->second);
 
 	if (!m_client) {
-		return;
+		return MUMBLE_PDEC_ERROR_PERM;
 	}
 
 	// +3 in order to skip to the memory address we actually care about
 	m_client = m_proc.peekPtr(m_proc.peekPtr(m_client + 3));
 	if (!m_client) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	const auto clientC = m_proc.peek< AmongUsClient_c >(m_client);
 	if (!clientC.staticFields) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	const auto clientStaticFields = m_proc.peek< AmongUsClient_StaticFields >(clientC.staticFields);
 	if (!clientStaticFields.instance) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	m_client = clientStaticFields.instance;
@@ -50,17 +53,17 @@ Game::Game(const procid_t id, const std::string name) : m_ok(false), m_proc(id, 
 
 	const auto playerControlO = m_proc.peek< PlayerControl_o >(fields.playerPrefab);
 	if (!playerControlO.klass) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	const auto playerControlC = m_proc.peek< PlayerControl_c >(playerControlO.klass);
 	if (!playerControlC.staticFields) {
-		return;
+		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
 	m_playerControlStaticFields = playerControlC.staticFields;
 
-	m_ok = true;
+	return MUMBLE_PDEC_OK;
 }
 
 PlayerControl_Fields Game::playerControlFields() {
@@ -82,4 +85,33 @@ std::string Game::string(const procptr_t address) {
 	}
 
 	return {};
+}
+
+const std::string &Game::context(const AmongUsClient_Fields &fields) {
+	std::ostringstream stream;
+
+	stream << " {\"Game ID\": " << fields.gameId << "}";
+
+	m_context = stream.str();
+
+	return m_context;
+}
+
+const std::string &Game::identity(const AmongUsClient_Fields &fields, const GameData_PlayerInfo_Fields &playerFields) {
+	std::ostringstream stream;
+
+	stream << "Name: " << string(playerFields.playerName) << '\n';
+	stream << "Client ID: " << std::to_string(fields.clientId) << '\n';
+	stream << "Player ID: " << std::to_string(playerFields.playerId) << '\n';
+	stream << "Color ID: " << std::to_string(playerFields.colorId) << '\n';
+	stream << "Skin ID: " << std::to_string(playerFields.skinId) << '\n';
+	stream << "Hat ID: " << std::to_string(playerFields.hatId) << '\n';
+	stream << "Pet ID: " << std::to_string(playerFields.petId) << '\n';
+	stream << "Dead: " << (playerFields.isDead ? "true" : "false") << '\n';
+	stream << "Host ID: " << std::to_string(fields.hostId) << '\n';
+	stream << "Public game: " << (fields.isGamePublic ? "true" : "false");
+
+	m_identity = stream.str();
+
+	return m_identity;
 }
