@@ -180,6 +180,8 @@ set(MUMBLE_SOURCES
 	"PluginInstaller.ui"
 	"PluginManager.cpp"
 	"PluginManager.h"
+	"PluginManifest.cpp"
+	"PluginManifest.h"
 	"PluginUpdater.cpp"
 	"PluginUpdater.h"
 	"PluginUpdater.ui"

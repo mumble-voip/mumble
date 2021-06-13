@@ -345,7 +345,7 @@ if(packaging)
 
 		list(APPEND installer_vars
 			"--version" ${PROJECT_VERSION}
-			"--arch" ${ARCH}
+			"--arch" ${MUMBLE_TARGET_ARCH}
 		)
 
 		file(COPY
