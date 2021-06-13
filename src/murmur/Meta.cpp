@@ -199,18 +199,20 @@ QMap< QSslError::SslError, QString > Meta::getSslErrorNameMap() {
 	map.insert(QSslError::SslError::UnspecifiedError, "AllowUnspecifiedError");
 	map.insert(QSslError::SslError::NoSslSupport, "AllowNoSslSupport");
 	map.insert(QSslError::SslError::CertificateBlacklisted, "AllowCertificateBlacklisted");
-	// map.insert(QSslError::SslError::CertificateStatusUnknown,"AllowCertificateStatusUnknown");
-	// map.insert(QSslError::SslError::OcspNoResponseFound,"AllowOcspNoResponseFound");
-	// map.insert(QSslError::SslError::OcspMalformedRequest,"AllowOcspMalformedRequest");
-	// map.insert(QSslError::SslError::SslError::OcspMalformedResponse,"AllowOcspMalformedResponse");
-	// map.insert(QSslError::SslError::OcspInternalError,"AllowOcspInternalError");
-	// map.insert(QSslError::SslError::OcspTryLater,"AllowOcspTryLater");
-	// map.insert(QSslError::SslError::OcspSigRequred,"AllowOcspSigRequred");
-	// map.insert(QSslError::SslError::OcspUnauthorized,"AllowOcspUnauthorized");
-	// map.insert(QSslError::SslError::OcspResponseCannotBeTrusted,"AllowOcspResponseCannotBeTrusted");
-	// map.insert(QSslError::SslError::OcspResponseCertIdUnknown,"AllowOcspResponseCertIdUnknown");
-	// map.insert(QSslError::SslError::OcspResponseExpired,"AllowOcspResponseExpired");
-	// map.insert(QSslError::SslError::OcspStatusUnknown,"AllowOcspStatusUnknown");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+	map.insert(QSslError::SslError::CertificateStatusUnknown, "AllowCertificateStatusUnknown");
+	map.insert(QSslError::SslError::OcspNoResponseFound, "AllowOcspNoResponseFound");
+	map.insert(QSslError::SslError::OcspMalformedRequest, "AllowOcspMalformedRequest");
+	map.insert(QSslError::SslError::SslError::OcspMalformedResponse, "AllowOcspMalformedResponse");
+	map.insert(QSslError::SslError::OcspInternalError, "AllowOcspInternalError");
+	map.insert(QSslError::SslError::OcspTryLater, "AllowOcspTryLater");
+	map.insert(QSslError::SslError::OcspSigRequred, "AllowOcspSigRequred");
+	map.insert(QSslError::SslError::OcspUnauthorized, "AllowOcspUnauthorized");
+	map.insert(QSslError::SslError::OcspResponseCannotBeTrusted, "AllowOcspResponseCannotBeTrusted");
+	map.insert(QSslError::SslError::OcspResponseCertIdUnknown, "AllowOcspResponseCertIdUnknown");
+	map.insert(QSslError::SslError::OcspResponseExpired, "AllowOcspResponseExpired");
+	map.insert(QSslError::SslError::OcspStatusUnknown, "AllowOcspStatusUnknown");
+#endif
 	return map;
 }
 
@@ -240,18 +242,20 @@ QMap< QString, QSslError::SslError > Meta::getSslNameErrorMap() {
 	map.insert("allowunspecifiederror", QSslError::SslError::UnspecifiedError);
 	map.insert("allownosslsupport", QSslError::SslError::NoSslSupport);
 	map.insert("allowcertificateblacklisted", QSslError::SslError::CertificateBlacklisted);
-	// map.insert("allowcertificatestatusunknown",QSslError::SslError::CertificateStatusUnknown);
-	// map.insert("allowocspnoresponsefound",QSslError::SslError::OcspNoResponseFound);
-	// map.insert("allowocspmalformedrequest",QSslError::SslError::OcspMalformedRequest);
-	// map.insert("allowocspmalformedresponse",QSslError::SslError::OcspMalformedResponse);
-	// map.insert("allowocspinternalerror",QSslError::SslError::OcspInternalError);
-	// map.insert("allowocsptrylater",QSslError::SslError::OcspTryLater);
-	// map.insert("allowocspsigrequred",QSslError::SslError::OcspSigRequred);
-	// map.insert("allowocspunauthorized",QSslError::SslError::OcspUnauthorized);
-	// map.insert("allowocspresponsecannotbetrusted",QSslError::SslError::OcspResponseCannotBeTrusted);
-	// map.insert("allowocspresponsecertidunknown",QSslError::SslError::OcspResponseCertIdUnknown);
-	// map.insert("allowocspresponseexpired",QSslError::SslError::OcspResponseExpired);
-	// map.insert("allowocspstatusunknown",QSslError::SslError::OcspStatusUnknown);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+	map.insert("allowcertificatestatusunknown",QSslError::SslError::CertificateStatusUnknown);
+	map.insert("allowocspnoresponsefound",QSslError::SslError::OcspNoResponseFound);
+	map.insert("allowocspmalformedrequest",QSslError::SslError::OcspMalformedRequest);
+	map.insert("allowocspmalformedresponse",QSslError::SslError::OcspMalformedResponse);
+	map.insert("allowocspinternalerror",QSslError::SslError::OcspInternalError);
+	map.insert("allowocsptrylater",QSslError::SslError::OcspTryLater);
+	map.insert("allowocspsigrequred",QSslError::SslError::OcspSigRequred);
+	map.insert("allowocspunauthorized",QSslError::SslError::OcspUnauthorized);
+	map.insert("allowocspresponsecannotbetrusted",QSslError::SslError::OcspResponseCannotBeTrusted);
+	map.insert("allowocspresponsecertidunknown",QSslError::SslError::OcspResponseCertIdUnknown);
+	map.insert("allowocspresponseexpired",QSslError::SslError::OcspResponseExpired);
+	map.insert("allowocspstatusunknown",QSslError::SslError::OcspStatusUnknown);
+#endif
 	return map;
 }
 
