@@ -7393,14 +7393,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>&quot;%1&quot; 파일이 올바른 플러그인 파일이 아닙니다!</translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation>&quot;%1&quot;에서 현재 OS에 대한 플러그인 라이브러리를 두 개 이상 찾았습니다 (&quot;%2&quot; 및 &quot;%3&quot;)!</translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation>&quot;%1&quot;에서 현재 OS에 대한 플러그인을 찾을 수 없습니다</translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation>&quot;%1&quot; 플러그인을 로드할 수 없습니다 - 플러그인 인터페이스를 확인하세요!</translation>
     </message>
@@ -7415,6 +7407,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
         <translation>플러그인 라이브러리를 &quot;%1&quot;(으)로 이동할 수 없습니다</translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

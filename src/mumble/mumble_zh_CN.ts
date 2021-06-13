@@ -7384,14 +7384,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>文件“%1”不是有效的插件文件！</translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation>在“%1”中发现了多个适用于当前操作系统的插件库（“%2”与“%3”）！</translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation>无法在“%1”中找到当前操作系统的插件</translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation>无法加载插件“%1”，请检查插件接口！</translation>
     </message>
@@ -7406,6 +7398,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
         <translation>无法移动插件库到“%1”</translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
