@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "PluginInstaller.h"
+#include "PluginManifest.h"
 #include "Global.h"
 
 #include <QtCore/QDir>
@@ -39,9 +40,8 @@ bool PluginInstaller::canBePluginFile(const QFileInfo &fileInfo) noexcept {
 		return false;
 	}
 
-	if (fileInfo.suffix().compare(PluginInstaller::pluginFileExtension, Qt::CaseInsensitive) == 0
-		|| fileInfo.suffix().compare(QLatin1String("zip"), Qt::CaseInsensitive) == 0) {
-		// A plugin file has either the extension given in PluginInstaller::pluginFileExtension or zip
+	if (fileInfo.suffix().compare(PluginInstaller::pluginFileExtension, Qt::CaseInsensitive) == 0) {
+		// A plugin file has the extension given in PluginInstaller::pluginFileExtension
 		return true;
 	}
 
@@ -83,38 +83,43 @@ void PluginInstaller::init() {
 		try {
 			Poco::FileInputStream zipInput(m_pluginArchive.filePath().toStdString());
 			Poco::Zip::ZipArchive archive(zipInput);
+			auto manifestIt = archive.findHeader("manifest.xml");
 
-			// Iterate over all files in the archive to see which ones could be the correct plugin library
-			QString pluginName;
-			auto it = archive.fileInfoBegin();
-			while (it != archive.fileInfoEnd()) {
-				QString currentFileName = QString::fromStdString(it->first);
-
-				if (QLibrary::isLibrary(currentFileName)) {
-					if (!pluginName.isEmpty()) {
-						// There seem to be multiple plugins in here. That's not allowed
-						throw PluginInstallException(
-							tr("Found more than one plugin library for the current OS in \"%1\" (\"%2\" and \"%3\")!")
-								.arg(m_pluginArchive.fileName())
-								.arg(pluginName)
-								.arg(currentFileName));
-					}
-
-					pluginName = currentFileName;
-				}
-
-				it++;
+			if (manifestIt == archive.headerEnd()) {
+				throw PluginInstallException(tr("Unable to locate the plugin manifest (manifest.xml)"));
 			}
 
-			if (pluginName.isEmpty()) {
+			zipInput.clear();
+			Poco::Zip::ZipInputStream manifestStream(zipInput, manifestIt->second);
+
+			PluginManifest manifest;
+			try {
+				manifest.parse(manifestStream);
+			} catch (const PluginManifestException &e) {
 				throw PluginInstallException(
-					tr("Unable to find a plugin for the current OS in \"%1\"").arg(m_pluginArchive.fileName()));
+					tr("Error while processing manifest: %1").arg(QString::fromUtf8(e.what())));
 			}
+
+			if (!manifest.specifiesPluginPath(MUMBLE_TARGET_OS, MUMBLE_TARGET_ARCH)) {
+				throw PluginInstallException(
+					tr("Unable to find plugin for the current OS (\"%1\") and architecture (\"%2\")")
+						.arg(QString::fromUtf8(MUMBLE_TARGET_OS))
+						.arg(QString::fromUtf8(MUMBLE_TARGET_ARCH)));
+			}
+
+			std::string pluginPath = manifest.getPluginPath(MUMBLE_TARGET_OS, MUMBLE_TARGET_ARCH);
 
 			// Unpack the plugin library into the tmp dir
 			// We don't have to create the directory structure as we're only interested in the library itself
-			QString tmpPluginPath = QDir::temp().filePath(QFileInfo(pluginName).fileName());
-			auto pluginIt         = archive.findHeader(pluginName.toStdString());
+			QString tmpPluginPath = QDir::temp().filePath(QFileInfo(QString::fromStdString(pluginPath)).fileName());
+			auto pluginIt         = archive.findHeader(pluginPath);
+
+			if (pluginIt == archive.headerEnd()) {
+				throw PluginInstallException(
+					tr("Unable to locate plugin library specified in manifest (\"%1\") in the bundle")
+						.arg(QString::fromStdString(pluginPath)));
+			}
+
 			zipInput.clear();
 			Poco::Zip::ZipInputStream zipin(zipInput, pluginIt->second);
 			std::ofstream out(tmpPluginPath.toStdString(), std::ios::out | std::ios::binary);
