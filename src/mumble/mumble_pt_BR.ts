@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Adicionar Canal</translation>
+        <translation>Mumble - Adicionar canal</translation>
     </message>
     <message>
         <source>Default server value</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>Canal deve possuir um nome</translation>
+        <translation>O canal deve possuir um nome</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Especifique o nome do canal aqui.</translation>
+        <translation>Insira o nome do canal aqui</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Especifique a senha do canal aqui.</translation>
+        <translation>Insira a senha do canal aqui.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -109,11 +109,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>Elimina o grupo selecionado</translation>
+        <translation>Exclui o grupo selecionado</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Eliminar</translation>
+        <translation>Excluir</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
@@ -153,7 +153,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Eliminar membro do grupo</translation>
+        <translation>Remover membro do grupo</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -201,7 +201,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation>&amp;Baixar</translation>
+        <translation>&amp;Descer</translation>
     </message>
     <message>
         <source>Add new entry</source>
@@ -217,15 +217,15 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Remove entry</source>
-        <translation>Eliminar entrada</translation>
+        <translation>Excluir entrada</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Elimina a entrada selecionada atualmente.</translation>
+        <translation>Exclui a entrada selecionada.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Eliminar</translation>
+        <translation>&amp;Excluir</translation>
     </message>
     <message>
         <source>Context</source>
@@ -473,7 +473,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Identificar nome (nome longo) da placa de som falhou: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
@@ -3274,7 +3274,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha interna encontrada em CrashReporter.cpp: A resposta recebida da rede não contém um código de status HTTP. Por favor, informe à um desenvolvedor sobre o erro de código %1</translation>
     </message>
 </context>
 <context>
@@ -4066,11 +4066,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>usuários no servidor.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Limitar notificações quando houver mais que</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>

@@ -4020,7 +4020,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>пользователей на сервере.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>

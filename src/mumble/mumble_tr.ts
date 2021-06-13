@@ -4053,39 +4053,39 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sınır</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Çeşitli</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesaj sınırlama işlevini tetikleyecek kullanıcı sayısı.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>sunucudaki kullanıcılar.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Daha fazlası olduğunda bildirimleri sınırla</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesaj sınırlaması için kullanıcı sınırı</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm olaylar için mesaj sınırlamasını değiştirmek için buraya tıklayın - Bu seçeneği kullanıyorsanız aşağıdaki kullanıcı sınırını değiştirdiğinizden emin olun.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 olayları için mesaj sınırlama davranışını değiştir </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 olayları için sınırlamayı değiştirmek için buraya tıklayın.&lt;br /&gt;İşaretlenirse, sunucudaki kullanıcı sayısı ayarlanan eşiği aştığında bu olay türü için bildirimler oynatılmayacaktır.</translation>
     </message>
 </context>
 <context>

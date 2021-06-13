@@ -4054,39 +4054,39 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonstige</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl an Benutzern, welche die Benachrichtigungs-Limitierung aktiviert.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer auf dem Server sind.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Limitiere Benachrichtigungen wenn mehr als</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzergrenze für die Benachrichtigungs-Limitierung</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken Sie hier, um die Benachrichtigungs-Limitierung für all events zu aktivieren. Wenn Sie diese Option verwenden, passen Sie auch die Benutzergrenze weiter unten an.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Schalte Benachrichtigungs-Limitierung für %1 Events um </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken Sie hier, um %1 Events zu limitierren.&lt;br /&gt;Sofern aktiviert werden Benachrichtigungen für dieses Event nicht abgespielt wenn die Benutzeranzahl auf dem Server über der eingestellten Grenze liegt.</translation>
     </message>
 </context>
 <context>
