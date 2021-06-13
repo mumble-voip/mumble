@@ -46,5 +46,7 @@ public slots:
 // These are macros that X11/X.h defines and that are causing problems in unity builds
 // if left defined
 #undef None
+#undef KeyPress
+#undef FontChange
 
 #endif

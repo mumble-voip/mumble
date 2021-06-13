@@ -29,7 +29,7 @@ public:
 
 	QWidget *operator->();
 
-	MultiStyleWidgetWrapper(QWidget *widget);
+	MultiStyleWidgetWrapper(QWidget *widget = nullptr);
 
 protected:
 	static const uint32_t UNSET_FONTSIZE;
@@ -37,8 +37,11 @@ protected:
 	static const QString UNSET_SELECTOR;
 	/// The wrapped widget
 	QWidget *m_widget;
-	/// The current font size in pixels
+	/// The current font size
 	uint32_t m_fontSize = UNSET_FONTSIZE;
+	/// Whether the font size is currently set in pixels (as opposed
+	/// to points)
+	bool m_fontSizeInPixels = true;
 	/// The CSS selector to be applied to the font size
 	QString m_fontSizeSelector = UNSET_SELECTOR;
 	/// The current background color

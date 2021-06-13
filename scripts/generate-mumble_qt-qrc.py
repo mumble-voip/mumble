@@ -10,110 +10,134 @@ from __future__ import (unicode_literals, print_function, division)
 import os
 import platform
 import sys
+from pathlib import Path
 
-allowed_prefixes = ('qt', 'qtbase')
+allowed_components = ('qt', 'qtbase')
+local_qt_translations = []
 override_qt = []
 
 def parseTranslationsConfig(configFile):
-	configHandle = open(configFile, "r")
+    configHandle = open(configFile, "r")
 
-	for currentLine in configHandle.readlines():
-		currentLine = currentLine.strip()
-		# Skip comments and empty lines
-		if currentLine.startswith("#") or not currentLine:
-			continue
+    for currentLine in configHandle.readlines():
+        currentLine = currentLine.strip()
+        # Skip comments and empty lines
+        if currentLine.startswith("#") or not currentLine:
+            continue
 
-		# A config entry is supposed to be in the format <operator> <fileName>
-		splitParts = currentLine.split(" ", 1)
-		if len(splitParts) != 2:
-			raise RuntimeError("Invalid line in translation config file: %s" % currentLine)
+        # A config entry is supposed to be in the format <operator> <fileName>
+        splitParts = currentLine.split(" ", 1)
+        if len(splitParts) != 2:
+            raise RuntimeError("Invalid line in translation config file: %s" % currentLine)
 
-		operator = splitParts[0].lower().strip()
-		translationFileName = splitParts[1].strip()
+        operator = splitParts[0].lower().strip()
+        translationFileName = splitParts[1].strip()
 
-		if not translationFileName:
-			raise RuntimeError("Empty filename in translation config: %s" % currentLine)
+        if not translationFileName:
+            raise RuntimeError("Empty filename in translation config: %s" % currentLine)
 
-		if not translationFileName.endswith(".ts"):
-			raise RuntimeError("Expected translation file to have a '*.ts' name but got %s" % translationFileName)
+        if not translationFileName.endswith(".ts"):
+            raise RuntimeError("Expected translation file to have a '*.ts' name but got %s" % translationFileName)
 
-		# Replace the trailing .ts with .qm as this is what lrelease will turn it into
-		translationFileName = translationFileName[:-3] + ".qm"
+        # Replace the trailing .ts with .qm as this is what lrelease will turn it into
+        translationFileName = translationFileName[:-3] + ".qm"
+        
+        local_qt_translations.append(translationFileName)
 
-		if operator == "fallback":
-			# fallback files are the default, so no special action has to be taken
-			pass
-		# be programmer friendly and allow "override" as well
-		elif operator == "overwrite" or operator == "override":
-			override_qt.append(translationFileName)
+        if operator == "fallback":
+            # fallback files are the default, so no special action has to be taken
+            pass
+        # be programmer friendly and allow "override" as well
+        elif operator == "overwrite" or operator == "override":
+            override_qt.append(translationFileName)
 
 
-def dirToQrc(of, dirName, alreadyProcessedLangs, localTranslationDir = False):
-	processedLangs = []
-	absDirName = os.path.abspath(dirName)
-	fns = os.listdir(dirName)
-	for fn in fns:
-		isOverride = False
-		if fn in override_qt and localTranslationDir:
-			# This translation should be used to overwrite an existing Qt-translation.
-			isOverride = True
+def getComponentName(fileName):
+    # Remove file extension
+    fileName = os.path.splitext(fileName)[0]
 
-		fnRoot, fnExt = os.path.splitext(fn)
-		if fnExt.lower() != '.qm':
-			continue
-		lastUnderscoreIdx = fnRoot.rfind('_')
-		if lastUnderscoreIdx == -1:
-			continue
-		prefix = fnRoot[:lastUnderscoreIdx]
-		lang = fnRoot[lastUnderscoreIdx+1:]
-		# Handle en_US-style locale names
-		if lang.upper() == lang:
-			nextToLastUnderscoreIdx = prefix.rfind('_')
-			prefix = fnRoot[:nextToLastUnderscoreIdx]
-			lang = fnRoot[nextToLastUnderscoreIdx+1:]
-		if lang in alreadyProcessedLangs and not isOverride:
-			continue
-		if not prefix in allowed_prefixes:
-			continue
-		absFn = os.path.join(absDirName, fn)
-		if platform.system() == 'Windows':
-			absFn = absFn.replace('\\', '/')
-		
-		if not isOverride:
-			of.write(' <file alias="{0}">{1}</file>\n'.format(fn, absFn))
-			processedLangs.append(lang)
-		else:
-			# In order to recognize translation-overrides, we have to prefix them
-			of.write(' <file alias="{0}">{1}</file>\n'.format("mumble_overwrite_" + fn, absFn))
+    lastUnderscoreIdx = fileName.rfind('_')
+    if lastUnderscoreIdx == -1:
+        return ""
 
-	return processedLangs
+    component = fileName[:lastUnderscoreIdx]
+    lang = fileName[lastUnderscoreIdx+1:]
+    # Handle en_US-style locale names
+    if lang.upper() == lang:
+        lastUnderscoreIdx = component.rfind('_')
+        component = fileName[:lastUnderscoreIdx]
+        lang = fileName[lastUnderscoreIdx+1:]
+    
+    return component
+
+
+def dirToQrc(outFile, directoryPath, processedComponents, localTranslationDir = False):
+    absPath = os.path.abspath(directoryPath)
+
+    fileNames = os.listdir(absPath)
+
+    return filesToQrc(outFile, processedComponents, fileNames, absPath, localTranslationDir)
+
+
+def filesToQrc(outFile, processedComponents, fileNames, directoryPath, localTranslationDir = False):
+    for currentFileName in fileNames:
+        isOverride = False
+
+        if currentFileName in override_qt and localTranslationDir:
+            # This translation should be used to overwrite an existing Qt-translation.
+            isOverride = True
+
+        name, extension = os.path.splitext(currentFileName)
+        if not extension == ".qm":
+            continue
+
+        component = getComponentName(currentFileName)
+
+        if not component in allowed_components:
+            continue
+        
+        if name in processedComponents and not isOverride:
+            continue
+
+        currentFilePath = os.path.join(directoryPath, currentFileName)
+        if not isOverride:
+            print("   > Bundling Qt translation \"{0}\"".format(currentFilePath))
+            outFile.write(' <file alias="{0}">{1}</file>\n'.format(currentFileName, currentFilePath))
+            processedComponents.append(name)
+        else:
+            # In order to recognize translation-overrides, we have to prefix them
+            print("   > Bundling Qt overwrite translation \"{0}\"".format(currentFilePath))
+            outFile.write(' <file alias="{0}">{1}</file>\n'.format("mumble_overwrite_" + currentFileName, currentFilePath))
+
+    return processedComponents
+
+
 
 def main():
-	# python generate-mumble_qt-qrc.py <output-fn> [inputs...] localDir
-	output = sys.argv[1]
-	inputs = sys.argv[2:-1]
-	localDir = sys.argv[-1]
+    # python generate-mumble_qt-qrc.py <output-fn> [inputs...] localDir
+    output = sys.argv[1]
+    inputs = sys.argv[2:-1]
+    localDir = sys.argv[-1]
 
-	# parse config file
-	if localDir.endswith("/") or localDir.endswith("\\"):
-		localDir = localDir[:-1]
+    # parse config file
+    if localDir.endswith("/") or localDir.endswith("\\"):
+        localDir = localDir[:-1]
 
-	configFile = os.path.join(localDir, "translations.conf")
-	if os.path.isfile(configFile):
-		parseTranslationsConfig(configFile)
+    configFile = os.path.join(localDir, "translations.conf")
+    if os.path.isfile(configFile):
+        parseTranslationsConfig(configFile)
 
-	of = open(output, 'w')
-	of.write('<!DOCTYPE RCC><RCC version="1.0">\n')
-	of.write('<qresource>\n')
-	processedLangs = []
-	for dirName in inputs:
-		newlyProcssedLangs = dirToQrc(of, dirName, processedLangs)
-		processedLangs.extend(newlyProcssedLangs)
-	# Process translations provided by Mumble itself (aka local translations)
-	dirToQrc(of, localDir, processedLangs, True)
-	of.write('</qresource>\n')
-	of.write('</RCC>\n')
-	of.close()
+    of = open(output, 'w')
+    of.write('<!DOCTYPE RCC><RCC version="1.0">\n')
+    of.write('<qresource>\n')
+    processedComponents = []
+    for dirName in inputs:
+        processedComponents.extend(dirToQrc(of, dirName, processedComponents))
+    # Process translations provided by Mumble itself (aka local translations)
+    filesToQrc(of, processedComponents, local_qt_translations, localDir, True)
+    of.write('</qresource>\n')
+    of.write('</RCC>\n')
+    of.close()
 
 if __name__ == '__main__':
-	main()
+    main()

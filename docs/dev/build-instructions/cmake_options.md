@@ -24,6 +24,11 @@ Build support for ASIO audio input.
 Build an x86 overlay
 (Default: OFF)
 
+### bundle-qt-translations
+
+Bundle Qt's translations as well
+(Default: ${static})
+
 ### bundled-celt
 
 Build the included version of CELT instead of looking for one on the system.
@@ -37,11 +42,6 @@ Build the included version of Opus instead of looking for one on the system.
 ### bundled-speex
 
 Build the included version of Speex instead of looking for one on the system.
-(Default: ON)
-
-### classic-theme
-
-Include the classic theme.
 (Default: ON)
 
 ### client
@@ -148,6 +148,11 @@ Build 32 bit overlay library, necessary for the overlay to work with 32 bit proc
 
 Build package.
 (Default: OFF)
+
+### pipewire
+
+Build support for PipeWire.
+(Default: ON)
 
 ### plugin-callback-debug
 

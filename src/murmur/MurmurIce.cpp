@@ -7,7 +7,6 @@
 
 #include "Ban.h"
 #include "Channel.h"
-#include "ChannelListener.h"
 #include "Group.h"
 #include "Meta.h"
 #include "MurmurI.h"
@@ -1736,7 +1735,7 @@ static void impl_Server_isListening(const ::Murmur::AMD_Server_isListeningPtr cb
 	NEED_CHANNEL;
 	NEED_PLAYER;
 
-	cb->ice_response(ChannelListener::isListening(user, channel));
+	cb->ice_response(server->m_channelListenerManager.isListening(user->uiSession, channel->iId));
 }
 
 static void impl_Server_getListeningChannels(const ::Murmur::AMD_Server_getListeningChannelsPtr cb, int server_id,
@@ -1745,7 +1744,7 @@ static void impl_Server_getListeningChannels(const ::Murmur::AMD_Server_getListe
 	NEED_PLAYER;
 
 	::Murmur::IntList channelIDs;
-	foreach (int currentChannelID, ChannelListener::getListenedChannelsForUser(user)) {
+	foreach (int currentChannelID, server->m_channelListenerManager.getListenedChannelsForUser(user->uiSession)) {
 		channelIDs.push_back(currentChannelID);
 	}
 
@@ -1758,7 +1757,7 @@ static void impl_Server_getListeningUsers(const ::Murmur::AMD_Server_getListenin
 	NEED_CHANNEL;
 
 	::Murmur::IntList userSessions;
-	foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(channel)) {
+	foreach (unsigned int currentSession, server->m_channelListenerManager.getListenersForChannel(channel->iId)) {
 		userSessions.push_back(currentSession);
 	}
 

@@ -1,6 +1,6 @@
 # Developer console
 
-The _Developer console_ provides some logging information of Mumble that can be of interested for developers. This is usually used to find the cause
+The _Developer console_ shows information logged by Mumble that can be of interest to developers. This is usually used to find the cause
 of certain bugs.
 
 ## How to open the Developer console?

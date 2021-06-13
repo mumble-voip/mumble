@@ -17,7 +17,7 @@ public class ServerInstaller : MumbleInstall {
 	public ServerInstaller(string version, string arch) {
 		string upgradeGuid = "03E9476F-0F75-4661-BFC9-A9DAEB23D3A0";
 		string[] binaries = {
-			"murmur.exe",
+			"mumble-server.exe",
 			"Murmur.ice"
 		};
 
@@ -38,7 +38,7 @@ public class ServerInstaller : MumbleInstall {
 			this.Platform = WixSharp.Platform.x86;
 		}
 
-		this.Name = "Mumble (server)";
+		this.Name = "Mumble Server";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
 		this.OutFileName = "mumble_server-" + this.Version + "-" + arch;
@@ -50,7 +50,7 @@ public class ServerInstaller : MumbleInstall {
 		var licenseDir = new Dir("licenses");
 		var menuDir = new Dir(@"%ProgramMenu%");
 		var shortcutDir = new Dir("Mumble");
-		var menuShortcut = new ExeFileShortcut("Murmur", "[INSTALLDIR]murmur.exe", arguments: "");
+		var menuShortcut = new ExeFileShortcut("Mumble Server", "[INSTALLDIR]mumble-server.exe", arguments: "");
 		menuShortcut.IconFile = @"..\icons\murmur.ico";
 		shortcutDir.Shortcuts = new ExeFileShortcut[] { menuShortcut };
 		

@@ -7,6 +7,7 @@
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QTextDocument>
 
 namespace Markdown {
 // Placeholder constant
@@ -67,6 +68,18 @@ bool processMarkdownHeader(QString &str, int &offset) {
 	return false;
 }
 
+/// Reverts the effect of QString::toHtmlEscaped. It is intended to be used for URLs that are part of the
+/// actual href specification. In there we don't want to escape HTML characters as they are indeed part of
+/// the underlaying link and thus we must not escape e.g. "&" by "&amp;" in there.
+///
+/// @param url The html-escaped URL
+/// @return The un-escaped version of the given URL
+QString unescapeURL(const QString &url) {
+	QTextDocument doc;
+	doc.setHtml(url);
+	return doc.toPlainText();
+}
+
 /// Tries to match and replace a markdown link at exactly the given offset in the string
 ///
 /// @param str A reference to the String to work on
@@ -91,7 +104,7 @@ bool processMarkdownLink(QString &str, int &offset) {
 			url = QLatin1String("http://") + url;
 		}
 
-		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(match.captured(1));
+		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(unescapeURL(url)).arg(match.captured(1));
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 		offset += replacement.size();
@@ -302,16 +315,15 @@ bool processPlainLink(QString &str, int &offset) {
 		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 	if (match.hasMatch()) {
-		QString url     = match.captured(0);
-		QString urlText = url;
+		QString url = match.captured(0);
 
 		if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
 			// Link is missing a protocol specification.
 			// Use http as the default
-			url = QLatin1String("http://") + url;
+			url = QStringLiteral("http://") + url;
 		}
 
-		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(urlText);
+		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(unescapeURL(url)).arg(url);
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 		offset += replacement.size();

@@ -19,6 +19,8 @@
 
 #include <QTimer>
 
+#include <sstream>
+
 extern "C" {
 // clang-format off
 // Do NOT change the order of the includes below or compile errors will occur!
@@ -31,15 +33,70 @@ extern "C" {
 extern HWND mumble_mw_hwnd;
 
 struct InputHid {
-	uint32_t button;
+	uint32_t button = 0;
 	std::string deviceName;
 	std::string devicePrefix;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputHid &output) {
+		stream << static_cast< quint32 >(output.button);
+		stream << QString::fromStdString(output.deviceName);
+		stream << QString::fromStdString(output.devicePrefix);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputHid &input) {
+		quint32 button;
+		QString deviceName;
+		QString devicePrefix;
+
+		stream >> button;
+		stream >> deviceName;
+		stream >> devicePrefix;
+
+		input.button       = static_cast< uint32_t >(button);
+		input.deviceName   = deviceName.toStdString();
+		input.devicePrefix = devicePrefix.toStdString();
+
+		return stream;
+	}
+
+	bool operator==(const InputHid &rhs) const {
+		return this->button == rhs.button && this->deviceName == rhs.deviceName
+			   && this->devicePrefix == rhs.devicePrefix;
+	}
+
+	bool operator<(const InputHid &rhs) const {
+		return this->button < rhs.button && this->deviceName < rhs.deviceName && this->devicePrefix < rhs.devicePrefix;
+	}
 };
 Q_DECLARE_METATYPE(InputHid)
 
 struct InputKeyboard {
 	bool e0;
 	uint16_t code;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputKeyboard &output) {
+		stream << output.e0;
+		stream << static_cast< quint16 >(output.code);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputKeyboard &input) {
+		quint16 code;
+
+		stream >> input.e0;
+		stream >> code;
+
+		input.code = static_cast< uint16_t >(code);
+
+		return stream;
+	}
+
+	bool operator==(const InputKeyboard &rhs) const { return this->e0 == rhs.e0 && this->code == rhs.code; }
+
+	bool operator<(const InputKeyboard &rhs) const { return this->e0 < rhs.e0 && this->code < rhs.code; }
 };
 Q_DECLARE_METATYPE(InputKeyboard)
 
@@ -50,6 +107,30 @@ Q_DECLARE_METATYPE(InputMouse)
 struct InputXinput {
 	uint8_t device;
 	uint8_t code;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputXinput &output) {
+		stream << static_cast< qint8 >(output.device);
+		stream << static_cast< qint8 >(output.code);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputXinput &input) {
+		quint8 device;
+		quint8 code;
+
+		stream >> device;
+		stream >> code;
+
+		input.device = static_cast< uint8_t >(device);
+		input.code   = static_cast< uint8_t >(code);
+
+		return stream;
+	}
+
+	bool operator==(const InputXinput &rhs) const { return this->device == rhs.device && this->code == rhs.code; }
+
+	bool operator<(const InputXinput &rhs) const { return this->device < rhs.device && this->code < rhs.code; }
 };
 Q_DECLARE_METATYPE(InputXinput)
 #endif
@@ -58,6 +139,36 @@ struct InputGkey {
 	bool keyboard;
 	uint8_t button;
 	uint8_t mode;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputGkey &output) {
+		stream << output.keyboard;
+		stream << static_cast< qint8 >(output.button);
+		stream << static_cast< qint8 >(output.mode);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputGkey &input) {
+		quint8 button;
+		quint8 mode;
+
+		stream >> input.keyboard;
+		stream >> button;
+		stream >> mode;
+
+		input.button = static_cast< uint8_t >(button);
+		input.mode   = static_cast< uint8_t >(mode);
+
+		return stream;
+	}
+
+	bool operator==(const InputGkey &rhs) const {
+		return this->keyboard == rhs.keyboard && this->button == rhs.button && this->mode == rhs.mode;
+	}
+
+	bool operator<(const InputGkey &rhs) const {
+		return this->keyboard < rhs.keyboard && this->button < rhs.button && this->mode < rhs.mode;
+	}
 };
 Q_DECLARE_METATYPE(InputGkey)
 #endif
@@ -66,20 +177,45 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
 
+void GlobalShortcutWin::registerMetaTypes() {
+	static bool registered = false;
+
+	// Only register the MetaTypes once.
+	if (!registered) {
+		registered = true;
+
+		qRegisterMetaType< InputHid >();
+		qRegisterMetaTypeStreamOperators< InputHid >();
+		QMetaType::registerComparators< InputHid >();
+
+		qRegisterMetaType< InputKeyboard >();
+		qRegisterMetaTypeStreamOperators< InputKeyboard >();
+		QMetaType::registerComparators< InputKeyboard >();
+
+		qRegisterMetaType< InputMouse >();
+		qRegisterMetaTypeStreamOperators< InputMouse >();
+		QMetaType::registerComparators< InputMouse >();
+#ifdef USE_XBOXINPUT
+		qRegisterMetaType< InputXinput >();
+		qRegisterMetaTypeStreamOperators< InputXinput >();
+		QMetaType::registerComparators< InputXinput >();
+#endif
+#ifdef USE_GKEY
+		qRegisterMetaType< InputGkey >();
+		qRegisterMetaTypeStreamOperators< InputGkey >();
+		QMetaType::registerComparators< InputGkey >();
+#endif
+	}
+}
+
 GlobalShortcutWin::GlobalShortcutWin()
 #ifdef USE_XBOXINPUT
 	: m_xinputDevices(0), m_xinputLastPacket()
 #endif
 {
-	qRegisterMetaType< InputHid >();
-	qRegisterMetaType< InputKeyboard >();
-	qRegisterMetaType< InputMouse >();
-#ifdef USE_XBOXINPUT
-	qRegisterMetaType< InputXinput >();
-#endif
-#ifdef USE_GKEY
-	qRegisterMetaType< InputGkey >();
-#endif
+	// Register the MetaTypes if they have not already been registered (e.g in Settings)
+	registerMetaTypes();
+
 	connect(this, &GlobalShortcutWin::hidMessage, this, &GlobalShortcutWin::on_hidMessage);
 	connect(this, &GlobalShortcutWin::keyboardMessage, this, &GlobalShortcutWin::on_keyboardMessage);
 	connect(this, &GlobalShortcutWin::mouseMessage, this, &GlobalShortcutWin::on_mouseMessage);
@@ -124,8 +260,8 @@ void GlobalShortcutWin::run() {
 		yieldCurrentThread();
 	}
 
-	constexpr uint8_t nRid = 5;
-	RAWINPUTDEVICE rid[nRid];
+	constexpr uint8_t nRid   = 5;
+	RAWINPUTDEVICE rid[nRid] = {};
 
 	rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC;
 	rid[0].usUsage     = HID_USAGE_GENERIC_MOUSE;
@@ -164,7 +300,7 @@ void GlobalShortcutWin::run() {
 }
 
 void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
-	UINT size;
+	UINT size = 0;
 	if (GetRawInputData(handle, RID_INPUT, nullptr, &size, sizeof(RAWINPUTHEADER)) != 0) {
 		return;
 	}
@@ -263,9 +399,9 @@ void GlobalShortcutWin::on_keyboardMessage(const uint16_t flags, uint16_t scanCo
 		scanCode = virtualKey != VK_PAUSE ? MapVirtualKey(virtualKey, MAPVK_VK_TO_VSC) : 0x45;
 	}
 
-	InputKeyboard input;
-	input.code = scanCode;
-	input.e0   = flags & RI_KEY_E0;
+	InputKeyboard input = {};
+	input.code          = scanCode;
+	input.e0            = flags & RI_KEY_E0;
 
 	handleButton(QVariant::fromValue(input), !(flags & RI_KEY_BREAK));
 }
@@ -323,8 +459,8 @@ void GlobalShortcutWin::on_mouseMessage(const uint16_t flags, const uint16_t dat
 }
 
 GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE deviceHandle) {
-	RID_DEVICE_INFO deviceInfo;
-	UINT size = sizeof(deviceInfo);
+	RID_DEVICE_INFO deviceInfo = {};
+	UINT size                  = sizeof(deviceInfo);
 	if (GetRawInputDeviceInfo(deviceHandle, RIDI_DEVICEINFO, &deviceInfo, &size) <= 0) {
 		return m_devices.end();
 	}
@@ -478,8 +614,8 @@ void GlobalShortcutWin::timeTicked() {
 				continue;
 			}
 
-			InputXinput input;
-			input.device = i;
+			InputXinput input = {};
+			input.device      = i;
 
 			for (uint8_t j = 0; j < 18; ++j) {
 				input.code = j;
@@ -492,8 +628,8 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 #ifdef USE_GKEY
 	if (m_gkey) {
-		InputGkey input;
-		input.keyboard = false;
+		InputGkey input = {};
+		input.keyboard  = false;
 
 		for (uint8_t button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; ++button) {
 			input.button = button;
@@ -531,6 +667,11 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &butt
 		wchar_t buffer[MAX_PATH];
 		if (GetKeyNameText((input.code << 16) | (input.e0 << 24), buffer, MAX_PATH)) {
 			info.name = QString::fromWCharArray(buffer);
+		} else {
+			// If GetKeyNameText() cannot find the name. Show a K prefix and the scan code instead of Unknown.
+			// For keys like F13 - F24
+			info.devicePrefix = QStringLiteral("K");
+			info.name         = QString::number(static_cast< uint >(input.code));
 		}
 	} else if (button.userType() == qMetaTypeId< InputMouse >()) {
 		info.device       = tr("Mouse");

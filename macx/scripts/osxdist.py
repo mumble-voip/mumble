@@ -254,6 +254,7 @@ class DiskImage(FolderObject):
 		           '-srcfolder', self.tmp,
 		           '-format', 'UDBZ',
 		           '-volname', self.volname,
+		           '-megabytes', '130',
 		           self.filename])
 		retval = p.wait()
 		print ' * Removing temporary directory.'

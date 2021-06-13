@@ -7,36 +7,35 @@
 #define MUMBLE_PROCESS_RESOLVER_H_
 
 #include <QtCore/QVector>
-#include <stdint.h>
+
+#include <cstdint>
+#include <memory>
+#include <unordered_map>
 
 /// This ProcessResolver can be used to get a QVector of running process names and associated PIDs on multiple
 /// platforms. This object is by no means thread-safe!
 class ProcessResolver {
-protected:
-	/// The vector for the pointers to the process names
-	QVector< const char * > m_processNames;
-	/// The vector for the process PIDs
-	QVector< uint64_t > m_processPIDs;
-
-	/// Deletes all names currently stored in processNames and clears processNames and processPIDs
-	void freeAndClearData();
-	/// The OS specific implementation of filling in details about running process names and PIDs
-	void doResolve();
-
 public:
+	using ProcessMap = std::unordered_map< uint64_t, std::unique_ptr< char[] > >;
+
 	/// @param resolveImmediately Whether the constructor should directly invoke ProcesResolver::resolve()
 	ProcessResolver(bool resolveImmediately = true);
 	virtual ~ProcessResolver();
 
 	/// Resolves the namaes and PIDs of the running processes
 	void resolve();
-	/// Gets a reference to the stored process names
-	const QVector< const char * > &getProcessNames() const;
-	/// Gets a reference to the stored process PIDs (corresponding to the names returned by
-	/// ProcessResolver::getProcessNames())
-	const QVector< uint64_t > &getProcessPIDs() const;
+	/// @returns The ProcessMap holding the mapping between PID and process name of all processes
+	/// found by this resolver
+	const ProcessMap &getProcessMap() const;
 	/// @returns The amount of processes that have been resolved by this object
 	size_t amountOfProcesses() const;
+
+protected:
+	/// A map containing the PID->name mapping for the found processes
+	ProcessMap m_processMap;
+
+	/// The OS specific implementation of filling in details about running process names and PIDs
+	void doResolve();
 };
 
 #endif // MUMBLE_PROCESS_RESOLVER_H_

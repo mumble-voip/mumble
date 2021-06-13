@@ -18,6 +18,7 @@
 #include <QtNetwork/QSslKey>
 
 #include "EchoCancelOption.h"
+#include "SearchDialog.h"
 
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
@@ -185,6 +186,7 @@ struct Settings {
 	bool bTTS;
 	bool bUserTop;
 	bool bWhisperFriends;
+	int iMessageLimitUserThreshold;
 	bool bTTSMessageReadBack;
 	bool bTTSNoScope;
 	bool bTTSNoAuthor;
@@ -223,6 +225,7 @@ struct Settings {
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;
+	uint8_t pipeWireInput, pipeWireOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	QString qsJackClientName, qsJackAudioOutput;
 	bool bJackStartServer, bJackAutoConnect;
@@ -290,13 +293,15 @@ struct Settings {
 	QList< Shortcut > qlShortcuts;
 
 	enum MessageLog {
-		LogNone      = 0x00,
-		LogConsole   = 0x01,
-		LogTTS       = 0x02,
-		LogBalloon   = 0x04,
-		LogSoundfile = 0x08,
-		LogHighlight = 0x10
+		LogNone         = 0x00,
+		LogConsole      = 0x01,
+		LogTTS          = 0x02,
+		LogBalloon      = 0x04,
+		LogSoundfile    = 0x08,
+		LogHighlight    = 0x10,
+		LogMessageLimit = 0x20,
 	};
+
 	int iMaxLogBlocks;
 	bool bLog24HourClock;
 	int iChatMessageMargins;
@@ -315,8 +320,9 @@ struct Settings {
 	int iTalkingUI_MaxChannelNameLength;
 	int iTalkingUI_PrefixCharCount;
 	int iTalkingUI_PostfixCharCount;
-	QString qsTalkingUI_ChannelSeparator;
 	QString qsTalkingUI_AbbreviationReplacement;
+
+	QString qsHierarchyChannelSeparator;
 
 	int manualPlugin_silentUserDisplaytime;
 
@@ -356,6 +362,16 @@ struct Settings {
 	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
+
+	// Search settings
+	bool searchForUsers;
+	bool searchForChannels;
+	bool searchCaseSensitive;
+	bool searchAsRegex;
+	bool searchOptionsShown;
+	Search::SearchDialog::UserAction searchUserAction;
+	Search::SearchDialog::ChannelAction searchChannelAction;
+	QPoint searchDialogPosition;
 
 	QString qsUsername;
 	QString qsLastServer;

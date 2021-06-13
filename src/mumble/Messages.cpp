@@ -23,7 +23,7 @@
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
@@ -173,7 +173,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName.toHtmlEscaped()));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
@@ -188,11 +188,11 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	QList< int > localListeners = Global::get().db->getChannelListeners(Global::get().sh->qbaDigest);
 
 	if (!localListeners.isEmpty()) {
-		ChannelListener::setInitialServerSyncDone(false);
+		Global::get().channelListenerManager->setInitialServerSyncDone(false);
 		Global::get().sh->startListeningToChannels(localListeners);
 	} else {
 		// If there are no listeners, then no synchronization is needed in the first place
-		ChannelListener::setInitialServerSyncDone(true);
+		Global::get().channelListenerManager->setInitialServerSyncDone(true);
 	}
 
 	{
@@ -201,14 +201,14 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		// officially exist. Therefore some code that would receive the change-event would try to get the respective
 		// listener and fail due to it not existing yet. Therefore we block all signals while setting the volume
 		// adjustments.
-		const QSignalBlocker blocker(ChannelListener::get());
+		const QSignalBlocker blocker(Global::get().channelListenerManager.get());
 
 		QHash< int, float > volumeMap =
 			Global::get().db->getChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest);
 		QHashIterator< int, float > it(volumeMap);
 		while (it.hasNext()) {
 			it.next();
-			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+			Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(it.key(), it.value());
 		}
 	}
 
@@ -369,7 +369,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		channel = Channel::get(msg.channel_id());
 		if (!channel) {
 			qWarning("msgUserState(): unknown channel.");
-			channel = Channel::get(0);
+			channel = Channel::get(Channel::ROOT_ID);
 		}
 	}
 
@@ -487,7 +487,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		ChannelListener::addListener(pDst, c);
+		Global::get().channelListenerManager->addListener(pDst->uiSession, c->iId);
 		emit userAddedChannelListener(pDst, c);
 
 		QString logMsg;
@@ -499,7 +499,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			// succecssfully told the server that we are listening to the respective channels. Even if this message
 			// here has nothing to do with the actual initial synchronization, this means that we have been connected
 			// to the server long enough for the synchronization to be done.
-			ChannelListener::setInitialServerSyncDone(true);
+			Global::get().channelListenerManager->setInitialServerSyncDone(true);
 		} else if (pSelf && pSelf->cChannel == c) {
 			logMsg = tr("%1 started listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
 		}
@@ -516,7 +516,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		ChannelListener::removeListener(pDst, c);
+		Global::get().channelListenerManager->removeListener(pDst->uiSession, c->iId);
 		emit userRemovedChannelListener(pDst, c);
 
 		QString logMsg;
@@ -873,11 +873,16 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			Global::get().l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 		}
 	}
-	if (pDst != pSelf)
-		pmModel->removeUser(pDst);
 
 	QMetaObject::invokeMethod(Global::get().talkingUI, "on_clientDisconnected", Qt::QueuedConnection,
 							  Q_ARG(unsigned int, pDst->uiSession));
+	if (Global::get().mw->m_searchDialog) {
+		QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_clientDisconnected", Qt::QueuedConnection,
+								  Q_ARG(unsigned int, pDst->uiSession));
+	}
+
+	if (pDst != pSelf)
+		pmModel->removeUser(pDst);
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during
@@ -998,6 +1003,12 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				Global::get().db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
+
+		if (Global::get().mw->m_searchDialog) {
+			QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_channelRemoved", Qt::QueuedConnection,
+									  Q_ARG(int, c->iId));
+		}
+
 		if (!pmModel->removeChannel(c, true)) {
 			Global::get().l->log(Log::CriticalError,
 								 tr("Protocol violation. Server sent remove for occupied channel."));
@@ -1318,10 +1329,9 @@ void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 ///
 /// @param msg The message object containing the suggestions
 void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
-	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
-		Global::get().l->log(
-			Log::Warning,
-			tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));
+	if (msg.has_version() && (msg.version() > Version::getRaw())) {
+		Global::get().l->log(Log::Warning,
+							 tr("The server requests minimum client version %1").arg(Version::toString(msg.version())));
 	}
 	if (msg.has_positional() && (msg.positional() != Global::get().s.doPositionalAudio())) {
 		if (msg.positional())

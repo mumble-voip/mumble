@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>546</width>
-    <height>775</height>
+    <height>813</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -431,97 +431,6 @@
       <string>Positional Audio</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="1">
-       <widget class="QLabel" name="qliMinDistancce">
-        <property name="text">
-         <string>Minimum Distance</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsMinDistance</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLabel" name="qlMinDistance">
-        <property name="minimumSize">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="whatsThis">
-         <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="qliMaxDistVolume">
-        <property name="text">
-         <string>Minimum Volume</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsMaxDistance</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="qliMaxDistancce">
-        <property name="text">
-         <string>Maximum Distance</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsMaxDistance</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QSlider" name="qsMinDistance">
-        <property name="toolTip">
-         <string>Minimum distance to user before sound volume decreases</string>
-        </property>
-        <property name="statusTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the minimum distance for sound calculations. The volume of other users' speech will not decrease until they are at least this far away from you.</string>
-        </property>
-        <property name="minimum">
-         <number>10</number>
-        </property>
-        <property name="maximum">
-         <number>200</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="qcbPositional">
-        <property name="text">
-         <string>Enable</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QSlider" name="qsBloom">
-        <property name="toolTip">
-         <string>Factor for sound volume increase</string>
-        </property>
-        <property name="whatsThis">
-         <string>How much should sound volume increase for sources that are really close?</string>
-        </property>
-        <property name="minimum">
-         <number>0</number>
-        </property>
-        <property name="maximum">
-         <number>75</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <widget class="QCheckBox" name="qcbHeadphones">
         <property name="toolTip">
@@ -535,87 +444,139 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="4">
-       <widget class="QLabel" name="qlMaxDistVolume">
-        <property name="minimumSize">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string notr="true">mv</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QSlider" name="qsMaxDistVolume">
+      <item row="7" column="2">
+       <widget class="QSlider" name="qsMinimumVolume">
         <property name="toolTip">
-         <string>Factor for sound volume decrease</string>
+         <string/>
         </property>
         <property name="whatsThis">
          <string>What should the volume be at the maximum distance?</string>
         </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="qlBloom">
-        <property name="minimumSize">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string notr="true">bl</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="4">
-       <widget class="QLabel" name="qlMaxDistance">
-        <property name="minimumSize">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string notr="true">md</string>
         </property>
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QSlider" name="qsMaxDistance">
+       <widget class="QSlider" name="qsMinDistance">
         <property name="toolTip">
-         <string>Maximum distance, beyond which speech volume won't decrease</string>
+         <string/>
+        </property>
+        <property name="statusTip">
+         <string/>
         </property>
         <property name="whatsThis">
-         <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
-        </property>
-        <property name="minimum">
-         <number>10</number>
-        </property>
-        <property name="maximum">
-         <number>1000</number>
+         <string>This sets the minimum distance for sound calculations. The volume of other users' speech will not decrease until they are at least this far away from you.</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="qliBloom">
+      <item row="6" column="2">
+       <widget class="QSlider" name="qsMaxDistance">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="qcbPositional">
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QSpinBox" name="qsbBloom">
+        <property name="suffix">
+         <string> %</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="qlMaxDistance">
+        <property name="text">
+         <string>Maximum Distance</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMaxDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="3">
+       <widget class="QSpinBox" name="qsbMinimumVolume">
+        <property name="suffix">
+         <string> %</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="2">
+       <widget class="QSlider" name="qsBloom">
+        <property name="toolTip">
+         <string>Factor for sound volume increase</string>
+        </property>
+        <property name="whatsThis">
+         <string>How much should sound volume increase for sources that are really close?</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLabel" name="qlBloom">
         <property name="text">
          <string>Bloom</string>
         </property>
         <property name="buddy">
-         <cstring>qsMaxDistVolume</cstring>
+         <cstring>qsMinimumVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="3">
+       <widget class="QDoubleSpinBox" name="qsbMaximumDistance">
+        <property name="suffix">
+         <string> m</string>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="qlMinimumVolume">
+        <property name="text">
+         <string>Minimum Volume</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMaxDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="qlMinDistance">
+        <property name="text">
+         <string>Minimum Distance</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMinDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QDoubleSpinBox" name="qsbMinimumDistance">
+        <property name="suffix">
+         <string> m</string>
+        </property>
+        <property name="decimals">
+         <number>1</number>
         </property>
        </widget>
       </item>
@@ -765,8 +726,6 @@
   <tabstop>qsDelay</tabstop>
   <tabstop>qsMinDistance</tabstop>
   <tabstop>qsBloom</tabstop>
-  <tabstop>qsMaxDistance</tabstop>
-  <tabstop>qsMaxDistVolume</tabstop>
   <tabstop>qcbLoopback</tabstop>
   <tabstop>qsPacketDelay</tabstop>
   <tabstop>qsPacketLoss</tabstop>

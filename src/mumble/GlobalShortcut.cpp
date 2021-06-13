@@ -215,7 +215,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 
 	// And if we are connected add the channels on the current server
 	if (Global::get().uiSession) {
-		Channel *c             = Channel::get(0);
+		Channel *c             = Channel::get(Channel::ROOT_ID);
 		QTreeWidgetItem *sroot = new QTreeWidgetItem(qtwChannels, QStringList(c->qsName));
 		qmTree.insert(0, sroot);
 		iterateChannelChildren(sroot, c, qmTree);

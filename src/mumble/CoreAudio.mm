@@ -417,25 +417,18 @@ void CoreAudioInit::destroy() {
 }
 
 const QList< audioDevice > CoreAudioSystem::getDeviceChoices(bool input) {
-	bool doEcho = (Global::get().s.echoOption == EchoCancelOptionID::APPLE_AEC);
-	QHash< QString, QString > qhDevices = CoreAudioSystem::getDevices(input, doEcho);
-	QList< audioDevice > qlReturn;
-	QStringList qlDevices;
+	const bool doEcho = (Global::get().s.echoOption == EchoCancelOptionID::APPLE_AEC);
+	const QHash< QString, QString > devices = CoreAudioSystem::getDevices(input, doEcho);
 
-	qhDevices.insert(QString(), QObject::tr("Default Device"));
-	qlDevices = qhDevices.keys();
+	QList< audioDevice > choices = {
+		audioDevice(QObject::tr("Default Device"), QString())
+	};
 
-	const QString &qsDev = input ? Global::get().s.qsCoreAudioInput : Global::get().s.qsCoreAudioOutput;
-	if (qlDevices.contains(qsDev)) {
-		qlDevices.removeAll(qsDev);
-		qlDevices.prepend(qsDev);
+	for (auto &key : devices.keys()) {
+		choices << audioDevice(devices.value(key), key);
 	}
 
-	foreach (const QString &qsIdentifier, qlDevices) {
-		qlReturn << audioDevice(qhDevices.value(qsIdentifier), qsIdentifier);
-	}
-
-	return qlReturn;
+	return choices;
 }
 
 const QHash< QString, QString > CoreAudioSystem::getDevices(bool input, bool echo) {
@@ -477,6 +470,10 @@ AudioInput *CoreAudioInputRegistrar::create() {
 	} else {
 		return nullptr;
 	}
+}
+
+const QVariant CoreAudioInputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsCoreAudioInput;
 }
 
 const QList< audioDevice > CoreAudioInputRegistrar::getDeviceChoices() {
@@ -549,6 +546,10 @@ bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 
 AudioOutput *CoreAudioOutputRegistrar::create() {
 	return new CoreAudioOutput();
+}
+
+const QVariant CoreAudioOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsCoreAudioOutput;
 }
 
 const QList< audioDevice > CoreAudioOutputRegistrar::getDeviceChoices() {

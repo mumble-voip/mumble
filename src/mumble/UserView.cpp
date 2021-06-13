@@ -110,13 +110,7 @@ bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QSt
 UserView::UserView(QWidget *p) : QTreeView(p) {
 	setItemDelegate(new UserDelegate(this));
 
-	qtSearch = new QTimer(this);
-	qtSearch->setInterval(QApplication::keyboardInputInterval());
-	qtSearch->setSingleShot(true);
-
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(nodeActivated(const QModelIndex &)));
-
-	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
 
 /**
@@ -235,75 +229,10 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	}
 }
 
-/**
- * This implementation provides a recursive realtime search over
- * the whole channel tree. It also features delayed selection
- * with with automatic expanding of folded channels.
- */
-void UserView::keyboardSearch(const QString &search) {
-	if (qtSearch->isActive()) {
-		qpmiSearch = QPersistentModelIndex();
-		qtSearch->stop();
-	}
-
-	bool forceSkip = false;
-
-	if (tSearch.restart() > (QApplication::keyboardInputInterval() * 1000ULL)) {
-		qsSearch  = QString();
-		forceSkip = true;
-	}
-
-	bool isBackspace = (search.length() == 1) && (search.at(0).row() == 0) && (search.at(0).cell() == 8);
-	if (isBackspace) {
-		if (!qsSearch.isEmpty())
-			qsSearch = qsSearch.left(qsSearch.length() - 1);
-	} else {
-		qsSearch += search;
-	}
-
-	// Try default search (which doesn't recurse non-expanded items) and see if it returns something "valid"
-	QTreeView::keyboardSearch(search);
-	QModelIndex start = currentIndex();
-	if (start.isValid() && model()->data(start, Qt::DisplayRole).toString().startsWith(qsSearch, Qt::CaseInsensitive))
-		return;
-
-	if (forceSkip && start.isValid())
-		start = indexBelow(start);
-
-	if (!start.isValid())
-		start = model()->index(0, 0, QModelIndex());
-
-	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1,
-										  Qt::MatchFlags(Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive));
-	if (qmil.count() == 0)
-		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1,
-							  Qt::MatchFlags(Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive));
-
-	if (qmil.isEmpty())
-		return;
-
-	QModelIndex qmi = qmil.at(0);
-
-	QModelIndex p = qmi.parent();
-	bool visible  = true;
-	while (visible && p.isValid()) {
-		visible = visible && isExpanded(p);
-		p       = p.parent();
-	}
-
-	if (visible)
-		selectionModel()->setCurrentIndex(qmi, QItemSelectionModel::ClearAndSelect);
-	else {
-		qpmiSearch = qmi;
-		qtSearch->start();
-	}
-}
-
-void UserView::selectSearchResult() {
-	if (qpmiSearch.isValid()) {
-		selectionModel()->setCurrentIndex(qpmiSearch, QItemSelectionModel::ClearAndSelect);
-	}
-	qpmiSearch = QPersistentModelIndex();
+void UserView::keyboardSearch(const QString &) {
+	// Disable keyboard search for the UserView in order to prevent jumping wildly through the
+	// UI just because the user has accidentally typed something on their keyboard.
+	return;
 }
 
 bool channelHasUsers(const Channel *c) {

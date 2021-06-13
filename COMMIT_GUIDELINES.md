@@ -47,11 +47,12 @@ The `TYPE` is one of the following:
 | DOCS     | Changes to the documentation (either in-source or out-of-source) | Add a Doxygen comment to a function |
 | TEST     | Adds, changes or removes a test-case | |
 | MAINT    | Maintenance - Change of non-code files | Change of the README |
-| CI       | Changed something for the CI (continous integration) | Update TravisCI to use newer ubuntu version |
+| CI       | Changed something for the CI (continuous integration) | Update TravisCI to use newer ubuntu version |
 | REFAC    | Code refactoring | Rename variable `x` to `y` |
 | BUILD    | Changes related to the build process / buildsystem | Fix cmake script |
 | TRANSLATION | Translation updates and changes | Update translation files |
 | CHANGE   | Something was changed without falling into existing categories | Changed the default of a setting |
+| REVERT   | A previous commit had to be reverted because e.g. it was buggy | - |
 
 The `TYPE` has to be in **all-uppercase** in order for it to stand out.
 

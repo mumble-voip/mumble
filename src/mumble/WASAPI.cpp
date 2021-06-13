@@ -51,6 +51,7 @@ class WASAPIInputRegistrar : public AudioInputRegistrar {
 public:
 	WASAPIInputRegistrar();
 	virtual AudioInput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
@@ -70,6 +71,7 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 public:
 	WASAPIOutputRegistrar();
 	virtual AudioOutput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	bool canMuteOthers() const;
@@ -199,8 +201,23 @@ AudioInput *WASAPIInputRegistrar::create() {
 	return new WASAPIInput();
 }
 
+const QVariant WASAPIInputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsWASAPIInput;
+}
+
 const QList< audioDevice > WASAPIInputRegistrar::getDeviceChoices() {
-	return WASAPISystem::mapToDevice(WASAPISystem::getInputDevices(), Global::get().s.qsWASAPIInput);
+	QList< audioDevice > choices;
+
+	const QHash< QString, QString > devs = WASAPISystem::getInputDevices();
+
+	auto keys = devs.keys();
+	std::sort(keys.begin(), keys.end());
+
+	for (const auto &key : keys) {
+		choices << audioDevice(devs.value(key), key);
+	}
+
+	return choices;
 }
 
 void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -223,8 +240,22 @@ AudioOutput *WASAPIOutputRegistrar::create() {
 	return new WASAPIOutput();
 }
 
+const QVariant WASAPIOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsWASAPIOutput;
+}
+
 const QList< audioDevice > WASAPIOutputRegistrar::getDeviceChoices() {
-	return WASAPISystem::mapToDevice(WASAPISystem::getOutputDevices(), Global::get().s.qsWASAPIOutput);
+	QList< audioDevice > choices;
+
+	const QHash< QString, QString > devs = WASAPISystem::getOutputDevices();
+	auto keys                            = devs.keys();
+	std::sort(keys.begin(), keys.end());
+
+	for (const auto &key : keys) {
+		choices << audioDevice(devs.value(key), key);
+	}
+
+	return choices;
 }
 
 void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -298,21 +329,6 @@ const QHash< QString, QString > WASAPISystem::getDevices(EDataFlow dataflow) {
 	}
 
 	return devices;
-}
-
-const QList< audioDevice > WASAPISystem::mapToDevice(const QHash< QString, QString > &devs, const QString &match) {
-	QList< audioDevice > qlReturn;
-
-	QStringList qlDevices = devs.keys();
-	std::sort(qlDevices.begin(), qlDevices.end());
-
-	if (qlDevices.contains(match)) {
-		qlDevices.removeAll(match);
-		qlDevices.prepend(match);
-	}
-
-	foreach (const QString &dev, qlDevices) { qlReturn << audioDevice(devs.value(dev), dev); }
-	return qlReturn;
 }
 
 WASAPIInput::WASAPIInput(){};

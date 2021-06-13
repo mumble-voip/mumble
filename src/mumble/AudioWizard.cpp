@@ -385,12 +385,15 @@ void AudioWizard::reject() {
 	Global::get().s = sOldSettings;
 
 	Global::get().s.lmLoopMode = Settings::None;
-	restartAudio();
 
 	AudioOutputPtr ao = Global::get().ao;
-	if (ao)
+	if (ao) {
 		ao->wipe();
-	aosSource                    = nullptr;
+	}
+	ao.reset();
+
+	Global::get().bPosTest = false;
+	restartAudio();
 	Global::get().bInAudioWizard = false;
 
 	QWizard::reject();

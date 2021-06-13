@@ -540,7 +540,7 @@ void MetaParams::read(QString fname) {
 	iBanTime       = typeCheckedFromSettings("autobanTime", iBanTime);
 	bBanSuccessful = typeCheckedFromSettings("autobanSuccessfulConnections", bBanSuccessful);
 
-	qvSuggestVersion = MumbleVersion::getRaw(qsSettings->value("suggestVersion").toString());
+	qvSuggestVersion = Version::getRaw(qsSettings->value("suggestVersion").toString());
 	if (qvSuggestVersion.toUInt() == 0)
 		qvSuggestVersion = QVariant();
 

@@ -1,0 +1,84 @@
+// This is a file you could modify if you are making your own skin.
+// See README.md
+
+// Add your own custom QSS at the end of this file
+
+// Skin color definitions below
+$base-padding: 4px;
+$base-bg: #F2F2F2;
+$base-hover: #e0e0e0;
+$base-pressed: #DDD;
+$base-text: #333;
+$base-text-disabled: #BBB;
+$base-border: #D2D2D2;
+$base-border-focus: #7ea8cc;
+$base-border-radius: 2px;
+$item-selected-active-bg: #dcedf5;
+$item-selected-active-border: 1px solid #97b5c6;
+$item-selected-inactive-bg: #F4F4F4;
+$item-selected-inactive-border: 1px solid #C4C4C4;
+$sub-bg: #FFF;
+$sub-hover: #eee;
+$sub-text: #111;
+$sub-highlight: #D5D5D5;
+$dialog-bg: $base-bg;
+$median-bg: #FDFDFD;
+$toolbutton-on: #FFF;
+$toolbutton-border: #CCC;
+$toolbutton-hover: #e8e8e8;
+$toolbutton-hover-border: #ccc;
+$toolbutton-pressed: $base-pressed;
+$highlight-bg: #298ce1;
+$highlight-pressed: #1979ca;
+$highlight-text: #FFF;
+$menu-bg: #F6F6F6;
+$menuitem-hover: #dcedf5;
+$menuitem-border: #97b5c6;
+$scrollbar-border: #D6D6D6;
+$scrollbar-handle: #D6D6D6;
+$scrollbar-handle-border: $base-border;
+$scrollbar-handle-hover: #C6C6C6;
+$input-bg: #FFF;
+$input-border: 1px solid #C4C4C4;
+$input-hover: #FAFAFA;
+$control-icon: #666;
+$control-icon-disabled: #CCC;
+$control-disabled: #F2F2F2;
+$slider-groove: #F8F8F8;
+$slider-groove-border: #D8D8D8;
+$slider-fill: #82bcff;
+$slider-fill-border: #7ea8cc;
+$slider-handle: #FFF;
+$slider-handle-border: #a2a2a2;
+$slider-handle-focus: #e0eaff;
+$slider-handle-focus-border: #7ea8cc;
+$slider-handle-hover: #f0f0f0;
+$slider-handle-pressed: #dcedf5;
+$slider-handle-pressed-border: #7ea8cc;
+$tab-selected: #FFF;
+$tab-deselected: #EEE;
+$tab-deselected-text: $sub-text;
+$tab-separator: $base-border;
+$tab-hover: #ddd;
+$button-bg: #FFF;
+$button-hover: #F8F8F8;
+$button-focus: #f0faff;
+$button-focus-hover-bg: #dcedf5;
+$button-focus-hover-border: #7ea8cc;
+$button-border: 1px solid #C4C4C4;
+$button-hover-border: #AAA;
+$radio: url(skin:controls/radio_check_lite.svg);
+$radio_disabled: url(skin:controls/radio_check_disabled.svg);
+$checkbox: url(skin:controls/checkbox_check_lite.svg);
+$checkbox-disabled: url(skin:controls/checkbox_check_disabled.svg);
+$link: #0b8eb2;
+
+$font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+$font-size-bigger: 13pt;
+$font-size-big: 12pt;
+$font-size-normal: 10pt;
+$font-size-medium: 9pt;
+$font-size-small: 8pt;
+$font-size-extra-small: 7pt;
+$font-size-qslider-groove: 3pt;
+$font-size-qslider-handle: 4pt;

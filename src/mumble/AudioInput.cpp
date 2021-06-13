@@ -1116,7 +1116,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 				}
 			}
 
-			if (Global::get().s.bTxMuteCue && !Global::get().s.bDeaf && bTalkingWhenMuted) {
+			if (Global::get().s.bTxMuteCue && !Global::get().bPushToMute && !Global::get().s.bDeaf
+				&& bTalkingWhenMuted) {
 				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > iMuteCueDelay) {
 					qetLastMuteCue.start();
 					ao->playSample(Global::get().s.qsTxMuteCue);

@@ -15,7 +15,7 @@
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
@@ -265,7 +265,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	iChannelDescription = -1;
 	bClicked            = false;
 
-	miRoot = new ModelItem(Channel::get(0));
+	miRoot = new ModelItem(Channel::get(Channel::ROOT_ID));
 }
 
 UserModel::~UserModel() {
@@ -1033,7 +1033,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, &ClientUser::localVolumeAdjustmentsChanged, this, &UserModel::userStateChanged);
 	connect(p, &ClientUser::localNicknameChanged, this, &UserModel::userStateChanged);
 
-	Channel *c       = Channel::get(0);
+	Channel *c       = Channel::get(Channel::ROOT_ID);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	item->parent = citem;
@@ -1771,7 +1771,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 	Channel *c;
 	if (!p.isValid()) {
-		c = Channel::get(0);
+		c = Channel::get(Channel::ROOT_ID);
 	} else {
 		c = getChannel(p);
 	}
@@ -1972,7 +1972,8 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 	if (isChannelListener) {
 		if (parentChannel && user.uiSession == Global::get().uiSession) {
 			// Only the listener of the local user can have a volume adjustment
-			volumeAdjustment = ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId);
+			volumeAdjustment =
+				Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(parentChannel->iId);
 		}
 	} else {
 		volumeAdjustment = user.getLocalVolumeAdjustments();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg1306" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" sodipodi:version="0.32" inkscape:version="0.46" inkscape:output_extension="org.inkscape.output.svg.inkscape" sodipodi:docname="format-text-italic.svg" sodipodi:docbase="/home/jimmac/src/cvs/tango-icon-theme/scalable/actions"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px"
+	 viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+<defs>
+	
+	
+		<inkscape:perspective  inkscape:vp_y="0 : 1000 : 0" sodipodi:type="inkscape:persp3d" inkscape:vp_z="48 : 24 : 1" inkscape:vp_x="0 : 24 : 1" id="perspective46" inkscape:persp3d-origin="24 : 16 : 1">
+		</inkscape:perspective>
+</defs>
+<sodipodi:namedview  stroke="#204a87" fill="#2e3436" borderopacity="0.20784314" showgrid="false" bordercolor="#666666" inkscape:zoom="4" pagecolor="#ffffff" inkscape:cy="-4.1247834" inkscape:cx="11.321773" showguides="false" id="base" inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:guide-bbox="true" inkscape:current-layer="layer2" inkscape:document-units="px" showborder="true" inkscape:window-height="818" inkscape:window-y="30" inkscape:window-x="393" inkscape:window-width="1041" inkscape:showpageshadow="false" inkscape:grid-bbox="true" inkscape:grid-points="true">
+	<sodipodi:guide  position="14.406922" orientation="vertical" id="guide2257"></sodipodi:guide>
+	<sodipodi:guide  position="41.565351" orientation="horizontal" id="guide2259"></sodipodi:guide>
+	<sodipodi:guide  position="29.03324" orientation="vertical" id="guide2261"></sodipodi:guide>
+	<sodipodi:guide  position="19.964923" orientation="vertical" id="guide2265"></sodipodi:guide>
+	<sodipodi:guide  position="31.739108" orientation="horizontal" id="guide2267"></sodipodi:guide>
+	<sodipodi:guide  position="28.59445" orientation="horizontal" id="guide2269"></sodipodi:guide>
+	<sodipodi:guide  position="24.133423" orientation="vertical" id="guide2271"></sodipodi:guide>
+	<sodipodi:guide  position="6.0450673" orientation="horizontal" id="guide2266"></sodipodi:guide>
+	
+		<inkscape:grid  color="#0000ff" type="xygrid" id="GridFromPre046Settings" empcolor="#0000ff" empspacing="2" spacingx="0.5px" visible="true" enabled="true" empopacity="0.4" originy="0px" originx="0px" opacity="0.2" spacingy="0.5px">
+		</inkscape:grid>
+</sodipodi:namedview>
+<line fill="none" x1="29.7" y1="10.23" x2="23.76" y2="10.23"/>
+<polygon fill="#FBBC05" points="18.15,37.15 14.409,37.153 13.238,40.81 27.167,40.81 28.337,37.153 24.09,37.15 29.7,10.23 
+	33.59,10.23 34.76,6.57 20.83,6.57 19.66,10.23 23.76,10.23 "/>
+</svg>

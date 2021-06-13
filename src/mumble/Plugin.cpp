@@ -15,7 +15,7 @@
 
 // initialize the static ID counter
 plugin_id_t Plugin::s_nextID = 1;
-QMutex Plugin::s_idLock(QMutex::NonRecursive);
+QMutex Plugin::s_idLock;
 
 void assertPluginLoaded(const Plugin *plugin) {
 	// don't throw and exception in release build
@@ -290,7 +290,7 @@ mumble_error_t Plugin::init() {
 		QReadLocker lock(&m_pluginLock);
 
 		if (m_pluginIsLoaded) {
-			return STATUS_OK;
+			return MUMBLE_STATUS_OK;
 		}
 	}
 
@@ -299,7 +299,7 @@ mumble_error_t Plugin::init() {
 
 	// Get Mumble version
 	int mumbleMajor, mumbleMinor, mumblePatch;
-	MumbleVersion::get(&mumbleMajor, &mumbleMinor, &mumblePatch);
+	Version::get(&mumbleMajor, &mumbleMinor, &mumblePatch);
 
 	// Require API version 1.0.0 as the minimal supported one
 	setMumbleInfo({ mumbleMajor, mumbleMinor, mumblePatch }, MUMBLE_PLUGIN_API_VERSION, { 1, 0, 0 });
@@ -315,7 +315,7 @@ mumble_error_t Plugin::init() {
 		// The API version could not be obtained -> this is an invalid plugin that shouldn't have been loaded in the
 		// first place
 		qWarning("Unable to obtain requested MumbleAPI version");
-		return EC_INVALID_API_VERSION;
+		return MUMBLE_EC_INVALID_API_VERSION;
 	}
 
 
@@ -326,12 +326,12 @@ mumble_error_t Plugin::init() {
 	if (m_pluginFnc.init) {
 		retStatus = m_pluginFnc.init(m_pluginID);
 	} else {
-		retStatus = EC_GENERIC_ERROR;
+		retStatus = MUMBLE_EC_GENERIC_ERROR;
 	}
 
 	{
 		QWriteLocker lock(&m_pluginLock);
-		m_pluginIsLoaded = retStatus == STATUS_OK;
+		m_pluginIsLoaded = retStatus == MUMBLE_STATUS_OK;
 	}
 
 	return retStatus;
@@ -375,7 +375,7 @@ mumble_version_t Plugin::getAPIVersion() const {
 	if (m_pluginFnc.getAPIVersion) {
 		return m_pluginFnc.getAPIVersion();
 	} else {
-		return VERSION_UNKNOWN;
+		return MUMBLE_VERSION_UNKNOWN;
 	}
 }
 
@@ -402,7 +402,7 @@ mumble_version_t Plugin::getVersion() const {
 	if (m_pluginFnc.getVersion) {
 		return m_pluginFnc.getVersion();
 	} else {
-		return VERSION_UNKNOWN;
+		return MUMBLE_VERSION_UNKNOWN;
 	}
 }
 
@@ -426,7 +426,7 @@ uint32_t Plugin::getFeatures() const {
 	if (m_pluginFnc.getFeatures) {
 		return m_pluginFnc.getFeatures();
 	} else {
-		return FEATURE_NONE;
+		return MUMBLE_FEATURE_NONE;
 	}
 }
 
@@ -462,12 +462,12 @@ uint8_t Plugin::initPositionalData(const char *const *programNames, const uint64
 
 		{
 			QWriteLocker lock(&m_pluginLock);
-			m_positionalDataIsActive = returnCode == PDEC_OK;
+			m_positionalDataIsActive = returnCode == MUMBLE_PDEC_OK;
 		}
 
 		return returnCode;
 	} else {
-		return PDEC_ERROR_PERM;
+		return MUMBLE_PDEC_ERROR_PERM;
 	}
 }
 

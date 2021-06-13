@@ -521,7 +521,7 @@ QVariant ServerItem::data(int column, int role) const {
 									 QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
 								.arg(ConnectDialog::tr("Version"))
-								.arg(MumbleVersion::toString(uiVersion));
+								.arg(Version::toString(uiVersion));
 				}
 			}
 			qs += QLatin1String("</table>");
@@ -761,7 +761,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 			unsigned short port = DEFAULT_MUMBLE_PORT;
 
 			Global::get().sh->getConnectionInfo(host, port, user, pw);
-			Channel *c = Channel::get(0);
+			Channel *c = Channel::get(Channel::ROOT_ID);
 			if (c && c->qsName != QLatin1String("Root")) {
 				name = c->qsName;
 			}

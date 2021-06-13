@@ -5,7 +5,7 @@
 
 #include "TalkingUI.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ClientUser.h"
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
@@ -332,7 +332,7 @@ void TalkingUI::addChannel(const Channel *channel) {
 		const QString channelName = createChannelName(
 			channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
 			Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-			Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+			Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsHierarchyChannelSeparator,
 			Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel);
 
 		std::unique_ptr< TalkingUIChannel > channelContainer =
@@ -729,7 +729,7 @@ void TalkingUI::on_settingsChanged() {
 			channelContainer->setName(createChannelName(
 				channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
 				Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-				Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+				Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsHierarchyChannelSeparator,
 				Global::get().s.qsTalkingUI_AbbreviationReplacement,
 				Global::get().s.bTalkingUI_AbbreviateCurrentChannel));
 		} else {
@@ -772,7 +772,8 @@ void TalkingUI::on_settingsChanged() {
 	removeAllListeners();
 	if (Global::get().s.bTalkingUI_ShowLocalListeners) {
 		if (self) {
-			const QSet< int > channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
+			const QSet< int > channels =
+				Global::get().channelListenerManager->getListenedChannelsForUser(self->uiSession);
 
 			for (int currentChannelID : channels) {
 				const Channel *channel = Channel::get(currentChannelID);

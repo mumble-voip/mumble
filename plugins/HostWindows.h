@@ -13,6 +13,7 @@ typedef uint32_t procid_t;
 class HostWindows {
 protected:
 	procid_t m_pid;
+	void *m_handle;
 
 public:
 	bool peek(const procptr_t address, void *dst, const size_t size) const;

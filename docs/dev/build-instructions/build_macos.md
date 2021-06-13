@@ -21,6 +21,7 @@ brew update && brew install \
   libsndfile \
   protobuf \
   openssl \
+  poco \
   ice
 ```
 

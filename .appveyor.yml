@@ -37,20 +37,15 @@ before_build:
 build_script:
   - cmd: .ci/build_windows.bat
 
+after_build:
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins/*.dll plugins/*.pdb installer/client/*client*.msi installer/server/*server*.msi
+
 artifacts:
-  - path: 'build/*.pdb'
-    name: 'Debug symbols'
-  - path: 'build/plugins/*.pdb'
-    name: 'Debug symbols'
-  - path: 'build/installer/client/*client*.msi'
-    name: 'Installer'
-  - path: 'build/installer/server/*server*.msi'
-    name: 'Installer'
+  - path: 'build/binaries.zip'
+    name: 'Binaries'
 
 deploy:
   - provider: Webhook
     url: https://app.signpath.io/API/v1/79916aba-7a9f-448d-91c6-fb83593b59d3/Integrations/AppVeyor?ProjectSlug=mumble&SigningPolicySlug=test-signing
     authorization:
       secure: WKbGSfFSHTtODf6eHRSHPAobctJli48O/VoMpCYTuIlITl2piOpCH6igCRDX4EuJTzgDX45H34tVfPuNzSMdLA==
-    on:
-      branch: master

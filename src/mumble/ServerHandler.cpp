@@ -59,7 +59,7 @@
 
 // Init ServerHandler::nextConnectionID
 int ServerHandler::nextConnectionID = -1;
-QMutex ServerHandler::nextConnectionIDMutex(QMutex::Recursive);
+QMutex ServerHandler::nextConnectionIDMutex;
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush)
 	: QEvent(static_cast< QEvent::Type >(SERVERSEND_EVENT)) {
@@ -758,7 +758,7 @@ void ServerHandler::serverConnectionConnected() {
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
 
-	unsigned int version = MumbleVersion::getRaw();
+	unsigned int version = Version::getRaw();
 	if (version) {
 		mpv.set_version(version);
 	}

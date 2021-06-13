@@ -40,36 +40,33 @@
 QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 #ifdef Q_OS_MAC
 	QString qsIdentifier;
-	CFDictionaryRef plist = nullptr;
-	CFDataRef data        = nullptr;
 
-	QFile qfAppBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
-	if (qfAppBundle.exists()) {
-		qfAppBundle.open(QIODevice::ReadOnly);
-		QByteArray qbaPlistData = qfAppBundle.readAll();
-
-		data  = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast< UInt8 * >(qbaPlistData.data()),
-                                           qbaPlistData.count(), kCFAllocatorNull);
-		plist = static_cast< CFDictionaryRef >(
-			CFPropertyListCreateFromXMLData(nullptr, data, kCFPropertyListImmutable, nullptr));
-		if (plist) {
-			CFStringRef ident = static_cast< CFStringRef >(CFDictionaryGetValue(plist, CFSTR("CFBundleIdentifier")));
-			if (ident) {
-				char buf[4096];
-				CFStringGetCString(ident, buf, 4096, kCFStringEncodingUTF8);
-				qsIdentifier = QString::fromUtf8(buf);
-			}
-		}
+	QFile appBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
+	if (!appBundle.exists()) {
+		return {};
 	}
 
-	if (data) {
-		CFRelease(data);
-	}
-	if (plist) {
-		CFRelease(plist);
+	appBundle.open(QIODevice::ReadOnly);
+
+	const QByteArray byteArray = appBundle.readAll();
+	CFDataRef dataCF = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast< const UInt8 * >(byteArray.data()),
+												   byteArray.count(), kCFAllocatorNull);
+	if (!dataCF) {
+		return {};
 	}
 
-	return qsIdentifier;
+	auto plist = static_cast< CFDictionaryRef >(
+		CFPropertyListCreateWithData(nullptr, dataCF, kCFPropertyListImmutable, nullptr, nullptr));
+	CFRelease(dataCF);
+	if (!plist) {
+		return {};
+	}
+
+	auto identifierCF = static_cast< CFStringRef >(CFDictionaryGetValue(plist, CFSTR("CFBundleIdentifier")));
+	auto identifier   = QString::fromCFString(identifierCF);
+	CFRelease(plist);
+
+	return identifier;
 #else
 	return QDir::toNativeSeparators(path);
 #endif
@@ -79,55 +76,55 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	QString qsAppName(identifier);
 	QIcon qiAppIcon;
 #if defined(Q_OS_MAC)
-	CFStringRef bundleId = nullptr;
-	CFURLRef bundleUrl   = nullptr;
-	CFBundleRef bundle   = nullptr;
-	OSStatus err         = noErr;
-	char buf[4096];
+	CFStringRef id  = identifier.toCFString();
+	CFArrayRef urls = LSCopyApplicationURLsForBundleIdentifier(id, nullptr);
+	CFRelease(id);
 
-	bundleId = CFStringCreateWithCharacters(
-		kCFAllocatorDefault, reinterpret_cast< const UniChar * >(identifier.unicode()), identifier.length());
-	err = LSFindApplicationForInfo(kLSUnknownCreator, bundleId, nullptr, nullptr, &bundleUrl);
-	if (err == noErr) {
-		// Figure out the bundle name of the application.
-		CFStringRef absBundlePath = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
-		CFStringGetCString(absBundlePath, buf, 4096, kCFStringEncodingUTF8);
-		QString qsBundlePath = QString::fromUtf8(buf);
-		CFRelease(absBundlePath);
-		qsAppName = QFileInfo(qsBundlePath).bundleName();
-
-		// Load the bundle's icon.
-		bundle = CFBundleCreate(nullptr, bundleUrl);
-		if (bundle) {
-			CFDictionaryRef info = CFBundleGetInfoDictionary(bundle);
-			if (info) {
-				CFStringRef iconFileName =
-					reinterpret_cast< CFStringRef >(CFDictionaryGetValue(info, CFSTR("CFBundleIconFile")));
-				if (iconFileName) {
-					CFStringGetCString(iconFileName, buf, 4096, kCFStringEncodingUTF8);
-					QString qsIconPath =
-						QString::fromLatin1("%1/Contents/Resources/%2").arg(qsBundlePath, QString::fromUtf8(buf));
-					if (!QFile::exists(qsIconPath)) {
-						qsIconPath += QString::fromLatin1(".icns");
-					}
-					if (QFile::exists(qsIconPath)) {
-						qiAppIcon = QIcon(qsIconPath);
-					}
-				}
-			}
-		}
+	if (!urls) {
+		return OverlayAppInfo(qsAppName, qiAppIcon);
 	}
 
-	if (bundleId) {
-		CFRelease(bundleId);
-	}
-	if (bundleUrl) {
-		CFRelease(bundleUrl);
-	}
-	if (bundle) {
-		CFRelease(bundle);
+	auto url = static_cast< CFURLRef >(CFArrayGetValueAtIndex(urls, 0));
+	CFRetain(url);
+	CFRelease(urls);
+
+	// Figure out the bundle name of the application.
+	CFStringRef bundlePathCF = CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle);
+	const auto bundlePath    = QString::fromCFString(bundlePathCF);
+	CFRelease(bundlePathCF);
+
+	qsAppName = QFileInfo(bundlePath).bundleName();
+
+	// Load the bundle's icon.
+	CFBundleRef bundle = CFBundleCreate(nullptr, url);
+	CFRelease(url);
+
+	if (!bundle) {
+		return OverlayAppInfo(qsAppName, qiAppIcon);
 	}
 
+	CFDictionaryRef info = CFBundleGetInfoDictionary(bundle);
+	CFRelease(bundle);
+
+	if (!info) {
+		return OverlayAppInfo(qsAppName, qiAppIcon);
+	}
+
+	auto iconFileName = static_cast< CFStringRef >(CFDictionaryGetValue(info, CFSTR("CFBundleIconFile")));
+	if (!iconFileName) {
+		return OverlayAppInfo(qsAppName, qiAppIcon);
+	}
+
+	auto iconPath =
+		QString::fromLatin1("%1/Contents/Resources/%2").arg(bundlePath, QString::fromCFString(iconFileName));
+
+	if (!QFile::exists(iconPath)) {
+		iconPath += QStringLiteral(".icns");
+	}
+
+	if (QFile::exists(iconPath)) {
+		qiAppIcon = QIcon(iconPath);
+	}
 #elif defined(Q_OS_WIN)
 	// qWinAppInst(), whose return value we used to pass
 	// to ExtractIcon below, was removed in Qt 5.8.

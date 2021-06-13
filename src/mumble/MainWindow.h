@@ -37,6 +37,9 @@ class Channel;
 class UserInformation;
 class VoiceRecorderDialog;
 class PTTButtonWidget;
+namespace Search {
+class SearchDialog;
+};
 
 struct ShortcutTarget;
 
@@ -84,6 +87,9 @@ public:
 	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk,
 		*gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
+	GlobalShortcut *gsToggleTalkingUI;
+	GlobalShortcut *gsToggleSearch;
+
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 	ACLEditor *aclEdit;
@@ -160,6 +166,8 @@ protected:
 	MUComboBox *qcbTransmitMode;
 	QAction *qaTransmitMode;
 	QAction *qaTransmitModeSeparator;
+
+	Search::SearchDialog *m_searchDialog = nullptr;
 
 	void createActions();
 	void setupGui();
@@ -279,6 +287,8 @@ public slots:
 	void on_gsTransmitModeVAD_triggered(bool, QVariant);
 	void on_gsSendTextMessage_triggered(bool, QVariant);
 	void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
+	void on_gsToggleTalkingUI_triggered(bool, QVariant);
+	void on_gsToggleSearch_triggered(bool, QVariant);
 	void on_Reconnect_timeout();
 	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 	void on_qaTalkingUIToggle_triggered();
@@ -321,6 +331,9 @@ public slots:
 	///
 	/// @param deaf Whether to deafen the user
 	void setAudioDeaf(bool deaf);
+	// Callback the search action being triggered
+	void on_qaSearch_triggered();
+	void toggleSearchDialogVisibility();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).

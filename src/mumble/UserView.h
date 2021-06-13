@@ -41,11 +41,6 @@ protected:
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	bool event(QEvent *) Q_DECL_OVERRIDE;
 
-	QTimer *qtSearch;
-	QPersistentModelIndex qpmiSearch;
-	Timer tSearch;
-	QString qsSearch;
-
 public:
 	UserView(QWidget *);
 	void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
@@ -53,7 +48,6 @@ public:
 					 const QVector< int > &roles = QVector< int >()) Q_DECL_OVERRIDE;
 public slots:
 	void nodeActivated(const QModelIndex &idx);
-	void selectSearchResult();
 	void updateChannel(const QModelIndex &index);
 };
 

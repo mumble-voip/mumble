@@ -1215,10 +1215,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;设置抖动缓冲区的最小安全边际。&lt;/b&gt;&lt;br /&gt;所有传入的音频都被缓冲，抖动缓冲区不断尝试将缓冲区推进到您的网络最低的可持续限度，以尽可能降低延迟。这将设置要使用的最小缓冲区大小。如果您听到的句子开头抖动较大，请增大这个值。</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>语音音量开始减小的最小用户距离</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>设置声音计算的最小距离。在其他用户与您的距离超出这个值之前，他们的语音音量不会被减小。</translation>
     </message>
@@ -1256,10 +1252,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>已连接的“扬声器”实际上是耳机</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>音量减小因子</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>增幅</translation>
     </message>
@@ -1290,10 +1282,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Maximum Distance</source>
         <translation>最大距离</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>语音音量不再减小的最大用户距离</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1440,6 +1428,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Attenuation</source>
         <translation>衰减</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source> m</source>
+        <translation> 米</translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
@@ -1466,10 +1462,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 米</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Loopback</source>
         <translation>回放</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation>其他玩家音频音量开始减小的距离</translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation>其他玩家音频音量达到最小值的距离</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation>玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation>如果音源足够接近，音频会或多或少地在所有扬声器中播放，无论它们的位置如何（尽管音量较低）</translation>
     </message>
 </context>
 <context>
@@ -2882,7 +2890,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation>默认（所有）</translation>
+        <translation>默认值（所有）</translation>
     </message>
 </context>
 <context>
@@ -3960,10 +3968,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation> 字符</translation>
     </message>
     <message>
-        <source>Whisper</source>
-        <translation>密语</translation>
-    </message>
-    <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
         <translation>如果选中此选项，您将只能听到好友列表内用户的密语。</translation>
     </message>
@@ -4046,6 +4050,42 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Chat message margins</source>
         <translation>聊天消息间距</translation>
+    </message>
+    <message>
+        <source>Limit</source>
+        <translation>限制</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation>杂项</translation>
+    </message>
+    <message>
+        <source>Number of users that will trigger message limiting functionality.</source>
+        <translation>触发消息限制功能所需用户数。</translation>
+    </message>
+    <message>
+        <source>users on the server.</source>
+        <translation>时，限制通知数量。</translation>
+    </message>
+    <message>
+        <source>Limit notifications when there are more than</source>
+        <translation>当服务器上的用户数超过</translation>
+    </message>
+    <message>
+        <source>User limit for message limiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
+        <translation>点击此处开关所有事件的消息限制——使用此选项时，请确保修改下方的用户限制。</translation>
+    </message>
+    <message>
+        <source>Toggle message limiting behavior for %1 events </source>
+        <translation>开关 %1 事件的消息限制 </translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
+        <translation>点击此处开关 %1 事件的消息限制。&lt;br /&gt;勾选后，如果服务器上的用户超过设置的阈值，此类型事件的通知将不会被触发。</translation>
     </message>
 </context>
 <context>
@@ -4459,6 +4499,30 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Show nicknames only</source>
         <translation>仅显示昵称</translation>
+    </message>
+    <message>
+        <source>Channel Hierarchy String</source>
+        <translation>频道层级字符串</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
+        <translation>在搜索对话框中，用户被激活时（双击或 Enter 键）执行的操作。</translation>
+    </message>
+    <message>
+        <source>Action (User):</source>
+        <translation>操作（用户）：</translation>
+    </message>
+    <message>
+        <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
+        <translation>在搜索对话框中，频道被激活时（双击或 Enter 键）执行的操作。</translation>
+    </message>
+    <message>
+        <source>Action (Channel):</source>
+        <translation>操作（频道）：</translation>
     </message>
 </context>
 <context>
@@ -5858,10 +5922,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>切换筛选(&amp;F)</translation>
     </message>
     <message>
-        <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation>开关频道筛选器 (Ctrl+F)</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6296,6 +6356,9 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 指定替代配置文件。
                 如果您使用此参数同时运行多个 Mumble 实例，
                 请确保在配置文件内设置替代“database”选项。
+  --default-certificate-dir &lt;目录&gt;
+                指定替代的默认证书目录。
+                此路径仅在无法从设置中加载证书时生效。
   -n, --noidentity
                 禁止加载身份认证文件（即证书）。
   -jn, --jackname &lt;参数&gt;
@@ -6333,7 +6396,43 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>文件夹 %1 不存在。
+</translation>
+    </message>
+    <message>
+        <source>Toggle TalkingUI</source>
+        <comment>Global shortcut</comment>
+        <translation>开关对话界面</translation>
+    </message>
+    <message>
+        <source>Toggles the visibility of the TalkingUI.</source>
+        <comment>Global Shortcut</comment>
+        <translation>切换对话界面的可见性。</translation>
+    </message>
+    <message>
+        <source>Toggle the channel filter (Alt+F)</source>
+        <translation>开关频道过滤器 (Alt+F)</translation>
+    </message>
+    <message>
+        <source>Alt+F</source>
+        <translation>Alt+F</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <source>Search for a user or channel (Ctrl+F)</source>
+        <translation>搜索用户或频道 (Ctrl+F)</translation>
+    </message>
+    <message>
+        <source>Toggle search dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation>开关搜索对话框</translation>
+    </message>
+    <message>
+        <source>This will open or close the search dialog depending on whether it is currently opened already</source>
+        <translation>根据当前的开启状态打开或关闭搜索对话框</translation>
     </message>
 </context>
 <context>
@@ -7651,6 +7750,72 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Text</source>
         <translation>文字</translation>
+    </message>
+</context>
+<context>
+    <name>Search::SearchDialog</name>
+    <message>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Join</source>
+        <translation>加入</translation>
+    </message>
+</context>
+<context>
+    <name>SearchDialog</name>
+    <message>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <source>Enter search String...</source>
+        <translation>输入搜索关键词……</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>选项</translation>
+    </message>
+    <message>
+        <source>Whether to search for users</source>
+        <translation>是否搜索用户</translation>
+    </message>
+    <message>
+        <source>&amp;Users</source>
+        <translation>用户(&amp;U)</translation>
+    </message>
+    <message>
+        <source>Whether the search should be performed case-sensitively</source>
+        <translation>搜索是否区分大小写</translation>
+    </message>
+    <message>
+        <source>Case-&amp;sensitive</source>
+        <translation>区分大小写(&amp;S)</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>选项：</translation>
+    </message>
+    <message>
+        <source>Whether the search string should be interpreted as a regular expression</source>
+        <translation>搜索关键词是否应该作为正则表达式解析</translation>
+    </message>
+    <message>
+        <source>&amp;RegEx</source>
+        <translation>正则表达式(&amp;R)</translation>
+    </message>
+    <message>
+        <source>&amp;Channels</source>
+        <translation>频道(&amp;C)</translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation>搜索范围：</translation>
+    </message>
+    <message>
+        <source>Whether to search for channels</source>
+        <translation>是否搜索频道</translation>
     </message>
 </context>
 <context>

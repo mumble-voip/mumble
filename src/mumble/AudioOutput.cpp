@@ -9,7 +9,7 @@
 #include "AudioOutputSample.h"
 #include "AudioOutputSpeech.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "Message.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
@@ -95,6 +95,7 @@ AudioOutput::~AudioOutput() {
 // close, we'll hear it full intensity from the left side, and "bloom" intensity from the right side.
 
 float AudioOutput::calcGain(float dotproduct, float distance) {
+	// dotproduct is in the range [-1, 1], thus we renormalize it to the range [0, 1]
 	float dotfactor = (dotproduct + 1.0f) / 2.0f;
 	float att;
 
@@ -103,6 +104,8 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 	if (Global::get().s.fAudioMaxDistVolume > 0.99f) {
 		att = qMin(1.0f, dotfactor + Global::get().s.fAudioBloom);
 	} else if (distance < Global::get().s.fAudioMinDistance) {
+		// Fade in blooming as soon as the sound source enters fAudioMinDistance and increase it to its full
+		// capability when the audio source is at the same position as the local player
 		float bloomfac = Global::get().s.fAudioBloom * (1.0f - distance / Global::get().s.fAudioMinDistance);
 
 		att = qMin(1.0f, bloomfac + dotfactor);
@@ -501,12 +504,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				user = speech->p;
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
-				if (user->cChannel && ChannelListener::isListening(Global::get().uiSession, user->cChannel->iId)
+				if (user->cChannel
+					&& Global::get().channelListenerManager->isListening(Global::get().uiSession, user->cChannel->iId)
 					&& (speech->ucFlags & SpeechFlags::Listen)) {
 					// We are receiving this audio packet only because we are listening to the channel
 					// the speaking user is in. Thus we receive the audio via our "listener proxy".
 					// Thus we'll apply the volume adjustment for our listener proxy as well
-					volumeAdjustment *= ChannelListener::getListenerLocalVolumeAdjustment(user->cChannel);
+					volumeAdjustment *=
+						Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(user->cChannel->iId);
 				}
 
 				if (prioritySpeakerActive) {

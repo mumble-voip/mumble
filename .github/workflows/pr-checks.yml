@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Check commit style
-      run: $GITHUB_WORKSPACE/.github/workflows/check_commit_style.py
+      run: $GITHUB_WORKSPACE/.github/workflows/check_commit_style.py ${{ github.base_ref }}
       shell: bash
 
     - name: Check line endings
