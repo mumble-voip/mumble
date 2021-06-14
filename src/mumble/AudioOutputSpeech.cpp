@@ -231,15 +231,16 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 	iLastConsume = sampleCount;
 
-	if (iBufferFilled >= sampleCount)
+	// Maximum interaural delay is accounted for to prevent audio glitches
+	if (iBufferFilled >= sampleCount + INTERAURAL_DELAY)
 		return bLastAlive;
 
 	float *pOut;
 	bool nextalive = bLastAlive;
 
-	while (iBufferFilled < sampleCount) {
+	while (iBufferFilled < sampleCount + INTERAURAL_DELAY) {
 		int decodedSamples = iFrameSize;
-		resizeBuffer(iBufferFilled + iOutputSize);
+		resizeBuffer(iBufferFilled + iOutputSize + INTERAURAL_DELAY);
 		// TODO: allocating memory in the audio callback will crash mumble in some cases.
 		//       we need to initialize the buffer with an appropriate size when initializing
 		//       this class. See #4250.

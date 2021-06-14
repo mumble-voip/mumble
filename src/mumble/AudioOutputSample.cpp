@@ -228,7 +228,8 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 	iLastConsume = sampleCount;
 
 	// Check if we can satisfy request with current buffer
-	if (iBufferFilled >= sampleCount)
+	// Maximum interaural delay is accounted for to prevent audio glitches
+	if (iBufferFilled >= sampleCount + INTERAURAL_DELAY)
 		return true;
 
 	// Calculate the required buffersize to hold the results
@@ -241,7 +242,7 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 	bool eof = false;
 	sf_count_t read;
 	do {
-		resizeBuffer(iBufferFilled + sampleCount);
+		resizeBuffer(iBufferFilled + sampleCount + INTERAURAL_DELAY);
 
 		// If we need to resample, write to the buffer on stack
 		float *pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
@@ -270,7 +271,7 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 		}
 
 		iBufferFilled += outlen * channels;
-	} while (iBufferFilled < sampleCount);
+	} while (iBufferFilled < sampleCount + INTERAURAL_DELAY);
 
 	if (eof && !bEof) {
 		emit playbackFinished();
