@@ -7279,14 +7279,6 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7300,6 +7292,22 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7507,7 +7515,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossible d&apos;accéder au micro. Autorisez Mumble à accéder à votre micro en changeant vos préférences dans Préférences -&gt; Sécurité et Vie Privée &gt; Vie Privée &gt; Microphone</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>

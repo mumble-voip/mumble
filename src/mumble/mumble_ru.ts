@@ -7256,14 +7256,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Файл &quot;%1&quot; не является действительным плагином!</translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation>Найдено более одной библиотеки плагина для текущей ОС в &quot;%1&quot; (&quot;%2&quot; и &quot;%3&quot;)!</translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation>Не удалось найти плагин для текущей операционной системы в &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation>Не удалось загрузить плагин &quot;%1&quot; - проверьте интерфейс плагина!</translation>
     </message>
@@ -7278,6 +7270,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
         <translation>Ну удалось переместить библиотеку плагина на &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

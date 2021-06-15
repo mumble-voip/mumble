@@ -1081,7 +1081,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bemeneti eszköz</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -6127,7 +6127,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Szövegfelolvasás tiltása</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
@@ -7255,14 +7255,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7276,6 +7268,22 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

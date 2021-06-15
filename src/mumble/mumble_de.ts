@@ -7280,14 +7280,6 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>&quot;%1&quot; ist keine gültige Plugin-Datei!</translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation>In &quot;%1&quot; wurde mehr als eine &quot;library&quot; für das aktuelle Betriebssystem gefunden (&quot;%2&quot; und &quot;%3&quot;)!</translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation>In &quot;%1&quot; kann kein Plugin für das aktuelle Betriebssystem gefunden werden</translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation>Es ist nicht möglich das Plugin &quot;%1&quot; zu laden - Überprüfen Sie das Plugin interface!</translation>
     </message>
@@ -7302,6 +7294,22 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
         <translation>Es ist nicht möglich die Pluginbibliothek nach &quot;%1&quot; zu verschieben</translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
