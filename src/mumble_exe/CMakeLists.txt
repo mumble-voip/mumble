@@ -54,9 +54,10 @@ if(packaging)
 		list(APPEND installer_vars "--all-languages")
 	endif()
 
+
 	list(APPEND installer_vars
 		"--version" ${PROJECT_VERSION}
-		"--arch" ${ARCH}
+		"--arch" "${MUMBLE_TARGET_ARCH}"
 	)
 
 	if(overlay)
