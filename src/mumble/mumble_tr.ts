@@ -7361,14 +7361,6 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
         <translation>&quot;%1&quot; dosyası geçerli bir eklenti dosyası değil!</translation>
     </message>
     <message>
-        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation>&quot;%1&quot; içinde (&quot;%2&quot; ve &quot;%3&quot;) mevcut işletim sistemi için birden fazla eklenti kitaplığı bulundu!</translation>
-    </message>
-    <message>
-        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; içinde mevcut işletim sistemi için bir eklenti bulunamıyor</translation>
-    </message>
-    <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
         <translation>&quot;%1&quot; eklentisi yüklenemiyor - eklenti arayüzünü kontrol edin!</translation>
     </message>
@@ -7383,6 +7375,22 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
         <translation>Eklenti kitaplığı &quot;%1&quot; konumuna taşınamıyor</translation>
+    </message>
+    <message>
+        <source>Unable to locate the plugin manifest (manifest.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while processing manifest: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
