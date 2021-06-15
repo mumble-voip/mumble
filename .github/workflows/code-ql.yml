@@ -1,0 +1,46 @@
+name: "Code Scanning - Action"
+
+on: [push, pull_request]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  CMAKE_OPTIONS: |
+      -Dtests=OFF -Dsymbols=ON -Dgrpc=ON
+
+jobs:
+  CodeQL-Build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: 'recursive'
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+          languages: python, cpp
+
+    - uses: ./.github/actions/install-dependencies
+      with:
+          type: shared
+          os: ubuntu-20.04
+          arch: 64bit
+
+    - name: Create build dir
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Run CMake
+      run: |
+          cmake -G Ninja -S $GITHUB_WORKSPACE -B ${{runner.workspace}}/build -DCMAKE_BUILD_TYPE=Release $CMAKE_OPTIONS -DCMAKE_UNITY_BUILD=ON
+      shell: bash
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: cmake --build . --config $BUILD_TYPE
+      shell: bash
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
