@@ -228,9 +228,9 @@ static inline int8_t isWin32Process64Bit(const procptr_t &baseAddress) {
 }
 
 #ifdef WIN32
-#	include "../mumble_positional_audio_win32.h"
+#	include "mumble_positional_audio_win32.h"
 #else
-#	include "../mumble_positional_audio_linux.h"
+#	include "mumble_positional_audio_linux.h"
 #endif
 
 #endif

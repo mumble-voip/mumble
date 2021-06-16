@@ -36,9 +36,9 @@
 */
 
 #define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
-#include "../mumble_legacy_plugin.h"
+#include "mumble_legacy_plugin.h"
 
-#include "../mumble_positional_audio_main.h"
+#include "mumble_positional_audio_main.h"
 
 #include <algorithm>
 

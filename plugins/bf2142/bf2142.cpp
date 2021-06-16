@@ -4,10 +4,10 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
-#include "../mumble_legacy_plugin.h"
+#include "mumble_legacy_plugin.h"
 
-#include "../mumble_positional_audio_main.h"  // Include standard positional audio header.
-#include "../mumble_positional_audio_utils.h" // Include positional audio header for special functions, like "escape".
+#include "mumble_positional_audio_main.h"  // Include standard positional audio header.
+#include "mumble_positional_audio_utils.h" // Include positional audio header for special functions, like "escape".
 
 // Variable to contain module's addresses
 procptr_t RendDX9 = 0;
