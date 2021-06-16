@@ -37,56 +37,19 @@ static procptr_t getLocalClient(const procptr_t engineClient) {
 	const auto GetBaseLocalClient = callInstructionEnd + callTarget;
 
 	// Windows:
-	// A1 ?? ?? ?? ??             mov     eax, dword_????????
-	// 83 C0 ??                   add     eax, ?
-	// C3                         retn
-	if (isWin32) {
-		return proc->peekPtr(proc->peek< uint32_t >(GetBaseLocalClient + 1))
-			   + proc->peek< int8_t >(GetBaseLocalClient + 7);
-	}
-
+	// A1 ?? ?? ?? ??    mov     eax, dword_????????
+	// 83 C0 ??          add     eax, ?
+	// C3                retn
+	//
 	// Linux:
-	// 55                         push    ebp
-	// 89 E5                      mov     ebp, esp
-	// 83 EC 18                   sub     esp, 18h
-	// C7 44 24 04 00 00 00 00    mov     dword ptr [esp+4], 0
-	// C7 04 24 ?? ?? ?? ??       mov     dword ptr [esp], offset dword_????????
-	// E8 ?? ?? ?? ??             call    sub_????????
-	// C9                         leave
-	// C3                         retn
-	//
-	// The function is quite different on Linux. It returns the result of an unknown function:
-	//
-	// 55                         push    ebp
-	// 89 E5                      mov     ebp, esp
-	// 53                         push    ebx
-	// 83 EC 14                   sub     esp, 14h
-	// 8B 45 0C                   mov     eax, [ebp+arg_4]
-	// 8B 5D 08                   mov     ebx, [ebp+arg_0]
-	// 83 F8 FF                   cmp     eax, 0FFFFFFFFh
-	// 74 0E                      jz      short loc_1
-	// 8B 44 83 04                mov     eax, [ebx+eax*4+4]
-	// 83 C0 04                   add     eax, 4
-	//
-	// loc_0:
-	// 83 C4 14                   add     esp, 14h
-	// 5B                         pop     ebx
-	// 5D                         pop     ebp
-	// C3                         retn
-	//
-	// 90                         align 10h
-	//
-	// loc_1:
-	// 8B 03                      mov     eax, [ebx]
-	// 89 1C 24                   mov     [esp], ebx
-	// FF 50 14                   call    dword ptr [eax+14h]
-	// 8B 44 83 04                mov     eax, [ebx+eax*4+4]
-	// 83 C0 04                   add     eax, 4
-	// EB E8                      jmp     short loc_0
-	//
-	// Its purpose seem to be to iterate over the clients array, which is done directly by GetBaseLocalClient() and
-	// GetLocalClient() on Windows.
-	return proc->peekPtr(proc->peek< uint32_t >(GetBaseLocalClient + 17) + 4) + 4;
+	// A1 ?? ?? ?? ??    mov     eax, dword_????????
+	// 55                push    ebp
+	// 89 E5             mov     ebp, esp
+	// 5D                pop     ebp
+	// 83 C0 ??          add     eax, ?
+	// C3                retn
+	return proc->peekPtr(proc->peek< uint32_t >(GetBaseLocalClient + 1))
+		   + proc->peek< int8_t >(GetBaseLocalClient + (isWin32 ? 7 : 11));
 }
 
 static int8_t getSignOnStateOffset(const procptr_t engineClient) {
@@ -125,8 +88,8 @@ static int32_t getLevelNameOffset(const procptr_t engineClient) {
 	// ...
 	//
 	// E8 ?? ?? ?? ??    call    GetBaseLocalClient
-	// C9                leave
 	// 05 ?? ?? ?? ??    add     eax, ?
+	// C9                leave
 	// C3                retn
 	if (isWin32) {
 		if (proc->peek< uint8_t >(GetLevelNameShort + 37) == 0x05) {
@@ -137,7 +100,7 @@ static int32_t getLevelNameOffset(const procptr_t engineClient) {
 		}
 	}
 
-	return proc->peek< int32_t >(GetLevelNameShort + 57);
+	return proc->peek< int32_t >(GetLevelNameShort + 46);
 }
 
 static int32_t getNetInfoOffset(const procptr_t localClient, const procptr_t engineClient) {
