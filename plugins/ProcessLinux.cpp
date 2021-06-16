@@ -7,6 +7,16 @@
 
 #include <elf.h>
 
+struct GnuHash {
+	uint32_t nBucket;
+	uint32_t symOffset;
+	uint32_t nBloom;
+	uint32_t bloomShift;
+	// uintptr_t bloom[nBloom];
+	// uint32_t  bucket[nBucket];
+	// uint32_t  chain[];
+};
+
 ProcessLinux::ProcessLinux(const procid_t id, const std::string &name) : Process(id, name) {
 	const auto mods = modules();
 	const auto iter = mods.find(name);
@@ -42,47 +52,84 @@ static procptr_t exportedSymbol(const Process &proc, const std::string &symbol, 
 	procptr_t strTable  = 0;
 	procptr_t symTable  = 0;
 
+	bool gnuHash = false;
+
 	const auto ehdr  = proc.peek< Elf_Ehdr >(module);
 	const auto phdrs = proc.peekVector< Elf_Phdr >(module + ehdr.e_phoff, ehdr.e_phnum);
 
 	for (const auto &phdr : phdrs) {
-		if (phdr.p_type == PT_DYNAMIC) {
-			const auto dyns = proc.peekVector< Elf_Dyn >(module + phdr.p_vaddr, phdr.p_memsz / sizeof(Elf_Dyn));
-			for (const auto &dyn : dyns) {
-				switch (dyn.d_tag) {
-					case DT_HASH:
-						hashTable = dyn.d_un.d_ptr;
-						break;
-					case DT_STRTAB:
-						strTable = dyn.d_un.d_ptr;
-						break;
-					case DT_SYMTAB:
-						symTable = dyn.d_un.d_ptr;
-						break;
-				}
+		if (phdr.p_type != PT_DYNAMIC) {
+			continue;
+		}
 
-				if (hashTable && strTable && symTable) {
+		const auto dyns = proc.peekVector< Elf_Dyn >(module + phdr.p_vaddr, phdr.p_memsz / sizeof(Elf_Dyn));
+		for (const auto &dyn : dyns) {
+			switch (dyn.d_tag) {
+				case DT_GNU_HASH:
+					gnuHash = true;
+					// Fall-through
+				case DT_HASH:
+					if (!hashTable) {
+						hashTable = dyn.d_un.d_ptr;
+					}
 					break;
-				}
+				case DT_STRTAB:
+					strTable = dyn.d_un.d_ptr;
+					break;
+				case DT_SYMTAB:
+					symTable = dyn.d_un.d_ptr;
 			}
 
-			break;
+			if (hashTable && strTable && symTable) {
+				break;
+			}
 		}
+
+		break;
 	}
 
-	// Hash table pseudo-struct:
-	// uint32_t nBucket;
-	// uint32_t nChain;
-	// uint32_t bucket[nBucket];
-	// uint32_t chain[nChain];
-	const auto nChain = proc.peek< uint32_t >(hashTable + sizeof(uint32_t));
+	if (!(hashTable && strTable && symTable)) {
+		return 0;
+	}
 
-	for (uint32_t i = 0; i < nChain; ++i) {
-		const auto sym  = proc.peek< Elf_Sym >(symTable + sizeof(Elf_Sym) * i);
-		const auto name = proc.peekString(strTable + sym.st_name, symbol.size());
+	if (!gnuHash) {
+		// Hash table pseudo-struct:
+		// uint32_t nBucket;
+		// uint32_t nChain;
+		// uint32_t bucket[nBucket];
+		// uint32_t chain[nChain];
+		const auto nChain = proc.peek< uint32_t >(hashTable + sizeof(uint32_t));
 
-		if (name == symbol) {
-			return module + sym.st_value;
+		for (uint32_t i = 0; i < nChain; ++i) {
+			const auto sym  = proc.peek< Elf_Sym >(symTable + sizeof(Elf_Sym) * i);
+			const auto name = proc.peekString(strTable + sym.st_name, symbol.size());
+
+			if (name == symbol) {
+				return module + sym.st_value;
+			}
+		}
+	} else {
+		const auto table = proc.peek< GnuHash >(hashTable);
+
+		procptr_t ptr     = hashTable + sizeof(Elf_Sym().st_value) * table.nBloom;
+		const auto bucket = proc.peekVector< uint32_t >(ptr, table.nBucket);
+
+		ptr += sizeof(uint32_t) * bucket.size();
+
+		for (uint32_t i = 0; i < bucket.size(); ++i) {
+			auto symIndex = bucket[i];
+			if (symIndex < table.symOffset) {
+				continue;
+			}
+
+			do {
+				const auto sym  = proc.peek< Elf_Sym >(symTable + sizeof(Elf_Sym) * symIndex);
+				const auto name = proc.peekString(strTable + sym.st_name, symbol.size());
+
+				if (name == symbol) {
+					return module + sym.st_value;
+				}
+			} while (proc.peek< uint32_t >(ptr + sizeof(uint32_t) * symIndex++ - table.symOffset) & 1);
 		}
 	}
 
