@@ -3,7 +3,4 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-if(${CMAKE_BUILD_TYPE} MATCHES Debug)
-	message("Including TestPlugin in debug mode")
-	add_library(testPlugin SHARED "testPlugin.cpp")
-endif()
+add_library(testPlugin SHARED "testPlugin.cpp")

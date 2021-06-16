@@ -5,7 +5,7 @@
 
 #include "Game.h"
 
-#include "../mumble_positional_audio_utils.h"
+#include "mumble_positional_audio_utils.h"
 
 Game::Game(const uint64_t id, const std::string name) : m_proc(static_cast< procid_t >(id), name) {
 }
