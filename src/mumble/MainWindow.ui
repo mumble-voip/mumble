@@ -616,6 +616,17 @@ the channel's context menu.</string>
     <string>Shows the Mumble Developer Console, where Mumble's log output can be inspected.</string>
    </property>
   </action>
+  <action name="qaPositionalAudioViewer">
+   <property name="text">
+    <string>Positional &amp;Audio Viewer...</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the Positional Audio Viewer</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</string>
+   </property>
+  </action>
   <action name="qaHelpWhatsThis">
    <property name="text">
     <string>&amp;What's This?</string>

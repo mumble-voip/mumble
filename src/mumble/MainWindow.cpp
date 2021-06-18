@@ -35,6 +35,7 @@
 #include "Markdown.h"
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
+#include "PositionalAudioViewer.h"
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "SSLCipherInfo.h"
@@ -184,7 +185,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qmChannel_aboutToShow();
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
+
 	qmDeveloper->addAction(qaDeveloperConsole);
+	qmDeveloper->addAction(qaPositionalAudioViewer);
 
 	setOnTop(Global::get().s.aotbAlwaysOnTop == Settings::OnTopAlways
 			 || (Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInMinimal)
@@ -2726,6 +2729,16 @@ void MainWindow::on_qaAudioWizard_triggered() {
 
 void MainWindow::on_qaDeveloperConsole_triggered() {
 	Global::get().c->show();
+}
+
+void MainWindow::on_qaPositionalAudioViewer_triggered() {
+	if (m_paViewer) {
+		m_paViewer->raise();
+	} else {
+		m_paViewer = std::make_unique< PositionalAudioViewer >();
+		connect(m_paViewer.get(), &PositionalAudioViewer::finished, this, [this]() { m_paViewer.reset(); });
+		m_paViewer->show();
+	}
 }
 
 void MainWindow::on_qaHelpWhatsThis_triggered() {
