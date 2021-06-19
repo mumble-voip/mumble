@@ -197,14 +197,14 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	ptr_t nameText;
 	ptr_t lightPrefab;
 	ptr_t myLight;
-	ptr_t textTranslator;
 	ptr_t collider;
 	ptr_t myPhysics;
 	ptr_t netTransform;
 	ptr_t currentPet;
 	ptr_t hatRenderer;
 	ptr_t spriteRenderer;
-	ptr_t colliderArray;
+	ptr_t spriteAnim;
+	ptr_t hitBuffer;
 	ptr_t myTasks;
 	ptr_t scannerAnims;
 	ptr_t scannersImages;
