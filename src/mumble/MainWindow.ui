@@ -481,9 +481,6 @@
    <property name="text">
     <string>&amp;Mute Self</string>
    </property>
-   <property name="toolTip">
-    <string>Mute yourself</string>
-   </property>
    <property name="whatsThis">
     <string>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</string>
    </property>
@@ -503,9 +500,6 @@
    </property>
    <property name="text">
     <string>&amp;Deafen Self</string>
-   </property>
-   <property name="toolTip">
-    <string>Deafen yourself</string>
    </property>
    <property name="whatsThis">
     <string>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</string>

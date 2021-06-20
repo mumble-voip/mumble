@@ -121,6 +121,7 @@ public:
 	void msgBox(QString msg);
 	void setOnTop(bool top);
 	void setShowDockTitleBars(bool doShow);
+	void updateAudioToolTips();
 	void updateTrayIcon();
 	void updateUserModel();
 	void focusNextMainWidget();
