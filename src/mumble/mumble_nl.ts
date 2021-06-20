@@ -6444,6 +6444,14 @@ Geldige opties zijn:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Dit zal het zoekvenster openen of verbergen, afhankelijk van of het reeds geopend is</translation>
     </message>
+    <message>
+        <source>Unmute yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undeafen yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

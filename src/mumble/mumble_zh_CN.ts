@@ -6434,6 +6434,14 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>根据当前的开启状态打开或关闭搜索对话框</translation>
     </message>
+    <message>
+        <source>Unmute yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undeafen yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

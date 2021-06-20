@@ -6445,6 +6445,14 @@ Prawidłowe opcje to:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Spowoduje to otwarcie lub zamknięcie okna wyszukiwania w zależności od tego, czy jest już otwarte</translation>
     </message>
+    <message>
+        <source>Unmute yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undeafen yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

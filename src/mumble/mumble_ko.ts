@@ -6443,6 +6443,14 @@ mumble://[&lt;유저이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;�
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>현재 열려 있는지에 따라 검색 대화 상자를 열거나 닫습니다</translation>
     </message>
+    <message>
+        <source>Unmute yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undeafen yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
