@@ -732,8 +732,8 @@ ServerDB::ServerDB() {
 					  "`last_active` FROM `%1users%2`");
 			else
 				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, "
-					  "`last_active`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, "
-					  "`last_active` FROM `%1users%2`");
+					  "`last_active`, `last_disconnect`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, "
+					  "`texture`, `last_active`, `last_disconnect` FROM `%1users%2`");
 
 			SQLDO("INSERT INTO `%1groups` (`group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable`) "
 				  "SELECT `group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable` FROM `%1groups%2`");
