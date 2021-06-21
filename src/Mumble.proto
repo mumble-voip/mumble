@@ -107,6 +107,9 @@ message ServerSync {
 	// Server welcome text.
 	optional string welcome_text = 3;
 	// Current user permissions in the root channel.
+	// Note: The permissions data type usually is uin32 (e.g. in PermissionQuery and PermissionDenied messages). Here
+	// it is uint64 because of an oversight in the past. Nonetheless it should never exceed the uin32 range.
+	// See also: https://github.com/mumble-voip/mumble/issues/5139
 	optional uint64 permissions = 4;
 }
 
