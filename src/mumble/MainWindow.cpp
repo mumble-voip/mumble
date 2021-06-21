@@ -345,6 +345,9 @@ void MainWindow::setupGui() {
 
 	qaAudioMute->setChecked(Global::get().s.bMute);
 	qaAudioDeaf->setChecked(Global::get().s.bDeaf);
+
+	updateAudioToolTips();
+
 #ifdef USE_NO_TTS
 	qaAudioTTS->setChecked(false);
 	qaAudioTTS->setDisabled(true);
@@ -643,6 +646,18 @@ void MainWindow::focusNextMainWidget() {
 	int nextMainFocusWidgetIndex = (currentMainFocusWidgetIndex + 1) % numMainFocusWidgets;
 	QWidget *nextMainFocusWidget = mainFocusWidgets[nextMainFocusWidgetIndex];
 	nextMainFocusWidget->setFocus();
+}
+
+void MainWindow::updateAudioToolTips() {
+	if (Global::get().s.bMute)
+		qaAudioMute->setToolTip(tr("Unmute yourself"));
+	else
+		qaAudioMute->setToolTip(tr("Mute yourself"));
+
+	if (Global::get().s.bDeaf)
+		qaAudioDeaf->setToolTip(tr("Undeafen yourself"));
+	else
+		qaAudioDeaf->setToolTip(tr("Deafen yourself"));
 }
 
 void MainWindow::updateTrayIcon() {
@@ -2577,6 +2592,7 @@ void MainWindow::on_qaAudioMute_triggered() {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
 	}
 
+	updateAudioToolTips();
 	updateTrayIcon();
 }
 
@@ -2621,6 +2637,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
 	}
 
+	updateAudioToolTips();
 	updateTrayIcon();
 }
 
