@@ -453,11 +453,12 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("spotify");
 	qslAllowedSchemeNames << QLatin1String("steam");
 	qslAllowedSchemeNames << QLatin1String("irc");
-	qslAllowedSchemeNames << QLatin1String("gg"); // Gadu-Gadu http://gg.pl - Polish instant massager
+	qslAllowedSchemeNames << QLatin1String("gg"); // Gadu-Gadu http://gg.pl - Polish instant messenger
 	qslAllowedSchemeNames << QLatin1String("mailto");
 	qslAllowedSchemeNames << QLatin1String("xmpp");
 	qslAllowedSchemeNames << QLatin1String("skype");
-	qslAllowedSchemeNames << QLatin1String("rtmp"); // http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol
+	qslAllowedSchemeNames << QLatin1String("rtmp");   // http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol
+	qslAllowedSchemeNames << QLatin1String("magnet"); // https://en.wikipedia.org/wiki/Magnet_URI_scheme
 
 	return qslAllowedSchemeNames;
 }
