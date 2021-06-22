@@ -457,7 +457,8 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("mailto");
 	qslAllowedSchemeNames << QLatin1String("xmpp");
 	qslAllowedSchemeNames << QLatin1String("skype");
-	qslAllowedSchemeNames << QLatin1String("rtmp"); // http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol
+	qslAllowedSchemeNames << QLatin1String("rtmp");   // http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol
+	qslAllowedSchemeNames << QLatin1String("magnet"); // https://en.wikipedia.org/wiki/Magnet_URI_scheme
 
 	return qslAllowedSchemeNames;
 }
