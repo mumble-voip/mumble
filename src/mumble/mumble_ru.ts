@@ -4008,15 +4008,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ограничение</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество пользователей, у которых сработает функция ограничения сообщений.</translation>
     </message>
     <message>
         <source>users on the server.</source>
@@ -4024,19 +4024,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Ограничьте уведомления, когда их больше, чем</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользовательский лимит для ограничения количества сообщений</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите здесь, чтобы включить ограничение сообщений для всех событий - При использовании этой опции обязательно измените лимит пользователей ниже.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Переключение поведения ограничения сообщений для событий %1 </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
