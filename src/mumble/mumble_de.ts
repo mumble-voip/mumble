@@ -6364,23 +6364,23 @@ Valid options are:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Stummschaltung aufheben</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Taubstellung aufheben</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Positionsabhängiges &amp;Audio Details...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne Details bezüglich positionsabhängigem Audio</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnet ein Fenster mit Details über positionsabhängiges Audio. Darin werden die aktuellen Positionsdaten, sowie der aktuelle Kontext und die Identität angezeigt.</translation>
     </message>
 </context>
 <context>
@@ -7349,19 +7349,19 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Plugin-Manifest (manifest.xml) konnte nicht gefunden werden</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Verarbeiten des Manifests: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Plugin für das aktuelle Betriebssystem (&quot;%1&quot;) und Prozessor-Architektur (&quot;%2&quot;) konnte nicht gefunden werden</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Plugin, welches im Manifest des Bundles referenziert wurde (&quot;%1&quot;), konnte nicht gefunden werden</translation>
     </message>
 </context>
 <context>
@@ -7441,55 +7441,55 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Positionsabhängiges Audio Details</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera-Richtung</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler-Position</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler-Achse</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler-Richtung</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera-Achse</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera-Position</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Kontext</translation>
+        <translation>Kontext</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identität</translation>
+        <translation>Identität</translation>
     </message>
 </context>
 <context>
