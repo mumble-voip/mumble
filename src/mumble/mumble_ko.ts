@@ -6445,11 +6445,11 @@ mumble://[&lt;유저이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;�
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>나의 마이크 음소거 해제</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>나의 오디오 음소거 해제</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
@@ -7430,19 +7430,19 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>플러그인 매니페스트를 찾을 수 없습니다 (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>매니페스트를 처리하는 동안 오류가 발생했습니다: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 OS (&quot;%1&quot;) 및 아키텍처에 (&quot;%2&quot;) 대한 플러그인을 찾을 수 없습니다</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>번들에서 매니페스트에 (&quot;%1&quot;) 지정된 플러그인 라이브러리를 찾을 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -7530,15 +7530,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
@@ -7566,11 +7566,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">콘텍스트</translation>
+        <translation>콘텍스트</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">정체성</translation>
+        <translation>정체성</translation>
     </message>
 </context>
 <context>
