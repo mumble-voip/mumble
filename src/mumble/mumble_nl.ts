@@ -4054,39 +4054,39 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limiet</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Overig</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal gebruikers waarbij de limiteringsfunctionaliteit voor berichten activeert.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>gebruikers op de server zijn.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Limiteer notificaties wanneer er meer dan</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikerslimiet bij het limiteren van berichten</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik hier om het limiteren van berichten voor alle gebeurtenissen in te schakelen. Vergeet bij het activeren hiervan hieronder de gebruikerslimiet niet aan te passen.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzig het limiteren van berichten voor &quot;%1&quot;-gebeurtenissen </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik hier om het limiteren voor &quot;%1&quot;-gebeurtenissen te wijzigen. &lt;br /&gt; Indien aangevinkt, zullen notificaties voor dit type gebeurtenis niet verstuurd worden als het aantal gebruikers op de server hoger is dan de ingestelde drempel.</translation>
     </message>
 </context>
 <context>
