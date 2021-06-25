@@ -5971,11 +5971,11 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation>Pokaż konsolę programisty</translation>
+        <translation>Wyświetl konsolę programisty</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation>Pokazuje konsolę programisty Mumble, gdzie może być sprawdzone wyjście dziennika Mumble.</translation>
+        <translation>Wyświetla konsolę programisty Mumble, gdzie można sprawdzić dane wyjściowe dziennika Mumble.</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
@@ -6447,23 +6447,23 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyłącz wyciszenie siebie</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyłącz ogłuszenie siebie</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeglądarka &amp;dźwięku pozycyjnego...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl Przeglądarkę dźwięku pozycyjnego</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetla Przeglądarkę dźwięku pozycyjnego. Można w niej sprawdzić bieżące informacje używane do dźwięku pozycyjnego. Kontekst i tożsamość są również wyświetlane.</translation>
     </message>
 </context>
 <context>
@@ -7432,19 +7432,19 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć manifestu wtyczki (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas przetwarzania manifestu: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć wtyczki dla bieżącego systemu operacyjnego (&quot;%1&quot;) i architektury (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć w pakiecie biblioteki wtyczek określonej w manifeście (&quot;%1&quot;)</translation>
     </message>
 </context>
 <context>
@@ -7524,55 +7524,55 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeglądarka dźwięku pozycyjnego</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kierunek kamery</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozycja gracza</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oś gracza</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kierunek gracza</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oś kamery</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozycja kamery</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Kontekst</translation>
+        <translation>Kontekst</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Tożsamość</translation>
+        <translation>Tożsamość</translation>
     </message>
 </context>
 <context>
