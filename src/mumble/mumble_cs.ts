@@ -2044,7 +2044,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Toto je vstupní metoda pro zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -2064,7 +2064,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vstupní zařízení</translation>
     </message>
     <message>
         <source>Output system</source>

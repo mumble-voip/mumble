@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID : %1</translation>
+        <translation>ID&#x202f;: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -2870,7 +2870,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desconegut</translation>
     </message>
     <message>
         <source>Users</source>
@@ -3418,7 +3418,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desconegut</translation>
     </message>
 </context>
 <context>
@@ -5422,11 +5422,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Messatge de benvenguda : %1</translation>
+        <translation>Messatge de benvenguda&#x202f;: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Mumble : %1</translation>
+        <translation>Mumble&#x202f;: %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -6134,7 +6134,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation>%1 : %2</translation>
+        <translation>%1&#x202f;: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -7016,7 +7016,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 seg. {1%?}</translation>
     </message>
     <message>
         <source>Object Opacity</source>
@@ -8639,7 +8639,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation>DNS : %1</translation>
+        <translation>DNS&#x202f;: %1</translation>
     </message>
     <message>
         <source>Issued by:</source>
