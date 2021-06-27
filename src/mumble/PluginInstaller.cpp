@@ -4,9 +4,11 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "PluginInstaller.h"
+#include "PluginManager.h"
 #include "PluginManifest.h"
 #include "Global.h"
 
+#include <QMessageBox>
 #include <QtCore/QDir>
 #include <QtCore/QException>
 #include <QtCore/QObject>
@@ -161,7 +163,7 @@ void PluginInstaller::init() {
 	qlDescription->setText(m_plugin->getDescription());
 }
 
-void PluginInstaller::install() const {
+bool PluginInstaller::install() {
 	if (!m_plugin) {
 		// This function shouldn't even be called, if the plugin object has not been created...
 		throw PluginInstallException(QLatin1String("[INTERNAL ERROR]: Trying to install an invalid plugin"));
@@ -169,10 +171,48 @@ void PluginInstaller::install() const {
 
 	if (m_pluginSource == m_pluginDestination) {
 		// Apparently the plugin is already installed
-		return;
+		return false;
 	}
 
 	if (m_pluginDestination.exists()) {
+		// This most likely means that we already have some version of this plugin installed. Figure out which
+		// one that is and ask the user for confirmation for overwriting it.
+		// NOTE: Because we currently have multiple install directories, this branch may not execute if the old
+		// version of the plugin was installed into a different directory than the current one.
+		const_plugin_ptr_t oldPlugin;
+		for (const const_plugin_ptr_t &currentPlugin : Global::get().pluginManager->getPlugins()) {
+			if (currentPlugin->getFilePath() == m_pluginDestination.absoluteFilePath()) {
+				// This is the one
+				oldPlugin = currentPlugin;
+				break;
+			}
+		}
+
+		if (oldPlugin) {
+			QMessageBox::StandardButton result = QMessageBox::question(
+				this, tr("Overwrite plugin?"),
+				tr("The new plugin \"%1\" (%2) is about to overwrite the already installed plugin "
+				   "\"%3\" (%4). Do you wish to proceed?")
+					.arg(m_plugin->getName())
+					.arg(QString(m_plugin->getVersion()))
+					.arg(oldPlugin->getName())
+					.arg(QString(oldPlugin->getVersion())));
+
+			if (result != QMessageBox::StandardButton::Yes) {
+				// Abort as the user did not specify that they want to proceed
+				return false;
+			}
+
+			// If we proceed we have to make sure the plugin is unloaded as otherwise Mumble
+			// could still hold a handle to the underlying library file which on some OS (e.g. Windows)
+			// prevents it from being deleted/overwritten.
+			Global::get().pluginManager->clearPlugin(oldPlugin->getID());
+
+			// We have to let go of our handle of the plugin here as well in order to make sure it actually
+			// gets deleted
+			oldPlugin.reset();
+		}
+
 		// Delete old version first
 		if (!QFile(m_pluginDestination.absoluteFilePath()).remove()) {
 			throw PluginInstallException(
@@ -193,6 +233,8 @@ void PluginInstaller::install() const {
 				tr("Unable to move plugin library to \"%1\"").arg(m_pluginDestination.absoluteFilePath()));
 		}
 	}
+
+	return true;
 }
 
 QString PluginInstaller::getInstallDir() {
@@ -202,9 +244,11 @@ QString PluginInstaller::getInstallDir() {
 }
 
 void PluginInstaller::on_qpbYesClicked() {
-	install();
-
-	accept();
+	if (install()) {
+		accept();
+	} else {
+		close();
+	}
 }
 
 void PluginInstaller::on_qpbNoClicked() {
