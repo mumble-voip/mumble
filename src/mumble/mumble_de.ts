@@ -7363,6 +7363,14 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
         <translation>Das Plugin, welches im Manifest des Bundles referenziert wurde (&quot;%1&quot;), konnte nicht gefunden werden</translation>
     </message>
+    <message>
+        <source>Overwrite plugin?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManager</name>
