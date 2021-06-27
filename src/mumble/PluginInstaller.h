@@ -73,7 +73,10 @@ public:
 	~PluginInstaller();
 
 	/// Performs the actual installation (moving/copying of the library) of the plugin
-	void install() const;
+	///
+	/// @returns Whether the installation was successful. If it was unsuccessful either an exception
+	/// is being thrown or (if the user willfully aborted) this function returns false.
+	bool install();
 
 	static QString getInstallDir();
 
