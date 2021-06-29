@@ -100,19 +100,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 		return true; // This tells Mumble to ignore all vectors.
 	}
-	/*
-	// Begin context
-	std::ostringstream ocontext;
 
-	// Host
-	escape(host);
-	if (strcmp(host, "") != 0 && !strstr(host, "127.0.0.1")) { // Set host string as empty if "127.0.0.1" is found in
-	it. ocontext << " {\"Host\": \"" << host << "\"}"; // Set context with IP address and port
-	}
-
-	context = ocontext.str();
-	// End context
-	*/
 	// Begin identity
 	std::wostringstream oidentity;
 	oidentity << "{";
