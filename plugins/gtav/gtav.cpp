@@ -26,18 +26,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 #define VERSION_EQ(buf, strlit) memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit) - 1)) == 0
 
 	// Steam version
-	if (peekProc(pModule + 0x18C0C58, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address        = pModule + 0x28C3B30;
-		avatar_pos_address   = pModule + 0x1F43550;
-		camera_pos_address   = pModule + 0x1F4FE90;
-		avatar_front_address = pModule + 0x1FF28F0;
-		avatar_top_address   = pModule + 0x1F533F0;
-		camera_front_address = pModule + 0x1D23C30;
-		camera_top_address   = pModule + 0x1F52470;
-		player_address       = pModule + 0x28D0E8C;
-		vehicle_address      = pModule + 0x24AE9A0;
-		location_address     = pModule + 0x24AE2DB;
-		street_address       = pModule + 0x24AB090;
+	if (peekProc(pModule + 0x1901130, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address        = pModule + 0x291B2F0;
+		avatar_pos_address   = pModule + 0x1D1D850;
+		camera_pos_address   = pModule + 0x1DACEB0;
+		avatar_front_address = pModule + 0x20476D0;
+		avatar_top_address   = pModule + 0x20476A0;
+		camera_front_address = pModule + 0x1FA7A80;
+		camera_top_address   = pModule + 0x1FA7A90;
+		player_address       = pModule + 0x2928674;
+		vehicle_address      = pModule + 0x2503F10;
+		location_address     = pModule + 0x25038CB;
+		street_address       = pModule + 0x2500600;
 		// Retail version
 	} else if (peekProc(pModule + 0x180D4D8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
 		state_address       = pModule + 0x2733490;
@@ -209,12 +209,12 @@ static int trylock(const std::multimap< std::wstring, unsigned long long int > &
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.50 Build 1868 (Steam) and 1.38 (Retail) with identity "
+	return std::wstring(L"Supports Grand Theft Auto V version 1.54 Build 2245 (Steam) and 1.38 (Retail) with identity "
 						L"support."); // Plugin long description
 }
 
 static std::wstring
-	description(L"Grand Theft Auto V (1.50 Build 1868 [Steam] & v1.38 [Retail])"); // Plugin short description
+	description(L"Grand Theft Auto V (1.54 Build 2245 [Steam] & v1.38 [Retail])"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V");                              // Plugin short name
 
 static int trylock1() {
