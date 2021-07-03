@@ -111,11 +111,6 @@ bool PipeWireOutputRegistrar::usesOutputDelay() const {
 void PipeWireInit::initialize() {
 	pws = std::make_unique< PipeWireSystem >();
 
-	// Wait for initialization process to complete.
-	pws->m_lock.lock();
-	pws->m_waiter.wait(&pws->m_lock, 1000);
-	pws->m_lock.unlock();
-
 	if (pws->m_ok) {
 		inputRegistrar  = std::make_unique< PipeWireInputRegistrar >();
 		outputRegistrar = std::make_unique< PipeWireOutputRegistrar >();

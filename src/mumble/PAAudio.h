@@ -26,7 +26,6 @@ protected:
 	bool bOk;
 	QMutex qmWait;
 	QLibrary qlPortAudio;
-	QWaitCondition qwcWait;
 
 	static int streamCallback(const void *input, void *output, unsigned long frames, const PaStreamCallbackTimeInfo *,
 							  PaStreamCallbackFlags statusFlags, void *isInput);
