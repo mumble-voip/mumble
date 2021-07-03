@@ -173,10 +173,6 @@ bool JackAudioOutputRegistrar::usesOutputDelay() const {
 void JackAudioInit::initialize() {
 	jas.reset(new JackAudioSystem());
 
-	jas->qmWait.lock();
-	jas->qwcWait.wait(&jas->qmWait, 1000);
-	jas->qmWait.unlock();
-
 	if (jas->bAvailable) {
 		airJackAudio.reset(new JackAudioInputRegistrar());
 		aorJackAudio.reset(new JackAudioOutputRegistrar());

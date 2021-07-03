@@ -65,8 +65,6 @@ protected:
 	bool m_ok;
 	uint8_t m_users;
 	QLibrary m_lib;
-	QMutex m_lock;
-	QWaitCondition m_waiter;
 
 	const char *(*pw_get_library_version)();
 
