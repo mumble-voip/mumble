@@ -12,14 +12,36 @@
 #include <atomic>
 #include <functional>
 #include <future>
+#include <mutex>
 #include <unordered_map>
 
 #include <QObject>
 
 namespace API {
 
+class APIPromise {
+public:
+	using lock_guard_t = std::unique_lock< std::recursive_mutex >;
+
+	APIPromise() = default;
+
+	void set_value(mumble_error_t value);
+
+	std::future< mumble_error_t > get_future();
+
+	lock_guard_t lock();
+
+	bool isCancelled() const;
+	void cancel();
+
+protected:
+	std::promise< mumble_error_t > m_promise;
+	mutable std::recursive_mutex m_lock;
+	bool m_cancelled = false;
+};
+
 using api_future_t  = std::future< mumble_error_t >;
-using api_promise_t = std::promise< mumble_error_t >;
+using api_promise_t = APIPromise;
 
 /// A "curator" that will keep track of allocated resources and how to delete them
 struct MumbleAPICurator {
