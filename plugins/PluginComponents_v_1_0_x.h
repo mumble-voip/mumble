@@ -80,6 +80,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_SETTING_WAS_REMOVED,
 	MUMBLE_EC_DATA_TOO_BIG,
 	MUMBLE_EC_DATA_ID_TOO_LONG,
+	MUMBLE_EC_API_REQUEST_TIMEOUT,
 };
 
 /// This enum's values represent error codes specific to the framework of handling positional data
@@ -358,6 +359,8 @@ inline const char *mumble_errorMessage(int16_t errorCode) {
 			return "The given data is too large (exceeds limit)";
 		case MUMBLE_EC_DATA_ID_TOO_LONG:
 			return "The given data ID is too long (exceeds limit)";
+		case MUMBLE_EC_API_REQUEST_TIMEOUT:
+			return "A blocking API call took too long and was this aborted (probably preventing a deadlock)";
 		default:
 			return "Unknown error code";
 	}
