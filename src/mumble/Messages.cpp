@@ -1246,6 +1246,14 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 ///
 /// @param msg The message object
 void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
+	if (!msg.opus()) {
+		qWarning() << "Client was instructed to not use Opus!";
+	}
+
+	// Always use Opus
+	Global::get().bOpus = true;
+
+	return;
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta  = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
