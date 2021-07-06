@@ -444,16 +444,16 @@ void MainWindow::setupGui() {
 void MainWindow::updateWindowTitle() {
 	QString title;
 	if (Global::get().s.bMinimalView) {
-		title = tr("Mumble - Minimal View -- %1");
+		title = tr("Mumble - Minimal View");
 	} else {
-		title = tr("Mumble -- %1");
+		title = tr("Mumble");
 	}
 
 	if (!Global::get().windowTitlePostfix.isEmpty()) {
 		title += QString::fromLatin1(" | %1").arg(Global::get().windowTitlePostfix);
 	}
 
-	setWindowTitle(title.arg(QLatin1String(MUMBLE_RELEASE)));
+	setWindowTitle(title);
 }
 
 void MainWindow::updateToolbar() {
