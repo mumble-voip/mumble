@@ -4860,10 +4860,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Appuyer pour Parler</translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
-        <translation>Mumble - Vue Minimale -- %1</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -6380,6 +6376,10 @@ Valid options are:
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble - Minimal View</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

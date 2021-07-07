@@ -4861,10 +4861,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Push-To-Talk</translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
-        <translation>Mumble - Minimalansicht -- %1</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -6381,6 +6377,10 @@ Valid options are:
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
         <translation>Öffnet ein Fenster mit Details über positionsabhängiges Audio. Darin werden die aktuellen Positionsdaten, sowie der aktuelle Kontext und die Identität angezeigt.</translation>
+    </message>
+    <message>
+        <source>Mumble - Minimal View</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
