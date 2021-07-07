@@ -4860,10 +4860,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>눌러서-말하기</translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
-        <translation>Mumble - 최소 보기 -- %1</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -6461,6 +6457,10 @@ mumble://[&lt;유저이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;�
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble - Minimal View</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

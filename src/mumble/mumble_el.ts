@@ -4857,10 +4857,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Πίεση-πλήκτρου-για-Ομιλία </translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
-        <translation>Mumble - Μινιμαλ προβολή -- %1</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Ακύρωση</translation>
     </message>
@@ -6374,6 +6370,10 @@ Valid options are:
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble - Minimal View</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

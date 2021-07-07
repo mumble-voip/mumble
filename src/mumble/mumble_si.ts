@@ -5433,10 +5433,6 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6272,6 +6268,10 @@ Valid options are:
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble - Minimal View</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
