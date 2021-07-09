@@ -7393,6 +7393,14 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Overwrite plugin?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManager</name>
