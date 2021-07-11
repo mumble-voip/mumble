@@ -118,6 +118,11 @@ if(WIN32)
 			"${MURMUR_RC}"
 	)
 
+	set_target_properties(mumble-server
+		PROPERTIES
+			AUTORCC ON
+	)
+
 	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
 
 	target_link_libraries(mumble-server 
