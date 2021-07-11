@@ -101,10 +101,6 @@ void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 void PortAudioInit::initialize() {
 	pas.reset(new PortAudioSystem());
 
-	pas->qmWait.lock();
-	pas->qwcWait.wait(&pas->qmWait, 1000);
-	pas->qmWait.unlock();
-
 	if (pas->bOk) {
 		airPortAudio.reset(new PortAudioInputRegistrar());
 		aorPortAudio.reset(new PortAudioOutputRegistrar());

@@ -61,9 +61,6 @@ public:
 	PulseAudioOutputRegistrar *aorPulseAudio;
 	void initialize() {
 		pasys = new PulseAudioSystem();
-		pasys->qmWait.lock();
-		pasys->qwcWait.wait(&pasys->qmWait, 1000);
-		pasys->qmWait.unlock();
 		if (pasys->bPulseIsGood) {
 			airPulseAudio = new PulseAudioInputRegistrar();
 			aorPulseAudio = new PulseAudioOutputRegistrar();
@@ -131,14 +128,8 @@ PulseAudioSystem::~PulseAudioSystem() {
 	bRunning = false;
 
 	if (bAttenuating) {
-		qmWait.lock();
 		bAttenuating = false;
 		setVolumes();
-		bool success = qwcWait.wait(&qmWait, 1000);
-		if (!success) {
-			qWarning("PulseAudio: Shutdown timeout when attempting to restore volumes.");
-		}
-		qmWait.unlock();
 	}
 	m_pulseAudio.threaded_mainloop_stop(pam);
 	m_pulseAudio.context_disconnect(pacContext);
@@ -826,12 +817,6 @@ void PulseAudioSystem::restore_volume_success_callback(pa_context *, int, void *
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
 
 	pas->iRemainingOperations--;
-
-	// if there are no more pending volume adjustments and we're shutting down,
-	// let the main thread know
-	if (!pas->bRunning && pas->iRemainingOperations == 0) {
-		pas->qwcWait.wakeAll();
-	}
 }
 
 void PulseAudioSystem::query() {
@@ -886,9 +871,6 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 		default:
 			return;
 	}
-	qmWait.lock();
-	qwcWait.wakeAll();
-	qmWait.unlock();
 }
 
 PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio"), 10) {

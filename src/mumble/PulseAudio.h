@@ -177,8 +177,6 @@ public:
 	QHash< QString, QString > qhInput;
 	QHash< QString, QString > qhOutput;
 	bool bPulseIsGood;
-	QMutex qmWait;
-	QWaitCondition qwcWait;
 
 	void wakeup_lock();
 
