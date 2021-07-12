@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	ca-certificates \
 	&& rm -rf /var/lib/apt/lists/* 
 
-COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
+COPY --from=0 /root/mumble/build/mumble-server /usr/bin/mumble-server
 COPY --from=0 /root/mumble/scripts/murmur.ini /etc/murmur/murmur.ini
 
 RUN mkdir /var/lib/murmur && \
@@ -63,4 +63,4 @@ RUN mkdir /var/lib/murmur && \
 EXPOSE 64738/tcp 64738/udp 50051
 USER murmur
 
-CMD /usr/bin/murmurd -v -fg -ini /etc/murmur/murmur.ini
+CMD /usr/bin/mumble-server -v -fg -ini /etc/murmur/murmur.ini
