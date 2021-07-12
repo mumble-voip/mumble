@@ -47,6 +47,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libqt5core5a \
 	libqt5network5 \
 	libqt5sql5 \
+	libqt5sql5-mysql \
+	libqt5sql5-psql \
 	libqt5sql5-sqlite \
 	libqt5xml5 \
 	libqt5dbus5 \
