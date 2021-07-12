@@ -352,11 +352,16 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 		file.close();
 
 		try {
+			const QString pluginName = plugin->getName();
+			// We have to release the plugin handle here by resetting the smart-pointer in order to make sure the
+			// installer can really unload the plugin in order to overwrite it.
+			plugin.reset();
+
 			// Launch installer
 			PluginInstaller installer(QFileInfo(file.fileName()));
 			installer.install();
 
-			Log::logOrDefer(Log::Information, tr("Successfully updated plugin \"%1\"").arg(plugin->getName()));
+			Log::logOrDefer(Log::Information, tr("Successfully updated plugin \"%1\"").arg(pluginName));
 
 			// Make sure Mumble won't use the old version of the plugin
 			Global::get().pluginManager->rescanPlugins();
