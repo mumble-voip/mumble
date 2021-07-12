@@ -7769,6 +7769,15 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
         <translation>Bu seçenek için destek yalnızca deneyseldir! Bu seçenek en iyi dahili mikrofon ve hoparlör kullanılırken işe yarar.</translation>
     </message>
+    <message>
+        <source>Shortcuts migration incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately %1 shortcut(s) could not be migrated.
+You can register them again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
