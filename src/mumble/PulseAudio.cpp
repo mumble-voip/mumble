@@ -118,6 +118,14 @@ PulseAudioSystem::PulseAudioSystem() {
 	m_pulseAudio.threaded_mainloop_start(pam);
 
 	bRunning = true;
+
+	std::unique_lock< std::mutex > guard(m_initLock);
+	if (!m_initialized) {
+		// The mutex is atomically released as soon as this thread starts waiting and will be
+		// re-acquired when waking up.
+		// Spurious wake-ups are avoided by checking m_initialized in the given predicate
+		m_initWaiter.wait(guard, [this]() { return m_initialized; });
+	}
 }
 
 PulseAudioSystem::~PulseAudioSystem() {
@@ -869,8 +877,17 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 			qWarning("PulseAudio: Connection failure: %s", m_pulseAudio.strerror(m_pulseAudio.context_errno(c)));
 			break;
 		default:
+			// These are other status callbacks we don't care about. However we explicitly want to wait until
+			// one of the status flags listed above are emitted before claiming we are initialized (this callback
+			// will be called multiple times).
 			return;
 	}
+
+	{
+		std::unique_lock< std::mutex > guard(m_initLock);
+		m_initialized = true;
+	}
+	m_initWaiter.notify_all();
 }
 
 PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio"), 10) {
