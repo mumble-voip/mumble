@@ -12,6 +12,7 @@
 #include <atomic>
 #include <functional>
 #include <future>
+#include <memory>
 #include <mutex>
 #include <unordered_map>
 
@@ -77,77 +78,86 @@ public slots:
 
 	// Note that every slot is synchronized and is therefore guaranteed to be executed in the main
 	// thread. For the synchronization strategy see below.
-	void freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr, api_promise_t *promise);
+	void freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr, std::shared_ptr< api_promise_t > promise);
 	void getActiveServerConnection_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t *connection,
-										   api_promise_t *promise);
+										   std::shared_ptr< api_promise_t > promise);
 	void isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-										  bool *synchronized, api_promise_t *promise);
+										  bool *synchronized, std::shared_ptr< api_promise_t > promise);
 	void getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t *userID,
-								api_promise_t *promise);
+								std::shared_ptr< api_promise_t > promise);
 	void getUserName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-							 const char **name, api_promise_t *promise);
+							 const char **name, std::shared_ptr< api_promise_t > promise);
 	void getChannelName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-								mumble_channelid_t channelID, const char **name, api_promise_t *promise);
+								mumble_channelid_t channelID, const char **name,
+								std::shared_ptr< api_promise_t > promise);
 	void getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users,
-							 size_t *userCount, api_promise_t *promise);
+							 size_t *userCount, std::shared_ptr< api_promise_t > promise);
 	void getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-								mumble_channelid_t **channels, size_t *channelCount, api_promise_t *promise);
+								mumble_channelid_t **channels, size_t *channelCount,
+								std::shared_ptr< api_promise_t > promise);
 	void getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-								  mumble_channelid_t *channelID, api_promise_t *promise);
+								  mumble_channelid_t *channelID, std::shared_ptr< api_promise_t > promise);
 	void getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 								   mumble_channelid_t channelID, mumble_userid_t **users, size_t *userCount,
-								   api_promise_t *promise);
+								   std::shared_ptr< api_promise_t > promise);
 	void getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t *transmissionMode,
-											  api_promise_t *promise);
+											  std::shared_ptr< api_promise_t > promise);
 	void isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-									bool *muted, api_promise_t *promise);
-	void isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted, api_promise_t *promise);
-	void isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened, api_promise_t *promise);
+									bool *muted, std::shared_ptr< api_promise_t > promise);
+	void isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted, std::shared_ptr< api_promise_t > promise);
+	void isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened,
+									 std::shared_ptr< api_promise_t > promise);
 	void getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-							 const char **hash, api_promise_t *promise);
+							 const char **hash, std::shared_ptr< api_promise_t > promise);
 	void getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char **hash,
-							   api_promise_t *promise);
+							   std::shared_ptr< api_promise_t > promise);
 	void requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID,
-												  mumble_transmission_mode_t transmissionMode, api_promise_t *promise);
+												  mumble_transmission_mode_t transmissionMode,
+												  std::shared_ptr< api_promise_t > promise);
 	void getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-								const char **comment, api_promise_t *promise);
+								const char **comment, std::shared_ptr< api_promise_t > promise);
 	void getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-									   mumble_channelid_t channelID, const char **description, api_promise_t *promise);
+									   mumble_channelid_t channelID, const char **description,
+									   std::shared_ptr< api_promise_t > promise);
 	void requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-								 mumble_channelid_t channelID, const char *password, api_promise_t *promise);
+								 mumble_channelid_t channelID, const char *password,
+								 std::shared_ptr< api_promise_t > promise);
 	void requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t callerID, bool activate,
-													  api_promise_t *promise);
+													  std::shared_ptr< api_promise_t > promise);
 	void requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
-								  bool muted, api_promise_t *promise);
-	void requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted, api_promise_t *promise);
-	void requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool deafened, api_promise_t *promise);
+								  bool muted, std::shared_ptr< api_promise_t > promise);
+	void requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted,
+									  std::shared_ptr< api_promise_t > promise);
+	void requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool deafened,
+									  std::shared_ptr< api_promise_t > promise);
 	void requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-											const char *comment, api_promise_t *promise);
+											const char *comment, std::shared_ptr< api_promise_t > promise);
 	void findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *userName,
-								mumble_userid_t *userID, api_promise_t *promise);
+								mumble_userid_t *userID, std::shared_ptr< api_promise_t > promise);
 	void findChannelByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *channelName,
-								   mumble_channelid_t *channelID, api_promise_t *promise);
+								   mumble_channelid_t *channelID, std::shared_ptr< api_promise_t > promise);
 	void getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, bool *outValue,
-									   api_promise_t *promise);
+									   std::shared_ptr< api_promise_t > promise);
 	void getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, int64_t *outValue,
-									  api_promise_t *promise);
+									  std::shared_ptr< api_promise_t > promise);
 	void getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, double *outValue,
-										 api_promise_t *promise);
+										 std::shared_ptr< api_promise_t > promise);
 	void getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, const char **outValue,
-										 api_promise_t *promise);
+										 std::shared_ptr< api_promise_t > promise);
 	void setMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, bool value,
-									   api_promise_t *promise);
+									   std::shared_ptr< api_promise_t > promise);
 	void setMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, int64_t value,
-									  api_promise_t *promise);
+									  std::shared_ptr< api_promise_t > promise);
 	void setMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, double value,
-										 api_promise_t *promise);
+										 std::shared_ptr< api_promise_t > promise);
 	void setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, const char *value,
-										 api_promise_t *promise);
+										 std::shared_ptr< api_promise_t > promise);
 	void sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users,
 						  size_t userCount, const uint8_t *data, size_t dataLength, const char *dataID,
-						  api_promise_t *promise);
-	void log_v_1_0_x(mumble_plugin_id_t callerID, const char *message, api_promise_t *promise);
-	void playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath, api_promise_t *promise);
+						  std::shared_ptr< api_promise_t > promise);
+	void log_v_1_0_x(mumble_plugin_id_t callerID, const char *message, std::shared_ptr< api_promise_t > promise);
+	void playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath,
+							std::shared_ptr< api_promise_t > promise);
 
 
 private:
@@ -190,7 +200,7 @@ Q_DECLARE_METATYPE(mumble_settings_key_t);
 Q_DECLARE_METATYPE(mumble_settings_key_t *);
 Q_DECLARE_METATYPE(mumble_transmission_mode_t);
 Q_DECLARE_METATYPE(mumble_transmission_mode_t *);
-Q_DECLARE_METATYPE(API::api_promise_t *);
+Q_DECLARE_METATYPE(std::shared_ptr< API::api_promise_t >);
 
 //////////////////////////////////////////////////////////////
 ///////////// SYNCHRONIZATION STRATEGY ///////////////////////
