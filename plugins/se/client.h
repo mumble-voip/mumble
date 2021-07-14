@@ -135,6 +135,8 @@ static procptr_t getLocalPlayer(const procptr_t localClient, procptr_t clientEnt
 	// 55                         push    ebp
 	// 8B EC                      mov     ebp, esp
 	// 8B 45 08                   mov     eax, [ebp+arg_0]
+	// 3D ?? ?? ?? ??             cmp     eax, ?
+	// 77 08                      ja      short 08
 	// 8B 44 C1 ??                mov     eax, [ecx+eax*8+?]
 	// 5D                         pop     ebp
 	// C2 04 00                   retn    4
@@ -148,10 +150,12 @@ static procptr_t getLocalPlayer(const procptr_t localClient, procptr_t clientEnt
 
 		// 55                      push    ebp
 		// 89 E5                   mov     ebp, esp
-		// 8B 55 0C                mov     edx, [ebp+arg_4]
-		// 8B 45 08                mov     eax, [ebp+arg_0]
+		// 8B 45 0C                mov     eax, [ebp+arg_4]
+		// 3D ?? ?? ?? ??          cmp     eax, ?
+		// 77 13                   ja      short 13
+		// 8B 55 08                mov     edx, [ebp+arg_0]
 		// 5D                      pop     ebp
-		// 8B 84 D0 ?? ?? ?? ??    mov     eax, [eax+edx*8+?]
+		// 8B 84 C2 ?? ?? ?? ??    mov     eax, [edx+eax*8+?]
 		// C3                      retn
 	}
 
@@ -162,10 +166,10 @@ static procptr_t getLocalPlayer(const procptr_t localClient, procptr_t clientEnt
 			// Left 4 Dead
 			entityCacheInfo = clientEntityList + proc->peek< int8_t >(GetClientNetworkable + 7);
 		} else {
-			entityCacheInfo = clientEntityList + proc->peek< int8_t >(GetClientNetworkable + 9);
+			entityCacheInfo = clientEntityList + proc->peek< int8_t >(GetClientNetworkable + 16);
 		}
 	} else {
-		entityCacheInfo = clientEntityList + proc->peek< int32_t >(GetClientNetworkable + 13);
+		entityCacheInfo = clientEntityList + proc->peek< int32_t >(GetClientNetworkable + 20);
 	}
 
 	const auto entity = proc->peek< EntityCacheInfo >(entityCacheInfo + sizeof(EntityCacheInfo) * localPlayerIndex);
