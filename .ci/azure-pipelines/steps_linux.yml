@@ -14,8 +14,8 @@ steps:
     displayName: 'Build'
   - script: 'cd $BUILD_BINARIESDIRECTORY; ctest --verbose'
     displayName: 'Test'
-  - script: .ci/azure-pipelines/package_AppImage.bash
-    displayName: 'Release'
-  - template: task-publish-artifacts.yml
-    parameters:
-      name: "AppImage" 
+# - script: .ci/azure-pipelines/package_AppImage.bash
+#   displayName: 'Release'
+# - template: task-publish-artifacts.yml
+#   parameters:
+#     name: "AppImage" 
