@@ -428,7 +428,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished">Periytyneet ryhmän jäsenet</translation>
+        <translation>Periytyneet ryhmän jäsenet</translation>
     </message>
     <message>
         <source>Foreign group members</source>
@@ -1030,11 +1030,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Se&amp;laa...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Test&amp;aa</translation>
     </message>
 </context>
 <context>
@@ -1430,11 +1430,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tällä etäisyydellä toisen pelaajan äänet alkavat vaimentumaan</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Tällä etäisyydellä toisen pelaajan äänet ovat pienimmillään</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pienin äänenvoimakkuus johon pelaajan äänet vaimennetaan etäisyyden kasvaessa. Aseta arvoksi 0% niin äänet katoavat kokonaan kun suurin kuuloetäisyys saavutetaan.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos äänilähde on riittävän lähellä, ääni kuuluu kaikista kaiuttimista suunnasta riippumatta (vaikkakin pienemmällä äänenvoimakkuudella)</translation>
     </message>
 </context>
 <context>
@@ -3270,7 +3270,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP virhe %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -4054,23 +4054,23 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Rajoita</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekalaista.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjien määrä, jonka ylittyessä ilmoituksia aloitetaan rajoittamaan.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>käyttäjää on palvelimella.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Rajoita ilmoituksia jos enemmän kuin</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
@@ -4939,7 +4939,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Unmuted.</source>
-        <translation>Hiljennetty.</translation>
+        <translation>Mykistys poistettu.</translation>
     </message>
     <message>
         <source>Muted.</source>
@@ -5047,7 +5047,7 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
     </message>
     <message>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Näyttää viimeisimmät tapahtumat. Palvelimelle yhdistäminen, virheilmoitukset ja informaatioviestit näkyvät tässä.&lt;br /&gt;Muuttaaksesi mitkä viestit näkyvät tässä mene &lt;b&gt;asetukset&lt;/b&gt; ja valitse &lt;b&gt;viestit&lt;/b&gt; välilehti.</translation>
+        <translation>Näyttää viimeisimmät tapahtumat. Palvelimelle yhdistäminen, virheilmoitukset ja informaatioviestit näkyvät tässä.&lt;br /&gt;Muuttaaksesi mitkä viestit näkyvät tässä mene &lt;b&gt;Asetukset&lt;/b&gt; ja valitse viestit-välilehti.</translation>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
@@ -6361,12 +6361,13 @@ Valid options are:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Hakemistoa %1 ei ole olemassa.
+</translation>
     </message>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6375,11 +6376,11 @@ Valid options are:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda kanavasuodatinta (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
@@ -6387,20 +6388,20 @@ Valid options are:
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi käyttäjää tai kanavaa (Ctrl-F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda hakuikkuna</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä avaa haku-ikkunan tai sulkee sen jos se on jo auki</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista mykistys itseltäsi</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
@@ -6420,7 +6421,7 @@ Valid options are:
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Minimaalinen näkymä</translation>
     </message>
 </context>
 <context>
@@ -6717,11 +6718,11 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarkista käynnistyksen yhteydessä onko liitännäisille päivityksiä</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaattisesti lataa ja asenna päivitykset liitännäisille</translation>
     </message>
 </context>
 <context>
@@ -6836,7 +6837,7 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Overlay</source>
-        <translation>Overlay</translation>
+        <translation type="unfinished">Overlay</translation>
     </message>
     <message>
         <source>Choose executable</source>
@@ -7286,15 +7287,15 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Näppäintapahtumat</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Asenna liitännäinen paikallisesta tiedostosta</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Asenna liitännäinen...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
@@ -7306,7 +7307,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäinen asennettiin onnistuneesti</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
@@ -7314,7 +7315,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voida ladata liitännäistä &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
@@ -7330,7 +7331,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytetäänkö tätä liitännäistä</translation>
     </message>
 </context>
 <context>
@@ -7341,23 +7342,23 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Olet asentamassa alla näkyvää liitännäistä. Haluatko jatkaa?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nimi:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Versio:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Tekijä(t):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kuvaus:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -7369,7 +7370,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedosto &quot;%1&quot; ei kelpaa liitännäiseksi!</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
@@ -7377,15 +7378,15 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vanhaa liitännäistä ei voida poistaa &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäiskirjastoa ei voida kopioida kohteesta &quot;%1&quot; kohteeseen &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäiskirjastoa ei voida siirtää kohteeseen &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
@@ -7397,7 +7398,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei löydy liitännäistä käyttöjärjestelmälle (&quot;%1&quot;) ja arkkitehtuurille (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
@@ -7416,11 +7417,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 menetti yhteyden</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 yhdistetty</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
@@ -7443,31 +7444,31 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nämä liitännäiset voidaan päivittää.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse kaikki</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäinen</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Lataus-URL</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko päivittää valitut liitännäiset?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voida ladata liitännäisen &quot;%1&quot; päivitystä paikasta &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisen &quot;%1&quot; päivitys epäonnistui liian monen uudelleenohjauksen takia</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
@@ -7475,7 +7476,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitettiin onnistuneesti liitännäinen &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -7493,7 +7494,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameran suunta</translation>
     </message>
     <message>
         <source>X</source>
@@ -7509,7 +7510,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pelaajan sijainti</translation>
     </message>
     <message>
         <source>Player axis</source>
@@ -7830,7 +7831,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Anna hakusana...</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7838,11 +7839,11 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsitäänkö käyttäjistä</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Käyttäjiä</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -7854,7 +7855,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Valinnat:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
@@ -7862,19 +7863,19 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RegEx</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;anavia</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsitäänkö kanavista</translation>
     </message>
 </context>
 <context>
@@ -7944,7 +7945,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ääni</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7956,7 +7957,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Koodekki:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
@@ -8004,7 +8005,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänipaketit lähetetään TCP:tä käyttäen.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>

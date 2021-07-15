@@ -29,15 +29,15 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Error : canal invalid</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Editar %1</translation>
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID&#x202f;: %1</translation>
+        <translation>ID : %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo canal deu aver un nom</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Picatz lo nom del canal.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,11 +73,11 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Picatz lo senhal del canal.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcar la cassa per crear un canal temporari.</translation>
     </message>
     <message>
         <source>Temporary</source>
@@ -108,7 +108,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimir lo grop seleccionat</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -156,7 +156,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <source>Active ACLs</source>
@@ -188,7 +188,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Montar</translation>
     </message>
     <message>
         <source>Move entry down</source>
@@ -200,7 +200,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Davalar</translation>
     </message>
     <message>
         <source>Add new entry</source>
@@ -241,7 +241,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar a aqueste canal</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
@@ -283,7 +283,7 @@ Ajustar un grop novèl.</translation>
     </message>
     <message>
         <source>Exclude</source>
-        <translation>Exclaure</translation>
+        <translation>Exclure</translation>
     </message>
     <message>
         <source>Excluded members</source>
@@ -2092,7 +2092,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>User</source>
-        <translation>Uitlizaire</translation>
+        <translation>Utilizaire</translation>
     </message>
     <message>
         <source>Hash</source>
@@ -2870,7 +2870,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Desconegut</translation>
+        <translation>Desconegut</translation>
     </message>
     <message>
         <source>Users</source>
@@ -3418,7 +3418,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Desconegut</translation>
+        <translation>Desconegut</translation>
     </message>
 </context>
 <context>
@@ -5418,11 +5418,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Messatge de benvenguda&#x202f;: %1</translation>
+        <translation>Messatge de benvenguda : %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Mumble&#x202f;: %1</translation>
+        <translation>Mumble : %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -5502,7 +5502,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording stopped</source>
-        <translation>Enregistrament arrestar</translation>
+        <translation>Enregistrament arrestat</translation>
     </message>
     <message>
         <source>%1 started recording.</source>
@@ -6130,7 +6130,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation>%1&#x202f;: %2</translation>
+        <translation>%1 : %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -7016,7 +7016,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>%1%</source>
-        <translation type="unfinished">%1 seg. {1%?}</translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <source>Object Opacity</source>
@@ -7382,15 +7382,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
@@ -7418,11 +7418,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Contexte</translation>
+        <translation>Contèxte</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identitat</translation>
+        <translation>Identitat</translation>
     </message>
 </context>
 <context>
@@ -7764,7 +7764,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation>Impossible de résoudre l&apos;adreça internet.</translation>
+        <translation>Impossible de resòlvre l&apos;adreça internet</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -8305,7 +8305,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -8647,7 +8647,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation>DNS&#x202f;: %1</translation>
+        <translation>DNS : %1</translation>
     </message>
     <message>
         <source>Issued by:</source>

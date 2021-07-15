@@ -101,7 +101,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupė</translation>
     </message>
     <message>
         <source>List of groups</source>
@@ -117,31 +117,31 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldėti grupės narius iš pirminio</translation>
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldėti</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Padaryti grupę paveldimą antriniams kanalams</translation>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldima</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupė buvo paveldėta iš pirminio kanalo</translation>
     </message>
     <message>
         <source>Inherited</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldėta</translation>
     </message>
     <message>
         <source>Members</source>
-        <translation type="unfinished"></translation>
+        <translation>Nariai</translation>
     </message>
     <message>
         <source>Add</source>
@@ -157,7 +157,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <source>Active ACLs</source>
@@ -165,7 +165,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>List of entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašų sąrašas</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
@@ -246,7 +246,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašas turėtų būti taikomas antriniams kanalams.</translation>
     </message>
     <message>
         <source>Add new group</source>
@@ -255,11 +255,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pridėti&lt;/b&gt; &lt;br/&gt;
+Pridėti naują grupę.</translation>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldėti nariai</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
@@ -373,7 +374,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Taip nustatoma, kokiai naudotojų grupei taikomas šis įrašas &lt;br /&gt;Atkreipkite dėmesį, kad grupė vertinama kanalo, kuriame naudojamas įrašas, kontekste. Pavyzdžiui, numatytoji ACL šaknies kanale suteikia &lt;i&gt;Rašyti&lt;/i&gt; leidimą &lt;i&gt;admin&lt;/i&gt; grupei. Šis įrašas, jei jį paveldės kanalas, suteiks naudotojui teisę rašyti, jei jis priklauso &lt;i&gt;admin&lt;/i&gt; grupei tame kanale, net jei jis nepriklauso &lt;i&gt;admin&lt;/i&gt; grupei kanale, kuriame ACL atsirado.&lt;br /&gt;Jei grupės pavadinimas prasideda &quot;!&apos;, jo narystė paneigiama, o jei jis prasideda &quot;~&quot;, jis vertinamas tame kanale, kuriame ACL buvo apibrėžtas, o ne tame kanale, kuriame ACL yra aktyvus.&lt;br /&gt;Jei grupės pavadinimas prasideda &quot;#&quot;, jis interpretuojamas kaip prieigos ženklas. Vartotojai turi būti įvedę bet kokį po &apos;#&apos; esantį prieigos ženklų sąrašą, kad jis atitiktų. Tai gali būti naudojama labai paprastam slaptažodžiu suteikiamam prisijungimui prie kanalų naudotojams, kurių autentiškumas nepatvirtintas.&lt;br /&gt;Jei grupės pavadinimas prasideda raide &quot;$&quot;, ji atitiks tik tuos naudotojus, kurių sertifikato hash sutampa su tuo, kas yra po &quot;$&quot;.&lt;br /&gt;Keletas specialių iš anksto nustatytų grupių:&lt;br /&gt;&lt;b&gt;visi&lt;/b&gt; - atitiks visi.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Atitiks visi autentifikuoti naudotojai.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Naudotojas, šiuo metu esantis mažiausiai &lt;i&gt;a&lt;/i&gt; bendrų pirminių subkalanų ir tarp &lt;i&gt;b&lt;/i&gt; ir &lt;i&gt;c&lt;/i&gt; kanalų grandine žemyn. Plačiau apie tai skaitykite svetainėje.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - šiuo metu kanale esantys naudotojai atitiks (patogu naudoti &quot;&lt;i&gt;sub,0,0,0,0&lt;/i&gt;&quot;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Už kanalo ribų esantys naudotojai atitiks (patogu naudoti &quot;&lt;i&gt;!sub,0,0,0,0&lt;/i&gt;&quot;).&lt;br /&gt;Atkreipkite dėmesį, kad įrašas taikomas arba naudotojui, arba grupei, bet ne abiem.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -816,7 +817,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Didžiausias įvesties stiprinimas.&lt;/b&gt;&lt;br /&gt;Prieš suspaudžiant Mumble normalizuoja įvesties garsą, o šis parametras nustato, kiek jis gali būti stiprinamas.&lt;br /&gt;Faktinis lygis nuolat atnaujinamas atsižvelgiant į dabartinį jūsų kalbos modelį, tačiau jis niekada neviršys čia nurodyto lygio.&lt;br /&gt;Jei garso statistikos &lt;i&gt;Mikrofono garsumas&lt;/i&gt; lygis svyruoja apie 100 %, tikriausiai norėsite nustatyti šį parametrą į 2.0 ar panašiai, bet jei, kaip ir dauguma žmonių, nesugebate pasiekti 100 %, nustatykite daug aukštesnį lygį.&lt;br /&gt;Geriausia būtų nustatyti &lt;i&gt;Mikrofono garsumas * Stiprinimo koeficientas &gt;= 100&lt;/i&gt;, net jei kalbate labai tyliai.&lt;br /&gt;&lt;br /&gt;Atkreipkite dėmesį, kad nėra nieko blogo, jei nustatysite maksimalų lygį, bet Mumble pradės fiksuoti kitus pokalbius, jei paliksite automatinį derinimą prie tokio lygio.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -1008,7 +1009,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Abu</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1424,7 +1425,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
@@ -1439,7 +1440,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietinis</translation>
     </message>
     <message>
         <source>Server</source>
@@ -1679,7 +1680,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tai rodo aido slopintuvo svorius, kai laikas didėja žemyn, o dažnis didėja į dešinę.&lt;br /&gt; Geriausia, jei ši juosta būtų juoda ir rodytų, kad aido iš viso nėra. Dažniau pasitaiko viena ar kelios horizontalios melsvos spalvos juostelės, reiškiančios laiku uždelstą aidą. Turėtumėte matyti realiuoju laiku atnaujinamus svorius.&lt;br /&gt;Atkreipkite dėmesį, kad tol, kol nėra nieko, nuo ko būtų aidas, čia nematysite daug naudingų duomenų. Paleiskite šiek tiek muzikos ir viskas turėtų stabilizuotis.&lt;br /&gt;Galite pasirinkti, ar norite matyti realiąsias, ar įsivaizduojamas dažnių srities svorių dalis, ar pakaitomis apskaičiuotą modulį ir fazę. Naudingiausias iš jų greičiausiai bus modulis, kuris yra aido amplitudė ir parodo, kokia išeinančio signalo dalis pašalinama tuo laiko žingsniu. Kiti peržiūros režimai dažniausiai naudingi žmonėms, norintiems sureguliuoti aido panaikinimo algoritmus.&lt;br /&gt;Atkreipkite dėmesį: jei visas vaizdas masiškai svyruoja veikiant modulio režimui, aido panaikintuvas nesugeba rasti jokios koreliacijos tarp dviejų įvesties šaltinių (garsiakalbių ir mikrofono). Arba turite labai didelį aido uždelsimą, arba vienas iš įvesties šaltinių sukonfigūruotas neteisingai.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -2044,7 +2045,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kai kuriuose žaidimuose Mumble palaiko padėties garsą ir kitų naudotojų balsą nustato pagal jų padėtį žaidime. Priklausomai nuo jų padėties, balso stiprumas bus keičiamas tarp garsiakalbių, kad būtų imituojama kryptis ir atstumas, kuriuo yra kitas naudotojas. Toks padėties nustatymas priklauso nuo to, ar jūsų operacinėje sistemoje teisingai nustatyta garsiakalbių konfigūracija, todėl čia atliekamas bandymas. &lt;/p&gt;&lt;p&gt;Toliau pateiktame grafike parodyta &lt;span style=&quot; color:#56b4e9;&quot;&gt;jūsų&lt;/span&gt;, &lt;span style=&quot; color:#d55e00;&quot;&gt;garsiakalbių&lt;/span&gt; ir &lt;span style=&quot; color:#009e73;&quot;&gt;judančio garso šaltinio&lt;/span&gt; padėtis, tarsi žiūrint iš viršaus. Turėtumėte girdėti, kaip garsas juda tarp kanalų. &lt;/p&gt;&lt;p&gt;Taip pat galite pele rankiniu būdu nustatyti &lt;span style=&quot; color:#009e73;&quot;&gt;garso šaltinio&lt;/span&gt; padėtį.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
@@ -2103,11 +2104,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Pradėti</translation>
     </message>
     <message>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Baigti</translation>
     </message>
     <message>
         <source>User</source>
@@ -2223,7 +2224,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ieškoti</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2738,7 +2739,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>Klausyti</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
@@ -2899,7 +2900,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nežinomas</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2963,11 +2964,11 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ieškoti</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietovė</translation>
     </message>
     <message>
         <source>Filter</source>
@@ -2991,15 +2992,15 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Azija</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
@@ -3007,7 +3008,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Okeanija</translation>
     </message>
     <message>
         <source>South America</source>
@@ -4204,7 +4205,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>Suskleidus pagrindinį Mumble langą, slėpti jį į dėklą</translation>
+        <translation>Suskleidus pagrindinį Mumble langą, slėpti jį į dėklą.</translation>
     </message>
     <message>
         <source>This setting controls when the application will be always on top.</source>
@@ -6162,11 +6163,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
@@ -6278,7 +6279,66 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Naudojimas: mumble [parinktys] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; nurodo URL adresą, prie kurio jungiamasi po paleidimo, užuot rodžius
+ryšio lange, ir turi tokį formą:
+&gt;...]: mumble://[&lt;[&lt;naudotojo vardas&gt;[:&lt; slaptažodis&gt;]@]&lt;hostas&gt;[:&lt;portas&gt;][/&lt;kanalas&gt;[/&lt;antrinis kanalas&gt;...]][?versija=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; - diegiamų įskiepių failų sąrašas
+Versijos užklausos parametras turi būti nustatytas, kad būtų galima
+iškviesti tinkamą kliento versiją. Šiuo metu numatytasis nustatymas yra 1.2.0.
+
+Galioja šios parinktys:
+  -h, --help Parodykite šį pagalbos tekstą ir išeikite.
+  -m, --multiple
+                Leidžia paleisti kelis kliento egzempliorius.
+  -c, --config
+                Nurodykite alternatyvų konfigūracijos failą.
+                Jei naudojate šią parinktį norėdami vienu metu paleisti kelis Mumble egzempliorius,
+                įsitikinkite, kad konfigūracijoje nustatėte alternatyvią duomenų bazės reikšmę.
+  --default-certificate-dir &lt;dir&gt;
+                Nurodykite alternatyvų numatytojo sertifikato kelią.
+                Šis kelias naudojamas tik tuo atveju, jei nėra įkelto sertifikato
+                iš nustatymų.
+  -n, --noidentity
+                Panaikina tapatybės failų (t. y. sertifikatų) įkėlimą.
+  -jn, --jackname &lt;arg&gt;
+                Nustatyti pasirinktinį Jack kliento vardą.
+  --licencija
+                Rodyti Mumble licenciją.
+  --authors
+                Rodyti Mumble autorius.
+  --third-party-licenses
+                Rodyti trečiųjų šalių programinės įrangos, kurią naudoja Mumble, licencijas.
+  --window-title-ext &lt;arg&gt;
+                Nustato pasirinktinį lango pavadinimo plėtinį.
+  --dump-input-streams
+                Įvairiose įvesties grandinės dalyse išrašo PCM srautus.
+                (naudinga derinimo tikslais)
+                - neapdoroto mikrofono įvestis
+                - garsiakalbio duomenų nuskaitymas aidui slopinti
+                - apdorota mikrofono įvestis
+  --print-echocancel-queue
+                spausdina į stdout eilės echo atšaukimo eilės būseną
+                (naudinga derinimo tikslais)
+  --translation-dir &lt;dir&gt;
+                Nurodo papildomą vertimo eglę &lt;dir&gt;, kurioje
+                Mumble ieškos vertimo failų, kurie perrašo
+                pakete esančius įrašus
+                Taip pridėtiems katalogams suteikiamas didesnis prioritetas nei
+                priešingu atveju naudojama numatytoji vieta
+  --print-translation-dirs
+                Išspausdinti kelius, kuriuose Mumble ieškos
+                vertimo failų, kurie perrašo pridedamus failus.
+                (Naudinga vertėjams, tikrinantiems savo vertimus)
+  --locale &lt;locale&gt;
+                Perrašyti Mumble nustatymuose esančią vietinę kalbą su
+                vietove, atitinkančia nurodytą vietovės eilutę.
+                Jei formatas neteisingas, Mumble parodys klaidą.
+                Priešingu atveju lokalizacija bus visam laikui įrašyta į
+                Mumble nustatymus.
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
@@ -6862,7 +6922,7 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
     </message>
     <message>
         <source>Load…</source>
-        <translation>Įkelti...</translation>
+        <translation>Įkelti…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6870,7 +6930,7 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
     </message>
     <message>
         <source>Save…</source>
-        <translation>Įrašyti...</translation>
+        <translation>Įrašyti…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -8572,11 +8632,11 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalas turi prieigos apribojimus, todėl negalite į jį patekti</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalas turi prieigos apribojimus, tačiau jūs vis tiek galite įeiti</translation>
     </message>
 </context>
 <context>
@@ -8635,7 +8695,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     </message>
     <message>
         <source>Subunit</source>
-        <translation type="unfinished"></translation>
+        <translation>Subvienetas</translation>
     </message>
     <message>
         <source>Country</source>
@@ -8805,7 +8865,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neįmanoma pradėti įrašymo. Neprijungta prie serverio.</translation>
     </message>
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.

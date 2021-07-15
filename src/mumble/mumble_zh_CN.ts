@@ -6452,7 +6452,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - 最小化视图</translation>
     </message>
 </context>
 <context>
@@ -7437,11 +7437,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>覆盖插件？</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>新插件“%1”（%2）即将覆盖已安装的插件“%3”（%4）。您要继续吗？</translation>
     </message>
 </context>
 <context>
