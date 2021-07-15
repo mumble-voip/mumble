@@ -12,6 +12,9 @@
 #include "Cert.h"
 #include "Database.h"
 #include "DeveloperConsole.h"
+#ifdef Q_OS_WIN
+#	include "GlobalShortcut_win.h"
+#endif
 #include "LCD.h"
 #include "Log.h"
 #include "LogEmitter.h"
@@ -706,19 +709,33 @@ int main(int argc, char **argv) {
 
 	// Configuration updates
 	bool runaudiowizard = false;
-	if (Global::get().s.uiUpdateCounter == 0) {
-		// Previous version was an pre 1.2.3 release or this is the first run
-		runaudiowizard = true;
+	switch (Global::get().s.uiUpdateCounter) {
+		case 0:
+			// Previous version was an pre 1.2.3 release or this is the first run
+			runaudiowizard = true;
+			// Fallthrough
+		case 1:
+			// Previous versions used old idle action style, convert it
+			if (Global::get().s.iIdleTime == 5 * 60) { // New default
+				Global::get().s.iaeIdleAction = Settings::Nothing;
+			} else {
+				Global::get().s.iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
+				Global::get().s.iaeIdleAction = Settings::Deafen;                             // Old behavior
+			}
+			// Fallthrough
+#ifdef Q_OS_WIN
+		case 2: {
+			auto &shortcuts = Global::get().s.qlShortcuts;
+			const auto migratedShortcuts = GlobalShortcutWin::migrateSettings(shortcuts);
+			if (shortcuts.size() > migratedShortcuts.size()) {
+				const auto num = shortcuts.size() - migratedShortcuts.size();
+				QMessageBox::warning(nullptr, QObject::tr("Shortcuts migration incomplete"),
+									 QObject::tr("Unfortunately %1 shortcut(s) could not be migrated.\nYou can register them again.").arg(num));
+			}
 
-	} else if (Global::get().s.uiUpdateCounter == 1) {
-		// Previous versions used old idle action style, convert it
-
-		if (Global::get().s.iIdleTime == 5 * 60) { // New default
-			Global::get().s.iaeIdleAction = Settings::Nothing;
-		} else {
-			Global::get().s.iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
-			Global::get().s.iaeIdleAction = Settings::Deafen;                             // Old behavior
+			shortcuts = migratedShortcuts;
 		}
+#endif
 	}
 
 	if (runaudiowizard) {
@@ -727,7 +744,7 @@ int main(int argc, char **argv) {
 		delete aw;
 	}
 
-	Global::get().s.uiUpdateCounter = 2;
+	Global::get().s.uiUpdateCounter = 3;
 
 	if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
 		QFile qf(qdCert.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));

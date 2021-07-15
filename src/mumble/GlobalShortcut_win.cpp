@@ -208,6 +208,103 @@ void GlobalShortcutWin::registerMetaTypes() {
 	}
 }
 
+QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &oldShortcuts) {
+	constexpr QUuid keyboardUuid(0x6F1D2B61, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
+	constexpr QUuid mouseUuid(0x6F1D2B60, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
+	constexpr QUuid xinputUuid(0xCA3937E3, 0x640C, 0x4D9E, 0x9E, 0xF3, 0x90, 0x3F, 0x8B, 0x4F, 0xBC, 0xAB);
+	constexpr QUuid gkeyKeyboardUuid(0x153E64E6, 0x98C8, 0x4E, 0x03, 0x80EF, 0x5F, 0xFD, 0x33, 0xD2, 0x5B, 0x8A);
+	constexpr QUuid gkeyMouseUuid(0xC41E60AF, 0x9022, 0x46CF, 0xBC, 0x39, 0x37, 0x98, 0x10, 0x82, 0xD7, 0x16);
+
+	QList< Shortcut > newShortcuts;
+
+	for (auto shortcut : oldShortcuts) {
+		bool ok = true;
+
+		for (auto &button : shortcut.qlButtons) {
+			if (!button.isValid()) {
+				// This happens when the user runs a version that uses
+				// the old format after the migration is performed.
+				ok = false;
+				break;
+			}
+
+			if (button.userType() == qMetaTypeId< InputHid >() || button.userType() == qMetaTypeId< InputKeyboard >()
+				|| button.userType() == qMetaTypeId< InputMouse >() || button.userType() == qMetaTypeId< InputXinput >()
+				|| button.userType() == qMetaTypeId< InputGkey >()) {
+				// Already in the new format.
+				continue;
+			}
+
+			const auto entries = button.toList();
+			if (entries.size() < 2) {
+				ok = false;
+				break;
+			}
+
+			auto value = entries.at(0).toUInt(&ok);
+			if (!ok) {
+				break;
+			}
+
+			const auto uuid = entries.at(1).toUuid();
+			if (uuid == keyboardUuid) {
+				InputKeyboard input;
+				input.code = (value & ~0x8000U) >> 8;
+				input.e0   = value & 0x8000U;
+
+				// With DirectInput the extended bit is:
+				// - Set for the Pause key.
+				// - Unset for the Numlock key.
+				// With raw input it's the opposite.
+				if (input.code == 0x45) {
+					input.e0 = !input.e0;
+				}
+
+				button = QVariant::fromValue(input);
+			} else if (uuid == mouseUuid) {
+				value >>= 8;
+				if (value < 3 || value > 7) {
+					ok = false;
+					break;
+				}
+
+				button = QVariant::fromValue(static_cast< InputMouse >(value - 2));
+#ifdef USE_XBOXINPUT
+			} else if (uuid == xinputUuid) {
+				InputXinput input;
+				input.device = (value >> 24) & 0xFF;
+				input.code   = value & 0x00FFFFFF;
+
+				button = QVariant::fromValue(input);
+#endif
+#ifdef USE_GKEY
+			} else if (uuid == gkeyKeyboardUuid) {
+				InputGkey input = {};
+				input.keyboard  = true;
+				input.mode      = value >> 16;
+				input.button    = value & 0xFFFF;
+
+				button = QVariant::fromValue(input);
+			} else if (uuid == gkeyMouseUuid) {
+				InputGkey input = {};
+				input.button    = value;
+
+				button = QVariant::fromValue(input);
+#endif
+			} else {
+				ok = false;
+				break;
+			}
+		}
+
+		if (ok) {
+			newShortcuts << shortcut;
+		}
+	}
+
+	return newShortcuts;
+}
+
 GlobalShortcutWin::GlobalShortcutWin()
 #ifdef USE_XBOXINPUT
 	: m_xinputDevices(0), m_xinputLastPacket()
