@@ -195,34 +195,48 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	bool ok     = false;
 	bool nameok = validateUserName(uSource->qsName);
-	QString pw  = u8(msg.password());
-
-	// Fetch ID and stored username.
-	// Since this may call DBus, which may recall our dbus messages, this function needs
-	// to support re-entrancy, and also to support the fact that sessions may go away.
-	int id = authenticate(uSource->qsName, pw, uSource->uiSession, uSource->qslEmail, uSource->qsHash,
-						  uSource->bVerified, uSource->peerCertificateChain());
-
-	uSource->iId = id >= 0 ? id : -1;
 
 	QString reason;
 	MumbleProto::Reject_RejectType rtType = MumbleProto::Reject_RejectType_None;
+	int id                                = -2;
 
-	if (id == -2 && !nameok) {
-		reason = "Invalid username";
-		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
-	} else if (id == -1) {
-		reason = "Wrong certificate or password for existing user";
-		rtType = MumbleProto::Reject_RejectType_WrongUserPW;
-	} else if (id == -2 && !qsPassword.isEmpty() && qsPassword != pw) {
-		reason = "Invalid server password";
-		rtType = MumbleProto::Reject_RejectType_WrongServerPW;
-	} else if (id == -3) {
-		reason = "Your account information can not be verified currently. Please try again later";
-		rtType = MumbleProto::Reject_RejectType_AuthenticatorFail;
+	if (!bForceUsernameCertSubjectEquality
+		|| (bCertRequired
+			&& uSource->qsName
+				   == uSource->peerCertificateChain()
+						  .first() // First in chain is the users certificate
+						  .subjectInfo(QSslCertificate::SubjectInfo::CommonName)
+						  .join(""))) {
+		QString pw = u8(msg.password());
+
+		// Fetch ID and stored username.
+		// Since this may call DBus, which may recall our dbus messages, this function needs
+		// to support re-entrancy, and also to support the fact that sessions may go away.
+		id = authenticate(uSource->qsName, pw, uSource->uiSession, uSource->qslEmail, uSource->qsHash,
+						  uSource->bVerified, uSource->peerCertificateChain());
+
+
+		if (id == -2 && !nameok) {
+			reason = "Invalid username";
+			rtType = MumbleProto::Reject_RejectType_InvalidUsername;
+		} else if (id == -1) {
+			reason = "Wrong certificate or password for existing user";
+			rtType = MumbleProto::Reject_RejectType_WrongUserPW;
+		} else if (id == -2 && !qsPassword.isEmpty() && qsPassword != pw) {
+			reason = "Invalid server password";
+			rtType = MumbleProto::Reject_RejectType_WrongServerPW;
+		} else if (id == -3) {
+			reason = "Your account information can not be verified currently. Please try again later";
+			rtType = MumbleProto::Reject_RejectType_AuthenticatorFail;
+		} else {
+			ok = true;
+		}
 	} else {
-		ok = true;
+		reason = "On this server it is required that your username equals the common name of your certificate subject!";
+		rtType = MumbleProto::Reject_RejectType_UsernameCertMissmatch;
 	}
+	uSource->iId = id >= 0 ? id : -1;
+
 
 	ServerUser *uOld = nullptr;
 	foreach (ServerUser *u, qhUsers) {
@@ -2197,8 +2211,8 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 
 	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
 	// matter for the client
-	size_t receiverAmount                                                                 = msg.receiversessions_size();
-	const ::google::protobuf::RepeatedField<::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
+	size_t receiverAmount = msg.receiversessions_size();
+	const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
 
 	msg.clear_receiversessions();
 
