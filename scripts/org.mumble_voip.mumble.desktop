@@ -11,6 +11,7 @@ Icon=mumble
 Terminal=false
 Type=Application
 StartupNotify=false
+StartupWMClass=mumble
 MimeType=x-scheme-handler/mumble;
 Categories=Network;Chat;Qt;
 Keywords=VoIP;Messaging;Voice Chat;Secure Communication;
