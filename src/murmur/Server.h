@@ -12,6 +12,7 @@
 #	include "win.h"
 #endif
 
+#include "../crypto/CryptStateFactory.h"
 #include "ACL.h"
 #include "Ban.h"
 #include "ChannelListenerManager.h"
@@ -169,7 +170,7 @@ public:
 	Timer tUptime;
 
 	bool bValid;
-	bool bUdp;
+	bool m_udp;
 
 	ChannelListenerManager m_channelListenerManager;
 

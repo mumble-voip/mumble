@@ -15,7 +15,7 @@
 #include "ServerUser.h"
 #include "User.h"
 #include "Version.h"
-#include "VoiceProtocolType.h"
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
 
 #include <QtCore/QStack>
@@ -163,53 +163,58 @@ bool isChannelEnterRestricted(Channel *c) {
 void Server::msgCapabilities(ServerUser *uSource, MumbleProto::Capabilities &msg) {
 	MSG_SETUP(ServerUser::Connected);
 	std::string protocol_list_str;
-	for (int i = 0; i < msg.supported_protocols_size(); ++i){
-		const std::string& protocol_type_string = msg.supported_protocols(i);
+	for (int i = 0; i < msg.protocols_size(); ++i) {
+		const std::string &protocol_type_string = msg.protocols(i);
 
-		if (protocol_type_string.empty()) continue;
+		if (protocol_type_string.empty())
+			continue;
 		protocol_list_str.append(protocol_type_string);
 		protocol_list_str.append(", ");
 
-		VoiceProtocol vp(protocol_type_string);
-		uSource->supportedVoiceProtocols.append(vp);
-
+		uSource->m_supportedVoiceProtocols.push_back(VoiceProtocol::fromString(protocol_type_string));
 	}
 
-	log(uSource, QString("Client supports voice protocols: %1").arg(
-		QString::fromStdString(protocol_list_str.substr(0, protocol_list_str.length() - 2))));
+	log(uSource,
+		QString("Client supports voice protocols: %1")
+			.arg(QString::fromStdString(protocol_list_str.substr(0, protocol_list_str.length() - strlen(", ")))));
 
-	VoiceProtocolType vpt = VoiceProtocolType::UNDEFINED;
-	std::string vpt_name;
+	std::shared_ptr< VoiceProtocol > protocol_selected;
 
-	if (bUdp) {
-		for (VoiceProtocolType server_proto_type: Meta::mp.allowedVoiceProtocolTypes) {
-			for (const VoiceProtocol &client_proto: uSource->supportedVoiceProtocols) {
-				if (client_proto.protocolType == VoiceProtocolType::UNSUPPORTED) continue;
-				if (client_proto.protocolType == server_proto_type) {
-					vpt = client_proto.protocolType;
-					vpt_name = client_proto.toString();
+	if (m_udp) {
+		for (const std::shared_ptr< VoiceProtocol > &server_proto : Meta::mp.m_allowedVoiceProtocols) {
+			for (const std::shared_ptr< VoiceProtocol > &client_proto : uSource->m_supportedVoiceProtocols) {
+				if (!client_proto->isValid())
+					continue;
+				if (*client_proto == *server_proto) {
+					protocol_selected = client_proto;
 					break;
 				}
 			}
-			if (vpt != VoiceProtocolType::UNDEFINED) break;
+			if (protocol_selected->isValid())
+				break;
 		}
 	}
 
 	MumbleProto::Capabilities mpc;
 
-	if (vpt != VoiceProtocolType::UNDEFINED) {
-		uSource->voiceProtocolType = vpt;
-		log(uSource, QString("Use voice protocol: %1").arg(QString::fromStdString(vpt_name)));
+	uSource->m_voiceProtocol = protocol_selected;
+	if (protocol_selected->isValid()) {
+		log(uSource, QString("Use voice protocol: %1").arg(QString::fromStdString(protocol_selected->toString())));
 
-		mpc.add_supported_protocols(vpt_name);
+		mpc.add_protocols(protocol_selected->toString());
 	} else {
-		log(uSource, QString("No mutually acceptable voice protocol. Negotiation failed."));
+		uSource->m_voiceProtocolNegotiationFailed = true;
+		log(uSource,
+			QString(
+				"No mutually acceptable voice protocol. Negotiation failed. UDP connection will not be established."));
 	}
 
 	sendMessage(uSource, mpc);
 
-	if (vpt == VoiceProtocolType::UDP_AES_128_OCB2 || vpt == VoiceProtocolType::UDP_AES_256_GCM) {
-		uSource->initializeCipher();
+	if (protocol_selected->m_transport == VoiceTransportType::UDP) {
+		auto uvp         = std::dynamic_pointer_cast< UDPVoiceProtocol >(protocol_selected);
+		uSource->csCrypt = CryptStateFactory::getFactory().getCryptState(uvp->m_udpCipher);
+
 		if (uSource->sState == ServerUser::Authenticated) {
 			MumbleProto::CryptSetup mpcrypt;
 			mpcrypt.set_key(uSource->csCrypt->getRawKey());
@@ -364,16 +369,15 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	// Setup UDP encryption
-	{
-		if (uSource->voiceProtocolType == VoiceProtocolType::UNDEFINED) {
+	if (!uSource->m_voiceProtocolNegotiationFailed) {
+		if (!uSource->m_voiceProtocol->isValid()) {
 			// If no Capabilities message has been received
 			log(uSource, "No Capabilities message received. Assuming UDP_AES_128_OCB2 is used.");
-			uSource->voiceProtocolType = VoiceProtocolType::UDP_AES_128_OCB2;
-			uSource->initializeCipher();
+			uSource->m_voiceProtocol = std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_128_OCB2));
+			uSource->csCrypt         = CryptStateFactory::getFactory().getCryptState(CipherType::AES_128_OCB2);
 		}
 
-		if (uSource->voiceProtocolType == VoiceProtocolType::UDP_AES_128_OCB2
-		    || uSource->voiceProtocolType == VoiceProtocolType::UDP_AES_256_GCM) {
+		if (uSource->m_voiceProtocol->m_transport == VoiceTransportType::UDP) {
 			QMutexLocker l(&uSource->qmCrypt);
 
 			uSource->csCrypt->genKey();
@@ -1916,7 +1920,8 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 
 	QMutexLocker l(&uSource->qmCrypt);
 
-	if (!uSource->csCrypt || !uSource->csCrypt->isValid()) return;
+	if (!uSource->csCrypt || !uSource->csCrypt->isValid())
+		return;
 
 	if (!msg.has_client_nonce()) {
 		// A client will request a resync if key-iv combination is no longer safe,
@@ -2157,7 +2162,6 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 		QMutexLocker l(&pDstServerUser->qmCrypt);
 
 		if (pDstServerUser->csCrypt) {
-			// TODO: this section is not applicable to voice over TCP
 			mpusss = msg.mutable_from_client();
 			mpusss->set_good(pDstServerUser->csCrypt->uiGood);
 			mpusss->set_late(pDstServerUser->csCrypt->uiLate);

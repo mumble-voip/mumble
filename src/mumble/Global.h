@@ -9,11 +9,13 @@
 #include <QtCore/QDir>
 #include <boost/shared_ptr.hpp>
 
+#include "../crypto/CryptStateFactory.h"
 #include "ACL.h"
 #include "ChannelListenerManager.h"
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
+#include "VoiceProtocol.h"
 
 #include <memory>
 

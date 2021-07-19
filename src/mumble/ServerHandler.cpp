@@ -29,7 +29,7 @@
 #include "ServerResolverRecord.h"
 #include "User.h"
 #include "Utils.h"
-#include "VoiceProtocolType.h"
+#include "VoiceProtocol.h"
 #include "Global.h"
 
 #include <QtCore/QtEndian>
@@ -287,7 +287,7 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 	if (!connection)
 		return;
 
-	unsigned int encrypted_len = len + connection->csCrypt->headLength;
+	unsigned int encrypted_len = len + connection->csCrypt->HEAD_LENGTH;
 	STACKVAR(unsigned char, encrypted, encrypted_len);
 
 
@@ -302,10 +302,13 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt || !connection->csCrypt->isValid()) return;
+		if (!connection->csCrypt || !connection->csCrypt->isValid())
+			return;
 
-		if(!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), encrypted, len, encrypted_len)) {
+		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), encrypted, len,
+										  encrypted_len)) {
 			// encrypt fails means the current key-iv combination is no longer safe, request the server to regenerate
+			qWarning("ServerHandler.cpp: Encryption failed. Request new key-iv combination from the server");
 			MumbleProto::CryptSetup mpcs;
 			sendMessage(mpcs);
 			return;
@@ -632,13 +635,16 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
 			ConnectionPtr connection(cConnection);
-			if (!connection || !connection->csCrypt)
+			if (!connection)
 				return;
 
 			// Reset in-flight TCP ping counter to 0.
 			// We've received a ping. That means the
 			// connection is still OK.
 			iInFlightTCPPings = 0;
+
+			if (!connection->csCrypt)
+				return;
 
 			connection->csCrypt->uiRemoteGood   = msg.good();
 			connection->csCrypt->uiRemoteLate   = msg.late();
@@ -780,12 +786,10 @@ void ServerHandler::serverConnectionConnected() {
 
 	sendMessage(mpv);
 
-	// Set default cipher, in case the server doesn't support Capabilities message.
-	connection->voiceProtocolType = VoiceProtocolType::UDP_AES_128_OCB2;
-	connection->initializeCipher();
 	MumbleProto::Capabilities mpc;
-	mpc.add_supported_protocols(VoiceProtocol(VoiceProtocolType::UDP_AES_256_GCM).toString());
-	mpc.add_supported_protocols(VoiceProtocol(VoiceProtocolType::UDP_AES_128_OCB2).toString());
+	for (CipherType ct : CryptStateFactory::getFactory().getAvailableCiphers()) {
+		mpc.add_protocols(UDPVoiceProtocol(ct).toString());
+	}
 
 	sendMessage(mpc);
 

@@ -129,7 +129,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha             = false;
 	bOpus                    = true;
-	bUdp                     = true;
+	m_udp                    = true;
 
 	qnamNetwork = nullptr;
 
@@ -190,7 +190,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		if (sock == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");
 			bValid = false;
-			bUdp = false;
+			m_udp  = false;
 			return;
 		} else {
 			if (addr.ss_family == AF_INET6) {
@@ -212,7 +212,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 			if (::bind(sock, reinterpret_cast< sockaddr * >(&addr), len) == SOCKET_ERROR) {
 				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
-				bUdp = false;
+				m_udp = false;
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
@@ -984,15 +984,14 @@ void Server::run() {
 int Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
-	if (u->voiceProtocolType != VoiceProtocolType::UDP_AES_128_OCB2 && u->voiceProtocolType != VoiceProtocolType::UDP_AES_256_GCM)
+	if (u->m_voiceProtocol->m_transport != VoiceTransportType::UDP)
 		return -1;
 
 	unsigned int plain_length = 0;
 
-	if (u->csCrypt && u->csCrypt->isValid() &&
-		u->csCrypt->decrypt(
-			reinterpret_cast<const unsigned char *>(encrypt),
-			reinterpret_cast<unsigned char *>(plain), len, plain_length))
+	if (u->csCrypt && u->csCrypt->isValid()
+		&& u->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypt),
+							   reinterpret_cast< unsigned char * >(plain), len, plain_length))
 		return plain_length;
 
 	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {
@@ -1011,7 +1010,7 @@ void Server::sendMessage(ServerUser *u, const char *data, unsigned int len, QByt
 	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	if ((u->aiUdpFlag.load() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #endif
-		unsigned int encrypted_len = len + u->csCrypt->headLength;
+		unsigned int encrypted_len = len + u->csCrypt->HEAD_LENGTH;
 
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, encrypted_len + 16);
@@ -1027,9 +1026,8 @@ void Server::sendMessage(ServerUser *u, const char *data, unsigned int len, QByt
 				return;
 			}
 
-			if (!u->csCrypt->encrypt(
-				reinterpret_cast< const unsigned char * >(data),
-				reinterpret_cast< unsigned char * >(buffer), len, encrypted_len)) {
+			if (!u->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data),
+									 reinterpret_cast< unsigned char * >(buffer), len, encrypted_len)) {
 				// encryption failure means current key-iv combination is no longer safe
 				// and a new combination is needed.
 				emit reqSync(u->uiSession);

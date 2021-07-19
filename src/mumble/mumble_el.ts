@@ -6376,6 +6376,10 @@ Valid options are:
         <source>Mumble - Minimal View</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Voice protocol negotiation failed. UDP connection won&apos;t be established in this session. All voice data will be sent over TCP control channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
