@@ -27,9 +27,11 @@ HANDLE Connection::hQoS = nullptr;
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
-	iPacketLength        = -1;
-	bDisconnectedEmitted = false;
-	csCrypt              = nullptr;
+	iPacketLength                    = -1;
+	bDisconnectedEmitted             = false;
+	csCrypt                          = nullptr;
+	m_voiceProtocol                  = VoiceProtocol::fromString("");
+	m_voiceProtocolNegotiationFailed = false;
 
 	static bool bDeclared = false;
 	if (!bDeclared) {
@@ -260,18 +262,3 @@ void Connection::setQoS(HANDLE hParentQoS) {
 	hQoS = hParentQoS;
 }
 #endif
-
-void Connection::initializeCipher() {
-	switch (voiceProtocolType) {
-		case VoiceProtocolType::UDP_AES_128_OCB2:
-			csCrypt = std::make_unique<CryptStateOCB2>();
-			break;
-		case VoiceProtocolType::UDP_AES_256_GCM:
-			csCrypt = std::make_unique<CryptStateAES256GCM>();
-			break;
-		case VoiceProtocolType::UNDEFINED:
-		case VoiceProtocolType::UNSUPPORTED:
-		default:
-			break;
-	}
-}

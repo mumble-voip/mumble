@@ -22,9 +22,9 @@ message Version {
 
 // Sent after the version packet, indicate the protocol preference of the client.
 // - This message is not required for text-only clients. It can be sent before or after
-//   the Authenticate message. However, it has be sent before transmitting any audio data.
+//   the Authenticate message. However, it has to be sent before transmitting any audio data.
 // - The server will reply with a Capabilities message as well, with one item in the list,
-//   indicating the protocol it determines to use.
+//   indicating the protocol to be used.
 // - In the middle of a session, a client can perform this negotiation again by sending another
 //   valid Capabilities message. The server may also request the client to use another protocol
 //   by sending a Capabilities message with the protocol it'd like to switch to.
@@ -32,9 +32,9 @@ message Capabilities {
   // A list of strings that indicates the name of supported protocols of the client, sorted by preference
   // of that client.
   // Currently available options:
-  //  - UDP_AES_128_OCB2
-  //  - UDP_AES_256_GCM
-  repeated string supported_protocols = 1;
+  //  - MUMBLE_UDP_AES-128-OCB2
+  //  - MUMBLE_UDP_AES-256-GCM
+  repeated string protocols = 1;
 }
 
 // Not used. Not even for tunneling UDP through TCP.

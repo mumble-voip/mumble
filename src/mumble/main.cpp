@@ -45,6 +45,7 @@
 #include "Translations.h"
 #include "UserLockFile.h"
 #include "VersionCheck.h"
+#include "VoiceProtocol.h"
 #include "Global.h"
 
 #include <QLocale>
@@ -201,6 +202,8 @@ int main(int argc, char **argv) {
 
 	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
 	Global::get().c  = new DeveloperConsole();
+
+	UDPVoiceProtocol::m_cryptStateFactory = Global::get().m_cryptStateFactory;
 
 	os_init();
 

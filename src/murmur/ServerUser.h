@@ -140,7 +140,7 @@ public:
 	QList< int > qlCodecs;
 	bool bOpus;
 
-	QList< VoiceProtocol > supportedVoiceProtocols;
+	std::vector< std::shared_ptr< VoiceProtocol > > m_supportedVoiceProtocols;
 
 	QStringList qslAccessTokens;
 

@@ -12,10 +12,10 @@
 #	include "win.h"
 #endif
 
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
-#include "crypto/CryptStateOCB2.h"
 #include "crypto/CryptStateAES256GCM.h"
-#include "VoiceProtocolType.h"
+#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
@@ -71,8 +71,6 @@ public:
 	qint64 activityTime() const;
 	void resetActivityTime();
 
-	void initializeCipher();
-
 #ifdef MURMUR
 	/// qmCrypt locks access to csCrypt.
 	QMutex qmCrypt;
@@ -90,7 +88,9 @@ public:
 	/// Look up the local port of this Connection.
 	quint16 localPort() const;
 	bool bDisconnectedEmitted;
-	VoiceProtocolType voiceProtocolType;
+
+	std::shared_ptr< VoiceProtocol > m_voiceProtocol;
+	bool m_voiceProtocolNegotiationFailed;
 
 	void setToS();
 #ifdef Q_OS_WIN

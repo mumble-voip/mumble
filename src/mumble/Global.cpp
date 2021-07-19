@@ -126,6 +126,8 @@ Global::Global(const QString &qsConfigPath) {
 
 	channelListenerManager = std::make_unique< ChannelListenerManager >();
 
+	m_cryptStateFactory = std::make_shared< CryptStateFactory >();
+
 #if defined(Q_OS_WIN)
 	QString appdata;
 	wchar_t appData[MAX_PATH];

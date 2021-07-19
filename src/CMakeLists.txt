@@ -74,11 +74,13 @@ set(SHARED_SOURCES
 	"UnresolvedServerAddress.cpp"
 	"User.cpp"
 	"Version.cpp"
+	"VoiceProtocol.cpp"
 
 	"crypto/CryptographicHash.cpp"
 	"crypto/CryptographicRandom.cpp"
 	"crypto/CryptStateOCB2.cpp"
 	"crypto/CryptStateAES256GCM.cpp"
+	"crypto/CryptStateFactory.cpp"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"
 )
@@ -111,13 +113,15 @@ set(SHARED_HEADERS
 	"UnresolvedServerAddress.h"
 	"User.h"
 	"Version.h"
-	"VoiceProtocolType.h"
+	"VoiceProtocol.h"
 
 	"crypto/CryptographicHash.h"
 	"crypto/CryptographicRandom.h"
 	"crypto/CryptState.h"
 	"crypto/CryptStateOCB2.h"
 	"crypto/CryptStateAES256GCM.h"
+	"crypto/CipherType.h"
+	"crypto/CryptStateFactory.h"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.h"
 )
