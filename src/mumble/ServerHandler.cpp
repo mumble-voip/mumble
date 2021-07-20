@@ -287,7 +287,7 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 	if (!connection)
 		return;
 
-	unsigned int encrypted_len = len + connection->csCrypt->HEAD_LENGTH;
+	unsigned int encrypted_len = len + connection->csCrypt->headLength;
 	STACKVAR(unsigned char, encrypted, encrypted_len);
 
 
