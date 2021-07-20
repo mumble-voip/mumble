@@ -19,7 +19,8 @@ if(client)
 endif()
 
 if(server)
-	use_test("TestCrypt")
+	use_test("TestOCB2Crypt")
+	use_test("TestAES256GCMCrypt")
 endif()
 
 # Shared tests

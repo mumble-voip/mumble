@@ -559,6 +559,9 @@ int main(int argc, char **argv) {
 
 	meta = new Meta();
 
+	meta->m_cryptStateFactory             = std::make_shared< CryptStateFactory >();
+	UDPVoiceProtocol::m_cryptStateFactory = meta->m_cryptStateFactory;
+
 	QObject::connect(meta, SIGNAL(started(Server *)), &db, SLOT(clearLastDisconnect(Server *)));
 
 #ifdef Q_OS_UNIX

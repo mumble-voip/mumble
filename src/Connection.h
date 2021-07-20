@@ -12,7 +12,9 @@
 #	include "win.h"
 #endif
 
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
+#include "crypto/CryptStateAES256GCM.h"
 #include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
@@ -86,6 +88,9 @@ public:
 	/// Look up the local port of this Connection.
 	quint16 localPort() const;
 	bool bDisconnectedEmitted;
+
+	std::shared_ptr< VoiceProtocol > m_voiceProtocol;
+	bool m_voiceProtocolNegotiationFailed;
 
 	void setToS();
 #ifdef Q_OS_WIN

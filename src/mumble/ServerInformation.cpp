@@ -116,7 +116,7 @@ void ServerInformation::updateConnectionDetails() {
 	}
 
 	// UDP
-	if (NetworkConfig::TcpModeEnabled()) {
+	if (NetworkConfig::TcpModeEnabled() || !connection->m_voiceProtocol->isValid()) {
 		connection_udp_infoMessage->show();
 
 		connection_udp_encryption->hide();
@@ -136,8 +136,9 @@ void ServerInformation::updateConnectionDetails() {
 		// Actually fill in data
 		const float latency   = boost::accumulators::mean(Global::get().sh->accUDP);
 		const float deviation = std::sqrt(boost::accumulators::variance(Global::get().sh->accUDP));
+		auto udpVoiceProtocol = std::dynamic_pointer_cast< UDPVoiceProtocol >(connection->m_voiceProtocol);
 
-		connection_udp_encryption->setText("128 bit OCB-AES128");
+		connection_udp_encryption->setText(CipherTypeDescription(udpVoiceProtocol->m_udpCipher).description);
 		connection_udp_latency->setText(latencyString.arg(latency, 0, 'f', 1).arg(deviation, 0, 'f', 1));
 
 		populateUDPStatistics(*connection);
