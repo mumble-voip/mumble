@@ -9,7 +9,7 @@
 #include "SSL.h"
 #include "Timer.h"
 #include "Utils.h"
-#include "crypto/CryptStateAES256GCM.h"
+#include "crypto/CryptStateEVP.h"
 #include <string>
 
 class TestAES256GCMCrypt : public QObject {

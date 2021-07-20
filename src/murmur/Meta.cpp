@@ -317,9 +317,11 @@ void MetaParams::read(QString fname) {
 		m_allowedVoiceProtocols.push_back(
 			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_256_GCM)));
 		m_allowedVoiceProtocols.push_back(
+			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::CHACHA20_POLY1305)));
+		m_allowedVoiceProtocols.push_back(
 			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_128_OCB2)));
-		qInfo("Meta: No voice protocol preference set. Use MUMBLE_UDP_AES-256-GCM, MUMBLE_UDP_AES-128-OCB2 as default "
-			  "voice protocol.");
+		qInfo("Meta: No voice protocol preference set. Use MUMBLE_UDP_AES-256-GCM, MUMBLE_UDP_CHACHA20-POLY1305, "
+			  "MUMBLE_UDP_AES-128-OCB2 as default voice protocol.");
 	}
 
 

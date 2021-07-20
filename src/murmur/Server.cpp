@@ -1010,7 +1010,7 @@ void Server::sendMessage(ServerUser *u, const char *data, unsigned int len, QByt
 	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	if ((u->aiUdpFlag.load() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #endif
-		unsigned int encrypted_len = len + u->csCrypt->HEAD_LENGTH;
+		unsigned int encrypted_len = len + u->csCrypt->headLength;
 
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, encrypted_len + 16);

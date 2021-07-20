@@ -79,8 +79,8 @@ set(SHARED_SOURCES
 	"crypto/CryptographicHash.cpp"
 	"crypto/CryptographicRandom.cpp"
 	"crypto/CryptStateOCB2.cpp"
-	"crypto/CryptStateAES256GCM.cpp"
 	"crypto/CryptStateFactory.cpp"
+	"crypto/EVPCiphers.cpp"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"
 )
@@ -118,10 +118,11 @@ set(SHARED_HEADERS
 	"crypto/CryptographicHash.h"
 	"crypto/CryptographicRandom.h"
 	"crypto/CryptState.h"
+	"crypto/CryptStateEVP.h"
 	"crypto/CryptStateOCB2.h"
-	"crypto/CryptStateAES256GCM.h"
 	"crypto/CipherType.h"
 	"crypto/CryptStateFactory.h"
+	"crypto/EVPCiphers.h"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.h"
 )

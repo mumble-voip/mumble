@@ -20,10 +20,10 @@ public:
 	static constexpr unsigned int KEY_LENGTH = AES_KEY_SIZE_BYTES;
 
 	/// The head is one iv byte plus 3 bytes of tag
-	static const unsigned int HEAD_LENGTH = 4;
+	const unsigned int headLength = 4;
 
 	CryptStateOCB2();
-	~CryptStateOCB2(){};
+	~CryptStateOCB2() override = default;
 
 	bool isValid() const override;
 	void genKey() override;

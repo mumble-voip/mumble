@@ -13,14 +13,11 @@ class CryptState {
 private:
 	Q_DISABLE_COPY(CryptState)
 public:
-	static constexpr unsigned int IV_LENGTH  = 0;
-	static constexpr unsigned int KEY_LENGTH = 0;
-
 	/// The plain input and encrypted output of the block cipher always preserve the same length.
 	/// However, in order to transmit the authenticate tag and the packet sequence number, an extra
 	/// "head" is needed to be attached to the packet.
-	/// This length varies from cipher to cipher and is stored in this `HEAD_LENGTH`.
-	static const unsigned int HEAD_LENGTH = 0;
+	/// This length varies from cipher to cipher and is stored in this `headLength`.
+	unsigned int headLength = 0;
 
 	unsigned int uiGood   = 0;
 	unsigned int uiLate   = 0;

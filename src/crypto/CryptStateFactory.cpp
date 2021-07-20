@@ -4,12 +4,13 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "CryptStateFactory.h"
-#include "CryptStateAES256GCM.h"
+#include "CryptStateEVP.h"
 #include "CryptStateOCB2.h"
 
 CryptStateFactory::CryptStateFactory() {
 	m_availableCiphers.push_back(CipherType::AES_128_OCB2);
 	m_availableCiphers.push_back(CipherType::AES_256_GCM);
+	m_availableCiphers.push_back(CipherType::CHACHA20_POLY1305);
 
 	for (CipherType cipher : m_availableCiphers) {
 		m_availableCipherLookup[CipherTypeDescription(cipher).name] = cipher;
@@ -27,6 +28,8 @@ std::unique_ptr< CryptState > CryptStateFactory::getCryptState(CipherType cipher
 			return std::make_unique< CryptStateOCB2 >();
 		case CipherType::AES_256_GCM:
 			return std::make_unique< CryptStateAES256GCM >();
+		case CipherType::CHACHA20_POLY1305:
+			return std::make_unique< CryptStateChaCha20Poly1305 >();
 		default:
 			throw CipherUnavailableException();
 	}

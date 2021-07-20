@@ -9,7 +9,7 @@
 #include <QObject>
 #include <string>
 
-enum class CipherType { INVALID = 0, AES_128_OCB2 = 1, AES_256_GCM = 2 };
+enum class CipherType { INVALID = 0, AES_128_OCB2 = 1, AES_256_GCM = 2, CHACHA20_POLY1305 = 3 };
 
 struct CipherTypeDescription {
 	CipherType type;
@@ -28,6 +28,11 @@ struct CipherTypeDescription {
 				type        = CipherType::AES_256_GCM;
 				name        = "AES-256-GCM";
 				description = QObject::tr("OpenSSL's 256-bit AES-GCM algorithm");
+				break;
+			case CipherType::CHACHA20_POLY1305:
+				type        = CipherType::CHACHA20_POLY1305;
+				name        = "CHACHA20-POLY1305";
+				description = QObject::tr("OpenSSL's ChaCha20-Poly1305 algorithm");
 				break;
 			default:
 				type        = CipherType::INVALID;

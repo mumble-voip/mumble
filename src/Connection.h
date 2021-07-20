@@ -14,8 +14,6 @@
 
 #include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
-#include "crypto/CryptStateAES256GCM.h"
-#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
@@ -76,7 +74,6 @@ public:
 	QMutex qmCrypt;
 #endif
 	std::unique_ptr< CryptState > csCrypt;
-
 	QList< QSslCertificate > peerCertificateChain() const;
 	QSslCipher sessionCipher() const;
 	QSsl::SslProtocol sessionProtocol() const;
