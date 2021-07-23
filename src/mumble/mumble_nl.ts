@@ -6442,7 +6442,7 @@ Geldige opties zijn:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Jezelf ontdempen</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
