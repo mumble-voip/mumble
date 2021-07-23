@@ -6463,7 +6463,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Widok minimalny</translation>
     </message>
 </context>
 <context>
@@ -7448,11 +7448,11 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadpisać wtyczkę?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa wtyczka &quot;%1&quot; (%2) ma zamiar nadpisać już zainstalowaną wtyczkę &quot;%3&quot; (%4). Czy chcesz kontynuować?</translation>
     </message>
 </context>
 <context>
