@@ -3274,7 +3274,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble failed to initialise a database in any of the possible locations.</translation>
     </message>
 </context>
 <context>
@@ -3617,7 +3617,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Size</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -3747,7 +3747,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ Invalid size ]]</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
@@ -4293,7 +4293,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customise the visual appearance of Mumble. This includes colours, icons and more.</translation>
     </message>
     <message>
         <source>User Dragging</source>
@@ -6747,7 +6747,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>To resize the users, mouse wheel over a user.</translation>
     </message>
     <message>
         <source>For more options, right click a user.</source>
@@ -7016,7 +7016,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Bounding box, automatically shrunk to minimum size to contain all visible elements</translation>
     </message>
     <message>
         <source>Bounding box</source>
@@ -7083,7 +7083,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color...</source>
-        <translation>Colour...</translation>
+        <translation>Colour…</translation>
     </message>
     <message>
         <source>Font...</source>

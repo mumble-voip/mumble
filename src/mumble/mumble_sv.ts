@@ -1026,15 +1026,15 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyst signal</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Blä&amp;ddra...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>För&amp;visa</translation>
     </message>
 </context>
 <context>
@@ -1430,11 +1430,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Avståndet där ljudvolymen från en annan spelare börjar minska</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstånd som en spelares ljudvolym har nått sitt minimivärde</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minsta volym som en spelares ljud kommer att tona ut med ökande avstånd. Ställ in på 0% för att den ska blekna till fullständig tystnad för ett realistiskt maximalt hörselavstånd.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Om en ljudkälla är tillräckligt nära kommer blommande att göra att ljudet spelas upp på alla högtalare mer eller mindre oavsett deras position (om än med lägre volym)</translation>
     </message>
 </context>
 <context>
@@ -3270,7 +3270,7 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP-fel %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>

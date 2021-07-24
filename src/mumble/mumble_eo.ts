@@ -13,19 +13,19 @@
     </message>
     <message>
         <source>Allow %1</source>
-        <translation>Permesi na %1</translation>
+        <translation>Permesi %1</translation>
     </message>
     <message>
         <source>Deny %1</source>
-        <translation>Malpermesi na %1</translation>
+        <translation>Malpermesi %1</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Aldoni kanalon</translation>
+        <translation>Mumble – Aldoni kanalon</translation>
     </message>
     <message>
         <source>Default server value</source>
-        <translation>Defaŭlta servilo</translation>
+        <translation>Implicita valoro de servilo</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -33,15 +33,15 @@
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Redakti na %1</translation>
+        <translation>Mumble – Redakti %1</translation>
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>identigilo: %1</translation>
+        <translation>Identigilo: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Tiu koncedas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
+        <translation>Tio donas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
@@ -49,11 +49,11 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Tiu forprenas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
+        <translation>Tio forprenas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialogo</translation>
+        <translation>Interagujo</translation>
     </message>
     <message>
         <source>Name</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Enigu la kanal-nomon ĉi tien.</translation>
+        <translation>Enigu nomon de kanalo ĉi tien.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,11 +73,11 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Enigu la kanal-pasvorton ĉi tien.</translation>
+        <translation>Enigu pasvorton de la kanalo ĉi tien.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>Kontroli por krei provizoran kanalon.</translation>
+        <translation>Marku por krei provizoran kanalon.</translation>
     </message>
     <message>
         <source>Temporary</source>
@@ -89,8 +89,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Pozicio&lt;/b&gt;&lt;br/&gt;
-Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo. Kanalo kun pli alta   &lt;i&gt;Pozicia&lt;/i&gt; valoro ĉiam estos metita sub alian kun pli malalta valoro, samo validas se male. Se la &lt;i&gt;Pozicia&lt;/i&gt; valoro de du kanaloj estas egalaj, ili nome ordiĝos laŭalfabete.
-</translation>
+Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble aranĝas la kanalojn en la arbo. Kanalo kun pli alta &lt;i&gt;Pozicia&lt;/i&gt; valoro ĉiam estos metita sub alian kun pli malalta valoro, kaj same male. Se la &lt;i&gt;Pozicia&lt;/i&gt; valoro de du kanaloj estas egala, ili nome ordiĝos laŭalfabete.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -106,7 +105,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Listo da grupoj</translation>
+        <translation>Listo de grupoj</translation>
     </message>
     <message>
         <source>Remove selected group</source>
@@ -118,7 +117,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>Heredi grup-anojn de patra objekto</translation>
+        <translation>Heredi grupanojn de patra objekto</translation>
     </message>
     <message>
         <source>Inherit</source>
@@ -130,7 +129,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>Inheritable</source>
-        <translation>Neheredebla</translation>
+        <translation>Heredebla</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
@@ -142,7 +141,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>Members</source>
-        <translation>Membroj</translation>
+        <translation>Anoj</translation>
     </message>
     <message>
         <source>Add</source>
@@ -166,11 +165,11 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>List of entries</source>
-        <translation>Listo da elementoj</translation>
+        <translation>Listo de elementoj</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation>Ĉu heredu ACLon de patro?</translation>
+        <translation>Ĉu heredi ACLon de patro?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
@@ -239,15 +238,15 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Tio </translation>
+        <translation>Tio aplikas la elementon al tiu ĉi kanalo.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikiĝas al tiu ĉi kanalo</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elemento devus aplikiĝi al sub-kanaloj.</translation>
     </message>
     <message>
         <source>Add new group</source>
@@ -265,23 +264,23 @@ Aldoni novan grupon.</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Enhavas la liston da anoj, kiuj aldoniĝis de ĉi tiu kanalo al la grupo.</translation>
+        <translation>Enhavas la liston de anoj, kiuj aldoniĝis de ĉi tiu kanalo al la grupo.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Enhavas liston da anoj kies grup-aneco ne estos heredita de patra kanalo.</translation>
+        <translation>Enhavas liston de anoj kies grupaneco ne estos heredita de patra kanalo.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Enhavas la liston da anoj, kiuj estis hereditaj de aliaj kanaloj.</translation>
+        <translation>Enhavas la liston de anoj, kiuj estis hereditaj de aliaj kanaloj.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Entajpu la nomon de uzanto, kiun vi volas aldoni al grupon kaj klaku Aldoni!</translation>
+        <translation>Entajpu la nomon de uzanto, kiun vi volas aldoni al la grupo kaj klaku al Aldoni.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Entajpu la nomon de uzanto, kiun vi volas forigi de grupo kaj klaku Aldoni!</translation>
+        <translation>Entajpu la nomon de uzanto, kiun vi volas forigi de la grupo kaj klaku al Aldoni.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -289,15 +288,15 @@ Aldoni novan grupon.</translation>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation>Baritaj membroj</translation>
+        <translation>Baritaj anoj</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Tiu igos la eron efektivigi al la sub-kanaloj de tiu kanalo.</translation>
+        <translation>Tio aplikos la elementon al la sub-kanaloj de tiu kanalo.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation>Efektivigas al sub-kanaloj</translation>
+        <translation>Aplikas al sub-kanaloj</translation>
     </message>
     <message>
         <source>Permissions</source>
@@ -309,70 +308,73 @@ Aldoni novan grupon.</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation>Grupo, al kiu tiu ĉi elemento aplikas</translation>
+        <translation>Grupo, al kiu tiu ĉi elemento aplikiĝas</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation>Uzant-identigilo</translation>
+        <translation>Uzanto-identigilo</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation>Uzanto, al kiu tiu ĉi elemento aplikas</translation>
+        <translation>Uzanto, al kiu tiu ĉi elemento aplikiĝas</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Tiu kontrolas al kiu uzanto tiu ero efektivigas. Simple entajpu la uzant-nomon kaj presu la enig-klavon por igi la servilon serĉi kongruon.</translation>
+        <translation>Tio kontrolas al kiu uzanto tiu ero aplikiĝas. Simple entajpu la uzant-nomon kaj presu la enig-klavon por igi la servilon serĉi kongruon.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Atributoj</translation>
+        <translation>&amp;Ecoj</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nomo&lt;/b&gt;&lt;br /&gt;Entajpu la kanal-nomon en tiun areon. La nomo devas obei la regulojn de la servilo, al kiu vi konektatas.</translation>
+        <translation>&lt;b&gt;Nomo&lt;/b&gt;&lt;br /&gt;Entajpu la nomon de kanalo en tiun areon. La nomo devas obei la regulojn de la servilo, al kiu vi konektiĝis.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Provizora&lt;/b&gt;&lt;br /&gt;
-Se kontrolita, la kreita kanalo estos markita kiel provizora. Ĉi tio indikas, ke la kanalo estos forigita aŭtomate post la lasta ludanto estas forlasinta.</translation>
+Se kontrolita, la kreita kanalo estos markita provizora. Ĉi tio indikas, ke la kanalo estos forigita aŭtomate post kiam la lasta ludanto foriros.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grupo&lt;/b&gt;&lt;br /&gt;
-Ĉi tiuj nuntempe estas ĉiuj difinitaj grupoj por la kanalo. Por krei novan grupon, kaj entajpu la nomon kaj premu la enigan klavon.</translation>
+Ĉi tiuj nuntempe estas ĉiuj difinitaj grupoj por la kanalo. Por krei novan grupon, entajpu la nomon kaj premu la enigan klavon.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Forigi&lt;/b&gt;&lt;br /&gt;Tio ĉi forigas nun elektitan grupon. Se la grupo estis heredita, ĝi ne foriĝos de la listo, sed ĉiuj lokaj informoj pri la grupo vakiĝos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Heredi&lt;/b&gt;&lt;br /&gt;Tio ĉi heredas ĉiujn grupanojn de la patro, se la grupo estas markita &lt;i&gt;heredebla&lt;/i&gt; en la patra kanalo.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Heredebla&lt;/b&gt;&lt;br /&gt;Tio ĉi heredebligas ĉi tiun grupon al subkanaloj. Se la grupo estas neheredebla, subkanaloj ankoraŭ povas krei novan grupon kun la sama nomo.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Heredita&lt;/b&gt;&lt;br /&gt;Tio ĉi indikas, ke la grupo estas heredita de la patra kanalo. Vi ne povas redakti ĉi tiun markon, ĝi estas pure informa.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Anoj&lt;/b&gt;&lt;br /&gt;
+Tiu ĉi listo enhavas ĉiujn anojn, kiuj estas aldonitaj al la grupo de la nuna kanalo. Atentu, ke tio ĉi ne inkluzivas anojn hereditajn de pli altaj niveloj de la kanala arbo. Tiuj povas troviĝi en la listo de &lt;i&gt;Hereditaj anoj&lt;/i&gt;. Por ke la listo ne herediĝu de malpli altnivelaj kanaloj, malmarku la elekton &lt;i&gt;Heredebla&lt;/i&gt; aŭ permane aldonu la anojn al la listo de &lt;i&gt;Ekskluzivitoj&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ekskluzivitoj&lt;/b&gt;&lt;br /&gt;
+Enhavas liston de anoj, kies grupaneco ne herediĝos de la patra kanalo.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Hereditoj&lt;/b&gt;&lt;br /&gt;
+Enhavas liston de anoj hereditaj de la nuna kanalo. Malmarku la elekton &lt;i&gt;Heredi&lt;/i&gt; por ke ĝi ne heredu de pli altnivelaj kanaloj.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
@@ -396,7 +398,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>Maksimuma nombro da uzantoj permesitaj en la kanalo</translation>
+        <translation>Maksimuma nombro de uzantoj permesitaj en la kanalo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -405,7 +407,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation>Ĉi tiu estas la ordiga ordo por la kanalo.</translation>
+        <translation>Ĉi tiu estas la ordigo por la kanalo.</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -421,7 +423,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel name</source>
-        <translation>Kanalnomo</translation>
+        <translation>Nomo de kanalo</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -448,7 +450,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Defaŭlta Karto de ALSA</translation>
+        <translation>Implicita karto de ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
@@ -459,7 +461,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Defaŭlta Karto de ALSA</translation>
+        <translation>Implicita karto de ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
@@ -481,7 +483,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ASIOConfig</name>
     <message>
         <source>%1 (version %2)</source>
-        <translation>%1 (versiono %2)</translation>
+        <translation>%1 (versio %2)</translation>
     </message>
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
@@ -542,11 +544,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Capabilities</source>
-        <translation>Ebleco</translation>
+        <translation>Povoj</translation>
     </message>
     <message>
         <source>Driver name</source>
-        <translation>Pelil-nomo</translation>
+        <translation>Nomo de pelilo</translation>
     </message>
     <message>
         <source>Buffer size</source>
@@ -582,7 +584,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speakers</source>
-        <translation>Parolantoj</translation>
+        <translation>Sonskatoloj</translation>
     </message>
     <message>
         <source>List of microphones</source>
@@ -719,11 +721,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation>Malŝaltita</translation>
+        <translation>Ne</translation>
     </message>
     <message>
         <source>On</source>
-        <translation>Enŝalti</translation>
+        <translation>Jes</translation>
     </message>
     <message>
         <source>Preview the audio cues</source>
@@ -743,7 +745,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Amplitude</source>
-        <translation>amplitudo</translation>
+        <translation>Amplitudo</translation>
     </message>
     <message>
         <source>Voice &amp;Hold</source>
@@ -763,7 +765,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech Above</source>
-        <translation>Parolado Pretere</translation>
+        <translation>Parolado Supere</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
@@ -831,7 +833,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Elŝaltite</translation>
+        <translation>Ne</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
@@ -875,11 +877,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Foliumi...</translation>
+        <translation>&amp;Foliumi…</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>F&amp;oliumi...</translation>
+        <translation>F&amp;oliumi…</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -1046,7 +1048,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Premi Por Paroli</translation>
+        <translation>Paroli dum premo</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1058,7 +1060,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation>Malŝaltita</translation>
+        <translation>Ne</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -1278,11 +1280,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation> Maksimuma Distanco</translation>
+        <translation>Maksimuma Distanco</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation>Minimuma Sonforteco</translation>
+        <translation>Minimuma laŭteco</translation>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
@@ -1290,7 +1292,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Loopback Test</source>
-        <translation>Testo de Inversa Ciklo</translation>
+        <translation>Testo de inversa ciklo</translation>
     </message>
     <message>
         <source>Delay Variance</source>
@@ -1307,11 +1309,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation>Perditaj Paketoj</translation>
+        <translation>Perdo de paketoj</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
-        <translation>Perditaj paketoj en la reĝimo de inversa ciklo</translation>
+        <translation>Perdo de paketoj en reĝimo de inversa ciklo</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
@@ -1327,11 +1329,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation>Atenui aplikaĵojn de...</translation>
+        <translation>Mallaŭtigi aplikaĵojn je…</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation>Atenuo de aliaj aplikaĵoj dum parolado</translation>
+        <translation>Mallaŭtigo de aliaj aplikaĵoj dum parolado</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
@@ -1553,7 +1555,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation>Sonaj Statistikaĵoj</translation>
+        <translation>Sonaj statistikaĵoj</translation>
     </message>
     <message>
         <source>Input Levels</source>
@@ -1618,11 +1620,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation>Probablo de Parolo</translation>
+        <translation>Probableco de Parolo</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation>Probablo de parolo</translation>
+        <translation>Probableco de parolo</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
@@ -1646,7 +1648,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tempo inter la du lastaj premoj de Premi-por-Paroli</translation>
+        <translation>Tempo inter la du lastaj premoj de Parolado dum premo</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -1693,7 +1695,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation>Son-agordi-asistanto</translation>
+        <translation>Asistanto pri agordo de sono</translation>
     </message>
     <message>
         <source>Introduction</source>
@@ -1709,11 +1711,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation>Ĝuu uzi na Mumble</translation>
+        <translation>Ĝuu uzadon de Mumble</translation>
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Aprarat-elekto</translation>
+        <translation>Elekto de aparato</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1782,11 +1784,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input Device</source>
-        <translation>Enig-aparato</translation>
+        <translation>Eniga aparato</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation>Elig-aparato</translation>
+        <translation>Eliga aparato</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
@@ -1822,7 +1824,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>Pozicia Sono</translation>
+        <translation>Pozicia sono</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
@@ -1901,7 +1903,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Premi Por Paroli:</translation>
+        <translation>Parolado dum premo:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -1953,7 +1955,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Custom</source>
-        <translation>Propre</translation>
+        <translation>Propra</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
@@ -2088,7 +2090,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Start</source>
-        <translation>Eki</translation>
+        <translation>Eko</translation>
     </message>
     <message>
         <source>End</source>
@@ -2136,15 +2138,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP address</source>
-        <translation>IP adreso</translation>
+        <translation>IP-adreso</translation>
     </message>
     <message>
         <source>No IP address</source>
-        <translation>Neniu IP adreso</translation>
+        <translation>Neniu IP-adreso</translation>
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation>Kialo por forbari</translation>
+        <translation>Kialo forbari</translation>
     </message>
     <message>
         <source>No reason</source>
@@ -2152,7 +2154,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Ban end date</source>
-        <translation>Dato de la forbara fino</translation>
+        <translation>Dato de fino de la forbaro</translation>
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
@@ -2344,11 +2346,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation>Atestila Administrado</translation>
+        <translation>Administrado de atestiloj</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation>Atestila Aŭtentigo</translation>
+        <translation>Aŭtentigo de atestiloj</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
@@ -2417,7 +2419,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation>Dosiernomo por enporti de</translation>
+        <translation>Dosiernomo por enporti</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2433,7 +2435,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Open...</source>
-        <translation>Malfermi...</translation>
+        <translation>Malfermi…</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2441,7 +2443,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
-        <translation>pasvorto por PKCS#12 dosiero</translation>
+        <translation>pasvorto por dosiero PKCS#12</translation>
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
@@ -2457,7 +2459,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate Details</source>
-        <translation>Detaloj de la Atestilo</translation>
+        <translation>Detaloj de la atestilo</translation>
     </message>
     <message>
         <source>Replace Certificate</source>
@@ -2493,7 +2495,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>Nova Atestilo</translation>
+        <translation>Nova atestilo</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
@@ -2521,7 +2523,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Generi novan atestilon por forta aŭtentigo</translation>
+        <translation>Generi novan atestilon por forta aŭtentikigo</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
@@ -2605,7 +2607,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Make temporary</source>
-        <translation>Dumtempigi</translation>
+        <translation>Provizorigi</translation>
     </message>
     <message>
         <source>Link channel</source>
@@ -2697,7 +2699,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Register User</source>
-        <translation>Registrigi Uzanton</translation>
+        <translation>Registri Uzanton</translation>
     </message>
     <message>
         <source>Register Self</source>
@@ -2729,7 +2731,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>Alglui kaj &amp;Sendi</translation>
+        <translation>Alglui kaj &amp;sendi</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
@@ -2756,7 +2758,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Authenticated</source>
-        <translation>Aŭtentigita</translation>
+        <translation>Aŭtentikigita</translation>
     </message>
     <message>
         <source>Priority speaker</source>
@@ -2768,19 +2770,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation>Mutigite (servilo)</translation>
+        <translation>Mutigite (de servilo)</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
-        <translation>Surdigite (servilo)</translation>
+        <translation>Surdigite (de servilo)</translation>
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
-        <translation>Loke Ignori (Tekstmesaĝojn)</translation>
+        <translation>Loke ignori (tekstmesaĝojn)</translation>
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Loke Mutigi</translation>
+        <translation>Loke mutigi</translation>
     </message>
     <message>
         <source>Muted (self)</source>
@@ -2866,7 +2868,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Enter username</source>
-        <translation>enigi uzantonomon</translation>
+        <translation>Enigi uzantonomon</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -2894,7 +2896,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation>Forigi de Favoratoj</translation>
+        <translation>Neelstarigi</translation>
     </message>
     <message>
         <source>Add custom server</source>
@@ -2906,7 +2908,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
-        <translation>Kopii favoratan ligilon al tondujo</translation>
+        <translation>Kopii elstaran ligilon al tondujo</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -2914,23 +2916,23 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
-        <translation>Alglui favoraton de tondujo</translation>
+        <translation>Alglui elstaranton de tondujo</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>%Redakti</translation>
+        <translation>%Redakti…</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation>&amp;Aldoni novan...</translation>
+        <translation>&amp;Aldoni novan…</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation>Aldoni al Favoratoj</translation>
+        <translation>&amp;Elstarigi</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation>Malfermi Retpaĝon</translation>
+        <translation>Malfermi &amp;retpaĝon</translation>
     </message>
     <message>
         <source>Server list</source>
@@ -3057,7 +3059,7 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialogEdit</name>
     <message>
         <source>Edit Server</source>
-        <translation>Redakti Servilon</translation>
+        <translation>Redakti servilon</translation>
     </message>
     <message>
         <source>Name of the server</source>
@@ -3094,17 +3096,17 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation>&amp;Uzantnomo</translation>
+        <translation>&amp;Uzantonomo</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation>La uzantnomo por sendi al la servilo</translation>
+        <translation>La uzantonomo sendota al la servilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation>&lt;b&gt;Uzantnomo&lt;/b&gt;&lt;br/&gt;
-La uzantnomo por sendi al la servilo. Konsciu ke la servilo povas trudi limigojn pri kiel uzantnomo povas aspekti. Krome via uzantnomo jam povas esti uzata de alia uzanto.</translation>
+        <translation>&lt;b&gt;Uzantonomo&lt;/b&gt;&lt;br/&gt;
+La uzantonomo sendota al la servilo. Konsciu ke la servilo povas trudi limigojn pri aspeto de uzantonomoj. Krome via uzantonomo jam povas esti uzata de alia uzanto.</translation>
     </message>
     <message>
         <source>Label</source>
@@ -3112,7 +3114,7 @@ La uzantnomo por sendi al la servilo. Konsciu ke la servilo povas trudi limigojn
     </message>
     <message>
         <source>Add Server</source>
-        <translation>Aldoni Servilon</translation>
+        <translation>Aldoni servilon</translation>
     </message>
     <message>
         <source>You are currently connected to a server.
@@ -3132,13 +3134,13 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation>La pasvorto por sendi al la servilo</translation>
+        <translation>Pasvorto sendota al la servilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation>&lt;b&gt;Pasvorto&lt;/b&gt;&lt;br/&gt;
-La pasvorto por sendi al la servilo ekkonekte. La pasvorto nepras, kiam oni konektas kiel &lt;i&gt;SuperUser&lt;i&gt; aŭ al servilo, kiu uzas perpasvortan aŭtentigon. Se la pasvorto ne estas enigita, ĝi estos petata ekkonekte.</translation>
+        <translation type="unfinished">&lt;b&gt;Pasvorto&lt;/b&gt;&lt;br/&gt;
+Pasvorto sendota al la servilo ekkonekte. La pasvorto nepras, kiam oni konektas kiel &lt;i&gt;SuperUser&lt;i&gt; aŭ al servilo, kiu uzas perpasvortan aŭtentikigon. Se la pasvorto ne estos enigita, ĝi petiĝos ekkonekte.</translation>
     </message>
     <message>
         <source>Show password</source>
@@ -3163,7 +3165,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Your username</source>
-        <translation>Via uzantnomo</translation>
+        <translation>Via uzantonomo</translation>
     </message>
     <message>
         <source>Your password</source>
@@ -3195,11 +3197,11 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Bonvolu priskribi koncize en la angla, kion vi faris kiam la kraŝo okazis</translation>
+        <translation>Bonvolu priskribi koncize en la angla, kion vi faris kiam la fiasko okazis</translation>
     </message>
     <message>
         <source>Send Report</source>
-        <translation>Sendi la Raporton</translation>
+        <translation>Sendi la r aporton</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
@@ -3308,7 +3310,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation>Tio daŭre forigi elektitan fulmoklavon.</translation>
+        <translation>Tio daŭre forigos elektitan fulmoklavon.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -3328,7 +3330,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
-        <translation>Ebligi Mallokajn Fulmoklavojn</translation>
+        <translation>Ŝalti mallokajn fulmoklavojn</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
@@ -3458,7 +3460,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of users</source>
-        <translation>Listo da uzantoj</translation>
+        <translation>Listo de uzantoj</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3565,7 +3567,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation>Ebligi ĉi tiun aparaton</translation>
+        <translation>Ŝalti ĉi tiun aparaton</translation>
     </message>
     <message>
         <source>LCD</source>
@@ -3594,7 +3596,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Enŝaltite</translation>
+        <translation>Ŝaltite</translation>
     </message>
     <message>
         <source>Views</source>
@@ -3638,11 +3640,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation>Sencimiga</translation>
+        <translation>Erarserĉado</translation>
     </message>
     <message>
         <source>Critical</source>
-        <translation>Grava</translation>
+        <translation>Gravaj</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -3698,7 +3700,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User renamed</source>
-        <translation>Uzanto renomiĝis</translation>
+        <translation>Uzanto alinomiĝis</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
@@ -3727,7 +3729,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation>[La dato ŝanĝis al %1]
+        <translation>[La dato ŝanĝiĝis al %1]
 </translation>
     </message>
     <message>
@@ -3938,7 +3940,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Maximum chat length</source>
-        <translation>Maksimuma babil-longo</translation>
+        <translation>Maksimuma longeco de babilo</translation>
     </message>
     <message>
         <source>Unlimited</source>
@@ -3946,7 +3948,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>Linioj</translation>
+        <translation> Linioj</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -4039,7 +4041,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>LookConfig</name>
     <message>
         <source>System default</source>
-        <translation>Sistema defaŭlto</translation>
+        <translation>Implicita de sistemo</translation>
     </message>
     <message>
         <source>None</source>
@@ -4072,7 +4074,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User Interface</source>
-        <translation>Uzanto-interfaco</translation>
+        <translation>Fasado de uzanto</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -4092,7 +4094,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Se agordata, kontrolos ke vi volas ĉesi se estos konektita.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Agordite, kontrolos ke vi volas ĉesi, se vi estos konektita.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
@@ -4108,7 +4110,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation>Lingvo por uzi (relanĉo nepras)</translation>
+        <translation>Lingvo uzota (relanĉo nepras)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
@@ -4481,12 +4483,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Premi-por-Paroli</translation>
+        <translation>Parolado dum premo</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Premadi ĉi tiun butonon por sendadi voĉon.</translation>
+        <translation>Premante ĉi tiun butonon, vi povos sendi voĉon.</translation>
     </message>
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
@@ -4656,7 +4658,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Register yourself as %1</source>
-        <translation>Registrigi vin kiel %1</translation>
+        <translation>Registri vin kiel %1</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
@@ -4664,7 +4666,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Register user %1</source>
-        <translation>Registrigi uzanton %1</translation>
+        <translation>Registri uzanton %1</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
@@ -4713,12 +4715,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation>&lt;center&gt;Tajpu mesaĝon por la kanalo &apos;%1&apos; ĉi tie&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Tajpu mesaĝon por la kanalo «%1» ĉi tie&lt;/center&gt;</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation>&lt;center&gt;Tajpu mesaĝon por la uzanto &apos;%1&apos; ĉi tie&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Tajpu mesaĝon por la uzanto «%1» ĉi tie&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Choose image file</source>
@@ -4726,7 +4728,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation>Malsukcesis ŝargi la bildon</translation>
+        <translation>Malsukcesis enlegi la bildon</translation>
     </message>
     <message>
         <source>Could not open file for reading.</source>
@@ -4734,7 +4736,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Image format not recognized.</source>
-        <translation>Ne rekonis bildformaton.</translation>
+        <translation>Ne rekonis bildformon.</translation>
     </message>
     <message>
         <source>&amp;User</source>
@@ -4804,7 +4806,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Premi-por-Paroli</translation>
+        <translation>Parolado dum premo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4844,7 +4846,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Sending message to %1</source>
-        <translation>Sendi mesaĝion al %1</translation>
+        <translation>Sendas mesaĝon al %1</translation>
     </message>
     <message>
         <source>To %1: %2</source>
@@ -4860,7 +4862,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation>Ĉu vi certas, ke vi volas rekomencigi la avataron de uzanto %1?</translation>
+        <translation>Ĉu vi certas, ke vi volas reagordi la profilbildon de uzanto %1?</translation>
     </message>
     <message>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
@@ -4901,7 +4903,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Undeafened.</source>
-        <translation>Malsurdigite</translation>
+        <translation>Malsurdigite.</translation>
     </message>
     <message>
         <source>Restart Mumble?</source>
@@ -4949,11 +4951,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Username in use</source>
-        <translation>Uzantnomo estas uzata</translation>
+        <translation>Uzantonomo estas uzata</translation>
     </message>
     <message>
         <source>That username is already in use, please try another username.</source>
-        <translation>Tiu uzantnomo jam estas uzata, bonvolu provi alian uzantnomon.</translation>
+        <translation>Tiu uzantonomo jam estas uzata, bonvolu provi alian uzantonomon.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
@@ -4995,7 +4997,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Ĉesi na Mumble</translation>
+        <translation>Ĉesi&amp;gi Mumble</translation>
     </message>
     <message>
         <source>Closes the program</source>
@@ -5003,7 +5005,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation>Eliras la aplikaĵon.</translation>
+        <translation>Eliras el la aplikaĵo.</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -5095,7 +5097,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation>Montras dialogon de registritaj serviloj, kaj ankaŭ permesas tujkonekti.</translation>
+        <translation>Montras interagujon de registritaj serviloj, kaj ankaŭ permesas tujkonekti.</translation>
     </message>
     <message>
         <source>Kick user (with reason)</source>
@@ -5305,7 +5307,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Register user on server</source>
-        <translation>Registrigi uzanton en la servilon</translation>
+        <translation>Registri uzanton en la servilo</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server.</source>
@@ -5317,7 +5319,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Adds a user as your friend.</source>
-        <translation>Aldonas uzanton kiel via amiko.</translation>
+        <translation>Aldonas uzanton kiel vian amikon.</translation>
     </message>
     <message>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
@@ -5337,7 +5339,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Update Friend</source>
-        <translation>Ĝisdatigi Amikon</translation>
+        <translation>Ĝisdatigi amikon</translation>
     </message>
     <message>
         <source>Update name of your friend.</source>
@@ -5373,15 +5375,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation>Vi mutigis kaj surdigis na %1.</translation>
+        <translation>Vi mutigis kaj surdigis uzanton %1.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Vi malmutigis kaj malsurdigis na %1.</translation>
+        <translation>Vi malmutigis kaj malsurdigis uzanton %1.</translation>
     </message>
     <message>
         <source>You undeafened %1.</source>
-        <translation>Vi malsurdigis na %1.</translation>
+        <translation>Vi malsurdigis uzanton %1.</translation>
     </message>
     <message>
         <source>You suppressed %1.</source>
@@ -5441,19 +5443,19 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation>Malpermesis: Ne povas modifi la uzanton SuperUser.</translation>
+        <translation>Malpermesite: Ne povas modifi la uzanton SuperUser.</translation>
     </message>
     <message>
         <source>Denied: Invalid channel name.</source>
-        <translation>Malpermesis: Nevalida kanal-nomo.</translation>
+        <translation>Malpermesite: Nevalida nomo de kanalo.</translation>
     </message>
     <message>
         <source>Denied: Text message too long.</source>
-        <translation>Malpermesis: Teksta mesaĝo tro longas.</translation>
+        <translation>Malpermesite: Teksta mesaĝo tro longas.</translation>
     </message>
     <message>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation>Malpermesis: Operacio ne estas permesata en provizora kanalo.</translation>
+        <translation>Malpermesite: Operacio ne estas permesata en provizora kanalo.</translation>
     </message>
     <message>
         <source>You need a certificate to perform this operation.</source>
@@ -5493,7 +5495,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 connected.</source>
-        <translation>%1 konektis.</translation>
+        <translation>%1 konektiĝis.</translation>
     </message>
     <message>
         <source>%1 is now muted.</source>
@@ -5590,7 +5592,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
-        <translation>Vi movis na %1 al %2.</translation>
+        <translation>Vi movis uzanton %1 al %2.</translation>
     </message>
     <message>
         <source>%1 is recording</source>
@@ -5602,7 +5604,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 disconnected.</source>
-        <translation>%1 malkonektis.</translation>
+        <translation>%1 malkonektiĝis.</translation>
     </message>
     <message>
         <source>Server</source>
@@ -5639,7 +5641,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You muted %1.</source>
-        <translation>Vi mutigis na %1.</translation>
+        <translation>Vi mutigis uzanton %1.</translation>
     </message>
     <message>
         <source>You unsuppressed %1.</source>
@@ -5647,7 +5649,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You unmuted %1.</source>
-        <translation>Vi malmutigis na %1.</translation>
+        <translation>Vi malmutigis uzanton %1.</translation>
     </message>
     <message>
         <source>%1 muted by %2.</source>
@@ -5688,7 +5690,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
-        <translation>Vi moviĝis de %2 al %1.</translation>
+        <translation>Vi moviĝis al %1 de %2.</translation>
     </message>
     <message>
         <source>%1 entered channel.</source>
@@ -5700,15 +5702,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Denied: %1.</source>
-        <translation>Malpermesis: %1.</translation>
+        <translation>Malpermesite: %1.</translation>
     </message>
     <message>
         <source>%1 renamed to %2.</source>
-        <translation>%1 renomiĝis al %2.</translation>
+        <translation>%1 alinomiĝis al %2.</translation>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation>%1 foriris la kanalon kaj malkonektis.</translation>
+        <translation>%1 foriris de la kanalo kaj malkonektiĝis.</translation>
     </message>
     <message>
         <source>Message from %1</source>
@@ -5738,7 +5740,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Error: No RPC command specified</source>
-        <translation>Eraro: Ne specifis komandon de RPC </translation>
+        <translation>Eraro: Ne specifis ordonon de RPC</translation>
     </message>
     <message>
         <source>RPC</source>
@@ -5754,7 +5756,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Hide Frame</source>
-        <translation>Kaŝi la Kadron</translation>
+        <translation>Kaŝi la kadron</translation>
     </message>
     <message>
         <source>Toggle showing frame on minimal window</source>
@@ -5766,11 +5768,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Unlink All</source>
-        <translation>Malligi Ĉion</translation>
+        <translation>Malligi ĉion</translation>
     </message>
     <message>
         <source>Reset the comment of the selected user.</source>
-        <translation>Nuligi la komenton de la elektita uzanto.</translation>
+        <translation>Reagordi la komenton de la elektita uzanto.</translation>
     </message>
     <message>
         <source>&amp;Join Channel</source>
@@ -5798,15 +5800,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Register yourself on the server</source>
-        <translation>Registrigi vin en la servilon</translation>
+        <translation>Registri vin en la servilo</translation>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
-        <translation>Ŝanĝi vian avatarbildon en la servilo</translation>
+        <translation>Ŝanĝi vian profilbildon en ĉi tiu servilo</translation>
     </message>
     <message>
         <source>&amp;Remove Avatar</source>
-        <translation>Forigi la Avataron</translation>
+        <translation>&amp;Forigi profilbildon</translation>
     </message>
     <message>
         <source>Remove currently defined avatar image.</source>
@@ -5830,7 +5832,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Copy URL</source>
-        <translation>&amp;Kopii na la URL</translation>
+        <translation>&amp;Kopii URL</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
@@ -5838,11 +5840,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation>Ignori Mesaĝojn</translation>
+        <translation>Ignori mesaĝojn</translation>
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation>Loke ignori la tekstajn babilmesaĝojn de la uzanto.</translation>
+        <translation>Loke ignori tekstajn babilmesaĝojn de la uzanto.</translation>
     </message>
     <message>
         <source>Silently drops all text messages from the user.</source>
@@ -5873,11 +5875,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation>Kaŝi Kanalon dum Filtrante</translation>
+        <translation>Kaŝi kanalon filtrante</translation>
     </message>
     <message>
         <source>Reset the avatar of the selected user.</source>
-        <translation>Rekomencigi la avataron de la elektita uzanto.</translation>
+        <translation>Reagordi la profilbildon de la elektita uzanto.</translation>
     </message>
     <message>
         <source>Locally adjust the user&apos;s speech volume.</source>
@@ -5969,7 +5971,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;About...</source>
-        <translation>&amp;Pri...</translation>
+        <translation>&amp;Pri…</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
@@ -6077,11 +6079,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation>Vi ĉesis aŭskultadi %1</translation>
+        <translation>Vi ĉesis aŭskulti al %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation>%1 ĉesis aŭskultadi vian kanalon</translation>
+        <translation>%1 ĉesis aŭskulti vian kanalon</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -6093,11 +6095,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation>Kuniĝi al la kanalo de la uzanto</translation>
+        <translation>Aliĝi al la kanalo de la uzanto</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation>Kuniĝos al la kanalo de ĉi tiu uzanto.</translation>
+        <translation>Aliĝos al la kanalo de ĉi tiu uzanto.</translation>
     </message>
     <message>
         <source>Channels and users</source>
@@ -6146,13 +6148,13 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation>Agordadosiero %1 ne ekzistas aŭ ĝi estas neverkebla.
+        <translation>Agordadosiero %1 ne ekzistas aŭ ne estas redaktebla.
 </translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation>Kaŝi/Montri ĉefafenestron</translation>
+        <translation>Kaŝi/Montri ĉefan fenestron</translation>
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
@@ -6433,7 +6435,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Rekonekti post malkonektiĝo&lt;/b&gt;.&lt;br/&gt;Tio igos na Mumble aŭtomate provi rekonekti post 10 sekundoj, se via servila konekto fiaskas.</translation>
+        <translation>&lt;b&gt;Rekonekti post malkonektiĝo&lt;/b&gt;.&lt;br/&gt;Pro tio Mumble aŭtomate provos rekonekti post 10 sekundoj, se via servila konekto fiaskas.</translation>
     </message>
     <message>
         <source>Reconnect automatically</source>
@@ -6441,7 +6443,7 @@ Valid options are:
     </message>
     <message>
         <source>Proxy</source>
-        <translation>Prokurilo</translation>
+        <translation>Retperilo</translation>
     </message>
     <message>
         <source>Type</source>
@@ -6449,7 +6451,7 @@ Valid options are:
     </message>
     <message>
         <source>Type of proxy to connect through</source>
-        <translation>Tipo de prokurilo por konekti tra</translation>
+        <translation>Tipo de retperilo por konekti tra</translation>
     </message>
     <message>
         <source>Direct connection</source>
@@ -6457,11 +6459,11 @@ Valid options are:
     </message>
     <message>
         <source>HTTP(S) proxy</source>
-        <translation>HTTP(S)-prokurilo</translation>
+        <translation>HTTP(S)-retperilo</translation>
     </message>
     <message>
         <source>SOCKS5 proxy</source>
-        <translation>SOCKS5-prokurilo</translation>
+        <translation>SOCKS5-retperilo</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -6469,7 +6471,7 @@ Valid options are:
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation>Nomo de la prokurila gastiga komputilo</translation>
+        <translation>Nomo de la retperila gastiga komputilo</translation>
     </message>
     <message>
         <source>Force TCP mode</source>
@@ -6477,11 +6479,11 @@ Valid options are:
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
-        <translation>Ebligi QoS-on por prioritatigi datumpaketojn</translation>
+        <translation>Ŝalti QoS-on por prioritatigi datumpaketojn</translation>
     </message>
     <message>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation>Ĉi tio ebligos QoS-on, kiu provos prioritatigi voĉdatumpaketojn pli ol alia datumtrafiko.</translation>
+        <translation>Ĉi tio ŝaltos QoS-on, kiu provos prioritatigi voĉdatumpaketojn pli ol alia datumtrafiko.</translation>
     </message>
     <message>
         <source>Use Quality of Service</source>
@@ -6513,7 +6515,7 @@ Valid options are:
     </message>
     <message>
         <source>Port number of the proxy</source>
-        <translation>Porda numero de la prokurilo</translation>
+        <translation>Porda numero de la retperilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
@@ -6521,11 +6523,11 @@ Valid options are:
     </message>
     <message>
         <source>Username</source>
-        <translation>Uzantnomo</translation>
+        <translation>Uzantonomo</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation>Uzantnomo por prokuril-aŭtentikeco</translation>
+        <translation>Uzantonomo por aŭtentikigo ĉe retperilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -6537,7 +6539,7 @@ Valid options are:
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation>Pasvorto por prokuril-aŭtentikeco</translation>
+        <translation>Pasvorto por aŭtentikigo ĉe retperilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -6610,7 +6612,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation>Kaŝi la publikan servilaliston</translation>
+        <translation>Kaŝi la publikan liston de serviloj</translation>
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
@@ -6629,7 +6631,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Talking</source>
-        <translation>Parolado</translation>
+        <translation>Parolanta</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -6656,11 +6658,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Only talking</source>
-        <translation>Nur parolante</translation>
+        <translation>Nur parolanta</translation>
     </message>
     <message>
         <source>Talking and recently active</source>
-        <translation>Parolante kaj aktive antaŭ ne longe</translation>
+        <translation>Parolanta kaj aktiva antaŭ ne longe</translation>
     </message>
     <message>
         <source>All in current channel</source>
@@ -6672,7 +6674,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Always show yourself</source>
-        <translation>Ĉiam montri vi mem</translation>
+        <translation>Ĉiam montri vin mem</translation>
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
@@ -6969,11 +6971,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Username</source>
-        <translation>Uzantnomo</translation>
+        <translation>Uzantonomo</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation>Kanalnomo de uzanto, kiam ekster via nuna kanalo</translation>
+        <translation>Nomo de kanalo de kzanto, kiam ekster via nuna kanalo</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -7016,7 +7018,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Avatar and Name</source>
-        <translation>Avataro kaj Nomo</translation>
+        <translation>Profilbildo kaj nomo</translation>
     </message>
     <message>
         <source>User Opacity</source>
@@ -7056,11 +7058,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color...</source>
-        <translation>Koloro...</translation>
+        <translation>Koloro…</translation>
     </message>
     <message>
         <source>Font...</source>
-        <translation>Tiparo...</translation>
+        <translation>Tiparo…</translation>
     </message>
     <message>
         <source>Bounding box</source>
@@ -7115,7 +7117,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Options</source>
-        <translation>Opcioj</translation>
+        <translation>Elektebloj</translation>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
@@ -7640,7 +7642,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Source Text</source>
-        <translation>Font-texto</translation>
+        <translation>Fonta teksto</translation>
     </message>
     <message>
         <source>&amp;Bold</source>
@@ -7676,7 +7678,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Insert Link</source>
-        <translation>Enmeti Ligilon</translation>
+        <translation>Enmeti ligilon</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -7684,14 +7686,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Insert Image</source>
-        <translation>Enmeti Bildon</translation>
+        <translation>Enmeti bildon</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation>Aldoni Ligilon</translation>
+        <translation>Aldoni ligilon</translation>
     </message>
     <message>
         <source>URL</source>
@@ -7780,19 +7782,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation>UDP-ajn datumpaketojn ne eblas sendi aŭ ricevi de la servilo. Nune ŝanĝas al TCP-an modon.</translation>
+        <translation>UDP-ajn datumpaketojn ne eblas sendi aŭ ricevi de la servilo. Nune ŝanĝas al TCP-a reĝimo.</translation>
     </message>
     <message>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation>UDP-a datumpaketoj ne povas sendiĝi al la servilo. Nune ŝanĝas al TCP-an modon.</translation>
+        <translation>UDP-aj datumpaketoj ne povas sendiĝi al la servilo. Nune ŝanĝas al TCP-a reĝimo.</translation>
     </message>
     <message>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation>UDP-a datumpaketoj ne povas riceviĝi de la servilo. Nune ŝanĝas al TCP-an modon.</translation>
+        <translation>UDP-aj datumpaketoj ne povas riceviĝi de la servilo. Nune ŝanĝas al TCP-a reĝimo.</translation>
     </message>
     <message>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation>UDP-a datumpaketoj povas sendiĝi al, kaj riceviĝi de, la servilo. Nune revenas al UDP-an modon.</translation>
+        <translation>UDP-aj datumpaketoj povas sendiĝi al, kaj riceviĝi de, la servilo. Nune revenas al UDP-a reĝimo.</translation>
     </message>
     <message>
         <source>Connection timed out</source>
@@ -7942,7 +7944,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation>Plejŝata</translation>
+        <translation>Elstara</translation>
     </message>
     <message>
         <source>LAN</source>
@@ -7950,7 +7952,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Public Internet</source>
-        <translation>Publika Interreto</translation>
+        <translation>Publika interreto</translation>
     </message>
 </context>
 <context>
@@ -7964,11 +7966,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation>En</translation>
+        <translation>Jes</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>Malŝaltita</translation>
+        <translation>Ne</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8010,11 +8012,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutTargetWidget</name>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>, </source>
-        <translation>,</translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>Root</source>
@@ -8034,12 +8036,12 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Invalid</source>
-        <translation>Nevalide</translation>
+        <translation>Nevalida</translation>
     </message>
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation>Malplene</translation>
+        <translation>Malplena</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -8054,11 +8056,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Baskule</translation>
+        <translation>Baskuligi</translation>
     </message>
     <message>
         <source>On</source>
-        <translation>Ŝaltite</translation>
+        <translation>Ŝaltita</translation>
     </message>
 </context>
 <context>
@@ -8088,11 +8090,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Atingoĵetonoj</translation>
+        <translation>Mumble – Atingopecoj</translation>
     </message>
     <message>
         <source>List of access tokens on current server</source>
-        <translation>Listo da atingoĵetonoj en aktuala servilo</translation>
+        <translation>Listo da atingopecoj en aktuala servilo</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
@@ -8103,7 +8105,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Add a token</source>
-        <translation>Aldoni ĵetonon</translation>
+        <translation>Aldoni pecon</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -8111,7 +8113,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove a token</source>
-        <translation>Forigi ĵetonon</translation>
+        <translation>Forigi pecon</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -8126,7 +8128,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserEdit</name>
     <message>
         <source>Registered Users</source>
-        <translation>Registritaj Uzantoj</translation>
+        <translation>Registritaj uzantoj</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -8163,8 +8165,8 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
         <translation>
-            <numerusform>Registritaj uzantoj: %n konto(j)</numerusform>
-            <numerusform>Registritaj uzantoj: %n konto(j)</numerusform>
+            <numerusform>Registritaj uzantoj: %n konto</numerusform>
+            <numerusform>Registritaj uzantoj: %n kontoj</numerusform>
         </translation>
     </message>
     <message>
@@ -8180,11 +8182,11 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserInformation</name>
     <message>
         <source>User Information</source>
-        <translation>Informoj de la Uzanto</translation>
+        <translation>Informoj pri la uzanto</translation>
     </message>
     <message>
         <source>Connection Information</source>
-        <translation>Informoj de la Konekto</translation>
+        <translation>Informoj pri la konekto</translation>
     </message>
     <message>
         <source>Version</source>
@@ -8208,7 +8210,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Details...</source>
-        <translation>Detaloj...</translation>
+        <translation>Detaloj…</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
@@ -8252,11 +8254,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>From Client</source>
-        <translation>De Kliento</translation>
+        <translation>De kliento</translation>
     </message>
     <message>
         <source>To Client</source>
-        <translation>Al Kliento</translation>
+        <translation>Al kliento</translation>
     </message>
     <message>
         <source>Connection time</source>
@@ -8293,11 +8295,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Supported</source>
-        <translation>Suptenate</translation>
+        <translation>Subtenate</translation>
     </message>
     <message>
         <source>Not Supported</source>
-        <translation>Nesuptenate</translation>
+        <translation>Nesubtenate</translation>
     </message>
     <message>
         <source>Not Reported</source>
@@ -8741,7 +8743,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Foliumi</translation>
+        <translation>&amp;Foliumi…</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
@@ -8794,7 +8796,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Select target directory</source>
-        <translation>Elekti celdosieron</translation>
+        <translation>Elektu celdosierujon</translation>
     </message>
     <message>
         <source>Downmix</source>
@@ -8812,18 +8814,18 @@ Please contact your server administrator for further information.</source>
     <name>WASAPISystem</name>
     <message>
         <source>Default Device</source>
-        <translation>Defaŭlta aparato</translation>
+        <translation>Implicita aparato</translation>
     </message>
 </context>
 <context>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>Mumble PPP</translation>
+        <translation>Parolado dum premo en Mumble</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Premi por paroli</translation>
+        <translation>Parolado dum premo</translation>
     </message>
 </context>
 </TS>
