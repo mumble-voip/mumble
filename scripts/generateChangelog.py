@@ -38,6 +38,7 @@ def main():
     args = parser.parse_args()
 
     mergeCommitPattern = re.compile("^([0-9a-f]+)\s*[Mm]erge\s.+?#(\d+):?\s*(.+)$", re.MULTILINE)
+    backportCommitPattern = re.compile("^[Bb]ackport\s*\"(.*)\".*$")
 
     commits = cmd(["git", "log" ,"--format=oneline",  "--date=short", "{}..{}".format(args.FROM_TAG, args.TO_TAG)]).split("\n")
 
@@ -59,6 +60,11 @@ def main():
         commitHash = match.group(1)
         prNumber = match.group(2)
         commitTitle = match.group(3)
+
+        backportMatch = re.match(backportCommitPattern, commitTitle)
+        if backportMatch:
+            # This commit is a backport commit where the actual commit title is the bit in the quotes
+            commitTitle = backportMatch.group(1)
 
         try:
             commit = CommitMessage(commitTitle)
