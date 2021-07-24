@@ -2422,7 +2422,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">මුරපදය</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -3083,7 +3083,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">මුරපදය</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
@@ -6490,7 +6490,7 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">මුරපදය</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>

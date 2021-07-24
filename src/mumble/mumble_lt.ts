@@ -3448,7 +3448,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nežinomas</translation>
     </message>
 </context>
 <context>
@@ -4477,7 +4477,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieškoti</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -6365,7 +6365,7 @@ Galioja šios parinktys:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieškoti</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -7805,7 +7805,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieškoti</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -8011,7 +8011,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nežinomas</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
@@ -8261,7 +8261,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieškoti</translation>
     </message>
     <message>
         <source>User list</source>
