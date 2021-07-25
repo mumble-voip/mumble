@@ -7273,27 +7273,27 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось найти манифест плагина (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при обработке манифеста: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удается найти плагин для текущей ОС (&quot;%1&quot;) и архитектуры (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удается найти библиотеку плагинов, указанную в манифесте (&quot;%1&quot;) в пакете</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезаписать плагин?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый плагин &quot;%1&quot; (%2) перезапишет уже установленный &quot;%3&quot; (%4). Продолжить?</translation>
     </message>
 </context>
 <context>

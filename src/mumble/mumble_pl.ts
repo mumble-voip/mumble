@@ -1529,7 +1529,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation>Jeśli źródło dźwięku jest wystarczająco blisko, blooming spowoduje, że dźwięk będzie odtwarzany na wszystkich głośnikach mniej więcej niezależnie od ich położenia (choć przy niższej głośności)</translation>
+        <translation>Jeśli źródło dźwięku jest wystarczająco blisko, zmienna głośność spowoduje, że dźwięk będzie odtwarzany na wszystkich głośnikach mniej więcej niezależnie od ich położenia (choć przy niższej głośności)</translation>
     </message>
 </context>
 <context>
@@ -5939,11 +5939,11 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation>Pokaż konsolę programisty</translation>
+        <translation>Wyświetl konsolę programisty</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation>Pokazuje konsolę programisty Mumble, gdzie może być sprawdzone wyjście dziennika Mumble.</translation>
+        <translation>Wyświetla konsolę programisty Mumble, gdzie można sprawdzić dane wyjściowe dziennika Mumble.</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
@@ -7380,27 +7380,27 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć manifestu wtyczki (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas przetwarzania manifestu: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć wtyczki dla bieżącego systemu operacyjnego (&quot;%1&quot;) i architektury (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć w pakiecie biblioteki wtyczek określonej w manifeście (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadpisać wtyczkę?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa wtyczka &quot;%1&quot; (%2) ma zamiar nadpisać już zainstalowaną wtyczkę &quot;%3&quot; (%4). Czy chcesz kontynuować?</translation>
     </message>
 </context>
 <context>

@@ -6921,7 +6921,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>加载...</translation>
+        <translation>加载…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6929,7 +6929,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>保存...</translation>
+        <translation>保存…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7369,27 +7369,27 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>无法定位插件清单文件（manifest.xml）</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>处理清单文件错误：%1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>无法找到匹配当前操作系统（“%1”）和架构（“%2”）的插件</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>无法在插件包中定位到清单文件所指定的插件库（“%1”）</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>覆盖插件？</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>新插件“%1”（%2）即将覆盖已安装的插件“%3”（%4）。您要继续吗？</translation>
     </message>
 </context>
 <context>
