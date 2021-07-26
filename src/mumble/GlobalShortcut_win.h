@@ -26,6 +26,10 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 public:
 	static void registerMetaTypes();
 
+	/// @param oldShortcuts List of shortcuts to migrate.
+	/// @returns List of shortcuts in the new format.
+	static QList< Shortcut > migrateSettings(const QList< Shortcut > &oldShortcuts);
+
 	/// Inject a native Windows raw input message into GlobalShortcutWin's
 	/// thread. This method is meant to be called from the main thread
 	/// to pass native Windows keyboard messages to GlobalShortcutWin.

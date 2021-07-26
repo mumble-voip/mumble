@@ -7603,6 +7603,15 @@ Se &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mum
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
         <translation>Stödet för detta alternativ är endast experimentellt! Det här alternativet fungerar bäst när du använder inbyggd mikrofon och högtalare.</translation>
     </message>
+    <message>
+        <source>Shortcuts migration incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately %1 shortcut(s) could not be migrated.
+You can register them again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
