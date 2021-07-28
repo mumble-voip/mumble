@@ -23,7 +23,6 @@
 #endif
 
 #include <QtNetwork/QHostInfo>
-#include <QtNetwork/QNetworkInterface>
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 #	include <QtNetwork/QSslDiffieHellmanParameters>
@@ -242,58 +241,7 @@ void MetaParams::read(QString fname) {
 	}
 
 	if (qlBind.isEmpty()) {
-		bool hasipv6 = false;
-		bool hasipv4 = false;
-		int nif      = 0;
-
-		QList< QNetworkInterface > interfaces = QNetworkInterface::allInterfaces();
-		if (interfaces.isEmpty()) {
-			qWarning("Meta: Unable to acquire list of network interfaces.");
-		} else {
-			foreach (const QNetworkInterface &qni, interfaces) {
-				if (!(qni.flags() & QNetworkInterface::IsUp))
-					continue;
-				if (!(qni.flags() & QNetworkInterface::IsRunning))
-					continue;
-				if (qni.flags() & QNetworkInterface::IsLoopBack)
-					continue;
-
-				foreach (const QNetworkAddressEntry &qna, qni.addressEntries()) {
-					const QHostAddress &qha = qna.ip();
-					switch (qha.protocol()) {
-						case QAbstractSocket::IPv4Protocol:
-							hasipv4 = true;
-							break;
-						case QAbstractSocket::IPv6Protocol:
-							hasipv6 = true;
-							break;
-						default:
-							break;
-					}
-				}
-
-				++nif;
-			}
-		}
-
-		if (nif == 0) {
-			qWarning("Meta: Could not determine IPv4/IPv6 support via network interfaces, assuming support for both.");
-			hasipv6 = true;
-			hasipv4 = true;
-		}
-
-		if (hasipv6) {
-			if (SslServer::hasDualStackSupport() && hasipv4) {
-				qlBind << QHostAddress(QHostAddress::Any);
-				hasipv4 = false; // No need to add a separate ipv4 socket
-			} else {
-				qlBind << QHostAddress(QHostAddress::AnyIPv6);
-			}
-		}
-
-		if (hasipv4) {
-			qlBind << QHostAddress(QHostAddress::AnyIPv4);
-		}
+		qlBind << QHostAddress(QHostAddress::Any);
 	}
 
 	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
