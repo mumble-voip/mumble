@@ -21,7 +21,7 @@ public struct Features {
 }
 
 public class ClientInstaller : MumbleInstall {
-	public ClientInstaller(string version, string arch, Features features) {
+	public ClientInstaller(string version, string releaseID, string arch, Features features) {
 		string upgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
 		List<string> binaries = new List<string>();
 		string[] plugins = {
@@ -129,7 +129,7 @@ public class ClientInstaller : MumbleInstall {
 		this.Name = "Mumble (client)";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
-		this.OutFileName = "mumble_client-" + this.Version + "-" + arch;
+		this.OutFileName = "mumble-client_" + releaseID + '.' + arch;
 		this.Media.First().Cabinet = "Mumble.cab";
 
 		var progsDir = new Dir(@"%ProgramFiles%");
@@ -190,6 +190,7 @@ class BuildInstaller
 {
 	public static void Main(string[] args) {
 		string version = "";
+		string releaseID = "";
 		string arch = "";
 		bool isAllLangs = false;
 		Features features = new Features();
@@ -197,6 +198,10 @@ class BuildInstaller
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){3}[0-9]+$")) {
 				version = args[i + 1];
+			}
+
+			if (args[i] == "--release-id") {
+				releaseID = args[i + 1];
 			}
 
 			if (args[i] == "--arch" && (args[i + 1] == "x64" || args[i + 1] == "x86")) {
@@ -217,8 +222,7 @@ class BuildInstaller
 		}
 
 		if (version != null && arch != null) {
-			var clInstaller = new ClientInstaller(version, arch, features);
-			clInstaller.Version = new Version(version);
+			var clInstaller = new ClientInstaller(version, releaseID, arch, features);
 
 			if (isAllLangs) {
 				clInstaller.BuildMultilanguageMsi();

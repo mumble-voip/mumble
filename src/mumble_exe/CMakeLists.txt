@@ -57,6 +57,7 @@ if(packaging)
 
 	list(APPEND installer_vars
 		"--version" ${PROJECT_VERSION}
+		"--release-id" ${RELEASE_ID}
 		"--arch" "${MUMBLE_TARGET_ARCH}"
 	)
 

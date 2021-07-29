@@ -14,7 +14,7 @@ using WixSharp;
 using WixSharp.CommonTasks;
 
 public class ServerInstaller : MumbleInstall {
-	public ServerInstaller(string version, string arch) {
+	public ServerInstaller(string version, string releaseID, string arch) {
 		string upgradeGuid = "03E9476F-0F75-4661-BFC9-A9DAEB23D3A0";
 		string[] binaries = {
 			"mumble-server.exe",
@@ -38,10 +38,10 @@ public class ServerInstaller : MumbleInstall {
 			this.Platform = WixSharp.Platform.x86;
 		}
 
-		this.Name = "Mumble Server";
+		this.Name = "Mumble (server)";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
-		this.OutFileName = "mumble_server-" + this.Version + "-" + arch;
+		this.OutFileName = "mumble-server_" + releaseID + '.' + arch;
 		this.Media.First().Cabinet = "Mumble.cab";
 
 		var progsDir = new Dir(@"%ProgramFiles%");
@@ -84,12 +84,17 @@ class BuildInstaller
 {
 	public static void Main(string[] args) {
 		string version = "";
+		string releaseID = "";
 		string arch = "";
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){3}[0-9]+$")) {
 				version = args[i + 1];
+			}
+
+			if (args[i] == "--release-id") {
+				releaseID = args[i + 1];
 			}
 
 			if (args[i] == "--arch" && (args[i + 1] == "x64" || args[i + 1] == "x86")) {
@@ -102,8 +107,7 @@ class BuildInstaller
 		}
 
 		if (version != null && arch != null) {
-			var srvInstaller = new ServerInstaller(version, arch);
-			srvInstaller.Version = new Version(version);
+			var srvInstaller = new ServerInstaller(version, releaseID, arch);
 
 			if (isAllLangs) {
 				srvInstaller.BuildMultilanguageMsi();
