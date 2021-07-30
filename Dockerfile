@@ -4,6 +4,8 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
+	ca-certificates \
+	git \
 	build-essential \
 	cmake \
 	pkg-config \
@@ -30,6 +32,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 COPY . /root/mumble
 WORKDIR /root/mumble/build
 
+RUN git submodule update --init
 RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON ..
 RUN make -j $(nproc)
 
