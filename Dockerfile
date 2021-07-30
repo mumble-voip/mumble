@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 COPY . /root/mumble
 WORKDIR /root/mumble/build
 
-RUN git submodule update --init
+RUN git submodule update --init --recursive
 RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON ..
 RUN make -j $(nproc)
 
