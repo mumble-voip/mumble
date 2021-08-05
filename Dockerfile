@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-# needed to install tzdata in disco
-ENV DEBIAN_FRONTEND=noninteractive
+# needed to install tzdata
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
 	ca-certificates \
@@ -27,17 +27,25 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libgrpc++-dev \
 	libxi-dev \
 	libbz2-dev \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY . /root/mumble
 WORKDIR /root/mumble/build
 
 RUN git submodule update --init --recursive
-RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON ..
+RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON .. || \
+    ( cat \
+    /root/mumble/build/CMakeFiles/CMakeOutput.log \
+    /root/mumble/build/CMakeFiles/CMakeError.log \
+    && false \
+    )
 RUN make -j $(nproc)
 
 # Clean distribution stage
 FROM ubuntu:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN adduser murmur
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -56,13 +64,14 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libqt5xml5 \
 	libqt5dbus5 \
 	ca-certificates \
-	&& rm -rf /var/lib/apt/lists/* 
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
 COPY --from=0 /root/mumble/scripts/murmur.ini /etc/murmur/murmur.ini
 
 RUN mkdir /var/lib/murmur && \
-	chown murmur:murmur /var/lib/murmur && \
+	chown --verbose murmur:murmur /var/lib/murmur && \
 	sed -i 's/^database=$/database=\/var\/lib\/murmur\/murmur.sqlite/' /etc/murmur/murmur.ini
 
 EXPOSE 64738/tcp 64738/udp 50051
