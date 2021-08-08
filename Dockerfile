@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:focal
 
 # needed to install tzdata
 ARG DEBIAN_FRONTEND=noninteractive
@@ -43,7 +43,7 @@ RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON .. || \
 RUN make -j $(nproc)
 
 # Clean distribution stage
-FROM ubuntu:latest
+FROM ubuntu:focal
 
 ARG DEBIAN_FRONTEND=noninteractive
 
