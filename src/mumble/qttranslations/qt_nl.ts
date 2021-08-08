@@ -5387,4 +5387,133 @@ RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</
         <translation>Naar onder scrollen</translation>
     </message>
 </context>
+<context>
+    <name>QGnomeTheme</name>
+    <message>
+        <location filename="../../qtbase/src/platformsupport/themes/genericunix/qgenericunixthemes.cpp" line="+816"/>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Save</source>
+        <translation>&amp;Bewaar</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Sluit</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Close without Saving</source>
+        <translation>Sluit en verwerp</translation>
+    </message>
+</context>
+<context>
+    <name>QPlatformTheme</name>
+    <message>
+        <location filename="../../qtbase/src/gui/kernel/qplatformtheme.cpp" line="+706"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Save</source>
+        <translation>Bewaar</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Save All</source>
+        <translation>Bewaar Alles</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Yes to &amp;All</source>
+        <translation>Ja op &amp;Alles</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;No</source>
+        <translation>&amp;Nee</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>N&amp;o to All</source>
+        <translation>N&amp;ee op Alles</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Abort</source>
+        <translation>Breek af</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Retry</source>
+        <translation>Probeer opnieuw</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ignore</source>
+        <translation>Negeer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Close</source>
+        <translation>Sluit</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Cancel</source>
+        <translation>Annuleer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Discard</source>
+        <translation>Verwerp</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Help</source>
+        <translation>Hulp</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Apply</source>
+        <translation>Pas toe</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Reset</source>
+        <translation>Maak ongedaan</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Restore Defaults</source>
+        <translation>Standaardwaarden</translation>
+    </message>
+</context>
+<context>
+    <name>QProgressDialog</name>
+    <message>
+        <location filename="../../qtbase/src/widgets/dialogs/qprogressdialog.cpp" line="+186"/>
+        <source>Cancel</source>
+        <translation>Annuleer</translation>
+    </message>
+</context>
 </TS>
