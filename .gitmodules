@@ -6,7 +6,7 @@
 	url = https://github.com/mumble-voip/celt-0.7.0.git
 [submodule "opus"]
 	path = 3rdparty/opus
-	url = https://github.com/mumble-voip/opus.git
+	url = https://gitlab.xiph.org/xiph/opus.git
 [submodule "3rdparty/minhook"]
 	path = 3rdparty/minhook
 	url = https://github.com/mumble-voip/minhook.git
