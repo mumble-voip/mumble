@@ -1524,7 +1524,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Если источник звука расположен достаточно близко, звук будет слышен из всех динамиков независимо от направления (хотя и с меньшей громкостью)</translation>
     </message>
 </context>
 <context>
@@ -4040,7 +4040,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите здесь, чтобы переключить ограничение для %1 события. &lt;br /&gt; Если флажок установлен, уведомления для этого типа событий не будут воспроизводиться, когда количество пользователей на сервере превысит установленный порог.</translation>
     </message>
 </context>
 <context>
@@ -6208,7 +6208,7 @@ Valid actions are:
 </source>
         <translation>Использование: mumble rpc &lt;действие&gt; [параметры]
 
-Можно удаленно управлять запущенным экземпляром Mumble с помощью
+Можно удалённо управлять запущенным экземпляром Mumble с помощью
 команда mumble rpc.
 
 Допустимые действия:
@@ -6292,7 +6292,66 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Использование: mumble [опции] [&lt;url&gt; | &lt;plugin_list&gt;].
+
+&lt;url&gt; указывает URL для подключения после запуска вместо показа
+окна подключения, и имеет следующий вид:
+mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;подканал&gt;...]][?version=&lt;x.y.z&gt;].
+
+&lt;plugin_list&gt; - это список файлов плагинов, которые должны быть установлены.
+Параметр запроса версии должен быть установлен для того, чтобы вызвать
+правильную версию клиента. В настоящее время по умолчанию используется версия 1.2.0.
+
+Возможные варианты:
+  -h, --help Показать текст справки и выйти.
+  -m, --multiple
+                Разрешить запуск нескольких экземпляров клиента.
+  -c, --config
+                Указать альтернативный файл конфигурации.
+                Если вы используете этот параметр для запуска нескольких экземпляров Mumble одновременно,
+                не забудьте задать альтернативное значение &apos;database&apos; в конфигурации.
+  --default-certificate-dir &lt;dir&gt;
+                Укажите альтернативный путь к сертификату по умолчанию.
+                Этот путь используется только в том случае, если сертификат не загружен
+                из настроек.
+  -n, --noidentity
+                Подавить загрузку файлов идентификации (т.е. сертификатов).
+  -jn, --jackname &lt;arg&gt;
+                Задать пользовательское имя клиента Jack.
+  --license
+                Показать лицензию Mumble.
+  --authors
+                Показать авторов Mumble.
+  --third-party-licenses
+                Показать лицензии на стороннее программное обеспечение, используемое Mumble.
+  --window-title-ext &lt;arg&gt;
+                Устанавливает пользовательское расширение заголовка окна.
+  --dump-input-streams
+                Выгрузить потоки PCM на различных участках входной цепи.
+                (полезно для отладки)
+                - необработанный микрофонный вход
+                - считывание с динамика для эхоподавления
+                - обработанный микрофонный вход
+  --print-echocancel-queue
+                Вывести на stdout состояние очереди эхоподавления
+                (полезно для отладки)
+  --translation-dir &lt;dir&gt;
+                Указывает дополнительный переводческий каталог &lt;dir&gt;, в котором
+                Mumble будет искать файлы перевода, которые перезаписывают
+                встроенные.
+                Каталоги, добавленные таким образом, имеют более высокий приоритет, чем
+                каталоги по умолчанию, используемые в противном случае
+  --print-translation-dirs
+                Вывести пути, по которым Mumble будет искать
+                файлы перевода, которые перезапишут готовые.
+                (Полезно для переводчиков, тестирующих свои переводы)
+  --locale &lt;локаль&gt;
+                Переписать локаль в настройках Mumble на
+                локаль, соответствующую заданной строке локали.
+                Если формат недействителен, Mumble выдаст ошибку.
+                В противном случае локаль будет навсегда сохранена в
+                настройках Mumble.
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
@@ -6341,19 +6400,19 @@ Valid options are:
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Заглушить себя</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Средство просмотра позиционного звука…</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать средство просмотра позиционного звука</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показывает окно просмотра позиционного звука. В нём можно просмотреть текущую информацию, используемую для позиционного звука. Также отображаются контекст и идентификация.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -7425,43 +7484,43 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Средство просмотра позиционного звука</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Направление камеры</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Положение игрока</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Ось игрока</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Направление игрока</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Ось камеры</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Положение камеры</translation>
     </message>
     <message>
         <source>Info</source>
@@ -7666,12 +7725,13 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Перенос ярлыков не завершен</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>К сожалению, %1 ярлык(ов) не удалось перенести.
+Вы можете зарегистрировать их снова.</translation>
     </message>
 </context>
 <context>
