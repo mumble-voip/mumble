@@ -3274,7 +3274,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne rencontrée dans CrashReporter.cpp : La réponse reçue ne contient pas de code d&apos;état HTTP. Veuillez informer un développeur du code d&apos;erreur %1</translation>
     </message>
 </context>
 <context>
@@ -6326,7 +6326,7 @@ Valid options are:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Activer TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
