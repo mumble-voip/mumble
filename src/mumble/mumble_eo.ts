@@ -185,7 +185,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble aranĝas la kanalojn en la arbo
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tio suprenigas listeron. Ĉar listeroj interpretiĝas laŭorde, tio povus ŝanĝi la efektivajn permesojn de uzantoj. Vi ne povas movi listeron super hereditan listeron; se vi vere tion bezonas, vi devos duobligi la hereditan listeron.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -197,7 +197,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble aranĝas la kanalojn en la arbo
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tio subenigas listeron. Ĉar listeroj interpretiĝas laŭorde, tio povus ŝanĝi la efektivajn permesojn de uzantoj.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -209,7 +209,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble aranĝas la kanalojn en la arbo
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tio aldonas novan listeron, komence kun neniuj permesoj kaj aplikatan al ĉiuj.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -378,7 +378,7 @@ Enhavas liston de anoj hereditaj de la nuna kanalo. Malmarku la elekton &lt;i&gt
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ĉi tio decidas, al kiu grupo de uzantoj ĉi tiu listero aplikiĝos.&lt;br /&gt;Sciu, ke la grupo estas interpretata en kunteksto de la kanalo, kie ĝi estas uzata. Ekzemple, la implicita</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -427,15 +427,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Hereditaj grupanoj</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremdaj grupanoj</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Hereditaj kanalanoj</translation>
     </message>
     <message>
         <source>Add members to group</source>
@@ -472,11 +472,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis akirado de nomo (longa) de la sonkarto: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis akirado de nomo de la sonkarto: %1</translation>
     </message>
 </context>
 <context>
@@ -512,31 +512,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzota aparato de mikrofono</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tio ĉi elektos demandotan aparaton. Vi ankoraŭ devos demandi la aparaton kaj elekti la uzotajn kanalojn.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Demandi elektitan aparaton</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tio ĉi demandos la elektitan aparaton pri kanaloj. Sciu, ke multaj peliloj de ASIO estas treege eraremaj, kaj demandi ilin eble fiaskigos la tutan aplikaĵon aŭ eĉ tutan sistemon.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Demandi</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordi la elektitan aparaton</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tio ĉi agordos la elektitan aparaton. Sciu, ke multaj peliloj de ASIO estas treege eraremaj, kaj demandi ilin eble fiaskigos la tutan aplikaĵon aŭ eĉ tutan sistemon.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -552,15 +552,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Buffer size</source>
-        <translation type="unfinished"></translation>
+        <translation>Grandeco de bufro</translation>
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tio ĉi agordos la enigaj kanaloj de ASIO. Certigu, ke vi elektis po almenaŭ unu kanalo je mikrofono kaj sonskatolo. &lt;i&gt;Mikrofono&lt;/i&gt; estu la konekto de via mikrofono, kaj &lt;i&gt;Sonskatolo&lt;/i&gt; estu la kanalo, kiu sonigas «&lt;i&gt;Kion vi aŭdas&lt;/i&gt;».&lt;br /&gt;EKzemple sur «Audigy 2 ZS», bona elekto de Mikrofono estus «&lt;i&gt;Mic L&lt;/i&gt;» kaj bona Sonskatolo estus «&lt;i&gt;Mix L&lt;/i&gt;» kaj «&lt;i&gt;Mix R&lt;/i&gt;».</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordi enigajn kanalojn</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -588,22 +588,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de mikrofonoj</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de sonskatoloj</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vi devas elekti almenaŭ unu mikrofonan kaj unu sonskatolan fontojn por uzi ASIOn.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis malfermo de la elektita aparato de ASIO. Nenio eniĝos.</translation>
     </message>
 </context>
 <context>
@@ -622,11 +622,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>Aŭ&amp;toroj</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Permesiloj de eksteraj liverantoj</translation>
     </message>
     <message>
         <source>OK</source>
@@ -634,7 +634,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Permesila kontrakto</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -642,7 +642,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Permesilaj kontraktoj de eksteraj liverantoj</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -661,7 +661,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Eniga metodo por sono</translation>
     </message>
     <message>
         <source>Device</source>
@@ -673,7 +673,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ĉi tio estas la eniga aparato uzota por sono.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -713,11 +713,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Foliumi por sondosiero je starto</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Foliumi por sondosiero je malstarto</translation>
     </message>
     <message>
         <source>Off</source>
@@ -753,7 +753,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiom longe ankoraŭ sendi post eksilento</translation>
     </message>
     <message>
         <source>Silence Below</source>
@@ -761,7 +761,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ĉi tio agordas ekvalorojn por trovado de voĉo.&lt;/b&gt;&lt;br /&gt;Uzu ĉi tion kun la fenestro de «Statistiko de sono» por permane agordi la ekvalorojn por trovado de parolado. Enigaj valoroj sub «Silento sube» ĉiam interpretiĝas silento. Valoroj super «Parolado supre» ĉiam interpretiĝas voĉo. Valoroj interaj interpretiĝos voĉo se vi jam parolas, sed ne estigos novan ekparolon.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -769,7 +769,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Signalaj valoroj super ĉi tio interpretiĝos voĉo</translation>
     </message>
     <message>
         <source>Compression</source>
@@ -781,23 +781,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kvalito de densigo (maksimuma kapacito)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ĉi tio agordos la kvaliton de densigo.&lt;/b&gt;&lt;br /&gt;Ĉi tio decidos, kiom de kapacito Mumble rajtas uzi por elira sono.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Sono en paketo</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiom da soneroj sendi en paketo</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ĉi tio elektas, kiom da soneroj metiĝos en unu paketon.&lt;/b&gt;&lt;br /&gt;Pliigo de tiu ĉi valoro pliigos ankaŭ prokraston de via voĉo, sed ankaŭ malpliigos postulojn de reta kapacito.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
@@ -805,23 +805,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Processing</source>
-        <translation type="unfinished"></translation>
+        <translation>Traktado de sono</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation>Forigo de bruo</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ĉio tio agordas intensecon de forigo de bruo.&lt;/b&gt;&lt;br /&gt;Ju pli altos ĉi tiu valoro, des pli agrese bruo senŝanĝa estos forigata.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimuma laŭtigo de eniga sono</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Maksimuma laŭtigo de enigo.&lt;/b&gt;&lt;br /&gt;Mumble normaligas la enigan laŭtecon antaŭ densigo, kaj tio decidas, kiom ĝi povos laŭtigi.&lt;br /&gt;La aktuala nivelo daŭre ĝisdatiĝas laŭ via nuna parolado, sed ĝi neniam iros super la nivelo specifita tie ĉi.&lt;br /&gt;Se la nivelo de &lt;i&gt;Laŭteco de mikrofono&lt;/i&gt; en la statistiko de sono proksimas al 100%, vi probable volas agordi ĉi tion al 2.0, sed se (samkiel plej multaj personoj) vi ne povas atingi al 100%, agordu ĉi tion multe pli alte.&lt;br /&gt;Ideale, agordu ĝin tiel, ke &lt;i&gt;Laŭteco de mikrofono × Faktoro de laŭtigo ≥ 100&lt;/i&gt;, eĉ kiam vi parolas tre milde.&lt;br /&gt;&lt;br /&gt;Sciu, ke ne problemus agordi ĉi tion al maksimumo, sed Mumblo ekatentus aliajn interparolojn se vi lasus ĝin memagordi tiun nivelon.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
