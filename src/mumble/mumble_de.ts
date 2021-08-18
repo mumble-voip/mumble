@@ -4347,7 +4347,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Lock layout</source>
-        <translation>Sperren Layout</translation>
+        <translation>Layout sperren</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -7768,12 +7768,13 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Migration der Tastenkürzel unvollständig</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leider konnte(n) %1 Tastenkürzel nicht migriert werden.
+Sie können sie jedoch erneut registrieren.</translation>
     </message>
 </context>
 <context>
