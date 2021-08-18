@@ -6441,27 +6441,27 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Kendi susturmanı kaldır</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Kendi sağırlaştırmanı kaldır</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Konumsal ve Ses Görüntüleyici...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Konumsal Ses Görüntüleyiciyi Göster</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konumsal Ses Görüntüleyiciyi gösterir. Burada konumsal ses için kullanılan mevcut bilgiler incelenebilir. Kaynak ve kimlik de gösterilir.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Minimal Görünüm</translation>
     </message>
 </context>
 <context>
@@ -7430,27 +7430,27 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti bildirimi (manifest.xml) bulunamıyor</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirim işlenirken hata oluştu: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mevcut işletim sistemi (&quot;%1&quot;) ve mimari (&quot;%2&quot;) için eklenti bulunamadı</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakette bildirimde (&quot;%1&quot;) belirtilen eklenti kitaplığı bulunamıyor</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklentinin üzerine yazılsın mı?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni eklenti &quot;%1&quot; (%2), önceden yüklenmiş olan &quot;%3&quot; (%4) eklentisinin üzerine yazmak üzere. Devam etmek istiyor musunuz?</translation>
     </message>
 </context>
 <context>
@@ -7530,55 +7530,55 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Konumsal Ses Görüntüleyici</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera yönü</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Oynatıcı konumu</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oynatıcı ekseni</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Oynatıcı yönü</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera ekseni</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera konumu</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilgi</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Bağlam</translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Kimlik</translation>
+        <translation>Kimlik</translation>
     </message>
 </context>
 <context>
@@ -7771,12 +7771,13 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısayol geçişi tamamlanmadı</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne yazık ki %1 kısayol geçirilemedi.
+Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
 </context>
 <context>
