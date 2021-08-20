@@ -6442,27 +6442,27 @@ Geldige opties zijn:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation>Jezelf ontdempen</translation>
+        <translation>Hef stomheid op</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Hef doofheid op</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Details &amp;Positioneel Geluid...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon detailinformatie omtrent positioneel geluid</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toont de detailweergave voor positioneel geluid, waarmee je detailinformatie kan raadplegen omtrent positioneel geluid, zoals context en identiteit.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Minimale Weergave</translation>
     </message>
 </context>
 <context>
@@ -7431,27 +7431,27 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in-manifest (manifest.xml) niet vinden</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij het verwerken van manifest: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon geen plug-in terugvinden voor het huidige besturingssysteem (&quot;%1&quot;) en architectuur (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in-softwarebibliotheek uit manifest (&quot;%1&quot;) niet vinden in de (plug-in)bundel</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in overschrijven?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>De nieuwe plug-in &quot;%1&quot; (%2) zal de reeds geïnstalleerde plug-in &quot;%3&quot; (%4) overschrijven. Weet je zeker dat je wil verdergaan?</translation>
     </message>
 </context>
 <context>
@@ -7531,55 +7531,55 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Detailweergave Positioneel Geluid</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera-richting</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie speler</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>As speler</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Richting speler</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera-as</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera-positie</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Context</translation>
+        <translation>Context</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identiteit</translation>
+        <translation>Identiteit</translation>
     </message>
 </context>
 <context>
@@ -7772,12 +7772,13 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Sneltoetsenmigratie onvolledig</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Helaas kon(den) %1 sneltoets(en) niet gemigreerd worden.
+Je kunt ze opnieuw registreren.</translation>
     </message>
 </context>
 <context>

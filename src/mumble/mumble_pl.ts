@@ -7773,12 +7773,13 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Migracja skrótów niekompletna</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niestety nie można zmigrować %1 skrótu(-ów).
+Możesz je ponownie zarejestrować.</translation>
     </message>
 </context>
 <context>
@@ -8004,7 +8005,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Bieżący:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Bieżące:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>

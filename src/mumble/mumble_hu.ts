@@ -1081,7 +1081,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished">Bemeneti eszköz</translation>
+        <translation>Bemeneti eszköz</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -2429,11 +2429,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import from</source>
-        <translation>Importálás</translation>
+        <translation>Betöltés fájlból</translation>
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation>Fájlnév az importáláshoz</translation>
+        <translation>Betölteni kívánt fájl neve és elérése</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2525,11 +2525,11 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Export to</source>
-        <translation>Exportálás</translation>
+        <translation>Mentés ide</translation>
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation>Fájlnév az exportáláshoz</translation>
+        <translation>Menteni kívánt fájl neve és elérése</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
@@ -2967,7 +2967,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Location</source>
-        <translation>Helyszín</translation>
+        <translation>Terület</translation>
     </message>
     <message>
         <source>Filter</source>
@@ -3015,11 +3015,11 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzájárulás adat-továbbításhoz</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Ahhoz, hogy a nyilvános kiszolgálók válaszidejét (ping) mérni tudjuk és létszámot lekérdezzük az ön IP-címének továbbítása szükséges.&lt;/p&gt;&lt;p&gt;Hozzájárul az IP-címe továbbításához? Nemleges válasz esetén nem lesznek elérhetők a nyilvános kiszolgálók. Ez a beállítás utólag bármikor visszavonható a Mumble beállításaiban.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Ahhoz, hogy a nyilvános kiszolgálók válaszidejét (ping) mérni tudjuk és létszámot lekérdezzük az ön IP-címének továbbítása szükséges ezen kiszolgálók számára.&lt;/p&gt;&lt;p&gt;Hozzájárul az IP-címe továbbításához? Nemleges válasz esetén nem lesznek elérhetők a nyilvános kiszolgálók. Ez a beállítás utólag bármikor visszavonható a Mumble beállításaiban.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
@@ -3671,7 +3671,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hangerejének módosítása egyénileg</translation>
     </message>
 </context>
 <context>
@@ -3828,7 +3828,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>You joined channel (moved)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
@@ -5003,7 +5003,9 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation>A regisztrált felhasználó tanúsítványa vagy jelszava hibás.
+Amennyiben ön a felhasználó ismételje meg a hitelesítést!
+Ha nem ön az, ellenőrizze a felhasználónevét és a tanúsítványt!</translation>
     </message>
     <message>
         <source>Wrong password</source>
@@ -6155,7 +6157,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished">Szövegfelolvasás tiltása</translation>
+        <translation>Szövegfelolvasás tiltása</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
@@ -7378,7 +7380,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>A kijelölt a bővítmény frissíthető.</translation>
     </message>
     <message>
         <source>Select all</source>
@@ -7432,15 +7434,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
@@ -7468,7 +7470,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Kiterjesztés</translation>
+        <translation>Kiterjesztés</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -7505,7 +7507,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>CodecInit: Nem sikerült az Opus kódoló betöltése, így az nem használható hangkódoláshoz.</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -8116,7 +8118,7 @@ You can register them again.</source>
     <name>TextMessage</name>
     <message>
         <source>Enter text</source>
-        <translation type="unfinished"></translation>
+        <translation>Üzenet írása</translation>
     </message>
     <message>
         <source>If checked the message is recursively sent to all subchannels</source>
