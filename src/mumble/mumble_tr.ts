@@ -7378,27 +7378,27 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti bildirimi (manifest.xml) bulunamıyor</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirim işlenirken hata oluştu: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mevcut işletim sistemi (&quot;%1&quot;) ve mimari (&quot;%2&quot;) için eklenti bulunamadı</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakette bildirimde (&quot;%1&quot;) belirtilen eklenti kitaplığı bulunamıyor</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklentinin üzerine yazılsın mı?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni eklenti &quot;%1&quot; (%2), önceden yüklenmiş olan &quot;%3&quot; (%4) eklentisinin üzerine yazmak üzere. Devam etmek istiyor musunuz?</translation>
     </message>
 </context>
 <context>
@@ -7664,12 +7664,13 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısayol geçişi tamamlanmadı</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne yazık ki %1 kısayol geçirilemedi.
+Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
 </context>
 <context>

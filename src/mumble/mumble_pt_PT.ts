@@ -473,11 +473,11 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou a identificação do nome (completo) da placa de som: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou a obtenção do nome da placa de som: %1</translation>
     </message>
 </context>
 <context>
@@ -1034,7 +1034,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Pre&amp;ver</translation>
     </message>
 </context>
 <context>
@@ -1430,11 +1430,11 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1517,15 +1517,15 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distância na qual o volume de áudio de outro jogador começa a diminuir</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distância na qual o volume de áudio de um jogador atingiu o valor mínimo</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>O volume mínimo de áudio de um jogador diminuirá com o aumento da distância. Defina como 0% para desvanecer para silêncio total para uma distância de audição máxima realista.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
@@ -3270,11 +3270,11 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha interna encontrada em CrashReporter.cpp: a resposta recebida da rede não contém um código de estado HTTP. Por favor reporte a um programador o erro de código %1</translation>
     </message>
 </context>
 <context>
@@ -3422,7 +3422,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inicia o processo de captura: todos os botões que pressionar serão adicionados à árvore.&lt;/p&gt;&lt;p&gt;Assim que todos os botões forem soltos, o processo de captura será interrompido automaticamente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3852,7 +3852,7 @@ Este campo descreve o tamanho de um aparelho LCD. O tamanho é dado em pixels (p
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensagem do plugin</translation>
     </message>
 </context>
 <context>
