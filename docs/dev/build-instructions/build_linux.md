@@ -88,6 +88,10 @@ following commands:
 2. `cd build` (Switches into the build directory)
 3. `cmake ..` (Actually runs cmake)
 
+Optionally you can use: `cmake -DRELEASE_ID=$(python "../scripts/mumble-version.py") ..`
+
+This will include the latest commit hash and date in the version info. This should be run in bash.
+
 This will cause cmake to create the necessary build files for you. If you want to customize your build, you can pass special flags to cmake in step 3.
 For all available build options, have a look [here](cmake_options.md).
 
