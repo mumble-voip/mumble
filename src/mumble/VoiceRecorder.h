@@ -51,6 +51,8 @@ enum Format {
 	AU,
 	/// FLAC Format
 	FLAC,
+    // OPUS Format
+    OPUS,
 	kEnd
 };
 
