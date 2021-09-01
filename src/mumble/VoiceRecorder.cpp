@@ -212,6 +212,18 @@ SF_INFO VoiceRecorder::createSoundFileInfo() const {
 			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate
 					   << "hz in FLAC format";
 			break;
+#ifdef USE_SNDFILE_OPUS
+		case VoiceRecorderFormat::OPUS:
+			sfinfo.frames     = 0;
+			sfinfo.samplerate = m_config.sampleRate;
+			sfinfo.channels   = 1;
+			sfinfo.format     = SF_FORMAT_OGG | SF_FORMAT_OPUS;
+			sfinfo.sections   = 0;
+			sfinfo.seekable   = 0;
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate
+					   << "hz in OPUS format";
+			break;
+#endif
 	}
 
 	Q_ASSERT(sf_format_check(&sfinfo));
@@ -429,6 +441,10 @@ QString VoiceRecorderFormat::getFormatDescription(VoiceRecorderFormat::Format fm
 			return VoiceRecorder::tr(".au - Uncompressed");
 		case VoiceRecorderFormat::FLAC:
 			return VoiceRecorder::tr(".flac - Lossless compressed");
+#ifdef USE_SNDFILE_OPUS
+		case VoiceRecorderFormat::OPUS:
+			return VoiceRecorder::tr(".opus - Lossy compressed");
+#endif
 		default:
 			return QString();
 	}
@@ -446,6 +462,10 @@ QString VoiceRecorderFormat::getFormatDefaultExtension(VoiceRecorderFormat::Form
 			return QLatin1String("au");
 		case VoiceRecorderFormat::FLAC:
 			return QLatin1String("flac");
+#ifdef USE_SNDFILE_OPUS
+		case VoiceRecorderFormat::OPUS:
+			return QLatin1String("opus");
+#endif
 		default:
 			return QString();
 	}
