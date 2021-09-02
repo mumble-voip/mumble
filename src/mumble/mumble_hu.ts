@@ -8747,6 +8747,10 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
         <source>.flac - Lossless compressed</source>
         <translation>.flac - veszteségmentes</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

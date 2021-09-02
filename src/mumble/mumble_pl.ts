@@ -8858,6 +8858,10 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Bezstratna kompresja</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

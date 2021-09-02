@@ -8760,6 +8760,10 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Komprimováno bezeztrátově</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

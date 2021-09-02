@@ -8855,6 +8855,10 @@ Un token di accesso è una stringa di testo, che può essere usata come password
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Compresso senza perdite</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

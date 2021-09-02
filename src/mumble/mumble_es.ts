@@ -8771,6 +8771,10 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Comprimido sin pérdidas</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

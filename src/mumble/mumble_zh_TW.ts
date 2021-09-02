@@ -8721,6 +8721,10 @@ An access token is a text string, which can be used as a password for very simpl
         <source>.flac - Lossless compressed</source>
         <translation>.flac - 無損壓縮</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

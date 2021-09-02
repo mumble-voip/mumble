@@ -1120,15 +1120,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sono en paketo</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kvalito de densigo (maksimuma kapacito)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forigo de bruo</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1731,7 +1731,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eniga metodo por sono</translation>
     </message>
     <message>
         <source>Device</source>
@@ -8701,6 +8701,10 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.flac - Lossless compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

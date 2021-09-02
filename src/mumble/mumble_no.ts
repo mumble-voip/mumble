@@ -8785,6 +8785,10 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Tapsfritt komprimert</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>
