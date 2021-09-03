@@ -8771,6 +8771,10 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Compressé sans perte</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

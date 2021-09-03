@@ -8814,6 +8814,10 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Häviöttömästi pakattu</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

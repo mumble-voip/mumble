@@ -8754,6 +8754,10 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Tabsfri komprimeret</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

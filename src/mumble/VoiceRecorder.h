@@ -51,6 +51,10 @@ enum Format {
 	AU,
 	/// FLAC Format
 	FLAC,
+#ifdef USE_SNDFILE_OPUS
+	// OPUS Format
+	OPUS,
+#endif
 	kEnd
 };
 

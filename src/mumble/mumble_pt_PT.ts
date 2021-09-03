@@ -8773,6 +8773,10 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Comprimido sem perdas</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

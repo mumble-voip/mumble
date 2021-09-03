@@ -8854,6 +8854,10 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Kayıpsız olarak sıkıştırılmış</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

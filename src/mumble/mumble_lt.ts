@@ -8793,6 +8793,10 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
         <source>.flac - Lossless compressed</source>
         <translation>.flac - Nenuostolingasis suglaudintas</translation>
     </message>
+    <message>
+        <source>.opus - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>
