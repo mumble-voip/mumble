@@ -1120,15 +1120,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Sono en paketo</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kvalito de densigo (maksimuma kapacito)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation>Forigo de bruo</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1731,7 +1731,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Eniga metodo por sono</translation>
     </message>
     <message>
         <source>Device</source>
