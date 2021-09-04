@@ -8860,7 +8860,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Stratna kompresja</translation>
     </message>
 </context>
 <context>
