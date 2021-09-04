@@ -407,11 +407,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>屬性</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>頻道密碼</translation>
     </message>
     <message>
         <source>Maximum users</source>
@@ -419,7 +419,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>頻道名稱</translation>
     </message>
     <message>
         <source>Inherited group members</source>
