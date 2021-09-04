@@ -444,7 +444,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished">Lista kulkuoikeuksista</translation>
+        <translation>Lista kulkuoikeuksista</translation>
     </message>
 </context>
 <context>
@@ -473,11 +473,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu ladata äänikortin nimeä (pitkä nimi): %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänikortin nimen löytäminen epäonnistui: %1</translation>
     </message>
 </context>
 <context>
@@ -593,7 +593,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished">Lista kuulokkeista</translation>
+        <translation>Lista kuulokkeista</translation>
     </message>
 </context>
 <context>
@@ -647,7 +647,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Puheohjelma pelaajille&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Korkeatasoinen ja pieniviiveinen puhechat, joka perustuu avoimeen koodiin&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -970,11 +970,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished">Poissaolotila perutaan minkä tahansa näppäin- tai hiirikomennon seurauksesta</translation>
+        <translation>Poissaolotila perutaan minkä tahansa näppäin- tai hiirikomennon seurauksesta</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished">Poista poissaolotila aktiivisuuden seurauksena</translation>
+        <translation>Poista poissaolotila aktiivisuuden seurauksena</translation>
     </message>
     <message>
         <source>Audio input</source>
@@ -1026,7 +1026,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Mykistä jono</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1097,11 +1097,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhepikanäppäimen lukitsemisen raja-aika</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhepikanäppäimen pidon raja-aika</translation>
     </message>
     <message>
         <source>Silence below</source>
@@ -1121,7 +1121,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished">Ääntä per paketti</translation>
+        <translation>Ääntä per paketti</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
@@ -1145,11 +1145,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished">Aloita epäakviivisuustoiminto (minuuteissa)</translation>
+        <translation>Aloita epäakviivisuustoiminto (minuuteissa)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Epäaktiivisuustoiminto</translation>
+        <translation>Epäaktiivisuustoiminto</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1525,7 +1525,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">Pienin äänenvoimakkuus johon pelaajan äänet vaimennetaan etäisyyden kasvaessa. Aseta arvoksi 0% niin äänet katoavat kokonaan kun suurin kuuloetäisyys saavutetaan.</translation>
+        <translation>Pienin äänenvoimakkuus, johon pelaajan äänet vaimennetaan etäisyyden kasvaessa. Aseta arvoksi 0 %, niin äänet katoavat kokonaan, kun suurin kuuloetäisyys saavutetaan.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
@@ -2875,7 +2875,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished">Mukautuskategoriat</translation>
+        <translation>Mukautuskategoriat</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
@@ -3026,7 +3026,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished">Hyväksy yksityisten tietojen lähettäminen</translation>
+        <translation>Hyväksy yksityisten tietojen lähettäminen</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
@@ -3034,7 +3034,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Yhdistä</translation>
+        <translation>&amp;Yhdistä</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3274,7 +3274,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisäinen virhe kohdattiin kohteessa CrashReporter.cpp: Vastaanotettu verkkovastaus ei sisällä HTTP-statuskoodia. Ilmoita kehittäjälle virhekoodista %1</translation>
     </message>
 </context>
 <context>
@@ -3286,7 +3286,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished">Tietokantatiedosto &apos;%1&apos; joka on asetettu asetustiedostoon ei ole olemassa. Haluatko luoda uuden tietokantatiedoston sinne?</translation>
+        <translation>Tietokantatiedostoa &apos;%1&apos; joka on asetettu asetustiedostoon, ei ole olemassa. Haluatko luoda uuden tietokantatiedoston sinne?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
@@ -3375,11 +3375,11 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished">&lt;b&gt;Muita pikanäppäimiä&lt;/b&gt;&lt;br /&gt;Tämä kohta mahdollistaa muiden järjestelmänlaajuisten pikanäppäimien luonnin.</translation>
+        <translation>&lt;b&gt;Muita pikanäppäimiä&lt;/b&gt;&lt;br /&gt;Tämä kohta mahdollistaa muiden järjestelmänlaajuisten pikanäppäimien luonnin.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished">Muut pikanäppäimet</translation>
+        <translation>Muut pikanäppäimet</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
@@ -3407,7 +3407,7 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished">Ota käyttöön pikanäppäimet ohjelmissa joita ajetaan korkeammilla oikeuksilla</translation>
+        <translation>Ota käyttöön pikanäppäimet ohjelmissa, joita ajetaan korkeammilla oikeuksilla</translation>
     </message>
 </context>
 <context>
@@ -3543,7 +3543,7 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished">Huuda/Kuiskaa:</translation>
+        <translation>Huuda/Kuiskaa:</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -3676,14 +3676,14 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedettävän reunapalkin paksuus</translation>
     </message>
 </context>
 <context>
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished">Paikallisen äänenvoimakkuuden säätö kuunnellessa %1</translation>
+        <translation>Paikallisen äänenvoimakkuuden säätö kuunnellessa %1</translation>
     </message>
 </context>
 <context>
@@ -3852,7 +3852,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisäosan viesti</translation>
     </message>
 </context>
 <context>
@@ -3892,7 +3892,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished">Paina tästä vaihtaaksesi ikkunan korostuksen joka %1 tapahtumalle.&lt;br /&gt;Jos valittu, Mumblen ikkuna korostetaan joka %1 tapahtuma, aina kun se ei ole aktiivinen.</translation>
+        <translation>Paina tästä vaihtaaksesi ikkunan korostuksen joka %1 tapahtumalle.&lt;br /&gt;Jos valittu, Mumblen ikkuna korostetaan joka %1 tapahtuma, aina kun se ei ole aktiivinen.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
@@ -4046,7 +4046,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished">Teksti-puheeksi äänenvoimakkuus</translation>
+        <translation>Tekstistä-puheeksi -ominaisuuden äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Chat message margins</source>
@@ -4074,19 +4074,19 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjärajoitus viestien rajoittamiseen</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Paina tästä vaihtaaksesi viestirajoituksen koskemaan kaikkia tapahtumia - tätä toimintoa käytettäessä vaihdathan käyttäjärajoituksen alempaa.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda viestirajoitukset %1 tapahtumaan </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klikkaa tätä vaihtaaksesi rajoitusta %1 tapahtumalle. &lt;br /&gt; Jos valittuna, ilmoitukset tästä tapahtumatyypistä jätetään tekemättä, kun käyttäjämäärä palvelimella ylittää ennaltamääritellyn rajan.</translation>
     </message>
 </context>
 <context>
@@ -4383,7 +4383,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished">Lyhennyksen alun merkkien määrä</translation>
+        <translation>Lyhennetyt merkit sanojen alkuosista</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
@@ -4395,7 +4395,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished">Lyhennyksen lopun merkkien määrä</translation>
+        <translation>Lyhennetyt merkit sanojen lopuista</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
@@ -4411,7 +4411,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished">Lyhennyksen korvaus</translation>
+        <translation>Lyhennyksen korvaus</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
@@ -4463,7 +4463,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Channel dragging</source>
-        <translation type="unfinished">Kanavan raahaaminen</translation>
+        <translation>Kanavan raahaaminen</translation>
     </message>
     <message>
         <source>Automatically expand channels when</source>
@@ -4503,27 +4503,27 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan hierarkian merkkijono</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Haku</translation>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toiminto, joka suoritetaan, kun käyttäjä on aktiivinen (kaksoisklikkaamalla tai enter-näppäimellä) hakunäkymässä.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Toiminta (Käyttäjä):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toiminto, joka suoritetaan, kun kanava aktivoidaan (kaksoisklikkaamalla tai enter-näppäimellä) hakunäkymässä.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Toiminta (Kanava):</translation>
     </message>
 </context>
 <context>
@@ -6090,11 +6090,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelimen synkronointiprotokollan loukkaus. Käyttäjäprofiilia ei vastaanotettu.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokollaloukkaus. Palvelin lähetti poiston varatulle kanavalle.</translation>
     </message>
     <message>
         <source>Listen to channel</source>
@@ -6118,7 +6118,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
-        <translation type="unfinished">%1 ei voitu %2 - Lisäämällä oikea pääsypoletti (salasana) saattaa antaa sinulle oikeudet.</translation>
+        <translation>%1 ei voitu %2 - Lisäämällä oikea pääsypoletti (salasana) saattaa antaa sinulle oikeudet.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
@@ -6372,7 +6372,7 @@ Valid options are:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Vaihtaa puhujalistan näkyvyyttä.</translation>
+        <translation>Vaihtaa puhujalistan näkyvyyttä.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6384,7 +6384,7 @@ Valid options are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Haku</translation>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -6405,7 +6405,7 @@ Valid options are:
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Palauta puheen kuuntelu</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
@@ -6504,7 +6504,7 @@ Valid options are:
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished">Kuinka pitkään hiljaisen käyttäjän tila pitäisi pysyä näkyvillä hänen lopetettuaan puhumisen (sekunneissa).</translation>
+        <translation>Kuinka pitkään hiljaisen käyttäjän tila pitäisi pysyä näkyvillä hänen lopetettuaan puhumisen (sekunneissa).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
@@ -6833,7 +6833,7 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation type="unfinished">Käynnistysohjelman suodin</translation>
+        <translation>Käynnistysohjelman suodin</translation>
     </message>
     <message>
         <source>Overlay</source>
@@ -7279,11 +7279,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Käytä</translation>
+        <translation>Salli</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
@@ -7299,11 +7299,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista valittu liitännäinen käytöstä. Tämä poistaa sen liitännäisluettelosta nykyisen istunnon ajaksi.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista käytöstä</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
@@ -7311,7 +7311,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu deaktivoida kaikkia pyydettyjä ominaisuuksia liitännäiselle &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
@@ -7327,7 +7327,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Onko tällä liitännäisellä oikeutta kuunnella kaikkia näppäimistön tapahtumia, jotka tapahtuvat Mumblen ollessa päällimmäisenä</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
@@ -7338,7 +7338,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisten asentaja</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
@@ -7362,11 +7362,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ei</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kyllä</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
@@ -7374,7 +7374,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu ladata liitännäistä &quot;%1&quot; - tarkista liitännäisen rajapinta!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
@@ -7390,11 +7390,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu paikantaa liitännäisluetteloa (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Virhe luettelon käsittelyssä: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
@@ -7402,15 +7402,15 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu paikantaa liitännäiskirjastoa, joka on määritelty nipussa olevassa luettelossa (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Korvataanko liitännäinen?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi liitännäinen &quot;%1&quot; (%2) tulee korvaamaan valmiiksi asennetun liitännäisen &quot;%3&quot; (%4). Haluatko jatkaa?</translation>
     </message>
 </context>
 <context>
@@ -7429,18 +7429,18 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei-liitännäinen löydetty liitännäiskirjastosta: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu ladata manuaalista liitännäistä: %1</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisten päivittäjä</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
@@ -7472,7 +7472,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei voitu ladata päivitystä liitännäiseen &quot;%1&quot; kohteesta &quot;%2&quot; (HTTP-statuskoodi %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
@@ -7498,15 +7498,15 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
@@ -7530,15 +7530,15 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisätiedot</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Konteksti</translation>
+        <translation>Konteksti</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identiteetti</translation>
+        <translation>Identiteetti</translation>
     </message>
 </context>
 <context>
@@ -7673,7 +7673,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished">Pääsy mikrofoniin estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
+        <translation>Pääsy mikrofoniin estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
@@ -7693,11 +7693,11 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished">Sekoitettu kaiunpoisto (speex)</translation>
+        <translation>Sekoitettu kaiunpoisto (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished">Sekoitetulla ei ole suurta vaikutusta prosessointitehoon, mutta se toimii hyvin vain jos kaiuttimesi ovat yhtä kovalla ja yhtä etäällä mikrofonistasi.</translation>
+        <translation>Sekoitetulla ei ole suurta vaikutusta prosessointitehoon, mutta se toimii hyvin vain jos kaiuttimesi ovat yhtä kovalla ja yhtä etäällä mikrofonistasi.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
@@ -7719,7 +7719,7 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Kutsu</translation>
+        <translation>Kutsu</translation>
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
@@ -7731,12 +7731,13 @@ Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_M
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikanäppäinten vienti kesken</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitettavasti %1 pikanäppäin(tä) ei voitu rekisteröidä.
+Voit rekisteröidä ne uudelleen.</translation>
     </message>
 </context>
 <context>
@@ -7825,18 +7826,18 @@ You can register them again.</source>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Liity</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Haku</translation>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -7844,7 +7845,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Valinnat</translation>
+        <translation>Valinnat</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
@@ -7856,11 +7857,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Tulisiko isojen tai pienten kirjainten vaikuttaa hakutuloksiin</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Isojen/pienten kirjainten vaikutus</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -7868,7 +7869,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Tulisiko hakumerkkijono tulkita tavallisena ilmaisuna</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
@@ -7974,7 +7975,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished">UDP (Puhe)</translation>
+        <translation>UDP (Puhe)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
@@ -7990,11 +7991,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished">Hyvä</translation>
+        <translation>Hyvä</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished">Myöhässä</translation>
+        <translation>Myöhässä</translation>
     </message>
     <message>
         <source>Lost</source>
@@ -8002,7 +8003,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished">Uudelleensynkronoi</translation>
+        <translation>Uudelleensynkronoi</translation>
     </message>
     <message>
         <source>Outgoing</source>
@@ -8018,7 +8019,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished">TCP (Hallinta)</translation>
+        <translation>TCP (Hallinta)</translation>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
@@ -8026,11 +8027,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Salaussarja:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;viestintäsalaisuus&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
@@ -8038,23 +8039,23 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Tuntematon</translation>
+        <translation>Tuntematon</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteys takaa täydellisen viestintäsalaisuuden.</translation>
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteys EI TAKAA täydellistä viestintäsalaisuutta.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa viestintäsalaisuudesta ei ole saatavilla.</translation>
     </message>
 </context>
 <context>
@@ -8654,7 +8655,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhuminen, kun on itse mykistettynä</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>

@@ -8854,7 +8854,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Verlustbehaftet komprimiert</translation>
     </message>
 </context>
 <context>
