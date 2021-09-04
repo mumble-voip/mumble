@@ -129,7 +129,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inheritable</source>
-        <translation>Κληρονόμητη </translation>
+        <translation>Κληρονόμητη</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
@@ -137,7 +137,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inherited</source>
-        <translation>Κληρονομήθηκε </translation>
+        <translation>Κληρονομήθηκε</translation>
     </message>
     <message>
         <source>Members</source>
@@ -378,7 +378,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Αυτό ελέγχει ποιάς ομάδα χρηστών, η καταχώρηση ισχύει.</translation>
+        <translation>Αυτό ελέγχει την ομάδα χρηστών στην οποία εφαρμόζεται αυτή η καταχώρηση.&lt;br /&gt;η ομάδα αξιολογείται στο πλαίσιο του καναλιού στο οποίο χρησιμοποιείται η καταχώριση. Για παράδειγμα, η προεπιλεγμένη ACL στο Root κανάλι δίνει άδειες &lt;i&gt;Γραφής&lt;/i&gt; στην ομάδα &lt;i&gt;admin&lt;/i&gt;. Αυτή η καταχώρηση, εάν κληρονομηθεί από ένα κανάλι, θα δώσει σε έναν χρήστη δικαιώματα γραφής εάν ανήκει στην ομάδα &lt;i&gt;admin&lt;/i&gt; σε αυτό το κανάλι, ακόμη και αν δεν ανήκει στην ομάδα &lt;i&gt;admin&lt;/i&gt; στo κανάλι από όπου προήλθε το ACL. &lt;br /&gt; Εάν το όνομα μιας ομάδας ξεκινά με &apos;!&apos;, η ιδιότητα μέλους της ανερείται και εάν ξεκινά με &apos;~&apos;, αξιολογείται στο κανάλι στο οποίο ορίστηκε το ACL και όχι στο κανάλι το ACL που είναι ενεργό. &lt;br /&gt; Εάν ένα όνομα ομάδας ξεκινά με &apos;#&apos;, ερμηνεύεται ως διακριτικό πρόσβασης. Οι χρήστες πρέπει να έχουν εισαγάγει ό, τι ακολουθεί το &apos;#&apos; στη λίστα με τα διακριτικά πρόσβασης για αντιστοίχιση. Αυτό μπορεί να χρησιμοποιηθεί για πολύ απλή πρόσβαση με κωδικό πρόσβασης σε κανάλια για χρήστες χωρίς έλεγχο ταυτότητας. &lt;br /&gt; Εάν ένα όνομα ομάδας ξεκινά με &apos;$&apos;, θα ταιριάζει μόνο με χρήστες των οποίων το hash του πιστοποιητικού αντιστοιχεί σε αυτό που ακολουθεί το &apos;$&apos;. &lt;br /&gt; Μερικές ειδικές προκαθορισμένες ομάδες είναι: &lt;br /&gt; &lt;b&gt; all &lt;/b&gt; - Όλοι θα ταιριάζουν. &lt;br /&gt; &lt;b&gt;auth&lt;/b&gt; - Όλοι οι πιστοποιημένοι χρήστες θα ταιριάζουν. &lt;br /&gt; &lt;b&gt; sub,a,b,c&lt;/b&gt; - Χρήστης επί του παρόντος σε ένα κανάλι με ελάχιστες &lt;i&gt; a &lt;/i&gt; κοινούς γονείς και μεταξύ &lt;i&gt; b &lt;/i&gt; και &lt;i&gt; c &lt;/i &gt; κανάλια στην αλυσίδα. Ανατρέξτε στον ιστότοπο για πιο εκτενή τεκμηρίωση σχετικά με αυτό. &lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Οι χρήστες που βρίσκονται στο κανάλι θα ταιριάζουν (ευκολία για &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;). &lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Οι χρήστες εκτός του καναλιού θα ταιριάζουν (ευκολία για &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;). &lt;br /&gt; Σημειώστε ότι μια καταχώριση ισχύει είτε για χρήστη είτε για ομάδα, αλλά όχι και για τα δύο.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -386,9 +386,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Αυτό δείχνει όλες τις καταχωρίσεις που είναι ενεργές σε αυτό το κανάλι. Οι καταχωρίσεις που κληρονομούνται από γονικά κανάλια θα εμφανίζονται με πλάγιους χαρακτήρες.
-
-Τα ACL αξιολογούνται από την κορυφή προς τα κάτω, δηλαδή αυξάνεται η προτεραιότητα τους καθώς μετακινούνται προς τα κάτω στη λίστα.</translation>
+        <translation>Αυτό δείχνει όλες τις καταχωρίσεις που είναι ενεργές σε αυτό το κανάλι. Οι καταχωρίσεις που κληρονομούνται από γονικά κανάλια θα εμφανίζονται με πλάγιους χαρακτήρες.&lt;br /&gt;Τα ACL αξιολογούνται από την κορυφή προς τα κάτω, δηλαδή αυξάνεται η προτεραιότητα τους καθώς μετακινούνται προς τα κάτω στη λίστα.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -405,7 +403,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation>Μέγιστος αριθμός χρηστών
+        <translation>&lt;b&gt;Μέγιστος αριθμός χρηστών&lt;/b&gt;&lt;br /&gt;
 Η τιμή αυτή σας επιτρέπει να ρυθμίσετε τον μέγιστο αριθμό χρηστών που επιτρέπονται στο κανάλι. Εάν η τιμή είναι πάνω από το μηδέν, μόνο τόσοι χρήστες θα επιτρέπεται να εισέλθουν στο κανάλι. Εάν η τιμή είναι μηδέν, ο μέγιστος αριθμός χρηστών στο κανάλι δίνεται από το προεπιλεγμένο όριο του διακομιστή.</translation>
     </message>
     <message>
@@ -414,39 +412,39 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Ιδιότητες</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Κωδικός καναλιού</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστοι χρήστες</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Όνομα καναλιού</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Κληρονομημένα μέλη ομάδας</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέλη ξένων ομάδων</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Κληρονομημένα μέλη καναλιού</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσθήκη μελών στην ομάδα</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα καταχωρήσεων ACL</translation>
     </message>
 </context>
 <context>
@@ -475,11 +473,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποτυχία λήψης ονόματος (longname) της κάρτας ήχου: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποτυχία λήψης ονόματος κάρτας ήχου: %1</translation>
     </message>
 </context>
 <context>
@@ -591,18 +589,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα μικροφόνων</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα ηχείων</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Πρέπει να επιλέξετε τουλάχιστον μια πηγή μικροφώνου και μια πηγή ηχείου για την χρήση ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -617,8 +615,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Σχετικά με το Mumble
-</translation>
+        <translation>&amp;Σχετικά με το Mumble</translation>
     </message>
     <message>
         <source>&amp;License</source>
@@ -638,19 +635,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμφωνία άδειας</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Συγγραφείς</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμφωνίες άδειας χρήσης τρίτου μέρους</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ένα πρόγραμμα φωνητικής συνομιλίας για gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Μία υπηρεσία ανοικτού κώδικα, μικρής καθυστέρησης και υψηλής ποιότητας ήχου φωνής&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -981,63 +978,63 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Είσοδος ήχου</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εισόδου ήχου.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση λειτουργίας μικρής καθυστέρησης Opus όταν η ποιότητα είναι ρυθμισμένη σε &lt;b&gt;64 kb/s&lt;/b&gt; ή υψηλότερα. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν επιλεχθεί, το Mumble θα ενεργοποιήσει την λειτουργία μικρής καθυστέρησης Opus όταν η ποιότητα είναι ρυθμισμένη σε &lt;b&gt;64 kbit/s&lt;/b&gt; ή υψηλότερα. Η λειτουργία χαμηλής καθυστέρησης μειώνει την καθυστέρηση για &lt;b&gt;~15 χιλιοστά του δευτερολέπτου&lt;/b&gt; στο ταξίδι μετ &apos;επιστροφής. Αυτή η λειτουργία μπορεί να χρειάζεται υψηλότερο ρυθμό bit για να διατηρήσει την ίδια ποιότητα, συγκριτικά με τις λειτουργίες μουσικής και VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση λειτουργία μικρής καθυστέρησης</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Απενεργοποίηση καταστολής θορύβου.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση αλγορίθμου καταστολής θορύβου από Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση αλγορίθμου καταστολής θορύβου από RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση συνδυασμού Speex και RNNoise για καταστολή θορύβου.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Και τα δύο</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό ελέγχει την ποσότητα κατά την οποία το Speex θα καταστείλει τον θόρυβο.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Ισχύς καταστολής Speex</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Ηχός σίγασης</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Περιήγηση...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπισκόπηση</translation>
     </message>
 </context>
 <context>
@@ -1084,31 +1081,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύστημα ήχου</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Συσκευή εισόδου</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Λειτουργία ακύρωσης ηχώς</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Λειτουργία μετάδοσης</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Οριακή τιμή κλειδώματος ΠΠΟ</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Οριακή τιμή κρατήματος ΠΠΟ</translation>
     </message>
     <message>
         <source>Silence below</source>
-        <translation type="unfinished"></translation>
+        <translation>Σίγαση κάτω από</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -1116,11 +1113,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech above</source>
-        <translation type="unfinished"></translation>
+        <translation>Ομιλία πάνω από</translation>
     </message>
     <message>
         <source>Speech below</source>
-        <translation type="unfinished"></translation>
+        <translation>Ομιλία κάτω από</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -1136,31 +1133,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστη ενίσχυση</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Ήχος έναρξης μετάδοσης</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Ήχος λήξης μετάδοσης</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Έναρξη αδράνειας μετά από (σε λεπτά)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Πράξη αδράνειας</translation>
+        <translation>Ενέργεια αδράνειας</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο απορρίφθηκε. Επιτρέψτε την χρήστη μικροφώνου στο Mumble αλλάζοντας τις ρυθμίσεις στις Προτιμήσεις Συστήματος -&gt; Ασφάλεια &amp; Ιδιωτικότητα -&gt; Ιδιωτικότητα -&gt; Μικρόφωνο.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο απορρίφθηκε. Ελέγξτε αν οι ρυθμίσεις μικροφώνου του λειτουργικού σας συστήματος επιτρέπουν την χρήστη του μικροφώνου στο Mumble.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -1168,7 +1165,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Απενεργοποίηση ακύρωσης ηχώς.</translation>
     </message>
 </context>
 <context>
@@ -1227,7 +1224,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Αυτό δίνει τη δυνατότητα της δοκιμής loopback τρόπων.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Τίποτα&lt;/i&gt;Απενεργοποίηση του Loopback&#xa0;&lt;br /&gt;&lt;i&gt;Τοπικά&lt;/i&gt;Μίμησ ενός τοπικού διακομιστή.&lt;br /&gt;&lt;i&gt;Διακομιστής&lt;/i&gt;Αίτημα loopback από το διακομιστή&lt;br /&gt;Παρακαλείστε να σημειώσετε ότι όταν το loopback είναι ενεργοποιημένο,  οιάλλοι χρήστες θα ακούσουν την φωνή σας. Αυτή η ρύθμιση δεν αποθηκεύεται στην εφαρμογή.</translation>
+        <translation>&lt;b&gt;Αυτό δίνει τη δυνατότητα μιας από τις λειτουργίες δοκιμής επανάληψης.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Καμία&lt;/i&gt; - Απενεργοποίηση επανάληψης&#xa0;&lt;br /&gt;&lt;i&gt;Τοπικά&lt;/i&gt; - Μίμηση ενός τοπικού διακομιστή.&lt;br /&gt;&lt;i&gt;Διακομιστής&lt;/i&gt; - Αίτημα επανάληψης από το διακομιστή&lt;br /&gt;Όταν η λειτουργία επανάληψης είναι ενεργοποιημένη, οι άλλοι χρήστες δεν θα ακούσουν την φωνή σας. Αυτή η ρύθμιση δεν αποθηκεύεται μετά την έξοδο της εφαρμογής.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1272,7 +1269,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Αυτό καθορίζει την ποσότητα των δεδομένων για  τηνπρο-άμβλυνση κατά την άμβλυνση εξόδου. Πειραματιστείτε με διαφορετικές τιμές και να το θέσετε στο χαμηλότερο και έτσι δεν θα υπάρχουν προβλήματα ήχου.</translation>
+        <translation>Αυτό καθορίζει την ποσότητα των δεδομένων για την προ-άμβλυνση κατά την άμβλυνση εξόδου. Πειραματιστείτε με διαφορετικές τιμές και να το θέσετε στο χαμηλότερο ώστε να μην υπάρχουν προβλήματα ήχου.</translation>
     </message>
     <message>
         <source>Headphones</source>
@@ -1409,35 +1406,35 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Εξαγωγή ήχου</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξαγωγής ήχου.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Χαμηλώστε τους άλλους χρήστες όταν μιλάτε ως Ομιλιτής Προτεραιότητας&lt;/b&gt;&lt;br /&gt;Το Mumble υποστηρίζει την μείωση έντασης άλλων χρηστών όσο μιλάτε ως &lt;i&gt;Ομιλιτής Προτεραιότητας&lt;/i&gt; για να αποφύγεται τις ενοχλήσεις. Πατώντας αυτό το κουτί θα ενεργοποιηθεί η λειτουργία.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Μείωση έντασης άλλων χρηστών όσο μιλάτε ως Ομιλιτής Προτεραιότητας</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση</translation>
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Μείωση έντασης</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1468,15 +1465,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύστημα εξόδου</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Συσκευή εξόδου</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένη ρύθμιση τρόμου φάσης</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
@@ -1484,7 +1481,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Καθυστέρηση εξόδου</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
@@ -1492,15 +1489,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Ελάχιστη απόσταση</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστη απόσταση</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ελάχιστη ένταση</translation>
     </message>
     <message>
         <source>Bloom</source>
@@ -1508,7 +1505,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Delay variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Διακύμανση καθυστέρησης</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -1516,23 +1513,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Επανάληψη</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Η απόσταση από την οποία η ένταση ήχου ενός άλλου παίκτη αρχίζει να μειώνεται</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Απόσταση στην οποία η ένταση ήχου ενός παίκτη έχει φτάσει την ελάχιστη τιμή</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ελάχιστη ένταση ήχου ενός παίκτη που θα ξεθωριάσει με αυξανόμενη απόσταση. Ρυθμίστε το στο 0% ώστε να ξεθωριάσει ολοκληρωτικά σε απόλυτη ησυχία για μια μέγιστη ρεαλιστική απόσταση ακοής.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν μια πηγή ήχου είναι αρκετά κοντά, η ενίσχυση θα προκαλέσει αναπαραγωγή του ήχου σε όλα τα ηχεία ασχέτως της τοποθεσίας (αν και με μικρότερη ένταση)</translation>
     </message>
 </context>
 <context>
@@ -1575,7 +1572,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Αυτό δείχνει την μέγιστη ισχύ στο τελευταίο κομμάτι (20 ms) και είναι η ίδια μέτρηση που συνήθως εμφανίζεται ως &quot;ισχύ εισόδου&quot;. Παρακαλούμε αγνοήστε την και κοιτάξτε την  &lt;b&gt;Ισχύς Μικροφώνου&lt;/b&gt; αντ&apos; αυτού, η οποία είναι πολύ πιο σταθερή και αγνοεί τις ακραίες τιμές.</translation>
+        <translation>Αυτό δείχνει την μέγιστη ισχύ στο τελευταίο κομμάτι (20 ms) και είναι η ίδια μέτρηση που συνήθως εμφανίζεται ως &quot;ισχύ εισόδου&quot;. Παρακαλούμε αγνοήστε την και κοιτάξτε την &lt;b&gt;Ισχύς Μικροφώνου&lt;/b&gt; αντ&apos; αυτού, η οποία είναι πολύ πιο σταθερή και αγνοεί τις ακραίες τιμές.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
@@ -1668,7 +1665,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
-        <translation> Ισχύς φάσματος σήματος και θορύβου</translation>
+        <translation>Ισχύς φάσματος σήματος και θορύβου</translation>
     </message>
     <message>
         <source>Power spectrum of input signal and noise estimate</source>
@@ -1807,11 +1804,12 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Για να κρατηθεί η αδράνειο στο ελάχιστο, είναι σημαντικό να τοποθηετηθεί ως μικρός ήχος σχετικά με την κάρτα ήχου. Ωστόσο, πολλές κάρτες ήχου απαιτούν πολύ μικρότερο κένο από ό,τι μπορεί πραγματικά να λειτουργήσει, οπότε ο μόνος τρόπος για να ορίσετε αυτήν την τιμή είναι να προσπαθήσει και να αποτύχει ο μετατροπέας
+Για να κρατηθεί η αδράνειο στο ελάχιστο, είναι σημαντικό να τοποθηετηθεί ως μικρός ήχος σχετικά με την κάρτα ήχου. Ωστόσο, πολλές κάρτες ήχου απαιτούν πολύ μικρότερο κένο από ό,τι μπορεί πραγματικά να λειτουργήσει, οπότε ο μόνος τρόπος για να ορίσετε αυτήν την τιμή είναι να προσπαθήσει και να αποτύχει ο μετατροπέας.
 &lt;/p&gt;
 &lt;p&gt;
 Θα πρέπει να ακούσετε ένα δείγμα φωνής. Αλλάξτε το ρυθμιστικό κάτω από την χαμηλότερη τιμή που δίνει &lt;b&gt;καθόλου&lt;/b&gt;διακοπές ή παρεμβολές στον ήχο. Παρακαλώ σημειώστε ότι η τοπική ηχώ είναι απενεργοποιημένη κατά τη διάρκεια αυτής της δοκιμής.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
@@ -1819,7 +1817,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Αυτό καθορίζει την ποσότητα των δεδομένων για  τηνπρο-άμβλυνση κατά την άμβλυνση εξόδου. Πειραματιστείτε με διαφορετικές τιμές, να το θέσετε στο χαμηλότερο και έτσι δεν θα υπάρχουν προβλήματα ήχου.</translation>
+        <translation>Αυτό καθορίζει την ποσότητα των δεδομένων για την προ-άμβλυνση κατά την άμβλυνση εξόδου. Πειραματιστείτε με διαφορετικές τιμές, να το θέσετε στο χαμηλότερο και έτσι δεν θα υπάρχουν προβλήματα ήχου.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1833,7 +1831,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Ανοίξτε τον πίνακα ελέγχου του ήχου και μεταβείτε στις ρυθμίσεις εγγραφής. Βεβαιωθείτε ότι το μικρόφωνο είναι επιλεγμένο ως ενεργή είσοδος με μέγιστη ένταση εγγραφής. Εάν υπάρχει επιλογή &quot;Ενίσχυση μικροφώνου&quot; βεβαιωθείτε ότι έχει επιλεγεί.
 &lt;/p&gt;
 &lt;p&gt;
-Μιλήστε δυνατά, όπως όταν είστε ενοχλημένοι ή ενθουσιασμένοι. Μειώστε την ένταση του ήχου στον πίνακα ελέγχου του ήχου έως ότου η μπάρα παρακάτω παραμείνει όσο το δυνατόν ψηλότερα στα μπλε και πράσινο αλλά   &lt;b&gt;όχι&lt;/b&gt; στην κόκκινη ζώνη ενώ μιλάτε.
+Μιλήστε δυνατά, όπως όταν είστε ενοχλημένοι ή ενθουσιασμένοι. Μειώστε την ένταση του ήχου στον πίνακα ελέγχου του ήχου έως ότου η μπάρα παρακάτω παραμείνει όσο το δυνατόν ψηλότερα στα μπλε και πράσινο αλλά &lt;b&gt;όχι&lt;/b&gt; στην κόκκινη ζώνη ενώ μιλάτε.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1956,7 +1954,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Απενεργοποίηση  του Text-To-Speech και χρήση ήχου αντ &apos; αυτού.</translation>
+        <translation>Απενεργοποίηση του Text-To-Speech και χρήση ήχου αντ &apos; αυτού.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -2046,55 +2044,55 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εισαγωγής για τον ήχο.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξαγωγής για τον ήχο.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Αυτές είναι οι ρυθμίσεις ήχου για το Mumble. Θα σας βοηθήσει στην ρύθμιση των επιπέδων εισαγωγής της κάρτας ήχου, και επίσης στην ρύθμιση των σωστών παραμέτρων επεξεργασίας ήχου στο Mumble.&lt;/p&gt;&lt;p&gt;Όσο αυτό το παράθυρο είναι ενεργό, ο ήχος θα επαναλαμβάνεται ώστε να μπορείτε να τον ακούσετε, και καμιά πληροφορία ήχου δεν στέλνεται στον διακομιστή.&lt;/p&gt;&lt;p&gt;Μπορείτε να ακυρώσετε την διαδικασία όποτε θέλετε χωρίς να επηρεαστούν τα τρέχουσα συστήματα ήχου. Οι ρυθμίσεις εκτελούνται μια φορά μόλις η διαδικασία ολοκληρωθεί.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Το Mumble υποστηρίζει ήχο θέσης για ορισμένα παιχνίδια και θα τοποθετήσει τη φωνή άλλων χρηστών σε σχέση με τη θέση τους στο παιχνίδι. Ανάλογα με τη θέση τους, η ένταση της φωνής θα αλλάξει μεταξύ των ηχείων για να προσομοιώσει την κατεύθυνση και την απόσταση που βρίσκεται ο άλλος χρήστης. Αυτή η τοποθέτηση εξαρτάται από τη σωστή διαμόρφωση των ηχείων σας στο λειτουργικό σας σύστημα, οπότε γίνεται μια δοκιμή εδώ. &lt;/p&gt;&lt;p&gt;Το παρακάτω γράφημα δείχνει τη θέση &lt;span style=&quot;color:#56b4e9;&quot;&gt;σας&lt;/span&gt;, των &lt;span style=&quot;color:#d55e00;&quot;&gt;ηχείων&lt;/span&gt; και μια &lt;span style=&quot;color:#009e73;&quot;&gt;κινούμενη πηγή ήχου&lt;/span&gt; όπως φαίνεται από πάνω. Θα πρέπει να ακούσετε την κίνηση του ήχου μεταξύ των καναλιών. &lt;/p&gt;&lt;p&gt;Μπορείτε επίσης να χρησιμοποιήσετε το ποντίκι σας για να τοποθετήσετε την &lt;span style=&quot;color:#009e73;&quot;&gt;πηγή ήχου&lt;/span&gt; χειροκίνητα.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύστημα εισόδου</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Συσκευή εισόδου</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύστημα εξόδου</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Συσκευή εξόδου</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Καθυστέρηση εξόδου</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστη ενίσχυση</translation>
     </message>
     <message>
         <source>VAD level</source>
-        <translation type="unfinished"></translation>
+        <translation>Επίπεδα VAD</translation>
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Συντόμευση ΠΠΟ</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν έχουν εκχωρηθεί κουμπιά</translation>
     </message>
 </context>
 <context>
@@ -2236,7 +2234,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2244,15 +2242,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Μάσκα</translation>
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ημερομηνία/χρόνος έναρξης</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ημερομηνία/χρόνος τερματισμού</translation>
     </message>
 </context>
 <context>
@@ -2290,8 +2288,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Παρουσιάστηκε σφάλμα κατά τη δημιουργία του πιστοποιητικού σας.
-&lt;br /&gt;Παρακαλούμε προσπαθήστε ξανά.</translation>
+        <translation>Παρουσιάστηκε σφάλμα κατά τη δημιουργία του πιστοποιητικού σας.&lt;br /&gt;Παρακαλούμε προσπαθήστε ξανά.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
@@ -2343,11 +2340,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχείο πιστοποιητικού για εισαγωγή</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Κωδικός πιστοποιητικού</translation>
     </message>
     <message>
         <source>Certificate to import</source>
@@ -2359,15 +2356,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχείο για εξαγωγή πιστοποιητικού</translation>
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Διεύθυνση email</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>Το όνομα σας</translation>
     </message>
 </context>
 <context>
@@ -2406,7 +2403,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation> Εισαγωγή πιστοποιητικού από αρχείο</translation>
+        <translation>Εισαγωγή πιστοποιητικού από αρχείο</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
@@ -2430,7 +2427,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation> Εισαγωγή Πιστοποιητικού</translation>
+        <translation>Εισαγωγή Πιστοποιητικού</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
@@ -2724,11 +2721,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Text message</source>
-        <translation>Μήνυμα κειμένου </translation>
+        <translation>Μήνυμα κειμένου</translation>
     </message>
     <message>
         <source>Kick</source>
-        <translation>Kick</translation>
+        <translation>Διώξιμο</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -2748,19 +2745,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό αντιπροσωπεύει την άδεια χρήσης της λειτουργίας ακρόασης που επιτρέπει την ακρόαση ενός καναλιού χωρίς να βρίσκεστε σε αυτό.</translation>
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>Ακοή</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό αντιπροσωπεύει την άδεια επαναφοράς του σχολίου ή του avatar ενός χρήστη.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Επαναφορά περιεχομένου χρήστη</translation>
     </message>
 </context>
 <context>
@@ -2776,15 +2773,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αδυναμία αποστολής εικόνας: μεγάλο μέγεθος.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αδυναμία αποστολής εικόνας %1: μεγάλο μέγεθος.</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτός ο διακομιστής δεν επιτρέπει αποστολή εικόνων.</translation>
     </message>
 </context>
 <context>
@@ -2831,7 +2828,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοπική αγνόηση (Text-To-Speech)</translation>
     </message>
 </context>
 <context>
@@ -2878,23 +2875,23 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Κατηγορίες διαμόρφωσης</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό το κουμπί θα επαναφέρει τις προεπιλογές για τις ρυθμίσεις στην τρέχουσα σελίδα. Οι άλλες σελίδες δεν θα αλλάξουν. &lt;br /&gt;Για να επαναφέρετε όλες τις ρυθμίσεις στις προεπιλεγμένες, μπορείτε να πατήσετε το κουμπί &quot;Προεπιλογές (Όλες)&quot;.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Επαναφορά όλων των ρυθμίσεων</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό το κουμπί θα επαναφέρει τις προεπιλεγμένες ρυθμίσεις.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένες (όλες)</translation>
     </message>
 </context>
 <context>
@@ -2913,7 +2910,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Άγνωστο</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2973,15 +2970,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα διακομιστών</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοποθεσία</translation>
     </message>
     <message>
         <source>Filter</source>
@@ -2989,15 +2986,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση όλων</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση κατοικημένων</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση προσβάσιμων</translation>
     </message>
     <message>
         <source>All</source>
@@ -3005,39 +3002,39 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Αφρική</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Ασία</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ευρώπη</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Βόρεια Αμερική</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Ωκεανία</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Νότια Αμερική</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>Συγκατάθεση για τη διαβίβαση ιδιωτικών δεδομένων</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Για να μετρήσετε την καθυστέρηση (ping) των δημόσιων διακομιστών και να καθορίσετε τον αριθμό των ενεργών χρηστών, η διεύθυνση IP σας πρέπει να διαβιβάζεται σε κάθε δημόσιο διακομιστή. &lt;/p&gt;&lt;p&gt;Συμφωνείτε με τη μετάδοση της διεύθυνσής σας IP; Εάν απαντήσετε όχι, η δημόσια λίστα διακομιστών θα απενεργοποιηθεί. Ωστόσο, μπορείτε να το ενεργοποιήσετε ξανά ανά πάσα στιγμή στις ρυθμίσεις δικτύου.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Σύνδεση...</translation>
+        <translation>&amp;Σύνδεση</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3159,13 +3156,17 @@ Username to send to the server. Be aware that the server can impose restrictions
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είστε συνδεδεμένοι σε κάποιον διακομιστή.
+Θέλετε να γεμίσετε το παράθυρι διαλόγου με δεδομένα σύνδεσης αυτού του διακομιστή;
+Οικοδεσπότης: %1 Θύρα: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Έχετε μια διεύθυνση URL στο πρόχειρο.
+Θέλετε να συμπληρώσετε το παράθυρο διαλόγου με αυτά τα δεδομένα;
+Οικοδεσπότης: %1 Θύρα: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3213,11 +3214,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Γέμιση</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Αγνόηση</translation>
     </message>
 </context>
 <context>
@@ -3257,7 +3258,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation>Η αποστολή της αναφοράς του σφάλματος απέτυχε </translation>
+        <translation>Η αποστολή της αναφοράς του σφάλματος απέτυχε</translation>
     </message>
     <message>
         <source>Uploading crash report</source>
@@ -3269,11 +3270,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Σφάλμα HHTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφανίστηκε εσωτερικό σφάλμα στο CrashReporter.cpp: Η ληφθείσα απάντηση δικτύου δεν περιέχει κωδικό κατάστασης HTTP. Ενημερώστε έναν προγραμματιστή για τον κωδικό σφάλματος %1</translation>
     </message>
 </context>
 <context>
@@ -3285,11 +3286,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>Το αρχείο βάσης δεδομένων &apos;%1&apos; που έχει οριστεί στο αρχείο διαμόρφωσης δεν υπάρχει. Θέλετε να δημιουργήσετε ένα νέο αρχείο βάσης δεδομένων σε αυτήν την τοποθεσία;</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το Mumble απέτυχε να προετοιμάσει μια βάση δεδομένων σε οποιεσδήποτε από τις πιθανές τοποθεσίες.</translation>
     </message>
 </context>
 <context>
@@ -3358,7 +3359,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Προς το παρόν, το Mumble μπορεί να χρησιμοποιήσει μόνο τα πλήκτρα του ποντικιού και τα πλήκτρα τροποποίησης στο πληκτρολόγιο (Alt, Ctrl, Cmd κ.λπ.) για γενικές συντομεύσεις.&lt;/p&gt;&lt;p&gt;Εάν θέλετε περισσότερη ευελιξία, μπορείτε να ενεργοποιήσετε την  &lt;span style=&quot; font-style:italic;&quot;&gt;Πρόσβαση σε βοηθητικές συσκευές&lt;/span&gt; στις προτιμήσεις προσβασιμότητας του συστήματος. Ωστόσο, σημειώστε ότι αυτή η αλλαγή δυνητικά επιτρέπει και τα κακόβουλα προγράμματα να διαβάζουν το τι πληκτρολογείτε στο πληκτρολόγιό σας.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Προς το παρόν, το Mumble μπορεί να χρησιμοποιήσει μόνο τα πλήκτρα του ποντικιού και τα πλήκτρα τροποποίησης στο πληκτρολόγιο (Alt, Ctrl, Cmd κ.λπ.) για γενικές συντομεύσεις.&lt;/p&gt;&lt;p&gt;Εάν θέλετε περισσότερη ευελιξία, μπορείτε να ενεργοποιήσετε την &lt;span style=&quot; font-style:italic;&quot;&gt;Πρόσβαση σε βοηθητικές συσκευές&lt;/span&gt; στις προτιμήσεις προσβασιμότητας του συστήματος. Ωστόσο, σημειώστε ότι αυτή η αλλαγή δυνητικά επιτρέπει και τα κακόβουλα προγράμματα να διαβάζουν το τι πληκτρολογείτε στο πληκτρολόγιό σας.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
@@ -3400,34 +3401,36 @@ Label of the server. This is what the server will be named like in your server l
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ενεργοποίηση συντομεύσεων σε προνομιακές εφαρμογές&lt;/b&gt;.&lt;br /&gt; Γνωστό και ως &quot;UIAccess&quot;. Αυτό επιτρέπει στο Mumble να λαμβάνει συνολικά συμβάντα συντόμευσης από προγράμματα που εκτελούνται σε υψηλά επίπεδα προνομίων, όπως μια γραμμή εντολών διαχειριστή ή παλαιότερα παιχνίδια που εκτελούνται με δικαιώματα διαχειριστή.
+&lt;br /&gt;&lt;br /&gt;
+Χωρίς αυτήν την επιλογή ενεργοποιημένη, η χρήση των καθολικών συντομεύσεων του Mumble σε προνομιακές εφαρμογές δεν θα λειτουργήσει. Αυτό μπορεί να φαίνεται ασυνεπές: για παράδειγμα, εάν το κουμπί Πίεση Πλήκτρου για Ομιλία πατηθεί σε ένα μη προνομιακό πρόγραμμα, αλλά κυκλοφορήσει σε μια προνομιακή εφαρμογή, ο Mumble δεν θα παρατηρήσει ότι έχει κυκλοφορήσει και θα συνεχίσετε να μιλάτε μέχρι να πατήσετε το κουμπί Πίεση Πλήκτρου για Ομιλία ξανά.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση συντομεύσεων σε προνομιακές εφαρμογές</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Επεξεργασία συντόμευσης</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Εκκίνηση διεργασίας καταγραφής</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ξεκινά την διαδικασία λήψης: όλα τα κουμπιά που πατάτε θα προστεθούν στο δέντρο.&lt;/p&gt;&lt;p&gt;Μόλις απελευθερωθούν όλα τα κουμπιά, η διαδικασία λήψης σταματά αυτόματα.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσθήκη</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Αφαίρεση των επιλεγμένων αντικειμένων</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3459,25 +3462,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαμορφωμένες συντομεύσεις</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Άγνωστο</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ποντίκη</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Πληκτρολόγιο</translation>
     </message>
 </context>
 <context>
@@ -3540,19 +3543,19 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Φωνάξτε/ψιθυρήστε σε:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Τρέχουσα τοποθεσία</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Όταν φωνάζω σε κανάλι:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Φώναξε σε ενωμένα κανάλια</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -3563,37 +3566,37 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ποντίκι</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Πληκτρολόγιο</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Πληκτρολόγιο</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ποντίκι</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Θύρες υλισμικού</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Μονό</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Στερεό</translation>
     </message>
 </context>
 <context>
@@ -3669,18 +3672,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ελάχιστο πλάτος στήλης</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Πλάτος διαχωριστή</translation>
     </message>
 </context>
 <context>
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσαρμογή τοπικής έντασης για ακρόαση %1</translation>
     </message>
 </context>
 <context>
@@ -3751,15 +3754,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης συνδέθηκε και προσήλθε στο κανάλι</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης αποχώρησε από κανάλι και αποσυνδέθηκε</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσωπικό γραπτό μήνυμα</translation>
     </message>
     <message>
         <source>the server</source>
@@ -3785,7 +3788,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύνδεσμος FTP σε %1</translation>
     </message>
     <message>
         <source>player link</source>
@@ -3801,55 +3804,55 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Διακομιστής συνδέθηκε</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Διακομιστής αποσυνδέθηκε</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης προσήλθε στο κανάλι</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης αποχώρησε από τον διακομιστή</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης προσήλθε σε κανάλι</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης αποχώρησε κανάλι</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Η άδεια απορρίφθηκε</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished">Μήνυμα κειμένου </translation>
+        <translation>Μήνυμα κειμένου</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσήλθατε σε κανάλι</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>Συνδεθήκατε σε κανάλι (μετακίνηση)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης άρχισε ακρόαση σε κανάλι</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήστης σταμάτησε ακρόαση σε κανάλι</translation>
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Μήνυμα προσθέτου</translation>
     </message>
 </context>
 <context>
@@ -3872,7 +3875,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή επισήμανσης παραθύρου (αν δεν είναι ενεργό) για %1 συμβάντα</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
@@ -3889,7 +3892,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"></translation>
+        <translation>Κάντε κλικ εδώ για εναλλαγή επισήμανσης παραθύρου για %1 συμβάντα.&lt;br /&gt;Εάν επιλεγεί, το παράθυρο του Mumble θα επισημανθεί για κάθε %1 συμβάν, αν δεν είναι ενεργό.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
@@ -3955,16 +3958,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Μήκος του μηνύματος όριου για Text-To-Speech </translation>
+        <translation>Μήκος του μηνύματος όριου για Text-To-Speech</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Αυτό είναι το χρονικό όριο που χρησιμοποιείται για το Text-To-Speech.&lt;/b&gt;
-&lt;br /&gt;Μηνύματα περισσότερο από αυτό το όριο δεν θα πρέπει να αναγνωστούν δυνατά σε όλο το μήκος τους.</translation>
+        <translation>&lt;b&gt;Αυτό είναι το χρονικό όριο που χρησιμοποιείται για το Text-To-Speech.&lt;/b&gt;&lt;br /&gt;Μηνύματα περισσότερο από αυτό το όριο δεν θα πρέπει να αναγνωστούν δυνατά σε όλο το μήκος τους.</translation>
     </message>
     <message>
         <source> Characters</source>
-        <translation>Χαρακτήρες</translation>
+        <translation> Χαρακτήρες</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -4000,57 +4002,59 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>Γραμμές</translation>
+        <translation> Γραμμές</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Επισήμανση</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν είναι ενεργοποιημένο, το TTS δεν υπαγορεύει το εύρος του μηνύματος.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>Παράλειψη εύρους μηνύματος</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν είναι ενεργοποιημένο, το TTS δεν θα υπαγορεύει τον συντάκτη του μηνύματος.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Παράλειψη συντάκτη μηνύματος</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν είναι επιλεγμένο, η ώρα στην αρχή ενός μηνύματος θα εμφανιστεί σε 24ωρη μορφή.
+
+Η ρύθμιση ισχύει μόνο για νέα μηνύματα, τα ήδη εμφανιζόμενα θα διατηρήσουν την προηγούμενη μορφή ώρας.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση 24ωρου ρολογιού</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Πόσο απέχουν τα μεμονωμένα μηνύματα το ένα από το άλλο.</translation>
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Περιθώρια μηνυμάτων</translation>
     </message>
     <message>
         <source>Log messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχεία καταγραφής</translation>
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένταση μηχανής TTS</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Περιθώρια μηνυμάτων συνομιλίας</translation>
     </message>
 </context>
 <context>
@@ -4094,7 +4098,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Αυτό ορίζει ποιά κανάλια να επεκταθούν αυτόματα. Με τα &lt;i&gt;Κανένα&lt;/i&gt; και &lt;i&gt;Όλα&lt;/i&gt;  δε θα επεκταθεί κανένα κανάλι και όλα αντίστοιχα, ενώ με το&lt;i&gt;Μόνο με χρήστες&lt;/i&gt; θα επεκτείνονται και θα καταρρέουν τα κανάλια καθώς μπαίνουν και βγαίνουν χρήστες.</translation>
+        <translation>Αυτό ορίζει ποιά κανάλια να επεκταθούν αυτόματα. Με τα &lt;i&gt;Κανένα&lt;/i&gt; και &lt;i&gt;Όλα&lt;/i&gt; δε θα επεκταθεί κανένα κανάλι και όλα αντίστοιχα, ενώ με το&lt;i&gt;Μόνο με χρήστες&lt;/i&gt; θα επεκτείνονται και θα καταρρέουν τα κανάλια καθώς μπαίνουν και βγαίνουν χρήστες.</translation>
     </message>
     <message>
         <source>List users above subchannels (requires restart).</source>
@@ -4183,7 +4187,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Ask on quit while connected</source>
-        <translation>Να ρωτάστε κατά τον τερματισμό όταν είστε συνδεδεμένοί.</translation>
+        <translation>Να ρωτάστε κατά τον τερματισμό όταν είστε συνδεδεμένοι</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4315,179 +4319,179 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>UI Ομιλίας</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένας χρήστης που είναι σιωπηλός για τη δεδομένη ποσότητα δευτερολέπτων θα αφαιρεθεί από το UI ομιλίας.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>Αφαίρεση σιωπηλού χρήστη μετά από</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν αυτό είναι επιλεγμένο, ο τοπικός χρήστης (εσείς) θα είναι πάντα ορατός στο UI ομιλίας (ανεξάρτητα από την κατάσταση ομιλίας).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Να διατηρείτε πάντα ορατό τον τοπικό χρήστη</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Πόσοι χαρακτήρες από το αρχικό όνομα να εμφανίζονται στην αρχή ενός συντομευμένου ονόματος.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμβολοσειρά για να διαχωρίσει το όνομα ενός καναλιού από το γονικό του.</translation>
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαχωριστής καναλιών</translation>
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Συντετμημένοι χαρακτήρες προθέματος</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation type="unfinished"></translation>
+        <translation>Τα ονόματα πόσων γονικών καναλιών πρέπει να περιλαμβάνονται στο όνομα του καναλιού όταν εμφανίζεται στο UI ομιλίας;</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Πόσοι χαρακτήρες από το αρχικό όνομα πρέπει να εμφανίζονται στο τέλος ενός συντομευμένου ονόματος.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Συντομευμένοι χαρακτήρες μετά την επιδιόρθωση</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν επιτρέπεται και η συντόμευση του τρέχοντος καναλιού ενός χρήστη (αντί μόνο για τα γονικά του κανάλια).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Συντομευμένο όνομα τρέχοντος καναλιού</translation>
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Βάθος ιεραρχίας καναλιού</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Αντικατάσταση συντομογραφίας</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν το όνομα του καναλιού (ιεραρχία) πρέπει να είναι συντομευμένο, εάν υπερβαίνει το καθορισμένο μέγιστο μήκος.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>Συντομευμένα ονόματα καναλιών</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το προτιμώμενο μέγιστο μήκος ενός ονόματος καναλιού (ιεραρχία) στο UI ομιλίας. Σημειώστε ότι αυτό δεν είναι ένα δύσκολο όριο.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστο μήκος ονόματος καναλιού</translation>
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Σχετικό μέγεθος γραμματοσειράς για χρήση στο UI ομιλίας σε ποσοστό.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Σχετικό μέγεθος γραμματοσειράς (%)</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Κείμενο που χρησιμοποιείται αντί για το κομμένο τμήμα ενός συντομευμένου ονόματος.</translation>
     </message>
     <message>
         <source>Prefix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Αριθμός χαρακτήρων προθέματος</translation>
     </message>
     <message>
         <source>Postfix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Αριθμός χαρακτήρων επιδιόρθωσης</translation>
     </message>
     <message>
         <source>Maximum name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστο μήκος ονόματος</translation>
     </message>
     <message>
         <source>Relative font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Σχετικό μέγεθος γραμματοσειράς</translation>
     </message>
     <message>
         <source>Always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Πάντα στην κορυφή</translation>
     </message>
     <message>
         <source>Channel dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύρσιμο καναλιού</translation>
     </message>
     <message>
         <source>Automatically expand channels when</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτόματη επέκταση καναλιών όταν</translation>
     </message>
     <message>
         <source>User dragging behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμπεριφορά μεταφοράς χρήστη</translation>
     </message>
     <message>
         <source>Silent user lifetime</source>
-        <translation type="unfinished"></translation>
+        <translation>Σιωπή διάρκειας ζωής χρήστη</translation>
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση της τοπικής προσαρμογής έντασης για κάθε χρήστη (εάν υπάρχει).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση προσαρμογών έντασης</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation type="unfinished"></translation>
+        <translation>Αν θα εμφανίζονται όλοι οι ακροατές (αυτιά) του τοπικού χρήστη στο UI ομιλίας (και επομένως και τα κανάλια στα οποία βρίσκονται). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση ακροατών τοπικού χρήστη (αυτιά)</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Απόκρυψη του ονόματος χρήστη για κάθε χρήστη εάν έχει ψευδώνυμο.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση μόνο ψευδωνύμων</translation>
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Κείμενο ιεραρχίας καναλιού</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ενέργεια που πρέπει να εκτελεστεί όταν ένας χρήστης είναι ενεργοποιημένος (μέσω διπλού κλικ ή εισαγωγής) στο παράθυρο διαλόγου αναζήτησης.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενέργεια (Χρήστης):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ενέργεια που πρέπει να εκτελείται όταν ενεργοποιείται ένα κανάλι (μέσω διπλού κλικ ή εισαγωγής) στο παράθυρο διαλόγου αναζήτησης.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενέργεια (Κανάλι):</translation>
     </message>
 </context>
 <context>
@@ -4519,7 +4523,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>Αποσύνδεση του Πρόσθετου </translation>
+        <translation>Αποσύνδεση του Πρόσθετου</translation>
     </message>
     <message>
         <source>Push-to-Mute</source>
@@ -4706,7 +4710,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connected.</source>
-        <translation>Συνδεδεμένο</translation>
+        <translation>Συνδεδεμένο.</translation>
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
@@ -4726,7 +4730,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Server connection failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η σύνδεση διακομιστή απέτυχε.</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
@@ -4785,17 +4789,17 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ορίστε τη λειτουργία μετάδοσης σε Πίεση Πλήκτρου για Ομιλία</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ορίστε τη λειτουργία μετάδοσης σε Συνεχής</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ορίστε τη λειτουργία μετάδοσης σε VAD</translation>
     </message>
     <message>
         <source>Send Text Message</source>
@@ -4822,7 +4826,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Πίεση-πλήκτρου-για-Ομιλία </translation>
+        <translation>Πίεση-πλήκτρου-για-Ομιλία</translation>
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
@@ -4854,7 +4858,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Πίεση-πλήκτρου-για-Ομιλία </translation>
+        <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Πίεση-πλήκτρου-για-Ομιλία</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -5189,7 +5193,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>&amp;Επανεκκίνηση </translation>
+        <translation>&amp;Επανεκκίνηση</translation>
     </message>
     <message>
         <source>Reset audio preprocessor</source>
@@ -5209,7 +5213,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Φιμώστε ή ξεφιμώστε τον  εαυτό σας. Όταν είστε φιμωμένος, δεν θα στέλνετε δεδομένα στο διακομιστή. Αν ξεφιμωθήτε, ενώ είστε κωφωμένος, θα ξεκωφωθήτε κιόλας.</translation>
+        <translation>Φιμώστε ή ξεφιμώστε τον εαυτό σας. Όταν είστε φιμωμένος, δεν θα στέλνετε δεδομένα στο διακομιστή. Αν ξεφιμωθήτε, ενώ είστε κωφωμένος, θα ξεκωφωθήτε κιόλας.</translation>
     </message>
     <message>
         <source>&amp;Deafen Self</source>
@@ -5505,15 +5509,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμπληρώθηκε το όριο αριθμού καναλιών. Πρέπει να διαγράψετε κανάλια πριν δημιουργήσετε νέα.</translation>
     </message>
     <message>
         <source>Permission denied.</source>
-        <translation>Δεν επιτρέπεται η πρόσβαση </translation>
+        <translation>Δεν επιτρέπεται η πρόσβαση.</translation>
     </message>
     <message>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 συνδέθηκε και προσήλθε στο κανάλι.</translation>
     </message>
     <message>
         <source>%1 connected.</source>
@@ -5581,7 +5585,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>Ο %1  έδωσε προτεραιότητα ομιλητή στον %2.</translation>
+        <translation>Ο %1 έδωσε προτεραιότητα ομιλητή στον %2.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
@@ -5610,7 +5614,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You joined %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Συνδεθήκατε %1.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -5635,7 +5639,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποτυχία φόρτωσης του Opus, δεν θα είναι διαθέσιμο για κωδικοποίηση/αποκωδικοποίηση ήχου.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5736,7 +5740,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Message from %1</source>
-        <translation>Μήνυμα από τον %1.</translation>
+        <translation>Μήνυμα από τον %1</translation>
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
@@ -5820,7 +5824,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
-        <translation>Να γίνει &amp;Αποσυσχέτιση των Πρόσθετων.</translation>
+        <translation>Να γίνει &amp;Αποσυσχέτιση των Πρόσθετων</translation>
     </message>
     <message>
         <source>Register yourself on the server</source>
@@ -5990,7 +5994,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation>Οδηγός Ρυθμίσεων &amp;Ήχου</translation>
+        <translation>Οδηγός Ρυθμίσεων &amp;Ήχου...</translation>
     </message>
     <message>
         <source>Developer &amp;Console...</source>
@@ -6050,111 +6054,111 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφανίζει το κύριο παράθυρο Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"></translation>
+        <translation>Παράβαση πρωτοκόλλου συγχρονισμού διακομιστή. Δεν ελήφθη προφίλ χρήστη.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Παραβίαση πρωτοκόλλου. Ο διακομιστής εστάλη κατάργηση για το κατειλημμένο κανάλι.</translation>
     </message>
     <message>
         <source>Listen to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ακρόαση στο κανάλι</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
+        <translation>Ακρόαση στο κανάλι χωρίς σύνδεση σε αυτό</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσαρμόστε τοπικά την ένταση ήχου για αυτό το εικονικό αυτί.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ακροατής</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation>Καμία διαθέσιμη ενέργεια...</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αδυναμία %1 σε %2 - Η προσθήκη του αντίστοιχου διακριτικού πρόσβασης (κωδικού πρόσβασης) ενδέχεται να σας παραχωρήσει πρόσβαση.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν επιτρέπονται άλλοι ακροατές σε αυτό το κανάλι.</translation>
     </message>
     <message>
         <source>You are not allowed to listen to more channels than you currently are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν σας επιτρέπεται η ακρόαση σε περισσότερα κανάλια από όσα είστε.</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Εκκινήσατε την ακρόαση σε %1</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 άρχισε την ακρόαση στο κανάλι σας</translation>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Σταματήσατε την ακρόαση σε %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 σταμάτησε την ακρόαση στο κανάλι σας</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>UI ομιλίας</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλάζει την ορατότητα του UI ομιλίας.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύνδεση στο κανάλι του χρήστη</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Συνδέει στο κανάλι αυτού του χρήστη.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Κανάλια και χρήστες</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχείο καταγραφής δραστηριότητας</translation>
     </message>
     <message>
         <source>Chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Μήνυμα συνομιλίας</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Απενεργοποίηση κειμένου σε ομιλία</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοπική απενεργοποίηση Text-To-Speech για τα μηνύματα συνομιλίας κειμένου αυτού του χρήστη.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Απενεργοποιεί αθόρυβα το Text-To-Speech για όλα τα μηνύματα κειμένου από τον χρήστη.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Δέντρο</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6162,37 +6166,38 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Ιδιωτικό</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Το αρχείο διαμόρφωσης %1 δεν υπάρχει ή δεν είναι εγγράψιμο.
+</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Απόκρυψη/εμφάνιση κύριου παραθύρου</translation>
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ορισμός ψευδωνύμου...</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ορισμός τοπικού ψευδωνύμου</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ορίζει ένα τοπικό ψευδώνυμο για έναν άλλο χρήστη.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -6219,7 +6224,30 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση: mumble rpc &lt;action&gt; [options]
+
+Είναι δυνατός ο τηλεχειρισμός μιας παρουσίας λειτουργίας του Mumble χρησιμοποιώντας
+την εντολή &apos;mumble rpc&apos;.
+
+Έγκυρες ενέργειες είναι:
+  mute
+                Σίγαση εαυτού
+  unmute
+                Άρση σίγασης εαυτού
+  togglemute
+                Εναλλαγή κατάστασης σίγασης εαυτού
+  deaf
+                Κώφωση εαυτού
+  undeaf
+                Άρση κώφωσης εαυτού
+  toggledeaf
+                Εναλλαγή κατάστασης κώφωσης εαυτού
+  starttalking
+                Εκκίνηση ομιλίας
+  stoptalking
+                Διακοπή ομιλίας
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6282,47 +6310,107 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; καθορίζει μια διεύθυνση URL για σύνδεση μετά την εκκίνηση αντί να εμφανίζεται
+το παράθυρο σύνδεσης και έχει την ακόλουθη φόρμα:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; είναι μια λίστα με αρχεία προσθέτων που θα εγκατασταθούν
+Η παράμετρος του ερωτήματος έκδοσης πρέπει να οριστεί για να κληθεί η
+σωστή έκδοση πελάτη. Αυτή τη στιγμή είναι προεπιλεγμένη σε 1.2.0. 
+
+Έγκυρες επιλογές είναι:
+  -h, --help    Εμφάνιση αυτού το κειμένου και έξοδος.
+  -m, --multiple
+                Να επιτρέπεται η εκκίνηση πολλών εμφανίσεων του πελάτη. 
+  -c, --config
+                Καθορίστε ένα εναλλακτικό αρχείο διαμόρφωσης.
+                Εάν το χρησιμοποιείτε για την εκτέλεση πολλών εμφανίσεων του Mumble ταυτόχρονα,
+                βεβαιωθείτε ότι έχετε ορίσει μια εναλλακτική τιμή &quot;βάσης δεδομένων&quot; στη διαμόρφωση. 
+  --default-certificate-dir &lt;dir&gt;
+                Καθορίστε μια εναλλακτική προεπιλεγμένη διαδρομή πιστοποιητικού.
+                Αυτή η διαδρομή χρησιμοποιείται μόνο εάν δεν έχει φορτωθεί πιστοποιητικό
+                από τις ρυθμίσεις. 
+  -n, --noidentity
+                Καταργήστε τη φόρτωση αρχείων ταυτότητας (δηλ. Πιστοποιητικά).
+  -jn, --jackname &lt;arg&gt;
+                Ορίστε προσαρμοσμένο Jack όνομα πελάτη.
+  --license
+                Εμφάνιση της άδειας Mumble.
+  --authors
+                Εμφάνιση των συντακτών Mumble. 
+  --third-party-licenses
+                Εμφάνιση αδειών χρήσης λογισμικού τρίτου μέρους που χρησιμοποιείται από το Mumble.
+  --window-title-ext &lt;arg&gt;
+                Ορίζει μια προσαρμοσμένη επέκταση τίτλου παραθύρου.
+  --dump-input-streams
+                Απορρίψτε ροές PCM σε διάφορα μέρη της αλυσίδας εισόδου
+                (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων)
+                - ακατέργαστη είσοδος μικροφώνου
+                - ανάγνωση ηχείου για ακύρωση ηχώ
+                - επεξεργασμένη είσοδος μικροφώνου 
+  --print-echocancel-queue
+                Εκτυπώστε στο stdout την κατάσταση αναμονής ακύρωσης ηχώ
+                (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων) 
+  --translation-dir &lt;dir&gt;
+                Καθορίζει μια πρόσθετη μετάφραση έλατος &lt;dir&gt; στην οποία
+                Το Mumble θα αναζητήσει αρχεία μετάφρασης που θα αντικαταστήσουν
+                τα πακέτα
+                Οι κατάλογοι που προστίθενται με αυτόν τον τρόπο έχουν μεγαλύτερη προτεραιότητα από ό,τι
+                οι προεπιλεγμένες θέσεις που χρησιμοποιούνται διαφορετικά 
+  --print-translation-dirs
+                Εκτυπώστε τις διαδρομές στις οποίες θα ψάξει το Mumble
+                αρχεία μετάφρασης που αντικαθιστούν τα ομαδοποιημένα αρχεία.
+                (Χρήσιμο για μεταφραστές που δοκιμάζουν τις μεταφράσεις τους) 
+  --locale &lt;locale&gt;
+                Αντικαταστήστε την τοπική ρύθμιση στις ρυθμίσεις του Mumble με μία
+                θέση που αντιστοιχεί στη δεδομένη συμβολοσειρά τοπικής ρύθμισης.
+                Εάν η μορφή δεν είναι έγκυρη, το Mumble θα δείξει σφάλμα.
+                Διαφορετικά, η τοπική ρύθμιση θα αποθηκευτεί οριστικά στο
+                Οι ρυθμίσεις του Mumble.
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ο κατάλογος %1 δεν υπάρχει.
+</translation>
     </message>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή UI ομιλίας</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλάζει την ορατότητα UI ομιλίας.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλάζει το φίλτρο καναλιού (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτησ χρήστη ή καναλιού (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή παραθύρου διαλόγου αναζήτησης</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό θα ανοίξει ή θα κλείσει το παράθυρο διαλόγου αναζήτησης ανάλογα με το αν έχει ήδη ανοίξει ήδη</translation>
     </message>
 </context>
 <context>
@@ -6393,11 +6481,11 @@ Valid options are:
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένωση</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση</translation>
     </message>
     <message>
         <source>Display</source>
@@ -6405,11 +6493,11 @@ Valid options are:
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished"></translation>
+        <translation>Πόσο καιρό οι θέσεις σιωπηλού χρήστη πρέπει να παραμένουν σημαδεμένες αφού έχουν σταματήσει να μιλούν (σε δευτερόλεπτα).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"></translation>
+        <translation>Αθόρυβος χρόνος εμφάνισης χρήστη:</translation>
     </message>
 </context>
 <context>
@@ -6565,7 +6653,7 @@ Valid options are:
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
-        <translation>Να γίνεται έλεγχος για νέα έκδοση των πρόσθετων κατά την εκκίνηση</translation>
+        <translation>Να γίνεται έλεγχος για νέα έκδοση των πρόσθετων κατά την εκκίνηση.</translation>
     </message>
     <message>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
@@ -6589,7 +6677,7 @@ Valid options are:
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
-        <translation>Επανασύνδεση με τον τελευταίο διακομιστή που χρησιμοποιήθηκε κατά την εκκίνηση.</translation>
+        <translation>Επανασύνδεση με τον τελευταίο διακομιστή που χρησιμοποιήθηκε κατά την εκκίνηση</translation>
     </message>
     <message>
         <source>Privacy</source>
@@ -6611,19 +6699,19 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Κατά την εναλλαγή, αυτό αποκρύπτει τη λίστα δημόσιων διακομιστών από το παράθυρο διαλόγου σύνδεσης</translation>
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Απόκρυψη λίστας δημόσιων διακομιστών</translation>
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Έλεγχος για ενημερώσεις προσθέτων κατά την εκκίνηση</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτόματη λήψη και εγκατάσταση ενημερώσεων προσθετών</translation>
     </message>
 </context>
 <context>
@@ -6713,7 +6801,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation>Πόσα δευτερόλεπτα θα παραμένουν ενεργοί οι χρήστες αφου μιλήσουν.</translation>
+        <translation>Πόσα δευτερόλεπτα θα παραμένουν ενεργοί οι χρήστες αφου μιλήσουν:</translation>
     </message>
 </context>
 <context>
@@ -6843,7 +6931,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>Φόρτωση...</translation>
+        <translation>Φόρτωση…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6851,7 +6939,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>Αποθήκευση...</translation>
+        <translation>Αποθήκευση…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -6871,7 +6959,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Font</source>
-        <translation>Γραμματοσειρά </translation>
+        <translation>Γραμματοσειρά</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
@@ -7010,7 +7098,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Επίπεδο μεγέθυνσης</translation>
     </message>
 </context>
 <context>
@@ -7180,211 +7268,211 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμβάνα πλήκτρων</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Εγκαταστήστε ένα πρόσθετο από ένα τοπικό αρχείο</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Εγκατάσταση προσθέτου...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ξεφορτώστε την τρέχουσα επιλεγμένη προσθήκη. Αυτό θα το αφαιρέσει από τη λίστα προσθηκών για την τρέχουσα περίοδο λειτουργίας.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Ξεφόρτωση</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Το πρόσθετο εγκαταστάθηκε με επιτυχία</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η απενεργοποίηση όλων των απαιτούμενων λειτουργιών για την προσθήκη &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η φόρτωση της προσθήκης &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν θα πρέπει να είναι ενεργοποιημένη η δυνατότητα ήχου θέσης αυτής της προσθήκης</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτό το πρόσθετο δεν παρέχει υποστήριξη για ήχο θέσης</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν αυτό το πρόσθετο έχει την άδεια να ακούει όλα τα συμβάντα πληκτρολογίου που συμβαίνουν ενώ το Mumble έχει εστίαση</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν πρέπει να είναι ενεργοποιημένη αυτή η προσθήκη</translation>
     </message>
 </context>
 <context>
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Εγκατάσταση προσθετών</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Πρόκειται να εγκαταστήσετε την προσθήκη που αναφέρεται παρακάτω. Θέλετε να προχωρήσετε;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Όνομα:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Έκδοση:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Συντάκτης(ες):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Περιγραφή:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Όχι</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ναι</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Το αρχείο &quot;%1&quot; δεν είναι έγκυρο αρχείο προσθέτου!</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η φόρτωση του προσθέτου &quot;%1&quot; - ελέγξτε τη διασύνδεση της προσθήκης!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η διαγραφή του παλιού προσθέτου στο &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η αντιγραφή της βιβλιοθήκης προσθετών από &quot;%1&quot; σε &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η μετακίνηση της βιβλιοθήκης προσθετών στο &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατός ο εντοπισμός του μανιφέστου προσθετών (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Σφάλμα κατά την επεξεργασία του μανιφέστου: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η εύρεση προσθέτου για το τρέχον λειτουργικό σύστημα (&quot;%1&quot;) και την αρχιτεκτονική (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατός ο εντοπισμός της βιβλιοθήκης προσθετών που καθορίζεται στο μανιφέστο (&quot;%1&quot;) στη δέσμη</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Αντικατάσταση προσθέτου;</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Το νέο πρόσθετο &quot;%1&quot; (%2) πρόκειται να αντικαταστήσει το ήδη εγκατεστημένο πρόσθετο &quot;%3&quot; (%4). Θέλετε να συνεχίσετε;</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 χάθηκε η ένωση</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ενώθηκε</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Το πρόσθετο &quot;%1&quot; αντιμετώπισε ένα μόνιμο σφάλμα στη συλλογή δεδομένων θέσης</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Βρέθηκε μη πρόσθετο στον κατάλογο προσθετών: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποτυχία φόρτωσης του μη αυτόματου προσθέτου: %1</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενημερωτής προσθετών</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Τα ακόλουθα πρόσθετα μπορούν να ενημερωθούν.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Επιλογή όλων</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Πρόσθετο</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Λήψη-URL</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Θέλετε να ενημερώσετε τα επιλεγμένα πρόσθετα;</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η λήψη της ενημέρωσης προσθέτου για &quot;%1&quot; από &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ενημέρωση για το πρόσθετο &quot;%1&quot; απέτυχε λόγω πάρα πολλών ανακατευθύνσεων</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η λήψη της ενημέρωσης προσθέτου για &quot;%1&quot; από &quot;%2&quot; (κωδικός κατάστασης HTTP %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Το πρόσθετο &quot;%1&quot; ενημερώθηκε επιτυχώς</translation>
     </message>
 </context>
 <context>
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένη συσκευή</translation>
     </message>
 </context>
 <context>
@@ -7410,27 +7498,28 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Το Mumble είναι προς το παρόν συνδεδεμένο σε διακομιστή</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>CodecInit: Αποτυχία φόρτωσης του Opus, δεν θα είναι διαθέσιμο για κωδικοποίηση/αποκωδικοποίηση ήχου.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>UI ομιλίας</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ακύρωση ηχώ δεν υποστηρίζεται για τον συνδυασμό διεπαφής &quot;%1&quot; (σε) και &quot;%2&quot; (εκτός).</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Εάν χρησιμοποιείτε Linux, πιθανότατα χρησιμοποιείτε μια έκδοση από το αποθετήριο πακέτων της διανομής σας που έχει τους δικούς τους κύκλους ενημέρωσης.&lt;/p&gt;&lt;p&gt;Εάν θέλετε να έχετε πάντα την πιο πρόσφατη έκδοση Mumble, θα πρέπει να εξετάσετε τη χρήση διαφορετικής μεθόδου εγκατάστασης.
+Ανατρέξτε στο &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;το wiki Mumble&lt;/a&gt; για τις εναλλακτικές λύσεις που υπάρχουν.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -7442,11 +7531,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Απενεργοποίηση κειμένου σε ομιλία</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το &quot;%1&quot; δεν μπόρεσε να αποθηκευτεί οριστικά και χάνεται κατά την επανεκκίνηση επειδή το %2 δεν διαθέτει πιστοποιητικό.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
@@ -7454,63 +7543,63 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Χρησιμοποιείτε μια έκδοση Mumble που &lt;b&gt;απενεργοποίησε ρητά&lt;/b&gt; τους ελέγχους ενημερώσεων.&lt;/p&gt;&lt;p&gt;Αυτό σημαίνει ότι η ειδοποίηση ενημέρωσης που ενδέχεται να λάβετε χρησιμοποιώντας αυτήν την επιλογή &lt;b&gt;πιθανότατα να μην έχει νόημα &lt;/b&gt; για εσάς.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ομιλεί (σε σίγαση)</translation>
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Όλα τα μηνύματα</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή κονσόλας για όλα τα συμβάντα</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή αναδυόμενων ειδοποιήσεων για όλα τα συμβάντα</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή επισήμανσης παραθύρου (αν δεν είναι ενεργό) για όλα τα συμβάντα</translation>
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Κάντε κλικ εδώ για εναλλαγή των ειδοποιήσεων ήχου για όλα τα συμβάντα</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Εναλλαγή κειμένου σε ομιλία για όλα τα συμβάντα</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το RNNoise δεν είναι διαθέσιμο λόγω αναντιστοιχίας ποσοστού δείγματος.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Επαναφορά όλων των ρυθμίσεων?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
-        <translation type="unfinished"></translation>
+        <translation>Θέλετε πραγματικά να επαναφέρετε όλες τις ρυθμίσεις (όχι μόνο αυτές που είναι ορατές αυτήν τη στιγμή) στην προεπιλεγμένη τιμή τους;</translation>
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοπική προσαρμογή ψευδωνύμου...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αποκλεισμένο σχέδιο URL &quot;%1&quot;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το URL χρησιμοποιεί ένα σχήμα που έχει αποκλειστεί για λόγους ασφαλείας.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποκλεισμένο URL: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
@@ -7518,15 +7607,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο αποκλείστηκε. Επιτρέψτε στο Mumble να χρησιμοποιεί το μικρόφωνο αλλάζοντας τις ρυθμίσεις στις Προτιμήσεις συστήματος -&gt; Ασφάλεια και απόρρητο -&gt; Απόρρητο -&gt; Μικρόφωνο.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο αποκλείστηκε λόγω περιορισμών του συστήματος. Δεν θα μπορείτε να χρησιμοποιήσετε το μικρόφωνο σε αυτήν τη συνεδρία.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εάν είναι ενεργοποιημένη, προσπαθεί να ακυρώσει την ηχώ από τη ροή ήχου.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -7534,32 +7623,33 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ακύρωση ηχώ είναι απενεργοποιημένη.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Μικτή ακύρωση ηχώ (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η μικτή έχει χαμηλό αντίκτυπο CPU, αλλά λειτουργεί καλά μόνο εάν τα ηχεία σας είναι εξίσου δυνατά και σε ίσες αποστάσεις από το μικρόφωνο.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ακύρωση ηχώ πολλαπλών καναλιών (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η ακύρωση ηχώ πολλαπλών καναλιών παρέχει πολύ καλύτερη ακύρωση ηχώ, αλλά με υψηλότερο κόστος CPU. Η ακύρωση πολλαπλών καναλιών ηχώ απαιτεί περισσότερη CPU, οπότε θα πρέπει πρώτα να δοκιμάσετε το μικτό.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Το παρεχόμενο URL χρησιμοποιεί μια μη έγκυρη μορφή έκδοσης: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Οι κατάλογοι στους οποίους το Mumble αναζητά επιπλέον αρχεία μετάφρασης είναι:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -7567,20 +7657,21 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>ΠΕΙΡΑΜΑΤΙΚΟ: Ακύρωση ακουστικής ηχώ (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η υποστήριξη για αυτήν την επιλογή είναι μόνο πειραματική! Αυτή η επιλογή λειτουργεί καλύτερα όταν χρησιμοποιείτε ενσωματωμένο μικρόφωνο και ηχείο.</translation>
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Η μετεγκατάσταση συντομεύσεων δεν είναι πλήρης</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Δυστυχώς, δεν ήταν δυνατή η μετεγκατάσταση %1 συντόμευσης.
+Μπορείτε να τις καταχωρήσετε ξανά.</translation>
     </message>
 </context>
 <context>
@@ -7673,18 +7764,18 @@ You can register them again.</source>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Σύνδεση</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Εισάγετε κείμενο αναζήτησης...</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7692,50 +7783,50 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν θα αναζητήσετε χρήστες</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Χρήστες</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν η αναζήτηση πρέπει να γίνεται με διάκριση πεζών-κεφαλαίων</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Με &amp;διάκριση πεζών-κεφαλαίων</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Επιλογές:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν η συμβολοσειρά αναζήτησης πρέπει να ερμηνευτεί ως κανονική έκφραση</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RegEx</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Κανάλια</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση για:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν θα αναζητήσετε κανάλια</translation>
     </message>
 </context>
 <context>
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατή η επίλυση του ονόματος οικοδεσπότη</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -7766,55 +7857,55 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Πληροφορίες διακομιστή</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Πληροφορίες διακομιστή</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Οικοδεσπότης:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Θύρα:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Χρήστες&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Πρωτόκολλο:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Κυκλοφορία:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Λειτουργικό Σύστημα:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ήχος</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Επιτρέπεται:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Τρέχον:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Κωδικοποιητής:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Λεπτομέρειες σύνδεσης</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -7822,15 +7913,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Κρυπτογράφηση:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Μέση καθυστέρηση:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Στατιστικά</translation>
     </message>
     <message>
         <source>Good</source>
@@ -7850,15 +7941,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Εξερχόμενα</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Εισερχόμενα</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Τα πακέτα φωνής αποστέλλονται αυτήν τη στιγμή μέσω TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -7866,39 +7957,39 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Έκδοση TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Σουίτα Cipher:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;μπροστινή μυστικότητα&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Προβολή πιστοποιητικού</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Εντάξει</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Άγνωστο</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η σύνδεση παρέχει τέλεια μπροστινή μυστικότητα.</translation>
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η σύνδεση ΔΕΝ παρέχει τέλεια μπροστινή μυστικότητα.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν υπάρχουν πληροφορίες για την μπροστινή μυστικότητα.</translation>
     </message>
 </context>
 <context>
@@ -7943,11 +8034,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν έχουν εκχωρηθεί κουμπιά</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Πατήστε για εμφάνιση του συνδυασμού κουμπιών</translation>
     </message>
 </context>
 <context>
@@ -8006,7 +8097,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Τρέχουσα επιλογή</translation>
     </message>
 </context>
 <context>
@@ -8085,7 +8176,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Μάρκες</translation>
     </message>
 </context>
 <context>
@@ -8135,11 +8226,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναζήτηση</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα χρηστών</translation>
     </message>
 </context>
 <context>
@@ -8320,26 +8411,26 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναγνωριστικό καναλιού: %1</translation>
     </message>
 </context>
 <context>
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοπικό ψευδώνυμο για άλλους χρήστες</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Προσαρμόστε το ψευδώνυμο άλλων χρηστών τοπικά&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ψευδώνυμο χρήστη</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσαρμογή τοπικού ψευδωνύμου για %1</translation>
     </message>
 </context>
 <context>
@@ -8366,7 +8457,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>User volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένταση χρήστη</translation>
     </message>
 </context>
 <context>
@@ -8438,7 +8529,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Σε σίγαση (πλήκτρο για σίγαση)</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
@@ -8466,8 +8557,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel has a new comment set (click to show)</source>
-        <translation>Το κανάλι άλλαξε το σχόλιό του (κάντε κλικ για εμφάνιση)
-</translation>
+        <translation>Το κανάλι άλλαξε το σχόλιό του (κάντε κλικ για εμφάνιση)</translation>
     </message>
     <message>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
@@ -8483,7 +8573,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Flags</source>
-        <translation>Flags</translation>
+        <translation>Επιλογές</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this user?</source>
@@ -8499,19 +8589,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation type="unfinished"></translation>
+        <translation>Ομιλεί όσο είναι σε σίγαση από την πλευρά σας</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτός είναι ένας ακροατής καναλιού. Ο αντίστοιχος χρήστης ακούει όλα όσα λέτε σε αυτό το κανάλι.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Το κανάλι έχει περιορισμούς πρόσβασης, ώστε να μην μπορείτε να εισέλθετε</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Το κανάλι έχει περιορισμούς πρόσβασης, αλλά μπορείτε να εισέλθετε παρόλα αυτά</translation>
     </message>
 </context>
 <context>
@@ -8745,7 +8835,8 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Ο διακομιστής στον οποίο είστε συνδεδεμένος βρίσκεται στην έκδοση 1.2.2 ή παλαιότερη. Για λόγους προστασίας της ιδιωτικότητας, δεν είναι δυνατόν να γίνει εγγραφή σε διακομιστές με εκδόσεις παλαιότερες από 1.2.3. Επικοινωνήστε με το διαχειριστή του διακομιστή σας για περισσότερες πληροφορίες.</translation>
+        <translation>Ο διακομιστής στον οποίο είστε συνδεδεμένος βρίσκεται στην έκδοση 1.2.2 ή παλαιότερη. Για λόγους προστασίας της ιδιωτικότητας, δεν είναι δυνατόν να γίνει εγγραφή σε διακομιστές με εκδόσεις παλαιότερες από 1.2.3. 
+Επικοινωνήστε με το διαχειριστή του διακομιστή σας για περισσότερες πληροφορίες.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
@@ -8772,7 +8863,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο αποκλείστηκε. Ελέγξτε ότι οι ρυθμίσεις μικροφώνου του λειτουργικού σας συστήματος επιτρέπουν στο Mumble να χρησιμοποιεί το μικρόφωνο.</translation>
     </message>
 </context>
 <context>
@@ -8786,7 +8877,7 @@ Please contact your server administrator for further information.</source>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>Mumble PTT</translation>
+        <translation>Mumble ΠΠΟ</translation>
     </message>
     <message>
         <source>Push to talk</source>

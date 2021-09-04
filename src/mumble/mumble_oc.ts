@@ -2831,11 +2831,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuracion de Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Categorias de configuracion</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
@@ -2843,7 +2843,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>O restablir tot als paramètres per defaut</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
@@ -2862,11 +2862,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Picatz un nom d’utilizaire</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del servidor</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -2894,7 +2894,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Add custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>Apondre un servidor personalizat</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -2930,7 +2930,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de servidors</translation>
     </message>
     <message>
         <source>Search</source>
@@ -2938,11 +2938,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplaçament</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2978,15 +2978,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Oceania</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>America del Sud</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>Consentir a la transmission d’informacions privadas</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
@@ -3053,15 +3053,15 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialogEdit</name>
     <message>
         <source>Edit Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificar lo servidor</translation>
     </message>
     <message>
         <source>Name of the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del servidor</translation>
     </message>
     <message>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;dreça</translation>
     </message>
     <message>
         <source>Internet address of the server.</source>
@@ -3077,7 +3077,7 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pòrt</translation>
     </message>
     <message>
         <source>Port on which the server is listening</source>
@@ -3127,7 +3127,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Senhal d’enviar al servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
@@ -3149,15 +3149,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <source>64738</source>
-        <translation type="unfinished"></translation>
+        <translation>64738</translation>
     </message>
     <message>
         <source>Your username</source>
-        <translation type="unfinished"></translation>
+        <translation>Vòstre nom d’utilizaire</translation>
     </message>
     <message>
         <source>Your password</source>
@@ -3169,7 +3169,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignorar</translation>
     </message>
 </context>
 <context>
@@ -3193,11 +3193,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar lo rapòrt</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar pas lo rapòrt</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
@@ -4601,7 +4601,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Picatz un nom d’utilizaire</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -6592,7 +6592,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -8599,7 +8599,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>
