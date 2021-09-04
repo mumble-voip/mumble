@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Error : canal invalid</translation>
+        <translation>Error&#x202f;: canal invalid</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID : %1</translation>
+        <translation>ID&#x202f;: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -4633,7 +4633,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Picatz un nom d’utilizaire</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5418,11 +5418,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Messatge de benvenguda : %1</translation>
+        <translation>Messatge de benvenguda&#x202f;: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Mumble : %1</translation>
+        <translation>Mumble&#x202f;: %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -6130,7 +6130,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation>%1 : %2</translation>
+        <translation>%1&#x202f;: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -6644,7 +6644,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtrar</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -8314,7 +8314,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation>%1&#x202f;kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -8656,7 +8656,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation>DNS : %1</translation>
+        <translation>DNS&#x202f;: %1</translation>
     </message>
     <message>
         <source>Issued by:</source>
@@ -8710,7 +8710,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>
