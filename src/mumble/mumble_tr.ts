@@ -8856,7 +8856,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Kayıplı sıkıştırılmış</translation>
     </message>
 </context>
 <context>
