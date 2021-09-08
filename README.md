@@ -115,6 +115,13 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 -v      More verbose logging.
 ```
 
+#### Build and run from Docker
+On recent Docker versions you can build images directly from sources on Github:
+```
+docker build --pull -t mumble-server github.com/mumble-voip/mumble#master
+```
+Example `--pull`s each time to check for updated base image, then downloads and builds `master` branch.
+
 ### OpenGL Overlay
 
 The OpenGL overlay works by intercepting the call to switch buffers, and just
