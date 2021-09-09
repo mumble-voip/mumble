@@ -116,7 +116,8 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 ```
 
 #### Build and run from Docker
-On recent Docker versions you can build images directly from sources on Github:
+
+On recent Docker versions you can build images directly from sources on GitHub:
 ```
 docker build --pull -t mumble-server github.com/mumble-voip/mumble#master
 ```
