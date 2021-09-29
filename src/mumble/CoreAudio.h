@@ -45,6 +45,8 @@ protected:
 	AudioBufferList buflist{};
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
+	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+								 const AudioObjectPropertyAddress inAddresses[], void *udata);
 	static OSStatus inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 								  UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 
@@ -64,6 +66,8 @@ protected:
 	AudioUnit auHAL{};
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
+	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+								 const AudioObjectPropertyAddress inAddresses[], void *udata);
 	static OSStatus outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 								   UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 

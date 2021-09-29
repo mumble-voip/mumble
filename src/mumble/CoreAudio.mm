@@ -825,6 +825,14 @@ void CoreAudioInput::run() {
 				 "events.");
 	}
 
+	AudioObjectPropertyAddress inputDeviceAddress = {
+		kAudioHardwarePropertyDefaultInputDevice,
+		kAudioObjectPropertyScopeGlobal,
+		kAudioObjectPropertyElementMaster
+	};
+	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &inputDeviceAddress, CoreAudioInput::deviceChange, this),
+			   "CoreAudioInput: Unable to create input device change listener. Unable to listen to device changes.");
+
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b         = buflist.mBuffers;
 	b->mNumberChannels     = iMicChannels;
@@ -915,6 +923,23 @@ void CoreAudioInput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitPrope
 		qWarning("CoreAudioInput: Unexpected property changed event received.");
 	}
 }
+
+OSStatus CoreAudioInput::deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+									  const AudioObjectPropertyAddress inAddresses[], void *udata) {
+	Q_UNUSED(inObjectID);
+	Q_UNUSED(inNumberAddresses);
+	Q_UNUSED(inAddresses);
+
+	CoreAudioInput *o = reinterpret_cast< CoreAudioInput * >(udata);
+	if (!o->bRunning) return noErr;
+
+	qWarning("CoreAudioInput: Input device change detected. Restarting AudioInput.");
+	Audio::stopInput();
+	Audio::startInput();
+
+	return noErr;
+}
+
 
 CoreAudioOutput::CoreAudioOutput() {
 }
@@ -1017,6 +1042,14 @@ void CoreAudioOutput::run() {
 	CHECK_WARN(AudioUnitAddPropertyListener(auHAL, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this),
 	           "CoreAudioOutput: Unable to create output property change listener. Unable to listen to property changes.");
 
+	AudioObjectPropertyAddress outputDeviceAddress = {
+		kAudioHardwarePropertyDefaultOutputDevice,
+		kAudioObjectPropertyScopeGlobal,
+		kAudioObjectPropertyElementMaster
+	};
+	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &outputDeviceAddress, CoreAudioOutput::deviceChange, this),
+			   "CoreAudioOutput: Unable to create output device change listener. Unable to listen to device changes.");
+
 	AURenderCallbackStruct cb;
 	cb.inputProc       = CoreAudioOutput::outputCallback;
 	cb.inputProcRefCon = this;
@@ -1107,4 +1140,20 @@ void CoreAudioOutput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitProp
 	} else {
 		qWarning("CoreAudioOutput: Unexpected property changed event received.");
 	}
+}
+
+OSStatus CoreAudioOutput::deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+									   const AudioObjectPropertyAddress inAddresses[], void *udata) {
+	Q_UNUSED(inObjectID);
+	Q_UNUSED(inNumberAddresses);
+	Q_UNUSED(inAddresses);
+
+	CoreAudioOutput *o = reinterpret_cast< CoreAudioOutput * >(udata);
+	if (!o->bRunning) return noErr;
+
+	qWarning("CoreAudioOutput: Output device change detected. Restarting AudioOutput.");
+	Audio::stopOutput();
+	Audio::startOutput();
+
+	return noErr;
 }
