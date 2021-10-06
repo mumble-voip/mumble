@@ -32,7 +32,7 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 		return chain;
 	}
 
-	// Convert the leaf to der format and create an openssl x509 from it
+	// Convert the leaf to DER format and create an OpenSSL X509 object from it.
 	QByteArray qbaLeaf = leaf.toDer();
 	int maxDerSize     = qbaLeaf.size();
 	BIO *mem           = BIO_new_mem_buf(qbaLeaf.data(), maxDerSize);
@@ -40,13 +40,13 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 	X509 *leaf_x509 = d2i_X509_bio(mem, nullptr);
 	BIO_free(mem);
 
-	// Prepare a ssl context, the method should not matter, so just go with TLS_method()
+	// Prepare an SSL context; the method should not matter, so just go with TLS_method().
 	SSL_CTX *ctx = SSL_CTX_new(TLS_method());
 
 	// Add the leaf
 	SSL_CTX_use_certificate(ctx, leaf_x509);
 
-	// Construct openssl x509 for the pool and add each to the ctx
+	// Construct an OpenSSL X509 object for the pool and add each to the context.
 	foreach (const QSslCertificate &cert, pool) {
 		QByteArray qbaCert = cert.toDer();
 		int s              = qbaCert.size();
@@ -62,34 +62,33 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 	int flags = SSL_BUILD_CHAIN_FLAG_CHECK | SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR; // Think of the correct flags
 	int ret   = SSL_CTX_build_cert_chain(ctx, flags);
 
-	// Check if we were succesfull, since we use the SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR flag
-	// 2 is a acceptable return value, too
+	// Check if the operation is successful.
+	// Since we use the SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR flag, a return value of 2 is acceptable.
 	if (ret == 1 || ret == 2) {
 		// Retrieve the chain
 		STACK_OF(X509) *stack = nullptr;
 		SSL_CTX_get0_chain_certs(ctx, &stack);
 
-		// Copy the chain back to qt
-		// Instead of allocating a new buffer every time i2d_X509 is called, we allocate a shared buffer
-		// and because we know the maxDerSize, we konw how big this needs to be
+		// Copy the chain back to Qt.
+		// Instead of allocating a new buffer every time i2d_X509() is called, we allocate a shared buffer of "maxDerSize" size.
 		unsigned char *buffer = (unsigned char *) malloc(maxDerSize);
 		while (sk_X509_num(stack) > 0) {
 			X509 *next     = sk_X509_shift(stack);
 			int actualSize = i2d_X509(next, &buffer);
 			X509_free(next);
 			if (actualSize == -1) {
-				// Failed to der encode certificate in openssl
+				// Failed to encode certificate in DER format.
 				chain.clear();
 				break;
 			}
-			// i2d_X509 altered our buffer pointer, so we need to set it back manually
+			// i2d_X509() altered our buffer pointer, we need to set it back manually.
 			buffer -= actualSize;
 			QByteArray array            = QByteArray::fromRawData((char *) buffer, actualSize);
 			QList< QSslCertificate > ql = QSslCertificate::fromData(array, QSsl::EncodingFormat::Der);
 			if (ql.size() == 1) {
 				chain << ql;
 			} else {
-				// Data from openssl must contain exactly one certificate!
+				// Data from OpenSSL must correspond to a single certificate!
 				chain.clear();
 				break;
 			}
@@ -100,9 +99,9 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 	} else {
 		chain.clear();
 	}
-	// pool certificates where added with add0 option (not add1),
-	// so they will automatically be freed if the ctx is freed.
-	// Same for the stack, which was obtain with the set0 verison.
+	// Pool certificates were added with the "add0" function (as opposed to "add1"),
+	// meaning that they are freed when ctx is.
+	// Same for the stack, which was obtained with "set0".
 	SSL_CTX_free(ctx);
 	X509_free(leaf_x509);
 
