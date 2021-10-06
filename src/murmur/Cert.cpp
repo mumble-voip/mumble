@@ -71,7 +71,7 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 
 		// Copy the chain back to Qt.
 		// Instead of allocating a new buffer every time i2d_X509() is called, we allocate a shared buffer of "maxDerSize" size.
-		unsigned char *buffer = (unsigned char *) malloc(maxDerSize);
+		std::vector< unsigned char > buffer(maxDerSize);
 		while (sk_X509_num(stack) > 0) {
 			X509 *next     = sk_X509_shift(stack);
 			int actualSize = i2d_X509(next, &buffer);
