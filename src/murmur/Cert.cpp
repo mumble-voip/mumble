@@ -47,7 +47,7 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 	SSL_CTX_use_certificate(ctx, leaf_x509);
 
 	// Construct an OpenSSL X509 object for the pool and add each to the context.
-	foreach (const QSslCertificate &cert, pool) {
+	for (const QSslCertificate &cert : pool) {
 		QByteArray qbaCert = cert.toDer();
 		int s              = qbaCert.size();
 		maxDerSize         = maxDerSize < s ? s : maxDerSize;
@@ -113,7 +113,7 @@ QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, cons
 
 QByteArray Server::chainToPem(const QList< QSslCertificate > &chain) {
 	QByteArrayList bytes;
-	foreach (const QSslCertificate &cert, chain) { bytes << cert.toPem(); }
+	for (const QSslCertificate &cert : chain) { bytes << cert.toPem(); }
 	return bytes.join();
 }
 
