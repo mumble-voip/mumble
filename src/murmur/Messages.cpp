@@ -232,7 +232,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			ok = true;
 		}
 	} else {
-		reason = "On this server it is required that your username equals the common name of your certificate subject!";
+		reason = "Your username must match the common name of your certificate's subject!";
 		rtType = MumbleProto::Reject_RejectType_UsernameCertMissmatch;
 	}
 	uSource->iId = id >= 0 ? id : -1;
