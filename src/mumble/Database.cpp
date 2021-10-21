@@ -12,6 +12,7 @@
 #include "Version.h"
 #include "Global.h"
 
+#include <QSettings>
 #include <QtCore/QStandardPaths>
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
@@ -38,7 +39,6 @@ static bool execQueryAndLogFailure(QSqlQuery &query, const QString &queryString)
 	}
 	return true;
 }
-
 
 bool Database::findOrCreateDatabase() {
 	QSettings qs;
@@ -95,6 +95,11 @@ Database::Database(const QString &dbname) {
 		if (configuredLocation.exists()) {
 			db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 			db.open();
+		} else if (!Global::get().migratedDBPath.isEmpty()) {
+			// Assume that we don't find the DB, because we have migrated it
+			db.setDatabaseName(Global::get().migratedDBPath);
+			db.open();
+			qWarning("Using migrated DB at %s", qUtf8Printable(Global::get().migratedDBPath));
 		} else {
 			int result = QMessageBox::critical(nullptr, QLatin1String("Mumble"),
 											   tr("The database file '%1' set in the configuration file does not "

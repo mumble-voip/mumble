@@ -1025,20 +1025,20 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 		f.close();
 
-		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
-		qs->setIniCodec("UTF-8");
-		if (qs->status() != QSettings::NoError) {
-			Global::get().l->log(Log::Warning, tr("File is not a configuration file."));
-		} else {
-			qSwap(qs, Global::get().qs);
-			Global::get().s.load();
-			qSwap(qs, Global::get().qs);
+		try {
+			Settings newSettings;
+			newSettings.load(f.fileName());
+
+			std::swap(newSettings, Global::get().s);
 
 			Global::get().l->log(Log::Warning, tr("Settings merged from file."));
+		} catch (const std::exception &e) {
+			Global::get().l->log(Log::Warning, tr("Invalid settings file encountered."));
 		}
-		delete qs;
+
 		return;
 	}
+
 	if (url.scheme() != QLatin1String("mumble")) {
 		Global::get().l->log(Log::Warning, tr("URL scheme is not 'mumble'"));
 		return;

@@ -30,8 +30,8 @@ Usage::Usage(QObject *p) : QObject(p) {
 
 void Usage::registerUsage() {
 	if (!Global::get().s.bUsage
-		|| Global::get().s.uiUpdateCounter
-			   == 0) // Only register usage if allowed by the user and first wizard run has finished
+		|| Version::getRaw() < Version::getRaw(
+			   "1.2.3")) // Only register usage if allowed by the user and first wizard run has finished
 		return;
 
 	QDomDocument doc;

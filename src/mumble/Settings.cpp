@@ -4,12 +4,15 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "Settings.h"
-
 #include "AudioInput.h"
 #include "Cert.h"
+#include "EnumStringConversions.h"
 #include "EnvUtils.h"
+#include "JSONSerialization.h"
 #include "Log.h"
 #include "SSL.h"
+#include "SettingsKeys.h"
+#include "SettingsMacros.h"
 #include "Global.h"
 
 #if defined(Q_OS_WIN)
@@ -18,21 +21,34 @@
 
 #include "../../overlay/overlay.h"
 
-#include <QtCore/QFileInfo>
-#include <QtCore/QProcessEnvironment>
-#include <QtCore/QRegularExpression>
-#include <QtCore/QStandardPaths>
-#include <QtGui/QImageReader>
-#include <QtWidgets/QSystemTrayIcon>
+#include <QByteArray>
+#include <QDataStream>
+#include <QFileInfo>
+#include <QImageReader>
+#include <QProcessEnvironment>
+#include <QRegularExpression>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QSystemTrayIcon>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 #	include <QOperatingSystemVersion>
 #endif
 
 #include <boost/typeof/typeof.hpp>
 
+#include <algorithm>
+#include <cassert>
+#include <cstring>
+#include <fstream>
 #include <limits>
+#include <memory>
 
+#include <nlohmann/json.hpp>
 
+constexpr const char *BACKUP_FILE_EXTENSION = ".back";
+#ifdef Q_OS_WINDOWS
+constexpr const char *REGISTRY_ID = ":::::REGISTRY:::::";
+#endif
 
 const QPoint Settings::UNSPECIFIED_POSITION =
 	QPoint(std::numeric_limits< int >::min(), std::numeric_limits< int >::max());
@@ -102,6 +118,138 @@ quint32 qHash(const QList< ShortcutTarget > &l) {
 		h ^= qHash(st);
 	return h;
 }
+
+bool operator==(const PluginSetting &lhs, const PluginSetting &rhs) {
+	return lhs.enabled == rhs.enabled && lhs.positionalDataEnabled == rhs.positionalDataEnabled
+		   && lhs.allowKeyboardMonitoring == rhs.allowKeyboardMonitoring && lhs.path == rhs.path;
+}
+
+bool operator!=(const PluginSetting &lhs, const PluginSetting &rhs) {
+	return !(lhs == rhs);
+}
+
+bool operator==(const OverlaySettings &lhs, const OverlaySettings &rhs) {
+#define PROCESS(category, key, variable) \
+	if (lhs.variable != rhs.variable) {  \
+		return false;                    \
+	}
+	PROCESS_ALL_OVERLAY_SETTINGS
+#undef PROCESS
+
+	return true;
+}
+
+bool operator!=(const OverlaySettings &lhs, const OverlaySettings &rhs) {
+	return !(lhs == rhs);
+}
+
+
+void Settings::save(const QString &path) const {
+	// Our saving procedure is a 4-step process:
+	// 1. Write the settings that are to be saved to a temporary file
+	// 2. Check if a settings backup exists and if it does, delete it
+	// 3. If an older settings file already exists, rename it to now be the backup
+	// 4. Move the temporary file to the correct location to make sure it now serves as the proper settings file
+	// All of this is an attempt at making the system as resistant to interruptions as possible.
+	if (!path.endsWith(".json")) {
+		throw std::runtime_error("Expected settings file to have \".json\" extension");
+	}
+
+	nlohmann::json settingsJSON = *this;
+
+	QFile tmpFile(QString::fromLatin1("%1/mumble_settings.json.tmp")
+					  .arg(QStandardPaths::writableLocation(QStandardPaths::TempLocation)));
+
+	{
+		// The separate scope makes sure, the stream is closed again after the write has finished
+		std::ofstream stream(tmpFile.fileName().toUtf8());
+
+		stream << settingsJSON.dump(4) << std::endl;
+	}
+
+	QFile targetFile(path);
+	QFile backupFile(path + BACKUP_FILE_EXTENSION);
+
+	if (targetFile.exists()) {
+		// Create a backup of the settings
+		if (backupFile.exists()) {
+			// We first have to delete our backup
+			if (!backupFile.remove()) {
+				qWarning("Failed at deleting settings backup file: %s", qUtf8Printable(backupFile.errorString()));
+			}
+		}
+
+		// Turn the current settings file into the backup file
+		if (!targetFile.rename(backupFile.fileName())) {
+			qWarning("Failed at renaming settings file to backup file: %s", qUtf8Printable(targetFile.errorString()));
+		}
+	} else {
+		QFileInfo info(targetFile);
+		if (!info.dir().exists()) {
+			if (!info.dir().mkpath(".")) {
+				qWarning("Failed to create directory for settings at %s", qUtf8Printable(info.dir().absolutePath()));
+			}
+		}
+	}
+
+	// Move the temp-file into place
+	if (!tmpFile.rename(path)) {
+		qWarning("Failed at moving settings from %s to %s - reason: %s", qUtf8Printable(tmpFile.fileName()),
+				 qUtf8Printable(path), qUtf8Printable(tmpFile.errorString()));
+	}
+}
+
+void Settings::save() const {
+	if (settingsLocation.isEmpty()) {
+		save(findSettingsLocation());
+	} else {
+		save(settingsLocation);
+	}
+}
+
+void Settings::load(const QString &path) {
+	settingsLocation = path;
+
+	std::ifstream stream(path.toUtf8());
+
+	nlohmann::json settingsJSON;
+	try {
+		stream >> settingsJSON;
+
+		settingsJSON.get_to(*this);
+	} catch (const nlohmann::json::parse_error &e) {
+		qWarning() << "Failed to load settings due to invalid format: " << e.what();
+	}
+}
+
+void Settings::load() {
+	bool foundExisting = false;
+
+	QString settingsPath = findSettingsLocation(false, &foundExisting);
+
+	if (foundExisting) {
+		// If we found a regular settings file, then use that and be done with it
+		qInfo() << "Loading settings from" << settingsPath;
+		load(settingsPath);
+	} else {
+		// Otherwise check for a legacy settings file and if that is found, load settings from there
+		QString legacySettingsPath = findSettingsLocation(true, &foundExisting);
+
+		if (foundExisting) {
+			qInfo() << "Loading settings from legacy settings file" << legacySettingsPath;
+			legacyLoad(legacySettingsPath);
+		}
+#ifdef Q_OS_WIN
+		else {
+			// On Windows, we previously used the registry, so if we did not find an old config file (which would
+			// probably be very archaic), we can check the registry
+			qInfo() << "Loading legacy settings from the registry";
+			legacyLoad(QLatin1String(REGISTRY_ID));
+		}
+#endif
+	}
+}
+
 
 QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
 	// Start by the version of this setting. This is needed to make sure we can stay compatible
@@ -293,6 +441,10 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 }
 
 Settings::Settings() {
+#ifndef NDEBUG
+	verifySettingsKeys();
+#endif
+
 #if defined(Q_OS_WIN)
 	GlobalShortcutWin::registerMetaTypes();
 #endif
@@ -492,9 +644,6 @@ Settings::Settings() {
 	disableConnectDialogEditing = false;
 	bPingServersDialogViewed    = false;
 
-	// Config updates
-	uiUpdateCounter = 0;
-
 #if defined(AUDIO_TEST)
 	lmLoopMode = Server;
 #else
@@ -608,6 +757,35 @@ bool Settings::doPositionalAudio() const {
 	return bPositionalAudio;
 }
 
+void OverlaySettings::savePresets(const QString &filename) {
+	nlohmann::json settingsJSON = *this;
+
+	settingsJSON.erase(SettingsKeys::OVERLAY_ENABLE_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_WHITELIST_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_WHITELIST_EXCLUDE_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_BLACKLIST_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_BLACKLIST_EXCLUDE_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_KEY);
+	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_EXCLUDE_KEY);
+
+	std::ofstream stream(filename.toUtf8());
+
+	stream << settingsJSON.dump(4) << std::endl;
+}
+
+void OverlaySettings::load(const QString &filename) {
+	std::ifstream stream(filename.toUtf8());
+
+	nlohmann::json settingsJSON;
+	try {
+		stream >> settingsJSON;
+
+		settingsJSON.get_to(*this);
+	} catch (const nlohmann::json::parse_error &e) {
+		qWarning() << "Failed to load overlay settings due to invalid format: " << e.what();
+	}
+}
+
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 
@@ -631,6 +809,7 @@ BOOST_TYPEOF_REGISTER_TYPE(QVariant)
 BOOST_TYPEOF_REGISTER_TYPE(QFont)
 BOOST_TYPEOF_REGISTER_TYPE(EchoCancelOptionID)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
+
 
 #define LOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
 #define LOADENUM(var, name) \
@@ -664,11 +843,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 		} while (0)
 #endif
 
-void OverlaySettings::load() {
-	load(Global::get().qs);
-}
-
-void OverlaySettings::load(QSettings *settings_ptr) {
+void OverlaySettings::legacyLoad(QSettings *settings_ptr) {
 	LOAD(bEnable, "enable");
 
 	LOADENUM(osShow, "show");
@@ -737,13 +912,18 @@ void OverlaySettings::load(QSettings *settings_ptr) {
 	LOAD(qslBlacklistExclude, "blacklistexclude");
 }
 
-void Settings::load() {
-	load(Global::get().qs);
-}
+void Settings::legacyLoad(const QString &path) {
+	std::unique_ptr< QSettings > settings_ptr;
+	QSettings::Format format = QSettings::IniFormat;
 
-void Settings::load(QSettings *settings_ptr) {
-	// Config updates
-	LOAD(uiUpdateCounter, "lastupdate");
+#ifdef Q_OS_WINDOWS
+	if (path == QLatin1String(REGISTRY_ID)) {
+		// Search the registry
+		settings_ptr = std::make_unique< QSettings >();
+	} else
+#endif
+		settings_ptr = std::make_unique< QSettings >(path.isEmpty() ? findSettingsLocation(true) : path, format);
+
 
 	LOAD(qsDatabaseLocation, "databaselocation");
 
@@ -929,7 +1109,6 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(qbaMinimalViewState, "ui/minimalviewstate");
 	LOAD(qbaConfigGeometry, "ui/ConfigGeometry");
 	LOADENUM(wlWindowLayout, "ui/WindowLayout");
-	LOAD(qbaSplitterState, "ui/splitter");
 	LOAD(qbaHeaderState, "ui/header");
 	LOAD(qsUsername, "ui/username");
 	LOAD(qsLastServer, "ui/server");
@@ -1096,423 +1275,48 @@ void Settings::load(QSettings *settings_ptr) {
 	settings_ptr->endGroup();
 
 	settings_ptr->beginGroup(QLatin1String("overlay"));
-	os.load(settings_ptr);
+	os.legacyLoad(settings_ptr.get());
 	settings_ptr->endGroup();
-}
 
-#undef LOAD
-#define SAVE(var, name)                                   \
-	if (var != def.var)                                   \
-		settings_ptr->setValue(QLatin1String(name), var); \
-	else                                                  \
-		settings_ptr->remove(QLatin1String(name))
-#define SAVEFLAG(var, name)                                                   \
-	if (var != def.var)                                                       \
-		settings_ptr->setValue(QLatin1String(name), static_cast< int >(var)); \
-	else                                                                      \
-		settings_ptr->remove(QLatin1String(name))
-#undef DEPRECATED
-#define DEPRECATED(name) settings_ptr->remove(QLatin1String(name))
 
-void OverlaySettings::save() {
-	save(Global::get().qs);
-}
+	// This field previously populated Settings::uiUpdateCounter, which no longer exists. We require it though, in order
+	// to determine whether we have to perform some migration work.
+	unsigned int configVersion = 0;
+	LOAD(configVersion, "lastupdate");
+	audioWizardShown = true;
+	switch (configVersion) {
+		case 0:
+			// Previous version was pre 1.2.3 or Mumble is run for the first time
+			audioWizardShown = false;
+			// Fallthrough
+		case 1:
+			// Previous versions used old idle action style, convert it
+			if (iIdleTime == 5 * 60) { // New default
+				iaeIdleAction = Settings::Nothing;
+			} else {
+				iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
+				iaeIdleAction = Settings::Deafen;                             // Old behavior
+			}
+			// Fallthrough
+#ifdef Q_OS_WIN
+		case 2: {
+			QList< Shortcut > &shortcuts              = qlShortcuts;
+			const QList< Shortcut > migratedShortcuts = GlobalShortcutWin::migrateSettings(shortcuts);
+			if (shortcuts.size() > migratedShortcuts.size()) {
+				const uint32_t num = shortcuts.size() - migratedShortcuts.size();
+				QMessageBox::warning(
+					nullptr, QObject::tr("Shortcuts migration incomplete"),
+					QObject::tr("Unfortunately %1 shortcut(s) could not be migrated.\nYou can register them again.")
+						.arg(num));
+			}
 
-void OverlaySettings::save(QSettings *settings_ptr) {
-	OverlaySettings def;
-
-	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
-	settings_ptr->sync();
-
-#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
-	if (settings_ptr->format() == QSettings::IniFormat)
-#endif
-	{
-		QFile f(settings_ptr->fileName());
-		f.setPermissions(f.permissions()
-						 & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther
-							 | QFile::WriteOther | QFile::ExeOther));
-	}
-
-	SAVE(bEnable, "enable");
-
-	SAVE(osShow, "show");
-	SAVE(bAlwaysSelf, "alwaysself");
-	SAVE(uiActiveTime, "activetime");
-	SAVE(osSort, "sort");
-	SAVE(fX, "x");
-	SAVE(fY, "y");
-	SAVE(fZoom, "zoom");
-	SAVE(uiColumns, "columns");
-
-	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i = 0; i < 4; ++i) {
-		settings_ptr->setArrayIndex(i);
-		SAVE(qcUserName[i], "color");
-		SAVE(fUser[i], "opacity");
-	}
-	settings_ptr->endArray();
-
-	SAVE(qfUserName, "userfont");
-	SAVE(qfChannel, "channelfont");
-	SAVE(qcChannel, "channelcolor");
-	SAVE(qfFps, "fpsfont");
-	SAVE(qcFps, "fpscolor");
-
-	SAVE(fBoxPad, "padding");
-	SAVE(fBoxPenWidth, "penwidth");
-	SAVE(qcBoxPen, "pencolor");
-	SAVE(qcBoxFill, "fillcolor");
-
-	SAVE(bUserName, "usershow");
-	SAVE(bChannel, "channelshow");
-	SAVE(bMutedDeafened, "mutedshow");
-	SAVE(bAvatar, "avatarshow");
-	SAVE(bBox, "boxshow");
-	SAVE(bFps, "fpsshow");
-	SAVE(bTime, "timeshow");
-
-	SAVE(fUserName, "useropacity");
-	SAVE(fChannel, "channelopacity");
-	SAVE(fMutedDeafened, "mutedopacity");
-	SAVE(fAvatar, "avataropacity");
-	SAVE(fFps, "fpsopacity");
-
-	SAVE(qrfUserName, "userrect");
-	SAVE(qrfChannel, "channelrect");
-	SAVE(qrfMutedDeafened, "mutedrect");
-	SAVE(qrfAvatar, "avatarrect");
-	SAVE(qrfFps, "fpsrect");
-	SAVE(qrfTime, "timerect");
-
-	SAVEFLAG(qaUserName, "useralign");
-	SAVEFLAG(qaChannel, "channelalign");
-	SAVEFLAG(qaMutedDeafened, "mutedalign");
-	SAVEFLAG(qaAvatar, "avataralign");
-
-	SAVE(oemOverlayExcludeMode, "mode");
-	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
-	settings_ptr->setValue(QLatin1String("launchersexclude"), qslLaunchersExclude);
-	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
-	settings_ptr->setValue(QLatin1String("whitelistexclude"), qslWhitelistExclude);
-	settings_ptr->setValue(QLatin1String("paths"), qslPaths);
-	settings_ptr->setValue(QLatin1String("pathsexclude"), qslPathsExclude);
-	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);
-	settings_ptr->setValue(QLatin1String("blacklistexclude"), qslBlacklistExclude);
-}
-
-void Settings::save() {
-	QSettings *settings_ptr = Global::get().qs;
-	Settings def;
-
-	// Config updates
-	SAVE(uiUpdateCounter, "lastupdate");
-
-	SAVE(qsDatabaseLocation, "databaselocation");
-
-	SAVE(bMute, "audio/mute");
-	SAVE(bDeaf, "audio/deaf");
-	SAVE(atTransmit, "audio/transmit");
-	SAVE(uiDoublePush, "audio/doublepush");
-	SAVE(pttHold, "audio/ptthold");
-	SAVE(bTxAudioCue, "audio/pushclick");
-	SAVE(qsTxAudioCueOn, "audio/pushclickon");
-	SAVE(qsTxAudioCueOff, "audio/pushclickoff");
-	SAVE(bTxMuteCue, "audio/mutecue");
-	SAVE(qsTxMuteCue, "audio/mutecuepath");
-	SAVE(iQuality, "audio/quality");
-	SAVE(iMinLoudness, "audio/loudness");
-	SAVE(fVolume, "audio/volume");
-	SAVE(fOtherVolume, "audio/othervolume");
-	SAVE(bAttenuateOthers, "audio/attenuateothers");
-	SAVE(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
-	SAVE(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVE(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
-	SAVE(bAttenuateLoopbacks, "audio/attenuateloopbacks");
-	SAVE(vsVAD, "audio/vadsource");
-	SAVE(fVADmin, "audio/vadmin");
-	SAVE(fVADmax, "audio/vadmax");
-	SAVE(noiseCancelMode, "audio/noiseCancelMode");
-	SAVE(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
-	SAVE(bAllowLowDelay, "audio/allowlowdelay");
-	SAVE(uiAudioInputChannelMask, "audio/inputchannelmask");
-	SAVE(iVoiceHold, "audio/voicehold");
-	SAVE(iOutputDelay, "audio/outputdelay");
-
-	// Idle auto actions
-	SAVE(iIdleTime, "audio/idletime");
-	SAVE(iaeIdleAction, "audio/idleaction");
-	SAVE(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
-
-	SAVE(fAudioMinDistance, "audio/mindistance");
-	SAVE(fAudioMaxDistance, "audio/maxdistance");
-	SAVE(fAudioMaxDistVolume, "audio/maxdistancevolume");
-	SAVE(fAudioBloom, "audio/bloom");
-	DEPRECATED("audio/echo");
-	DEPRECATED("audio/echomulti");
-	SAVE(bExclusiveInput, "audio/exclusiveinput");
-	SAVE(bExclusiveOutput, "audio/exclusiveoutput");
-	SAVE(bPositionalAudio, "audio/positional");
-	SAVE(bPositionalHeadphone, "audio/headphone");
-	SAVE(qsAudioInput, "audio/input");
-	SAVE(qsAudioOutput, "audio/output");
-	SAVE(bWhisperFriends, "audio/whisperfriends");
-	SAVE(iMessageLimitUserThreshold, "audio/messagelimitusers");
-	SAVE(bTransmitPosition, "audio/postransmit");
-	SAVEFLAG(echoOption, "audio/echooptionid");
-
-	SAVE(iJitterBufferSize, "net/jitterbuffer");
-	SAVE(iFramesPerPacket, "net/framesperpacket");
-
-	SAVE(bASIOEnable, "asio/enable");
-	SAVE(qsASIOclass, "asio/class");
-	SAVE(qlASIOmic, "asio/mic");
-	SAVE(qlASIOspeaker, "asio/speaker");
-
-	SAVE(qsWASAPIInput, "wasapi/input");
-	SAVE(qsWASAPIOutput, "wasapi/output");
-	SAVE(qsWASAPIRole, "wasapi/role");
-
-	SAVE(qsALSAInput, "alsa/input");
-	SAVE(qsALSAOutput, "alsa/output");
-
-	SAVE(pipeWireInput, "pipewire/input");
-	SAVE(pipeWireOutput, "pipewire/output");
-
-	SAVE(qsPulseAudioInput, "pulseaudio/input");
-	SAVE(qsPulseAudioOutput, "pulseaudio/output");
-
-	SAVE(qsJackAudioOutput, "jack/output");
-	SAVE(bJackStartServer, "jack/startserver");
-	SAVE(bJackAutoConnect, "jack/autoconnect");
-
-	SAVE(qsOSSInput, "oss/input");
-	SAVE(qsOSSOutput, "oss/output");
-
-	SAVE(qsCoreAudioInput, "coreaudio/input");
-	SAVE(qsCoreAudioOutput, "coreaudio/output");
-
-	SAVE(iPortAudioInput, "portaudio/input");
-	SAVE(iPortAudioOutput, "portaudio/output");
-
-	SAVE(bTTS, "tts/enable");
-	SAVE(iTTSVolume, "tts/volume");
-	SAVE(iTTSThreshold, "tts/threshold");
-	SAVE(bTTSMessageReadBack, "tts/readback");
-	SAVE(bTTSNoScope, "tts/noscope");
-	SAVE(bTTSNoAuthor, "tts/noauthor");
-	SAVE(qsTTSLanguage, "tts/language");
-
-	// Network settings
-	SAVE(bTCPCompat, "net/tcponly");
-	SAVE(bQoS, "net/qos");
-	SAVE(bReconnect, "net/reconnect");
-	SAVE(bAutoConnect, "net/autoconnect");
-	SAVE(ptProxyType, "net/proxytype");
-	SAVE(qsProxyHost, "net/proxyhost");
-	SAVE(usProxyPort, "net/proxyport");
-	SAVE(qsProxyUsername, "net/proxyusername");
-	SAVE(qsProxyPassword, "net/proxypassword");
-	DEPRECATED("net/maximagesize");
-	SAVE(iMaxImageWidth, "net/maximagewidth");
-	SAVE(iMaxImageHeight, "net/maximageheight");
-	SAVE(qsServicePrefix, "net/serviceprefix");
-	SAVE(iMaxInFlightTCPPings, "net/maxinflighttcppings");
-	SAVE(iPingIntervalMsec, "net/pingintervalmsec");
-	SAVE(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
-	SAVE(bUdpForceTcpAddr, "net/udpforcetcpaddr");
-
-	// Network settings - SSL
-	SAVE(qsSslCiphers, "net/sslciphers");
-
-	// Privacy settings
-	SAVE(bHideOS, "privacy/hideos");
-
-	SAVE(qsLanguage, "ui/language");
-	SAVE(themeName, "ui/theme");
-	SAVE(themeStyleName, "ui/themestyle");
-	SAVE(ceExpand, "ui/expand");
-	SAVE(ceChannelDrag, "ui/drag");
-	SAVE(ceUserDrag, "ui/userdrag");
-	SAVE(aotbAlwaysOnTop, "ui/alwaysontop");
-	SAVE(bAskOnQuit, "ui/askonquit");
-	SAVE(bEnableDeveloperMenu, "ui/developermenu");
-	SAVE(bLockLayout, "ui/locklayout");
-	SAVE(bMinimalView, "ui/minimalview");
-	SAVE(bHideFrame, "ui/hideframe");
-	SAVE(bUserTop, "ui/usertop");
-	SAVE(qbaMainWindowGeometry, "ui/geometry");
-	SAVE(qbaMainWindowState, "ui/state");
-	SAVE(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
-	SAVE(qbaMinimalViewState, "ui/minimalviewstate");
-	SAVE(qbaConfigGeometry, "ui/ConfigGeometry");
-	SAVE(wlWindowLayout, "ui/WindowLayout");
-	SAVE(qbaSplitterState, "ui/splitter");
-	SAVE(qbaHeaderState, "ui/header");
-	SAVE(qsUsername, "ui/username");
-	SAVE(qsLastServer, "ui/server");
-	SAVE(ssFilter, "ui/serverfilter");
-#ifndef NO_UPDATE_CHECK
-	// If this flag has been set, we don't load the following settings so we shouldn't overwrite them here either
-	SAVE(bUpdateCheck, "ui/updatecheck");
-	SAVE(bPluginCheck, "ui/plugincheck");
-	SAVE(bPluginAutoUpdate, "ui/pluginAutoUpdate");
-#endif
-	SAVE(bHideInTray, "ui/hidetray");
-	SAVE(bStateInTray, "ui/stateintray");
-	SAVE(bUsage, "ui/usage");
-	SAVE(bShowUserCount, "ui/showusercount");
-	SAVE(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
-	SAVE(bShowNicknamesOnly, "ui/showNicknamesOnly");
-	SAVE(bChatBarUseSelection, "ui/chatbaruseselection");
-	SAVE(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
-	SAVE(bFilterActive, "ui/filteractive");
-	SAVE(qsImagePath, "ui/imagepath");
-	SAVE(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
-	SAVE(qbaConnectDialogGeometry, "ui/connect/geometry");
-	SAVE(qbaConnectDialogHeader, "ui/connect/header");
-	SAVE(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
-	SAVE(bHighContrast, "ui/HighContrast");
-	SAVE(iMaxLogBlocks, "ui/MaxLogBlocks");
-	SAVE(bLog24HourClock, "ui/24HourClock");
-	SAVE(iChatMessageMargins, "ui/ChatMessageMargins");
-	SAVE(bDisablePublicList, "ui/disablepubliclist");
-
-	// TalkingUI
-	SAVE(qpTalkingUI_Position, "ui/talkingUIPosition");
-	SAVE(bShowTalkingUI, "ui/showTalkingUI");
-	SAVE(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
-	SAVE(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
-	SAVE(bTalkingUI_AbbreviateCurrentChannel, "ui/talkingUI_AbbreviateCurrentChannel");
-	SAVE(bTalkingUI_ShowLocalListeners, "ui/talkingUI_ShowLocalListeners");
-	SAVE(iTalkingUI_RelativeFontSize, "ui/talkingUI_RelativeFontSize");
-	SAVE(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
-	SAVE(iTalkingUI_ChannelHierarchyDepth, "ui/talkingUI_ChannelHierarchieDepth");
-	SAVE(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
-	SAVE(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
-	SAVE(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	SAVE(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
-
-	DEPRECATED("ui/talkingUI_ChannelSeparator");
-	SAVE(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");
-
-	SAVE(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
-
-	// PTT Button window
-	SAVE(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
-	SAVE(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
-
-	// Recording
-	SAVE(qsRecordingPath, "recording/path");
-	SAVE(qsRecordingFile, "recording/file");
-	SAVE(rmRecordingMode, "recording/mode");
-	SAVE(iRecordingFormat, "recording/format");
-
-	// Special configuration options not exposed to UI
-	SAVE(bDisableCELT, "audio/disablecelt");
-	SAVE(disableConnectDialogEditing, "ui/disableconnectdialogediting");
-	SAVE(bPingServersDialogViewed, "consent/pingserversdialogviewed");
-
-	// OverlayPrivateWin
-	SAVE(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
-	SAVE(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
-	SAVE(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
-
-	// LCD
-	SAVE(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
-	SAVE(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
-
-	QByteArray qba = CertWizard::exportCert(kpCertificate);
-	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
-
-	SAVE(bShortcutEnable, "shortcut/enable");
-	SAVE(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
-	SAVE(bEnableEvdev, "shortcut/linux/evdev/enable");
-	SAVE(bEnableXInput2, "shortcut/x11/xinput2/enable");
-	SAVE(bEnableGKey, "shortcut/gkey");
-	SAVE(bEnableXboxInput, "shortcut/windows/xbox/enable");
-	SAVE(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
-
-	// Search options
-	SAVE(searchForUsers, "search/search_for_users");
-	SAVE(searchForChannels, "search/search_for_channels");
-	SAVE(searchCaseSensitive, "search/search_case_sensitive");
-	SAVE(searchAsRegex, "search/search_as_regex");
-	SAVE(searchOptionsShown, "search/search_options_shown");
-	SAVEFLAG(searchUserAction, "search/search_user_action");
-	SAVEFLAG(searchChannelAction, "search/search_channel_action");
-	SAVE(searchDialogPosition, "search/search_dialog_position");
-
-	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
-	int idx = 0;
-	foreach (const Shortcut &s, qlShortcuts) {
-		if (!s.isServerSpecific()) {
-			settings_ptr->setArrayIndex(idx++);
-			settings_ptr->setValue(QLatin1String("index"), s.iIndex);
-			settings_ptr->setValue(QLatin1String("keys"), s.qlButtons);
-			settings_ptr->setValue(QLatin1String("suppress"), s.bSuppress);
-			settings_ptr->setValue(QLatin1String("data"), s.qvData);
+			shortcuts = migratedShortcuts;
 		}
+#endif
 	}
-	settings_ptr->endArray();
-
-	settings_ptr->beginWriteArray(QLatin1String("messages"));
-	for (QMap< int, quint32 >::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
-		settings_ptr->setArrayIndex(it.key());
-		SAVE(qmMessages[it.key()], "log");
-	}
-	settings_ptr->endArray();
-
-	settings_ptr->beginWriteArray(QLatin1String("messagesounds"));
-	for (QMap< int, QString >::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd();
-		 ++it) {
-		settings_ptr->setArrayIndex(it.key());
-		SAVE(qmMessageSounds[it.key()], "logsound");
-	}
-	settings_ptr->endArray();
-
-	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
-	foreach (const QString &d, qmLCDDevices.keys()) {
-		bool v = qmLCDDevices.value(d);
-		if (!v)
-			settings_ptr->setValue(d, v);
-		else
-			settings_ptr->remove(d);
-	}
-	settings_ptr->endGroup();
-
-	// Plugins
-	foreach (const QString &pluginHash, qhPluginSettings.keys()) {
-		QString savePath             = QString::fromLatin1("plugins/");
-		const PluginSetting settings = qhPluginSettings.value(pluginHash);
-		const QFileInfo info(settings.path);
-		QString baseName            = info.baseName(); // Get the filename without file extensions
-		const bool containsNonASCII = baseName.contains(QRegularExpression(QStringLiteral("[^\\x{0000}-\\x{007F}]")));
-
-		if (containsNonASCII || baseName.isEmpty()) {
-			savePath += pluginHash;
-		} else {
-			// Make sure there are no spaces in the name
-			baseName.replace(QLatin1Char(' '), QLatin1Char('_'));
-
-			// Also include the plugin's filename in the savepath in order
-			// to allow for easier identification
-			savePath += baseName + QLatin1String("__") + pluginHash;
-		}
-
-		settings_ptr->beginGroup(savePath);
-		settings_ptr->setValue(QLatin1String("path"), settings.path);
-		settings_ptr->setValue(QLatin1String("enabled"), settings.enabled);
-		settings_ptr->setValue(QLatin1String("positionalDataEnabled"), settings.positionalDataEnabled);
-		settings_ptr->setValue(QLatin1String("allowKeyboardMonitoring"), settings.allowKeyboardMonitoring);
-		settings_ptr->endGroup();
-	}
-
-
-	settings_ptr->beginGroup(QLatin1String("overlay"));
-	os.save(settings_ptr);
-	settings_ptr->endGroup();
 }
+
+
 
 QDataStream &operator>>(QDataStream &arch, PluginSetting &setting) {
 	arch >> setting.enabled;
@@ -1536,3 +1340,99 @@ QDataStream &operator<<(QDataStream &arch, const PluginSetting &setting) {
 #undef DEPRECATED
 #undef SAVE
 #undef SAVEFLAG
+
+
+void Settings::verifySettingsKeys() const {
+	std::vector< const char * > categoryNames;
+	const char *currentCategoryName;
+#define PROCESS(category, key, variable) currentCategoryName = #category;
+#define INTERMEDIATE_OPERATION categoryNames.push_back(currentCategoryName);
+	PROCESS_ALL_SETTINGS_WITH_INTERMEDIATE_OPERATION
+	PROCESS_ALL_OVERLAY_SETTINGS_WITH_INTERMEDIATE_OPERATION
+
+	// Assert that all entries in categoryNames are unique
+	std::sort(categoryNames.begin(), categoryNames.end());
+	assert(std::unique(categoryNames.begin(), categoryNames.end(),
+					   [](const char *lhs, const char *rhs) { return std::strcmp(lhs, rhs) == 0; })
+		   == categoryNames.end());
+
+#undef PROCESS
+#undef INTERMEDIATE_OPERATION
+
+
+	std::vector< std::string > keyNames;
+#define PROCESS(category, key, variable) keyNames.push_back(#key);
+#define INTERMEDIATE_OPERATION                                               \
+	std::sort(keyNames.begin(), keyNames.end());                             \
+	assert(std::unique(keyNames.begin(), keyNames.end()) == keyNames.end()); \
+	keyNames.clear();
+	PROCESS_ALL_SETTINGS_WITH_INTERMEDIATE_OPERATION
+	PROCESS_ALL_OVERLAY_SETTINGS_WITH_INTERMEDIATE_OPERATION
+#undef PROCESS
+#undef INTERMEDIATE_OPERATION
+
+
+	std::vector< std::string > variableNames;
+#define PROCESS(category, key, variable) variableNames.push_back(#variable);
+	PROCESS_ALL_SETTINGS
+	std::sort(variableNames.begin(), variableNames.end());
+	assert(std::unique(variableNames.begin(), variableNames.end()) == variableNames.end());
+	variableNames.clear();
+
+	PROCESS_ALL_OVERLAY_SETTINGS
+	std::sort(variableNames.begin(), variableNames.end());
+	assert(std::unique(variableNames.begin(), variableNames.end()) == variableNames.end());
+#undef PROCESS
+}
+
+
+QString Settings::findSettingsLocation(bool legacy, bool *foundExistingFile) const {
+	// In order to make sure we'll find (mostly legacy) settings files, even if they end up being in a slightly
+	// different dir than we currently expect, we construct a search path list that we'll traverse while searching for
+	// the settings file. In case we find a suitable settings file within the search path, then we'll continue to use
+	// this path instead of creating a new one (in the location that we currently think is best to use).
+	QStringList paths;
+	paths << QCoreApplication::instance()->applicationDirPath();
+	paths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+	paths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+	paths << QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+	paths << QFileInfo(QSettings().fileName()).dir().absolutePath();
+
+
+	QStringList settingsFileNames = legacy ? QStringList({ QStringLiteral("mumble.conf"), QStringLiteral("Mumble.conf"),
+														   QStringLiteral("mumble.ini"), QStringLiteral("Mumble.ini") })
+										   : QStringList({ QStringLiteral("mumble_settings.json") });
+
+	QString chosenPath;
+
+	for (const QString &settingsFileName : settingsFileNames) {
+		for (const QString &currentPath : paths) {
+			QFile settingsFile(QString::fromLatin1("%1/%2").arg(currentPath).arg(settingsFileName));
+
+			if (settingsFile.exists() && settingsFile.permissions().testFlag(QFile::WriteUser)) {
+				// Found existing settings file -> use that
+				chosenPath = QFileInfo(settingsFile).absoluteFilePath();
+
+				break;
+			}
+		}
+	}
+
+	if (foundExistingFile) {
+		*foundExistingFile = !chosenPath.isEmpty();
+	}
+
+	if (chosenPath.isEmpty()) {
+		// We were unable to find an existing settings file -> Fall back to a default location
+		chosenPath = QString::fromLatin1("%1/%2")
+						 .arg(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation))
+						 .arg(settingsFileNames[0]);
+		// Note: QStandardPaths::AppConfigLocation will return a directory of the style <root>/<org>/<application> where
+		// <root> is the path to the general config related directory on the respective OS, <org> is the name of our
+		// organization and <application> is our application's name. In our case (at the time of writing this) <org> =
+		// <application> = Mumble, leading to a doubly nested "Mumble" directory. This should only be a cosmetic issue
+		// though.
+	}
+
+	return chosenPath;
+}

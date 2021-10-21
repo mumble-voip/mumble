@@ -58,7 +58,6 @@ public:
 	Log *l;
 	/// A pointer to the PluginManager that is used in this session
 	PluginManager *pluginManager;
-	QSettings *qs;
 #ifdef USE_OVERLAY
 	Overlay *o;
 #endif
@@ -116,8 +115,13 @@ public:
 	bool bHappyEaster;
 	static const char ccHappyEaster[];
 
+	QString migratedDBPath;
+
 	Global(const QString &qsConfigPath = QString());
-	~Global();
+	~Global() = default;
+
+private:
+	void migrateDataDir(const QDir &toDir);
 };
 
 // Class to handle ordered initialization of globals.

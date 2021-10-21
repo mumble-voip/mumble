@@ -6,19 +6,30 @@
 #ifndef MUMBLE_MUMBLE_SETTINGS_H_
 #define MUMBLE_MUMBLE_SETTINGS_H_
 
-#include <QtCore/QList>
-#include <QtCore/QPair>
-#include <QtCore/QRectF>
-#include <QtCore/QSettings>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
-#include <QtGui/QColor>
-#include <QtGui/QFont>
-#include <QtNetwork/QSslCertificate>
-#include <QtNetwork/QSslKey>
+#include <QByteArray>
+#include <QColor>
+#include <QFont>
+#include <QHash>
+#include <QList>
+#include <QMap>
+#include <QPair>
+#include <QPoint>
+#include <QRectF>
+#include <QSslCertificate>
+#include <QSslKey>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
+#include <Qt>
 
 #include "EchoCancelOption.h"
 #include "SearchDialog.h"
+
+#include <nlohmann/json_fwd.hpp>
+
+#include <array>
+
+class QSettings;
 
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
@@ -53,22 +64,20 @@ struct ShortcutTarget {
 	bool operator==(const ShortcutTarget &) const;
 };
 
+Q_DECLARE_METATYPE(ShortcutTarget)
+
 quint32 qHash(const ShortcutTarget &);
 quint32 qHash(const QList< ShortcutTarget > &);
-
-QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
-QDataStream &operator>>(QDataStream &, ShortcutTarget &);
-Q_DECLARE_METATYPE(ShortcutTarget)
 
 struct PluginSetting {
 	QString path;
 	bool enabled;
 	bool positionalDataEnabled;
 	bool allowKeyboardMonitoring;
+
+	friend bool operator==(const PluginSetting &lhs, const PluginSetting &rhs);
+	friend bool operator!=(const PluginSetting &lhs, const PluginSetting &rhs);
 };
-QDataStream &operator>>(QDataStream &arch, PluginSetting &setting);
-QDataStream &operator<<(QDataStream &arch, const PluginSetting &setting);
-Q_DECLARE_METATYPE(PluginSetting);
 
 
 struct OverlaySettings {
@@ -95,7 +104,7 @@ struct OverlaySettings {
 	qreal fZoom;
 	unsigned int uiColumns;
 
-	QColor qcUserName[5];
+	std::array< QColor, 5 > qcUserName;
 	QFont qfUserName;
 
 	QColor qcChannel;
@@ -121,7 +130,7 @@ struct OverlaySettings {
 	qreal fChannel;
 	qreal fMutedDeafened;
 	qreal fAvatar;
-	qreal fUser[5];
+	std::array< qreal, 5 > fUser;
 	qreal fFps;
 
 	QRectF qrfUserName;
@@ -149,10 +158,12 @@ struct OverlaySettings {
 	OverlaySettings();
 	void setPreset(const OverlayPresets preset = AvatarAndName);
 
-	void load();
-	void load(QSettings *);
-	void save();
-	void save(QSettings *);
+	void load(const QString &filename);
+	void savePresets(const QString &filename);
+	void legacyLoad(QSettings *settings);
+
+	friend bool operator==(const OverlaySettings &lhs, const OverlaySettings &rhs);
+	friend bool operator!=(const OverlaySettings &lhs, const OverlaySettings &rhs);
 };
 
 struct Settings {
@@ -336,8 +347,7 @@ struct Settings {
 	/// Name of the style to use from theme. @see Themes
 	QString themeStyleName;
 
-	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState,
-		qbaHeaderState;
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaHeaderState;
 	QByteArray qbaConfigGeometry;
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
 	WindowLayout wlWindowLayout;
@@ -448,7 +458,6 @@ struct Settings {
 	int iMaxImageWidth;
 	int iMaxImageHeight;
 	KeyPair kpCertificate;
-	bool bSuppressIdentity;
 
 	bool bShowTransmitModeComboBox;
 
@@ -473,26 +482,46 @@ struct Settings {
 	/// Asks the user for consent to ping servers in the public server list if not set.
 	bool bPingServersDialogViewed;
 
-	// Config updates
-	unsigned int uiUpdateCounter;
+	/// Whether the audio wizard has been shown to the user yet (at some point during Mumble's installation)
+	bool audioWizardShown;
 
 	/// Path to SQLite-DB
 	QString qsDatabaseLocation;
 
+	/// The email address that has been specified most recently in the crash reporter
+	QString crashReportEmail;
+
 	// Nonsaved
+	bool bSuppressIdentity;
 	LoopMode lmLoopMode;
 	float dPacketLoss;
 	float dMaxPacketDelay;
 	/// If true settings in this structure require a client restart to apply fully
 	bool requireRestartToApply;
+	QString settingsLocation;
+	/// A flag indicating whether the current Mumble session has already backed up the settings it was started with,
+	/// before writing new ones.
+	bool createdSettingsBackup;
+
+	/// A flag used in order to determine whether or not to offer loading the setting's backup file instead
+	bool mumbleQuitNormally;
 
 	bool doEcho() const;
 	bool doPositionalAudio() const;
 
 	Settings();
+
+	void save(const QString &path) const;
+	void save() const;
+
+	void load(const QString &path);
 	void load();
-	void load(QSettings *);
-	void save();
+
+	void legacyLoad(const QString &path = {});
+
+private:
+	void verifySettingsKeys() const;
+	QString findSettingsLocation(bool legacy = false, bool *foundExistingFile = nullptr) const;
 };
 
-#endif
+#endif // MUMBLE_MUMBLE_SETTINGS_H_

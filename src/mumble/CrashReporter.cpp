@@ -32,7 +32,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 	QHBoxLayout *hbl = new QHBoxLayout();
 
-	qleEmail = new QLineEdit(Global::get().qs->value(QLatin1String("crashemail")).toString());
+	qleEmail = new QLineEdit(Global::get().s.crashReportEmail);
 	l        = new QLabel(tr("Email address (optional)"));
 	l->setBuddy(qleEmail);
 
@@ -66,7 +66,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 }
 
 CrashReporter::~CrashReporter() {
-	Global::get().qs->setValue(QLatin1String("crashemail"), qleEmail->text());
+	Global::get().s.crashReportEmail = qleEmail->text();
 	delete qnrReply;
 }
 

@@ -144,6 +144,8 @@ set(MUMBLE_SOURCES
 	"DeveloperConsole.h"
 	"EchoCancelOption.cpp"
 	"EchoCancelOption.h"
+	"EnumStringConversions.cpp"
+	"EnumStringConversions.h"
 	"Global.cpp"
 	"Global.h"
 	"GlobalShortcut.cpp"
@@ -153,6 +155,8 @@ set(MUMBLE_SOURCES
 	"GlobalShortcutButtons.h"
 	"GlobalShortcutButtons.ui"
 	"GlobalShortcutTarget.ui"
+	"JSONSerialization.cpp"
+	"JSONSerialization.h"
 	"LCD.cpp"
 	"LCD.h"
 	"LCD.ui"
@@ -217,6 +221,8 @@ set(MUMBLE_SOURCES
 	"ServerInformation.cpp"
 	"ServerInformation.h"
 	"ServerInformation.ui"
+	"SettingsKeys.cpp"
+	"SettingsKeys.h"
 	"Settings.cpp"
 	"Settings.h"
 	"SharedMemory.cpp"
@@ -460,6 +466,13 @@ else()
 		)
 	endif()
 endif()
+
+
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
+add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/")
+
+target_link_libraries(mumble PRIVATE nlohmann_json::nlohmann_json)
 
 find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
 
