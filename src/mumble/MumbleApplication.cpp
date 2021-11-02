@@ -34,8 +34,9 @@ QString MumbleApplication::applicationVersionRootPath() {
 }
 
 void MumbleApplication::onCommitDataRequest(QSessionManager &) {
-	// Make sure the config is saved and supress the ask on quit message
+	// Make sure the config is saved and suppress the ask on quit message
 	if (Global::get().mw) {
+		Global::get().s.mumbleQuitNormally = true;
 		Global::get().s.save();
 		Global::get().mw->bSuppressAskOnQuit = true;
 		qWarning() << "Session likely ending. Suppressing ask on quit";

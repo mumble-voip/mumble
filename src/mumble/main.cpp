@@ -776,6 +776,8 @@ int main(int argc, char **argv) {
 	if (!Global::get().bQuit)
 		res = a.exec();
 
+	// Indicate that this was a regular shutdown
+	Global::get().s.mumbleQuitNormally = true;
 	Global::get().s.save();
 
 	url.clear();

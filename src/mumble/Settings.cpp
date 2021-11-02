@@ -25,6 +25,7 @@
 #include <QDataStream>
 #include <QFileInfo>
 #include <QImageReader>
+#include <QMessageBox>
 #include <QProcessEnvironment>
 #include <QRegularExpression>
 #include <QSettings>
@@ -171,17 +172,29 @@ void Settings::save(const QString &path) const {
 	QFile backupFile(path + BACKUP_FILE_EXTENSION);
 
 	if (targetFile.exists()) {
-		// Create a backup of the settings
-		if (backupFile.exists()) {
-			// We first have to delete our backup
-			if (!backupFile.remove()) {
-				qWarning("Failed at deleting settings backup file: %s", qUtf8Printable(backupFile.errorString()));
+		if (!createdSettingsBackup) {
+			// Create a backup of the settings
+			if (backupFile.exists()) {
+				// We first have to delete our backup
+				if (!backupFile.remove()) {
+					qWarning("Failed at deleting settings backup file: %s", qUtf8Printable(backupFile.errorString()));
+				}
 			}
-		}
 
-		// Turn the current settings file into the backup file
-		if (!targetFile.rename(backupFile.fileName())) {
-			qWarning("Failed at renaming settings file to backup file: %s", qUtf8Printable(targetFile.errorString()));
+			// Turn the current settings file into the backup file
+			if (!targetFile.rename(backupFile.fileName())) {
+				qWarning("Failed at renaming settings file to backup file: %s",
+						 qUtf8Printable(targetFile.errorString()));
+			}
+
+			createdSettingsBackup = true;
+		} else {
+			// The current instance of Mumble has already created a settings backup while it was running. Thus
+			// performing another backup now would actually delete the backup we created before. Thus we only delete the
+			// current settings file in order to overwrite it below.
+			if (!targetFile.remove()) {
+				qWarning("Failed at deleting settings file: %s", qUtf8Printable(targetFile.errorString()));
+			}
 		}
 	} else {
 		QFileInfo info(targetFile);
@@ -208,7 +221,12 @@ void Settings::save() const {
 }
 
 void Settings::load(const QString &path) {
-	settingsLocation = path;
+	if (path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
+		// Trim away the backup extension
+		settingsLocation = path.left(path.size() - std::strlen(BACKUP_FILE_EXTENSION));
+	} else {
+		settingsLocation = path;
+	}
 
 	std::ifstream stream(path.toUtf8());
 
@@ -217,9 +235,60 @@ void Settings::load(const QString &path) {
 		stream >> settingsJSON;
 
 		settingsJSON.get_to(*this);
+
+		if (!mumbleQuitNormally) {
+			// These settings were saved without Mumble quitting normally afterwards. In order to prevent loading
+			// settings that are causing crashes, we check if we can load the backup instead.
+			if (!path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
+				QString backupPath = path + BACKUP_FILE_EXTENSION;
+
+				QFileInfo backupInfo(backupPath);
+				if (backupInfo.exists() && backupInfo.isFile()) {
+					QMessageBox msgBox;
+					msgBox.setWindowTitle(QObject::tr("Potentially broken settings"));
+					msgBox.setText(QObject::tr("Load backup settings?"));
+					msgBox.setInformativeText(QObject::tr(
+						"It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the "
+						"application, this could mean that the used settings caused a crash. "
+						"Do you want to load the setting's backup instead?"));
+					msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+					msgBox.setDefaultButton(QMessageBox::No);
+					msgBox.setIcon(QMessageBox::Question);
+
+					if (msgBox.exec() == QMessageBox::Yes) {
+						// Load the backup instead
+						qWarning() << "Loading backup settings from" << backupPath;
+						load(backupPath);
+					}
+				}
+			} else {
+				// This is already the backup we are loading
+				QMessageBox msgBox;
+				msgBox.setWindowTitle(QObject::tr("Potentially broken settings"));
+				msgBox.setText(QObject::tr("The backed-up settings also seem to have been saved without Mumble exiting "
+										   "normally (potentially indicating a crash)."));
+				msgBox.setInformativeText(
+					QObject::tr(
+						"If you experience repeated crashes with these settings, you might have to manually delete the "
+						"settings files at <pre>%1</pre> and <pre>%2</pre> in order to reset all settings to their "
+						"default value.")
+						.arg(path.left(path.size() - std::strlen(BACKUP_FILE_EXTENSION)))
+						.arg(path));
+				msgBox.setIcon(QMessageBox::Warning);
+				msgBox.exec();
+			}
+		}
 	} catch (const nlohmann::json::parse_error &e) {
-		qWarning() << "Failed to load settings due to invalid format: " << e.what();
+		qWarning() << "Failed to load settings from" << path << "due to invalid format: " << e.what();
+
+		if (!path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION)) && QFileInfo(path + BACKUP_FILE_EXTENSION).exists()) {
+			qWarning() << "Falling back to backup" << path + BACKUP_FILE_EXTENSION;
+			load(path + BACKUP_FILE_EXTENSION);
+		}
 	}
+
+	// Always reset this flag to false
+	mumbleQuitNormally = false;
 }
 
 void Settings::load() {
@@ -231,6 +300,10 @@ void Settings::load() {
 		// If we found a regular settings file, then use that and be done with it
 		qInfo() << "Loading settings from" << settingsPath;
 		load(settingsPath);
+	} else if (QFileInfo(settingsPath + BACKUP_FILE_EXTENSION).exists()) {
+		// Load backup settings instead
+		qInfo() << "Loading backup settings from" << settingsPath + BACKUP_FILE_EXTENSION;
+		load(settingsPath + BACKUP_FILE_EXTENSION);
 	} else {
 		// Otherwise check for a legacy settings file and if that is found, load settings from there
 		QString legacySettingsPath = findSettingsLocation(true, &foundExisting);

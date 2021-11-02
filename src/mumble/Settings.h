@@ -501,7 +501,7 @@ struct Settings {
 	QString settingsLocation;
 	/// A flag indicating whether the current Mumble session has already backed up the settings it was started with,
 	/// before writing new ones.
-	bool createdSettingsBackup;
+	mutable bool createdSettingsBackup;
 
 	/// A flag used in order to determine whether or not to offer loading the setting's backup file instead
 	bool mumbleQuitNormally;

@@ -140,6 +140,13 @@ void to_json(nlohmann::json &j, const Settings &settings) {
 	}
 
 	j[SettingsKeys::CERTIFICATE_KEY] = CertWizard::exportCert(settings.kpCertificate);
+
+	// Save whether Mumble has quit regularly (in contrast to having crashed). This flag is set right before saving the
+	// settings because Mumble is shut down (regularly). In contrast, when saving the settings because the user has made
+	// changes in the UI, this will be false. Thus when loading the settings again and seeing this flag is false, it
+	// means Mumble never got to perform its regular shutdown routine, meaning that it is likely that it has crashed
+	// before.
+	j[SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY] = settings.mumbleQuitNormally;
 }
 
 void migrateSettings(nlohmann::json json, int settingsVersion) {
@@ -192,7 +199,9 @@ void from_json(const nlohmann::json &j, Settings &settings) {
 		settings.kpCertificate = CertWizard::importCert(json.at(SettingsKeys::CERTIFICATE_KEY));
 	}
 
-	settings.kpCertificate = CertWizard::importCert(json.at(SettingsKeys::CERTIFICATE_KEY));
+	if (json.contains(static_cast< const char * >(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY))) {
+		settings.mumbleQuitNormally = json.at(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY);
+	}
 
 #ifndef USE_RNNOISE
 	if (settings.noiseCancelMode == NoiseCancelRNN || settings.noiseCancelMode == NoiseCancelBoth) {
