@@ -268,5 +268,8 @@ void ConfigDialog::accept() {
 #endif
 		Global::get().s.qbaConfigGeometry = saveGeometry();
 
+	// Save settings to disk
+	Global::get().s.save();
+
 	QDialog::accept();
 }
