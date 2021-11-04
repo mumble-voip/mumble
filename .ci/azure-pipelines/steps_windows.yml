@@ -12,7 +12,7 @@ steps:
     env:
       MUMBLE_BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
     displayName: 'Build'
-  - script: 'cd /d %BUILD_BINARIESDIRECTORY% & ctest --verbose'
+  - script: 'cd /d %BUILD_BINARIESDIRECTORY% & ctest --output-on-failure'
     env:
       # Set timeout for tests to 15min
       QTEST_FUNCTION_TIMEOUT: 900000
