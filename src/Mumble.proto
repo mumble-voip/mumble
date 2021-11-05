@@ -90,6 +90,8 @@ message Reject {
 		// The user did not provide a certificate but one is required.
 		NoCertificate = 7;
 		AuthenticatorFail = 8;
+		// The provided username doesn't match the common name in the certificate's subject.
+		UsernameCertMismatch = 9;
 	}
 	// Rejection type.
 	optional RejectType type = 1;
