@@ -16,14 +16,16 @@ def extractFields(classDefinition):
     classDefinition = re.sub(r".*\(.*", "", classDefinition)
     # Remove enum declarations
     classDefinition = re.sub(r"enum\s*\w+\s*\{.*?\};", "", classDefinition, flags=re.DOTALL)
-    # remove semuicolons
-    classDefinition = classDefinition.replace(";", "")
     # Remove "unsigned" type specifier
     classDefinition = classDefinition.replace("unsigned ", "")
     # Remove "mutable" keyword
     classDefinition = classDefinition.replace("mutable ", "")
     # Remove comments
     classDefinition = re.sub(r"//.*", "", classDefinition)
+    # Remove default value assignments
+    classDefinition = re.sub(r"\s*=[^;]+;", ";", classDefinition)
+    # remove semicolons
+    classDefinition = classDefinition.replace(";", "")
 
     fields = OrderedDict()
     for currentLine in classDefinition.split("\n"):

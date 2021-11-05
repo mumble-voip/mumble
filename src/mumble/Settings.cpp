@@ -71,13 +71,6 @@ bool Shortcut::operator==(const Shortcut &other) const {
 		   && (bSuppress == other.bSuppress);
 }
 
-ShortcutTarget::ShortcutTarget() {
-	bUsers            = true;
-	bCurrentSelection = false;
-	iChannel          = -3;
-	bLinks = bChildren = bForceCenter = false;
-}
-
 bool ShortcutTarget::isServerSpecific() const {
 	return !bCurrentSelection && !bUsers && iChannel >= 0;
 }
@@ -391,42 +384,18 @@ const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 const QString Settings::cqsDefaultMuteCue = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
-	bEnable = false;
-
-	fX    = 1.0f;
-	fY    = 0.0f;
-	fZoom = 0.875f;
-
 #ifdef Q_OS_MACOS
 	qsStyle = QLatin1String("Cleanlooks");
 #endif
-
-	osShow       = LinkedChannels;
-	bAlwaysSelf  = true;
-	uiActiveTime = 5;
-	osSort       = Alphabetical;
 
 	qcUserName[Settings::Passive]      = QColor(170, 170, 170);
 	qcUserName[Settings::MutedTalking] = QColor(170, 170, 170);
 	qcUserName[Settings::Talking]      = QColor(255, 255, 255);
 	qcUserName[Settings::Whispering]   = QColor(128, 255, 128);
 	qcUserName[Settings::Shouting]     = QColor(255, 128, 255);
-	qcChannel                          = QColor(255, 255, 128);
-	qcBoxPen                           = QColor(0, 0, 0, 224);
-	qcBoxFill                          = QColor(0, 0, 0);
 
 	setPreset();
-
-	// FPS and Time display settings
-	qcFps   = Qt::white;
-	fFps    = 0.75f;
-	qfFps   = qfUserName;
-	qrfFps  = QRectF(0.0f, 0.05, -1, 0.023438f);
-	bFps    = false;
-	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
-	bTime   = false;
-
-	oemOverlayExcludeMode = OverlaySettings::LauncherFilterExclusionMode;
+	qfFps = qfUserName;
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
@@ -529,83 +498,16 @@ Settings::Settings() {
 	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
 	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
 
-	atTransmit        = VAD;
-	bTransmitPosition = false;
-	bMute = bDeaf                  = false;
-	bTTS                           = false;
-	bTTSMessageReadBack            = false;
-	bTTSNoScope                    = false;
-	bTTSNoAuthor                   = false;
-	iTTSVolume                     = 75;
-	iTTSThreshold                  = 250;
-	qsTTSLanguage                  = QString();
-	iQuality                       = 40000;
-	fVolume                        = 1.0f;
-	fOtherVolume                   = 0.5f;
-	bAttenuateOthersOnTalk         = false;
-	bAttenuateOthers               = false;
-	bAttenuateUsersOnPrioritySpeak = false;
-	bOnlyAttenuateSameOutput       = false;
-	bAttenuateLoopbacks            = false;
-	iMinLoudness                   = 1000;
-	/// Actual mic hold time is (iVoiceHold / 100) seconds, where iVoiceHold is specified in 'frames',
-	/// each of which is has a size of iFrameSize (see AudioInput.h)
-	iVoiceHold        = 20;
-	iJitterBufferSize = 1;
-	iFramesPerPacket  = 2;
+
 #ifdef USE_RNNOISE
 	noiseCancelMode = NoiseCancelRNN;
-#else
-	noiseCancelMode = NoiseCancelSpeex;
 #endif
-	iSpeexNoiseCancelStrength = -30;
-	bAllowLowDelay            = true;
-	uiAudioInputChannelMask   = 0xffffffffffffffffULL;
-
-	// Idle auto actions
-	iIdleTime                   = 5 * 60;
-	iaeIdleAction               = Nothing;
-	bUndoIdleActionUponActivity = false;
-
-	vsVAD   = Amplitude;
-	fVADmin = 0.80f;
-	fVADmax = 0.98f;
-
-	bTxAudioCue     = false;
-	qsTxAudioCueOn  = cqsDefaultPushClickOn;
-	qsTxAudioCueOff = cqsDefaultPushClickOff;
-
-	bTxMuteCue  = true;
-	qsTxMuteCue = cqsDefaultMuteCue;
-
-	bUserTop = true;
-
-	bWhisperFriends            = false;
-	iMessageLimitUserThreshold = 20;
-
-	uiDoublePush = 0;
-	pttHold      = 0;
-
-#ifdef NO_UPDATE_CHECK
-	bUpdateCheck = false;
-	bPluginCheck = false;
-#else
-	bUpdateCheck = true;
-	bPluginCheck = true;
+#ifdef Q_OS_MACOS
+	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
+	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
+	// Therefore we disable it by default until the issues are fixed.
+	echoOption = EchoCancelOptionID::DISABLED;
 #endif
-	bPluginAutoUpdate = false;
-
-	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-
-	ceExpand             = ChannelsWithUsers;
-	ceChannelDrag        = Ask;
-	ceUserDrag           = Move;
-	bMinimalView         = false;
-	bHideFrame           = false;
-	aotbAlwaysOnTop      = OnTopNever;
-	bAskOnQuit           = true;
-	bEnableDeveloperMenu = false;
-	bLockLayout          = false;
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
 #	if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
@@ -620,142 +522,14 @@ Settings::Settings() {
 		QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
 	bHideInTray = !isUnityDesktop && QSystemTrayIcon::isSystemTrayAvailable();
 #endif
-	bStateInTray              = true;
-	bUsage                    = true;
-	bShowUserCount            = false;
-	bShowVolumeAdjustments    = true;
-	bShowNicknamesOnly        = false;
-	bChatBarUseSelection      = false;
-	bFilterHidesEmptyChannels = true;
-	bFilterActive             = false;
-
-	wlWindowLayout            = LayoutClassic;
-	bShowContextMenuInMenuBar = false;
-
-	ssFilter = ShowReachable;
-
-	iOutputDelay = 5;
-
-	bASIOEnable = true;
-
-	qsALSAInput  = QLatin1String("default");
-	qsALSAOutput = QLatin1String("default");
-
-	pipeWireInput  = 1;
-	pipeWireOutput = 2;
-
-	qsJackClientName  = QLatin1String("mumble");
-	qsJackAudioOutput = QLatin1String("1");
-	bJackStartServer  = false;
-	bJackAutoConnect  = true;
-
-#ifdef Q_OS_MACOS
-	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
-	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
-	// Therefore we disable it by default until the issues are fixed.
-	echoOption = EchoCancelOptionID::DISABLED;
-#else
-	// Everywhere else Speex works and thus we default to using that
-	echoOption = EchoCancelOptionID::SPEEX_MIXED;
+#ifdef NO_UPDATE_CHECK
+	bUpdateCheck = false;
+	bPluginCheck = false;
 #endif
-
-	bExclusiveInput  = false;
-	bExclusiveOutput = false;
-
-	iPortAudioInput  = -1; // default device
-	iPortAudioOutput = -1; // default device
-
-	bPositionalAudio     = true;
-	bPositionalHeadphone = false;
-	fAudioMinDistance    = 1.0f;
-	fAudioMaxDistance    = 15.0f;
-	fAudioMaxDistVolume  = 0.25f;
-	fAudioBloom          = 0.5f;
-
-	// OverlayPrivateWin
-	iOverlayWinHelperRestartCooldownMsec = 10000;
-	bOverlayWinHelperX86Enable           = true;
-	bOverlayWinHelperX64Enable           = true;
-
-	iLCDUserViewMinColWidth   = 50;
-	iLCDUserViewSplitterWidth = 2;
-
-	// PTT Button window
-	bShowPTTButtonWindow = false;
-
-	// Network settings
-	bTCPCompat                     = false;
-	bQoS                           = true;
-	bReconnect                     = true;
-	bAutoConnect                   = false;
-	bDisablePublicList             = false;
-	ptProxyType                    = NoProxy;
-	usProxyPort                    = 0;
-	iMaxInFlightTCPPings           = 4;
-	bUdpForceTcpAddr               = true;
-	iPingIntervalMsec              = 5000;
-	iConnectionTimeoutDurationMsec = 30000;
-	iMaxImageWidth                 = 1024; // Allow 1024x1024 resolution
-	iMaxImageHeight                = 1024;
-	bSuppressIdentity              = false;
-	qsSslCiphers                   = MumbleSSL::defaultOpenSSLCipherString();
-	bHideOS                        = false;
-
-	bShowTransmitModeComboBox = false;
-
-	// Accessibility
-	bHighContrast = false;
-
-	// Recording
-	qsRecordingPath  = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-	qsRecordingFile  = QLatin1String("Mumble-%date-%time-%host-%user");
-	rmRecordingMode  = RecordingMixdown;
-	iRecordingFormat = 0;
-
-	// Special configuration options not exposed to UI
-	bDisableCELT                = false;
-	disableConnectDialogEditing = false;
-	bPingServersDialogViewed    = false;
-
 #if defined(AUDIO_TEST)
 	lmLoopMode = Server;
-#else
-	lmLoopMode = None;
 #endif
-	dPacketLoss     = 0;
-	dMaxPacketDelay = 0.0f;
 
-	requireRestartToApply = false;
-
-	iMaxLogBlocks       = 0;
-	bLog24HourClock     = true;
-	iChatMessageMargins = 3;
-
-	qpTalkingUI_Position                = UNSPECIFIED_POSITION;
-	bShowTalkingUI                      = false;
-	bTalkingUI_LocalUserStaysVisible    = false;
-	bTalkingUI_AbbreviateChannelNames   = true;
-	bTalkingUI_AbbreviateCurrentChannel = false;
-	bTalkingUI_ShowLocalListeners       = false;
-	iTalkingUI_RelativeFontSize         = 100;
-	iTalkingUI_SilentUserLifeTime       = 10;
-	iTalkingUI_ChannelHierarchyDepth    = 1;
-	iTalkingUI_MaxChannelNameLength     = 20;
-	iTalkingUI_PrefixCharCount          = 3;
-	iTalkingUI_PostfixCharCount         = 2;
-	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
-
-	qsHierarchyChannelSeparator = QLatin1String("/");
-
-	manualPlugin_silentUserDisplaytime = 1;
-
-	bShortcutEnable             = true;
-	bSuppressMacEventTapWarning = false;
-	bEnableEvdev                = false;
-	bEnableXInput2              = true;
-	bEnableGKey                 = false;
-	bEnableXboxInput            = true;
-	bEnableUIAccess             = true;
 
 #ifdef Q_OS_LINUX
 	if (EnvUtils::waylandIsUsed()) {
@@ -798,20 +572,6 @@ Settings::Settings() {
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
 	qmMessages[Log::PluginMessage]   = Settings::LogConsole;
-
-	// Default search options
-	searchForUsers       = true;
-	searchForChannels    = true;
-	searchCaseSensitive  = false;
-	searchAsRegex        = false;
-	searchOptionsShown   = false;
-	searchUserAction     = Search::SearchDialog::UserAction::JOIN;
-	searchChannelAction  = Search::SearchDialog::ChannelAction::JOIN;
-	searchDialogPosition = Settings::UNSPECIFIED_POSITION;
-
-	// Default theme
-	themeName      = QLatin1String("Mumble");
-	themeStyleName = QLatin1String("Lite");
 }
 
 bool Settings::doEcho() const {
