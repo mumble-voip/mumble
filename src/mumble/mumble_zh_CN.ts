@@ -8958,6 +8958,10 @@ Please contact your server administrator for further information.</source>
         <source>Downmix</source>
         <translation>缩混</translation>
     </message>
+    <message>
+        <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WASAPIInput</name>

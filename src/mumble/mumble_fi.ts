@@ -8928,6 +8928,10 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
         <source>Downmix</source>
         <translation>Alasmiksaus</translation>
     </message>
+    <message>
+        <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WASAPIInput</name>

@@ -8886,6 +8886,10 @@ Por favor contate seu administrador de servidor para mais informações.</transl
         <source>Downmix</source>
         <translation>Remixagem</translation>
     </message>
+    <message>
+        <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WASAPIInput</name>
