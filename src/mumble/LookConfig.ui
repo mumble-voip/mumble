@@ -607,6 +607,9 @@
         <property name="toolTip">
          <string>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</string>
         </property>
+        <property name="maximum">
+         <number>999</number>
+        </property>
        </widget>
       </item>
       <item row="2" column="0" colspan="2">
