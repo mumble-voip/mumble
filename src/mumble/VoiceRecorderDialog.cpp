@@ -6,6 +6,7 @@
 #include "VoiceRecorderDialog.h"
 
 #include "AudioOutput.h"
+#include "Log.h"
 #include "ServerHandler.h"
 #include "VoiceRecorder.h"
 #include "Global.h"
@@ -159,14 +160,25 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	if (!ao)
 		return;
 
-	Global::get().sh->announceRecordingState(true);
-
 	// Create the recorder
 	VoiceRecorder::Config config;
 	config.sampleRate      = ao->getMixerFreq();
 	config.fileName        = dir.absoluteFilePath(basename + QLatin1Char('.') + suffix);
 	config.mixDownMode     = qrbDownmix->isChecked();
 	config.recordingFormat = static_cast< VoiceRecorderFormat::Format >(ifm);
+
+	if (config.sampleRate == 0) {
+		// If we don't catch this here, Mumble will crash because VoiceRecorder expects the sample rate to be non-zero
+		Global::get().l->log(Log::Warning,
+							 tr("Unable to start recording - the audio output is miconfigured (0Hz sample rate)"));
+
+		// Close this dialog
+		reject();
+
+		return;
+	}
+
+	Global::get().sh->announceRecordingState(true);
 
 	Global::get().sh->recorder.reset(new VoiceRecorder(this, config));
 	VoiceRecorderPtr recorder(Global::get().sh->recorder);
