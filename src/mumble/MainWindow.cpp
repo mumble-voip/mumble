@@ -3329,6 +3329,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
 
+	// We can't record without a server anyway, so we disable the functionality here
+	enableRecording(false);
+
 	if (!Global::get().sh->qlErrors.isEmpty()) {
 		foreach (QSslError e, Global::get().sh->qlErrors)
 			Global::get().l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString().toHtmlEscaped()));
