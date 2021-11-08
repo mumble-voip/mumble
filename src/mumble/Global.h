@@ -106,6 +106,7 @@ public:
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
 	unsigned int uiMaxUsers;
+	bool recordingAllowed;
 	bool bQuit;
 	QString windowTitlePostfix;
 	bool bDebugDumpInput;

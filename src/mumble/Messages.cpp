@@ -240,6 +240,9 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		Global::get().uiImageLength = msg.image_message_length();
 	if (msg.has_max_users())
 		Global::get().uiMaxUsers = msg.max_users();
+	if (msg.has_recording_allowed()) {
+		Global::get().mw->enableRecording(msg.recording_allowed());
+	}
 }
 
 /// This message is being received when the server denied the permission to perform a requested action. This function

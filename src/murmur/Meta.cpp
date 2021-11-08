@@ -111,6 +111,8 @@ MetaParams::MetaParams() {
 	bLogGroupChanges = false;
 	bLogACLChanges   = false;
 
+	allowRecording = true;
+
 	qsSettings = nullptr;
 }
 
@@ -319,6 +321,8 @@ void MetaParams::read(QString fname) {
 
 	bLogGroupChanges = typeCheckedFromSettings("loggroupchanges", bLogGroupChanges);
 	bLogACLChanges   = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
+
+	allowRecording = typeCheckedFromSettings("allowRecording", allowRecording);
 
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 

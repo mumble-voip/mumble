@@ -131,6 +131,7 @@ public:
 	QUrl qurlRegWeb;
 	bool bBonjour;
 	bool bAllowPing;
+	bool allowRecording;
 
 	QRegExp qrUserName;
 	QRegExp qrChannelName;

@@ -967,6 +967,16 @@ void MainWindow::toggleSearchDialogVisibility() {
 	m_searchDialog->setVisible(!m_searchDialog->isVisible());
 }
 
+void MainWindow::enableRecording(bool recordingAllowed) {
+	qaRecording->setEnabled(recordingAllowed);
+
+	Global::get().recordingAllowed = recordingAllowed;
+
+	if (!recordingAllowed && voiceRecorderDialog) {
+		voiceRecorderDialog->reject();
+	}
+}
+
 static void recreateServerHandler() {
 	// New server connection, so the sync has not happened yet
 	Global::get().channelListenerManager->setInitialServerSyncDone(false);
@@ -2658,6 +2668,7 @@ void MainWindow::on_qaRecording_triggered() {
 	} else {
 		voiceRecorderDialog = new VoiceRecorderDialog(this);
 		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
+		QObject::connect(Global::get().sh.get(), &ServerHandler::disconnected, voiceRecorderDialog, &QDialog::reject);
 		voiceRecorderDialog->show();
 	}
 }
@@ -3208,6 +3219,8 @@ void MainWindow::serverConnected() {
 	Global::get().uiMessageLength = 5000;
 	Global::get().uiImageLength   = 131072;
 	Global::get().uiMaxUsers      = 0;
+
+	enableRecording(true);
 
 	if (Global::get().s.bMute || Global::get().s.bDeaf) {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);

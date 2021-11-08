@@ -505,6 +505,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_message_length(iMaxTextMessageLength);
 	mpsc.set_image_message_length(iMaxImageMessageLength);
 	mpsc.set_max_users(iMaxUsers);
+	mpsc.set_recording_allowed(allowRecording);
 	sendMessage(uSource, mpsc);
 
 	MumbleProto::SuggestConfig mpsug;
@@ -914,10 +915,25 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 		MumbleProto::TextMessage mptm;
 		mptm.add_tree_id(0);
-		if (pDstServerUser->bRecording)
-			mptm.set_message(u8(QString(QLatin1String("User '%1' started recording")).arg(pDstServerUser->qsName)));
-		else
+		if (pDstServerUser->bRecording) {
+			if (!allowRecording) {
+				// User tried to start recording even though this server forbids it
+				// -> Kick user
+				MumbleProto::UserRemove mpur;
+				mpur.set_session(uSource->uiSession);
+				mpur.set_reason("Recording is not allowed on this server");
+				sendMessage(uSource, mpur);
+				uSource->forceFlush();
+				uSource->disconnectSocket(true);
+
+				// We just kicked this user, so there is no point in further processing his/her message
+				return;
+			} else {
+				mptm.set_message(u8(QString(QLatin1String("User '%1' started recording")).arg(pDstServerUser->qsName)));
+			}
+		} else {
 			mptm.set_message(u8(QString(QLatin1String("User '%1' stopped recording")).arg(pDstServerUser->qsName)));
+		}
 
 		sendAll(mptm, ~0x010203);
 
