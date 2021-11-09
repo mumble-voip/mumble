@@ -21,6 +21,7 @@ if(${CMAKE_BUILD_TYPE} MATCHES Debug)
 	message("Including TestPlugin in debug mode")
 	list(APPEND AVAILABLE_PLUGINS
 		"testPlugin"
+		"deadLockPlugin"
 	)
 endif()
 
