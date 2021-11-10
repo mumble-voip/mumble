@@ -56,4 +56,9 @@ bool setenv(QString name, QString value) {
 #endif
 }
 
+bool waylandIsUsed() {
+	// If wayland is used, this environment variable is expected to be set
+	return getenv(QStringLiteral("WAYLAND_DISPLAY")) != "";
+}
+
 }; // namespace EnvUtils

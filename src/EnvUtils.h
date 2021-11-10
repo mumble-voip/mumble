@@ -22,6 +22,8 @@ QString getenv(QString name);
 
 bool setenv(QString name, QString value);
 
+bool waylandIsUsed();
+
 }; // namespace EnvUtils
 
 #endif
