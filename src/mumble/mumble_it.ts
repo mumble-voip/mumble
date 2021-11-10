@@ -8857,6 +8857,10 @@ Per favore contatta l&apos;amministratore del server per maggiori informazioni.<
         <source>Downmix</source>
         <translation>Downmix</translation>
     </message>
+    <message>
+        <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WASAPIInput</name>
