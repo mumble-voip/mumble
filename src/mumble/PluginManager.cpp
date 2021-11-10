@@ -22,12 +22,15 @@
 
 #include "API.h"
 #include "Log.h"
-#include "ManualPlugin.h"
 #include "PluginInstaller.h"
 #include "PluginUpdater.h"
 #include "ProcessResolver.h"
 #include "ServerHandler.h"
 #include "Global.h"
+
+#ifdef USE_MANUAL_PLUGIN
+#	include "ManualPlugin.h"
+#endif
 
 #include <cstdint>
 #include <memory>
