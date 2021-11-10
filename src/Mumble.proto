@@ -574,6 +574,8 @@ message ServerConfig {
 	optional uint32 image_message_length = 5;
 	// The maximum number of users allowed on the server.
 	optional uint32 max_users = 6;
+	// Whether using Mumble's recording feature is allowed on the server
+	optional bool recording_allowed = 7;
 }
 
 // Sent by the server to inform the clients of suggested client configuration

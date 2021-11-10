@@ -150,6 +150,9 @@ public:
 	/// A flag indicating whether changes in ACLs should be logged
 	bool bLogACLChanges;
 
+	/// A flag indicating whether recording is allowed on this server
+	bool allowRecording;
+
 	/// qsAbsSettingsFilePath is the absolute path to
 	/// the murmur.ini used by this Meta instance.
 	QString qsAbsSettingsFilePath;

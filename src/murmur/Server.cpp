@@ -373,6 +373,7 @@ void Server::readParams() {
 	qurlRegWeb             = Meta::mp.qurlRegWeb;
 	bBonjour               = Meta::mp.bBonjour;
 	bAllowPing             = Meta::mp.bAllowPing;
+	allowRecording         = Meta::mp.allowRecording;
 	bCertRequired          = Meta::mp.bCertRequired;
 	bForceExternalAuth     = Meta::mp.bForceExternalAuth;
 	qrUserName             = Meta::mp.qrUserName;
@@ -603,6 +604,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 #endif
 	} else if (key == "allowping")
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
+	else if (key == "allowrecording")
+		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp.allowRecording;
 	else if (key == "username")
 		qrUserName = !v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")

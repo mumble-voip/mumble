@@ -339,6 +339,8 @@ public slots:
 	// Callback the search action being triggered
 	void on_qaSearch_triggered();
 	void toggleSearchDialogVisibility();
+	/// Enables or disables the recording feature
+	void enableRecording(bool recordingAllowed);
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).

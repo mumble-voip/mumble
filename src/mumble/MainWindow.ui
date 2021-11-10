@@ -916,6 +916,9 @@ the channel's context menu.</string>
    </property>
   </action>
   <action name="qaRecording">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>skin:actions/media-record.svg</normaloff>skin:actions/media-record.svg</iconset>
