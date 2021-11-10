@@ -27,8 +27,15 @@ unsigned int getRaw(const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSIO
 QString toString(mumble_raw_version_t version);
 bool get(int *major, int *minor, int *patch, const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 
-unsigned int toRaw(int major, int minor, int patch);
-void fromRaw(unsigned int version, int *major, int *minor, int *patch);
+constexpr Version::mumble_raw_version_t toRaw(int major, int minor, int patch) {
+	return (major << 16) | (minor << 8) | patch;
+}
+
+constexpr void fromRaw(unsigned int version, int *major, int *minor, int *patch) {
+	*major = (version & 0xFFFF0000) >> 16;
+	*minor = (version & 0xFF00) >> 8;
+	*patch = (version & 0xFF);
+}
 
 }; // namespace Version
 

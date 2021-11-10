@@ -40,14 +40,4 @@ bool get(int *major, int *minor, int *patch, const QString &version) {
 	return false;
 }
 
-unsigned int toRaw(int major, int minor, int patch) {
-	return (major << 16) | (minor << 8) | patch;
-}
-
-void fromRaw(unsigned int version, int *major, int *minor, int *patch) {
-	*major = (version & 0xFFFF0000) >> 16;
-	*minor = (version & 0xFF00) >> 8;
-	*patch = (version & 0xFF);
-}
-
 }; // namespace Version
