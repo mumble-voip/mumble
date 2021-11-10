@@ -7,6 +7,7 @@
 
 #include "AudioInput.h"
 #include "Cert.h"
+#include "EnvUtils.h"
 #include "Log.h"
 #include "SSL.h"
 #include "Global.h"
@@ -532,6 +533,12 @@ Settings::Settings() {
 	bEnableXboxInput            = true;
 	bEnableUIAccess             = true;
 
+#ifdef Q_OS_LINUX
+	if (EnvUtils::waylandIsUsed()) {
+		bShortcutEnable = false;
+	}
+#endif
+
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		qmMessages.insert(i,
 						  Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS | Settings::LogMessageLimit);
@@ -1006,6 +1013,13 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(bEnableGKey, "shortcut/gkey");
 	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+
+#ifdef Q_OS_LINUX
+	if (EnvUtils::waylandIsUsed()) {
+		// Global shortcuts don't work on Wayland
+		bShortcutEnable = false;
+	}
+#endif
 
 	// Search options
 	LOAD(searchForUsers, "search/search_for_users");
