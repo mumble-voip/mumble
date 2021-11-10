@@ -74,7 +74,8 @@ public:
 	QMutex qmCrypt;
 #endif
 	std::unique_ptr< CryptState > csCrypt;
-
+	/// Returns the peer's chain of digital certificates, starting with the peer's immediate certificate
+	/// and ending with the CA's certificate.
 	QList< QSslCertificate > peerCertificateChain() const;
 	QSslCipher sessionCipher() const;
 	QSsl::SslProtocol sessionProtocol() const;

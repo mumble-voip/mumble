@@ -228,11 +228,13 @@ quint16 Connection::localPort() const {
 }
 
 QList< QSslCertificate > Connection::peerCertificateChain() const {
-	const QSslCertificate cert = qtsSocket->peerCertificate();
-	if (cert.isNull())
-		return QList< QSslCertificate >();
-	else
-		return qtsSocket->peerCertificateChain() << cert;
+	// The documentation of QSslSocket::peerCertificateChain() actually says nothing
+	// about the order of the certificates in the chain. The sentence in this functions
+	// documentation is taken from QSslConfiguration::peerCertificateChain().
+	// Through tests and by looking into Qt's source code it was validated,
+	// that these two functions do the same thing.
+	// See mumble-voip/mumble#5280 for more information.
+	return qtsSocket->peerCertificateChain();
 }
 
 QSslCipher Connection::sessionCipher() const {
