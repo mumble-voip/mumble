@@ -6454,6 +6454,10 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>Mumble - Minimal View</source>
         <translation>Mumble - 最小化视图</translation>
     </message>
+    <message>
+        <source>Voice protocol negotiation failed. UDP connection won&apos;t be established in this session. All voice data will be sent over TCP control channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

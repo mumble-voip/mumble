@@ -27,9 +27,11 @@ HANDLE Connection::hQoS = nullptr;
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
-	iPacketLength        = -1;
-	bDisconnectedEmitted = false;
-	csCrypt              = std::make_unique< CryptStateOCB2 >();
+	iPacketLength                    = -1;
+	bDisconnectedEmitted             = false;
+	csCrypt                          = nullptr;
+	m_voiceProtocol                  = VoiceProtocol::fromString("");
+	m_voiceProtocolNegotiationFailed = false;
 
 	static bool bDeclared = false;
 	if (!bDeclared) {

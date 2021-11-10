@@ -6464,6 +6464,10 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
         <source>Mumble - Minimal View</source>
         <translation>Mumble - Ελάχιστη προβολή</translation>
     </message>
+    <message>
+        <source>Voice protocol negotiation failed. UDP connection won&apos;t be established in this session. All voice data will be sent over TCP control channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

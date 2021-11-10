@@ -12,9 +12,11 @@
 #	include "win.h"
 #endif
 
+#include "../crypto/CryptStateFactory.h"
 #include "ACL.h"
 #include "Ban.h"
 #include "ChannelListenerManager.h"
+#include "Connection.h"
 #include "HostAddress.h"
 #include "Message.h"
 #include "Mumble.pb.h"
@@ -166,6 +168,7 @@ public:
 	Timer tUptime;
 
 	bool bValid;
+	bool m_udp;
 
 	ChannelListenerManager m_channelListenerManager;
 
@@ -294,14 +297,14 @@ public:
 
 	QList< Ban > qlBans;
 
-	void processMsg(ServerUser *u, const char *data, int len);
-	void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force = false);
+	void processMsg(ServerUser *u, const char *data, unsigned int len);
+	void sendMessage(ServerUser *u, const char *data, unsigned int len, QByteArray &cache, bool force = false);
 	void run();
 
 	bool validateChannelName(const QString &name);
 	bool validateUserName(const QString &name);
 
-	bool checkDecrypt(ServerUser *u, const char *encrypted, char *plain, unsigned int cryptlen);
+	int checkDecrypt(ServerUser *u, const char *encrypted, char *plain, unsigned int cryptlen);
 
 	bool hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm);
 	QFlags< ChanACL::Perm > effectivePermissions(ServerUser *p, Channel *c);

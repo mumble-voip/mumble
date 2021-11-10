@@ -34,10 +34,12 @@
 #include "Utils.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
 #include "Global.h"
 
 #include <QTextDocumentFragment>
+#include <string>
 
 #define ACTOR_INIT                           \
 	ClientUser *pSrc = nullptr;              \
@@ -58,6 +60,40 @@
 		qWarning("MainWindow: Received message outside of session (sid %d).", Global::get().uiSession); \
 		return;                                                                                         \
 	}
+
+/// This message is being received after the client sent a Capabilities message with its preferred protocols inside.
+/// The server will reply with a Capabilities message with one option it determines to use.
+void MainWindow::msgCapabilities(const MumbleProto::Capabilities &msg) {
+	ConnectionPtr c = Global::get().sh->cConnection;
+
+	if (msg.protocols_size() == 0) {
+		c->m_voiceProtocolNegotiationFailed = true;
+		qWarning("Message.cpp: Voice protocol negotiation failed. No mutually acceptable protocol. UDP connection "
+				 "won't be established.");
+		Global::get().l->log(
+			Log::Warning,
+			MainWindow::tr("Voice protocol negotiation failed. UDP connection won't be established in this session. "
+						   "All voice data will be sent over TCP control channel."));
+		return;
+	}
+
+	std::shared_ptr< VoiceProtocol > protocol = VoiceProtocol::fromString(msg.protocols(0));
+
+	if (!protocol->isValid()) {
+		// TODO: should we disconnect immediately?
+		qWarning("Message: Drop invalid Capabilities message.");
+		return;
+	}
+
+	c->m_voiceProtocol = protocol;
+
+	qInfo("Message.cpp: Voice protocol negotiation completed, use \"%s\"", protocol->toString().c_str());
+
+	if (protocol->m_transport == VoiceTransportType::UDP) {
+		auto uvp   = std::dynamic_pointer_cast< UDPVoiceProtocol >(protocol);
+		c->csCrypt = CryptStateFactory::getFactory().getCryptState(uvp->m_udpCipher);
+	}
+}
 
 /// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore
 /// the server won't send this message type to the client which is why this implementation does nothing.
@@ -1097,23 +1133,33 @@ void MainWindow::msgPing(const MumbleProto::Ping &) {
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 	ConnectionPtr c = Global::get().sh->cConnection;
-	if (!c)
+	if (!c || c->m_voiceProtocolNegotiationFailed)
 		return;
+
+	// Connecting to an old server and Capabilities Message is not supported
+	// Assume OCB2 is used.
+	// TODO: Resend Capabilities message if the server is supposed to be new enough to handle it.
+	if (!c->m_voiceProtocol->isValid()) {
+		qWarning("Messages: Cipher sync happens before protocol negotiation. Assuming AES_128_OCB2 is used.");
+		c->m_voiceProtocol = VoiceProtocol::fromString("MUMBLE_UDP_AES-128-OCB2");
+		c->csCrypt         = CryptStateFactory::getFactory().getCryptState(CipherType::AES_128_OCB2);
+	}
+
 	if (msg.has_key() && msg.has_client_nonce() && msg.has_server_nonce()) {
 		const std::string &key          = msg.key();
 		const std::string &client_nonce = msg.client_nonce();
 		const std::string &server_nonce = msg.server_nonce();
 		if (!c->csCrypt->setKey(key, client_nonce, server_nonce)) {
 			qWarning("Messages: Cipher resync failed: Invalid key/nonce from the server!");
+			return;
 		}
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
-		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			c->csCrypt->uiResync++;
-			if (!c->csCrypt->setDecryptIV(server_nonce)) {
-				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
-			}
+		if (!c->csCrypt->setDecryptIV(server_nonce)) {
+			qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
+			return;
 		}
+		c->csCrypt->uiResync++;
 	} else {
 		MumbleProto::CryptSetup mpcs;
 		mpcs.set_client_nonce(c->csCrypt->getEncryptIV());

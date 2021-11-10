@@ -14,6 +14,7 @@
 #include "Server.h"
 #include "ServerDB.h"
 #include "Version.h"
+#include "VoiceProtocol.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
@@ -245,6 +246,34 @@ void MetaParams::read(QString fname) {
 	if (qlBind.isEmpty()) {
 		qlBind << QHostAddress(QHostAddress::Any);
 	}
+
+	QString qsVoiceProtocol = qsSettings->value("voiceProtocolPreference", QString()).toString();
+	if (!qsVoiceProtocol.isEmpty()) {
+		for (const QString &protocol_name : qsHost.split(',')) {
+			QString protocol_upper = protocol_name.trimmed().toUpper();
+			if (protocol_upper.isEmpty())
+				continue;
+
+			std::shared_ptr< VoiceProtocol > protoc = VoiceProtocol::fromString(protocol_upper.toStdString());
+			if (protoc->isValid()) {
+				m_allowedVoiceProtocols.push_back(protoc);
+				qInfo("Meta: Add %s into voice protocol preference list.", qPrintable(protocol_upper));
+			} else {
+				qFatal("Meta: Unsupported voice protocol \"%s\".", qPrintable(protocol_upper));
+			}
+		}
+	} else {
+		// Fall back to default protocol
+		m_allowedVoiceProtocols.push_back(
+			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_256_GCM)));
+		m_allowedVoiceProtocols.push_back(
+			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::CHACHA20_POLY1305)));
+		m_allowedVoiceProtocols.push_back(
+			std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_128_OCB2)));
+		qInfo("Meta: No voice protocol preference set. Use MUMBLE_UDP_AES-256-GCM, MUMBLE_UDP_CHACHA20-POLY1305, "
+			  "MUMBLE_UDP_AES-128-OCB2 as default voice protocol.");
+	}
+
 
 	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));

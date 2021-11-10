@@ -12,7 +12,7 @@
 #include "crypto/CryptStateOCB2.h"
 #include <string>
 
-class TestCrypt : public QObject {
+class TestOCB2Crypt : public QObject {
 	Q_OBJECT
 private slots:
 	void initTestCase();
@@ -25,15 +25,15 @@ private slots:
 	void tamper();
 };
 
-void TestCrypt::initTestCase() {
+void TestOCB2Crypt::initTestCase() {
 	MumbleSSL::initialize();
 }
 
-void TestCrypt::cleanupTestCase() {
+void TestOCB2Crypt::cleanupTestCase() {
 	MumbleSSL::destroy();
 }
 
-void TestCrypt::reverserecovery() {
+void TestOCB2Crypt::reverserecovery() {
 	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
@@ -67,30 +67,30 @@ void TestCrypt::reverserecovery() {
 	*/
 	// OOO recovery up to 30 packets, but NOT beyond
 
-	int i;
+	unsigned int i, len;
 
 	for (i = 0; i < 128; i++)
-		enc.encrypt(secret, crypted[i], 10);
+		enc.encrypt(secret, crypted[i], 10, len);
 
 	for (i = 0; i < 30; i++)
-		QVERIFY(dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(dec.decrypt(crypted[127 - i], decr, 14, len));
 	for (; i < 128; i++)
-		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14, len));
 	for (i = 0; i < 30; i++)
-		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14, len));
 
 
 	// Extensive replay attack test
 	for (i = 0; i < 512; i++)
-		enc.encrypt(secret, crypted[i], 10);
+		enc.encrypt(secret, crypted[i], 10, len);
 
 	for (i = 0; i < 512; i++)
-		QVERIFY(dec.decrypt(crypted[i], decr, 14));
+		QVERIFY(dec.decrypt(crypted[i], decr, 14, len));
 	for (i = 0; i < 512; i++)
-		QVERIFY(!dec.decrypt(crypted[i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[i], decr, 14, len));
 }
 
-void TestCrypt::ivrecovery() {
+void TestOCB2Crypt::ivrecovery() {
 	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
@@ -103,29 +103,30 @@ void TestCrypt::ivrecovery() {
 	unsigned char secret[10] = "abcdefghi";
 	unsigned char crypted[14];
 	unsigned char decr[10];
+	unsigned int len = 0;
 
-	enc.encrypt(secret, crypted, 10);
+	enc.encrypt(secret, crypted, 10, len);
 
 	// Can decrypt.
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 	// .. correctly.
 	QVERIFY(memcmp(secret, decr, 10) == 0);
 
 	// But will refuse to reuse same IV.
-	QVERIFY(!dec.decrypt(crypted, decr, 14));
+	QVERIFY(!dec.decrypt(crypted, decr, 14, len));
 
 	// Recover from lost packet.
 	for (int i = 0; i < 16; i++)
-		enc.encrypt(secret, crypted, 10);
+		enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 
 	// Wraparound.
 	for (int i = 0; i < 128; i++) {
 		dec.uiLost = 0;
 		for (int j = 0; j < 15; j++)
-			enc.encrypt(secret, crypted, 10);
-		QVERIFY(dec.decrypt(crypted, decr, 14));
+			enc.encrypt(secret, crypted, 10, len);
+		QVERIFY(dec.decrypt(crypted, decr, 14, len));
 		QCOMPARE(dec.uiLost, 14U);
 	}
 
@@ -133,18 +134,18 @@ void TestCrypt::ivrecovery() {
 
 	// Wrap too far
 	for (int i = 0; i < 257; i++)
-		enc.encrypt(secret, crypted, 10);
+		enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(!dec.decrypt(crypted, decr, 14));
+	QVERIFY(!dec.decrypt(crypted, decr, 14, len));
 
 	// Sync it
 	dec.setDecryptIV(enc.getEncryptIV());
-	enc.encrypt(secret, crypted, 10);
+	enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 }
 
-void TestCrypt::testvectors() {
+void TestOCB2Crypt::testvectors() {
 	// Test vectors are from draft-krovetz-ocb-00.txt
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
@@ -180,7 +181,7 @@ void TestCrypt::testvectors() {
 		QCOMPARE(crypt[i], crypted[i]);
 }
 
-void TestCrypt::authcrypt() {
+void TestOCB2Crypt::authcrypt() {
 	for (int len = 0; len < 128; len++) {
 		const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 													   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
@@ -212,7 +213,7 @@ void TestCrypt::authcrypt() {
 }
 
 // Test prevention of the attack described in section 4.1 of https://eprint.iacr.org/2019/311
-void TestCrypt::xexstarAttack() {
+void TestOCB2Crypt::xexstarAttack() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 	const unsigned char nonce[AES_BLOCK_SIZE]  = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88,
@@ -269,7 +270,7 @@ void TestCrypt::xexstarAttack() {
 	QCOMPARE(decrypted[0], static_cast< unsigned char >(1));
 }
 
-void TestCrypt::tamper() {
+void TestOCB2Crypt::tamper() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 	const unsigned char nonce[AES_BLOCK_SIZE]  = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88,
@@ -281,18 +282,19 @@ void TestCrypt::tamper() {
 
 	const unsigned char msg[] = "It was a funky funky town!";
 	int len                   = sizeof(msg);
+	unsigned int dlen         = 0;
 
 	STACKVAR(unsigned char, encrypted, len + 4);
 	STACKVAR(unsigned char, decrypted, len);
-	cs.encrypt(msg, encrypted, len);
+	cs.encrypt(msg, encrypted, len, dlen);
 
 	for (int i = 0; i < len * 8; i++) {
 		encrypted[i / 8] ^= 1 << (i % 8);
-		QVERIFY(!cs.decrypt(encrypted, decrypted, len + 4));
+		QVERIFY(!cs.decrypt(encrypted, decrypted, len + 4, dlen));
 		encrypted[i / 8] ^= 1 << (i % 8);
 	}
-	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4));
+	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4, dlen));
 }
 
-QTEST_MAIN(TestCrypt)
-#include "TestCrypt.moc"
+QTEST_MAIN(TestOCB2Crypt)
+#include "TestOCB2Crypt.moc"

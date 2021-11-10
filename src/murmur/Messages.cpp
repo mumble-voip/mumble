@@ -15,6 +15,7 @@
 #include "ServerUser.h"
 #include "User.h"
 #include "Version.h"
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
 
 #include <QtCore/QStack>
@@ -152,6 +153,78 @@ bool isChannelEnterRestricted(Channel *c) {
 	}
 
 	return false;
+}
+
+/// Process the Capabilities message, used to negotiate voice protocol.
+/// See the doc in Mumble.proto for details about this message.
+///
+/// @param uSource ServerUser that receives this message.
+/// @param msg The message itself.
+void Server::msgCapabilities(ServerUser *uSource, MumbleProto::Capabilities &msg) {
+	MSG_SETUP(ServerUser::Connected);
+	std::string protocol_list_str;
+	for (int i = 0; i < msg.protocols_size(); ++i) {
+		const std::string &protocol_type_string = msg.protocols(i);
+
+		if (protocol_type_string.empty())
+			continue;
+		protocol_list_str.append(protocol_type_string);
+		protocol_list_str.append(", ");
+
+		uSource->m_supportedVoiceProtocols.push_back(VoiceProtocol::fromString(protocol_type_string));
+	}
+
+	log(uSource,
+		QString("Client supports voice protocols: %1")
+			.arg(QString::fromStdString(protocol_list_str.substr(0, protocol_list_str.length() - strlen(", ")))));
+
+	std::shared_ptr< VoiceProtocol > protocol_selected;
+
+	if (m_udp) {
+		for (const std::shared_ptr< VoiceProtocol > &server_proto : Meta::mp.m_allowedVoiceProtocols) {
+			for (const std::shared_ptr< VoiceProtocol > &client_proto : uSource->m_supportedVoiceProtocols) {
+				if (!client_proto->isValid())
+					continue;
+				if (*client_proto == *server_proto) {
+					protocol_selected = client_proto;
+					break;
+				}
+			}
+			if (protocol_selected->isValid())
+				break;
+		}
+	}
+
+	MumbleProto::Capabilities mpc;
+
+	uSource->m_voiceProtocol = protocol_selected;
+	if (protocol_selected->isValid()) {
+		log(uSource, QString("Use voice protocol: %1").arg(QString::fromStdString(protocol_selected->toString())));
+
+		mpc.add_protocols(protocol_selected->toString());
+	} else {
+		uSource->m_voiceProtocolNegotiationFailed = true;
+		log(uSource,
+			QString(
+				"No mutually acceptable voice protocol. Negotiation failed. UDP connection will not be established."));
+	}
+
+	sendMessage(uSource, mpc);
+
+	if (protocol_selected->m_transport == VoiceTransportType::UDP) {
+		auto uvp         = std::dynamic_pointer_cast< UDPVoiceProtocol >(protocol_selected);
+		uSource->csCrypt = CryptStateFactory::getFactory().getCryptState(uvp->m_udpCipher);
+
+		if (uSource->sState == ServerUser::Authenticated) {
+			MumbleProto::CryptSetup mpcrypt;
+			mpcrypt.set_key(uSource->csCrypt->getRawKey());
+			mpcrypt.set_server_nonce(uSource->csCrypt->getEncryptIV());
+			mpcrypt.set_client_nonce(uSource->csCrypt->getDecryptIV());
+			sendMessage(uSource, mpcrypt);
+		}
+	} else {
+		uSource->aiUdpFlag = 0;
+	}
 }
 
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
@@ -296,16 +369,25 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	// Setup UDP encryption
-	{
-		QMutexLocker l(&uSource->qmCrypt);
+	if (!uSource->m_voiceProtocolNegotiationFailed) {
+		if (!uSource->m_voiceProtocol->isValid()) {
+			// If no Capabilities message has been received
+			log(uSource, "No Capabilities message received. Assuming UDP_AES_128_OCB2 is used.");
+			uSource->m_voiceProtocol = std::make_shared< UDPVoiceProtocol >(UDPVoiceProtocol(CipherType::AES_128_OCB2));
+			uSource->csCrypt         = CryptStateFactory::getFactory().getCryptState(CipherType::AES_128_OCB2);
+		}
 
-		uSource->csCrypt->genKey();
+		if (uSource->m_voiceProtocol->m_transport == VoiceTransportType::UDP) {
+			QMutexLocker l(&uSource->qmCrypt);
 
-		MumbleProto::CryptSetup mpcrypt;
-		mpcrypt.set_key(uSource->csCrypt->getRawKey());
-		mpcrypt.set_server_nonce(uSource->csCrypt->getEncryptIV());
-		mpcrypt.set_client_nonce(uSource->csCrypt->getDecryptIV());
-		sendMessage(uSource, mpcrypt);
+			uSource->csCrypt->genKey();
+
+			MumbleProto::CryptSetup mpcrypt;
+			mpcrypt.set_key(uSource->csCrypt->getRawKey());
+			mpcrypt.set_server_nonce(uSource->csCrypt->getEncryptIV());
+			mpcrypt.set_client_nonce(uSource->csCrypt->getDecryptIV());
+			sendMessage(uSource, mpcrypt);
+		}
 	}
 
 	bool fake_celt_support = false;
@@ -1821,10 +1903,12 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	QMutexLocker l(&uSource->qmCrypt);
 
-	uSource->csCrypt->uiRemoteGood   = msg.good();
-	uSource->csCrypt->uiRemoteLate   = msg.late();
-	uSource->csCrypt->uiRemoteLost   = msg.lost();
-	uSource->csCrypt->uiRemoteResync = msg.resync();
+	if (uSource->csCrypt) {
+		uSource->csCrypt->uiRemoteGood   = msg.good();
+		uSource->csCrypt->uiRemoteLate   = msg.late();
+		uSource->csCrypt->uiRemoteLost   = msg.lost();
+		uSource->csCrypt->uiRemoteResync = msg.resync();
+	}
 
 	uSource->dUDPPingAvg  = msg.udp_ping_avg();
 	uSource->dUDPPingVar  = msg.udp_ping_var();
@@ -1837,10 +1921,12 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	msg.Clear();
 	msg.set_timestamp(ts);
-	msg.set_good(uSource->csCrypt->uiGood);
-	msg.set_late(uSource->csCrypt->uiLate);
-	msg.set_lost(uSource->csCrypt->uiLost);
-	msg.set_resync(uSource->csCrypt->uiResync);
+	if (uSource->csCrypt) {
+		msg.set_good(uSource->csCrypt->uiGood);
+		msg.set_late(uSource->csCrypt->uiLate);
+		msg.set_lost(uSource->csCrypt->uiLost);
+		msg.set_resync(uSource->csCrypt->uiResync);
+	}
 
 	sendMessage(uSource, msg);
 }
@@ -1850,16 +1936,25 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 
 	QMutexLocker l(&uSource->qmCrypt);
 
+	if (!uSource->csCrypt || !uSource->csCrypt->isValid())
+		return;
+
 	if (!msg.has_client_nonce()) {
-		log(uSource, "Requested crypt-nonce resync");
+		// A client will request a resync if key-iv combination is no longer safe,
+		// or simply too many packets were lost. Generate a new key-iv pair for it.
+		log(uSource, "Requested crypt-nonce resync, generating new key-nonce combination");
+		uSource->csCrypt->genKey();
+		msg.set_key(uSource->csCrypt->getRawKey());
 		msg.set_server_nonce(uSource->csCrypt->getEncryptIV());
+		msg.set_client_nonce(uSource->csCrypt->getDecryptIV());
 		sendMessage(uSource, msg);
 	} else {
 		const std::string &str = msg.client_nonce();
-		uSource->csCrypt->uiResync++;
 		if (!uSource->csCrypt->setDecryptIV(str)) {
-			qWarning("Messages: Cipher resync failed: Invalid nonce from the client!");
+			log(uSource, "Cipher resync failed: Invalid nonce from the client!");
+			return;
 		}
+		uSource->csCrypt->uiResync++;
 	}
 }
 
@@ -2082,17 +2177,19 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 
 		QMutexLocker l(&pDstServerUser->qmCrypt);
 
-		mpusss = msg.mutable_from_client();
-		mpusss->set_good(pDstServerUser->csCrypt->uiGood);
-		mpusss->set_late(pDstServerUser->csCrypt->uiLate);
-		mpusss->set_lost(pDstServerUser->csCrypt->uiLost);
-		mpusss->set_resync(pDstServerUser->csCrypt->uiResync);
+		if (pDstServerUser->csCrypt) {
+			mpusss = msg.mutable_from_client();
+			mpusss->set_good(pDstServerUser->csCrypt->uiGood);
+			mpusss->set_late(pDstServerUser->csCrypt->uiLate);
+			mpusss->set_lost(pDstServerUser->csCrypt->uiLost);
+			mpusss->set_resync(pDstServerUser->csCrypt->uiResync);
 
-		mpusss = msg.mutable_from_server();
-		mpusss->set_good(pDstServerUser->csCrypt->uiRemoteGood);
-		mpusss->set_late(pDstServerUser->csCrypt->uiRemoteLate);
-		mpusss->set_lost(pDstServerUser->csCrypt->uiRemoteLost);
-		mpusss->set_resync(pDstServerUser->csCrypt->uiRemoteResync);
+			mpusss = msg.mutable_from_server();
+			mpusss->set_good(pDstServerUser->csCrypt->uiRemoteGood);
+			mpusss->set_late(pDstServerUser->csCrypt->uiRemoteLate);
+			mpusss->set_lost(pDstServerUser->csCrypt->uiRemoteLost);
+			mpusss->set_resync(pDstServerUser->csCrypt->uiRemoteResync);
+		}
 	}
 
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);

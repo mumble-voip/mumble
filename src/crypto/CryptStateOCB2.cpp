@@ -100,7 +100,8 @@ std::string CryptStateOCB2::getDecryptIV() {
 	return std::string(reinterpret_cast< const char * >(decrypt_iv), AES_BLOCK_SIZE);
 }
 
-bool CryptStateOCB2::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
+bool CryptStateOCB2::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length,
+							 unsigned int &encrypted_length) {
 	unsigned char tag[AES_BLOCK_SIZE];
 
 	// First, increase our IV.
@@ -116,14 +117,17 @@ bool CryptStateOCB2::encrypt(const unsigned char *source, unsigned char *dst, un
 	dst[1] = tag[0];
 	dst[2] = tag[1];
 	dst[3] = tag[2];
+
+	encrypted_length = plain_length + 4;
 	return true;
 }
 
-bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) {
-	if (crypted_length < 4)
+bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, unsigned int encrypted_length,
+							 unsigned int &plain_length) {
+	if (encrypted_length < 4)
 		return false;
 
-	unsigned int plain_length = crypted_length - 4;
+	plain_length = encrypted_length - 4;
 
 	unsigned char saveiv[AES_BLOCK_SIZE];
 	unsigned char ivbyte = source[0];

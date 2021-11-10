@@ -91,6 +91,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha             = false;
 	bOpus                    = true;
+	m_udp                    = true;
 
 	qnamNetwork = nullptr;
 
@@ -151,6 +152,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		if (sock == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");
 			bValid = false;
+			m_udp  = false;
 			return;
 		} else {
 			if (addr.ss_family == AF_INET6) {
@@ -172,6 +174,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 			if (::bind(sock, reinterpret_cast< sockaddr * >(&addr), len) == SOCKET_ERROR) {
 				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
+				m_udp = false;
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
@@ -840,7 +843,7 @@ void Server::run() {
 				} else if (len == SOCKET_ERROR) {
 					break;
 				} else if (len < 5) {
-					// 4 bytes crypt header + type + session
+					// 4 bytes crypt header of OCB2 + type + session
 					continue;
 				} else if (len > UDP_PACKET_SIZE) {
 					continue;
@@ -875,14 +878,16 @@ void Server::run() {
 				const QPair< HostAddress, quint16 > &key = QPair< HostAddress, quint16 >(ha, port);
 
 				ServerUser *u = qhPeerUsers.value(key);
+				int plain_len = 0;
 				if (u) {
-					if (!checkDecrypt(u, encrypt, buffer, len)) {
+					if ((plain_len = checkDecrypt(u, encrypt, buffer, len)) < 0) {
 						continue;
 					}
 				} else {
 					// Unknown peer
 					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
-						if (checkDecrypt(usr, encrypt, buffer, len)) { // checkDecrypt takes the User's qrwlCrypt lock.
+						if ((plain_len = checkDecrypt(usr, encrypt, buffer, len)) > 0) {
+							// checkDecrypt takes the User's qrwlCrypt lock.
 							// Every time we relock, reverify users' existence.
 							// The main thread might delete the user while the lock isn't held.
 							unsigned int uiSession = usr->uiSession;
@@ -906,7 +911,6 @@ void Server::run() {
 						continue;
 					}
 				}
-				len -= 4;
 
 				MessageHandler::UDPMessageType msgType =
 					static_cast< MessageHandler::UDPMessageType >((buffer[0] >> 5) & 0x7);
@@ -922,11 +926,11 @@ void Server::run() {
 
 					if (ok) {
 						u->aiUdpFlag = 1;
-						processMsg(u, buffer, len);
+						processMsg(u, buffer, plain_len);
 					}
 				} else if (msgType == MessageHandler::UDPPing) {
 					QByteArray qba;
-					sendMessage(u, buffer, len, qba, true);
+					sendMessage(u, buffer, plain_len, qba, true);
 				}
 #ifdef Q_OS_UNIX
 				fds[i].revents = 0;
@@ -942,13 +946,18 @@ void Server::run() {
 #endif
 }
 
-bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
+int Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
-	if (u->csCrypt->isValid()
+	if (u->m_voiceProtocol->m_transport != VoiceTransportType::UDP)
+		return -1;
+
+	unsigned int plain_length = 0;
+
+	if (u->csCrypt && u->csCrypt->isValid()
 		&& u->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypt),
-							   reinterpret_cast< unsigned char * >(plain), len))
-		return true;
+							   reinterpret_cast< unsigned char * >(plain), len, plain_length))
+		return plain_length;
 
 	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {
 		if (u->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
@@ -956,21 +965,24 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 			emit reqSync(u->uiSession);
 		}
 	}
-	return false;
+	return -1;
 }
 
-void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
+void Server::sendMessage(ServerUser *u, const char *data, unsigned int len, QByteArray &cache, bool force) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	if ((u->aiUdpFlag.loadRelaxed() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #else
 	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	if ((u->aiUdpFlag.load() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #endif
+		unsigned int encrypted_len = len + u->csCrypt->headLength;
+
 #if defined(__LP64__)
-		STACKVAR(char, ebuffer, len + 4 + 16);
+		STACKVAR(char, ebuffer, encrypted_len + 16);
+		// Align the buffer address to the multiple of 16 bits
 		char *buffer = reinterpret_cast< char * >(((reinterpret_cast< quint64 >(ebuffer) + 8) & ~7) + 4);
 #else
-		STACKVAR(char, buffer, len + 4);
+		STACKVAR(char, buffer, encrypted_len);
 #endif
 		{
 			QMutexLocker wl(&u->qmCrypt);
@@ -980,7 +992,10 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 			}
 
 			if (!u->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data),
-									 reinterpret_cast< unsigned char * >(buffer), len)) {
+									 reinterpret_cast< unsigned char * >(buffer), len, encrypted_len)) {
+				// encryption failure means current key-iv combination is no longer safe
+				// and a new combination is needed.
+				emit reqSync(u->uiSession);
 				return;
 			}
 		}
@@ -995,7 +1010,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		struct iovec iov[1];
 
 		iov[0].iov_base = buffer;
-		iov[0].iov_len  = len + 4;
+		iov[0].iov_len  = encrypted_len;
 
 		uint8_t controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo), sizeof(struct in_pktinfo)))];
 		memset(controldata, 0, sizeof(controldata));
@@ -1033,7 +1048,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 
 		::sendmsg(u->sUdpSocket, &msg, 0);
 #else
-		::sendto(u->sUdpSocket, buffer, len + 4, 0, reinterpret_cast< struct sockaddr * >(&u->saiUdpAddress),
+		::sendto(u->sUdpSocket, buffer, encrypted_len, 0, reinterpret_cast< struct sockaddr * >(&u->saiUdpAddress),
 				 (u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in));
 #endif
 #ifdef Q_OS_WIN
@@ -1056,7 +1071,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 			sendMessage(pDst, buffer, len - poslen, qba_npos); \
 	}
 
-void Server::processMsg(ServerUser *u, const char *data, int len) {
+void Server::processMsg(ServerUser *u, const char *data, unsigned int len) {
 	// Note that in this function we never have to aquire a read-lock on qrwlVoiceThread
 	// as all places that call this function will hold that lock at the point of calling
 	// this function.
@@ -1772,6 +1787,11 @@ void Server::doSync(unsigned int id) {
 	if (u) {
 		log(u, "Requesting crypt-nonce resync");
 		MumbleProto::CryptSetup mpcs;
+
+		mpcs.set_key(u->csCrypt->getRawKey());
+		mpcs.set_server_nonce(u->csCrypt->getEncryptIV());
+		mpcs.set_client_nonce(u->csCrypt->getDecryptIV());
+
 		sendMessage(u, mpcs);
 	}
 }

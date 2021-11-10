@@ -12,8 +12,8 @@
 #	include "win.h"
 #endif
 
+#include "VoiceProtocol.h"
 #include "crypto/CryptState.h"
-#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
@@ -74,7 +74,6 @@ public:
 	QMutex qmCrypt;
 #endif
 	std::unique_ptr< CryptState > csCrypt;
-
 	QList< QSslCertificate > peerCertificateChain() const;
 	QSslCipher sessionCipher() const;
 	QSsl::SslProtocol sessionProtocol() const;
@@ -86,6 +85,9 @@ public:
 	/// Look up the local port of this Connection.
 	quint16 localPort() const;
 	bool bDisconnectedEmitted;
+
+	std::shared_ptr< VoiceProtocol > m_voiceProtocol;
+	bool m_voiceProtocolNegotiationFailed;
 
 	void setToS();
 #ifdef Q_OS_WIN

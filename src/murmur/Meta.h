@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MURMUR_META_H_
 #define MUMBLE_MURMUR_META_H_
 
+#include "Connection.h"
 #include "Timer.h"
 
 #ifdef Q_OS_WIN
@@ -20,6 +21,7 @@
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslKey>
+#include <memory>
 
 class Server;
 class QSettings;
@@ -57,6 +59,8 @@ public:
 	QString qsWelcomeTextFile;
 	bool bCertRequired;
 	bool bForceExternalAuth;
+
+	std::vector< std::shared_ptr< VoiceProtocol > > m_allowedVoiceProtocols;
 
 	int iBanTries;
 	int iBanTimeframe;
