@@ -9,6 +9,7 @@
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"
+#include "EnvUtils.h"
 #include "MainWindow.h"
 #include "Global.h"
 #include "GlobalShortcutButtons.h"
@@ -525,6 +526,16 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 
+	qlWaylandNote->setVisible(false);
+#ifdef Q_OS_LINUX
+	if (EnvUtils::waylandIsUsed()) {
+		// Our global shortcut system doesn't work with Wayland
+		qlWaylandNote->setVisible(true);
+
+		qgbShortcuts->setEnabled(false);
+	}
+#endif
+
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
 #	if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
@@ -750,6 +761,7 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 void GlobalShortcutConfig::reload() {
 	std::stable_sort(qlShortcuts.begin(), qlShortcuts.end());
 	qtwShortcuts->clear();
+
 	foreach (const Shortcut &sc, qlShortcuts) {
 		QTreeWidgetItem *item = itemForShortcut(sc);
 		qtwShortcuts->addTopLevelItem(item);
