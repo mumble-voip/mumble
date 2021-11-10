@@ -1002,8 +1002,10 @@ static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int se
 	QString k = u8(key);
 	QString v = u8(value);
 	ServerDB::setConf(server_id, k, v);
-	if (server)
+	if (server) {
+		QWriteLocker wl(&server->qrwlVoiceThread);
 		server->setLiveConf(k, v);
+	}
 	cb->ice_response();
 }
 
@@ -1135,6 +1137,7 @@ static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int se
 static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int server_id,
 								const ::Murmur::BanList &bans) {
 	NEED_SERVER;
+	QWriteLocker wl(&server->qrwlVoiceThread);
 	server->qlBans.clear();
 	foreach (const ::Murmur::Ban &mb, bans) {
 		::Ban ban;
@@ -1358,8 +1361,11 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 
 	QString qsName = u8(name);
 
-	nc = server->addChannel(p, qsName);
-	server->updateChannel(nc);
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		nc = server->addChannel(p, qsName);
+		server->updateChannel(nc);
+	}
 	int newid = nc->iId;
 
 	MumbleProto::ChannelState mpcs;
@@ -1523,7 +1529,11 @@ static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr 
 	QMap< int, QString > info;
 	infoToInfo(im, info);
 
-	int userid = server->registerUser(info);
+	int userid;
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		userid = server->registerUser(info);
+	}
 	if (userid < 0)
 		cb->ice_exception(InvalidUserException());
 	else
@@ -1533,6 +1543,9 @@ static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr 
 static void impl_Server_unregisterUser(const ::Murmur::AMD_Server_unregisterUserPtr cb, int server_id,
 									   ::Ice::Int userid) {
 	NEED_SERVER;
+
+	QWriteLocker wl(&server->qrwlVoiceThread);
+
 	if (!server->unregisterUser(userid))
 		cb->ice_exception(InvalidUserException());
 	else
@@ -1640,6 +1653,9 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 	char *ptr = qba.data();
 	for (unsigned int i = 0; i < tex.size(); ++i)
 		ptr[i] = tex[i];
+
+	QWriteLocker wl(&server->qrwlVoiceThread);
+
 	if (!server->setTexture(userid, qba)) {
 		cb->ice_exception(InvalidTextureException());
 	} else {
@@ -1706,7 +1722,10 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 	server->setConf("certificate", u8(certificate));
 	server->setConf("key", u8(privateKey));
 	server->setConf("passphrase", u8(passphrase));
-	server->initializeCert();
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		server->initializeCert();
+	}
 
 	cb->ice_response();
 }
