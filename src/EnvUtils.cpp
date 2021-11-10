@@ -7,7 +7,9 @@
 
 #include <QByteArray>
 
-QString EnvUtils::getenv(QString name) {
+namespace EnvUtils {
+
+QString getenv(QString name) {
 #ifdef Q_OS_WIN
 	QByteArray buf;
 	size_t requiredSize = 0;
@@ -43,7 +45,7 @@ QString EnvUtils::getenv(QString name) {
 #endif
 }
 
-bool EnvUtils::setenv(QString name, QString value) {
+bool setenv(QString name, QString value) {
 #ifdef Q_OS_WIN
 	return _wputenv_s(reinterpret_cast< const wchar_t * >(name.utf16()),
 					  reinterpret_cast< const wchar_t * >(value.utf16()))
@@ -53,3 +55,5 @@ bool EnvUtils::setenv(QString name, QString value) {
 	return ::setenv(name.toLocal8Bit().constData(), value.toLocal8Bit().constData(), OVERWRITE) == 0;
 #endif
 }
+
+}; // namespace EnvUtils
