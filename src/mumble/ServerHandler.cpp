@@ -31,6 +31,7 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include <QPainter>
 #include <QtCore/QtEndian>
 #include <QtGui/QImageReader>
 #include <QtNetwork/QSslConfiguration>
