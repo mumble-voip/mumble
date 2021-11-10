@@ -6,6 +6,8 @@
 #ifndef MUMBLE_VERSION_H_
 #define MUMBLE_VERSION_H_
 
+#include <cstdint>
+
 #include <QtCore/QString>
 
 #define MUMXTEXT(X) #X
@@ -15,8 +17,14 @@
 
 namespace Version {
 
+using exact_width_mumble_raw_version_t = std::uint32_t;
+using mumble_raw_version_t             = unsigned int;
+
+static_assert(sizeof(exact_width_mumble_raw_version_t) <= sizeof(mumble_raw_version_t),
+			  "Invalid scalar type used to represent Mumble versions");
+
 unsigned int getRaw(const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION)));
-QString toString(unsigned int version);
+QString toString(mumble_raw_version_t version);
 bool get(int *major, int *minor, int *patch, const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 
 unsigned int toRaw(int major, int minor, int patch);
