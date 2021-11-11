@@ -583,6 +583,15 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 void Database::setShortcuts(const QByteArray &digest, const QList< Shortcut > &shortcuts) {
 	QSqlQuery query(db);
 
+	if (!db.transaction()) {
+		const QSqlError error(QSqlDatabase::database().lastError());
+		qWarning() << "Database: Unable to start transaction for saving shortcuts" << error.nativeErrorCode()
+				   << error.text();
+		qWarning() << "-> We'll rather not save them at all than risk potentially losing all previous shortcuts";
+
+		return;
+	}
+
 	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
@@ -613,6 +622,8 @@ void Database::setShortcuts(const QByteArray &digest, const QList< Shortcut > &s
 			execQueryAndLogFailure(query);
 		}
 	}
+
+	db.commit();
 }
 
 const QMap< QString, QString > Database::getFriends() {
