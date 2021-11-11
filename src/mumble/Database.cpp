@@ -277,7 +277,7 @@ QList< FavoriteServer > Database::getFavorites() {
 
 void Database::setFavorites(const QList< FavoriteServer > &servers) {
 	QSqlQuery query(db);
-	QSqlDatabase::database().transaction();
+	db.transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `servers`"));
 	execQueryAndLogFailure(query);
@@ -294,7 +294,7 @@ void Database::setFavorites(const QList< FavoriteServer > &servers) {
 		execQueryAndLogFailure(query);
 	}
 
-	QSqlDatabase::database().commit();
+	db.commit();
 }
 
 bool Database::isLocalIgnored(const QString &hash) {
@@ -445,7 +445,7 @@ void Database::setPingCache(const QMap< UnresolvedServerAddress, unsigned int > 
 	QSqlQuery query(db);
 	QMap< UnresolvedServerAddress, unsigned int >::const_iterator i;
 
-	QSqlDatabase::database().transaction();
+	db.transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `pingcache`"));
 	execQueryAndLogFailure(query);
@@ -458,7 +458,7 @@ void Database::setPingCache(const QMap< UnresolvedServerAddress, unsigned int > 
 		execQueryAndLogFailure(query);
 	}
 
-	QSqlDatabase::database().commit();
+	db.commit();
 }
 
 bool Database::seenComment(const QString &hash, const QByteArray &commenthash) {
