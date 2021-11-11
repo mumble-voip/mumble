@@ -87,6 +87,8 @@
 #	include <dbt.h>
 #endif
 
+#include <algorithm>
+
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
 	msg = m;
 }
@@ -3258,10 +3260,19 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	Global::get().sh->getConnectionInfo(host, port, uname, pw);
 
 	if (Global::get().sh->hasSynchronized()) {
+		QList< Shortcut > &shortcuts = Global::get().s.qlShortcuts;
 		// Only save server-specific shortcuts if the client and server have been synchronized before as only then
 		// did the client actually load them from the DB. If we store them without having loaded them, we will
 		// effectively clear the server-specific shortcuts for this server.
-		if (Global::get().db->setShortcuts(Global::get().sh->qbaDigest, Global::get().s.qlShortcuts)) {
+		Global::get().db->setShortcuts(Global::get().sh->qbaDigest, shortcuts);
+
+		// Clear server-specific shortcuts from the list of known shortcuts
+		auto it = std::remove_if(shortcuts.begin(), shortcuts.end(),
+								 [](const Shortcut &shortcut) { return shortcut.isServerSpecific(); });
+		if (it != shortcuts.end()) {
+			// Some shortcuts have to be removed
+			shortcuts.erase(it, shortcuts.end());
+
 			GlobalShortcutEngine::engine->bNeedRemap = true;
 		}
 	}

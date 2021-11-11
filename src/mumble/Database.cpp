@@ -580,23 +580,17 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 	return ql;
 }
 
-bool Database::setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcuts) {
+void Database::setShortcuts(const QByteArray &digest, const QList< Shortcut > &shortcuts) {
 	QSqlQuery query(db);
-	bool updated = false;
 
 	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
 
-	const QList< Shortcut > scs = shortcuts;
-
 	query.prepare(
 		QLatin1String("INSERT INTO `shortcut` (`digest`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?)"));
-	foreach (const Shortcut &sc, scs) {
+	for (const Shortcut &sc : shortcuts) {
 		if (sc.isServerSpecific()) {
-			shortcuts.removeAll(sc);
-			updated = true;
-
 			query.addBindValue(digest);
 
 			QByteArray a;
@@ -619,7 +613,6 @@ bool Database::setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcu
 			execQueryAndLogFailure(query);
 		}
 	}
-	return updated;
 }
 
 const QMap< QString, QString > Database::getFriends() {
