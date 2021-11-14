@@ -527,4 +527,6 @@ struct MumbleAPI_v_1_0_x {
 	mumble_error_t(PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID, const char *samplePath);
 };
 
+typedef struct MumbleAPI_v_1_0_x mumble_api_t;
+
 #endif // EXTERNAL_MUMBLE_PLUGIN_API_H_
