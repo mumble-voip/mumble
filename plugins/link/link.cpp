@@ -1,175 +1,243 @@
-// Copyright 2007-2021 The Mumble Developers. All rights reserved.
+// Copyright 2008-2021 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef QT_NO_DEBUG
-#	include <stdio.h>
-#	include <stdlib.h>
-#endif
-#include <windows.h>
-#include <math.h>
+#include <chrono>
+#include <codecvt>
+#include <cstdint>
+#include <cstring>
+#include <iostream>
+#include <locale>
+#include <string>
 
-#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
-#include "../mumble_legacy_plugin.h"
+#include "LinkedMem.h"
+#include "MumbleAPI_v_1_0_x.h"
+#include "MumblePlugin_v_1_1_x.h"
+#include "SharedMemory.h"
 
-static std::wstring wsPluginName;
-static std::wstring wsDescription;
+#define UNUSED(x) (void) x
 
-struct LinkedMem {
-	UINT32 uiVersion;
-	DWORD dwcount;
-	float fAvatarPosition[3];
-	float fAvatarFront[3];
-	float fAvatarTop[3];
-	wchar_t name[256];
-	float fCameraPosition[3];
-	float fCameraFront[3];
-	float fCameraTop[3];
-	wchar_t identity[256];
-	UINT32 context_len;
-	unsigned char context[256];
-	wchar_t description[2048];
-};
 
-static void about(void *h) {
-	::MessageBox(reinterpret_cast< HWND >(h), L"Reads audio position information from linked game",
-				 L"Mumble Link Plugin", MB_OK);
+constexpr const char *defaultName        = "Link";
+constexpr const char *defaultDescription = "Reads positional data from a linked game/software";
+
+std::string pluginName(defaultName);
+std::string applicationName;
+std::string pluginDescription(defaultDescription);
+std::string pluginContext;
+std::string pluginIdentity;
+
+SharedMemory sharedMem;
+LinkedMem *lm = nullptr;
+
+std::uint32_t last_tick     = 0;
+std::int64_t last_tick_time = 0;
+
+/**
+ * @returns Time in ms since Epoch
+ */
+static std::uint64_t getTimeSinceEpoch() {
+	return std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 }
 
-static HANDLE hMapObject = nullptr;
-static LinkedMem *lm     = nullptr;
-static DWORD last_count  = 0;
-static DWORD last_tick   = 0;
+mumble_error_t mumble_init(mumble_plugin_id_t id) {
+	UNUSED(id);
 
-static void unlock() {
-	lm->dwcount = last_count = 0;
-	lm->uiVersion            = 0;
-	lm->name[0]              = 0;
-	wsPluginName.assign(L"Link");
-	wsDescription.clear();
+	lm = static_cast< LinkedMem * >(sharedMem.mapMemory(getLinkedMemoryName(), sizeof(LinkedMem)));
+
+	if (!lm) {
+		std::cerr << "Link plugin: Failed to setup shared memory: " << sharedMem.lastError() << std::endl;
+
+		return MUMBLE_EC_INTERNAL_ERROR;
+	}
+
+	return MUMBLE_STATUS_OK;
 }
 
-static int trylock() {
+void mumble_shutdown() {
+	sharedMem.close();
+}
+
+MumbleStringWrapper mumble_getName() {
+	MumbleStringWrapper wrapper;
+	wrapper.data           = pluginName.c_str();
+	wrapper.size           = pluginName.size();
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+mumble_version_t mumble_getAPIVersion() {
+	return MUMBLE_PLUGIN_API_VERSION;
+}
+
+void mumble_registerAPIFunctions(void *apiStruct) {
+	UNUSED(apiStruct);
+}
+
+void mumble_releaseResource(const void *pointer) {
+	// This function should never be called
+	UNUSED(pointer);
+
+	std::terminate();
+}
+
+mumble_version_t mumble_getVersion() {
+	return { 1, 3, 0 };
+}
+
+MumbleStringWrapper mumble_getAuthor() {
+	static const char *author = "Mumble Developers";
+
+	MumbleStringWrapper wrapper;
+	wrapper.data           = author;
+	wrapper.size           = std::strlen(author);
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+MumbleStringWrapper mumble_getDescription() {
+	MumbleStringWrapper wrapper;
+	wrapper.data           = pluginDescription.c_str();
+	wrapper.size           = pluginDescription.size();
+	wrapper.needsReleasing = false;
+
+	return wrapper;
+}
+
+uint32_t mumble_getFeatures() {
+	return MUMBLE_FEATURE_POSITIONAL;
+}
+
+uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_t *programPIDs, size_t programCount) {
+	UNUSED(programNames);
+	UNUSED(programPIDs);
+	UNUSED(programCount);
+
+	if (!lm) {
+		return MUMBLE_PDEC_ERROR_TEMP;
+	}
+
 	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
-		if (lm->dwcount != last_count) {
-			last_count = lm->dwcount;
-			last_tick  = GetTickCount();
+		if (lm->uiTick != last_tick) {
+			last_tick      = lm->uiTick;
+			last_tick_time = getTimeSinceEpoch();
 
-			errno_t err = 0;
 			wchar_t buff[2048];
 
 			if (lm->name[0]) {
-				err = wcscpy_s(buff, 256, lm->name);
-				if (!err)
-					wsPluginName.assign(buff);
+				wcsncpy(buff, lm->name, 256);
+				buff[255]       = 0;
+				applicationName = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
+
+				// Call the plugin itself "Link (<whatever>)"
+				pluginName += " (" + applicationName + ")";
 			}
-			if (!err && lm->description[0]) {
-				err = wcscpy_s(buff, 2048, lm->description);
-				if (!err)
-					wsDescription.assign(buff);
+
+			if (lm->description[0]) {
+				wcsncpy(buff, lm->description, 2048);
+				buff[2047]        = 0;
+				pluginDescription = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
 			}
-			if (err) {
-				wsPluginName.assign(L"Link");
-				wsDescription.clear();
-				return false;
-			}
-			return true;
+
+			return MUMBLE_PDEC_OK;
 		}
 	}
-	return false;
+
+	return MUMBLE_PDEC_ERROR_TEMP;
 }
 
+#define SET_TO_ZERO(name) \
+	name[0] = 0.0f;       \
+	name[1] = 0.0f;       \
+	name[2] = 0.0f
+bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos,
+								float *cameraDir, float *cameraAxis, const char **context, const char **identity) {
+	SET_TO_ZERO(avatarPos);
+	SET_TO_ZERO(avatarDir);
+	SET_TO_ZERO(avatarAxis);
+	SET_TO_ZERO(cameraPos);
+	SET_TO_ZERO(cameraDir);
+	SET_TO_ZERO(cameraAxis);
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
-				 float *camera_top, std::string &context, std::wstring &identity) {
-	if (lm->dwcount != last_count) {
-		last_count = lm->dwcount;
-		last_tick  = GetTickCount();
-	} else if ((GetTickCount() - last_tick) > 5000)
+	if (lm->uiTick != last_tick) {
+		last_tick      = lm->uiTick;
+		last_tick_time = getTimeSinceEpoch();
+	} else if ((getTimeSinceEpoch() - last_tick_time) > 5000) {
 		return false;
+	}
 
-	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
+	if ((lm->uiVersion != 1) && (lm->uiVersion != 2)) {
 		return false;
+	}
 
 	for (int i = 0; i < 3; ++i) {
-		avatar_pos[i]   = lm->fAvatarPosition[i];
-		avatar_front[i] = lm->fAvatarFront[i];
-		avatar_top[i]   = lm->fAvatarTop[i];
+		avatarPos[i]  = lm->fAvatarPosition[i];
+		avatarDir[i]  = lm->fAvatarFront[i];
+		avatarAxis[i] = lm->fAvatarTop[i];
 	}
 
 	if (lm->uiVersion == 2) {
 		for (int i = 0; i < 3; ++i) {
-			camera_pos[i]   = lm->fCameraPosition[i];
-			camera_front[i] = lm->fCameraFront[i];
-			camera_top[i]   = lm->fCameraTop[i];
+			cameraPos[i]  = lm->fCameraPosition[i];
+			cameraDir[i]  = lm->fCameraFront[i];
+			cameraAxis[i] = lm->fCameraTop[i];
 		}
 
-		if (lm->context_len > 255)
+		if (lm->context_len > 255) {
 			lm->context_len = 255;
+		}
 		lm->identity[255] = 0;
 
-		context.assign(reinterpret_cast< const char * >(lm->context), lm->context_len);
-		identity.assign(lm->identity);
+		pluginContext.assign(reinterpret_cast< const char * >(lm->context), lm->context_len);
+		pluginIdentity = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(lm->identity);
 	} else {
 		for (int i = 0; i < 3; ++i) {
-			camera_pos[i]   = lm->fAvatarPosition[i];
-			camera_front[i] = lm->fAvatarFront[i];
-			camera_top[i]   = lm->fAvatarTop[i];
+			cameraPos[i]  = lm->fAvatarPosition[i];
+			cameraDir[i]  = lm->fAvatarFront[i];
+			cameraAxis[i] = lm->fAvatarTop[i];
 		}
-		context.clear();
-		identity.clear();
+
+		pluginContext.clear();
+		pluginIdentity.clear();
 	}
+
+	*context  = pluginContext.c_str();
+	*identity = pluginIdentity.c_str();
 
 	return true;
 }
 
-static const std::wstring getdesc() {
-	return wsDescription;
-}
+#undef SET_TO_ZERO
 
-BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	bool bCreated = false;
-	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
-			wsPluginName.assign(L"Link");
-			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
-			if (!hMapObject) {
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, sizeof(LinkedMem),
-											   L"MumbleLink");
-				bCreated   = true;
-				if (!hMapObject)
-					return false;
-			}
-			lm = static_cast< LinkedMem * >(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0));
-			if (!lm) {
-				CloseHandle(hMapObject);
-				hMapObject = nullptr;
-				return false;
-			}
-			if (bCreated)
-				memset(lm, 0, sizeof(LinkedMem));
-			break;
-		case DLL_PROCESS_DETACH:
-			if (lm) {
-				UnmapViewOfFile(lm);
-				lm = nullptr;
-			}
-			if (hMapObject) {
-				CloseHandle(hMapObject);
-				hMapObject = nullptr;
-			}
-			break;
+void mumble_shutdownPositionalData() {
+	if (!applicationName.empty()) {
+		// We know that pluginName is in the format "Link (<whatever>)" where <whatever> is the applicationName
+		pluginName.erase(pluginName.size() - applicationName.size() - 3, std::string::npos);
+	} else if (applicationName.size() != std::strlen(defaultName)) {
+		// This code part should actually never run, since we expect the pluginName to be modified in the described way
+		// as soon as applicationName is defined.
+		pluginName.clear();
+		pluginName.append(defaultName);
 	}
-	return true;
+
+	applicationName.clear();
+	pluginDescription = std::string(defaultDescription);
+	pluginContext.clear();
+	pluginIdentity.clear();
+
+	lm->uiTick = last_tick = 0;
+	lm->uiVersion          = 0;
+	lm->name[0]            = 0;
 }
 
-static std::wstring description(L"Link v1.2.0");
+MumbleStringWrapper mumble_getPositionalDataContextPrefix() {
+	MumbleStringWrapper wrapper;
+	wrapper.data           = applicationName.c_str();
+	wrapper.size           = applicationName.size();
+	wrapper.needsReleasing = false;
 
-static MumblePlugin linkplug = {
-	MUMBLE_PLUGIN_MAGIC, description, wsPluginName, about, nullptr, trylock, unlock, getdesc, fetch
-};
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
-	return &linkplug;
+	return wrapper;
 }

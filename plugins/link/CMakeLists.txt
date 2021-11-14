@@ -3,15 +3,15 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-add_library(link SHARED)
+add_library(link SHARED
+	"link.cpp"
+	"SharedMemory.cpp"
+)
 
-if(WIN32)
-	target_sources(link PRIVATE "link.cpp")
-elseif(UNIX)
-	target_sources(link PRIVATE "link-posix.cpp")
-
-	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-		find_library(LIB_RT "rt")
-		target_link_libraries(link PRIVATE ${LIB_RT})
-	endif()
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+	find_library(LIB_RT "rt")
+	target_link_libraries(link PRIVATE ${LIB_RT})
 endif()
+
+target_include_directories(link PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(link PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../")
