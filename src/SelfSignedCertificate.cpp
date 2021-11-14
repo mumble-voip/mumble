@@ -42,11 +42,6 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	QString commonName;
 	bool isServerCert = certificateType == CertificateTypeServerCertificate;
 
-	if (CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON) == -1) {
-		ok = false;
-		goto out;
-	}
-
 	x509 = X509_new();
 	if (!x509) {
 		ok = false;

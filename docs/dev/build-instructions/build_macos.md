@@ -32,7 +32,7 @@ It is recommended to perform a so-called "out-of-source-build". In order to do s
 following commands:
 1. `mkdir build` (Creates a build directory)
 2. `cd build` (Switches into the build directory)
-3. `cmake ..` (Actually runs cmake)
+3. `cmake .. -Dwarnings-as-errors=OFF` (Actually runs cmake)
 
 This will cause cmake to create the necessary build files for you. If you want to customize your build, you can pass special flags to cmake in step 3.
 For all available build options, have a look [here](cmake_options.md).
