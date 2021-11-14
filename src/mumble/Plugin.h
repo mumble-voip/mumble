@@ -7,7 +7,8 @@
 #define MUMBLE_MUMBLE_PLUGIN_H_
 
 #include "MumbleAPI_v_1_0_x.h"
-#include "MumblePlugin_v_1_0_x.h"
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#include "MumblePlugin_v_1_1_x.h"
 #include "PluginComponents_v_1_0_x.h"
 #include "PositionalData.h"
 
@@ -31,6 +32,8 @@ struct MumblePluginFunctions {
 	decltype(&mumble_registerAPIFunctions) registerAPIFunctions;
 	decltype(&mumble_releaseResource) releaseResource;
 
+	decltype(&mumble_getPluginFunctionsVersion) getPluginFunctionsVersion;
+
 	// Further utility functions the plugin may implement
 	decltype(&mumble_setMumbleInfo) setMumbleInfo;
 	decltype(&mumble_getVersion) getVersion;
@@ -43,6 +46,7 @@ struct MumblePluginFunctions {
 	decltype(&mumble_initPositionalData) initPositionalData;
 	decltype(&mumble_fetchPositionalData) fetchPositionalData;
 	decltype(&mumble_shutdownPositionalData) shutdownPositionalData;
+	decltype(&mumble_getPositionalDataContextPrefix) getPositionalDataContextPrefix;
 
 	// Callback functions and EventHandlers
 	decltype(&mumble_onServerConnected) onServerConnected;
@@ -240,6 +244,8 @@ protected:
 									 QString &identity) const;
 	/// Shuts down positional data gathering
 	virtual void shutdownPositionalData();
+	/// @returns The positional data context prefix to be used for this plugin
+	virtual QString getPositionalDataContextPrefix() const;
 	/// Called to indicate that the client has connected to a server
 	///
 	/// @param connection An object used to identify the current connection
@@ -414,6 +420,8 @@ public:
 	virtual QString getName() const;
 	/// @returns The API version this plugin intends to use
 	virtual mumble_version_t getAPIVersion() const;
+	/// @returns The version of the plugins function scheme this plugin is using
+	virtual mumble_version_t getPluginFunctionsVersion() const;
 	/// @returns The version of this plugin
 	virtual mumble_version_t getVersion() const;
 	/// @returns The author of this plugin

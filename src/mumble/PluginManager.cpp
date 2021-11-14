@@ -423,9 +423,9 @@ bool PluginManager::fetchPositionalData() {
 		m_positionalData.m_cameraPos, m_positionalData.m_cameraDir, m_positionalData.m_cameraAxis,
 		m_positionalData.m_context, m_positionalData.m_identity);
 
-	// Add the plugin's name to the context as well to prevent name-clashes between plugins
 	if (!m_positionalData.m_context.isEmpty()) {
-		m_positionalData.m_context = m_activePositionalDataPlugin->getName() + QChar::Null + m_positionalData.m_context;
+		m_positionalData.m_context =
+			m_activePositionalDataPlugin->getPositionalDataContextPrefix() + QChar::Null + m_positionalData.m_context;
 	}
 
 	if (!retStatus) {
