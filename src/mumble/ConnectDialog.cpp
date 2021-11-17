@@ -35,12 +35,15 @@
 #include <boost/array.hpp>
 
 #ifdef Q_OS_WIN
+#	define NOMINMAX
 #	include <shlobj.h>
 #endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #	include <QRandomGenerator>
 #endif
+
+#include <algorithm>
 
 QMap< QString, QIcon > ServerItem::qmIcons;
 QList< PublicInfo > ConnectDialog::qlPublicServers;
@@ -478,7 +481,7 @@ QVariant ServerItem::data(int column, int role) const {
 			double ploss = 100.0;
 
 			if (uiSent > 0)
-				ploss = (uiSent - qMin(uiRecv, uiSent)) * 100. / uiSent;
+				ploss = (uiSent - std::min(uiRecv, uiSent)) * 100. / uiSent;
 
 			QString qs;
 			qs += QLatin1String("<table>")
