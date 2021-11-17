@@ -506,8 +506,10 @@ QVariant ServerItem::data(int column, int role) const {
 
 			if (uiSent > 0) {
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						  .arg(ConnectDialog::tr("Packet loss"),
-							   QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
+						  .arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)")
+																	 .arg(ploss, 0, 'f', 1)
+																	 .arg(uiSent - std::min(uiRecv, uiSent))
+																	 .arg(uiSent));
 				if (uiRecv > 0) {
 					qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
 							  .arg(ConnectDialog::tr("Ping (80%)"),
