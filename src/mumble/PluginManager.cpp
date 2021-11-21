@@ -49,30 +49,36 @@ PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
 	: QObject(p), m_pluginCollectionLock(QReadWriteLock::NonRecursive), m_pluginHashMap(), m_positionalData(),
 	  m_positionalDataCheckTimer(), m_sentDataMutex(), m_sentData(),
 	  m_activePosDataPluginLock(QReadWriteLock::NonRecursive), m_activePositionalDataPlugin(), m_updater() {
+	std::vector< QString > pluginPaths;
+
 	// Setup search-paths
 	if (additionalSearchPaths) {
-		for (const auto &currentPath : *additionalSearchPaths) {
-			m_pluginSearchPaths.insert(currentPath);
-		}
+		pluginPaths.insert(pluginPaths.end(), additionalSearchPaths->begin(), additionalSearchPaths->end());
 	}
 
 #ifdef Q_OS_MAC
 	// Path to plugins inside AppBundle
-	m_pluginSearchPaths.insert(QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath()));
+	pluginPaths.push_back(QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath()));
 #endif
 
 #ifdef MUMBLE_PLUGIN_PATH
 	// Path to where plugins are/will be installed on the system
-	m_pluginSearchPaths.insert(QString::fromLatin1(MUMTEXT(MUMBLE_PLUGIN_PATH)));
+	pluginPaths.push_back(QString::fromLatin1(MUMTEXT(MUMBLE_PLUGIN_PATH)));
 #endif
 
 	// Path to "plugins" dir right next to the executable's location. This is the case for when Mumble
 	// is run after compilation without having installed it anywhere special
-	m_pluginSearchPaths.insert(
+	pluginPaths.push_back(
 		QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath()));
 
 	// Path to where the plugin installer will write plugins
-	m_pluginSearchPaths.insert(PluginInstaller::getInstallDir());
+	pluginPaths.push_back(PluginInstaller::getInstallDir());
+
+	for (const QString &currentPath : pluginPaths) {
+		// Transform currentPath to an absolute, canonical path and only then add it to m_pluginSearchPaths in order
+		// to ensure that each path is contained only once.
+		m_pluginSearchPaths.insert(QDir(currentPath).canonicalPath());
+	}
 
 #ifdef Q_OS_WIN
 	// According to MS KB Q131065, we need this to OpenProcess()
