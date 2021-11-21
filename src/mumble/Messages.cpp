@@ -387,7 +387,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		connect(pDst, &ClientUser::talkingStateChanged, Global::get().talkingUI, &TalkingUI::on_talkingStateChanged);
 		connect(pDst, &ClientUser::muteDeafStateChanged, Global::get().talkingUI, &TalkingUI::on_muteDeafStateChanged);
 
-		if (channel) {
+		if (channel && channel != pDst->cChannel) {
 			pmModel->moveUser(pDst, channel);
 		}
 

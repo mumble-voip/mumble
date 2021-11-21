@@ -416,8 +416,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 	if (!uSource->qsHash.isEmpty())
 		mpus.set_hash(u8(uSource->qsHash));
-	if (uSource->cChannel->iId != 0)
-		mpus.set_channel_id(uSource->cChannel->iId);
+
+	mpus.set_channel_id(uSource->cChannel->iId);
 
 	sendAll(mpus, 0x010202);
 
