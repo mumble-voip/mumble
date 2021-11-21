@@ -229,8 +229,14 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 			}
 
 			if (button.userType() == qMetaTypeId< InputHid >() || button.userType() == qMetaTypeId< InputKeyboard >()
-				|| button.userType() == qMetaTypeId< InputMouse >() || button.userType() == qMetaTypeId< InputXinput >()
-				|| button.userType() == qMetaTypeId< InputGkey >()) {
+				|| button.userType() == qMetaTypeId< InputMouse >()
+#ifdef USE_XBOXINPUT
+				|| button.userType() == qMetaTypeId< InputXinput >()
+#endif
+#ifdef USE_GKEY
+				|| button.userType() == qMetaTypeId< InputGkey >()
+#endif
+			) {
 				// Already in the new format.
 				continue;
 			}
