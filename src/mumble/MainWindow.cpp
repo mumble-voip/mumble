@@ -2789,7 +2789,7 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 	Global::get().iPrevTarget = 0;
 	if (down) {
 		Global::get().uiDoublePush = Global::get().tDoublePush.restart();
-		Global::get().iPushToTalk++;
+		Global::get().iPushToTalk = 1;
 	} else if (Global::get().iPushToTalk > 0) {
 		QTimer::singleShot(static_cast< int >(Global::get().s.pttHold), this, SLOT(pttReleased()));
 	}
@@ -2797,7 +2797,7 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 
 void MainWindow::pttReleased() {
 	if (Global::get().iPushToTalk > 0) {
-		Global::get().iPushToTalk--;
+		Global::get().iPushToTalk = 0;
 	}
 }
 
@@ -3037,7 +3037,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		addTarget(&st);
 		updateTarget();
 
-		Global::get().iPushToTalk++;
+		Global::get().iPushToTalk = 1;
 	} else if (Global::get().iPushToTalk > 0) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
@@ -3158,7 +3158,7 @@ void MainWindow::whisperReleased(QVariant scdata) {
 
 	ShortcutTarget st = scdata.value< ShortcutTarget >();
 
-	Global::get().iPushToTalk--;
+	Global::get().iPushToTalk = 0;
 
 	removeTarget(&st);
 	updateTarget();
