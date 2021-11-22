@@ -7,7 +7,6 @@
 
 #include "Log.h"
 #include "MainWindow.h"
-#include "Message.h"
 #include "MumbleApplication.h"
 #include "PluginInstaller.h"
 #include "PluginManager.h"

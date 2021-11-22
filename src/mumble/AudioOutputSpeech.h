@@ -13,8 +13,12 @@
 
 #include <QtCore/QMutex>
 
+#include "AudioOutputCache.h"
 #include "AudioOutputUser.h"
-#include "Message.h"
+#include "MumbleProtocol.h"
+
+#include <mutex>
+#include <vector>
 
 class CELTCodec;
 class OpusCodec;
@@ -26,6 +30,12 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioOutputSpeech)
 protected:
+	static std::mutex s_audioCachesMutex;
+	static std::vector< AudioOutputCache > s_audioCaches;
+
+	static void invalidateAudioOutputCache(void *maskedIndex);
+	static std::size_t storeAudioOutputCache(const Mumble::Protocol::AudioData &audioData);
+
 	unsigned int iAudioBufferSize;
 	unsigned int iBufferOffset;
 	unsigned int iBufferFilled;
@@ -60,8 +70,8 @@ protected:
 	QList< QByteArray > qlFrames;
 
 public:
-	unsigned char ucFlags;
-	MessageHandler::UDPMessageType umtType;
+	Mumble::Protocol::audio_context_t m_audioContext;
+	Mumble::Protocol::AudioCodec m_codec;
 	int iMissedFrames;
 	ClientUser *p;
 
@@ -70,10 +80,10 @@ public:
 	/// @param frameCount Number of frames to decode. frame means a bundle of one sample from each channel.
 	virtual bool prepareSampleBuffer(unsigned int frameCount) Q_DECL_OVERRIDE;
 
-	void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
+	void addFrameToBuffer(const Mumble::Protocol::AudioData &audioData);
 
 	/// @param systemMaxBufferSize maximum number of samples the system audio play back may request each time
-	AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type,
+	AudioOutputSpeech(ClientUser *, unsigned int freq, Mumble::Protocol::AudioCodec codec,
 					  unsigned int systemMaxBufferSize);
 	~AudioOutputSpeech() Q_DECL_OVERRIDE;
 };

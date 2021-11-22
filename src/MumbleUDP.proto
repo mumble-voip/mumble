@@ -1,0 +1,84 @@
+// Copyright 2021 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+syntax = "proto3";
+
+package MumbleUDP;
+
+option optimize_for = SPEED;
+
+message Audio {
+	oneof Header {
+		// When this audio is sent by the client to the server, this is set to the target of the audio data. This target
+		// is a number in the range [0, 2^{32} - 1], where 0 means "normal talking", 2^{5} - 1 means "server loopback"
+		// and all other targets are understood as shout/whisper targets that have previously been registered via a
+		// VoiceTarget message (via TCP).
+		uint32 target  = 1;	
+		// When this audio is sent by the server to the client, this indicates the context in which the audio has been sent.
+		// 0: Normal speech
+		// 1: Shout to channel
+		// 2: Whisper to user
+		// 3: Received via channel listener
+		uint32 context = 2;
+	};
+
+	// The session of the client (sender) this audio was originally sent from. This field is not required when sending
+	// audio to the server, but will always be set when receiving audio from the server.
+	uint32 sender_session = 3;
+
+	// The number of the first contained audio frame (indicating the position of that frame in the overall audio stream)
+	uint64 frame_number = 4;
+
+	// The actual voice data payload in the Opus format.
+	bytes opus_data = 5;
+
+	// Optional positional data indicating the speaker's position in a virtual world (in meters). This "list" is really
+	// expected to be an array of size 3 containing the X, Y and Z coordinates of the position (in that order).
+	repeated float positional_data = 6;
+
+	// A volume adjustment determined by the server for this audio packet. It is up to the client to apply this adjustment to
+	// the resulting audio (or not). Note: A value of 0 means that this field is unset.
+	float volume_adjustment = 7;
+
+	// Note that we skip the field indices up to (including) 15 in order to have them available for future extensions of the
+	// protocol with fields that are encountered very often. The reason is that all field indices <= 15 require only a single
+	// byte of encoding overhead, whereas the once > 15 require (at least) two bytes. The reason lies in the Protobuf encoding
+	// scheme that uses 1 bit for a varint continuation flag, 3 bit to encode a field's type and the remaining 4 bit of the
+	// first byte are thus available for the field index. Therefore the first 2^4 = 16 field indices (aka values 0 to 15) can
+	// be encoded using only a single byte. For details see https://developers.google.com/protocol-buffers/docs/encoding
+
+	// A flag indicating whether this audio packet represents the end of transmission for the current audio stream
+	bool is_terminator = 16;
+}
+
+/**
+ * Ping message for checking UDP connectivity (and roundtrip ping) and potentially obtaining further server
+ * details (e.g. version).
+ */
+message Ping {
+	// Timestamp as encoded by the client. A server is not supposed to attempt to decode or modify this field. Therefore,
+	// clients may choose an arbitrary format for this timestamp (as long as it fits into a uint64 field).
+	uint64 timestamp = 1;
+
+	// A flag set by the sending client, if it wants to obtain additional information about the server.
+	bool request_extended_information = 2;
+
+
+	// Below are the fields for the "additional information" that are filled out by the server on request.
+
+
+	// The version of the server encoded into a single integer. The 32 bits are partitioned in regions of (left to right)
+	// 16, 8 and 8 bits representing the major, minor and patch version number respectively.
+	uint32 server_version = 3;
+
+	// The amount of users currently connected to the server
+	uint32 user_count = 4;
+
+	// The maximum amount of users permitted on this server
+	uint32 max_user_count = 5;
+
+	// The maximum bandwidth each user is allowed to use for sending audio to the server
+	uint32 max_bandwidth_per_user = 6;
+}

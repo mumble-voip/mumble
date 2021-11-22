@@ -13,6 +13,7 @@
 #include <boost/shared_ptr.hpp>
 #include <fstream>
 #include <list>
+#include <memory>
 #include <mutex>
 #include <speex/speex.h>
 #include <speex/speex_echo.h>
@@ -22,7 +23,7 @@
 
 #include "Audio.h"
 #include "EchoCancelOption.h"
-#include "Message.h"
+#include "MumbleProtocol.h"
 #include "Settings.h"
 #include "Timer.h"
 
@@ -179,6 +180,9 @@ private:
 
 	SpeexResamplerState *srsMic, *srsEcho;
 
+	std::unique_ptr< Mumble::Protocol::byte[] > m_legacyBuffer;
+	Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Client > m_udpEncoder;
+
 	unsigned int iMicFilled, iEchoFilled;
 	inMixerFunc imfMic, imfEcho;
 	inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
@@ -198,7 +202,7 @@ private:
 	QElapsedTimer qetLastMuteCue;
 
 protected:
-	MessageHandler::UDPMessageType umtType;
+	Mumble::Protocol::AudioCodec m_codec;
 	SampleFormat eMicFormat, eEchoFormat;
 
 	unsigned int iMicChannels, iEchoChannels;

@@ -10,6 +10,8 @@
 #include <QtCore/QThread>
 #include <boost/shared_ptr.hpp>
 
+#include "MumbleProtocol.h"
+
 #ifdef USE_MANUAL_PLUGIN
 #	include "ManualPlugin.h"
 #endif
@@ -42,7 +44,6 @@
 #endif
 
 #include "Audio.h"
-#include "Message.h"
 
 class AudioOutput;
 class ClientUser;
@@ -119,7 +120,7 @@ public:
 	/// and is guaranteed to be called on the application's main thread.
 	~AudioOutput() Q_DECL_OVERRIDE;
 
-	void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
+	void addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::AudioData &audioData);
 	void removeBuffer(const ClientUser *);
 	AudioOutputSample *playSample(const QString &filename, bool loop = false);
 	void run() Q_DECL_OVERRIDE = 0;

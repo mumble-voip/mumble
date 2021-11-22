@@ -14,6 +14,10 @@
 #include <QtCore/QVariant>
 
 #include "ClientUser.h"
+#include "MumbleProtocol.h"
+
+#include <unordered_map>
+#include <vector>
 
 #define SAMPLE_RATE 48000
 
@@ -29,26 +33,30 @@ class LoopUser : public ClientUser {
 private:
 	Q_DISABLE_COPY(LoopUser)
 protected:
+	struct AudioPacket {
+		std::vector< Mumble::Protocol::byte > payload;
+		Mumble::Protocol::AudioData audioData;
+	};
 	QMutex qmLock;
 	QElapsedTimer qetTicker;
 	QElapsedTimer qetLastFetch;
-	QMultiMap< float, QByteArray > qmPackets;
+	std::unordered_map< float, AudioPacket > m_packets;
 	LoopUser();
 
 public:
 	static LoopUser lpLoopy;
-	virtual void addFrame(const QByteArray &packet);
+	void addFrame(const Mumble::Protocol::AudioData &audioData);
 	void fetchFrames();
 };
 
-class RecordUser : public LoopUser {
+class RecordUser : public ClientUser {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(RecordUser)
 public:
 	RecordUser();
 	~RecordUser() Q_DECL_OVERRIDE;
-	void addFrame(const QByteArray &packet) Q_DECL_OVERRIDE;
+	void addFrame(const Mumble::Protocol::AudioData &audioData);
 };
 
 namespace Audio {

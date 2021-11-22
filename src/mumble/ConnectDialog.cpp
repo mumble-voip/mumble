@@ -35,7 +35,9 @@
 #include <boost/array.hpp>
 
 #ifdef Q_OS_WIN
-#	define NOMINMAX
+#	ifndef NOMINMAX
+#		define NOMINMAX
+#	endif
 #	include <shlobj.h>
 #endif
 
@@ -71,7 +73,7 @@ void PingStats::init() {
 	uiBandwidth = 0;
 	uiSent      = 0;
 	uiRecv      = 0;
-	uiVersion   = 0;
+	uiVersion   = Version::UNKNOWN;
 }
 
 void PingStats::reset() {
@@ -1561,7 +1563,9 @@ void ConnectDialog::timeTick() {
 	if (si == hover)
 		tHover.restart();
 
-	foreach (const ServerAddress &addr, si->qlAddresses) { sendPing(addr.host.toAddress(), addr.port); }
+	for (const ServerAddress &addr : si->qlAddresses) {
+		sendPing(addr.host.toAddress(), addr.port, si->uiVersion);
+	}
 }
 
 void ConnectDialog::filterPublicServerList() const {
@@ -1723,13 +1727,14 @@ void ConnectDialog::lookedUp() {
 	}
 
 	if (bAllowPing) {
-		foreach (const ServerAddress &addr, qs) { sendPing(addr.host.toAddress(), addr.port); }
+		for (const ServerAddress &addr : qs) {
+			sendPing(addr.host.toAddress(), addr.port, Version::UNKNOWN);
+		}
 	}
 }
 
-void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
-	char blob[16];
-
+void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port,
+							 Version::mumble_raw_version_t protocolVersion) {
 	ServerAddress addr(HostAddress(host), port);
 
 	quint64 uiRand;
@@ -1745,15 +1750,19 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 		qhPingRand.insert(addr, uiRand);
 	}
 
-	memset(blob, 0, sizeof(blob));
-	*reinterpret_cast< quint64 * >(blob + 8) = tPing.elapsed() ^ uiRand;
+	Mumble::Protocol::PingData pingData;
+	// "Encrypt" the timestamp so that server's can't spoof the returned timestamp (easily) to fake a better ping
+	pingData.timestamp                    = tPing.elapsed() ^ uiRand;
+	pingData.requestAdditionalInformation = true;
 
-	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol)
-		qusSocket4->writeDatagram(blob + 4, 12, host, port);
-	else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol)
-		qusSocket6->writeDatagram(blob + 4, 12, host, port);
-	else
+	if (!writePing(host, port, protocolVersion, pingData)) {
 		return;
+	}
+	if (protocolVersion == Version::UNKNOWN) {
+		// Also attempt to use new ping format in case we are pinging a server that only knows the new format
+		writePing(host, port, Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION, pingData);
+	}
+
 
 	const QSet< ServerItem * > &qs = qhPings.value(addr);
 
@@ -1761,33 +1770,60 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 		++si->uiSent;
 }
 
+bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port,
+							  Version::mumble_raw_version_t protocolVersion,
+							  const Mumble::Protocol::PingData &pingData) {
+	m_udpPingEncoder.setProtocolVersion(protocolVersion);
+
+	gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
+
+	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol) {
+		qusSocket4->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()), encodedPacket.size(), host,
+								  port);
+	} else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol) {
+		qusSocket6->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()), encodedPacket.size(), host,
+								  port);
+	} else {
+		return false;
+	}
+
+	return true;
+}
+
 void ConnectDialog::udpReply() {
 	QUdpSocket *sock = qobject_cast< QUdpSocket * >(sender());
 
 	while (sock->hasPendingDatagrams()) {
-		char blob[64];
-
 		QHostAddress host;
 		unsigned short port;
 
-		qint64 len = sock->readDatagram(blob + 4, 24, &host, &port);
-		if (len == 24) {
+		gsl::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
+
+		std::size_t len = sock->readDatagram(reinterpret_cast< char * >(buffer.data()), buffer.size(), &host, &port);
+
+		// Pings are special in that they can be decoded in the new or the old format, if the protocol version is set to
+		// the old format (which UNKNOWN does). Thus by setting the version to UNKNOWN, we effectively enable to decode
+		// either format. We have to reset it to this value every time, since the call to decode may set the protocol
+		// version to a more recent version (if a ping in new format is detected).
+		m_udpDecoder.setProtocolVersion(Version::UNKNOWN);
+
+		if (m_udpDecoder.decodePing(buffer.subspan(0, len))
+			&& m_udpDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Ping) {
 			if (host.scopeId() == QLatin1String("0"))
 				host.setScopeId(QLatin1String(""));
 
 			ServerAddress address(HostAddress(host), port);
 
 			if (qhPings.contains(address)) {
-				quint32 *ping = reinterpret_cast< quint32 * >(blob + 4);
-				quint64 *ts   = reinterpret_cast< quint64 * >(blob + 8);
+				Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 
-				quint64 elapsed = tPing.elapsed() - (*ts ^ qhPingRand.value(address));
+				quint64 elapsed = tPing.elapsed() - (pingData.timestamp ^ qhPingRand.value(address));
 
-				foreach (ServerItem *si, qhPings.value(address)) {
-					si->uiVersion    = qFromBigEndian(ping[0]);
-					quint32 users    = qFromBigEndian(ping[3]);
-					quint32 maxusers = qFromBigEndian(ping[4]);
-					si->uiBandwidth  = qFromBigEndian(ping[5]);
+				for (ServerItem *si : qhPings.value(address)) {
+					si->uiVersion    = pingData.serverVersion;
+					quint32 users    = pingData.userCount;
+					quint32 maxusers = pingData.maxUserCount;
+					si->uiBandwidth  = pingData.maxBandwidthPerUser;
 
 					if (!si->uiPingSort)
 						si->uiPingSort = qmPingCache.value(UnresolvedServerAddress(si->qsHostname, si->usPort));

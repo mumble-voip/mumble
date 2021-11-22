@@ -10,19 +10,55 @@
 #include "ClientUser.h"
 #include "OpusCodec.h"
 #include "PacketDataStream.h"
-#include "SpeechFlags.h"
 #include "Utils.h"
 #include "Global.h"
 
+#include <algorithm>
+#include <cassert>
 #include <cmath>
 
-AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type,
+std::mutex AudioOutputSpeech::s_audioCachesMutex;
+std::vector< AudioOutputCache > AudioOutputSpeech::s_audioCaches(100);
+
+void AudioOutputSpeech::invalidateAudioOutputCache(void *maskedIndex) {
+	// The given "pointer" actually is to be understood as an index
+	std::size_t index = reinterpret_cast< std::size_t >(maskedIndex);
+
+	std::lock_guard< std::mutex > lock(s_audioCachesMutex);
+
+	if (index < s_audioCaches.size()) {
+		s_audioCaches[index].clear();
+	}
+}
+
+std::size_t AudioOutputSpeech::storeAudioOutputCache(const Mumble::Protocol::AudioData &audioData) {
+	std::lock_guard< std::mutex > lock(s_audioCachesMutex);
+
+	// Find free spot in s_audioCaches
+	auto it = std::find_if(s_audioCaches.begin(), s_audioCaches.end(),
+						   [](const AudioOutputCache &chunk) { return !chunk.isValid(); });
+
+	if (it != s_audioCaches.end()) {
+		// Write audio data to that free (currently unused) chunk
+		it->loadFrom(audioData);
+
+		return std::distance(s_audioCaches.begin(), it);
+	} else {
+		// The list of audio chunks is full -> extend it
+		AudioOutputCache chunk;
+		chunk.loadFrom(audioData);
+
+		s_audioCaches.push_back(std::move(chunk));
+
+		return s_audioCaches.size() - 1;
+	}
+}
+
+
+AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble::Protocol::AudioCodec codec,
 									 unsigned int systemMaxBufferSize)
-	: AudioOutputUser(user->qsName) {
+	: AudioOutputUser(user->qsName), iMixerFreq(freq), m_codec(codec), p(user) {
 	int err;
-	p          = user;
-	umtType    = type;
-	iMixerFreq = freq;
 
 	cCodec    = nullptr;
 	cdDecoder = nullptr;
@@ -44,7 +80,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	// sample rate / 100 means 10ms mono audio data per frame.
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
 
-	if (umtType == MessageHandler::UDPVoiceOpus) {
+	if (m_codec == Mumble::Protocol::AudioCodec::Opus) {
 		// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
 		// https://tools.ietf.org/html/rfc6716#section-2.1.2
 		bStereo = true;
@@ -54,7 +90,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 			oCodec->opus_decoder_ctl(
 				opusState, OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 		}
-	} else if (umtType == MessageHandler::UDPVoiceSpeex) {
+	} else if (m_codec == Mumble::Protocol::AudioCodec::Speex) {
 		speex_bits_init(&sbBits);
 
 		dsSpeex  = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_UWB));
@@ -108,11 +144,21 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	iMissCount    = 0;
 	iMissedFrames = 0;
 
-	ucFlags = SpeechFlags::Invalid;
+	m_audioContext = Mumble::Protocol::AudioContext::Invalid;
 
 	jbJitter   = jitter_buffer_init(iFrameSize);
 	int margin = Global::get().s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
+
+	// We are configuring our Jitter buffer to use a custom deleter function. This prevents the buffer from
+	// copying the stored data into the buffer itself and also from releasing the memory of it. Instead it
+	// will now call this "deleter" function instead.
+	// This allows us to manage our own (global) storage for our audio data. With that, we can reuse the same
+	// memory regions in order to avoid frequent memory allocations and deallocations.
+	// Also this is the basis for using our trick of actually only storing indices instead of proper data
+	// pointers in the buffer.
+	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_DESTROY_CALLBACK,
+					  reinterpret_cast< void * >(&AudioOutputSpeech::invalidateAudioOutputCache));
 
 	fFadeIn  = new float[iFrameSizePerChannel];
 	fFadeOut = new float[iFrameSizePerChannel];
@@ -146,63 +192,80 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	delete[] fResamplerBuffer;
 }
 
-void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
+void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audioData) {
 	QMutexLocker lock(&qmJitter);
 
-	if (qbaPacket.size() < 2)
+	if (audioData.payload.empty()) {
 		return;
+	}
 
-	// Voice data is transmitted through UDP packets and is not formatted by protobuf.
-	// Structure is: flags + size + audio data + pos*3
-	PacketDataStream pds(qbaPacket);
-
-	// skip flags
-	pds.next();
+	assert(audioData.usedCodec == m_codec);
 
 	int samples = 0;
-	if (umtType == MessageHandler::UDPVoiceOpus) {
-		int size;
-		pds >> size;
-		size &= 0x1fff;
-		if (size == 0) {
-			return;
+	switch (audioData.usedCodec) {
+		case Mumble::Protocol::AudioCodec::Opus: {
+			if (oCodec) {
+				samples = oCodec->opus_decoder_get_nb_samples(
+					opusState, audioData.payload.data(),
+					audioData.payload.size()); // this function return samples per channel
+				samples *= 2;                  // since we assume all input stream is stereo.
+			}
+
+			// We can't handle frames which are not a multiple of our configured framesize.
+			if (samples % iFrameSize != 0) {
+				qWarning("AudioOutputSpeech: Dropping Opus audio packet, because its sample count (%d) is not a "
+						 "multiple of our frame size (%d)",
+						 samples, iFrameSize);
+				return;
+			}
+			break;
 		}
+		case Mumble::Protocol::AudioCodec::CELT_Alpha:
+		case Mumble::Protocol::AudioCodec::CELT_Beta:
+		case Mumble::Protocol::AudioCodec::Speex: {
+			// These legacy codecs may send multiple frames at once, so we want to add up all samples across
+			// all frames
+			std::size_t offset  = 0;
+			bool framesContinue = true;
+			while (framesContinue && offset < audioData.payload.size()) {
+				Mumble::Protocol::byte headerByte = audioData.payload[offset];
 
-		const QByteArray &qba = pds.dataBlock(size);
-		if (size != qba.size() || !pds.isValid()) {
-			return;
+				// The least significant 7 bits encode the frame's size and the most significant bit is the
+				// "continuation bit" indicating that there are more frames to come.
+				unsigned int currentFrameSize = headerByte & 0x7f;
+				framesContinue                = headerByte & 0x80;
+
+				offset += currentFrameSize;
+				samples += iFrameSize;
+			}
+
+			if (offset >= audioData.payload.size()) {
+				qWarning(
+					"AudioOutputSpeech: Invalid legacy audio packet encountered (specification exceeds actual length)");
+				return;
+			} else if (offset < audioData.payload.size() - 1) {
+				qWarning(
+					"AudioOutputSpeech: Invalid legacy audio packet encountered (audio payload contains unused data)");
+				return;
+			}
+
+			break;
 		}
-
-		const unsigned char *packet = reinterpret_cast< const unsigned char * >(qba.constData());
-
-		if (oCodec) {
-			samples = oCodec->opus_decoder_get_nb_samples(opusState, packet,
-														  size); // this function return samples per channel
-			samples *= 2;                                        // since we assume all input stream is stereo.
-		}
-
-		// We can't handle frames which are not a multiple of 10ms.
-		Q_ASSERT(samples % iFrameSize == 0);
-	} else {
-		// If packet not in opus format
-		unsigned int header = 0;
-
-		do {
-			header = static_cast< unsigned char >(pds.next());
-			samples += iFrameSize;
-			pds.skip(header & 0x7f);
-		} while ((header & 0x80) && pds.isValid());
 	}
 
-	if (pds.isValid()) {
-		JitterBufferPacket jbp;
-		jbp.data      = const_cast< char * >(qbaPacket.constData());
-		jbp.len       = qbaPacket.size();
-		jbp.span      = samples;
-		jbp.timestamp = iFrameSize * iSeq;
+	// Copy the audio data to an AudioOutputCache instance and store that in our global chunk list
+	std::size_t storageIndex = storeAudioOutputCache(audioData);
 
-		jitter_buffer_put(jbJitter, &jbp);
-	}
+	// We cheat a bit and instead of storing the actual audio data in the jitter buffer, we store the index to
+	// the created audio chunk in the buffer. Passing a length of 0 should ensure that this "pointer" will never
+	// be dereferenced.
+	JitterBufferPacket jbp;
+	jbp.data      = reinterpret_cast< char * >(storageIndex);
+	jbp.len       = 0;
+	jbp.span      = samples;
+	jbp.timestamp = iFrameSize * audioData.frameNumber;
+
+	jitter_buffer_put(jbJitter, &jbp);
 }
 
 bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
@@ -262,47 +325,67 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 			if (qlFrames.isEmpty()) {
 				QMutexLocker lock(&qmJitter);
 
-				char data[4096];
 				JitterBufferPacket jbp;
-				jbp.data = data;
-				jbp.len  = 4096;
 
 				spx_int32_t startofs = 0;
-
 				if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-					PacketDataStream pds(jbp.data, jbp.len);
-					// pds structure is: flags + size (14-16 terminator + 1-15 size) + audio data + pos*3
+					std::lock_guard< std::mutex > audioChunkLock(s_audioCachesMutex);
 
 					iMissCount = 0;
-					ucFlags    = static_cast< unsigned char >(pds.next());
 
-					bHasTerminator = false;
-					if (umtType == MessageHandler::UDPVoiceOpus) {
-						int size;
-						pds >> size;
+					// The "data pointer" that is stored in the buffer is actually just an index to s_audioCaches
+					std::size_t index = reinterpret_cast< std::size_t >(jbp.data);
+					assert(jbp.len == 0);
+					assert(index < s_audioCaches.size());
 
-						bHasTerminator = size & 0x2000;
-						qlFrames << pds.dataBlock(size & 0x1fff);
-						// if using opus, there will be at most only one element in qlFrames
-						// Q_ASSERT(qlFrames.size() == 1);
+					const AudioOutputCache &cache = s_audioCaches[index];
+					assert(cache.isValid());
+
+					bHasTerminator = cache.isLastFrame();
+
+					if (m_codec == Mumble::Protocol::AudioCodec::Opus) {
+						// Copy audio data into qlFrames
+						qlFrames << QByteArray(reinterpret_cast< const char * >(cache.getAudioData().data()),
+											   cache.getAudioData().size());
 					} else {
-						unsigned int header = 0;
-						do {
-							header = static_cast< unsigned int >(pds.next());
-							if (header)
-								qlFrames << pds.dataBlock(header & 0x7f);
-							else
-								bHasTerminator = true;
-						} while ((header & 0x80) && pds.isValid());
+						// Split data into the individual frames and copy those into qlFrames
+						const gsl::span< const Mumble::Protocol::byte > audioData = cache.getAudioData();
+						std::size_t offset                                        = 0;
+						bool hasNextFrame                                         = true;
+						while (hasNextFrame && offset < audioData.size()) {
+							Mumble::Protocol::byte headerByte = audioData[offset];
+
+							// Least significant 7bits encode the frame's size
+							int currentFrameSize = headerByte & 0x7f;
+							// The most significant bit is the "continuation bit"
+							hasNextFrame = headerByte & 0x80;
+
+							// Copy current frame into qlFrames
+							if (currentFrameSize > 0) {
+								if (offset + 1 >= audioData.size()
+									|| offset + 1 + currentFrameSize >= audioData.size()) {
+									qWarning("AudioOutputSpeech: Malformed legacy audio data encountered (mismatched "
+											 "frame size)");
+								} else {
+									qlFrames << QByteArray(audioData[offset + 1], currentFrameSize);
+								}
+							}
+						}
 					}
 
-					if (pds.left()) {
-						pds >> fPos[0];
-						pds >> fPos[1];
-						pds >> fPos[2];
+					if (cache.containsPositionalInformation()) {
+						assert(cache.getPositionalInformation().size() == 3);
+						assert(fPos.size() == 3);
+
+						for (int i = 0; i < 3; ++i) {
+							fPos[i] = cache.getPositionalInformation()[i];
+						}
 					} else {
 						fPos[0] = fPos[1] = fPos[2] = 0.0f;
 					}
+
+					m_suggestedVolumeAdjustment = cache.getVolumeAdjustment();
+					m_audioContext              = cache.getContext();
 
 					if (p) {
 						float a = static_cast< float >(avail);
@@ -325,70 +408,78 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 			if (!qlFrames.isEmpty()) {
 				QByteArray qba = qlFrames.takeFirst();
 
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? Global::get().iCodecAlpha
-																					 : Global::get().iCodecBeta;
-					if ((p == &LoopUser::lpLoopy) && (!Global::get().qmCodecs.isEmpty())) {
-						QMap< int, CELTCodec * >::const_iterator i = Global::get().qmCodecs.constEnd();
-						--i;
-						wantversion = i.key();
-					}
-					if (cCodec && (cCodec->bitstreamVersion() != wantversion)) {
-						cCodec->celt_decoder_destroy(cdDecoder);
-						cdDecoder = nullptr;
-					}
-					if (!cCodec) {
-						cCodec = Global::get().qmCodecs.value(wantversion);
-						if (cCodec) {
-							cdDecoder = cCodec->decoderCreate();
+				switch (m_codec) {
+					case Mumble::Protocol::AudioCodec::CELT_Alpha:
+					case Mumble::Protocol::AudioCodec::CELT_Beta: {
+						int wantversion = (m_codec == Mumble::Protocol::AudioCodec::CELT_Alpha)
+											  ? Global::get().iCodecAlpha
+											  : Global::get().iCodecBeta;
+						if ((p == &LoopUser::lpLoopy) && (!Global::get().qmCodecs.isEmpty())) {
+							QMap< int, CELTCodec * >::const_iterator i = Global::get().qmCodecs.constEnd();
+							--i;
+							wantversion = i.key();
 						}
-					}
-					if (cdDecoder)
-						cCodec->decode_float(cdDecoder,
-											 qba.isEmpty() ? nullptr
-														   : reinterpret_cast< const unsigned char * >(qba.constData()),
-											 qba.size(), pOut);
-					else
-						memset(pOut, 0, sizeof(float) * iFrameSize);
-				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-					if (oCodec) {
-						if (qba.isEmpty() || !(p && p->bLocalMute)) {
-							// If qba is empty, we have to let Opus know about the packet loss
-							// Otherwise if the associated user is not locally muted, we want to decode the audio packet
-							// normally in order to be able to play it.
-							decodedSamples = oCodec->opus_decode_float(
-								opusState,
+						if (cCodec && (cCodec->bitstreamVersion() != wantversion)) {
+							cCodec->celt_decoder_destroy(cdDecoder);
+							cdDecoder = nullptr;
+						}
+						if (!cCodec) {
+							cCodec = Global::get().qmCodecs.value(wantversion);
+							if (cCodec) {
+								cdDecoder = cCodec->decoderCreate();
+							}
+						}
+						if (cdDecoder)
+							cCodec->decode_float(
+								cdDecoder,
 								qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-								qba.size(), pOut, iAudioBufferSize, 0);
-						} else {
-							// If the packet is non-empty, but the associated user is locally muted,
-							// we don't have to decode the packet. Instead it is enough to know how many
-							// samples it contained so that we can then mute the appropriate output length
-							decodedSamples = oCodec->opus_packet_get_samples_per_frame(
-								reinterpret_cast< const unsigned char * >(qba.constData()), SAMPLE_RATE);
+								qba.size(), pOut);
+						else
+							memset(pOut, 0, sizeof(float) * iFrameSize);
+
+						break;
+					}
+					case Mumble::Protocol::AudioCodec::Opus: {
+						if (oCodec) {
+							if (qba.isEmpty() || !(p && p->bLocalMute)) {
+								// If qba is empty, we have to let Opus know about the packet loss
+								// Otherwise if the associated user is not locally muted, we want to decode the audio
+								// packet normally in order to be able to play it.
+								decodedSamples = oCodec->opus_decode_float(
+									opusState,
+									qba.isEmpty() ? nullptr
+												  : reinterpret_cast< const unsigned char * >(qba.constData()),
+									qba.size(), pOut, iAudioBufferSize, 0);
+							} else {
+								// If the packet is non-empty, but the associated user is locally muted,
+								// we don't have to decode the packet. Instead it is enough to know how many
+								// samples it contained so that we can then mute the appropriate output length
+								decodedSamples = oCodec->opus_packet_get_samples_per_frame(
+									reinterpret_cast< const unsigned char * >(qba.constData()), SAMPLE_RATE);
+							}
+
+							// The returned sample count we get from the Opus functions refer to samples per channel.
+							// Thus in order to get the total amount, we have to multiply by the channel count.
+							decodedSamples *= channels;
 						}
 
-						// The returned sample count we get from the Opus functions refer to samples per channel.
-						// Thus in order to get the total amount, we have to multiply by the channel count.
-						decodedSamples *= channels;
+						if (decodedSamples < 0) {
+							decodedSamples = iFrameSize;
+							memset(pOut, 0, iFrameSize * sizeof(float));
+						}
+						break;
 					}
-
-					if (decodedSamples < 0) {
-						decodedSamples = iFrameSize;
-						memset(pOut, 0, iFrameSize * sizeof(float));
+					case Mumble::Protocol::AudioCodec::Speex: {
+						if (qba.isEmpty()) {
+							speex_decode(dsSpeex, nullptr, pOut);
+						} else {
+							speex_bits_read_from(&sbBits, qba.data(), qba.size());
+							speex_decode(dsSpeex, &sbBits, pOut);
+						}
+						for (unsigned int i = 0; i < iFrameSize; ++i)
+							pOut[i] *= (1.0f / 32767.f);
+						break;
 					}
-				} else if (umtType == MessageHandler::UDPVoiceSpeex) {
-					if (qba.isEmpty()) {
-						speex_decode(dsSpeex, nullptr, pOut);
-					} else {
-						speex_bits_read_from(&sbBits, qba.data(), qba.size());
-						speex_decode(dsSpeex, &sbBits, pOut);
-					}
-					for (unsigned int i = 0; i < iFrameSize; ++i)
-						pOut[i] *= (1.0f / 32767.f);
-				} else {
-					qWarning("AudioOutputSpeech: encountered unknown message type %li in prepareSampleBuffer().",
-							 static_cast< long >(umtType));
 				}
 
 				bool update = true;
@@ -397,8 +488,9 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					float &fPowerMin = p->fPowerMin;
 
 					float pow = 0.0f;
-					for (int i = 0; i < decodedSamples; ++i)
+					for (int i = 0; i < decodedSamples; ++i) {
 						pow += pOut[i] * pOut[i];
+					}
 					pow = sqrtf(pow / static_cast< float >(decodedSamples)); // Average over both L and R channel.
 
 					if (pow >= fPowerMax) {
@@ -414,33 +506,45 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin))); // Update jitter buffer when quiet.
 				}
-				// qlFrames.isEmpty() will always be true if using opus.
-				// Q_ASSERT(qlFrames.isEmpty());
-				if (qlFrames.isEmpty() && update)
+
+				if (qlFrames.isEmpty() && update) {
 					jitter_buffer_update_delay(jbJitter, nullptr, nullptr);
+				}
 
-				if (qlFrames.isEmpty() && bHasTerminator)
+				if (qlFrames.isEmpty() && bHasTerminator) {
 					nextalive = false;
+				}
 			} else {
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					if (cdDecoder)
-						cCodec->decode_float(cdDecoder, nullptr, 0, pOut);
-					else
-						memset(pOut, 0, sizeof(float) * iFrameSize);
-				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-					if (oCodec) {
-						decodedSamples = oCodec->opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
-						decodedSamples *= channels;
-					}
+				switch (m_codec) {
+					case Mumble::Protocol::AudioCodec::CELT_Alpha:
+					case Mumble::Protocol::AudioCodec::CELT_Beta: {
+						if (cdDecoder) {
+							cCodec->decode_float(cdDecoder, nullptr, 0, pOut);
+						} else {
+							memset(pOut, 0, sizeof(float) * iFrameSize);
+						}
 
-					if (decodedSamples < 0) {
-						decodedSamples = iFrameSize;
-						memset(pOut, 0, iFrameSize * sizeof(float));
+						break;
 					}
-				} else {
-					speex_decode(dsSpeex, nullptr, pOut);
-					for (unsigned int i = 0; i < iFrameSize; ++i)
-						pOut[i] *= (1.0f / 32767.f);
+					case Mumble::Protocol::AudioCodec::Opus: {
+						if (oCodec) {
+							decodedSamples = oCodec->opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
+							decodedSamples *= channels;
+						}
+
+						if (decodedSamples < 0) {
+							decodedSamples = iFrameSize;
+							memset(pOut, 0, iFrameSize * sizeof(float));
+						}
+						break;
+					}
+					case Mumble::Protocol::AudioCodec::Speex: {
+						speex_decode(dsSpeex, nullptr, pOut);
+						for (unsigned int i = 0; i < iFrameSize; ++i)
+							pOut[i] *= (1.0f / 32767.f);
+
+						break;
+					}
 				}
 			}
 
@@ -485,22 +589,28 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 	if (p) {
 		Settings::TalkState ts;
-		if (!nextalive)
-			ucFlags = SpeechFlags::Invalid;
-		switch (ucFlags) {
-			case SpeechFlags::Listen:
+		if (!nextalive) {
+			m_audioContext = Mumble::Protocol::AudioContext::Invalid;
+		}
+
+		switch (m_audioContext) {
+			case Mumble::Protocol::AudioContext::Listen:
 				// Fallthrough
-			case SpeechFlags::Normal:
+			case Mumble::Protocol::AudioContext::Normal:
 				ts = Settings::Talking;
 				break;
-			case SpeechFlags::Shout:
+			case Mumble::Protocol::AudioContext::Shout:
 				ts = Settings::Shouting;
 				break;
-			case SpeechFlags::Invalid:
+			case Mumble::Protocol::AudioContext::Invalid:
 				ts = Settings::Passive;
 				break;
-			default:
+			case Mumble::Protocol::AudioContext::Whisper:
 				ts = Settings::Whispering;
+				break;
+			default:
+				// Default to normal talking, if we don't know the used context
+				ts = Settings::Talking;
 				break;
 		}
 

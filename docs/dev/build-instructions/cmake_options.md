@@ -19,6 +19,11 @@ Build support for ALSA.
 Build support for ASIO audio input.
 (Default: OFF)
 
+### benchmarks
+
+Build benchmarks
+(Default: OFF)
+
 ### BUILD_OVERLAY_XCOMPILE
 
 Build an x86 overlay

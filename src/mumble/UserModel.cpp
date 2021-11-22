@@ -11,7 +11,6 @@
 #include "LCD.h"
 #include "Log.h"
 #include "MainWindow.h"
-#include "Message.h"
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif

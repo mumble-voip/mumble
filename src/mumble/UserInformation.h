@@ -8,8 +8,6 @@
 
 #include <QtNetwork/QSslCertificate>
 
-#include "Message.h"
-
 #include "ui_UserInformation.h"
 
 namespace MumbleProto {

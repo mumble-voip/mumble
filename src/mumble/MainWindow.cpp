@@ -3577,29 +3577,29 @@ void MainWindow::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme = static_cast< ServerHandlerMessageEvent * >(evt);
 
 #ifdef QT_NO_DEBUG
-#	define MUMBLE_MH_MSG(x)                                                       \
-		case MessageHandler::x: {                                                  \
-			MumbleProto::x msg;                                                    \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                \
+		case Mumble::Protocol::TCPMessageType::name: {                             \
+			MumbleProto::name msg;                                                 \
 			if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) \
-				msg##x(msg);                                                       \
+				msg##name(msg);                                                    \
 			break;                                                                 \
 		}
 #else
-#	define MUMBLE_MH_MSG(x)                                                         \
-		case MessageHandler::x: {                                                    \
-			MumbleProto::x msg;                                                      \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                  \
+		case Mumble::Protocol::TCPMessageType::name: {                               \
+			MumbleProto::name msg;                                                   \
 			if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
-				printf("%s:\n", #x);                                                 \
+				printf("%s:\n", #name);                                              \
 				msg.PrintDebugString();                                              \
-				msg##x(msg);                                                         \
+				msg##name(msg);                                                      \
 			}                                                                        \
 			break;                                                                   \
 		}
 #endif
-	switch (shme->uiType) { MUMBLE_MH_ALL }
+	switch (shme->type) { MUMBLE_ALL_TCP_MESSAGES }
 
 
-#undef MUMBLE_MH_MSG
+#undef PROCESS_MUMBLE_TCP_MESSAGE
 }
 
 

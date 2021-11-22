@@ -29,8 +29,9 @@ public:
 	AudioOutputUser(const QString &name);
 	~AudioOutputUser() Q_DECL_OVERRIDE;
 	const QString qsName;
-	float *pfBuffer = nullptr;
-	float *pfVolume = nullptr;
+	float *pfBuffer                   = nullptr;
+	float *pfVolume                   = nullptr;
+	float m_suggestedVolumeAdjustment = 1.0f;
 	std::unique_ptr< unsigned int[] > piOffset;
 	std::array< float, 3 > fPos = { 0.0, 0.0, 0.0 };
 	bool bStereo;

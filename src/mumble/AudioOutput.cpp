@@ -10,11 +10,8 @@
 #include "AudioOutputSpeech.h"
 #include "Channel.h"
 #include "ChannelListenerManager.h"
-#include "Message.h"
-#include "PacketDataStream.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
-#include "SpeechFlags.h"
 #include "Timer.h"
 #include "User.h"
 #include "Utils.h"
@@ -142,41 +139,39 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 	return nullptr;
 }
 
-void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq,
-								   MessageHandler::UDPMessageType type) {
-	if (iChannels == 0)
-		return;
-	qrwlOutputs.lockForRead();
-	// qmOutputs is a map of users and their AudioOutputUser objects, which will be create when audio from that user
-	// is received. This map will be iterated in mix(). After one's audio is finished, his AudioOutputUser will be
-	// removed from this map.
-	AudioOutputSpeech *aop = qobject_cast< AudioOutputSpeech * >(qmOutputs.value(user));
-
-	if (!UDPMessageTypeIsValidVoicePacket(type)) {
-		qWarning("AudioOutput: ignored frame with invalid message type 0x%x in addFrameToBuffer().",
-				 static_cast< unsigned char >(type));
+void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::AudioData &audioData) {
+	if (iChannels == 0) {
 		return;
 	}
 
-	if (!aop || (aop->umtType != type)) {
+	qrwlOutputs.lockForRead();
+	// qmOutputs is a map of users and their AudioOutputUser objects, which will be created when audio from that user
+	// is received. This map will be iterated in mix(). After one's audio is finished, his AudioOutputUser will be
+	// removed from this map.
+	AudioOutputSpeech *aop = qobject_cast< AudioOutputSpeech * >(qmOutputs.value(sender));
+
+	if (!aop || (aop->m_codec != audioData.usedCodec)) {
 		qrwlOutputs.unlock();
 
-		if (aop)
+		if (aop) {
 			removeBuffer(aop);
+		}
 
 		while ((iMixerFreq == 0) && isAlive()) {
 			QThread::yieldCurrentThread();
 		}
 
-		if (!iMixerFreq)
+		if (!iMixerFreq) {
 			return;
+		}
 
 		qrwlOutputs.lockForWrite();
-		aop = new AudioOutputSpeech(user, iMixerFreq, type, iBufferSize);
-		qmOutputs.replace(user, aop);
+
+		aop = new AudioOutputSpeech(sender, iMixerFreq, audioData.usedCodec, iBufferSize);
+		qmOutputs.replace(sender, aop);
 	}
 
-	aop->addFrameToBuffer(qbaPacket, iSeq);
+	aop->addFrameToBuffer(audioData);
 
 	qrwlOutputs.unlock();
 }
@@ -502,11 +497,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			const ClientUser *user    = nullptr;
 			if (speech) {
 				user = speech->p;
+
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
 				if (user->cChannel
 					&& Global::get().channelListenerManager->isListening(Global::get().uiSession, user->cChannel->iId)
-					&& (speech->ucFlags & SpeechFlags::Listen)) {
+					&& (speech->m_audioContext == Mumble::Protocol::AudioContext::Listen)) {
 					// We are receiving this audio packet only because we are listening to the channel
 					// the speaking user is in. Thus we receive the audio via our "listener proxy".
 					// Thus we'll apply the volume adjustment for our listener proxy as well

@@ -7,9 +7,9 @@
 #include "Channel.h"
 #include "Connection.h"
 #include "Group.h"
-#include "Message.h"
 #include "Meta.h"
 #include "MumbleConstants.h"
+#include "QtUtils.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
@@ -645,7 +645,13 @@ void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
 	if (len < 1)
 		return;
 	QReadLocker rl(&qrwlVoiceThread);
-	processMsg(uSource, str.data(), len);
+	if (m_tcpTunnelDecoder.decode(gsl::span< const Mumble::Protocol::byte >(
+			reinterpret_cast< const Mumble::Protocol::byte * >(str.data()), str.size()))
+		&& m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
+		Mumble::Protocol::AudioData audioData = m_tcpTunnelDecoder.getAudioData();
+
+		processMsg(uSource, audioData, m_tcpAudioReceivers, m_tcpAudioEncoder);
+	}
 }
 
 void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {

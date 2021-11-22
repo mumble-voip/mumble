@@ -7,7 +7,6 @@
 
 #include "Channel.h"
 #include "ClientUser.h"
-#include "Message.h"
 #include "ServerHandler.h"
 #include "Utils.h"
 #include "Global.h"
