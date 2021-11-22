@@ -23,6 +23,8 @@ using mumble_raw_version_t             = unsigned int;
 static_assert(sizeof(exact_width_mumble_raw_version_t) <= sizeof(mumble_raw_version_t),
 			  "Invalid scalar type used to represent Mumble versions");
 
+constexpr mumble_raw_version_t UNKNOWN = 0;
+
 unsigned int getRaw(const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 QString toString(mumble_raw_version_t version);
 bool get(int *major, int *minor, int *patch, const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION)));
