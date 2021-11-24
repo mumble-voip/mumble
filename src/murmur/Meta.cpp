@@ -92,7 +92,7 @@ MetaParams::MetaParams() {
 	uiUid = uiGid = 0;
 #endif
 
-	iOpusThreshold = 100;
+	iOpusThreshold = 0;
 
 	iChannelNestingLimit = 10;
 	iChannelCountLimit   = 1000;
