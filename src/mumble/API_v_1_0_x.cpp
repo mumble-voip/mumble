@@ -16,6 +16,7 @@
 #include "ServerHandler.h"
 #include "Settings.h"
 #include "UserModel.h"
+#include "Version.h"
 #include "Global.h"
 
 #include <QVariant>
@@ -1560,6 +1561,13 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 	mpdt.set_dataid(dataID);
 
 	if (Global::get().sh) {
+		if (Global::get().sh->uiVersion < Version::toRaw(1, 4, 0)) {
+			// The sendMessage call relies on the server relaying the message to the respective receiver. This
+			// functionality was added to the server protocol in version 1.4.0, so an older server will not know what to
+			// do with the received message.
+			EXIT_WITH(MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER);
+		}
+
 		Global::get().sh->sendMessage(mpdt);
 
 		EXIT_WITH(MUMBLE_STATUS_OK);
