@@ -32,6 +32,7 @@
 #	include "ManualPlugin.h"
 #endif
 
+#include <cassert>
 #include <cstdint>
 #include <memory>
 #include <vector>
@@ -49,6 +50,8 @@ PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
 	: QObject(p), m_pluginCollectionLock(QReadWriteLock::NonRecursive), m_pluginHashMap(), m_positionalData(),
 	  m_positionalDataCheckTimer(), m_sentDataMutex(), m_sentData(),
 	  m_activePosDataPluginLock(QReadWriteLock::NonRecursive), m_activePositionalDataPlugin(), m_updater() {
+	qRegisterMetaType< mumble_plugin_id_t >("mumble_plugin_id_t");
+
 	std::vector< QString > pluginPaths;
 
 	// Setup search-paths
@@ -124,6 +127,9 @@ PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
 
 	QObject::connect(&m_updater, &PluginUpdater::updatesAvailable, this, &PluginManager::on_updatesAvailable);
 	QObject::connect(this, &PluginManager::keyEvent, this, &PluginManager::on_keyEvent);
+	QObject::connect(this, &PluginManager::pluginLostLink, this, &PluginManager::reportLostLink);
+	QObject::connect(this, &PluginManager::pluginLinked, this, &PluginManager::reportPluginLinked);
+	QObject::connect(this, &PluginManager::pluginEncounteredPermanentError, this, &PluginManager::reportPermanentError);
 }
 
 PluginManager::~PluginManager() {
@@ -133,13 +139,6 @@ PluginManager::~PluginManager() {
 	AdjustTokenPrivileges(m_hToken, FALSE, &m_tpPrevious, m_cbPrevious, NULL, NULL);
 	CloseHandle(m_hToken);
 #endif
-}
-
-/// Emits a log about a plugin with the given name having lost link (positional audio)
-///
-/// @param pluginName The name of the plugin that lost link
-void reportLostLink(const QString &pluginName) {
-	Global::get().l->log(Log::Information, PluginManager::tr("%1 lost link").arg(pluginName.toHtmlEscaped()));
 }
 
 bool PluginManager::eventFilter(QObject *target, QEvent *event) {
@@ -236,16 +235,13 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 					// the plugin is ready to provide positional data
 					m_activePositionalDataPlugin = currentPlugin;
 
-					Global::get().l->log(Log::Information,
-										 tr("%1 linked").arg(currentPlugin->getName().toHtmlEscaped()));
+					emit pluginLinked(currentPlugin->getID());
 
 					return true;
 
 				case MUMBLE_PDEC_ERROR_PERM:
 					// the plugin encountered a permanent error -> disable it
-					Global::get().l->log(Log::Warning,
-										 tr("Plugin \"%1\" encountered a permanent error in positional data gathering")
-											 .arg(currentPlugin->getName()));
+					emit pluginEncounteredPermanentError(currentPlugin->getID());
 
 					currentPlugin->enablePositionalData(false);
 					break;
@@ -432,7 +428,7 @@ bool PluginManager::fetchPositionalData() {
 		// Shut the currently active plugin down and set a new one (if available)
 		m_activePositionalDataPlugin->shutdownPositionalData();
 
-		reportLostLink(m_activePositionalDataPlugin->getName());
+		emit pluginLostLink(m_activePositionalDataPlugin->getID());
 
 		// unlock the read-lock in order to allow selectActivePositionaldataPlugin to gain a write-lock
 		activePluginLock.unlock();
@@ -461,7 +457,7 @@ void PluginManager::unlinkPositionalData() {
 	if (m_activePositionalDataPlugin) {
 		m_activePositionalDataPlugin->shutdownPositionalData();
 
-		reportLostLink(m_activePositionalDataPlugin->getName());
+		emit pluginLostLink(m_activePositionalDataPlugin->getID());
 
 		// Set the pointer to nullptr
 		m_activePositionalDataPlugin = nullptr;
@@ -961,5 +957,44 @@ void PluginManager::checkForAvailablePositionalDataPlugin() {
 
 	if (performSearch) {
 		selectActivePositionalDataPlugin();
+	}
+}
+
+void PluginManager::reportLostLink(mumble_plugin_id_t pluginID) {
+	// We are calling GUI code, so we must only execute this function from the GUI (main) thread - which we assume is
+	// where the plugin manager object is living in.
+	assert(this->thread() == QThread::currentThread());
+
+	const_plugin_ptr_t plugin = getPlugin(pluginID);
+
+	if (plugin) {
+		Global::get().l->log(Log::Information,
+							 PluginManager::tr("%1 lost link").arg(plugin->getName().toHtmlEscaped()));
+	}
+}
+
+void PluginManager::reportPluginLinked(mumble_plugin_id_t pluginID) {
+	// We are calling GUI code, so we must only execute this function from the GUI (main) thread - which we assume is
+	// where the plugin manager object is living in.
+	assert(this->thread() == QThread::currentThread());
+
+	const_plugin_ptr_t plugin = getPlugin(pluginID);
+
+	if (plugin) {
+		Global::get().l->log(Log::Information, tr("%1 linked").arg(plugin->getName().toHtmlEscaped()));
+	}
+}
+
+void PluginManager::reportPermanentError(mumble_plugin_id_t pluginID) {
+	// We are calling GUI code, so we must only execute this function from the GUI (main) thread - which we assume is
+	// where the plugin manager object is living in.
+	assert(this->thread() == QThread::currentThread());
+
+	const_plugin_ptr_t plugin = getPlugin(pluginID);
+
+	if (plugin) {
+		Global::get().l->log(
+			Log::Warning,
+			tr("Plugin \"%1\" encountered a permanent error in positional data gathering").arg(plugin->getName()));
 	}
 }

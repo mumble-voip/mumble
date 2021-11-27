@@ -281,6 +281,19 @@ protected slots:
 	/// new one.
 	void checkForAvailablePositionalDataPlugin();
 
+	/// Emits a log about a plugin with the given ID having lost link (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportLostLink(mumble_plugin_id_t pluginID);
+	/// Emits a log about a plugin with the given ID to have linked (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportPluginLinked(mumble_plugin_id_t pluginID);
+	/// Emits a log about a plugin with the given ID to having encountered a permanent error (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportPermanentError(mumble_plugin_id_t pluginID);
+
 signals:
 	/// A signal emitted if the PluginManager (acting as an event filter) detected
 	/// a QKeyEvent.
@@ -289,6 +302,12 @@ signals:
 	/// @param modifiers The modifiers that were active in the moment of the event
 	/// @param isPress True if the key has been pressed, false if it has been released
 	void keyEvent(unsigned int key, Qt::KeyboardModifiers modifiers, bool isPress);
+	/// Signal emitted whenever a plugin loses link (positional data gathering)
+	void pluginLostLink(mumble_plugin_id_t pluginID);
+	/// Signal emitted whenever a plugin links (positional data gathering)
+	void pluginLinked(mumble_plugin_id_t pluginID);
+	/// Signal emitted whenever a plugin encounters a permanent error during positional data gathering
+	void pluginEncounteredPermanentError(mumble_plugin_id_t pluginID);
 };
 
 #endif
