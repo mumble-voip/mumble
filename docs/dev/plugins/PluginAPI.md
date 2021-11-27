@@ -33,7 +33,7 @@ the plugin developer.
 
 ## Threading
 
-Unless otherwise noted in the function's description, all functions all called from the same thread.
+Unless otherwise noted in the function's description, all functions are called from the same thread.
 
 
 ## Header files
