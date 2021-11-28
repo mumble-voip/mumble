@@ -77,7 +77,11 @@ PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
 	for (const QString &currentPath : pluginPaths) {
 		// Transform currentPath to an absolute, canonical path and only then add it to m_pluginSearchPaths in order
 		// to ensure that each path is contained only once.
-		m_pluginSearchPaths.insert(QDir(currentPath).canonicalPath());
+		QDir dir(currentPath);
+
+		if (dir.exists()) {
+			m_pluginSearchPaths.insert(dir.canonicalPath());
+		}
 	}
 
 #ifdef Q_OS_WIN
