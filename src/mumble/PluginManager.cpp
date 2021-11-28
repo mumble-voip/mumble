@@ -592,7 +592,7 @@ void PluginManager::allowKeyboardMonitoringFor(plugin_id_t pluginID, bool allow)
 	plugin_ptr_t plugin = m_pluginHashMap.value(pluginID);
 
 	if (plugin) {
-		return plugin->allowKeyboardMonitoring(allow);
+		plugin->allowKeyboardMonitoring(allow);
 	}
 }
 
