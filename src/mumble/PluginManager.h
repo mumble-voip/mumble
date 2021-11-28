@@ -45,9 +45,9 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(PluginManager)
 protected:
-	/// Lock for pluginHashMap. This lock has to be aquired when accessing pluginHashMap
+	/// Lock for pluginHashMap. This lock has to be acquired when accessing pluginHashMap
 	mutable QReadWriteLock m_pluginCollectionLock;
-	/// A map between plugin-IDs and the actual plugin objects. You have to aquire pluginCollectionLock before
+	/// A map between plugin-IDs and the actual plugin objects. You have to acquire pluginCollectionLock before
 	/// accessing this map.
 	QHash< plugin_id_t, plugin_ptr_t > m_pluginHashMap;
 	/// A set of directories to search plugins in
@@ -65,17 +65,17 @@ protected:
 	/// deliver positional data.
 	QTimer m_positionalDataCheckTimer;
 
-	/// The mutex for sentData. This has to be aquired before accessing sentData
+	/// The mutex for sentData. This has to be acquired before accessing sentData
 	mutable QMutex m_sentDataMutex;
 	/// The bits of the positional data that have already been sent to the server. It is used to determine whether
-	/// the new data has to be sent to the server (in case it has changed). You have ti aquire sentDataMutex before
+	/// the new data has to be sent to the server (in case it has changed). You have ti acquire sentDataMutex before
 	/// accessing this field.
 	PluginManager_SentData m_sentData;
 
-	/// The lock for activePositionalDataPlugin. It has to be aquired before accessing the respective field.
+	/// The lock for activePositionalDataPlugin. It has to be acquired before accessing the respective field.
 	mutable QReadWriteLock m_activePosDataPluginLock;
-	/// The plugin that is currently used to retrieve positional data. You have to aquire activePosDataPluginLock before
-	/// accessing this field.
+	/// The plugin that is currently used to retrieve positional data. You have to acquire activePosDataPluginLock
+	/// before accessing this field.
 	plugin_ptr_t m_activePositionalDataPlugin;
 	/// The PluginUpdater used to handle plugin updates.
 	PluginUpdater m_updater;
