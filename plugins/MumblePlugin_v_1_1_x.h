@@ -8,7 +8,6 @@
 #ifndef EXTERNAL_MUMBLE_PLUGIN_H_
 #define EXTERNAL_MUMBLE_PLUGIN_H_
 
-#include "MumbleAPI_v_1_0_x.h"
 #include "PluginComponents_v_1_0_x.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -27,8 +26,8 @@
 
 // Plugin functions version
 #define MUMBLE_PLUGIN_FUNCTIONS_MAJOR_MACRO 1
-#define MUMBLE_PLUGIN_FUNCTIONS_MINOR_MACRO 0
-#define MUMBLE_PLUGIN_FUNCTIONS_PATCH_MACRO 1
+#define MUMBLE_PLUGIN_FUNCTIONS_MINOR_MACRO 1
+#define MUMBLE_PLUGIN_FUNCTIONS_PATCH_MACRO 0
 
 const int32_t MUMBLE_PLUGIN_FUNCTIONS_MAJOR            = MUMBLE_PLUGIN_FUNCTIONS_MAJOR_MACRO;
 const int32_t MUMBLE_PLUGIN_FUNCTIONS_MINOR            = MUMBLE_PLUGIN_FUNCTIONS_MINOR_MACRO;
@@ -174,8 +173,9 @@ PLUGIN_EXPORT uint32_t PLUGIN_CALLING_CONVENTION mumble_deactivateFeatures(uint3
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// POSITIONAL DATA /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-// If this plugin wants to provide positional data, ALL functions of this category
-// have to be implemented
+// If this plugin wants to provide positional data, the mumble_initPositionalData, mumble_fetchPositionalData
+// and mumble_shutdownPositionalData functions have to be implemented together (implementing only a subset
+// will yield the same result as if no support for positional data was implemened).
 
 /// Indicates that Mumble wants to use this plugin to request positional data. Therefore it should check whether it is
 /// currently able to do so and allocate memory that is needed for that process. As a parameter this function gets an
@@ -226,6 +226,29 @@ PLUGIN_EXPORT bool PLUGIN_CALLING_CONVENTION mumble_fetchPositionalData(float *a
 /// Indicates that this plugin will not be asked for positional data any longer. Thus any memory allocated for this
 /// purpose should be freed at this point.
 PLUGIN_EXPORT void PLUGIN_CALLING_CONVENTION mumble_shutdownPositionalData();
+
+/// The context in positional data is used to determine whether different positional data sets from different
+/// clients belong to the same game (and same server). Only if the contexts matches up across these clients,
+/// will Mumble activate the positional audio effects, as it will assume that these clients are playing the
+/// same game together.
+/// The context is set during fetching of the other positional data and is usually something like e.g. the
+/// current server's name. In order to avoid clashes between different plugins (that most likely work for
+/// different games), the context is prefixed by Mumble. If this function is not implemented, the name of
+/// the plugin is used as a prefix (which tends to be the supported game's name), but sometimes a different
+/// prefix is desirable. For these cases, a custom prefix can be provided through this function.
+///
+/// NOTE that while it is possible to allocate a string for this purpose every time this function is called
+/// and then letting mumble release the resource again (via mumble_releaseResource), it is generally not the
+/// advised way of doing things (it may impact overall performance negatively, since this function will be
+/// called very frequently). Instead you should either return a static string (if your language supports that
+/// and if it actually fits your needs) or you should allocate a string during mumble_initPositionalData and
+/// free it in mumble_shutdownPositionalData and when returning the string in this function, tell Mumble that
+/// the string does not need releasing.
+///
+/// @returns The context prefix to use for positional data fetched by this plugin.
+///
+/// @since Plugin API v1.1.0
+PLUGIN_EXPORT struct MumbleStringWrapper PLUGIN_CALLING_CONVENTION mumble_getPositionalDataContextPrefix();
 
 
 
@@ -430,6 +453,21 @@ PLUGIN_EXPORT bool PLUGIN_CALLING_CONVENTION mumble_hasUpdate();
 /// @returns A String-wrapper containing the requested URL
 PLUGIN_EXPORT struct MumbleStringWrapper PLUGIN_CALLING_CONVENTION mumble_getUpdateDownloadURL();
 
+
+
+//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// DEFAULT FUNCTIONS //////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+// These functions don't have to be implemented by you
+PLUGIN_EXPORT mumble_version_t mumble_getPluginFunctionsVersion();
+
+#ifndef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+
+PLUGIN_EXPORT mumble_version_t mumble_getPluginFunctionsVersion() {
+	return MUMBLE_PLUGIN_FUNCTIONS_VERSION;
+}
+
+#endif
 
 #ifdef __cplusplus
 }
