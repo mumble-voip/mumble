@@ -114,6 +114,12 @@ void Plugin::resolveFunctionPointers() {
 			return;
 		}
 
+		m_pluginFnc.getPluginFunctionsVersion =
+			reinterpret_cast< decltype(MumblePluginFunctions::getPluginFunctionsVersion) >(
+				m_lib.resolve("mumble_getPluginFunctionsVersion"));
+
+		const mumble_version_t pluginFunctionsVersion = getPluginFunctionsVersion();
+
 		// The mandatory functions are there, now see if any optional functions are implemented as well
 		m_pluginFnc.setMumbleInfo =
 			reinterpret_cast< decltype(MumblePluginFunctions::setMumbleInfo) >(m_lib.resolve("mumble_setMumbleInfo"));
@@ -173,6 +179,13 @@ void Plugin::resolveFunctionPointers() {
 		m_pluginFnc.getUpdateDownloadURL = reinterpret_cast< decltype(MumblePluginFunctions::getUpdateDownloadURL) >(
 			m_lib.resolve("mumble_getUpdateDownloadURL"));
 
+		if (pluginFunctionsVersion >= mumble_version_t({ 1, 1, 0 })) {
+			// Functions introduced with plugin functions scheme v1.1.0
+			m_pluginFnc.getPositionalDataContextPrefix =
+				reinterpret_cast< decltype(MumblePluginFunctions::getPositionalDataContextPrefix) >(
+					m_lib.resolve("mumble_getPositionalDataContextPrefix"));
+		}
+
 #ifdef MUMBLE_PLUGIN_DEBUG
 #	define CHECK_AND_LOG(name)        \
 		qDebug("\t"                    \
@@ -188,6 +201,7 @@ void Plugin::resolveFunctionPointers() {
 		CHECK_AND_LOG(initPositionalData);
 		CHECK_AND_LOG(fetchPositionalData);
 		CHECK_AND_LOG(shutdownPositionalData);
+		CHECK_AND_LOG(getPositionalDataContextPrefix);
 		CHECK_AND_LOG(onServerConnected);
 		CHECK_AND_LOG(onServerDisconnected);
 		CHECK_AND_LOG(onChannelEntered);
@@ -209,7 +223,7 @@ void Plugin::resolveFunctionPointers() {
 		qDebug("<<<<");
 #endif
 
-		// If positional audio is to be supported, all three corresponding functions have to be implemented
+		// If positional audio is to be supported, all three functions (init, fetch, shutdown) have to be implemented
 		// For PA it is all or nothing
 		if (!(m_pluginFnc.initPositionalData && m_pluginFnc.fetchPositionalData && m_pluginFnc.shutdownPositionalData)
 			&& (m_pluginFnc.initPositionalData || m_pluginFnc.fetchPositionalData
@@ -379,6 +393,14 @@ mumble_version_t Plugin::getAPIVersion() const {
 	}
 }
 
+mumble_version_t Plugin::getPluginFunctionsVersion() const {
+	if (m_pluginFnc.getPluginFunctionsVersion) {
+		return m_pluginFnc.getPluginFunctionsVersion();
+	} else {
+		return mumble_version_t({ 1, 0, 0 });
+	}
+}
+
 void Plugin::registerAPIFunctions(void *api) const {
 	if (m_pluginFnc.registerAPIFunctions) {
 		m_pluginFnc.registerAPIFunctions(api);
@@ -510,6 +532,17 @@ void Plugin::shutdownPositionalData() {
 		m_positionalDataIsActive = false;
 
 		m_pluginFnc.shutdownPositionalData();
+	}
+}
+
+QString Plugin::getPositionalDataContextPrefix() const {
+	assertPluginLoaded(this);
+
+	if (m_pluginFnc.getPositionalDataContextPrefix) {
+		return extractWrappedString(m_pluginFnc.getPositionalDataContextPrefix());
+	} else {
+		// Use plugin's name as default context prefix
+		return getName();
 	}
 }
 

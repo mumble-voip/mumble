@@ -34,7 +34,7 @@ std::ostream &operator<<(std::ostream &stream, const mumble_version_t version) {
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 
-MumbleAPI_v_1_0_x mumAPI;
+mumble_api_t mumAPI;
 mumble_connection_t activeConnection;
 mumble_plugin_id_t ownID;
 
