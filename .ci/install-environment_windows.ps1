@@ -121,7 +121,7 @@ Move-Item -Path "G15SDK/LCDSDK" -Destination "$SOURCE_DIR/3rdparty/g15"
 
 Write-Host "Downloading WixSharp..."
 
-Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.16.2.0/WixSharp.1.16.2.0.7z" -destination "WixSharp.7z"
+Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.19.0.0/WixSharp.1.19.0.0.7z" -destination "WixSharp.7z"
 Write-Host "Exracting WixSharp to C:/WixSharp..."
 Invoke-Command 7z x "WixSharp.7z" "-oC:/WixSharp"
 

@@ -88,7 +88,7 @@ class BuildInstaller
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
-			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){3}[0-9]+$")) {
+			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){2}[0-9]+$")) {
 				version = args[i + 1];
 			}
 
