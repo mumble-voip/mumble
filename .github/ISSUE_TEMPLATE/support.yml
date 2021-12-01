@@ -1,0 +1,54 @@
+name: Support
+description: File a support issue
+labels: ["support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please try to provide all necessary information. We will try to address your issue as soon as possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: The issue
+      description: What is the issue, you are experiencing?
+      placeholder: My settings are not saved.
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Mumble version
+      description: The version of Mumble (client or server) you are using. If you compiled from source, please provide the corresponding git commit hash as well.
+      placeholder: 1.4.0
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Mumble component
+      description: What component of Mumble are you having issues with?
+      options:
+        - Client
+        - Server
+        - Both
+        - I don't know
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: What OS are you using?
+      multiple: true
+      options:
+        - Linux
+        - Windows
+        - macOS
+        - FreeBSD
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      description: Is there anything else you can tell us about your issue and/or the used system and environemnt?
