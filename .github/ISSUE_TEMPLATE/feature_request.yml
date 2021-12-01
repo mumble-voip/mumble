@@ -36,7 +36,6 @@ body:
     attributes:
       label: OS-specific?
       description: Would this feature be OS-specific (in constrast to being useful across all OS)
-      multiple: true
       options:
         - "Yes"
         - "No"
