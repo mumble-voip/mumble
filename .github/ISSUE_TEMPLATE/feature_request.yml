@@ -1,0 +1,49 @@
+name: Feature request
+description: Suggest a new feature for this project
+labels: ["feature-request", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your idea with us.
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What is the context in which you would consider this feature to be relevant?
+      placeholder: Setting up a new server
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the feature you have in mind?
+      placeholder: Make Mumble even more awesome :)
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Mumble component
+      description: Which component of Mumble does your feature request affect?
+      options:
+        - Client
+        - Server
+        - Both
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS-specific?
+      description: Would this feature be OS-specific (in constrast to being useful across all OS)
+      multiple: true
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      description: Is there anything else you want to tell us about this feature (e.g. alternatives you have considered)?
