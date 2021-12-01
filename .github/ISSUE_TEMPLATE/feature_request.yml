@@ -38,8 +38,8 @@ body:
       description: Would this feature be OS-specific (in constrast to being useful across all OS)
       multiple: true
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: textarea
