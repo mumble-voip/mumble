@@ -1,0 +1,84 @@
+name: Bug report
+description: Report a bug
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks you for informing us about this bug.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the bug you are experiencing?
+      placeholder: Mumble crashes upon applying the settings.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: What did you do, when this bug showed up? This information is essential for us to reproduce it.
+      placeholder: |
+        1. Open the settings window
+        2. Make any change
+        3. Hit the `Apply` button
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Mumble version
+      description: The version of Mumble you are using. If you are using a self-compiled version, please provide the used git commit hash.
+      placeholder: 1.4.0
+  - type: dropdown
+    id: component
+    attributes:
+      label: Mumble component
+      description: Which component of Mumble does your feature request affect?
+      options:
+        - Client
+        - Server
+        - Both
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      description: What is the OS you are using?
+      options:
+        - Linux
+        - Windows
+        - macOS
+        - FreeBSD
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: reproducible
+    attributes:
+      label: Reproducible?
+      description: Were you able to reproduce the issue (in contrast to only having expierenced it once)?
+      options:
+        - "Yes"
+        - "No"
+        - "Haven't tried"
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      description: Is there anything else you can tell us about this bug?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, please share any relevant screenshots you might have.
