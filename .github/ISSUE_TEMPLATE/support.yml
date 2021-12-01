@@ -14,7 +14,7 @@ body:
       placeholder: My settings are not saved.
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: version
     attributes:
       label: Mumble version
@@ -37,7 +37,8 @@ body:
   - type: dropdown
     id: os
     attributes:
-      label: What OS are you using?
+      label: OS
+      description: What OS are you using?
       multiple: true
       options:
         - Linux
@@ -51,4 +52,4 @@ body:
     id: additional
     attributes:
       label: Additional information
-      description: Is there anything else you can tell us about your issue and/or the used system and environemnt?
+      description: Is there anything else you can tell us about your issue and/or the used system and environment?
