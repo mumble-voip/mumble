@@ -345,6 +345,8 @@ else()
 	endif()
 endif()
 
+set_property(TARGET mumble PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
 target_compile_definitions(mumble
 	PRIVATE
 		"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_LIBDIR}"

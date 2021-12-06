@@ -33,6 +33,8 @@ find_pkg(Protobuf REQUIRED)
 
 add_library(shared STATIC)
 
+set_property(TARGET shared PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 
 # Disable warnings for the generated source files

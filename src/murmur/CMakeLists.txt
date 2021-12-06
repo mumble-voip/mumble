@@ -57,6 +57,8 @@ else()
 	add_executable(mumble-server ${MURMUR_SOURCES})
 endif()
 
+set_property(TARGET mumble-server PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
 set_target_properties(mumble-server
 	PROPERTIES
 		AUTOMOC ON
