@@ -72,7 +72,6 @@ set(SHARED_SOURCES
 	"SSLLocks.cpp"
 	"Timer.cpp"
 	"UnresolvedServerAddress.cpp"
-	"User.cpp"
 	"Version.cpp"
 
 	"crypto/CryptographicHash.cpp"
@@ -108,7 +107,6 @@ set(SHARED_HEADERS
 	"SSLLocks.h"
 	"Timer.h"
 	"UnresolvedServerAddress.h"
-	"User.h"
 	"Version.h"
 
 	"crypto/CryptographicHash.h"

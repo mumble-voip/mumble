@@ -297,6 +297,8 @@ set(MUMBLE_SOURCES
 	"${SHARED_SOURCE_DIR}/Group.cpp"
 	"${SHARED_SOURCE_DIR}/Group.h"
 	"${SHARED_SOURCE_DIR}/SignalCurry.h"
+	"${SHARED_SOURCE_DIR}/User.cpp"
+	"${SHARED_SOURCE_DIR}/User.h"
 
 	"${3RDPARTY_DIR}/smallft/smallft.cpp"
 

@@ -47,6 +47,8 @@ set(MURMUR_SOURCES
 	"${SHARED_SOURCE_DIR}/Connection.h"
 	"${SHARED_SOURCE_DIR}/Group.cpp"
 	"${SHARED_SOURCE_DIR}/Group.h"
+	"${SHARED_SOURCE_DIR}/User.cpp"
+	"${SHARED_SOURCE_DIR}/User.h"
 )
 
 if(WIN32)
