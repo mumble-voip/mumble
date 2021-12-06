@@ -1137,14 +1137,18 @@ static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int se
 static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int server_id,
 								const ::Murmur::BanList &bans) {
 	NEED_SERVER;
-	QWriteLocker wl(&server->qrwlVoiceThread);
-	server->qlBans.clear();
-	foreach (const ::Murmur::Ban &mb, bans) {
-		::Ban ban;
-		banToBan(mb, ban);
-		server->qlBans << ban;
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		server->qlBans.clear();
+		foreach (const ::Murmur::Ban &mb, bans) {
+			::Ban ban;
+			banToBan(mb, ban);
+			server->qlBans << ban;
+		}
 	}
+
 	server->saveBans();
+
 	cb->ice_response();
 }
 
@@ -1361,11 +1365,9 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 
 	QString qsName = u8(name);
 
-	{
-		QWriteLocker wl(&server->qrwlVoiceThread);
-		nc = server->addChannel(p, qsName);
-		server->updateChannel(nc);
-	}
+	nc = server->addChannel(p, qsName);
+	server->updateChannel(nc);
+
 	int newid = nc->iId;
 
 	MumbleProto::ChannelState mpcs;
@@ -1529,11 +1531,8 @@ static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr 
 	QMap< int, QString > info;
 	infoToInfo(im, info);
 
-	int userid;
-	{
-		QWriteLocker wl(&server->qrwlVoiceThread);
-		userid = server->registerUser(info);
-	}
+	int userid = server->registerUser(info);
+
 	if (userid < 0)
 		cb->ice_exception(InvalidUserException());
 	else
@@ -1544,12 +1543,13 @@ static void impl_Server_unregisterUser(const ::Murmur::AMD_Server_unregisterUser
 									   ::Ice::Int userid) {
 	NEED_SERVER;
 
-	QWriteLocker wl(&server->qrwlVoiceThread);
+	bool success = server->unregisterUser(userid);
 
-	if (!server->unregisterUser(userid))
+	if (!success) {
 		cb->ice_exception(InvalidUserException());
-	else
+	} else {
 		cb->ice_response();
+	}
 }
 
 static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegistrationPtr cb, int server_id, int id,
@@ -1653,8 +1653,6 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 	char *ptr = qba.data();
 	for (unsigned int i = 0; i < tex.size(); ++i)
 		ptr[i] = tex[i];
-
-	QWriteLocker wl(&server->qrwlVoiceThread);
 
 	if (!server->setTexture(userid, qba)) {
 		cb->ice_exception(InvalidTextureException());
