@@ -17,7 +17,7 @@ freebsd_task:
   - cmake --build .
   test_script:
   - cd build
-  - ctest
+  - ctest --output-on-failure
   install_script:
   - cd build
   - cmake --install .
