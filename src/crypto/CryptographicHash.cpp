@@ -34,7 +34,7 @@ private:
 	void cleanupMdctx();
 };
 
-CryptographicHashPrivate::CryptographicHashPrivate() : m_mdctx(nullptr) {
+CryptographicHashPrivate::CryptographicHashPrivate() : m_mdctx(nullptr), m_result() {
 }
 
 void CryptographicHashPrivate::cleanupMdctx() {
@@ -44,7 +44,7 @@ void CryptographicHashPrivate::cleanupMdctx() {
 	}
 }
 
-CryptographicHashPrivate::CryptographicHashPrivate(const EVP_MD *type) : m_mdctx(nullptr) {
+CryptographicHashPrivate::CryptographicHashPrivate(const EVP_MD *type) : CryptographicHashPrivate() {
 	m_mdctx = EVP_MD_CTX_create();
 	if (!m_mdctx) {
 		return;
