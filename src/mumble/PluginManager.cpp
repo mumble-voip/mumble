@@ -429,6 +429,9 @@ bool PluginManager::fetchPositionalData() {
 	}
 
 	if (!retStatus) {
+		// We won't be making changes to the positional data anymore, so we can drop the lock
+		posDataLock.unlock();
+
 		// Shut the currently active plugin down and set a new one (if available)
 		m_activePositionalDataPlugin->shutdownPositionalData();
 
