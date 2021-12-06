@@ -13,6 +13,7 @@
 #include <QtCore/QVector>
 
 #include <atomic>
+#include <limits>
 
 #include "Plugin.h"
 #include "ui_PluginUpdater.h"
@@ -27,10 +28,12 @@ struct UpdateWidgetPair {
 /// A helper struct to store a pair of a plugin ID  and an URL corresponding to
 /// the same plugin.
 struct UpdateEntry {
-	plugin_id_t pluginID;
+	UpdateEntry() = default;
+
+	plugin_id_t pluginID = std::numeric_limits< plugin_id_t >::max();
 	QUrl updateURL;
 	QString fileName;
-	int redirects;
+	int redirects = 0;
 };
 
 /// A class designed for managing plugin updates. At the same time this also represents
