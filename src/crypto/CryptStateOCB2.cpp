@@ -30,12 +30,17 @@
 #include <cstring>
 #include <openssl/rand.h>
 
-CryptStateOCB2::CryptStateOCB2() : CryptState() {
+CryptStateOCB2::CryptStateOCB2() : CryptState(), enc_ctx(EVP_CIPHER_CTX_new()), dec_ctx(EVP_CIPHER_CTX_new()) {
 	for (int i = 0; i < 0x100; i++)
 		decrypt_history[i] = 0;
 	memset(raw_key, 0, AES_KEY_SIZE_BYTES);
 	memset(encrypt_iv, 0, AES_BLOCK_SIZE);
 	memset(decrypt_iv, 0, AES_BLOCK_SIZE);
+}
+
+CryptStateOCB2::~CryptStateOCB2() noexcept {
+	EVP_CIPHER_CTX_free(enc_ctx);
+	EVP_CIPHER_CTX_free(dec_ctx);
 }
 
 bool CryptStateOCB2::isValid() const {
@@ -46,8 +51,6 @@ void CryptStateOCB2::genKey() {
 	CryptographicRandom::fillBuffer(raw_key, AES_KEY_SIZE_BYTES);
 	CryptographicRandom::fillBuffer(encrypt_iv, AES_BLOCK_SIZE);
 	CryptographicRandom::fillBuffer(decrypt_iv, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
-	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;
 }
 
@@ -56,8 +59,6 @@ bool CryptStateOCB2::setKey(const std::string &rkey, const std::string &eiv, con
 		memcpy(raw_key, rkey.data(), AES_KEY_SIZE_BYTES);
 		memcpy(encrypt_iv, eiv.data(), AES_BLOCK_SIZE);
 		memcpy(decrypt_iv, div.data(), AES_BLOCK_SIZE);
-		AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
-		AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 		bInit = true;
 		return true;
 	}
@@ -256,10 +257,24 @@ static void inline ZERO(keyblock &block) {
 		block[i] = 0;
 }
 
-#define AESencrypt(src, dst, key) \
-	AES_encrypt(reinterpret_cast< const unsigned char * >(src), reinterpret_cast< unsigned char * >(dst), key);
-#define AESdecrypt(src, dst, key) \
-	AES_decrypt(reinterpret_cast< const unsigned char * >(src), reinterpret_cast< unsigned char * >(dst), key);
+#define AESencrypt(src, dst, key)                                                                 \
+	{                                                                                             \
+		int outlen = 0;                                                                           \
+		EVP_EncryptInit_ex(enc_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                          \
+		EVP_CIPHER_CTX_set_padding(enc_ctx, 0);                                                   \
+		EVP_EncryptUpdate(enc_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,             \
+						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);        \
+		EVP_EncryptFinal_ex(enc_ctx, reinterpret_cast< unsigned char * >(dst + outlen), &outlen); \
+	}
+#define AESdecrypt(src, dst, key)                                                                 \
+	{                                                                                             \
+		int outlen = 0;                                                                           \
+		EVP_DecryptInit_ex(dec_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                          \
+		EVP_CIPHER_CTX_set_padding(dec_ctx, 0);                                                   \
+		EVP_DecryptUpdate(dec_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,             \
+						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);        \
+		EVP_DecryptFinal_ex(dec_ctx, reinterpret_cast< unsigned char * >(dst + outlen), &outlen); \
+	}
 
 bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len,
 								 const unsigned char *nonce, unsigned char *tag, bool modifyPlainOnXEXStarAttack) {
@@ -267,7 +282,7 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 	bool success = true;
 
 	// Initialize
-	AESencrypt(nonce, delta, &encrypt_key);
+	AESencrypt(nonce, delta, raw_key);
 	ZERO(checksum);
 
 	while (len > AES_BLOCK_SIZE) {
@@ -299,7 +314,7 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 		if (flipABit) {
 			*reinterpret_cast< unsigned char * >(tmp) ^= 1;
 		}
-		AESencrypt(tmp, tmp, &encrypt_key);
+		AESencrypt(tmp, tmp, raw_key);
 		XOR(reinterpret_cast< subblock * >(encrypted), delta, tmp);
 		XOR(checksum, checksum, reinterpret_cast< const subblock * >(plain));
 		if (flipABit) {
@@ -315,7 +330,7 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 	ZERO(tmp);
 	tmp[BLOCKSIZE - 1] = SWAPPED(len * 8);
 	XOR(tmp, tmp, delta);
-	AESencrypt(tmp, pad, &encrypt_key);
+	AESencrypt(tmp, pad, raw_key);
 	memcpy(tmp, plain, len);
 	memcpy(reinterpret_cast< unsigned char * >(tmp) + len, reinterpret_cast< const unsigned char * >(pad) + len,
 		   AES_BLOCK_SIZE - len);
@@ -325,7 +340,7 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 
 	S3(delta);
 	XOR(tmp, delta, checksum);
-	AESencrypt(tmp, tag, &encrypt_key);
+	AESencrypt(tmp, tag, raw_key);
 
 	return success;
 }
@@ -336,13 +351,13 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 	bool success = true;
 
 	// Initialize
-	AESencrypt(nonce, delta, &encrypt_key);
+	AESencrypt(nonce, delta, raw_key);
 	ZERO(checksum);
 
 	while (len > AES_BLOCK_SIZE) {
 		S2(delta);
 		XOR(tmp, delta, reinterpret_cast< const subblock * >(encrypted));
-		AESdecrypt(tmp, tmp, &decrypt_key);
+		AESdecrypt(tmp, tmp, raw_key);
 		XOR(reinterpret_cast< subblock * >(plain), delta, tmp);
 		XOR(checksum, checksum, reinterpret_cast< const subblock * >(plain));
 		len -= AES_BLOCK_SIZE;
@@ -354,7 +369,7 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 	ZERO(tmp);
 	tmp[BLOCKSIZE - 1] = SWAPPED(len * 8);
 	XOR(tmp, tmp, delta);
-	AESencrypt(tmp, pad, &encrypt_key);
+	AESencrypt(tmp, pad, raw_key);
 	memset(tmp, 0, AES_BLOCK_SIZE);
 	memcpy(tmp, encrypted, len);
 	XOR(tmp, tmp, pad);
@@ -372,7 +387,7 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 
 	S3(delta);
 	XOR(tmp, delta, checksum);
-	AESencrypt(tmp, tag, &encrypt_key);
+	AESencrypt(tmp, tag, raw_key);
 
 	return success;
 }
@@ -381,5 +396,5 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 #undef SHIFTBITS
 #undef SWAPPED
 #undef HIGHBIT
-#undef AES_encrypt
-#undef AES_decrypt
+#undef AESencrypt
+#undef AESdecrypt
