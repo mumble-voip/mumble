@@ -45,9 +45,9 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(PluginManager)
 protected:
-	/// Lock for pluginHashMap. This lock has to be aquired when accessing pluginHashMap
+	/// Lock for pluginHashMap. This lock has to be acquired when accessing pluginHashMap
 	mutable QReadWriteLock m_pluginCollectionLock;
-	/// A map between plugin-IDs and the actual plugin objects. You have to aquire pluginCollectionLock before
+	/// A map between plugin-IDs and the actual plugin objects. You have to acquire pluginCollectionLock before
 	/// accessing this map.
 	QHash< plugin_id_t, plugin_ptr_t > m_pluginHashMap;
 	/// A set of directories to search plugins in
@@ -65,17 +65,17 @@ protected:
 	/// deliver positional data.
 	QTimer m_positionalDataCheckTimer;
 
-	/// The mutex for sentData. This has to be aquired before accessing sentData
+	/// The mutex for sentData. This has to be acquired before accessing sentData
 	mutable QMutex m_sentDataMutex;
 	/// The bits of the positional data that have already been sent to the server. It is used to determine whether
-	/// the new data has to be sent to the server (in case it has changed). You have ti aquire sentDataMutex before
+	/// the new data has to be sent to the server (in case it has changed). You have ti acquire sentDataMutex before
 	/// accessing this field.
 	PluginManager_SentData m_sentData;
 
-	/// The lock for activePositionalDataPlugin. It has to be aquired before accessing the respective field.
+	/// The lock for activePositionalDataPlugin. It has to be acquired before accessing the respective field.
 	mutable QReadWriteLock m_activePosDataPluginLock;
-	/// The plugin that is currently used to retrieve positional data. You have to aquire activePosDataPluginLock before
-	/// accessing this field.
+	/// The plugin that is currently used to retrieve positional data. You have to acquire activePosDataPluginLock
+	/// before accessing this field.
 	plugin_ptr_t m_activePositionalDataPlugin;
 	/// The PluginUpdater used to handle plugin updates.
 	PluginUpdater m_updater;
@@ -281,6 +281,19 @@ protected slots:
 	/// new one.
 	void checkForAvailablePositionalDataPlugin();
 
+	/// Emits a log about a plugin with the given ID having lost link (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportLostLink(mumble_plugin_id_t pluginID);
+	/// Emits a log about a plugin with the given ID to have linked (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportPluginLinked(mumble_plugin_id_t pluginID);
+	/// Emits a log about a plugin with the given ID to having encountered a permanent error (positional audio)
+	///
+	/// @param pluginID The ID of the plugin that lost link
+	void reportPermanentError(mumble_plugin_id_t pluginID);
+
 signals:
 	/// A signal emitted if the PluginManager (acting as an event filter) detected
 	/// a QKeyEvent.
@@ -289,6 +302,12 @@ signals:
 	/// @param modifiers The modifiers that were active in the moment of the event
 	/// @param isPress True if the key has been pressed, false if it has been released
 	void keyEvent(unsigned int key, Qt::KeyboardModifiers modifiers, bool isPress);
+	/// Signal emitted whenever a plugin loses link (positional data gathering)
+	void pluginLostLink(mumble_plugin_id_t pluginID);
+	/// Signal emitted whenever a plugin links (positional data gathering)
+	void pluginLinked(mumble_plugin_id_t pluginID);
+	/// Signal emitted whenever a plugin encounters a permanent error during positional data gathering
+	void pluginEncounteredPermanentError(mumble_plugin_id_t pluginID);
 };
 
 #endif
