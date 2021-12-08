@@ -20,6 +20,8 @@
 #include <QtCore/QStack>
 #include <QtCore/QtEndian>
 
+#include <cassert>
+
 #define RATELIMIT(user)                   \
 	if (user->leakyBucket.ratelimit(1)) { \
 		return;                           \
@@ -702,8 +704,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		if (!hasPermission(uSource, c, ChanACL::Listen)) {
-			PERM_DENIED(uSource, c, ChanACL::Listen);
+		if (!hasPermission(pDstServerUser, c, ChanACL::Listen)) {
+			PERM_DENIED(pDstServerUser, c, ChanACL::Listen);
 			continue;
 		}
 
@@ -837,23 +839,23 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		QWriteLocker wl(&qrwlVoiceThread);
 
 		if (msg.has_self_deaf()) {
-			uSource->bSelfDeaf = msg.self_deaf();
-			if (uSource->bSelfDeaf)
+			pDstServerUser->bSelfDeaf = msg.self_deaf();
+			if (pDstServerUser->bSelfDeaf)
 				msg.set_self_mute(true);
 			bBroadcast = true;
 		}
 
 		if (msg.has_self_mute()) {
-			uSource->bSelfMute = msg.self_mute();
-			if (!uSource->bSelfMute) {
+			pDstServerUser->bSelfMute = msg.self_mute();
+			if (!pDstServerUser->bSelfMute) {
 				msg.set_self_deaf(false);
-				uSource->bSelfDeaf = false;
+				pDstServerUser->bSelfDeaf = false;
 			}
 			bBroadcast = true;
 		}
 
 		if (msg.has_plugin_context()) {
-			uSource->ssContext = msg.plugin_context();
+			pDstServerUser->ssContext = msg.plugin_context();
 
 			// Make sure to clear this from the packet so we don't broadcast it
 			msg.clear_plugin_context();
@@ -861,7 +863,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_plugin_identity()) {
-		uSource->qsIdentity = u8(msg.plugin_identity());
+		pDstServerUser->qsIdentity = u8(msg.plugin_identity());
 		// Make sure to clear this from the packet so we don't broadcast it
 		msg.clear_plugin_identity();
 	}
@@ -911,6 +913,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_recording() && (pDstServerUser->bRecording != msg.recording())) {
+		assert(uSource == pDstServerUser);
+
 		pDstServerUser->bRecording = msg.recording();
 
 		MumbleProto::TextMessage mptm;
@@ -951,17 +955,21 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Handle channel listening
 	// Note that it is important to handle the listening channels after channel-joins
 	foreach (Channel *c, listeningChannelsAdd) {
-		m_channelListenerManager.addListener(uSource->uiSession, c->iId);
+		m_channelListenerManager.addListener(pDstServerUser->uiSession, c->iId);
 
-		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
+		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"")
+				.arg(QString(*pDstServerUser))
+				.arg(QString(*c)));
 	}
 	for (int i = 0; i < msg.listening_channel_remove_size(); i++) {
 		Channel *c = qhChannels.value(msg.listening_channel_remove(i));
 
 		if (c) {
-			m_channelListenerManager.removeListener(uSource->uiSession, c->iId);
+			m_channelListenerManager.removeListener(pDstServerUser->uiSession, c->iId);
 
-			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
+			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"")
+					.arg(QString(*pDstServerUser))
+					.arg(QString(*c)));
 		}
 	}
 
