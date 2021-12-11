@@ -75,6 +75,17 @@ PlayerControl_Fields Game::playerControlFields() {
 	return {};
 }
 
+GameData_PlayerOutfit_Fields Game::playerOutfitFields(const GameData_PlayerInfo_Fields &fields) {
+	const auto dictFields = m_proc.peek< Dictionary_o >(fields.outfits).fields;
+	if (!dictFields.entries || dictFields.count < 1) {
+		return {};
+	}
+
+	const auto array = m_proc.peek< Dictionary_Array >(dictFields.entries);
+
+	return m_proc.peek< GameData_PlayerOutfit_o >(array.items[0].value).fields;
+}
+
 std::string Game::string(const procptr_t address) {
 	const auto object = m_proc.peek< String_o >(address);
 
@@ -97,17 +108,23 @@ const std::string &Game::context(const AmongUsClient_Fields &fields) {
 	return m_context;
 }
 
-const std::string &Game::identity(const AmongUsClient_Fields &fields, const GameData_PlayerInfo_Fields &playerFields) {
+const std::string &Game::identity(const AmongUsClient_Fields &fields, const PlayerControl_Fields &controlFields) {
+	const GameData_PlayerInfo_Fields infoFields     = playerInfoFields(controlFields);
+	const GameData_PlayerOutfit_Fields outfitFields = playerOutfitFields(infoFields);
+
 	std::ostringstream stream;
 
-	stream << "Name: " << string(playerFields.playerName) << '\n';
+	stream << "ID: " << std::to_string(infoFields.playerId) << '\n';
+	stream << "Name: " << string(outfitFields.playerName) << '\n';
+	stream << "Level: " << std::to_string(infoFields.playerLevel + 1) << '\n';
+	stream << "Color ID: " << std::to_string(outfitFields.colorId) << '\n';
+	stream << "Skin: " << string(outfitFields.skinId) << '\n';
+	stream << "Hat: " << string(outfitFields.hatId) << '\n';
+	stream << "Visor: " << string(outfitFields.visorId) << '\n';
+	stream << "Pet: " << string(outfitFields.petId) << '\n';
+	stream << "Nameplate: " << string(outfitFields.namePlateId) << '\n';
+	stream << "Dead: " << (infoFields.isDead ? "true" : "false") << '\n';
 	stream << "Client ID: " << std::to_string(fields.clientId) << '\n';
-	stream << "Player ID: " << std::to_string(playerFields.playerId) << '\n';
-	stream << "Color ID: " << std::to_string(playerFields.colorId) << '\n';
-	stream << "Skin ID: " << std::to_string(playerFields.skinId) << '\n';
-	stream << "Hat ID: " << std::to_string(playerFields.hatId) << '\n';
-	stream << "Pet ID: " << std::to_string(playerFields.petId) << '\n';
-	stream << "Dead: " << (playerFields.isDead ? "true" : "false") << '\n';
 	stream << "Host ID: " << std::to_string(fields.hostId) << '\n';
 	stream << "Public game: " << (fields.isGamePublic ? "true" : "false");
 

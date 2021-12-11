@@ -9,6 +9,7 @@
 #include <cstdint>
 
 typedef uint32_t ptr_t;
+typedef uint32_t il2cpp_array_size_t; // uintptr_t
 
 enum class DisconnectReason {
 	ExitGame            = 0x0,
@@ -45,7 +46,12 @@ struct Il2CppType {
 	uint32_t bits;
 };
 
-struct Il2CppClass_0 {
+struct Il2CppObject {
+	ptr_t klass;
+	ptr_t monitor;
+};
+
+struct Il2CppClass_1 {
 	ptr_t image;
 	ptr_t gcDesc;
 	ptr_t name;
@@ -57,7 +63,7 @@ struct Il2CppClass_0 {
 	ptr_t declaringType;
 	ptr_t parent;
 	ptr_t genericClass;
-	ptr_t typeDefinition;
+	ptr_t typeMetadataHandle;
 	ptr_t interopData;
 	ptr_t klass;
 	ptr_t fields;
@@ -66,6 +72,40 @@ struct Il2CppClass_0 {
 	ptr_t methods;
 	ptr_t nestedTypes;
 	ptr_t implementedInterfaces;
+	ptr_t interfaceOffsets;
+};
+
+struct Dictionary_Item {
+	int32_t hashCode;
+	int32_t next;
+	ptr_t key;
+	ptr_t value;
+};
+
+struct Dictionary_Array {
+	Il2CppObject obj;
+	ptr_t bounds;
+	il2cpp_array_size_t maxLength;
+	Dictionary_Item items[1];
+};
+
+struct Dictionary_Fields {
+	ptr_t buckets;
+	ptr_t entries;
+	int32_t count;
+	int32_t version;
+	int32_t freeList;
+	int32_t freeCount;
+	ptr_t comparer;
+	ptr_t keys;
+	ptr_t values;
+	ptr_t syncRoot;
+};
+
+struct Dictionary_o {
+	ptr_t klass;
+	ptr_t monitor;
+	Dictionary_Fields fields;
 };
 
 struct UnityEngine_Vector2_Fields {
@@ -75,6 +115,16 @@ struct UnityEngine_Vector2_Fields {
 
 struct UnityEngine_Vector2_o {
 	UnityEngine_Vector2_Fields fields;
+};
+
+struct UnityEngine_Vector3_Fields {
+	float x;
+	float y;
+	float z;
+};
+
+struct UnityEngine_Vector3_o {
+	UnityEngine_Vector3_Fields fields;
 };
 
 struct String_Fields {
@@ -116,10 +166,13 @@ struct InnerNet_InnerNetClient_Fields : UnityEngine_Object_Fields {
 	ptr_t recentClients;
 	DisconnectReason lastDisconnectReason;
 	ptr_t lastCustomDisconnect;
+	uint8_t lastServerChatMode;
 	ptr_t preSpawnDispatcher;
 	ptr_t dispatcher;
 	bool isGamePublic;
 	GameState gameState;
+	bool isConnecting;
+	bool platformSpecificsChecked;
 	ptr_t tempQueue;
 	bool appPaused;
 };
@@ -172,8 +225,7 @@ struct AmongUsClient_StaticFields {
 };
 
 struct AmongUsClient_c {
-	Il2CppClass_0 _0;
-	ptr_t interfaceOffsets;
+	Il2CppClass_1 _1;
 	ptr_t staticFields;
 };
 
@@ -188,8 +240,12 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	uint8_t playerId;
 	float maxReportDistance;
 	bool moveable;
+	int32_t currentOutfitType;
 	bool inVent;
+	bool protectedByGuardianThisRound;
+	bool shapeshifting;
 	ptr_t cachedData;
+	bool protectedByGuardian;
 	ptr_t footSteps;
 	ptr_t killSfx;
 	ptr_t killAnimations;
@@ -203,12 +259,15 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	ptr_t netTransform;
 	ptr_t currentPet;
 	ptr_t hatRenderer;
+	ptr_t visorSlot;
 	ptr_t spriteRenderer;
 	ptr_t spriteAnim;
 	ptr_t hitBuffer;
 	ptr_t myTasks;
+	UnityEngine_Vector3_o defaultPlayerScale;
 	ptr_t scannerAnims;
 	ptr_t scannersImages;
+	ptr_t currentRoleAnimations;
 	ptr_t closest;
 	bool isNew;
 	bool isDummy;
@@ -217,7 +276,7 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	ptr_t itemsInRange;
 	ptr_t newItemsInRange;
 	uint8_t scannerCount;
-	bool infectedSet;
+	bool roleAssigned;
 };
 
 struct PlayerControl_StaticFields {
@@ -227,8 +286,7 @@ struct PlayerControl_StaticFields {
 };
 
 struct PlayerControl_c {
-	Il2CppClass_0 _0;
-	ptr_t interfaceOffsets;
+	Il2CppClass_1 _1;
 	ptr_t staticFields;
 };
 
@@ -238,17 +296,32 @@ struct PlayerControl_o {
 	PlayerControl_Fields fields;
 };
 
-struct GameData_PlayerInfo_Fields {
-	uint8_t playerId;
-	ptr_t playerName;
+struct GameData_PlayerOutfit_Fields {
 	bool dontCensorName;
 	int32_t colorId;
-	uint32_t hatId;
-	uint32_t petId;
-	uint32_t skinId;
+	ptr_t hatId;
+	ptr_t petId;
+	ptr_t skinId;
+	ptr_t visorId;
+	ptr_t namePlateId;
+	ptr_t playerName;
+	ptr_t preCensorName;
+	ptr_t postCensorName;
+};
+
+struct GameData_PlayerOutfit_o {
+	ptr_t klass;
+	ptr_t monitor;
+	GameData_PlayerOutfit_Fields fields;
+};
+
+struct GameData_PlayerInfo_Fields {
+	uint8_t playerId;
+	ptr_t outfits;
+	uint32_t playerLevel;
 	bool disconnected;
+	ptr_t role;
 	ptr_t tasks;
-	bool isImpostor;
 	bool isDead;
 	ptr_t object;
 };

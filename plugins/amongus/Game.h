@@ -31,11 +31,12 @@ public:
 	}
 
 	PlayerControl_Fields playerControlFields();
+	GameData_PlayerOutfit_Fields playerOutfitFields(const GameData_PlayerInfo_Fields &fields);
 
 	std::string string(const procptr_t address);
 
 	const std::string &context(const AmongUsClient_Fields &fields);
-	const std::string &identity(const AmongUsClient_Fields &fields, const GameData_PlayerInfo_Fields &playerFields);
+	const std::string &identity(const AmongUsClient_Fields &fields, const PlayerControl_Fields &controlFields);
 
 	Game(const uint64_t id, const std::string name);
 

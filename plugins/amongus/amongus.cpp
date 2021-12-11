@@ -129,10 +129,8 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	avatarPos[0] = cameraPos[0] = position.x;
 	avatarPos[2] = cameraPos[2] = position.y;
 
-	*contextPtr = game->context(fields).c_str();
-
-	const auto playerFields = game->playerInfoFields(playerControlFields);
-	*identityPtr            = game->identity(fields, playerFields).c_str();
+	*contextPtr  = game->context(fields).c_str();
+	*identityPtr = game->identity(fields, playerControlFields).c_str();
 
 	return true;
 }
