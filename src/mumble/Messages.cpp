@@ -184,34 +184,6 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	updateTrayIcon();
 
-	// Set-up all ChannelListeners and their volume adjustments as before for this server
-	QList< int > localListeners = Global::get().db->getChannelListeners(Global::get().sh->qbaDigest);
-
-	if (!localListeners.isEmpty()) {
-		Global::get().channelListenerManager->setInitialServerSyncDone(false);
-		Global::get().sh->startListeningToChannels(localListeners);
-	} else {
-		// If there are no listeners, then no synchronization is needed in the first place
-		Global::get().channelListenerManager->setInitialServerSyncDone(true);
-	}
-
-	{
-		// Since we are only loading the adjustments from the database, we don't really want to consider the adjustments
-		// to have "changed" by this action. Furthermore we are setting the volume adjustments before the listeners
-		// officially exist. Therefore some code that would receive the change-event would try to get the respective
-		// listener and fail due to it not existing yet. Therefore we block all signals while setting the volume
-		// adjustments.
-		const QSignalBlocker blocker(Global::get().channelListenerManager.get());
-
-		QHash< int, float > volumeMap =
-			Global::get().db->getChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest);
-		QHashIterator< int, float > it(volumeMap);
-		while (it.hasNext()) {
-			it.next();
-			Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(it.key(), it.value());
-		}
-	}
-
 
 	Global::get().sh->setServerSynchronized(true);
 
@@ -493,13 +465,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		QString logMsg;
 		if (pDst == pSelf) {
 			logMsg = tr("You started listening to %1").arg(Log::formatChannel(c));
-
-			// Since ChannelListeners are sent out in bulks (all in a single message), the fact that we received
-			// a message that contains information about a ChannelListener of the local user means that we have
-			// succecssfully told the server that we are listening to the respective channels. Even if this message
-			// here has nothing to do with the actual initial synchronization, this means that we have been connected
-			// to the server long enough for the synchronization to be done.
-			Global::get().channelListenerManager->setInitialServerSyncDone(true);
 		} else if (pSelf && pSelf->cChannel == c) {
 			logMsg = tr("%1 started listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
 		}
