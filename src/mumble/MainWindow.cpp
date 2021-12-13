@@ -978,9 +978,6 @@ void MainWindow::enableRecording(bool recordingAllowed) {
 }
 
 static void recreateServerHandler() {
-	// New server connection, so the sync has not happened yet
-	Global::get().channelListenerManager->setInitialServerSyncDone(false);
-
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh && sh->isRunning()) {
 		Global::get().mw->on_qaServerDisconnect_triggered();
@@ -3238,12 +3235,6 @@ void MainWindow::serverConnected() {
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
-	if (Global::get().sh->hasSynchronized()) {
-		// Note that the saving of the ChannelListeners has to be done, before resetting Global::get().uiSession
-		// Save ChannelListeners
-		Global::get().channelListenerManager->saveToDB();
-	}
-
 	// clear ChannelListener
 	Global::get().channelListenerManager->clear();
 
