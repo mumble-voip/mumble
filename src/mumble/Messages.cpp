@@ -459,6 +459,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
+		if (Global::get().channelListenerManager->isListening(pDst->uiSession, c->iId)) {
+			// We are already listening to this channel
+			continue;
+		}
+
 		Global::get().channelListenerManager->addListener(pDst->uiSession, c->iId);
 		emit userAddedChannelListener(pDst, c);
 
