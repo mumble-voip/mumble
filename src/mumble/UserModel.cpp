@@ -1971,7 +1971,9 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 		if (parentChannel && user.uiSession == Global::get().uiSession) {
 			// Only the listener of the local user can have a volume adjustment
 			volumeAdjustment =
-				Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(parentChannel->iId);
+				Global::get()
+					.channelListenerManager->getListenerVolumeAdjustment(user.uiSession, parentChannel->iId)
+					.factor;
 		}
 	} else {
 		volumeAdjustment = user.getLocalVolumeAdjustments();

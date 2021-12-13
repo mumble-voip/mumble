@@ -7,6 +7,7 @@
 
 #include "Ban.h"
 #include "Channel.h"
+#include "ChannelListenerManager.h"
 #include "Group.h"
 #include "Meta.h"
 #include "MumbleServer.h"
@@ -1805,6 +1806,27 @@ static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_send
 
 		server->sendWelcomeMessageTo(user);
 	}
+
+	cb->ice_response();
+}
+
+static void impl_Server_getListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_getListenerVolumeAdjustmentPtr cb,
+													int server_id, int channelid, int session) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	cb->ice_response(
+		server->m_channelListenerManager.getListenerVolumeAdjustment(user->uiSession, channel->iId).factor);
+}
+
+static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_setListenerVolumeAdjustmentPtr cb,
+													int server_id, int channelid, int session, float volumeAdjustment) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	server->setListenerVolumeAdjustment(user, channel, VolumeAdjustment::fromFactor(volumeAdjustment));
 
 	cb->ice_response();
 }

@@ -161,6 +161,12 @@ public:
 	virtual void getListeningUsers_async(const ::MumbleServer::AMD_Server_getListeningUsersPtr &, ::Ice::Int,
 										 const Ice::Current &);
 
+	virtual void getListenerVolumeAdjustment_async(const ::MumbleServer::AMD_Server_getListenerVolumeAdjustmentPtr &,
+												   ::Ice::Int, ::Ice::Int, const Ice::Current &);
+
+	virtual void setListenerVolumeAdjustment_async(const ::MumbleServer::AMD_Server_setListenerVolumeAdjustmentPtr &,
+												   ::Ice::Int, ::Ice::Int, ::Ice::Float, const Ice::Current &);
+
 	virtual void sendWelcomeMessage_async(const ::MumbleServer::AMD_Server_sendWelcomeMessagePtr &,
 										  const ::MumbleServer::IdList &p1, const ::Ice::Current &current);
 

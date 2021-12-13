@@ -500,6 +500,18 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			Global::get().l->log(Log::ChannelListeningRemove, logMsg);
 		}
 	}
+	for (int i = 0; i < msg.listening_volume_adjustment_size(); i++) {
+		int channelID    = msg.listening_volume_adjustment(i).listening_channel();
+		float adjustment = msg.listening_volume_adjustment(i).volume_adjustment();
+
+		const Channel *channel = Channel::get(channelID);
+		if (channel && pSelf && pSelf->uiSession == pDst->uiSession) {
+			Global::get().channelListenerManager->setListenerVolumeAdjustment(pDst->uiSession, channel->iId,
+																			  VolumeAdjustment::fromFactor(adjustment));
+		} else if (!channel) {
+			qWarning("msgUserState(): Invalid channel ID encountered in volume adjustment");
+		}
+	}
 
 	if (msg.has_name()) {
 		QString oldName = pDst->qsName;

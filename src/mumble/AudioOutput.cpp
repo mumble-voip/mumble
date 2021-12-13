@@ -506,14 +506,21 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
-				if (user->cChannel
-					&& Global::get().channelListenerManager->isListening(Global::get().uiSession, user->cChannel->iId)
-					&& (speech->m_audioContext == Mumble::Protocol::AudioContext::LISTEN)) {
+				if (sh && sh->m_version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION) {
+					// The new protocol supports sending volume adjustments which is used to figure out the correct
+					// volume adjustment for listeners on the server. Thus, we only have to apply that here.
+					volumeAdjustment *= speech->m_suggestedVolumeAdjustment;
+				} else if (user->cChannel
+						   && Global::get().channelListenerManager->isListening(Global::get().uiSession,
+																				user->cChannel->iId)
+						   && (speech->m_audioContext == Mumble::Protocol::AudioContext::LISTEN)) {
 					// We are receiving this audio packet only because we are listening to the channel
 					// the speaking user is in. Thus we receive the audio via our "listener proxy".
 					// Thus we'll apply the volume adjustment for our listener proxy as well
-					volumeAdjustment *=
-						Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(user->cChannel->iId);
+					volumeAdjustment *= Global::get()
+											.channelListenerManager
+											->getListenerVolumeAdjustment(Global::get().uiSession, user->cChannel->iId)
+											.factor;
 				}
 
 				if (prioritySpeakerActive) {

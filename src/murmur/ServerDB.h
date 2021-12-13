@@ -26,7 +26,7 @@ public:
 	/// Whenever you change the DB structure (add a new table, added a new column in a table, etc.)
 	/// you have to increase this version number by one and add the respective "backwards compatibility
 	/// code" into the ServerDB code.
-	static const int DB_STRUCTURE_VERSION = 8;
+	static const int DB_STRUCTURE_VERSION = 9;
 
 	enum ChannelInfo { Channel_Description, Channel_Position, Channel_Max_Users };
 	enum UserInfo {

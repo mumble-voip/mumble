@@ -10,6 +10,7 @@
 #endif
 
 #include "Channel.h"
+#include "ChannelListenerManager.h"
 #include "Group.h"
 #include "Meta.h"
 #include "QtUtils.h"
@@ -357,14 +358,30 @@ void Server::startListeningToChannel(ServerUser *user, Channel *cChannel) {
 		return;
 	}
 
-	m_channelListenerManager.addListener(user->uiSession, cChannel->iId);
+	addChannelListener(*user, *cChannel);
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(user->uiSession);
 
 	mpus.add_listening_channel_add(cChannel->iId);
 
-	sendAll(mpus);
+	if (!broadcastListenerVolumeAdjustments) {
+		sendExcept(user, mpus);
+	}
+
+	// Adding a listener might resurrect an old volume adjustment, so we need to
+	// inform the (all) client(s) about this volume adjustment.
+	float volumeAdjustment =
+		m_channelListenerManager.getListenerVolumeAdjustment(user->uiSession, cChannel->iId).factor;
+	MumbleProto::UserState::VolumeAdjustment *volume_adjustment = mpus.add_listening_volume_adjustment();
+	volume_adjustment->set_listening_channel(cChannel->iId);
+	volume_adjustment->set_volume_adjustment(volumeAdjustment);
+
+	if (broadcastListenerVolumeAdjustments) {
+		sendAll(mpus);
+	} else {
+		sendMessage(user, mpus);
+	}
 }
 
 void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
@@ -373,7 +390,7 @@ void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
 		return;
 	}
 
-	m_channelListenerManager.removeListener(user->uiSession, cChannel->iId);
+	disableChannelListener(*user, *cChannel);
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(user->uiSession);
@@ -381,6 +398,29 @@ void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
 	mpus.add_listening_channel_remove(cChannel->iId);
 
 	sendAll(mpus);
+}
+
+void Server::setListenerVolumeAdjustment(ServerUser *user, const Channel *cChannel,
+										 const VolumeAdjustment &volumeAdjustment) {
+	setChannelListenerVolume(*user, *cChannel, volumeAdjustment.factor);
+
+	// Inform clients about this change
+	MumbleProto::UserState mpus;
+	mpus.set_session(user->uiSession);
+
+	if (!broadcastListenerVolumeAdjustments) {
+		sendExcept(user, mpus);
+	}
+
+	MumbleProto::UserState::VolumeAdjustment *volume_adjustment = mpus.add_listening_volume_adjustment();
+	volume_adjustment->set_listening_channel(cChannel->iId);
+	volume_adjustment->set_volume_adjustment(volumeAdjustment.factor);
+
+	if (broadcastListenerVolumeAdjustments) {
+		sendAll(mpus);
+	} else {
+		sendMessage(user, mpus);
+	}
 }
 
 void Server::sendWelcomeMessageTo(ServerUser *user) {

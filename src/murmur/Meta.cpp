@@ -106,6 +106,8 @@ MetaParams::MetaParams() {
 	iPluginMessageLimit = 4;
 	iPluginMessageBurst = 15;
 
+	broadcastListenerVolumeAdjustments = false;
+
 	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
 	bLogGroupChanges = false;
@@ -369,6 +371,8 @@ void MetaParams::read(QString fname) {
 
 	iPluginMessageLimit = typeCheckedFromSettings("pluginmessagelimit", 4);
 	iPluginMessageBurst = typeCheckedFromSettings("pluginmessageburst", 15);
+
+	broadcastListenerVolumeAdjustments = typeCheckedFromSettings("broadcastlistenervolumeadjustments", false);
 
 	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {

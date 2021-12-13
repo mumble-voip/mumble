@@ -65,7 +65,7 @@ class ServerUser;
 struct WhisperTargetCache {
 	QSet< ServerUser * > channelTargets;
 	QSet< ServerUser * > directTargets;
-	QSet< ServerUser * > listeningTargets;
+	QHash< ServerUser *, VolumeAdjustment > listeningTargets;
 };
 
 class Server;

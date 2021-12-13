@@ -5,6 +5,7 @@
 
 #include "ACL.h"
 #include "Channel.h"
+#include "ChannelListenerManager.h"
 #include "Connection.h"
 #include "Group.h"
 #include "Meta.h"
@@ -22,6 +23,7 @@
 #include <QtCore/QtEndian>
 
 #include <cassert>
+#include <unordered_map>
 
 #include <Tracy.hpp>
 
@@ -390,6 +392,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 	}
 
+	loadChannelListenersOf(*uSource);
+
 	// Transmit user profile
 	MumbleProto::UserState mpus;
 
@@ -483,8 +487,16 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (!u->qsHash.isEmpty())
 			mpus.set_hash(u8(u->qsHash));
 
-		foreach (int channelID, m_channelListenerManager.getListenedChannelsForUser(u->uiSession)) {
+
+		for (int channelID : m_channelListenerManager.getListenedChannelsForUser(u->uiSession)) {
 			mpus.add_listening_channel_add(channelID);
+
+			if (broadcastListenerVolumeAdjustments) {
+				VolumeAdjustment volume = m_channelListenerManager.getListenerVolumeAdjustment(u->uiSession, channelID);
+				MumbleProto::UserState::VolumeAdjustment *adjustment = mpus.add_listening_volume_adjustment();
+				adjustment->set_listening_channel(channelID);
+				adjustment->set_volume_adjustment(volume.factor);
+			}
 		}
 
 		sendMessage(uSource, mpus);
@@ -506,6 +518,39 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	sendMessage(uSource, mpss);
+
+	// Transmit user's listeners - this has to be done AFTER the server-sync message has been sent to uSource as the
+	// client may require its own session ID for processing the listeners properly.
+	mpus.Clear();
+	mpus.set_session(uSource->uiSession);
+	for (int channelID : m_channelListenerManager.getListenedChannelsForUser(uSource->uiSession)) {
+		mpus.add_listening_channel_add(channelID);
+	}
+
+	// If we are not intending to broadcast the volume adjustments to everyone, we have to send the message to all but
+	// uSource without the volume adjustments. Then append the adjustments, but only send them to uSource. If we are in
+	// fact broadcasting, just append the adjustments and send to everyone.
+	if (!broadcastListenerVolumeAdjustments && mpus.listening_channel_add_size() > 0) {
+		sendExcept(uSource, mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
+	}
+
+	std::unordered_map< int, VolumeAdjustment > volumeAdjustments =
+		m_channelListenerManager.getAllListenerVolumeAdjustments(uSource->uiSession);
+	for (auto it = volumeAdjustments.begin(); it != volumeAdjustments.end(); ++it) {
+		MumbleProto::UserState::VolumeAdjustment *adjustment = mpus.add_listening_volume_adjustment();
+		adjustment->set_listening_channel(it->first);
+		adjustment->set_volume_adjustment(it->second.factor);
+	}
+
+	if (mpus.listening_channel_add_size() > 0 || mpus.listening_volume_adjustment_size() > 0) {
+		if (!broadcastListenerVolumeAdjustments) {
+			if (uSource->m_version >= Version::fromComponents(1, 2, 2)) {
+				sendMessage(uSource, mpus);
+			}
+		} else {
+			sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
+		}
+	}
 
 	MumbleProto::ServerConfig mpsc;
 	mpsc.set_allow_html(bAllowHTML);
@@ -959,18 +1004,42 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	// Handle channel listening
 	// Note that it is important to handle the listening channels after channel-joins
-	foreach (Channel *c, listeningChannelsAdd) {
-		m_channelListenerManager.addListener(pDstServerUser->uiSession, c->iId);
+	QSet< int > volumeAdjustedChannels;
+	for (int i = 0; i < msg.listening_volume_adjustment_size(); i++) {
+		const MumbleProto::UserState::VolumeAdjustment &adjustment = msg.listening_volume_adjustment(i);
+
+		const Channel *channel = qhChannels.value(adjustment.listening_channel());
+
+		if (channel) {
+			setChannelListenerVolume(*pDstServerUser, *channel, adjustment.volume_adjustment());
+
+			volumeAdjustedChannels << channel->iId;
+		} else {
+			log(uSource, QString::fromLatin1("Invalid channel ID \"%1\" in volume adjustment")
+							 .arg(adjustment.listening_channel()));
+		}
+	}
+	for (Channel *c : listeningChannelsAdd) {
+		addChannelListener(*pDstServerUser, *c);
 
 		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"")
 				.arg(QString(*pDstServerUser))
 				.arg(QString(*c)));
+
+		float volumeAdjustment =
+			m_channelListenerManager.getListenerVolumeAdjustment(pDstServerUser->uiSession, c->iId).factor;
+
+		if (volumeAdjustment != 1.0f && !volumeAdjustedChannels.contains(c->iId)) {
+			MumbleProto::UserState::VolumeAdjustment *adjustment = msg.add_listening_volume_adjustment();
+			adjustment->set_listening_channel(c->iId);
+			adjustment->set_volume_adjustment(volumeAdjustment);
+		}
 	}
 	for (int i = 0; i < msg.listening_channel_remove_size(); i++) {
 		Channel *c = qhChannels.value(msg.listening_channel_remove(i));
 
 		if (c) {
-			m_channelListenerManager.removeListener(pDstServerUser->uiSession, c->iId);
+			disableChannelListener(*pDstServerUser, *c);
 
 			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"")
 					.arg(QString(*pDstServerUser))
@@ -978,9 +1047,17 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	bool listenerChanged = !listeningChannelsAdd.isEmpty() || msg.listening_channel_remove_size() > 0;
+	bool listenerVolumeChanged = msg.listening_volume_adjustment_size() > 0;
+	bool listenerChanged       = !listeningChannelsAdd.isEmpty() || msg.listening_channel_remove_size() > 0;
 
-	bBroadcast = bBroadcast || listenerChanged;
+	bool broadcastingBecauseOfVolumeChange = !bBroadcast && listenerVolumeChanged;
+	bBroadcast                             = bBroadcast || listenerChanged || listenerVolumeChanged;
+
+	if (listenerChanged || listenerVolumeChanged) {
+		// As whisper targets also contain information about ChannelListeners and
+		// their associated volume adjustment, we have to clear the target cache
+		clearWhisperTargetCache();
+	}
 
 
 	bool bDstAclChanged = false;
@@ -1033,11 +1110,21 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			msg.set_comment_hash(blob(pDstServerUser->qbaCommentHash));
 		}
 
-		sendAll(msg, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
+		if (uSource->m_version >= Version::fromComponents(1, 2, 2)) {
+			sendMessage(uSource, msg);
+		}
+		if (!broadcastListenerVolumeAdjustments) {
+			// Don't broadcast the volume adjustments to everyone
+			msg.clear_listening_volume_adjustment();
+		}
+
+		if (broadcastListenerVolumeAdjustments || !broadcastingBecauseOfVolumeChange) {
+			sendExcept(uSource, msg, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
+		}
 
 		if (bDstAclChanged) {
 			clearACLCache(pDstServerUser);
-		} else if (listenerChanged) {
+		} else if (listenerChanged || listenerVolumeChanged) {
 			// We only have to do this if the ACLs didn't change as
 			// clearACLCache calls clearWhisperTargetChache anyways
 			clearWhisperTargetCache();

@@ -44,7 +44,7 @@ class SearchDialog;
 };
 
 class MenuLabel;
-class ListenerLocalVolumeSlider;
+class ListenerVolumeSlider;
 class UserLocalVolumeSlider;
 
 struct ShortcutTarget;
@@ -183,7 +183,7 @@ protected:
 
 	qt_unique_ptr< MenuLabel > m_localVolumeLabel;
 	qt_unique_ptr< UserLocalVolumeSlider > m_userLocalVolumeSlider;
-	qt_unique_ptr< ListenerLocalVolumeSlider > m_listenerLocalVolumeSlider;
+	qt_unique_ptr< ListenerVolumeSlider > m_listenerVolumeSlider;
 
 	void createActions();
 	void setupGui();

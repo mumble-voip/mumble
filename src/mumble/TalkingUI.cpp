@@ -31,6 +31,7 @@
 #include <QtGui/QPixmap>
 
 #include <algorithm>
+#include <cassert>
 
 TalkingUI::TalkingUI(QWidget *parent) : QWidget(parent), m_containers(), m_currentSelection(nullptr) {
 	setupUI();
@@ -666,12 +667,35 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 }
 
 void TalkingUI::on_serverSynchronized() {
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+
+	assert(self);
+
 	if (Global::get().s.bTalkingUI_LocalUserStaysVisible) {
 		// According to the settings the local user should always be visible and as we
 		// can't count on it to change its talking state right after it has connected to
 		// a server, we have to add it manually.
-		ClientUser *self = ClientUser::get(Global::get().uiSession);
 		findOrAddUser(self);
+	}
+
+	// The client may have received add listener messages for the user before the
+	// sync was complete. So we do this to ensure that they appear in the
+	// TalkingUI. Removing all listeners is probably not necessary but could
+	// prevent duplicates appearing in the case of a race.
+	removeAllListeners();
+	if (Global::get().s.bTalkingUI_ShowLocalListeners) {
+		if (self) {
+			const QSet< int > channels =
+				Global::get().channelListenerManager->getListenedChannelsForUser(self->uiSession);
+
+			for (int currentChannelID : channels) {
+				const Channel *channel = Channel::get(currentChannelID);
+
+				if (channel) {
+					addListener(self, channel);
+				}
+			}
+		}
 	}
 }
 
