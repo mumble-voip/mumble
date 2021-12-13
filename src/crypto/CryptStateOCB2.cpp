@@ -30,7 +30,9 @@
 #include <cstring>
 #include <openssl/rand.h>
 
-CryptStateOCB2::CryptStateOCB2() : CryptState(), enc_ctx(EVP_CIPHER_CTX_new()), dec_ctx(EVP_CIPHER_CTX_new()) {
+CryptStateOCB2::CryptStateOCB2()
+	: CryptState(), enc_ctx_ocb_enc(EVP_CIPHER_CTX_new()), dec_ctx_ocb_enc(EVP_CIPHER_CTX_new()),
+	  enc_ctx_ocb_dec(EVP_CIPHER_CTX_new()), dec_ctx_ocb_dec(EVP_CIPHER_CTX_new()) {
 	for (int i = 0; i < 0x100; i++)
 		decrypt_history[i] = 0;
 	memset(raw_key, 0, AES_KEY_SIZE_BYTES);
@@ -39,8 +41,10 @@ CryptStateOCB2::CryptStateOCB2() : CryptState(), enc_ctx(EVP_CIPHER_CTX_new()), 
 }
 
 CryptStateOCB2::~CryptStateOCB2() noexcept {
-	EVP_CIPHER_CTX_free(enc_ctx);
-	EVP_CIPHER_CTX_free(dec_ctx);
+	EVP_CIPHER_CTX_free(enc_ctx_ocb_enc);
+	EVP_CIPHER_CTX_free(dec_ctx_ocb_enc);
+	EVP_CIPHER_CTX_free(enc_ctx_ocb_dec);
+	EVP_CIPHER_CTX_free(dec_ctx_ocb_dec);
 }
 
 bool CryptStateOCB2::isValid() const {
@@ -257,24 +261,27 @@ static void inline ZERO(keyblock &block) {
 		block[i] = 0;
 }
 
-#define AESencrypt(src, dst, key)                                                                 \
-	{                                                                                             \
-		int outlen = 0;                                                                           \
-		EVP_EncryptInit_ex(enc_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                          \
-		EVP_CIPHER_CTX_set_padding(enc_ctx, 0);                                                   \
-		EVP_EncryptUpdate(enc_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,             \
-						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);        \
-		EVP_EncryptFinal_ex(enc_ctx, reinterpret_cast< unsigned char * >(dst + outlen), &outlen); \
+#define AESencrypt_ctx(src, dst, key, enc_ctx)                                                      \
+	{                                                                                               \
+		int outlen = 0;                                                                             \
+		EVP_EncryptInit_ex(enc_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                            \
+		EVP_CIPHER_CTX_set_padding(enc_ctx, 0);                                                     \
+		EVP_EncryptUpdate(enc_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,               \
+						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);          \
+		EVP_EncryptFinal_ex(enc_ctx, reinterpret_cast< unsigned char * >((dst) + outlen), &outlen); \
 	}
-#define AESdecrypt(src, dst, key)                                                                 \
-	{                                                                                             \
-		int outlen = 0;                                                                           \
-		EVP_DecryptInit_ex(dec_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                          \
-		EVP_CIPHER_CTX_set_padding(dec_ctx, 0);                                                   \
-		EVP_DecryptUpdate(dec_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,             \
-						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);        \
-		EVP_DecryptFinal_ex(dec_ctx, reinterpret_cast< unsigned char * >(dst + outlen), &outlen); \
+#define AESdecrypt_ctx(src, dst, key, dec_ctx)                                                      \
+	{                                                                                               \
+		int outlen = 0;                                                                             \
+		EVP_DecryptInit_ex(dec_ctx, EVP_aes_128_ecb(), NULL, key, NULL);                            \
+		EVP_CIPHER_CTX_set_padding(dec_ctx, 0);                                                     \
+		EVP_DecryptUpdate(dec_ctx, reinterpret_cast< unsigned char * >(dst), &outlen,               \
+						  reinterpret_cast< const unsigned char * >(src), AES_BLOCK_SIZE);          \
+		EVP_DecryptFinal_ex(dec_ctx, reinterpret_cast< unsigned char * >((dst) + outlen), &outlen); \
 	}
+
+#define AESencrypt(src, dst, key) AESencrypt_ctx(src, dst, key, enc_ctx_ocb_enc)
+#define AESdecrypt(src, dst, key) AESdecrypt_ctx(src, dst, key, dec_ctx_ocb_enc)
 
 bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len,
 								 const unsigned char *nonce, unsigned char *tag, bool modifyPlainOnXEXStarAttack) {
@@ -345,6 +352,12 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 	return success;
 }
 
+#undef AESencrypt
+#undef AESdecrypt
+
+#define AESencrypt(src, dst, key) AESencrypt_ctx(src, dst, key, enc_ctx_ocb_dec)
+#define AESdecrypt(src, dst, key) AESdecrypt_ctx(src, dst, key, dec_ctx_ocb_dec)
+
 bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len,
 								 const unsigned char *nonce, unsigned char *tag) {
 	keyblock checksum, delta, tmp, pad;
@@ -392,9 +405,9 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 	return success;
 }
 
+#undef AESencrypt
+#undef AESdecrypt
 #undef BLOCKSIZE
 #undef SHIFTBITS
 #undef SWAPPED
 #undef HIGHBIT
-#undef AESencrypt
-#undef AESdecrypt
