@@ -635,23 +635,10 @@ void Server::msgServerSync(ServerUser *, MumbleProto::ServerSync &) {
 void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &) {
 }
 
-void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
-	ZoneScoped;
-
-	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
-
-	const std::string &str = msg.packet();
-	int len                = static_cast< int >(str.length());
-	if (len < 1)
-		return;
-	QReadLocker rl(&qrwlVoiceThread);
-	if (m_tcpTunnelDecoder.decode(gsl::span< const Mumble::Protocol::byte >(
-			reinterpret_cast< const Mumble::Protocol::byte * >(str.data()), str.size()))
-		&& m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
-		Mumble::Protocol::AudioData audioData = m_tcpTunnelDecoder.getAudioData();
-
-		processMsg(uSource, audioData, m_tcpAudioReceivers, m_tcpAudioEncoder);
-	}
+void Server::msgUDPTunnel(ServerUser *, MumbleProto::UDPTunnel &) {
+	// This code should be unreachable
+	assert(false);
+	qWarning("Messages: Reached theoretically unreachable function msgUDPTunnel");
 }
 
 void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
