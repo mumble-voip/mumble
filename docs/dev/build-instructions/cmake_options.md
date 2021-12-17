@@ -224,6 +224,11 @@ Build binaries in a way that allows easier debugging.
 Build tests
 (Default: OFF)
 
+### tracy
+
+Enable the tracy profiler.
+(Default: OFF)
+
 ### translations
 
 Include languages other than English.
