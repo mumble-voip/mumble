@@ -17,7 +17,7 @@
 #include <memory>
 #include <sstream>
 
-std::unique_ptr< Process > proc;
+std::unique_ptr< ProcessBase > proc;
 
 static bool isWin32 = false;
 
@@ -191,7 +191,7 @@ static bool tryInit(const std::multimap< std::wstring, unsigned long long int > 
 	};
 
 	for (const auto &name : names) {
-		const auto id = Process::find(name, pids);
+		const auto id = ProcessBase::find(name, pids);
 		if (!id) {
 			continue;
 		}

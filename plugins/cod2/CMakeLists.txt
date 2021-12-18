@@ -7,7 +7,7 @@ add_library(cod2 SHARED
 	"cod2.cpp"
 
 	"../Module.cpp"
-	"../Process.cpp"
+	"../ProcessBase.cpp"
 	"../ProcessWindows.cpp"
 )
 

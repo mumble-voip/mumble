@@ -8,7 +8,7 @@ add_library(gtav SHARED
 	"Game.cpp"
 
 	"../Module.cpp"
-	"../Process.cpp"
+	"../ProcessBase.cpp"
 	"../ProcessWindows.cpp"
 )
 

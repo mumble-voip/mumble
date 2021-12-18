@@ -6,10 +6,10 @@
 #ifndef PROCESSWINDOWS_H_
 #define PROCESSWINDOWS_H_
 
-#include "Process.h"
+#include "ProcessBase.h"
 
 /// Meant to be used with Windows processes.
-class ProcessWindows : public Process {
+class ProcessWindows : public ProcessBase {
 public:
 	procptr_t exportedSymbol(const std::string &symbol, const procptr_t module) const override;
 
