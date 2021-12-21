@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mumble-server:
+    build: github.com/mumble-voip/mumble#master
+    container_name: mumble-server
+    ports:
+        - 64738:64738
+    volumes:
+      - ./murmur.ini:/etc/murmur/murmur.ini
+      - ./data:/var/lib/murmur/
+    restart: always
