@@ -156,6 +156,7 @@ struct InnerNet_InnerNetClient_Fields : UnityEngine_Object_Fields {
 	int32_t msgNum;
 	ptr_t networkAddress;
 	int32_t networkPort;
+	bool useDTLS;
 	ptr_t connection;
 	Mode mode;
 	GameMode gameMode;
