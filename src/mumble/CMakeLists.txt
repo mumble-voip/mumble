@@ -666,20 +666,6 @@ if(bundled-celt)
 	# Disable all warnings that the Celt code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/celt-0.7.0-build")
 
-	# celt_types.h has some logic of checking whether or not it may include
-	# stdint.h or not. In order to avoid this logic to mess up, we provide
-	# it with the hint that it may indeed include stdint.h and be done with it
-	target_compile_definitions(celt
-		PRIVATE
-			HAVE_STDINT_H
-	)
-	# We also set this flag for Mumble as it includes the problematic
-	# header file indirectly at some points
-	target_compile_definitions(mumble
-		PRIVATE
-			HAVE_STDINT_H
-	)
-
 	add_dependencies(mumble celt)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/celt-0.7.0-src/libcelt")
