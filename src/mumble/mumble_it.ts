@@ -378,7 +378,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Controlla a quale gruppo di utenti si applica questa voce.&lt;br /&gt;Si noti che il gruppo è valutato nel contesto del canale in cui la voce è inserita. Ad esempio, il valore predefinito ACL sul canale Radice dà il permesso &lt;i&gt;Scrivi&lt;/i&gt; al gruppo &lt;i&gt;admin&lt;/i&gt;. Questa voce, se ereditata da un canale, darà ad un utente i privilegi di scrittura se egli appartiene al gruppo &lt;i&gt;admin&lt;/i&gt; in quel canale, anche se non apparteneva al gruppo &lt;i&gt;admin&lt;/i&gt; nel canale in cui è originato l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con un &apos;!&apos;, è negata ai suoi membri, e se inizia con un &apos;~&apos;, è valutata nel canale in cui l&apos;ACL è stata definita, al posto che nel canale in cui è stata attivata l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;#&apos; viene interpretato come un token di accesso. Gli utenti devono avere inserito nella loro lista dei token tutto quello che segue &apos;#&apos; per appartenere a quel gruppo. Questo può essere utilizzato per un semplice accesso ai canali con password da parte di utenti non registrati. Se il nome di un gruppo inizia con &apos;$&apos;, gli utenti che ne faranno parte saranno solo quelli il cui hash del certificato sarà quello che è scritto dopo &apos;$&apos;. Alcuni particolari gruppi predefiniti sono i seguenti:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tutti ne fanno parte.&lt;b&gt;auth&lt;/b&gt; - Tutti gli utenti autenticati ne fanno parte.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utenti attualmente in un canale con almeno &lt;i&gt;a&lt;/i&gt; canali superiori comuni, e tra &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canali verso il basso nella catena. Visitare il sito web per una documentazione piú estesa su questo punto.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utenti attualmente nel canale (scorciatoia per &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gli utenti al di fuori del canale (scorciatoia per &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Nota: una voce si applica ad un utente o ad un gruppo, non a entrambi.</translation>
+        <translation>Controlla a quale gruppo di utenti si applica questa voce.&lt;br /&gt;Si noti che il gruppo è valutato nel contesto del canale in cui la voce è inserita. Ad esempio, il valore predefinito ACL sul canale Root dà il permesso &lt;i&gt;Scrivi&lt;/i&gt; al gruppo &lt;i&gt;admin&lt;/i&gt;. Questa voce, se ereditata da un canale, darà ad un utente i privilegi di scrittura se egli appartiene al gruppo &lt;i&gt;admin&lt;/i&gt; in quel canale, anche se non apparteneva al gruppo &lt;i&gt;admin&lt;/i&gt; nel canale in cui è originato l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con un &apos;!&apos;, è negata ai suoi membri, e se inizia con un &apos;~&apos;, è valutata nel canale in cui l&apos;ACL è stata definita, al posto che nel canale in cui è stata attivata l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;#&apos; viene interpretato come un token di accesso. Gli utenti devono avere inserito nella loro lista dei token tutto quello che segue &apos;#&apos; per appartenere a quel gruppo. Questo può essere utilizzato per un semplice accesso ai canali con password da parte di utenti non autenticati.&lt;br /&gt; Se il nome di un gruppo inizia con &apos;$&apos;, gli utenti che ne faranno parte saranno solo quelli il cui hash del certificato sarà quello che è scritto dopo &apos;$&apos;.&lt;br /&gt; Alcuni particolari gruppi predefiniti sono i seguenti:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tutti ne fanno parte.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tutti gli utenti autenticati ne fanno parte.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utenti attualmente in un canale con almeno &lt;i&gt;a&lt;/i&gt; canali superiori comuni, e tra &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canali verso il basso nella catena. Visitare il sito web per una documentazione piú estesa su questo punto.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utenti attualmente nel canale (scorciatoia per &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gli utenti al di fuori del canale (scorciatoia per &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Nota: una voce si applica ad un utente o ad un gruppo, non a entrambi.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -690,7 +690,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Imposta quando la voce dovrebbe essere trasmessa.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Sempre attivo&lt;/i&gt; - Trasmette sempre&lt;br /&gt;&lt;i&gt;Attivazione vocale&lt;/i&gt; - Trasmette solo quando Mumble rileva che stai parlando.&lt;br /&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - Trasmette solamente quando tieni premuto il pulsante impostato.</translation>
+        <translation>&lt;b&gt;Imposta quando la voce dovrebbe essere trasmessa.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Sempre attivo&lt;/i&gt; - Trasmette sempre&lt;br /&gt;&lt;i&gt;Attivazione vocale&lt;/i&gt; - Trasmette solo quando Mumble rileva che stai parlando.&lt;br /&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - Trasmette solamente quando tieni premuto il pulsante impostato &lt;i&gt;Shortcuts&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -814,7 +814,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Imposta la quantità di rumore da eliminare.&lt;b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore di sottofondo verrà eliminato.</translation>
+        <translation>&lt;b&gt;Imposta la quantità di rumore da eliminare.&lt;/b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore di sottofondo verrà eliminato.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -1430,11 +1430,11 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanza dalla la quale il volume audio proveniente da un altro giocatore inizia a diminuire</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanza alla quale il volume audio di un giocatore ha raggiunto il valore minimo</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il volume minimo raggiunto dall&apos;audio del giocatore all&apos;aumentare della distanza. Imposta a 0% per avere silenzio totale all&apos;aumentare della distanza in modo realistico.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Se una fonte di audio è abbastanza vicina, a causa della saturazione, questo sarà riprodotto su tutti gli speaker indipendentemente dalla posizione (a un volume più basso)</translation>
     </message>
 </context>
 <context>
@@ -2056,7 +2056,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;/p&gt;Mumble supporta l&apos;audio posizionale per alcuni videogiochi, e posizionerà la voce degli altri giocatori relativamente alla sua posizione nel gioco. Il volume dipenderà dalla loro posizione e distanza e sarà aumentato o diminuito su un altoparlante o l&apos;altro per simulare la direzione e la distanza degli altri giocatori. L&apos;audio posizionale dipenderà dai tuoi altoparlanti e dalla loro configurazione nel sistema operativo, quindi qui sarà effettuato un test.&lt;/p&gt;&lt;p&gt;Il grafico sottostante visualizza la posizione di &lt;span style=&quot; color:#56b4e9;&quot;&gt;Tu&lt;/span&gt;, gli &lt;span style=&quot; color:#d55e00;&quot;&gt;Altoparlanti&lt;/span&gt; e &lt;span style=&quot; color:#009e73;&quot;&gt;la sorgente mobile dell&apos;audio&lt;/span&gt;come se fosse visto da sopra. Dovresti sentire l&apos;audio muoversi tra gli altoparlanti.&lt;/p&gt;&lt;p&gt;Puoi anche usare il mouse per posizionare manualmente la &lt;span style=&quot; color:#009e73;&quot;&gt;sorgente audio&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supporta l&apos;audio posizionale per alcuni videogiochi, e posizionerà la voce degli altri giocatori relativamente alla sua posizione nel gioco. Il volume dipenderà dalla loro posizione e distanza e sarà aumentato o diminuito su un altoparlante o l&apos;altro per simulare la direzione e la distanza degli altri giocatori. L&apos;audio posizionale dipenderà dai tuoi altoparlanti e dalla loro configurazione nel sistema operativo, quindi qui sarà effettuato un test.&lt;/p&gt;&lt;p&gt;Il grafico sottostante visualizza la posizione di &lt;span style=&quot; color:#56b4e9;&quot;&gt;Tu&lt;/span&gt;, gli &lt;span style=&quot; color:#d55e00;&quot;&gt;Altoparlanti&lt;/span&gt; e &lt;span style=&quot; color:#009e73;&quot;&gt;la sorgente mobile dell&apos;audio&lt;/span&gt;come se fosse visto da sopra. Dovresti sentire l&apos;audio muoversi tra gli altoparlanti.&lt;/p&gt;&lt;p&gt;Puoi anche usare il mouse per posizionare manualmente la &lt;span style=&quot; color:#009e73;&quot;&gt;sorgente audio&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
@@ -2436,7 +2436,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Mumble può importare certificati salvati in formato PKCS #12. Questo è il formato usato quando esporti una chiave per Mumble, e anche quando esporti chiavi da FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;Se il file è protetto da password, avrai bisogno della password per importare il certificato.&lt;p&gt;</translation>
+        <translation>&lt;p&gt;Mumble può importare certificati salvati in formato PKCS #12. Questo è il formato usato quando esporti una chiave per Mumble, e anche quando esporti chiavi da FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;Se il file è protetto da password, avrai bisogno della password per importare il certificato.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
@@ -3113,7 +3113,7 @@ Sei sicuro di voler sostituire il tuo certificato?
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation>&lt;b&gt;Indirizzo&lt;/b&gt;&lt;/br&gt;
+        <translation>&lt;b&gt;Indirizzo&lt;/b&gt;&lt;br/&gt;
 Indirizzo internet del server. Può essere un normale nome di host, un indirizzo IPv4/IPv6, o un identificatore di servizio Bonjour. Gli identificatori di servizi Bonjour devono avere il prefisso &apos;@&apos; per essere riconosciuti da Mumble.</translation>
     </message>
     <message>
@@ -4058,39 +4058,39 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vario</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero di utenti che attiverà la funzionalità di limitazione dei messaggi.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>utenti sul server.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Limita le notifiche quando ci sono più di</translation>
     </message>
     <message>
         <source>User limit for message limiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite utente per la limitazione dei messaggi</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca qui per impostare la limitazione dei messaggi per tutti gli eventi - Se usi questa opzione modifica il limite utente sotto.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta la limitazione dei messaggi per eventi %1. </translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca qui per impostare la limitazione degli eventi %1.&lt;br /&gt;Se impostato, le notifiche per questo tipo di evento non saranno riprodotte quando il contatore del numero di utenti sul server supera il limite.</translation>
     </message>
 </context>
 <context>
@@ -4507,27 +4507,27 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Striga gerarchia canale</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Cerca</translation>
+        <translation>Cerca</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Azione da eseguire quando un utente è attivato (con doppio click o invio) nel menù di ricerca.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Azione (Utente):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Azione da eseguire quando un canale è attivato (con doppio click o invio) nel menù di ricerca.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Azione (Canale):</translation>
     </message>
 </context>
 <context>
@@ -4564,7 +4564,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Push-to-Mute</translation>
+        <translation>Premi per mutare</translation>
     </message>
     <message>
         <source>Join Channel</source>
@@ -6412,61 +6412,61 @@ Le opzioni valide sono:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Imposta TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Imposta la visibilità della TalkingUI.</translation>
+        <translation>Imposta la visibilità della TalkingUI.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta il filtro di canale (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Cerca</translation>
+        <translation>Cerca</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca un utente o un canale (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Imposta il menù di ricerca</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo aprirà o chiuderà il menù di ricerca a seconda dello stato attuale</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Togli muto</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Annulla l&apos;esclusione</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizzatore Posizionale &amp;Audio...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra il Visualizzatore Audio Posizionale</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra il Visualizzatore Audio Posizionale. Contiene le informazioni relative all&apos;audio posizionale. Sono inoltre mostrati contesto e identità.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Interfaccia Minimale</translation>
     </message>
 </context>
 <context>
@@ -6609,7 +6609,7 @@ Le opzioni valide sono:
     </message>
     <message>
         <source>SOCKS5 proxy</source>
-        <translation>SOCKS5 proxy</translation>
+        <translation>proxy SOCKS5</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -7435,27 +7435,27 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile localizzare il plugin manifest (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore processando il manifest: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile trovare il plugin per l&apos;OS attuale (&quot;%1&quot;) e architettura (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile localizzare la libreria dei plugin specificata nel manifest (&quot;%1&quot;) nel bundle</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sovrascrivere plugin?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Il nuovo plugin &quot;%1&quot; (%2) sta per sovrascrivere il plugin già installato &quot;%3&quot; (%4). Vuoi procedere?</translation>
     </message>
 </context>
 <context>
@@ -7535,55 +7535,55 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizzatore Audio Posizionale</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Direzione inquadratura</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Posizione giocatore</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Asse giocatore</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Direzione giocatore</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Asse inquadratura</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Posizione inquadratura</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Contesto</translation>
+        <translation>Contesto</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identità</translation>
+        <translation>Identità</translation>
     </message>
 </context>
 <context>
@@ -7776,12 +7776,13 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Migrazione delle shortcut incompleta</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sfortunatamente la shortcut %1 non può essere migrata.
+Puoi registrarle di nuovo.</translation>
     </message>
 </context>
 <context>
@@ -7870,66 +7871,66 @@ You can register them again.</source>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Niente</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Unisciti</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Cerca</translation>
+        <translation>Cerca</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci Stringa ricerca...</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Opzioni</translation>
+        <translation>Opzioni</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Se cercare tra gli utenti</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utenti</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Se la ricerca deve essere eseguita case-sensitive</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Case-&amp;sensitive</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opzioni:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Se la stringa cercata deve essere interpretata come una espressione regolare</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RegEx</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Canali</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca per:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Se cercare per canali</translation>
     </message>
 </context>
 <context>
@@ -8861,7 +8862,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Compresso lossy</translation>
     </message>
 </context>
 <context>
