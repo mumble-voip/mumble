@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID: %1</translation>
+        <translation>Αναγνωριστικό: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Εισαγάγετε τον κωδικό πρόσβασης του καναλιού εδώ.</translation>
+        <translation>Εισάγετε τον κωδικό πρόσβασης του καναλιού εδώ.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -89,7 +89,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Θέση&lt;/b&gt;&lt;br/&gt;
-Αυτή η τιμή σάς δίνει τη δυνατότητα να αλλάξετε τον τρόπο με τον οποίο οργανώνει τα κανάλια στο δέντρο καναλιών το Mumble. Ένα κανάλι με υψηλή&lt;i&gt;Θέση&lt;/i&gt;θα τοποθετείται πάντα, κάτω από ένα με χαμηλότερη θέση και αντίστροφα. Έαν η&lt;i&gt;Θέση&lt;/i&gt; δύο καναλιών είναι ίση, θα ταξινομηθούν αλφαβητικά με βάση το όνομά τους.</translation>
+Αυτή η τιμή σάς δίνει τη δυνατότητα να αλλάξετε τον τρόπο με τον οποίο οργανώνει τα κανάλια στο δέντρο καναλιών το Mumble. Ένα κανάλι με υψηλή &lt;i&gt;Θέση&lt;/i&gt; θα τοποθετείται πάντα, κάτω από ένα με χαμηλότερη θέση και αντίστροφα. Έαν η &lt;i&gt;Θέση&lt;/i&gt; δύο καναλιών είναι ίση, θα ταξινομηθούν αλφαβητικά με βάση το όνομά τους.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -109,7 +109,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>Κατάργηση της επιλεγμένης ομάδας</translation>
+        <translation>Αφαίρεση της επιλεγμένης ομάδας</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -1406,11 +1406,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output</source>
-        <translation>Εξαγωγή ήχου</translation>
+        <translation>Έξοδος ήχου</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξαγωγής ήχου.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξόδου ήχου.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -2048,7 +2048,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξαγωγής για τον ήχο.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Αυτή είναι η μέθοδος εξόδου για τον ήχο.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -2436,7 +2436,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Το Mumble μπορεί να εισαγάγει πιστοποιητικά που είναι αποθηκευμένα σε μορφή PKCS #12. Αυτή η μορφή χρησιμοποιείται για την εξαγωγή ενός κλειδιού από το Mumble, αλλά και γιά την εξαγωγή κλειδιών από τον Firefox, τον Internet Explorer, τον Opera κ.λ.π.&lt;/p&gt;&lt;p&gt;Εάν το αρχείο προστατεύεται με κωδικό πρόσβασης, θα χρειαστείτε τον κωδικό πρόσβασης για να εισάγετε το πιστοποιητικό.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Το Mumble μπορεί να εισαγάγει πιστοποιητικά που είναι αποθηκευμένα σε μορφή PKCS #12. Αυτή η μορφή χρησιμοποιείται για την εξαγωγή ενός κλειδιού από το Mumble, αλλά και για την εξαγωγή κλειδιών από τον Firefox, τον Internet Explorer, τον Opera κ.λ.π.&lt;/p&gt;&lt;p&gt;Εάν το αρχείο προστατεύεται με κωδικό πρόσβασης, θα χρειαστείτε τον κωδικό πρόσβασης για να εισάγετε το πιστοποιητικό.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
