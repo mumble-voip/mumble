@@ -5,53 +5,55 @@
     <name>ACLEditor</name>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Veti</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni këtu fjalëkalimin</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Fjalëkalim&lt;/b&gt;&lt;br /&gt;Kjo fushë ju lejon të caktoni dhe ndryshoni me lehtësi fjalëkalimin e një kanali. Përdor në prapaskenë veçori Mumble-i për token-ë hyrjeje. Përdorni ACL dhe grupe, nëse keni nevojë për kontroll më të imëtë dhe të fuqishëm të hyrjeve.</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozicion</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ky është rendi i renditjes për kanalin.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pozicioni&lt;/b&gt;&lt;br/&gt;
+Kjo vlerë ju bën të mundur të ndryshoni mënyrën se si Mumble-i sistemon kanalet në pemë. Një kanal me një vlerë më të lartë &lt;i&gt;Pozicioni&lt;/i&gt;, do të vendoset përherë nën një me vlerë më të ulët dhe anasjelltas. Nëse vlera &lt;i&gt;Pozicion&lt;/i&gt; e dy kanaleve është e barabartë, ata do të renditen alfabetikisht sipas emrave.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimum Përdoruesish</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Numri maksimal i përdoruesve të lejuar te kanali</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Maksimum përdoruesish&lt;/b&gt;&lt;br /&gt;
+Kjo vlerë ju lejon të caktoni numrin maksimum të përdoruesve të lejuar në kanal. Nëse vlera është mbi zero, do të lejohet të hyjnë në kanal vetëm ai numër përdoruesish. Nëse vlera është zero, numri maksimum i përdoruesve në kanal jepet nga kufiri parazgjedhje i shërbyesit.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>I vini shenjë që të krijohet një kanal i përkohshëm.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
