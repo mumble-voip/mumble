@@ -3,8 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef PROCESS_H_
-#define PROCESS_H_
+#ifndef PROCESSBASE_H_
+#define PROCESSBASE_H_
 
 #ifdef OS_WINDOWS
 #	include "HostWindows.h"
@@ -19,7 +19,7 @@ using Host = HostLinux;
 
 /// Abstract class.
 /// Only defines stuff that can be used with both Linux and Windows processes.
-class Process : public Host {
+class ProcessBase : public Host {
 protected:
 	bool m_ok;
 	std::string m_name;
@@ -106,8 +106,8 @@ public:
 
 	static procid_t find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids);
 
-	Process(const procid_t id, const std::string &name);
-	virtual ~Process();
+	ProcessBase(const procid_t id, const std::string &name);
+	virtual ~ProcessBase();
 };
 
-#endif
+#endif // PROCESSBASE_H_

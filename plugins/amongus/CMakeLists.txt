@@ -8,7 +8,7 @@ add_library(amongus SHARED
 	"Game.cpp"
 
 	"../Module.cpp"
-	"../Process.cpp"
+	"../ProcessBase.cpp"
 	"../ProcessWindows.cpp"
 )
 

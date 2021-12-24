@@ -17,7 +17,7 @@ struct GnuHash {
 	// uint32_t  chain[];
 };
 
-ProcessLinux::ProcessLinux(const procid_t id, const std::string &name) : Process(id, name) {
+ProcessLinux::ProcessLinux(const procid_t id, const std::string &name) : ProcessBase(id, name) {
 	const auto mods = modules();
 	const auto iter = mods.find(name);
 	if (iter == mods.cend()) {
@@ -47,7 +47,7 @@ ProcessLinux::~ProcessLinux() {
 }
 
 template< typename Elf_Ehdr, typename Elf_Phdr, typename Elf_Dyn, typename Elf_Sym >
-static procptr_t exportedSymbol(const Process &proc, const std::string &symbol, const procptr_t module) {
+static procptr_t exportedSymbol(const ProcessBase &proc, const std::string &symbol, const procptr_t module) {
 	procptr_t hashTable = 0;
 	procptr_t strTable  = 0;
 	procptr_t symTable  = 0;
