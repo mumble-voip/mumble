@@ -413,19 +413,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietateak</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalaren pasahitza</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehienezko erabiltzeko kopurua</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalaren izena</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -441,11 +441,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehitu erabiltzaileak taldera</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>ACL sarrera zerrenda</translation>
     </message>
 </context>
 <context>
@@ -478,7 +478,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da soinu txartelaren izena lortu: %1</translation>
     </message>
 </context>
 <context>
@@ -590,11 +590,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofonoen zerrenda</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Bozgorailuen zerrenda</translation>
     </message>
 </context>
 <context>
@@ -625,11 +625,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;utoreak</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hirugarrengoen lizentziak</translation>
     </message>
     <message>
         <source>OK</source>
@@ -637,15 +637,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Lizentzia akordioa</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoreak</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Hirugarrengoen lizentzia akordioak</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -748,7 +748,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Amplitude</source>
-        <translation>Amplitudea</translation>
+        <translation>Anplitudea</translation>
     </message>
     <message>
         <source>Voice &amp;Hold</source>
@@ -980,11 +980,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio sarrera</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Hau da erabiliko den audio sarrera.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
@@ -1016,7 +1016,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Biak</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1032,11 +1032,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu(&amp;o)...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Aurrebista(&amp;v)</translation>
     </message>
 </context>
 <context>
@@ -1055,7 +1055,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Input</source>
-        <translation>Audio Sarrera</translation>
+        <translation>Audio sarrera</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1083,11 +1083,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio sistema</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarrera gailua</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -1095,7 +1095,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Transmisio modua</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
@@ -1202,7 +1202,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Audio Irteera</translation>
+        <translation>Audio irteera</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
@@ -1698,7 +1698,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation>Audioa doitzeko laguntzailea</translation>
+        <translation>Audioa doitzeko morroia</translation>
     </message>
     <message>
         <source>Introduction</source>
@@ -1706,7 +1706,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Ongi etorri Mumble Audio Laguntzailera</translation>
+        <translation>Ongi etorri Mumbleren audioa konfiguratzeko morroira</translation>
     </message>
     <message>
         <source>Finished</source>
@@ -2318,19 +2318,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Inportatzeko ziurtagiriaren fitxategia</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziurtagiriaren pasahitza</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished">Inportatzeko Ziurtagiria</translation>
+        <translation>Inportatzeko ziurtagiria</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished">Ziurtagiri berria</translation>
+        <translation>Gehitu ziurtagiria</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2357,7 +2357,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Zerbitzarietan kautotu pasahitzak erabili gabe</translation>
+        <translation>Konektatu zerbitzarietara pasahitzik erabili gabe</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2853,15 +2853,15 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrezarri lehenetsitako balioak</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Botoi honek lehenetsitako ezarpen guztiak berrezarriko ditu.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehenetsiak (denak)</translation>
     </message>
 </context>
 <context>
@@ -2880,7 +2880,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezezaguna</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2892,7 +2892,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu Mumble zerbitzarira</translation>
     </message>
     <message>
         <source>Ping</source>
@@ -2928,7 +2928,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation>&amp;Gehitu Berria...</translation>
+        <translation>Gehitu zerbitz&amp;aria...</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
@@ -2940,59 +2940,59 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zerbitzarien zerrenda</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Kokalekua</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">Iragazkia</translation>
+        <translation>Iragazkia</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi denak</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi aktiboak</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi eskuragarriak</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Dena</translation>
+        <translation>Denak</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Asia</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipar Amerika</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Ozeania</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Hego Amerika</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3004,7 +3004,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Konektatu</translation>
+        <translation>K&amp;onektatu</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3181,7 +3181,7 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Bete(&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
@@ -3264,7 +3264,7 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Garatzaile kontsola</translation>
     </message>
 </context>
 <context>
@@ -3330,7 +3330,7 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Ireki irisgarritasun aukerak</translation>
     </message>
     <message>
         <source>Skip</source>
@@ -3362,7 +3362,7 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaitu XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
@@ -3383,7 +3383,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Editatu laster-tekla</translation>
     </message>
     <message>
         <source>Start capture process</source>
@@ -3399,7 +3399,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezabatu aukeratutako elementuak</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3431,25 +3431,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguratutako laster-teklak</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezezaguna</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Xagua</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teklatua</translation>
     </message>
 </context>
 <context>
@@ -3460,11 +3460,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Helburu kanala</translation>
     </message>
     <message>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Mugatu taldera</translation>
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
@@ -3535,37 +3535,37 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Xagua</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teklatua</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teklatua</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Xagua</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Hardware portuak</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Estereo</translation>
     </message>
 </context>
 <context>
@@ -3630,7 +3630,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Banatzailearen zabalera</translation>
     </message>
     <message>
         <source>Minimum column width</source>
@@ -3638,7 +3638,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Banatzailearen zabalera</translation>
     </message>
 </context>
 <context>
@@ -3652,7 +3652,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Arazketa</translation>
     </message>
     <message>
         <source>Critical</source>
@@ -3888,7 +3888,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Testua ahotsera</translation>
     </message>
     <message>
         <source>Soundfile</source>
@@ -3900,7 +3900,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Testua ahotsera</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -4379,7 +4379,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>Laburtu kanalen izenak</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
@@ -4387,7 +4387,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Max. channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalen izenen gehienezko luzera</translation>
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
@@ -4411,7 +4411,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Maximum name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Izenaren gehienezko luzera</translation>
     </message>
     <message>
         <source>Relative font size</source>
@@ -4419,11 +4419,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Beti gainean</translation>
     </message>
     <message>
         <source>Channel dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalak arrastatzea</translation>
     </message>
     <message>
         <source>Automatically expand channels when</source>
@@ -5009,7 +5009,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>Mumble &amp;itxi</translation>
+        <translation>Itxi Mumble(&amp;Q)</translation>
     </message>
     <message>
         <source>Closes the program</source>
@@ -5439,7 +5439,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Ongietorri mezua: %1</translation>
+        <translation>Ongi etorri mezua: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
@@ -5762,7 +5762,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation>Ongietorri Mumble-ra.</translation>
+        <translation>Ongi etorri Mumblera.</translation>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
@@ -5929,7 +5929,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu(&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Ban list...</source>
@@ -5969,23 +5969,23 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio e&amp;statistikak...</translation>
     </message>
     <message>
         <source>&amp;Settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarpenak... (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Audio morroia...</translation>
     </message>
     <message>
         <source>Developer &amp;Console...</source>
-        <translation type="unfinished"></translation>
+        <translation>Garatzaile kontsola(&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;About...</source>
-        <translation type="unfinished"></translation>
+        <translation>Honi buruz (&amp;A)...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
@@ -5993,27 +5993,27 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>About &amp;Qt...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Qt-ri buruz...</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziurtagirien morroia(&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Register...</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;rregistratu...</translation>
     </message>
     <message>
         <source>Registered &amp;Users...</source>
-        <translation type="unfinished"></translation>
+        <translation>Erregistratutako erabiltzaileak(&amp;U)...</translation>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldatu &amp;abatarra...</translation>
     </message>
     <message>
         <source>&amp;Access Tokens...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;arrera tokenak...</translation>
     </message>
     <message>
         <source>Reset &amp;Comment...</source>
@@ -6021,27 +6021,27 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Reset &amp;Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrezarri &amp;abatarra...</translation>
     </message>
     <message>
         <source>View Comment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikusi iruzkina...</translation>
     </message>
     <message>
         <source>&amp;Change Comment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldatu iruzkina(&amp;C)...</translation>
     </message>
     <message>
         <source>R&amp;egister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Err&amp;egistratu...</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi Mumbleren leiho nagusia.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6053,11 +6053,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Listen to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Entzun kanala</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
+        <translation>Entzun kanal hau bertara sartu gabe</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
@@ -6065,11 +6065,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Entzu&amp;lea</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez dago ekintzarik erabilgarri...</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
@@ -6085,19 +6085,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 entzuten hasi zara</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 zure kanala entzuten hasi da</translation>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 entzuteari utzi diozu</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1(e)k zure kanala entzuteari utzi dio</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -6109,23 +6109,23 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu erabiltzailearen kanalera</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu erabiltzaile honen kanalera.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalak eta erabiltzaileak</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekintzen erregistroa</translation>
     </message>
     <message>
         <source>Chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Txateko mezua</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -6141,7 +6141,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuhaitza</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6149,7 +6149,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Pribatua</translation>
     </message>
     <message>
         <source>%1: %2</source>
@@ -6162,20 +6162,21 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ezarpen fitxategia ez dago edo ezin da idatzi.
+</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi/ezkutatu leiho nagusia</translation>
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri erabiltzaile-izena(&amp;S)...</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri erabiltzaile-izen lokala</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
@@ -6296,11 +6297,11 @@ Valid options are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu erabiltzailea edo kanala (Ktrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
@@ -6364,7 +6365,7 @@ Valid options are:
     </message>
     <message>
         <source>Heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Izenburua</translation>
     </message>
     <message>
         <source>Azimuth</source>
@@ -6380,7 +6381,7 @@ Valid options are:
     </message>
     <message>
         <source>Meta data</source>
-        <translation type="unfinished"></translation>
+        <translation>Metadatuak</translation>
     </message>
     <message>
         <source>Context</source>
@@ -6388,11 +6389,11 @@ Valid options are:
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Identitatea</translation>
     </message>
     <message>
         <source>Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri</translation>
     </message>
     <message>
         <source>State</source>
@@ -6404,11 +6405,11 @@ Valid options are:
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Lotura</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktibatu</translation>
     </message>
     <message>
         <source>Display</source>
@@ -6604,7 +6605,7 @@ Valid options are:
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Pribatutasuna</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
@@ -6625,15 +6626,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezkutatu zerbitzari publikoen zerrenda</translation>
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu pluginen eguneraketak programa hastean</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatikoki deskargatu eta instalatu pluginen eguneraketak</translation>
     </message>
 </context>
 <context>
@@ -6679,11 +6680,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal honetako denak</translation>
     </message>
     <message>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Lotutako kanaletan denak</translation>
     </message>
     <message>
         <source>Always show yourself</source>
@@ -6760,7 +6761,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Choose path</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukeratu bidea</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
@@ -8765,7 +8766,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Filename</source>
-        <translation>Fitxategi-izena</translation>
+        <translation>Fitxategiaren izena</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
