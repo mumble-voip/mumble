@@ -22,16 +22,13 @@ Run `docker logs mumble-server`.
 
 Change `#master` at the end of the build line in `docker-compose.yml` to the branch you want to compile. For example, `build: github.com/mumble-voip/mumble#1.4.x` will build version `1.4.x`.
 
-## How do I add Let's Encrypt certificates with Docker Compose?
+## Adding a certificate
 
-To add Let's Encrypt certificates to the container you can move the certificates to a location user `1000` can read and add an extra volume to the Docker Compose file.
+First, give Murmur permission to read the certificate files. There are two options for this:
 
-Alternatively, you can run the Docker container as root by following these steps:
+1. Move the certificate files to a location user `1000` can read
+2. Have Murmur read the certificate files as `root` and then switch accounts. This is done by adding `user: "0:0"` to `docker-compose.yml` and changing `uname` to `uname=murmur` in `murmur.ini`
 
-1. Add `user: "0:0"` to the Docker Compose file
+Then add a volume with the certificate files in the `volume` section of `docker-compose.yml`: `- /path/to/certificate-directory/:/certs:ro`.
 
-2. Add `- /etc/letsencrypt/:/certs:ro` to the volume section of the Docker Compose file
-
-3. Change `uname` to `uname=murmur` in murmur.ini to make Murmur switch to a non root user after reading the cert
-
-4. Change `sslCert` and `sslKey` to the path of the certificate and key respectively
+Finally, change `sslCert` and `sslKey` in `murmur.ini` to their respective paths and run `docker-compose down` followed by `docker-compose up -d`.
