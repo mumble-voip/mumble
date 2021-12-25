@@ -1,26 +1,26 @@
 # Docker Compose
 
-## How do I set up Mumble with Docker Compose?
+## Configuring Murmur
 
-1. Make a new directory and create a new file inside called `docker-compose.yml`
+1. Create a new directory and switch to it
 
-2. Copy the information from [the default docker-compose.yml](../scripts/docker-compose.yml) into the new file
+2. Create the file `docker-compose.yml` and copy the [default docker-compose.yml](../scripts/docker-compose.yml) into it
 
-3. Create the data folder and make 1000 its owner
+3. Create the directory `data` and make `1000` its owner
 
-4. Create a new file called `murmur.ini` and copy the information from [the default murmur.ini](../scripts/murmur.ini)
+4. Create the file `murmur.ini` and copy the [default murmur.ini](../scripts/murmur.ini) into it
 
-Be sure to change `database=` to `database=/var/lib/murmur/murmur.sqlite` in this file to ensure that the database is created in the correct location. Edit the rest of the file to your liking
+5. Change `database` in `murmur.ini` to `/var/lib/murmur/murmur.sqlite`
 
-5. Run `docker-compose up -d` to build and start the container
+6. Run `docker-compose up -d`
 
-## How do I view the logs?
+## Viewing the log
 
-Type `docker logs mumble-server` to view the logs. You can add `-f` to make it follow the log.
+Run `docker logs mumble-server`.
 
-## How do I use the release build instead of master?
+## Using the release build instead of the master branch
 
-To use stable version instead of the latest master change `#master` at the end of the build line in the docker compose to whichever branch you want to compile. For example, `build: github.com/mumble-voip/mumble#1.4.x` will build version `1.4.x` instead of master.
+Change `#master` at the end of the build line in `docker-compose.yml` to the branch you want to compile. For example, `build: github.com/mumble-voip/mumble#1.4.x` will build version `1.4.x`.
 
 ## How do I add Let's Encrypt certificates with Docker Compose?
 
