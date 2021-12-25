@@ -4,11 +4,11 @@
 
 1. Make a new directory and create a new file inside called `docker-compose.yml`
 
-2. Copy the information from https://github.com/mumble-voip/mumble/scripts/docker-compose.yml into the new file
+2. Copy the information from [the default docker-compose.yml](../scripts/docker-compose.yml) into the new file
 
 3. Create the data folder and make 1000 its owner
 
-4. Create a new file called `murmur.ini` and copy the information from https://github.com/mumble-voip/mumble/blob/master/scripts/murmur.ini
+4. Create a new file called `murmur.ini` and copy the information from [the default murmur.ini](../scripts/murmur.ini)
 
 Be sure to change `database=` to `database=/var/lib/murmur/murmur.sqlite` in this file to ensure that the database is created in the correct location. Edit the rest of the file to your liking
 
