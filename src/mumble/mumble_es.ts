@@ -473,11 +473,11 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en la obtención del nombre (longname) de la tarjeta de sonido: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en la obtención del nombre de la tarjeta de sonido: %1</translation>
     </message>
 </context>
 <context>
@@ -1006,11 +1006,11 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice el algoritmo de supresión de ruido proporcionado por RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice una combinación de Speex y RNNoise para hacer la supresión de ruido.</translation>
     </message>
     <message>
         <source>Both</source>
@@ -1018,23 +1018,23 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto controla la cantidad en la que Speex suprimirá el ruido.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuerza de supresión de Speex</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenciar la señal</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu&amp;scar...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Pre&amp;visualizar</translation>
     </message>
 </context>
 <context>
@@ -1153,19 +1153,19 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished">El acceso al micrófono fue denegado. Por favor, permita a Mumble usar el micrófono cambiando los ajustes en Preferencias del sistema -&gt; Seguridad y Privacidad -&gt; Privacidad -&gt; Micrófono</translation>
+        <translation>El acceso al micrófono fue denegado. Por favor, permita a Mumble usar el micrófono cambiando los ajustes en Preferencias del sistema -&gt; Seguridad y Privacidad -&gt; Privacidad -&gt; Micrófono.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished">Se denegó el acceso al micrófono. Por favor, verifique la configuración del micrófono en su sistema operativo. Permita que Mumble use el micrófono.</translation>
+        <translation>El acceso al micrófono ha sido denegado. Por favor, compruebe que la configuración del micrófono de su sistema operativo permite a Mumble usar el micrófono.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Desactivado</translation>
+        <translation>Deshabilitado</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deshabilitar la cancelación de eco.</translation>
     </message>
 </context>
 <context>
@@ -1430,11 +1430,11 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia a la que el volumen de audio de otro jugador comienza a disminuir</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia a la que el volumen de audio de un reproductor ha alcanzado su valor mínimo</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>El volumen mínimo al que se desvanecerá el audio de un jugador al aumentar la distancia. Ajústalo al 0% para que se desvanezca en un silencio completo para una distancia de audición máxima realista.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Si una fuente de audio está lo suficientemente cerca, el blooming hará que el audio se reproduzca en todos los altavoces más o menos independientemente de su posición (aunque con un volumen más bajo)</translation>
     </message>
 </context>
 <context>
@@ -2088,11 +2088,11 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajo PTT</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished">No hay botones asignados</translation>
+        <translation>No hay botones asignados</translation>
     </message>
 </context>
 <context>

@@ -2088,7 +2088,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation>Pikayhteys</translation>
+        <translation>Tangentti</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
@@ -6413,15 +6413,15 @@ Valid options are:
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sij&amp;ainninmukaisen äänen tiedot...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä Sijainninmukaisen äänen tiedot</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Näyttää sijainninmukaisen äänen tiedot. Voit tutkia sijainninmukaiseen ääneen käytettyjä tietoja täällä. Myös konteksti ja identiteetti näytetään.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -6664,7 +6664,7 @@ Valid options are:
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation>Tarkista ohjelman päivitykset käynnistymisen yhteydessä</translation>
+        <translation>Tarkista ohjelman päivitykset käynnistettäessä</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
@@ -6722,7 +6722,7 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation>Tarkista käynnistyksen yhteydessä onko liitännäisille päivityksiä</translation>
+        <translation>Tarkista liitännäisten päivitykset käynnistettäessä</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
@@ -7323,11 +7323,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytetäänkö tämän liitännäisen sijainninmukaista ääntä</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä liitännäinen ei tue sijainninmukaista ääntä</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
@@ -7429,7 +7429,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäinen &quot;%1&quot; kohtasi pysyvän virheen sijaintitiedon keräyksessä</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
@@ -7494,7 +7494,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Sijainninmukaisen äänen tiedot</translation>
     </message>
     <message>
         <source>Camera direction</source>
@@ -7518,19 +7518,19 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Pelaajan akseli</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Pelaajan suunta</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameran akseli</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameran sijainti</translation>
     </message>
     <message>
         <source>Info</source>
@@ -7865,7 +7865,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation>Isojen/pienten kirjainten vaikutus</translation>
+        <translation>&amp;Isojen/pienten kirjainten vaikutus</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -8770,11 +8770,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
-        <translation>Digest (SHA-1): %1</translation>
+        <translation>Tiiviste (SHA-1): %1</translation>
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation>Digest (SHA-256): %1</translation>
+        <translation>Tiiviste (SHA-256): %1</translation>
     </message>
     <message>
         <source>Email: %1</source>
@@ -8821,7 +8821,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Häviöllisesti pakattu</translation>
     </message>
 </context>
 <context>

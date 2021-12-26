@@ -986,7 +986,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation>当质量设置为 &lt;b&gt;64 千比特/秒&lt;/b&gt;或更高时，启用 Opus 的低延迟模式。</translation>
+        <translation>当音质设置为 &lt;b&gt;64 千比特/秒&lt;/b&gt;或更高时，启用 Opus 的低延迟模式。 </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -3410,7 +3410,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 的全局快捷键系统目前无法与 Wayland 协议结合使用。 欲了解更多信息，请访问 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -6257,7 +6257,8 @@ Valid actions are:
 </source>
         <translation>用法：mumble rpc &lt;操作&gt; [选项]
 
-可以通过“mumble rpc”命令远程控制一个正在运行的 Mumble 实例。
+可以通过“mumble rpc”命令
+远程控制一个正在运行的 Mumble 实例。
 
 可用的操作：
   mute
@@ -6342,11 +6343,13 @@ Valid options are:
 </source>
         <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
 
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，URL 的格式为：
+&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
+URL 的格式为：
 mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
 
 &lt;插件列表&gt; 是需要安装的插件列表
-必须设置 version 请求参数以调用正确的客户端版本，当前的默认值为 1.2.0。
+必须设置 version 请求参数以调用正确的客户端版本，
+当前的默认值为 1.2.0。
 
 可用的选项：
   -h, --help    显示此帮助信息并退出。
@@ -6358,7 +6361,8 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 请确保在配置文件内设置替代“database”选项。
   --default-certificate-dir &lt;目录&gt;
                 指定替代的默认证书目录。
-                此路径仅在无法从设置中加载证书时生效。
+                此路径仅在没有从设置中
+                加载证书时生效。
   -n, --noidentity
                 禁止加载身份认证文件（即证书）。
   -jn, --jackname &lt;参数&gt;
@@ -6376,21 +6380,26 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 （适用于调试目的）
                 - 原始麦克风输入
                 - 扬声器回声消除重读取
-                - 已处理麦克风输入
+                - 已处理的麦克风输入
   --print-echocancel-queue
                 向标准输出打印回声消除队列状态。
                 （适用于调试目的）
   --translation-dir &lt;目录&gt;
-                指定一个额外的目录，Mumble 会在其中搜索翻译文件
-                来覆盖内置的翻译。通过此方式添加的目录比其它情况
+                指定一个额外的目录，
+                Mumble 会在其中搜索翻译文件
+                来覆盖内置的翻译。
+                通过此方式添加的目录比其它情况
                 下的默认位置具有更高的优先级。
   --print-translation-dirs
-                输出 Mumble 会在哪些目录搜索翻译文件以覆盖内置翻译。
+                输出 Mumble 会在哪些目录搜索翻译文件
+                以覆盖内置翻译。
                 （适用于译者测试自己的翻译）
   --locale &lt;区域语言代码&gt;
-                用指定字符串对应的语言覆盖 Mumble 的语言设置。
+                用指定字符串对应的语言
+                覆盖 Mumble 的语言设置。
                 如果字符串格式无效，Mumble 会出错。
-                否则，指定的语言会永久保存到 Mumble 设置中。
+                否则，指定的语言会
+                永久保存到 Mumble 设置中。
 </translation>
     </message>
     <message>
@@ -6483,7 +6492,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>m</source>
-        <translation> 米</translation>
+        <translation>米</translation>
     </message>
     <message>
         <source>Heading</source>
@@ -8169,7 +8178,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>, </source>
-        <translation>，</translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>Root</source>
@@ -8441,7 +8450,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>, </source>
-        <translation>，</translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>%1 (%2)</source>
@@ -8964,7 +8973,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>无法开始录音 - 音频输出配置错误（采样率为 0Hz）</translation>
     </message>
 </context>
 <context>
