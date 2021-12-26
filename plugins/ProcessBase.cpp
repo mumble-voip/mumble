@@ -3,19 +3,20 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "Process.h"
+#include "ProcessBase.h"
 
 #include "mumble_positional_audio_utils.h"
 
 #include <chrono>
 
-Process::Process(const procid_t id, const std::string &name) : Host(id), m_ok(false), m_name(name), m_pointerSize(0) {
+ProcessBase::ProcessBase(const procid_t id, const std::string &name)
+	: Host(id), m_ok(false), m_name(name), m_pointerSize(0) {
 }
 
-Process::~Process() {
+ProcessBase::~ProcessBase() {
 }
 
-procptr_t Process::peekPtr(const procptr_t address) const {
+procptr_t ProcessBase::peekPtr(const procptr_t address) const {
 	procptr_t v = 0;
 
 	if (!peek(address, &v, m_pointerSize)) {
@@ -25,7 +26,7 @@ procptr_t Process::peekPtr(const procptr_t address) const {
 	return v;
 }
 
-std::string Process::peekString(const procptr_t address, const size_t length) const {
+std::string ProcessBase::peekString(const procptr_t address, const size_t length) const {
 	std::string string;
 
 	if (length > 0) {
@@ -54,7 +55,7 @@ std::string Process::peekString(const procptr_t address, const size_t length) co
 	return string;
 }
 
-procptr_t Process::virtualFunction(const procptr_t classObject, const size_t index) const {
+procptr_t ProcessBase::virtualFunction(const procptr_t classObject, const size_t index) const {
 	const auto vTable = peekPtr(classObject);
 	if (!vTable) {
 		return 0;
@@ -63,7 +64,7 @@ procptr_t Process::virtualFunction(const procptr_t classObject, const size_t ind
 	return peekPtr(vTable + (index * m_pointerSize));
 }
 
-procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, const Module &module) {
+procptr_t ProcessBase::findPattern(const std::vector< uint8_t > &pattern, const Module &module) {
 	for (const auto &region : module.regions()) {
 		if (!region.readable) {
 			continue;
@@ -78,7 +79,7 @@ procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, const Modu
 	return 0;
 }
 
-procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size) {
+procptr_t ProcessBase::findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size) {
 	// 32 KiB appears to be a good balance
 	constexpr uint16_t bufferSize = 32768;
 	std::vector< uint8_t > buffer(bufferSize);
@@ -113,7 +114,7 @@ procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, procptr_t 
 	return 0;
 }
 
-procid_t Process::find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids) {
+procid_t ProcessBase::find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (pids.empty()) {
 		return 0;
 	}
