@@ -173,7 +173,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble aranĝas la kanalojn en la arbo
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tio agordas, ĉu la blokaj listoj de patraj kanaloj aplikiĝos al ĉi tiu objekto. Nur tiuj elementoj, kiuj estas markitaj de »Apliki al sub-kanaloj«, herediĝos.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
@@ -403,7 +403,8 @@ Enhavas liston de anoj hereditaj de la nuna kanalo. Malmarku la elekton &lt;i&gt
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Maksimumo da uzantoj&lt;/b&gt;&lt;br /&gt;
+Ĉi tiu valoro permesas agordi maksimuman nombron da uzantoj permesitan en la kanalo. Se la valoro superas nulon, nur tiu nombro da uzantoj rajtos eniri la kanalon. Se la valoro egalas nulon, la maksimuma nombro estas donita de implicita limo de la servilo.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
@@ -443,7 +444,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementoj de bloka listo</translation>
     </message>
 </context>
 <context>
@@ -693,19 +694,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo por repremo</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se vi dum tiu ĉi tempo premos la klavon por parolado dum premo, ĝi ŝlosiĝos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tempo por repremo&lt;/b&gt;&lt;br /&gt;Se vi premas la klavon por parolado dum premo dufoje en la agordita tempo, ĝi restos ŝaltita. Mumblo daŭre registros voĉon ĝis vi refoje premos la klavon por malŝlosi paroladon dum premo.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restarigi implicitan sonsignalon</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
@@ -729,11 +730,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Antaŭaŭskluti la sonsignalojn</translation>
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Trovi paroladon konsiderante bruo</translation>
     </message>
     <message>
         <source>Signal to Noise</source>

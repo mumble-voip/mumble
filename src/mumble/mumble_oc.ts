@@ -2851,7 +2851,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Valors per defaut (Totes)</translation>
     </message>
 </context>
 <context>
@@ -2878,11 +2878,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Recuperacion impossibla de la lista dels servidors</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Connexion al servidor Mumble</translation>
     </message>
     <message>
         <source>Ping</source>
@@ -2918,15 +2918,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Apondre novèl...</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Apondre als &amp;favorits</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobrir la pagina &amp;web</translation>
     </message>
     <message>
         <source>Server list</source>
@@ -2994,7 +2994,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;onnexion</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3006,7 +3006,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom Bonjour</translation>
     </message>
     <message>
         <source>Port</source>
@@ -3066,7 +3066,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Adreça Internet del servidor.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
@@ -3081,7 +3081,7 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation>Pòrt d’escota del servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
@@ -3107,7 +3107,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     </message>
     <message>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Apondre lo servidor</translation>
     </message>
     <message>
         <source>You are currently connected to a server.
@@ -3145,7 +3145,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del servidor local</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
@@ -3165,7 +3165,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Garnir</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
@@ -3176,7 +3176,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Rapòrt d’error de Mumble</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3221,7 +3221,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Error HTTP %1&#xa0;: «&#x202f;%2&#x202f;»</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -3248,7 +3248,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Consòla desvolopaire</translation>
     </message>
 </context>
 <context>
