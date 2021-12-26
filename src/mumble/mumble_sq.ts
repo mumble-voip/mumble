@@ -2424,7 +2424,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjalëkalim</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -3085,7 +3085,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjalëkalim</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
@@ -6289,7 +6289,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozicion</translation>
     </message>
     <message>
         <source>Y</source>
@@ -6496,7 +6496,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjalëkalim</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>

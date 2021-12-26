@@ -1121,7 +1121,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Audio per packet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>

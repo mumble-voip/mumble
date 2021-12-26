@@ -2022,7 +2022,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Hau da erabiliko den audio sarrera.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -2042,7 +2042,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sarrera gailua</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -2212,7 +2212,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilatu</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -4467,7 +4467,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilatu</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -7446,7 +7446,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Identitatea</translation>
     </message>
 </context>
 <context>
@@ -7742,7 +7742,7 @@ You can register them again.</source>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilatu</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -7948,7 +7948,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ezezaguna</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
@@ -8194,7 +8194,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilatu</translation>
     </message>
     <message>
         <source>User list</source>
