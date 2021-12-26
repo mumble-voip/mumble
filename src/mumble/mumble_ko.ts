@@ -3410,7 +3410,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 전체 단축키 시스템은 현재 Wayland 프로토콜과 함께 작동하지 않습니다. 자세한 내용은 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257를 방문하세요.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -7398,11 +7398,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>플러그인 덮어쓰기를 하시겠습니까?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>새 플러그인 &quot;%1&quot; (%2)이(가) 이미 설치된 플러그인 &quot;%3&quot;(%4)을(를) 덮어쓰려고 합니다. 계속하시겠습니까?</translation>
     </message>
 </context>
 <context>
@@ -7668,12 +7668,13 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>단축키 이동이 완료되지 않음</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>유감스럽게도 %1 단축키(들)가 이동되지 않았습니다.
+다시 등록할 수 있습니다.</translation>
     </message>
 </context>
 <context>
@@ -8861,7 +8862,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>녹음을 시작할 수 없음 - 오디오 출력이 잘못 구성됨 (0Hz 샘플 속도)</translation>
     </message>
 </context>
 <context>

@@ -2088,7 +2088,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation>Pikayhteys</translation>
+        <translation>Tangentti</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
@@ -6612,7 +6612,7 @@ Valid options are:
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation>Tarkista ohjelman päivitykset käynnistymisen yhteydessä</translation>
+        <translation>Tarkista ohjelman päivitykset käynnistettäessä</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
@@ -6670,7 +6670,7 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation>Tarkista käynnistyksen yhteydessä onko liitännäisille päivityksiä</translation>
+        <translation>Tarkista liitännäisten päivitykset käynnistettäessä</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
@@ -7271,11 +7271,11 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytetäänkö tämän liitännäisen sijainninmukaista ääntä</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä liitännäinen ei tue sijainninmukaista ääntä</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
@@ -7377,7 +7377,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäinen &quot;%1&quot; kohtasi pysyvän virheen sijaintitiedon keräyksessä</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
@@ -7758,7 +7758,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation>Isojen/pienten kirjainten vaikutus</translation>
+        <translation>&amp;Isojen/pienten kirjainten vaikutus</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -8663,11 +8663,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
-        <translation>Digest (SHA-1): %1</translation>
+        <translation>Tiiviste (SHA-1): %1</translation>
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation>Digest (SHA-256): %1</translation>
+        <translation>Tiiviste (SHA-256): %1</translation>
     </message>
     <message>
         <source>Email: %1</source>

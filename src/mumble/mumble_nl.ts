@@ -6489,7 +6489,7 @@ Geldige opties zijn:
     </message>
     <message>
         <source>Activate</source>
-        <translation>Actipur</translation>
+        <translation>Activeren</translation>
     </message>
     <message>
         <source>Display</source>
