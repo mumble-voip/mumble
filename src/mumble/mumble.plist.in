@@ -5,11 +5,11 @@
 	<key>CFBundleExecutable</key>
 	<string>Mumble</string>
 	<key>CFBundleGetInfoString</key>
-	<string>An open source, low-latency, high quality voice chat software primarily intended for use while gaming.</string>
+	<string>@PROJECT_DESCRIPTION@</string>
 	<key>CFBundleIconFile</key>
 	<string>mumble.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.mumble.Mumble</string>
+	<string>mumble-client</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>

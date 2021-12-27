@@ -5,9 +5,9 @@
 	<key>CFBundleExecutable</key>
 	<string>murmurd</string>
 	<key>CFBundleGetInfoString</key>
-	<string>An open source, low-latency, high quality voice chat software primarily intended for use while gaming.</string>
+	<string>@PROJECT_DESCRIPTION@</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.mumble.Murmur</string>
+	<string>mumble-server</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
