@@ -104,6 +104,11 @@ Build support for Ice RPC.
 Build support for JackAudio.
 (Default: ON)
 
+### lto
+
+Enables link-time optimizations
+(Default: ${LTO_DEFAULT})
+
 ### manual-plugin
 
 Include the built-in \"manual\

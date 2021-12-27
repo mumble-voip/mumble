@@ -3,10 +3,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+
 cmake_minimum_required(VERSION 3.15)
 
 cmake_policy(SET CMP0079 NEW)
 cmake_policy(SET CMP0091 NEW)
+cmake_policy(SET CMP0069 NEW)
 if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
 	cmake_policy(SET CMP0118 NEW)
 endif()
@@ -48,6 +50,9 @@ list(APPEND CMAKE_MODULE_PATH
 include(pkg-utils)
 include(project-utils)
 include(TargetArch)
+include(CheckIPOSupported)
+
+check_ipo_supported(RESULT LTO_DEFAULT)
 
 
 option(tests "Build tests" OFF)
@@ -70,7 +75,12 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
         "-DDEBUG"
         "-DSNAPSHOT_BUILD"
     )
+
+	# Disable LTO in Debug builds in order to reduce time required for linking
+	set(LTO_DEFAULT OFF)
 endif()
+
+option(lto "Enables link-time optimizations" ${LTO_DEFAULT})
 
 include(compiler)
 include(os)
@@ -87,6 +97,7 @@ if(NOT IS_MULTI_CONFIG)
 else()
     message(STATUS "Using multi-config generator that will determine build type on-the-fly")
 endif()
+message(STATUS "Using LTO:               ${lto}")
 message(STATUS "##################################################")
 
 include(install-paths)

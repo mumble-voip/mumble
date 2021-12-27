@@ -33,6 +33,8 @@ find_pkg(Protobuf REQUIRED)
 
 add_library(shared STATIC)
 
+set_property(TARGET shared PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 
 # Disable warnings for the generated source files
@@ -72,7 +74,6 @@ set(SHARED_SOURCES
 	"SSLLocks.cpp"
 	"Timer.cpp"
 	"UnresolvedServerAddress.cpp"
-	"User.cpp"
 	"Version.cpp"
 
 	"crypto/CryptographicHash.cpp"
@@ -108,7 +109,6 @@ set(SHARED_HEADERS
 	"SSLLocks.h"
 	"Timer.h"
 	"UnresolvedServerAddress.h"
-	"User.h"
 	"Version.h"
 
 	"crypto/CryptographicHash.h"

@@ -47,6 +47,8 @@ set(MURMUR_SOURCES
 	"${SHARED_SOURCE_DIR}/Connection.h"
 	"${SHARED_SOURCE_DIR}/Group.cpp"
 	"${SHARED_SOURCE_DIR}/Group.h"
+	"${SHARED_SOURCE_DIR}/User.cpp"
+	"${SHARED_SOURCE_DIR}/User.h"
 )
 
 if(WIN32)
@@ -54,6 +56,8 @@ if(WIN32)
 else()
 	add_executable(mumble-server ${MURMUR_SOURCES})
 endif()
+
+set_property(TARGET mumble-server PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
 set_target_properties(mumble-server
 	PROPERTIES
