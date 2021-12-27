@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>murmurd</string>
 	<key>CFBundleGetInfoString</key>
-	<string>An open source, low-latency, high quality voice chat software.</string>
+	<string>@PROJECT_DESCRIPTION@</string>
 	<key>CFBundleIdentifier</key>
 	<string>mumble-server</string>
 	<key>CFBundlePackageType</key>
