@@ -1,37 +1,34 @@
 # Docker Compose
 
-## How to setup Mumble with Docker Compose?
+## Configuring Murmur
 
-1. Make a new directory and create a new file inside called docker-compose.yml
+1. Create a new directory and switch to it
 
-2. Copy the information from https://github.com/mumble-voip/mumble/scripts/docker-compose.yml into the new file.
+2. Create the file `docker-compose.yml` and copy the [default docker-compose.yml](../scripts/docker-compose.yml) into it
 
-3. Create the data folder and make 1000 it's owner.
+3. Create the directory `data` and make `1000` its owner
 
-4. Create a new file called murmur.ini and copy the information from https://github.com/mumble-voip/mumble/blob/master/scripts/murmur.ini
+4. Create the file `murmur.ini` and copy the [default murmur.ini](../scripts/murmur.ini) into it
 
-In this file ensure to change `database=` to `database=/var/lib/murmur/murmur.sqlite` to ensure that the database is created in the correct location. Edit the rest of the file to your liking.
+5. Change `database` in `murmur.ini` to `/var/lib/murmur/murmur.sqlite`
 
-5. Run docker-compose up -d to build and start the container.
+6. Run `docker-compose up -d`
 
-## How do I view the logs?
+## Viewing the log
 
-To view the logs type `docker logs mumble-server`. You can add -f to make it follow the log automatically updating it.
+Run `docker logs mumble-server`.
 
-## How do I use the release build instead of master?
+## Using the release build instead of the master branch
 
-To use stable version instead of the latest master change `#master` at the end of the build line in the docker compose to whichever branch you want to compile. For example, `build: github.com/mumble-voip/mumble#1.4.x` will build version 1.4.x instead of master.
+Change `#master` at the end of the build line in `docker-compose.yml` to the branch you want to compile. For example, `build: github.com/mumble-voip/mumble#1.4.x` will build version `1.4.x`.
 
-## How do I add Letsencrypt Certificates with Docker?
+## Adding a certificate
 
-To add Letsencrypt Certificates to docker you can move the certifcates to a location user 1000 can read and add an extra volume to the docker compose file.
+First, give Murmur permission to read the certificate files. There are two options for this:
 
-Or you can add the run the docker container as root. To do this:
+1. Move the certificate files to a location user `1000` can read
+2. Have Murmur read the certificate files as `root` and then switch accounts. This is done by adding `user: "0:0"` to `docker-compose.yml` and changing `uname` to `uname=murmur` in `murmur.ini`
 
-1. Add `user: "0:0"` to the docker compose file 
+Then add a volume with the certificate files in the `volume` section of `docker-compose.yml`: `- /path/to/certificate-directory/:/certs:ro`.
 
-2. Add `- /etc/letsencrypt/:/certs:ro` to the volume section of the docker compose file.
-
-3. Edit the murmur.ini changing `uname` to `uname=murmur` to make it switch to a non root user after reading the cert.
-
-4. Change the `sslCert` and `sslKey` to the path of the certificate and key.
+Finally, change `sslCert` and `sslKey` in `murmur.ini` to their respective paths and run `docker-compose down` followed by `docker-compose up -d`.
