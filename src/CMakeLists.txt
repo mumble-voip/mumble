@@ -14,6 +14,8 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(dbus "Build support for DBus." ON)
 
+option(tracy "Enable the tracy profiler." OFF)
+
 find_pkg(Qt5
 	COMPONENTS
 		Core
@@ -165,6 +167,16 @@ endif()
 if(qssldiffiehellmanparameters)
 	target_compile_definitions(shared PUBLIC "USE_QSSLDIFFIEHELLMANPARAMETERS")
 endif()
+
+# Note: We always include and link against Tracy but it is only enabled, if we set the TRACY_ENABLE cmake option
+# to ON, before including the respective subdirectory
+set(TRACY_ENABLE ${tracy} CACHE BOOL "" FORCE)
+set(TRACY_ON_DEMAND ON CACHE BOOL "" FORCE)
+add_subdirectory("${3RDPARTY_DIR}/tracy" "tracy")
+disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/tracy")
+message(STATUS "Tracy: ${TRACY_ENABLE}")
+
+target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
 if(client)
 	add_subdirectory(mumble)

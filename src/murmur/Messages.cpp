@@ -22,6 +22,8 @@
 
 #include <cassert>
 
+#include <Tracy.hpp>
+
 #define RATELIMIT(user)                   \
 	if (user->leakyBucket.ratelimit(1)) { \
 		return;                           \
@@ -157,6 +159,8 @@ bool isChannelEnterRestricted(Channel *c) {
 }
 
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
+	ZoneScoped;
+
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
 		for (int i = 0; i < msg.tokens_size(); ++i)
@@ -556,6 +560,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 }
 
 void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	QSet< Ban > previousBans, newBans;
@@ -630,6 +636,8 @@ void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &) 
 }
 
 void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	const std::string &str = msg.packet();
@@ -641,6 +649,8 @@ void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
 }
 
 void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
@@ -1043,6 +1053,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 }
 
 void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
@@ -1080,6 +1092,8 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 }
 
 void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = nullptr;
@@ -1360,6 +1374,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 }
 
 void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -1377,6 +1393,8 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 }
 
 void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 	QMutexLocker qml(&qmCache);
 
@@ -1586,6 +1604,8 @@ void logACLs(Server *server, const Channel *c, QString prefix = QString()) {
 
 
 void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -1796,6 +1816,8 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 }
 
 void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	MumbleProto::QueryUsers reply;
@@ -1825,6 +1847,8 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 }
 
 void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	QMutexLocker l(&uSource->qmCrypt);
@@ -1854,6 +1878,8 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 }
 
 void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	QMutexLocker l(&uSource->qmCrypt);
@@ -1875,6 +1901,8 @@ void Server::msgContextActionModify(ServerUser *, MumbleProto::ContextActionModi
 }
 
 void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	unsigned int session = msg.has_session() ? msg.session() : 0;
@@ -1901,6 +1929,8 @@ QString convertWithSizeRestriction(const std::string &str, size_t maxSize) {
 }
 
 void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
+	ZoneScoped;
+
 	RATELIMIT(uSource);
 
 	if (msg.has_version()) {
@@ -1925,6 +1955,8 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 }
 
 void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
+	ZoneScoped;
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	// The register permission is required on the root channel to be allowed to
@@ -2000,6 +2032,8 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 }
 
 void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	int target = msg.id();
@@ -2043,6 +2077,8 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 }
 
 void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuery &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -2056,6 +2092,8 @@ void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
 }
 
 void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	VICTIM_SETUP;
 	const BandwidthRecord &bwr            = pDstServerUser->bwr;
@@ -2141,6 +2179,8 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 }
 
 void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) {
+	ZoneScoped;
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	int ntextures     = msg.session_texture_size();
@@ -2191,6 +2231,8 @@ void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
 }
 
 void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDataTransmission &msg) {
+	ZoneScoped;
+
 	// A client's plugin has sent us a message that we shall delegate to its receivers
 
 	if (sender->m_pluginMessageBucket.ratelimit(1)) {

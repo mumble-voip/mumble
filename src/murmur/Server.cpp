@@ -36,6 +36,9 @@
 
 #include <boost/bind/bind.hpp>
 
+#include "TracyConstants.h"
+#include <Tracy.hpp>
+
 #ifdef Q_OS_WIN
 #	include <qos2.h>
 #	include <ws2tcpip.h>
@@ -74,6 +77,8 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 Server::Server(int snum, QObject *p) : QThread(p) {
+	tracy::SetThreadName("Main");
+
 	bValid     = true;
 	iServerNum = snum;
 #ifdef USE_ZEROCONF
@@ -724,6 +729,8 @@ void Server::udpActivated(int socket) {
 }
 
 void Server::run() {
+	tracy::SetThreadName("Audio");
+
 	qint32 len;
 #if defined(__LP64__)
 	char encbuff[UDP_PACKET_SIZE + 8];
@@ -764,6 +771,8 @@ void Server::run() {
 	++nfds;
 
 	while (bRunning) {
+		FrameMarkNamed(TracyConstants::udp_frame);
+
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
 		if (pret <= 0) {
@@ -835,6 +844,10 @@ void Server::run() {
 													   reinterpret_cast< struct sockaddr * >(&from), &fromlen));
 #	endif
 #endif
+
+				// Capture only the processing without the polling
+				ZoneScopedN(TracyConstants::udp_packet_processing_zone);
+
 				if (len == 0) {
 					break;
 				} else if (len == SOCKET_ERROR) {
@@ -851,6 +864,8 @@ void Server::run() {
 				quint32 *ping = reinterpret_cast< quint32 * >(encrypt);
 
 				if ((len == 12) && (*ping == 0) && bAllowPing) {
+					ZoneScopedN(TracyConstants::ping_processing_zone);
+
 					ping[0] = uiVersionBlob;
 					// 1 and 2 will be the timestamp, which we return unmodified.
 					ping[3] = qToBigEndian(static_cast< quint32 >(qhUsers.count()));
@@ -867,7 +882,6 @@ void Server::run() {
 					continue;
 				}
 
-
 				quint16 port = (from.ss_family == AF_INET6) ? (reinterpret_cast< sockaddr_in6 * >(&from)->sin6_port)
 															: (reinterpret_cast< sockaddr_in * >(&from)->sin_port);
 				const HostAddress &ha = HostAddress(from);
@@ -880,6 +894,8 @@ void Server::run() {
 						continue;
 					}
 				} else {
+					ZoneScopedN(TracyConstants::decrypt_unknown_peer_zone);
+
 					// Unknown peer
 					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
 						if (checkDecrypt(usr, encrypt, buffer, len)) { // checkDecrypt takes the User's qrwlCrypt lock.
@@ -925,6 +941,8 @@ void Server::run() {
 						processMsg(u, buffer, len);
 					}
 				} else if (msgType == MessageHandler::UDPPing) {
+					ZoneScopedN(TracyConstants::udp_ping_processing_zone);
+
 					QByteArray qba;
 					sendMessage(u, buffer, len, qba, true);
 				}
@@ -943,6 +961,8 @@ void Server::run() {
 }
 
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
+	ZoneScoped;
+
 	QMutexLocker l(&u->qmCrypt);
 
 	if (u->csCrypt->isValid()
@@ -960,6 +980,8 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 }
 
 void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
+	ZoneScoped;
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	if ((u->aiUdpFlag.loadRelaxed() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #else
@@ -1057,6 +1079,8 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 	}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
+	ZoneScoped;
+
 	// Note that in this function we never have to aquire a read-lock on qrwlVoiceThread
 	// as all places that call this function will hold that lock at the point of calling
 	// this function.
@@ -1665,6 +1689,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 }
 
 void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *u) {
+	ZoneScopedN(TracyConstants::tcp_packet_processing_zone);
+
 	if (!u) {
 		u = static_cast< ServerUser * >(sender());
 	}
