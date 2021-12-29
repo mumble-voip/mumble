@@ -7,12 +7,6 @@
 #include "Channel.h"
 #include "User.h"
 
-#ifdef MUMBLE
-#	include "ServerHandler.h"
-#	include "Database.h"
-#	include "Global.h"
-#endif
-
 #include <QReadLocker>
 #include <QWriteLocker>
 
@@ -20,7 +14,7 @@ ChannelListenerManager::ChannelListenerManager()
 	: QObject(nullptr), m_listenerLock(), m_listeningUsers(), m_listenedChannels()
 #ifdef MUMBLE
 	  ,
-	  m_volumeLock(), m_listenerVolumeAdjustments(), m_initialSyncDone(false)
+	  m_volumeLock(), m_listenerVolumeAdjustments()
 #endif
 {
 }
@@ -122,31 +116,6 @@ QHash< int, float > ChannelListenerManager::getAllListenerLocalVolumeAdjustments
 
 		return volumeMap;
 	}
-}
-
-void ChannelListenerManager::setInitialServerSyncDone(bool done) {
-	m_initialSyncDone.store(done);
-}
-
-void ChannelListenerManager::saveToDB() const {
-	if (!Global::get().sh || Global::get().sh->qbaDigest.isEmpty() || Global::get().uiSession == 0) {
-		// Can't save as we don't have enough context
-		return;
-	}
-
-	if (!m_initialSyncDone.load()) {
-		// If we were to save the listeners before the sync is done, we'd overwrite the list of listeners in the
-		// DB with an empty set, effectively erasing all set-up listeners.
-		qWarning("ChannelListener: Aborting save of user's listeners as initial ServerSync is not done yet");
-		return;
-	}
-
-	// Save the currently listened channels
-	Global::get().db->setChannelListeners(Global::get().sh->qbaDigest,
-										  getListenedChannelsForUser(Global::get().uiSession));
-	// And also the currently set volume adjustments (if they're not set to 1.0)
-	Global::get().db->setChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest,
-															   getAllListenerLocalVolumeAdjustments(true));
 }
 #endif
 
