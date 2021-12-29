@@ -105,7 +105,7 @@ QByteArray CryptographicHashPrivate::result() {
 
 	m_result = digest;
 
-	assert(!m_result.empty());
+	assert(!m_result.isEmpty());
 
 	return m_result;
 }
