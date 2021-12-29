@@ -4,7 +4,8 @@ services:
     build: github.com/mumble-voip/mumble#master
     container_name: mumble-server
     ports:
-        - 64738:64738
+        - 64738:64738/tcp
+        - 64738:64738/udp
     volumes:
       - ./murmur.ini:/etc/murmur/murmur.ini
       - ./data:/var/lib/murmur/
