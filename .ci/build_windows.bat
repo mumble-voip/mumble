@@ -24,7 +24,7 @@
 
 :: The method we use to store a command's output into a variable:
 :: https://stackoverflow.com/a/6362922
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --format version`) do (set "VERSION=%%g")
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py"`) do (set "VERSION=%%g")
 
 :: For some really stupid reason we can't have this statement and the one where we set the VERSION variable in the same if body as
 :: in that case the variable substitution of that variable in the expression below fails (is replaced with empty string)
@@ -35,8 +35,6 @@ if defined MUMBLE_BUILD_NUMBER_TOKEN (
 	echo Build number token not set - defaulting to 0
 	set BUILD_NUMBER=0
 )
-
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py"`) do (set "RELEASE_ID=%%g")
 
 :: Create build directory if it doesn't exist.
 if not exist "%MUMBLE_BUILD_DIRECTORY%" mkdir "%MUMBLE_BUILD_DIRECTORY%
@@ -50,7 +48,7 @@ set PATH=%PATH%;C:\WixSharp
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
       -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
       -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe ^
-      -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DRELEASE_ID=%RELEASE_ID% -DBUILD_NUMBER=%BUILD_NUMBER% ^
+      -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=%BUILD_NUMBER% ^
       -Dpackaging=ON -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON -Dasio=ON -Dg15=ON ^
       -Ddisplay-install-paths=ON %MUMBLE_SOURCE_REPOSITORY%
 

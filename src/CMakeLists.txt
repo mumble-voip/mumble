@@ -128,8 +128,6 @@ target_sources(shared
 target_compile_definitions(shared
 	PUBLIC
 		"MUMBLE_VERSION=${PROJECT_VERSION}"
-		# Only define this macro if RELEASE_ID is actually set
-		$<$<NOT:$<STREQUAL:"${RELEASE_ID}","">>:MUMBLE_RELEASE_ID=${RELEASE_ID}>
 )
 
 target_compile_definitions(shared
