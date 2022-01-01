@@ -21,6 +21,7 @@ In order to actually build Mumble, you can follow one of the following instructi
 
 Furthermore you might find these helpful as well:
 - [FAQ](faq.md)
+- [Determine build number](find_build_number.md)
 - [Common build errors](common_build_errors.md)
 - [List of available cmake options](cmake_options.md)
 - [IDE integration](ide_integration.md)
