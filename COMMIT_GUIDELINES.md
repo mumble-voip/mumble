@@ -46,7 +46,7 @@ The `TYPE` is one of the following:
 | FORMAT   | Change of formatting - does not influence how the code works | Change indentation of a line; Add braces around `if` body |
 | DOCS     | Changes to the documentation (either in-source or out-of-source) | Add a Doxygen comment to a function |
 | TEST     | Adds, changes or removes a test-case | |
-| MAINT    | Maintenance - Change of non-code files | Change of the README |
+| MAINT    | Maintenance - Change of non-code files | Make changes to `.plist` or `.rc` files |
 | CI       | Changed something for the CI (continuous integration) | Update TravisCI to use newer ubuntu version |
 | REFAC    | Code refactoring | Rename variable `x` to `y` |
 | BUILD    | Changes related to the build process / buildsystem | Fix cmake script |
