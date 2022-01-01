@@ -13,10 +13,10 @@
 #                                 repository is downloaded.
 #
 
-RELEASE_ID=$(python "scripts/mumble-version.py")
+VERSION=$(python "scripts/mumble-version.py")
 
 cd $BUILD_BINARIESDIRECTORY
 
-$BUILD_SOURCESDIRECTORY/macx/scripts/osxdist.py --version=$RELEASE_ID --source-dir=$BUILD_SOURCESDIRECTORY --binary-dir=.
+$BUILD_SOURCESDIRECTORY/macx/scripts/osxdist.py --version=$VERSION --source-dir=$BUILD_SOURCESDIRECTORY --binary-dir=.
 
 mv *.dmg $BUILD_ARTIFACTSTAGINGDIRECTORY
