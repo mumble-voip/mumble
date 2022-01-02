@@ -31,18 +31,16 @@
 #
 
 if [[ -n "$MUMBLE_BUILD_NUMBER_TOKEN" ]]; then
-	VERSION=$(python "scripts/mumble-version.py" --format version)
+	VERSION=$(python "scripts/mumble-version.py")
 	BUILD_NUMBER=$(curl "https://mumble.info/get-build-number?commit=${BUILD_SOURCEVERSION}&version=${VERSION}&token=${MUMBLE_BUILD_NUMBER_TOKEN}")
 else
 	BUILD_NUMBER=0
 fi
 
-RELEASE_ID=$(python "scripts/mumble-version.py")
-
 cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx" \
-      -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DRELEASE_ID=$RELEASE_ID -DBUILD_NUMBER=$BUILD_NUMBER \
+      -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=$BUILD_NUMBER \
       -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 

@@ -11,11 +11,7 @@
 #define MUMXTEXT(X) #X
 #define MUMTEXT(X) MUMXTEXT(X)
 
-#ifndef MUMBLE_RELEASE_ID
-#	define MUMBLE_RELEASE "Compiled by User"
-#else
-#	define MUMBLE_RELEASE MUMTEXT(MUMBLE_RELEASE_ID)
-#endif
+#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
 
 namespace Version {
 
