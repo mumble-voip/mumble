@@ -14,7 +14,6 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
 endif()
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
-set(RELEASE_ID CACHE STRING "The ID of the current release (used for representation in the UI and the updater)")
 
 if ("${BUILD_NUMBER}" STREQUAL "")
 	if(packaging)
@@ -89,7 +88,6 @@ target_architecture(MUMBLE_TARGET_ARCH)
 string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
 
 message(STATUS "##################################################")
-message(STATUS "Mumble release ID:       ${RELEASE_ID}")
 message(STATUS "Mumble version:          ${PROJECT_VERSION}")
 message(STATUS "Architecture:            ${MUMBLE_TARGET_ARCH}")
 if(NOT IS_MULTI_CONFIG)
