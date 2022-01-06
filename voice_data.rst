@@ -289,7 +289,7 @@ Whispering
 
 Normal talking can be heard by the users of the current channel and all linked
 channels as long as the speaker has Talk permission on these channels. If the
-speaker wishes to broadcast the voice to specific users or channels, he may
+speaker wishes to broadcast the voice to specific users or channels, they may
 use whispering. This is achieved by registering a voice target using the
 VoiceTarget message and specifying the target ID as the target in the first
 byte of the UDP packet.

@@ -221,11 +221,11 @@ currently on the server, including the user that is currently connecting.
 Server sync
 -----------
 
-The client has now received a copy of the parts of the server state he
+The client has now received a copy of the parts of the server state it
 needs to know about. To complete the synchronization the server transmits
 a ServerSync message containing the session id of the clients session,
 the maximum bandwidth allowed on this server, the servers welcome text
-as well as the permissions the client has in the channel he ended up.
+as well as the permissions the client has in the channel it ended up in.
 
 For more information pease refer to the Mumble.proto file [#f1]_.
 
