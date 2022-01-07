@@ -208,10 +208,56 @@ void BanEditor::on_qleSearch_textChanged(const QString &match) {
 	}
 }
 
-void BanEditor::on_qleIP_textChanged(QString) {
-	qpbAdd->setEnabled(qleIP->isModified());
-	if (qlwBans->currentRow() >= 0)
-		qpbUpdate->setEnabled(qleIP->isModified());
+void BanEditor::on_qleIP_textChanged(QString address) {
+	bool valid  = false;
+	int maxMask = 0;
+
+	switch (QHostAddress(address).protocol()) {
+		case QAbstractSocket::IPv4Protocol:
+			valid = true;
+			// IPv4: 8 <= mask <= 32
+			maxMask = 32;
+			break;
+		case QAbstractSocket::IPv6Protocol:
+			valid = true;
+			// IPv6: 8 <= mask <= 128
+			maxMask = 128;
+			break;
+		default:
+			valid = false;
+			break;
+	}
+
+	if (!valid) {
+		// Set red-ish background to indicate an invalid IP address
+		qleIP->setStyleSheet("background-color: #F08080;");
+	} else {
+		qleIP->setStyleSheet("");
+	}
+
+	if (qlwBans->currentRow() >= 0) {
+		qpbUpdate->setEnabled(valid && qleIP->isModified());
+	}
+
+	qpbAdd->setEnabled(valid && qleIP->isModified());
+
+	// Only display the controls for setting the mask, if a valid IP address has been entered (so we know what kind of
+	// masks are valid)
+	qsbMask->setVisible(valid);
+	qlMask->setVisible(valid);
+
+	if (valid) {
+		int prevMask     = qsbMask->value();
+		bool wasSetToMax = qsbMask->maximum() == prevMask;
+		qsbMask->setMaximum(maxMask);
+
+		if (wasSetToMax) {
+			// If the mask value was at its maximum value and we change from IPv4 to IPv6, we still want to set the mask
+			// to the max. value as we have to assume the user didn't explicitly modify the value (and thus we want the
+			// default, which always is the max. value).
+			qsbMask->setValue(maxMask);
+		}
+	}
 }
 
 void BanEditor::on_qleReason_textChanged(QString) {
