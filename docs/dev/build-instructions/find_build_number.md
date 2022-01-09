@@ -10,3 +10,14 @@ The build number is automatically increased with every commit that is made to Mu
 https://mumble.info/build-number.json. Simply look up the current commit hash (topmost entry in the result of `git log`) in the list and use the
 corresponding build number.
 
+Instead of manually looking up the commit of interest yourself, you could instead use the script `scripts/mumble-build-number.py`. You have to
+pass the commit hash and the Mumble version (as specified in the main `CMakeLists.txt` file) to it and it will fetch the corresponding build number
+for you. For instance:
+```bash
+python3 mumble-build-number.py --commit 53ddee77364482a8385ce7244a233bf10412d76a --version 1.5
+```
+
+Note that not all commits will have a build number associated with them (due to how our CI works). As a general rule of thumbs, only merge-commits will
+yield a build number. However, if you did not explicitly switch to a specific commit, the current HEAD (can be obtained via `git rev-parse HEAD`) will
+most likely have a build number associated with it.
+
