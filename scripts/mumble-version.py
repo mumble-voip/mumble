@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2019-2022 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
