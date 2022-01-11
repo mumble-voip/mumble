@@ -15,7 +15,7 @@ Mumble is an Open Source, low-latency and high-quality voice-chat program
 written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server (murmur).
-The client works on Windows, Linux, FreeBSD and macOS,
+The client works on Windows, Linux, FreeBSD, OpenBSD and macOS,
 while the server should work on anything Qt can be installed on.
 
 Please note that with "Windows" we mean 7 and newer.
