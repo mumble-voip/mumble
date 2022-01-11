@@ -38,11 +38,11 @@ def main():
             always succeed.", type=int)
     args = parser.parse_args()
 
-    if not args.password is None and args.password.strip():
+    if not args.password is None and args.password.strip() == "":
         # An empty password is considered to be no password at all
         args.password = None
 
-    buildNumber = fetch_build_number(commit = args.commit, version = args.version, password = args.version)
+    buildNumber = fetch_build_number(commit = args.commit, version = args.version, password = args.password)
 
     if buildNumber is None and not args.default is None:
         buildNumber = args.default
