@@ -267,7 +267,11 @@ void ProcessResolver::doResolve() {
 	}
 
 	for (int i = 0; i < n_procs; ++i) {
+#	if defined(__NetBSD__) || defined(__OpenBSD__)
+		addEntry(procs_info[i].p_pid, procs_info[i].p_comm, m_processMap);
+#	else
 		addEntry(procs_info[i].ki_pid, procs_info[i].ki_comm, m_processMap);
+#	endif
 	}
 
 	kvm_cleanup(kd);
