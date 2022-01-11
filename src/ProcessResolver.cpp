@@ -250,8 +250,10 @@ void ProcessResolver::doResolve() {
 	}
 
 	int n_procs;
-#	if defined(__NetBSD__) || defined(__OpenBSD__)
+#	if defined(__NetBSD__)
 	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_ALL, 0, &n_procs);
+#	elif defined(__OpenBSD__)
+	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_ALL, 0, sizeof(*procs_info), &n_procs);
 #	else
 	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_PROC, 0, &n_procs);
 #	endif
