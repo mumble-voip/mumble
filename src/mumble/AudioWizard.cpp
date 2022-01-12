@@ -92,11 +92,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	else
 		qrbQualityCustom->setChecked(true);
 
-	quint32 iMessage = Settings::LogNone;
-	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-		iMessage |= (Global::get().s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
-	}
-
 #ifdef USE_NO_TTS
 	qrbNotificationCustom->setChecked(false);
 	qrbNotificationCustom->setDisabled(true);
@@ -104,6 +99,11 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qrbNotificationTTS->setDisabled(true);
 	qrbNotificationSounds->setChecked(true);
 #else
+	quint32 iMessage = Settings::LogNone;
+	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
+		iMessage |= (Global::get().s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
+	}
+
 	if (iMessage == Settings::LogTTS && Global::get().s.bTTS)
 		qrbNotificationTTS->setChecked(true);
 	else if (iMessage == Settings::LogSoundfile)
