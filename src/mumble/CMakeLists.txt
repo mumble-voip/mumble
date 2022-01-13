@@ -25,7 +25,8 @@ option(bundle-qt-translations "Bundle Qt's translations as well" ${static})
 option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
 option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
-option(rnnoise "Build RNNoise for machine learning noise reduction" ON)
+option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
+option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
 
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
@@ -717,23 +718,30 @@ else()
 endif()
 
 if(rnnoise)
-	add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise")
-
-	# Disable all warnings that the RNNoise code may emit
-	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
-
 	target_compile_definitions(mumble PRIVATE "USE_RNNOISE")
-	target_link_libraries(mumble PRIVATE rnnoise)
 
-	if(WIN32)
-		# Shared library on Windows (e.g. ".dll")
-		set_target_properties(rnnoise PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	if(bundled-rnnoise)
+		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise")
+
+		# Disable all warnings that the RNNoise code may emit
+		disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
+
+		target_link_libraries(mumble PRIVATE rnnoise)
+
+		if(WIN32)
+			# Shared library on Windows (e.g. ".dll")
+			set_target_properties(rnnoise PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		else()
+			# Shared library on UNIX (e.g. ".so")
+			set_target_properties(rnnoise PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		endif()
+
+		install_library(rnnoise mumble_client)
 	else()
-		# Shared library on UNIX (e.g. ".so")
-		set_target_properties(rnnoise PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	endif()
+		find_pkg(rnnoise REQUIRED)
 
-	install_library(rnnoise mumble_client)
+		target_link_libraries(mumble PRIVATE ${rnnoise_LIBRARIES})
+	endif()
 endif()
 
 if(qtspeech)
