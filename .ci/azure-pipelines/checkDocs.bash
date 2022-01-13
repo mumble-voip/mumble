@@ -17,4 +17,4 @@ generatedDocs="/tmp/generated_docs.md"
 
 "$generateScript" > "$generatedDocs"
 
-diff "$currentDocs" "$generatedDocs"
+diff -u "$currentDocs" "$generatedDocs"
