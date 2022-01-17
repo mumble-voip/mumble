@@ -2,17 +2,17 @@
 
 ## Configuring Murmur
 
-1. Create a new directory and switch to it
+1. Create a new directory and switch to it.
 
-2. Create the file `docker-compose.yml` and copy the [default docker-compose.yml](../scripts/docker-compose.yml) into it
+2. Create the file `docker-compose.yml` and copy the [default docker-compose.yml](../scripts/docker-compose.yml) into it.
 
-3. Create the directory `data` and make `1000` its owner
+3. Create the directory `data` and make `1000` its owner.
 
-4. Create the file `murmur.ini` and copy the [default murmur.ini](../scripts/murmur.ini) into it
+4. Create the file `murmur.ini` and copy the [default murmur.ini](../scripts/murmur.ini) into it.
 
-5. Change `database` in `murmur.ini` to `/var/lib/murmur/murmur.sqlite`
+5. Change `database` in `murmur.ini` to `/var/lib/murmur/murmur.sqlite`.
 
-6. Run `docker-compose up -d`
+6. Run `docker-compose up -d`. Append the `--build` switch to force rebuilding, if needed (e.g. new commits since last build).
 
 ## Viewing the log
 
