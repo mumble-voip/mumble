@@ -1068,6 +1068,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (!bIsSpeech) {
 		iHoldFrames++;
 		if (iHoldFrames < Global::get().s.iVoiceHold)
+			// Hold mic open until iVoiceHold threshold is reached
 			bIsSpeech = true;
 	} else {
 		iHoldFrames = 0;
