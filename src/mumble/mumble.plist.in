@@ -35,5 +35,14 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Mumble uses your microphone to allow you to talk to other people</string>
+
+	<key>com.apple.security.device.audio-input</key>
+	<string>Mumble uses your microphone to allow you to talk to other people</string>
+	<key>com.apple.security.cs.disable-library-validation</key>
+	<string>Mumble needs library validation to be disabled in order to load plugins</string>
+	<key>com.apple.security.network.client</key>
+	<string>Mumble needs network access to allow you to connect to a server</string>
+	<key>com.apple.security.network.server</key>
+	<string>Mumble needs network access to allow you to connect to a server</string>
 </dict>
 </plist>
