@@ -40,7 +40,7 @@ jobs:
       shell: bash
 
     - name: Check code formatting
-      uses: jidicula/clang-format-action@3.5
+      uses: jidicula/clang-format-action@v3.5.2
       with:
           clang-format-version: '10'
           check-path: '.'
