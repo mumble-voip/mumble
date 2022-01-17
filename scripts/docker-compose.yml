@@ -14,4 +14,4 @@ services:
     volumes:
       - ./murmur.ini:/etc/murmur/murmur.ini
       - ./data:/var/lib/murmur/
-    restart: always
+    restart: unless-stopped
