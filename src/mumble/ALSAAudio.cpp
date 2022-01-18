@@ -10,7 +10,7 @@
 #include "Utils.h"
 
 #include <alsa/asoundlib.h>
-#include <sys/poll.h>
+#include <poll.h>
 
 #include "Global.h"
 
