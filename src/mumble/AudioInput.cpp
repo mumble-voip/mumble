@@ -32,11 +32,13 @@ extern "C" {
 #include <algorithm>
 #include <limits>
 
+#ifdef USE_RNNOISE
 /// Clip the given float value to a range that can be safely converted into a short (without causing integer overflow)
 static short clampFloatSample(float v) {
 	return static_cast< short >(std::min(std::max(v, static_cast< float >(std::numeric_limits< short >::min())),
 										 static_cast< float >(std::numeric_limits< short >::max())));
 }
+#endif
 
 void Resynchronizer::addMic(short *mic) {
 	bool drop = false;
