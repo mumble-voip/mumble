@@ -15,6 +15,7 @@
 #include <cstring>
 #include <elf.h>
 #include <iostream>
+#include <libgen.h>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
