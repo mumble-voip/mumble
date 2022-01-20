@@ -8,6 +8,7 @@
 #include "mumble_positional_audio_utils.h"
 
 #include <cstring>
+#include <libgen.h>
 #include <sstream>
 
 #include <sys/uio.h>
