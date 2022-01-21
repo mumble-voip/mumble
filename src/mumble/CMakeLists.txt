@@ -53,7 +53,14 @@ elseif(UNIX)
 		option(pipewire "Build support for PipeWire." ON)
 		option(pulseaudio "Build support for PulseAudio." ON)
 		option(speechd "Build support for Speech Dispatcher." ON)
-		option(xinput2 "Build support for XI2" ON)
+	endif()
+
+	# scripts/generate_cmake_options_docs.py does not cope with duplicate option() lines,
+	# so single out common options into combined conditions.
+	# https://github.com/mumble-voip/mumble/issues/5488
+	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR
+	   ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+		option(xinput2 "Build support for XI2." ON)
 	endif()
 endif()
 
