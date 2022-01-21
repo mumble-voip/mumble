@@ -256,7 +256,7 @@ Build support for global shortcuts from Xbox controllers via the XInput DLL.
 
 ### xinput2
 
-Build support for XI2
+Build support for XI2.
 (Default: ON)
 
 ### zeroconf
