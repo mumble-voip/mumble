@@ -29,7 +29,10 @@ The documentation of the project can be found on the [wiki](https://wiki.mumble.
 
 ## Contributing
 
-We always welcome contributions to the project. If you have code that you would like to contribute, please go ahead and create a PR. While doing so, please try to make sure that you follow our [commit guidelines](COMMIT_GUIDELINES.md).
+We always welcome contributions to the project. If you have code that you would like to contribute, please go ahead and create a PR. While doing so,
+please try to make sure that you follow our [commit guidelines](COMMIT_GUIDELINES.md).
+
+If you are new to the Mumble project, you may want to check out the general [introduction to the Mumble source code](docs/dev/TheMumbleSourceCode.md).
 
 ### Translating
 
