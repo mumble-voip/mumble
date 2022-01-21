@@ -61,7 +61,9 @@ option(static "Build static binaries." OFF)
 option(symbols "Build binaries in a way that allows easier debugging." OFF)
 option(warnings-as-errors "All warnings are treated as errors." ON)
 
-option(overlay "Build overlay." ON)
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+	option(overlay "Build overlay." ON)
+endif()
 option(packaging "Build package." OFF)
 option(plugins "Build plugins." ON)
 
