@@ -21,6 +21,9 @@ set_target_properties(overlay_gl
 )
 
 if(NOT APPLE)
+	find_pkg(gl REQUIRED)
+	target_include_directories(overlay_gl PRIVATE ${gl_INCLUDE_DIRS})
+
 	target_link_options(overlay_gl BEFORE
 		PRIVATE
 			"-Wl,-z,lazy"
