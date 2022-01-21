@@ -179,9 +179,11 @@ target_link_libraries(shared PUBLIC Tracy::TracyClient)
 if(client)
 	add_subdirectory(mumble)
 
+	configure_file("${CMAKE_SOURCE_DIR}/scripts/info.mumble.Mumble.appdata.xml.in" "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml")
+
 	if(UNIX AND NOT APPLE)
-		install(FILES "${CMAKE_SOURCE_DIR}/scripts/org.mumble_voip.mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-		install(FILES "${CMAKE_SOURCE_DIR}/scripts/org.mumble_voip.mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+		install(FILES "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
+		install(FILES "${CMAKE_SOURCE_DIR}/scripts/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble.svg" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps")
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble_256x256.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/256x256/apps" RENAME "mumble.png")
 	endif()
