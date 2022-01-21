@@ -7,10 +7,8 @@ option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
 if(BUILD_OVERLAY_XCOMPILE)
 	cmake_minimum_required(VERSION 3.15)
 
-	set(version "1.4.0" CACHE STRING "Project version")
-
 	project(overlay_xcompile
-		VERSION ${version}
+		VERSION ${CMAKE_PROJECT_VERSION}
 		LANGUAGES CXX
 	)
 
