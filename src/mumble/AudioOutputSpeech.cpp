@@ -7,10 +7,8 @@
 
 #include "Audio.h"
 #include "CELTCodec.h"
-#ifdef USE_OPUS
-#	include "OpusCodec.h"
-#endif
 #include "ClientUser.h"
+#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "SpeechFlags.h"
 #include "Utils.h"
@@ -47,7 +45,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
-#ifdef USE_OPUS
 		// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
 		// https://tools.ietf.org/html/rfc6716#section-2.1.2
 		bStereo = true;
@@ -57,7 +54,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 			oCodec->opus_decoder_ctl(
 				opusState, OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 		}
-#endif
 	} else if (umtType == MessageHandler::UDPVoiceSpeex) {
 		speex_bits_init(&sbBits);
 
@@ -127,10 +123,8 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
-#ifdef USE_OPUS
 	if (opusState)
 		oCodec->opus_decoder_destroy(opusState);
-#endif
 	if (cdDecoder) {
 		cCodec->celt_decoder_destroy(cdDecoder);
 	} else if (dsSpeex) {
@@ -181,15 +175,11 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 
 		const unsigned char *packet = reinterpret_cast< const unsigned char * >(qba.constData());
 
-#ifdef USE_OPUS
 		if (oCodec) {
 			samples = oCodec->opus_decoder_get_nb_samples(opusState, packet,
 														  size); // this function return samples per channel
 			samples *= 2;                                        // since we assume all input stream is stereo.
 		}
-#else
-		return;
-#endif
 
 		// We can't handle frames which are not a multiple of 10ms.
 		Q_ASSERT(samples % iFrameSize == 0);
@@ -361,7 +351,6 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-#ifdef USE_OPUS
 					if (oCodec) {
 						if (qba.isEmpty() || !(p && p->bLocalMute)) {
 							// If qba is empty, we have to let Opus know about the packet loss
@@ -388,7 +377,6 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 						decodedSamples = iFrameSize;
 						memset(pOut, 0, iFrameSize * sizeof(float));
 					}
-#endif
 				} else if (umtType == MessageHandler::UDPVoiceSpeex) {
 					if (qba.isEmpty()) {
 						speex_decode(dsSpeex, nullptr, pOut);
@@ -440,7 +428,6 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-#ifdef USE_OPUS
 					if (oCodec) {
 						decodedSamples = oCodec->opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
 						decodedSamples *= channels;
@@ -450,7 +437,6 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 						decodedSamples = iFrameSize;
 						memset(pOut, 0, iFrameSize * sizeof(float));
 					}
-#endif
 				} else {
 					speex_decode(dsSpeex, nullptr, pOut);
 					for (unsigned int i = 0; i < iFrameSize; ++i)

@@ -5,15 +5,13 @@
 
 #include "AudioInput.h"
 
+#include "API.h"
 #include "AudioOutput.h"
 #include "CELTCodec.h"
-#ifdef USE_OPUS
-#	include "OpusCodec.h"
-#endif
-#include "API.h"
 #include "MainWindow.h"
 #include "Message.h"
 #include "NetworkConfig.h"
+#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
@@ -235,7 +233,6 @@ AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE
 	cCodec        = nullptr;
 	ceEncoder     = nullptr;
 
-#ifdef USE_OPUS
 	oCodec = Global::get().oCodec;
 	if (oCodec) {
 		if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
@@ -251,7 +248,6 @@ AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE
 
 		oCodec->opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 	}
-#endif
 
 #ifdef USE_RNNOISE
 	denoiseState = rnnoise_create(nullptr);
@@ -301,11 +297,9 @@ AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
 
-#ifdef USE_OPUS
 	if (opusState) {
 		oCodec->opus_encoder_destroy(opusState);
 	}
-#endif
 
 #ifdef USE_RNNOISE
 	if (denoiseState) {
@@ -811,11 +805,9 @@ bool AudioInput::selectCodec() {
 	if (bPreviousVoice) {
 		useOpus = (umtType == MessageHandler::UDPVoiceOpus);
 	} else {
-#ifdef USE_OPUS
 		if (Global::get().bOpus || (Global::get().s.lmLoopMode == Settings::Local)) {
 			useOpus = true;
 		}
-#endif
 	}
 
 	if (!useOpus) {
@@ -918,7 +910,6 @@ void AudioInput::selectNoiseCancel() {
 }
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
-#ifdef USE_OPUS
 	int len;
 	if (!oCodec) {
 		return 0;
@@ -935,9 +926,6 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &b
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate                  = (len * 100 * 8) / tenMsFrameCount;
 	return len;
-#else
-	return 0;
-#endif
 }
 
 int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer &buffer) {
