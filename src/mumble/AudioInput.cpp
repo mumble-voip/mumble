@@ -917,8 +917,8 @@ void AudioInput::selectNoiseCancel() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
 }
 
-int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
 #ifdef USE_OPUS
+int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
 	int len;
 	if (!oCodec) {
 		return 0;
@@ -935,10 +935,8 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &b
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate                  = (len * 100 * 8) / tenMsFrameCount;
 	return len;
-#else
-	return 0;
-#endif
 }
+#endif
 
 int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer &buffer) {
 	int len;
@@ -1194,7 +1192,9 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			return;
 		}
 		++iBufferedFrames;
-	} else if (umtType == MessageHandler::UDPVoiceOpus) {
+	}
+#ifdef USE_OPUS
+	else if (umtType == MessageHandler::UDPVoiceOpus) {
 		encoded = false;
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		++iBufferedFrames;
@@ -1224,6 +1224,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			encoded = true;
 		}
 	}
+#endif
 
 	if (encoded) {
 		flushCheck(QByteArray(reinterpret_cast< char * >(&buffer[0]), len), !bIsSpeech, voiceTargetID);
