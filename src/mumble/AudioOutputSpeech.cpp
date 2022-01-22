@@ -179,9 +179,9 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 			return;
 		}
 
+#ifdef USE_OPUS
 		const unsigned char *packet = reinterpret_cast< const unsigned char * >(qba.constData());
 
-#ifdef USE_OPUS
 		if (oCodec) {
 			samples = oCodec->opus_decoder_get_nb_samples(opusState, packet,
 														  size); // this function return samples per channel
