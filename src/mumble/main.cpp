@@ -167,14 +167,6 @@ int main(int argc, char **argv) {
 
 	MumbleSSL::initialize();
 
-#ifdef USE_SBCELT
-	{
-		QDir d(a.applicationVersionRootPath());
-		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
-		EnvUtils::setenv(QLatin1String("SBCELT_HELPER_BINARY"), helper.toUtf8().constData());
-	}
-#endif
-
 	// This argument has to be parsed first, since it's value is needed to create the global struct,
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
 	QStringList args = a.arguments();

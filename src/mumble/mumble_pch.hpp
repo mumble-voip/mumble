@@ -46,9 +46,6 @@
 #		endif
 #		include <celt.h>
 #		include <sndfile.h>
-#		ifdef USE_SBCELT
-#			include <sbcelt.h>
-#		endif
 #		include <speex/speex.h>
 #		include <speex/speex_echo.h>
 #		include <speex/speex_jitter.h>
