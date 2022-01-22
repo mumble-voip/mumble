@@ -37,7 +37,7 @@ Build the included version of CELT instead of looking for one on the system.
 ### bundled-opus
 
 Build the included version of Opus instead of looking for one on the system.
-(Default: ON)
+(Default: ${opus})
 
 ### bundled-rnnoise
 
@@ -128,6 +128,11 @@ Whether or not tests that need a working internet connection should be included
 
 Build a heavily optimized version, specific to the machine it's being compiled on.
 (Default: OFF)
+
+### opus
+
+Use the Opus audio codec.
+(Default: ON)
 
 ### OPUS_BUILD_SHARED_LIBRARY
 
