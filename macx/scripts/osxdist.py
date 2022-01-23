@@ -281,7 +281,6 @@ def package_client():
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle(os.path.join(options.binary_dir, 'Mumble.app'), ver)
 	a.copy_helper('mumble-g15-helper')
-	a.copy_helper('sbcelt-helper')
 	a.copy_codecs()
 	a.copy_plugins()
 	a.copy_resources([os.path.join(options.source_dir, 'icons/mumble.icns')])
@@ -302,7 +301,6 @@ def package_client():
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libopus.dylib'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/MacOS/mumble-g15-helper'),
-			os.path.join(options.binary_dir, 'Mumble.app/Contents/MacOS/sbcelt-helper'),
 		)
 		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
 		codesign(availableBinaries)

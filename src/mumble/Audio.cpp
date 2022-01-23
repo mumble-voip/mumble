@@ -51,15 +51,6 @@ void CodecInit::initialize() {
 
 	CELTCodec *codec = nullptr;
 
-#ifdef USE_SBCELT
-	codec = new CELTCodecSBCELT();
-	if (codec->isValid()) {
-		codec->report();
-		Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
-	} else {
-		delete codec;
-	}
-#else
 	codec = new CELTCodec070(QLatin1String("0.7.0"));
 	if (codec->isValid()) {
 		codec->report();
@@ -74,7 +65,6 @@ void CodecInit::initialize() {
 			delete codec;
 		}
 	}
-#endif
 }
 
 void CodecInit::destroy() {
