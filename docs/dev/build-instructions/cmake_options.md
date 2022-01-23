@@ -231,8 +231,8 @@ Build binaries in a way that allows easier debugging.
 
 ### tests
 
-Build tests
-(Default: OFF)
+Build tests.
+(Default: ${packaging})
 
 ### tracy
 
