@@ -2,6 +2,9 @@
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+message(STATUS "CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
+
 option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
 
 if(BUILD_OVERLAY_XCOMPILE)
