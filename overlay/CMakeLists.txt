@@ -10,10 +10,12 @@ option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
 if(BUILD_OVERLAY_XCOMPILE)
 	cmake_minimum_required(VERSION 3.15)
 
+	message(STATUS "again, CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
 	project(overlay_xcompile
 		VERSION ${CMAKE_PROJECT_VERSION}
 		LANGUAGES CXX
 	)
+	message(STATUS "after calling project(), CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
 
 	include("${PARENT_SOURCE_DIR}/cmake/compiler.cmake")
 endif()
