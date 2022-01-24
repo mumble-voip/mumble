@@ -50,22 +50,56 @@ include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
+include(options-helper)
 
 check_ipo_supported(RESULT LTO_DEFAULT)
 
 
-
-option(optimize "Build a heavily optimized version, specific to the machine it's being compiled on." OFF)
-option(static "Build static binaries." OFF)
-option(symbols "Build binaries in a way that allows easier debugging." OFF)
-option(warnings-as-errors "All warnings are treated as errors." ON)
-
-option(overlay "Build overlay." ON)
-option(packaging "Build package." OFF)
-option(tests "Build tests." ${packaging})
-option(plugins "Build plugins." ON)
-
-option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)
+declare_option(
+	NAME optimize
+	DESCRIPTION "Build a heavily optimized version, specific to the machine it's being compiled on."
+	DEFAULT OFF
+)
+declare_option(
+	NAME static
+	DESCRIPTION "Build static binaries."
+	DEFAULT OFF
+)
+declare_option(
+	NAME symbols
+	DESCRIPTION "Build binaries in a way that allows easier debugging."
+	DEFAULT OFF
+)
+declare_option(
+	NAME warnings-as-errors
+	DESCRIPTION "All warnings are treated as errors."
+	DEFAULT ON
+)
+declare_option(
+	NAME overlay
+	DESCRIPTION "Build overlay."
+	DEFAULT ON
+)
+declare_option(
+	NAME packaging
+	DESCRIPTION "Build package."
+	DEFAULT OFF
+)
+declare_option(
+	NAME tests
+	DESCRIPTION "Build tests."
+	DEFAULT ${packaging}
+)
+declare_option(
+	NAME plugins
+	DESCRIPTION "Build plugins."
+	DEFAULT ON
+)
+declare_option(
+	NAME debug-dependency-search
+	DESCRIPTION "Prints extended information during the search for the needed dependencies"
+	DEFAULT OFF
+)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
@@ -79,7 +113,11 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	set(LTO_DEFAULT OFF)
 endif()
 
-option(lto "Enables link-time optimizations" ${LTO_DEFAULT})
+declare_option(
+	NAME lto
+	DESCRIPTION "Enables link-time optimizations"
+	DEFAULT ${LTO_DEFAULT}
+)
 
 include(compiler)
 include(os)
@@ -157,6 +195,19 @@ if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
 endif()
 
 if(overlay AND client)
+	if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "amd64")
+		set(is_x64 TRUE)
+	else()
+		set(is_x64 FALSE)
+	endif()
+
+	declare_option(
+		NAME overlay-xcompile
+		DESCRIPTION "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes."
+		DEFAULT ${is_x64}
+		WINDOWS_DEFAULT OFF
+	)
+
 	if(WIN32)
 		add_subdirectory(overlay)
 	else()

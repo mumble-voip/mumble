@@ -3,7 +3,14 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-option(g15-emulator "Build the g15helper executable in emulator mode. This will cause an emulated G15 window to appear on screen. Allows the use of Mumble's G15 support without owning the physical hardware." OFF)
+include(options-helper)
+
+declare_option(
+	NAME g15-emulator
+	DESCRIPTION "Build the g15helper executable in emulator mode. This will cause an emulated G15 window to appear on screen. Allows the use of Mumble's G15 support without owning the physical hardware."
+	DEFAULT OFF
+	RESTRICT_TO Windows
+)
 
 set(G15HELPER_RC "${CMAKE_CURRENT_BINARY_DIR}/g15helper.rc")
 set(G15HELPER_ICON "${CMAKE_SOURCE_DIR}/icons/g15helper.ico")

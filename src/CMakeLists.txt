@@ -3,18 +3,40 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+include(options-helper)
+
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Mumble.proto")
 
-option(client "Build the client (Mumble)" ON)
-option(server "Build the server (Murmur)" ON)
-
-option(qssldiffiehellmanparameters "Build support for custom Diffie-Hellman parameters." ON)
-
-option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
-
-option(dbus "Build support for DBus." ON)
-
-option(tracy "Enable the tracy profiler." OFF)
+declare_option(
+	NAME client
+	DESCRIPTION "Build the client (Mumble)"
+	DEFAULT ON
+)
+declare_option(
+	NAME server
+	DESCRIPTION "Build the server (Murmur)"
+	DEFAULT ON
+)
+declare_option(
+	NAME qssldiffiehellmanparameters
+	DESCRIPTION "Build support for custom Diffie-Hellman parameters."
+	DEFAULT ON
+)
+declare_option(
+	NAME zeroconf
+	DESCRIPTION "Build support for zeroconf (mDNS/DNS-SD)."
+	DEFAULT ON
+)
+declare_option(
+	NAME dbus
+	DESCRIPTION "Build support for DBus."
+	DEFAULT OFF
+)
+declare_option(
+	NAME tracy
+	DESCRIPTION "Enable the tracy profiler."
+	DEFAULT OFF
+)
 
 find_pkg(Qt5
 	COMPONENTS

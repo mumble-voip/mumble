@@ -16,65 +16,168 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.plist.in" "${MUMBLE_PLIST}")
 
 include(qt-utils)
 include(install-library)
+include(options-helper)
 
-option(update "Check for updates by default." ON)
+declare_option(
+	NAME update
+	DESCRIPTION "Check for updates by default."
+	DEFAULT ON
+)
+declare_option(
+	NAME translations
+	DESCRIPTION "Include languages other than English."
+	DEFAULT ON
+)
+declare_option(
+	NAME bundle-qt-translations
+	DESCRIPTION "Bundle Qt's translations as well"
+	DEFAULT ${static}
+)
 
-option(translations "Include languages other than English." ON)
-option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
+declare_option(
+	NAME bundled-opus
+	DESCRIPTION "Build the included version of Opus instead of looking for one on the system."
+	DEFAULT ON
+)
+declare_option(
+	NAME bundled-celt
+	DESCRIPTION "Build the included version of CELT instead of looking for one on the system."
+	DEFAULT ON
+)
+declare_option(
+	NAME bundled-speex
+	DESCRIPTION "Build the included version of Speex instead of looking for one on the system."
+	DEFAULT ON
+)
+declare_option(
+	NAME rnnoise
+	DESCRIPTION "Use RNNoise for machine learning noise reduction."
+	DEFAULT ON
+)
+declare_option(
+	NAME bundled-rnnoise
+	DESCRIPTION "Build the included version of RNNoise instead of looking for one on the system."
+	DEFAULT ${rnnoise}
+)
 
-option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
-option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
-option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
-option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
-option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
+declare_option(
+	NAME manual-plugin
+	DESCRIPTION "Include the built-in \"manual\" positional audio plugin."
+	DEFAULT ON
+)
+declare_option(
+	NAME qtspeech
+	DESCRIPTION "Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations."
+	DEFAULT OFF
+)
 
-option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
+declare_option(
+	NAME plugin-debug
+	DESCRIPTION "Build Mumble with debug output for plugin developers."
+	DEFAULT OFF
+)
+declare_option(
+	NAME plugin-callback-debug
+	DESCRIPTION "Build Mumble with debug output for plugin callbacks inside of Mumble."
+	DEFAULT OFF
+)
 
-option(qtspeech "Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations." OFF)
+declare_option(
+	NAME jackaudio
+	DESCRIPTION "Build support for JackAudio."
+	DEFAULT ON
+)
+declare_option(
+	NAME portaudio
+	DESCRIPTION "Build support for PortAudio."
+	DEFAULT ON
+)
+declare_option(
+	NAME asio
+	DESCRIPTION "Build support for ASIO audio input."
+	DEFAULT OFF
+	RESTRICT_TO Windows
+)
+declare_option(
+	NAME wasapi
+	DESCRIPTION "Build support for WASAPI."
+	DEFAULT ON
+	RESTRICT_TO Windows
+)
+declare_option(
+	NAME coreaudio
+	DESCRIPTION "Build support for CoreAudio."
+	DEFAULT ON
+	RESTRICT_TO Darwin
+)
+declare_option(
+	NAME oss
+	DESCRIPTION "Build support for OSS."
+	DEFAULT ON
+	RESTRICT_TO FreeBSD
+)
+declare_option(
+	NAME alsa
+	DESCRIPTION "Build support for ALSA."
+	DEFAULT ON
+	RESTRICT_TO Linux
+)
+declare_option(
+	NAME pipewire
+	DESCRIPTION "Build support for PipeWire."
+	DEFAULT ON
+	RESTRICT_TO Linux
+)
+declare_option(
+	NAME pulseaudio
+	DESCRIPTION "Build support for PulseAudio."
+	DEFAULT ON
+	RESTRICT_TO Linux
+)
 
-option(jackaudio "Build support for JackAudio." ON)
-option(portaudio "Build support for PortAudio" ON)
+declare_option(
+	NAME speechd
+	DESCRIPTION "Build support for Speech Dispatcher."
+	DEFAULT ON
+	RESTRICT_TO Linux
+)
+declare_option(
+	NAME xinput2
+	DESCRIPTION "Build support for XI2."
+	DEFAULT ON
+	RESTRICT_TO Linux OpenBSD
+)
+declare_option(
+	NAME xboxinput
+	DESCRIPTION "Build support for global shortcuts from Xbox controllers via the XInput DLL."
+	DEFAULT ON
+	RESTRICT_TO Windows
+)
+declare_option(
+	NAME gkey
+	DESCRIPTION "Build support for Logitech G-Keys. Note: This feature does not require any build-time dependencies, and requires Logitech Gaming Software to be installed to have any effect at runtime."
+	DEFAULT ON
+	RESTRICT_TO Windows
+)
+declare_option(
+	NAME g15
+	DESCRIPTION "Include support for the G15 keyboard (and compatible devices)."
+	DEFAULT OFF
+	EXCLUDE_ON Darwin
+)
+declare_option(
+	NAME crash-report
+	DESCRIPTION "Include support for reporting crashes to the Mumble developers."
+	DEFAULT ON
+	RESTRICT_TO Windows Darwin
+)
+declare_option(
+	NAME elevation
+	DESCRIPTION "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate."
+	DEFAULT ON
+	RESTRICT_TO Windows
+)
 
-option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
-option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
-
-if(WIN32)
-	option(asio "Build support for ASIO audio input." OFF)
-	option(wasapi "Build support for WASAPI." ON)
-	option(xboxinput "Build support for global shortcuts from Xbox controllers via the XInput DLL." ON)
-	option(gkey "Build support for Logitech G-Keys. Note: This feature does not require any build-time dependencies, and requires Logitech Gaming Software to be installed to have any effect at runtime." ON)
-elseif(UNIX)
-	if(APPLE)
-		option(coreaudio "Build support for CoreAudio." ON)
-	elseif(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
-		option(oss "Build support for OSS." ON)
-	elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-		option(alsa "Build support for ALSA." ON)
-		option(pipewire "Build support for PipeWire." ON)
-		option(pulseaudio "Build support for PulseAudio." ON)
-		option(speechd "Build support for Speech Dispatcher." ON)
-	endif()
-
-	# scripts/generate_cmake_options_docs.py does not cope with duplicate option() lines,
-	# so single out common options into combined conditions.
-	# https://github.com/mumble-voip/mumble/issues/5488
-	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR
-	   ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
-		option(xinput2 "Build support for XI2." ON)
-	endif()
-endif()
-
-if(NOT APPLE)
-	option(g15 "Include support for the G15 keyboard (and compatible devices)." OFF)
-endif()
-
-if(WIN32 OR APPLE)
-	option(crash-report "Include support for reporting crashes to the Mumble developers." ON)
-endif()
-
-if(MSVC)
-	option(elevation "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate." OFF)
-endif()
 
 find_pkg(Qt5
 	COMPONENTS

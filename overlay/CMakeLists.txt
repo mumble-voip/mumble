@@ -2,9 +2,7 @@
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
-option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
-
-if(BUILD_OVERLAY_XCOMPILE)
+if(overlay-xcompile)
 	cmake_minimum_required(VERSION 3.15)
 
 	set(version "1.4.0" CACHE STRING "Project version")
@@ -30,7 +28,7 @@ set(OVERLAY_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_ol.rc")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble_ol.rc.in" "${OVERLAY_RC}")
 
 # We save the output name in a variable because it's used by configure_file()
-if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
+if(64_BIT AND NOT overlay-xcompile)
 	set(OUTPUT_NAME "mumble_ol_x64")
 else()
 	set(OUTPUT_NAME "mumble_ol")
@@ -112,7 +110,7 @@ set_target_properties(overlay PROPERTIES OUTPUT_NAME ${OUTPUT_NAME})
 
 find_package(Boost REQUIRED)
 
-if(BUILD_OVERLAY_XCOMPILE)
+if(overlay-xcompile)
 	set_target_properties(overlay PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${MUMBLE_BINARY_DIR})
 
 	target_include_directories(overlay
@@ -134,7 +132,7 @@ else()
 	install(TARGETS overlay RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 endif()
 
-if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
+if(64_BIT AND NOT overlay-xcompile)
 	add_subdirectory("${3RDPARTY_DIR}/minhook" "${CMAKE_CURRENT_BINARY_DIR}/minhook" EXCLUDE_FROM_ALL)
 	target_compile_definitions(overlay PRIVATE "USE_MINHOOK")
 	target_link_libraries(overlay PRIVATE minhook)

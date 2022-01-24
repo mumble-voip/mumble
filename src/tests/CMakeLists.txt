@@ -3,9 +3,15 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+include(options-helper)
+
 find_pkg(Qt5 COMPONENTS Test REQUIRED)
 
-option(online-tests "Whether or not tests that need a working internet connection should be included" OFF)
+declare_option(
+	NAME online-tests
+	DESCRIPTION "Whether or not tests that need a working internet connection should be included"
+	DEFAULT OFF
+)
 
 set(TESTS "")
 

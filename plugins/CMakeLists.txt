@@ -3,7 +3,13 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-option(retracted-plugins "Build redacted (outdated) plugins as well" OFF)
+include(options-helper)
+
+declare_option(
+	NAME retracted-plugins
+	DESCRIPTION "Build redacted (outdated) plugins as well"
+	DEFAULT OFF
+)
 
 if(retracted-plugins)
 	message(STATUS "Including retracted plugins")
