@@ -210,8 +210,12 @@ protected:
 
 	bool bEchoMulti;
 	Settings::NoiseCancel noiseCancel;
+	// Standard microphone sample rate (samples/s)
 	static const unsigned int iSampleRate = SAMPLE_RATE;
-	static const int iFrameSize           = SAMPLE_RATE / 100;
+	/// Based the sample rate, 48,000 samples/s = 48 samples/ms.
+	/// For each 10 ms, this yields 480 samples. This corresponds numerically with the calculation:
+	/// iFrameSize = 48000 / 100 = 480 samples, allowing a consistent 10ms of audio data per frame.
+	static const int iFrameSize = SAMPLE_RATE / 100;
 
 	QMutex qmSpeex;
 	SpeexPreprocessState *sppPreprocess;

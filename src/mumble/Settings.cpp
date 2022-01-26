@@ -323,9 +323,11 @@ Settings::Settings() {
 	bOnlyAttenuateSameOutput       = false;
 	bAttenuateLoopbacks            = false;
 	iMinLoudness                   = 1000;
-	iVoiceHold                     = 50;
-	iJitterBufferSize              = 1;
-	iFramesPerPacket               = 2;
+	/// Actual mic hold time is (iVoiceHold / 100) seconds, where iVoiceHold is specified in 'frames',
+	/// each of which is has a size of iFrameSize (see AudioInput.h)
+	iVoiceHold        = 20;
+	iJitterBufferSize = 1;
+	iFramesPerPacket  = 2;
 #ifdef USE_RNNOISE
 	noiseCancelMode = NoiseCancelRNN;
 #else

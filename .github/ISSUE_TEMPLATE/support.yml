@@ -45,6 +45,7 @@ body:
         - Windows
         - macOS
         - FreeBSD
+        - OpenBSD
         - Other
     validations:
       required: true

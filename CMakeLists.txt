@@ -54,7 +54,6 @@ include(CheckIPOSupported)
 check_ipo_supported(RESULT LTO_DEFAULT)
 
 
-option(tests "Build tests" OFF)
 
 option(optimize "Build a heavily optimized version, specific to the machine it's being compiled on." OFF)
 option(static "Build static binaries." OFF)
@@ -63,6 +62,7 @@ option(warnings-as-errors "All warnings are treated as errors." ON)
 
 option(overlay "Build overlay." ON)
 option(packaging "Build package." OFF)
+option(tests "Build tests." ${packaging})
 option(plugins "Build plugins." ON)
 
 option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)

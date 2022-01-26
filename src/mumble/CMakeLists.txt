@@ -53,7 +53,14 @@ elseif(UNIX)
 		option(pipewire "Build support for PipeWire." ON)
 		option(pulseaudio "Build support for PulseAudio." ON)
 		option(speechd "Build support for Speech Dispatcher." ON)
-		option(xinput2 "Build support for XI2" ON)
+	endif()
+
+	# scripts/generate_cmake_options_docs.py does not cope with duplicate option() lines,
+	# so single out common options into combined conditions.
+	# https://github.com/mumble-voip/mumble/issues/5488
+	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR
+	   ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+		option(xinput2 "Build support for XI2." ON)
 	endif()
 endif()
 
@@ -686,6 +693,10 @@ if(bundled-celt)
 	install_library(celt mumble_client)
 else()
 	find_pkg(celt REQUIRED)
+	if(${celt_VERSION} VERSION_LESS          0.7 OR
+	   ${celt_VERSION} VERSION_GREATER_EQUAL 0.8)
+		message(FATAL_ERROR "CELT 0.7.x is required, found ${celt_VERSION}!")
+	endif()
 	target_include_directories(mumble PRIVATE ${celt_INCLUDE_DIRS})
 endif()
 

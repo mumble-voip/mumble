@@ -71,17 +71,4 @@ public:
 	int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
 };
 
-class CELTCodecSBCELT : public CELTCodec {
-protected:
-	const CELTMode *cmSBCELTMode;
-
-public:
-	CELTCodecSBCELT();
-	CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
-	CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
-	int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed,
-			   int nbCompressedBytes) Q_DECL_OVERRIDE;
-	int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
-};
-
 #endif // CELTCODEC_H_

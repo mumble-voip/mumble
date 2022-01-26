@@ -231,8 +231,8 @@ Build binaries in a way that allows easier debugging.
 
 ### tests
 
-Build tests
-(Default: OFF)
+Build tests.
+(Default: ${packaging})
 
 ### tracy
 
@@ -266,7 +266,7 @@ Build support for global shortcuts from Xbox controllers via the XInput DLL.
 
 ### xinput2
 
-Build support for XI2
+Build support for XI2.
 (Default: ON)
 
 ### zeroconf
