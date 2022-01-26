@@ -522,7 +522,7 @@ Settings::Settings() {
 	iTalkingUI_PrefixCharCount          = 3;
 	iTalkingUI_PostfixCharCount         = 2;
 	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
-	qsTalkingUI_BackgroundColor         = QLatin1String("#000000");
+	qsTalkingUI_BackgroundColor         = QLatin1String("#000000"); //could be set to QColor
 
 	qsHierarchyChannelSeparator = QLatin1String("/");
 
