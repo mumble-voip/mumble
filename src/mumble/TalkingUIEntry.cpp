@@ -99,9 +99,6 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user)
 										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
-	QPalette myPal = QPalette();
-	pal.setColor(QPalette::Window, Qt::black);
-	m_backgroundWidget.setPalette(pal);
 
 
 	// Create the label we use to display the user's name
@@ -352,9 +349,6 @@ TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const
 										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
-	QPalette myPal = QPalette();
-	pal.setColor(QPalette::Window, Qt::black);
-	m_backgroundWidget.setPalette(pal);
 
 
 
