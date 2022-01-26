@@ -99,6 +99,10 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user)
 										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
+	QPalette myPal = QPalette();
+	pal.setColor(QPalette::Window, Qt::black);
+	m_backgroundWidget.setPalette(pal);
+
 
 	// Create the label we use to display the user's name
 	m_nameLabel                 = new QLabel(m_backgroundWidget);
@@ -262,6 +266,10 @@ void TalkingUIUser::setDisplayString(const QString &displayString) {
 	}
 }
 
+void TalkingUIUser::setBackgroundColor(const QString &color) {
+	m_backgroundWidgetStyleWrapper.setBackgroundColor(color);
+}
+
 void TalkingUIUser::setLifeTime(unsigned int time) {
 	m_timer.setInterval(time);
 }
@@ -344,6 +352,10 @@ TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const
 										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
+	QPalette myPal = QPalette();
+	pal.setColor(QPalette::Window, Qt::black);
+	m_backgroundWidget.setPalette(pal);
+
 
 
 	// Create the label we use to display the icon
@@ -394,6 +406,10 @@ void TalkingUIChannelListener::setIconSize(int size) {
 
 void TalkingUIChannelListener::setDisplayString(const QString &displayString) {
 	m_nameLabel->setText(QString::fromLatin1("<i>%1</i>").arg(displayString));
+}
+
+void TalkingUIChannelListener::setBackgroundColor(const QString &color) {
+	m_backgroundWidgetStyleWrapper.setBackgroundColor(color);
 }
 
 int TalkingUIChannelListener::getAssociatedChannelID() const {

@@ -57,6 +57,8 @@ public:
 
 	virtual void setDisplayString(const QString &displayString) = 0;
 
+	virtual void setBackgroundColor(const QString &color) = 0;
+
 	virtual int compare(const TalkingUIEntry &other) const;
 
 	bool operator==(const TalkingUIEntry &other) const;
@@ -113,6 +115,8 @@ public:
 
 	virtual void setDisplayString(const QString &displayString) override;
 
+	virtual void setBackgroundColor(const QString &color) override;
+
 	virtual void setLifeTime(unsigned int time);
 	virtual void restrictLifetime(bool restrict);
 
@@ -144,6 +148,8 @@ public:
 	virtual void setIconSize(int size) override;
 
 	virtual void setDisplayString(const QString &displayString) override;
+
+	virtual void setBackgroundColor(const QString &color) override;
 
 	virtual int getAssociatedChannelID() const;
 };
