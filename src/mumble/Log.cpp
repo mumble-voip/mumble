@@ -581,7 +581,7 @@ QString Log::imageToImg(QImage img, int maxSize) {
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
-	QRectF qr = Screen::screenFromWidget(*Global::get().mw)->availableGeometry();
+	QRectF qr = Mumble::Screen::screenFromWidget(*Global::get().mw)->availableGeometry();
 	qtd.setTextWidth(qr.width() / 2);
 	qtd.setDefaultStyleSheet(qApp->styleSheet());
 

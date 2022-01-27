@@ -11,12 +11,15 @@ class QScreen;
 class QWidget;
 class QWindow;
 
-class Screen {
-public:
+namespace Mumble {
+
+namespace Screen {
 	/// Inspired by https://phabricator.kde.org/D22379
-	static QWindow *windowFromWidget(const QWidget &widget);
-	static QScreen *screenFromWidget(const QWidget &widget);
-	static QScreen *screenAt(const QPoint &point);
-};
+	QWindow *windowFromWidget(const QWidget &widget);
+	QScreen *screenFromWidget(const QWidget &widget);
+	QScreen *screenAt(const QPoint &point);
+}; // namespace Screen
+
+}; // namespace Mumble
 
 #endif

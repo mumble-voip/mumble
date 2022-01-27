@@ -3478,7 +3478,7 @@ void MainWindow::trayAboutToShow() {
 		p = QCursor::pos();
 	}
 
-	QScreen *screen = Screen::screenAt(p);
+	QScreen *screen = Mumble::Screen::screenAt(p);
 	if (screen) {
 		QRect qr = screen->geometry();
 
