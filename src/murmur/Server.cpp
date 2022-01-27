@@ -37,6 +37,7 @@
 
 #include "TracyConstants.h"
 #include <Tracy.hpp>
+#include <TracyC.h>
 
 #include <algorithm>
 #include <vector>
@@ -1209,11 +1210,15 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		QSet< ServerUser * > listener;
 
 		if (u->qmTargetCache.contains(audioData.targetOrContext)) {
+			ZoneScopedN(TracyConstants::audio_whisper_cache_restore);
+
 			const WhisperTargetCache &cache = u->qmTargetCache.value(audioData.targetOrContext);
 			channel                         = cache.channelTargets;
 			direct                          = cache.directTargets;
 			listener                        = cache.listeningTargets;
 		} else {
+			ZoneScopedN(TracyConstants::audio_whisper_cache_create);
+
 			const WhisperTarget &wt = u->qmTargets.value(audioData.targetOrContext);
 			if (!wt.qlChannels.isEmpty()) {
 				QMutexLocker qml(&qmCache);
@@ -1315,6 +1320,8 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		}
 	}
 
+	ZoneNamedN(__tracy_scoped_zone2, TracyConstants::audio_send_out_zone, true);
+
 	buffer.preprocessBuffer();
 
 	bool isFirstIteration = true;
@@ -1338,6 +1345,8 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			if (isFirstIteration
 				|| !Mumble::Protocol::protocolVersionsAreCompatible(encoder.getProtocolVersion(),
 																	currentRange.begin->getReceiver().uiVersion)) {
+				ZoneScopedN(TracyConstants::audio_encode);
+
 				encoder.setProtocolVersion(currentRange.begin->getReceiver().uiVersion);
 
 				// We have to re-encode the "fixed" part of the audio message
@@ -1353,7 +1362,9 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			audioData.targetOrContext = currentRange.begin->getContext();
 
 			// Update data
+			TracyCZoneN(__tracy_zone, TracyConstants::audio_update, true);
 			gsl::span< const Mumble::Protocol::byte > encodedPacket = encoder.updateAudioPacket(audioData);
+			TracyCZoneEnd(__tracy_zone);
 
 			// Clear TCP cache
 			tcpCache.clear();

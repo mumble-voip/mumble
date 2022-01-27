@@ -14,6 +14,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include <Tracy.hpp>
+
 class AudioReceiver {
 public:
 	AudioReceiver(ServerUser &receiver, Mumble::Protocol::audio_context_t context,
@@ -61,6 +63,8 @@ public:
 
 
 	template< typename Iterator > static ReceiverRange< Iterator > getReceiverRange(Iterator begin, Iterator end) {
+		ZoneScoped;
+
 		ReceiverRange< Iterator > range;
 		range.begin = begin;
 

@@ -14,6 +14,12 @@ static constexpr const char *udp_ping_processing_zone   = "udp_ping";
 static constexpr const char *decrypt_unknown_peer_zone  = "decrypt_unknown_peer";
 
 static constexpr const char *udp_frame = "udp_frame";
+
+static constexpr const char *audio_send_out_zone         = "audio_send_out";
+static constexpr const char *audio_encode                = "audio_encode";
+static constexpr const char *audio_update                = "audio_update";
+static constexpr const char *audio_whisper_cache_restore = "audio_whisper_cache_restore";
+static constexpr const char *audio_whisper_cache_create  = "audio_whisper_cache_create";
 }; // namespace TracyConstants
 
 #endif // MUMBLE_MURMUR_TRACYCONSTANTS_H_
