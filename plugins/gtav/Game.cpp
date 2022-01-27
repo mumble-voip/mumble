@@ -41,9 +41,6 @@ Mumble_PositionalDataErrorCode Game::init() {
 		m_cameraDirAddr  = m_moduleBase + 0x1FA7A80;
 		m_cameraAxisAddr = m_moduleBase + 0x1FA7A90;
 		m_playerAddr     = m_moduleBase + 0x2928674;
-		m_vehicleAddr    = m_moduleBase + 0x2503F10;
-		m_locationAddr   = m_moduleBase + 0x25038CB;
-		m_streetAddr     = m_moduleBase + 0x2500600;
 	} else if (m_proc.peekString(0x180D4D8, expected_name.length()) == expected_name) {
 		// Retail version
 		m_stateAddr      = m_moduleBase + 0x2733490;
@@ -59,9 +56,6 @@ Mumble_PositionalDataErrorCode Game::init() {
 		m_cameraDirAddr  = m_moduleBase + 0x1C5A0F0;
 		m_cameraAxisAddr = m_moduleBase + 0x1F7D9F0;
 		m_playerAddr     = m_moduleBase + 0x273DBAC;
-		m_vehicleAddr    = m_moduleBase + 0x2331890;
-		m_locationAddr   = m_moduleBase + 0x233125B;
-		m_streetAddr     = m_moduleBase + 0x232DFA0;
 	} else {
 		// Return permanent error on unknown version
 		return MUMBLE_PDEC_ERROR_PERM;
@@ -85,7 +79,7 @@ Mumble_PositionalDataErrorCode Game::fetchPositionalData(float *avatarPos, float
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
 	// Char values for extra features
-	char state, player[50], vehicle[50], location[50], street[50];
+	char state, player[50];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = m_proc.peek(m_stateAddr, &state, 1)
@@ -96,10 +90,7 @@ Mumble_PositionalDataErrorCode Game::fetchPositionalData(float *avatarPos, float
 		 m_proc.peek(m_avatarAxisAddr, avatarAxis, 12) && // Avatar Top Vector values (X, Z and Y).
 		 m_proc.peek(m_cameraDirAddr, cameraDir, 12) &&   // Camera Front Vector values (X, Z and Y).
 		 m_proc.peek(m_cameraAxisAddr, cameraAxis, 12) && // Camera Top Vector values (X, Z and Y).
-		 m_proc.peek(m_playerAddr, player) &&             // Player nickname.
-		 m_proc.peek(m_vehicleAddr, vehicle) &&           // Vehicle name if in a vehicle, empty if not.
-		 m_proc.peek(m_locationAddr, location) &&         // Location name.
-		 m_proc.peek(m_streetAddr, street);               // Street name if on a street, empty if not.
+		 m_proc.peek(m_playerAddr, player);               // Player nickname.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from
 	// memory addresses.
@@ -113,50 +104,14 @@ Mumble_PositionalDataErrorCode Game::fetchPositionalData(float *avatarPos, float
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
-	// Begin identity
-	std::stringstream oidentity;
-	oidentity << "{";
-
-	// Player
+	// Set identity to playername
 	escape(player, sizeof(player));
 	if (strcmp(player, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
+		m_identity = player;
 	} else {
-		oidentity << std::endl << "\"Player\": null,";
+		m_identity = "null";
 	}
-
-	// Vehicle
-	escape(vehicle, sizeof(vehicle));
-	if (strcmp(vehicle, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Vehicle\": \"" << vehicle << "\","; // Set vehicle name in identity.
-	} else {
-		oidentity << std::endl << "\"Vehicle\": null,";
-	}
-
-	// Location
-	escape(location, sizeof(location));
-	if (strcmp(location, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Location\": \"" << location << "\","; // Set location name in identity.
-	} else {
-		oidentity << std::endl << "\"Location\": null,";
-	}
-
-	// Street
-	escape(street, sizeof(street));
-	if (strcmp(street, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Street\": \"" << street << "\""; // Set street name in identity.
-	} else {
-		oidentity << std::endl << "\"Street\": null";
-	}
-
-	oidentity << std::endl << "}";
-	m_identity   = oidentity.str();
 	*identityPtr = m_identity.c_str();
-	// End identity
 
 	return MUMBLE_PDEC_OK;
 }

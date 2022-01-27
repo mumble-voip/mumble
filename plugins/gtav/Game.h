@@ -25,7 +25,7 @@ protected:
 
 	// Memory addresses
 	procptr_t m_stateAddr, m_avatarPosAddr, m_cameraPosAddr, m_avatarBaseAddr, m_avatarDirAddr, m_avatarAxisAddr,
-		m_cameraDirAddr, m_cameraAxisAddr, m_playerAddr, m_vehicleAddr, m_locationAddr, m_streetAddr;
+		m_cameraDirAddr, m_cameraAxisAddr, m_playerAddr;
 };
 
 #endif
