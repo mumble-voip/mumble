@@ -4676,10 +4676,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Dosya mevcut değil</translation>
     </message>
     <message>
-        <source>File is not a configuration file.</source>
-        <translation>Dosya yapılandırma dosyası değil.</translation>
-    </message>
-    <message>
         <source>Settings merged from file.</source>
         <translation>Ayarlar dosyadan birleştirildi.</translation>
     </message>
@@ -6467,6 +6463,10 @@ Geçerli seçenekler şunlardır:
         <source>Mumble - Minimal View</source>
         <translation>Mumble - Minimal Görünüm</translation>
     </message>
+    <message>
+        <source>Invalid settings file encountered.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7782,6 +7782,26 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
 You can register them again.</source>
         <translation>Ne yazık ki %1 kısayol geçirilemedi.
 Bunları tekrar kaydedebilirsiniz.</translation>
+    </message>
+    <message>
+        <source>Potentially broken settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load backup settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
