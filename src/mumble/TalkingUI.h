@@ -10,6 +10,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
+#include <QtGui/QColor>
 
 #include <memory>
 #include <vector>

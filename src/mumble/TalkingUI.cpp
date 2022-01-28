@@ -754,8 +754,10 @@ void TalkingUI::on_settingsChanged() {
 
 	// Update Background Color
 	for (auto& currentContainer : m_containers) {
-		for (auto &currentEntry : currentContainer->getEntires()) {
-			currentEntry->setBackgroundColor(Global::get().s.qsTalkingUI_BackgroundColor);
+		for (auto &currentEntry : currentContainer->getEntries()) {
+			if (Global::get().s.qcTalkingUI_BackgroundColor.isValid()) {
+				currentEntry->getStylableWidget().setBackgroundColor(Global::get().s.qcTalkingUI_BackgroundColor.name())
+			}
 		}
 	}
 

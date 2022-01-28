@@ -100,7 +100,6 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user)
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
 
-
 	// Create the label we use to display the user's name
 	m_nameLabel                 = new QLabel(m_backgroundWidget);
 	const QString displayString = UserModel::createDisplayString(user, false, nullptr);
@@ -263,9 +262,6 @@ void TalkingUIUser::setDisplayString(const QString &displayString) {
 	}
 }
 
-void TalkingUIUser::setBackgroundColor(const QString &color) {
-	m_backgroundWidgetStyleWrapper.setBackgroundColor(color);
-}
 
 void TalkingUIUser::setLifeTime(unsigned int time) {
 	m_timer.setInterval(time);
@@ -402,9 +398,6 @@ void TalkingUIChannelListener::setDisplayString(const QString &displayString) {
 	m_nameLabel->setText(QString::fromLatin1("<i>%1</i>").arg(displayString));
 }
 
-void TalkingUIChannelListener::setBackgroundColor(const QString &color) {
-	m_backgroundWidgetStyleWrapper.setBackgroundColor(color);
-}
 
 int TalkingUIChannelListener::getAssociatedChannelID() const {
 	return m_channelID;
