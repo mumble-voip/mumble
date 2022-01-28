@@ -346,7 +346,6 @@ TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const
 	m_backgroundWidget->setAutoFillBackground(true);
 
 
-
 	// Create the label we use to display the icon
 	m_icon = new QLabel(m_backgroundWidget);
 	m_icon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -396,7 +395,6 @@ void TalkingUIChannelListener::setIconSize(int size) {
 void TalkingUIChannelListener::setDisplayString(const QString &displayString) {
 	m_nameLabel->setText(QString::fromLatin1("<i>%1</i>").arg(displayString));
 }
-
 
 int TalkingUIChannelListener::getAssociatedChannelID() const {
 	return m_channelID;
