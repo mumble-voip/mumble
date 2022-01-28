@@ -262,7 +262,6 @@ void TalkingUIUser::setDisplayString(const QString &displayString) {
 	}
 }
 
-
 void TalkingUIUser::setLifeTime(unsigned int time) {
 	m_timer.setInterval(time);
 }
