@@ -663,7 +663,7 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 	const auto &pa        = pas->m_pulseAudio;
 
 	if (eol == 0) {
-		// If we're using the default of "enable attenuation on all ouputs" and output from an application is
+		// If we're using the default of "enable attenuation on all outputs" and output from an application is
 		// loopbacked, both the loopback and the application will be attenuated leading to double attenuation.
 		if (!Global::get().s.bOnlyAttenuateSameOutput && pas->iSinkId > -1 && !strcmp(i->driver, "module-loopback.c")) {
 			return;

@@ -126,7 +126,7 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 
 	if (device) {
 		// Qt's way of serializing the stream requires us to read a few characters into
-		// the stream in order to get accross some leading zeros and other meta stuff.
+		// the stream in order to get across some leading zeros and other meta stuff.
 		char buf[16];
 
 		// Init buf
@@ -646,7 +646,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 // Qt previously expected to be able to write
 // NUL bytes in strings in plists. This is no
 // longer possible, which causes Qt to write
-// incomplete stings to the preferences plist.
+// incomplete strings to the preferences plist.
 // These are of the form "@Variant(", and, for
 // Mumble, typically happen for float values.
 //

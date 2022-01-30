@@ -1078,7 +1078,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	if (Global::get().s.atTransmit == Settings::Continuous
 		|| API::PluginData::get().overwriteMicrophoneActivation.load()) {
-		// Continous transmission is enabled
+		// Continuous transmission is enabled
 		bIsSpeech = true;
 	} else if (Global::get().s.atTransmit == Settings::PushToTalk) {
 		// PTT is enabled, so check if it is currently active

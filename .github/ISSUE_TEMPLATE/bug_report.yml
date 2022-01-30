@@ -60,7 +60,7 @@ body:
     id: reproducible
     attributes:
       label: Reproducible?
-      description: Were you able to reproduce the issue (in contrast to only having expierenced it once)?
+      description: Were you able to reproduce the issue (in contrast to only having experienced it once)?
       options:
         - "Yes"
         - "No"

@@ -65,7 +65,7 @@ public:
 	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
 
 public slots:
-	/// Sets the amount of inactive days below which rows will get filterd by the proxy
+	/// Sets the amount of inactive days below which rows will get filtered by the proxy
 	void setFilterMinimumInactiveDays(int minimumInactiveDays);
 	/// Helper function for removing all rows involved in a given selection (must include COL_NICK).
 	void removeRowsInSelection(const QItemSelection &selection);

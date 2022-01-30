@@ -206,7 +206,7 @@ uint8_t LegacyPlugin::initPositionalData(const char *const *programNames, const 
 	}
 
 	// ensure that only expected return codes are being returned from this function
-	// the legacy plugins return 1 on successfull locking and 0 on failure
+	// the legacy plugins return 1 on successful locking and 0 on failure
 	if (retCode) {
 		QWriteLocker wLock(&m_pluginLock);
 

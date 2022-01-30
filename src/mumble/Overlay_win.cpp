@@ -237,7 +237,7 @@ void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError
 		qFatal("OverlayPrivateWin: unknown QProcess found in onHelperProcessError().");
 	}
 
-	qWarning("OverlayPrivateWin: an error occured for overlay helper process '%s': %s", qPrintable(path),
+	qWarning("OverlayPrivateWin: an error occurred for overlay helper process '%s': %s", qPrintable(path),
 			 processErrorString(processError));
 }
 

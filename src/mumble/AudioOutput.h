@@ -16,7 +16,7 @@
 
 // AudioOutput depends on User being valid. This means it's important
 // to removeBuffer from here BEFORE MainWindow gets any UserLeft
-// messages. Any decendant user should feel free to remove unused
+// messages. Any descendant user should feel free to remove unused
 // AudioOutputUser objects; it's better to recreate them than
 // having them use resources while unused.
 

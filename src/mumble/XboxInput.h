@@ -20,7 +20,7 @@
 /// in a loop bounded by XBOXINPUT_MAX_DEVICES.
 #define XBOXINPUT_MAX_DEVICES 4
 
-/// XBOXINPUT_TRIGGER_THRESHOLD defines the thresold
+/// XBOXINPUT_TRIGGER_THRESHOLD defines the threshold
 /// that an analog trigger (leftTrigger and
 /// rightTrigger of XboxInputState) must have exceeded
 /// in order to count as a button press.
@@ -52,10 +52,10 @@ public:
 
 	/// s_XboxInputGuid is the GUID used by GlobalShortcut_win
 	/// to distinguish XboxInputLibrary's events from other event
-	/// soures.
+	/// sources.
 	static const QUuid s_XboxInputGuid;
 
-	/// isValid determines wheter the XboxInputLibrary
+	/// isValid determines whether the XboxInputLibrary
 	/// is usable.
 	bool isValid() const;
 

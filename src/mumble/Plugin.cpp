@@ -40,7 +40,7 @@ Plugin::Plugin(QString path, bool isBuiltIn, QObject *p)
 		throw PluginError("Unable to load the specified library");
 	}
 
-	// aquire id-lock in order to assign an ID to this plugin
+	// acquire id-lock in order to assign an ID to this plugin
 	QMutexLocker lock(&Plugin::s_idLock);
 	m_pluginID = Plugin::s_nextID;
 	Plugin::s_nextID++;

@@ -261,7 +261,7 @@ QVariant UserListModel::lastSeenToTodayDayCount(const std::string &lastSeenDate)
 	if (count.isNull()) {
 		QDateTime dt = isoUTCToDateTime(lastSeenDate);
 		if (!dt.isValid()) {
-			// Not convertable to int
+			// Not convertible to int
 			return QVariant();
 		}
 		count = dt.daysTo(QDateTime::currentDateTime().toUTC());

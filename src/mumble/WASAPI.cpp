@@ -21,7 +21,7 @@
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.
 
-// Note that the DEFINE_GUID macro here only declares the existance of the respective variables
+// Note that the DEFINE_GUID macro here only declares the existence of the respective variables
 // as extern variables. The actual initialization of these variables happens in WinGUIDs.cpp
 DEFINE_GUID(IID_IVistaAudioSessionControl2, 0x33969B1DL, 0xD06F, 0x4281, 0xB8, 0x37, 0x7E, 0xAA, 0xFD, 0x21, 0xA9,
 			0xC0);
@@ -137,7 +137,7 @@ bool WASAPIInputRegistrar::isMicrophoneAccessDeniedByOS() {
 /// @param waveFormatEx WAVEFORMATEX structure to store getMixFormat result in
 /// @param waveFormatExtensible If waveFormatEx is of type WAVEFORMATEXTENSIBLE receives a cast pointer.
 /// @param sampleFormat Receives either SampleFloat or SampleShort as valid format
-/// @return True if mix format is ok. False if incompatible or another error occured.
+/// @return True if mix format is ok. False if incompatible or another error occurred.
 
 template< typename SAMPLEFORMAT > // Template on SampleFormat enum as AudioOutput and AudioInput each define their own
 bool getAndCheckMixFormat(const char *sourceName, const char *deviceName, IAudioClient *audioClient,
@@ -290,7 +290,7 @@ const QHash< QString, QString > WASAPISystem::getDevices(EDataFlow dataflow) {
 						  reinterpret_cast< void ** >(&pEnumerator));
 
 	if (!pEnumerator || FAILED(hr)) {
-		qWarning("WASAPI: Failed to instatiate enumerator: hr=0x%08lx", hr);
+		qWarning("WASAPI: Failed to instantiate enumerator: hr=0x%08lx", hr);
 	} else {
 		hr = pEnumerator->EnumAudioEndpoints(dataflow, DEVICE_STATE_ACTIVE, &pCollection);
 		if (!pCollection || FAILED(hr)) {

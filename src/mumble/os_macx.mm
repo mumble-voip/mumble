@@ -151,7 +151,7 @@ void os_init() {
 
 	/* Query for language setting. OS X's LANG environment variable is determined from the region selected
 	 * in SystemPrefs -> International -> Formats -> Region instead of the system language. We override this
-	 * by always using the system langauge, to get rid of all sorts of nasty langauge inconsistencies. */
+	 * by always using the system language, to get rid of all sorts of nasty language inconsistencies. */
 	query_language();
 }
 

@@ -69,7 +69,7 @@ ChanACL::operator QString() const {
 	}
 
 	if (!aclString.isEmpty()) {
-		// Alos include info about affected user and/or group
+		// Also include info about affected user and/or group
 		if (!qsGroup.isEmpty() && iUserId >= 0) {
 			// both group and user-id are set
 			return QString::fromLatin1("ACL for group \"%1\" and user with ID %2: %3")
@@ -89,7 +89,7 @@ ChanACL::operator QString() const {
 // Check permissions.
 // This will always return true for the superuser,
 // and will return false if a user isn't allowed to
-// traverse to the channel. (Need "read" in all preceeding channels)
+// traverse to the channel. (Need "read" in all preceding channels)
 
 #ifdef MURMUR
 

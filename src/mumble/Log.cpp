@@ -785,7 +785,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		QUrl url(identifyURL.cap(0).toLower());
 		int len = identifyURL.matchedLength();
 		if (url.isValid() && qslAllowed.contains(url.scheme())) {
-			// Replace it appropriatly
+			// Replace it appropriately
 			QString replacement;
 			QString host = url.host().replace(QRegExp(QLatin1String("^www.")), QString());
 

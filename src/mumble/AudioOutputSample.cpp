@@ -247,7 +247,7 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 		// If we need to resample, write to the buffer on stack
 		float *pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
 
-		// Try to read all samples needed to satifsy this request
+		// Try to read all samples needed to satisfy this request
 		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {
 			if (sfHandle->error() != SF_ERR_NO_ERROR || !bLoop) {
 				// We reached the eof or encountered an error, stuff with zeroes

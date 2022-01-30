@@ -191,7 +191,7 @@ void PluginManager::clearPlugins() {
 	// removed from the pluginHashMap.
 	// This could lead to one of the plugins making an API call in its shutdown function which then would try
 	// to verify the plugin's ID. For that it'll ask this PluginManager for a plugin with that ID. To check
-	// that it will have to aquire a read-lock for the pluginHashMap which is impossible after we aquire the
+	// that it will have to acquire a read-lock for the pluginHashMap which is impossible after we acquire the
 	// write-lock in this function leading to a deadlock.
 	unloadPlugins();
 
@@ -728,7 +728,7 @@ void PluginManager::on_userTalkingStateChanged() const {
 
 		if (ts == MUMBLE_TS_INVALID) {
 			qWarning("PluginManager.cpp: Invalid talking state encountered");
-			// An error occured
+			// An error occurred
 			return;
 		}
 
@@ -912,8 +912,8 @@ void PluginManager::on_syncPositionalData() {
 	if (fetchPositionalData()) {
 		// Sync the gathered data (context + identity) with the server
 		if (!Global::get().uiSession) {
-			// For some reason the local session ID is not set -> clear all data sent to the server in order to gurantee
-			// a re-send once the session is restored and there is data available
+			// For some reason the local session ID is not set -> clear all data sent to the server in order to
+			// guarantee a re-send once the session is restored and there is data available
 			QMutexLocker mLock(&m_sentDataMutex);
 
 			m_sentData.context.clear();

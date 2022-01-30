@@ -22,7 +22,7 @@ class RichTextItemDelegate : public QStyledItemDelegate {
 	Q_DISABLE_COPY(RichTextItemDelegate);
 
 public:
-	// inherit contructors
+	// inherit constructors
 	using QStyledItemDelegate::QStyledItemDelegate;
 
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;

@@ -527,7 +527,7 @@ if(WIN32)
 	)
 
 	# WinGUIDs.cpp includes initguid.h which causes a macro definition in guiddef.h to be
-	# chaged in such a way that subsequent usages break (redefinition errors).
+	# changed in such a way that subsequent usages break (redefinition errors).
 	# Thus we must not package this source file in a unity build allowing other files
 	# to include plain guiddef.h without having to worry about side-effects.
 	set_source_files_properties("WinGUIDs.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)

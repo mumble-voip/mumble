@@ -1180,7 +1180,7 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 	userEdit->show();
 }
 
-/// This message is only sent by the client in oder to register/clear whisper targets. Therefore
+/// This message is only sent by the client in order to register/clear whisper targets. Therefore
 /// this implementation does nothing.
 void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
 }

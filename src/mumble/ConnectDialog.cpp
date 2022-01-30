@@ -352,7 +352,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 	QString qsFile = url.toLocalFile();
 	if (!qsFile.isEmpty()) {
 		QFile f(qsFile);
-		// Make sure we don't accidently read something big the user
+		// Make sure we don't accidentally read something big the user
 		// happened to have in his clipboard. We only want to look
 		// at small link files.
 		if (f.open(QIODevice::ReadOnly) && f.size() < 10240) {

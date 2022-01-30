@@ -99,7 +99,7 @@ bool processMarkdownLink(QString &str, int &offset) {
 		if (!url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
 			// For a markdown link to work, it has to start with the protocol specification, e.g. http or https
 			// As we can't know for sure that the given website supports https, we'll have to fall back to http
-			// Most browsers will upgrade the request to https whenver possible anyways though, so this shouldn't be
+			// Most browsers will upgrade the request to https whenever possible anyways though, so this shouldn't be
 			// too much of a problem.
 			url = QLatin1String("http://") + url;
 		}

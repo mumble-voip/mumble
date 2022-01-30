@@ -27,12 +27,12 @@ public slots:
 
 	/// Change when Mumble transmits voice.
 	///
-	/// @param mode The new transmit mode (0 = continous, 1 = voice activity, 2 = push-to-talk)
+	/// @param mode The new transmit mode (0 = continuous, 1 = voice activity, 2 = push-to-talk)
 	void setTransmitMode(unsigned int mode, const QDBusMessage &);
 
 	/// Get the current transmit mode.
 	///
-	/// @return The current transmit mode (0 = continous, 1 = voice activity, 2 = push-to-talk)
+	/// @return The current transmit mode (0 = continuous, 1 = voice activity, 2 = push-to-talk)
 	unsigned int getTransmitMode();
 
 	void toggleSelfMuted();

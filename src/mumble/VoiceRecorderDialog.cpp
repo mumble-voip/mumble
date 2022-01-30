@@ -212,7 +212,7 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 	qtTimer->stop();
 	recorder->stop();
 
-	// Disable stop botton to indicate we reacted
+	// Disable stop button to indicate we reacted
 	qpbStop->setDisabled(true);
 	qpbStop->setText(tr("Stopping"));
 }

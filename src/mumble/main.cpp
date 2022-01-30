@@ -818,7 +818,7 @@ int main(int argc, char **argv) {
 
 		// Wait for the ServerHandler thread to exit before proceeding shutting down. This is so that
 		// all events that the ServerHandler might emit are enqueued into Qt's event loop before we
-		// ask it to pocess all of them below.
+		// ask it to process all of them below.
 
 		// We iteratively probe whether the ServerHandler thread has finished yet. If it did
 		// not, we execute pending events in the main loop. This is because the ServerHandler
@@ -925,7 +925,7 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_WIN
 		// Work around bug related to QTBUG-7645. Mumble has uiaccess=true set
 		// on windows which makes normal CreateProcess calls (like Qt uses in
-		// startDetached) fail unless they specifically enable additional priviledges.
+		// startDetached) fail unless they specifically enable additional privileges.
 		// Note that we do not actually require user interaction by UAC nor full admin
 		// rights but only the right token on launch. Here we use ShellExecuteEx
 		// which handles this transparently for us.
