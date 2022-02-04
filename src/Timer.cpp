@@ -96,7 +96,7 @@ quint64 Timer::now() {
 #elif defined(Q_OS_UNIX)
 #	include <errno.h>
 #	include <string.h>
-#	include <sys/time.h>
+#	include <time.h>
 #	include <unistd.h>
 #	if defined(_POSIX_TIMERS) && defined(_POSIX_MONOTONIC_CLOCK)
 quint64 Timer::now() {
