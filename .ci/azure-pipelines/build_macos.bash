@@ -38,7 +38,7 @@ cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx" \
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=$BUILD_NUMBER \
-      -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON \
+      -Dtests=ON -Dstatic=ON -Dsymbols=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .

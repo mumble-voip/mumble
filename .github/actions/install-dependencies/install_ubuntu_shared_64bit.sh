@@ -28,6 +28,4 @@ sudo apt -y install \
 	libzeroc-ice-dev \
 	zsync \
 	appstream \
-	libgrpc++-dev \
-	protobuf-compiler-grpc \
 	libpoco-dev

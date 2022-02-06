@@ -10,12 +10,10 @@ set(MURMUR_PLIST "${CMAKE_CURRENT_BINARY_DIR}/murmur.plist")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.plist.in" "${MURMUR_PLIST}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.rc.in" "${MURMUR_RC}")
 
-set(GRPC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MurmurRPC.proto")
 set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice")
 
 include(qt-utils)
 
-option(grpc "Build support for gRPC." OFF)
 option(ice "Build support for Ice RPC." ON)
 
 find_pkg(Qt5 COMPONENTS Sql REQUIRED)
@@ -196,78 +194,6 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 
 	target_compile_definitions(mumble-server PRIVATE "USE_DBUS")
 	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
-endif()
-
-if(grpc)
-	# "gRPC" is the name of the official gRPC target whereas "GRPC" is the one used by our custom FindGRPC.cmake in 
-	# the cmake sub-dir at the project's root.
-	find_pkg("gRPC;GRPC" REQUIRED)
-
-	protobuf_generate(LANGUAGE cpp TARGET mumble-server PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
-
-	add_subdirectory("${SHARED_SOURCE_DIR}/murmur_grpcwrapper_protoc_plugin" "${CMAKE_CURRENT_BINARY_DIR}/murmur_grpcwrapper_protoc_plugin")
-
-	get_filename_component(GRPC_FILE_NAME ${GRPC_FILE} NAME_WE)
-
-	add_custom_command(
-		OUTPUT "MurmurRPC.proto.Wrapper.cpp"
-		COMMAND protobuf::protoc
-		ARGS "--plugin=$<TARGET_FILE:protoc-gen-murmur-grpcwrapper>" "-I${CMAKE_CURRENT_SOURCE_DIR}" "--murmur-grpcwrapper_out=${CMAKE_CURRENT_BINARY_DIR}" ${GRPC_FILE}
-		DEPENDS protobuf::protoc protoc-gen-murmur-grpcwrapper ${GRPC_FILE}
-		COMMENT "Generating gRPC wrapper"
-		VERBATIM
-		# protoc doesn't seem to parse the plugin path correctly on Windows: it only finds the executable when in the current directory or in PATH.
-		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/murmur_grpcwrapper_protoc_plugin"
-	)
-
-	set(GRPC_GENERATED_FILES
-		"MurmurRPC.grpc.pb.cc"
-		"MurmurRPC.grpc.pb.h"
-	)
-
-	add_custom_command(
-		OUTPUT ${GRPC_GENERATED_FILES}
-		COMMAND protobuf::protoc
-		ARGS "--plugin=protoc-gen-grpc=$<TARGET_FILE:gRPC::grpc_cpp_plugin>" "-I${CMAKE_CURRENT_SOURCE_DIR}" "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}" ${GRPC_FILE}
-		DEPENDS protobuf::protoc gRPC::grpc_cpp_plugin ${GRPC_FILE}
-		COMMENT "Running gRPC compiler"
-		VERBATIM
-	)
-
-	# Disable warnings for the generated source files
-	foreach(CURRENT_FILE IN LISTS GRPC_GENERATED_FILES BUILT_GRPC_FILES)
-		set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
-	endforeach()
-
-	add_custom_target(generate-grpc-files
-		DEPENDS
-			"MurmurRPC.proto.Wrapper.cpp"
-			${GRPC_GENERATED_FILES}
-	)
-
-	add_dependencies(mumble-server generate-grpc-files)
-
-	target_sources(mumble-server
-		PRIVATE
-			"MurmurGRPCImpl.cpp"
-			"MurmurGRPCImpl.h"
-			${GRPC_GENERATED_FILES}
-	)
-
-	if(NOT MSVC)
-		# Disable the unused parameter warning for this file as it implicitly includes one of the generated
-		# files that contains a lot of unused parameters that would otherwise create a warning.
-		set_source_files_properties("MurmurGRPCImpl.cpp" PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter")
-	endif()
-
-	target_compile_definitions(mumble-server PRIVATE "USE_GRPC")
-	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-
-	target_link_libraries(mumble-server PRIVATE gRPC::grpc++)
-
-	if (TARGET gRPC::gpr)
-		target_link_libraries(mumble-server PRIVATE gRPC::gpr)
-	endif()
 endif()
 
 if(ice)

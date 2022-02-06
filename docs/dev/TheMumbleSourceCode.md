@@ -43,7 +43,6 @@ When cloning the repo, the source tree should look something like this:
 │   ├── mumble
 │   ├── mumble_exe
 │   ├── murmur
-│   ├── murmur_grpcwrapper_protoc_plugin
 │   └── tests
 └── themes
     └── Default

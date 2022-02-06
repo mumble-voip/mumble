@@ -63,7 +63,7 @@ combine types with `/`: `FEAT/CI: <Summary>`
 ### Scope
 
 What area is the change about. For now we don't have fixed scope keywords. A scope could be something like `ui`, `client`,
-`server`, `ice`, `grpc`, ...
+`server`, `ice`, ...
 
 
 ### Summary

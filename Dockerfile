@@ -19,12 +19,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libcap-dev \
 	libprotobuf-dev \
 	protobuf-compiler \
-	protobuf-compiler-grpc \
 	libprotoc-dev \
 	libogg-dev \
 	libavahi-compat-libdnssd-dev \
 	libsndfile1-dev \
-	libgrpc++-dev \
 	libxi-dev \
 	libbz2-dev \
 	&& apt-get clean \
@@ -34,7 +32,7 @@ COPY . /root/mumble
 WORKDIR /root/mumble/build
 
 RUN git submodule update --init --recursive
-RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON .. || \
+RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release .. || \
     ( cat \
     /root/mumble/build/CMakeFiles/CMakeOutput.log \
     /root/mumble/build/CMakeFiles/CMakeError.log \
@@ -52,8 +50,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libcap2 \
 	libzeroc-ice3.7 \
 	'^libprotobuf[0-9]+$' \
-	'^libgrpc[0-9]+$' \
-	libgrpc++1 \
 	libavahi-compat-libdnssd1 \
 	libqt5core5a \
 	libqt5network5 \
