@@ -404,8 +404,8 @@ int main(int argc, char **argv) {
 #endif
 				  "  -wipessl               Remove SSL certificates from database.\n"
 				  "  -wipelogs              Remove all log entries from database.\n"
-				  "  -loggroups             Turns on logging for group changes for all servers."
-				  "  -logacls               Turns on logging for ACL changes for all servers."
+				  "  -loggroups             Turns on logging for group changes for all servers.\n"
+				  "  -logacls               Turns on logging for ACL changes for all servers.\n"
 				  "  -version               Show version information.\n"
 				  "\n"
 				  "  -license               Show Murmur's license.\n"
