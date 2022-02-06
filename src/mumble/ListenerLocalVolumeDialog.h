@@ -12,7 +12,7 @@ class ClientUser;
 class Channel;
 
 /// The dialog to configure the local volume adjustment for a "listener proxy". Therefore
-/// this dialog can be used to tune the volume of audio streams one receivs via the listening
+/// this dialog can be used to tune the volume of audio streams one receives via the listening
 /// feature.
 /// It actually uses the same UI frontend as UserLocalVolumeDialog as it only needs backend
 /// changes.

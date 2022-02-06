@@ -165,7 +165,7 @@ public:
 	/// to enable those to be dropped onto the clipboard.
 	///
 	/// @note If needed can query the user for a user name using a modal dialog.
-	/// @note If a server item is returned it's the callers reponsibility to delete it.
+	/// @note If a server item is returned it's the callers responsibility to delete it.
 	///
 	/// @param mime Mime data to analyze
 	/// @param default_name If true the hostname is set as item name if none is given
@@ -283,7 +283,7 @@ protected:
 	/// zeroconf to find nearby servers on the local network.
 	bool bAllowZeroconf;
 	/// bAllowFilters determines whether filters are available
-	/// in the ConfigDialog. If this option is diabled, the
+	/// in the ConfigDialog. If this option is disabled, the
 	/// 'Show All' filter is forced, and no other filter can
 	/// be chosen.
 	bool bAllowFilters;

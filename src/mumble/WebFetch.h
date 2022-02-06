@@ -72,7 +72,7 @@ public:
 	///
 	///                      baseURL = https://${servicePrefixSetting}-${service}.mumble.info
 	///
-	/// @param  url      The path to the endpoint that the request is targetted at.
+	/// @param  url      The path to the endpoint that the request is targeted at.
 	///                  Only the path of the URL will be used. The specified path is
 	///                  used in combination with the base URL constructed by the service
 	///                  parameter to construct the fully-qualified URL for the HTTP request
@@ -84,7 +84,7 @@ public:
 	///
 	/// @param  slot     A Qt slot of the form fetched(QByteArray data, QUrl url,
 	///                                                QMap<QString,QString> httpHeaders)
-	///                  If the download initiated by the function was succesful, the data
+	///                  If the download initiated by the function was successful, the data
 	///                  parameter will be a non-null QByteArray.
 	///                  If the download failed, the data parameter will be a null QByteArray.
 	static void fetch(const QString &service, const QUrl &url, QObject *obj, const char *slot);

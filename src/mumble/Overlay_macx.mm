@@ -115,7 +115,7 @@ pid_t getForegroundProcessId() {
 
 			// This timeout is specified in 'ticks'.
 			// A tick defined as: "[...] (a tick is approximately 1/60 of a second) [...]" in the
-			// Apple Event Manager Refernce documentation:
+			// Apple Event Manager Reference documentation:
 			// http://developer.apple.com/legacy/mac/library/documentation/Carbon/reference/Event_Manager/Event_Manager.pdf
 			[app setTimeout:10*60];
 
@@ -247,7 +247,7 @@ bool OverlayConfig::isInstalled() {
 }
 
 // Check whether this installer installs something 'newer' than what we already have.
-// Also checks whether the new installer is compatiable with the current version of
+// Also checks whether the new installer is compatible with the current version of
 // Mumble.
 static bool isInstallerNewer(QString path, NSUInteger curVer) {
 	xar_t pkg = nullptr;

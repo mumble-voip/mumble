@@ -176,7 +176,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	QObject::connect(this, &MainWindow::transmissionModeChanged, this, &MainWindow::updateTransmitModeComboBox);
 
-	// Explicitely add actions to mainwindow so their shortcuts are available
+	// Explicitly add actions to mainwindow so their shortcuts are available
 	// if only the main window is visible (e.Global::get(). minimal mode)
 	addActions(findChildren< QAction * >());
 
@@ -1008,7 +1008,7 @@ static void recreateServerHandler() {
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::connected, Global::get().pluginManager,
 										 &PluginManager::on_serverConnected, Qt::DirectConnection);
 	// We connect the plugin manager to "aboutToDisconnect" instead of "disconnect" in order for the slot to be
-	// guaranteed to be completed *before* the acutal disconnect logic (e.g. MainWindow::serverDisconnected) kicks in.
+	// guaranteed to be completed *before* the actual disconnect logic (e.g. MainWindow::serverDisconnected) kicks in.
 	// In order for that to work it is ESSENTIAL to use a DIRECT CONNECTION!
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::aboutToDisconnect, Global::get().pluginManager,
 										 &PluginManager::on_serverDisconnected, Qt::DirectConnection);
@@ -1133,7 +1133,7 @@ void MainWindow::openUrl(const QUrl &url) {
 
 /**
  * This function tries to join a desired channel on connect. It gets called
- * directly after server syncronization is completed.
+ * directly after server synchronization is completed.
  * @see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
  */
 void MainWindow::findDesiredChannel() {
@@ -2098,7 +2098,7 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 }
 
 /**
- * Controlls tab username completion for the chatbar.
+ * Controls tab username completion for the chatbar.
  * @see ChatbarLineEdit::completeAtCursor()
  */
 void MainWindow::on_qteChat_tabPressed() {
@@ -2113,7 +2113,7 @@ void MainWindow::on_qteChat_backtabPressed() {
 }
 
 /**
- * Controlls ctrl space username completion and selection for the chatbar.
+ * Controls ctrl space username completion and selection for the chatbar.
  * @see ChatbarLineEdit::completeAtCursor()
  */
 void MainWindow::on_qteChat_ctrlSpacePressed() {
@@ -3222,7 +3222,7 @@ void MainWindow::serverConnected() {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
 	}
 
-	// Update QActions and menues
+	// Update QActions and menus
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
 	qmChannel_aboutToShow();
@@ -3312,7 +3312,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	pmModel->removeAll();
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
-	// Update QActions and menues
+	// Update QActions and menus
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
 	qmChannel_aboutToShow();
@@ -3644,7 +3644,7 @@ void MainWindow::context_triggered() {
 
 /**
  * Presents a file open dialog, opens the selected picture and returns it.
- * @return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
+ * @return Pair consisting of the raw file contents and the image. Uninitialized on error or cancel.
  */
 QPair< QByteArray, QImage > MainWindow::openImageFile() {
 	QPair< QByteArray, QImage > retval;

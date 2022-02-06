@@ -121,7 +121,7 @@ QVector< QDir > Themes::getSearchDirectories() {
 	// Next come themes found in the applications Themes directory
 	themeSearchDirectories << QDir(MumbleApplication::instance()->applicationVersionRootPath()
 								   + QLatin1String("/Themes"));
-	// Highest priorty have themes located in the user directory
+	// Highest priority have themes located in the user directory
 	themeSearchDirectories << getUserThemesDirectory();
 
 	return themeSearchDirectories;

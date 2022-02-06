@@ -51,7 +51,7 @@ public:
 	/// Takes stock of all mumble themes in the given folders.
 	///
 	/// If a theme with the same name is available in multiple directories
-	/// only the last occurance will be returned.
+	/// only the last occurrence will be returned.
 	///
 	/// @param themesDirectories List of directories to search for theme directories.
 	/// @return Map of theme name to Theme

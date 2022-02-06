@@ -113,7 +113,7 @@ public:
 	/// Destructor
 	virtual ~PluginManager() Q_DECL_OVERRIDE;
 
-	/// @param pluginID The ID of the plugin that should be retreved
+	/// @param pluginID The ID of the plugin that should be retrieved
 	/// @returns A pointer to the plugin with the given ID or nullptr if no such plugin could be found
 	const_plugin_ptr_t getPlugin(plugin_id_t pluginID) const;
 	/// Checks whether there are any updates for the plugins and if there are it invokes the PluginUpdater.

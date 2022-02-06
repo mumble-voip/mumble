@@ -186,7 +186,7 @@ public:
 	~PluginData();
 
 	/// A flag indicating whether a plugin has requested the microphone to be permanently on (mirroring the
-	/// behaviour of the continous transmission mode.
+	/// behaviour of the continuous transmission mode.
 	std::atomic_bool overwriteMicrophoneActivation;
 
 	/// @returns A reference to the PluginData singleton

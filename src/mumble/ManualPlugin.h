@@ -83,7 +83,7 @@ MumblePlugin *ManualPlugin_getMumblePlugin();
 MumblePluginQt *ManualPlugin_getMumblePluginQt();
 
 
-/// A built-in "plugin" for positional data gatherig allowing for manually placing the "players" in a UI
+/// A built-in "plugin" for positional data gathering allowing for manually placing the "players" in a UI
 class ManualPlugin : public LegacyPlugin {
 	friend class Plugin; // needed in order for Plugin::createNew to access LegacyPlugin::doInitialize()
 private:

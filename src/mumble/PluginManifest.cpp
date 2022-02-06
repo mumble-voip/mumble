@@ -117,6 +117,6 @@ void PluginManifest::parse_v1_0_0(Poco::AutoPtr< Poco::XML::Document > document)
 
 	if (!std::regex_match(m_version, versionRegex)) {
 		throw PluginManifestException(
-			"Plugin manifest specifes version that does not follow the format major.minor.path");
+			"Plugin manifest specifies version that does not follow the format major.minor.path");
 	}
 }

@@ -52,7 +52,7 @@ protected:
 	/// A vector holding plugins that can be updated by storing a pluginID and the download URL
 	/// in form of an UpdateEntry.
 	QVector< UpdateEntry > m_pluginsToUpdate;
-	/// The NetworkManager used to perform the downloding of plugins.
+	/// The NetworkManager used to perform the downloading of plugins.
 	QNetworkAccessManager m_networkManager;
 	/// A vector of the UI elements created for the individual plugins (in form of UpdateWidgetPairs).
 	/// NOTE: This vector may only be accessed from the UI thread this dialog is living in!

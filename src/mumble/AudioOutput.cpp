@@ -613,7 +613,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 					// Calculates the ITD offset of the audio data this frame.
 					// Interaural Time Delay (ITD) is a small time delay between your ears
-					// depending on the sound source position on the horizonal plane and the
+					// depending on the sound source position on the horizontal plane and the
 					// distance between your ears.
 					//
 					// Offset for ITD is not applied directly, but rather the offset is interpolated

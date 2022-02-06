@@ -48,7 +48,7 @@ private:
 	// Sets the theme to a QSS theme
 	static void setTheme(QString &themeQss, QStringList &skinPaths);
 
-	/// Returns list of theme search directories ordered ascending by priorty (lowest first)
+	/// Returns list of theme search directories ordered ascending by priority (lowest first)
 	static QVector< QDir > getSearchDirectories();
 
 	/// Returns default style-sheet used for fall-backs

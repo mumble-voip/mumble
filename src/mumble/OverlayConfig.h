@@ -87,7 +87,7 @@ protected slots:
 	void resizeScene(bool force = false);
 
 public:
-	/// The uniqe name of this ConfigWidget
+	/// The unique name of this ConfigWidget
 	static const QString name;
 	OverlayConfig(Settings &st);
 	virtual QString title() const Q_DECL_OVERRIDE;

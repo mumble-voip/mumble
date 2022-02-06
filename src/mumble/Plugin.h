@@ -293,7 +293,7 @@ protected:
 	/// @param channelCount The amount of channels in the PCM
 	/// @param sampleRate The used sample rate in Hz
 	/// @param isSpeech Whether Mumble considers the input as speech
-	/// @returns Whether this pluign has modified the audio
+	/// @returns Whether this plugin has modified the audio
 	virtual bool onAudioInput(short *inputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate,
 							  bool isSpeech) const;
 	/// Called to indicate that an audio source has been fetched
@@ -304,7 +304,7 @@ protected:
 	/// @param sampleRate The used sample rate in Hz
 	/// @param isSpeech Whether Mumble considers the output as speech
 	/// @param userID The ID of the user responsible for the output (only relevant if isSpeech == true)
-	/// @returns Whether this pluign has modified the audio
+	/// @returns Whether this plugin has modified the audio
 	virtual bool onAudioSourceFetched(float *outputPCM, uint32_t sampleCount, uint16_t channelCount,
 									  uint32_t sampleRate, bool isSpeech, mumble_userid_t userID) const;
 	/// Called to indicate that audio is about to be played
@@ -313,7 +313,7 @@ protected:
 	/// @param sampleCount The amount of samples per channel
 	/// @param channelCount The amount of channels in the PCM
 	/// @param sampleRate The used sample rate in Hz
-	/// @returns Whether this pluign has modified the audio
+	/// @returns Whether this plugin has modified the audio
 	virtual bool onAudioOutputAboutToPlay(float *outputPCM, uint32_t sampleCount, uint16_t channelCount,
 										  uint32_t sampleRate) const;
 	/// Called when the server has synchronized with the client
@@ -369,8 +369,8 @@ public:
 	/// the heap and has thus to be deleted via the delete instruction.
 	///
 	/// @tparam T The type of the plugin to be instantiated
-	/// @tparam Ts The types of the contructor arguments
-	/// @param args A list of args passed to the contructor of the plugin object
+	/// @tparam Ts The types of the constructor arguments
+	/// @param args A list of args passed to the constructor of the plugin object
 	/// @returns A pointer to the allocated plugin
 	///
 	/// @throws PluginError if the plugin could not be loaded

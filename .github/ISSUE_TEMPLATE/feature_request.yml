@@ -35,7 +35,7 @@ body:
     id: os
     attributes:
       label: OS-specific?
-      description: Would this feature be OS-specific (in constrast to being useful across all OS)
+      description: Would this feature be OS-specific (in contrast to being useful across all OS)
       options:
         - "Yes"
         - "No"

@@ -15,7 +15,7 @@ class XMLTools : public QObject {
 	Q_OBJECT
 public:
 	/* Recursively parse and output XHTML.
-	 * This will drop <head>, <html> etc, take the contents of <body> and strip out unnecesarry styles.
+	 * This will drop <head>, <html> etc, take the contents of <body> and strip out unnecessary styles.
 	 * It will also change <span style=""> into matching <b>, <i> or <u>.
 	 */
 	static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int &paragraphs,

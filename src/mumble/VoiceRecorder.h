@@ -68,7 +68,7 @@ QString getFormatDefaultExtension(VoiceRecorderFormat::Format fm);
 
 /// Class for recording audio data.
 ///
-/// Runs as a seperate thread accepting audio data through the addBuffer method
+/// Runs as a separate thread accepting audio data through the addBuffer method
 /// which is then encoded using one of the formats of VoiceRecordingFormat::Format
 /// and written to disk.
 ///
@@ -116,7 +116,7 @@ public:
 	/// Returns the elapsed time since the recording started.
 	quint64 getElapsedTime() const;
 
-	/// Returns a refence to the record user which is used to record local audio.
+	/// Returns a reference to the record user which is used to record local audio.
 	RecordUser &getRecordUser() const;
 
 	/// Returns true if the recorder is recording mixed down data instead of multichannel

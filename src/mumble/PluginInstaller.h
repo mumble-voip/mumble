@@ -43,7 +43,7 @@ protected:
 	Plugin *m_plugin;
 	/// The actual plugin library file
 	QFileInfo m_pluginSource;
-	/// The destinaton file to which the plugin library shall be copied
+	/// The destination file to which the plugin library shall be copied
 	QFileInfo m_pluginDestination;
 	/// A flag indicating that the plugin library shall be copied instead of moved in order
 	/// to install it.

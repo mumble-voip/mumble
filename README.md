@@ -92,7 +92,7 @@ For more information please see the "Running Murmur" in the Linux/Unix section b
 ### Running Mumble
 
 If you have installed Mumble through your distributon's package
-repostory, you should be able to find Mumble in your start menu. No
+repository, you should be able to find Mumble in your start menu. No
 additional steps necessary.
 
 ### Running Murmur

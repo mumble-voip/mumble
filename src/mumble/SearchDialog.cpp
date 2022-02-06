@@ -158,7 +158,7 @@ SearchDialog::SearchDialog(QWidget *parent) : QWidget(parent), m_itemDelegate(ne
 }
 
 void SearchDialog::on_toggleOptions_clicked() {
-	// Togle the search option's visibility
+	// Toggle the search option's visibility
 	Global::get().s.searchOptionsShown = !searchOptionBox->isVisible();
 
 	searchOptionBox->setVisible(Global::get().s.searchOptionsShown);
