@@ -5,16 +5,11 @@
    <cc:Work rdf:about="">
     <dc:format>image/svg+xml</dc:format>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title/>
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g stroke="#34a853">
-  <path d="m28.7 130.69h242.6v151.71h-242.6z" fill="none" stroke-linejoin="round" stroke-width="26.666"/>
-  <path d="m70.208 142.99s-0.18471-56.177 0-76.455c0-64.821 159.67-63.663 159.67-29.916v31.988" fill="none" stroke-width="26.666"/>
-  <g transform="matrix(2.0963 0 0 1.9396 -100.27 -155.27)" fill="#34a853">
-   <ellipse cx="119.39" cy="176.13" rx="6.978" ry="7.541" stroke-linejoin="round" stroke-width="10.746"/>
-   <path d="m112.19 180.38-1.1308 28.275h16.833l-1.09-28.254" stroke-width=".806"/>
-  </g>
+ <g transform="matrix(.74985 0 0 .74963 37.552 36.487)" opacity=".75" stroke="#34a853">
+  <path d="m28.7 130.17h242.6v149.22h-242.6z" fill="#34a853" stroke-linejoin="round" stroke-width="37.535"/>
+  <path d="m70.208 142.99s-0.04402-82.965 0-103.24c0.1407-64.821 159.67-63.663 159.67-29.916v31.988" fill="none" stroke="#34a853" stroke-width="40.014"/>
  </g>
 </svg>
