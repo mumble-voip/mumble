@@ -1,37 +1,37 @@
-.TH murmurd 1 "2016 May 9"
+.TH mumble\-server 1 "2016 May 9"
 .SH NAME
-murmurd - VoIP server.
+mumble\-server - VoIP server.
 .SH SYNOPSIS
-.B murmurd
+.B mumble\-server
 [\fB-ini \fIinifile\fR] [\fB-fg\fR] [\fB-v\fR]
 .br
-.B murmurd \-supw\fR \fIpassword\fR [\fIserverid\fR]
+.B mumble\-server \-supw\fR \fIpassword\fR [\fIserverid\fR]
 .br
-.B murmurd \-readsupw\fR [\fIserverid\fR]
+.B mumble\-server \-readsupw\fR [\fIserverid\fR]
 .br
-.B murmurd \-disablesu\fR [\fIserverid\fR]
+.B mumble\-server \-disablesu\fR [\fIserverid\fR]
 .br
-.B murmurd \-limits
+.B mumble\-server \-limits
 .br
-.B murmurd \-wipessl
+.B mumble\-server \-wipessl
 .br
-.B murmurd \-wipelogs
+.B mumble\-server \-wipelogs
 .br
-.B murmurd \-loggroups
+.B mumble\-server \-loggroups
 .br
-.B murmurd \-logacls
+.B mumble\-server \-logacls
 .br
-.B murmurd \-license
+.B mumble\-server \-license
 .br
-.B murmurd \-authors
+.B mumble\-server \-authors
 .br
-.B murmurd \-third\-party\-licenses
+.B mumble\-server \-third\-party\-licenses
 .br
-.B murmurd \-version\fR|\fB\-\-version
+.B mumble\-server \-version\fR|\fB\-\-version
 .br
-.B murmurd \-h\fR|\fB\-help\fR|\fB\-\-help
+.B mumble\-server \-h\fR|\fB\-help\fR|\fB\-\-help
 .SH DESCRIPTION
-Murmur is the server component of Mumble, a low-latency, high quality VoIP
+mumble\-server is the server component of Mumble, a low-latency, high quality VoIP
 application.
 .SH OPTIONS
 .TP
@@ -39,7 +39,7 @@ application.
 Show a summary of the options.
 .TP
 .B \-ini \fIinifile
-Specify which ini file to use. Without this option, murmur will search for
+Specify which ini file to use. Without this option, mumble\-server will search for
 a murmur.ini file and will fall back to builtin defaults if one isn't found.
 .TP
 .B \-fg
@@ -68,8 +68,8 @@ until a new password is set. You can set a new SuperUser password with the
 .TP
 .B \-limits
 Tests and shows how many file descriptors and threads can be created. The
-purpose of this option is to test how many clients Murmur can handle. Murmur
-will exit after this test.
+purpose of this option is to test how many clients the server can handle. The
+server will exit after this test.
 .TP
 .B \-wipessl
 Remove SSL certificates from database.
@@ -84,13 +84,13 @@ Turns on logging for group changes for all servers.
 Turns on logging for ACL changes for all servers.
 .TP
 .B \-license
-Show Murmur's license.
+Show mumble\-server's license.
 .TP
 .B \-authors
-Show Murmur's authors.
+Show mumble\-server's authors.
 .TP
 .B \-third\-party\-licenses
-Show licenses for third-party software used by Murmur.
+Show licenses for third-party software used by mumble\-server.
 .TP
 .B \-version, \-\-version
 Show version information.
@@ -98,12 +98,12 @@ Show version information.
 .TP
 .BR SIGHUP
 Perform a log rotation.
-This causes murmurd to re-open its log file.
+This causes mumble\-server to re-open its log file.
 .TP
 .BR SIGUSR1
 Gracefully reload the TLS settings specified in murmur.ini without interrupting service.
 
-When this signal is received, Murmur will apply the new TLS settings (certificate,
+When this signal is received, the server will apply the new TLS settings (certificate,
 private key, and Diffie-Hellman parameters) to all virtual servers that use the TLS settings
 from murmur.ini.
 
@@ -114,4 +114,4 @@ be affected by this signal. Those servers can be updated using the updateCertifi
 .BR murmur\-user\-wrapper (1).
 .br
 .SH AUTHORS
-mumble and murmurd were written by The Mumble Developers.
+mumble and mumble\-server were written by The Mumble Developers.
