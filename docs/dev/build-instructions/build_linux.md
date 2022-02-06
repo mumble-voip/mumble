@@ -30,6 +30,7 @@ sudo apt install \
   libsndfile1-dev \
   libspeechd-dev \
   libavahi-compat-libdnssd-dev \
+  libxcb-xinerama0 \
   libzeroc-ice-dev \
   libpoco-dev \
   g++-multilib
