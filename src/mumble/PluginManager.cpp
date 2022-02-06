@@ -943,6 +943,24 @@ void PluginManager::on_syncPositionalData() {
 				}
 			}
 		}
+	} else {
+		QMutexLocker mLock(&m_sentDataMutex);
+
+		if (!m_sentData.identity.isEmpty() || !m_sentData.context.isEmpty()) {
+			// The server has been sent non-empty identity and/or context but we are now no longer able to fetch
+			// positional data. That means that the respective plugin has been unlinked and thus we want to clear the
+			// identity and context set on the server.
+			MumbleProto::UserState mpus;
+			mpus.set_plugin_context("");
+			mpus.set_plugin_identity("");
+
+			if (Global::get().sh) {
+				Global::get().sh->sendMessage(mpus);
+			}
+
+			m_sentData.identity.clear();
+			m_sentData.context.clear();
+		}
 	}
 }
 
