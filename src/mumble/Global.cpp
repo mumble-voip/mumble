@@ -93,11 +93,7 @@ Global::Global(const QString &qsConfigPath) {
 	iCodecAlpha  = 0;
 	iCodecBeta   = 0;
 	bPreferAlpha = true;
-#ifdef USE_OPUS
-	bOpus = true;
-#else
-	bOpus = false;
-#endif
+	bOpus        = true;
 
 	bAttenuateOthers              = false;
 	prioritySpeakerActiveOverride = false;

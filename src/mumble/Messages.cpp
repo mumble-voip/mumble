@@ -1223,7 +1223,6 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	int beta  = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
 
-#ifdef USE_OPUS
 	static bool warnedOpus = false;
 	Global::get().bOpus    = msg.opus();
 
@@ -1232,7 +1231,6 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 							 tr("Failed to load Opus, it will not be available for audio encoding/decoding."));
 		warnedOpus = true;
 	}
-#endif
 
 	// Workaround for broken 1.2.2 servers
 	if (Global::get().sh && Global::get().sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {

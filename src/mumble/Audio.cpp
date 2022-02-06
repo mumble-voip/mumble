@@ -8,10 +8,8 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "CELTCodec.h"
-#ifdef USE_OPUS
-#	include "OpusCodec.h"
-#endif
 #include "Log.h"
+#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
 #include "Global.h"
@@ -31,7 +29,6 @@ LoopUser LoopUser::lpLoopy;
 CodecInit ciInit;
 
 void CodecInit::initialize() {
-#ifdef USE_OPUS
 	OpusCodec *oCodec = new OpusCodec();
 	if (oCodec->isValid()) {
 		oCodec->report();
@@ -42,7 +39,6 @@ void CodecInit::initialize() {
 			QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
 		delete oCodec;
 	}
-#endif
 
 	if (Global::get().s.bDisableCELT) {
 		// Kill switch for CELT activated. Do not initialize it.
@@ -68,9 +64,7 @@ void CodecInit::initialize() {
 }
 
 void CodecInit::destroy() {
-#ifdef USE_OPUS
 	delete Global::get().oCodec;
-#endif
 
 	foreach (CELTCodec *codec, Global::get().qmCodecs)
 		delete codec;

@@ -13,9 +13,6 @@
 #include "AudioWizard.h"
 #include "BanEditor.h"
 #include "CELTCodec.h"
-#ifdef USE_OPUS
-#	include "OpusCodec.h"
-#endif
 #include "Cert.h"
 #include "Channel.h"
 #include "ConnectDialog.h"
@@ -25,6 +22,7 @@
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
+#include "OpusCodec.h"
 #include "GlobalShortcut.h"
 #ifdef USE_OVERLAY
 #	include "OverlayClient.h"
@@ -3181,12 +3179,8 @@ void MainWindow::serverConnected() {
 	Global::get().pPermissions = ChanACL::None;
 	Global::get().iCodecAlpha  = 0x8000000b;
 	Global::get().bPreferAlpha = true;
-#ifdef USE_OPUS
-	Global::get().bOpus = true;
-#else
-	Global::get().bOpus = false;
-#endif
-	Global::get().iCodecBeta = 0;
+	Global::get().bOpus        = true;
+	Global::get().iCodecBeta   = 0;
 
 #ifdef Q_OS_MAC
 	// Suppress AppNap while we're connected to a server.

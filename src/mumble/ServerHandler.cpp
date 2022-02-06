@@ -783,11 +783,7 @@ void ServerHandler::serverConnectionConnected() {
 	QMap< int, CELTCodec * >::const_iterator i;
 	for (i = Global::get().qmCodecs.constBegin(); i != Global::get().qmCodecs.constEnd(); ++i)
 		mpa.add_celt_versions(i.key());
-#ifdef USE_OPUS
 	mpa.set_opus(true);
-#else
-	mpa.set_opus(false);
-#endif
 	sendMessage(mpa);
 
 	{
@@ -839,8 +835,8 @@ void ServerHandler::serverConnectionConnected() {
 			if (hQoS) {
 				struct sockaddr_in addr;
 				memset(&addr, 0, sizeof(addr));
-				addr.sin_family = AF_INET;
-				addr.sin_port = htons(usPort);
+				addr.sin_family      = AF_INET;
+				addr.sin_port        = htons(usPort);
 				addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
 
 				dwFlowUDP = 0;
