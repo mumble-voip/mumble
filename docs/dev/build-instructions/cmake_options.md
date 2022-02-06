@@ -39,6 +39,11 @@ Build the included version of CELT instead of looking for one on the system.
 Build the included version of Opus instead of looking for one on the system.
 (Default: ON)
 
+### bundled-rnnoise
+
+Build the included version of RNNoise instead of looking for one on the system.
+(Default: ${rnnoise})
+
 ### bundled-speex
 
 Build the included version of Speex instead of looking for one on the system.
@@ -196,7 +201,7 @@ Build redacted (outdated) plugins as well
 
 ### rnnoise
 
-Build RNNoise for machine learning noise reduction
+Use RNNoise for machine learning noise reduction.
 (Default: ON)
 
 ### server
