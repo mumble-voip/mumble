@@ -1,23 +1,23 @@
-.TH murmur\-user\-wrapper 1 "2015 December 27"
+.TH mumble\-server\-user\-wrapper 1 "2015 December 27"
 .SH NAME
-murmur\-user\-wrapper \- User wrapper for murmurd.
+mumble\-server\-user\-wrapper \- User wrapper for mumble\-server.
 .SH SYNOPSIS
-.B murmur\-user\-wrapper
+.B mumble\-server\-user\-wrapper
 .RI [ options ]
 .SH DESCRIPTION
-Murmur is the server component of Mumble, a low\-latency, high quality VoIP
-application. Murmur\-wrapper is a wrapper script to make it easier for normal
-users to set up their own, private murmur server.
+mumble\-server is the server component of Mumble, a low\-latency, high quality VoIP
+application. mumble\-server\-wrapper is a wrapper script to make it easier for normal
+users to set up their own, private Mumble server.
 .SH OPTIONS
 .TP
 .BI \-d \ "directory"
 Set directory to use. By default, the wrapper script uses $HOME/murmur
 .TP
 .B \-s
-Check if murmur process is running.
+Check if mumble\-server process is running.
 .TP
 .B \-k
-Terminate running murmur process.
+Terminate running mumble\-server process.
 .TP
 .B \-i
 Initialize only, do not start the server.
@@ -29,26 +29,26 @@ restrictions.
 .SH NOTES
 To create your own private server, you first want to run
 .IP
-murmur\-user\-wrapper \-i
+mumble\-server\-user\-wrapper \-i
 .LP
 Then edit ~/murmur/murmur.ini to set the various configuration settings. The
-most important is probably the port; unless you're the only murmur process
+most important is probably the port; unless you're the only mumble\-server process
 running on this server, you'll need to change it.
 
 When you're happy with your settings, you need to set the password for
 SuperUser, which is your administrator account.
 .IP
-murmur\-user\-wrapper \-p 
+mumble\-server\-user\-wrapper \-p 
 .I "<password>"
 .LP
 
 Once this is done, simply run
 .IP
-murmur\-user\-wrapper
+mumble\-server\-user\-wrapper
 .LP
 to start the server.
 .SH SEE ALSO
-.BR murmurd (1).
+.BR mumble\-server (1).
 .br
 .SH AUTHORS
-mumble and murmurd were written by The Mumble Developers.
+mumble and mumble\-server were written by The Mumble Developers.
