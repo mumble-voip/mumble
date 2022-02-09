@@ -310,9 +310,10 @@ bool processMarkdownCodeBlock(QString &str, int &offset) {
 /// @returns Whether a replacement has been made
 bool processPlainLink(QString &str, int &offset) {
 	// We support links with prefixed protocol (e.g. https://bla.com) and prefixed with www (e.g. www.bla.com)
+	// The last part of the regex matches percent encoded characters in the url
 	// See also https://stackoverflow.com/a/1547940/3907364
 	static const QRegularExpression s_regex(
-		QLatin1String("([a-zA-Z]+://|[wW][wW][wW]\\.)[A-Za-z0-9-._~:/?#\\[\\]@!$&'()*+,;=]+"));
+		QLatin1String("([a-zA-Z]+://|[wW][wW][wW]\\.)([A-Za-z0-9-._~:/?#\\[\\]@!$&'()*+,;=]|%[a-fA-F0-9]{2})+"));
 
 	QRegularExpressionMatch match =
 		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
