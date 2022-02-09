@@ -522,6 +522,7 @@ Settings::Settings() {
 	iTalkingUI_PrefixCharCount          = 3;
 	iTalkingUI_PostfixCharCount         = 2;
 	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
+	qcTalkingUI_BackgroundColor         = QColor("#000000");
 
 	qsHierarchyChannelSeparator = QLatin1String("/");
 
@@ -973,6 +974,7 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	LOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
 	LOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+	LOAD(qcTalkingUI_BackgroundColor, "ui/talkingUI_BackgroundColor");
 
 	// Load the old setting first in case it is set and then load the actual setting
 	LOAD(qsHierarchyChannelSeparator, "ui/talkingUI_ChannelSeparator");
@@ -1392,6 +1394,7 @@ void Settings::save() {
 	SAVE(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	SAVE(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
 	SAVE(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+	SAVE(qcTalkingUI_BackgroundColor, "ui/talkingUI_BackgroundColor");
 
 	DEPRECATED("ui/talkingUI_ChannelSeparator");
 	SAVE(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");

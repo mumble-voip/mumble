@@ -321,6 +321,7 @@ struct Settings {
 	int iTalkingUI_PrefixCharCount;
 	int iTalkingUI_PostfixCharCount;
 	QString qsTalkingUI_AbbreviationReplacement;
+	QColor qcTalkingUI_BackgroundColor;
 
 	QString qsHierarchyChannelSeparator;
 

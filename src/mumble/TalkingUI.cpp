@@ -752,6 +752,15 @@ void TalkingUI::on_settingsChanged() {
 		}
 	}
 
+	// Update Background Color
+	for (auto& currentContainer : m_containers) {
+		for (auto &currentEntry : currentContainer->getEntries()) {
+			if (Global::get().s.qcTalkingUI_BackgroundColor.isValid()) {
+				currentEntry->getStylableWidget().setBackgroundColor(Global::get().s.qcTalkingUI_BackgroundColor.name())
+			}
+		}
+	}
+
 	const ClientUser *self = ClientUser::get(Global::get().uiSession);
 
 	// Whether or not the current user should always be displayed might also have changed,
