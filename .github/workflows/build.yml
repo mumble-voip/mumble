@@ -5,8 +5,7 @@ on: [push, pull_request]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: |
-      -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Ddatabase-mysql-tests=ON -Ddatabase-postgresql-tests=ON
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg/'
 
 
@@ -57,6 +56,12 @@ jobs:
       run: df -BM
       shell: bash
 
+
+    # Ubuntu 18.04 does not ship a recent enough MySQL version, so we have to skip the MySQL tests there
+    - name: Disable MySQL tests on Ubuntu 18.04
+      if: ${{ matrix.os == 'ubuntu-18.04' }}
+      run: echo "CMAKE_OPTIONS=${{ env.CMAKE_OPTIONS }} -Ddatabase-mysql-tests=OFF" >> $GITHUB_ENV
+      shell: bash
 
     - uses: actions/checkout@v4
       with:

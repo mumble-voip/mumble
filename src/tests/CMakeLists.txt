@@ -30,6 +30,7 @@ endif()
 # Shared tests
 use_test("TestCryptographicHash")
 use_test("TestCryptographicRandom")
+use_test("TestDatabase")
 use_test("TestFFDHE")
 use_test("TestPacketDataStream")
 use_test("TestPasswordGenerator")
