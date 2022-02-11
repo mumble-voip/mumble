@@ -2130,6 +2130,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addAction(qaAudioWizard);
 	qmConfig->addAction(qaConfigCert);
 	qmConfig->addSeparator();
+	qaAudioTTS->setChecked(Global::get().s.bTTS);
 	qmConfig->addAction(qaAudioTTS);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
