@@ -70,7 +70,7 @@ public:
 	void setTokens(const QByteArray &digest, QStringList &tokens);
 
 	QList< Shortcut > getShortcuts(const QByteArray &digest);
-	bool setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcuts);
+	void setShortcuts(const QByteArray &digest, const QList< Shortcut > &shortcuts);
 
 	void addFriend(const QString &name, const QString &hash);
 	void removeFriend(const QString &hash);

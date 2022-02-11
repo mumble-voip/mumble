@@ -173,6 +173,7 @@ int main(int argc, char **argv) {
 
 	// This argument has to be parsed first, since it's value is needed to create the global struct,
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
+	QString settingsFile;
 	QStringList args = a.arguments();
 	const int index  = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
 	if (index >= 0) {
@@ -180,6 +181,7 @@ int main(int argc, char **argv) {
 			QFile inifile(args.at(index + 1));
 			if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
 				Global::g_global_struct = new Global(args.at(index + 1));
+				settingsFile            = args.at(index + 1);
 			} else {
 				printf("%s", qPrintable(MainWindow::tr("Configuration file %1 does not exist or is not writable.\n")
 											.arg(args.at(index + 1))));
@@ -545,7 +547,11 @@ int main(int argc, char **argv) {
 #endif
 
 	// Load preferences
-	Global::get().s.load();
+	if (settingsFile.isEmpty()) {
+		Global::get().s.load();
+	} else {
+		Global::get().s.load(settingsFile);
+	}
 
 	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
@@ -703,46 +709,11 @@ int main(int argc, char **argv) {
 
 	a.setQuitOnLastWindowClosed(false);
 
-	// Configuration updates
-	bool runaudiowizard = false;
-	switch (Global::get().s.uiUpdateCounter) {
-		case 0:
-			// Previous version was an pre 1.2.3 release or this is the first run
-			runaudiowizard = true;
-			// Fallthrough
-		case 1:
-			// Previous versions used old idle action style, convert it
-			if (Global::get().s.iIdleTime == 5 * 60) { // New default
-				Global::get().s.iaeIdleAction = Settings::Nothing;
-			} else {
-				Global::get().s.iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
-				Global::get().s.iaeIdleAction = Settings::Deafen;                             // Old behavior
-			}
-			// Fallthrough
-#ifdef Q_OS_WIN
-		case 2: {
-			QList< Shortcut > &shortcuts              = Global::get().s.qlShortcuts;
-			const QList< Shortcut > migratedShortcuts = GlobalShortcutWin::migrateSettings(shortcuts);
-			if (shortcuts.size() > migratedShortcuts.size()) {
-				const uint32_t num = shortcuts.size() - migratedShortcuts.size();
-				QMessageBox::warning(
-					nullptr, QObject::tr("Shortcuts migration incomplete"),
-					QObject::tr("Unfortunately %1 shortcut(s) could not be migrated.\nYou can register them again.")
-						.arg(num));
-			}
-
-			shortcuts = migratedShortcuts;
-		}
-#endif
-	}
-
-	if (runaudiowizard) {
+	if (!Global::get().s.audioWizardShown) {
 		AudioWizard *aw = new AudioWizard(Global::get().mw);
 		aw->exec();
 		delete aw;
 	}
-
-	Global::get().s.uiUpdateCounter = 3;
 
 	if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
 		QFile qf(qdCert.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
@@ -809,6 +780,8 @@ int main(int argc, char **argv) {
 	if (!Global::get().bQuit)
 		res = a.exec();
 
+	// Indicate that this was a regular shutdown
+	Global::get().s.mumbleQuitNormally = true;
 	Global::get().s.save();
 
 	url.clear();

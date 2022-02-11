@@ -16,6 +16,10 @@ endmacro()
 
 if(client)
 	use_test("TestXMLTools")
+	if(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
+		# For some reason Qt segfaults when executing this test on FreeBSD without a display (even when using the offscreen plugin)
+		use_test("TestSettingsJSONSerialization")
+	endif()
 endif()
 
 if(server)

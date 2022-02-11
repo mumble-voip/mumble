@@ -11,6 +11,7 @@
 #include "Database.h"
 #include "EnvUtils.h"
 #include "MainWindow.h"
+#include "ServerHandler.h"
 #include "Global.h"
 #include "GlobalShortcutButtons.h"
 
@@ -720,6 +721,16 @@ void GlobalShortcutConfig::save() const {
 
 	if (s.bEnableUIAccess != oldUIAccess || s.bEnableGKey != oldGKey || s.bEnableXboxInput != oldXboxInput) {
 		s.requireRestartToApply = true;
+	}
+
+	if (Global::get().sh && Global::get().sh->hasSynchronized()) {
+		// If we are connected to a server (that has finished synchronizing) there is the change, the user has
+		// configured server-specific shortcuts, which we save in the DB instead of in the regular settings. Thus we
+		// have to explicitly save them here.
+		// Note that the server needs to have finished synchronizing, since only then did we load any previously
+		// configured shortcuts from the DB in the first place. Otherwise, "saving" the shortcuts (which are not
+		// loaded yet) would effectively delete them.
+		Global::get().db->setShortcuts(Global::get().sh->qbaDigest, s.qlShortcuts);
 	}
 }
 

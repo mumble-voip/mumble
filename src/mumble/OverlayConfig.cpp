@@ -27,6 +27,7 @@
 #	include "../../overlay/overlay_whitelist.h"
 #endif
 
+#include <QSettings>
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
 #include <QtWidgets/QColorDialog>
@@ -425,8 +426,6 @@ void OverlayConfig::save() const {
 	s.os.bFps    = qcbShowFps->isChecked();
 	s.os.bTime   = qcbShowTime->isChecked();
 
-	// Directly save overlay config
-
 	s.os.oemOverlayExcludeMode =
 		static_cast< OverlaySettings::OverlayExclusionMode >(qcbOverlayExclusionMode->currentIndex());
 
@@ -529,14 +528,6 @@ void OverlayConfig::save() const {
 			}
 		}
 	}
-
-	Global::get().qs->beginGroup(QLatin1String("overlay"));
-	s.os.save();
-	Global::get().qs->endGroup();
-#ifdef Q_OS_WIN
-	// On MS windows force sync so the registry is updated.
-	Global::get().qs->sync();
-#endif
 }
 
 void OverlayConfig::accept() const {
@@ -838,12 +829,18 @@ void OverlayConfig::on_qpbLoadPreset_clicked() {
 		return;
 	}
 
-	QSettings qs(fn, QSettings::IniFormat);
 	OverlaySettings load_preset;
+	try {
+		// First try regular format
+		load_preset.load(fn);
+	} catch (const std::exception &) {
+		// If that fails, fall back to the legacy format
+		QSettings qs(fn, QSettings::IniFormat);
 
-	qs.beginGroup(QLatin1String("overlay"));
-	load_preset.load(&qs);
-	qs.endGroup();
+		qs.beginGroup(QLatin1String("overlay"));
+		load_preset.legacyLoad(&qs);
+		qs.endGroup();
+	}
 
 #ifdef Q_OS_WIN
 	load_preset.qslLaunchers        = s.os.qslLaunchers;
@@ -872,20 +869,5 @@ void OverlayConfig::on_qpbSavePreset_clicked() {
 		return;
 	}
 
-	QSettings qs(fn, QSettings::IniFormat);
-
-	if (!qs.isWritable()) {
-		qWarning() << __FUNCTION__ << "preset save file" << fn << "is not writable!";
-		return;
-	}
-
-	qs.beginGroup(QLatin1String("overlay"));
-	s.os.save(&qs);
-	qs.remove(QLatin1String("enable"));
-	qs.remove(QLatin1String("usewhitelist"));
-	qs.remove(QLatin1String("blacklist"));
-	qs.remove(QLatin1String("whitelist"));
-	qs.remove(QLatin1String("enablelauncherfilter"));
-	qs.remove(QLatin1String("launchers"));
-	qs.endGroup();
+	s.os.savePresets(fn);
 }

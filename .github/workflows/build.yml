@@ -67,5 +67,5 @@ jobs:
     - name: Test
       working-directory: ${{runner.workspace}}/build
       shell: bash
-      run: ctest -v -C $BUILD_TYPE
+      run: QT_QPA_PLATFORM=offscreen ctest -output-on-failure -C $BUILD_TYPE
 

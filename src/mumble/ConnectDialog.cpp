@@ -17,6 +17,7 @@
 #include "WebFetch.h"
 #include "Global.h"
 
+#include <QSettings>
 #include <QtCore/QMimeData>
 #include <QtCore/QUrlQuery>
 #include <QtCore/QtEndian>

@@ -12,6 +12,7 @@
 #include "Version.h"
 #include "Global.h"
 
+#include <QSettings>
 #include <QtCore/QStandardPaths>
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
@@ -38,7 +39,6 @@ static bool execQueryAndLogFailure(QSqlQuery &query, const QString &queryString)
 	}
 	return true;
 }
-
 
 bool Database::findOrCreateDatabase() {
 	QSettings qs;
@@ -95,6 +95,11 @@ Database::Database(const QString &dbname) {
 		if (configuredLocation.exists()) {
 			db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 			db.open();
+		} else if (!Global::get().migratedDBPath.isEmpty()) {
+			// Assume that we don't find the DB, because we have migrated it
+			db.setDatabaseName(Global::get().migratedDBPath);
+			db.open();
+			qWarning("Using migrated DB at %s", qUtf8Printable(Global::get().migratedDBPath));
 		} else {
 			int result = QMessageBox::critical(nullptr, QLatin1String("Mumble"),
 											   tr("The database file '%1' set in the configuration file does not "
@@ -272,7 +277,7 @@ QList< FavoriteServer > Database::getFavorites() {
 
 void Database::setFavorites(const QList< FavoriteServer > &servers) {
 	QSqlQuery query(db);
-	QSqlDatabase::database().transaction();
+	db.transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `servers`"));
 	execQueryAndLogFailure(query);
@@ -289,7 +294,7 @@ void Database::setFavorites(const QList< FavoriteServer > &servers) {
 		execQueryAndLogFailure(query);
 	}
 
-	QSqlDatabase::database().commit();
+	db.commit();
 }
 
 bool Database::isLocalIgnored(const QString &hash) {
@@ -440,7 +445,7 @@ void Database::setPingCache(const QMap< UnresolvedServerAddress, unsigned int > 
 	QSqlQuery query(db);
 	QMap< UnresolvedServerAddress, unsigned int >::const_iterator i;
 
-	QSqlDatabase::database().transaction();
+	db.transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `pingcache`"));
 	execQueryAndLogFailure(query);
@@ -453,7 +458,7 @@ void Database::setPingCache(const QMap< UnresolvedServerAddress, unsigned int > 
 		execQueryAndLogFailure(query);
 	}
 
-	QSqlDatabase::database().commit();
+	db.commit();
 }
 
 bool Database::seenComment(const QString &hash, const QByteArray &commenthash) {
@@ -575,23 +580,26 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 	return ql;
 }
 
-bool Database::setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcuts) {
+void Database::setShortcuts(const QByteArray &digest, const QList< Shortcut > &shortcuts) {
 	QSqlQuery query(db);
-	bool updated = false;
+
+	if (!db.transaction()) {
+		const QSqlError error(QSqlDatabase::database().lastError());
+		qWarning() << "Database: Unable to start transaction for saving shortcuts" << error.nativeErrorCode()
+				   << error.text();
+		qWarning() << "-> We'll rather not save them at all than risk potentially losing all previous shortcuts";
+
+		return;
+	}
 
 	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
 
-	const QList< Shortcut > scs = shortcuts;
-
 	query.prepare(
 		QLatin1String("INSERT INTO `shortcut` (`digest`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?)"));
-	foreach (const Shortcut &sc, scs) {
+	for (const Shortcut &sc : shortcuts) {
 		if (sc.isServerSpecific()) {
-			shortcuts.removeAll(sc);
-			updated = true;
-
 			query.addBindValue(digest);
 
 			QByteArray a;
@@ -614,7 +622,8 @@ bool Database::setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcu
 			execQueryAndLogFailure(query);
 		}
 	}
-	return updated;
+
+	db.commit();
 }
 
 const QMap< QString, QString > Database::getFriends() {
