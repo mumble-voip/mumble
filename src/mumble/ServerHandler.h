@@ -110,6 +110,12 @@ public:
 	QString qsOS;
 	QString qsOSVersion;
 
+	/**
+	 * A flag indicating whether this connection makes use of PFS or not. Note that this flag only has meaning, if the
+	 * used version of Qt is >= 5.7.
+	 */
+	bool connectionUsesPerfectForwardSecrecy = false;
+
 	boost::accumulators::accumulator_set<
 		double, boost::accumulators::stats< boost::accumulators::tag::mean, boost::accumulators::tag::variance,
 											boost::accumulators::tag::count > >
