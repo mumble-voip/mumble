@@ -8111,16 +8111,20 @@ Je kunt ze opnieuw registreren.</translation>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>De verbinding is voorzien van voorwaartse geheimhouding.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>De verbinding is NIET voorzien van voorwaartse geheimhouding.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>Geen informatie over voorwaartse geheimhouding beschikbaar.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

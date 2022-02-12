@@ -8111,16 +8111,20 @@ You can register them again.</source>
         <translation>Άγνωστο</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>Η σύνδεση παρέχει τέλεια μπροστινή μυστικότητα.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>Η σύνδεση ΔΕΝ παρέχει τέλεια μπροστινή μυστικότητα.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>Δεν υπάρχουν πληροφορίες για την μπροστινή μυστικότητα.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
