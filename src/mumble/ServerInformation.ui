@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-203</y>
+        <y>-201</y>
         <width>541</width>
-        <height>731</height>
+        <height>726</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -302,7 +302,7 @@
              <enum>QTabWidget::Rounded</enum>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="tab_2">
              <attribute name="title">
@@ -553,19 +553,6 @@
                </widget>
               </item>
               <item row="4" column="0" colspan="2">
-               <widget class="QLabel" name="connection_tcp_forwardSecrecy">
-                <property name="text">
-                 <string>&lt;forward secrecy&gt;</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-                <property name="textInteractionFlags">
-                 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="2">
                <spacer name="verticalSpacer_3">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -580,6 +567,29 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="toolTip">
+                 <string>Whether the connection supports perfect forward secrecy (PFS).</string>
+                </property>
+                <property name="text">
+                 <string>&lt;b&gt;PFS:&lt;/b&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="connection_tcp_forwardSecrecy">
+                <property name="text">
+                 <string>&lt;forward secrecy&gt;</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+                <property name="textInteractionFlags">
+                 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
