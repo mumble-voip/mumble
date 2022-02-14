@@ -9,7 +9,6 @@
 #include "MainWindow.h"
 #include "NetworkConfig.h"
 #include "SSL.h"
-#include "SSLCipherInfo.h"
 #include "ServerHandler.h"
 #include "UserModel.h"
 #include "Version.h"
@@ -99,14 +98,6 @@ void ServerInformation::updateAudioBandwidth() {
 	audio_codec->setText(currentCodec());
 }
 
-QString getCipherID(const QSslCipher &cipher, const SSLCipherInfo *cipherInfo) {
-	if (cipherInfo && cipherInfo->rfc_name) {
-		return QString::fromUtf8(cipherInfo->rfc_name);
-	}
-
-	return cipher.name();
-}
-
 void ServerInformation::updateConnectionDetails() {
 	QString latencyString          = QString::fromUtf8("%1 ms (σ = %2 ms)");
 	const ConnectionPtr connection = Global::get().sh->cConnection;
@@ -148,24 +139,19 @@ void ServerInformation::updateConnectionDetails() {
 	const float latency   = boost::accumulators::mean(Global::get().sh->accTCP);
 	const float deviation = std::sqrt(boost::accumulators::variance(Global::get().sh->accTCP));
 
-	QSslCipher cipher               = Global::get().sh->qscCipher;
-	const SSLCipherInfo *cipherInfo = SSLCipherInfoLookupByOpenSSLName(cipher.name().toLatin1().constData());
-
-	const QString cipherID = getCipherID(cipher, cipherInfo);
+	QSslCipher cipher = Global::get().sh->qscCipher;
 
 	connection_tcp_tls->setText(MumbleSSL::protocolToString(connection->sessionProtocol()).toHtmlEscaped());
 	connection_tcp_latency->setText(latencyString.arg(latency, 0, 'f', 1).arg(deviation, 0, 'f', 1));
-	connection_tcp_cipher->setText(cipherID.isEmpty() ? m_unknownStr : cipherID);
-
-	if (cipherInfo) {
-		if (cipherInfo->forward_secret) {
-			connection_tcp_forwardSecrecy->setText(tr("The connection provides perfect forward secrecy."));
-		} else {
-			connection_tcp_forwardSecrecy->setText(tr("The connection does NOT provide perfect forward secrecy."));
-		}
-	} else {
-		connection_tcp_forwardSecrecy->setText(tr("No information about forward secrecy available."));
-	}
+	connection_tcp_cipher->setText(cipher.name().isEmpty() ? m_unknownStr : cipher.name());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+	connection_tcp_forwardSecrecy->setText(Global::get().sh->connectionUsesPerfectForwardSecrecy ? tr("Yes")
+																								 : tr("No"));
+#else
+	// The Qt function we use to query for PFS inside ServerHandler is only available since Qt 5.7 and if it is
+	// unavailable, the respective boolean flag is never touched and is therefore meaningless.
+	connection_tcp_forwardSecrecy->setText(tr("Unknown"));
+#endif
 }
 
 void ServerInformation::populateUDPStatistics(const Connection &connection) {

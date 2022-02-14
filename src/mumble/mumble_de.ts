@@ -8107,16 +8107,20 @@ Sie können sie jedoch erneut registrieren.</translation>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>Die Verbindung bietet perfect forward secrecy.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>Die Verbindung bietet KEINE perfect forward secrecy.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>Keine Information über perfect forward secrecy vorhanden.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

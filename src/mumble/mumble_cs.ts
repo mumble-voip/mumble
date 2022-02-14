@@ -8014,15 +8014,19 @@ You can register them again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -8110,16 +8110,20 @@ Bunları tekrar kaydedebilirsiniz.</translation>
         <translation>Bilinmiyor</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>Bağlantı mükemmel iletme gizliliği sağlar.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>Bağlantı mükemmel bir ileri gizlilik sağlamaz.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>İletme gizliliği hakkında bilgi yok.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
