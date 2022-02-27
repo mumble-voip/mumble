@@ -9,6 +9,7 @@
 #include "mumble_positional_audio_utils.h"
 
 #include <cstring>
+#include <memory>
 
 static std::unique_ptr< Game > game;
 
