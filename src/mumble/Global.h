@@ -39,6 +39,11 @@ class TalkingUI;
 
 class QNetworkAccessManager;
 
+struct MigratedPath {
+	QString oldPath;
+	QString newPath;
+};
+
 struct Global Q_DECL_FINAL {
 private:
 	Q_DISABLE_COPY(Global)
@@ -116,6 +121,7 @@ public:
 	static const char ccHappyEaster[];
 
 	QString migratedDBPath;
+	MigratedPath migratedPluginDirPath;
 
 	Global(const QString &qsConfigPath = QString());
 	~Global() = default;

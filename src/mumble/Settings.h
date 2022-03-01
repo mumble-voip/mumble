@@ -32,6 +32,7 @@
 #include <array>
 
 class QSettings;
+struct MigratedPath;
 
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
@@ -552,6 +553,8 @@ struct Settings {
 	void load();
 
 	void legacyLoad(const QString &path = {});
+
+	void migratePluginSettings(const MigratedPath &path);
 
 private:
 	void verifySettingsKeys() const;

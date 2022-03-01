@@ -558,6 +558,9 @@ int main(int argc, char **argv) {
 		// crash.
 		Global::get().s.qsDatabaseLocation = Global::get().migratedDBPath;
 
+		// Also update all plugin settings that might be affected by the migration
+		Global::get().s.migratePluginSettings(Global::get().migratedPluginDirPath);
+
 		Global::get().s.save();
 	}
 
