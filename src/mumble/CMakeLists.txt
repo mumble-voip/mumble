@@ -27,6 +27,7 @@ option(bundled-celt "Build the included version of CELT instead of looking for o
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
+option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
@@ -472,9 +473,13 @@ else()
 endif()
 
 
-set(JSON_BuildTests OFF CACHE INTERNAL "")
-set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
-add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/")
+if(bundled-json)
+	set(JSON_BuildTests OFF CACHE INTERNAL "")
+	set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
+	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/")
+else()
+	find_pkg("nlohmann_json" REQUIRED)
+endif()
 
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
