@@ -9,12 +9,10 @@ if(NOT EXISTS "${CELT_SRC_DIR}/COPYING")
 	)
 endif()
 
-add_library(celt SHARED)
+add_library(celt MODULE)
 
 # Celt doesn't work in unity builds
 set_target_properties(celt PROPERTIES UNITY_BUILD FALSE)
-
-set_target_properties(celt PROPERTIES VERSION "0.7.0")
 
 target_compile_definitions(celt PRIVATE "HAVE_CONFIG_H")
 

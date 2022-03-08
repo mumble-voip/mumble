@@ -37,29 +37,25 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
 	QStringList alternatives;
-#if defined(Q_OS_MAC)
-	alternatives << QString::fromLatin1("libcelt0.%1.dylib").arg(celt_version);
-	alternatives << QString::fromLatin1("celt0.%1.dylib").arg(celt_version);
-	alternatives << QString::fromLatin1("libcelt.%1.dylib").arg(celt_version);
-	alternatives << QString::fromLatin1("celt.%1.dylib").arg(celt_version);
-#elif defined(Q_OS_UNIX)
-	alternatives << QString::fromLatin1("libcelt0.so.%1").arg(celt_version);
-	alternatives << QString::fromLatin1("libcelt.so.%1").arg(celt_version);
-	alternatives << QString::fromLatin1("celt.so.%1").arg(celt_version);
+#if defined(Q_OS_MAC) || defined(Q_OS_UNIX)
+	alternatives << QString::fromLatin1("libcelt0.so");
+	alternatives << QString::fromLatin1("libcelt.so");
+	alternatives << QString::fromLatin1("celt0.so");
+	alternatives << QString::fromLatin1("celt.so");
 #else
 	int cpuinfo[4];
 	__cpuid(cpuinfo, 1);
 	if (cpuinfo[3] & 0x02000000) {
 		if (cpuinfo[3] & 0x04000000) {
 			if (cpuinfo[2] & 0x00000001) {
-				alternatives << QString::fromLatin1("celt0.%1.sse3.dll").arg(celt_version);
+				alternatives << QString::fromLatin1("celt0.sse3.dll");
 			}
-			alternatives << QString::fromLatin1("celt0.%1.sse2.dll").arg(celt_version);
+			alternatives << QString::fromLatin1("celt0.sse2.dll");
 		}
-		alternatives << QString::fromLatin1("celt0.%1.sse.dll").arg(celt_version);
+		alternatives << QString::fromLatin1("celt0.sse.dll");
 	}
 
-	alternatives << QString::fromLatin1("celt0.%1.dll").arg(celt_version);
+	alternatives << QString::fromLatin1("celt0.dll");
 #endif
 	foreach (const QString &lib, alternatives) {
 		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);

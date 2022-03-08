@@ -138,7 +138,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
  		if not os.path.exists(dst):
 			os.makedirs(dst)
-		codecs = (os.path.join(options.binary_dir, 'libcelt0.0.7.0.dylib'), os.path.join(options.binary_dir, 'libopus.dylib'))
+		codecs = (os.path.join(options.binary_dir, 'libcelt0.so'), os.path.join(options.binary_dir, 'libopus.dylib'))
 		for codec in codecs:
 			if os.path.exists(codec):
 				shutil.copy(codec, dst)
@@ -298,7 +298,7 @@ def package_client():
 			os.path.join(options.binary_dir, 'Mumble.app'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Plugins/liblink.dylib'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Plugins/libmanual.dylib'),
-			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libcelt0.so'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libopus.dylib'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/MacOS/mumble-g15-helper'),
 		)
