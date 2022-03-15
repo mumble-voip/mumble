@@ -713,6 +713,8 @@ int main(int argc, char **argv) {
 		AudioWizard *aw = new AudioWizard(Global::get().mw);
 		aw->exec();
 		delete aw;
+
+		Global::get().s.audioWizardShown = true;
 	}
 
 	if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
