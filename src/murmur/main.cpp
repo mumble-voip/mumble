@@ -166,12 +166,6 @@ void IceStart();
 void IceStop();
 #endif
 
-#ifdef USE_GRPC
-// From MurmurGRPCImpl.cpp.
-void GRPCStart();
-void GRPCStop();
-#endif
-
 void cleanup(int signum) {
 	qWarning("Killing running servers");
 
@@ -186,10 +180,6 @@ void cleanup(int signum) {
 
 #ifdef USE_ICE
 	IceStop();
-#endif
-
-#ifdef USE_GRPC
-	GRPCStop();
 #endif
 
 	delete qfLog;
@@ -652,15 +642,6 @@ int main(int argc, char **argv) {
 
 #ifdef USE_ICE
 	IceStart();
-#endif
-
-#ifdef USE_GRPC
-	GRPCStart();
-#else
-	if (!meta->mp.qsGRPCAddress.isEmpty() || !meta->mp.qsGRPCCert.isEmpty() || !meta->mp.qsGRPCKey.isEmpty()) {
-		qWarning(
-			"This version of Murmur was built without gRPC support. Ignoring 'grpc' option from configuration file.");
-	}
 #endif
 
 	meta->getOSInfo();

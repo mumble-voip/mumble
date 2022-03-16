@@ -8,12 +8,12 @@ freebsd_instance:
 freebsd_task:
   pkg_script:
   - pkg update && pkg upgrade -y
-  - pkg install -y git ninja pkgconf cmake qt5-buildtools qt5-qmake qt5-linguisttools qt5-concurrent qt5-network qt5-xml qt5-sql qt5-svg qt5-testlib boost-libs libsndfile protobuf ice avahi-libdns grpc poco
+  - pkg install -y git ninja pkgconf cmake qt5-buildtools qt5-qmake qt5-linguisttools qt5-concurrent qt5-network qt5-xml qt5-sql qt5-svg qt5-testlib boost-libs libsndfile protobuf ice avahi-libdns poco
   fetch_submodules_script: git submodule --quiet update --init --recursive
   build_script:
   - mkdir build && cd build
   # We disable translations because of a critical issue in "lupdate": it's very slow and keeps CPU usage at 100%.
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dsymbols=ON -Dtranslations=OFF -Dgrpc=ON ..
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dsymbols=ON -Dtranslations=OFF ..
   - cmake --build .
   test_script:
   - cd build

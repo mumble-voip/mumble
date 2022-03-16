@@ -6,7 +6,7 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   CMAKE_OPTIONS: |
-      -Dtests=OFF -Dsymbols=ON -Dgrpc=ON
+      -Dtests=OFF -Dsymbols=ON
 
 jobs:
   CodeQL-Build:

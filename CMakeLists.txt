@@ -41,7 +41,6 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
 list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake"
-	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
 	"${3RDPARTY_DIR}/FindPythonInterpreter"
 )
 

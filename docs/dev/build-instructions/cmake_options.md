@@ -99,11 +99,6 @@ Build the g15helper executable in emulator mode. This will cause an emulated G15
 Build support for Logitech G-Keys. Note: This feature does not require any build-time dependencies, and requires Logitech Gaming Software to be installed to have any effect at runtime.
 (Default: ON)
 
-### grpc
-
-Build support for gRPC.
-(Default: OFF)
-
 ### ice
 
 Build support for Ice RPC.

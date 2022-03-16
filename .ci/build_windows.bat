@@ -50,7 +50,7 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_T
       -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
       -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe ^
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=%BUILD_NUMBER% ^
-      -Dpackaging=ON -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON -Dasio=ON -Dg15=ON ^
+      -Dpackaging=ON -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON ^
       -Ddisplay-install-paths=ON -Delevation=%MUMBLE_USE_ELEVATION% %MUMBLE_SOURCE_REPOSITORY%
 
 if errorlevel 1 (
