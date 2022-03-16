@@ -19,6 +19,8 @@ option(dbus "Build support for DBus." ON)
 
 option(tracy "Enable the tracy profiler." OFF)
 
+option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
+
 find_pkg(Qt5
 	COMPONENTS
 		Core
@@ -182,8 +184,31 @@ message(STATUS "Tracy: ${TRACY_ENABLE}")
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
 # Add the GSL
-add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl")
-target_link_libraries(shared PUBLIC GSL)
+if(bundled-gsl)
+	add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl")
+
+	target_link_libraries(shared PUBLIC GSL)
+else()
+	# First try to locate via GSL's native cmake support (via a *Config.cmake file that should have been installed alongside
+	# GSL since version 3)
+	find_pkg("Microsoft.GSL")
+
+	if (TARGET GSL)
+		target_link_libraries(shared PUBLIC GSL)
+	else()
+		# If the above failed, it could mean that there is an installation of GSL < v3.0 on this system, which does not yet
+		# provide cmake support for finding it. Thus, we have to use our custom Find-script.
+
+		# We have to avoid a name clash with the GNU scientific library, which is commonly referred to as "GSL". Thus, we refer to the
+		# guideline support library as MSGSL (Microsoft guideline support library).
+		find_pkg("MSGSL" REQUIRED)
+
+		# As we usually compile with -Werror, let the user know that warnings are expected in this case
+		message(WARNING "It seems you are using a version of GSL < 3.0, which is known to cause compile warnings (about narrowing conversions)")
+
+		target_link_libraries(shared PUBLIC MSGSL::MSGSL)
+	endif()
+endif()
 
 if(client)
 	add_subdirectory(mumble)
