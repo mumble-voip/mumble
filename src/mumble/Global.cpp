@@ -76,6 +76,10 @@ void Global::migrateDataDir(const QDir &toDir) {
 				if (currentInfo.fileName() == "mumble.sqlite") {
 					migratedDBPath = QDir(toDir.absoluteFilePath(currentInfo.fileName())).canonicalPath();
 				}
+				if (currentInfo.isDir() && currentInfo.fileName() == "Plugins") {
+					migratedPluginDirPath = { currentInfo.canonicalFilePath(),
+											  QDir(toDir.absoluteFilePath(currentInfo.fileName())).canonicalPath() };
+				}
 			}
 
 			// Only consider the first path in the list (which is expected to be the most recent one)

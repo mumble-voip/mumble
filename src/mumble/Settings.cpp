@@ -1149,6 +1149,34 @@ void Settings::legacyLoad(const QString &path) {
 	}
 }
 
+void Settings::migratePluginSettings(const MigratedPath &path) {
+	std::vector< PluginSetting > migratedSettings;
+
+	auto it = qhPluginSettings.begin();
+
+	while (it != qhPluginSettings.end()) {
+		if (it.value().path.startsWith(path.oldPath)) {
+			// Migrate the settings for this plugin
+			it.value().path.replace(path.oldPath, path.newPath);
+
+			// Move setting out of hash-map
+			migratedSettings.push_back(std::move(it.value()));
+
+			// Remove this entry
+			it = qhPluginSettings.erase(it);
+		} else {
+			it++;
+		}
+	}
+
+	// Back-insert all entries that have been migrated
+	for (const PluginSetting &current : migratedSettings) {
+		qhPluginSettings.insert(
+			QLatin1String(QCryptographicHash::hash(current.path.toUtf8(), QCryptographicHash::Sha1).toHex()),
+			std::move(current));
+	}
+}
+
 
 
 QDataStream &operator>>(QDataStream &arch, PluginSetting &setting) {

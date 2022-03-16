@@ -552,6 +552,17 @@ int main(int argc, char **argv) {
 	} else {
 		Global::get().s.load(settingsFile);
 	}
+	if (!Global::get().migratedDBPath.isEmpty()) {
+		// We have migrated the DB to a new location. Make sure that the settings hold the correct (new) path and that
+		// this path is written to disk immediately in order to minimize the risk of losing this information due to a
+		// crash.
+		Global::get().s.qsDatabaseLocation = Global::get().migratedDBPath;
+
+		// Also update all plugin settings that might be affected by the migration
+		Global::get().s.migratePluginSettings(Global::get().migratedPluginDirPath);
+
+		Global::get().s.save();
+	}
 
 	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
