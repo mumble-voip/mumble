@@ -4092,6 +4092,14 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
         <translation>Klik hier om het limiteren voor &quot;%1&quot;-gebeurtenissen te wijzigen. &lt;br /&gt; Indien aangevinkt, zullen notificaties voor dit type gebeurtenis niet verstuurd worden als het aantal gebruikers op de server hoger is dan de ingestelde drempel.</translation>
     </message>
+    <message>
+        <source>Click to enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>

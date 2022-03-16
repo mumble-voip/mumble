@@ -4092,6 +4092,14 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
         <translation>Klicken Sie hier, um %1 Events zu limitierren.&lt;br /&gt;Sofern aktiviert werden Benachrichtigungen für dieses Event nicht abgespielt wenn die Benutzeranzahl auf dem Server über der eingestellten Grenze liegt.</translation>
     </message>
+    <message>
+        <source>Click to enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>

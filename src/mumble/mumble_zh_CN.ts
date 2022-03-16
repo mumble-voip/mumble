@@ -4091,6 +4091,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
         <translation>点击此处开关 %1 事件的消息限制。&lt;br /&gt;勾选后，如果服务器上的用户超过设置的阈值，此类型事件的通知将不会被触发。</translation>
     </message>
+    <message>
+        <source>Click to enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>

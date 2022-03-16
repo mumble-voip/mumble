@@ -238,6 +238,7 @@ void LogConfig::load(const Settings &r) {
 	qcbReadBackOwn->setChecked(r.bTTSMessageReadBack);
 	qcbNoScope->setChecked(r.bTTSNoScope);
 	qcbNoAuthor->setChecked(r.bTTSNoAuthor);
+	qcbEnableTTS->setChecked(r.bTTS);
 
 #endif
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
@@ -281,6 +282,7 @@ void LogConfig::save() const {
 	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
 	s.bTTSNoScope         = qcbNoScope->isChecked();
 	s.bTTSNoAuthor        = qcbNoAuthor->isChecked();
+	s.bTTS                = qcbEnableTTS->isChecked();
 #endif
 	s.bWhisperFriends            = qcbWhisperFriends->isChecked();
 	s.iMessageLimitUserThreshold = qsbMessageLimitUsers->value();

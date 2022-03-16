@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>496</height>
+    <width>650</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,17 +79,62 @@
       <string>Text To Speech</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qlVolume">
-        <property name="text">
-         <string>Volume</string>
+      <item row="2" column="3">
+       <widget class="QCheckBox" name="qcbReadBackOwn">
+        <property name="toolTip">
+         <string>If enabled text messages you send will be read back to you with TTS</string>
         </property>
-        <property name="buddy">
-         <cstring>qsVolume</cstring>
+        <property name="text">
+         <string>Read back own messages</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="3">
+      <item row="2" column="0">
+       <widget class="QLabel" name="qlThreshold">
+        <property name="text">
+         <string>Length threshold</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbThreshold</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="qcbEnableTTS">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>Click to enable Text-to-Speech</string>
+        </property>
+        <property name="text">
+         <string>Enable Text-to-Speech</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="qsbThreshold">
+        <property name="toolTip">
+         <string>Message length threshold for Text-To-Speech Engine</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::PlusMinus</enum>
+        </property>
+        <property name="suffix">
+         <string> Characters</string>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="3">
        <widget class="QSlider" name="qsVolume">
         <property name="toolTip">
          <string>Volume of Text-To-Speech Engine</string>
@@ -118,48 +163,16 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="qlThreshold">
+       <widget class="QLabel" name="qlVolume">
         <property name="text">
-         <string>Length threshold</string>
+         <string>Volume</string>
         </property>
         <property name="buddy">
-         <cstring>qsbThreshold</cstring>
+         <cstring>qsVolume</cstring>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="qsbThreshold">
-        <property name="toolTip">
-         <string>Message length threshold for Text-To-Speech Engine</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::PlusMinus</enum>
-        </property>
-        <property name="suffix">
-         <string> Characters</string>
-        </property>
-        <property name="maximum">
-         <number>5000</number>
-        </property>
-        <property name="singleStep">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="qcbReadBackOwn">
-        <property name="toolTip">
-         <string>If enabled text messages you send will be read back to you with TTS</string>
-        </property>
-        <property name="text">
-         <string>Read back own messages</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="0" column="1">
        <widget class="QCheckBox" name="qcbNoScope">
         <property name="toolTip">
          <string>If enabled, TTS will not dictate the message scope.</string>
@@ -169,7 +182,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="0" column="3">
        <widget class="QCheckBox" name="qcbNoAuthor">
         <property name="toolTip">
          <string>If enabled, TTS will not dictate the message author.</string>
