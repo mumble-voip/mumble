@@ -56,6 +56,8 @@
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
 
+#include <memory>
+
 #ifdef USE_DBUS
 #	include <QtDBus/QDBusInterface>
 #endif
@@ -710,9 +712,8 @@ int main(int argc, char **argv) {
 	a.setQuitOnLastWindowClosed(false);
 
 	if (!Global::get().s.audioWizardShown) {
-		AudioWizard *aw = new AudioWizard(Global::get().mw);
-		aw->exec();
-		delete aw;
+		auto wizard = std::make_unique< AudioWizard >(Global::get().mw);
+		wizard->exec();
 
 		Global::get().s.audioWizardShown = true;
 	}
