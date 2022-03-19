@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>ముంబుల్-  %1 ను సవరించు </translation>
+        <translation>ముంబుల్- %1 ను సవరించు</translation>
     </message>
     <message>
         <source>ID: %1</source>
