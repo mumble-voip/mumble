@@ -8012,11 +8012,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukendt</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8028,11 +8028,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nej</translation>
     </message>
 </context>
 <context>
@@ -8262,28 +8262,28 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
         <translation>
-            <numerusform>Registrerede brugere: %n konto(er)</numerusform>
-            <numerusform>Registrerede brugere: %n konto(er)</numerusform>
+            <numerusform>Registrerede brugere: %n konto</numerusform>
+            <numerusform>Registrerede brugere: %n kontoer</numerusform>
         </translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Søg</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Brugerliste</translation>
     </message>
 </context>
 <context>
     <name>UserInformation</name>
     <message>
         <source>User Information</source>
-        <translation>Bruger Information</translation>
+        <translation>Brugerinfo</translation>
     </message>
     <message>
         <source>Connection Information</source>
-        <translation>Forbindelses Information</translation>
+        <translation>Forbindelsesinfo</translation>
     </message>
     <message>
         <source>Version</source>
