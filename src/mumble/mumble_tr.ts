@@ -4093,11 +4093,11 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Metin okumayı etkinleştirmek için tıklayın</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Metin Okumayı Etkinleştir</translation>
     </message>
 </context>
 <context>
@@ -6351,7 +6351,7 @@ Geçerli eylemler şunlardır:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçersiz ayar dosyası bulundu.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -7735,23 +7735,23 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Olası bozuk ayarlar</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Yedeklenen ayarlar yüklensin mi?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble&apos;ın normal bir şekilde kapanmadığı görülüyor. Uygulamayı kasıtlı olarak sonlandırmadıysanız, bu, kullanılan ayarların bir çökmeye neden olduğu anlamına gelebilir. Onun yerine ayarın yedeklemesini yüklemek istiyor musunuz?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Yedeklenen ayarlar da Mumble normal bir şekilde çıkmadan kaydedilmiş görünüyor (olası bir çökme olabilir).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayarlarla tekrarlanan çökmeler yaşarsanız, tüm ayarları öntanımlı değerlerine sıfırlamak için &lt;pre&gt;%1&lt;/pre&gt; ve &lt;pre&gt;%2&lt;/pre&gt; konumundaki ayar dosyalarını elle silmeniz gerekebilir.</translation>
     </message>
 </context>
 <context>
@@ -8061,19 +8061,19 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantının kusursuz ileri gizliliği (perfect forward secrecy - PFS) destekleyip desteklemediği.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Hayır</translation>
     </message>
 </context>
 <context>
