@@ -3411,7 +3411,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Το σύστημα Γενικών Συντομεύσεων του Mumble δεν λειτουργεί σε συνδιασμό με το πρωτόκολλο Wayland. Για περισσότερες πληροφορίες επισκεφτείτε το &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -4062,7 +4062,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Διάφορα</translation>
+        <translation>Διάφορα.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4094,11 +4094,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Πατήστε για ενεργοποίηση Κείμενο-σε-Ομιλία</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση Κείμενο-σε-Ομιλία</translation>
     </message>
 </context>
 <context>
@@ -5313,7 +5313,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Enter What&apos;s This? mode</source>
-        <translation>Εισαγωγή στη λειτουργία Τι Είναι Αυτό;</translation>
+        <translation>Εισαγωγή σε λειτουργία &apos;Τι Είναι Αυτό;&apos;</translation>
     </message>
     <message>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
@@ -6352,7 +6352,7 @@ Valid actions are:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αντιμετωπίστηκε μη έγκυρο αρχείο ρυθμίσεων.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6973,7 +6973,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation>Εμφανίζει ένα ρολόι στην επικάλυψη που δείχνει την τρέχουσα τοπική ώρα (ώρα συστήματος).</translation>
+        <translation>Εμφάνιση ενός ρολογιού στην επικάλυψη που δείχνει την τρέχουσα τοπική ώρα (ώρα συστήματος).</translation>
     </message>
     <message>
         <source>Show Clock</source>
@@ -7736,23 +7736,23 @@ You can register them again.</source>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Πιθανώς χαλασμένες ρυθμίσεις</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Να φορτωθεί το αντίγραφο ρυθμίσεων;</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Φαίνεται ότι το Mumble δεν πραγματοποίησε έναν κανονικό τερματισμό λειτουργίας. Αν δεν τερματίσατε την εφαρμογή σκόπιμα, αυτό μπορεί να σημαίνει ότι οι ρυθμίσεις που χρησιμοποιήθηκαν προκάλεσαν μια κατάρρευση. Θέλετε εναλλακτικά να φορτώσετε το αντίγραφο ρυθμίσεων;</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Το αντίγραφο ρυθμίσεων επίσης φαίνεται να έχει σωθεί χωρίς το Mumble να είχε ένα κανονικό τερματισμό (πιθανή ένδειξη κατάρρευσης).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν αντιμετωπίζεται επανηλλειμένες καταρρεύσεις με αυτές τις ρυθμίσεις, ίσως θα χρειαστεί να διαγράψετε χειροκίνητα τα αρχεία ρυθμίσεων στο &lt;pre&gt;%1&lt;/pre&gt; και στο &lt;pre&gt;%2&lt;/pre&gt; , έτσι ώστε να επανέλθουν οι ρυθμίσεις στις προεπιλεγμένες τιμές τους.</translation>
     </message>
 </context>
 <context>
@@ -8062,19 +8062,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν η σύνδεση υποστηρίζει τέλεια προώθηση απορρήτου(ΤΠΑ).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ΤΠΑ:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ναι</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Όχι</translation>
     </message>
 </context>
 <context>
@@ -8785,11 +8785,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
-        <translation>Digest (SHA-1): %1</translation>
+        <translation>Αφομοίωση (SHA-1): %1</translation>
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation>Digest (SHA-256): %1</translation>
+        <translation>Αφομοίοση (SHA-256): %1</translation>
     </message>
     <message>
         <source>Email: %1</source>
@@ -8949,7 +8949,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεν είναι δυνατόν να αρχίσει η ηχογράφιση - η έξοδος ήχου δεν είναι ρυθμισμένη σωστά (συχνότητα δείγματος 0Hz)</translation>
     </message>
 </context>
 <context>
