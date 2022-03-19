@@ -88,8 +88,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Poziția&lt;/b&gt;&lt;br/&gt;
-Valoarea această vă permite să schimbați modul in care Mumble aranjează canalele in arbore. Un canal cu &lt;i&gt;poziția&lt;/i&gt; mai mare va fi mereu plasat sub una cu o &lt;i&gt;poziție&lt;/i&gt; mai mică și invers. În cazul în care &lt;i&gt;poziția&lt;/i&gt; celor doua canale este egala vor fi sortate in mod alfabetic.</translation>
+        <translation type="unfinished">&lt;b&gt;Poziția&lt;/b&gt;&lt;br/&gt;
+Această valoare vă permite să schimbați modul în care Mumble aranjează canalele in arbore. Un canal cu &lt;i&gt;poziția&lt;/i&gt; mai mare va fi mereu plasat sub una cu o &lt;i&gt;poziție&lt;/i&gt; mai mică și invers. În cazul în care &lt;i&gt;poziția&lt;/i&gt; celor doua canale este egală, vor fi sortate in mod alfabetic.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -117,27 +117,27 @@ Valoarea această vă permite să schimbați modul in care Mumble aranjează can
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Preia membrii grupului din sursa</translation>
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"></translation>
+        <translation>Preia</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite funcțiile grupului să fie preluate de celelalte canale</translation>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation type="unfinished"></translation>
+        <translation>Preluabil</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Funcțiile grupului au fost preluate de la canalul mamă</translation>
     </message>
     <message>
         <source>Inherited</source>
-        <translation type="unfinished"></translation>
+        <translation>Preluat</translation>
     </message>
     <message>
         <source>Members</source>
@@ -169,23 +169,23 @@ Valoarea această vă permite să schimbați modul in care Mumble aranjează can
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrei să preiei ACL din sursă?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta configurează dacă ACLul deasupra liniei de canale mamă sunt aplicate către acest obiect. Numai aceste intrări care sunt marcate în sursă ca &quot;Aplică către restul canalelor&quot; vor fi preluate.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"></translation>
+        <translation>Preia ACLuri</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation>Muta intrarea in sus</translation>
+        <translation>Mută intrarea în sus</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acesta mută intrările deasupra în listă. În timp ce intrările sunt evaluate în ordine, aceasta poate schimba permisiunile efective ale utilizatorilor. Nu poți muta o intrare deasupra intrării preluate, dacă chiar ai nevoie de asta trebuie să duplici intrarea preluată.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -221,7 +221,7 @@ Valoarea această vă permite să schimbați modul in care Mumble aranjează can
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Elimină intrarea selectată în prezent</translation>
+        <translation>Elimină intrarea selectată în prezent.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -268,11 +268,11 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conține o listă cu membrii în care grup nu va fi preluat de către canalul mamă.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conșine o listă cu membrii preluați de către alte canale.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
@@ -308,7 +308,7 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupe în care se aplică această intrare</translation>
     </message>
     <message>
         <source>User ID</source>
@@ -316,7 +316,7 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizatori în care se aplică această intrare</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
@@ -352,7 +352,7 @@ Aceastea sunt toate grupurile definite în prezent pentru canal. Pentru a crea u
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Preluabil&lt;/b&gt;&lt;br /&gt;Aceasta face această grupă preluabilă de către celelalte canale. Dacă grupa nu este preluabilă, celelalte canale încă au dreptul de a crea un nou grup cu același nume.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
@@ -1924,7 +1924,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Setări notificare</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
@@ -2032,31 +2032,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem de intrare</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispozitiv de intrare</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem de ieșire</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispozitiv de ieșire</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Latență ieșire</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplificare maximă</translation>
     </message>
     <message>
         <source>VAD level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel VAD</translation>
     </message>
     <message>
         <source>PTT shortcut</source>
@@ -2115,11 +2115,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Listă banuri</translation>
     </message>
     <message>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Casetă de căutare</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
@@ -2131,11 +2131,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Fără nickname</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresa IP</translation>
     </message>
     <message>
         <source>No IP address</source>
@@ -2147,7 +2147,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Fără motiv</translation>
     </message>
     <message>
         <source>Ban end date</source>
@@ -2159,7 +2159,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Hashul certificatului</translation>
     </message>
     <message>
         <source>No certificate hash</source>
@@ -2167,7 +2167,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilzatori banați</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
@@ -2211,7 +2211,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresa IP</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2219,11 +2219,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Dată-timp început</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Dată-timp final</translation>
     </message>
 </context>
 <context>
@@ -2242,7 +2242,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dată expirare</translation>
     </message>
     <message>
         <source>(none)</source>
@@ -2309,15 +2309,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat curent</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat pentru import</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolă certificat</translation>
     </message>
     <message>
         <source>Certificate to import</source>
@@ -2325,7 +2325,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat nou</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2333,22 +2333,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresă email</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>Numele tău</translation>
     </message>
 </context>
 <context>
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Manager certificate</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Autentificare certificat</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
@@ -2356,7 +2356,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat curent</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
@@ -2368,7 +2368,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Crează un nou certificat</translation>
     </message>
     <message>
         <source>This will create a new certificate.</source>
@@ -2376,7 +2376,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Importă certificat dintr-un fișier</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
@@ -2404,7 +2404,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import certificat PKCS #12</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
@@ -2417,7 +2417,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Nume fișier de importat din</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2441,7 +2441,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolă pentru fișierul PKS #12</translation>
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
@@ -2505,7 +2505,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation type="unfinished"></translation>
+        <translation>Nume de fișier de exportat în</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
@@ -2613,7 +2613,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta nu prezintă privilegii.</translation>
     </message>
     <message>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
@@ -2733,7 +2733,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Scrie mesajul pe chat&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Unable to send image: too large.</source>
