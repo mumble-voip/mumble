@@ -15,7 +15,9 @@
 #include "Server.h"
 #include "ServerDB.h"
 #include "Version.h"
+
 #include <csignal>
+#include <iostream>
 
 #ifdef Q_OS_WIN
 #	include "About.h"
@@ -340,9 +342,10 @@ int main(int argc, char **argv) {
 			detach = false;
 		} else if ((arg == "-v")) {
 			bVerbose = true;
-		} else if ((arg == "-version") || (arg == "--version")) {
-			detach = false;
-			qInfo("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+		} else if ((arg == "-version") || (arg == "--version") || (arg == "-V")) {
+			// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
+			// using e.g. qWarning
+			std::cout << "Mumble server version " << Version::toString(Version::getRaw()).toStdString() << std::endl;
 			return 0;
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 #ifdef Q_OS_WIN
@@ -375,6 +378,7 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
+				  "  -V, --version          Print version information and exit\n"
 				  "  -ini <inifile>         Specify ini file to use.\n"
 				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
