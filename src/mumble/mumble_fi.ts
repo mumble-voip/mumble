@@ -6286,10 +6286,6 @@ Sallitut toiminnot ovat:
 </translation>
     </message>
     <message>
-        <source>Directory %1 does not exist.</source>
-        <translation>Hakemistoa %1 ei ole olemassa.</translation>
-    </message>
-    <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
         <translation>Vaihda TalkingUI</translation>
@@ -6413,6 +6409,11 @@ Valid options are:
                 If the format is invalid, Mumble will error.
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory %1 does not exist.
 </source>
         <translation type="unfinished"></translation>
     </message>

@@ -2233,7 +2233,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Søg</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2909,7 +2909,7 @@ Er du sikker på du vil erstatte dit certifikat?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ukendt</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2973,7 +2973,7 @@ Er du sikker på du vil erstatte dit certifikat?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Søg</translation>
     </message>
     <message>
         <source>Location</source>
@@ -3466,7 +3466,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ukendt</translation>
     </message>
 </context>
 <context>
@@ -4510,7 +4510,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Søg</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -6273,7 +6273,7 @@ Valid actions are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Søg</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -7810,7 +7810,7 @@ You can register them again.</source>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Søg</translation>
     </message>
     <message>
         <source>Enter search String...</source>

@@ -6301,10 +6301,6 @@ Mulige handlinger:
 </translation>
     </message>
     <message>
-        <source>Directory %1 does not exist.</source>
-        <translation type="unfinished">Mappen %1 finnes ikke.</translation>
-    </message>
-    <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
         <translation>Veksle snakkings-grensesnitt</translation>
@@ -6428,6 +6424,11 @@ Valid options are:
                 If the format is invalid, Mumble will error.
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory %1 does not exist.
 </source>
         <translation type="unfinished"></translation>
     </message>

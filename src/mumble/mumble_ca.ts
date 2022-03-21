@@ -1061,7 +1061,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -1109,7 +1109,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1121,15 +1121,15 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Àudio per paquet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Qualitat de la compressió (pic d&apos;ample de banda)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supressió de soroll</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1149,7 +1149,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acció inactiva</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1161,7 +1161,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1172,11 +1172,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interfície</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema</translation>
     </message>
     <message>
         <source>Output method for audio</source>
@@ -1184,7 +1184,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu</translation>
     </message>
     <message>
         <source>Output device for audio</source>
@@ -1370,11 +1370,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Això obre el dispositiu en mode exclusiu.&lt;/b&gt;&lt;br /&gt;Cap altra aplicació podrà utilitzar el dispositiu.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Exclusiu</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
@@ -1657,11 +1657,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Això mostra la configuració actual de detecció de veu.&lt;/b&gt;&lt;br /&gt;Podeu canviar la configuració des del diàleg Configuració o des de l&apos;assistent d&apos;àudio.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
@@ -1716,7 +1716,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Selecció de dispositiu</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1728,15 +1728,15 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mètode d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu</translation>
     </message>
     <message>
         <source>Input device to use</source>
@@ -2020,7 +2020,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Aquest és el mètode d&apos;entrada que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -7175,7 +7175,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Configura</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7588,7 +7588,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -8009,11 +8009,11 @@ You can register them again.</source>
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iniciar</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8095,7 +8095,7 @@ You can register them again.</source>
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8103,7 +8103,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iniciar</translation>
     </message>
 </context>
 <context>
@@ -8790,7 +8790,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Cercar...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>

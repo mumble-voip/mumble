@@ -1081,7 +1081,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispozitiv de intrare</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -1129,7 +1129,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Amplificare maximă</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
@@ -1461,11 +1461,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistem de ieșire</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispozitiv de ieșire</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
@@ -1477,7 +1477,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Latență ieșire</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
@@ -2485,7 +2485,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Certificat nou</translation>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
@@ -8243,7 +8243,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adresa IP</translation>
     </message>
     <message>
         <source>CELT Versions</source>
