@@ -26,7 +26,6 @@ Global &Global::get() {
 
 void Global::migrateDataDir(const QDir &toDir) {
 	if (toDir.exists()) {
-		qWarning("No migration to be performed");
 		// The new directory already exists -> don't perform any migration
 		return;
 	}
