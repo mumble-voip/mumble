@@ -6286,128 +6286,6 @@ Valid actions are:
 </translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>Χρήση: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; καθορίζει μια διεύθυνση URL για σύνδεση μετά την εκκίνηση αντί να εμφανίζεται
-το παράθυρο σύνδεσης και έχει την ακόλουθη φόρμα:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; είναι μια λίστα με αρχεία προσθέτων που θα εγκατασταθούν
-Η παράμετρος του ερωτήματος έκδοσης πρέπει να οριστεί για να κληθεί η
-σωστή έκδοση πελάτη. Αυτή τη στιγμή είναι προεπιλεγμένη σε 1.2.0. 
-
-Έγκυρες επιλογές είναι:
-  -h, --help    Εμφάνιση αυτού το κειμένου και έξοδος.
-  -m, --multiple
-                Να επιτρέπεται η εκκίνηση πολλών εμφανίσεων του πελάτη. 
-  -c, --config
-                Καθορίστε ένα εναλλακτικό αρχείο διαμόρφωσης.
-                Εάν το χρησιμοποιείτε για την εκτέλεση πολλών εμφανίσεων του Mumble ταυτόχρονα,
-                βεβαιωθείτε ότι έχετε ορίσει μια εναλλακτική τιμή &quot;βάσης δεδομένων&quot; στη διαμόρφωση. 
-  --default-certificate-dir &lt;dir&gt;
-                Καθορίστε μια εναλλακτική προεπιλεγμένη διαδρομή πιστοποιητικού.
-                Αυτή η διαδρομή χρησιμοποιείται μόνο εάν δεν έχει φορτωθεί πιστοποιητικό
-                από τις ρυθμίσεις. 
-  -n, --noidentity
-                Καταργήστε τη φόρτωση αρχείων ταυτότητας (δηλ. Πιστοποιητικά).
-  -jn, --jackname &lt;arg&gt;
-                Ορίστε προσαρμοσμένο Jack όνομα πελάτη.
-  --license
-                Εμφάνιση της άδειας Mumble.
-  --authors
-                Εμφάνιση των συντακτών Mumble. 
-  --third-party-licenses
-                Εμφάνιση αδειών χρήσης λογισμικού τρίτου μέρους που χρησιμοποιείται από το Mumble.
-  --window-title-ext &lt;arg&gt;
-                Ορίζει μια προσαρμοσμένη επέκταση τίτλου παραθύρου.
-  --dump-input-streams
-                Απορρίψτε ροές PCM σε διάφορα μέρη της αλυσίδας εισόδου
-                (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων)
-                - ακατέργαστη είσοδος μικροφώνου
-                - ανάγνωση ηχείου για ακύρωση ηχώ
-                - επεξεργασμένη είσοδος μικροφώνου 
-  --print-echocancel-queue
-                Εκτυπώστε στο stdout την κατάσταση αναμονής ακύρωσης ηχώ
-                (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων) 
-  --translation-dir &lt;dir&gt;
-                Καθορίζει μια πρόσθετη μετάφραση έλατος &lt;dir&gt; στην οποία
-                Το Mumble θα αναζητήσει αρχεία μετάφρασης που θα αντικαταστήσουν
-                τα πακέτα
-                Οι κατάλογοι που προστίθενται με αυτόν τον τρόπο έχουν μεγαλύτερη προτεραιότητα από ό,τι
-                οι προεπιλεγμένες θέσεις που χρησιμοποιούνται διαφορετικά 
-  --print-translation-dirs
-                Εκτυπώστε τις διαδρομές στις οποίες θα ψάξει το Mumble
-                αρχεία μετάφρασης που αντικαθιστούν τα ομαδοποιημένα αρχεία.
-                (Χρήσιμο για μεταφραστές που δοκιμάζουν τις μεταφράσεις τους) 
-  --locale &lt;locale&gt;
-                Αντικαταστήστε την τοπική ρύθμιση στις ρυθμίσεις του Mumble με μία
-                θέση που αντιστοιχεί στη δεδομένη συμβολοσειρά τοπικής ρύθμισης.
-                Εάν η μορφή δεν είναι έγκυρη, το Mumble θα δείξει σφάλμα.
-                Διαφορετικά, η τοπική ρύθμιση θα αποθηκευτεί οριστικά στο
-                Οι ρυθμίσεις του Mumble.
-</translation>
-    </message>
-    <message>
         <source>Directory %1 does not exist.
 </source>
         <translation>Ο κατάλογος %1 δεν υπάρχει.
@@ -6474,6 +6352,70 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -V, --version Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation fir &lt;dir&gt; in which
+                Mumble will search for translation files that overwrite
+                the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
