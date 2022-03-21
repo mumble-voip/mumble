@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Això revoca el privilegi %1. Si es permet un privilegi i es nega, es nega. 2</translation>
+        <translation>Això revoca el privilegi %1. Si es permet un privilegi i es nega, es nega. &lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Introduïu aquí el nom del canal</translation>
+        <translation>Introduïu aquí el nom del canal.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Introduïu aquí la contrasenya del canal</translation>
+        <translation>Introduïu aquí la contrasenya del canal.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -89,7 +89,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-Aquest valor us permet canviar la manera en què Mumble organitza els canals de l&apos;arbre. Un canal amb un valor de &lt;i&gt;Position&lt;/i&gt;  més alt sempre es col·locarà per sota d&apos;un amb un valor més baix i a l&apos;inrevés. Si el valor de &lt;i&gt;Position&lt;/i&gt; posició de dos canals és igual s&apos;ordenaran alfabèticament pel seu nom.</translation>
+Aquest valor us permet canviar la manera en què Mumble organitza els canals de l&apos;arbre. Un canal amb un valor de &lt;i&gt;Position&lt;/i&gt; més alt sempre es col·locarà per sota d&apos;un amb un valor més baix i a l&apos;inrevés. Si el valor de &lt;i&gt;Position&lt;/i&gt; posició de dos canals és igual s&apos;ordenaran alfabèticament pel seu nom.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -205,7 +205,7 @@ Aquest valor us permet canviar la manera en què Mumble organitza els canals de 
     </message>
     <message>
         <source>Add new entry</source>
-        <translation>Afegir nova entrada.</translation>
+        <translation>Afegir nova entrada</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
@@ -348,15 +348,15 @@ Aquests són tots els grups definits actualment per al canal. Per crear un grup 
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Hereta&lt;/b&gt;&lt;br /&gt;Això hereta tots els membres del grup del pare, si el grup està marcat com a &lt;i&gt;Heretable&lt;/i&gt; al canal principal.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Heretable&lt;/b&gt;&lt;br /&gt;Això fa que aquest grup sigui heretable per als subcanals. Si el grup no és heretable, els subcanals encara són gratuïts per crear un grup nou amb el mateix nom.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Heretat&lt;/b&gt;&lt;br /&gt;Això indica que el grup s&apos;ha heretat del canal principal. No podeu editar aquesta marca, és només per informació.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
@@ -367,46 +367,48 @@ Aquesta llista conté tots els membres que han estat afegits al grup pel canal a
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Membres exclosos&lt;/b&gt;&lt;br /&gt;
+Conté una llista de membres la pertinença al grup dels quals no s&apos;heretarà del canal principal.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Membres heretats&lt;/b&gt;&lt;br /&gt;
+Conté la llista de membres heretada pel canal actual. Desmarqueu &lt;i&gt;Heretar&lt;/i&gt; per evitar l&apos;herència dels canals de nivell superior.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Això controla a quin grup d&apos;usuaris s&apos;aplica aquesta entrada&lt;br /&gt;Tingueu en compte que el grup s&apos;avalua en el context del canal on s&apos;utilitza l&apos;entrada. Per exemple, l&apos;ACL per defecte del canal arrel proporciona permisos d&apos;&lt;i&gt;Escriptura&lt;/i&gt;  a l&apos; &lt;i&gt;administrador&lt;/i&gt; del grup. Aquesta entrada, si l&apos;hereta un canal, donarà privilegis d&apos;escriptura a l&apos;usuari si pertany al grup&lt;i&gt;administrador&lt;/i&gt;  en aquest canal, encara que no pertanyi al grup &lt;i&gt;admin&lt;/i&gt; al canal on s&apos;ha originat l&apos;ACL.&lt;br /&gt;Si un nom de grup comença per &quot;!&quot;, La seva pertinença es nega i si comença per  &apos;~&apos;, s&apos;avalua en el canal on es va definir l&apos;ACL, en lloc del canal en què està activa l&apos;ACL.&lt;br /&gt;Si el nom d&apos;un grup comença per &apos;#&apos;, s’interpreta com un testimoni d’accés. Els usuaris han d&apos;haver introduït el que sigui a continuació de la &apos;#&apos; de la seva llista de testimonis d&apos;accés per coincidir. Això es pot utilitzar per a un accés de contrasenya molt simple als canals per a usuaris no autenticats.&lt;br /&gt;Si el nom d&apos;un grup comença amb &apos;$&apos;, només coincidirà amb els usuaris el resum del certificat dels quals coincideixi amb el que segueix el  &apos;$&apos;.&lt;br /&gt;Hi ha alguns grups predefinits especials
-&#xa0;:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tothom coincidirà.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tots els usuaris autenticats coincidiran.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuari actualment en un mínim de subcanal &lt;i&gt;a&lt;/i&gt; pares comuns, i entre &lt;i&gt;b&lt;/i&gt; i &lt;i&gt;c&lt;/i&gt; canals a sota de la cadena. Consulteu el lloc web per obtenir documentació més extensa sobre aquest.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Els usuaris que estan actualment al canal coincidiran (conveniència per &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Els usuaris fora del canal coincidiran (conveniència per &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Tingueu en compte que una entrada s’aplica a un usuari o a un grup, no a tots dos</translation>
+        <translation>Això controla a quin grup d&apos;usuaris s&apos;aplica aquesta entrada&lt;br /&gt;Tingueu en compte que el grup s&apos;avalua en el context del canal on s&apos;utilitza l&apos;entrada. Per exemple, l&apos;ACL per defecte del canal arrel proporciona permisos d&apos;&lt;i&gt;Escriptura&lt;/i&gt; a l&apos; &lt;i&gt;administrador&lt;/i&gt; del grup. Aquesta entrada, si l&apos;hereta un canal, donarà privilegis d&apos;escriptura a l&apos;usuari si pertany al grup&lt;i&gt;administrador&lt;/i&gt; en aquest canal, encara que no pertanyi al grup &lt;i&gt;admin&lt;/i&gt; al canal on s&apos;ha originat l&apos;ACL.&lt;br /&gt;Si un nom de grup comença per &quot;!&quot;, La seva pertinença es nega i si comença per &apos;~&apos;, s&apos;avalua en el canal on es va definir l&apos;ACL, en lloc del canal en què està activa l&apos;ACL.&lt;br /&gt;Si el nom d&apos;un grup comença per &apos;#&apos;, s’interpreta com un testimoni d’accés. Els usuaris han d&apos;haver introduït el que sigui a continuació de la &apos;#&apos; de la seva llista de testimonis d&apos;accés per coincidir. Això es pot utilitzar per a un accés de contrasenya molt simple als canals per a usuaris no autenticats.&lt;br /&gt;Si el nom d&apos;un grup comença amb &apos;$&apos;, només coincidirà amb els usuaris el resum del certificat dels quals coincideixi amb el que segueix el &apos;$&apos;.&lt;br /&gt;Hi ha alguns grups predefinits especials:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tothom coincidirà.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tots els usuaris autenticats coincidiran.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuari actualment en un mínim de subcanal &lt;i&gt;a&lt;/i&gt; pares comuns, i entre &lt;i&gt;b&lt;/i&gt; i &lt;i&gt;c&lt;/i&gt; canals a sota de la cadena. Consulteu el lloc web per obtenir documentació més extensa sobre això.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Els usuaris que estan actualment al canal coincidiran (conveniència per &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Els usuaris fora del canal coincidiran (conveniència per &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Tingueu en compte que una entrada s’aplica a un usuari o a un grup, no a tots dos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Contrasenya&lt;/b&gt;&lt;br /&gt;Aquest camp us permet configurar i canviar fàcilment la contrasenya d&apos;un canal. Utilitza la funció de fitxes d&apos;accés de Mumble en segon pla. Utilitzeu ACL i grups si necessiteu un control d&apos;accés més gran i potent.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra totes les entrades actives en aquest canal. Les entrades heretades dels canals principals es mostraran en cursiva.&lt;br /&gt;Les ACL s&apos;avaluen de dalt a baix, és a dir, la prioritat augmenta a mesura que us moveu per la llista.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>ID del canal.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Màxim d&apos;usuaris</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre màxim d&apos;usuaris permès al canal</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Màxim d&apos;usuaris&lt;/b&gt;&lt;br /&gt;
+Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al canal. Si el valor és superior a zero, només aquest nombre d&apos;usuaris podrà entrar al canal. Si el valor és zero, el nombre màxim d&apos;usuaris del canal ve donat pel límit predeterminat del servidor.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest és l&apos;ordre d&apos;ordenació del canal.</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -414,605 +416,605 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrasenya del canal</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Màxim d&apos;usuaris</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del canal</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membres heretats del grup</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membres del grup estranger</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membres del canal heretats</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegeix membres al grup</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista d&apos;entrades ACL</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Targeta ALSA predeterminada</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obrir l&apos;entrada ALSA escollida: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Targeta ALSA predeterminada</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obrir la sortida ALSA escollida: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obtenir el nom (nom llarg) de la targeta de so: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obtenir el nom de la targeta de so: %1</translation>
     </message>
 </context>
 <context>
     <name>ASIOConfig</name>
     <message>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (versió %2)</translation>
     </message>
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 -&gt; %2 buffer de mostres, amb %3 resolució de mostres (%4 preferit) a %5 Hz</translation>
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>La inicialització ASIO ha fallat: %1</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut crear una instancia del controlador ASIO</translation>
     </message>
     <message>
         <source>ASIO</source>
-        <translation type="unfinished"></translation>
+        <translation>ASIO</translation>
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecció de dispositiu</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu</translation>
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu per utilitzar per al micròfon</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això tria quin dispositiu es consulta. Encara heu de consultar el dispositiu i seleccionar quins canals voleu utilitzar.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Consulta el dispositiu seleccionat</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això consulta el dispositiu seleccionat per als canals. Tingueu en compte que molts controladors ASIO tenen errors extrems, i consultar-los pot provocar una fallada de l&apos;aplicació o del sistema.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consulta</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura el dispositiu seleccionat</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això configura el dispositiu seleccionat. Tingueu en compte que molts controladors ASIO tenen errors extrems, i consultar-los pot provocar una fallada de l&apos;aplicació o del sistema.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configura</translation>
     </message>
     <message>
         <source>Capabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Capacitats</translation>
     </message>
     <message>
         <source>Driver name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del conductor</translation>
     </message>
     <message>
         <source>Buffer size</source>
-        <translation type="unfinished"></translation>
+        <translation>Mida del buffer</translation>
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això configurarà els canals d&apos;entrada per a ASIO. Assegureu-vos de seleccionar almenys un canal com a micròfon i altaveu. &lt;i&gt;Micròfon&lt;/i&gt; ha de ser on està connectat el vostre micròfon i &lt;i&gt;Altaveu&lt;/i&gt; ha de ser un canal que mostri &quot;&lt;i&gt;El que escolteu&lt;/i&gt;&quot;.&lt;br /&gt;Per exemple. , a l&apos;Audigy 2 ZS, una bona selecció de micròfon seria &quot;&lt;i&gt;Mic L&lt;/i&gt;&quot;, mentre que l&apos;altaveu hauria de ser &quot;&lt;i&gt;Mix L&lt;/i&gt;&quot; i &quot;&lt;i&gt;Mix R&lt;/i&gt; &gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura els canals d&apos;entrada</translation>
     </message>
     <message>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canals</translation>
     </message>
     <message>
         <source>Microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Micròfon</translation>
     </message>
     <message>
         <source>&lt;-</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <source>-&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <source>Unused</source>
-        <translation type="unfinished"></translation>
+        <translation>Sense utilitzar</translation>
     </message>
     <message>
         <source>Speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Altaveus</translation>
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Llistat de micròfons</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Llistat d&apos;altaveus</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Heu de seleccionar almenys un micròfon i una font d&apos;altaveus per utilitzar ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut obrir el dispositiu ASIO seleccionat. No es farà cap entrada.</translation>
     </message>
 </context>
 <context>
     <name>AboutDialog</name>
     <message>
         <source>About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre Mumble</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sobre Mumble</translation>
     </message>
     <message>
         <source>&amp;License</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Llicència</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Autors</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Llicències de tercers</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;acord</translation>
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Acord de llicència</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Autors</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Acords de llicència de tercers</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilitat de xat de veu de codi obert, de baixa latència i d&apos;alta qualitat&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfície</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Mètode d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu</translation>
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aquest és el dispositiu d&apos;entrada que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
-        <translation type="unfinished"></translation>
+        <translation>Transmissió</translation>
     </message>
     <message>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Transmetre</translation>
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Quan transmetre la teva parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix quan s&apos;ha de transmetre la parla.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - Tot el temps&lt;br /&gt;&lt;i&gt;Activitat de veu&lt;/i&gt; - Quan parleu clarament .&lt;br /&gt;&lt;i&gt;Premeu per parlar&lt;/i&gt;: quan manteniu premuda la tecla d&apos;accés ràpid establert a &lt;i&gt;Dreceres&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de DoublePush</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si premeu la tecla PTT dues vegades durant aquest temps, es bloquejarà.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Temps de doble pulsació&lt;/b&gt;&lt;br /&gt;Si premeu la tecla de prémer per parlar dues vegades durant l&apos;interval de temps configurat, es bloquejarà. Mumble continuarà transmetent fins que premeu la tecla una vegada més per desbloquejar PTT de nou.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir la marca d&apos;àudio per defecte</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Restablir&lt;/b&gt;&lt;br/&gt; Restablir els directoris dels fitxers per defecte.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cercar per reproduir un fitxer d&apos;àudio</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca per aturar un fitxer d&apos;àudio</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagat</translation>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar</translation>
     </message>
     <message>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Preescolta les marques d&apos;àudio</translation>
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitza la detecció de la parla basada en SNR</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Senyal a soroll</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix la detecció de la veu perquè utilitzi l&apos;amplitud.&lt;/b&gt;&lt;br /&gt;En aquest mode, la força bruta del senyal d&apos;entrada s&apos;utilitza per detectar la parla.</translation>
     </message>
     <message>
         <source>Amplitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitud</translation>
     </message>
     <message>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Veu i espera</translation>
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Quant de temps seguir transmetent després del silenci</translation>
     </message>
     <message>
         <source>Silence Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenci per sota</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix els valors d&apos;activació per a la detecció de veu.&lt;/b&gt;&lt;br /&gt;Utilitzeu-ho juntament amb la finestra Estadístiques d&apos;àudio per ajustar manualment els valors d&apos;activació per detectar la parla. Els valors introduïts per sota de &quot;Silenci a sota&quot; sempre compten com a silenci. Els valors per sobre de &quot;Parla a sobre&quot; sempre compten com a veu. Els valors intermedis comptaran com a veu si ja esteu parlant, però no activaran una nova detecció.</translation>
     </message>
     <message>
         <source>Speech Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Parla a sobre</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Els valors del senyal per sobre d&apos;aquest compten com a veu</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation type="unfinished"></translation>
+        <translation>Compressió</translation>
     </message>
     <message>
         <source>&amp;Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>i Qualitat</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitat de la compressió (pic d&apos;ample de banda)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix la qualitat de la compressió.&lt;/b&gt;&lt;br /&gt;Això determina quanta amplada de banda pot utilitzar Mumble per a l&apos;àudio de sortida.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Àudio per paquet</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Quants fotogrames d&apos;àudio cal enviar per paquet</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això selecciona quants fotogrames d&apos;àudio s&apos;han de posar en un paquet.&lt;/b&gt;&lt;br /&gt;Augmentar-ho augmentarà la latència de la vostra veu, però també reduirà els requisits d&apos;amplada de banda.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això mostra l&apos;amplada de banda màxima de sortida utilitzada.&lt;/b&gt;&lt;br /&gt;Això mostra la quantitat màxima d&apos;amplada de banda enviada des de la vostra màquina. La taxa de bits d&apos;àudio és la taxa de bits màxima (com fem servir VBR) només per a les dades d&apos;àudio. La posició és la taxa de bits utilitzada per a la informació de posició. La sobrecàrrega és el nostre marc i les capçaleres de paquets IP (IP i UDP són el 75% d&apos;aquesta sobrecàrrega).</translation>
     </message>
     <message>
         <source>Audio Processing</source>
-        <translation type="unfinished"></translation>
+        <translation>Processament d&apos;àudio</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation>Supressió de soroll</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix la quantitat de supressió de soroll que cal aplicar.&lt;/b&gt;&lt;br /&gt;Com més alt sigui aquest valor, més agressivament se suprimirà el soroll estacionari.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Màxima amplificació del so d&apos;entrada</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Màxima amplificació de l&apos;entrada.&lt;/b&gt;&lt;br /&gt;Mumble normalitza el volum d&apos;entrada abans de comprimir-lo, i això estableix quant es pot amplificar.&lt;br /&gt;El nivell real s&apos;actualitza contínuament en funció del vostre patró de parla actual. , però mai no superarà el nivell especificat aquí.&lt;br /&gt;Si el nivell de &lt;i&gt;sonoritat del micròfon&lt;/i&gt; de les estadístiques d&apos;àudio se situa al voltant del 100%, és probable que vulgueu establir-ho a 2.0 més o menys, però si , com la majoria de la gent, no podeu assolir el 100%, establiu-lo a una cosa molt més alta.&lt;br /&gt;Idealment, configureu-lo de manera que &lt;i&gt;Intensitat del micròfon * Factor d&apos;amplificació &gt;= 100&lt;/i&gt;, fins i tot quan sou parlant molt suau.&lt;br /&gt;&lt;br /&gt;Tingueu en compte que no hi ha cap mal a establir-ho al màxim, però Mumble començarà a recollir altres converses si deixeu que s&apos;ajusti automàticament a aquest nivell.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si activeu això, es cancel·larà l&apos;eco dels altaveus. El mixt té un impacte baix en la CPU, però només funciona bé si els altaveus són igual de forts i equidistants del micròfon. La cancel·lació d&apos;eco multicanal proporciona una cancel·lació d&apos;eco molt millor, però a un cost de CPU més elevat.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivat</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix que la detecció de veu utilitzi la relació senyal/soroll.&lt;/b&gt;&lt;br /&gt;En aquest mode, l&apos;entrada s&apos;analitza per trobar alguna cosa que s&apos;assembla a un senyal clar i la claredat d&apos;aquest senyal s&apos;utilitza per activar la detecció de la parla.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això mostra la configuració actual de detecció de veu.&lt;/b&gt;&lt;br /&gt;Podeu canviar la configuració des del diàleg Configuració o des de l&apos;assistent d&apos;àudio.</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Els valors del senyal per sota d&apos;aquest compten com a silenci</translation>
     </message>
     <message>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ample de banda màxim utilitzat per enviar àudio</translation>
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu la detecció de veu basada en l&apos;amplitud</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això selecciona quant de temps ha de continuar després d&apos;una aturada percebuda en la transmissió de la parla.&lt;/b&gt;&lt;br /&gt;Definiu-ho més alt si la vostra veu es trenca quan parleu (que es veu amb una icona de veu que parpelleja ràpidament al costat del vostre nom).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode exclusiu</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això obre el dispositiu en mode exclusiu.&lt;/b&gt;&lt;br /&gt;Cap altra aplicació podrà utilitzar el dispositiu.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Exclusiu</translation>
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;einiciar</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cercar...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;ercar...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vista prèvia</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vista prèvia&lt;/b&gt;&lt;br/&gt;Reprodueix el so &lt;i&gt;activat&lt;/i&gt; actual seguit del so &lt;i&gt;desactivat&lt;/i&gt; actual.</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra una finestra sempre a la part superior amb un botó per parlar</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra la finestra de Prémer i Parlar</translation>
     </message>
     <message>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>Miscel·lània</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca d&apos;àudio audible quan s&apos;inicia o s&apos;atura la transmissió</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això permet la transmissió de senyals d&apos;àudio.&lt;/b&gt;&lt;br /&gt;En configurar-ho, us donarà un breu bip d&apos;àudio quan inicieu i atureu la transmissió.</translation>
     </message>
     <message>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca d&apos;àudio</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Es reprodueix quan es comença a transmetre</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Es reprodueix quan s&apos;atura per transmetre</translation>
     </message>
     <message>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;espera</translation>
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps en què el micròfon roman obert després de deixar anar la tecla PiP</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;amplada de banda màxima del servidor és només %1 kbit/s. La qualitat d&apos;àudio s&apos;ha ajustat automàticament a %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplificació màxima</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acció inactiva</translation>
     </message>
     <message>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>fer minuts</translation>
     </message>
     <message>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>res</translation>
     </message>
     <message>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>ensordir</translation>
     </message>
     <message>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>silenciar</translation>
     </message>
     <message>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>després</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancel·lació d&apos;eco</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;acció inactiva s&apos;invertirà amb qualsevol entrada de tecla o botó del ratolí</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Desfés l&apos;acció inactiva a l&apos;activitat</translation>
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aquest és el mètode d&apos;entrada que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation>Activeu el mode de retard baix d&apos;Opus quan la qualitat estigui configurada a &lt;b&gt;64 kb/s&lt;/b&gt; o superior. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, Mumble habilitarà el mode de retard baix d&apos;Opus quan la qualitat s&apos;estableixi a &lt;b&gt;64 kbit/s&lt;/b&gt; o superior. El mode de retard baix redueix la latència en &lt;b&gt;~15 mil·lisegons&lt;/b&gt; en l&apos;anada i tornada. Aquest mode pot requerir una taxa de bits més alta per preservar la mateixa qualitat, en comparació amb els modes de música i VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Permet el mode de retard baix</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>No utilitzeu la supressió de soroll.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu l&apos;algoritme de supressió de soroll proporcionat per Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu l&apos;algoritme de supressió de soroll proporcionat per RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu una combinació de Speex i RNNoise per suprimir el soroll.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambdós</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1059,7 +1061,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -1107,7 +1109,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1119,15 +1121,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Àudio per paquet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Qualitat de la compressió (pic d&apos;ample de banda)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supressió de soroll</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1147,7 +1149,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acció inactiva</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1159,7 +1161,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1170,11 +1172,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interfície</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema</translation>
     </message>
     <message>
         <source>Output method for audio</source>
@@ -1182,7 +1184,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu</translation>
     </message>
     <message>
         <source>Output device for audio</source>
@@ -1368,11 +1370,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Això obre el dispositiu en mode exclusiu.&lt;/b&gt;&lt;br /&gt;Cap altra aplicació podrà utilitzar el dispositiu.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Exclusiu</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
@@ -1655,11 +1657,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Això mostra la configuració actual de detecció de veu.&lt;/b&gt;&lt;br /&gt;Podeu canviar la configuració des del diàleg Configuració o des de l&apos;assistent d&apos;àudio.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
@@ -1714,7 +1716,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Selecció de dispositiu</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1726,15 +1728,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mètode d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu</translation>
     </message>
     <message>
         <source>Input device to use</source>
@@ -2018,7 +2020,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Aquest és el mètode d&apos;entrada que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -2105,7 +2107,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Afegir</translation>
+        <translation>&amp;Afegir</translation>
     </message>
     <message>
         <source>&amp;Update</source>
@@ -2113,7 +2115,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
         <source>Ban List</source>
@@ -2231,7 +2233,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2438,7 +2440,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Contrassenya</translation>
+        <translation>Contrasenya</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2530,7 +2532,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3128,7 +3130,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Contrassenya</translation>
+        <translation>Contrasenya</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
@@ -3299,7 +3301,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Afegir</translation>
+        <translation>&amp;Afegir</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
@@ -3311,7 +3313,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3384,7 +3386,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Afegir</translation>
+        <translation>Afegir</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3392,7 +3394,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Elimina</translation>
+        <translation>Elimina</translation>
     </message>
 </context>
 <context>
@@ -3465,11 +3467,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Afegir</translation>
+        <translation>Afegir</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Elimina</translation>
+        <translation>Elimina</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3580,7 +3582,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -6339,7 +6341,7 @@ Valid options are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished">Posició</translation>
+        <translation>Posició</translation>
     </message>
     <message>
         <source>X</source>
@@ -6379,7 +6381,7 @@ Valid options are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Contexte</translation>
+        <translation>Context</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6543,7 +6545,7 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Contrassenya</translation>
+        <translation>Contrasenya</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6868,7 +6870,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Elimina</translation>
+        <translation>Elimina</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6900,7 +6902,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Afegir</translation>
+        <translation>Afegir</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7173,11 +7175,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Configura</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -7436,7 +7438,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Contexte</translation>
+        <translation>Context</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -7586,7 +7588,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -8007,11 +8009,11 @@ You can register them again.</source>
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iniciar</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8093,7 +8095,7 @@ You can register them again.</source>
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagat</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8101,7 +8103,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iniciar</translation>
     </message>
 </context>
 <context>
@@ -8150,7 +8152,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Afegir</translation>
+        <translation>&amp;Afegir</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -8158,7 +8160,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -8173,7 +8175,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Elimina</translation>
+        <translation>Elimina</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -8555,7 +8557,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Flags</source>
@@ -8788,7 +8790,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Cercar...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>

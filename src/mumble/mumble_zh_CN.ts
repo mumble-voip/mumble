@@ -2609,7 +2609,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble 可以使用证书来登录服务器。使用证书代替密码来登陆，意味着您无需向远程站点透露密码。这让注册过程更加简单，并且您可以在客户端管理独立于服务端的好友列表。&lt;/p&gt;&lt;p&gt;尽管证书对于 Mumble 不是必须的，但大部分服务器仍然希望您拥有一个证书。&lt;/p&gt;&lt;p&gt;一般来说，直接创建一个新证书即可，但 Mumble 也支持认证由第三方签发的、证明用户电子邮件地址所有权的证书。要获取更多信息，可以查看我们的&lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble 可以使用证书来登录服务器。使用证书代替密码来登录，意味着您无需向远程站点透露密码。这让注册过程更加简单，并且您可以在客户端管理独立于服务端的好友列表。&lt;/p&gt;&lt;p&gt;尽管证书对于 Mumble 不是必须的，但大部分服务器仍然希望您拥有一个证书。&lt;/p&gt;&lt;p&gt;一般来说，直接创建一个新证书即可，但 Mumble 也支持认证由第三方签发的、证明用户电子邮件地址所有权的证书。要获取更多信息，可以查看我们的&lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4093,11 +4093,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>点击启用语音播报</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>启用语音播报</translation>
     </message>
 </context>
 <context>
@@ -6351,7 +6351,7 @@ Valid actions are:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>遇到无效设置文件。</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -7735,23 +7735,23 @@ You can register them again.</source>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>可能损坏的设置</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>加载备份设置吗？</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>看起来 Mumble 没有正常退出。如果您并非有意强行结束此应用，则可能是因为某些设置导致的崩溃。您要改为加载设置备份吗？</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>备份的设置看起来也是在 Mumble 没有正常退出的情况下保存的（可能表示发生了崩溃）。</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果您在使用此设置时遇到多次重复崩溃，就可能需要手动删除位于 &lt;pre&gt;％1&lt;/pre&gt; 和 &lt;pre&gt;％2&lt;/pre&gt; 处的配置文件，来将所有设置重置为默认值。</translation>
     </message>
 </context>
 <context>
@@ -8061,19 +8061,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>此连接是否支持完美的前向加密（PFS）。</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS：&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>否</translation>
     </message>
 </context>
 <context>

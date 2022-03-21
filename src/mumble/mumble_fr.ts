@@ -7543,7 +7543,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Échec du chargement d&apos;Opus, il ne sera pas disponible pour le codage/décodage audio.</translation>
+        <translation>CodecInit&#xa0;: Échec du chargement d&apos;Opus, il ne sera pas disponible pour le codage/décodage audio.</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -8763,7 +8763,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation>Hash (SHA-256): %1</translation>
+        <translation>Hachage (SHA-256) : %1</translation>
     </message>
     <message>
         <source>Email: %1</source>

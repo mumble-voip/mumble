@@ -2250,7 +2250,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Email</source>
-        <translation>E-mail cím</translation>
+        <translation>E-mail-cím</translation>
     </message>
     <message>
         <source>Issuer</source>
@@ -2349,7 +2349,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Email address</source>
-        <translation>E-mail cím</translation>
+        <translation>E-mail-cím</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -2557,7 +2557,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Email</source>
-        <translation>E-mail cím</translation>
+        <translation>E-mail-cím</translation>
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>

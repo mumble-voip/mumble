@@ -4095,11 +4095,11 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij, aby włączyć funkcję Tekst-Na-Mowę</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyłącz Tekst-Na-Mowę</translation>
     </message>
 </context>
 <context>
@@ -6353,7 +6353,7 @@ toggledeaf
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Napotkano nieprawidłowy plik ustawień.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -7737,23 +7737,23 @@ Możesz je ponownie zarejestrować.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Potencjalnie uszkodzone ustawienia</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Załadować kopię zapasową ustawień?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląda na to, że program Mumble nie wykonał normalnego wyłączenia. Jeśli nie zakończono aplikacji celowo, może to oznaczać, że użyte ustawienia spowodowały awarię. Czy zamiast tego chcesz załadować kopię zapasową ustawień?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląda na to, że ustawienia w kopii zapasowej zostały zapisane bez normalnego wyjścia Mumble (potencjalnie wskazuje to na awarię).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>W przypadku powtarzających się awarii z tymi ustawieniami może być konieczne ręczne usunięcie plików ustawień w &lt;pre&gt;%1&lt;/pre&gt; i &lt;pre&gt;%2&lt;/pre&gt; w celu zresetowania wszystkich ustawień do ich wartości domyślnych.</translation>
     </message>
 </context>
 <context>
@@ -8063,19 +8063,19 @@ Możesz je ponownie zarejestrować.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy połączenie obsługuje doskonałe utajnianie z wyprzedzeniem (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie</translation>
     </message>
 </context>
 <context>
