@@ -7,7 +7,7 @@ version of Mumble, checkout [this file](build_static.md).
 
 <details open>
   <summary><b>Ubuntu</b></summary>
-In order to install the needed dependencies on Ubuntu, you have to run the following command:
+In order to install the needed dependencies on Ubuntu, you have to run the following command (but see notes below the command):
   
 ```bash
 sudo apt install \
@@ -36,6 +36,8 @@ sudo apt install \
   g++-multilib
 ```
 
+If your version of Ubuntu is giving errors with `qt5-default`, when running the above command, follow the Debian instructions below.
+
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
@@ -43,6 +45,48 @@ You will need `cmake` **v3.15 or later**. If the version shipped by your distrib
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
+<details open>
+  <summary><b>Debian (Stable)</b></summary>
+In order to install the needed dependencies on Debian, you may
+run the following command.
+
+```bash
+sudo apt install \
+  build-essential \
+  cmake \
+  pkg-config \
+  qtbase5-dev \
+  qtchooser \
+  qt5-qmake \
+  qtbase5-dev-tools \
+  qttools5-dev \
+  qttools5-dev-tools \
+  libqt5svg5-dev \
+  libboost-dev \
+  libssl-dev \
+  libprotobuf-dev \
+  protobuf-compiler \
+  libprotoc-dev \
+  libcap-dev \
+  libxi-dev \
+  libasound2-dev \
+  libogg-dev \
+  libsndfile1-dev \
+  libspeechd-dev \
+  libavahi-compat-libdnssd-dev \
+  libxcb-xinerama0 \
+  libzeroc-ice-dev \
+  libpoco-dev \
+  g++-multilib
+```
+
+1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
+   `cmake -Dbundled-opus=OFF ..`
+2. Debian has dropped `qt5-default`, so individual packages are chosen instead. This also affects Ubuntu, as documented
+   [here](https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg5902890.html).)
+3. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
+
+</details>
 
 <details>
   <summary><b>CentOS 8</b></summary>
