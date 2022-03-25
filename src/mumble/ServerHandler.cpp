@@ -566,7 +566,8 @@ void ServerHandler::sendPingInternal() {
 
 	quint64 t = tTimestamp.elapsed();
 
-	if (qusUdp) {
+	const bool forcedTcp = NetworkConfig::TcpModeEnabled() || !bUdp;
+	if (qusUdp && !forcedTcp) {
 		unsigned char buffer[256];
 		PacketDataStream pds(buffer + 1, 255);
 		buffer[0] = MessageHandler::UDPPing << 5;
