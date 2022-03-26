@@ -4088,16 +4088,16 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>%1 olayları için mesaj sınırlama davranışını değiştir </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>%1 olayları için sınırlamayı değiştirmek için buraya tıklayın.&lt;br /&gt;İşaretlenirse, sunucudaki kullanıcı sayısı ayarlanan eşiği aştığında bu olay türü için bildirimler oynatılmayacaktır.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation>Metin okumayı etkinleştirmek için tıklayın</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
         <translation>Metin Okumayı Etkinleştir</translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7670,10 +7670,6 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
         <translation>Mikrofona erişim reddedildi. Lütfen Sistem Tercihleri -&gt; Güvenlik ve Gizlilik -&gt; Gizlilik -&gt; Mikrofon&apos;daki ayarları değiştirerek Mumble&apos;ın mikrofonu kullanmasına izin verin.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Sistem kısıtlamaları nedeniyle mikrofona erişim reddedildi. Bu oturumda mikrofonu kullanamayacaksınız.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Etkinleştirilirse, ses akışından yankıyı iptal etmeye çalışır.</translation>
     </message>
@@ -7752,6 +7748,10 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation>Bu ayarlarla tekrarlanan çökmeler yaşarsanız, tüm ayarları öntanımlı değerlerine sıfırlamak için &lt;pre&gt;%1&lt;/pre&gt; ve &lt;pre&gt;%2&lt;/pre&gt; konumundaki ayar dosyalarını elle silmeniz gerekebilir.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

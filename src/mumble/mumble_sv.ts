@@ -4089,15 +4089,15 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <translation>Växla meddelandebegränsande beteende för %1 händelser </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>Klicka här för att växla begränsning för %1 händelser. &lt;br /&gt; Om det är markerat kommer aviseringar för denna typ av händelse inte att spelas upp när användarens räkning på servern överskrider det inställda tröskelvärdet.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7671,10 +7671,6 @@ Se &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mum
         <translation>Tillgång till mikrofonen nekades. Tillåt Mumble att använda mikrofonen genom att ändra inställningarna i Systeminställningar -&gt; Säkerhet och sekretess -&gt; Sekretess -&gt; Mikrofon.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Tillgång till mikrofonen nekades på grund av systemrestriktioner. Du kommer inte att kunna använda mikrofonen i den här sessionen.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Om den är aktiverad försöker den här funktionen att eliminera ekot från ljudströmmen.</translation>
     </message>
@@ -7751,6 +7747,10 @@ You can register them again.</source>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

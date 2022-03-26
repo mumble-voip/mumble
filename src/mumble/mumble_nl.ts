@@ -4089,15 +4089,15 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Wijzig het limiteren van berichten voor &quot;%1&quot;-gebeurtenissen </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>Klik hier om het limiteren voor &quot;%1&quot;-gebeurtenissen te wijzigen. &lt;br /&gt; Indien aangevinkt, zullen notificaties voor dit type gebeurtenis niet verstuurd worden als het aantal gebruikers op de server hoger is dan de ingestelde drempel.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7671,10 +7671,6 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
         <translation>Toegang tot de microfoon werd geweigerd. Laat Mumble a.u.b. de microfoon gebruiken door de instellingen in Systeemvoorkeuren → Beveiligen &amp; Privacy → Privacy → Microfoon.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Toegang tot de micofoon geweigerd vanwegen systeembepalingen. Je werd buiten staat gesteld om de microfoon te gebruiken zo lang deze sessie geld.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Indien ingeschakeld, wordt er geprobeerd om echo in het geluid op te heffen.</translation>
     </message>
@@ -7752,6 +7748,10 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

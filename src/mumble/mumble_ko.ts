@@ -4088,15 +4088,15 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>%1 이벤트의 메시지 제한 동작 전환 </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>%1 이벤트의 제한을 전환하려면 여기를 클릭하세요.&lt;br /&gt;서버의 유저 수가 설정된 임계값을 초과할 때 이 이벤트 유형의 알림이 재생되지 않습니다.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7670,10 +7670,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation>마이크의 접근이 거부되었습니다. 시스템 환경 설정 -&gt; 보안 및 개인 정보 -&gt; 개인 정보 -&gt; 마이크에서 설정을 변경하여 Mumble이 마이크를 사용하도록 허용하세요.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>시스템 제한으로 인해 마이크에 접근할 수 없습니다. 이 세션에서는 마이크를 사용할 수 없습니다.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>활성화되면 오디오 스트림에서 에코를 제거합니다.</translation>
     </message>
@@ -7751,6 +7747,10 @@ You can register them again.</source>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4088,16 +4088,16 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>开关 %1 事件的消息限制 </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>点击此处开关 %1 事件的消息限制。&lt;br /&gt;勾选后，如果服务器上的用户超过设置的阈值，此类型事件的通知将不会被触发。</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation>点击启用语音播报</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
         <translation>启用语音播报</translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7670,10 +7670,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation>访问麦克风的权限被拒绝。请您前往“系统偏好设置 -&gt; 安全性与隐私 -&gt; 隐私 -&gt; 麦克风”，允许 Mumble 使用麦克风。</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>由于系统限制，访问麦克风的权限被拒绝。在本次会话中您将无法使用麦克风。</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>如果启用，将会尝试消除音频流中的回声。</translation>
     </message>
@@ -7752,6 +7748,10 @@ You can register them again.</source>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation>如果您在使用此设置时遇到多次重复崩溃，就可能需要手动删除位于 &lt;pre&gt;％1&lt;/pre&gt; 和 &lt;pre&gt;％2&lt;/pre&gt; 处的配置文件，来将所有设置重置为默认值。</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

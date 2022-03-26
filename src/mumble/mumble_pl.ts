@@ -4090,16 +4090,16 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <translation>Przełącz zachowanie ograniczania wiadomości dla %1 zdarzeń </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>Kliknij tutaj, aby przełączyć ograniczanie dla %1 wydarzeń. &lt;br /&gt; Jeśli zaznaczone, powiadomienia dla tego typu zdarzenia nie będą odtwarzane, gdy liczba użytkowników na serwerze przekroczy ustawiony próg.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation>Kliknij, aby włączyć funkcję Tekst-Na-Mowę</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
         <translation>Wyłącz Tekst-Na-Mowę</translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7672,10 +7672,6 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
         <translation>Odmówiono dostępu do mikrofonu. Zezwól Mumble na korzystanie z mikrofonu, zmieniając ustawienia w Preferencje systemowe -&gt; Bezpieczeństwo i prywatność -&gt; Prywatność -&gt; Mikrofon.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Odmówiono dostępu do mikrofonu z powodu ograniczeń systemowych. W tej sesji nie będzie można używać mikrofonu.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Jeśli włączone, będzie próbować usuwać echo ze strumienia audio.</translation>
     </message>
@@ -7754,6 +7750,10 @@ Możesz je ponownie zarejestrować.</translation>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation>W przypadku powtarzających się awarii z tymi ustawieniami może być konieczne ręczne usunięcie plików ustawień w &lt;pre&gt;%1&lt;/pre&gt; i &lt;pre&gt;%2&lt;/pre&gt; w celu zresetowania wszystkich ustawień do ich wartości domyślnych.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
