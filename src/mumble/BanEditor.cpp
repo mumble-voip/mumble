@@ -7,6 +7,7 @@
 
 #include "Ban.h"
 #include "Channel.h"
+#include "QtUtils.h"
 #include "ServerHandler.h"
 #include "Global.h"
 

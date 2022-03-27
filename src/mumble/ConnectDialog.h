@@ -26,10 +26,12 @@
 #endif
 
 #include "HostAddress.h"
+#include "MumbleProtocol.h"
 #include "Net.h"
 #include "ServerAddress.h"
 #include "Timer.h"
 #include "UnresolvedServerAddress.h"
+#include "Version.h"
 
 struct FavoriteServer;
 class QUdpSocket;
@@ -269,6 +271,8 @@ protected:
 	bool bIPv4;
 	bool bIPv6;
 	int iPingIndex;
+	Mumble::Protocol::UDPPingEncoder< Mumble::Protocol::Role::Client > m_udpPingEncoder;
+	Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Client > m_udpDecoder;
 
 	bool bLastFound;
 
@@ -289,7 +293,9 @@ protected:
 	bool bAllowFilters;
 
 
-	void sendPing(const QHostAddress &, unsigned short port);
+	void sendPing(const QHostAddress &, unsigned short port, Version::mumble_raw_version_t protocolVersion);
+	bool writePing(const QHostAddress &host, unsigned short port, Version::mumble_raw_version_t protocolVersion,
+				   const Mumble::Protocol::PingData &pingData);
 
 	void initList();
 	void fillList();

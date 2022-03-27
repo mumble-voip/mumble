@@ -551,11 +551,11 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 }
 
 QString Log::imageToImg(QImage img, int maxSize) {
-	constexpr int maxWidth  = 600;
-	constexpr int maxHeight = 400;
+	constexpr int MAX_WIDTH  = 600;
+	constexpr int MAX_HEIGHT = 400;
 
-	if ((img.width() > maxWidth) || (img.height() > maxHeight)) {
-		img = img.scaled(maxWidth, maxHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	if ((img.width() > MAX_WIDTH) || (img.height() > MAX_HEIGHT)) {
+		img = img.scaled(MAX_WIDTH, MAX_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;

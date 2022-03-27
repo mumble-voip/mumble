@@ -209,11 +209,11 @@ void GlobalShortcutWin::registerMetaTypes() {
 }
 
 QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &oldShortcuts) {
-	constexpr QUuid keyboardUuid(0x6F1D2B61, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
-	constexpr QUuid mouseUuid(0x6F1D2B60, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
-	constexpr QUuid xinputUuid(0xCA3937E3, 0x640C, 0x4D9E, 0x9E, 0xF3, 0x90, 0x3F, 0x8B, 0x4F, 0xBC, 0xAB);
-	constexpr QUuid gkeyKeyboardUuid(0x153E64E6, 0x98C8, 0x4E, 0x03, 0x80EF, 0x5F, 0xFD, 0x33, 0xD2, 0x5B, 0x8A);
-	constexpr QUuid gkeyMouseUuid(0xC41E60AF, 0x9022, 0x46CF, 0xBC, 0x39, 0x37, 0x98, 0x10, 0x82, 0xD7, 0x16);
+	constexpr QUuid KEYBOARD_UUID(0x6F1D2B61, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
+	constexpr QUuid MOUSE_UUID(0x6F1D2B60, 0xD5A0, 0x11CF, 0xBF, 0xC7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00);
+	constexpr QUuid XINPUT_UUID(0xCA3937E3, 0x640C, 0x4D9E, 0x9E, 0xF3, 0x90, 0x3F, 0x8B, 0x4F, 0xBC, 0xAB);
+	constexpr QUuid GKEY_KEYBOARD_UUID(0x153E64E6, 0x98C8, 0x4E, 0x03, 0x80EF, 0x5F, 0xFD, 0x33, 0xD2, 0x5B, 0x8A);
+	constexpr QUuid GKEY_MOUSE_UUID(0xC41E60AF, 0x9022, 0x46CF, 0xBC, 0x39, 0x37, 0x98, 0x10, 0x82, 0xD7, 0x16);
 
 	QList< Shortcut > newShortcuts;
 
@@ -253,7 +253,7 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 			}
 
 			const auto uuid = entries.at(1).toUuid();
-			if (uuid == keyboardUuid) {
+			if (uuid == KEYBOARD_UUID) {
 				InputKeyboard input;
 				input.code = (value & ~0x8000U) >> 8;
 				input.e0   = value & 0x8000U;
@@ -267,7 +267,7 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 				}
 
 				button = QVariant::fromValue(input);
-			} else if (uuid == mouseUuid) {
+			} else if (uuid == MOUSE_UUID) {
 				value >>= 8;
 				if (value < 3 || value > 7) {
 					ok = false;
@@ -276,7 +276,7 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 
 				button = QVariant::fromValue(static_cast< InputMouse >(value - 2));
 #ifdef USE_XBOXINPUT
-			} else if (uuid == xinputUuid) {
+			} else if (uuid == XINPUT_UUID) {
 				InputXinput input;
 				input.device = (value >> 24) & 0xFF;
 				input.code   = value & 0x00FFFFFF;
@@ -284,14 +284,14 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 				button = QVariant::fromValue(input);
 #endif
 #ifdef USE_GKEY
-			} else if (uuid == gkeyKeyboardUuid) {
+			} else if (uuid == GKEY_KEYBOARD_UUID) {
 				InputGkey input = {};
 				input.keyboard  = true;
 				input.mode      = value >> 16;
 				input.button    = value & 0xFFFF;
 
 				button = QVariant::fromValue(input);
-			} else if (uuid == gkeyMouseUuid) {
+			} else if (uuid == GKEY_MOUSE_UUID) {
 				InputGkey input = {};
 				input.button    = value;
 
@@ -363,8 +363,8 @@ void GlobalShortcutWin::run() {
 		yieldCurrentThread();
 	}
 
-	constexpr uint8_t nRid   = 5;
-	RAWINPUTDEVICE rid[nRid] = {};
+	constexpr uint8_t NRID   = 5;
+	RAWINPUTDEVICE rid[NRID] = {};
 
 	rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC;
 	rid[0].usUsage     = HID_USAGE_GENERIC_MOUSE;
@@ -391,7 +391,7 @@ void GlobalShortcutWin::run() {
 	rid[4].dwFlags     = RIDEV_INPUTSINK | RIDEV_DEVNOTIFY;
 	rid[4].hwndTarget  = mumble_mw_hwnd;
 
-	if (!RegisterRawInputDevices(rid, nRid, sizeof(RAWINPUTDEVICE))) {
+	if (!RegisterRawInputDevices(rid, NRID, sizeof(RAWINPUTDEVICE))) {
 		qWarning("GlobalShortcutWindows: RegisterRawInputDevices() failed with error %u!", GetLastError());
 	}
 

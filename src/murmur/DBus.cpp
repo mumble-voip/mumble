@@ -12,7 +12,7 @@
 #include "DBus.h"
 
 #include "Connection.h"
-#include "Message.h"
+#include "QtUtils.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"

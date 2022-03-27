@@ -9,7 +9,7 @@
 #include "AudioOutput.h"
 #include "CELTCodec.h"
 #include "MainWindow.h"
-#include "Message.h"
+#include "MumbleProtocol.h"
 #include "NetworkConfig.h"
 #include "OpusCodec.h"
 #include "PacketDataStream.h"
@@ -18,7 +18,6 @@
 #include "User.h"
 #include "Utils.h"
 #include "VoiceRecorder.h"
-
 #include "Global.h"
 
 #ifdef USE_RNNOISE
@@ -28,6 +27,8 @@ extern "C" {
 #endif
 
 #include <algorithm>
+#include <cassert>
+#include <exception>
 #include <limits>
 
 #ifdef USE_RNNOISE
@@ -225,7 +226,7 @@ AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE
 
 	Global::get().iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
 
-	umtType = MessageHandler::UDPVoiceCELTAlpha;
+	m_codec = Mumble::Protocol::AudioCodec::CELT_Alpha;
 
 	activityState = ActivityStateActive;
 	oCodec        = nullptr;
@@ -803,7 +804,7 @@ bool AudioInput::selectCodec() {
 
 	// Currently talking, use previous Opus status.
 	if (bPreviousVoice) {
-		useOpus = (umtType == MessageHandler::UDPVoiceOpus);
+		useOpus = (m_codec == Mumble::Protocol::AudioCodec::Opus);
 	} else {
 		if (Global::get().bOpus || (Global::get().s.lmLoopMode == Settings::Local)) {
 			useOpus = true;
@@ -847,25 +848,25 @@ bool AudioInput::selectCodec() {
 			return false;
 	}
 
-	MessageHandler::UDPMessageType previousType = umtType;
+	Mumble::Protocol::AudioCodec previousCodec = m_codec;
 	if (useOpus) {
-		umtType = MessageHandler::UDPVoiceOpus;
+		m_codec = Mumble::Protocol::AudioCodec::Opus;
 	} else {
 		if (!Global::get().uiSession) {
-			umtType = MessageHandler::UDPVoiceCELTAlpha;
+			m_codec = Mumble::Protocol::AudioCodec::CELT_Alpha;
 		} else {
 			int v = cCodec->bitstreamVersion();
-			if (v == Global::get().iCodecAlpha)
-				umtType = MessageHandler::UDPVoiceCELTAlpha;
-			else if (v == Global::get().iCodecBeta)
-				umtType = MessageHandler::UDPVoiceCELTBeta;
-			else {
+			if (v == Global::get().iCodecAlpha) {
+				m_codec = Mumble::Protocol::AudioCodec::CELT_Alpha;
+			} else if (v == Global::get().iCodecBeta) {
+				m_codec = Mumble::Protocol::AudioCodec::CELT_Beta;
+			} else {
 				qWarning() << "Couldn't find message type for codec version" << v;
 			}
 		}
 	}
 
-	if (umtType != previousType) {
+	if (m_codec != previousCodec) {
 		iBufferedFrames = 0;
 		qlFrames.clear();
 		opusBuffer.clear();
@@ -1118,7 +1119,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 			if (Global::get().s.bTxMuteCue && !Global::get().bPushToMute && !Global::get().s.bDeaf
 				&& bTalkingWhenMuted) {
-				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > iMuteCueDelay) {
+				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > MUTE_CUE_DELAY) {
 					qetLastMuteCue.start();
 					ao->playSample(Global::get().s.qsTxMuteCue);
 				}
@@ -1175,7 +1176,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (!selectCodec())
 		return;
 
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
+	if (m_codec == Mumble::Protocol::AudioCodec::CELT_Alpha || m_codec == Mumble::Protocol::AudioCodec::CELT_Beta) {
 		len = encodeCELTFrame(psSource, buffer);
 		if (len <= 0) {
 			iBitrate = 0;
@@ -1183,7 +1184,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			return;
 		}
 		++iBufferedFrames;
-	} else if (umtType == MessageHandler::UDPVoiceOpus) {
+	} else if (m_codec == Mumble::Protocol::AudioCodec::Opus) {
 		encoded = false;
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		++iBufferedFrames;
@@ -1224,18 +1225,11 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	bPreviousVoice = bIsSpeech;
 }
 
-static void sendAudioFrame(const char *data, PacketDataStream &pds) {
+static void sendAudioFrame(gsl::span< const Mumble::Protocol::byte > encodedPacket) {
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh) {
-		VoiceRecorderPtr recorder(sh->recorder);
-		if (recorder)
-			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
+		sh->sendMessage(encodedPacket.data(), encodedPacket.size());
 	}
-
-	if (Global::get().s.lmLoopMode == Settings::Local)
-		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
-	else if (sh)
-		sh->sendMessage(data, pds.size() + 1);
 }
 
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceTargetID) {
@@ -1244,10 +1238,10 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 	if (!terminator && iBufferedFrames < iAudioFrames)
 		return;
 
-	int flags = 0;
-	if (voiceTargetID > 0) {
-		flags = voiceTargetID;
-	}
+	Mumble::Protocol::AudioData audioData;
+	audioData.targetOrContext = voiceTargetID;
+	audioData.isLastFrame     = terminator;
+
 	if (terminator && Global::get().iPrevTarget > 0) {
 		// If we have been whispering to some target but have just ended, terminator will be true. However
 		// in the case of whispering this means that we just released the whisper key so this here is the
@@ -1255,63 +1249,89 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 		// is reset to 0 by now. In order to send the last whisper frame correctly, we have to use
 		// Global::get().iPrevTarget which is set to whatever Global::get().iTarget has been before its last change.
 
-		flags = Global::get().iPrevTarget;
+		audioData.targetOrContext = Global::get().iPrevTarget;
 
 		// We reset Global::get().iPrevTarget as it has fulfilled its purpose for this whisper-action. It'll be set
 		// accordingly once the client whispers for the next time.
 		Global::get().iPrevTarget = 0;
 	}
+	if (Global::get().s.lmLoopMode == Settings::Server) {
+		audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK;
+	}
 
-	if (Global::get().s.lmLoopMode == Settings::Server)
-		flags = 0x1f; // Server loopback
-
-	flags |= (umtType << 5);
-
-	char data[1024];
-	data[0] = static_cast< unsigned char >(flags);
+	audioData.usedCodec = m_codec;
 
 	int frames      = iBufferedFrames;
 	iBufferedFrames = 0;
 
-	PacketDataStream pds(data + 1, 1023);
-	// Sequence number
-	pds << iFrameCounter - frames;
-
-	if (umtType == MessageHandler::UDPVoiceOpus) {
-		const QByteArray &qba = qlFrames.takeFirst();
-		int size              = qba.size();
-		if (terminator)
-			size |= 1 << 13;
-		pds << size;
-		pds.append(qba.constData(), qba.size());
-	} else {
-		if (terminator) {
-			qlFrames << QByteArray();
-			++frames;
-		}
-
-		for (int i = 0; i < frames; ++i) {
-			const QByteArray &qba = qlFrames.takeFirst();
-			unsigned char head    = static_cast< unsigned char >(qba.size());
-			if (i < frames - 1)
-				head |= 0x80;
-			pds.append(head);
-			pds.append(qba.constData(), qba.size());
-		}
-	}
+	audioData.frameNumber = iFrameCounter - frames;
 
 	if (Global::get().s.bTransmitPosition && Global::get().pluginManager && !Global::get().bCenterPosition
 		&& Global::get().pluginManager->fetchPositionalData()) {
 		Position3D currentPos = Global::get().pluginManager->getPositionalData().getPlayerPos();
 
-		pds << currentPos.x;
-		pds << currentPos.y;
-		pds << currentPos.z;
+		audioData.position[0] = currentPos.x;
+		audioData.position[1] = currentPos.y;
+		audioData.position[2] = currentPos.z;
+
+		audioData.containsPositionalData = true;
 	}
 
-	sendAudioFrame(data, pds);
+	if (m_codec == Mumble::Protocol::AudioCodec::Opus) {
+		// In Opus mode we only expect a single frame per packet
+		assert(qlFrames.size() == 1);
 
-	Q_ASSERT(qlFrames.isEmpty());
+		audioData.payload = gsl::span< const Mumble::Protocol::byte >(
+			reinterpret_cast< const Mumble::Protocol::byte * >(qlFrames[0].constData()), qlFrames[0].size());
+	} else {
+		// Legacy codecs (Speex or CELT) may use multiple frames for a single packet
+		if (!m_legacyBuffer) {
+			m_legacyBuffer = std::make_unique< Mumble::Protocol::byte[] >(Mumble::Protocol::MAX_UDP_PACKET_SIZE);
+		}
+
+		if (terminator) {
+			qlFrames << QByteArray();
+			++frames;
+		}
+
+		std::size_t offset = 0;
+		for (int i = 0; i < frames; ++i) {
+			const QByteArray &qba = qlFrames[0];
+			unsigned char head    = static_cast< unsigned char >(qba.size());
+			if (i < frames - 1)
+				head |= 0x80;
+			std::memcpy(m_legacyBuffer.get() + offset, &head, sizeof(head));
+			offset += sizeof(head);
+			std::memcpy(m_legacyBuffer.get() + offset, qba.constData(), qba.size());
+			offset += qba.size();
+		}
+
+		audioData.payload = gsl::span< const Mumble::Protocol::byte >(m_legacyBuffer.get(), offset);
+	}
+
+	{
+		ServerHandlerPtr sh = Global::get().sh;
+		if (sh) {
+			VoiceRecorderPtr recorder(sh->recorder);
+			if (recorder) {
+				recorder->getRecordUser().addFrame(audioData);
+			}
+
+			m_udpEncoder.setProtocolVersion(sh->uiVersion);
+		}
+	}
+
+	if (Global::get().s.lmLoopMode == Settings::Local) {
+		// Only add audio data to local loop buffer
+		LoopUser::lpLoopy.addFrame(audioData);
+	} else {
+		// Encode audio frame and send out
+		gsl::span< const Mumble::Protocol::byte > encodedAudioPacket = m_udpEncoder.encodeAudioPacket(audioData);
+
+		sendAudioFrame(encodedAudioPacket);
+	}
+
+	qlFrames.clear();
 }
 
 bool AudioInput::isAlive() const {

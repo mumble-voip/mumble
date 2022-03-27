@@ -10,6 +10,7 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "Log.h"
+#include "QtUtils.h"
 #include "ServerHandler.h"
 #include "User.h"
 

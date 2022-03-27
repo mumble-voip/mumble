@@ -9,7 +9,6 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "MainWindow.h"
-#include "Message.h"
 #include "NetworkConfig.h"
 #include "OverlayText.h"
 #include "ServerHandler.h"

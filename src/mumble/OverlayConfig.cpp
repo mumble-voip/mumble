@@ -8,7 +8,6 @@
 #include "Channel.h"
 #include "Database.h"
 #include "MainWindow.h"
-#include "Message.h"
 #include "NetworkConfig.h"
 #include "Overlay.h"
 #include "OverlayPositionableItem.h"

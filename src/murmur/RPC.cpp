@@ -12,6 +12,7 @@
 #include "Channel.h"
 #include "Group.h"
 #include "Meta.h"
+#include "QtUtils.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"

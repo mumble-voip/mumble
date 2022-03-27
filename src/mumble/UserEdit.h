@@ -6,7 +6,6 @@
 #ifndef MUMBLE_MUMBLE_USEREDIT_H_
 #define MUMBLE_MUMBLE_USEREDIT_H_
 
-#include "Message.h"
 #include "User.h"
 #include "ui_UserEdit.h"
 

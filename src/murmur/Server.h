@@ -13,13 +13,15 @@
 #endif
 
 #include "ACL.h"
+#include "AudioReceiverBuffer.h"
 #include "Ban.h"
 #include "ChannelListenerManager.h"
 #include "HostAddress.h"
-#include "Message.h"
 #include "Mumble.pb.h"
+#include "MumbleProtocol.h"
 #include "Timer.h"
 #include "User.h"
+#include "Version.h"
 
 #ifndef Q_MOC_RUN
 #	include <boost/function.hpp>
@@ -169,6 +171,17 @@ public:
 
 	ChannelListenerManager m_channelListenerManager;
 
+
+	Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Server > m_udpDecoder;
+	Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Server > m_tcpTunnelDecoder;
+	Mumble::Protocol::UDPPingEncoder< Mumble::Protocol::Role::Server > m_udpPingEncoder;
+	Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > m_udpAudioEncoder;
+	Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > m_tcpAudioEncoder;
+
+	gsl::span< const Mumble::Protocol::byte >
+		handlePing(const Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Server > &decoder,
+				   Mumble::Protocol::UDPPingEncoder< Mumble::Protocol::Role::Server > &encoder, bool expectExtended);
+
 	void readParams();
 
 	int iCodecAlpha;
@@ -188,6 +201,9 @@ public:
 private:
 	int iChannelNestingLimit;
 	int iChannelCountLimit;
+
+	AudioReceiverBuffer m_udpAudioReceivers;
+	AudioReceiverBuffer m_tcpAudioReceivers;
 
 public slots:
 	void regSslError(const QList< QSslError > &);
@@ -209,7 +225,7 @@ public slots:
 	void newClient();
 	void connectionClosed(QAbstractSocket::SocketError, const QString &);
 	void sslError(const QList< QSslError > &);
-	void message(unsigned int, const QByteArray &, ServerUser *cCon = nullptr);
+	void message(Mumble::Protocol::TCPMessageType, const QByteArray &, ServerUser *cCon = nullptr);
 	void checkTimeout();
 	void tcpTransmitData(QByteArray, unsigned int);
 	void doSync(unsigned int);
@@ -232,7 +248,7 @@ public:
 	HANDLE hNotify;
 	QList< SOCKET > qlUdpSocket;
 #endif
-	quint32 uiVersionBlob;
+	Version::mumble_raw_version_t m_versionBlob;
 	QList< QSocketNotifier * > qlUdpNotifier;
 
 	/// This lock provides synchronization between the
@@ -294,14 +310,15 @@ public:
 
 	QList< Ban > qlBans;
 
-	void processMsg(ServerUser *u, const char *data, int len);
-	void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force = false);
+	void processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, AudioReceiverBuffer &buffer,
+					Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > &encoder);
+	void sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force = false);
 	void run();
 
 	bool validateChannelName(const QString &name);
 	bool validateUserName(const QString &name);
 
-	bool checkDecrypt(ServerUser *u, const char *encrypted, char *plain, unsigned int cryptlen);
+	bool checkDecrypt(ServerUser *u, const unsigned char *encrypted, unsigned char *plain, unsigned int cryptlen);
 
 	bool hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm);
 	QFlags< ChanACL::Perm > effectivePermissions(ServerUser *p, Channel *c);
@@ -310,22 +327,27 @@ public:
 	void clearACLCache(User *p = nullptr);
 	void clearWhisperTargetCache();
 
-	void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
-	void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType,
+	void sendProtoAll(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type,
+					  unsigned int minversion);
+	void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type,
 						 unsigned int minversion);
-	void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
+	void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type);
 
 	// sendAll sends a protobuf message to all users on the server whose version is either bigger than v or
 	// lower than ~v. If v == 0 the message is sent to everyone.
-#define MUMBLE_MH_MSG(x)                                                                                     \
-	void sendAll(const MumbleProto::x &msg, unsigned int v = 0) { sendProtoAll(msg, MessageHandler::x, v); } \
-	void sendExcept(ServerUser *u, const MumbleProto::x &msg, unsigned int v = 0) {                          \
-		sendProtoExcept(u, msg, MessageHandler::x, v);                                                       \
-	}                                                                                                        \
-	void sendMessage(ServerUser *u, const MumbleProto::x &msg) { sendProtoMessage(u, msg, MessageHandler::x); }
+#define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                        \
+	void sendAll(const MumbleProto::name &msg, unsigned int v = 0) {                   \
+		sendProtoAll(msg, Mumble::Protocol::TCPMessageType::name, v);                  \
+	}                                                                                  \
+	void sendExcept(ServerUser *u, const MumbleProto::name &msg, unsigned int v = 0) { \
+		sendProtoExcept(u, msg, Mumble::Protocol::TCPMessageType::name, v);            \
+	}                                                                                  \
+	void sendMessage(ServerUser *u, const MumbleProto::name &msg) {                    \
+		sendProtoMessage(u, msg, Mumble::Protocol::TCPMessageType::name);              \
+	}
 
-	MUMBLE_MH_ALL
-#undef MUMBLE_MH_MSG
+	MUMBLE_ALL_TCP_MESSAGES
+#undef PROCESS_MUMBLE_TCP_MESSAGE
 
 	static void hashAssign(QString &destination, QByteArray &hash, const QString &str);
 	static void hashAssign(QByteArray &destination, QByteArray &hash, const QByteArray &source);
@@ -434,9 +456,9 @@ public:
 	void dblog(const QString &str) const;
 
 	// From msgHandler. Implementation in Messages.cpp
-#define MUMBLE_MH_MSG(x) void msg##x(ServerUser *, MumbleProto::x &);
-	MUMBLE_MH_ALL
-#undef MUMBLE_MH_MSG
+#define PROCESS_MUMBLE_TCP_MESSAGE(name, value) void msg##name(ServerUser *, MumbleProto::name &);
+	MUMBLE_ALL_TCP_MESSAGES
+#undef PROCESS_MUMBLE_TCP_MESSAGE
 };
 
 #endif

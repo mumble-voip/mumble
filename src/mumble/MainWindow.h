@@ -14,8 +14,8 @@
 
 #include "CustomElements.h"
 #include "MUComboBox.h"
-#include "Message.h"
 #include "Mumble.pb.h"
+#include "MumbleProtocol.h"
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
 #include "UserLocalVolumeDialog.h"
@@ -56,7 +56,7 @@ public:
 	OpenURLEvent(QUrl url);
 };
 
-class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
+class MainWindow : public QMainWindow, public Ui::MainWindow {
 	friend class UserModel;
 
 private:
@@ -355,10 +355,10 @@ public:
 	MainWindow(QWidget *parent);
 	~MainWindow() Q_DECL_OVERRIDE;
 
-	// From msgHandler. Implementation in Messages.cpp
-#define MUMBLE_MH_MSG(x) void msg##x(const MumbleProto::x &);
-	MUMBLE_MH_ALL
-#undef MUMBLE_MH_MSG
+	// Implementation in Messages.cpp
+#define PROCESS_MUMBLE_TCP_MESSAGE(name, value) void msg##name(const MumbleProto::name &);
+	MUMBLE_ALL_TCP_MESSAGES
+#undef PROCESS_MUMBLE_TCP_MESSAGE
 	void removeContextAction(const MumbleProto::ContextActionModify &msg);
 	/// Logs a message that an action could not be saved permanently because
 	/// the user has no certificate and can't be reliably identified.

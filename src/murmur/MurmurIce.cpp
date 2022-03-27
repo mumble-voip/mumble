@@ -10,6 +10,7 @@
 #include "Group.h"
 #include "Meta.h"
 #include "MurmurI.h"
+#include "QtUtils.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"

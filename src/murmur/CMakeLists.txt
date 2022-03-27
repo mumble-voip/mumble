@@ -20,6 +20,8 @@ find_pkg(Qt5 COMPONENTS Sql REQUIRED)
 
 set(MURMUR_SOURCES
 	"main.cpp"
+	"AudioReceiverBuffer.cpp"
+	"AudioReceiverBuffer.h"
 	"Cert.cpp"
 	"Messages.cpp"
 	"Meta.cpp"

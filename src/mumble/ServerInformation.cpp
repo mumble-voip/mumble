@@ -156,12 +156,12 @@ void ServerInformation::updateConnectionDetails() {
 
 void ServerInformation::populateUDPStatistics(const Connection &connection) {
 	// statistics
-	constexpr int toServerCol   = 0;
-	constexpr int fromServerCol = 1;
-	constexpr int goodRow       = 0;
-	constexpr int lateRow       = 1;
-	constexpr int lostRow       = 2;
-	constexpr int resyncRow     = 3;
+	constexpr int TO_SERVER_COL   = 0;
+	constexpr int FROM_SERVER_COL = 1;
+	constexpr int GOOD_ROW        = 0;
+	constexpr int LATE_ROW        = 1;
+	constexpr int LOST_ROW        = 2;
+	constexpr int RESYNC_ROW      = 3;
 
 	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteGood));
 	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiGood));
@@ -172,14 +172,14 @@ void ServerInformation::populateUDPStatistics(const Connection &connection) {
 	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteResync));
 	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->uiResync));
 
-	connection_udp_statisticsTable->setItem(goodRow, toServerCol, toGoodItem);
-	connection_udp_statisticsTable->setItem(goodRow, fromServerCol, fromGoodItem);
-	connection_udp_statisticsTable->setItem(lateRow, toServerCol, toLateItem);
-	connection_udp_statisticsTable->setItem(lateRow, fromServerCol, fromLateItem);
-	connection_udp_statisticsTable->setItem(lostRow, toServerCol, toLostItem);
-	connection_udp_statisticsTable->setItem(lostRow, fromServerCol, fromLostItem);
-	connection_udp_statisticsTable->setItem(resyncRow, toServerCol, toResyncItem);
-	connection_udp_statisticsTable->setItem(resyncRow, fromServerCol, fromResyncItem);
+	connection_udp_statisticsTable->setItem(GOOD_ROW, TO_SERVER_COL, toGoodItem);
+	connection_udp_statisticsTable->setItem(GOOD_ROW, FROM_SERVER_COL, fromGoodItem);
+	connection_udp_statisticsTable->setItem(LATE_ROW, TO_SERVER_COL, toLateItem);
+	connection_udp_statisticsTable->setItem(LATE_ROW, FROM_SERVER_COL, fromLateItem);
+	connection_udp_statisticsTable->setItem(LOST_ROW, TO_SERVER_COL, toLostItem);
+	connection_udp_statisticsTable->setItem(LOST_ROW, FROM_SERVER_COL, fromLostItem);
+	connection_udp_statisticsTable->setItem(RESYNC_ROW, TO_SERVER_COL, toResyncItem);
+	connection_udp_statisticsTable->setItem(RESYNC_ROW, FROM_SERVER_COL, fromResyncItem);
 
 	connection_udp_statisticsTable->adjustSize();
 }

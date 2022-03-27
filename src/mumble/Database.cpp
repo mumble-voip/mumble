@@ -5,7 +5,6 @@
 
 #include "Database.h"
 
-#include "Message.h"
 #include "MumbleApplication.h"
 #include "Net.h"
 #include "Utils.h"

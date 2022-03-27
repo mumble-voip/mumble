@@ -7,9 +7,9 @@
 #include "Channel.h"
 #include "Connection.h"
 #include "Group.h"
-#include "Message.h"
 #include "Meta.h"
 #include "MumbleConstants.h"
+#include "QtUtils.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
@@ -635,17 +635,10 @@ void Server::msgServerSync(ServerUser *, MumbleProto::ServerSync &) {
 void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &) {
 }
 
-void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
-	ZoneScoped;
-
-	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
-
-	const std::string &str = msg.packet();
-	int len                = static_cast< int >(str.length());
-	if (len < 1)
-		return;
-	QReadLocker rl(&qrwlVoiceThread);
-	processMsg(uSource, str.data(), len);
+void Server::msgUDPTunnel(ServerUser *, MumbleProto::UDPTunnel &) {
+	// This code should be unreachable
+	assert(false);
+	qWarning("Messages: Reached theoretically unreachable function msgUDPTunnel");
 }
 
 void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {

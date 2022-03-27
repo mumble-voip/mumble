@@ -19,6 +19,11 @@ Build support for ALSA.
 Build support for ASIO audio input.
 (Default: OFF)
 
+### benchmarks
+
+Build benchmarks
+(Default: OFF)
+
 ### BUILD_OVERLAY_XCOMPILE
 
 Build an x86 overlay
@@ -32,6 +37,11 @@ Bundle Qt's translations as well
 ### bundled-celt
 
 Build the included version of CELT instead of looking for one on the system.
+(Default: ON)
+
+### bundled-gsl
+
+Use the bundled GSL version instead of looking for one on the system
 (Default: ON)
 
 ### bundled-json

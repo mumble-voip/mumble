@@ -6,7 +6,7 @@
 #include "UserListModel.h"
 
 #include "Channel.h"
-#include "Message.h"
+#include "QtUtils.h"
 #include "Utils.h"
 
 #include <algorithm>

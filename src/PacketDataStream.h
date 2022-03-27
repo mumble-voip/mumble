@@ -93,6 +93,8 @@ public:
 
 	const unsigned char *dataPtr() const { return reinterpret_cast< const unsigned char * >(&data[offset]); }
 
+	unsigned char *dataPtr() { return reinterpret_cast< unsigned char * >(&data[offset]); }
+
 	const char *charPtr() const { return reinterpret_cast< const char * >(&data[offset]); }
 
 	QByteArray dataBlock(quint32 len) {
@@ -116,6 +118,8 @@ protected:
 	}
 
 public:
+	PacketDataStream(const unsigned char *d, int msize) { setup(const_cast< unsigned char * >(d), msize); };
+
 	PacketDataStream(const char *d, int msize) {
 		setup(const_cast< unsigned char * >(reinterpret_cast< const unsigned char * >(d)), msize);
 	};

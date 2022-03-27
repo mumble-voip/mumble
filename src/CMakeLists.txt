@@ -4,9 +4,12 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Mumble.proto")
+set(UDP_PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleUDP.proto")
 
 option(client "Build the client (Mumble)" ON)
 option(server "Build the server (Murmur)" ON)
+
+option(benchmarks "Build benchmarks" OFF)
 
 option(qssldiffiehellmanparameters "Build support for custom Diffie-Hellman parameters." ON)
 
@@ -15,6 +18,8 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 option(dbus "Build support for DBus." ON)
 
 option(tracy "Enable the tracy profiler." OFF)
+
+option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 
 find_pkg(Qt5
 	COMPONENTS
@@ -38,9 +43,10 @@ add_library(shared STATIC)
 set_property(TARGET shared PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
+protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${UDP_PROTO_FILE} OUT_VAR BUILT_UDP_PROTO_FILES)
 
 # Disable warnings for the generated source files
-foreach(CURRENT_FILE IN LISTS BUILT_PROTO_FILES)
+foreach(CURRENT_FILE IN LISTS BUILT_PROTO_FILES BUILT_UDP_PROTO_FILES)
 	set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
 endforeach()
 
@@ -62,6 +68,7 @@ set(SHARED_SOURCES
 	"HTMLFilter.cpp"
 	"License.cpp"
 	"LogEmitter.cpp"
+	"MumbleProtocol.cpp"
 	"OSInfo.cpp"
 	"PasswordGenerator.cpp"
 	"PlatformCheck.cpp"
@@ -76,6 +83,7 @@ set(SHARED_SOURCES
 	"Timer.cpp"
 	"UnresolvedServerAddress.cpp"
 	"Version.cpp"
+	"VolumeAdjustment.cpp"
 
 	"crypto/CryptographicHash.cpp"
 	"crypto/CryptographicRandom.cpp"
@@ -95,6 +103,7 @@ set(SHARED_HEADERS
 	"License.h"
 	"licenses.h"
 	"LogEmitter.h"
+	"MumbleProtocol.h"
 	"Net.h"
 	"OSInfo.h"
 	"PasswordGenerator.h"
@@ -109,6 +118,7 @@ set(SHARED_HEADERS
 	"Timer.h"
 	"UnresolvedServerAddress.h"
 	"Version.h"
+	"VolumeAdjustment.h"
 
 	"crypto/CryptographicHash.h"
 	"crypto/CryptographicRandom.h"
@@ -173,6 +183,33 @@ message(STATUS "Tracy: ${TRACY_ENABLE}")
 
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
+# Add the GSL
+if(bundled-gsl)
+	add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl")
+
+	target_link_libraries(shared PUBLIC GSL)
+else()
+	# First try to locate via GSL's native cmake support (via a *Config.cmake file that should have been installed alongside
+	# GSL since version 3)
+	find_pkg("Microsoft.GSL")
+
+	if (TARGET GSL)
+		target_link_libraries(shared PUBLIC GSL)
+	else()
+		# If the above failed, it could mean that there is an installation of GSL < v3.0 on this system, which does not yet
+		# provide cmake support for finding it. Thus, we have to use our custom Find-script.
+
+		# We have to avoid a name clash with the GNU scientific library, which is commonly referred to as "GSL". Thus, we refer to the
+		# guideline support library as MSGSL (Microsoft guideline support library).
+		find_pkg("MSGSL" REQUIRED)
+
+		# As we usually compile with -Werror, let the user know that warnings are expected in this case
+		message(WARNING "It seems you are using a version of GSL < 3.0, which is known to cause compile warnings (about narrowing conversions)")
+
+		target_link_libraries(shared PUBLIC MSGSL::MSGSL)
+	endif()
+endif()
+
 if(client)
 	add_subdirectory(mumble)
 
@@ -192,4 +229,8 @@ endif()
 
 if(tests)
 	add_subdirectory(tests)
+endif()
+
+if(benchmarks)
+	add_subdirectory(benchmarks)
 endif()

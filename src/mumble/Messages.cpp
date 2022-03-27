@@ -1156,8 +1156,9 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 ///
 /// @param msg The message object with the respective information
 void MainWindow::msgVersion(const MumbleProto::Version &msg) {
-	if (msg.has_version())
-		Global::get().sh->uiVersion = msg.version();
+	if (msg.has_version()) {
+		Global::get().sh->setProtocolVersion(msg.version());
+	}
 	if (msg.has_release())
 		Global::get().sh->qsRelease = u8(msg.release());
 	if (msg.has_os()) {
