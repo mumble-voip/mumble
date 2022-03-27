@@ -90,15 +90,15 @@ void PluginConfig::save() const {
 		Global::get().pluginManager->unlinkPositionalData();
 	}
 
-	constexpr int enableCol          = 1;
-	constexpr int positionalDataCol  = 2;
-	constexpr int keyboardMonitorCol = 3;
+	constexpr int ENABLE_COL           = 1;
+	constexpr int POSITIONAL_DATA_COL  = 2;
+	constexpr int KEYBOARD_MONITOR_COL = 3;
 
 	QList< QTreeWidgetItem * > list = qtwPlugins->findItems(QString(), Qt::MatchContains);
 	for (QTreeWidgetItem *i : list) {
-		bool enable                    = (i->checkState(enableCol) == Qt::Checked);
-		bool positionalDataEnabled     = (i->checkState(positionalDataCol) == Qt::Checked);
-		bool keyboardMonitoringEnabled = (i->checkState(keyboardMonitorCol) == Qt::Checked);
+		bool enable                    = (i->checkState(ENABLE_COL) == Qt::Checked);
+		bool positionalDataEnabled     = (i->checkState(POSITIONAL_DATA_COL) == Qt::Checked);
+		bool keyboardMonitoringEnabled = (i->checkState(KEYBOARD_MONITOR_COL) == Qt::Checked);
 
 		const_plugin_ptr_t plugin = pluginForItem(i);
 		if (plugin) {

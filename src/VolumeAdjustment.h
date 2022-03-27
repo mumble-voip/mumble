@@ -10,9 +10,9 @@
 
 class VolumeAdjustment {
 public:
-	static constexpr const int InvalidDBAdjustment = std::numeric_limits< int >::max();
+	static constexpr const int INVALID_DB_ADJUSTMENT = std::numeric_limits< int >::max();
 
-	explicit VolumeAdjustment(float factor = 1.0f, int dbAdjustment = InvalidDBAdjustment);
+	explicit VolumeAdjustment(float factor = 1.0f, int dbAdjustment = INVALID_DB_ADJUSTMENT);
 
 	float factor;
 	int dbAdjustment;

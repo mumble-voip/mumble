@@ -277,7 +277,7 @@ void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioDa
 
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao && sender
-		&& !((audioData.targetOrContext == Mumble::Protocol::AudioContext::Whisper) && Global::get().s.bWhisperFriends
+		&& !((audioData.targetOrContext == Mumble::Protocol::AudioContext::WHISPER) && Global::get().s.bWhisperFriends
 			 && sender->qsFriendName.isEmpty())) {
 		ao->addFrameToBuffer(sender, audioData);
 	}

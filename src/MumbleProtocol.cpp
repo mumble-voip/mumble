@@ -334,12 +334,12 @@ namespace Protocol {
 	template< Role role > void UDPAudioEncoder< role >::preparePreEncodedSnippets() {
 		m_audioMessage.Clear();
 
-		static_assert(AudioContext::begin == 0, "AudioContext::begin is not zero (breaks assumption)");
-		static_assert(AudioContext::end >= 0, "AudioContext::end is negative (breaks assumption)");
-		m_preEncodedContext.resize(AudioContext::end);
+		static_assert(AudioContext::BEGIN == 0, "AudioContext::BEGIN is not zero (breaks assumption)");
+		static_assert(AudioContext::END >= 0, "AudioContext::END is negative (breaks assumption)");
+		m_preEncodedContext.resize(AudioContext::END);
 
 		// Pre-encode the expected voice audio contexts.
-		for (audio_context_t current = AudioContext::begin; current < AudioContext::end; ++current) {
+		for (audio_context_t current = AudioContext::BEGIN; current < AudioContext::END; ++current) {
 			m_audioMessage.set_context(current);
 
 			// The max size of the properly encoded package is the size of the used field type (uint32) plus 1 byte
@@ -389,7 +389,7 @@ namespace Protocol {
 		UDPAudioEncoder< role >::getPreEncodedVolumeAdjustment(const VolumeAdjustment &adjustment) const {
 		int index = (adjustment.dbAdjustment - preEncodedDBAdjustmentBegin);
 
-		if (adjustment.dbAdjustment == VolumeAdjustment::InvalidDBAdjustment || index < 0
+		if (adjustment.dbAdjustment == VolumeAdjustment::INVALID_DB_ADJUSTMENT || index < 0
 			|| static_cast< std::size_t >(index) >= m_preEncodedVolumeAdjustment.size()) {
 			// No pre-encoded snippet for the given adjustment
 			return {};
@@ -461,13 +461,13 @@ namespace Protocol {
 			actualSize = packetSize;
 		} else {
 			// 8 bytes for a uint64 timestamp + 1byte for the varint encoding of that stamp + 1byte header
-			constexpr std::size_t maxSize = 8 + 1 + 1;
-			m_byteBuffer.resize(maxSize);
+			constexpr std::size_t MAX_SIZE = 8 + 1 + 1;
+			m_byteBuffer.resize(MAX_SIZE);
 
 			// Write header byte (type bits are zero, so they don't have to be set explicitly)
 			m_byteBuffer[0] = static_cast< byte >(LegacyUDPMessageType::Ping) << 5;
 
-			PacketDataStream stream(m_byteBuffer.data() + 1, maxSize - 1);
+			PacketDataStream stream(m_byteBuffer.data() + 1, MAX_SIZE - 1);
 
 			stream << static_cast< quint64 >(data.timestamp);
 

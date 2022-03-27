@@ -85,7 +85,7 @@ public:
 protected:
 	std::size_t m_encodings                         = 0;
 	Version::mumble_raw_version_t m_protocolVersion = Version::UNKNOWN;
-	Mumble::Protocol::audio_context_t m_context     = Mumble::Protocol::AudioContext::Invalid;
+	Mumble::Protocol::audio_context_t m_context     = Mumble::Protocol::AudioContext::INVALID;
 	float m_volumeAdjustment                        = 0.0f;
 };
 
@@ -112,9 +112,9 @@ private slots:
 			usedIDs.insert(current.uiSession);
 		}
 
-		QVERIFY(Mumble::Protocol::AudioContext::Normal < Mumble::Protocol::AudioContext::Whisper);
-		QVERIFY(Mumble::Protocol::AudioContext::Normal < Mumble::Protocol::AudioContext::Shout);
-		QVERIFY(Mumble::Protocol::AudioContext::Normal < Mumble::Protocol::AudioContext::Listen);
+		QVERIFY(Mumble::Protocol::AudioContext::NORMAL < Mumble::Protocol::AudioContext::WHISPER);
+		QVERIFY(Mumble::Protocol::AudioContext::NORMAL < Mumble::Protocol::AudioContext::SHOUT);
+		QVERIFY(Mumble::Protocol::AudioContext::NORMAL < Mumble::Protocol::AudioContext::LISTEN);
 
 		QVERIFY(contextUser1.ssContext == contextUser3.ssContext);
 		QVERIFY(contextUser1.ssContext != contextUser2.ssContext);
@@ -125,12 +125,12 @@ private slots:
 
 		ServerUser &sender = users[0];
 
-		buffer.addReceiver(sender, sender, Mumble::Protocol::AudioContext::Listen, false);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Whisper, false);
-		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, selfDeafUser, Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, deafUser, Mumble::Protocol::AudioContext::Shout, false);
+		buffer.addReceiver(sender, sender, Mumble::Protocol::AudioContext::LISTEN, false);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::WHISPER, false);
+		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, selfDeafUser, Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, deafUser, Mumble::Protocol::AudioContext::SHOUT, false);
 
 		QCOMPARE(buffer.getReceivers(false).size(), static_cast< std::size_t >(3));
 		QVERIFY(buffer.getReceivers(true).empty());
@@ -141,10 +141,10 @@ private slots:
 
 		ServerUser &sender = contextUser1;
 
-		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::Normal, true);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Normal, true);
-		buffer.addReceiver(sender, contextUser2, Mumble::Protocol::AudioContext::Normal, true);
-		buffer.addReceiver(sender, contextUser3, Mumble::Protocol::AudioContext::Normal, true);
+		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::NORMAL, true);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::NORMAL, true);
+		buffer.addReceiver(sender, contextUser2, Mumble::Protocol::AudioContext::NORMAL, true);
+		buffer.addReceiver(sender, contextUser3, Mumble::Protocol::AudioContext::NORMAL, true);
 
 		// There is only one receiver whose context matches that of the sender
 		QCOMPARE(buffer.getReceivers(true).size(), static_cast< std::size_t >(1));
@@ -157,7 +157,7 @@ private slots:
 
 		ServerUser &sender = users[0];
 
-		buffer.forceAddReceiver(sender, Mumble::Protocol::AudioContext::Normal, false);
+		buffer.forceAddReceiver(sender, Mumble::Protocol::AudioContext::NORMAL, false);
 
 		QCOMPARE(buffer.getReceivers(false).size(), static_cast< std::size_t >(1));
 		QVERIFY(buffer.getReceivers(true).empty());
@@ -168,16 +168,16 @@ private slots:
 
 		ServerUser &sender = users[0];
 
-		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::Listen, false,
+		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::LISTEN, false,
 						   VolumeAdjustment::fromFactor(1.2f));
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Whisper, false);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Normal, false);
-		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Listen, false);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::Listen, false,
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::WHISPER, false);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::NORMAL, false);
+		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::LISTEN, false);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::LISTEN, false,
 						   VolumeAdjustment::fromFactor(1.4f));
-		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::Shout, false);
+		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::SHOUT, false);
 
 		buffer.preprocessBuffer();
 
@@ -199,7 +199,7 @@ private slots:
 		QVERIFY(volumeReceiver != nullptr);
 
 		// Verify that the "Normal" speech receiver has survived (instead of one of the other contexts)
-		QCOMPARE(duplicateReceiver->getContext(), Mumble::Protocol::AudioContext::Normal);
+		QCOMPARE(duplicateReceiver->getContext(), Mumble::Protocol::AudioContext::NORMAL);
 		// Verify that the highest volume adjustment has survived
 		QCOMPARE(volumeReceiver->getVolumeAdjustment().factor, 1.4f);
 	}
@@ -209,16 +209,16 @@ private slots:
 
 		ServerUser &sender = contextUser2;
 
-		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::Listen, false);
-		buffer.addReceiver(sender, users[4], Mumble::Protocol::AudioContext::Shout, false);
-		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::Normal, false);
-		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::Normal, false);
-		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::Shout, false,
+		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::LISTEN, false);
+		buffer.addReceiver(sender, users[4], Mumble::Protocol::AudioContext::SHOUT, false);
+		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::NORMAL, false);
+		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::NORMAL, false);
+		buffer.addReceiver(sender, contextUser1, Mumble::Protocol::AudioContext::SHOUT, false,
 						   VolumeAdjustment::fromFactor(1.4f));
-		buffer.addReceiver(sender, contextUser2, Mumble::Protocol::AudioContext::Shout, false,
+		buffer.addReceiver(sender, contextUser2, Mumble::Protocol::AudioContext::SHOUT, false,
 						   VolumeAdjustment::fromFactor(1.2f));
-		buffer.addReceiver(sender, contextUser3, Mumble::Protocol::AudioContext::Shout, false,
+		buffer.addReceiver(sender, contextUser3, Mumble::Protocol::AudioContext::SHOUT, false,
 						   VolumeAdjustment::fromFactor(1.2f));
 
 		buffer.preprocessBuffer();

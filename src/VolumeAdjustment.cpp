@@ -8,33 +8,33 @@
 #include <cassert>
 #include <cmath>
 
-constexpr float dbThreshold = 0.1;
+constexpr float DB_THRESHOLD = 0.1;
 
 VolumeAdjustment::VolumeAdjustment(float factor, int dbAdjustment) : factor(factor), dbAdjustment(dbAdjustment) {
-	assert(dbAdjustment == InvalidDBAdjustment
+	assert(dbAdjustment == INVALID_DB_ADJUSTMENT
 		   // Verify that the used dbAdjustment is a reasonable representation of the given factor. Particularly, we
 		   // want to make sure that the deviation of the true dB representation of the factor (usually a floating point
 		   // value) doesn't deviate more than dbThreshold from the passed integer dB value. For all cases, where this
-		   // would be the case, we expect InvalidDBAdjustment to be passed instead.
+		   // would be the case, we expect INVALID_DB_ADJUSTMENT to be passed instead.
 		   //
 		   // If dB is the dB-representation of a loudness change factor f, we have
 		   // dB = log2(f) * 6    <=>    f = 2^{dB/6}
 		   // (+6dB equals a doubling in loudness)
-		   || dbThreshold >= std::abs(dbAdjustment - std::log2(factor) * 6));
+		   || DB_THRESHOLD >= std::abs(dbAdjustment - std::log2(factor) * 6));
 }
 
 VolumeAdjustment VolumeAdjustment::fromFactor(float factor) {
 	if (factor > 0) {
 		float dB = std::log2(factor) * 6;
 
-		if (std::abs(dB - static_cast< int >(dB)) < dbThreshold) {
+		if (std::abs(dB - static_cast< int >(dB)) < DB_THRESHOLD) {
 			// Close-enough
 			return VolumeAdjustment(factor, std::round(dB));
 		} else {
-			return VolumeAdjustment(factor, InvalidDBAdjustment);
+			return VolumeAdjustment(factor, INVALID_DB_ADJUSTMENT);
 		}
 	} else {
-		return VolumeAdjustment(factor, InvalidDBAdjustment);
+		return VolumeAdjustment(factor, INVALID_DB_ADJUSTMENT);
 	}
 }
 

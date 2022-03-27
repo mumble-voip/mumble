@@ -14,9 +14,9 @@ std::uniform_int_distribution< unsigned int > random_byte(0, std::numeric_limits
 
 constexpr int PAYLOAD_SIZE_RANGE = 0;
 
-constexpr int fromPayloadSize       = 0;
-constexpr int toPayloadSize         = 900;
-constexpr int payloadSizeMultiplier = 2;
+constexpr int FROM_PAYLOAD_SIZE       = 0;
+constexpr int TO_PAYLOAD_SIZE         = 900;
+constexpr int PAYLOAD_SIZE_MULTIPLIER = 2;
 
 std::vector< Mumble::Protocol::byte > audioPayload;
 Mumble::Protocol::AudioData audioData;
@@ -67,8 +67,8 @@ BENCHMARK_DEFINE_F(Fixture, BM_encodeLegacyDirect)(::benchmark::State &state) {
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_encodeLegacyDirect)
-	->RangeMultiplier(payloadSizeMultiplier)
-	->Range(fromPayloadSize, toPayloadSize);
+	->RangeMultiplier(PAYLOAD_SIZE_MULTIPLIER)
+	->Range(FROM_PAYLOAD_SIZE, TO_PAYLOAD_SIZE);
 
 BENCHMARK_DEFINE_F(Fixture, BM_encodeLegacy)(::benchmark::State &state) {
 	encoder.setProtocolVersion(Version::toRaw(1, 3, 0));
@@ -79,8 +79,8 @@ BENCHMARK_DEFINE_F(Fixture, BM_encodeLegacy)(::benchmark::State &state) {
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_encodeLegacy)
-	->RangeMultiplier(payloadSizeMultiplier)
-	->Range(fromPayloadSize, toPayloadSize);
+	->RangeMultiplier(PAYLOAD_SIZE_MULTIPLIER)
+	->Range(FROM_PAYLOAD_SIZE, TO_PAYLOAD_SIZE);
 
 BENCHMARK_DEFINE_F(Fixture, BM_encodeLegacy_UpdateOnly)(::benchmark::State &state) {
 	encoder.setProtocolVersion(Version::toRaw(1, 3, 0));
@@ -93,8 +93,8 @@ BENCHMARK_DEFINE_F(Fixture, BM_encodeLegacy_UpdateOnly)(::benchmark::State &stat
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_encodeLegacy_UpdateOnly)
-	->RangeMultiplier(payloadSizeMultiplier)
-	->Range(fromPayloadSize, toPayloadSize);
+	->RangeMultiplier(PAYLOAD_SIZE_MULTIPLIER)
+	->Range(FROM_PAYLOAD_SIZE, TO_PAYLOAD_SIZE);
 
 BENCHMARK_DEFINE_F(Fixture, BM_encodeNew)(::benchmark::State &state) {
 	encoder.setProtocolVersion(Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION);
@@ -105,8 +105,8 @@ BENCHMARK_DEFINE_F(Fixture, BM_encodeNew)(::benchmark::State &state) {
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_encodeNew)
-	->RangeMultiplier(payloadSizeMultiplier)
-	->Range(fromPayloadSize, toPayloadSize);
+	->RangeMultiplier(PAYLOAD_SIZE_MULTIPLIER)
+	->Range(FROM_PAYLOAD_SIZE, TO_PAYLOAD_SIZE);
 
 BENCHMARK_DEFINE_F(Fixture, BM_encodeNew_UpdateOnly)(::benchmark::State &state) {
 	encoder.setProtocolVersion(Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION);
@@ -119,8 +119,8 @@ BENCHMARK_DEFINE_F(Fixture, BM_encodeNew_UpdateOnly)(::benchmark::State &state) 
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_encodeNew_UpdateOnly)
-	->RangeMultiplier(payloadSizeMultiplier)
-	->Range(fromPayloadSize, toPayloadSize);
+	->RangeMultiplier(PAYLOAD_SIZE_MULTIPLIER)
+	->Range(FROM_PAYLOAD_SIZE, TO_PAYLOAD_SIZE);
 
 
 BENCHMARK_MAIN();

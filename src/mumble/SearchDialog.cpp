@@ -58,12 +58,12 @@ public:
 	SearchResultItem(const SearchResult &result, unsigned int id, parent_t parent,
 					 QTreeWidgetItem *precedingItem = nullptr)
 		: QTreeWidgetItem(parent, precedingItem), m_result(result), m_id(id) {
-		constexpr int typeColumn  = 0;
-		constexpr int matchColumn = 1;
+		constexpr int TYPE_COLUMN  = 0;
+		constexpr int MATCH_COLUMN = 1;
 
 		if (m_result.type == SearchType::User) {
 			QIcon userIcon = QIcon(QLatin1String("skin:talking_off.svg"));
-			setIcon(typeColumn, userIcon);
+			setIcon(TYPE_COLUMN, userIcon);
 		}
 
 		setChildIndicatorPolicy(QTreeWidgetItem::DontShowIndicator);
@@ -72,10 +72,10 @@ public:
 			m_result.fullText.replace(m_result.begin, m_result.length,
 									  "<b>" + m_result.fullText.midRef(m_result.begin, m_result.length) + "</b>");
 
-		setData(matchColumn, Qt::DisplayRole, std::move(matchText));
-		setData(matchColumn, SearchDialogItemDelegate::CHANNEL_TREE_ROLE, m_result.channelHierarchy);
+		setData(MATCH_COLUMN, Qt::DisplayRole, std::move(matchText));
+		setData(MATCH_COLUMN, SearchDialogItemDelegate::CHANNEL_TREE_ROLE, m_result.channelHierarchy);
 
-		setTextAlignment(matchColumn, Qt::AlignLeft | Qt::AlignVCenter);
+		setTextAlignment(MATCH_COLUMN, Qt::AlignLeft | Qt::AlignVCenter);
 	}
 
 	unsigned int getID() const { return m_id; }
@@ -94,11 +94,11 @@ public:
 	template< typename parent_t >
 	ChannelItem(const Channel *chan, parent_t parent = nullptr, QTreeWidgetItem *precedingItem = nullptr)
 		: QTreeWidgetItem(parent, precedingItem), m_chanID(chan->iId) {
-		constexpr int nameColumn = 0;
+		constexpr int NAME_COLUMN = 0;
 
-		setText(nameColumn, chan->qsName);
+		setText(NAME_COLUMN, chan->qsName);
 
-		setTextAlignment(nameColumn, Qt::AlignLeft | Qt::AlignVCenter);
+		setTextAlignment(NAME_COLUMN, Qt::AlignLeft | Qt::AlignVCenter);
 	}
 
 	int getChannelID() const { return m_chanID; }
@@ -254,8 +254,8 @@ void SearchDialog::clearSearchResults() {
 }
 
 SearchResult regularSearch(const QString &source, const QString &searchTerm, SearchType type, bool caseSensitive) {
-	constexpr int from = 0;
-	int startIndex     = source.indexOf(searchTerm, from, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+	constexpr int FROM = 0;
+	int startIndex     = source.indexOf(searchTerm, FROM, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
 	if (startIndex >= 0) {
 		int length = searchTerm.size();

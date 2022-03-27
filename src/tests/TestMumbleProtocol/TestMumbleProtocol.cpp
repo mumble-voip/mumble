@@ -174,12 +174,12 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 		if (decoderRole == Mumble::Protocol::Role::Client) {
 			QVERIFY(encoder.getRole() == Mumble::Protocol::Role::Server);
 
-			data.targetOrContext = Mumble::Protocol::AudioContext::Shout;
+			data.targetOrContext = Mumble::Protocol::AudioContext::SHOUT;
 			data.senderSession   = 42;
 		} else {
 			QVERIFY(encoder.getRole() == Mumble::Protocol::Role::Client);
 
-			data.targetOrContext = Mumble::Protocol::ReservedTargetIDs::ServerLoopback;
+			data.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK;
 		}
 
 		auto encodedData = encoder.encodeAudioPacket(data);
@@ -193,7 +193,7 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 		qWarning() << "Partial re-encoding";
 
 		// Re-encode fields from the "variable" part
-		data.targetOrContext = Mumble::Protocol::AudioContext::Listen;
+		data.targetOrContext = Mumble::Protocol::AudioContext::LISTEN;
 		if (version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION
 			&& decoderRole == Mumble::Protocol::Role::Client) {
 			data.volumeAdjustment = VolumeAdjustment::fromFactor(0.9f);
@@ -210,7 +210,7 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 		qWarning() << "Removing positional data";
 		// Update the audio packet to no longer contain positional data.
 		data.containsPositionalData = false;
-		data.targetOrContext        = Mumble::Protocol::AudioContext::Normal;
+		data.targetOrContext        = Mumble::Protocol::AudioContext::NORMAL;
 
 		encoder.dropPositionalData();
 
@@ -249,8 +249,8 @@ private slots:
 		MumbleUDP::Audio msg;
 		std::vector< Mumble::Protocol::byte > buffer;
 
-		for (Mumble::Protocol::audio_context_t currentContext = Mumble::Protocol::AudioContext::begin;
-			 currentContext < Mumble::Protocol::AudioContext::end; currentContext++) {
+		for (Mumble::Protocol::audio_context_t currentContext = Mumble::Protocol::AudioContext::BEGIN;
+			 currentContext < Mumble::Protocol::AudioContext::END; currentContext++) {
 			gsl::span< const Mumble::Protocol::byte > snippet = encoder.getPreEncodedContext(currentContext);
 
 			QVERIFY2(!snippet.empty(), "Unable to find pre-encoded snippet for audio context");
@@ -270,7 +270,7 @@ private slots:
 		}
 
 		// Ensure that an unknown context yields an empty span
-		QVERIFY(encoder.getPreEncodedContext(Mumble::Protocol::AudioContext::end).empty());
+		QVERIFY(encoder.getPreEncodedContext(Mumble::Protocol::AudioContext::END).empty());
 	}
 
 	void test_preEncode_volume_adjustments() {
@@ -278,10 +278,10 @@ private slots:
 
 		MumbleUDP::Audio msg;
 
-		constexpr int min = -60;
-		constexpr int max = 30;
+		constexpr int MIN = -60;
+		constexpr int MAX = 30;
 
-		for (int currentAdjustment = min; currentAdjustment <= max; ++currentAdjustment) {
+		for (int currentAdjustment = MIN; currentAdjustment <= MAX; ++currentAdjustment) {
 			msg.Clear();
 
 			gsl::span< const Mumble::Protocol::byte > snippet =
@@ -296,9 +296,9 @@ private slots:
 		}
 
 		// Ensure that an unknown/unexpected volume adjustment yields an empty span
-		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment::fromDBAdjustment(min - 1)).empty());
+		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment::fromDBAdjustment(MIN - 1)).empty());
 		// We only expect pre-encoded values for integer dB adjustments
-		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment(std::pow(2.0f, (min + 0.5) / 6.0f))).empty());
+		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment(std::pow(2.0f, (MAX + 0.5) / 6.0f))).empty());
 	}
 };
 

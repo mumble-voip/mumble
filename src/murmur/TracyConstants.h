@@ -7,19 +7,19 @@
 #define MUMBLE_MURMUR_TRACYCONSTANTS_H_
 
 namespace TracyConstants {
-static constexpr const char *udp_packet_processing_zone = "udp_packet_processing";
-static constexpr const char *tcp_packet_processing_zone = "tcp_packet_processing";
-static constexpr const char *ping_processing_zone       = "tcp_ping";
-static constexpr const char *udp_ping_processing_zone   = "udp_ping";
-static constexpr const char *decrypt_unknown_peer_zone  = "decrypt_unknown_peer";
+static constexpr const char *UDP_PACKET_PROCESSING_ZONE = "udp_packet_processing";
+static constexpr const char *TCP_PACKET_PROCESSING_ZONE = "tcp_packet_processing";
+static constexpr const char *PING_PROCESSING_ZONE       = "tcp_ping";
+static constexpr const char *UDP_PING_PROCESSING_ZONE   = "udp_ping";
+static constexpr const char *DECRYPT_UNKNOWN_PEER_ZONE  = "decrypt_unknown_peer";
 
-static constexpr const char *udp_frame = "udp_frame";
+static constexpr const char *UDP_FRAME = "udp_frame";
 
-static constexpr const char *audio_send_out_zone         = "audio_send_out";
-static constexpr const char *audio_encode                = "audio_encode";
-static constexpr const char *audio_update                = "audio_update";
-static constexpr const char *audio_whisper_cache_restore = "audio_whisper_cache_restore";
-static constexpr const char *audio_whisper_cache_create  = "audio_whisper_cache_create";
+static constexpr const char *AUDIO_SENDOUT_ZONE         = "audio_send_out";
+static constexpr const char *AUDIO_ENCODE               = "audio_encode";
+static constexpr const char *AUDIO_UPDATE               = "audio_update";
+static constexpr const char *AUDIO_WHISPER_CACHE_STORE  = "audio_whisper_cache_restore";
+static constexpr const char *AUDIO_WHISPER_CACHE_CREATE = "audio_whisper_cache_create";
 }; // namespace TracyConstants
 
 #endif // MUMBLE_MURMUR_TRACYCONSTANTS_H_

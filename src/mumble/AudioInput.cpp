@@ -1119,7 +1119,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 			if (Global::get().s.bTxMuteCue && !Global::get().bPushToMute && !Global::get().s.bDeaf
 				&& bTalkingWhenMuted) {
-				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > iMuteCueDelay) {
+				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > MUTE_CUE_DELAY) {
 					qetLastMuteCue.start();
 					ao->playSample(Global::get().s.qsTxMuteCue);
 				}
@@ -1256,7 +1256,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 		Global::get().iPrevTarget = 0;
 	}
 	if (Global::get().s.lmLoopMode == Settings::Server) {
-		audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::ServerLoopback;
+		audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK;
 	}
 
 	audioData.usedCodec = m_codec;

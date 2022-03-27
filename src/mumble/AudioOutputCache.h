@@ -41,7 +41,7 @@ public:
 private:
 	std::vector< Mumble::Protocol::byte > m_audioData;
 	bool m_isLastFrame                               = false;
-	Mumble::Protocol::audio_context_t m_audioContext = Mumble::Protocol::AudioContext::Invalid;
+	Mumble::Protocol::audio_context_t m_audioContext = Mumble::Protocol::AudioContext::INVALID;
 	float m_volumeAdjustment                         = 1.0f;
 	bool m_containsPosition                          = false;
 	std::array< float, 3 > m_position;

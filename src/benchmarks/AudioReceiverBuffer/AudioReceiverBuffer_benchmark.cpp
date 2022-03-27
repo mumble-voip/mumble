@@ -18,12 +18,12 @@ std::vector< Mumble::Protocol::audio_context_t > contexts;
 std::vector< VolumeAdjustment > volumeAdjustments;
 std::vector< ServerUser > users;
 
-constexpr const std::size_t ReceiverCountRange = 0;
-constexpr const std::size_t DuplicateRange     = 1;
+constexpr const std::size_t RECEIVER_COUNT_RANGE = 0;
+constexpr const std::size_t DUPLICATE_RANGE      = 1;
 
-constexpr int Multiplier         = 2;
-constexpr int ReceiverCountBegin = 1;
-constexpr int ReceiverCountEnd   = 512;
+constexpr int MULTIPLIER           = 2;
+constexpr int RECEIVER_COUNT_BEGIN = 1;
+constexpr int RECEIVER_COUNT_END   = 512;
 
 struct ReceiverData {
 	ServerUser *receiver;
@@ -35,14 +35,14 @@ struct ReceiverData {
 std::vector< ReceiverData > selectedData;
 
 void globalInit() {
-	for (int i = 0; i <= ReceiverCountEnd; ++i) {
+	for (int i = 0; i <= RECEIVER_COUNT_END; ++i) {
 		contexts.push_back(random_context(rng));
 		volumeAdjustments.push_back(VolumeAdjustment::fromDBAdjustment(random_volume_adjustment(rng)));
 		users.push_back(ServerUser(i, random_version(rng)));
 	}
 
 	// add one additional user acting as the sender
-	users.push_back(ServerUser(ReceiverCountEnd + 1, random_version(rng)));
+	users.push_back(ServerUser(RECEIVER_COUNT_END + 1, random_version(rng)));
 }
 
 class Fixture : public ::benchmark::Fixture {
@@ -50,8 +50,8 @@ public:
 	void SetUp(const ::benchmark::State &state) {
 		selectedData.clear();
 
-		std::size_t totalReceivers     = state.range(ReceiverCountRange);
-		std::size_t duplicateReceivers = totalReceivers * (state.range(DuplicateRange) / 100.0f);
+		std::size_t totalReceivers     = state.range(RECEIVER_COUNT_RANGE);
+		std::size_t duplicateReceivers = totalReceivers * (state.range(DUPLICATE_RANGE) / 100.0f);
 
 		for (std::size_t i = 0; i < totalReceivers - duplicateReceivers; ++i) {
 			selectedData.push_back({ &users[i], contexts[i], false, volumeAdjustments[i] });
@@ -100,7 +100,7 @@ BENCHMARK_DEFINE_F(Fixture, BM_addReceiver)(::benchmark::State &state) {
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_addReceiver)
-	->ArgsProduct({ benchmark::CreateRange(ReceiverCountBegin, ReceiverCountEnd, /*multi=*/Multiplier),
+	->ArgsProduct({ benchmark::CreateRange(RECEIVER_COUNT_BEGIN, RECEIVER_COUNT_END, /*multi=*/MULTIPLIER),
 					{ 0, 10, 40, 80 } });
 
 
@@ -143,7 +143,7 @@ BENCHMARK_DEFINE_F(Fixture, BM_full)(::benchmark::State &state) {
 }
 
 BENCHMARK_REGISTER_F(Fixture, BM_full)
-	->ArgsProduct({ benchmark::CreateRange(ReceiverCountBegin, ReceiverCountEnd, /*multi=*/Multiplier),
+	->ArgsProduct({ benchmark::CreateRange(RECEIVER_COUNT_BEGIN, RECEIVER_COUNT_END, /*multi=*/MULTIPLIER),
 					{ 0, 10, 40, 80 } });
 
 

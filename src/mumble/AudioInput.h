@@ -240,7 +240,7 @@ protected:
 	int iAudioFrames;
 
 	/// The minimum time in ms that has to pass between the playback of two consecutive mute cues.
-	static constexpr unsigned int iMuteCueDelay = 5000;
+	static constexpr unsigned int MUTE_CUE_DELAY = 5000;
 
 	float *pfMicInput;
 	float *pfEchoInput;

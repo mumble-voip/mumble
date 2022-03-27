@@ -315,12 +315,12 @@ PipeWireInput::PipeWireInput() {
 
 	iMicChannels = Global::get().s.pipeWireInput;
 
-	constexpr uint32_t channels[]{
+	constexpr uint32_t CHANNELS[]{
 		SPEAKER_FRONT_LEFT,
 		SPEAKER_FRONT_RIGHT,
 	};
 
-	if (!m_engine->connect(PW_DIRECTION_INPUT, channels, iMicChannels)) {
+	if (!m_engine->connect(PW_DIRECTION_INPUT, CHANNELS, iMicChannels)) {
 		return;
 	}
 
@@ -374,16 +374,16 @@ PipeWireOutput::PipeWireOutput() {
 	// - 7.1 surround
 	//
 	// Ideally this should be configurable by the user.
-	constexpr uint32_t channels[]{ SPEAKER_FRONT_LEFT, SPEAKER_FRONT_RIGHT, SPEAKER_LOW_FREQUENCY, SPEAKER_FRONT_CENTER,
+	constexpr uint32_t CHANNELS[]{ SPEAKER_FRONT_LEFT, SPEAKER_FRONT_RIGHT, SPEAKER_LOW_FREQUENCY, SPEAKER_FRONT_CENTER,
 								   SPEAKER_BACK_LEFT,  SPEAKER_BACK_RIGHT,  SPEAKER_SIDE_LEFT,     SPEAKER_SIDE_RIGHT };
 
-	if (!m_engine->connect(PW_DIRECTION_OUTPUT, channels, iChannels)) {
+	if (!m_engine->connect(PW_DIRECTION_OUTPUT, CHANNELS, iChannels)) {
 		return;
 	}
 
 	eSampleFormat = SampleFloat;
 	iMixerFreq    = SAMPLE_RATE;
-	initializeMixer(channels);
+	initializeMixer(CHANNELS);
 
 	m_engine->start();
 }

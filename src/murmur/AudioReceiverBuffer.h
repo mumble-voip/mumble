@@ -34,7 +34,7 @@ public:
 
 protected:
 	std::reference_wrapper< ServerUser > m_receiver;
-	Mumble::Protocol::audio_context_t m_context = Mumble::Protocol::AudioContext::Invalid;
+	Mumble::Protocol::audio_context_t m_context = Mumble::Protocol::AudioContext::INVALID;
 	VolumeAdjustment m_volumeAdjustment         = VolumeAdjustment::fromFactor(1.0f);
 };
 

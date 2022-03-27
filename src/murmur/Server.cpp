@@ -802,7 +802,7 @@ void Server::run() {
 	++nfds;
 
 	while (bRunning) {
-		FrameMarkNamed(TracyConstants::udp_frame);
+		FrameMarkNamed(TracyConstants::UDP_FRAME);
 
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
@@ -877,7 +877,7 @@ void Server::run() {
 #endif
 
 				// Capture only the processing without the polling
-				ZoneScopedN(TracyConstants::udp_packet_processing_zone);
+				ZoneScopedN(TracyConstants::UDP_PACKET_PROCESSING_ZONE);
 
 				if (len == 0) {
 					break;
@@ -911,7 +911,7 @@ void Server::run() {
 				// This may be a general ping requesting server details, unencrypted.
 				if (bAllowPing && m_udpDecoder.decodePing(gsl::span< Mumble::Protocol::byte >(encrypt, len))
 					&& m_udpDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Ping) {
-					ZoneScopedN(TracyConstants::ping_processing_zone);
+					ZoneScopedN(TracyConstants::PING_PROCESSING_ZONE);
 
 					gsl::span< const Mumble::Protocol::byte > encodedPing =
 						handlePing(m_udpDecoder, m_udpPingEncoder, true);
@@ -937,7 +937,7 @@ void Server::run() {
 						continue;
 					}
 				} else {
-					ZoneScopedN(TracyConstants::decrypt_unknown_peer_zone);
+					ZoneScopedN(TracyConstants::DECRYPT_UNKNOWN_PEER_ZONE);
 
 					// Unknown peer
 					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
@@ -990,7 +990,7 @@ void Server::run() {
 							break;
 						}
 						case Mumble::Protocol::UDPMessageType::Ping: {
-							ZoneScopedN(TracyConstants::udp_ping_processing_zone);
+							ZoneScopedN(TracyConstants::UDP_PING_PROCESSING_ZONE);
 
 							Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 							if (!pingData.requestAdditionalInformation && !pingData.containsAdditionalInformation) {
@@ -1156,16 +1156,16 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 
 	buffer.clear();
 
-	if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::ServerLoopback) {
-		buffer.forceAddReceiver(*u, Mumble::Protocol::AudioContext::Normal, audioData.containsPositionalData);
-	} else if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::RegularSpeech) {
+	if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK) {
+		buffer.forceAddReceiver(*u, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
+	} else if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::REGULAR_SPEECH) {
 		Channel *c = u->cChannel;
 
 		// Send audio to all users that are listening to the channel
 		foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(c->iId)) {
 			ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 			if (pDst) {
-				buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Listen, audioData.containsPositionalData);
+				buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData);
 			}
 		}
 
@@ -1173,7 +1173,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		for (User *p : c->qlUsers) {
 			ServerUser *pDst = static_cast< ServerUser * >(p);
 
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Normal, audioData.containsPositionalData);
+			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
 		}
 
 		// Send audio to all linked channels the user has speak-permission
@@ -1189,7 +1189,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 					for (unsigned int currentSession : m_channelListenerManager.getListenersForChannel(l->iId)) {
 						ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 						if (pDst) {
-							buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Listen,
+							buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::LISTEN,
 											   audioData.containsPositionalData);
 						}
 					}
@@ -1198,7 +1198,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 					for (User *p : l->qlUsers) {
 						ServerUser *pDst = static_cast< ServerUser * >(p);
 
-						buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Normal,
+						buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL,
 										   audioData.containsPositionalData);
 					}
 				}
@@ -1210,14 +1210,14 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		QSet< ServerUser * > listener;
 
 		if (u->qmTargetCache.contains(audioData.targetOrContext)) {
-			ZoneScopedN(TracyConstants::audio_whisper_cache_restore);
+			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_STORE);
 
 			const WhisperTargetCache &cache = u->qmTargetCache.value(audioData.targetOrContext);
 			channel                         = cache.channelTargets;
 			direct                          = cache.directTargets;
 			listener                        = cache.listeningTargets;
 		} else {
-			ZoneScopedN(TracyConstants::audio_whisper_cache_create);
+			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
 
 			const WhisperTarget &wt = u->qmTargets.value(audioData.targetOrContext);
 			if (!wt.qlChannels.isEmpty()) {
@@ -1308,19 +1308,19 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		}
 		// These users receive the audio because someone is shouting to their channel
 		for (ServerUser *pDst : channel) {
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Shout, audioData.containsPositionalData);
+			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::SHOUT, audioData.containsPositionalData);
 		}
 		// These users receive audio because someone is whispering to them
 		for (ServerUser *pDst : direct) {
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::Whisper, audioData.containsPositionalData);
+			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::WHISPER, audioData.containsPositionalData);
 		}
 		// These users receive audio because someone is sending audio to one of their listeners
 		for (ServerUser *current : listener) {
-			buffer.addReceiver(*u, *current, Mumble::Protocol::AudioContext::Listen, audioData.containsPositionalData);
+			buffer.addReceiver(*u, *current, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData);
 		}
 	}
 
-	ZoneNamedN(__tracy_scoped_zone2, TracyConstants::audio_send_out_zone, true);
+	ZoneNamedN(__tracy_scoped_zone2, TracyConstants::AUDIO_SENDOUT_ZONE, true);
 
 	buffer.preprocessBuffer();
 
@@ -1345,7 +1345,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			if (isFirstIteration
 				|| !Mumble::Protocol::protocolVersionsAreCompatible(encoder.getProtocolVersion(),
 																	currentRange.begin->getReceiver().uiVersion)) {
-				ZoneScopedN(TracyConstants::audio_encode);
+				ZoneScopedN(TracyConstants::AUDIO_ENCODE);
 
 				encoder.setProtocolVersion(currentRange.begin->getReceiver().uiVersion);
 
@@ -1362,7 +1362,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			audioData.targetOrContext = currentRange.begin->getContext();
 
 			// Update data
-			TracyCZoneN(__tracy_zone, TracyConstants::audio_update, true);
+			TracyCZoneN(__tracy_zone, TracyConstants::AUDIO_UPDATE, true);
 			gsl::span< const Mumble::Protocol::byte > encodedPacket = encoder.updateAudioPacket(audioData);
 			TracyCZoneEnd(__tracy_zone);
 
@@ -1735,7 +1735,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 }
 
 void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg, ServerUser *u) {
-	ZoneScopedN(TracyConstants::tcp_packet_processing_zone);
+	ZoneScopedN(TracyConstants::TCP_PACKET_PROCESSING_ZONE);
 
 	if (!u) {
 		u = static_cast< ServerUser * >(sender());

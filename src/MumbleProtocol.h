@@ -89,20 +89,20 @@ namespace Protocol {
 	};
 
 	namespace ReservedTargetIDs {
-		constexpr const unsigned int RegularSpeech  = 0;
-		constexpr const unsigned int ServerLoopback = 31;
+		constexpr unsigned int REGULAR_SPEECH  = 0;
+		constexpr unsigned int SERVER_LOOPBACK = 31;
 	}; // namespace ReservedTargetIDs
 
 	using audio_context_t = byte;
 	namespace AudioContext {
-		constexpr audio_context_t Invalid = 0xFF; // This is the equivalent of -1 as a signed 8bit number
-		constexpr audio_context_t Normal  = 0;
-		constexpr audio_context_t Shout   = 1;
-		constexpr audio_context_t Whisper = 2;
-		constexpr audio_context_t Listen  = 3;
+		constexpr audio_context_t INVALID = 0xFF; // This is the equivalent of -1 as a signed 8bit number
+		constexpr audio_context_t NORMAL  = 0;
+		constexpr audio_context_t SHOUT   = 1;
+		constexpr audio_context_t WHISPER = 2;
+		constexpr audio_context_t LISTEN  = 3;
 
-		constexpr audio_context_t begin = Normal;
-		constexpr audio_context_t end   = Listen + 1;
+		constexpr audio_context_t BEGIN = NORMAL;
+		constexpr audio_context_t END   = LISTEN + 1;
 	}; // namespace AudioContext
 
 	enum class Role { Server, Client };
@@ -127,7 +127,7 @@ namespace Protocol {
 	};
 
 	struct AudioData {
-		std::uint32_t targetOrContext = ReservedTargetIDs::RegularSpeech;
+		std::uint32_t targetOrContext = ReservedTargetIDs::REGULAR_SPEECH;
 		AudioCodec usedCodec          = AudioCodec::Opus;
 		std::uint32_t senderSession   = 0;
 		std::uint64_t frameNumber     = 0;

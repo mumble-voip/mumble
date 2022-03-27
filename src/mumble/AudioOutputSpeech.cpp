@@ -144,7 +144,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 	iMissCount    = 0;
 	iMissedFrames = 0;
 
-	m_audioContext = Mumble::Protocol::AudioContext::Invalid;
+	m_audioContext = Mumble::Protocol::AudioContext::INVALID;
 
 	jbJitter   = jitter_buffer_init(iFrameSize);
 	int margin = Global::get().s.iJitterBufferSize * iFrameSize;
@@ -590,22 +590,22 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 	if (p) {
 		Settings::TalkState ts;
 		if (!nextalive) {
-			m_audioContext = Mumble::Protocol::AudioContext::Invalid;
+			m_audioContext = Mumble::Protocol::AudioContext::INVALID;
 		}
 
 		switch (m_audioContext) {
-			case Mumble::Protocol::AudioContext::Listen:
+			case Mumble::Protocol::AudioContext::LISTEN:
 				// Fallthrough
-			case Mumble::Protocol::AudioContext::Normal:
+			case Mumble::Protocol::AudioContext::NORMAL:
 				ts = Settings::Talking;
 				break;
-			case Mumble::Protocol::AudioContext::Shout:
+			case Mumble::Protocol::AudioContext::SHOUT:
 				ts = Settings::Shouting;
 				break;
-			case Mumble::Protocol::AudioContext::Invalid:
+			case Mumble::Protocol::AudioContext::INVALID:
 				ts = Settings::Passive;
 				break;
-			case Mumble::Protocol::AudioContext::Whisper:
+			case Mumble::Protocol::AudioContext::WHISPER:
 				ts = Settings::Whispering;
 				break;
 			default:
