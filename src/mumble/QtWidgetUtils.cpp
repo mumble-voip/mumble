@@ -11,6 +11,8 @@
 #include <QTextCursor>
 #include <QTextDocument>
 
+#include <cstdint>
+
 namespace Mumble {
 namespace QtUtils {
 	QScreen *screenAt(QPoint point) {

@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_QTWIDGETUTILS_H_
 #define MUMBLE_MUMBLE_QTWIDGETUTILS_H_
 
+#include <cstdint>
+
 #include <QPoint>
 
 class QScreen;
