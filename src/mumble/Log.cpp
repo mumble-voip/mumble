@@ -111,7 +111,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 											.arg(messageName));
 		twi->setWhatsThis(
 			ColMessageLimit,
-			tr("Click here to toggle limiting for %1 events. <br /> If checked, notifications for this event type"
+			tr("Click here to toggle limiting for %1 events.<br />If checked, notifications for this event type "
 			   "will not be played when the user count on the server exceeds the set threshold.")
 				.arg(messageName));
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, "

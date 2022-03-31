@@ -4103,15 +4103,15 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation type="unfinished">Veksle meldingsgrenseoppførsel for %1- begivenheter </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished">Klikk her for å skru av begrensning for %1-begivenheter.&lt;br /&gt;Merknader for denne begivenhetstypen vil ikke bli avspilt når brukerantall på tjeneren overskrider terskelen.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7685,10 +7685,6 @@ Du finner tilgjengelige alternativer i &lt;a href=&quot;https://wiki.mumble.info
         <translation type="unfinished">Innvilg tilgang til mikrofon i → Sikkerhet og personvern → Personvern →Mikrofon.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Tilgang til mikrofonen ble ikke innvilget som følge av systembegrensninger. Du vil ikke kunne bruke mikrofonen i denne økten.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation type="unfinished">Prøver å kansellere ekko fra lydstrømmen.</translation>
     </message>
@@ -7767,6 +7763,10 @@ Du kan registrere dem igjen.</translation>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation type="unfinished">Hvis du opplever gjentatte krasj med disse innstillingene kand det hende du må slette innstillingsfilene i &lt;pre&gt;%1&lt;/pre&gt; og &lt;pre&gt;%2&lt;/pre&gt; manuelt for å tilbakestille alle innstillingene til deres forvalgte verdier.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

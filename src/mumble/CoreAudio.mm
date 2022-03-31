@@ -531,7 +531,7 @@ bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 			case AVAuthorizationStatusRestricted: {
 				// The user can't grant access due to restrictions.
 				qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
-				Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied due to system restrictions. You will not be able"
+				Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied due to system restrictions. You will not be able "
 				                         "to use the microphone in this session."));
 				return true;
 			}

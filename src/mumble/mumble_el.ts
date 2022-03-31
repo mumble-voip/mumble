@@ -4089,16 +4089,16 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Εναλλαγή περιοριστικής συμπεριφοράς μηνύματος για %1 συμβάντα </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>Κάντε κλικ εδώ για εναλλαγή περιορισμού για %1 συμβάντα.&lt;br /&gt;Εάν είναι επιλεγμένο, οι ειδοποιήσεις για αυτόν τον τύπο συμβάντος δεν θα αναπαραχθούν όταν ο αριθμός χρηστών στον διακομιστή υπερβεί το καθορισμένο όριο.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation>Πατήστε για ενεργοποίηση Κείμενο-σε-Ομιλία</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
         <translation>Ενεργοποίηση Κείμενο-σε-Ομιλία</translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7671,10 +7671,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation>Η πρόσβαση στο μικρόφωνο αποκλείστηκε. Επιτρέψτε στο Mumble να χρησιμοποιεί το μικρόφωνο αλλάζοντας τις ρυθμίσεις στις Προτιμήσεις συστήματος -&gt; Ασφάλεια και απόρρητο -&gt; Απόρρητο -&gt; Μικρόφωνο.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Η πρόσβαση στο μικρόφωνο αποκλείστηκε λόγω περιορισμών του συστήματος. Δεν θα μπορείτε να χρησιμοποιήσετε το μικρόφωνο σε αυτήν τη συνεδρία.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Εάν είναι ενεργοποιημένη, προσπαθεί να ακυρώσει την ηχώ από τη ροή ήχου.</translation>
     </message>
@@ -7753,6 +7749,10 @@ You can register them again.</source>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation>Αν αντιμετωπίζεται επανηλλειμένες καταρρεύσεις με αυτές τις ρυθμίσεις, ίσως θα χρειαστεί να διαγράψετε χειροκίνητα τα αρχεία ρυθμίσεων στο &lt;pre&gt;%1&lt;/pre&gt; και στο &lt;pre&gt;%2&lt;/pre&gt; , έτσι ώστε να επανέλθουν οι ρυθμίσεις στις προεπιλεγμένες τιμές τους.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

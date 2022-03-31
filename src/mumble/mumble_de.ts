@@ -4089,16 +4089,16 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Schalte Benachrichtigungs-Limitierung für %1 Events um </translation>
     </message>
     <message>
-        <source>Click here to toggle limiting for %1 events. &lt;br /&gt; If checked, notifications for this event typewill not be played when the user count on the server exceeds the set threshold.</source>
-        <translation>Klicken Sie hier, um %1 Events zu limitierren.&lt;br /&gt;Sofern aktiviert werden Benachrichtigungen für dieses Event nicht abgespielt wenn die Benutzeranzahl auf dem Server über der eingestellten Grenze liegt.</translation>
-    </message>
-    <message>
         <source>Click to enable Text-to-Speech</source>
         <translation>Klicken Sie hier, um Text-zu-Sprache zu aktivieren</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
         <translation>Aktiviere Text-zu-Sprache</translation>
+    </message>
+    <message>
+        <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7671,10 +7671,6 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
         <translation>Der Zugriff zum Mikrofon wurde abgelehnt. Bitte erlauben Sie Mumble in den Systemeinstellungen unter Sicherheit &amp; Privatsphäre das Mikrofon zu benutzen.</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation>Der Zugriff auf das Mikrofon wurde aufgrund der geltenden Systembeschränkungen abgelehnt. Es ist daher nicht möglich, das Mikrofon während dieser Sitzung zu verwenden.</translation>
-    </message>
-    <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
         <translation>Sofern eingeschaltet wird versucht, störende Echo-Geräusche aus dem Audio-Stream zu entfernen.</translation>
     </message>
@@ -7753,6 +7749,10 @@ Sie können sie jedoch erneut registrieren.</translation>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
         <translation>Wenn Sie mit diesen Einstellungen wiederholt Programmabstürze beobachten, kann es helfen, die Konfigurationsdateien unter &lt;pre&gt;%1&lt;/pre&gt; und &lt;pre&gt;%2&lt;/pre&gt; manuell zu löschen, um die Einstellungen auf ihre Standardwerte zurückzusetzen.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
