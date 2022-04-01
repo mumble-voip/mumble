@@ -219,6 +219,7 @@ struct AmongUsClient_Fields : InnerNet_InnerNetClient_Fields {
 	DiscoverState discoverState;
 	ptr_t disconnectHandlers;
 	ptr_t gameListHandlers;
+	int32_t crossplayPrivilegeError;
 };
 
 struct AmongUsClient_StaticFields {
@@ -239,14 +240,20 @@ struct AmongUsClient_o {
 struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	int32_t lastStartCounter;
 	uint8_t playerId;
+	ptr_t friendCode;
+	ptr_t puid;
 	float maxReportDistance;
 	bool moveable;
+	ptr_t bodySprites;
+	ptr_t currentBodySprite;
+	ptr_t normalBodySprite;
 	int32_t currentOutfitType;
 	bool inVent;
 	bool protectedByGuardianThisRound;
 	bool shapeshifting;
 	ptr_t cachedData;
 	bool protectedByGuardian;
+	float flashlightAngle;
 	ptr_t footSteps;
 	ptr_t killSfx;
 	ptr_t killAnimations;
@@ -261,8 +268,8 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	ptr_t currentPet;
 	ptr_t hatRenderer;
 	ptr_t visorSlot;
-	ptr_t spriteRenderer;
-	ptr_t spriteAnim;
+	ptr_t myAnim;
+	ptr_t horseAnim;
 	ptr_t hitBuffer;
 	ptr_t myTasks;
 	UnityEngine_Vector3_o defaultPlayerScale;
@@ -318,6 +325,8 @@ struct GameData_PlayerOutfit_o {
 
 struct GameData_PlayerInfo_Fields {
 	uint8_t playerId;
+	ptr_t friendCode;
+	ptr_t puid;
 	ptr_t outfits;
 	uint32_t playerLevel;
 	bool disconnected;
