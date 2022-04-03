@@ -21,7 +21,7 @@ sudo apt -y install \
 	libasound2-dev \
 	libpulse-dev \
 	libspeechd-dev \
-	libl1-mesa-dev \
+	libgl1-mesa-dev \
 	libavahi-compat-libdnssd-dev \
 	libglu1-mesa-dev \
 	mesa-common-dev \
