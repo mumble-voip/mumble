@@ -16,12 +16,12 @@ sudo apt -y install \
 	libxcb-keysyms1-dev \
 	libxcb-render-util0-dev \
 	libxcb-xinerama0-dev \
-	libxcb-xinput-dev
+	libxcb-xinput-dev \
 	libxcb-xkb-dev \
 	libasound2-dev \
 	libpulse-dev \
 	libspeechd-dev \
-	libl1-mesa-dev \
+	libgl1-mesa-dev \
 	libavahi-compat-libdnssd-dev \
 	libglu1-mesa-dev \
 	mesa-common-dev \

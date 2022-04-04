@@ -20,7 +20,7 @@ sudo apt -y install \
 	libxi-dev \
 	libasound2-dev \
 	libasound2-plugins \
-	libasound2-plugins-extra\
+	libasound2-plugins-extra \
 	libogg-dev \
 	libsndfile1-dev \
 	libspeechd-dev \
