@@ -411,11 +411,16 @@ target_include_directories(mumble_client_object_lib
 		"${PLUGINS_DIR}"
 )
 
-find_pkg(Poco COMPONENTS Zip)
+find_pkg(Poco
+	COMPONENTS
+		XML
+		Zip
+)
 
 if(TARGET Poco::Zip)
 	target_link_libraries(mumble_client_object_lib
 		PUBLIC
+			Poco::XML
 			Poco::Zip
 	)
 else()
