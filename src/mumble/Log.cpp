@@ -642,9 +642,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 
 	if (tc) {
-		QTextCursor tcNew(&qtd);
-		tcNew.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-		tc->insertFragment(tcNew.selection());
+		tc->insertHtml(qtd.toHtml());
 		return QString();
 	} else {
 		return qtd.toHtml();
@@ -675,11 +673,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		// the setting might change in that time).
 		const int msgMargin = Global::get().s.iChatMessageMargins;
 
-		QTextBlockFormat format = tc.blockFormat();
-		format.setTopMargin(msgMargin);
-		format.setBottomMargin(msgMargin);
-		tc.setBlockFormat(format);
-
 		LogTextBrowser *tlog     = Global::get().mw->qteLog;
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll        = (oldscrollvalue == tlog->getLogScrollMaximum());
@@ -698,23 +691,24 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		QString fixedNLPlain =
 			plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
 
+		QTextFrameFormat qttf;
+		// `insertFrame` causes a blank line to precede the inserted frame.
+		// This is remedied by setting a negative top margin of equal height.
+		static int lineSpacing = QFontMetrics(tc.currentFrame()->format().toCharFormat().font()).lineSpacing();
+		qttf.setTopMargin(-lineSpacing);
+		qttf.setBottomMargin(msgMargin);
+
 		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
 			// If the message ends with one or more blank lines (or lines only containing whitespace)
 			// paint a border around the message to make clear that it contains invisible parts.
 			// The beginning of the message is clear anyway (the date and potentially the "To XY" part)
 			// so we don't have to care about that.
-			QTextFrameFormat qttf;
 			qttf.setBorder(1);
 			qttf.setPadding(2);
-			qttf.setMargin(msgMargin);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Dashed);
-			tc.insertFrame(qttf);
-		} else if (!tc.block().text().isEmpty()) {
-			// Only insert a block if the current block is not empty. It may be empty because
-			// it is the default block of an empty document. Another cause might be that apparently
-			// a new empty block is automatically inserted after a frame.
-			tc.insertBlock();
 		}
+
+		tc.insertFrame(qttf);
 
 		const QString timeString =
 			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
