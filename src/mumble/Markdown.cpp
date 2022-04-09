@@ -322,9 +322,8 @@ bool processPlainLink(QString &str, int &offset) {
 		QString url = match.captured(0);
 
 		if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
-			// Link is missing a protocol specification.
-			// Use http as the default
-			url = QStringLiteral("http://") + url;
+			// Link is missing a protocol specification - use https as the default
+			url = QStringLiteral("https://") + url;
 		}
 
 		QString replacement =
