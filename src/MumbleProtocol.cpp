@@ -335,7 +335,7 @@ namespace Protocol {
 		m_audioMessage.Clear();
 
 		static_assert(AudioContext::BEGIN == 0, "AudioContext::BEGIN is not zero (breaks assumption)");
-		static_assert(AudioContext::END >= 0, "AudioContext::END is negative (breaks assumption)");
+		static_assert(AudioContext::END > 0, "AudioContext::END is not positive (breaks assumption)");
 		m_preEncodedContext.resize(AudioContext::END);
 
 		// Pre-encode the expected voice audio contexts.
