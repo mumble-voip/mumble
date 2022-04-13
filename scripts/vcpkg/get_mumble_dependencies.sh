@@ -53,7 +53,7 @@ mumble_deps='qt5-base,
             libsndfile,
             libmariadb,
             zlib,
-            zeroc-ice'
+            zeroc-ice-mumble'
 
 # Determine vcpkg triplet from OS https://github.com/Microsoft/vcpkg/blob/master/docs/users/triplets.md
 # Available triplets can be printed with `vcpkg help triplet`
@@ -74,7 +74,7 @@ fi
 if [ -d "$VCPKGDIR" ]
     then
         # copy ZeroC Ice port files
-        cp -R helpers/vcpkg/ports/zeroc-ice $VCPKGDIR/ports
+        cp -R helpers/vcpkg/ports/zeroc-ice-mumble $VCPKGDIR/ports
         cd $VCPKGDIR
 
         if [ ! -x $VCPKGDIR/vcpkg ]
