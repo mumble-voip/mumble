@@ -73,4 +73,4 @@ RUN mkdir /var/lib/murmur && \
 EXPOSE 64738/tcp 64738/udp 50051
 USER murmur
 
-CMD /usr/bin/mumble-server -v -fg -ini /etc/murmur/murmur.ini
+CMD ["/usr/bin/mumble-server", "-v", "-fg", "-ini", "/etc/murmur/murmur.ini"]
