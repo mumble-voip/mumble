@@ -19,7 +19,7 @@ $mumble_deps = "qt5-base",
                "libmariadb",
                "mdnsresponder",
                "zlib", 
-               "zeroc-ice"
+               "zeroc-ice-mumble"
 
 $ErrorActionPreference = 'Stop'
 
@@ -59,9 +59,9 @@ try {
 	}
 
 	if (Test-Path $vcpkgdir) {
-		if (-not (Test-Path $vcpkgdir/ports/zeroc-ice)) {
-			Write-Host "Adding ports for ZeroC Ice..."
-			Copy-Item -Path $PSScriptRoot/../../helpers/vcpkg/ports/zeroc-ice -Destination $vcpkgdir/ports -Recurse
+		if (-not (Test-Path $vcpkgdir/ports/zeroc-ice-mumble)) {
+			Write-Host "Adding port for ZeroC Ice..."
+			Copy-Item -Path $PSScriptRoot/../../helpers/vcpkg/ports/zeroc-ice-mumble -Destination $vcpkgdir/ports -Recurse
 		}
 		
 		cd $vcpkgdir
