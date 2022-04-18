@@ -68,6 +68,14 @@ public:
 		ReceiverRange< Iterator > range;
 		range.begin = begin;
 
+		if (begin == end) {
+			// In this case, it is invalid to dereference begin (as is done further down) and thus we have to
+			// return early instead.
+			range.end = end;
+
+			return range;
+		}
+
 		// Find a range, such that all receivers in [begin, end) are compatible in the sense that they will all receive
 		// the exact same audio packet (thus: no re-encoding required between sending the packet to them).
 		range.end = std::lower_bound(begin, end, *begin, [](const AudioReceiver &lhs, const AudioReceiver &rhs) {

@@ -270,6 +270,19 @@ private slots:
 
 		qDebug() << "Sample receiver list required" << requiredReencodings << "encoding steps";
 	}
+
+	void test_emptyRange() {
+		AudioReceiverBuffer buffer;
+
+		std::vector< AudioReceiver > receivers = buffer.getReceivers(true);
+
+		QVERIFY(receivers.empty());
+
+		ReceiverRange< std::vector< AudioReceiver >::iterator > range =
+			AudioReceiverBuffer::getReceiverRange(receivers.begin(), receivers.end());
+
+		QCOMPARE(range.begin, range.end);
+	}
 };
 
 QTEST_MAIN(TestAudioReceiverBuffer)
