@@ -44,8 +44,12 @@ RUN make -j $(nproc)
 FROM ubuntu:focal
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG UID=1000
+ARG GID=1000
 
-RUN adduser murmur
+RUN groupadd --gid $GID murmur \
+	&& useradd --uid $UID --gid $GID murmur
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
 	libcap2 \
 	libzeroc-ice3.7 \

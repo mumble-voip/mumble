@@ -1,6 +1,6 @@
 ![Mumble screenshot](screenshots/Mumble.png)
 
-# Mumble - Open Source voice-chat software 
+# Mumble - Open Source voice-chat software
 
 [![https://www.mumble.info](https://img.shields.io/badge/Website-https%3A%2F%2Fwww.mumble.info-blue?style=for-the-badge)](https://www.mumble.info)
 
@@ -120,10 +120,15 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 #### Build and run from Docker
 
 On recent Docker versions you can build images directly from sources on GitHub:
-```
+```bash
 docker build --pull -t mumble-server github.com/mumble-voip/mumble#master
 ```
 Example `--pull`s each time to check for updated base image, then downloads and builds `master` branch.
+
+You can also specify user id (UID) and group id (GID) for the *murmur* user in the image. This allows users who use bind mount volumes to use the same UID/GID in the container as in the host:
+```bash
+docker build --pull -t mumble-server --build-arg UID=1234 --build-arg GID=1234 github.com/mumble-voip/mumble#master
+```
 
 ### OpenGL Overlay
 
