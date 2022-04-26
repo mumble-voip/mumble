@@ -119,6 +119,9 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			[pool release];
 			return nullptr;
 		}
+#else
+	// Mark forward as unused in this case
+	(void) forward;
 #endif
 	return suppress ? nullptr : event;
 }
