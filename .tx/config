@@ -1,8 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[mumble.mumble_ents]
-file_filter = src/mumble/mumble_<lang>.ts
-source_lang = en
-type = QT
-
