@@ -6,7 +6,8 @@
 $profiledir = $Env:USERPROFILE 
 $vcpkgdir = $profiledir + "\vcpkg"
 
-$mumble_deps = "qt5-base",
+$mumble_deps = "qt5-base[mysqlplugin]",
+               "qt5-base[postgresqlplugin]",
                "qt5-svg",
                "qt5-tools",
                "qt5-translations",
@@ -16,7 +17,6 @@ $mumble_deps = "qt5-base",
                "libogg",
                "libflac",
                "libsndfile",
-               "libmariadb",
                "mdnsresponder",
                "zlib", 
                "zeroc-ice-mumble"
