@@ -4099,7 +4099,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij tutaj, aby przełączyć ograniczenie dla zdarzeń %1.&lt;br /&gt;Jeśli zaznaczone, powiadomienia dla tego typu zdarzeń nie będą odtwarzane, gdy liczba użytkowników na serwerze przekroczy ustawiony próg.</translation>
     </message>
 </context>
 <context>
@@ -6417,7 +6417,67 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt; | &lt;lista_wtyczek&gt;]
+
+&lt;url&gt; określa adres URL, z którym należy się połączyć po uruchomieniu, zamiast pokazywać
+okno połączenia, ma następującą postać:
+mumble://[&lt;nazwa użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+
+&lt;lista_wtyczek&gt; to lista plików wtyczek, które mają zostać zainstalowane
+Aby wywołać poprawną wersję klienta, należy ustawić parametr
+zapytania o wersję. Obecnie domyślnie jest to 1.2.0.
+
+Prawidłowe opcje to:
+  -h, --help Pokaż ten tekst pomocy i zakończ.
+  -V, --version Wyświetl informacje o wersji i wyjdź
+  -m, --multiple
+                Zezwalaj na uruchamianie wielu instancji klienta.
+  -c, --config
+                Określ alternatywny plik konfiguracyjny.
+                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
+                upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
+  --default-certificate-dir &lt;kat.&gt;
+                Określ alternatywną domyślną ścieżkę certyfikatu.
+                Ta ścieżka jest używana tylko wtedy, gdy nie jest
+                załadowany żaden certyfikat z ustawień.
+  -n, --noidentity
+                Blokuj ładowanie plików tożsamości (tj. certyfikatów).
+  -jn, --jackname &lt;arg&gt;
+                Ustaw niestandardową nazwę klienta Jack.
+  --license
+                Pokaż licencję Mumble.
+  --authors
+                Pokaż autorów Mumble.
+  --third-party-licenses
+                Pokaż licencje na oprogramowanie innych firm używane przez Mumble.
+  --window-title-ext &lt;arg&gt;
+                Ustaw niestandardowe rozszerzenie tytułu okna.
+  --dump-input-stream
+                Zrzuć strumienie PCM w różnych częściach łańcucha wejściowego
+                (przydatne do debugowania)
+                - surowe wejście mikrofonowe
+                - odczyt głośnika w celu usunięcia echa
+                - przetworzone wejście mikrofonowe
+  --print-echocancel-queue
+                Wyświetl na stdout stan kolejki anulowania echa
+                (przydatne do debugowania)
+  --translation-dir &lt;kat.&gt;
+                Określ dodatkowe tłumaczenie w &lt;kat.&gt;, w którym
+                Mumble wyszuka pliki tłumaczeń, które nadpiszą te
+                dołączone
+                Katalogi dodane w ten sposób mają wyższy priorytet niż
+                domyślne lokalizacje używane w inny sposób
+  --print-translation-dirs
+                Wyświetl ścieżki, w których Mumble będzie szukał
+                plików tłumaczeń, które zastąpią dołączone pliki.
+                (Przydatne dla tłumaczy testujących swoje tłumaczenia)
+  --locale &lt;ust. reg,&gt;
+                Nadpisz ustawienia regionalne w ustawieniach Mumble za pomocą
+                ustawień reg., które odpowiada podanemu łańcuchowi ustawień reg.
+                Jeśli format jest nieprawidłowy, Mumble wyświetli błąd.
+                W przeciwnym razie ustawienia regionalne zostaną trwale zapisane w
+                ustawieniach Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -7753,7 +7813,7 @@ Możesz je ponownie zarejestrować.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Odmówiono dostępu do mikrofonu z powodu ograniczeń systemowych. W tej sesji nie będzie można korzystać z mikrofonu.</translation>
     </message>
 </context>
 <context>
