@@ -50,22 +50,14 @@ jobs:
           arch: ${{ matrix.arch }}
 
 
-    - name: Create build dir
-      run: cmake -E make_directory ${{runner.workspace}}/build
-
-    - name: Run CMake
-      run: |
-          cmake -G Ninja -S $GITHUB_WORKSPACE -B ${{runner.workspace}}/build -DCMAKE_BUILD_TYPE=$BUILD_TYPE $CMAKE_OPTIONS \
-          -DCMAKE_UNITY_BUILD=ON $ADDITIONAL_CMAKE_OPTIONS $VCPKG_CMAKE_OPTIONS
-      shell: bash
-
     - name: Build
-      working-directory: ${{runner.workspace}}/build
-      run: cmake --build . --config $BUILD_TYPE
+      run: ./.github/workflows/build.sh
       shell: bash
+      env:
+          MUMBLE_BUILD_NUMBER_TOKEN: ${{ secrets.BUILD_NUMBER_TOKEN }}
 
     - name: Test
-      working-directory: ${{runner.workspace}}/build
+      working-directory: ${{ github.workspace }}/build
       shell: bash
-      run: ctest -v -C $BUILD_TYPE
+      run: QT_QPA_PLATFORM=offscreen ctest --output-on-failure -C $BUILD_TYPE
 
