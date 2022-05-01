@@ -27,7 +27,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok =
 		peekProc(pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
-		peekProc(pModule + 0x1041CAC, &spec, 1) &&  // Spectator state value: 1 when spectating and 0 when playing.
+		peekProc(pModule + 0x1041C68, &spec, 1) &&  // Spectator state value: 1 when spectating and 0 when playing.
 		peekProc(pModule + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y, respectively).
 		peekProc(pModule + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y, respectively).
 		peekProc(pModule + 0x0EC5B50, avatar_front_corrector, 12) && // Avatar front values (X, Z and Y, respectively).
@@ -35,7 +35,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		peekProc(pModule + 0x0E4A638, host)
 		&& // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
 		peekProc(pModule + 0x106E24B, servername) && // Server name.
-		peekProc(pModule + 0x12DE8D8, map) &&        // Map name.
+		peekProc(pModule + 0x0186148, map) &&        // Map name.
 		peekProc(pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when
 											 // in Blue team; 3 when in Spectators.
 
