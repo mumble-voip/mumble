@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
 os=$1
 build_type=$2
 arch=$3
