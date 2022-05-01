@@ -4098,7 +4098,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken Sie hier, um %1 Events zu limitieren.&lt;br /&gt;Sofern aktiviert, werden keine Benachrichtigungen für diese Art Event abgespielt, sobald die Anzahl an Benutzer auf dem Server den eingestellten Schwellenwert überschreitet.</translation>
     </message>
 </context>
 <context>
@@ -7752,7 +7752,7 @@ Sie können sie jedoch erneut registrieren.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugriff auf das Mikrofon wurde aufgrund von Systembeschränkungen verweigert. Sie werden in der aktuellen Sitzung nicht in der Lage sein, ihr Mikrofon zu verwenden.</translation>
     </message>
 </context>
 <context>
