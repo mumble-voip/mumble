@@ -1018,533 +1018,533 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això controla la quantitat en què Speex suprimirà el soroll.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Força de supressió de la veu</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Silencia la pre-escolta</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce&amp;rca...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Pre&amp;visualitza</translation>
     </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Continuu</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Activitat de veu</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Prémer Per Parlar</translation>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished">Apagat</translation>
+        <translation>Apagat</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 kb/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>
-        <translation type="unfinished"></translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kbit/s (Àudio %2, Posició %4, Sobrecàrrega %3)</translation>
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema d&apos;àudio</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de cancel·lació d&apos;eco</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de transmissió</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar de bloqueig PTT</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar de manteniment PTT</translation>
     </message>
     <message>
         <source>Silence below</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenci a sota</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
+        <translation>Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>Speech above</source>
-        <translation type="unfinished"></translation>
+        <translation>Parla a sobre</translation>
     </message>
     <message>
         <source>Speech below</source>
-        <translation type="unfinished"></translation>
+        <translation>Parla a sota</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished">Àudio per paquet</translation>
+        <translation>Àudio per paquet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">Qualitat de la compressió (pic d&apos;ample de banda)</translation>
+        <translation>Qualitat de la compressió (pic d&apos;ample de banda)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished">Supressió de soroll</translation>
+        <translation>Supressió de soroll</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplificació màxima</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"></translation>
+        <translation>La transmissió ha començat el so</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"></translation>
+        <translation>La transmissió ha aturat el so</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicia l&apos;acció inactiva després (en minuts)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Acció inactiva</translation>
+        <translation>Acció inactiva</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha denegat l&apos;accés al micròfon. Permet que Mumble utilitzi el micròfon canviant la configuració a Preferències del sistema -&gt; Seguretat i privadesa -&gt; Privadesa -&gt; Micròfon.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;a denegat l&apos;accés al micròfon. Comproveu que la configuració del micròfon del vostre sistema operatiu permet que Mumble utilitzi el micròfon.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Desactivat</translation>
+        <translation>Desactivat</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactiva la cancel·lació de l&apos;eco.</translation>
     </message>
 </context>
 <context>
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished">Interfície</translation>
+        <translation>Interfície</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished">Sistema</translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Mètode de sortida per l&apos;àudio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished">Dispositiu</translation>
+        <translation>Dispositiu</translation>
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida per l&apos;àudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aquest és el dispositiu de sortida que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Àudio posicional</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortida d&apos;Àudio</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jitter Búfer per defecte</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Marge de seguretat per al búfer de jitter</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix el marge de seguretat mínim per a la memòria intermèdia de fluctuació.&lt;/b&gt;&lt;br /&gt;Tot l&apos;àudio entrant està a la memòria intermèdia i la memòria intermèdia de fluctuació intenta contínuament empènyer la memòria intermèdia al mínim sostenible per a la vostra xarxa, de manera que la latència es pot reduir, tan baixa com sigui possible. Això estableix la mida mínima de memòria intermèdia a utilitzar. Si l&apos;inici de les frases que escolteu és molt inquietant, augmenteu aquest valor.</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la distància mínima per als càlculs de so. El volum de la parla dels altres usuaris no disminuirà fins que estiguin almenys tan lluny de tu.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la distància màxima per als càlculs de so. Quan estigui més lluny que això, el volum de veu dels altres usuaris no disminuirà més.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això habilita un dels modes de prova de bucle.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Cap&lt;/i&gt; - Loop desactivat&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt;: emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt;: sol·liciteu el loopback al servidor.&lt;br /&gt;Tingueu en compte que quan el loopback està habilitat, cap altre usuari escoltarà la vostra veu. Aquesta configuració no es desa en sortir de l&apos;aplicació.</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum de parla entrant</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això ajusta el volum de la veu entrant.&lt;/b&gt;&lt;br /&gt;Tingues en compte que si ho augmentes més enllà del 100%, l&apos;àudio es distorsionarà.</translation>
     </message>
     <message>
         <source>Output Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Retard de sortida</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantitat de data al búfer</translation>
     </message>
     <message>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Els &quot;altaveus&quot; connectats actualment són auriculars</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>Florir</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor d&apos;augment del volum del so</translation>
     </message>
     <message>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation>Quant hauria d&apos;augmentar el volum del so per a fonts realment properes?</translation>
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprovar això indica que no teniu altaveus connectats, només auriculars. Això és important, ja que els altaveus solen estar davant vostre, mentre que els auriculars estan directament a la vostra esquerra/dreta.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una agitació ràpida al so.</translation>
     </message>
     <message>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Auriculars</translation>
     </message>
     <message>
         <source>Minimum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància mínima</translation>
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància màxima</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum mínim</translation>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"></translation>
+        <translation>Quin ha de ser el volum a la distància màxima?</translation>
     </message>
     <message>
         <source>Loopback Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova de loopback</translation>
     </message>
     <message>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Variació del retard</translation>
     </message>
     <message>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>Variació a la latència dels paquets</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix la variació de la latència dels paquets per a les proves de bucle invers.&lt;/b&gt;&lt;br /&gt;La majoria dels camins d&apos;àudio contenen una mica de latència variable. Això us permet establir aquesta variància per a la prova del mode de bucle. Per exemple, si ho configureu a 15 ms, això emularà una xarxa amb una latència de ping de 20-35 ms o una amb una latència de 80-95 ms. La majoria de connexions de xarxa domèstica tenen una variació d&apos;uns 5 ms.</translation>
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Pèrdua de paquets</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Pèrdua de paquets per al mode loopback</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això estableix la pèrdua de paquets per al mode de bucle.&lt;/b&gt;&lt;br /&gt;Aquesta serà la proporció de paquets perduts. A menys que l&apos;amplada de banda de sortida tingui un màxim o hi hagi alguna cosa malament amb la connexió de xarxa, serà del 0%</translation>
     </message>
     <message>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Loopback</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de loopback desitjat</translation>
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar les aplicacions per...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuació d&apos;altres aplicacions durant la parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenuar el volum d&apos;altres aplicacions durant la parla&lt;/b&gt;&lt;br /&gt;Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això estableix l&apos;atenuació d&apos;altres aplicacions si la funció està habilitada.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, Mumble baixa el volum d&apos;altres aplicacions mentre altres usuaris parlen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenua les aplicacions mentre altres usuaris parlen&lt;/b&gt;&lt;br /&gt;Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això fa que Mumble active la funció mentre altres usuaris parlen amb tu.</translation>
     </message>
     <message>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>mentre altres usuaris parlen</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, Mumble baixa el volum d&apos;altres aplicacions mentre parleu</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenua les aplicacions mentre parleu&lt;/b&gt;&lt;br /&gt;Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això fa que s&apos;activi la funció mentre parleu.</translation>
     </message>
     <message>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>mentre parleu</translation>
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode exclusiu, no recomanat.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished">&lt;b&gt;Això obre el dispositiu en mode exclusiu.&lt;/b&gt;&lt;br /&gt;Cap altra aplicació podrà utilitzar el dispositiu.</translation>
+        <translation>&lt;b&gt;Això obre el dispositiu en mode exclusiu.&lt;/b&gt;&lt;br /&gt;Cap altra aplicació podrà utilitzar el dispositiu.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished">Exclusiu</translation>
+        <translation>Exclusiu</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, Mumble baixa el volum dels altres usuaris mentre parleu si teniu l&apos;estat &quot;Altaveu prioritari&quot;.</translation>
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, Mumble només atenuarà les aplicacions que utilitzen la mateixa font de sortida que Mumble</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenua només les aplicacions que utilitzen la mateixa sortida que Mumble&lt;/b&gt;&lt;br /&gt;Si està marcada, les aplicacions que utilitzen una sortida diferent a la de Mumble no s&apos;atenuaran.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar només les aplicacions amb el mateix dispositiu de sortida</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, els mòduls de loopback de PulseAudio s&apos;atenuaran</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenuació dels mòduls de loopback PulseAudio&lt;/b&gt;&lt;br /&gt;Si els mòduls de loopback estan enllaçats al dispositiu/embornal de sortida de Mumble, també s&apos;atenuaran.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar els mòduls de loopback PulseAudio</translation>
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortida d&apos;àudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aquest és el mètode de sortida que s&apos;utilitza per a l&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenua altres usuaris mentre parleu com a altaveu prioritari&lt;/b&gt;&lt;br /&gt;Mumble admet la disminució del volum d&apos;altres usuaris mentre parleu com a &lt;i&gt;altaveu prioritari&lt;/i&gt; per evitar que molèsties. Si marqueu aquesta casella de selecció s&apos;habilitarà aquesta funció.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenua altres usuaris mentre parlus com a parlant prioritari</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuació</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Local</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortida d&apos;àudio</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de sortida</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Búfer de jitter per defecte</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum de parla entrant</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Retard de sortida</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuació d&apos;altres aplicacions durant la parla</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància mínima</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància màxima</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum mínim</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>Florir</translation>
     </message>
     <message>
         <source>Delay variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Variació de retard</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Pèrdua de paquets</translation>
     </message>
     <message>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància a la qual el volum d&apos;àudio d&apos;un altre reproductor comença a disminuir</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Distància a la qual el volum d&apos;àudio d&apos;un reproductor ha arribat al seu valor mínim</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>El volum mínim al qual s&apos;esvaeix l&apos;àudio d&apos;un reproductor amb l&apos;augment de la distància. Estableix al 0% perquè s&apos;esvaeixi en un silenci complet per a una distància auditiva màxima realista.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Si una font d&apos;àudio està prou a prop, la floració farà que l&apos;àudio es reprodueixi a tots els altaveus més o menys independentment de la seva posició (encara que amb un volum més baix)</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputSample</name>
     <message>
         <source>Choose sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Triar fitxer de so</translation>
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxer de so invàlid</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"></translation>
+        <translation>El fitxer &apos;%1&apos; no es pot fer servir a Mumble. Si us plau, trieu un fitxer amb un format i una codificació compatible.</translation>
     </message>
 </context>
 <context>
@@ -1552,248 +1552,248 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadístiques d&apos;àudio</translation>
     </message>
     <message>
         <source>Input Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivells d&apos;entrada</translation>
     </message>
     <message>
         <source>Peak microphone level</source>
-        <translation type="unfinished"></translation>
+        <translation>Pic de nivell de micròfon</translation>
     </message>
     <message>
         <source>Peak power in last frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Potència màxima a l&apos;últim fotograma</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra la potència màxima a l&apos;últim fotograma (20 ms) i és la mateixa mesura que normalment es mostra com a &quot;potència d&apos;entrada&quot;. Si us plau, no tingueu en compte això i mireu &lt;b&gt;potència del micròfon&lt;/b&gt;, que és molt més constant i no té en compte els valors atípics.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
-        <translation type="unfinished"></translation>
+        <translation>Pic de nivell d&apos;altaveu</translation>
     </message>
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra la potència màxima dels altaveus a l&apos;últim fotograma (20 ms). A menys que utilitzeu un mètode de mostreig multicanal (com ara ASIO) amb canals d&apos;altaveus configurats, aquest serà 0. Si teniu configurada aquesta configuració i encara mostra 0 mentre esteu reproduint àudio d&apos;altres programes, la vostra configuració. no funciona.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivell màxim de neteja</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra la potència màxima a l&apos;últim fotograma (20 ms) després de tot el processament. Idealment, hauria de ser de -96 dB quan no parleu. En realitat, un estudi de so hauria de veure -60 dB i, amb sort, hauríeu de veure en algun lloc al voltant de -20 dB. Quan parleu, hauria d&apos;augmentar entre -5 i -10 dB.&lt;br /&gt;Si utilitzeu la cancel·lació d&apos;eco, i augmenta a més de -15 dB quan no parleu, la vostra configuració no funciona. , i molestareu altres usuaris amb ecos.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Anàlisi de senyal</translation>
     </message>
     <message>
         <source>Microphone power</source>
-        <translation type="unfinished"></translation>
+        <translation>Potència del micròfon</translation>
     </message>
     <message>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"></translation>
+        <translation>Fins a quin punt el nivell d&apos;entrada actual està a l&apos;ideal</translation>
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra fins a quin punt està el volum d&apos;entrada actual de l&apos;ideal. Per ajustar el nivell del micròfon, obriu qualsevol programa que utilitzeu per ajustar el volum d&apos;enregistrament i mireu el valor aquí mentre parleu.&lt;br /&gt;&lt;b&gt;Parleu en veu alta, com ho faríeu quan us molesteu per haver estat fragmentat per un noob. .&lt;/b&gt;&lt;br /&gt;Ajusteu el volum fins que aquest valor s&apos;aproximi al 100%, però assegureu-vos que no el superi. Si passa per sobre, és probable que obtingueu retalls en parts del vostre discurs, cosa que degradarà la qualitat del so.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Relació senyal-soroll</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Relació senyal-soroll des del micròfon</translation>
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquesta és la relació senyal-soroll (SNR) del micròfon a l&apos;últim fotograma (20 ms). Mostra com més clara és la veu en comparació amb el soroll.&lt;br /&gt;Si aquest valor és inferior a 1,0, hi ha més soroll que veu al senyal i, per tant, la qualitat es redueix.&lt;br /&gt;No hi ha cap límit superior per a això. valor, però no espereu veure molt per sobre de 40-50 sense un estudi de so.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation type="unfinished"></translation>
+        <translation>Probabilitat de la parla</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Probabilitat de la parla</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquesta és la probabilitat que l&apos;últim fotograma (20 ms) sigui la veu i no el soroll ambiental.&lt;br /&gt;La transmissió de l&apos;activitat de veu depèn que això sigui correcte. El truc amb això és que el mig d&apos;una frase sempre es detecta com a discurs; el problema són les pauses entre les paraules i l&apos;inici del discurs. És difícil distingir un sospir d&apos;una paraula que comença per &apos;h&apos;.&lt;br /&gt;Si està en negreta, vol dir que Mumble està transmetent actualment (si esteu connectats).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Retroalimentació de configuració</translation>
     </message>
     <message>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitrate d&apos;àudio actual</translation>
     </message>
     <message>
         <source>Bitrate of last frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitrate de l&apos;últim fotograma</translation>
     </message>
     <message>
         <source>DoublePush interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval de doble pulsació</translation>
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps entre les dues últimes pulsacions Prémer Per Parlar</translation>
     </message>
     <message>
         <source>Speech Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Detecció de la parla</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Possibilitat actual de detecció de la parla</translation>
+        <translation>Possibilitat actual de detecció de la parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished">&lt;b&gt;Això mostra la configuració actual de detecció de veu.&lt;/b&gt;&lt;br /&gt;Podeu canviar la configuració des del diàleg Configuració o des de l&apos;assistent d&apos;àudio.</translation>
+        <translation>&lt;b&gt;Això mostra la configuració actual de detecció de veu.&lt;/b&gt;&lt;br /&gt;Podeu canviar la configuració des del diàleg Configuració o des de l&apos;assistent d&apos;àudio.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"></translation>
+        <translation>Espectre de senyal i potència de soroll</translation>
     </message>
     <message>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"></translation>
+        <translation>Espectre de potència de senyal d&apos;entrada i soroll previst</translation>
     </message>
     <message>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra l&apos;espectre de potència del senyal d&apos;entrada actual (línia vermella) i l&apos;estimació del soroll actual (omple de blau).&lt;br /&gt;Totes les amplituds es multipliquen per 30 per mostrar les parts interessants (quant més senyal que soroll hi ha a cada banda d&apos;ona).&lt;br /&gt;Probablement només us interessa si intenteu ajustar les condicions de soroll al micròfon. En bones condicions, només hi hauria d&apos;haver un petit aleteig de blau a la part inferior. Si el blau està a més de la meitat del gràfic, teniu un entorn molt sorollós.</translation>
     </message>
     <message>
         <source>Echo Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Anàlisi d&apos;eco</translation>
     </message>
     <message>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesures del cancel·lador d&apos;eco</translation>
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra les mesures del cancel·lador d&apos;eco, amb el temps augmentant cap avall i la freqüència augmentant cap a la dreta.&lt;br /&gt;Idealment, hauria de ser negre, indicant que no hi ha ressò. Més habitualment, tindreu una o més franges horitzontals de color blavós que representen un eco retardat. Hauríeu de poder veure les mesures actualitzades en temps real.&lt;br /&gt;Tingueu en compte que, mentre no tingueu res a ressò, aquí no veureu gaires dades útils. Poseu música i les coses haurien d&apos;estabilitzar-se. &lt;br /&gt;Podeu escollir veure les parts reals o imaginàries de les mesures del domini freqüencial, o alternativament el mòdul i la fase calculats. El més útil d&apos;aquests probablement serà el mòdul, que és l&apos;amplitud de l&apos;eco, i us mostra quina part del senyal de sortida s&apos;està eliminant en aquest pas de temps. Els altres modes de visualització són sobretot útils per a les persones que volen ajustar els algorismes de cancel·lació d&apos;eco.&lt;br /&gt;Tingueu en compte: si tota la imatge fluctua massivament mentre està en mode mòdul, el cancel·lador d&apos;eco no troba cap correlació entre les dues fonts d&apos;entrada. (altaveus i micròfon). O teniu un retard molt llarg a l&apos;eco, o bé una de les fonts d&apos;entrada està mal configurada.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquesta és la taxa de bits d&apos;àudio de l&apos;últim fotograma comprimit (20 ms) i, com a tal, saltarà amunt i avall a mesura que el VBR ajusta la qualitat. La taxa de bits màxima es pot ajustar al diàleg Configuració.</translation>
     </message>
 </context>
 <context>
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistent d&apos;afinació d&apos;àudio</translation>
     </message>
     <message>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducció</translation>
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Benvingut a l&apos;assistent d&apos;àudio de Mumble</translation>
     </message>
     <message>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Finalitzat</translation>
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaudiu fent servir Mumble</translation>
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished">Selecció de dispositiu</translation>
+        <translation>Selecció de dispositiu</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionant el dispositiu d&apos;entrada i sortida per a utilitzar a Mumble.</translation>
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest és el dispositiu al què el vostre micròfon està connectat.</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished">Sistema</translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished">Mètode d&apos;entrada d&apos;àudio</translation>
+        <translation>Mètode d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished">Dispositiu</translation>
+        <translation>Dispositiu</translation>
     </message>
     <message>
         <source>Input device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada a utilitzar</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Selecciona quina tarja de so s&apos;utilitza per a l&apos;entrada d&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Cancel echo from headset or speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancel·la l&apos;eco dels auriculars o dels altaveus</translation>
     </message>
     <message>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitza la cancel·lació d&apos;eco</translation>
     </message>
     <message>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això permet la cancel·lació d&apos;eco de l&apos;àudio sortint, que ajuda tant als altaveus com als auriculars.</translation>
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest és el dispositiu al què els vostres altaveus estan connectats.</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Mètode de sortida per l&apos;àudio</translation>
     </message>
     <message>
         <source>Output device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida a utilitzar</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Selecciona quina tarja de so s&apos;utilitza per a la sortida d&apos;àudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa l&apos;àudio posicional</translation>
     </message>
     <message>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Permet el posicionament del so</translation>
     </message>
     <message>
         <source>Input Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això permet a Mumble utilitzar l&apos;àudio posicional per a situar veus.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1803,15 +1803,21 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+Per mantenir la latència al mínim, és important guardar el mínim d&apos;àudio possible a la targeta de so. No obstant això, moltes targetes de so informen que requereixen un búfer molt més petit del que realment pot funcionar, de manera que l&apos;única manera d&apos;establir aquest valor és provar i fallar.
+&lt;/p&gt;
+&lt;p&gt;
+Hauríeu d&apos;escoltar una mostra de veu. Canvieu el control lliscant de sota al valor més baix que &lt;b&gt;no&lt;/b&gt; produeixi interrupcions ni tremolors al so. Tingueu en compte que l&apos;eco local està desactivat durant aquesta prova.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantitat de dades al búfer</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una agitació ràpida al so.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1821,19 +1827,25 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+Obriu el vostre tauler de control de so i aneu a la configuració de gravació. Assegureu-vos que el micròfon estigui seleccionat com a entrada activa amb el volum de gravació màxim. Si hi ha una opció per activar una &quot;Ampliació del micròfon&quot;, assegureu-vos que estigui marcat.
+&lt;/p&gt;
+&lt;p&gt;
+Parleu en veu alta, com quan esteu molest o emocionat. Baixeu el volum del tauler de control de so fins que la barra de sota es mantingui tan alta com sigui possible en la zona blava i verda, però &lt;b&gt;no&lt;/b&gt; a la zona vermella mentre parleu.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Àudio posicional</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajust de l&apos;atenuació de l&apos;àudio posicional.</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzar auriculars en comptes d&apos;altaveus</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1843,92 +1855,98 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+Felicitats. Ara hauríeu d&apos;estar preparat per gaudir d&apos;una experiència de so més rica amb Mumble.
+&lt;/p&gt;
+&lt;p&gt;
+Mumble està en desenvolupament continu i l&apos;equip de desenvolupament vol centrar-se en les funcions que beneficien la majoria dels usuaris. Amb aquesta finalitat, Mumble admet l&apos;enviament d&apos;estadístiques anònimes sobre la vostra configuració als desenvolupadors. Aquestes estadístiques són essencials per al desenvolupament futur i també assegurar que les funcions que feu servir no estiguin obsoletes.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Use headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitza auriculars</translation>
     </message>
     <message>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això ignora la configuració de l&apos;altaveu del sistema operatiu i configura el posicionament dels auriculars.</translation>
     </message>
     <message>
         <source>Volume tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajusta el volum</translation>
     </message>
     <message>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustant el volum del maquinari del micròfon a la configuració òptima.</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara parleu suaument, com ho faríeu quan parleu tard a la nit i no voleu molestar ningú. Ajusteu el control lliscant de sota perquè la barra es mogui de color verd quan parleu, però es mantingui blau mentre esteu en silenci.</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Detecció d&apos;activitat de la veu</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deixa que Mumble esbrini quan parles i quan estàs en silenci.</translation>
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això ajudarà a Mumble a esbrinar quan parleu. El primer pas és seleccionar quin valor de dades utilitzar.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitud bruta de l&apos;entrada</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Proporció senyal-soroll</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>A continuació, heu d&apos;ajustar el control lliscant següent. Els primers enunciats que dieu haurien d&apos;acabar a la zona verda (discurs definitiu). Mentre parleu, hauríeu de quedar-vos dins del groc (potser parla) i quan no parleu, tot hauria d&apos;estar en vermell (definitivament no parla).</translation>
     </message>
     <message>
         <source>Device tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Sintonització del dispositiu</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Canviant el retard de la sortida de maquinari al seu valor mínim.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar estadístiques anònimes al projecte Mumble</translation>
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prémer Per Parlar:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitat i notificacions</translation>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar la qualitat i paràmetres de les notificacions.</translation>
     </message>
     <message>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres de qualitat</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Baixa</translation>
     </message>
     <message>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Equilibrada</translation>
     </message>
     <message>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres de les notificacions</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
