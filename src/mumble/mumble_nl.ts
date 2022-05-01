@@ -4090,15 +4090,15 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik om Tekst-naar-Spraak in te schakelen</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel Tekst-naar-Spraak in</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik hier om te limiteren tot %1 gebeurtenissen.&lt;br /&gt;Indien aangevinkt, worden notificaties voor dit type gebeurtenis niet getoond wanneer de het gebruikersaantal op de server hoger ligt dan de grens.</translation>
     </message>
 </context>
 <context>
@@ -6352,7 +6352,7 @@ Valide acties zijn:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingenbestand is ongeldig.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -7732,27 +7732,27 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Mogelijk gebroken instellingen</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Back-upinstellingen laden?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Het lijkt erop dat Mumble niet correct kon afsluiten. Als je de applicatie niet opzettelijk geforceerd hebt afgesloten, kan dit betekenen dat de crash veroorzaakt werd door de instellingen die je gebruikte. Wil je proberen een back-up van je instellingen te laden?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>De instellingen uit de back-up leken ook opgeslagen te zijn toen Mumble niet correct kon afsluiten (wat mogelijk op een crash wijst).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indien het crashen aanhoudt met deze instellingen, kan je proberen manueel het instellingenbestand op &lt;pre&gt;%1&lt;/pre&gt; en &lt;pre&gt;%2&lt;/pre&gt; te verwijderen om alle instellingen terug te zetten op hun standaardwaarden.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toegang tot de microfoon werd geweigerd vanwege systeeminstellingen. Je zal je microfoon niet kunnen gebruiken in deze sessie.</translation>
     </message>
 </context>
 <context>
@@ -8062,19 +8062,19 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Of de connectie perfecte voorwaartse geheimhouding (PFS) ondersteunt.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Neen</translation>
     </message>
 </context>
 <context>
