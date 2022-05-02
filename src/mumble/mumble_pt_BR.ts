@@ -473,7 +473,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation>Identificar nome (nome longo) da placa de som falhou: %1</translation>
+        <translation>Ocorreu um erro ao obter o nome (longname) da placa de som: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
@@ -1513,7 +1513,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Loopback</source>
-        <translation>Loopback</translation>
+        <translation>Ciclo de retorno</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
@@ -3411,7 +3411,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O sistema de Atalhos Globais do Mumble atualmente não funciona em combinação com o protocolo Wayland. Para mais informações, visite &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -4090,15 +4090,15 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique para ativar o Texto-para-Fala</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Ativar Texto-para-Fala</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique aqui para alternar o limite para %1 evento(s).&lt;br /&gt;Se ativado, as notificações para este tipo de evento não vão ser reproduzidas quando o número de usuários no servidor superar o limite definido.</translation>
     </message>
 </context>
 <context>
@@ -4519,15 +4519,15 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurar</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>A ação a ser executada quando um usuário é ativado (por duplo clique ou Enter) na caixa de pesquisa.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ação (Usuário):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>

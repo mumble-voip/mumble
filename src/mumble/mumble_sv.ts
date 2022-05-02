@@ -4090,11 +4090,11 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicka för att aktivera Text-till-Tal</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivera Text-till-Tal</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -6303,7 +6303,7 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Växla kanalfiltret (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
@@ -6320,15 +6320,15 @@ Giltiga åtgärder är:
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Växla sökruta</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Det här kommer att öppna eller stänga sök-rutan beroende på om den redan är öppnad för tillfället</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktivera ljudet igen</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
@@ -6336,11 +6336,11 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished"></translation>
+        <translation>Positionell &amp;Ljudvisare...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa den positionella ljudvisaren</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
@@ -7278,11 +7278,11 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Tangenthändelser</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>

@@ -334,7 +334,7 @@ Add a new group.</source>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;임시&lt;/b&gt;&lt;br /&gt;
-임시 채널을 생성합니다. 마지막 유저가 나가면 서버에서 채널을 자동으로 삭제합니다.</translation>
+체크하면 생성된 채널이 임시로 표시됩니다. 이것은 마지막 플레이어가 떠날 때 채널이 서버에 의해 자동으로 삭제된다는 것을 의미합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
@@ -1517,15 +1517,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation>다른 유저의 오디오 볼륨이 감소하기 시작하는 거리</translation>
+        <translation>다른 플레이어의 오디오 볼륨이 감소하기 시작하는 거리</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation>유저의 오디오 볼륨이 최소값에 도달하는 거리</translation>
+        <translation>플레이어의 오디오 볼륨이 최소값에 도달한 거리</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>유저의 오디오가 거리가 멀어짐에 따라 감소하는 최소 볼륨입니다. 사실적인 최대 청력 거리를 위해 완전한 무음으로 감소하려면 0%로 설정하세요.</translation>
+        <translation>플레이어의 오디오는 거리가 멀어질수록 감소하는 최소 볼륨입니다. 0%로 설정하면 실제 최대 청력 거리에 대해 완전한 무음으로 희미해집니다.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
@@ -1982,7 +1982,7 @@ Mumble은 지속해서 개발 중이며 개발팀은 대부분의 유저에게 �
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>유저가 대화하는 동안 다른 응용 프로그램의 볼륨 감소를 활성화합니다. Mumble은 누군가가 말을 시작하면 다른 응용 프로그램의 (오디오 플레이어 등) 볼륨이 감소하여 더욱 명확하게 들을 수 있습니다.</translation>
+        <translation>사용자가 대화하는 동안 다른 응용 프로그램의 볼륨 감쇠를 활성화합니다. 즉, 누군가가 Mumble로 말을 걸기 시작하면 오디오 재생기와 같은 다른 모든 응용 프로그램의 사운드가 감쇠되어 사용자가 더 명확하게 들을 수 있습니다.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -3410,7 +3410,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 전체 단축키 시스템은 현재 Wayland 프로토콜과 함께 작동하지 않습니다. 자세한 내용은 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257를 방문하세요.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 전체 단축키 시스템은 현재 Wayland 프로토콜과 함께 작동하지 않습니다. 자세한 내용은 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;을 방문하십시오&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3795,7 +3795,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>player link</source>
-        <translation>유저 링크</translation>
+        <translation>플레이어 링크</translation>
     </message>
     <message>
         <source>channel link</source>
@@ -4061,7 +4061,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Misc.</source>
-        <translation>기타</translation>
+        <translation>기타.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4089,15 +4089,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트 음성 변환을 사용하려면 클릭</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>텍스트 음성 변환 사용</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 이벤트에 대한 제한을 전환하려면 여기를 클릭하십시오.&lt;br /&gt;선택하면, 서버의 사용자 수가 설정된 임계값을 초과할 때 이 이벤트 유형에 대한 알림이 재생되지 않습니다.</translation>
     </message>
 </context>
 <context>
@@ -6335,7 +6335,7 @@ Mumble 인스턴스를 원격 제어할 수 있습니다.
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation>위치 오디오 뷰어...</translation>
+        <translation>위치 오디오 뷰어(&amp;A)...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
@@ -6351,7 +6351,7 @@ Mumble 인스턴스를 원격 제어할 수 있습니다.
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>잘못된 설정 파일이 발견되었습니다.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6415,7 +6415,67 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>사용법: mumble [옵션] [&lt;url&gt; | &lt;플러그인_목록&gt;]
+
+&lt;url&gt;은 연결창을 띄우지 않고 시작 후 연결할 URL을 지정하며
+다음과 같은 형식을 가집니다:
+mumble://[&lt;사용자이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;포트&gt;][/&lt;채널&gt;[/&lt;하위채널&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;플러그인_목록&gt;은 설치할 플러그인 파일의 목록입니다
+올바른 클라이언트 버전을 호출하려면 버전 쿼리 매개변수를
+설정해야 합니다. 현재 기본값은 1.2.0입니다.
+
+올바른 옵션은 다음과 같습니다:
+  -h, --help    이 도움말 텍스트를 표시하고 종료.
+  -V, --version 버전 정보를 출력하고 종료
+  -m, --multiple
+                클라이언트의 여러 인스턴스 시작 허용.
+  -c, --config
+                대체 구성 파일 지정.
+                이것을 사용하여 한 번에 여러 Mumble 인스턴스를 실행하는 경우,
+                구성에서 대체 &apos;데이터베이스&apos; 값을 설정해야 합니다.
+  --default-certificate-dir &lt;dir&gt;
+                대체 기본 인증서 경로 지정.
+                이 경로는 설정에서 로드된 인증서가 없는 경우에만
+                사용됩니다.
+  -n, --noidentity
+                ID 파일 불러오는 중 억제 (즉, 인증서.)
+  -jn, --jackname &lt;arg&gt;
+                사용자 지정 Jack 클라이언트 이름 설정.
+  --license
+                Mumble 라이선스 표시.
+  --authors
+                Mumble 작성자 표시.
+  --third-party-licenses
+                Mumble에서 사용한 타사 소프트웨어에 대한 라이선스 표시.
+  --window-title-ext &lt;arg&gt;
+                사용자 지정 창 제목 확장 설정.
+  --dump-input-streams
+                입력 체인의 다양한 부분에서 PCM 스트림 덤프
+                (디버깅 목적에 유용)
+                - raw 마이크 입력
+                - 에코 제거를 위한 스피커 리드백
+                - 처리된 마이크 입력
+  --print-echocancel-queue
+                stdout에서 에코 취소 대기열 상태 출력
+                (디버깅 목적에 유용)
+  --translation-dir &lt;dir&gt;
+                디렉터리 안에서 추가 번역 fir &lt;dir&gt; 지정
+                Mumble은 번들된 파일을 덮어쓰는 번역 파일을
+                검색합니다
+                이 방법으로 추가된 디렉터리는 그렇지 않은 경우
+                사용된 기본 위치보다 우선 순위가 높습니다
+  --print-translation-dirs
+                Mumble이 번들 파일을 덮어쓰는 번역 파일을
+                검색하는 경로를 출력합니다.
+                (번역자가 번역을 테스트하는 데 유용함)
+  --locale &lt;locale&gt;
+                주어진 로케일 문자열에 해당하는 로케일로
+                Mumble 설정의 로케일을 덮어씁니다.
+                형식이 잘못되면, Mumble에서 오류가 발생합니다.
+                그렇지 않으면 로케일이 Mumble의 설정에
+                영구적으로 저장됩니다.
+</translation>
     </message>
 </context>
 <context>
@@ -7504,19 +7564,19 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Player position</source>
-        <translation>유저 위치</translation>
+        <translation>플레이어 위치</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation>유저 축</translation>
+        <translation>플레이어 중심선</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation>유저 관리</translation>
+        <translation>플레이어 방향</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation>카메라 축</translation>
+        <translation>카메라 중심선</translation>
     </message>
     <message>
         <source>Camera position</source>
@@ -7731,27 +7791,27 @@ You can register them again.</source>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>잠재적으로 손상된 설정</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>백업 설정을 불러오시겠습니까?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble이 정상적인 종료를 수행하지 않은 것 같습니다. 의도적으로 응용프로그램을 종료하지 않은 경우, 사용된 설정으로 인해 충돌이 발생할 수 있습니다. 대신 설정의 백업을 불러오시겠습니까?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>백업된 설정 또한 Mumble이 정상적으로 종료되지 않은 상태에서 저장된 것 같습니다(충돌을 나타낼 수 있음).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>이러한 설정에서 반복적으로 충돌이 발생하는 경우 모든 설정을 기본값으로 재설정하려면 &lt;pre&gt;%1&lt;/pre&gt; 및 &lt;pre&gt;%2&lt;/pre&gt;에서 설정 파일을 수동으로 삭제해야 할 수 있습니다.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>시스템 제한으로 인해 마이크에 대한 액세스가 거부되었습니다. 이 세션에서는 마이크를 사용할 수 없습니다.</translation>
     </message>
 </context>
 <context>
@@ -8061,19 +8121,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>연결이 PFS(완벽한 순방향 비밀성)를 지원하는지 여부입니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>예</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>아니요</translation>
     </message>
 </context>
 <context>

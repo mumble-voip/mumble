@@ -1695,7 +1695,7 @@ Når du bruker lydkansellering og du ser at det stiger til mer enn -15dB har du 
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Dette viser vektingen af ekkokanselleringen, der tiden øker nedover og frekvens økes mot høyre.&lt;br /&gt;Ideelt sett skulle dette være svart, hvilket ville indikert at det overhodet ikke er noe ekko. Du bør være i stand til at se vektingen oppdateres i sanntid.&lt;br /&gt;Legg merke til at så lenge du ikke har noe som kan være ekko, vil du ikke se noe nyttig data her. Spill av noe musikk og tingene skulle vil begynne å stabilisere seg.&lt;br /&gt;Du kan velge å se den rette eller innbilte delen av frekvens-områdets vekt, eller alternativt den beregnede absolutte verdi og fase. Den mest brukbare av disse, vil være den absolutte verdi, som er amplituden av ekkoet, og som viser deg hvor mye av utgangssignalet, som blir fjernet på det tidspunktet. De andre visningstilstandene er mest brukbare for folk som gjerne vil justere ekkokansellerings-algoritmene.&lt;br /&gt;Merk: Hvis hele bildet svinger enormt i modulus-tilstand, vil det mislykkes ekkokanselleringen å finne noen sammenheng overhodet mellem de to inngangskildene (høyttalere og mikrofon). Enten har du en meget lang forsinkelse på ekkoet, eller så er en av inngangskildene satt opp feil.</translation>
+        <translation type="unfinished">Dette viser vektingen av ekkokanselleringen, der tiden øker nedover og frekvens økes mot høyre.&lt;br /&gt;Ideelt sett skulle dette være svart, hvilket ville indikert at det overhodet ikke er noe ekko. Du bør være i stand til at se vektingen oppdateres i sanntid.&lt;br /&gt;Legg merke til at så lenge du ikke har noe som kan være ekko, vil du ikke se noe nyttig data her. Spill av noe musikk og tingene skulle vil begynne å stabilisere seg.&lt;br /&gt;Du kan velge å se den rette eller innbilte delen av frekvens-områdets vekt, eller alternativt den beregnede absolutte verdi og fase. Den mest brukbare av disse, vil være den absolutte verdi, som er amplituden av ekkoet, og som viser deg hvor mye av utgangssignalet, som blir fjernet på det tidspunktet. De andre visningstilstandene er mest brukbare for folk som gjerne vil justere ekkokansellerings-algoritmene.&lt;br /&gt;Merk: Hvis hele bildet svinger enormt i modulus-tilstand, vil det misslykkes ekkokanselleringen å finne noen sammenheng overhodet mellem de to inngangskildene (høyttalere og mikrofon). Enten har du en meget lang forsinkelse på ekkoet, eller så er en av inngangskildene satt opp feil.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -4104,15 +4104,15 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klikk for å skru på tekst-til-tale</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skru på tekst-til-tale</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klikk her for å veksle begrensning for %1-hendelser.&lt;br /&gt;Merknader av denne hendelsestypen vil ikke spilles når antall brukere på tjeneren overskrider angitt terskel.</translation>
     </message>
 </context>
 <context>
@@ -6430,7 +6430,8 @@ Valid options are:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mappen «%1» finnes ikke.
+</translation>
     </message>
 </context>
 <context>
@@ -7766,7 +7767,7 @@ Du kan registrere dem igjen.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilgang til mikrofon ble ikke innvilget som følge av systembegrensninger. Du vil ikke kunne bruke mikrofonen i denne økten.</translation>
     </message>
 </context>
 <context>
