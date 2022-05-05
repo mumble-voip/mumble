@@ -27,6 +27,8 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
 
+#include <cstdint>
+
 #ifdef Q_OS_WIN
 #	include <winsock2.h>
 #else
@@ -2156,25 +2158,49 @@ int Server::readLastChannel(int id) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("SELECT `lastchannel`,`last_disconnect` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+	SQLPREP(
+		"SELECT `lastchannel`,`last_active`,`last_disconnect` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
 
 	if (query.next()) {
 		int cid = query.value(0).toInt();
-		if (query.value(1).isNull()) {
-			return qhChannels.contains(cid) ? cid : -1;
+
+		if (!qhChannels.contains(cid)) {
+			return -1;
 		}
-		QDateTime last_disconnect = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
-		last_disconnect.setTimeSpec(Qt::UTC);
-		QDateTime now = QDateTime::currentDateTime();
-		now           = now.toTimeSpec(Qt::UTC);
 
 		int duration = Meta::mp.iRememberChanDuration;
-		if (duration <= 0 || last_disconnect.secsTo(now) <= duration) {
-			if (qhChannels.contains(cid))
-				return cid;
+
+		if (duration <= 0) {
+			return cid;
+		}
+
+		if (query.value(1).isNull()) {
+			return -1;
+		}
+
+		QDateTime last_active = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
+		QDateTime last_disconnect;
+
+		// NULL column for last_disconnect will yield an empty invalid QDateTime object.
+		// Using that object with QDateTime::secsTo() will return 0 as per Qt specification.
+		if (!query.value(2).isNull()) {
+			last_disconnect = QDateTime::fromString(query.value(2).toString(), Qt::ISODate);
+		}
+
+		if (last_active.secsTo(last_disconnect) <= 0) {
+			// last_disconnect < last_active (or NULL). This can happen, if last_disconnect is invalid, because it has
+			// not been updated properly (e.g. because the entire server was shut down while the user was still
+			// connected). Use the server uptime as a reference point instead.
+			last_disconnect          = QDateTime::currentDateTime();
+			std::int64_t uptimeMSecs = static_cast< std::int64_t >(tUptime.elapsed() / 1000ULL);
+			last_disconnect          = last_disconnect.addMSecs(-uptimeMSecs);
+		}
+
+		if (last_disconnect.secsTo(QDateTime::currentDateTime()) <= duration) {
+			return cid;
 		}
 	}
 	return -1;
@@ -2485,14 +2511,5 @@ void ServerDB::deleteServer(int server_id) {
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM `%1servers` WHERE `server_id` = ?");
 	query.addBindValue(server_id);
-	SQLEXEC();
-}
-
-void ServerDB::clearLastDisconnect(Server *server) {
-	TransactionHolder th;
-	QSqlQuery &query = *th.qsqQuery;
-
-	SQLPREP("UPDATE `%1users` SET `last_disconnect` = NULL WHERE `server_id` = ?");
-	query.addBindValue(server->iServerNum);
 	SQLEXEC();
 }
