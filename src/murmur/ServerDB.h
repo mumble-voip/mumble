@@ -68,10 +68,6 @@ public:
 private:
 	static void loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query);
 	static void writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations);
-
-public slots:
-	/// Clear last_disconnect date of every user of the server
-	void clearLastDisconnect(Server *);
 };
 
 #endif
