@@ -559,8 +559,6 @@ int main(int argc, char **argv) {
 
 	meta = new Meta();
 
-	QObject::connect(meta, SIGNAL(started(Server *)), &db, SLOT(clearLastDisconnect(Server *)));
-
 #ifdef Q_OS_UNIX
 	// It doesn't matter that this code comes after the forking because detach is
 	// set to false when readPw is set to true.
