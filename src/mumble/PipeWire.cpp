@@ -415,10 +415,14 @@ void PipeWireOutput::processCallback(void *param) {
 
 	const uint32_t frames = std::min(data.maxsize / chunk->stride, pwo->iFrameSize);
 
-	if (pwo->mix(data.data, frames)) {
-		chunk->size = frames * chunk->stride;
-	} else {
-		chunk->size = 0;
+	chunk->size = frames * chunk->stride;
+	if (!pwo->mix(data.data, frames)) {
+		// When the mixer has no data available to write, we still need to push silence.
+		// This is to avoid an infinite loop when destroying the stream.
+		// In that infinite loop, Pipewire would wait until the stream starts draining.
+		// But this never happens, if we don't push new data.
+		// Thus pw_stream_destroy() would block forever.
+		memset(data.data, 0, sizeof(float) * chunk->size);
 	}
 
 	pwo->m_engine->queueBuffer(buffer);
