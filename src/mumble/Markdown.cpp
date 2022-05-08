@@ -344,7 +344,7 @@ void escapeCharacter(QString &str, int &offset) {
 
 	tmp = tmp.toHtmlEscaped();
 
-	if (tmp.size() == 1 && tmp == str[offset]) {
+	if (tmp.size() == 1 && tmp[0] == str[offset]) {
 		// Nothing to escape
 		return;
 	}
