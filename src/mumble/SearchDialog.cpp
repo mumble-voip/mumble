@@ -489,7 +489,13 @@ void SearchDialog::keyPressEvent(QKeyEvent *event) {
 		return;
 	}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
 	if (event->matches(QKeySequence::Cancel)) {
+#else
+	// Before Qt 5.6, no standard key for the cancel operation was defined. Thus, in these cases, we hardcode it to be
+	// Escape
+	if (event->key() == Qt::Key_Escape) {
+#endif
 		event->accept();
 		// Mimic behavior of dialogs (close on Esc)
 		close();
