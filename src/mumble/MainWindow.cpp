@@ -37,7 +37,6 @@
 #include "PluginManager.h"
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
-#include "SSLCipherInfo.h"
 #include "Screen.h"
 #include "SearchDialog.h"
 #include "ServerHandler.h"

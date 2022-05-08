@@ -3,6 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#include <QSslConfiguration>
 #include <QtCore/QtGlobal>
 
 #ifdef Q_OS_WIN
@@ -734,6 +735,12 @@ void ServerHandler::serverConnectionConnected() {
 	ConnectionPtr connection(cConnection);
 	if (!connection)
 		return;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+	// The ephemeralServerKey property is only a non-null key, if forward secrecy is used.
+	// See also https://doc.qt.io/qt-5/qsslconfiguration.html#ephemeralServerKey
+	connectionUsesPerfectForwardSecrecy = !qtsSock->sslConfiguration().ephemeralServerKey().isNull();
+#endif
 
 	iInFlightTCPPings = 0;
 

@@ -7943,16 +7943,20 @@ Voit rekisteröidä ne uudelleen.</translation>
         <translation type="unfinished">Tuntematon</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>Yhteys takaa täydellisen viestintäsalaisuuden.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>Yhteys EI TAKAA täydellistä viestintäsalaisuutta.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>Tietoa viestintäsalaisuudesta ei ole saatavilla.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
