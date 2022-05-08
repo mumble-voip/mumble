@@ -88,8 +88,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br /&gt;
-Dieser Wert erlaubt es Ihnen die Reihenfolge der Kanäle innerhalb des Baumes festzulegen. Ein Kanal mit einem höheren &lt;i&gt;Positionswert&lt;/i&gt; wird immer unter einem Kanal mit einem niedrigeren &lt;i&gt;Positionswert&lt;/i&gt; platziert und umgekehrt. Wenn der &lt;i&gt;Positionswert&lt;/i&gt; zweier Kanäle gleich ist, dann werden diese ihrem Namen nach alphabetisch sortiert.</translation>
+        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+Dieser Wert erlaubt es Ihnen, die Reihenfolge der Kanäle innerhalb des Baumes festzulegen. Ein Kanal mit einem höheren &lt;i&gt;Positionswert&lt;/i&gt; wird immer unter einem Kanal mit einem niedrigeren Wert platziert und umgekehrt. Wenn der &lt;i&gt;Positionswert&lt;/i&gt; zweier Kanäle gleich ist, dann werden diese ihrem Namen nach alphabetisch sortiert.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -1581,7 +1581,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Dies zeigt den Spitzenpegel des Lautsprechers im letzten Paket (20ms) an. Solange keine Multikanal-Sampling-Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Verwenden Sie jedoch eine solche Anordnung und der Wert ist beim abspielen von Audio in anderen Programmen trotzdem 0 so arbeitet die Einstellung nicht korrekt.</translation>
+        <translation>Dies zeigt den Spitzenpegel des Lautsprechers im letzten Paket (20ms) an. Solange keine Multikanal-Sampling-Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Verwenden Sie jedoch eine solche Anordnung und der Wert ist beim Abspielen von Audio in anderen Programmen trotzdem 0, so arbeitet die Einstellung nicht korrekt.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
@@ -2610,7 +2610,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich gegenüber dem Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Ausserdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;&lt;p&gt;Darüber hinaus verfügt kann Mumble auch mit Zertifikaten umgehen, die den Besitz der zugehörigen Email-Adresse verifizieren. Diese Zertifikate werden von externen Anbietern ausgestellt. Für weitere Informationen sehen Sie bitte &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;in unserer Zertifikats-Dokumentation&lt;/a&gt; nach.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich gegenüber dem Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Ausserdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;&lt;p&gt;Darüber hinaus kann Mumble auch mit Zertifikaten umgehen, die den Besitz der zugehörigen Email-Adresse verifizieren. Diese Zertifikate werden von externen Anbietern ausgestellt. Für weitere Informationen sehen Sie bitte &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;in unserer Zertifikats-Dokumentation&lt;/a&gt; nach.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7981,19 +7981,19 @@ Sie können sie jedoch erneut registrieren.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob die Verbindung perfect forward secrecy (PFS) unterstützt.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nein</translation>
     </message>
 </context>
 <context>

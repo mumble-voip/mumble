@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Це надає привілеєві значення %1. Якщо привілей має значення як дозволений, так і заборонений, він отримує значення заборонений.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>

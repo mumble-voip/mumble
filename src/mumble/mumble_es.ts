@@ -2879,19 +2879,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este botón restaurará los valores por defecto para las configuraciones en la página actual. Otras páginas no serán cambiadas.&lt;br /&gt;Para restaurar todas las configuraciones a sus valores por defecto, puedes pulsar el botón: &quot;Por defecto (Todas)&quot;.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Reestablecer todos los valores por defecto</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este botón reestablecerá los valores por defecto de todas las configuraciones.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Por defecto (Todas)</translation>
     </message>
 </context>
 <context>
@@ -3270,11 +3270,12 @@ Etiqueta de este servidor. Así es como se llamará el servidor en su lista del 
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Error HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha encontrado un error interno en CrashReporter.cpp: La respuesta de red recivida no contiene un código de estado HTTP.
+Por favor informa a un desarrollador sobre el código de error: %1</translation>
     </message>
 </context>
 <context>
@@ -3411,22 +3412,22 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;El sistema de Atajos Globales de Mumble actualmente no funciona junto con el protocolo de Wayland. Para más información, visita &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar atajo</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Comenzar el proceso de captura</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Empieza el proceso de captura: todos los botones que presiones serán añadidos al árbol.&lt;/p&gt;&lt;p&gt;Una vez que todos los botones se hayan soltado, el proceso de captura terminará automaticamente&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
@@ -4451,11 +4452,11 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra el ajuste local de volumen para cada uno de los usuarios (si los hay).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra los ajustes de volumen</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
@@ -4463,39 +4464,39 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar los oyentes locales del usuario (orejas)</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esconder el nombre de usuario para cada usuario si tienen un apodo.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo mostrar los apodos</translation>
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de Jerarquía del Canal</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>La acción que reailzar cuando un usuario es activado (vía doble-clic o enter) en el diálogo de búsqueda.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Acción (Usuario):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>La acción que realizar cuando un canal es activado (vía doble-clic o enter) en el diálogo de búsqueda.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Acción (Canal):</translation>
     </message>
 </context>
 <context>
@@ -6189,7 +6190,7 @@ en el menu contextual del canal.</translation>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar/monstrar la ventana principal</translation>
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
@@ -6296,12 +6297,13 @@ Valid options are:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>El directorio %1 no existe.
+</translation>
     </message>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6310,28 +6312,28 @@ Valid options are:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar el filtro de canal (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar un usuario o canal (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar el diálogo de búsqueda</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Estro abrirá o cerrará el diálogo de búsqueda dependiendo de si ya está abierto o no</translation>
     </message>
 </context>
 <context>
@@ -6628,11 +6630,11 @@ Impide que el cliente envíe información potencialmente identificable sobre el 
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar si hay actualizaciones de plugins en el inicio</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargar e instalar automáticamente las actualizaciones de los plugins</translation>
     </message>
 </context>
 <context>
@@ -7201,11 +7203,11 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar un plugin a partir de un archivo local</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar un plugin...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
@@ -7217,15 +7219,15 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Este plugin se ha instalado satisfactoriamente</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No ha sido posible desactivar todas las características para el plugin &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido cargar el plugin &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
@@ -7233,7 +7235,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Este plugin no proporciona soporte para el audio posicional</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
@@ -7248,55 +7250,55 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>InstaladorDePlugins</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Estas a punto de instalar el plugin listado debajo. ¿Quieres proceder?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nombre:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Versión:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Autore(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Descripción:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;No</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sí</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El archivo &quot;%1&quot; no es un archivo de plugin válido!</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Ha sido imposible cargar el plugin &quot;%1&quot; - comprueba la interfaz de plugins!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido eliminar el plugin viejo en &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido copiar la librería de plugins de &quot;%1&quot; a &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido mover la librería de plugins a &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
@@ -7316,18 +7318,18 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Sobreescribir el plugin?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>El nuevo plugin &quot;%1&quot; (%2) está a punto de sobreescribir al plugin ya instalado &quot;%3&quot; (%4). ¿Quieres continuar?</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ha perdido el link</translation>
     </message>
     <message>
         <source>%1 linked</source>
@@ -7343,7 +7345,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha producido un error cargando el plugin manual: %1</translation>
     </message>
 </context>
 <context>
@@ -7354,39 +7356,39 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los siguientes plugins pueden ser actualizados.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar todo</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de descarga</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quieres actualizar los plugins seleccionados?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>No ha sido posible descargar la actualización para &quot;%1% desde &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>La actualización del plugin &quot;%1&quot; ha fallado porque se produjeron demasiados redireccionamientos</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido descargar la actualización para &quot;%1&quot; desde &quot;%2&quot; (Código de estado HTTP %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha actualizado el plugin&quot;%1&quot; correctamente</translation>
     </message>
 </context>
 <context>
@@ -7476,27 +7478,27 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>Toggle console for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar consola para todos los eventos</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar notificaciones “pop-up” para todos los eventos</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar el resaltado de la ventana (si no está activo) para todos los eventos</translation>
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz click aquí para alternar las notificaciones sonoras para todos los eventos</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar el Texto-a-Voz para todos los eventos</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation>RNNoise no está disponible debido a una diferencia en la frecuencia de muestreo.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
@@ -7504,11 +7506,11 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Realmente quieres resetear todas las configuracionse (no solo las actualmente visibles) a sus valores por defecto?</translation>
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste del Apodo Local...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
@@ -7516,11 +7518,11 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>La URL usa un esquema que ha sido bloqueado por razones de seguridad.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>URL bloqueada: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
@@ -7536,40 +7538,41 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si se activa, esto intenta cancelar el eco de la transmisión de audio.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Desactivado</translation>
+        <translation>Deshabilitado</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>La cancelación de eco está deshabilitada.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelación de eco mixta (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mixed tiene poco impacto en la CPU, pero solo funciona bien si tus altavoces tienen un volumen muy alto y están a la misma distancia del micrófono.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelación de eco multicanal (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>La cancelación de eco muticanal provee una cancelación de eco mucho mejor, pero a un coste de CPU mayor. La cancelación de eco multicanal requiere más CPU, por lo que es recomendable probar la mixta primero.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>La URL provista utiliza una versión de formato inválida: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Los directorios en los que Mumble busca por archivos de traducción extra son:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -7577,20 +7580,21 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>EXPERIMENTAL: Cancelación de eco acústica (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El soporte para esta opción solo es experimental! Esta opción funciona mejor cuando se usa el micrófono y los altavoces integrados.</translation>
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Migración de atajo incompleta</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desafortunadamente %1 atajo(s) no pudieron ser migrados.
+Puedes registrarlos otra vez.</translation>
     </message>
 </context>
 <context>
@@ -7683,18 +7687,18 @@ You can register them again.</source>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Unirse</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduce la Cadena de búsqueda...</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7706,7 +7710,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuarios</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -7718,7 +7722,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
@@ -7730,11 +7734,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Canales</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
@@ -7776,55 +7780,55 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del servidor</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del Servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Host:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Puerto:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Usuarios&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocolo:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Versión:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SO:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Permitido:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Actual:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Códec:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles de la conexión</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -7832,15 +7836,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Encripción:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Latencia media:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadísticas</translation>
     </message>
     <message>
         <source>Good</source>
@@ -7860,15 +7864,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Salientes</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrantes</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los paquetes de voz actualmente están siendo enviados por TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -7876,7 +7880,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Versión TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
@@ -7888,11 +7892,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -7908,11 +7912,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -8341,19 +8345,19 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Apodo local para otros usuarios</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ajustar el apodo de otros usuarios localmente&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Apodo del usuario</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustando el apodo local para %1</translation>
     </message>
 </context>
 <context>
@@ -8512,19 +8516,19 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation type="unfinished"></translation>
+        <translation>Hablando mientras se está mudo en tu lado</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este es un canal escucha. El usuario correspondiente escucha todo lo que dices en este canal.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Este canal tiene restricciones de acceso, por lo que no lo puedes acceder</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Este canal tiene restricciones, pero puedes entrar de todas maneras</translation>
     </message>
 </context>
 <context>
@@ -8783,7 +8787,7 @@ Por favor, contacte con el administrador de su servidor para más información.<
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposible empezar a grabar - la salida de audio está mal configurada (frecuencia de muestreo de 0Hz)</translation>
     </message>
 </context>
 <context>

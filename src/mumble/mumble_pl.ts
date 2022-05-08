@@ -7986,19 +7986,19 @@ Możesz je ponownie zarejestrować.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy połączenie obsługuje doskonałe utajnianie z wyprzedzeniem (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie</translation>
     </message>
 </context>
 <context>
