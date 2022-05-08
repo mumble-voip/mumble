@@ -677,6 +677,10 @@ if(bundled-celt)
 	install_library(celt mumble_client)
 else()
 	find_pkg(celt REQUIRED)
+	if(${celt_VERSION} VERSION_LESS          0.7 OR
+	   ${celt_VERSION} VERSION_GREATER_EQUAL 0.8)
+		message(FATAL_ERROR "CELT 0.7.x is required, found ${celt_VERSION}!")
+	endif()
 	target_include_directories(mumble PRIVATE ${celt_INCLUDE_DIRS})
 endif()
 
