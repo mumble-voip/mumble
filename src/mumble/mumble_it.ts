@@ -7984,16 +7984,20 @@ Puoi registrarle di nuovo.</translation>
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <source>The connection provides perfect forward secrecy.</source>
-        <translation>La connessione fornisce perfetta segretezza in avanti.</translation>
+        <source>Whether the connection supports perfect forward secrecy (PFS).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>La connessione non fornisce perfetta segretezza in avanti.</translation>
+        <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No information about forward secrecy available.</source>
-        <translation>Non ci sono informazioni in merito alla segretezza in avanti.</translation>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
