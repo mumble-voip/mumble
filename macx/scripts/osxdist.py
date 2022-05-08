@@ -151,7 +151,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
 		if not os.path.exists(dst):
 			os.makedirs(dst)
-		for plugin in glob.glob('plugins/*.dylib'):
+		for plugin in glob.glob(os.path.join(options.binary_dir, 'plugins') + '/*.dylib'):
 			shutil.copy(plugin, dst)
 
 	def update_plist(self):
