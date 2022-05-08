@@ -378,7 +378,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте канала, в котором находится этот канал. Например, стандартный СУД (список управления доступом) для канала Root даёт право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права этого канала (1) будут унаследованы каким-либо другим каналом (2), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в канале 1, будет иметь разрешение на запись, даже если он не принадлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 2, который наследует СУД от канала 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, эта группа используется как отрицание, а если с &apos;~&apos;,то права группы вычисляются в соответствии с каналом 1, вместо канала 2.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как токен доступа. То что идет после &apos;#&apos; в имени группы, должно быть введено в список токенов доступа пользователем, чтобы он мог войти. Это может быть использовано для очень простого доступа с паролем к каналу для неавторизированных пользователей.&lt;br /&gt;Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt;Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только авторизированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует или польвателю или группе, но не обоим.</translation>
+        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте канала, в котором находится этот канал. Например, стандартный СУД (список управления доступом) для канала Root даёт право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права этого канала (1) будут унаследованы каким-либо другим каналом (2), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в канале 1, будет иметь разрешение на запись, даже если он не принадлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 2, который наследует СУД от канала 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, эта группа используется как отрицание, а если с &apos;~&apos;,то права группы вычисляются в соответствии с каналом 1, вместо канала 2.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как токен доступа. То что идет после &apos;#&apos; в имени группы, должно быть введено в список токенов доступа пользователем, чтобы он мог войти. Это может быть использовано для очень простого доступа с паролем к каналу для неаутентифицированных пользователей.&lt;br /&gt;Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt;Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только аутентифицированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует или пользователю или группе, но не обоим.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -1208,7 +1208,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
-        <translation>Безопасный размер буфера джиттера. Помогает избежать искажений и прерываний.</translation>
+        <translation>Минимальный размер буфера джиттера</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
@@ -1418,7 +1418,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation>Приглушать других пользователей при наличии приоритета разговора.</translation>
+        <translation>Приглушать других пользователей во время разговора в качестве приоритетного говорящего</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -2376,11 +2376,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation>Авторизация по сертификату</translation>
+        <translation>Аутентификация по сертификату</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Авторизация на серверах без использования пароля</translation>
+        <translation>Аутентификация на серверах без использования пароля</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2557,11 +2557,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Сгенерировать новый сертификат для надежной авторизации</translation>
+        <translation>Сгенерировать новый сертификат для надежной аутентификации</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble сгенерирует надежный сертификат для авторизации на серверах.&lt;/p&gt;&lt;p&gt;По желанию, Вы можете внести дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым Вы подключаетесь. Если Вы предоставите настоящий e-mail адрес, Вы сможете улучшить его в дальнейшем на доверенный сертификат CA, который обеспечит надёжную идентификацию.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Теперь Mumble сгенерирует надежный сертификат для аутентификации на серверах.&lt;/p&gt;&lt;p&gt;При желании Вы можете указать дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым Вы подключаетесь. Если вы укажете действующий адрес электронной почты, вы сможете позже перейти на сертификат электронной почты, выданный CA, который обеспечивает надежную идентификацию.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2593,11 +2593,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>Авторизация на основе сертификата готова к использованию</translation>
+        <translation>Аутентификация на основе сертификата готова к использованию</translation>
     </message>
     <message>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Наслаждайтесь Mumble с надежной авторизацией.</translation>
+        <translation>Наслаждайтесь Mumble с надежной аутентификацией.</translation>
     </message>
     <message>
         <source>Automatic certificate creation</source>
@@ -2611,7 +2611,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble может использовать сертификаты для авторизации на серверах. Использование сертификатов позволяет не использовать пароли, что значит вам не нужно передавать свой пароль удаленному сайту. Так же это предоставляет очень простую регистрацию пользователей и список друзей на клиентской стороне, независимый от серверов.&lt;/p&gt;&lt;p&gt; В то время как Mumble может работать без сертификатов, многие сервера подразумевают, что он у вас есть.&lt;/p&gt;&lt;p&gt;Автоматическое создание нового сертификата достаточно для большинства случаев. Но Mumble также поддерживает сертификаты, подтверждающие владение email-адреса пользователем. Такие сертификаты выпускаются сторонними лицами. Дополнительную информацию смотрите в нашей &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;документации по пользовательским сертификатам&lt;/a&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble может использовать сертификаты для аутентификации на серверах. Использование сертификатов позволяет не использовать пароли, что значит вам не нужно передавать свой пароль удаленному сайту. Так же это предоставляет очень простую регистрацию пользователей и список друзей на клиентской стороне, независимый от серверов.&lt;/p&gt;&lt;p&gt; В то время как Mumble может работать без сертификатов, многие сервера подразумевают, что он у вас есть.&lt;/p&gt;&lt;p&gt;Автоматическое создание нового сертификата достаточно для большинства случаев. Но Mumble также поддерживает сертификаты, подтверждающие владение email-адреса пользователем. Такие сертификаты выпускаются сторонними лицами. Дополнительную информацию смотрите в нашей &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;документации по пользовательским сертификатам&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2797,7 +2797,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation>Приоритетный разговор</translation>
+        <translation>Приоритетный говорящий</translation>
     </message>
     <message>
         <source>Recording</source>
@@ -3175,13 +3175,13 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation>Пароль, для авторизации на сервере</translation>
+        <translation>Пароль для аутентификации на сервере</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br/&gt;
-Пароль для авторизации на сервере при подключении. Данный пароль необходим, когда Вы подключаетесь как &lt;i&gt;SuperUser&lt;/i&gt; или к серверу, который использует авторизацию по паролю. Если оставить это поле пустым, пароль будет запрошен при соединении.</translation>
+Пароль отправляемый на сервер при подключении. Данный пароль необходим, когда Вы подключаетесь как &lt;i&gt;SuperUser&lt;/i&gt; или к серверу, который использует аутентификацию по паролю. Если оставить это поле пустым, пароль будет запрошен при соединении.</translation>
     </message>
     <message>
         <source>Show password</source>
@@ -4091,15 +4091,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите, чтобы разрешить Текст-в-речь</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Разрешить Текст-в-речь</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите здесь, чтобы включить ограничение для событий %1.&lt;br /&gt;Если отмечено, уведомления для этого типа событий не будут звучать когда количество пользователей на сервере превышает установленный порог.</translation>
     </message>
 </context>
 <context>
@@ -5362,11 +5362,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Configure certificates for strong authentication</source>
-        <translation>Настроить сертификаты для надежной авторизации</translation>
+        <translation>Настроить сертификаты для надежной аутентификации</translation>
     </message>
     <message>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>Запустить мастер создания, импорта и экспорта сертификатов для авторизации на серверах.</translation>
+        <translation>Запустить мастер создания, импорта и экспорта сертификатов для аутентификации на серверах.</translation>
     </message>
     <message>
         <source>Register user on server</source>
@@ -5586,43 +5586,43 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You revoked your priority speaker status.</source>
-        <translation>Вы сняли с себя приоритет разговора.</translation>
+        <translation>Вы отозвали свой статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>You assumed priority speaker status.</source>
-        <translation>Вы получили приоритет разговора.</translation>
+        <translation>Вы получили статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 revoked your priority speaker status.</source>
-        <translation>%1 снял с Вас приоритет разговора.</translation>
+        <translation>%1 снял с Вас статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 gave you priority speaker status.</source>
-        <translation>%1 дал Вам приоритет разговора.</translation>
+        <translation>%1 дал Вам статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>You revoked priority speaker status for %1.</source>
-        <translation>Вы сняли с %1 приоритет разговора.</translation>
+        <translation>Вы сняли с %1 статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>You gave priority speaker status to %1.</source>
-        <translation>Вы дали %1 приоритет разговора.</translation>
+        <translation>Вы дали %1 статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 revoked own priority speaker status.</source>
-        <translation>%1 снял с себя приоритет разговора.</translation>
+        <translation>%1 снял с себя статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 assumed priority speaker status.</source>
-        <translation>%1 получил приоритет разговора.</translation>
+        <translation>%1 получил статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation>%1 снял с %2 приоритет разговора.</translation>
+        <translation>%1 снял с %2 статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>%1 дал приоритет разговора %2.</translation>
+        <translation>%1 дал статус приоритетного говорящего %2.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
@@ -5893,7 +5893,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Priority Speaker</source>
-        <translation>Приоритетный разговор</translation>
+        <translation>Приоритетный говорящий</translation>
     </message>
     <message>
         <source>&amp;Copy URL</source>
@@ -5983,15 +5983,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation>&amp;Подключиться</translation>
+        <translation>&amp;Подключиться...</translation>
     </message>
     <message>
         <source>&amp;Ban list...</source>
-        <translation>&amp;Список банов</translation>
+        <translation>&amp;Список банов...</translation>
     </message>
     <message>
         <source>&amp;Information...</source>
-        <translation>&amp;Информация</translation>
+        <translation>&amp;Информация...</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
@@ -5999,7 +5999,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation>За&amp;банить</translation>
+        <translation>За&amp;банить...</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
@@ -6295,12 +6295,12 @@ Valid actions are:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation>Переключатель интерфейса диалога.</translation>
+        <translation>Переключатель интерфейса диалога</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation>Включить/Выключить интерфейс диалога.</translation>
+        <translation>Переключатель видимости интерфейса диалога.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6329,23 +6329,23 @@ Valid actions are:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation>Включить звук</translation>
+        <translation>Включить микрофон</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished">Заглушить себя</translation>
+        <translation>Включить звук</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer...</source>
-        <translation type="unfinished">Средство просмотра позиционного звука…</translation>
+        <translation>Средство просмотра позиционного звука…</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished">Показать средство просмотра позиционного звука</translation>
+        <translation>Показать средство просмотра позиционного звука</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished">Показывает окно просмотра позиционного звука. В нём можно просмотреть текущую информацию, используемую для позиционного звука. Также отображаются контекст и идентификация.</translation>
+        <translation>Показывает окно просмотра позиционного звука. В нём можно просмотреть текущую информацию, используемую для позиционного звука. Также отображаются контекст и идентификация.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -6624,11 +6624,11 @@ Valid options are:
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation>Логин для авторизации на прокси-сервере</translation>
+        <translation>Имя пользователя для аутентификации на прокси-сервере</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Логин для авторизации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается имя пользователя для авторизации на прокси. Если прокси не поддерживает авторизацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
+        <translation>&lt;b&gt;Имя пользователя для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается имя пользователя для аутентификации на прокси. Если прокси не использует аутентификацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -6636,11 +6636,11 @@ Valid options are:
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation>Пароль для авторизации на прокси-сервере</translation>
+        <translation>Пароль для аутентификации на прокси-сервере</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Пароль для авторизации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается пароль для авторизации на прокси. Если прокси не поддерживает авторизацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
+        <translation>&lt;b&gt;Пароль для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается пароль для аутентификации на прокси. Если прокси не поддерживает аутентификацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -6974,7 +6974,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation>Часы в табло показывают текущее местное время (время системы).</translation>
+        <translation>Отображать в табло часы, показывающие текущее местное время (системное время).</translation>
     </message>
     <message>
         <source>Show Clock</source>
@@ -7486,7 +7486,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished">Средство просмотра позиционного звука</translation>
+        <translation>Средство просмотра позиционного звука</translation>
     </message>
     <message>
         <source>Camera direction</source>
@@ -7530,11 +7530,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Контекст</translation>
+        <translation>Контекст</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Идентификатор</translation>
+        <translation>Идентификатор</translation>
     </message>
 </context>
 <context>
@@ -7753,7 +7753,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>В доступе к микрофону отказано из-за системных ограничений. Вы не сможете использовать микрофон в этом сеансе.</translation>
     </message>
 </context>
 <context>
@@ -8063,19 +8063,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддерживает ли соединение совершенную прямую секретность (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Да</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
 </context>
 <context>
