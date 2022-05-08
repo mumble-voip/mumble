@@ -1,0 +1,16 @@
+name: Dispatch new release
+
+on:
+    release:
+        types: [ published ]
+
+jobs:
+    dispatch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Dispatch release to mumble-docker repo"
+              uses: peter-evans/repository-dispatch@v2
+              with:
+                  token: ${{ secrets.DOCKER_REPO_ACCCESS_TOKEN }}
+                  event-type: new_release
+                  client_payload: '{ "tag": "${{ github.event.release.tag_name }}", "is_latest": "${{ github.event.release.commitish == master }}" }'
