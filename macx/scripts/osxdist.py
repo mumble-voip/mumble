@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Copyright 2010-2022 The Mumble Developers. All rights reserved.
@@ -13,7 +13,7 @@
 # by Thomas Keller).
 #
 
-import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime, tarfile, glob
+import sys, os, string, shutil, plistlib, tempfile, glob
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
@@ -41,7 +41,7 @@ def certificate_subject_OU(identity):
 
 def lookup_file_identifier(path):
 	try:
-		d = plistlib.readPlist(os.path.join(path, 'Contents', 'Info.plist'))
+		d = plistlib.load(open(os.path.join(path, 'Contents', 'Info.plist'), "rb"))
 		return d['CFBundleIdentifier']
 	except:
 		return os.path.basename(path)
@@ -80,7 +80,7 @@ def prodsign(inf, outf):
 	return 0
 
 def create_overlay_package():
-	print '* Creating overlay installer'
+	print('* Creating overlay installer')
 
 	bundle = os.path.join(options.binary_dir, 'MumbleOverlay.osax')
 	overlaylib = os.path.join(options.binary_dir, 'libmumbleoverlay.dylib')
@@ -105,7 +105,7 @@ class AppBundle(object):
 			Copy a helper binary into the Mumble app bundle.
 		'''
 		if os.path.exists(os.path.join(self.bundle, '..', fn)):
-			print ' * Copying helper binary: %s' % fn
+			print(' * Copying helper binary: %s' % fn)
 			src = os.path.join(self.bundle, '..', fn)
 			dst = os.path.join(self.bundle, 'Contents', 'MacOS', fn)
 			shutil.copy(src, dst)
@@ -114,7 +114,7 @@ class AppBundle(object):
 		'''
 			Copy needed resources into our bundle.
 		'''
-		print ' * Copying needed resources'
+		print(' * Copying needed resources')
 		rsrcpath = os.path.join(self.bundle, 'Contents', 'Resources')
 		if not os.path.exists(rsrcpath):
 			os.mkdir(rsrcpath)
@@ -134,9 +134,9 @@ class AppBundle(object):
 		'''
 			Try to copy the dynamic audio codec libraries into the App Bundle.
 		'''
-		print ' * Attempting to copy audio codec libraries into App Bundle'
+		print(' * Attempting to copy audio codec libraries into App Bundle')
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
- 		if not os.path.exists(dst):
+		if not os.path.exists(dst):
 			os.makedirs(dst)
 		codecs = (os.path.join(options.binary_dir, 'libcelt0.0.7.0.dylib'), os.path.join(options.binary_dir, 'libopus.dylib'))
 		for codec in codecs:
@@ -147,7 +147,7 @@ class AppBundle(object):
 		'''
 			Copy over any built Mumble plugins.
 		'''
-		print ' * Copying positional audio plugins'
+		print(' * Copying (positional audio) plugins')
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
 		if not os.path.exists(dst):
 			os.makedirs(dst)
@@ -159,22 +159,22 @@ class AppBundle(object):
 			Modify our bundle's Info.plist to make it ready for release.
 		'''
 		if self.version is not None:
-			print ' * Changing version in Info.plist'
+			print(' * Changing version in Info.plist')
 			p = self.infoplist
 			p['CFBundleVersion'] = self.version
-			plistlib.writePlist(p, self.infopath)
+			plistlib.dump(p, open(self.infopath, "wb"))
 
 	def set_min_macosx_version(self, version):
 		'''
 			Set the minimum version of Mac OS X version that this App will run on.
 		'''
-		print ' * Setting minimum Mac OS X version to: %s' % (version)
+		print(' * Setting minimum Mac OS X version to: %s' % (version))
 		self.infoplist['LSMinimumSystemVersion'] = version
 
 	def done(self):
-		plistlib.writePlist(self.infoplist, self.infopath)
-		print ' * Done!'
-		print ''
+		plistlib.dump(self.infoplist, open(self.infopath, "wb"))
+		print(' * Done!')
+		print()
 
 	def __init__(self, bundle, version=None):
 		self.framework_path = ''
@@ -182,14 +182,14 @@ class AppBundle(object):
 		self.bundle = bundle
 		self.version = version
 		self.infopath = os.path.join(os.path.abspath(bundle), 'Contents', 'Info.plist')
-		self.infoplist = plistlib.readPlist(self.infopath)
+		self.infoplist = plistlib.load(open(self.infopath, "rb"))
 		self.binary = os.path.join(os.path.abspath(bundle), 'Contents', 'MacOS', self.infoplist['CFBundleExecutable'])
-		print ' * Preparing AppBundle'
+		print(' * Preparing AppBundle')
 
 
 class FolderObject(object):
 
-	class Exception(exceptions.Exception):
+	class Exception(Exception):
 		pass
 
 	def __init__(self):
@@ -211,10 +211,10 @@ class FolderObject(object):
 			adst = os.path.abspath(self.tmp + '/' + dst)
 
 		if os.path.isdir(asrc):
-			print ' * Copying directory: %s' % os.path.basename(asrc)
+			print(' * Copying directory: %s' % os.path.basename(asrc))
 			shutil.copytree(asrc, adst, symlinks=True)
 		elif os.path.isfile(asrc):
-			print ' * Copying file: %s' % os.path.basename(asrc)
+			print(' * Copying file: %s' % os.path.basename(asrc))
 			shutil.copy(asrc, adst)
 
 	def symlink(self, src, dst):
@@ -223,14 +223,14 @@ class FolderObject(object):
 		'''
 		asrc = os.path.abspath(src)
 		adst = self.tmp + '/' + dst
-		print ' * Creating symlink %s' % os.path.basename(asrc)
+		print(' * Creating symlink %s' % os.path.basename(asrc))
 		os.symlink(asrc, adst)
 
 	def mkdir(self, name):
 		'''
 			Create a directory inside the folder.
 		'''
-		print ' * Creating directory %s' % os.path.basename(name)
+		print(' * Creating directory %s' % os.path.basename(name))
 		adst = self.tmp + '/'  + name
 		os.makedirs(adst)
 
@@ -239,7 +239,7 @@ class DiskImage(FolderObject):
 
 	def __init__(self, filename, volname):
 		FolderObject.__init__(self)
-		print ' * Preparing to create diskimage'
+		print(' * Preparing to create diskimage')
 		self.filename = filename
 		self.volname = volname
 
@@ -247,7 +247,7 @@ class DiskImage(FolderObject):
 		'''
 			Create the disk image itself.
 		'''
-		print ' * Creating diskimage. Please wait...'
+		print(' * Creating diskimage. Please wait...')
 		if os.path.exists(self.filename):
 			os.remove(self.filename)
 		p = Popen(['hdiutil', 'create',
@@ -257,9 +257,10 @@ class DiskImage(FolderObject):
 		           '-megabytes', '130',
 		           self.filename])
 		retval = p.wait()
-		print ' * Removing temporary directory.'
+		assert retval == 0
+		print(' * Removing temporary directory.')
 		shutil.rmtree(self.tmp)
-		print ' * Done!'
+		print(' * Done!')
 
 def package_client():
 	if options.version is not None:
@@ -293,7 +294,7 @@ def package_client():
 
 	# Sign our binaries, etc.
 	if options.developer_id:
-		print ' * Signing binaries with Developer ID `%s\'' % options.developer_id
+		print(' * Signing binaries with Developer ID `%s\'' % options.developer_id)
 		binaries = (
 			os.path.join(options.binary_dir, 'Mumble.app'),
 			os.path.join(options.binary_dir, 'Mumble.app/Contents/Plugins/liblink.dylib'),
@@ -304,7 +305,7 @@ def package_client():
 		)
 		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
 		codesign(availableBinaries)
-		print ''
+		print()
 
 	if options.only_appbundle:
 		sys.exit(0)
@@ -352,7 +353,7 @@ def package_server():
 	p = Popen(('xip', '--keychain', options.keychain, '-s', certname, '--timestamp', destdir, os.path.join(options.binary_dir, name+'.xip')))
 	retval = p.wait()
 	if retval != 0:
-		print 'Failed to build Murmur XIP package'
+		print('Failed to build Murmur XIP package')
 		sys.exit(1)
 
 	absrelease = os.path.join(os.getcwd(), 'options.binary_dir')
@@ -360,13 +361,13 @@ def package_server():
 	p = Popen(('tar', '-cjpf', name+'.tar.bz2', name), cwd=absrelease)
 	retval = p.wait()
 	if retval != 0:
-		print 'Failed to build Murmur tar.bz2 package'
+		print('Failed to build Murmur tar.bz2 package')
 		sys.exit(1)
 
 	p = Popen(('gpg', '--detach-sign', '--armor', '-u', options.developer_id, '-o', name+'.tar.bz2.sig', name+'.tar.bz2'), cwd=absrelease)
 	retval = p.wait()
 	if retval != 0:
-		print 'Failed to sign Murmur tar.bz2 package'
+		print('Failed to sign Murmur tar.bz2 package')
 		sys.exit(1)
 
 if __name__ == '__main__':
@@ -384,11 +385,11 @@ if __name__ == '__main__':
 	options, args = parser.parse_args()
 
 	if not os.path.exists(options.source_dir):
-		print 'Please specify a source directory that exists!'
+		print('Please specify a source directory that exists!')
 		sys.exit(1)
 
 	if not os.path.exists(options.binary_dir):
-		print 'Please specify a binary directory that exists!'
+		print('Please specify a binary directory that exists!')
 		sys.exit(1)
 
 	if not options.server:
