@@ -3411,7 +3411,7 @@ Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen nie
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Het globaal sneltoetsensysteem van Mumble werkt momenteel niet in combinatie met het Wayland-protocol. Voor meer informatie, ga naar &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -7579,7 +7579,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation>RNWoise helaas niet beschikbaar wegens een voorbeeld-&apos;interval&apos;-mismatch.</translation>
+        <translation>RNNoise is niet beschikbaar wegens een mismatch van bemonsteringsfrequentie.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
@@ -7985,19 +7985,19 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Of de connectie perfecte voorwaartse geheimhouding (PFS) ondersteunt.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Neen</translation>
     </message>
 </context>
 <context>
@@ -8868,7 +8868,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de opname niet starten - het uitvoerapparaat is verkeerd geconfigureerd (bemonsteringsfrequentie van 0 Hz)</translation>
     </message>
 </context>
 <context>

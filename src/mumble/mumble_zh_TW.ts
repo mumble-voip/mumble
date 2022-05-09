@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - 新增頻道 </translation>
+        <translation>Mumble - 新增頻道</translation>
     </message>
     <message>
         <source>Default server value</source>

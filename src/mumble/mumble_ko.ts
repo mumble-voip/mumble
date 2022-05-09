@@ -334,7 +334,7 @@ Add a new group.</source>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;임시&lt;/b&gt;&lt;br /&gt;
-임시 채널을 생성합니다. 마지막 유저가 나가면 서버에서 채널을 자동으로 삭제합니다.</translation>
+체크하면 생성된 채널이 임시로 표시됩니다. 이것은 마지막 플레이어가 떠날 때 채널이 서버에 의해 자동으로 삭제된다는 것을 의미합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
@@ -1517,15 +1517,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation>다른 유저의 오디오 볼륨이 감소하기 시작하는 거리</translation>
+        <translation>다른 플레이어의 오디오 볼륨이 감소하기 시작하는 거리</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation>유저의 오디오 볼륨이 최소값에 도달하는 거리</translation>
+        <translation>플레이어의 오디오 볼륨이 최소값에 도달한 거리</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>유저의 오디오가 거리가 멀어짐에 따라 감소하는 최소 볼륨입니다. 사실적인 최대 청력 거리를 위해 완전한 무음으로 감소하려면 0%로 설정하세요.</translation>
+        <translation>플레이어의 오디오는 거리가 멀어질수록 감소하는 최소 볼륨입니다. 0%로 설정하면 실제 최대 청력 거리에 대해 완전한 무음으로 희미해집니다.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
@@ -1982,7 +1982,7 @@ Mumble은 지속해서 개발 중이며 개발팀은 대부분의 유저에게 �
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>유저가 대화하는 동안 다른 응용 프로그램의 볼륨 감소를 활성화합니다. Mumble은 누군가가 말을 시작하면 다른 응용 프로그램의 (오디오 플레이어 등) 볼륨이 감소하여 더욱 명확하게 들을 수 있습니다.</translation>
+        <translation>사용자가 대화하는 동안 다른 응용 프로그램의 볼륨 감쇠를 활성화합니다. 즉, 누군가가 Mumble로 말을 걸기 시작하면 오디오 재생기와 같은 다른 모든 응용 프로그램의 사운드가 감쇠되어 사용자가 더 명확하게 들을 수 있습니다.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -3410,7 +3410,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 전체 단축키 시스템은 현재 Wayland 프로토콜과 함께 작동하지 않습니다. 자세한 내용은 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257를 방문하세요.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble의 전체 단축키 시스템은 현재 Wayland 프로토콜과 함께 작동하지 않습니다. 자세한 내용은 &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;을 방문하십시오&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3795,7 +3795,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>player link</source>
-        <translation>유저 링크</translation>
+        <translation>플레이어 링크</translation>
     </message>
     <message>
         <source>channel link</source>
@@ -7984,19 +7984,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>연결이 PFS(완벽한 순방향 비밀성)를 지원하는지 여부입니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>예</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>아니요</translation>
     </message>
 </context>
 <context>

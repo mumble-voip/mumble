@@ -173,7 +173,7 @@ Balio honek Mumblek zuhaitzean zehar kanalak antolatzeko duen modua aldatzeko ga
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Hemen ACL sistemaren objektu gurasoak kanal honi eragingo dioten edo ez zehazten da. Soilik &quot;sub-kanalak aplikatu&quot;  doituta duten sarrera horiek heredatuko dira.</translation>
+        <translation>Hemen ACL sistemaren objektu gurasoak kanal honi eragingo dioten edo ez zehazten da. Soilik &quot;sub-kanalak aplikatu&quot; doituta duten sarrera horiek heredatuko dira.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
@@ -352,7 +352,7 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Heredagarria/b&gt;&lt;br /&gt;  Taldea azpi-kanalentzako heredagarria bilakatzen du. Taldea ez bada heredagarria, azpi-kanalek, izen berdina duen talde berri bat sor dezakete.</translation>
+        <translation>&lt;b&gt;Heredagarria&lt;/b&gt;&lt;br /&gt;Taldea azpi-kanalentzako heredagarria bilakatzen du. Taldea ez bada heredagarria, azpi-kanalek, izen berdina duen talde berri bat sor dezakete.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
@@ -362,7 +362,7 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Kideak&lt;/b&gt;&lt;br /&gt;
-Zerrenda honek uneko kanalera gehitutako kide guztiak biltzen ditu. Kontuan hartu maila altuagoetatik heredatutakoak ez direla ageri. Horiek &lt;i&gt;Heredatutako kideak&lt;/i&gt; zerrendan aurki ditzakezu. Zerrenda hau maila txikiagoetara heredatzea ekiditeko begiratu  &lt;i&gt;Heredagarria&lt;/i&gt; eremua edo manualki gehitu erabiltzaileak &lt;i&gt;Baztertutako kideaki&gt; zerrendara.</translation>
+Zerrenda honek uneko kanalera gehitutako kide guztiak biltzen ditu. Kontuan hartu maila altuagoetatik heredatutakoak ez direla ageri. Horiek &lt;i&gt;Heredatutako kideak&lt;/i&gt; zerrendan aurki ditzakezu. Zerrenda hau maila txikiagoetara heredatzea ekiditeko begiratu &lt;i&gt;Heredagarria&lt;/i&gt; eremua edo manualki gehitu erabiltzaileak &lt;i&gt;Baztertutako kideak&lt;/i&gt; zerrendara.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
@@ -1267,7 +1267,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Hau egiaztatzeak bozgorailuak konektatu gabe eta aurikularrak soilik dituzula adierazten du.  Hau garrantzitsua da zeren bozgorailuak normalean zure aurrean egon ohi dira, eta aurikularrak zuzenean zure ezker/eskuinean daude.</translation>
+        <translation>Hau egiaztatzeak bozgorailuak konektatu gabe eta aurikularrak soilik dituzula adierazten du. Hau garrantzitsua da zeren bozgorailuak normalean zure aurrean egon ohi dira, eta aurikularrak zuzenean zure ezker/eskuinean daude.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1607,7 +1607,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Honek zure oraingo sarrera bolumena balio egokienetik zein gertu dagoen erakusten du. Zure mikrofonoaren maila doitzeko, zabaldu  grabaketa bolumena doitzeko erabiltzen duzun programa eta begiratu hemengo balioa hitz egiten duzun biartean.&lt;br /&gt;&lt;b&gt;Hitz egin altu, hasiberri batek zirikatuko balizu bezala.&lt;/b&gt;&lt;br /&gt;Doitu bolumena balio hau %100-etik ahalik eta gertuen utziz, baina pasatu gabe. Pasatuz gero, ziurrenik mozketak izango dituzu zure hizketaldien zati batzuetan eta honek soinu kalitatea gutxituko du.</translation>
+        <translation>Honek zure oraingo sarrera bolumena balio egokienetik zein gertu dagoen erakusten du. Zure mikrofonoaren maila doitzeko, zabaldu grabaketa bolumena doitzeko erabiltzen duzun programa eta begiratu hemengo balioa hitz egiten duzun biartean.&lt;br /&gt;&lt;b&gt;Hitz egin altu, hasiberri batek zirikatuko balizu bezala.&lt;/b&gt;&lt;br /&gt;Doitu bolumena balio hau %100-etik ahalik eta gertuen utziz, baina pasatu gabe. Pasatuz gero, ziurrenik mozketak izango dituzu zure hizketaldien zati batzuetan eta honek soinu kalitatea gutxituko du.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
@@ -1877,7 +1877,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Honek Mumble lagunduko du noiz ari  zaren hitz egiten jakiten. Lehen pausua zein datu balio erabili aukeratzea da.</translation>
+        <translation>Honek Mumble lagunduko du noiz ari zaren hitz egiten jakiten. Lehen pausua zein datu balio erabili aukeratzea da.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
@@ -2274,7 +2274,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Ezin izan da fitxategian idatzi. Mesedez, erabili beste  bat.</translation>
+        <translation>Ezin izan da fitxategian idatzi. Mesedez, erabili beste bat.</translation>
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
@@ -2298,11 +2298,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation>Aukeratu  ziurtagaria non exportatuko den</translation>
+        <translation>Aukeratu ziurtagaria non exportatuko den</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation>Aukeratu ziurtagiria  nondik inportatuko den</translation>
+        <translation>Aukeratu ziurtagiria nondik inportatuko den</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
@@ -2936,7 +2936,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation>Ireki  &amp;Webgunea</translation>
+        <translation>Ireki &amp;Webgunea</translation>
     </message>
     <message>
         <source>Server list</source>
@@ -4650,7 +4650,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1 zerbitzarian erregistratzera zoaz. Ekintza hau ezin da desegin, erabiltzaile izena ezin da aldatu, eta erregistratutako erabiltzailea izanik, %1-ek zerbitzarira sarrera izango du zuk zerbitzariko pasahitza aldatzen baduzu ere.&lt;/p&gt;&lt;p&gt;Puntu honetatik aurrera, %1  orain erabiltzen ari den ziurtagiriaz kautotuko da..&lt;/p&gt;&lt;p&gt;Ziur zaude %1 erregistratu nahi duzula?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1 zerbitzarian erregistratzera zoaz. Ekintza hau ezin da desegin, erabiltzaile izena ezin da aldatu, eta erregistratutako erabiltzailea izanik, %1-ek zerbitzarira sarrera izango du zuk zerbitzariko pasahitza aldatzen baduzu ere.&lt;/p&gt;&lt;p&gt;Puntu honetatik aurrera, %1 orain erabiltzen ari den ziurtagiriaz kautotuko da..&lt;/p&gt;&lt;p&gt;Ziur zaude %1 erregistratu nahi duzula?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Kicking user %1</source>
@@ -4842,7 +4842,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Ziur al zaude  %1 erabiltzailearen iruzkina berrabiarazi nahi duzula?</translation>
+        <translation>Ziur al zaude %1 erabiltzailearen iruzkina berrabiarazi nahi duzula?</translation>
     </message>
     <message>
         <source>Are you sure you want to reset the avatar of user %1?</source>
@@ -5375,7 +5375,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%2 -(e)k  %1 isildu eta gortu du</translation>
+        <translation>%2 -(e)k %1 isildu eta gortu du.</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
@@ -5662,7 +5662,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%1  (e)k %3 zerbitzaritik bota du: %2</translation>
+        <translation>%1 (e)k %3 zerbitzaritik bota du: %2.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
@@ -6517,7 +6517,7 @@ Valid options are:
     </message>
     <message>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation>Honek, Mumble eguneraketarik dagoen egiaztatuko du programa hasten duzun bakoitzean, eta baldin badago jakinarazi.   </translation>
+        <translation>Honek, Mumble eguneraketarik dagoen egiaztatuko du programa hasten duzun bakoitzean, eta baldin badago jakinarazi.</translation>
     </message>
     <message>
         <source>Check for application updates on startup</source>
