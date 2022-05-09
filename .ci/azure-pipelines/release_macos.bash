@@ -13,7 +13,7 @@
 #                                 repository is downloaded.
 #
 
-VERSION=$(python "scripts/mumble-version.py")
+VERSION=$(python3 "scripts/mumble-version.py")
 
 cd $BUILD_BINARIESDIRECTORY
 
