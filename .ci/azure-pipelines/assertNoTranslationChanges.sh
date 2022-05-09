@@ -18,7 +18,7 @@ git config user.name "CI"
 git config user.email "ci@mumble.info"
 
 # Execute updatetranslations that'll commit any translation changes
-python $updateScript --ci-mode
+python3 $updateScript --ci-mode
 echo
 
 # Ger new commit hash
