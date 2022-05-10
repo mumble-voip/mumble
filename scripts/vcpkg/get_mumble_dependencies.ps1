@@ -19,6 +19,7 @@ $mumble_deps = "qt5-base",
                "libsndfile",
                "libmariadb",
                "mdnsresponder",
+               "protobuf",
                "zlib", 
                "zeroc-ice"
 

@@ -53,6 +53,7 @@ mumble_deps='qt5-base,
             libflac,
             libsndfile,
             libmariadb,
+            protobuf,
             zlib,
             zeroc-ice'
 
