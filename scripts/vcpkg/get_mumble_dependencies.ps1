@@ -18,6 +18,7 @@ $mumble_deps = "qt5-base[mysqlplugin]",
                "libflac",
                "libsndfile",
                "mdnsresponder",
+               "protobuf",
                "zlib", 
                "zeroc-ice-mumble"
 

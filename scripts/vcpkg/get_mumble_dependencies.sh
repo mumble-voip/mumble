@@ -52,6 +52,7 @@ mumble_deps='qt5-base[mysqlplugin],
             libogg,
             libflac,
             libsndfile,
+            protobuf,
             zlib,
             zeroc-ice-mumble'
 
