@@ -32,21 +32,6 @@ jobs:
       parameters:
         arch: 'x64'
 
-  - job: Windows_x86
-    workspace:
-      clean: all
-    timeoutInMinutes: 120
-    pool:
-      vmImage: 'windows-2022'
-    variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2021-07-27~64f88807.x86'
-      MUMBLE_ENVIRONMENT_TRIPLET: 'x86-windows-static-md'
-      VCVARS_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsamd64_x86.bat'
-    steps:
-    - template: steps_windows.yml
-      parameters:
-        arch: 'x86'
-
   - job: Linux
     workspace:
       clean: all
