@@ -326,14 +326,10 @@ Settings::Settings() {
 	iVoiceHold                     = 50;
 	iJitterBufferSize              = 1;
 	iFramesPerPacket               = 2;
-#ifdef USE_RNNOISE
-	noiseCancelMode = NoiseCancelRNN;
-#else
-	noiseCancelMode = NoiseCancelSpeex;
-#endif
-	iSpeexNoiseCancelStrength = -30;
-	bAllowLowDelay            = true;
-	uiAudioInputChannelMask   = 0xffffffffffffffffULL;
+	noiseCancelMode                = NoiseCancelSpeex;
+	iSpeexNoiseCancelStrength      = -30;
+	bAllowLowDelay                 = true;
+	uiAudioInputChannelMask        = 0xffffffffffffffffULL;
 
 	// Idle auto actions
 	iIdleTime                   = 5 * 60;
