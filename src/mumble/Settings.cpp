@@ -499,9 +499,6 @@ Settings::Settings() {
 	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
 
 
-#ifdef USE_RNNOISE
-	noiseCancelMode = NoiseCancelRNN;
-#endif
 #ifdef Q_OS_MACOS
 	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
 	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
