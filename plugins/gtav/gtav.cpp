@@ -43,7 +43,7 @@ void mumble_releaseResource(const void *) {
 
 mumble_version_t mumble_getVersion() {
 	// we reuse the GTA version as plugin version
-	return { 1, 58, 2545 };
+	return { 1, 59, 2612 };
 }
 
 MumbleStringWrapper mumble_getAuthor() {
@@ -59,7 +59,7 @@ MumbleStringWrapper mumble_getAuthor() {
 
 MumbleStringWrapper mumble_getDescription() {
 	static const char description[] = "Provides positional audio functionality for GTA V. "
-									  "Supports GTA V version 1.58 Build 2545 (Steam) and 1.38 (Retail). "
+									  "Supports GTA V version 1.59 Build 2612 (Steam) and 1.38 (Retail). "
 									  "Also provides identity based on username.";
 
 	MumbleStringWrapper wrapper;
