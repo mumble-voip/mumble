@@ -124,9 +124,8 @@ __attribute__((constructor)) static void initializeLibrary() {
 
 	ods("!");
 
-	void *nsgl = NULL, *cgl = NULL;
-	nsgl = dlsym(RTLD_DEFAULT, "NSClassFromString");
-	cgl  = dlsym(RTLD_DEFAULT, "CGLFlushDrawable");
+	void *nsgl = NULL;
+	nsgl       = dlsym(RTLD_DEFAULT, "NSClassFromString");
 
 	/* Check for GL symbol availability */
 	if (!(AVAIL_ALL_GLSYM)) {
