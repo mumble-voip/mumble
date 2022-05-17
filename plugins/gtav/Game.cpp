@@ -31,16 +31,16 @@ Mumble_PositionalDataErrorCode Game::init() {
 
 	// Check if we can get meaningful data from it
 	const std::string expected_name = "Grand Theft Auto V";
-	if (m_proc.peekString(m_moduleBase + 0x1E264D3, expected_name.length()) == expected_name) {
+	if (m_proc.peekString(m_moduleBase + 0x192D120, expected_name.length()) == expected_name) {
 		// Steam version
-		m_stateAddr      = m_moduleBase + 0x296F830;
-		m_avatarPosAddr  = m_moduleBase + 0x1D57310;
-		m_cameraPosAddr  = m_moduleBase + 0x1DA5FA0;
-		m_avatarDirAddr  = m_moduleBase + 0x204FB70;
-		m_avatarAxisAddr = m_moduleBase + 0x204FB60;
-		m_cameraDirAddr  = m_moduleBase + 0x1FDA9F0;
-		m_cameraAxisAddr = m_moduleBase + 0x1FDA9E0;
-		m_playerAddr     = m_moduleBase + 0x297CBB4;
+		m_stateAddr      = m_moduleBase + 0x2970F70;
+		m_avatarPosAddr  = m_moduleBase + 0x1FDCD70;
+		m_cameraPosAddr  = m_moduleBase + 0x1FDCD80;
+		m_avatarDirAddr  = m_moduleBase + 0x20510E0;
+		m_avatarAxisAddr = m_moduleBase + 0x20510D0;
+		m_cameraDirAddr  = m_moduleBase + 0x20510A0;
+		m_cameraAxisAddr = m_moduleBase + 0x20510B0;
+		m_playerAddr     = m_moduleBase + 0x297E2F4;
 	} else if (m_proc.peekString(0x180D4D8, expected_name.length()) == expected_name) {
 		// Retail version
 		m_stateAddr      = m_moduleBase + 0x2733490;
