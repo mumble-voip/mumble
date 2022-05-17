@@ -23,7 +23,7 @@ environment:
 
   matrix:
     - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
-      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2021-07-27~64f88807.x64'
+      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2022-05-17~cd7e2c9.x64'
       VCVARS_PATH: 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat'
 
 install:

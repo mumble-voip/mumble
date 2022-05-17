@@ -22,7 +22,7 @@ jobs:
     pool:
       vmImage: 'windows-2022'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2021-07-27~64f88807.x64'
+      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2022-05-17~cd7e2c9.x64'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
       VCVARS_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat'
     steps:
