@@ -44,7 +44,7 @@ jobs:
     workspace:
       clean: all
     pool:
-      vmImage: 'macOS-latest'
+      vmImage: 'macOS-11'
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.5.x~2022-05-17~cd7e2c9.x64'
     steps:

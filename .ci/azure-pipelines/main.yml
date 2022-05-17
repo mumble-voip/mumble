@@ -42,11 +42,10 @@ jobs:
     workspace:
       clean: all
     pool:
-      name: "Default"
-      demands:
-      - agent.os -equals Darwin
+      vmImage: 'macOS-11'
     variables:
-      MUMBLE_ENVIRONMENT_STORE: '~/MumbleBuild'
-      MUMBLE_ENVIRONMENT_VERSION: 'latest-1.5.x'
+      MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.5.x~2021-07-27~64f88807.x64'
     steps:
     - template: steps_macos.yml
+      parameters:
+        installEnvironment: true
