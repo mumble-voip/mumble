@@ -133,7 +133,7 @@ def getDefaultValueForType(dataType):
     elif dataType in ["IdleAction"]:
         return "Settings::Deafen"
     elif dataType in ["NoiseCancel"]:
-        return "Settings::NoiseCancelSpeex"
+        return "Settings::NoiseCancelBoth"
     elif dataType in ["EchoCancelOptionID"]:
         return "EchoCancelOptionID::SPEEX_MULTICHANNEL"
     elif dataType in ["OverlayShow"]:
