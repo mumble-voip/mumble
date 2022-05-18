@@ -5,7 +5,6 @@
 
 #include "GlobalShortcut_unix.h"
 
-#include "EnvUtils.h"
 #include "Settings.h"
 #include "Global.h"
 
@@ -63,12 +62,6 @@ GlobalShortcutX::GlobalShortcutX() {
 	}
 
 #ifdef Q_OS_LINUX
-	if (EnvUtils::waylandIsUsed()) {
-		qWarning("GlobalShortcutX: Global shortcuts don't work on Wayland (see "
-				 "https://github.com/mumble-voip/mumble/issues/5257)");
-		return;
-	}
-
 	if (Global::get().s.bEnableEvdev) {
 		QString dir             = QLatin1String("/dev/input");
 		QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
