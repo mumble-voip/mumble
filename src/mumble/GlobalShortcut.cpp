@@ -531,8 +531,6 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	if (EnvUtils::waylandIsUsed()) {
 		// Our global shortcut system doesn't work with Wayland
 		qlWaylandNote->setVisible(true);
-
-		qgbShortcuts->setEnabled(false);
 	}
 #endif
 
