@@ -215,7 +215,9 @@ namespace db {
 		nlohmann::json &tables = json["tables"];
 
 		for (const std::unique_ptr< Table > &currentTable : m_tables) {
-			tables[currentTable->getName()] = currentTable->exportToJSON();
+			if (currentTable) {
+				tables[currentTable->getName()] = currentTable->exportToJSON();
+			}
 		}
 
 		return json;
@@ -233,7 +235,7 @@ namespace db {
 
 	void Database::clearTables() {
 		for (const std::unique_ptr< Table > &currentTable : m_tables) {
-			if (tableExistsInDB(currentTable->getName())) {
+			if (currentTable && tableExistsInDB(currentTable->getName())) {
 				currentTable->clear();
 			}
 		}
@@ -482,6 +484,9 @@ namespace db {
 
 	void Database::createTables() {
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
+			if (!currentTable) {
+				continue;
+			}
 			if (currentTable->getName() == MetaTable::NAME) {
 				// Meta table is special. We assume it is created separately
 				continue;
@@ -493,7 +498,9 @@ namespace db {
 
 	void Database::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
-			currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+			if (currentTable) {
+				currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+			}
 		}
 	}
 
