@@ -5,7 +5,6 @@
 
 #include "Database.h"
 #include "AccessException.h"
-#include "Constants.h"
 #include "FormatException.h"
 #include "InitException.h"
 #include "MetaTable.h"
