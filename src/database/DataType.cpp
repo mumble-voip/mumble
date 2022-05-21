@@ -106,8 +106,10 @@ namespace db {
 		std::string name;
 
 		std::size_t i = 0;
+		bool found = false;
 		for (; i < strRepr.size(); ++i) {
 			if (strRepr[i] == '(') {
+				found = true;
 				break;
 			}
 
@@ -115,7 +117,7 @@ namespace db {
 		}
 
 		std::size_t size = DataType::Unsized;
-		if (strRepr[i] == '(') {
+		if (found) {
 			if (strRepr[strRepr.size() - 1] != ')' || strRepr.size() - i < 3) {
 				// If we found a '(', we expect at least something in the form of "(1)"
 				throw UnknownDataTypeException("Malformed data type size in \"" + strRepr + "\"");
