@@ -5,7 +5,7 @@ version of Mumble, checkout [this file](build_static.md).
 
 ## Dependencies
 
-<details open>
+<details>
   <summary><b>Ubuntu</b></summary>
 In order to install the needed dependencies on Ubuntu, you have to run the following command (but see notes below the command):
   
@@ -45,7 +45,7 @@ You will need `cmake` **v3.15 or later**. If the version shipped by your distrib
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
-<details open>
+<details>
   <summary><b>Debian (Stable)</b></summary>
 In order to install the needed dependencies on Debian, you may
 run the following command.
