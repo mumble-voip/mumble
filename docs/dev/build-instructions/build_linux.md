@@ -5,7 +5,7 @@ version of Mumble, checkout [this file](build_static.md).
 
 ## Dependencies
 
-<details open>
+<details>
   <summary><b>Ubuntu</b></summary>
 In order to install the needed dependencies on Ubuntu, you have to run the following command (but see notes below the command):
   
@@ -45,7 +45,7 @@ You will need `cmake` **v3.15 or later**. If the version shipped by your distrib
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
-<details open>
+<details>
   <summary><b>Debian (Stable)</b></summary>
 In order to install the needed dependencies on Debian, you may
 run the following command.
@@ -118,6 +118,31 @@ gcc-toolset-9-gcc-c++
 ```
 
 You will need `cmake` **v3.15 or later**. You can install a recent one from the [linked page](https://cmake.org/download/).
+</details>
+
+<details>
+  <summary><b>OpenSUSE Tumbleweed</b></summary>
+In order to install the needed dependencies on OpenSUSE Tumbleweed (not Leap),
+you have to run the following commands:
+
+```bash
+sudo zypper install -t pattern devel_basis devel_qt5
+sudo zypper install \
+  libopenssl-devel \
+  protobuf-devel \
+  poco-devel \
+  libsndfile-devel \
+  libXi-devel \
+  libspeechd-devel \
+  avahi-compat-mDNSResponder-devel \
+  alsa-devel \
+  libcap-devel \
+  gcc-c++-32bit
+```
+
+There is no official package for Ice on OpenSUSE Tumbleweed.
+This means you need to generate the files like so:
+`cmake -Dice=OFF ..`
 </details>
 
 If you are using any other distribution that is not based on one of the distros listed above, you probably have to adapt the commands to your distro manually.
