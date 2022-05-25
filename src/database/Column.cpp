@@ -13,10 +13,17 @@ namespace mumble {
 namespace db {
 
 	Column::Column(const std::string &name, const DataType &type, const std::vector< Constraint > &constraints,
-				   const std::string &defaultValue)
-		: m_type(type), m_constraints(constraints), m_default(defaultValue) {
+				   const std::string &defaultValue, Column::Flag flags)
+		: m_type(type), m_constraints(constraints), m_default(defaultValue), m_flags(flags) {
 		setName(name);
 	}
+
+	Column::Column(const std::string &name, const DataType &type, const std::vector< Constraint > &constraints,
+				   Column::Flag flags)
+		: Column(name, type, constraints, {}, flags) {}
+
+	Column::Column(const std::string &name, const DataType &type, Column::Flag flags)
+		: Column(name, type, {}, {}, flags) {}
 
 	const std::string Column::getName() const { return m_name; }
 
@@ -43,6 +50,14 @@ namespace db {
 	void Column::addConstraint(const Constraint &constraint) { m_constraints.push_back(constraint); }
 
 	void Column::clearConstraints() { m_constraints.clear(); }
+
+	Column::Flag Column::getFlags() const { return m_flags; }
+
+	bool Column::testFlag(Column::Flag flag) const { return m_flags & flag; }
+
+	void Column::setFlags(Column::Flag flags) { m_flags = flags; }
+
+	void Column::clearFlags() { m_flags = Column::Flag::NONE; }
 
 
 } // namespace db
