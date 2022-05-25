@@ -21,12 +21,8 @@
 	<launchable type="desktop-id">info.mumble.Mumble.desktop</launchable>
 	<screenshots>
 		<screenshot type="default">
-			<caption>Light Theme</caption>
-			<image>https://www.mumble.info/blog/mumble-1.3.0-release-announcement/theme-lite.png</image>
-		</screenshot>
-		<screenshot>
-			<caption>Dark Theme</caption>
-			<image>https://www.mumble.info/blog/mumble-1.3.0-release-announcement/theme-dark.png</image>
+			<caption>Light and Dark Theme</caption>
+			<image>https://raw.githubusercontent.com/mumble-voip/mumble/master/screenshots/Mumble.png</image>
 		</screenshot>
 	</screenshots>
 
