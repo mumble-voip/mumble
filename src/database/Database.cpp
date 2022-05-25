@@ -462,6 +462,13 @@ namespace db {
 					break;
 				}
 				case Backend::PostgreSQL: {
+					if (getBackendVersion() < Version{ 10, 0, 0 }) {
+						// Support for identity columns (which we use for auto-incrementing columns) was only added in
+						// PostgreSQL 10
+						throw InitException("We require at least PostgreSQL v10.0.0 as earlier version don't implement all "
+											"necessary features");
+					}
+
 					// Check the DB encoding to make sure that it is Unicode-compatible
 					std::string encoding;
 					m_sql << "SHOW SERVER_ENCODING", soci::into(encoding);
