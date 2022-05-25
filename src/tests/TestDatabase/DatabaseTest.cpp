@@ -16,6 +16,7 @@
 #include "database/UnsupportedOperationException.h"
 
 #include "ConstraintTable.h"
+#include "AutoIncrementTable.h"
 #include "DefaultTable.h"
 #include "KeyValueTable.h"
 #include "TestUtils.h"
@@ -87,6 +88,7 @@ private slots:
 	void simpleExport();
 	void simpleImport();
 	void defaults();
+	void autoIncrement();
 	void constraints();
 	void constraintFunctionality();
 	void indices();
@@ -294,6 +296,28 @@ void DatabaseTest::defaults() {
 
 		table->insert("randomKey");
 		QCOMPARE(table->select("randomKey"), std::string(test::DefaultTable::DEFAULT));
+	}
+}
+
+void DatabaseTest::autoIncrement() {
+	for (Backend currentBackend : backends) {
+		qInfo() << "Current backend:" << QString::fromStdString(backendToString(currentBackend));
+
+		TestDatabase db(currentBackend);
+
+		Database::table_id id = db.addTable(std::make_unique< test::AutoIncrementTable >(db.getSQLHandle(), currentBackend));
+
+		db.init(test::utils::getConnectionParamter(currentBackend));
+
+		test::AutoIncrementTable *table = static_cast< test::AutoIncrementTable * >(db.getTable(id));
+
+		QVERIFY(table != nullptr);
+
+		table->insert("randomKey");
+		table->insert("otherKey");
+		// We don't know whether the col will start at e.g. 0 or one, but we expect
+		// the subsequent entry to be bigger by exactly one.
+		QCOMPARE(table->select("randomKey") + 1, table->select("otherKey"));
 	}
 }
 
