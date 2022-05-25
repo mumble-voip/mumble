@@ -17,8 +17,17 @@ namespace db {
 
 	class Column {
 	public:
+		enum Flag {
+			NONE          = 0,
+			AUTOINCREMENT = 1 << 0,
+		};
+
 		Column(const std::string &name = {}, const DataType &type = {},
-			   const std::vector< Constraint > &constraints = {}, const std::string &defaultValue = {});
+			   const std::vector< Constraint > &constraints = {}, const std::string &defaultValue = {},
+			   Flag flags = Flag::NONE);
+		Column(const std::string &name, const DataType &type,
+			   const std::vector< Constraint > &constraints, Flag flags);
+		Column(const std::string &name, const DataType &type, Flag flags);
 
 		const std::string getName() const;
 		void setName(const std::string &name);
@@ -35,11 +44,17 @@ namespace db {
 		void addConstraint(const Constraint &constraint);
 		void clearConstraints();
 
+		Flag getFlags() const;
+		bool testFlag(Flag flag) const;
+		void setFlags(Flag flags);
+		void clearFlags();
+
 	protected:
 		std::string m_name;
 		DataType m_type;
 		std::vector< Constraint > m_constraints;
 		std::string m_default;
+		Flag m_flags;
 	};
 
 } // namespace db

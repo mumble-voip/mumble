@@ -12,6 +12,7 @@ add_executable(TestDatabase
 	TestUtils.cpp
 	KeyValueTable.cpp
 	ConstraintTable.cpp
+	AutoIncrementTable.cpp
 )
 
 if(database-mysql-tests)
