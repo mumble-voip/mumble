@@ -6,6 +6,8 @@
 #include "KeyValueTable.h"
 #include "database/AccessException.h"
 #include "database/Column.h"
+#include "database/DataType.h"
+#include "database/Utils.h"
 
 #include <vector>
 
@@ -43,6 +45,8 @@ namespace db {
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at querying value for key \"" + key + "\": " + e.what());
 			}
+
+			db::utils::verifyQueryResultedInData(m_sql);
 
 			return value;
 		}

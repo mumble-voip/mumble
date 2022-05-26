@@ -32,12 +32,8 @@ namespace db {
 
 			DEFINE_TABLE(NotNull);
 			DEFINE_TABLE(Unique);
-			DEFINE_TABLE(PrimaryKey);
-			DEFINE_TABLE(ForeignKey);
 #undef DEFINE_TABLE
 			void insertNullInNotNullCol();
-			void insertNullInPrimaryKeyCol();
-			void deletePrimaryKey(const std::string &key);
 
 		protected:
 			unsigned int dummyCounter = 0;
