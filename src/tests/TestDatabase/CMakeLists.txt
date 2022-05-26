@@ -13,6 +13,8 @@ add_executable(TestDatabase
 	KeyValueTable.cpp
 	ConstraintTable.cpp
 	AutoIncrementTable.cpp
+	PrimaryKeyTable.cpp
+	CompositePrimaryKeyTable.cpp
 )
 
 if(database-mysql-tests)

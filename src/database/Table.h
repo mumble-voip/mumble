@@ -9,6 +9,7 @@
 #include "Backend.h"
 #include "Column.h"
 #include "Index.h"
+#include "PrimaryKey.h"
 #include "Trigger.h"
 
 #include <string>
@@ -53,6 +54,10 @@ namespace db {
 		void addTrigger(const Trigger &trigger, bool applyToDB);
 		bool removeTrigger(const Trigger &trigger, bool applyToDB);
 
+		bool hasPrimaryKey() const;
+		const PrimaryKey &getPrimaryKey() const;
+		void setPrimaryKey(const PrimaryKey &key);
+
 		/**
 		 * Imports the data from the given JSON into the table represented by this object. Note
 		 * that the caller of this function is expected to already have initiated a database
@@ -72,6 +77,7 @@ namespace db {
 		Backend m_backend;
 		std::vector< Index > m_indices;
 		std::vector< Trigger > m_trigger;
+		PrimaryKey m_primaryKey;
 
 		void performCtorAssertions();
 	};

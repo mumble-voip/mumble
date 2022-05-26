@@ -424,12 +424,6 @@ namespace db {
 					break;
 				}
 				case Backend::MySQL: {
-					if (getBackendVersion() < Version{ 8, 0, 16 }) {
-						// The CHECK constraint that we use for named NOT NULL constrains was introduced only in
-						// MySQL 8.0.16
-						throw InitException("We require at least MySQL v8.0.16 as earlier version don't implement all "
-											"necessary features");
-					}
 					// Make MySQL as conforming to ANSI standard SQL as possible
 					m_sql << "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE";
 					m_sql << "SET sql_mode = 'ANSI'";
@@ -465,8 +459,9 @@ namespace db {
 					if (getBackendVersion() < Version{ 10, 0, 0 }) {
 						// Support for identity columns (which we use for auto-incrementing columns) was only added in
 						// PostgreSQL 10
-						throw InitException("We require at least PostgreSQL v10.0.0 as earlier version don't implement all "
-											"necessary features");
+						throw InitException(
+							"We require at least PostgreSQL v10.0.0 as earlier version don't implement all "
+							"necessary features");
 					}
 
 					// Check the DB encoding to make sure that it is Unicode-compatible

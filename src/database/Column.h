@@ -25,8 +25,7 @@ namespace db {
 		Column(const std::string &name = {}, const DataType &type = {},
 			   const std::vector< Constraint > &constraints = {}, const std::string &defaultValue = {},
 			   Flag flags = Flag::NONE);
-		Column(const std::string &name, const DataType &type,
-			   const std::vector< Constraint > &constraints, Flag flags);
+		Column(const std::string &name, const DataType &type, const std::vector< Constraint > &constraints, Flag flags);
 		Column(const std::string &name, const DataType &type, Flag flags);
 
 		const std::string getName() const;

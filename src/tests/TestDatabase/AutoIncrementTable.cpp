@@ -8,6 +8,7 @@
 #include "database/Column.h"
 #include "database/Constraint.h"
 #include "database/DataType.h"
+#include "database/PrimaryKey.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -22,10 +23,13 @@ namespace db {
 			std::vector< Column > columns;
 
 			columns.push_back(Column("key_col", DataType(DataType::String, 100)));
-			columns.push_back(Column("value_col", DataType(DataType::Integer), { Constraint(Constraint::PrimaryKey) },
+			columns.push_back(Column("value_col", DataType(DataType::Integer), { Constraint(Constraint::NotNull) },
 									 Column::Flag::AUTOINCREMENT));
 
 			setColumns(columns);
+
+			PrimaryKey pk(columns[1]);
+			setPrimaryKey(pk);
 		}
 
 		void AutoIncrementTable::insert(const std::string &key) {

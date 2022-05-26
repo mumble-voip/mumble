@@ -21,36 +21,21 @@ namespace db {
 		enum Type {
 			NotNull,
 			Unique,
-			PrimaryKey,
-			ForeignKey,
 		};
 
-		Constraint(Type type, const std::string &name = {}, const Table *foreignTable = nullptr,
-				   const Column *foreignColumn = nullptr);
+		Constraint(Type type);
 		~Constraint() = default;
 
 		Type getType() const;
 		void setType(Type type);
 
-		const std::string getName() const;
-		void setName(const std::string &name);
+		std::string sql(Backend backend) const;
 
-		bool canInline() const;
-		bool canOutOfLine() const;
-		bool prefersInline() const;
-
-		bool canBeDropped(Backend backend) const;
-
-		std::string inlineSQL(Backend backend) const;
-		std::string outOfLineSQL(const Column &column, Backend backend) const;
-
-		std::string dropQuery(const Table &table, const Column &column, Backend backend) const;
+		friend bool operator==(const Constraint &lhs, const Constraint &rhs);
+		friend bool operator!=(const Constraint &lhs, const Constraint &rhs);
 
 	protected:
 		Type m_type;
-		std::string m_name;
-		std::string m_foreignTableName;
-		std::string m_foreignColumnName;
 	};
 
 } // namespace db
