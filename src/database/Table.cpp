@@ -8,6 +8,7 @@
 #include "DBUtils.h"
 #include "FormatException.h"
 
+#include "database/Column.h"
 #include <soci/soci.h>
 
 #include <boost/algorithm/string.hpp>
@@ -61,7 +62,6 @@ namespace db {
 		assert(!m_columns.empty());
 
 		std::string createQuery = "CREATE TABLE \"" + m_name + "\" (";
-		std::string outOfLineConstraints;
 
 		for (const Column &currentColumn : m_columns) {
 			createQuery += currentColumn.getName() + " " + currentColumn.getType().sqlRepresentation();
@@ -87,9 +87,9 @@ namespace db {
 			if (currentColumn.testFlag(Column::Flag::AUTOINCREMENT)) {
 				// Assert that the current column is the primary key. Otherwise, we don't support auto-incrementing (as
 				// it is not supported across different RDMS).
-				assert(std::find_if(currentColumn.getConstraints().begin(), currentColumn.getConstraints().end(),
-									[](const Constraint &c) { return c.getType() == Constraint::PrimaryKey; })
-					   != currentColumn.getConstraints().end());
+				assert(hasPrimaryKey());
+				assert(!m_primaryKey.isCompositeKey());
+				assert(m_primaryKey.getColumnNames()[0] == currentColumn.getName());
 				// Auto-increment only makes sense for numeric columns
 				assert(currentColumn.getType().getType() == DataType::Integer);
 
@@ -108,21 +108,29 @@ namespace db {
 			}
 
 			for (const Constraint &currentConstraint : currentColumn.getConstraints()) {
-				if (currentConstraint.canInline()
-					&& (currentConstraint.prefersInline() || !currentConstraint.canOutOfLine())) {
-					createQuery += " " + currentConstraint.inlineSQL(m_backend);
-				} else {
-					assert(currentConstraint.canOutOfLine());
-
-					outOfLineConstraints += currentConstraint.outOfLineSQL(currentColumn, m_backend) + ", ";
-				}
+				createQuery += " " + currentConstraint.sql(m_backend);
 			}
 
 			createQuery += ", ";
 		}
 
-		// Append out-of-line constraints
-		createQuery += outOfLineConstraints;
+		if (m_primaryKey.isValid()) {
+			createQuery += m_primaryKey.sql() + ", ";
+
+#ifndef NDEBUG
+			for (const std::string &name : m_primaryKey.getColumnNames()) {
+				const Column *col = findColumn(name);
+
+				assert(col);
+				// For historic reasons in SQLite a primary key does not imply NOT NULL (as the SQL standard implies),
+				// so we have to make sure to explicitly label the columns in a primary key as NOT NULL. In order to not
+				// make things more complicated than they need to be, we simply require this for all backends.
+				assert(std::find_if(col->getConstraints().begin(), col->getConstraints().end(),
+									[](const Constraint &c) { return c.getType() == Constraint::NotNull; })
+					   != col->getConstraints().end());
+			}
+#endif
+		}
 
 		// Remove trailing ", "
 		createQuery.erase(createQuery.size() - 2);
@@ -233,6 +241,12 @@ namespace db {
 
 		return true;
 	}
+
+	bool Table::hasPrimaryKey() const { return m_primaryKey.isValid(); }
+
+	const PrimaryKey &Table::getPrimaryKey() const { return m_primaryKey; }
+
+	void Table::setPrimaryKey(const PrimaryKey &key) { m_primaryKey = key; }
 
 #define THROW_FORMATERROR(msg) throw FormatException(std::string("JSON-Import (table \"") + m_name + "\"): " + msg)
 	void Table::importFromJSON(const nlohmann::json &json, bool create) {

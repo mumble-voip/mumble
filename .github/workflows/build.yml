@@ -57,12 +57,6 @@ jobs:
       shell: bash
 
 
-    # Ubuntu 18.04 does not ship a recent enough MySQL version, so we have to skip the MySQL tests there
-    - name: Disable MySQL tests on Ubuntu 18.04
-      if: ${{ matrix.os == 'ubuntu-18.04' }}
-      run: echo "CMAKE_OPTIONS=${{ env.CMAKE_OPTIONS }} -Ddatabase-mysql-tests=OFF" >> $GITHUB_ENV
-      shell: bash
-
     - uses: actions/checkout@v4
       with:
           submodules: 'recursive'

@@ -15,10 +15,12 @@
 #include "database/Trigger.h"
 #include "database/UnsupportedOperationException.h"
 
-#include "ConstraintTable.h"
 #include "AutoIncrementTable.h"
+#include "CompositePrimaryKeyTable.h"
+#include "ConstraintTable.h"
 #include "DefaultTable.h"
 #include "KeyValueTable.h"
+#include "PrimaryKeyTable.h"
 #include "TestUtils.h"
 
 #include <nlohmann/json.hpp>
@@ -91,6 +93,7 @@ private slots:
 	void autoIncrement();
 	void constraints();
 	void constraintFunctionality();
+	void keys();
 	void indices();
 	void triggers();
 	void dataTypes();
@@ -305,7 +308,8 @@ void DatabaseTest::autoIncrement() {
 
 		TestDatabase db(currentBackend);
 
-		Database::table_id id = db.addTable(std::make_unique< test::AutoIncrementTable >(db.getSQLHandle(), currentBackend));
+		Database::table_id id =
+			db.addTable(std::make_unique< test::AutoIncrementTable >(db.getSQLHandle(), currentBackend));
 
 		db.init(test::utils::getConnectionParamter(currentBackend));
 
@@ -333,18 +337,11 @@ void DatabaseTest::constraints() {
 		QVERIFY(metaKeyCol != nullptr);
 
 		std::vector< Constraint > constraints;
-		constraints.push_back(Constraint(Constraint::NotNull));                           // unnamed
-		constraints.push_back(Constraint(Constraint::NotNull, "my_not_null_constraint")); // named
-		constraints.push_back(Constraint(Constraint::Unique));                            // unnamed
-		constraints.push_back(Constraint(Constraint::Unique, "my_unique_constraint"));    // named
-		constraints.push_back(Constraint(Constraint::PrimaryKey));                        // unnamed
-		constraints.push_back(Constraint(Constraint::PrimaryKey, "my_primary_key"));      // named
-		constraints.push_back(Constraint(Constraint::ForeignKey, "my_foreign_key", meta,
-										 metaKeyCol)); // named (unnamed doesn't work for foreign keys)
+		constraints.push_back(Constraint(Constraint::NotNull));
+		constraints.push_back(Constraint(Constraint::Unique));
 
 		for (const Constraint &currentConstraint : constraints) {
-			qInfo() << "  Current constraint: " << currentConstraint.getType()
-					<< " name:" << currentConstraint.getName().c_str();
+			qInfo() << "  Current constraint: " << currentConstraint.getType();
 
 			std::vector< Column > columns;
 
@@ -365,13 +362,6 @@ void DatabaseTest::constraints() {
 			table->create();
 
 			QVERIFY(db.tableExistsInDB(tableName));
-
-			if (currentConstraint.canBeDropped(currentBackend)) {
-				// Also attempt removing the constraint again
-				// If this doesn't error (throw an exception), we'll assume that it has worked)
-				db.getSQLHandle() << table->getColumns()[0].getConstraints()[0].dropQuery(
-					*table, table->getColumns()[0], currentBackend);
-			}
 
 			// Remove the table again and immediately destroy it
 			db.takeTable(id)->destroy();
@@ -419,59 +409,74 @@ void DatabaseTest::constraintFunctionality() {
 		QVERIFY_EXCEPTION_THROWN(table->insertUnique("keyB", "otherB"), AccessException);
 		QVERIFY_EXCEPTION_THROWN(table->insertUnique("", "otherEmpty"), AccessException);
 
+#undef TEST_INSERT_SELECT_ROUNDTRIP
+	}
+}
 
-		// PrimaryKey
-		qInfo() << "Testing PRIMARY KEY constraint";
+void DatabaseTest::keys() {
+	for (Backend currentBackend : backends) {
+		qInfo() << "Current backend:" << QString::fromStdString(backendToString(currentBackend));
 
-		TEST_INSERT_SELECT_ROUNDTRIP(PrimaryKey, "keyA", "valueA");
-		TEST_INSERT_SELECT_ROUNDTRIP(PrimaryKey, "keyB", "valueB");
-		TEST_INSERT_SELECT_ROUNDTRIP(PrimaryKey, "", "valueEmpty");
-		TEST_INSERT_SELECT_ROUNDTRIP(PrimaryKey, "primaryA", "valueA");
-		TEST_INSERT_SELECT_ROUNDTRIP(PrimaryKey, "primaryB", "valueB");
+		TestDatabase db(currentBackend);
 
-		// Inserting any of the above keys again should error
-		QVERIFY_EXCEPTION_THROWN(table->insertPrimaryKey("keyA", "otherA"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->insertPrimaryKey("keyB", "otherB"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->insertPrimaryKey("", "otherEmpty"), AccessException);
-		// Inserting NULL should also error
-		QVERIFY_EXCEPTION_THROWN(table->insertNullInPrimaryKeyCol(), AccessException);
+		Database::table_id primKeyID =
+			db.addTable(std::make_unique< test::PrimaryKeyTable >(db.getSQLHandle(), currentBackend));
+		Database::table_id compPrimKeyID =
+			db.addTable(std::make_unique< test::CompositePrimaryKeyTable >(db.getSQLHandle(), currentBackend));
 
-		// Deleting an existing key should be fine
-		table->deletePrimaryKey("keyA");
-		table->deletePrimaryKey("keyB");
-		table->deletePrimaryKey("");
+		db.init(test::utils::getConnectionParamter(currentBackend));
 
-		// Fetching one of those keys again should error (because that's what we coded up in ConstraintTable
-		// in order to easily verify that above deletes were successful)
-		QVERIFY_EXCEPTION_THROWN(table->selectPrimaryKey("keyA"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->selectPrimaryKey("keyB"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->selectPrimaryKey(""), AccessException);
+		test::PrimaryKeyTable *primaryKeyTable = static_cast< test::PrimaryKeyTable * >(db.getTable(primKeyID));
+		test::CompositePrimaryKeyTable *compositePKTable =
+			static_cast< test::CompositePrimaryKeyTable * >(db.getTable(compPrimKeyID));
+		QVERIFY(primaryKeyTable != nullptr);
+		QVERIFY(compositePKTable != nullptr);
 
+#define TEST_INSERT_SELECT_ROUNDTRIP(table, key, value) \
+	table->insert(key, value);                          \
+	QCOMPARE(table->select(key), std::string(value));
 
-		// ForeignKey
-		qInfo() << "Testing FOREIGN KEY constraint";
+		qInfo() << "Primary key";
 
-		// Using any key other than the ones that have been added as primary key above should fail.
-		// And using one of the deleted key from above should also fail
-		QVERIFY_EXCEPTION_THROWN(table->insertForeignKey("RandomKey", "RandomValue"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->insertForeignKey("keyA", "RandomValue"), AccessException);
-		QVERIFY_EXCEPTION_THROWN(table->insertForeignKey("", "RandomValue"), AccessException);
+		TEST_INSERT_SELECT_ROUNDTRIP(primaryKeyTable, "keyA", "valueA");
+		TEST_INSERT_SELECT_ROUNDTRIP(primaryKeyTable, "keyB", "valueA");
 
-		// Inserting using one of the remaining primary keys should succeed
-		TEST_INSERT_SELECT_ROUNDTRIP(ForeignKey, "primaryA", "Some value");
-		TEST_INSERT_SELECT_ROUNDTRIP(ForeignKey, "primaryB", "Other value");
+		// Re-inserting an existing key again should result in an error
+		QVERIFY_EXCEPTION_THROWN(primaryKeyTable->insert("keyA", "bla"), AccessException);
 
-		// Duplicates should be fine as well (though we currently have no way of fetching all matches)
-		table->insertForeignKey("primaryB", "Duplicate value");
+		primaryKeyTable->dropKey("keyA");
 
-		// Deleting a primary key should also delete all rows referencing that key (as foreign key)
-		table->deletePrimaryKey("primaryB");
-		QVERIFY_EXCEPTION_THROWN(table->selectForeignKey("primaryB"), AccessException);
+		// Now re-inserting it should work
+		TEST_INSERT_SELECT_ROUNDTRIP(primaryKeyTable, "keyA", "otherValueA");
 
-		// The other entry should still be there, though
-		QCOMPARE(table->selectForeignKey("primaryA"), std::string("Some value"));
+		// Since primary keys imply NOT NULL, inserting NULL into it should error
+		QVERIFY_EXCEPTION_THROWN(primaryKeyTable->insertNull(), AccessException);
 
 #undef TEST_INSERT_SELECT_ROUNDTRIP
+
+		qInfo() << "Composite primary key";
+
+#define TEST_INSERT_SELECT_ROUNDTRIP(table, keyA, keyB, value) \
+	table->insert(keyA, keyB, value);                          \
+	QCOMPARE(table->select(keyA, keyB), std::string(value));
+
+		// Duplicating the value of either column on its own is fine
+		TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A1", "B1", "value11");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A1", "B2", "value12");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A2", "B1", "value21");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A2", "B2", "value22");
+
+		// Only duplicating a pair of values errors
+		QVERIFY_EXCEPTION_THROWN(compositePKTable->insert("A1", "B1", "other11"), AccessException);
+
+		compositePKTable->dropKey("A1", "B1");
+
+		// Re-inserting should be fine
+		TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A1", "B1", "other11");
+
+#undef TEST_INSERT_SELECT_ROUNDTRIP
+
+		// TODO: Test foreign key + composite foreign key
 	}
 }
 

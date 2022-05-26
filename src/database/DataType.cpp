@@ -106,7 +106,7 @@ namespace db {
 		std::string name;
 
 		std::size_t i = 0;
-		bool found = false;
+		bool found    = false;
 		for (; i < strRepr.size(); ++i) {
 			if (strRepr[i] == '(') {
 				found = true;
@@ -155,6 +155,12 @@ namespace db {
 
 		return DataType(type, size);
 	}
+
+	bool operator==(const DataType &lhs, const DataType &rhs) {
+		return lhs.m_type == rhs.m_type && lhs.m_size == rhs.m_size;
+	}
+
+	bool operator!=(const DataType &lhs, const DataType &rhs) { return !(lhs == rhs); }
 
 } // namespace db
 } // namespace mumble

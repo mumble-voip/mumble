@@ -8,6 +8,7 @@
 #include "Column.h"
 #include "DataType.h"
 #include "InitException.h"
+#include "PrimaryKey.h"
 
 #include <soci/soci.h>
 
@@ -19,12 +20,16 @@ namespace db {
 
 	constexpr const char *MetaTable::NAME;
 
-	MetaTable::MetaTable(soci::session &sql, Backend backend)
-		: Table(sql, backend, MetaTable::NAME,
-				{ Column("meta_key", DataType(DataType::String, 500),
-						 { Constraint(Constraint::Unique, std::string(MetaTable::NAME) + "_unique_key"),
-						   Constraint(Constraint::NotNull), Constraint(Constraint::PrimaryKey) }),
-				  Column("meta_value", DataType(DataType::String, 5000), { Constraint(Constraint::NotNull) }) }) {}
+	MetaTable::MetaTable(soci::session &sql, Backend backend) : Table(sql, backend, MetaTable::NAME) {
+		std::vector< Column > columns;
+		columns.push_back(Column("meta_key", DataType(DataType::String, 500), { Constraint(Constraint::NotNull) }));
+		columns.push_back(Column("meta_value", DataType(DataType::String, 5000), { Constraint(Constraint::NotNull) }));
+
+		setColumns(columns);
+
+		PrimaryKey pk(columns[0]);
+		setPrimaryKey(pk);
+	}
 
 	unsigned int MetaTable::getSchemeVersion() {
 		try {
