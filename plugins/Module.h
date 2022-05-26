@@ -6,6 +6,7 @@
 #ifndef MODULE_H
 #define MODULE_H
 
+#include <cstdint>
 #include <set>
 #include <string>
 #include <unordered_map>
