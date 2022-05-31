@@ -16,6 +16,7 @@
 #include <cassert>
 #include <cstdio>
 #include <memory>
+#include <unordered_set>
 
 #include <nlohmann/json.hpp>
 
@@ -223,14 +224,56 @@ namespace db {
 		return json;
 	}
 
+	std::size_t countTables(const std::vector< std::unique_ptr< Table > > &tables) {
+		std::size_t size = 0;
+		for (const std::unique_ptr< Table > &current : tables) {
+			if (!current) {
+				continue;
+			}
+
+			size++;
+		}
+
+		return size;
+	}
+
 	void Database::destroyTables() {
-		for (const std::unique_ptr< Table > &currentTable : m_tables) {
-			if (currentTable) {
-				if (tableExistsInDB(currentTable->getName())) {
-					currentTable->destroy();
+		// When dropping tables, we have to make sure that we do this in an order that does not violate any potentially
+		// existing foreign key constraints between the tables. In order to do so, we have to start dropping the child
+		// (referencing) tables before dropping the parent (referenced) tables
+		std::size_t prevNTables = 0;
+		std::size_t nTables     = countTables(m_tables);
+
+		while (prevNTables != nTables) {
+			std::unordered_set< std::string > referencedTables;
+
+			for (const std::unique_ptr< Table > &current : m_tables) {
+				if (!current) {
+					continue;
+				}
+
+				for (const ForeignKey &key : current->getForeignKeys()) {
+					referencedTables.insert(key.getForeignTableName());
 				}
 			}
+
+			for (std::unique_ptr< Table > &current : m_tables) {
+				if (!current || referencedTables.find(current->getName()) != referencedTables.end()) {
+					continue;
+				}
+
+				// The current table is not referenced anywhere -> drop it
+				if (tableExistsInDB(current->getName())) {
+					current->destroy();
+				}
+				current.reset();
+			}
+
+			prevNTables = nTables;
+			nTables     = countTables(m_tables);
 		}
+
+		assert(nTables == 0);
 	}
 
 	void Database::clearTables() {

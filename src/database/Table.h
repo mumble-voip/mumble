@@ -8,6 +8,7 @@
 
 #include "Backend.h"
 #include "Column.h"
+#include "ForeignKey.h"
 #include "Index.h"
 #include "PrimaryKey.h"
 #include "Trigger.h"
@@ -58,6 +59,11 @@ namespace db {
 		const PrimaryKey &getPrimaryKey() const;
 		void setPrimaryKey(const PrimaryKey &key);
 
+		const std::vector< ForeignKey > &getForeignKeys() const;
+		void addForeignKey(const ForeignKey &key);
+		void removeForeignKey(const ForeignKey &key);
+		void clearForeignKeys();
+
 		/**
 		 * Imports the data from the given JSON into the table represented by this object. Note
 		 * that the caller of this function is expected to already have initiated a database
@@ -78,6 +84,7 @@ namespace db {
 		std::vector< Index > m_indices;
 		std::vector< Trigger > m_trigger;
 		PrimaryKey m_primaryKey;
+		std::vector< ForeignKey > m_foreignKeys;
 
 		void performCtorAssertions();
 	};

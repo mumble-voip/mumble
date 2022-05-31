@@ -132,6 +132,10 @@ namespace db {
 #endif
 		}
 
+		for (const ForeignKey &foreignKey : m_foreignKeys) {
+			createQuery += foreignKey.sql() + ", ";
+		}
+
 		// Remove trailing ", "
 		createQuery.erase(createQuery.size() - 2);
 
@@ -247,6 +251,24 @@ namespace db {
 	const PrimaryKey &Table::getPrimaryKey() const { return m_primaryKey; }
 
 	void Table::setPrimaryKey(const PrimaryKey &key) { m_primaryKey = key; }
+
+	const std::vector< ForeignKey > &Table::getForeignKeys() const { return m_foreignKeys; }
+
+	void Table::addForeignKey(const ForeignKey &key) {
+		assert(std::find(m_foreignKeys.begin(), m_foreignKeys.end(), key) == m_foreignKeys.end());
+
+		m_foreignKeys.push_back(key);
+	}
+
+	void Table::removeForeignKey(const ForeignKey &key) {
+		auto it = std::find(m_foreignKeys.begin(), m_foreignKeys.end(), key);
+
+		if (it != m_foreignKeys.end()) {
+			m_foreignKeys.erase(it);
+		}
+	}
+
+	void Table::clearForeignKeys() { m_foreignKeys.clear(); }
 
 #define THROW_FORMATERROR(msg) throw FormatException(std::string("JSON-Import (table \"") + m_name + "\"): " + msg)
 	void Table::importFromJSON(const nlohmann::json &json, bool create) {
