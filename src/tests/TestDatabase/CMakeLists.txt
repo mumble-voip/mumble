@@ -15,6 +15,8 @@ add_executable(TestDatabase
 	AutoIncrementTable.cpp
 	PrimaryKeyTable.cpp
 	CompositePrimaryKeyTable.cpp
+	ForeignKeyTable.cpp
+	CompositeForeignKeyTable.cpp
 )
 
 if(database-mysql-tests)

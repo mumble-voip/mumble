@@ -19,14 +19,20 @@ namespace db {
 	public:
 		ForeignKey();
 		ForeignKey(const Table &foreignTable, const std::vector< const Column * > &columns);
+		ForeignKey(const Table &foreignTable, const std::vector< Column > &columns);
 		~ForeignKey() = default;
 
 		const std::vector< std::string > &getForeignColumnNames() const;
 		const std::vector< std::string > &getColumnNames() const;
 		const std::string &getForeignTableName() const;
 
+		void setColumns(const Table &foreignTable, const std::vector< Column > &columns);
 		void setColumns(const Table &foreignTable, const std::vector< const Column * > &columns);
 
+		std::string sql() const;
+
+		friend bool operator==(const ForeignKey &lhs, const ForeignKey &rhs);
+		friend bool operator!=(const ForeignKey &lhs, const ForeignKey &rhs);
 
 	protected:
 		std::vector< std::string > m_foreignColumnNames;

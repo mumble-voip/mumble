@@ -16,9 +16,11 @@
 #include "database/UnsupportedOperationException.h"
 
 #include "AutoIncrementTable.h"
+#include "CompositeForeignKeyTable.h"
 #include "CompositePrimaryKeyTable.h"
 #include "ConstraintTable.h"
 #include "DefaultTable.h"
+#include "ForeignKeyTable.h"
 #include "KeyValueTable.h"
 #include "PrimaryKeyTable.h"
 #include "TestUtils.h"
@@ -424,13 +426,26 @@ void DatabaseTest::keys() {
 		Database::table_id compPrimKeyID =
 			db.addTable(std::make_unique< test::CompositePrimaryKeyTable >(db.getSQLHandle(), currentBackend));
 
-		db.init(test::utils::getConnectionParamter(currentBackend));
-
 		test::PrimaryKeyTable *primaryKeyTable = static_cast< test::PrimaryKeyTable * >(db.getTable(primKeyID));
 		test::CompositePrimaryKeyTable *compositePKTable =
 			static_cast< test::CompositePrimaryKeyTable * >(db.getTable(compPrimKeyID));
 		QVERIFY(primaryKeyTable != nullptr);
 		QVERIFY(compositePKTable != nullptr);
+
+
+		Database::table_id foreignKeyID =
+			db.addTable(std::make_unique< test::ForeignKeyTable >(db.getSQLHandle(), currentBackend, *primaryKeyTable));
+		Database::table_id compForeignKeyID = db.addTable(
+			std::make_unique< test::CompositeForeignKeyTable >(db.getSQLHandle(), currentBackend, *compositePKTable));
+
+		test::ForeignKeyTable *foreignKeyTable = static_cast< test::ForeignKeyTable * >(db.getTable(foreignKeyID));
+		test::CompositeForeignKeyTable *compositeFKTable =
+			static_cast< test::CompositeForeignKeyTable * >(db.getTable(compForeignKeyID));
+		QVERIFY(foreignKeyTable != nullptr);
+		QVERIFY(compositeFKTable != nullptr);
+
+		db.init(test::utils::getConnectionParamter(currentBackend));
+
 
 #define TEST_INSERT_SELECT_ROUNDTRIP(table, key, value) \
 	table->insert(key, value);                          \
@@ -476,7 +491,51 @@ void DatabaseTest::keys() {
 
 #undef TEST_INSERT_SELECT_ROUNDTRIP
 
-		// TODO: Test foreign key + composite foreign key
+
+		qInfo() << "Foreign key";
+#define TEST_INSERT_SELECT_ROUNDTRIP(table, key, value) \
+	table->insert(key, value);                          \
+	QCOMPARE(table->select(key), std::string(value));
+
+		// Insertion with any of the keys also present in primaryKeyTable should be fine
+		TEST_INSERT_SELECT_ROUNDTRIP(foreignKeyTable, "keyA", "firstValue");
+		TEST_INSERT_SELECT_ROUNDTRIP(foreignKeyTable, "keyB", "secondValue");
+
+		// Attempting to insert any key not used in primaryKeyTable should error
+		QVERIFY_EXCEPTION_THROWN(foreignKeyTable->insert("Non-existing primary key", "Bla"), AccessException);
+
+		// Deleting a primary key from primaryKeyTable should also remove it from foreignKeyTable
+		primaryKeyTable->dropKey("keyA");
+		QVERIFY_EXCEPTION_THROWN(foreignKeyTable->select("keyA"), AccessException);
+
+		// Inserting duplicates into a FK table should be fine
+		foreignKeyTable->insert("keyB", "anotherValue");
+
+#undef TEST_INSERT_SELECT_ROUNDTRIP
+
+		qInfo() << "Composite foreign key";
+#define TEST_INSERT_SELECT_ROUNDTRIP(table, keyA, keyB, value) \
+	table->insert(keyA, keyB, value);                          \
+	QCOMPARE(table->select(keyA, keyB), std::string(value));
+
+		// Inserting using any of the primary key pairs in compositePKTable should work
+		TEST_INSERT_SELECT_ROUNDTRIP(compositeFKTable, "A1", "B1", "fvalue11");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositeFKTable, "A1", "B2", "fvalue12");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositeFKTable, "A2", "B1", "fvalue21");
+		TEST_INSERT_SELECT_ROUNDTRIP(compositeFKTable, "A2", "B2", "fvalue22");
+
+		// Inserting anything else should fail
+		QVERIFY_EXCEPTION_THROWN(compositeFKTable->insert("A1", "C1", "Bla"), AccessException);
+		QVERIFY_EXCEPTION_THROWN(compositeFKTable->insert("C1", "A1", "Bla"), AccessException);
+
+		// Deleting a primary key from compositePKTable should also remove the respective rows from compositeFKTable
+		compositePKTable->dropKey("A1", "B1");
+		QVERIFY_EXCEPTION_THROWN(compositeFKTable->select("A1", "B1"), AccessException);
+
+		// Inserting duplicates into a FK table should be fine
+		compositeFKTable->insert("A2", "B2", "anotherValue");
+
+#undef TEST_INSERT_SELECT_ROUNDTRIP
 	}
 }
 
