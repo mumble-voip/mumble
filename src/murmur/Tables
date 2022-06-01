@@ -1,0 +1,218 @@
+- servers
+	- server_id
+		- INTEGER
+		- PRIMARY KEY
+		- AUTOINCREMENT
+
+- slog
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- msg
+		- TEXT
+	- msgtime
+		- DATE
+		- DEFAULT: NOW()
+	* INDEX ON msgtime
+	(* TRIGGER AFTER INSERT ON slog: msgtime = NOW() WHERE rowid = new.rowid)
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM slog WHERE server_id = old.server_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- config
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- key
+		- TEXT (min 255)
+	- value
+		- TEXT
+	* UNIQUE INDEX ON (server_id, key)
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM config WHERE server_id = old.server_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channels:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- parent_id
+		- INTEGER
+	- name
+		- TEXT (min 255)
+	- inheritacl
+		- INTEGER
+	* UNIQUE INDEX ON (server_id, channel_id)
+	* TRIGGER AFTER DELETE ON channels: DELETE FROM channels WHERE parent_id = old.channel_id AND server_id = old.server_id; UPDATE users SET
+	    lastchannel = 0 WHERE lastchannel = old.channel_id AND server_id = old.server_id#
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM channels WHERE server_id = old.server_id)
+	* FOREIGN KEY: (server_id, parent_id) REFERENCES channel(server_id, channel_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_info
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- key
+		- INTEGER
+	- value
+		- TEXT
+	* UNIQUE INDEX (server_id, channel_id, key)
+	(* TRIGGER AFTER DELETE ON channels: DELETE FROM channel_info WHERE channel_id = old.channel_id AND server_id = old.server_id)
+	* FOREIGN KEY (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+
+- users
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- name
+		- TEXT (min 255)
+		- NOT NULL
+	- pw
+		- TEXT (min 128)
+	- salt
+		- TEXT (min 128)
+	- kdfiterations
+		- INTEGER
+	- lastchannel
+		- INTEGER
+		- NOT NULL
+	- texture
+		- BLOB
+	- last_active
+		- DATE
+	- last_disconnect
+		- DATE
+	' INDE (server_id, lastchannel)
+	* UNIQUE INDEX (server_id, name)
+	* UNIQUE INDEX (server_id, user_id)
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM users WHERE server_id = old.server_id)
+	*? TRIGGER AFTER UPDATE OF lastchannel ON users: SET last_active = NOW() WHERE user_id = old.user_id AND server_id = old.server_id
+	* FOREIGN KEY server_id REFERENCES servers(server_id)
+
+- user_info
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- key
+		- INTEGER
+	- value
+		- TEXT
+	* UNIQUE INDEX (server_id, user_id, key)
+	(* TRIGGER AFTER DELETE ON users: DELETE FROM user_info WHERE user_id = old.user_id AND server_id = old.server_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- groups
+	- group_id
+		- INTEGER
+		- PRIMARY KEY
+		- AUTOINCREMENT
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- name
+		- TEXT (min 255)
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- inherit
+		- INTEGER
+	- inheritable
+		- INTEGER
+	* UNIQUE INDEX (server_id, channel_id, name)
+	(* TRIGGER AFTER DELETE ON channels: DELETE FROM groups WHERE channel_id = old.channel_id AND server_id = old.server_id)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+
+- group_members
+	- group_id
+		- INTEGER
+		- NOT NULL
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- addit
+		- INTEGER
+	* INDEX (server_id, user_id)
+	(* TRIGGER AFTER DELETE ON groups: DELETE FROM group_members WHERE group_id = old.group_id [server_id????])
+	(* TRIGGER AFTER DELETE ON users: DELETE FROM group_members WHERE user_id = old.user_id AND server_id = old.server_id)
+	* FOREIGN KEY: group_id REFERENCES groups(group_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+
+- acl
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- priority
+		- INTEGER
+	- user_id
+		- INTEGER
+	- group_name
+		- TEXT (min 255)
+	- apply_here
+		- INTEGER
+	- apply_sub
+		- INTEGER
+	- grantpriv
+		- INTEGER
+	- revokepriv
+		- INTEGER
+	* UNIQUE INDEX (server_id, channel_id, priority)
+	* INDEX (server_id, user_id)
+	(* TRIGGER AFTER DELETE ON channels: DELETE FROM acl WHERE channel_id = old.channel_id AND server_id = old.server_id)
+	(* TRIGGER AFTER DELETE ON users: DELETE FROM acl WHERE user_id = old.user_id AND server_id = old.server_id)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+
+- channel_links
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- link_id
+		- INTEGER
+		- NOT NULL
+	(* TRIGGER AFTER DELETE ON channels: DELETE FROM channel_links WHERE server_id = old.server_id AND (channel_id = old.channel_id OR link_id =
+	     old.channel_id))
+	* FOREIGN KEY (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* DELETE FROM channel_links <- clear on recreation?
+
+- bans
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- base
+		- BLOB
+	- mask
+		- INTEGER
+	- name
+		- TEXT (min 255)
+	- hash
+		- TEXT (min 40)
+	- reason
+		- TEXT
+	- start
+		- DATE
+	- duration
+		- INTEGER
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM bans WHERE server_id = old.server_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+TODO: Check against MySQL
