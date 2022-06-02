@@ -473,11 +473,23 @@ QVariant ServerItem::data(int column, int role) const {
 					return uiUsers ? QString::fromLatin1("%1/%2 ").arg(uiUsers).arg(uiMaxUsers) : QVariant();
 			}
 		} else if (role == Qt::ToolTipRole) {
-			QStringList qsl;
+			QStringList ipv4List;
+			QStringList ipv6List;
 			foreach (const ServerAddress &addr, qlAddresses) {
-				const QString qsAddress = addr.host.toString() + QLatin1String(":")
-										  + QString::number(static_cast< unsigned long >(addr.port));
-				qsl << qsAddress.toHtmlEscaped();
+				const QString address = addr.host.toString(false).toHtmlEscaped();
+				if (addr.host.isV6()) {
+					ipv6List << address;
+				} else {
+					ipv4List << address;
+				}
+			}
+			QString ipv4 = "-";
+			QString ipv6 = "-";
+			if (!ipv4List.isEmpty()) {
+				ipv4 = ipv4List.join(QLatin1String(", "));
+			}
+			if (!ipv6List.isEmpty()) {
+				ipv6 = ipv6List.join(QLatin1String(", "));
 			}
 
 			double ploss = 100.0;
@@ -500,7 +512,9 @@ QVariant ServerItem::data(int column, int role) const {
 					  .arg(ConnectDialog::tr("Port"))
 					  .arg(usPort)
 				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						.arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
+						.arg(ConnectDialog::tr("IPv4 address"), ipv4)
+				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						.arg(ConnectDialog::tr("IPv6 address"), ipv6);
 
 			if (!qsUrl.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
