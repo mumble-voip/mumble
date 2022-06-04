@@ -124,5 +124,5 @@ procid_t ProcessBase::find(const std::string &name, const std::multimap< std::ws
 		return 0;
 	}
 
-	return static_cast< procid_t >(iter->second);
+	return iter->second;
 }
