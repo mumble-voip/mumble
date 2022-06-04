@@ -247,3 +247,13 @@ CMake Error at scripts/cmake/vcpkg_download_distfile.cmake:173 (message):
       Otherwise, please submit an issue at https://github.com/Microsoft/vcpkg/issue
 ```
 Ref: https://github.com/microsoft/vcpkg/issues/13217
+
+### `afxres.h` not found
+
+When installing the dependency zlib via vcpkg, it may fail to locate the include file `afxres.h` (when building its mdnsresponder dependency).
+
+```
+dll.rc(10): fatal error RC1015: cannot open include file 'afxres.h'. [[…]\vcpkg\buildtrees\mdnsresponder\src\ponder-878-e7e3a9a271.clean\mDNSWindows\DLL\dnssd.vcxproj]
+```
+
+To resolve this, ensure MFC has been installed in your Visual Studio installation.
