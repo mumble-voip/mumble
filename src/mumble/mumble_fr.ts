@@ -6400,9 +6400,9 @@ Valid options are:
                 Print on stdout the echo cancellation queue state
                 (useful for debugging purposes)
   --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
                 Directories added this way have higher priority than
                 the default locations used otherwise
   --print-translation-dirs
@@ -6416,67 +6416,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Utilisation : mumble [options] [&lt;url&gt; | &lt;liste_de_plugins&gt;]
-
-&lt;url&gt; spécifie un URL vers lequel établir une connexion après le démarrage au lieu
-d&apos;afficher la fenêtre de connexion, et a la forme suivante :
-mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;soussalon&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;liste_de_plugins&gt; est une liste de fichiers de plug-in qui doivent être installés.
-Le paramètre de requête de version doit être défini afin d&apos;invoquer la
-version cliente correcte. Actuellement, la valeur de 1.2.0 est utilisée par défaut.
-
-Les options valides sont :
-  -h, --help    Afficher ce texte d&apos;aide et quitter.
-  -V, --version Afficher les informations de version et quitter.
-  -m, --multiple
-                Permettre le démarrage de multiples instances du client.
-  -c, --config
-                Spécifier un fichier de configuration alternatif.
-                Si vous l&apos;utilisez pour exécuter plusieurs instances de Mumble en même temps,
-                assurez-vous de définir une valeur alternative de &apos;database&apos; dans la configuration.
-  --default-certificate-dir &lt;répertoire&gt;
-                Spécifier un chemin alternatif de certificat par défaut.
-                Ce chemin n&apos;est utilisé que si aucun certificat n&apos;est chargé
-                depuis les réglages.
-  -n, --noidentity
-                Supprimer le chargement des fichiers d&apos;identité (c&apos;est-à-dire les certificats.)
-  -jn, --jackname &lt;arg&gt;
-                Définir un nom de client Jack personnalisé.
-  --license
-                Afficher la licence de Mumble.
-  --authors
-                Afficher les auteurs de Mumble.
-  --third-party-licenses
-                Afficher les licences pour les logiciels tierces parties utilisés par Mumble.
-  --window-title-ext &lt;arg&gt;
-                Définit une extension de titre de fenêtre personnalisée.
-  --dump-input-streams
-                Vider les flux PCM sur différentes parties de la chaîne d&apos;entrée
-                (utile pour le débogage)
-                - entrée brute du microphone
-                - lecteur des haut-parleurs pour l&apos;annulation d&apos;écho
-                - entrée de micrphone traitée
-  --print-echocancel-queue
-                Afficher sur stdout l&apos;état de la file d&apos;annullation d&apos;écho
-                (utile pour le débogage)
-  --translation-dir &lt;répertoire&gt;
-                Spécifie un répertoire addtionnel de traductions dans lequel
-                Mumble recherchera des fichiers de traduction qui écraseront
-                ceux intégrés avec le logiciel
-                Les répertiores ajoutés de cette façon ont une priorité plus élevée
-                que les endroits par défaut utilisés autrement
-  --print-translation-dirs
-                Affiche les chemins dans lesquels Mumble recherchera les
-                fichiers de traduction qui écraseront ceux fournis avec le logiciel.
-                (Utile pour les traducteurs qui testeront leurs traductions)
-  --locale &lt;locale&gt;
-                Écraser les réglages de localité de dans les régalges de Mumble
-                avec un réglage qui correspond à la chaîne de réglage donnée.
-                Si le format est invalide, Mumble affichera une erreur.
-                Sinon les réglages seront enregistrés de façon permantente dans
-                les paramètres de Mumble.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

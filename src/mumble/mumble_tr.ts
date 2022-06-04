@@ -6399,9 +6399,9 @@ Valid options are:
                 Print on stdout the echo cancellation queue state
                 (useful for debugging purposes)
   --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
                 Directories added this way have higher priority than
                 the default locations used otherwise
   --print-translation-dirs
@@ -6415,67 +6415,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
-
-&lt;url&gt;, bağlantı penceresini göstermek yerine başlangıçtan sonra
-bağlanılacak bir URL belirtir ve aşağıdaki biçime sahiptir:
-mumble://[&lt;kullanıcı_adı&gt;[:&lt;parola&gt;]@]&lt;ana_makine&gt;[:&lt;bağlantı_noktası&gt;][/&lt;kanal&gt;[/&lt;alt_kanal&gt;...]][?version=&lt;x.y.z&gt;]
-
-eklenti_listesi, kurulacak eklenti dosyalarının bir listesidir.
-Doğru istemci sürümünü çağırmak için sürüm sorgu parametresinin
-ayarlanması gerekir. Şu anda öntanımlı olarak 1.2.0&apos;dır.
-
-Geçerli seçenekler şunlardır:
-  -h, --help    Bu yardım metnini göster ve çık.
-  -V, --version Sürüm bilgisini yazdır ve çık.
-  -m, --multiple
-                İstemcinin birden çok örneğinin başlatılmasına izin ver.
-  -c, --config
-                Alternatif bir yapılandırma dosyası belirt.
-                Bunu aynı anda birden fazla Mumble örneğini çalıştırmak için
-                kullanırsanız, yapılandırmada farklı bir &apos;veri tabanı&apos; değeri
-                ayarladığınızdan emin olun.
-  --default-certificate-dir &lt;dizin&gt;
-                Alternatif bir öntanımlı sertifika yolu belirt.
-                Bu yol, yalnızca ayarlardan yüklenen bir sertifika yoksa kullanılır.
-  -n, --noidentity
-                Kimlik dosyalarının (örn., sertifikalar) yüklenmesini engelle.
-  -jn, --jackname &lt;argüman&gt;
-                Jack istemci adı ayarla.
-  --license
-                Mumble lisansını göster.
-  --authors
-                Mumble yazarlarını göster.
-  --third-party-licenses
-                Mumble tarafından kullanılan üçüncü taraf yazılımların lisanslarını göster.
-  --window-title-ext &lt;argüman&gt;
-                Özel bir pencere başlığı uzantısı ayarlar.
-  --dump-input-streams
-                Girdi zincirinin çeşitli bölümlerinde PCM akışlarını dök
-                (hata ayıklama için kullanışlıdır)
-                - ham mikrofon girdisi
-                - yankı iptali için hoparlör okuması
-                - işlenen mikrofon girdisi
-  --print-echocancel-queue
-                standart çıktıya yankı iptali kuyruğu durumunu yazdır
-                (hata ayıklama için kullanışlıdır)
-  --translation-dir &lt;dizin&gt;
-                Mumble&apos;ın paketlenmiş olanların üzerine yazan çeviri
-                dosyalarını arayacağı ek bir çeviri dizini olarak &lt;dizin&gt;
-                belirtir.
-                Bu şekilde eklenen dizinler, diğer türlü kullanılan öntanımlı
-                konumlardan daha yüksek önceliğe sahiptir.
-  --print-translation-dirs
-                Mumble&apos;ın paketlenmiş olanların üzerine yazan çeviri
-                dosyalarını arayacağı yolları yazdır.
-                (Çevirilerini test eden çevirmenler için kullanışlıdır)
-  --locale &lt;yerel_ayar&gt;
-                Verilen yerel ayar dizgesine karşılık gelen bir yerel ayar ile
-                Mumble&apos;ın ayarlarındaki yerel ayarın üzerine yaz.
-                Biçim geçersiz ise, Mumble hata verecektir.
-                Değilse yerel ayar Mumble ayarlarına kalıcı olarak
-                kaydedilecektir.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

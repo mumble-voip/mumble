@@ -6399,9 +6399,9 @@ Valid options are:
                 Print on stdout the echo cancellation queue state
                 (useful for debugging purposes)
   --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
                 Directories added this way have higher priority than
                 the default locations used otherwise
   --print-translation-dirs
@@ -6415,67 +6415,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>사용법: mumble [옵션] [&lt;url&gt; | &lt;플러그인_목록&gt;]
-
-&lt;url&gt;은 연결창을 띄우지 않고 시작 후 연결할 URL을 지정하며
-다음과 같은 형식을 가집니다:
-mumble://[&lt;사용자이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;포트&gt;][/&lt;채널&gt;[/&lt;하위채널&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;플러그인_목록&gt;은 설치할 플러그인 파일의 목록입니다
-올바른 클라이언트 버전을 호출하려면 버전 쿼리 매개변수를
-설정해야 합니다. 현재 기본값은 1.2.0입니다.
-
-올바른 옵션은 다음과 같습니다:
-  -h, --help    이 도움말 텍스트를 표시하고 종료.
-  -V, --version 버전 정보를 출력하고 종료
-  -m, --multiple
-                클라이언트의 여러 인스턴스 시작 허용.
-  -c, --config
-                대체 구성 파일 지정.
-                이것을 사용하여 한 번에 여러 Mumble 인스턴스를 실행하는 경우,
-                구성에서 대체 &apos;데이터베이스&apos; 값을 설정해야 합니다.
-  --default-certificate-dir &lt;dir&gt;
-                대체 기본 인증서 경로 지정.
-                이 경로는 설정에서 로드된 인증서가 없는 경우에만
-                사용됩니다.
-  -n, --noidentity
-                ID 파일 불러오는 중 억제 (즉, 인증서.)
-  -jn, --jackname &lt;arg&gt;
-                사용자 지정 Jack 클라이언트 이름 설정.
-  --license
-                Mumble 라이선스 표시.
-  --authors
-                Mumble 작성자 표시.
-  --third-party-licenses
-                Mumble에서 사용한 타사 소프트웨어에 대한 라이선스 표시.
-  --window-title-ext &lt;arg&gt;
-                사용자 지정 창 제목 확장 설정.
-  --dump-input-streams
-                입력 체인의 다양한 부분에서 PCM 스트림 덤프
-                (디버깅 목적에 유용)
-                - raw 마이크 입력
-                - 에코 제거를 위한 스피커 리드백
-                - 처리된 마이크 입력
-  --print-echocancel-queue
-                stdout에서 에코 취소 대기열 상태 출력
-                (디버깅 목적에 유용)
-  --translation-dir &lt;dir&gt;
-                디렉터리 안에서 추가 번역 fir &lt;dir&gt; 지정
-                Mumble은 번들된 파일을 덮어쓰는 번역 파일을
-                검색합니다
-                이 방법으로 추가된 디렉터리는 그렇지 않은 경우
-                사용된 기본 위치보다 우선 순위가 높습니다
-  --print-translation-dirs
-                Mumble이 번들 파일을 덮어쓰는 번역 파일을
-                검색하는 경로를 출력합니다.
-                (번역자가 번역을 테스트하는 데 유용함)
-  --locale &lt;locale&gt;
-                주어진 로케일 문자열에 해당하는 로케일로
-                Mumble 설정의 로케일을 덮어씁니다.
-                형식이 잘못되면, Mumble에서 오류가 발생합니다.
-                그렇지 않으면 로케일이 Mumble의 설정에
-                영구적으로 저장됩니다.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

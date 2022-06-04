@@ -6362,9 +6362,9 @@ Valid options are:
                 Print on stdout the echo cancellation queue state
                 (useful for debugging purposes)
   --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
                 Directories added this way have higher priority than
                 the default locations used otherwise
   --print-translation-dirs
