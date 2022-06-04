@@ -38,7 +38,7 @@ public:
 	const std::string &context(const AmongUsClient_Fields &fields);
 	const std::string &identity(const AmongUsClient_Fields &fields, const PlayerControl_Fields &controlFields);
 
-	Game(const uint64_t id, const std::string name);
+	Game(const procid_t id, const std::string name);
 
 protected:
 	ptr_t m_client;

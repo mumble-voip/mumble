@@ -8,7 +8,7 @@
 
 #include "Module.h"
 
-typedef uint32_t procid_t;
+using procid_t = uint64_t;
 
 class HostLinux {
 protected:

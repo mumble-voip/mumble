@@ -31,7 +31,7 @@ public:
 
 	const std::string &identity(const CNetGamePlayer &player, const CPlayerInfo &info, const CPed &entity);
 
-	Game(const uint64_t id, const std::string &name);
+	Game(const procid_t id, const std::string &name);
 
 protected:
 	bool setupPointers(const Module &module);
