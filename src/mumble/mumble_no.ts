@@ -6364,6 +6364,12 @@ Mulige handlinger:
         <translation>Fant ugyldig innstillingsfil.</translation>
     </message>
     <message>
+        <source>Directory %1 does not exist.
+</source>
+        <translation type="unfinished">Mappen «%1» finnes ikke.
+</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6409,9 +6415,9 @@ Valid options are:
                 Print on stdout the echo cancellation queue state
                 (useful for debugging purposes)
   --translation-dir &lt;dir&gt;
-                Specifies an additional translation fir &lt;dir&gt; in which
-                Mumble will search for translation files that overwrite
-                the bundled ones
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
                 Directories added this way have higher priority than
                 the default locations used otherwise
   --print-translation-dirs
@@ -6426,12 +6432,6 @@ Valid options are:
                 Mumble&apos;s settings.
 </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory %1 does not exist.
-</source>
-        <translation type="unfinished">Mappen «%1» finnes ikke.
-</translation>
     </message>
 </context>
 <context>
