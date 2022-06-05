@@ -3048,10 +3048,6 @@ Are you sure you wish to replace your certificate?
         <translation>ポート</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>アドレス</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>WEBサイト</translation>
     </message>
@@ -3082,6 +3078,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>バージョン</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

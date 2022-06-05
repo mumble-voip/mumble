@@ -2939,10 +2939,6 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3028,6 +3024,14 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Failed to fetch server list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

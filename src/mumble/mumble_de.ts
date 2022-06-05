@@ -3053,10 +3053,6 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
         <translation>Port</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adressen</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
@@ -3087,6 +3083,14 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     <message>
         <source>Version</source>
         <translation>Version</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

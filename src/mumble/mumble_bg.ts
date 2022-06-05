@@ -3013,10 +3013,6 @@ Are you sure you wish to replace your certificate?
         <translation>Порт</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Адреси</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Сайт</translation>
     </message>
@@ -3047,6 +3043,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>Версия</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

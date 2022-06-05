@@ -1958,7 +1958,7 @@ Mumble està en desenvolupament continu i l&apos;equip de desenvolupament vol ce
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -2058,23 +2058,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu d&apos;entrada</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema de sortida</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositiu de sortida</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Retard de sortida</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Amplificació màxima</translation>
     </message>
     <message>
         <source>VAD level</source>
@@ -2602,7 +2602,7 @@ Are you sure you wish to replace your certificate?
     <name>ChanACL</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cap</translation>
     </message>
     <message>
         <source>Traverse</source>
@@ -3038,16 +3038,12 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pèrdua de paquets</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
@@ -3055,7 +3051,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -3071,6 +3067,14 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3912,7 +3916,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Volum</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -4073,7 +4077,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cap</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -4822,11 +4826,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Continuu</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activitat de veu</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -5633,7 +5637,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servidor</translation>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
@@ -6603,7 +6607,7 @@ Valid options are:
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enviar estadístiques anònimes al projecte Mumble</translation>
     </message>
     <message>
         <source>Submit anonymous statistics</source>
@@ -7201,7 +7205,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activar</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7594,7 +7598,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&apos;ha denegat l&apos;accés al micròfon. Permet que Mumble utilitzi el micròfon canviant la configuració a Preferències del sistema -&gt; Seguretat i privadesa -&gt; Privadesa -&gt; Micròfon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
@@ -7765,7 +7769,7 @@ You can register them again.</source>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cap</translation>
     </message>
     <message>
         <source>Join</source>
@@ -8876,7 +8880,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&apos;a denegat l&apos;accés al micròfon. Comproveu que la configuració del micròfon del vostre sistema operatiu permet que Mumble utilitzi el micròfon.</translation>
     </message>
 </context>
 <context>

@@ -3054,10 +3054,6 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
         <translation>Port</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresy</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Strona WWW</translation>
     </message>
@@ -3088,6 +3084,14 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     <message>
         <source>Version</source>
         <translation>Wersja</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

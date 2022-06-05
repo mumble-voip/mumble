@@ -3054,10 +3054,6 @@ Jste si jisti, že chcete certifikát nahradit?
         <translation>Port</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresy</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Internetová stránka</translation>
     </message>
@@ -3088,6 +3084,14 @@ Jste si jisti, že chcete certifikát nahradit?
     <message>
         <source>Version</source>
         <translation>Verze</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
