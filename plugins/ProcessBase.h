@@ -45,6 +45,9 @@ public:
 
 	procptr_t peekPtr(const procptr_t address) const;
 
+	/// Resolves x64's RIP (Relative Instruction Pointer).
+	procptr_t peekRIP(const procptr_t address) const { return address + peek< uint32_t >(address) + 4; }
+
 	/// Reads the specified amount of data at the specified address and returns it as std::string.
 	/// An empty std::string is returned in case of error.
 	///

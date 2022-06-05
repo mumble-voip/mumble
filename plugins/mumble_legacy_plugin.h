@@ -22,8 +22,8 @@
 
 #include <stdint.h>
 
-typedef uint32_t procid_t;
-typedef uint64_t procptr_t;
+using procid_t  = uint64_t;
+using procptr_t = uint64_t;
 
 #define LENGTH_OF(array) (sizeof(array) / sizeof((array)[0]))
 
