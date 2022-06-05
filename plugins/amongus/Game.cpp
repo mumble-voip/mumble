@@ -7,7 +7,7 @@
 
 #include "../mumble_positional_audio_utils.h"
 
-Game::Game(const uint64_t id, const std::string name) : m_proc(static_cast< procid_t >(id), name) {
+Game::Game(const procid_t id, const std::string name) : m_proc(id, name) {
 }
 
 Mumble_PositionalDataErrorCode Game::init() {
