@@ -6,8 +6,8 @@
 #include "Game.h"
 
 #include "MumblePlugin_v_1_0_x.h"
-#include "mumble_positional_audio_utils.h"
 
+#include <algorithm>
 #include <cstring>
 #include <memory>
 
@@ -42,8 +42,7 @@ void mumble_releaseResource(const void *) {
 }
 
 mumble_version_t mumble_getVersion() {
-	// we reuse the GTA version as plugin version
-	return { 1, 59, 2612 };
+	return { 2, 0, 0 };
 }
 
 MumbleStringWrapper mumble_getAuthor() {
@@ -59,8 +58,7 @@ MumbleStringWrapper mumble_getAuthor() {
 
 MumbleStringWrapper mumble_getDescription() {
 	static const char description[] = "Provides positional audio functionality for GTA V. "
-									  "Supports GTA V version 1.59 Build 2612 (Steam) and 1.38 (Retail). "
-									  "Also provides identity based on username.";
+									  "Identity is provided.";
 
 	MumbleStringWrapper wrapper;
 	wrapper.data           = description;
@@ -82,8 +80,16 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 			continue;
 		}
 
-		game = std::make_unique< Game >(static_cast< procid_t >(programPIDs[i]), programNames[i]);
-		ret  = game->init();
+		game = std::make_unique< Game >(programPIDs[i], programNames[i]);
+
+		ret = game->init();
+		if (ret == MUMBLE_PDEC_OK) {
+			const CNetworkPlayerMgr mgr = game->playerMgr();
+			if (!game->isMultiplayer(mgr)) {
+				ret = MUMBLE_PDEC_ERROR_TEMP;
+			}
+		}
+
 		if (ret != MUMBLE_PDEC_OK) {
 			game.reset();
 		}
@@ -101,22 +107,49 @@ void mumble_shutdownPositionalData() {
 bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos,
 								float *cameraDir, float *cameraAxis, const char **contextPtr,
 								const char **identityPtr) {
-	if (game->fetchPositionalData(avatarPos, avatarDir, avatarAxis, cameraPos, cameraDir, cameraAxis, contextPtr,
-								  identityPtr)
-		!= MUMBLE_PDEC_OK) {
+	std::fill_n(avatarPos, 3, 0.f);
+	std::fill_n(avatarDir, 3, 0.f);
+	std::fill_n(avatarAxis, 3, 0.f);
+
+	std::fill_n(cameraPos, 3, 0.f);
+	std::fill_n(cameraDir, 3, 0.f);
+	std::fill_n(cameraAxis, 3, 0.f);
+
+	const CNetworkPlayerMgr mgr = game->playerMgr();
+
+	if (!game->isMultiplayer(mgr)) {
 		return false;
 	}
 
-	/*
-	Mumble | Game
-	X      | X
-	Y      | Z
-	Z      | Y
-	*/
-	for (auto vec : { avatarPos, avatarDir, avatarAxis, cameraPos, cameraDir, cameraAxis }) {
-		// Swap Y with Z component
+	const CNetGamePlayer player = game->player(mgr);
+
+	const CPlayerInfo info = game->playerInfo(player);
+	if (info.gameState != GameState::Playing) {
+		return true;
+	}
+
+	const CPed ent = game->playerEntity(info);
+
+	std::copy(ent.position.cbegin(), ent.position.cend(), avatarPos);
+	std::copy(ent.forward.cbegin(), ent.forward.cend(), avatarDir);
+	std::copy(ent.up.cbegin(), ent.up.cend(), avatarAxis);
+
+	const CPlayerAngles cam = game->playerAngles();
+
+	std::copy(cam.position.cbegin(), cam.position.cend(), cameraPos);
+	std::copy(cam.forward.cbegin(), cam.forward.cend(), cameraDir);
+	std::copy(cam.up.cbegin(), cam.up.cend(), cameraAxis);
+
+	// Mumble | Game
+	// X      | X
+	// Y      | Z
+	// Z      | Y
+	for (auto &vec : { avatarPos, avatarDir, avatarAxis, cameraPos, cameraDir, cameraAxis }) {
 		std::swap(vec[1], vec[2]);
 	}
+
+	*contextPtr  = "";
+	*identityPtr = game->identity(player, info, ent).c_str();
 
 	return true;
 }

@@ -6,26 +6,40 @@
 #ifndef GTAV_GAME_H_
 #define GTAV_GAME_H_
 
+#include "structs.h"
+
 #include "ProcessWindows.h"
 #include "PluginComponents_v_1_0_x.h"
 
 class Game {
 public:
-	Game(const procid_t id, const std::string &name);
-
 	Mumble_PositionalDataErrorCode init();
-	Mumble_PositionalDataErrorCode fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis,
-													   float *cameraPos, float *cameraDir, float *cameraAxis,
-													   const char **contextPtr, const char **identityPtr);
+
+	static constexpr bool isMultiplayer(const CNetworkPlayerMgr &mgr) { return mgr.player; }
+
+	CNetworkPlayerMgr playerMgr() const { return m_proc.peek< CNetworkPlayerMgr >(m_playerMgr); }
+
+	CNetGamePlayer player(const CNetworkPlayerMgr &manager) const {
+		return m_proc.peek< CNetGamePlayer >(manager.player);
+	}
+
+	CPlayerInfo playerInfo(const CNetGamePlayer &player) const { return m_proc.peek< CPlayerInfo >(player.info); }
+
+	CPed playerEntity(const CPlayerInfo &info) const { return m_proc.peek< CPed >(info.ped); }
+
+	CPlayerAngles playerAngles() const;
+
+	const std::string &identity(const CNetGamePlayer &player, const CPlayerInfo &info, const CPed &entity);
+
+	Game(const uint64_t id, const std::string &name);
 
 protected:
-	ProcessWindows m_proc;
-	procptr_t m_moduleBase = 0;
-	std::string m_identity;
+	bool setupPointers(const Module &module);
 
-	// Memory addresses
-	procptr_t m_stateAddr, m_avatarPosAddr, m_cameraPosAddr, m_avatarBaseAddr, m_avatarDirAddr, m_avatarAxisAddr,
-		m_cameraDirAddr, m_cameraAxisAddr, m_playerAddr;
+	ptr_t m_playerMgr;
+	ptr_t m_cameraMgr;
+	std::string m_identity;
+	ProcessWindows m_proc;
 };
 
 #endif
