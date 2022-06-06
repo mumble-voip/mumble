@@ -3030,7 +3030,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Um die Latenz (den Ping) und die Benutzeranzahl eines Servers zu bestimmen, muss Ihre IP-Adresse an den jeweiligen Server übermittelt werden.&lt;/p&gt;&lt;p&gt;Stimen Sie der Übertragung ihrer IP-Adresse zu? Wenn Sie mit Nein antworten, wird die Liste öffentlicher Server deaktiviert. Es ist jedoch möglich diese jederzeit über die Netzwerk-Einstellungen wieder zu aktivieren.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Um die Latenz (den Ping) und die Benutzeranzahl eines Servers zu bestimmen, muss Ihre IP-Adresse an den jeweiligen Server übermittelt werden.&lt;/p&gt;&lt;p&gt;Stimmen Sie der Übertragung ihrer IP-Adresse zu? Wenn Sie mit Nein antworten, wird die Liste öffentlicher Server deaktiviert. Es ist jedoch möglich diese jederzeit über die Netzwerk-Einstellungen wieder zu aktivieren.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
