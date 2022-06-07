@@ -42,8 +42,10 @@ namespace db {
 				return false;
 			case DataType::FixedSizeString:
 				return true;
-			case DataType::String:
+			case DataType::VarChar:
 				return true;
+			case DataType::Text:
+				return false;
 		}
 
 		// This code should be unreachable
@@ -63,11 +65,32 @@ namespace db {
 				return true;
 			case DataType::FixedSizeString:
 				return false;
-			case DataType::String:
+			case DataType::VarChar:
 				return false;
+			case DataType::Text:
+				return true;
 		}
 
 		// This code should be unreachable
+		assert(false);
+		return false;
+	}
+
+	bool DataType::isStringType() const { return isStringType(m_type); }
+
+	bool DataType::isStringType(DataType::Type type) {
+		switch (type) {
+			case DataType::Type::FixedSizeString:
+			case DataType::Type::VarChar:
+			case DataType::Text:
+				return true;
+			case DataType::Type::Integer:
+			case DataType::Type::SmallInteger:
+			case DataType::Type::Double:
+				return false;
+		}
+
+		// Code should be unreachable
 		assert(false);
 		return false;
 	}
@@ -88,8 +111,11 @@ namespace db {
 			case DataType::FixedSizeString:
 				sqlRepr = "CHAR";
 				break;
-			case DataType::String:
+			case DataType::VarChar:
 				sqlRepr = "VARCHAR";
+				break;
+			case DataType::Text:
+				sqlRepr = "TEXT";
 				break;
 		}
 
@@ -141,7 +167,9 @@ namespace db {
 		} else if (boost::iequals(name, "CHAR")) {
 			type = DataType::FixedSizeString;
 		} else if (boost::iequals(name, "VARCHAR")) {
-			type = DataType::String;
+			type = DataType::VarChar;
+		} else if (boost::iequals(name, "TEXT")) {
+			type = DataType::Text;
 		} else {
 			throw UnknownDataTypeException("Unknown data type \"" + name + "\"");
 		}
