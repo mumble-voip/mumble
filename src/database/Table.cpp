@@ -69,8 +69,7 @@ namespace db {
 			if (currentColumn.hasDefaultValue()) {
 				createQuery += " DEFAULT ";
 				std::string defaultValue = currentColumn.getDefaultValue();
-				if (currentColumn.getType().getType() == DataType::String
-					|| currentColumn.getType().getType() == DataType::FixedSizeString) {
+				if (currentColumn.getType().isStringType()) {
 					// Escape single quotes by doubling them up
 					boost::replace_all(defaultValue, "'", "''");
 

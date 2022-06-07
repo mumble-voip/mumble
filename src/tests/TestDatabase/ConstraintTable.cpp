@@ -27,13 +27,13 @@ namespace db {
 		ConstraintTable::ConstraintTable(soci::session &sql, Backend backend) : Table(sql, backend, NAME) {
 			std::vector< Column > columns;
 
-			columns.push_back(Column("not_null_key", DataType(DataType::String, 100),
+			columns.push_back(Column("not_null_key", DataType(DataType::VarChar, 100),
 									 { Constraint(Constraint::NotNull) }, "myDefaultValue"));
-			columns.push_back(Column("not_null_value", DataType(DataType::String, 100)));
+			columns.push_back(Column("not_null_value", DataType(DataType::VarChar, 100)));
 
 			columns.push_back(
-				Column("unique_key", DataType(DataType::String, 100), { Constraint(Constraint::Unique) }));
-			columns.push_back(Column("unique_value", DataType(DataType::String, 100)));
+				Column("unique_key", DataType(DataType::VarChar, 100), { Constraint(Constraint::Unique) }));
+			columns.push_back(Column("unique_value", DataType(DataType::VarChar, 100)));
 
 			setColumns(columns);
 		}

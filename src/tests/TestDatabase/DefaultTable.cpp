@@ -21,8 +21,8 @@ namespace db {
 		DefaultTable::DefaultTable(soci::session &sql, Backend backend) : Table(sql, backend, NAME) {
 			std::vector< Column > columns;
 
-			columns.push_back(Column("DefaultColKey", DataType(DataType::String, 100)));
-			columns.push_back(Column("DefaultColValue", DataType(DataType::String, 100), {}, DEFAULT));
+			columns.push_back(Column("DefaultColKey", DataType(DataType::VarChar, 100)));
+			columns.push_back(Column("DefaultColValue", DataType(DataType::VarChar, 100), {}, DEFAULT));
 
 			setColumns(columns);
 		}

@@ -22,8 +22,8 @@ namespace db {
 
 	MetaTable::MetaTable(soci::session &sql, Backend backend) : Table(sql, backend, MetaTable::NAME) {
 		std::vector< Column > columns;
-		columns.push_back(Column("meta_key", DataType(DataType::String, 500), { Constraint(Constraint::NotNull) }));
-		columns.push_back(Column("meta_value", DataType(DataType::String, 5000), { Constraint(Constraint::NotNull) }));
+		columns.push_back(Column("meta_key", DataType(DataType::VarChar, 500), { Constraint(Constraint::NotNull) }));
+		columns.push_back(Column("meta_value", DataType(DataType::VarChar, 5000), { Constraint(Constraint::NotNull) }));
 
 		setColumns(columns);
 

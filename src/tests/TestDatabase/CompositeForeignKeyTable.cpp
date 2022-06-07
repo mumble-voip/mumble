@@ -25,9 +25,9 @@ namespace db {
 			: Table(sql, backend, NAME) {
 			std::vector< Column > columns;
 
-			columns.push_back(Column("fk_keyA", DataType(DataType::String, 100), { Constraint(Constraint::NotNull) }));
-			columns.push_back(Column("fk_keyB", DataType(DataType::String, 100), { Constraint(Constraint::NotNull) }));
-			columns.push_back(Column("fk_value", DataType(DataType::String, 100), { Constraint(Constraint::NotNull) }));
+			columns.push_back(Column("fk_keyA", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
+			columns.push_back(Column("fk_keyB", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
+			columns.push_back(Column("fk_value", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
 
 			setColumns(columns);
 

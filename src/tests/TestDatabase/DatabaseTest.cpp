@@ -640,7 +640,7 @@ void DatabaseTest::dataTypes() {
 		db.init(test::utils::getConnectionParamter(currentBackend));
 
 		for (DataType::Type currentType : { DataType::Integer, DataType::SmallInteger, DataType::Double,
-											DataType::FixedSizeString, DataType::String }) {
+											DataType::FixedSizeString, DataType::VarChar, DataType::Text }) {
 			qInfo() << "Current data type:" << currentType;
 
 			for (bool sized : { true, false }) {
