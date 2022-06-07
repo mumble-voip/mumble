@@ -60,7 +60,7 @@
 	- key
 		- INTEGER
 	- value
-		- TEXT
+		- (LONG)TEXT
 	* UNIQUE INDEX (server_id, channel_id, key)
 	(* TRIGGER AFTER DELETE ON channels: DELETE FROM channel_info WHERE channel_id = old.channel_id AND server_id = old.server_id)
 	* FOREIGN KEY (server_id, channel_id) REFERENCES channels(server_id, channel_id)
@@ -85,12 +85,12 @@
 		- INTEGER
 		- NOT NULL
 	- texture
-		- BLOB
+		- (LONG)BLOB
 	- last_active
 		- DATE
 	- last_disconnect
 		- DATE
-	' INDE (server_id, lastchannel)
+	' INDEX (server_id, lastchannel)
 	* UNIQUE INDEX (server_id, name)
 	* UNIQUE INDEX (server_id, user_id)
 	(* TRIGGER AFTER DELETE ON servers: DELETE FROM users WHERE server_id = old.server_id)
@@ -107,10 +107,10 @@
 	- key
 		- INTEGER
 	- value
-		- TEXT
+		- (LONG)TEXT
 	* UNIQUE INDEX (server_id, user_id, key)
 	(* TRIGGER AFTER DELETE ON users: DELETE FROM user_info WHERE user_id = old.user_id AND server_id = old.server_id)
-	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
 
 - groups
 	- group_id
@@ -199,7 +199,7 @@
 		- INTEGER
 		- NOT NULL
 	- base
-		- BLOB
+		- BLOB / BINARY(16)
 	- mask
 		- INTEGER
 	- name
@@ -214,5 +214,3 @@
 		- INTEGER
 	(* TRIGGER AFTER DELETE ON servers: DELETE FROM bans WHERE server_id = old.server_id)
 	* FOREIGN KEY: server_id REFERENCES servers(server_id)
-
-TODO: Check against MySQL
