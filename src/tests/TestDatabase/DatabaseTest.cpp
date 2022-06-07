@@ -174,8 +174,8 @@ void DatabaseTest::simpleExport() {
 								"column_names", { "meta_key", "meta_value" }
 							},
 							{
-								"column_types", { metaTable->findColumn("meta_key")->getType().sqlRepresentation(),
-									metaTable->findColumn("meta_value")->getType().sqlRepresentation() }
+								"column_types", { metaTable->findColumn("meta_key")->getType().sqlRepresentation(currentBackend),
+									metaTable->findColumn("meta_value")->getType().sqlRepresentation(currentBackend) }
 							},
 							{
 								"rows", nlohmann::json::array({ { "scheme_version", "5" } })
@@ -221,8 +221,8 @@ void DatabaseTest::simpleImport() {
 								"column_names", { "meta_key", "meta_value" }
 							},
 							{
-								"column_types", { metaTable->findColumn("meta_key")->getType().sqlRepresentation(),
-									metaTable->findColumn("meta_value")->getType().sqlRepresentation() }
+								"column_types", { metaTable->findColumn("meta_key")->getType().sqlRepresentation(currentBackend),
+									metaTable->findColumn("meta_value")->getType().sqlRepresentation(currentBackend) }
 							},
 							{
 								"rows", nlohmann::json::array({ { "scheme_version", "12" } })
@@ -641,7 +641,7 @@ void DatabaseTest::dataTypes() {
 
 		for (DataType::Type currentType :
 			 { DataType::Integer, DataType::SmallInteger, DataType::Double, DataType::FixedSizeString,
-			   DataType::VarChar, DataType::Text, DataType::EpochTime }) {
+			   DataType::VarChar, DataType::Text, DataType::EpochTime, DataType::Blob }) {
 			qInfo() << "Current data type:" << currentType;
 
 			for (bool sized : { true, false }) {

@@ -48,6 +48,8 @@ namespace db {
 				return false;
 			case DataType::EpochTime:
 				return false;
+			case DataType::Blob:
+				return false;
 		}
 
 		// This code should be unreachable
@@ -73,6 +75,8 @@ namespace db {
 				return true;
 			case DataType::EpochTime:
 				return true;
+			case DataType::Blob:
+				return true;
 		}
 
 		// This code should be unreachable
@@ -92,6 +96,7 @@ namespace db {
 			case DataType::Type::SmallInteger:
 			case DataType::Type::Double:
 			case DataType::Type::EpochTime:
+			case DataType::Type::Blob:
 				return false;
 		}
 
@@ -100,7 +105,7 @@ namespace db {
 		return false;
 	}
 
-	std::string DataType::sqlRepresentation() const {
+	std::string DataType::sqlRepresentation(Backend backend) const {
 		std::string sqlRepr;
 
 		switch (m_type) {
@@ -127,6 +132,13 @@ namespace db {
 				// integer which means that it'd break down some time in the year 2038. At least this
 				// currently (2022) applies to MySQL.
 				sqlRepr = "BIGINT";
+				break;
+			case DataType::Blob:
+				if (backend == Backend::PostgreSQL) {
+					sqlRepr = "BYTEA";
+				} else {
+					sqlRepr = "BLOB";
+				}
 				break;
 		}
 
@@ -183,6 +195,8 @@ namespace db {
 			type = DataType::Text;
 		} else if (boost::iequals(name, "BIGINT")) {
 			type = DataType::EpochTime;
+		} else if (boost::iequals(name, "BLOB") || boost::iequals(name, "BYTEA")) {
+			type = DataType::Blob;
 		} else {
 			throw UnknownDataTypeException("Unknown data type \"" + name + "\"");
 		}
