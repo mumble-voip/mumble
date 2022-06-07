@@ -46,6 +46,8 @@ namespace db {
 				return true;
 			case DataType::Text:
 				return false;
+			case DataType::EpochTime:
+				return false;
 		}
 
 		// This code should be unreachable
@@ -69,6 +71,8 @@ namespace db {
 				return false;
 			case DataType::Text:
 				return true;
+			case DataType::EpochTime:
+				return true;
 		}
 
 		// This code should be unreachable
@@ -87,6 +91,7 @@ namespace db {
 			case DataType::Type::Integer:
 			case DataType::Type::SmallInteger:
 			case DataType::Type::Double:
+			case DataType::Type::EpochTime:
 				return false;
 		}
 
@@ -116,6 +121,12 @@ namespace db {
 				break;
 			case DataType::Text:
 				sqlRepr = "TEXT";
+				break;
+			case DataType::EpochTime:
+				// Note that we explicitly do not use the TIMESTAMP type as that would be stored as a 4-byte
+				// integer which means that it'd break down some time in the year 2038. At least this
+				// currently (2022) applies to MySQL.
+				sqlRepr = "BIGINT";
 				break;
 		}
 
@@ -170,6 +181,8 @@ namespace db {
 			type = DataType::VarChar;
 		} else if (boost::iequals(name, "TEXT")) {
 			type = DataType::Text;
+		} else if (boost::iequals(name, "BIGINT")) {
+			type = DataType::EpochTime;
 		} else {
 			throw UnknownDataTypeException("Unknown data type \"" + name + "\"");
 		}

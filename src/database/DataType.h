@@ -27,6 +27,7 @@ namespace db {
 			FixedSizeString,
 			VarChar,
 			Text,
+			EpochTime,
 		};
 		static constexpr const std::size_t Unsized = std::numeric_limits< std::size_t >::max();
 
