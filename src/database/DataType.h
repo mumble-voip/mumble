@@ -25,7 +25,8 @@ namespace db {
 			SmallInteger,
 			Double,
 			FixedSizeString,
-			String,
+			VarChar,
+			Text,
 		};
 		static constexpr const std::size_t Unsized = std::numeric_limits< std::size_t >::max();
 
@@ -41,9 +42,12 @@ namespace db {
 
 		bool canBeSized() const;
 		bool canBeUnsized() const;
+		bool isStringType() const;
 
 		static bool canBeSized(Type type);
 		static bool canBeUnsized(Type type);
+		static bool isStringType(Type type);
+
 
 		std::string sqlRepresentation() const;
 		static DataType fromSQLRepresentation(const std::string &strRepr);

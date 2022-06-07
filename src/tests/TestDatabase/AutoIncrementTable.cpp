@@ -22,7 +22,7 @@ namespace db {
 		AutoIncrementTable::AutoIncrementTable(soci::session &sql, Backend backend) : Table(sql, backend, NAME) {
 			std::vector< Column > columns;
 
-			columns.push_back(Column("key_col", DataType(DataType::String, 100)));
+			columns.push_back(Column("key_col", DataType(DataType::VarChar, 100)));
 			columns.push_back(Column("value_col", DataType(DataType::Integer), { Constraint(Constraint::NotNull) },
 									 Column::Flag::AUTOINCREMENT));
 

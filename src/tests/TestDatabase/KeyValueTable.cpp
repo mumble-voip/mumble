@@ -22,8 +22,8 @@ namespace db {
 		KeyValueTable::KeyValueTable(soci::session &sql, Backend backend) : Table(sql, backend, NAME) {
 			std::vector< Column > columns;
 
-			columns.push_back(Column("key_col", DataType(DataType::String, 150)));
-			columns.push_back(Column("value_col", DataType(DataType::String, 150)));
+			columns.push_back(Column("key_col", DataType(DataType::VarChar, 150)));
+			columns.push_back(Column("value_col", DataType(DataType::VarChar, 150)));
 
 			setColumns(columns);
 		}
