@@ -7,6 +7,7 @@
 #define MUMBLE_DATABASE_DATATYPE_H_
 
 #include "Exception.h"
+#include "Backend.h"
 
 #include <limits>
 #include <string>
@@ -28,6 +29,7 @@ namespace db {
 			VarChar,
 			Text,
 			EpochTime,
+			Blob,
 		};
 		static constexpr const std::size_t Unsized = std::numeric_limits< std::size_t >::max();
 
@@ -50,7 +52,7 @@ namespace db {
 		static bool isStringType(Type type);
 
 
-		std::string sqlRepresentation() const;
+		std::string sqlRepresentation(Backend backend) const;
 		static DataType fromSQLRepresentation(const std::string &strRepr);
 
 		friend bool operator==(const DataType &lhs, const DataType &rhs);

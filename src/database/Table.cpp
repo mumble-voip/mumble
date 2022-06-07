@@ -64,7 +64,7 @@ namespace db {
 		std::string createQuery = "CREATE TABLE \"" + m_name + "\" (";
 
 		for (const Column &currentColumn : m_columns) {
-			createQuery += currentColumn.getName() + " " + currentColumn.getType().sqlRepresentation();
+			createQuery += currentColumn.getName() + " " + currentColumn.getType().sqlRepresentation(m_backend);
 
 			if (currentColumn.hasDefaultValue()) {
 				createQuery += " DEFAULT ";
@@ -352,9 +352,9 @@ namespace db {
 					THROW_FORMATERROR("A column with the name \"" + currentName
 									  + "\" is not part of the pre-defined columns for this table");
 				}
-				if (col->getType().sqlRepresentation() != colTypes[i].get< std::string >()) {
+				if (DataType::fromSQLRepresentation(colTypes[i].get< std::string>()) != col->getType()) {
 					THROW_FORMATERROR("Column type mismatch for column \"" + currentName + "\": Expected: \""
-									  + col->getType().sqlRepresentation() + "\", got \""
+									  + col->getType().sqlRepresentation(m_backend) + "\", got \""
 									  + colTypes[i].get< std::string >() + "\"");
 				}
 			}
@@ -426,7 +426,7 @@ namespace db {
 		std::string query = "SELECT ";
 		for (const Column &currentColumn : m_columns) {
 			json["column_names"].push_back(currentColumn.getName());
-			json["column_types"].push_back(currentColumn.getType().sqlRepresentation());
+			json["column_types"].push_back(currentColumn.getType().sqlRepresentation(m_backend));
 
 			query += currentColumn.getName() + ", ";
 		}
