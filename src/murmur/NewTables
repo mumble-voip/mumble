@@ -1,0 +1,5 @@
+- virtual_servers
+	- server_id
+		- INTEGER
+		* AUTOINCREMENT
+	* PRIMARY KEY: (server_id)

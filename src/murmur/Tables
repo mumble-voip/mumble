@@ -1,8 +1,8 @@
 - servers
 	- server_id
 		- INTEGER
-		- PRIMARY KEY
-		- AUTOINCREMENT
+		* AUTOINCREMENT
+	* PRIMARY KEY: (server_id)
 
 - slog
 	- server_id
