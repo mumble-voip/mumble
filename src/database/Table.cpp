@@ -152,10 +152,12 @@ namespace db {
 		}
 	}
 
-	void Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+	std::unordered_set< std::string > Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 		(void) fromSchemeVersion;
 		(void) toSchemeVersion;
 		// The default implementation does nothing
+
+		return {};
 	}
 
 	void Table::destroy() {
@@ -352,7 +354,7 @@ namespace db {
 					THROW_FORMATERROR("A column with the name \"" + currentName
 									  + "\" is not part of the pre-defined columns for this table");
 				}
-				if (DataType::fromSQLRepresentation(colTypes[i].get< std::string>()) != col->getType()) {
+				if (DataType::fromSQLRepresentation(colTypes[i].get< std::string >()) != col->getType()) {
 					THROW_FORMATERROR("Column type mismatch for column \"" + currentName + "\": Expected: \""
 									  + col->getType().sqlRepresentation(m_backend) + "\", got \""
 									  + colTypes[i].get< std::string >() + "\"");

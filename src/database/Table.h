@@ -14,6 +14,7 @@
 #include "Trigger.h"
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include <nlohmann/json_fwd.hpp>
@@ -43,7 +44,14 @@ namespace db {
 		bool containsColumn(const std::string &name) const;
 
 		virtual void create();
-		virtual void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+		/**
+		 * Migrate this table to the new scheme version
+		 *
+		 * @param fromSchemeVersion The scheme version of the existing DB
+		 * @param toSchemeVersion The scheme version to migrate to
+		 * @returns A set of table names that ought to be deleted once the entire DB migration has completed
+		 */
+		virtual std::unordered_set< std::string > migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
 		virtual void destroy();
 		virtual void clear();
 
