@@ -50,6 +50,9 @@ namespace db {
 
 		applyBackendSpecificSetup(parameter);
 
+		// Start a transaction to ensure that we don't mess up the DB should anything fail during initialization
+		soci::transaction transaction(m_sql);
+
 		// Create a meta-table
 		auto metaTable = std::make_unique< MetaTable >(m_sql, m_backend);
 
@@ -79,6 +82,8 @@ namespace db {
 		} else {
 			// The DB's scheme version matches the one we want to use already -> just use as is
 		}
+
+		transaction.commit();
 	}
 
 	Database::table_id Database::addTable(std::unique_ptr< Table > table) {
