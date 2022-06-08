@@ -18,8 +18,7 @@ option(ice "Build support for Ice RPC." ON)
 
 find_pkg(Qt5 COMPONENTS Sql REQUIRED)
 
-set(MURMUR_SOURCES
-	"main.cpp"
+add_library(mumble_server_object_lib OBJECT
 	"AudioReceiverBuffer.cpp"
 	"AudioReceiverBuffer.h"
 	"Cert.cpp"
@@ -52,12 +51,17 @@ set(MURMUR_SOURCES
 )
 
 if(WIN32)
-	add_executable(mumble-server WIN32 ${MURMUR_SOURCES})
+	add_executable(mumble-server WIN32 "main.cpp")
 else()
-	add_executable(mumble-server ${MURMUR_SOURCES})
+	add_executable(mumble-server "main.cpp")
 endif()
 
-set_target_properties(mumble-server
+target_link_libraries(mumble-server mumble_server_object_lib) 
+
+set_property(TARGET mumble-server PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+set_property(TARGET mumble_server_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
+set_target_properties(mumble_server_object_lib
 	PROPERTIES
 		AUTOMOC ON
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -67,48 +71,49 @@ set(AUTOGEN_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/murmur_autogen")
 message(STATUS "File: ${AUTOGEN_BUILD_DIR}")
 set_source_files_properties("${AUTOGEN_BUILD_DIR}/mocs_compilation.cpp" PROPERTIES COMPILE_FLAGS "-w")
 
-target_compile_definitions(mumble-server
-	PRIVATE
+target_compile_definitions(mumble_server_object_lib
+	PUBLIC
 		"MURMUR"
 		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
-target_include_directories(mumble-server PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
-	${SHARED_SOURCE_DIR}
+target_include_directories(mumble_server_object_lib
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
+		${SHARED_SOURCE_DIR}
 )
 
-target_link_libraries(mumble-server PRIVATE shared Qt5::Sql)
+target_link_libraries(mumble_server_object_lib PUBLIC shared Qt5::Sql)
 
 if(static)
 	# MariaDB and MySQL
 	if(TARGET Qt5::QMYSQLDriverPlugin)
-		include_qt_plugin(mumble-server PRIVATE "QMYSQLDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QMYSQLDriverPlugin)
+		include_qt_plugin(mumble_server_object_lib PRIVATE "QMYSQLDriverPlugin")
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QMYSQLDriverPlugin)
 	endif()
 	# Open DataBase Connectivity
 	if(TARGET Qt5::QODBCDriverPlugin)
-		include_qt_plugin(mumble-server PRIVATE "QODBCDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QODBCDriverPlugin)
+		include_qt_plugin(mumble_server_object_lib PRIVATE "QODBCDriverPlugin")
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QODBCDriverPlugin)
 		if(WIN32)
 			find_library(LIB_ODBC32 "odbc32")
-			target_link_libraries(mumble-server PRIVATE ${LIB_ODBC32})
+			target_link_libraries(mumble_server_object_lib PRIVATE ${LIB_ODBC32})
 		endif()
 	endif()
 	# PostgreSQL
 	if(TARGET Qt5::QPSQLDriverPlugin)
-		include_qt_plugin(mumble-server PRIVATE "QPSQLDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QPSQLDriverPlugin)
+		include_qt_plugin(mumble_server_object_lib PRIVATE "QPSQLDriverPlugin")
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QPSQLDriverPlugin)
 	endif()
 	# SQLite
 	if(TARGET Qt5::QSQLiteDriverPlugin)
-		include_qt_plugin(mumble-server PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QSQLiteDriverPlugin)
+		include_qt_plugin(mumble_server_object_lib PRIVATE "QSQLiteDriverPlugin")
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QSQLiteDriverPlugin)
 	endif()
 endif()
 
 if(WIN32)
-	target_sources(mumble-server
+	target_sources(mumble_server_object_lib
 		PRIVATE
 			"About.cpp"
 			"About.h"
@@ -120,15 +125,15 @@ if(WIN32)
 			"${MURMUR_RC}"
 	)
 
-	set_target_properties(mumble-server
+	set_target_properties(mumble_server_object_lib
 		PROPERTIES
 			AUTORCC ON
 	)
 
 	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
 
-	target_link_libraries(mumble-server 
-		PRIVATE 
+	target_link_libraries(mumble_server_object_lib 
+		PUBLIC 
 			Qt5::Widgets
 			dbghelp.lib
 			shlwapi.lib
@@ -136,11 +141,11 @@ if(WIN32)
 	)
 
 	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
-		include_qt_plugin(mumble-server PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble-server PRIVATE Qt5::QWindowsIntegrationPlugin)
+		include_qt_plugin(mumble_server_object_lib PRIVATE QWindowsIntegrationPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QWindowsIntegrationPlugin)
 	endif()
 else()
-	target_sources(mumble-server
+	target_sources(mumble_server_object_lib
 		PRIVATE
 			"UnixMurmur.cpp"
 			"UnixMurmur.h"
@@ -148,7 +153,7 @@ else()
 
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 		find_library(CAP_LIBRARY NAMES cap)
-		target_link_libraries(mumble-server PRIVATE ${CAP_LIBRARY})
+		target_link_libraries(mumble_server_object_lib PUBLIC ${CAP_LIBRARY})
 	endif()
 endif()
 
@@ -156,22 +161,22 @@ if(zeroconf)
 	if(NOT APPLE)
 		find_pkg(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
-			target_include_directories(mumble-server PRIVATE ${avahi-compat-libdns_sd_INCLUDE_DIRS})
-			target_link_libraries(mumble-server PRIVATE ${avahi-compat-libdns_sd_LIBRARIES})
+			target_include_directories(mumble_server_object_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
+			target_link_libraries(mumble_server_object_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
 		else()
 			find_library(LIB_DNSSD "dnssd")
 			if(${LIB_DNSSD} STREQUAL "LIB_DNSSD-NOTFOUND")
 				message(FATAL_ERROR "DNS-SD library not found!")
 			endif()
-			target_link_libraries(mumble-server PRIVATE ${LIB_DNSSD})
+			target_link_libraries(mumble_server_object_lib PUBLIC ${LIB_DNSSD})
 		endif()
 	endif()
 
-	target_compile_definitions(mumble-server PRIVATE "USE_ZEROCONF")
+	target_compile_definitions(mumble_server_object_lib PUBLIC "USE_ZEROCONF")
 
-	target_include_directories(mumble-server PRIVATE "${3RDPARTY_DIR}/qqbonjour")
+	target_include_directories(mumble_server_object_lib PUBLIC "${3RDPARTY_DIR}/qqbonjour")
 
-	target_sources(mumble-server
+	target_sources(mumble_server_object_lib
 		PRIVATE
 			"Zeroconf.cpp"
 			"Zeroconf.h"
@@ -186,14 +191,14 @@ endif()
 if(NOT WIN32 AND NOT APPLE)
 	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
 
-	target_sources(mumble-server
+	target_sources(mumble_server_object_lib
 		PRIVATE
 			"DBus.cpp"
 			"DBus.h"
 	)
 
-	target_compile_definitions(mumble-server PUBLIC "USE_DBUS")
-	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
+	target_compile_definitions(mumble_server_object_lib PUBLIC "USE_DBUS")
+	target_link_libraries(mumble_server_object_lib PUBLIC Qt5::DBus)
 endif()
 
 if(ice)
@@ -251,22 +256,22 @@ if(ice)
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
 
-	target_sources(mumble-server
+	target_sources(mumble_server_object_lib
 		PRIVATE
 			"MumbleServerIce.cpp"
 			"MumbleServerIce.h"
 			${ICE_GENERATED_FILES}
 	)
-	target_compile_definitions(mumble-server
-		PRIVATE
+	target_compile_definitions(mumble_server_object_lib
+		PUBLIC
 			"USE_ICE"
 			"ICE_STATIC_LIBS"
 	)
 
-	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+	target_include_directories(mumble_server_object_lib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
-	target_link_libraries(mumble-server
-		PRIVATE
+	target_link_libraries(mumble_server_object_lib
+		PUBLIC
 			Ice::Ice
 			Ice::IceSSL
 			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
