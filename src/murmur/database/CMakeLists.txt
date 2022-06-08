@@ -1,0 +1,19 @@
+# Copyright 2022 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+add_library(mumble_server_database STATIC
+	"ServerDatabase.cpp"
+	"ServerTable.cpp"
+)
+
+set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
+
+target_link_libraries(mumble_server_database PRIVATE mumble_database)
+
+target_include_directories(mumble_server_database
+	PUBLIC
+		"${SHARED_SOURCE_DIR}"
+		"${CMAKE_SOURCE_DIR}/src/murmur"
+)
