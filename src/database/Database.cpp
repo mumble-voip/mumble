@@ -547,10 +547,38 @@ namespace db {
 	}
 
 	void Database::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		std::unordered_set< std::string > tablesToBeRemoved;
+
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable) {
-				currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+				std::unordered_set< std::string > tables = currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+
+				tablesToBeRemoved.insert(tables.begin(), tables.end());
 			}
+		}
+
+		// For dropping these tables we have to consider that potentially there exist foreign keys (and/or other
+		// constraints) on these tables. So if we were to simply start dropping tables, we could easily run into
+		// constraint violations.
+		// The strategy is to keep looping over the tables and attempting to delete them. If there is an error,
+		// skip that table and retry in the next iteration. That way we should eventually have deleted all tables
+		// in the proper order required to satisfy all constraints.
+		std::size_t prevSize = 0;
+		do {
+			prevSize = tablesToBeRemoved.size();
+
+			for (const std::string &currentTable : tablesToBeRemoved) {
+				try {
+					m_sql << "DROP TABLE \"" << currentTable << "\"";
+				} catch (const soci::soci_error &) {
+					// ignore
+				}
+			}
+		} while (prevSize > tablesToBeRemoved.size());
+
+		if (!tablesToBeRemoved.empty()) {
+			throw AccessException("Failed to delete " + std::to_string(tablesToBeRemoved.size())
+								  + " old tables after migration");
 		}
 	}
 
