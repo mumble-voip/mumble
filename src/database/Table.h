@@ -45,7 +45,8 @@ namespace db {
 
 		virtual void create();
 		/**
-		 * Migrate this table to the new scheme version
+		 * Migrate this table to the new scheme version. Note that this function assumes that a transaction has already been started
+		 * when this function is called.
 		 *
 		 * @param fromSchemeVersion The scheme version of the existing DB
 		 * @param toSchemeVersion The scheme version to migrate to
