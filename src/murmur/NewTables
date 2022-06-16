@@ -16,3 +16,16 @@
 		- NOT NULL
 	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
 	* INDEX ON message_date
+
+- config
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- config_name
+		- VARCHAR(255)
+		- NOT NULL
+	- config_value
+		- TEXT
+		- NOT NULL
+	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
+	* PRIMARY KEY: (server_id, config_name)
