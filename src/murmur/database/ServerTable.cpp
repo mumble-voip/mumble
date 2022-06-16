@@ -93,7 +93,7 @@ namespace server {
 				if (fromSchemeVersion < 9) {
 					// In v9 we renamed this table from "servers" to "virtual_servers"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"virtual_servers\" (server_id) SELECT \"servers\" (server_id)";
+					m_sql << "INSERT INTO \"virtual_servers\" (server_id) SELECT server_id FROM \"servers\"";
 
 					tablesToDelete.insert("servers");
 				}
