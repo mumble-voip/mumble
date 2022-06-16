@@ -15,6 +15,9 @@
 
 #include <soci/soci.h>
 
+#include <cassert>
+#include <exception>
+
 namespace mdb = ::mumble::db;
 
 namespace mumble {
@@ -55,7 +58,7 @@ namespace server {
 		void LogTable::logMessage(unsigned int serverID, const std::string &message,
 								  const std::chrono::time_point< std::chrono::steady_clock > &date) {
 			std::size_t timeSinceEpoch =
-				std::chrono::duration_cast< std::chrono::milliseconds >(date.time_since_epoch()).count();
+				std::chrono::duration_cast< std::chrono::seconds >(date.time_since_epoch()).count();
 
 			try {
 				soci::transaction transaction(m_sql);
@@ -72,6 +75,46 @@ namespace server {
 		}
 
 
+		std::unordered_set< std::string > LogTable::migrate(unsigned int fromSchemeVersion,
+															unsigned int toSchemeVersion) {
+			// Note: Always hard-code table and column names in this function in order to ensure that this
+			// migration path always stays the same regardless of whether the respective named constants change.
+			assert(fromSchemeVersion < toSchemeVersion);
+
+			std::unordered_set< std::string > tablesToDelete;
+
+			try {
+				if (fromSchemeVersion < 9) {
+					// In v9 we renamed this table from "slog" to "server_logs"
+					// -> Import all data from the old table into the new one
+					// Note that we also changed the type of the date column from DATE/TIMESTAMP to seconds since
+					// epoch -> this requires conversion
+
+					switch (m_backend) {
+						case ::mdb::Backend::SQLite:
+							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+								  << "SELECT server_id, msg, strftime('%s', msgtime) FROM \"slog\"";
+							break;
+						case ::mdb::Backend::MySQL:
+							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+								  << "SELECT server_id, msg, UNIX_TIMESTAMP(msgtime) FROM \"slog\"";
+							break;
+						case ::mdb::Backend::PostgreSQL:
+							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+								  << "SELECT server_id, msg, EXTRACT(EPOCH FROM msgtime) FROM \"slog\"";
+							break;
+					}
+
+					tablesToDelete.insert("slog");
+				}
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException(
+					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
+					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+			}
+
+			return tablesToDelete;
+		}
 
 	} // namespace db
 } // namespace server

@@ -11,6 +11,7 @@
 
 #include <chrono>
 #include <string>
+#include <unordered_set>
 
 namespace soci {
 class session;
@@ -35,6 +36,9 @@ namespace server {
 			void logMessage(
 				unsigned int serverID, const std::string &message,
 				const std::chrono::time_point< std::chrono::steady_clock > &date = std::chrono::steady_clock::now());
+
+			std::unordered_set< std::string > migrate(unsigned int fromSchemeVersion,
+													  unsigned int toSchemeVersion) override;
 		};
 
 	} // namespace db
