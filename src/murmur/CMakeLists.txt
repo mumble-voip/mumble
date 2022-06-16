@@ -316,4 +316,4 @@ endif()
 # Compile and link against database implementation
 add_subdirectory(database)
 
-target_link_libraries(mumble-server mumble_server_database)
+target_link_libraries(mumble_server_object_lib PUBLIC mumble_server_database)
