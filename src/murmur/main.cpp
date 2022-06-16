@@ -46,7 +46,7 @@
 #	include <sys/syslog.h>
 #endif
 
-QFile *qfLog = nullptr;
+extern QFile *qfLog;
 
 static bool bVerbose = false;
 #ifdef QT_NO_DEBUG
@@ -59,7 +59,7 @@ static bool detach = false;
 static UnixMurmur *unixMurmur = nullptr;
 #endif
 
-Meta *meta = nullptr;
+extern Meta *meta;
 
 static LogEmitter le;
 
