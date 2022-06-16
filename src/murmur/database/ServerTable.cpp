@@ -50,7 +50,11 @@ namespace server {
 
 		void ServerTable::removeServer(unsigned int id) {
 			try {
+				soci::transaction transaction(m_sql);
+
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(id);
+
+				transaction.commit();
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(
 					::mdb::AccessException("Failed at removing server with ID " + std::to_string(id)));
@@ -60,8 +64,13 @@ namespace server {
 		bool ServerTable::serverExists(unsigned int id) const {
 			try {
 				int exists = 0;
+
+				soci::transaction transaction(m_sql);
+
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(id),
 					soci::into(exists);
+
+				transaction.commit();
 
 				assert(exists == 0 || exists == 1);
 
