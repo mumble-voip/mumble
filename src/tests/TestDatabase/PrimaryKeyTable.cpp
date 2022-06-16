@@ -24,7 +24,8 @@ namespace db {
 			std::vector< Column > columns;
 
 			columns.push_back(Column("pk_key", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
-			columns.push_back(Column("pk_value", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
+			columns.push_back(
+				Column("pk_value", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
 
 			setColumns(columns);
 

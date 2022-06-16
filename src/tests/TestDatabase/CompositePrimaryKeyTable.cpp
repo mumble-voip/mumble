@@ -26,7 +26,8 @@ namespace db {
 
 			columns.push_back(Column("pk_keyA", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
 			columns.push_back(Column("pk_keyB", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
-			columns.push_back(Column("pk_value", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
+			columns.push_back(
+				Column("pk_value", DataType(DataType::VarChar, 100), { Constraint(Constraint::NotNull) }));
 
 			setColumns(columns);
 
