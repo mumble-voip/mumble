@@ -3,3 +3,16 @@
 		- INTEGER
 		* AUTOINCREMENT
 	* PRIMARY KEY: (server_id)
+
+- server_logs
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- message
+		- TEXT
+		- NOT NULL
+	- message_date
+		- INTEGER (epoch time)
+		- NOT NULL
+	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
+	* INDEX ON message_date

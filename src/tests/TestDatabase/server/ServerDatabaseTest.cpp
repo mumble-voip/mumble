@@ -6,10 +6,12 @@
 #include <QString>
 #include <QtTest>
 
+#include "database/AccessException.h"
 #include "database/Backend.h"
 
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
+#include "database/LogTable.h"
 
 #include "TestUtils.h"
 
@@ -67,6 +69,7 @@ class ServerDatabaseTest : public QObject {
 	Q_OBJECT;
 private slots:
 	void serverTable_server_management();
+	void logTable_logMessage();
 };
 
 /**
@@ -112,6 +115,27 @@ void ServerDatabaseTest::serverTable_server_management() {
 	QVERIFY(table.serverExists(2));
 	table.removeServer(2);
 	QVERIFY(!table.serverExists(2));
+
+	// Server IDs have to be unique, so we expect an error when attempting to add a duplicate ID
+	QVERIFY_EXCEPTION_THROWN(table.addServer(1), ::mdb::AccessException);
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::logTable_logMessage() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 1;
+	unsigned int nonExistingServerID = 5;
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+
+	QVERIFY_EXCEPTION_THROWN(db.getLogTable().logMessage(nonExistingServerID, "Dummy msg"), ::mdb::AccessException);
+
+	db.getLogTable().logMessage(existingServerID, "I am a test message");
+
+	db.getLogTable().logMessage(existingServerID, "I am a test message containing some unicode characters: ✅ 👀");
 
 	END_TEST_CASE
 }

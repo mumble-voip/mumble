@@ -6,6 +6,7 @@
 add_library(mumble_server_database STATIC
 	"ServerDatabase.cpp"
 	"ServerTable.cpp"
+	"LogTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
