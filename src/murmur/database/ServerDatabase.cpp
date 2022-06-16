@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerDatabase.h"
+#include "LogTable.h"
 #include "ServerTable.h"
 
 #include <cassert>
@@ -18,6 +19,7 @@ namespace server {
 			enum Tables {
 				MetaTable, // This table is always present and is created by the base class
 				ServerTable,
+				LogTable,
 			};
 		}
 
@@ -31,15 +33,22 @@ namespace server {
 			::mdb::Database::table_id id = addTable(std::make_unique< ServerTable >(m_sql, m_backend));
 			assert(id == TableIndex::ServerTable);
 
+			id = addTable(std::make_unique< LogTable >(m_sql, m_backend, getServerTable()));
+			assert(id == TableIndex::LogTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
 
-		ServerTable &ServerDatabase::getServerTable() {
-			::mdb::Table *table = m_tables[TableIndex::ServerTable].get();
-			assert(table);
-			return *static_cast< ServerTable * >(table);
-		}
+#define GET_TABLE_IMPL(tableName)                                    \
+	tableName &ServerDatabase::get##tableName() {                    \
+		::mdb::Table *table = m_tables[TableIndex::tableName].get(); \
+		assert(table);                                               \
+		return *static_cast< tableName * >(table);                   \
+	}
+
+		GET_TABLE_IMPL(ServerTable)
+		GET_TABLE_IMPL(LogTable)
 
 	} // namespace db
 } // namespace server

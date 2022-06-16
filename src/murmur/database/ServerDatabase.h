@@ -14,6 +14,7 @@ namespace server {
 	namespace db {
 
 		class ServerTable;
+		class LogTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -30,6 +31,7 @@ namespace server {
 			unsigned int getSchemeVersion() const override;
 
 			ServerTable &getServerTable();
+			LogTable &getLogTable();
 
 		protected:
 			void setupStandardTables() override;
