@@ -19,15 +19,23 @@ add_executable(TestDatabase
 	CompositeForeignKeyTable.cpp
 )
 
+set(MUMBLE_DB_TEST_DEFINES "")
+
 if(database-mysql-tests)
-	target_compile_definitions(TestDatabase PRIVATE MUMBLE_TEST_MYSQL)
+	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_MYSQL")
 endif()
 if(database-postgresql-tests)
-	target_compile_definitions(TestDatabase PRIVATE MUMBLE_TEST_POSTGRESQL)
+	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_POSTGRESQL")
 endif()
+
+target_compile_definitions(TestDatabase PRIVATE ${MUMBLE_DB_TEST_DEFINES})
 
 set_target_properties(TestDatabase PROPERTIES AUTOMOC ON)
 
 target_link_libraries(TestDatabase PRIVATE Qt5::Test mumble_database)
 
 add_test(NAME TestDatabase COMMAND $<TARGET_FILE:TestDatabase>)
+
+if(server)
+	add_subdirectory("server")
+endif()
