@@ -35,6 +35,7 @@ add_library(mumble_server_object_lib OBJECT
 	"ServerDB.h"
 	"ServerUser.cpp"
 	"ServerUser.h"
+	"Globals.cpp"
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
 	"${SHARED_SOURCE_DIR}/ACL.h"
