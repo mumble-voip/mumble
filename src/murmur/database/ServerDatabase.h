@@ -13,6 +13,8 @@ namespace mumble {
 namespace server {
 	namespace db {
 
+		class ServerTable;
+
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
 			/**
@@ -26,6 +28,8 @@ namespace server {
 			~ServerDatabase() = default;
 
 			unsigned int getSchemeVersion() const override;
+
+			ServerTable &getServerTable();
 
 		protected:
 			void setupStandardTables() override;
