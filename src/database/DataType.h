@@ -6,8 +6,8 @@
 #ifndef MUMBLE_DATABASE_DATATYPE_H_
 #define MUMBLE_DATABASE_DATATYPE_H_
 
-#include "Exception.h"
 #include "Backend.h"
+#include "Exception.h"
 
 #include <limits>
 #include <string>
