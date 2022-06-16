@@ -10,7 +10,7 @@ add_library(mumble_server_database STATIC
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
-target_link_libraries(mumble_server_database PRIVATE mumble_database)
+target_link_libraries(mumble_server_database PUBLIC mumble_database)
 
 target_include_directories(mumble_server_database
 	PUBLIC
