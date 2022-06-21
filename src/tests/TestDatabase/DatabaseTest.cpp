@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <sstream>
 #include <vector>
 
 using namespace mumble::db;
@@ -62,6 +63,28 @@ template<> char *toString(const std::string &str) {
 	return buffer;
 }
 
+template<> char *toString(const std::vector< std::string > &vec) {
+	std::stringstream stream;
+
+	stream << "{ ";
+	for (std::size_t i = 0; i < vec.size(); ++i) {
+		stream << "\"" << vec[i] << "\"";
+
+		if (i + 1 < vec.size()) {
+			stream << ", ";
+		}
+	}
+
+	stream << " }";
+
+	std::string str = stream.str();
+
+	char *buffer = new char[str.size() + 1];
+	std::strcpy(buffer, str.data());
+
+	return buffer;
+}
+
 }; // namespace QTest
 
 
@@ -80,6 +103,8 @@ public:
 
 	bool tableExistsInDB(const std::string &name) { return Database::tableExistsInDB(name); }
 
+	std::vector< std::string > getExistingTables() { return Database::getExistingTables(); }
+
 	soci::session &getSQLHandle() { return m_sql; }
 };
 
@@ -89,6 +114,7 @@ private slots:
 	void connect();
 	void getBackendVersion();
 	void tableExistsInDB();
+	void getExistingTables();
 	void simpleExport();
 	void simpleImport();
 	void defaults();
@@ -150,6 +176,20 @@ void DatabaseTest::tableExistsInDB() {
 									  std::vector< Column >{ Column("dummyCol", DataType(DataType::Integer)) }));
 		db.getTable(id)->create();
 		QVERIFY(db.tableExistsInDB(newTable));
+	}
+}
+
+void DatabaseTest::getExistingTables() {
+	for (Backend currentBackend : backends) {
+		qInfo() << "Current backend:" << QString::fromStdString(backendToString(currentBackend));
+
+		TestDatabase db(currentBackend);
+		db.init(test::utils::getConnectionParamter(currentBackend));
+
+		std::vector< std::string > tableNames = db.getExistingTables();
+
+		// The meta table is always created
+		QCOMPARE(tableNames, std::vector< std::string >{ MetaTable::NAME });
 	}
 }
 
