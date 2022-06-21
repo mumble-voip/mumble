@@ -432,6 +432,44 @@ namespace db {
 		}
 	}
 
+	std::vector< std::string > Database::getExistingTables() {
+		std::string query;
+		switch (m_backend) {
+			case Backend::SQLite:
+				query = "SELECT name FROM sqlite_master WHERE type='table'";
+				break;
+			case Backend::MySQL:
+				query = "SELECT table_name FROM information_schema.tables WHERE table_schema=(SELECT DATABASE())";
+				break;
+			case Backend::PostgreSQL:
+				query = "SELECT table_name FROM information_schema.tables WHERE table_catalog=(SELECT "
+						"CURRENT_DATABASE()) AND table_schema = 'public'";
+				break;
+		}
+
+		try {
+			constexpr unsigned int BATCH_SIZE = 20;
+
+			std::vector< std::string > tableNames;
+			std::vector< std::string > batch(BATCH_SIZE);
+			soci::statement stmt = (m_sql.prepare << query, soci::into(batch));
+
+			stmt.execute(false);
+
+			while (stmt.fetch()) {
+				tableNames.reserve(tableNames.size() + batch.size());
+				tableNames.insert(tableNames.end(), batch.begin(), batch.end());
+
+				batch.resize(BATCH_SIZE);
+			}
+
+			return tableNames;
+		} catch (const soci::soci_error &e) {
+			// Rethrow
+			throw AccessException(e.what());
+		}
+	}
+
 	void Database::applyBackendSpecificSetup(const ConnectionParameter &parameter) {
 		assert(parameter.applicability() == m_backend);
 

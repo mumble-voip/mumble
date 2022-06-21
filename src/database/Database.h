@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include <soci/soci.h>
 
@@ -78,6 +79,8 @@ namespace db {
 		void connectToDB(const ConnectionParameter &parameter);
 
 		bool tableExistsInDB(const std::string &name);
+
+		std::vector< std::string > getExistingTables();
 
 		void applyBackendSpecificSetup(const ConnectionParameter &parameter);
 
