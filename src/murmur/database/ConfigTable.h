@@ -9,9 +9,6 @@
 #include "database/Backend.h"
 #include "database/Table.h"
 
-#include <string>
-#include <unordered_set>
-
 namespace soci {
 class session;
 };
@@ -34,8 +31,7 @@ namespace server {
 
 
 
-			std::unordered_set< std::string > migrate(unsigned int fromSchemeVersion,
-													  unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 
 	} // namespace db

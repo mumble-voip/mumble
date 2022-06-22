@@ -10,6 +10,7 @@
 #include "database/Column.h"
 #include "database/Constraint.h"
 #include "database/DataType.h"
+#include "database/Database.h"
 #include "database/ForeignKey.h"
 #include "database/PrimaryKey.h"
 
@@ -55,32 +56,33 @@ namespace server {
 			addForeignKey(fk);
 		}
 
-		std::unordered_set< std::string > ConfigTable::migrate(unsigned int fromSchemeVersion,
-															   unsigned int toSchemeVersion) {
-			// TODO: We probably have to rename old tables first to facilitate the migration process
-
-
+		void ConfigTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
 			assert(fromSchemeVersion < toSchemeVersion);
 
-			std::unordered_set< std::string > tablesToDelete;
-
 			try {
-				if (fromSchemeVersion < 9) {
-					// In v9 we renamed this table from "servers" to "virtual_servers"
-					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"virtual_servers\" (server_id) SELECT server_id FROM \"servers\"";
+				if (fromSchemeVersion < 4) {
+					// In v4 we renamed the column "keystring" -> "key"
+					m_sql << "INSERT INTO \"config\" (server_id, key, value) SELECT server_id, keystring, "
+							 "value FROM \"config"
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 
-					tablesToDelete.insert("servers");
+				} else if (fromSchemeVersion < 9) {
+					// In v9 we renamed the columns "key" -> "config_name" and "value" -> "config_value"
+					// -> Import all data from the old table into the new one
+					m_sql << "INSERT INTO \"config\" (server_id, config_name, config_value) SELECT server_id, key, "
+							 "value FROM \"config"
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+				} else {
+					// Use default implementation to handle migration without change of format
+					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}
-
-			return tablesToDelete;
 		}
 
 	} // namespace db

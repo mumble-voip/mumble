@@ -13,8 +13,9 @@
 #include "Version.h"
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <unordered_set>
+#include <vector>
 
 #include <soci/soci.h>
 
@@ -30,6 +31,8 @@ namespace db {
 	class Database : NonCopyable {
 	public:
 		using table_id = unsigned int;
+
+		static constexpr const char *OLD_TABLE_SUFFIX = "_old";
 
 		Database(Backend backend);
 		virtual ~Database();
@@ -80,7 +83,7 @@ namespace db {
 
 		bool tableExistsInDB(const std::string &name);
 
-		std::vector< std::string > getExistingTables();
+		std::unordered_set< std::string > getExistingTables();
 
 		void applyBackendSpecificSetup(const ConnectionParameter &parameter);
 

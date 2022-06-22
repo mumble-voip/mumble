@@ -10,6 +10,7 @@
 #include "database/Column.h"
 #include "database/Constraint.h"
 #include "database/DataType.h"
+#include "database/Database.h"
 #include "database/ForeignKey.h"
 #include "database/Index.h"
 
@@ -75,13 +76,10 @@ namespace server {
 		}
 
 
-		std::unordered_set< std::string > LogTable::migrate(unsigned int fromSchemeVersion,
-															unsigned int toSchemeVersion) {
+		void LogTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
 			assert(fromSchemeVersion < toSchemeVersion);
-
-			std::unordered_set< std::string > tablesToDelete;
 
 			try {
 				if (fromSchemeVersion < 9) {
@@ -93,27 +91,29 @@ namespace server {
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
 							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
-								  << "SELECT server_id, msg, strftime('%s', msgtime) FROM \"slog\"";
+								  << "SELECT server_id, msg, strftime('%s', msgtime) FROM \"slog"
+								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
 						case ::mdb::Backend::MySQL:
 							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
-								  << "SELECT server_id, msg, UNIX_TIMESTAMP(msgtime) FROM \"slog\"";
+								  << "SELECT server_id, msg, UNIX_TIMESTAMP(msgtime) FROM \"slog"
+								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
 						case ::mdb::Backend::PostgreSQL:
 							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
-								  << "SELECT server_id, msg, EXTRACT(EPOCH FROM msgtime) FROM \"slog\"";
+								  << "SELECT server_id, msg, EXTRACT(EPOCH FROM msgtime) FROM \"slog"
+								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
 					}
-
-					tablesToDelete.insert("slog");
+				} else {
+					// Use default implementation to handle migration without change of format
+					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}
-
-			return tablesToDelete;
 		}
 
 	} // namespace db

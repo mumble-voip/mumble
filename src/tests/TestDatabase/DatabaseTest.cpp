@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <cstring>
 #include <sstream>
+#include <unordered_set>
 #include <vector>
 
 using namespace mumble::db;
@@ -63,16 +64,16 @@ template<> char *toString(const std::string &str) {
 	return buffer;
 }
 
-template<> char *toString(const std::vector< std::string > &vec) {
+template<> char *toString(const std::unordered_set< std::string > &set) {
 	std::stringstream stream;
 
 	stream << "{ ";
-	for (std::size_t i = 0; i < vec.size(); ++i) {
-		stream << "\"" << vec[i] << "\"";
-
-		if (i + 1 < vec.size()) {
+	for (auto it = set.begin(); it != set.end(); ++it) {
+		if (it != set.begin()) {
 			stream << ", ";
 		}
+
+		stream << "\"" << *it << "\"";
 	}
 
 	stream << " }";
@@ -103,7 +104,7 @@ public:
 
 	bool tableExistsInDB(const std::string &name) { return Database::tableExistsInDB(name); }
 
-	std::vector< std::string > getExistingTables() { return Database::getExistingTables(); }
+	std::unordered_set< std::string > getExistingTables() { return Database::getExistingTables(); }
 
 	soci::session &getSQLHandle() { return m_sql; }
 };
@@ -186,10 +187,10 @@ void DatabaseTest::getExistingTables() {
 		TestDatabase db(currentBackend);
 		db.init(test::utils::getConnectionParamter(currentBackend));
 
-		std::vector< std::string > tableNames = db.getExistingTables();
+		std::unordered_set< std::string > tableNames = db.getExistingTables();
 
 		// The meta table is always created
-		QCOMPARE(tableNames, std::vector< std::string >{ MetaTable::NAME });
+		QCOMPARE(tableNames, std::unordered_set< std::string >{ MetaTable::NAME });
 	}
 }
 

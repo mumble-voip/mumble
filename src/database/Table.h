@@ -45,14 +45,14 @@ namespace db {
 
 		virtual void create();
 		/**
-		 * Migrate this table to the new scheme version. Note that this function assumes that a transaction has already been started
-		 * when this function is called.
+		 * Migrate this table to the new scheme version. Note that this function assumes that a transaction has already
+		 * been started when this function is called. Note also that when this function is called, the original table
+		 * containing the legacy data has been renamed to have the suffix Database::OLD_TABLE_SUFFIX.
 		 *
 		 * @param fromSchemeVersion The scheme version of the existing DB
 		 * @param toSchemeVersion The scheme version to migrate to
-		 * @returns A set of table names that ought to be deleted once the entire DB migration has completed
 		 */
-		virtual std::unordered_set< std::string > migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+		virtual void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
 		virtual void destroy();
 		virtual void clear();
 

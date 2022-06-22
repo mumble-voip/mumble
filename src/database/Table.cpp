@@ -6,6 +6,7 @@
 #include "Table.h"
 #include "AccessException.h"
 #include "DBUtils.h"
+#include "Database.h"
 #include "FormatException.h"
 
 #include "database/Column.h"
@@ -152,12 +153,29 @@ namespace db {
 		}
 	}
 
-	std::unordered_set< std::string > Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+	void Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 		(void) fromSchemeVersion;
 		(void) toSchemeVersion;
-		// The default implementation does nothing
+		// The default implementation simply imports all data from the old table into the new one. The previously
+		// existing table will have been renamed to include the suffix Database::OLD_TABLE_SUFFIX. Other than that the
+		// table name and the columns in that table are assumed to be equal to those of the table represented by this
+		// class.
 
-		return {};
+		std::string columns;
+		for (auto it = m_columns.begin(); it != m_columns.end(); ++it) {
+			if (it != m_columns.begin()) {
+				columns += ", ";
+			}
+
+			columns += it->getName();
+		}
+
+		try {
+			m_sql << "INSERT INTO \"" << getName() << "\" (" << columns << ") SELECT " << columns << " FROM \""
+				  << getName() << Database::OLD_TABLE_SUFFIX << "\"";
+		} catch (const soci::soci_error &e) {
+			throw AccessException("Failed at migrating table \"" + getName() + "\": " + e.what());
+		}
 	}
 
 	void Table::destroy() {
