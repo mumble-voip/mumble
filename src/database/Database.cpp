@@ -30,6 +30,8 @@ extern "C" void register_factory_postgresql();
 namespace mumble {
 namespace db {
 
+	constexpr const char *Database::OLD_TABLE_SUFFIX;
+
 	struct find_by_name {
 		const std::string &name;
 
@@ -432,7 +434,7 @@ namespace db {
 		}
 	}
 
-	std::vector< std::string > Database::getExistingTables() {
+	std::unordered_set< std::string > Database::getExistingTables() {
 		std::string query;
 		switch (m_backend) {
 			case Backend::SQLite:
@@ -450,7 +452,7 @@ namespace db {
 		try {
 			constexpr unsigned int BATCH_SIZE = 20;
 
-			std::vector< std::string > tableNames;
+			std::unordered_set< std::string > tableNames;
 			std::vector< std::string > batch(BATCH_SIZE);
 			soci::statement stmt = (m_sql.prepare << query, soci::into(batch));
 
@@ -458,7 +460,7 @@ namespace db {
 
 			while (stmt.fetch()) {
 				tableNames.reserve(tableNames.size() + batch.size());
-				tableNames.insert(tableNames.end(), batch.begin(), batch.end());
+				tableNames.insert(batch.begin(), batch.end());
 
 				batch.resize(BATCH_SIZE);
 			}
@@ -585,13 +587,33 @@ namespace db {
 	}
 
 	void Database::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		std::unordered_set< std::string > tableNames = getExistingTables();
 		std::unordered_set< std::string > tablesToBeRemoved;
+		tablesToBeRemoved.reserve(tableNames.size());
+
+		// Rename all existing tables
+		try {
+			for (const std::string &currentTableName : tableNames) {
+				m_sql << "ALTER TABLE \"" << currentTableName << "\" RENAME TO \"" << currentTableName
+					  << OLD_TABLE_SUFFIX << "\"";
+
+				tablesToBeRemoved.insert(currentTableName + OLD_TABLE_SUFFIX);
+			}
+		} catch (const soci::soci_error &e) {
+			throw AccessException(std::string("Failed at renaming table: ") + e.what());
+		}
 
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable) {
-				std::unordered_set< std::string > tables = currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+				assert(tableNames.find(currentTable->getName()) != tableNames.end());
+				assert(tablesToBeRemoved.find(currentTable->getName()) == tablesToBeRemoved.end());
 
-				tablesToBeRemoved.insert(tables.begin(), tables.end());
+				// First make sure the new table is created
+				currentTable->create();
+
+				// Then issue a migration step in which the old data is imported into the new one (potentially
+				// transforming its format)
+				currentTable->migrate(fromSchemeVersion, toSchemeVersion);
 			}
 		}
 
