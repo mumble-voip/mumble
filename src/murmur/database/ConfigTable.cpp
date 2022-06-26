@@ -56,6 +56,107 @@ namespace server {
 			addForeignKey(fk);
 		}
 
+		std::string ConfigTable::getConfig(unsigned int serverID, const std::string &configName,
+										   const std::string &defaultValue) {
+			try {
+				std::string value = defaultValue;
+
+				soci::transaction transaction(m_sql);
+
+				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
+					  << " = :id AND " << column::key << " = :key",
+					soci::use(serverID), soci::use(configName), soci::into(value);
+
+				transaction.commit();
+
+				return value;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting config \"" + configName
+															  + "\" for server with ID " + std::to_string(serverID)));
+			}
+		}
+
+		void ConfigTable::setConfig(unsigned int serverID, const std::string &configName, const std::string &value) {
+			try {
+				soci::transaction transaction(m_sql);
+
+				// Perform an "upsert" operation - insert if it doesn't exist yet, insert otherwise
+				m_sql << "IF EXISTS (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND "
+					  << column::key << " = :key)"
+					  << "BEGIN UPDATE TABLE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
+					  << column::server_id << " = :id AND " << column::key << " = :key END"
+					  << "ELSE BEGIN INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::key
+					  << ", " << column::value << ") VALUES (:id, :key, :value) END",
+					soci::use(serverID, "id"), soci::use(configName, "key"), soci::use(value, "value");
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at setting config \"" + configName
+															  + "\" for server with ID " + std::to_string(serverID)));
+			}
+		}
+
+		void ConfigTable::clearConfig(unsigned int serverID, const std::string &configName) {
+			try {
+				soci::transaction transaction(m_sql);
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND " << column::key
+					  << " = :key",
+					soci::use(serverID), soci::use(configName);
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at clearing config \"" + configName
+															  + "\" for server with ID " + std::to_string(serverID)));
+			}
+		}
+
+		std::unordered_map< std::string, std::string > ConfigTable::getAllConfigs(unsigned int serverID) {
+			std::unordered_map< std::string, std::string > configs;
+
+			try {
+				constexpr unsigned int BATCH_SIZE = 40;
+				std::vector< std::pair< std::string, std::string > > batch;
+				batch.resize(BATCH_SIZE);
+
+				soci::transaction transaction(m_sql);
+
+				soci::statement stmt = (m_sql.prepare << "SELECT " << column::key << ", " << column::value << " WHERE "
+													  << column::server_id << " = :id",
+										soci::use(serverID), soci::into(batch));
+
+				stmt.execute(false);
+
+				while (stmt.fetch()) {
+					configs.reserve(configs.size() + batch.size());
+					configs.insert(batch.begin(), batch.end());
+
+					batch.resize(BATCH_SIZE);
+				}
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting all configs for server with ID "
+															  + std::to_string(serverID)));
+			}
+
+			return configs;
+		}
+
+		void ConfigTable::clearAllConfigs(unsigned int serverID) {
+			try {
+				soci::transaction transaction(m_sql);
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(serverID);
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at clearing all configs for server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
+
 		void ConfigTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
