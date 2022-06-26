@@ -64,15 +64,15 @@ namespace server {
 			try {
 				if (fromSchemeVersion < 4) {
 					// In v4 we renamed the column "keystring" -> "key"
-					m_sql << "INSERT INTO \"config\" (server_id, key, value) SELECT server_id, keystring, "
-							 "value FROM \"config"
+					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::key << ", "
+						  << column::value << ") SELECT server_id, keystring, value FROM \"config"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 
 				} else if (fromSchemeVersion < 9) {
 					// In v9 we renamed the columns "key" -> "config_name" and "value" -> "config_value"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"config\" (server_id, config_name, config_value) SELECT server_id, key, "
-							 "value FROM \"config"
+					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::key << ", "
+						  << column::value << ") SELECT server_id, key, value FROM \"config"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

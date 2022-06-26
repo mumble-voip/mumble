@@ -90,17 +90,20 @@ namespace server {
 
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
-							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
+								  << column::message << ", " << column::date << ") "
 								  << "SELECT server_id, msg, strftime('%s', msgtime) FROM \"slog"
 								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
 						case ::mdb::Backend::MySQL:
-							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
+								  << column::message << ", " << column::date << ") "
 								  << "SELECT server_id, msg, UNIX_TIMESTAMP(msgtime) FROM \"slog"
 								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
 						case ::mdb::Backend::PostgreSQL:
-							m_sql << "INSERT INTO \"server_logs\" (server_id, message, message_date) "
+							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
+								  << column::message << ", " << column::date << ") "
 								  << "SELECT server_id, msg, EXTRACT(EPOCH FROM msgtime) FROM \"slog"
 								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 							break;
