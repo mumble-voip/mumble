@@ -83,7 +83,7 @@ namespace server {
 		}
 
 		void ServerTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
-			// Note: Always hard-code table and column names in this function in order to ensure that this
+			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
 			assert(fromSchemeVersion < toSchemeVersion);
 
@@ -91,8 +91,8 @@ namespace server {
 				if (fromSchemeVersion < 9) {
 					// In v9 we renamed this table from "servers" to "virtual_servers"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"virtual_servers\" (server_id) SELECT server_id FROM \"servers"
-						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id
+						  << ") SELECT server_id FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
