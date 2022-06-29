@@ -81,13 +81,20 @@ namespace server {
 				soci::transaction transaction(m_sql);
 
 				// Perform an "upsert" operation - insert if it doesn't exist yet, insert otherwise
-				m_sql << "IF EXISTS (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND "
-					  << column::key << " = :key)"
-					  << "BEGIN UPDATE TABLE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
-					  << column::server_id << " = :id AND " << column::key << " = :key END"
-					  << "ELSE BEGIN INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::key
-					  << ", " << column::value << ") VALUES (:id, :key, :value) END",
-					soci::use(serverID, "id"), soci::use(configName, "key"), soci::use(value, "value");
+				int exists = 0;
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND " << column::key
+					  << " = :key",
+					soci::use(serverID), soci::use(configName), soci::into(exists);
+
+				if (exists) {
+					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
+						  << column::server_id << " = :id AND " << column::key << " = :key",
+						soci::use(value), soci::use(serverID), soci::use(configName);
+				} else {
+					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::key << ", "
+						  << column::value << ") VALUES (:id, :key, :value)",
+						soci::use(serverID), soci::use(configName), soci::use(value);
+				}
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -115,23 +122,22 @@ namespace server {
 			std::unordered_map< std::string, std::string > configs;
 
 			try {
-				constexpr unsigned int BATCH_SIZE = 40;
-				std::vector< std::pair< std::string, std::string > > batch;
-				batch.resize(BATCH_SIZE);
+				soci::row row;
 
 				soci::transaction transaction(m_sql);
 
-				soci::statement stmt = (m_sql.prepare << "SELECT " << column::key << ", " << column::value << " WHERE "
-													  << column::server_id << " = :id",
-										soci::use(serverID), soci::into(batch));
+				soci::statement stmt = (m_sql.prepare << "SELECT " << column::key << ", " << column::value << " FROM \""
+													  << NAME << "\" WHERE " << column::server_id << " = :id",
+										soci::use(serverID), soci::into(row));
 
 				stmt.execute(false);
 
 				while (stmt.fetch()) {
-					configs.reserve(configs.size() + batch.size());
-					configs.insert(batch.begin(), batch.end());
+					assert(row.size() == 2);
+					assert(row.get_properties(0).get_data_type() == soci::dt_string);
+					assert(row.get_properties(1).get_data_type() == soci::dt_string);
 
-					batch.resize(BATCH_SIZE);
+					configs.insert({ row.get< std::string >(0), row.get< std::string >(1) });
 				}
 
 				transaction.commit();
@@ -141,7 +147,7 @@ namespace server {
 			}
 
 			return configs;
-		}
+		} // namespace db
 
 		void ConfigTable::clearAllConfigs(unsigned int serverID) {
 			try {

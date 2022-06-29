@@ -6,6 +6,7 @@
 #include "ServerDatabase.h"
 #include "LogTable.h"
 #include "ServerTable.h"
+#include "ConfigTable.h"
 
 #include <cassert>
 
@@ -20,6 +21,7 @@ namespace server {
 				MetaTable, // This table is always present and is created by the base class
 				ServerTable,
 				LogTable,
+				ConfigTable,
 			};
 		}
 
@@ -36,6 +38,9 @@ namespace server {
 			id = addTable(std::make_unique< LogTable >(m_sql, m_backend, getServerTable()));
 			assert(id == TableIndex::LogTable);
 
+			id = addTable(std::make_unique< ConfigTable >(m_sql, m_backend, getServerTable()));
+			assert(id == TableIndex::ConfigTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -49,6 +54,7 @@ namespace server {
 
 		GET_TABLE_IMPL(ServerTable)
 		GET_TABLE_IMPL(LogTable)
+		GET_TABLE_IMPL(ConfigTable)
 
 	} // namespace db
 } // namespace server
