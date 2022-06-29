@@ -9,9 +9,10 @@
 #include "database/AccessException.h"
 #include "database/Backend.h"
 
+#include "database/ConfigTable.h"
+#include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
-#include "database/LogTable.h"
 
 #include "TestUtils.h"
 
@@ -19,6 +20,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 namespace mdb  = ::mumble::db;
@@ -70,6 +72,7 @@ class ServerDatabaseTest : public QObject {
 private slots:
 	void serverTable_server_management();
 	void logTable_logMessage();
+	void configTable_general();
 };
 
 /**
@@ -136,6 +139,62 @@ void ServerDatabaseTest::logTable_logMessage() {
 	db.getLogTable().logMessage(existingServerID, "I am a test message");
 
 	db.getLogTable().logMessage(existingServerID, "I am a test message containing some unicode characters: ✅ 👀");
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::configTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 1;
+	unsigned int nonExistingServerID = 5;
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+
+	msdb::ConfigTable &configTable = db.getConfigTable();
+
+	std::string obtainedValue = configTable.getConfig(existingServerID, "IDontExist", "DefaultValue");
+	std::string expectedValue = "DefaultValue";
+	QCOMPARE(obtainedValue, expectedValue);
+
+	QVERIFY(configTable.getAllConfigs(existingServerID).empty());
+
+	configTable.setConfig(existingServerID, "miau", "test");
+
+	obtainedValue = configTable.getConfig(existingServerID, "miau");
+	expectedValue = std::string("test");
+	QCOMPARE(obtainedValue, expectedValue);
+
+	obtainedValue = configTable.getConfig(nonExistingServerID, "miau", "default");
+	expectedValue = std::string("default");
+	QCOMPARE(obtainedValue, expectedValue);
+
+	configTable.setConfig(existingServerID, "miau", "different");
+	obtainedValue = configTable.getConfig(existingServerID, "miau");
+	expectedValue = std::string("different");
+	QCOMPARE(obtainedValue, expectedValue);
+
+
+	configTable.setConfig(existingServerID, "theKey", "theValue");
+
+	obtainedValue = configTable.getConfig(existingServerID, "theKey");
+	expectedValue = "theValue";
+	QCOMPARE(obtainedValue, expectedValue);
+
+	configTable.clearConfig(existingServerID, "theKey");
+	obtainedValue = configTable.getConfig(existingServerID, "theKey", "theDefault");
+	expectedValue = "theDefault";
+	QCOMPARE(obtainedValue, expectedValue);
+
+
+	std::unordered_map< std::string, std::string > allConfigs;
+	allConfigs["miau"] = "different";
+
+	QCOMPARE(configTable.getAllConfigs(existingServerID), allConfigs);
+
+	configTable.clearAllConfigs(existingServerID);
+	QVERIFY(configTable.getAllConfigs(existingServerID).empty());
 
 	END_TEST_CASE
 }
