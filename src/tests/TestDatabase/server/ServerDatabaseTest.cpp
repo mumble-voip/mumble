@@ -8,8 +8,11 @@
 
 #include "database/AccessException.h"
 #include "database/Backend.h"
+#include "database/NoDataException.h"
 
+#include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
+#include "database/DBChannel.h"
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
@@ -73,6 +76,7 @@ private slots:
 	void serverTable_server_management();
 	void logTable_logMessage();
 	void configTable_general();
+	void channelTable_general();
 };
 
 /**
@@ -195,6 +199,71 @@ void ServerDatabaseTest::configTable_general() {
 
 	configTable.clearAllConfigs(existingServerID);
 	QVERIFY(configTable.getAllConfigs(existingServerID).empty());
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::channelTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 1;
+	unsigned int nonExistingServerID = 5;
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+
+	::msdb::ChannelTable &channelTable = db.getChannelTable();
+
+	QVERIFY(!channelTable.channelExists(existingServerID, 5));
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.serverID   = existingServerID;
+	rootChannel.channelID  = ::msdb::ChannelTable::ROOT_CHANNEL_ID;
+	rootChannel.parentID   = rootChannel.channelID;
+	rootChannel.name       = "Root";
+	rootChannel.inheritACL = false;
+
+	QVERIFY(!channelTable.channelExists(rootChannel));
+
+	channelTable.addChannel(rootChannel);
+
+	QVERIFY(channelTable.channelExists(rootChannel));
+
+	::msdb::DBChannel fetchedData =
+		channelTable.getChannelData(existingServerID, ::msdb::ChannelTable::ROOT_CHANNEL_ID);
+	QCOMPARE(fetchedData, rootChannel);
+
+	// Referencing a non-existing server ID should throw an exception (as should using an invalid channel ID)
+	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, ::msdb::ChannelTable::ROOT_CHANNEL_ID),
+							 ::mdb::NoDataException);
+	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(existingServerID, 5), ::mdb::NoDataException);
+
+	::msdb::DBChannel other;
+	other.serverID   = nonExistingServerID;
+	other.channelID  = channelTable.getFreeChannelID(existingServerID);
+	other.parentID   = rootChannel.channelID;
+	other.name       = "Other channel with ❤";
+	other.inheritACL = true;
+
+	// other references a non-existing server, which should result in an exception being thrown
+	QVERIFY_EXCEPTION_THROWN(channelTable.addChannel(other), ::mdb::AccessException);
+
+	other.serverID = existingServerID;
+
+	QVERIFY(rootChannel != other);
+
+	channelTable.addChannel(other);
+
+	::msdb::DBChannel updatedOther = other;
+	updatedOther.name              = "New name❗";
+
+	QVERIFY(other != updatedOther);
+
+	channelTable.updateChannel(updatedOther);
+
+	fetchedData = channelTable.getChannelData(updatedOther.serverID, updatedOther.channelID);
+	QCOMPARE(fetchedData, updatedOther);
+
 
 	END_TEST_CASE
 }
