@@ -29,3 +29,21 @@
 		- NOT NULL
 	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
 	* PRIMARY KEY: (server_id, config_name)
+
+- channels:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- parent_id
+		- INTEGER
+	- channel_name
+		- VARCHAR(255)
+		- NOT NULL
+	- inherit_acl
+		- INTEGER
+	* PRIMARY KEY (server_id, channel_id)
+	* FOREIGN KEY: (server_id, parent_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
