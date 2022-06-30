@@ -260,7 +260,10 @@ namespace db {
 				}
 
 				for (const ForeignKey &key : current->getForeignKeys()) {
-					referencedTables.insert(key.getForeignTableName());
+					// Ignore self-references (the RDMS should be able to take care of those)
+					if (key.getForeignTableName() != current->getName()) {
+						referencedTables.insert(key.getForeignTableName());
+					}
 				}
 			}
 
