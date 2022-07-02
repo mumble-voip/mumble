@@ -53,6 +53,8 @@ namespace server {
 			DBChannel getChannelData(unsigned int serverID, unsigned int channelID);
 
 			unsigned int getFreeChannelID(unsigned int serverID);
+
+			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 
 	} // namespace db
