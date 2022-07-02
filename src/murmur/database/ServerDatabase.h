@@ -17,6 +17,7 @@ namespace server {
 		class LogTable;
 		class ConfigTable;
 		class ChannelTable;
+		class ChannelPropertyTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -36,6 +37,7 @@ namespace server {
 			LogTable &getLogTable();
 			ConfigTable &getConfigTable();
 			ChannelTable &getChannelTable();
+			ChannelPropertyTable &getChannelPropertyTable();
 
 		protected:
 			void setupStandardTables() override;

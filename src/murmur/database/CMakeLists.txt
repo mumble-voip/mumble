@@ -13,6 +13,7 @@ set(TABLE_IMPLEMENTATIONS
 	"LogTable.cpp"
 	"ConfigTable.cpp"
 	"ChannelTable.cpp"
+	"ChannelPropertyTable.cpp"
 )
 
 foreach(CURRENT_TABLE IN LISTS TABLE_IMPLEMENTATIONS)

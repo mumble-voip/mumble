@@ -47,3 +47,19 @@
 	* PRIMARY KEY (server_id, channel_id)
 	* FOREIGN KEY: (server_id, parent_id) REFERENCES channels(server_id, channel_id)
 	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_properties
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- property_key
+		- INTEGER
+		- NOT NULL
+	- property_value
+		- TEXT
+		- NOT NULL
+	* PRIMARY KEY: (server_id, channel_id, property_key)
+	* FOREIGN KEY: (server_id, channel_id, key) REFERENCES channels(server_id, channel_id)

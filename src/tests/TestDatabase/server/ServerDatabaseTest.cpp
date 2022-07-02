@@ -16,6 +16,7 @@
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
+#include "database/ChannelPropertyTable.h"
 
 #include "TestUtils.h"
 
@@ -77,6 +78,7 @@ private slots:
 	void logTable_logMessage();
 	void configTable_general();
 	void channelTable_general();
+	void channelPropertyTable_general();
 };
 
 /**
@@ -278,6 +280,31 @@ void ServerDatabaseTest::channelTable_general() {
 	QCOMPARE(fetchedData, updatedOther);
 
 
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::channelPropertyTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 0;
+	unsigned int nonExistingServerID = 5;
+	unsigned int existingChannelID = 0;
+	unsigned int nonExistingChannelID = 5;
+	::msdb::DBChannel channel;
+	channel.serverID = existingServerID;
+	channel.channelID = existingChannelID;
+	channel.parentID = channel.channelID;
+	channel.name = "Test channel";
+	channel.inheritACL = true;
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(channel);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(channel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+	
 	END_TEST_CASE
 }
 
