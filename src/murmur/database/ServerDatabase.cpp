@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerDatabase.h"
+#include "ChannelPropertyTable.h"
 #include "ChannelTable.h"
 #include "ConfigTable.h"
 #include "LogTable.h"
@@ -24,6 +25,7 @@ namespace server {
 				LogTable,
 				ConfigTable,
 				ChannelTable,
+				ChannelPropertyTable,
 			};
 		}
 
@@ -46,6 +48,9 @@ namespace server {
 			id = addTable(std::make_unique< ChannelTable >(m_sql, m_backend, getServerTable()));
 			assert(id == TableIndex::ChannelTable);
 
+			id = addTable(std::make_unique< ChannelPropertyTable >(m_sql, m_backend, getChannelTable()));
+			assert(id == TableIndex::ChannelPropertyTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -62,6 +67,7 @@ namespace server {
 		GET_TABLE_IMPL(LogTable)
 		GET_TABLE_IMPL(ConfigTable)
 		GET_TABLE_IMPL(ChannelTable)
+		GET_TABLE_IMPL(ChannelPropertyTable)
 
 	} // namespace db
 } // namespace server
