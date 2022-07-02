@@ -116,6 +116,12 @@ void ServerDatabaseTest::serverTable_server_management() {
 
 	::msdb::ServerTable &table = db.getServerTable();
 
+	QVERIFY(!table.serverExists(0));
+	table.addServer(0);
+	QVERIFY(table.serverExists(0));
+	// Some RMDBs (looking at you MySQL!) will by default treat an explicit value of zero as "please auto-generate the next
+	// number in this auto_increment column" which usually happens to be 1.
+	QVERIFY(!table.serverExists(1));
 	table.addServer(1);
 	QVERIFY(table.serverExists(1));
 	QVERIFY(!table.serverExists(2));
