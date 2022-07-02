@@ -43,7 +43,11 @@ namespace server {
 
 		void ServerTable::addServer(unsigned int id) {
 			try {
+				soci::transaction transaction(m_sql);
+
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ") VALUES (:id)", soci::use(id);
+
+				transaction.commit();
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at adding server with ID " + std::to_string(id)));
 			}
@@ -102,17 +106,6 @@ namespace server {
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}
-		}
-
-		void ServerTable::create() {
-			// First call the original create function to actually create the table
-			::mdb::Table::create();
-
-			// Now insert a valid entry. Since we just created this table from scratch, we know that
-			// there does not exist another virtual server yet, so the ID of the first virtual server
-			// to be created (the one that is currently initializing the DB) has to have ID 1.
-			addServer(1);
-			// TODO: Check if this is not better done by the init code of the server itself
 		}
 
 	} // namespace db

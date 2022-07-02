@@ -116,6 +116,7 @@ void ServerDatabaseTest::serverTable_server_management() {
 
 	::msdb::ServerTable &table = db.getServerTable();
 
+	table.addServer(1);
 	QVERIFY(table.serverExists(1));
 	QVERIFY(!table.serverExists(2));
 	table.addServer(2);
@@ -135,6 +136,8 @@ void ServerDatabaseTest::logTable_logMessage() {
 	unsigned int existingServerID    = 1;
 	unsigned int nonExistingServerID = 5;
 
+	db.getServerTable().addServer(existingServerID);
+
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
 
@@ -152,6 +155,8 @@ void ServerDatabaseTest::configTable_general() {
 
 	unsigned int existingServerID    = 1;
 	unsigned int nonExistingServerID = 5;
+
+	db.getServerTable().addServer(existingServerID);
 
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
@@ -208,6 +213,8 @@ void ServerDatabaseTest::channelTable_general() {
 
 	unsigned int existingServerID    = 1;
 	unsigned int nonExistingServerID = 5;
+
+	db.getServerTable().addServer(existingServerID);
 
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
