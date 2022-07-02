@@ -515,9 +515,10 @@ namespace db {
 					break;
 				}
 				case Backend::MySQL: {
-					// Make MySQL as conforming to ANSI standard SQL as possible
+					// Make MySQL as conforming to ANSI standard SQL as possible and disable the "feature" of producing the next
+					// auto-incremented value in an auto_increment column when explicitly inserting zero.
 					m_sql << "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE";
-					m_sql << "SET sql_mode = 'ANSI'";
+					m_sql << "SET sql_mode = 'ANSI,NO_AUTO_VALUE_ON_ZERO'";
 
 					// Ensure that MySQL uses proper Unicode character encoding (note that "utf8" isn't actual proper
 					// UTF8, so we have to use the fixed version "utf8mb4" instead
