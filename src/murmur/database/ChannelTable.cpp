@@ -213,7 +213,28 @@ namespace server {
 			}
 		}
 
+		void ChannelTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+			// Note: Always hard-code old table and column names in this function in order to ensure that this
+			// migration path always stays the same regardless of whether the respective named constants change.
+			assert(fromSchemeVersion < toSchemeVersion);
 
+			try {
+				if (fromSchemeVersion < 9) {
+					// In v9 we renamed columns "name" -> "channel_name" and "inheritacl" -> "inherit_acl"
+					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
+						  << ", " << column::parent_id << ", " << column::name << ", " << column::inherit_acl
+						  << ") SELECT server_id, channel_id, parent_id, name, inheritacl FROM \"channels"
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+				} else {
+					// Use default implementation to handle migration without change of format
+					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+				}
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException(
+					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
+					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+			}
+		}
 
 	} // namespace db
 } // namespace server
