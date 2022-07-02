@@ -32,7 +32,6 @@ namespace server {
 			bool serverExists(unsigned int id) const;
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
-			void create() override;
 		};
 
 	} // namespace db
