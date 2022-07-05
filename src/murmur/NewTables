@@ -63,3 +63,38 @@
 		- NOT NULL
 	* PRIMARY KEY: (server_id, channel_id, property_key)
 	* FOREIGN KEY: (server_id, channel_id, key) REFERENCES channels(server_id, channel_id)
+
+- users
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- user_name
+		- VARCHAR(255)
+		- NOT NULL
+	- password_hash
+		- VARCHAR(128)
+		* DEFAULT: NULL
+	- salt
+		- VARCHAR(128)
+		* DEFAULT: NULL
+	- kdf_iterations
+		- INTEGER
+		* DEFAULT: NULL
+	- last_channel_id
+		- INTEGER
+		- NOT NULL
+	- texture
+		- BLOB
+	- last_active
+		- INTEGER (epoch time)
+	- last_disconnect
+		- INTEGER (epoch time)
+	* FOREIGN KEY (server_id, last_channel_id) REFERENCES channels(server_id, channel_id)
+	* INDEX (server_id, last_channel_id)
+	* PRIMARY KEY (server_id, user_id)
+	* UNIQUE INDEX (server_id, name)
+	*? TRIGGER AFTER UPDATE OF lastchannel ON users: SET last_active = NOW() WHERE user_id = old.user_id AND server_id = old.server_id
+	* FOREIGN KEY server_id REFERENCES servers(server_id)
