@@ -10,13 +10,13 @@
 #include "database/Backend.h"
 #include "database/NoDataException.h"
 
+#include "database/ChannelPropertyTable.h"
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
 #include "database/DBChannel.h"
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
-#include "database/ChannelPropertyTable.h"
 
 #include "TestUtils.h"
 
@@ -121,8 +121,8 @@ void ServerDatabaseTest::serverTable_server_management() {
 	QVERIFY(!table.serverExists(0));
 	table.addServer(0);
 	QVERIFY(table.serverExists(0));
-	// Some RMDBs (looking at you MySQL!) will by default treat an explicit value of zero as "please auto-generate the next
-	// number in this auto_increment column" which usually happens to be 1.
+	// Some RMDBs (looking at you MySQL!) will by default treat an explicit value of zero as "please auto-generate the
+	// next number in this auto_increment column" which usually happens to be 1.
 	QVERIFY(!table.serverExists(1));
 	table.addServer(1);
 	QVERIFY(table.serverExists(1));
@@ -286,15 +286,15 @@ void ServerDatabaseTest::channelTable_general() {
 void ServerDatabaseTest::channelPropertyTable_general() {
 	BEGIN_TEST_CASE
 
-	unsigned int existingServerID    = 0;
-	unsigned int nonExistingServerID = 5;
-	unsigned int existingChannelID = 0;
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int existingChannelID    = 0;
 	unsigned int nonExistingChannelID = 5;
 	::msdb::DBChannel channel;
-	channel.serverID = existingServerID;
-	channel.channelID = existingChannelID;
-	channel.parentID = channel.channelID;
-	channel.name = "Test channel";
+	channel.serverID   = existingServerID;
+	channel.channelID  = existingChannelID;
+	channel.parentID   = channel.channelID;
+	channel.name       = "Test channel";
 	channel.inheritACL = true;
 
 	db.getServerTable().addServer(existingServerID);
@@ -304,7 +304,61 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
 	QVERIFY(db.getChannelTable().channelExists(channel));
 	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
-	
+
+	::msdb::ChannelPropertyTable &table = db.getChannelPropertyTable();
+
+	QVERIFY(!table.isPropertySet(existingChannelID, existingChannelID, ::msdb::ChannelProperty::Description));
+
+	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, "Random description");
+	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers, std::to_string(5));
+
+	QCOMPARE(
+		table.getProperty< std::string >(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description),
+		std::string("Random description"));
+	QCOMPARE(table.getProperty< int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers), 5);
+	QCOMPARE(table.getProperty< unsigned int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers),
+			 5);
+	// By default, querying non-existing values or using a wrong type will result in an exception
+	QVERIFY_EXCEPTION_THROWN(
+		table.getProperty< int >(nonExistingServerID, existingChannelID, ::msdb::ChannelProperty::Description),
+		::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(
+		table.getProperty< int >(existingServerID, nonExistingChannelID, ::msdb::ChannelProperty::Description),
+		::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(
+		table.getProperty< int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position),
+		::mdb::AccessException);
+	// However, we can instead request for a default value to be returned instead
+	int fetchedValue =
+		table.getProperty< int, false >(existingServerID, nonExistingChannelID, ::msdb::ChannelProperty::Position, 42);
+	QCOMPARE(fetchedValue, 42);
+	fetchedValue =
+		table.getProperty< int, false >(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, 42);
+	QCOMPARE(fetchedValue, 42);
+
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description));
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
+
+	table.clearProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description);
+
+	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description));
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
+
+	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position, std::to_string(12));
+
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position));
+
+	table.clearAllProperties(nonExistingServerID, nonExistingChannelID);
+
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
+	QVERIFY(table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position));
+
+	table.clearAllProperties(existingServerID, existingChannelID);
+
+	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
+	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position));
+
 	END_TEST_CASE
 }
 

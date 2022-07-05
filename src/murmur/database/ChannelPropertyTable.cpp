@@ -137,7 +137,7 @@ namespace server {
 				soci::transaction transaction(m_sql);
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID AND" << column::key << " = :key",
+					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
 					soci::use(serverID), soci::use(channelID), soci::use(static_cast< int >(property));
 
 				transaction.commit();
