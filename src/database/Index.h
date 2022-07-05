@@ -18,8 +18,13 @@ namespace db {
 
 	class Index {
 	public:
-		Index(const std::string &name, const std::vector< std::string > &columns);
-		Index(const std::string &name, std::vector< std::string > &&columns);
+		enum Flag {
+			NONE = 0,
+			UNIQUE = 1 << 0,
+		};
+
+		Index(const std::string &name, const std::vector< std::string > &columns, int flags = NONE);
+		Index(const std::string &name, std::vector< std::string > &&columns, int flags);
 
 		const std::string &getName() const;
 		const std::vector< std::string > &getColumnNames() const;
@@ -33,6 +38,7 @@ namespace db {
 	protected:
 		std::string m_name;
 		std::vector< std::string > m_columns;
+		int m_flags = 0;
 	};
 
 } // namespace db

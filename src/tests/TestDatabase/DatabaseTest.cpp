@@ -626,6 +626,17 @@ void DatabaseTest::indices() {
 		// Re-adding without applying and the removing with applying should now error with an exception
 		table->addIndex(singleIndex, false);
 		QVERIFY_EXCEPTION_THROWN(table->removeIndex(singleIndex, true), AccessException);
+		table->removeIndex(singleIndex, false);
+
+
+		// Unique indices
+		Index uniqueIndex("unique_idx", { colA->getName() });
+		table->addIndex(uniqueIndex, true);
+		table->removeIndex(uniqueIndex, true);
+
+		Index multiUniqueIndex("multi_unique_idx", { colA->getName(), colB->getName() });
+		table->addIndex(multiUniqueIndex, true);
+		table->removeIndex(multiUniqueIndex, true);
 	}
 }
 
