@@ -47,10 +47,11 @@ namespace server {
 
 				if (!success) {
 					if (throwOnError) {
+						std::string suffix = strProp.empty() ? " (fetched property turned out to be empty/non-existent)" : "";
 						throw ::mumble::db::AccessException("Failed to perform type conversion for property "
 															+ std::to_string(static_cast< int >(property))
 															+ " for channel with ID " + std::to_string(channelID)
-															+ " on server with ID " + std::to_string(serverID));
+															+ " on server with ID " + std::to_string(serverID) + suffix);
 					} else {
 						return defaultValue;
 					}
