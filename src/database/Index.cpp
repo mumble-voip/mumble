@@ -11,10 +11,10 @@
 namespace mumble {
 namespace db {
 
-	Index::Index(const std::string &name, const std::vector< std::string > &columns)
-		: m_name(name), m_columns(columns) {}
-	Index::Index(const std::string &name, std::vector< std::string > &&columns)
-		: m_name(name), m_columns(std::move(columns)) {}
+	Index::Index(const std::string &name, const std::vector< std::string > &columns, int flags)
+		: m_name(name), m_columns(columns), m_flags(flags) {}
+	Index::Index(const std::string &name, std::vector< std::string > &&columns, int flags)
+		: m_name(name), m_columns(std::move(columns)), m_flags(flags) {}
 
 	const std::string &Index::getName() const { return m_name; }
 
@@ -24,7 +24,11 @@ namespace db {
 		assert(!m_name.empty());
 		assert(!m_columns.empty());
 
-		std::string query = "CREATE INDEX \"" + m_name + "\" ON \"" + table.getName() + "\" (";
+		std::string query = "CREATE ";
+		if (m_flags & Flag::UNIQUE) {
+			query += "UNIQUE ";
+		}
+		query += "INDEX \"" + m_name + "\" ON \"" + table.getName() + "\" (";
 
 		for (std::size_t i = 0; i < m_columns.size(); ++i) {
 			query += m_columns[i];
