@@ -317,7 +317,7 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 		std::string("Random description"));
 	QCOMPARE(table.getProperty< int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers), 5);
 	QCOMPARE(table.getProperty< unsigned int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers),
-			 5);
+			 static_cast<unsigned int>(5));
 	// By default, querying non-existing values or using a wrong type will result in an exception
 	QVERIFY_EXCEPTION_THROWN(
 		table.getProperty< int >(nonExistingServerID, existingChannelID, ::msdb::ChannelProperty::Description),
