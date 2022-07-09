@@ -510,55 +510,47 @@ void GlobalShortcutWin::on_keyboardMessage(const uint16_t flags, uint16_t scanCo
 }
 
 void GlobalShortcutWin::on_mouseMessage(const uint16_t flags, const uint16_t data) {
-	InputMouse input;
-	bool down;
-
-	switch (flags) {
-		case RI_MOUSE_BUTTON_1_DOWN:
-			input = InputMouse::Left;
-			down  = true;
-			break;
-		case RI_MOUSE_BUTTON_1_UP:
-			input = InputMouse::Left;
-			down  = false;
-			break;
-		case RI_MOUSE_BUTTON_2_DOWN:
-			input = InputMouse::Right;
-			down  = true;
-			break;
-		case RI_MOUSE_BUTTON_2_UP:
-			input = InputMouse::Right;
-			down  = false;
-			break;
-		case RI_MOUSE_BUTTON_3_DOWN:
-			input = InputMouse::Middle;
-			down  = true;
-			break;
-		case RI_MOUSE_BUTTON_3_UP:
-			input = InputMouse::Middle;
-			down  = false;
-			break;
-		case RI_MOUSE_BUTTON_4_DOWN:
-			input = InputMouse::Side_1;
-			down  = true;
-			break;
-		case RI_MOUSE_BUTTON_4_UP:
-			input = InputMouse::Side_1;
-			down  = false;
-			break;
-		case RI_MOUSE_BUTTON_5_DOWN:
-			input = InputMouse::Side_2;
-			down  = true;
-			break;
-		case RI_MOUSE_BUTTON_5_UP:
-			input = InputMouse::Side_2;
-			down  = false;
-			break;
-		default:
-			return;
+	// Multiple mouse transitions can be contained in a single message.
+	// See https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-rawmouse.
+	if (flags & RI_MOUSE_BUTTON_1_DOWN) {
+		handleButton(QVariant::fromValue(InputMouse::Left), true);
 	}
 
-	handleButton(QVariant::fromValue(input), down);
+	if (flags & RI_MOUSE_BUTTON_1_UP) {
+		handleButton(QVariant::fromValue(InputMouse::Left), false);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_2_DOWN) {
+		handleButton(QVariant::fromValue(InputMouse::Right), true);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_2_UP) {
+		handleButton(QVariant::fromValue(InputMouse::Right), false);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_3_DOWN) {
+		handleButton(QVariant::fromValue(InputMouse::Middle), true);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_3_UP) {
+		handleButton(QVariant::fromValue(InputMouse::Middle), false);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_4_DOWN) {
+		handleButton(QVariant::fromValue(InputMouse::Side_1), true);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_4_UP) {
+		handleButton(QVariant::fromValue(InputMouse::Side_1), false);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_5_DOWN) {
+		handleButton(QVariant::fromValue(InputMouse::Side_2), true);
+	}
+
+	if (flags & RI_MOUSE_BUTTON_5_UP) {
+		handleButton(QVariant::fromValue(InputMouse::Side_2), false);
+	}
 }
 
 GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE deviceHandle) {
