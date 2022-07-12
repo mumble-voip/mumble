@@ -854,6 +854,10 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::DBus)
 endif()
 
+if(tracy)
+    target_compile_definitions(mumble_client PRIVATE "USE_TRACY")
+endif()
+
 if(translations)
 	# Glob for all translation files in the source dir
 	file(GLOB TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ts")

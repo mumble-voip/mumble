@@ -14,7 +14,11 @@
 #include <unordered_map>
 #include <vector>
 
+#ifdef USE_TRACY
 #include <Tracy.hpp>
+#else
+#define ZoneScoped
+#endif
 
 class AudioReceiver {
 public:

@@ -35,9 +35,13 @@
 
 #include <boost/bind/bind.hpp>
 
+#ifdef USE_TRACY
 #include "TracyConstants.h"
 #include <Tracy.hpp>
 #include <TracyC.h>
+#else
+#define ZoneScoped
+#endif
 
 #include <algorithm>
 #include <vector>
@@ -75,7 +79,9 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 
 
 Server::Server(int snum, QObject *p) : QThread(p) {
+#ifdef USE_TRACY
 	tracy::SetThreadName("Main");
+#endif
 
 	bValid     = true;
 	iServerNum = snum;
@@ -760,7 +766,9 @@ void Server::udpActivated(int socket) {
 }
 
 void Server::run() {
+#ifdef USE_TRACY
 	tracy::SetThreadName("Audio");
+#endif
 
 	qint32 len;
 #if defined(__LP64__)
@@ -802,7 +810,9 @@ void Server::run() {
 	++nfds;
 
 	while (bRunning) {
+#ifdef USE_TRACY
 		FrameMarkNamed(TracyConstants::UDP_FRAME);
+#endif
 
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
@@ -876,8 +886,10 @@ void Server::run() {
 #	endif
 #endif
 
+#ifdef USE_TRACY
 				// Capture only the processing without the polling
 				ZoneScopedN(TracyConstants::UDP_PACKET_PROCESSING_ZONE);
+#endif
 
 				if (len == 0) {
 					break;
@@ -911,7 +923,9 @@ void Server::run() {
 				// This may be a general ping requesting server details, unencrypted.
 				if (bAllowPing && m_udpDecoder.decodePing(gsl::span< Mumble::Protocol::byte >(encrypt, len))
 					&& m_udpDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Ping) {
+#ifdef USE_TRACY
 					ZoneScopedN(TracyConstants::PING_PROCESSING_ZONE);
+#endif
 
 					gsl::span< const Mumble::Protocol::byte > encodedPing =
 						handlePing(m_udpDecoder, m_udpPingEncoder, true);
@@ -937,7 +951,9 @@ void Server::run() {
 						continue;
 					}
 				} else {
+#ifdef USE_TRACY
 					ZoneScopedN(TracyConstants::DECRYPT_UNKNOWN_PEER_ZONE);
+#endif
 
 					// Unknown peer
 					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
@@ -990,7 +1006,9 @@ void Server::run() {
 							break;
 						}
 						case Mumble::Protocol::UDPMessageType::Ping: {
+#ifdef USE_TRACY
 							ZoneScopedN(TracyConstants::UDP_PING_PROCESSING_ZONE);
+#endif
 
 							Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 							if (!pingData.requestAdditionalInformation && !pingData.containsAdditionalInformation) {
@@ -1210,14 +1228,18 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		QSet< ServerUser * > listener;
 
 		if (u->qmTargetCache.contains(audioData.targetOrContext)) {
+#ifdef USE_TRACY
 			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_STORE);
+#endif
 
 			const WhisperTargetCache &cache = u->qmTargetCache.value(audioData.targetOrContext);
 			channel                         = cache.channelTargets;
 			direct                          = cache.directTargets;
 			listener                        = cache.listeningTargets;
 		} else {
+#ifdef USE_TRACY
 			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
+#endif
 
 			const WhisperTarget &wt = u->qmTargets.value(audioData.targetOrContext);
 			if (!wt.qlChannels.isEmpty()) {
@@ -1320,7 +1342,9 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		}
 	}
 
+#ifdef USE_TRACY
 	ZoneNamedN(__tracy_scoped_zone2, TracyConstants::AUDIO_SENDOUT_ZONE, true);
+#endif
 
 	buffer.preprocessBuffer();
 
@@ -1345,7 +1369,9 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			if (isFirstIteration
 				|| !Mumble::Protocol::protocolVersionsAreCompatible(encoder.getProtocolVersion(),
 																	currentRange.begin->getReceiver().uiVersion)) {
+#ifdef USE_TRACY
 				ZoneScopedN(TracyConstants::AUDIO_ENCODE);
+#endif
 
 				encoder.setProtocolVersion(currentRange.begin->getReceiver().uiVersion);
 
@@ -1362,9 +1388,13 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			audioData.targetOrContext = currentRange.begin->getContext();
 
 			// Update data
+#ifdef USE_TRACY
 			TracyCZoneN(__tracy_zone, TracyConstants::AUDIO_UPDATE, true);
+#endif
 			gsl::span< const Mumble::Protocol::byte > encodedPacket = encoder.updateAudioPacket(audioData);
+#ifdef USE_TRACY
 			TracyCZoneEnd(__tracy_zone);
+#endif
 
 			// Clear TCP cache
 			tcpCache.clear();
@@ -1735,7 +1765,9 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 }
 
 void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg, ServerUser *u) {
+#ifdef USE_TRACY
 	ZoneScopedN(TracyConstants::TCP_PACKET_PROCESSING_ZONE);
+#endif
 
 	if (!u) {
 		u = static_cast< ServerUser * >(sender());

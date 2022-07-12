@@ -198,6 +198,10 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
 endif()
 
+if(tracy)
+    target_compile_definitions(mumble-server PRIVATE "USE_TRACY")
+endif()
+
 if(ice)
 	find_pkg(Ice
 		COMPONENTS

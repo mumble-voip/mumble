@@ -22,7 +22,11 @@
 
 #include <cassert>
 
+#ifdef USE_TRACY
 #include <Tracy.hpp>
+#else
+#define ZoneScoped
+#endif
 
 #define RATELIMIT(user)                   \
 	if (user->leakyBucket.ratelimit(1)) { \

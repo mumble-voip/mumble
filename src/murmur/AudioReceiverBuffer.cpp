@@ -8,7 +8,11 @@
 #include <algorithm>
 #include <cassert>
 
+#ifdef USE_TRACY
 #include <Tracy.hpp>
+#else
+#define ZoneScoped
+#endif
 
 AudioReceiver::AudioReceiver(ServerUser &receiver, Mumble::Protocol::audio_context_t context,
 							 const VolumeAdjustment &volumeAdjustment)
