@@ -313,7 +313,7 @@ public slots:
 	void destroyUserInformation();
 	void trayAboutToShow();
 	void sendChatbarMessage(QString msg);
-	void sendChatbarText(QString msg);
+	void sendChatbarText(QString msg, bool plainText = false);
 	void pttReleased();
 	void whisperReleased(QVariant scdata);
 	void onResetAudio();

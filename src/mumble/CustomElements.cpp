@@ -237,7 +237,11 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			const QString msg = toPlainText();
 			if (!msg.isEmpty()) {
 				addToHistory(msg);
-				emit entered(msg);
+				if (kev->modifiers() & Qt::ControlModifier) {
+					emit ctrlEnterPressed(msg);
+				} else {
+					emit entered(msg);
+				}
 			}
 			return true;
 		}
