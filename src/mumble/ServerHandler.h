@@ -103,6 +103,7 @@ public:
 	boost::shared_ptr< VoiceRecorder > recorder;
 	QSslSocket *qtsSock;
 	QList< ServerAddress > qlAddresses;
+	QHash< ServerAddress, QString > qhHostnames;
 	ServerAddress saTargetServer;
 
 	unsigned int uiVersion;
