@@ -359,10 +359,16 @@ void ServerHandler::hostnameResolved() {
 	// Create the list of target host:port pairs
 	// that the ServerHandler should try to connect to.
 	QList< ServerAddress > ql;
+	QHash< ServerAddress, QString > qh;
 	foreach (ServerResolverRecord record, records) {
-		foreach (HostAddress addr, record.addresses()) { ql.append(ServerAddress(addr, record.port())); }
+		foreach (HostAddress addr, record.addresses()) {
+			auto sa = ServerAddress(addr, record.port());
+			ql.append(sa);
+			qh[sa] = record.hostname();
+		}
 	}
 	qlAddresses = ql;
+	qhHostnames = qh;
 
 	// Exit the event loop with 'success' status code,
 	// to continue connecting to the server.
@@ -392,7 +398,7 @@ void ServerHandler::run() {
 		qbaDigest               = QByteArray();
 		bStrong                 = true;
 		qtsSock                 = new QSslSocket(this);
-		qtsSock->setPeerVerifyName(qsHostName);
+		qtsSock->setPeerVerifyName(qhHostnames[saTargetServer]);
 
 		if (!Global::get().s.bSuppressIdentity && CertWizard::validateCert(Global::get().s.kpCertificate)) {
 			qtsSock->setPrivateKey(Global::get().s.kpCertificate.second);
