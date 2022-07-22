@@ -5,6 +5,8 @@
 
 # Overlay payload for UNIX-like systems.
 
+include(CheckIncludeFile)
+
 if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "amd64")
 	if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
 		option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ON)
