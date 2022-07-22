@@ -203,17 +203,6 @@ void OverlayClient::updateMouse() {
 	}
 
 	QPixmap pm = qmCursors.value(csShape);
-	if (pm.isNull()) {
-		NSImage *img = [cursor image];
-		CGImageRef cgimg = nullptr;
-		NSArray *reps = [img representations];
-		for (NSUInteger i = 0; i < [reps count]; i++) {
-			NSImageRep *rep = [reps objectAtIndex:i];
-			if ([rep class] == [NSBitmapImageRep class]) {
-				cgimg = [(NSBitmapImageRep *)rep CGImage];
-			}
-		}
-	}
 
 	NSPoint p = [cursor hotSpot];
 	iOffsetX = (int) p.x;
