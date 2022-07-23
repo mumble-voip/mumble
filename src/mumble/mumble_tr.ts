@@ -3052,10 +3052,6 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
         <translation>Bağlantı noktası</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresler</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Ağ sitesi</translation>
     </message>
@@ -3086,6 +3082,14 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     <message>
         <source>Version</source>
         <translation>Sürüm</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

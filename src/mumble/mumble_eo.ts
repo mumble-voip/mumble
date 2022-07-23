@@ -3020,10 +3020,6 @@ Are you sure you wish to replace your certificate?
         <translation>Pordo</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresoj</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Retejo</translation>
     </message>
@@ -3054,6 +3050,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>Versio</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

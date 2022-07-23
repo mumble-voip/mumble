@@ -3043,10 +3043,6 @@ Ar tikrai norite pakeisti savo liudijimą?
         <translation>Prievadas</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresai</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Tinklalapis</translation>
     </message>
@@ -3077,6 +3073,14 @@ Ar tikrai norite pakeisti savo liudijimą?
     <message>
         <source>Version</source>
         <translation>Versija</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

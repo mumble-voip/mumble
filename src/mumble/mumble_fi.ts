@@ -3053,10 +3053,6 @@ Haluatko varmasti korvata varmenteen?
         <translation>Portti</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Osoitteet</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Nettisivu</translation>
     </message>
@@ -3087,6 +3083,14 @@ Haluatko varmasti korvata varmenteen?
     <message>
         <source>Version</source>
         <translation>Versio</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

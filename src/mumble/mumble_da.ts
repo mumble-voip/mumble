@@ -3052,10 +3052,6 @@ Er du sikker på du vil erstatte dit certifikat?
         <translation>Port</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adresser</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Websted</translation>
     </message>
@@ -3086,6 +3082,14 @@ Er du sikker på du vil erstatte dit certifikat?
     <message>
         <source>Version</source>
         <translation>Version</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
