@@ -6332,7 +6332,7 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished">Aktivera ljudet igen</translation>
+        <translation>Aktivera ditt ljud igen</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
