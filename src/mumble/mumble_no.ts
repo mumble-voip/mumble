@@ -1591,7 +1591,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>&quot;Toppnivå for effekt i siste ramme (20 ms) (etter behandling).
+        <translation type="unfinished">Toppnivå for effekt i siste ramme (20 ms) (etter behandling).
 Dette er toppnivåene for forskjellige fall:
 -96dB ideell, teoretisk
 -60dB flott, studio
