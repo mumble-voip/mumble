@@ -1982,7 +1982,7 @@ Mumble devamlı olarak geliştirilmektedir ve geliştirme ekibi kullanıcıları
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Kullanıcılar sizinle konuştuğunda diğer uygulamaların zayıflatılmasını etkinleştirir. Bu, birisinin sizinle konuşmaya başladığı zaman onu daha iyi duyabilmeniz için tüm diğer uygulamaların (müzik çalarlar gibi) sesinin zayıflatılacağı anlamına gelir.</translation>
+        <translation>Kullanıcılar sizinle konuştuğunda diğer uygulamaların zayıflatılmasını etkinleştirir. Bu, Mumble&apos;da birisinin sizinle konuşmaya başladığı zaman onu daha iyi duyabilmeniz için tüm diğer uygulamaların (müzik çalarlar gibi) sesinin zayıflatılacağı anlamına gelir.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -3041,7 +3041,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Hostname</source>
-        <translation>Bilgisayar ismi</translation>
+        <translation>Ana makine adı</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -3085,11 +3085,11 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv4 adresi</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6 adresi</translation>
     </message>
 </context>
 <context>
@@ -3117,7 +3117,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;
-Sunucunun İnternet adresi. Bu normal bir bilgisayar ismi, bir İPv4/İPv6 adresi ya da bir Bonjour servis tanımlayıcısı olabilir. Bonjour servis tanımlayıcılarına Mumbe tarafından tanınmaları için &apos;@&apos; öneki konulmalıdır.</translation>
+Sunucunun internet adresi. Bu normal bir ana makine adı, bir IPv4/IPv6 adresi ya da bir Bonjour hizmet tanımlayıcısı olabilir. Bonjour hizmet tanımlayıcılarına Mumble tarafından tanınmaları için &apos;@&apos; ön eki konulmalıdır.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
@@ -3161,15 +3161,15 @@ Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
         <translation>Şu anda bir sunucuya bağlısınız.
 Diyaloğu bu sunucunun bağlantı verileriyle doldurmak istiyor musunuz?
-Makine: %1 Bağlantı noktası: %2</translation>
+Ana makine: %1 Bağlantı noktası: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation>Panonuzda bir URL bulunmaktadır.
+        <translation>Panonuzda bir URL var.
 Diyaloğu bu verilerle doldurmak istiyor musunuz?
-Makine: %1 Bağlantı noktası: %2</translation>
+Ana makine: %1 Bağlantı noktası: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -4230,7 +4230,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>Mumle&apos;dan çıkış seçildiğinde uygulamanın kapatılması ve küçültülmesi seçimi sun.</translation>
+        <translation>Mumble&apos;dan çıkış seçildiğinde uygulamanın kapatılması ve küçültülmesi seçimi sun.</translation>
     </message>
     <message>
         <source>Ask on quit while connected</source>
@@ -6419,7 +6419,67 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
+
+&lt;url&gt; bağlantı penceresini göstermek yerine başlangıçtan sonra
+bağlanılacak bir URL belirtir ve aşağıdaki biçime sahiptir:
+mumble://[&lt;kullanıcıadı&gt;[:&lt;parola&gt;]@]&lt;anamakine&gt;[:&lt;bağlantınoktası&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
+
+&lt;eklenti_listesi&gt; kurulacak eklenti dosyalarının bir listesidir.
+Doğru istemci sürümünü çalıştırmak için sürüm sorgu
+parametresi ayarlanmalıdır. Şu anda öntanımlı olarak 1.2.0&apos;dır.
+
+Geçerli seçenekler şunlardır:
+  -h, --help    Bu yardım metnini göster ve çık.
+  -V, --version Sürüm bilgisini yazdır ve çık.
+  -m, --multiple
+                Birden fazla istemci örneğinin başlatılmasına izin ver.
+  -c, --config
+                Alternatif bir yapılandırma dosyası belirt.
+                Bunu aynı anda birden fazla Mumble örneği çalıştırmak için kullanırsanız,
+                yapılandırmada alternatif bir &apos;database&apos; değeri ayarladığınızdan emin olun.
+  --default-certificate-dir &lt;dizin&gt;
+                Alternatif bir öntanımlı sertifika yolu belirt.
+                Bu yol yalnızca ayarlardan yüklenmiş bir sertifika
+                yoksa kullanılır.
+  -n, --noidentity
+                Kimlik dosyalarının (örneğin sertifikaların) yüklenmesini önle.
+  -jn, --jackname &lt;argüman&gt;
+                Özel Jack istemci adı ayarla.
+  --license
+                Mumble lisansını göster.
+  --authors
+                Mumble yazarlarını göster.
+  --third-party-licenses
+                Mumble tarafından kullanılan üçüncü taraf yazılımların lisanslarını göster.
+  --window-title-ext &lt;argüman&gt;
+                Özel bir pencere başlığı uzantısı ayarlar.
+  --dump-input-streams
+                Girdi zincirinin çeşitli bölümlerinde PCM akışlarını dök
+                (hata ayıklama amaçları için kullanışlıdır)
+                - ham mikrofon girdisi
+                - yankı iptali için hoparlör geri okuması
+                - işlenen mikrofon girdisi
+  --print-echocancel-queue
+                Yankı iptal kuyruğu durumunu standart çıkışa yazdır
+                (hata ayıklama amaçları için kullanışlıdır)
+  --translation-dir &lt;dizin&gt;
+                Mumble&apos;ın paketlenmiş olanların üzerine yazacak çeviri
+                dosyalarını arayacağı ek bir çeviri dizini olarak
+                &lt;dizin&gt; belirtir.
+                Bu şekilde eklenen dizinler, aksi takdirde kullanılan
+                öntanımlı konumlardan daha yüksek önceliğe sahiptir.
+  --print-translation-dirs
+                Mumble&apos;ın paketlenmiş olanların üzerine yazacak çeviri
+                dosyalarını arayacağı yolları yazdır.
+                (Çevirilerini test eden çevirmenler için kullanışlıdır)
+  --locale &lt;yerel_ayar&gt;
+                Mumble&apos;ın ayarlarındaki yerel ayarın yerine, verilen
+                yerel ayar dizgesine karşılık gelen bir yerel ayar kullan.
+                Biçim geçersizse, Mumble hata verecektir.
+                Aksi takdirde yerel ayar kalıcı olarak Mumble&apos;ın
+                ayarlarına kaydedilecektir.
+</translation>
     </message>
 </context>
 <context>
@@ -6566,11 +6626,11 @@ Valid options are:
     </message>
     <message>
         <source>Hostname</source>
-        <translation>Makine ismi</translation>
+        <translation>Ana makine adı</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation>Vekilin makine ismi</translation>
+        <translation>Vekilin ana makine adı</translation>
     </message>
     <message>
         <source>Force TCP mode</source>
@@ -6606,7 +6666,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Vekilin bilgisayar ismi.&lt;/b&gt;&lt;br /&gt;Bu alan, şebeke trafiğinin tünelleneceği vekilin makine ismini (hostname) belirtir.</translation>
+        <translation>&lt;b&gt;Vekilin ana makine adı.&lt;/b&gt;&lt;br /&gt;Bu alan, şebeke trafiğinin tünelleneceği vekilin ana makine adını belirtir.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -7910,7 +7970,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation>Makine ismi çözümlenemedi</translation>
+        <translation>Ana makine adı çözümlenemedi</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -7949,7 +8009,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Ana Bilgisayar: &lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Ana makine:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8909,7 +8969,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Inserts the hostname</source>
-        <translation>Bilgisayar ismini ekler</translation>
+        <translation>Ana makine adını ekler</translation>
     </message>
     <message>
         <source>Recorder still running</source>
