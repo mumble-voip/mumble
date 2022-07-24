@@ -3030,7 +3030,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Um die Latenz (den Ping) und die Benutzeranzahl eines Servers zu bestimmen, muss Ihre IP-Adresse an den jeweiligen Server übermittelt werden.&lt;/p&gt;&lt;p&gt;Stimen Sie der Übertragung ihrer IP-Adresse zu? Wenn Sie mit Nein antworten, wird die Liste öffentlicher Server deaktiviert. Es ist jedoch möglich diese jederzeit über die Netzwerk-Einstellungen wieder zu aktivieren.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Um die Latenz (den Ping) und die Benutzeranzahl eines Servers zu bestimmen, muss Ihre IP-Adresse an den jeweiligen Server übermittelt werden.&lt;/p&gt;&lt;p&gt;Stimmen Sie der Übertragung ihrer IP-Adresse zu? Wenn Sie mit Nein antworten, wird die Liste öffentlicher Server deaktiviert. Es ist jedoch möglich diese jederzeit über die Netzwerk-Einstellungen wieder zu aktivieren.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
@@ -6420,7 +6420,60 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendung: mumble [Optionen] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; Verbinde zum angegebenen Server, anstatt das Verbindungsfenster anzuzeigen. Die URL hat die Form:
+mumble://[&lt;Benutzername&gt;[:&lt;Passwort&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;Kanal&gt;[/&lt;Unterkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; ist eine Liste von Plugin-Dateien, die installiert werden sollen.
+Der Abfrageparameter version muss gesetzt werden, um die richtige
+Client-Version aufzurufen. Derzeit ist er standardmäßig auf 1.2.0 eingestellt.
+
+Gültige Optionen sind:
+  -h, --help    Diesen Hilfetext anzeigen und beenden.
+  -V, --version    Ausgabe der Versionsinformationen und Beenden
+  -m, --Mehrfach
+                Erlaubt das Starten mehrerer Instanzen des Clients.
+  -c, --config
+                Angeben einer alternativen Konfigurationsdatei.
+                Wenn Sie dies verwenden, um mehrere Instanzen von Mumble auf einmal zu starten,
+                stellen Sie sicher, dass Sie einen alternativen &apos;Datenbank&apos; Wert in der Konfigurationsdatei festlegen.
+  --default-certificate-dir &lt;dir&gt;
+                Geben Sie einen alternativen Standard-Zertifikatspfad an.
+                Dieser Pfad wird nur verwendet, wenn kein Zertifikat aus den Einstellungen geladen wird.
+  -n, --noidentity
+                Unterdrückt das Laden von Identitätsdateien (d.h. Zertifikaten).
+  -jn, --jackname &lt;arg&gt;
+                Benutzerdefinierten Jack-Client-Namen festlegen.
+  --license
+                Zeigt die Mumble-Lizenz an.
+  --authors
+                Zeigt die Mumble-Autoren an.
+  --third-party-licenses
+                Zeigt die Lizenzen für die von Mumble verwendete Software von Drittanbietern an.
+  --window-title-ext &lt;arg&gt;
+                Setzt eine benutzerdefinierte Fenstertitel-Erweiterung.
+  --dump-input-streams
+                Zeichnet PCM-Streams an verschiedenen Stellen der Eingabekette auf
+                (nützlich für Debugging-Zwecke)
+                - roher Mikrofoneingang
+                - Lautsprecherwiedergabe zur Echounterdrückung
+                - verarbeitete Mikrofoneingabe
+  --print-echocancel-queue
+                Gibt den Status der Echounterdrückungs-Warteschlange auf stdout aus
+                (nützlich für Debugging-Zwecke)
+  --translation-dir &lt;dir&gt;
+                Legt ein zusätzliches Übersetzungs-Verzeichnis &lt;dir&gt; fest, aus welchem
+                bevorzugt Übersetzungsdateien verwendet werden.
+  --print-translation-dirs
+                Gibt die Pfade aus, in denen Mumble nach Übersetzungsdateien sucht
+                Übersetzungsdateien sucht, die die gebündelten Dateien überschreiben.
+                (Nützlich für Übersetzer, die ihre Übersetzungen testen)
+  --locale &lt;locale&gt;
+                Überschreibt die gewählte Sprache in den Mumble Einstellungen
+                und speichert dies.
+                Wenn das Format ungültig ist, wird Mumble einen Fehler melden.
+</translation>
     </message>
 </context>
 <context>
