@@ -63,6 +63,7 @@ signals:
 	void backtabPressed(void);
 	void ctrlSpacePressed(void);
 	void entered(QString);
+	void ctrlEnterPressed(QString);
 	void pastedImage(QString);
 public slots:
 	void pasteAndSend_triggered();
