@@ -35,7 +35,7 @@ struct HostAddress {
 
 	bool match(const HostAddress &, int bits) const;
 
-	QString toString() const;
+	QString toString(bool bracketEnclosed = true) const;
 
 	std::string toStdString() const;
 	QHostAddress toAddress() const;

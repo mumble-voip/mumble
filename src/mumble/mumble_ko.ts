@@ -3052,10 +3052,6 @@ Are you sure you wish to replace your certificate?
         <translation>포트</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>주소</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>웹사이트</translation>
     </message>
@@ -3086,6 +3082,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>버전</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

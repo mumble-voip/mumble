@@ -3053,10 +3053,6 @@ Weet je zeker dat je je certificaat wil vervangen?
         <translation>Poort</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Adressen</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Website</translation>
     </message>
@@ -3087,6 +3083,14 @@ Weet je zeker dat je je certificaat wil vervangen?
     <message>
         <source>Version</source>
         <translation>Versie</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

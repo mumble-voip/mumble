@@ -167,6 +167,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qmListener, SIGNAL(aboutToShow()), this, SLOT(qmListener_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarText(QString)));
+	connect(qteChat, &ChatbarTextEdit::ctrlEnterPressed, [this](const QString &msg) { sendChatbarText(msg, true); });
 	connect(qteChat, SIGNAL(pastedImage(QString)), this, SLOT(sendChatbarMessage(QString)));
 
 	// Tray
@@ -2062,12 +2063,23 @@ void MainWindow::on_qaQuit_triggered() {
 	this->close();
 }
 
-void MainWindow::sendChatbarText(QString qsText) {
-	// Markdown::markdownToHTML also takes care of replacing line breaks (\n) with the respective
-	// HTML code <br/>. Therefore if Markdown support is ever going to be removed from this
-	// function, this job has to be done explicitly as otherwise line breaks won't be shown on
-	// the receiving end of this text message.
-	qsText = Markdown::markdownToHTML(qsText);
+void MainWindow::sendChatbarText(QString qsText, bool plainText) {
+	if (plainText) {
+		// Escape HTML, unify line endings, then convert spaces to non-breaking ones to prevent multiple
+		// simultaneous ones from being collapsed into one (as a normal HTML renderer does).
+		qsText = qsText.toHtmlEscaped()
+					 .replace("\r\n", "\n")
+					 .replace("\r", "\n")
+					 .replace("\n", "<br>")
+					 .replace(" ", "&nbsp;");
+	} else {
+		// Markdown::markdownToHTML also takes care of replacing line breaks (\n) with the respective
+		// HTML code <br/>. Therefore if Markdown support is ever going to be removed from this
+		// function, this job has to be done explicitly as otherwise line breaks won't be shown on
+		// the receiving end of this text message.
+		qsText = Markdown::markdownToHTML(qsText);
+	}
+
 	sendChatbarMessage(qsText);
 
 	qteChat->clear();

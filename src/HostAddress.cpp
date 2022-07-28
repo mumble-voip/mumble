@@ -135,22 +135,29 @@ quint32 qHash(const HostAddress &ha) {
 	return (ha.hash[0] ^ ha.hash[1] ^ ha.hash[2] ^ ha.hash[3]);
 }
 
-QString HostAddress::toString() const {
+QString HostAddress::toString(bool bracketEnclosed) const {
 	if (isV6()) {
 		if (isValid()) {
-			QString qs;
+			QString str;
+			const char *squareBracketOpen  = "";
+			const char *squareBracketClose = "";
+			if (bracketEnclosed) {
+				squareBracketOpen  = "[";
+				squareBracketClose = "]";
+			}
 #if QT_VERSION >= 0x050500
-			qs = QString::asprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]),
-								   ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]),
-								   ntohs(shorts[7]));
+			str = QString::asprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shorts[0]),
+									ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]),
+									ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]), squareBracketClose);
 #else
 			// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
-			qs.sprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]),
-					   ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
+			str.sprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shorts[0]), ntohs(shorts[1]),
+						ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]),
+						ntohs(shorts[7]), squareBracketClose);
 #endif
-			return qs.replace(QRegExp(QLatin1String("(:0)+")), QLatin1String(":"));
+			return str.replace(QRegExp(QLatin1String("(:0)+")), QLatin1String(":"));
 		} else {
-			return QLatin1String("[::]");
+			return bracketEnclosed ? QLatin1String("[::]") : QLatin1String("::");
 		}
 	} else {
 		return QHostAddress(ntohl(hash[3])).toString();

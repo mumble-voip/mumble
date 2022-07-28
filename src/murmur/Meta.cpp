@@ -209,6 +209,18 @@ void MetaParams::read(QString fname) {
 	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
 	qsSettings->setIniCodec("UTF-8");
 
+	qsSettings->sync();
+	switch (qsSettings->status()) {
+		case QSettings::NoError:
+			break;
+		case QSettings::AccessError:
+			qFatal("Access error while trying to access %s", qPrintable(qsSettings->fileName()));
+			break;
+		case QSettings::FormatError:
+			qFatal("Your INI file at %s is invalid - check for syntax errors!", qPrintable(qsSettings->fileName()));
+			break;
+	}
+
 	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qsSettings->fileName()),
 			 qPrintable(qdBasePath.absolutePath()));
 

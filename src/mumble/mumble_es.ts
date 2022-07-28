@@ -3034,7 +3034,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Conectar</translation>
+        <translation>C&amp;onectar</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3051,10 +3051,6 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Port</source>
         <translation>Puerto</translation>
-    </message>
-    <message>
-        <source>Addresses</source>
-        <translation>Direcciones</translation>
     </message>
     <message>
         <source>Website</source>
@@ -3087,6 +3083,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>Versión</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3857,7 +3861,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje del plugin</translation>
     </message>
 </context>
 <context>
@@ -4063,7 +4067,7 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Misc.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4500,7 +4504,7 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation type="unfinished"></translation>
+        <translation>Si mostrar todos los oyentes (oídos) del usuario local en la TalkingUI (y por tanto también los canales en los que están). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
@@ -6230,11 +6234,11 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer un nombre de usuario local</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece un apodo local para otro usuario.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -6277,7 +6281,7 @@ Valid actions are:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Activa/desactiva la visibilidad de la interfaz de uso del habla</translation>
+        <translation>Activa/desactiva la visibilidad de la interfaz TalkingUI.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -7272,7 +7276,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargue el plugin actualmente seleccionado. Esto lo eliminará de la lista de plugins para la sesión actual.</translation>
     </message>
     <message>
         <source>Unload</source>
@@ -7292,7 +7296,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Si la función de audio posicional de este plugin debe ser activada</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>

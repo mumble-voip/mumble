@@ -3023,10 +3023,6 @@ adierazten du.</translation>
         <translation>Portua</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>Helbidea</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Web orria</translation>
     </message>
@@ -3057,6 +3053,14 @@ adierazten du.</translation>
     <message>
         <source>Version</source>
         <translation>Bertsioa</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

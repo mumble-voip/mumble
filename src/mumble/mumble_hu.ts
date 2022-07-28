@@ -3042,10 +3042,6 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
         <translation>Port</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>IP-cím</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Honlap</translation>
     </message>
@@ -3076,6 +3072,14 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     <message>
         <source>Version</source>
         <translation>Kiszolgáló verziója</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -3054,10 +3054,6 @@ Are you sure you wish to replace your certificate?
         <translation>Порт</translation>
     </message>
     <message>
-        <source>Addresses</source>
-        <translation>IP-адрес</translation>
-    </message>
-    <message>
         <source>Website</source>
         <translation>Веб-сайт</translation>
     </message>
@@ -3088,6 +3084,14 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Version</source>
         <translation>Версия</translation>
+    </message>
+    <message>
+        <source>IPv4 address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4063,7 +4067,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Разное.</translation>
+        <translation>Прочее</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -7889,7 +7893,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation>&amp;RegEx</translation>
+        <translation>&amp;Регулярные выражения</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
@@ -8297,7 +8301,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Years</source>
-        <translation>Лет:</translation>
+        <translation>Лет</translation>
     </message>
     <message>
         <source>Inactive for</source>
