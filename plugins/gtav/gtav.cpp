@@ -74,11 +74,18 @@ uint32_t mumble_getFeatures() {
 
 uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_t *programPIDs, size_t programCount) {
 	auto ret = MUMBLE_PDEC_ERROR_TEMP;
-
 	for (size_t i = 0; i < programCount; ++i) {
-		if (strcmp(programNames[i], "GTA5.exe") != 0) {
-			continue;
+		bool found    = true;
+		const char *x = "GTA5.exe";
+		int n         = sizeof(x) / sizeof(x[0]);
+		for (size_t j = 0; j < n; ++j) {
+			if (x[j] != programNames[i][j]) {
+				found = false;
+				break;
+			}
 		}
+		if (!found)
+			continue;
 
 		game = std::make_unique< Game >(programPIDs[i], programNames[i]);
 
