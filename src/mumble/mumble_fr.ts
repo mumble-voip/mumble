@@ -6420,7 +6420,68 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisation&#xa0;: mumble [options] [&lt;url&gt; | &lt;liste_de_plugins&gt;]
+
+&lt;url&gt; spécifie un URL auquel se connecter au démarrage au lieu d&apos;afficher
+la fenêtre de connexion et a la forme suivante&#xa0;:
+mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;soussalon&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;liste_de_plugins&gt; consiste en une liste de plugins qui doivent être installés
+Le paramètre d&apos;interrogation de version doit être réglé afin d&apos;invoquer
+la version correcte du client. Actuellement, la valeur par défaut est 1.2.0.
+
+Les options valides sont&#xa0;:
+  -h, --help   Afficher ce texte d&apos;aide et quitter
+  -V, --version Afficher les informations de version et quitter
+  -m, --multiple
+                Autoriser le démarrage de multiples instances du client.
+  -c, --config
+                Spécifier un fichier de configuration alternatif.
+                Si vous l&apos;utilisez pour exécuter plusieurs instances de Mumble 
+                en même temps, assurez-vous de définir une valeur &apos;database&apos;
+                 alternative dans la config.
+  --default-certificate-dir &lt;répertoire&gt;
+                Spécifier un chemin par défaut alternatif pour les certificats.
+                Ce chemin n&apos;est utilisé que s&apos;il n&apos;existe pas de certificats
+                chargés depuis les réglages.
+  -n, --noidentity
+                Ne pas charger les fichiers d&apos;identité ( certificats)
+  -jn, --jackname &lt;arg&gt;
+                Définir un nom de client Jack personnalisé.
+  --license
+                Afficher la licence de Mumble.
+  --authors
+                Afficher les auteurs de Mumble.
+  --third-party-licenses
+                Afficher les licences des  logiciels tiers utilisés par Mumble.
+  --window-title-ext &lt;arg&gt;
+                Définir une extension de titre de fenêtre personnalisée.
+  --dump-input-streams
+                Décharger les flux PCM sur différentes parties de la chaîne
+                 d&apos;entrée (utile à des fins de débogage)
+                - entrée microphone brute
+                - lecture en retour des haut-parleurs afin d&apos;annuler l&apos;écho
+                - entrée de microphone traitée
+  --print-echocancel-queue
+                Afficher sur stdout l&apos;état de la file d&apos;annulation d&apos;écho
+                (utile à des fins de débogage)
+  --translation-dir &lt;rép&gt;
+                Spécifie un répertoire additionnel de traductions &lt;rép&gt;
+                dans lequel Mumble recherchera des fichiers de traduction
+                qui écraseront ceux fournis avec le programme
+                Les répertoires ajoutés de cette manière ont une priorité
+                plus élevés que les endroits par défaut utilisés autrement
+  --print-translation-dirs
+                Afficher les chemins dans lesquels Mumble recherchera des
+                fichiers de traduction qui écraseront ceux incorporés.
+                (Utile aux traducteurs afin de tester leurs traductions)
+  --locale &lt;lieu&gt;
+                Écraser le lieu dans les réglages de Mumble avec un
+                lieu qui correspond à la chaîne de lieu donnée.
+                Si le format est invalide, Mumble affichera une erreur.
+                Sinon le lieu sera enregistré de façon permanente
+                dans les réglages de Mumble.
+</translation>
     </message>
 </context>
 <context>
