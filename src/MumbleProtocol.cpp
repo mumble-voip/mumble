@@ -5,6 +5,7 @@
 
 #include "MumbleProtocol.h"
 #include "PacketDataStream.h"
+#include "VolumeAdjustment.h"
 
 #include <QtEndian>
 
@@ -357,8 +358,7 @@ namespace Protocol {
 		m_preEncodedVolumeAdjustment.resize(preEncodedDBAdjustmentEnd - preEncodedDBAdjustmentBegin);
 
 		for (int dbAdjustment = preEncodedDBAdjustmentBegin; dbAdjustment < preEncodedDBAdjustmentEnd; ++dbAdjustment) {
-			// +6dB means doubling the volume
-			float adjustmentFactor = std::pow(2.0, dbAdjustment / 6.0);
+			float adjustmentFactor = VolumeAdjustment::toFactor(dbAdjustment);
 
 			m_audioMessage.set_volume_adjustment(adjustmentFactor);
 

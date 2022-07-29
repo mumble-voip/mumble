@@ -27,7 +27,7 @@ protected:
 	/// The channel of the listener proxy this dialog has been invoked on
 	Channel *m_channel;
 	/// The volume adjustment that was set before this dialog opened
-	float m_initialAdjustemt;
+	float m_initialAdjustment;
 
 public slots:
 	void on_qsUserLocalVolume_valueChanged(int value);

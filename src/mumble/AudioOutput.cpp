@@ -192,7 +192,7 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 	}
 }
 
-AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
+AudioOutputSample *AudioOutput::playSample(const QString &filename, float volume, bool loop) {
 	SoundFile *handle = AudioOutputSample::loadSndfile(filename);
 	if (!handle)
 		return nullptr;
@@ -214,7 +214,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 		return nullptr;
 
 	QWriteLocker locker(&qrwlOutputs);
-	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq, iBufferSize);
+	AudioOutputSample *aos = new AudioOutputSample(filename, handle, volume, loop, iMixerFreq, iBufferSize);
 	qmOutputs.insert(nullptr, aos);
 
 	return aos;
@@ -491,9 +491,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			float *RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment   = 1;
 
-			// Check if the audio source is a user speaking (instead of a sample playback) and apply potential volume
+			// Check if the audio source is a user speaking or a sample playback and apply potential volume
 			// adjustments
 			AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(aop);
+			AudioOutputSample *sample = qobject_cast< AudioOutputSample * >(aop);
 			const ClientUser *user    = nullptr;
 			if (speech) {
 				user = speech->p;
@@ -515,6 +516,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 						volumeAdjustment *= adjustFactor;
 					}
 				}
+			} else if (sample) {
+				volumeAdjustment *= sample->getVolume();
 			}
 
 			// As the events may cause the output PCM to change, the connection has to be direct in any case

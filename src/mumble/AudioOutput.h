@@ -122,7 +122,7 @@ public:
 
 	void addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::AudioData &audioData);
 	void removeBuffer(const ClientUser *);
-	AudioOutputSample *playSample(const QString &filename, bool loop = false);
+	AudioOutputSample *playSample(const QString &filename, float volume, bool loop = false);
 	void run() Q_DECL_OVERRIDE = 0;
 	virtual bool isAlive() const;
 	const float *getSpeakerPos(unsigned int &nspeakers);

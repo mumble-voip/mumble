@@ -411,11 +411,11 @@ void AudioInputDialog::on_qpbPushClickBrowseOff_clicked() {
 void AudioInputDialog::on_qpbPushClickPreview_clicked() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao) {
-		AudioOutputSample *sample = ao->playSample(qlePushClickPathOn->text());
+		AudioOutputSample *sample = ao->playSample(qlePushClickPathOn->text(), Global::get().s.cueVolume);
 		if (sample)
 			connect(sample, SIGNAL(playbackFinished()), this, SLOT(continuePlayback()));
 		else // If we fail to playback the first play on play at least off
-			ao->playSample(qlePushClickPathOff->text());
+			ao->playSample(qlePushClickPathOff->text(), Global::get().s.cueVolume);
 	}
 }
 
@@ -436,13 +436,13 @@ void AudioInputDialog::on_qpbMuteCueBrowse_clicked() {
 void AudioInputDialog::on_qpbMuteCuePreview_clicked() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
-		ao->playSample(qleMuteCuePath->text());
+		ao->playSample(qleMuteCuePath->text(), Global::get().s.cueVolume);
 }
 
 void AudioInputDialog::continuePlayback() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao) {
-		ao->playSample(qlePushClickPathOff->text());
+		ao->playSample(qlePushClickPathOff->text(), Global::get().s.cueVolume);
 	}
 }
 

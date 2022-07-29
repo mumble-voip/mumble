@@ -1609,10 +1609,16 @@ void MumbleAPI::log_v_1_0_x(mumble_plugin_id_t callerID, const char *message,
 
 void MumbleAPI::playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath,
 								   std::shared_ptr< api_promise_t > promise) {
+	playSample_v_1_2_x(callerID, samplePath, 1.0f, promise);
+}
+
+void MumbleAPI::playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samplePath, float volume,
+								   std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
-		QMetaObject::invokeMethod(this, "playSample_v_1_0_x", Qt::QueuedConnection, Q_ARG(mumble_plugin_id_t, callerID),
-								  Q_ARG(const char *, samplePath), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+		QMetaObject::invokeMethod(this, "playSample_v_1_2_x", Qt::QueuedConnection, Q_ARG(mumble_plugin_id_t, callerID),
+								  Q_ARG(const char *, samplePath), Q_ARG(float, volume),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 
 		return;
 	}
@@ -1628,7 +1634,7 @@ void MumbleAPI::playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samp
 		EXIT_WITH(MUMBLE_EC_AUDIO_NOT_AVAILABLE);
 	}
 
-	if (Global::get().ao->playSample(QString::fromUtf8(samplePath), false)) {
+	if (Global::get().ao->playSample(QString::fromUtf8(samplePath), volume, false)) {
 		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
 		EXIT_WITH(MUMBLE_EC_INVALID_SAMPLE);
@@ -2568,6 +2574,30 @@ mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_0_x(mumble_plugin_id_t c
 	return future.get();
 }
 
+mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samplePath,
+															float volume) {
+	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
+	api_future_t future                      = promise->get_future();
+
+	MumbleAPI::get().playSample_v_1_2_x(callerID, samplePath, volume, promise);
+
+	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
+		// The call to cancel may block until the operation is finished, if and only if the operation
+		// has already started and is thus in progress.
+		promise->cancel();
+
+		// If the cancel-operation above blocked, this means that the operation has now finished in which
+		// case this if will fail and we continue as if nothing had happened.
+		// If however it did not block the operation will immediately abort once it starts meaning that the
+		// check below will succeed.
+		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
+			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
+		}
+	}
+
+	return future.get();
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// GETTER FOR API STRUCTS /////////////////////////////////////
@@ -2612,6 +2642,47 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 			 sendData_v_1_0_x,
 			 log_v_1_0_x,
 			 playSample_v_1_0_x };
+}
+
+MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
+	return { freeMemory_v_1_0_x,
+			 getActiveServerConnection_v_1_0_x,
+			 isConnectionSynchronized_v_1_0_x,
+			 getLocalUserID_v_1_0_x,
+			 getUserName_v_1_0_x,
+			 getChannelName_v_1_0_x,
+			 getAllUsers_v_1_0_x,
+			 getAllChannels_v_1_0_x,
+			 getChannelOfUser_v_1_0_x,
+			 getUsersInChannel_v_1_0_x,
+			 getLocalUserTransmissionMode_v_1_0_x,
+			 isUserLocallyMuted_v_1_0_x,
+			 isLocalUserMuted_v_1_0_x,
+			 isLocalUserDeafened_v_1_0_x,
+			 getUserHash_v_1_0_x,
+			 getServerHash_v_1_0_x,
+			 getUserComment_v_1_0_x,
+			 getChannelDescription_v_1_0_x,
+			 requestLocalUserTransmissionMode_v_1_0_x,
+			 requestUserMove_v_1_0_x,
+			 requestMicrophoneActivationOverwrite_v_1_0_x,
+			 requestLocalMute_v_1_0_x,
+			 requestLocalUserMute_v_1_0_x,
+			 requestLocalUserDeaf_v_1_0_x,
+			 requestSetLocalUserComment_v_1_0_x,
+			 findUserByName_v_1_0_x,
+			 findChannelByName_v_1_0_x,
+			 getMumbleSetting_bool_v_1_0_x,
+			 getMumbleSetting_int_v_1_0_x,
+			 getMumbleSetting_double_v_1_0_x,
+			 getMumbleSetting_string_v_1_0_x,
+			 setMumbleSetting_bool_v_1_0_x,
+			 setMumbleSetting_int_v_1_0_x,
+			 setMumbleSetting_double_v_1_0_x,
+			 setMumbleSetting_string_v_1_0_x,
+			 sendData_v_1_0_x,
+			 log_v_1_0_x,
+			 playSample_v_1_2_x };
 }
 
 #define MAP(qtName, apiName) \

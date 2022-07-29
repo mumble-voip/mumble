@@ -358,7 +358,7 @@ void AudioWizard::playChord() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (!ao || aosSource || bInit)
 		return;
-	aosSource = ao->playSample(QLatin1String(":/wb_male.oga"), true);
+	aosSource = ao->playSample(QLatin1String(":/wb_male.oga"), 1.0f, true);
 }
 
 void AudioWizard::restartAudio() {
