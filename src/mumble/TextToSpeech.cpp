@@ -30,7 +30,7 @@ void TextToSpeechPrivate::say(const QString &text) {
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
-	m_tts->setVolume(volume);
+	m_tts->setVolume(volume / 100.0);
 }
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
