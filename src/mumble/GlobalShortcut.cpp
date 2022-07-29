@@ -529,7 +529,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qlWaylandNote->setVisible(false);
 #ifdef Q_OS_LINUX
 	if (EnvUtils::waylandIsUsed()) {
-		// Our global shortcut system doesn't work with Wayland
+		// Our global shortcut system doesn't work properly with Wayland
 		qlWaylandNote->setVisible(true);
 	}
 #endif

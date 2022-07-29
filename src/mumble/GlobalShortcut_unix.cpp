@@ -53,6 +53,7 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode = -1;
 	bRunning  = false;
+	m_enabled = true;
 
 	display = XOpenDisplay(nullptr);
 
@@ -61,27 +62,56 @@ GlobalShortcutX::GlobalShortcutX() {
 		return;
 	}
 
+	init();
+}
+
+GlobalShortcutX::~GlobalShortcutX() {
+	stop();
+
+	if (display) {
+		XCloseDisplay(display);
+	}
+}
+
+void GlobalShortcutX::stop() {
+	bRunning = false;
+	wait();
+
+	if (m_watcher) {
+		m_watcher->deleteLater();
+		m_watcher = nullptr;
+	}
+	if (m_notifier) {
+		m_notifier->deleteLater();
+		m_notifier = nullptr;
+	}
+}
+
+bool GlobalShortcutX::init() {
 #ifdef Q_OS_LINUX
 	if (Global::get().s.bEnableEvdev) {
-		QString dir             = QLatin1String("/dev/input");
-		QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
-		connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
+		QString dir = QLatin1String("/dev/input");
+		m_watcher   = new QFileSystemWatcher(QStringList(dir), this);
+		connect(m_watcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
 		directoryChanged(dir);
 
 		if (qsKeyboards.isEmpty()) {
-			foreach (QFile *f, qmInputDevices)
+			for (QFile *f : qmInputDevices) {
 				delete f;
+			}
 			qmInputDevices.clear();
 
-			delete fsw;
+			delete m_watcher;
+			m_watcher = nullptr;
 			qWarning(
 				"GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XInput");
 		} else {
-			return;
+			return false;
 		}
 	}
 #endif
 
+	qsRootWindows.clear();
 	for (int i = 0; i < ScreenCount(display); ++i)
 		qsRootWindows.insert(RootWindow(display, i));
 
@@ -113,14 +143,15 @@ GlobalShortcutX::GlobalShortcutX() {
 			evmask.mask_len = sizeof(mask);
 			evmask.mask     = mask;
 
-			foreach (Window w, qsRootWindows)
+			for (Window w : qsRootWindows) {
 				XISelectEvents(display, w, &evmask, 1);
+			}
 			XFlush(display);
 
-			connect(new QSocketNotifier(ConnectionNumber(display), QSocketNotifier::Read, this), SIGNAL(activated(int)),
-					this, SLOT(displayReadyRead(int)));
+			m_notifier = new QSocketNotifier(ConnectionNumber(display), QSocketNotifier::Read, this);
+			connect(m_notifier, SIGNAL(activated(int)), this, SLOT(displayReadyRead(int)));
 
-			return;
+			return true;
 		}
 	}
 #endif
@@ -128,14 +159,8 @@ GlobalShortcutX::GlobalShortcutX() {
 			 "please enable one of the other methods.");
 	bRunning = true;
 	start(QThread::TimeCriticalPriority);
-}
 
-GlobalShortcutX::~GlobalShortcutX() {
-	bRunning = false;
-	wait();
-
-	if (display)
-		XCloseDisplay(display);
+	return true;
 }
 
 // Tight loop polling
@@ -206,6 +231,28 @@ void GlobalShortcutX::queryXIMasterList() {
 	}
 	XIFreeDeviceInfo(info);
 #endif
+}
+
+bool GlobalShortcutX::canDisable() {
+	return true;
+}
+
+bool GlobalShortcutX::enabled() {
+	return m_enabled;
+}
+
+void GlobalShortcutX::setEnabled(bool enabled) {
+	if (enabled == m_enabled && (enabled != bRunning)) {
+		return;
+	}
+
+	m_enabled = enabled;
+
+	if (!m_enabled) {
+		stop();
+	} else {
+		m_enabled = init();
+	}
 }
 
 // XInput2 event is ready on socketnotifier.
