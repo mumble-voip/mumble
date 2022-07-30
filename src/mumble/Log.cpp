@@ -707,7 +707,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
-				postNotification(mt, plain);
+				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
+				postNotification(mt, plain.replace("\xEF\xBF\xBC", tr("[embedded content]")));
 			}
 		}
 
