@@ -2026,7 +2026,7 @@ QFlags< ChanACL::Perm > Server::effectivePermissions(ServerUser *p, Channel *c) 
 	return ChanACL::effectivePermissions(p, c, &acCache);
 }
 
-void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
+void Server::sendClientPermission(ServerUser *u, Channel *c, bool explicitlyRequested) {
 	unsigned int perm;
 
 	if (u->iId == 0)
@@ -2034,14 +2034,21 @@ void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 
 	{
 		QMutexLocker qml(&qmCache);
+		// Abuse that hasPermission will update acCache with the latest permissions (all of them,
+		// not only the requested one) so that we can pull this information out of it afterwards.
 		ChanACL::hasPermission(u, c, ChanACL::Enter, &acCache);
 		perm = acCache.value(u)->value(c);
 	}
 
-	if (forceupdate)
+	if (explicitlyRequested) {
+		// Store the last channel the client showed explicit interest in
 		u->iLastPermissionCheck = c->iId;
+	}
 
-	if (u->qmPermissionSent.value(c->iId) != perm) {
+	if (explicitlyRequested || u->qmPermissionSent.value(c->iId) != perm) {
+		// Send the permission info only if the client has explicitly asked for it
+		// or if the permissions have changed since the last time the client has
+		// been informed about permission for this channel.
 		u->qmPermissionSent.insert(c->iId, perm);
 
 		MumbleProto::PermissionQuery mppq;

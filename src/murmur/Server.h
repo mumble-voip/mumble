@@ -322,7 +322,7 @@ public:
 
 	bool hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm);
 	QFlags< ChanACL::Perm > effectivePermissions(ServerUser *p, Channel *c);
-	void sendClientPermission(ServerUser *u, Channel *c, bool updatelast = false);
+	void sendClientPermission(ServerUser *u, Channel *c, bool explicitlyRequested = false);
 	void flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mpqq);
 	void clearACLCache(User *p = nullptr);
 	void clearWhisperTargetCache();
