@@ -2036,6 +2036,31 @@ void Server::clearACLCache(User *p) {
 				if (u->sState == ServerUser::Authenticated)
 					flushClientPermissionCache(u, mppq);
 		}
+
+		// A change in ACLs could also change a user's suppression state
+		MumbleProto::UserState mpus;
+		auto processingFunction = [&](ServerUser *user) {
+			bool maySpeak = ChanACL::hasPermission(user, user->cChannel, ChanACL::Speak, &acCache);
+
+			if (maySpeak == user->bSuppress) {
+				// Mirror a user's ability to speak in the current channel (by means of the ACLs) in the suppress
+				// property (not being allowed to speak -> suppressed and vice versa)
+				user->bSuppress = !maySpeak;
+
+				mpus.Clear();
+				mpus.set_session(user->uiSession);
+				mpus.set_suppress(true);
+				sendAll(mpus);
+			}
+		};
+
+		if (p) {
+			processingFunction(static_cast< ServerUser * >(p));
+		} else {
+			for (ServerUser *currentUser : qhUsers) {
+				processingFunction(currentUser);
+			}
+		}
 	}
 
 	// A change in ACLs means that the user might be able to whisper
