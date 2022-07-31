@@ -10,12 +10,16 @@
 #include "Global.h"
 #include "GlobalShortcut.h"
 
+
 #include <X11/X.h>
 
 #define NUM_BUTTONS 0x2ff
 
 struct _XDisplay;
 typedef _XDisplay Display;
+
+class QFileSystemWatcher;
+class QSocketNotifier;
 
 class GlobalShortcutX : public GlobalShortcutEngine {
 private:
@@ -37,10 +41,22 @@ public:
 	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
 
 	void queryXIMasterList();
+
+	bool canDisable() override;
+	bool enabled() override;
+	void setEnabled(bool enabled) override;
 public slots:
 	void displayReadyRead(int);
 	void inputReadyRead(int);
 	void directoryChanged(const QString &);
+
+protected:
+	bool m_enabled                = true;
+	QFileSystemWatcher *m_watcher = nullptr;
+	QSocketNotifier *m_notifier   = nullptr;
+
+	bool init();
+	void stop();
 };
 
 // These are macros that X11/X.h defines and that are causing problems in unity builds

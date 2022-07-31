@@ -530,6 +530,7 @@ Settings::Settings() {
 
 #ifdef Q_OS_LINUX
 	if (EnvUtils::waylandIsUsed()) {
+		// Due to the issues we're currently having on Wayland, we disable shortcuts by default
 		bShortcutEnable = false;
 	}
 #endif
@@ -1024,13 +1025,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(bEnableGKey, "shortcut/gkey");
 	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
-
-#ifdef Q_OS_LINUX
-	if (EnvUtils::waylandIsUsed()) {
-		// Global shortcuts don't work on Wayland
-		bShortcutEnable = false;
-	}
-#endif
 
 	// Search options
 	LOAD(searchForUsers, "search/search_for_users");
