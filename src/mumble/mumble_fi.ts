@@ -3862,6 +3862,10 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source>Plugin message</source>
         <translation>Lisäosan viesti</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>

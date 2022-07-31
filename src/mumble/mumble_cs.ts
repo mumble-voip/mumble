@@ -3857,6 +3857,10 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <source>Plugin message</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>

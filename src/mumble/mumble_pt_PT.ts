@@ -3862,6 +3862,10 @@ Este campo descreve o tamanho de um aparelho LCD. O tamanho é dado em pixels (p
         <source>Plugin message</source>
         <translation>Mensagem do plugin</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>

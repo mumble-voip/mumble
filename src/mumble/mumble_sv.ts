@@ -3862,6 +3862,10 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <source>Plugin message</source>
         <translation>Plugin-meddelande</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>

@@ -3862,6 +3862,10 @@ Ce champ décrit la taille d&apos;un périphérique LCD. La taille est donnée e
         <source>Plugin message</source>
         <translation>Message du plug-in</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>
