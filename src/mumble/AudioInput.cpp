@@ -1111,9 +1111,9 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		if (ao) {
 			if (Global::get().s.bTxAudioCue) {
 				if (bIsSpeech && !bPreviousVoice) {
-					ao->playSample(Global::get().s.qsTxAudioCueOn);
+					ao->playSample(Global::get().s.qsTxAudioCueOn, Global::get().s.cueVolume);
 				} else if (!bIsSpeech && bPreviousVoice) {
-					ao->playSample(Global::get().s.qsTxAudioCueOff);
+					ao->playSample(Global::get().s.qsTxAudioCueOff, Global::get().s.cueVolume);
 				}
 			}
 
@@ -1121,7 +1121,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 				&& bTalkingWhenMuted) {
 				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > MUTE_CUE_DELAY) {
 					qetLastMuteCue.start();
-					ao->playSample(Global::get().s.qsTxMuteCue);
+					ao->playSample(Global::get().s.qsTxMuteCue, Global::get().s.cueVolume);
 				}
 			}
 		}

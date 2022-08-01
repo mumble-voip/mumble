@@ -325,6 +325,9 @@ mumble_error_t Plugin::init() {
 	if (apiVersion >= mumble_version_t({ 1, 0, 0 }) && apiVersion < mumble_version_t({ 1, 2, 0 })) {
 		MumbleAPI_v_1_0_x api = API::getMumbleAPI_v_1_0_x();
 		registerAPIFunctions(&api);
+	} else if (apiVersion >= mumble_version_t({ 1, 2, 0 }) && apiVersion < mumble_version_t({ 1, 3, 0 })) {
+		MumbleAPI_v_1_2_x api = API::getMumbleAPI_v_1_2_x();
+		registerAPIFunctions(&api);
 	} else {
 		// The API version could not be obtained -> this is an invalid plugin that shouldn't have been loaded in the
 		// first place

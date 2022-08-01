@@ -5,8 +5,8 @@
 
 /// This header file contains the definition of Mumble's API
 
-#ifndef EXTERNAL_MUMBLE_PLUGIN_API_1_0_x_H_
-#define EXTERNAL_MUMBLE_PLUGIN_API_1_0_x_H_
+#ifndef EXTERNAL_MUMBLE_PLUGIN_API_1_2_x_H_
+#define EXTERNAL_MUMBLE_PLUGIN_API_1_2_x_H_
 
 #include "PluginComponents_v_1_0_x.h"
 #include <stdint.h>
@@ -16,8 +16,8 @@
 
 // API version
 #	define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
-#	define MUMBLE_PLUGIN_API_MINOR_MACRO 0
-#	define MUMBLE_PLUGIN_API_PATCH_MACRO 3
+#	define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#	define MUMBLE_PLUGIN_API_PATCH_MACRO 0
 
 const int32_t MUMBLE_PLUGIN_API_MAJOR            = MUMBLE_PLUGIN_API_MAJOR_MACRO;
 const int32_t MUMBLE_PLUGIN_API_MINOR            = MUMBLE_PLUGIN_API_MINOR_MACRO;
@@ -36,7 +36,7 @@ const mumble_version_t MUMBLE_PLUGIN_API_VERSION = { MUMBLE_PLUGIN_API_MAJOR, MU
 
 #endif // EXTERNAL_MUMBLE_PLUGIN_API_NO_AUXILIARY_DEFINITIONS
 
-struct MumbleAPI_v_1_0_x {
+struct MumbleAPI_v_1_2_x {
 	/////////////////////////////////////////////////////////
 	////////////////////// GENERAL NOTES ////////////////////
 	/////////////////////////////////////////////////////////
@@ -526,12 +526,14 @@ struct MumbleAPI_v_1_0_x {
 	///
 	/// @param callerID The ID of the plugin calling this function
 	/// @param samplePath The path to the sample that shall be played (UTF-8 encoded)
+	/// @param volume The volume multiplier used when playing the sample (for no change use 1.0f)
 	/// @returns The error code. If everything went well, STATUS_OK will be returned.
-	mumble_error_t(PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID, const char *samplePath);
+	mumble_error_t(PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID, const char *samplePath,
+														  float volume);
 };
 
 #ifndef EXTERNAL_MUMBLE_PLUGIN_API_NO_AUXILIARY_DEFINITIONS
-typedef struct MumbleAPI_v_1_0_x mumble_api_t;
+typedef struct MumbleAPI_v_1_2_x mumble_api_t;
 #endif
 
-#endif // EXTERNAL_MUMBLE_PLUGIN_API_1_0_x_H_
+#endif // EXTERNAL_MUMBLE_PLUGIN_API_1_2_x_H_

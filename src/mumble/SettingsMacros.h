@@ -52,6 +52,8 @@
 	PROCESS(audio, EXCLUSIVE_OUTPUT_KEY, bExclusiveOutput)                                  \
 	PROCESS(audio, INPUT_SYSTEM_KEY, qsAudioInput)                                          \
 	PROCESS(audio, OUTPUT_SYSTEM_KEY, qsAudioOutput)                                        \
+	PROCESS(audio, NOTIFICATION_VOLUME_KEY, notificationVolume)                             \
+	PROCESS(audio, CUE_VOLUME_KEY, cueVolume)                                               \
 	PROCESS(audio, RESTRICT_WHISPERS_TO_FRIENDS_KEY, bWhisperFriends)                       \
 	PROCESS(audio, NOTIFICATION_USER_LIMIT_KEY, iMessageLimitUserThreshold)
 

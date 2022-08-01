@@ -55,6 +55,13 @@ public slots:
 	void on_qtwMessages_itemClicked(QTreeWidgetItem *, int);
 	void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem *, int);
 	void browseForAudioFile();
+
+	void on_qsNotificationVolume_valueChanged(int value);
+	void on_qsCueVolume_valueChanged(int value);
+	void on_qsTTSVolume_valueChanged(int value);
+	void on_qsbNotificationVolume_valueChanged(int value);
+	void on_qsbCueVolume_valueChanged(int value);
+	void on_qsbTTSVolume_valueChanged(int value);
 };
 
 class ClientUser;

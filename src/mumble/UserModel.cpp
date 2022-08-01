@@ -18,6 +18,7 @@
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
+#include "VolumeAdjustment.h"
 #include "Global.h"
 
 #include <QtCore/QMimeData>
@@ -1979,8 +1980,7 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 	}
 
 	// Transform the adjustment into dB
-	// *2 == 6 dB
-	int localVolumeDecibel = std::round(log2f(volumeAdjustment) * 6);
+	int localVolumeDecibel = VolumeAdjustment::toIntegerDBAdjustment(volumeAdjustment);
 
 	// Create a friend-tag
 	QString friendTag;

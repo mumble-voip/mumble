@@ -7,6 +7,7 @@
 #include "Channel.h"
 #include "ChannelListenerManager.h"
 #include "ClientUser.h"
+#include "VolumeAdjustment.h"
 #include "Global.h"
 
 #include <QtWidgets/QPushButton>
@@ -17,12 +18,11 @@ ListenerLocalVolumeDialog::ListenerLocalVolumeDialog(ClientUser *user, Channel *
 	: QDialog(parent), m_user(user), m_channel(channel) {
 	setupUi(this);
 
-	m_initialAdjustemt = Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(m_channel->iId);
+	m_initialAdjustment = Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(m_channel->iId);
 
-	// Decibel formula: +6db = *2
-	// Calculate the db-shift from the set volume-faactor
-	float fdbShift = log2f(m_initialAdjustemt) * 6;
-	qsUserLocalVolume->setValue(static_cast< int >(roundf(fdbShift)));
+	// Calculate the db-shift from the set volume-factor
+	int dbShift = VolumeAdjustment::toIntegerDBAdjustment(m_initialAdjustment);
+	qsUserLocalVolume->setValue(dbShift);
 
 	setWindowTitle(tr("Adjusting local volume for listening to %1").arg(channel->qsName));
 }
@@ -34,10 +34,9 @@ void ListenerLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int value) {
 void ListenerLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int value) {
 	qsUserLocalVolume->setValue(value);
 
-	// Decibel formula: +6db = *2
 	// Calculate the volume-factor for the set db-shift
-	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(
-		m_channel->iId, static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
+	float factor = VolumeAdjustment::toFactor(qsUserLocalVolume->value());
+	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId, factor);
 }
 
 void ListenerLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *button) {
@@ -54,7 +53,7 @@ void ListenerLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *b
 
 void ListenerLocalVolumeDialog::reject() {
 	// Restore to what has been set before the dialog
-	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId, m_initialAdjustemt);
+	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId, m_initialAdjustment);
 
 	QDialog::reject();
 }

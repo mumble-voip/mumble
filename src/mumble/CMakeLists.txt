@@ -92,7 +92,7 @@ set(MUMBLE_SOURCES
 	"ACLEditor.cpp"
 	"ACLEditor.h"
 	"ACLEditor.ui"
-	"API_v_1_0_x.cpp"
+	"API_v_1_x_x.cpp"
 	"API.h"
 	"ApplicationPalette.h"
 	"AudioConfigDialog.cpp"

@@ -20,12 +20,25 @@ VolumeAdjustment::VolumeAdjustment(float factor, int dbAdjustment) : factor(fact
 		   // If dB is the dB-representation of a loudness change factor f, we have
 		   // dB = log2(f) * 6    <=>    f = 2^{dB/6}
 		   // (+6dB equals a doubling in loudness)
-		   || DB_THRESHOLD >= std::abs(dbAdjustment - std::log2(factor) * 6));
+		   || DB_THRESHOLD >= std::abs(dbAdjustment - VolumeAdjustment::toDBAdjustment(factor)));
+}
+
+// Decibel formula: +6db = *2
+float VolumeAdjustment::toFactor(int dbAdjustment) {
+	return static_cast< float >(std::pow(2.0, dbAdjustment / 6.0));
+}
+
+float VolumeAdjustment::toDBAdjustment(float factor) {
+	return static_cast< float >(std::log2(factor) * 6.0);
+}
+
+int VolumeAdjustment::toIntegerDBAdjustment(float factor) {
+	return static_cast< int >(std::roundf(VolumeAdjustment::toDBAdjustment(factor)));
 }
 
 VolumeAdjustment VolumeAdjustment::fromFactor(float factor) {
 	if (factor > 0) {
-		float dB = std::log2(factor) * 6;
+		float dB = VolumeAdjustment::toDBAdjustment(factor);
 
 		if (std::abs(dB - static_cast< int >(dB)) < DB_THRESHOLD) {
 			// Close-enough
@@ -39,7 +52,7 @@ VolumeAdjustment VolumeAdjustment::fromFactor(float factor) {
 }
 
 VolumeAdjustment VolumeAdjustment::fromDBAdjustment(int dbAdjustment) {
-	float factor = std::pow(2.0f, dbAdjustment / 6.0f);
+	float factor = VolumeAdjustment::toFactor(dbAdjustment);
 
 	return VolumeAdjustment(factor, dbAdjustment);
 }

@@ -38,6 +38,7 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "MainWindow.h"
+#include "VolumeAdjustment.h"
 #include "Global.h"
 
 #include <QtGui/QCloseEvent>
@@ -56,7 +57,11 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
-		qsUserLocalVolume->setValue(qRound(log2(user->getLocalVolumeAdjustments()) * 6.0));
+
+		// Calculate the db-shift from the set volume-factor
+		int dbShift = VolumeAdjustment::toIntegerDBAdjustment(user->getLocalVolumeAdjustments());
+		qsUserLocalVolume->setValue(dbShift);
+
 		m_originalVolumeAdjustmentDecibel = qsUserLocalVolume->value();
 	}
 
@@ -87,8 +92,9 @@ void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int value) {
 	qsbUserLocalVolume->setValue(value);
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
-		// Decibel formula: +6db = *2
-		user->setLocalVolumeAdjustment(static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
+		// Calculate the volume-factor for the set db-shift
+		float factor = VolumeAdjustment::toFactor(qsUserLocalVolume->value());
+		user->setLocalVolumeAdjustment(factor);
 	}
 }
 
