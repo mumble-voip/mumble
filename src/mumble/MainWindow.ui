@@ -228,7 +228,7 @@
     <string>Shows a dialog of registered servers, and also allows quick-connect.</string>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="qaServerDisconnect">
@@ -277,7 +277,7 @@
     <string>This will show extended information about the connection to the server.</string>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="qaUserKick">
@@ -562,7 +562,7 @@
     <enum>QAction::PreferencesRole</enum>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="qaFilterToggle">
@@ -773,6 +773,13 @@ the channel's context menu.</string>
    <property name="whatsThis">
     <string>This will add the user as a friend, so you can recognize him on this and other servers.</string>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:emblems/emblem-favorite.svg</normaloff>skin:emblems/emblem-favorite.svg</iconset>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="qaUserFriendRemove">
    <property name="text">
@@ -875,6 +882,13 @@ the channel's context menu.</string>
    <property name="toolTip">
     <string>Query server for connection information for user</string>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="qaSelfComment">
    <property name="icon">
@@ -888,7 +902,7 @@ the channel's context menu.</string>
     <string>Change your own comment</string>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="qaSelfRegister">
@@ -927,7 +941,7 @@ the channel's context menu.</string>
     <string>Recording</string>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="qaShow">
