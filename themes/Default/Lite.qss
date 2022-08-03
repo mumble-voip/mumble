@@ -197,9 +197,14 @@ QMenu {
 QMenu::item {
   border: 1px solid transparent;
   color: #111;
-  padding: 5px 16px;
-  padding-left: 25px;
+  padding: 5px;
+  padding-right: 16px;
+  padding-left: 8px;
   border-radius: 2px;
+}
+
+QMenu::icon {
+  left: 4px;
 }
 
 QMenu::item:selected {
@@ -215,12 +220,6 @@ QMenu::item:disabled {
 QMenu::separator {
   background: #D5D5D5;
   height: 1px;
-}
-
-QMenu::indicator {
-  padding-top: 2px;
-  height: 25px;
-  width: 25px;
 }
 
 QPushButton {
@@ -708,8 +707,11 @@ QTreeView::indicator {
 }
 
 QMenu::indicator {
+  padding-top: 2px;
   width: 12px;
+  height: 12px;
   left: 6px;
+  margin-right: 8px;
 }
 
 QCheckBox::indicator:checked,
@@ -1052,15 +1054,15 @@ TalkingUI > * {
   background-color: #FFF;
 }
 
-TalkingUI [selected=false] {
+TalkingUI [selected="false"] {
   background-color: #FFF;
 }
 
-TalkingUI [selected=false]:hover {
+TalkingUI [selected="false"]:hover {
   background-color: #eee;
 }
 
-TalkingUI [selected=true] {
+TalkingUI [selected="true"] {
   background-color: #dcedf5;
   border: 1px solid #97b5c6;
 }
