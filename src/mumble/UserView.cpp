@@ -18,11 +18,11 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
 
-const int UserDelegate::FLAG_ICON_DIMENSION = 16;
-const int UserDelegate::FLAG_ICON_PADDING   = 1;
-const int UserDelegate::FLAG_DIMENSION      = 18;
-
-UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
+UserDelegate::UserDelegate(QObject *p, int flagTotalDimension, int flagIconPadding, int flagIconDimension)
+	: QStyledItemDelegate(p) {
+	m_flagTotalDimension = flagTotalDimension;
+	m_flagIconDimension  = flagIconDimension;
+	m_flagIconPadding    = flagIconPadding;
 }
 
 void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
@@ -63,7 +63,7 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
 
 	// resize rect to exclude the flag icons
-	o.rect = option.rect.adjusted(0, 0, -FLAG_DIMENSION * ql.count(), 0);
+	o.rect = option.rect.adjusted(0, 0, -m_flagTotalDimension * ql.count(), 0);
 
 	// draw icon
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
@@ -76,13 +76,13 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	style->drawItemText(painter, textRect, o.displayAlignment, o.palette, true, itemText, colorRole);
 
 	// draw flag icons to original rect
-	QRect ps = QRect(option.rect.right() - (ql.size() * FLAG_DIMENSION), option.rect.y(), ql.size() * FLAG_DIMENSION,
-					 option.rect.height());
+	QRect ps = QRect(option.rect.right() - (ql.size() * m_flagTotalDimension), option.rect.y(),
+					 ql.size() * m_flagTotalDimension, option.rect.height());
 
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
-		r.setSize(QSize(FLAG_ICON_DIMENSION, FLAG_ICON_DIMENSION));
-		r.translate(i * FLAG_DIMENSION + FLAG_ICON_PADDING, FLAG_ICON_PADDING);
+		r.setSize(QSize(m_flagIconDimension, m_flagIconDimension));
+		r.translate(i * m_flagTotalDimension + m_flagIconPadding, m_flagIconPadding);
 		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
 		qvariant_cast< QIcon >(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
 	}
@@ -97,7 +97,7 @@ bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QSt
 		const QModelIndex firstColumnIdx = index.sibling(index.row(), 1);
 		QVariant data                    = m->data(firstColumnIdx);
 		QList< QVariant > flagList       = data.toList();
-		const int offset                 = flagList.size() * -FLAG_DIMENSION;
+		const int offset                 = flagList.size() * -m_flagTotalDimension;
 		const int firstFlagPos           = option.rect.topRight().x() + offset;
 
 		if (evt->pos().x() >= firstFlagPos) {
@@ -108,7 +108,13 @@ bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QSt
 }
 
 UserView::UserView(QWidget *p) : QTreeView(p) {
-	setItemDelegate(new UserDelegate(this));
+	// Calculate the icon size for status icons based on font size
+	// This should automaticially adjust size when the user has
+	// display scaling enabled
+	m_flagTotalDimension  = QFontMetrics(p->font()).height();
+	int flagIconPadding   = 1;
+	int flagIconDimension = m_flagTotalDimension - (4 * flagIconPadding);
+	setItemDelegate(new UserDelegate(this, m_flagTotalDimension, flagIconPadding, flagIconDimension));
 
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(nodeActivated(const QModelIndex &)));
 }
@@ -146,44 +152,44 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		// Thus if the comment icon is the last icon that is displayed, this is equal to
 		// the negative width of a flag's width (which it is initialized to here). For
 		// every flag that is displayed to the right of the comment flag, we have to subtract
-		// UserDelegate::FLAG_DIMENSION once.
-		int commentFlagPxOffset = -UserDelegate::FLAG_DIMENSION;
+		// m_flagTotalDimension once.
+		int commentFlagPxOffset = -m_flagTotalDimension;
 		bool hasComment         = false;
 
 		if (clientUser && !clientUser->qbaCommentHash.isEmpty()) {
 			hasComment = true;
 
 			if (clientUser->bLocalIgnore)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bRecording)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bPrioritySpeaker)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bMute)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bSuppress)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bSelfMute)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bLocalMute)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bSelfDeaf)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->bDeaf)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (!clientUser->qsFriendName.isEmpty())
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			if (clientUser->iId >= 0)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 
 		} else if (channel && !channel->qbaDescHash.isEmpty()) {
 			hasComment = true;
 
 			if (channel->bFiltered)
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 
 			if (channel->hasEnterRestrictions) {
-				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+				commentFlagPxOffset -= m_flagTotalDimension;
 			}
 		}
 
@@ -192,7 +198,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			const int commentFlagPxPos = r.topRight().x() + commentFlagPxOffset;
 
 			if ((clickPosition.x() >= commentFlagPxPos)
-				&& (clickPosition.x() <= (commentFlagPxPos + UserDelegate::FLAG_DIMENSION))) {
+				&& (clickPosition.x() <= (commentFlagPxPos + m_flagTotalDimension))) {
 				// Clicked comment icon
 				QString str = userModel->data(idx, Qt::ToolTipRole).toString();
 				if (str.isEmpty()) {
