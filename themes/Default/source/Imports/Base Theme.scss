@@ -217,9 +217,15 @@ QMenu::item
 {
 	border:1px solid transparent;
 	color:$sub-text;
-	padding:$base-padding + 1 $base-padding * 4;
-	padding-left:25px;
+	padding:$base-padding + 1;
+	padding-right:$base-padding * 4;
+	padding-left:$base-padding * 2;
 	border-radius:$base-border-radius;
+}
+
+QMenu::icon
+{
+	left:$base-padding;
 }
 
 QMenu::item:selected
@@ -238,13 +244,6 @@ QMenu::separator
 {
 	background:$sub-highlight;
 	height:1px;
-}
-
-QMenu::indicator
-{
-	padding-top: 2px;
-	height:25px;
-	width:25px;
 }
 
 QPushButton
@@ -809,8 +808,11 @@ QTreeView::indicator,
 
 QMenu::indicator
 {
-	width: 12px;
-	left: 6px;
+	padding-top:2px;
+	width:12px;
+	height:12px;
+	left:6px;
+	margin-right:8px;
 }
 
 QCheckBox::indicator:checked,
