@@ -722,6 +722,35 @@ ClientUser *MainWindow::getContextMenuUser() {
 	return nullptr;
 }
 
+ContextMenuTarget MainWindow::getContextMenuTargets() {
+	ContextMenuTarget target;
+
+	if (Global::get().uiSession != 0) {
+		QModelIndex idx;
+
+		if (!qpContextPosition.isNull())
+			idx = qtvUsers->indexAt(qpContextPosition);
+
+		if (!idx.isValid())
+			idx = qtvUsers->currentIndex();
+
+		target.user    = pmModel->getUser(idx);
+		target.channel = pmModel->getChannel(idx);
+
+		if (cuContextUser)
+			target.user = cuContextUser.data();
+
+		if (cContextChannel)
+			target.channel = cContextChannel.data();
+	}
+
+	cuContextUser     = target.user;
+	cContextChannel   = target.channel;
+	qpContextPosition = QPoint();
+
+	return target;
+}
+
 bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
 	if (url.scheme() == QString::fromLatin1("clientid")) {
 		bool ok = false;
@@ -1521,23 +1550,7 @@ void MainWindow::voiceRecorderDialog_finished(int) {
 }
 
 void MainWindow::qmUser_aboutToShow() {
-	ClientUser *p = nullptr;
-	if (Global::get().uiSession != 0) {
-		QModelIndex idx;
-		if (!qpContextPosition.isNull())
-			idx = qtvUsers->indexAt(qpContextPosition);
-
-		if (!idx.isValid())
-			idx = qtvUsers->currentIndex();
-
-		p = pmModel->getUser(idx);
-
-		if (cuContextUser)
-			p = cuContextUser.data();
-	}
-
-	cuContextUser     = p;
-	qpContextPosition = QPoint();
+	ClientUser *p = getContextMenuTargets().user;
 
 	const ClientUser *self = ClientUser::get(Global::get().uiSession);
 	bool isSelf            = p == self;
@@ -1666,23 +1679,7 @@ void MainWindow::qmUser_aboutToShow() {
 }
 
 void MainWindow::qmListener_aboutToShow() {
-	ClientUser *p = nullptr;
-	if (Global::get().uiSession != 0) {
-		QModelIndex idx;
-		if (!qpContextPosition.isNull())
-			idx = qtvUsers->indexAt(qpContextPosition);
-
-		if (!idx.isValid())
-			idx = qtvUsers->currentIndex();
-
-		p = pmModel->getUser(idx);
-
-		if (cuContextUser)
-			p = cuContextUser.data();
-	}
-
-	cuContextUser     = p;
-	qpContextPosition = QPoint();
+	ClientUser *p = getContextMenuTargets().user;
 
 	bool self = p && (p->uiSession == Global::get().uiSession);
 
@@ -2114,25 +2111,9 @@ void MainWindow::on_qmConfig_aboutToShow() {
 }
 
 void MainWindow::qmChannel_aboutToShow() {
+	Channel *c = getContextMenuTargets().channel;
+
 	qmChannel->clear();
-
-	Channel *c = nullptr;
-	if (Global::get().uiSession != 0) {
-		QModelIndex idx;
-		if (!qpContextPosition.isNull())
-			idx = qtvUsers->indexAt(qpContextPosition);
-
-		if (!idx.isValid())
-			idx = qtvUsers->currentIndex();
-
-		c = pmModel->getChannel(idx);
-
-		if (cContextChannel)
-			c = cContextChannel.data();
-	}
-
-	cContextChannel   = c;
-	qpContextPosition = QPoint();
 
 	if (c && c->iId != ClientUser::get(Global::get().uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
