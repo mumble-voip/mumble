@@ -81,7 +81,7 @@ mainly occupied by various scripts used throughout various tasks surrounding Mum
 default configuration file for the Mumble server.
 
 Your main focus should lie on the `src` directory as this is where the bulk of Mumble's source code is living. Directly in `src/` are shared sources
-that are used by the Mumble client as well as by the server that live in `src/mumble` and `src/murmur` respectively. The `src/mumble_exe` direcrtory
+that are used by the Mumble client as well as by the server that live in `src/mumble` and `src/murmur` respectively. The `src/mumble_exe` directory
 contains code for the Windows-specific executable. In order to make sense of that you have to know that on Windows we are currently using a bit of an
 odd system: The main application is packaged inside a DLL that is loaded by the main executable. This is a historic artifact and currently only
 serves to create problems every now and then. In any case though, the mentioned "main executable" whose sole job is loading of that DLL lives in
@@ -107,7 +107,7 @@ file within the same directory as the header in question).
 
 ### Client
 
-First off: all the `*.ts` are used for localizations (translations) are are handled by external services. Thus, you should not modify them by hand
+First off: all the `*.ts`, used for localizations (translations), are handled by external services. Thus, you should not modify them by hand
 as your changes would likely be overwritten by said service.
 
 - `main.cpp`: This contains the main entry point into the client (the "main" function) in which all command-line arguments are processed and a bunch
