@@ -737,11 +737,11 @@ ContextMenuTarget MainWindow::getContextMenuTargets() {
 		target.user    = pmModel->getUser(idx);
 		target.channel = pmModel->getChannel(idx);
 
-		if (cuContextUser)
-			target.user = cuContextUser.data();
+		if (!target.user)
+			target.user = getContextMenuUser();
 
-		if (cContextChannel)
-			target.channel = cContextChannel.data();
+		if (!target.channel)
+			target.channel = getContextMenuChannel();
 	}
 
 	cuContextUser     = target.user;
