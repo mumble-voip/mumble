@@ -44,6 +44,11 @@ class SearchDialog;
 
 struct ShortcutTarget;
 
+struct ContextMenuTarget {
+	ClientUser *user = nullptr;
+	Channel *channel = nullptr;
+};
+
 class MessageBoxEvent : public QEvent {
 public:
 	QString msg;
@@ -196,6 +201,7 @@ protected:
 	bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 	Channel *getContextMenuChannel();
 	ClientUser *getContextMenuUser();
+	ContextMenuTarget getContextMenuTargets();
 
 public slots:
 	void on_qmServer_aboutToShow();
