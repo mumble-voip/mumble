@@ -300,7 +300,7 @@ Ajouter un nouveau groupe.</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <translation>Permissions</translation>
+        <translation>Autorisations</translation>
     </message>
     <message>
         <source>User/Group</source>
@@ -990,7 +990,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation>Si sélectionné, Mumble activera le mode de délai réduit d&apos;Opus lorsque la qualité sera réglée sur &lt;b&gt;64 kbit/s&lt;/b&gt; ou plus élevée. Le mode de délai réduit réduit la latence d&apos;environ &lt;b&gt;15 millisecondes&lt;/b&gt; pour l&apos;aller-retour. Ce mode peut nécessiter un débit binaire plus élevé pour conserver la même qualité par rapport aux modes musique et VOIP.</translation>
+        <translation>Si sélectionné, Mumble activera le mode de latence réduite d&apos;Opus lorsque la qualité sera réglée sur &lt;b&gt;64 kbit/s&lt;/b&gt; ou plus élevée. Le mode de latence réduite diminue la latence d&apos;environ &lt;b&gt;15 millisecondes&lt;/b&gt; en aller-retour. Il peut nécessiter un débit binaire plus élevé pour conserver la même qualité par rapport aux modes musique et VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
@@ -3086,11 +3086,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse IPv6</translation>
     </message>
 </context>
 <context>
@@ -3415,7 +3415,7 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Le système de raccourcis globaux de Mumble ne fonctionne actuellement pas correctement avec le protocole Wayland. Pour davantage d&apos;informations, visitez &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3864,7 +3864,7 @@ Ce champ décrit la taille d&apos;un périphérique LCD. La taille est donnée e
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[contenu intégré]</translation>
     </message>
 </context>
 <context>
@@ -4106,47 +4106,47 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume du message</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustement du volume pour les signaux audio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ceci est le réglage du volume pour les signaux audio.&lt;/b&gt;&lt;br /&gt;Une valeur de 0 dB signifie aucun changement de l&apos;échantillon sonore.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume de synthèse vocale</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglage du volume de notification</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustement du volume pour les sons de notification</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ceci est l&apos;ajustement de volume pour les sons de notification.&lt;/b&gt;&lt;br /&gt;Une valeur de 0 dB signifie aucun changement de l&apos;échantillon sonore.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglage du volume des signaux audio</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglage du volume des sons de notification</translation>
     </message>
 </context>
 <context>
@@ -6945,7 +6945,7 @@ Empêche le client d&apos;envoyer des informations pouvant identifier le systèm
     </message>
     <message>
         <source>Overlay</source>
-        <translation>Overlay</translation>
+        <translation>Superposition</translation>
     </message>
     <message>
         <source>Choose executable</source>
