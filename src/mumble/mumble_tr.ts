@@ -4310,7 +4310,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>In minimal view</source>
-        <translation>Minimal görünümde</translation>
+        <translation>Küçük görünümde</translation>
     </message>
     <message>
         <source>In normal view</source>
@@ -4326,7 +4326,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Bu seçenek hangi durumlarda uygulamanın en üstte kalacağını belirler. &lt;i&gt;Hiçbir zaman&lt;/i&gt;ı seçerseniz uygulama üstte kalmaz. &lt;i&gt;Daima&lt;/i&gt; uygulamayı her zaman en üstte tutar. &lt;i&gt;Minimal görünümde&lt;/i&gt; / &lt;i&gt;Normal görünümde&lt;/i&gt; uygulamayı en üste sadece minimal görünüm etkinleştirildiğinde / devre dışı bırakıldığında koyar.</translation>
+        <translation>Bu seçenek hangi durumlarda uygulamanın en üstte kalacağını belirler. &lt;i&gt;Hiçbir zaman&lt;/i&gt;ı seçerseniz uygulama üstte kalmaz. &lt;i&gt;Daima&lt;/i&gt; uygulamayı her zaman en üstte tutar. &lt;i&gt;Küçük görünümde&lt;/i&gt; / &lt;i&gt;Normal görünümde&lt;/i&gt; uygulamayı en üste sadece küçük görünüm etkinleştirildiğinde / devre dışı bırakıldığında koyar.</translation>
     </message>
     <message>
         <source>Show context menu in menu bar</source>
@@ -4639,7 +4639,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Küçültülmüş hâli açıp kapat</translation>
+        <translation>Küçültülmüş hâli aç/kapat</translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
@@ -5472,7 +5472,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>&amp;Minimal View</source>
-        <translation>K&amp;üçük Görüntü</translation>
+        <translation>&amp;Küçük Görünüm</translation>
     </message>
     <message>
         <source>Toggle minimal window modes</source>
@@ -5480,7 +5480,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Kütük ve menü pencerelerinin saklandığı küçük görüntü kipini açıp kapatır.</translation>
+        <translation>Günlük penceresinin ve menünün gizlendiği küçük görüntü kipini açıp kapatır.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
@@ -6395,7 +6395,7 @@ Geçerli eylemler şunlardır:
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation>Mumble - Minimal Görünüm</translation>
+        <translation>Mumble - Küçük Görünüm</translation>
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
@@ -6527,7 +6527,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Şu anda küçük görünümdesiniz ancak bir sunucuya bağlı değilsiniz. Bir sunucuya bağlanmak veya küçük görünümü devre dışı bırakmak için içerik menüsünü kullanın.</translation>
     </message>
 </context>
 <context>
