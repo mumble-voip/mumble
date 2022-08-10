@@ -6519,6 +6519,10 @@ Gültige Optionen sind:
                 Wenn das Format ungültig ist, wird Mumble einen Fehler melden.
 </translation>
     </message>
+    <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to conenct to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
