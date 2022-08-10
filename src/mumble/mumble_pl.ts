@@ -6529,7 +6529,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jesteś obecnie w widoku minimalnym, ale nie masz połączenia z serwerem. Użyj menu kontekstowego, aby połączyć się z serwerem lub wyłączyć widok minimalny.</translation>
     </message>
 </context>
 <context>
