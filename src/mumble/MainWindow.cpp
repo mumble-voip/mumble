@@ -382,6 +382,9 @@ void MainWindow::setupGui() {
 	qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	qteChat->setEnabled(false);
 
+	QWidget *dummyTitlebar = new QWidget(qdwMinimalViewNote);
+	qdwMinimalViewNote->setTitleBarWidget(dummyTitlebar);
+
 	setShowDockTitleBars((Global::get().s.wlWindowLayout == Settings::LayoutCustom) && !Global::get().s.bLockLayout);
 
 #ifdef Q_OS_MAC
@@ -1332,6 +1335,13 @@ void MainWindow::setupView(bool toggle_minimize) {
 	qdwChat->setVisible(showit);
 	qtIconToolbar->setVisible(showit);
 	menuBar()->setVisible(showit);
+
+	if (showit) {
+		qdwMinimalViewNote->hide();
+	} else if (!Global::get().sh) {
+		// Show the note, if we're not connected to a server
+		qdwMinimalViewNote->show();
+	}
 
 	// Display the Transmit Mode Dropdown, if configured to do so, otherwise
 	// hide it.
@@ -3221,6 +3231,8 @@ void MainWindow::serverConnected() {
 #ifdef Q_OS_WIN
 	TaskList::addToRecentList(Global::get().s.qsLastServer, uname, host, port);
 #endif
+
+	qdwMinimalViewNote->hide();
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
@@ -3440,6 +3452,10 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	}
 	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	AudioInput::setMaxBandwidth(-1);
+
+	if (Global::get().s.bMinimalView) {
+		qdwMinimalViewNote->show();
+	}
 }
 
 void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
