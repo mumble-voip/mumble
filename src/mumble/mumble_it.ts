@@ -3858,6 +3858,10 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <source>Plugin message</source>
         <translation>Messaggio plugin</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>

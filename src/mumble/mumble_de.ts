@@ -3858,6 +3858,10 @@ Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des
         <source>Plugin message</source>
         <translation>Plugin-Nachricht</translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>
