@@ -3859,6 +3859,10 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <source>Plugin message</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>[embedded content]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>
