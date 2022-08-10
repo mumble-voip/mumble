@@ -3414,7 +3414,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;ın Genel Kısayollar sistemi şu anda Wayland protokolü ile birlikte düzgün çalışmıyor. Daha fazla bilgi için &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt; adresini ziyaret edin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3863,7 +3863,7 @@ Bu alan LCD aygıtın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekra
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[gömülü içerik]</translation>
     </message>
 </context>
 <context>
@@ -4105,47 +4105,47 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesaj Ses Seviyesi</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses işaretleri için ses seviyesi ayarı</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, ses işaretleri için ses seviyesi ayarıdır.&lt;/b&gt;&lt;br /&gt;0 dB değeri, ses örneğinde hiçbir değişiklik olmadığı anlamına gelir.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Konuşma sentezi ses seviyesi</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirim ses seviyesi ayarı</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirim sesleri için ses seviyesi ayarı</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, bildirim sesleri için ses seviyesi ayarıdır.&lt;/b&gt;&lt;br /&gt;0 dB değeri, ses örneğinde hiçbir değişiklik olmadığı anlamına gelir.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses işareti ses seviyesi ayarı</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirim sesi ses seviyesi ayarı</translation>
     </message>
 </context>
 <context>
