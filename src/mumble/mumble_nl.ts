@@ -3086,11 +3086,11 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv4-adres</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6-adres</translation>
     </message>
 </context>
 <context>
@@ -5784,7 +5784,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>%1 schopte je: %2.</translation>
+        <translation>%1 schopte je buiten: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
@@ -5792,7 +5792,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 schopte je weg (%2).</translation>
+        <translation>%1 schopte je buiten (%2).</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
