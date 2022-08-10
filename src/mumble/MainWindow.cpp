@@ -1307,13 +1307,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 		menuBar()->removeAction(qmDeveloper->menuAction());
 	}
 
-	if (!showit) {
-		qdwLog->setVisible(showit);
-		qdwChat->setVisible(showit);
-		qtIconToolbar->setVisible(showit);
-	}
-	menuBar()->setVisible(showit);
-
 	if (toggle_minimize) {
 		if (!showit) {
 			if (!Global::get().s.qbaMinimalViewGeometry.isNull())
@@ -1332,6 +1325,13 @@ void MainWindow::setupView(bool toggle_minimize) {
 			   geometry().height() - newgeom.height() + geom.height());
 		move(geom.x(), geom.y());
 	}
+
+
+	// Hide/Show respective UI elements
+	qdwLog->setVisible(showit);
+	qdwChat->setVisible(showit);
+	qtIconToolbar->setVisible(showit);
+	menuBar()->setVisible(showit);
 
 	// Display the Transmit Mode Dropdown, if configured to do so, otherwise
 	// hide it.
