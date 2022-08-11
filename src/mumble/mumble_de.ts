@@ -3086,11 +3086,11 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv4 Adresse</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6 Adresse</translation>
     </message>
 </context>
 <context>
@@ -3415,7 +3415,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumbles System zur Erfassung globaler Tastenkürzel funktioniert zur Zeit unter Wayland nicht korrekt. Für weitere Informationen, besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3864,7 +3864,7 @@ Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[integrierter Inhalt]</translation>
     </message>
 </context>
 <context>
@@ -4106,47 +4106,47 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungslautstärke</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärkeregelung für Audiohinweise</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies ist die Lautstärkeregelung für Audio-Hinweise.&lt;/b&gt;&lt;br /&gt;Ein Wert von 0 dB bedeutet keine Änderung gegenüber der Sound-Datei.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke von Text-zu-Sprache</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärkeregelung für Benachrichtigungen</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärkeregelung für Benachrichtigstöne</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies ist die Lautstärkeregelung für Benachrichtigungstöne.&lt;/b&gt;&lt;br /&gt;Ein Wert von 0 dB bedeutet keine Änderung gegenüber der Sound-Datei.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio-Hinweis Lautstärkeregelung</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungston Lautstärkeregelung</translation>
     </message>
 </context>
 <context>
@@ -4411,7 +4411,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Sprecher-Liste</translation>
+        <translation>Gesprächsansicht</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4423,7 +4423,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation>Wenn diese Option aktiviert ist, wird der lokale Benutzer (Sie selbst) jederzeit in der Sprecher-Liste sichtbar sein (unabhängig davon, ob Sie gerade sprechen).</translation>
+        <translation>Wenn diese Option aktiviert ist, wird der lokale Benutzer (Sie selbst) jederzeit in der Gesprächsansicht sichtbar sein (unabhängig davon, ob Sie gerade sprechen).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4447,7 +4447,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation>Die Namen wie vieler übergeordneter Kanäle soll im Namen des aktuellen Kanals in der Sprecher-Liste angezeigt werden?</translation>
+        <translation>Die Namen wie vieler übergeordneter Kanäle soll im Namen des aktuellen Kanals in der Gesprächsansicht angezeigt werden?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
@@ -4483,7 +4483,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation>Die bevorzugte maximale Länge eines Kanalnamens (ggf. inklusive der Kanalhierarchie) in der Sprecher-Liste. Beachten Sie jedoch, dass es sich hierbei nicht um ein hartes Limit handelt.</translation>
+        <translation>Die bevorzugte maximale Länge eines Kanalnamens (ggf. inklusive der Kanalhierarchie) in der Gesprächsansicht. Beachten Sie jedoch, dass es sich hierbei nicht um ein hartes Limit handelt.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
@@ -4491,7 +4491,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Relative Schriftgröße, die in der Sprecher-Liste verwendet werden soll.</translation>
+        <translation>Relative Schriftgröße, die in der Gesprächsansicht verwendet werden soll.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4547,7 +4547,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation>Ob alle Hörer des lokalen Benutzers (Ohren) in der Sprecher-Liste angezeigt werden sollen (und somit auch alle Kanäle in denen sie sich befinden) </translation>
+        <translation>Ob alle Hörer des lokalen Benutzers (Ohren) in der Gesprächsansicht angezeigt werden sollen (und somit auch alle Kanäle in denen sie sich befinden) </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
@@ -6202,11 +6202,11 @@ des Kanals auswählen.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Sprecher-Liste</translation>
+        <translation>Gesprächsansicht</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation>Schaltet die Sichtbarkeit der Sprecher-Liste um.</translation>
+        <translation>Schaltet die Sichtbarkeit der Gesprächsansicht um.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
@@ -6342,12 +6342,12 @@ Mögliche Aktionen sind:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation>Schalte Sprecher-Liste um</translation>
+        <translation>Schalte Gesprächsansicht um</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation>Schaltet die Sichtbarkeit der Sprecher-Liste um.</translation>
+        <translation>Schaltet die Sichtbarkeit der Gesprächsansicht um.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6521,7 +6521,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie befinden sich momentan in der Minimalansicht, sind aber zu keinem Server verbunden. Nutzen Sie das Kontext-Menü, um eine Verbindung zu einem Server aufzubauen oder die Minimalansicht zu beenden.</translation>
     </message>
 </context>
 <context>
@@ -7675,7 +7675,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Sprecher-Liste</translation>
+        <translation>Gesprächsansicht</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
