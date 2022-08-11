@@ -6528,7 +6528,7 @@ Les options valides sont&#xa0;:
 </translation>
     </message>
     <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to conenct to a server or disable minimal view.</source>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
