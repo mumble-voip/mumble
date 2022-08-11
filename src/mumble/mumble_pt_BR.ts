@@ -185,7 +185,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Move a entrada para cima na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas das usuárias. Não se pode mover uma entrada acima de uma entrada herdada, se realmente precisar fazer isto, você terá que duplicar a entrada herdada.</translation>
+        <translation>Move a entrada para cima na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários. Não se pode mover uma entrada acima de uma entrada herdada, se realmente precisar fazer isto, você terá que duplicar a entrada herdada.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -197,7 +197,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Move a entrada para baixo na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas das usuárias.</translation>
+        <translation>Move a entrada para baixo na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -312,11 +312,11 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation>ID de usuária</translation>
+        <translation>ID de usuário</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation>Usuária ao qual a entrada é aplicada</translation>
+        <translation>Usuário ao qual a entrada é aplicada</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
@@ -455,7 +455,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Abrir a Entrada ALSA escolhida falhou: %1</translation>
+        <translation>Falha ao abrir a entrada ALSA escolhida: %1</translation>
     </message>
 </context>
 <context>
@@ -1034,7 +1034,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation>Pré-visualização</translation>
+        <translation>Pré-visualizar</translation>
     </message>
 </context>
 <context>
@@ -2088,7 +2088,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation>Atalho PTT</translation>
+        <translation>Atalho do Push-to-Talk</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
@@ -3434,7 +3434,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation>Exclui os itens selecionados</translation>
+        <translation>Excluir os itens selecionados</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3856,7 +3856,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Plugin message</source>
-        <translation>Mensagem do Plugin</translation>
+        <translation>Mensagem do complemento</translation>
     </message>
     <message>
         <source>[embedded content]</source>
@@ -3883,7 +3883,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation>Alterna realce de janela (se inativo) para eventos %1</translation>
+        <translation>Alternar realce de janela (se inativo) para eventos %1</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
@@ -4483,7 +4483,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Search</source>
-        <translation>Procurar</translation>
+        <translation>Pesquisar</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -4499,7 +4499,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ação (Canal):</translation>
     </message>
 </context>
 <context>
@@ -6233,7 +6233,30 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Uso: mumble rpc &lt;ação&gt; [opções]
+
+É possivel controlar uma instância do Mumble em execução usando
+o comando &apos;mumble rpc&apos;.
+
+Ações válidas são:
+  mute
+                Silenciar o próprio áudio
+  unmute
+                Ativar o próprio áudio
+  togglemute
+                Alternar entre mudo/não mudo
+  deaf
+                Ensurdecer áudio
+  undeaf
+                Reativar áudio
+  toggledeaf
+                Alternar entre surdo/não surdo
+  starttalking
+                Começar a falar
+  stoptalking
+                Parar de falar
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6315,7 +6338,7 @@ Valid options are:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar o filtro do canal (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
@@ -6323,11 +6346,11 @@ Valid options are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquise por um usuário ou canal (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
@@ -7444,7 +7467,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se você utiliza Linux isso mais provavlemente é devido à versão do repositório de pacotes da sua distribuição, que possuem seus próprios ciclos de atualização.&lt;/p&gt;&lt;p&gt;Se você quer ter sempre a versão mais recente do Mumble, você deve considerar utilizar um método alternativo de instalação.
+        <translation>&lt;p&gt;Se você utiliza Linux, isso provavelmente se deve à versão do repositório de pacotes de sua distribuição, que possuem seus próprios ciclos de atualização.&lt;/p&gt;&lt;p&gt;Se você deseja ter sempre a versão mais recente do Mumble, considere utilizar um método alternativo de instalação.
 Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;wiki do Mumble&lt;/a&gt; para conhecer alternativas existentes.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -7712,7 +7735,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuários</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -7736,11 +7759,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Canais</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar por:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
@@ -7782,11 +7805,11 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informação do servidor</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informação do servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
@@ -7798,11 +7821,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Usuários&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocolo:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7830,7 +7853,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes de conexão</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -7894,7 +7917,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
@@ -8735,19 +8758,19 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Inserts the user&apos;s name</source>
-        <translation>Insere o nome do usuário</translation>
+        <translation>Insira o nome do usuário</translation>
     </message>
     <message>
         <source>Inserts the current date</source>
-        <translation>Insere a data atual</translation>
+        <translation>Insira a data atual</translation>
     </message>
     <message>
         <source>Inserts the current time</source>
-        <translation>Insere o horário atual</translation>
+        <translation>Insira o horário atual</translation>
     </message>
     <message>
         <source>Inserts the hostname</source>
-        <translation>Insere o nome de host</translation>
+        <translation>Insira o nome de host</translation>
     </message>
     <message>
         <source>Recorder still running</source>
@@ -8755,7 +8778,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation>Fechar o gravador sem pará-lo rejeitará todo áudio não salvo. Realmente deseja fechá-lo?</translation>
+        <translation>Fechar o gravador sem pará-lo irá descartar todo áudio não salvo. Deseja realmente fechá-lo?</translation>
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
@@ -8769,7 +8792,7 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
-        <translation>Já há um gravador ativo para esse servidor.</translation>
+        <translation>Já há um gravador ativo para este servidor.</translation>
     </message>
     <message>
         <source>Please select a recording format.</source>
@@ -8789,7 +8812,7 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossível iniciar a gravação - a saída de áudio está desconfigurada (0Hz de taxa de amostragem)</translation>
     </message>
 </context>
 <context>

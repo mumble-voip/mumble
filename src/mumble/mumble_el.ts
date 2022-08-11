@@ -5716,7 +5716,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Σας πέταξε και σας απαγόρεψε την είσοδος στον διακομιστή ο %1: %2.</translation>
+        <translation>Σας πέταξε και σας απαγόρεψε την είσοδο στον διακομιστή ο %1: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>

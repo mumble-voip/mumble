@@ -1982,7 +1982,7 @@ Mumble devamlı olarak geliştirilmektedir ve geliştirme ekibi kullanıcıları
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Kullanıcılar sizinle konuştuğunda diğer uygulamaların zayıflatılmasını etkinleştirir. Bu, birisinin sizinle konuşmaya başladığı zaman onu daha iyi duyabilmeniz için tüm diğer uygulamaların (müzik çalarlar gibi) sesinin zayıflatılacağı anlamına gelir.</translation>
+        <translation>Kullanıcılar sizinle konuştuğunda diğer uygulamaların zayıflatılmasını etkinleştirir. Bu, Mumble&apos;da birisinin sizinle konuşmaya başladığı zaman onu daha iyi duyabilmeniz için tüm diğer uygulamaların (müzik çalarlar gibi) sesinin zayıflatılacağı anlamına gelir.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -3041,7 +3041,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Hostname</source>
-        <translation>Bilgisayar ismi</translation>
+        <translation>Ana makine adı</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -3113,7 +3113,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;
-Sunucunun İnternet adresi. Bu normal bir bilgisayar ismi, bir İPv4/İPv6 adresi ya da bir Bonjour servis tanımlayıcısı olabilir. Bonjour servis tanımlayıcılarına Mumbe tarafından tanınmaları için &apos;@&apos; öneki konulmalıdır.</translation>
+Sunucunun internet adresi. Bu normal bir ana makine adı, bir IPv4/IPv6 adresi ya da bir Bonjour hizmet tanımlayıcısı olabilir. Bonjour hizmet tanımlayıcılarına Mumble tarafından tanınmaları için &apos;@&apos; ön eki konulmalıdır.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
@@ -3157,15 +3157,15 @@ Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
         <translation>Şu anda bir sunucuya bağlısınız.
 Diyaloğu bu sunucunun bağlantı verileriyle doldurmak istiyor musunuz?
-Makine: %1 Bağlantı noktası: %2</translation>
+Ana makine: %1 Bağlantı noktası: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation>Panonuzda bir URL bulunmaktadır.
+        <translation>Panonuzda bir URL var.
 Diyaloğu bu verilerle doldurmak istiyor musunuz?
-Makine: %1 Bağlantı noktası: %2</translation>
+Ana makine: %1 Bağlantı noktası: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3410,7 +3410,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;ın Genel Kısayollar sistemi şu anda Wayland protokolü ile birlikte düzgün çalışmıyor. Daha fazla bilgi için &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt; adresini ziyaret edin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3859,7 +3859,7 @@ Bu alan LCD aygıtın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekra
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[gömülü içerik]</translation>
     </message>
 </context>
 <context>
@@ -4190,7 +4190,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>Mumle&apos;dan çıkış seçildiğinde uygulamanın kapatılması ve küçültülmesi seçimi sun.</translation>
+        <translation>Mumble&apos;dan çıkış seçildiğinde uygulamanın kapatılması ve küçültülmesi seçimi sun.</translation>
     </message>
     <message>
         <source>Ask on quit while connected</source>
@@ -4226,7 +4226,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>In minimal view</source>
-        <translation>Minimal görünümde</translation>
+        <translation>Küçük görünümde</translation>
     </message>
     <message>
         <source>In normal view</source>
@@ -4242,7 +4242,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Bu seçenek hangi durumlarda uygulamanın en üstte kalacağını belirler. &lt;i&gt;Hiçbir zaman&lt;/i&gt;ı seçerseniz uygulama üstte kalmaz. &lt;i&gt;Daima&lt;/i&gt; uygulamayı her zaman en üstte tutar. &lt;i&gt;Minimal görünümde&lt;/i&gt; / &lt;i&gt;Normal görünümde&lt;/i&gt; uygulamayı en üste sadece minimal görünüm etkinleştirildiğinde / devre dışı bırakıldığında koyar.</translation>
+        <translation>Bu seçenek hangi durumlarda uygulamanın en üstte kalacağını belirler. &lt;i&gt;Hiçbir zaman&lt;/i&gt;ı seçerseniz uygulama üstte kalmaz. &lt;i&gt;Daima&lt;/i&gt; uygulamayı her zaman en üstte tutar. &lt;i&gt;Küçük görünümde&lt;/i&gt; / &lt;i&gt;Normal görünümde&lt;/i&gt; uygulamayı en üste sadece küçük görünüm etkinleştirildiğinde / devre dışı bırakıldığında koyar.</translation>
     </message>
     <message>
         <source>Show context menu in menu bar</source>
@@ -4555,7 +4555,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Küçültülmüş hâli açıp kapat</translation>
+        <translation>Küçültülmüş hâli aç/kapat</translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
@@ -5396,7 +5396,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>&amp;Minimal View</source>
-        <translation>K&amp;üçük Görüntü</translation>
+        <translation>&amp;Küçük Görünüm</translation>
     </message>
     <message>
         <source>Toggle minimal window modes</source>
@@ -5404,7 +5404,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Kütük ve menü pencerelerinin saklandığı küçük görüntü kipini açıp kapatır.</translation>
+        <translation>Günlük penceresinin ve menünün gizlendiği küçük görüntü kipini açıp kapatır.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
@@ -6564,11 +6564,11 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Hostname</source>
-        <translation>Makine ismi</translation>
+        <translation>Ana makine adı</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation>Vekilin makine ismi</translation>
+        <translation>Vekilin ana makine adı</translation>
     </message>
     <message>
         <source>Force TCP mode</source>
@@ -6604,7 +6604,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Vekilin bilgisayar ismi.&lt;/b&gt;&lt;br /&gt;Bu alan, şebeke trafiğinin tünelleneceği vekilin makine ismini (hostname) belirtir.</translation>
+        <translation>&lt;b&gt;Vekilin ana makine adı.&lt;/b&gt;&lt;br /&gt;Bu alan, şebeke trafiğinin tünelleneceği vekilin ana makine adını belirtir.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -7833,7 +7833,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation>Makine ismi çözümlenemedi</translation>
+        <translation>Ana makine adı çözümlenemedi</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -7872,7 +7872,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Ana Bilgisayar: &lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Ana makine:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8828,7 +8828,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Inserts the hostname</source>
-        <translation>Bilgisayar ismini ekler</translation>
+        <translation>Ana makine adını ekler</translation>
     </message>
     <message>
         <source>Recorder still running</source>

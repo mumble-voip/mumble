@@ -5708,7 +5708,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>%1 schopte je: %2.</translation>
+        <translation>%1 schopte je buiten: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
@@ -5716,7 +5716,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 schopte je weg (%2).</translation>
+        <translation>%1 schopte je buiten (%2).</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
