@@ -6526,7 +6526,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
 </translation>
     </message>
     <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to conenct to a server or disable minimal view.</source>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

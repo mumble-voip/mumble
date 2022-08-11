@@ -227,7 +227,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>You are currently in minimal view but not connected to a server. Use the context menu to conenct to a server or disable minimal view.</string>
+        <string>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
