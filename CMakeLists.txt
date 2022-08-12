@@ -54,7 +54,7 @@ option(tests "Build tests" OFF)
 option(optimize "Build a heavily optimized version, specific to the machine it's being compiled on." OFF)
 option(static "Build static binaries." OFF)
 option(symbols "Build binaries in a way that allows easier debugging." OFF)
-option(warnings-as-errors "All warnings are treated as errors." ON)
+option(warnings-as-errors "All warnings are treated as errors." OFF)
 
 option(overlay "Build overlay." ON)
 option(packaging "Build package." OFF)
