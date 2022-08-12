@@ -242,7 +242,7 @@ Check for updates by default.
 ### warnings-as-errors
 
 All warnings are treated as errors.
-(Default: ON)
+(Default: OFF)
 
 ### wasapi
 
