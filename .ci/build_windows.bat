@@ -28,15 +28,8 @@
 :: https://stackoverflow.com/a/6362922
 for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py"`) do (set "VERSION=%%g")
 
-:: For some really stupid reason we can't have this statement and the one where we set the VERSION variable in the same if body as
-:: in that case the variable substitution of that variable in the expression below fails (is replaced with empty string)
-:: Also we can't anything else inside the if body as this will cause the curl command to always be executed.
-if defined MUMBLE_BUILD_NUMBER_TOKEN (
-	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?commit=%MUMBLE_SOURCE_COMMIT%&version=%VERSION%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
-) else (
-	echo Build number token not set - defaulting to 0
-	set BUILD_NUMBER=0
-)
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-build-number.py" --commit "%MUMBLE_SOURCE_COMMIT%" --version "%VERSION%" ^
+	--password "%MUMBLE_BUILD_NUMBER_TOKEN%" --default 0`) do (set "BUILD_NUMBER=%%g")
 
 :: Create build directory if it doesn't exist.
 if not exist "%MUMBLE_BUILD_DIRECTORY%" mkdir "%MUMBLE_BUILD_DIRECTORY%
