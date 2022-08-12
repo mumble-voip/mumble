@@ -703,8 +703,6 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 												   "valign=\"middle\">%5</td></tr>"
 												   "<tr><td><img src=\"skin:talking_muted.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%6</td></tr>"
-												   "<tr><td><img src=\"skin:talking_muted.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%6</td></tr>"
 												   "<tr><td><img src=\"skin:ear.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%7</td></tr>"
 												   "</table>")
