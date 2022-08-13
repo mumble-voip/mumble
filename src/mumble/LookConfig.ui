@@ -447,17 +447,46 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbAskOnQuit">
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliQuitBehavior">
+        <property name="text">
+         <string>Quit Behavior</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="MUComboBox" name="qcbQuitBehavior">
         <property name="toolTip">
-         <string>Ask whether to close or minimize when quitting Mumble.</string>
+         <string>This setting controls the behavior of clicking on the X in the top right corner.</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</string>
+         <string>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</string>
         </property>
-        <property name="text">
-         <string>Ask on quit while connected</string>
-        </property>
+        <item>
+         <property name="text">
+          <string>Always Ask</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ask when connected</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Always Minimize</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Minimize when connected</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Always Quit</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="3" column="0" colspan="2">

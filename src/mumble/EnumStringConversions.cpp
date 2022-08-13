@@ -69,6 +69,13 @@
 	PROCESS(Settings::AlwaysOnTopBehaviour, OnTopInMinimal, "InMinimal") \
 	PROCESS(Settings::AlwaysOnTopBehaviour, OnTopInNormal, "InNormal")
 
+#define QUIT_VALUES                                                         \
+	PROCESS(QuitBehavior, ALWAYS_ASK, "AlwaysAsk")                          \
+	PROCESS(QuitBehavior, ASK_WHEN_CONNECTED, "AskWhenConnected")           \
+	PROCESS(QuitBehavior, ALWAYS_MINIMIZE, "AlwaysMinimize")                \
+	PROCESS(QuitBehavior, MINIMIZE_WHEN_CONNECTED, "MinimizeWhenConnected") \
+	PROCESS(QuitBehavior, ALWAYS_QUIT, "AlwaysQuit")
+
 #define WINDOW_LAYOUT_VALUES                                  \
 	PROCESS(Settings::WindowLayout, LayoutClassic, "Classic") \
 	PROCESS(Settings::WindowLayout, LayoutStacked, "Stacked") \
@@ -178,6 +185,9 @@
 	BEFORE_CODE(Settings::AlwaysOnTopBehaviour)        \
 	ALWAYS_ON_TOP_VALUES                               \
 	AFTER_CODE                                         \
+	BEFORE_CODE(QuitBehavior)                          \
+	QUIT_VALUES                                        \
+	AFTER_CODE                                         \
 	BEFORE_CODE(Settings::WindowLayout)                \
 	WINDOW_LAYOUT_VALUES                               \
 	AFTER_CODE                                         \
@@ -253,6 +263,7 @@ PROCESS_ALL_ENUMS
 #undef RECORDING_MODE_VALUES
 #undef WINDOW_LAYOUT_VALUES
 #undef ALWAYS_ON_TOP_VALUES
+#undef QUIT_VALUES
 #undef PROXY_TYPE_VALUES
 #undef ECHO_CANCEL_VALUES
 #undef NOISE_CANCEL_VALUES

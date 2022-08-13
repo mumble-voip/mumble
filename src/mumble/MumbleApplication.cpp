@@ -38,7 +38,7 @@ void MumbleApplication::onCommitDataRequest(QSessionManager &) {
 	if (Global::get().mw) {
 		Global::get().s.mumbleQuitNormally = true;
 		Global::get().s.save();
-		Global::get().mw->bSuppressAskOnQuit = true;
+		Global::get().mw->forceQuit = true;
 		qWarning() << "Session likely ending. Suppressing ask on quit";
 	}
 }

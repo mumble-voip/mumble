@@ -186,7 +186,9 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadComboBox(qcbUserDrag, r.ceUserDrag);
 	loadCheckBox(qcbUsersTop, r.bUserTop);
-	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
+
+	loadComboBox(qcbQuitBehavior, static_cast< int >(r.quitBehavior));
+
 	loadCheckBox(qcbEnableDeveloperMenu, r.bEnableDeveloperMenu);
 	loadCheckBox(qcbLockLayout, (r.wlWindowLayout == Settings::LayoutCustom) && r.bLockLayout);
 	loadCheckBox(qcbHideTray, r.bHideInTray);
@@ -253,7 +255,7 @@ void LookConfig::save() const {
 	}
 
 	s.aotbAlwaysOnTop           = static_cast< Settings::AlwaysOnTopBehaviour >(qcbAlwaysOnTop->currentIndex());
-	s.bAskOnQuit                = qcbAskOnQuit->isChecked();
+	s.quitBehavior              = static_cast< QuitBehavior >(qcbQuitBehavior->currentIndex());
 	s.bEnableDeveloperMenu      = qcbEnableDeveloperMenu->isChecked();
 	s.bLockLayout               = qcbLockLayout->isChecked();
 	s.bHideInTray               = qcbHideTray->isChecked();

@@ -143,7 +143,7 @@
 	PROCESS(ui, CHANNEL_DRAG_MODE_KEY, ceChannelDrag)                            \
 	PROCESS(ui, USER_DRAG_MODE_KEY, ceUserDrag)                                  \
 	PROCESS(ui, ALWAYS_ON_TOP_KEY, aotbAlwaysOnTop)                              \
-	PROCESS(ui, ASK_ON_QUIT_KEY, bAskOnQuit)                                     \
+	PROCESS(ui, QUIT_BEHAVIOR_KEY, quitBehavior)                                 \
 	PROCESS(ui, SHOW_DEVELOPER_MENU_KEY, bEnableDeveloperMenu)                   \
 	PROCESS(ui, LOCK_LAYOUT_KEY, bLockLayout)                                    \
 	PROCESS(ui, MINIMAL_VIEW_KEY, bMinimalView)                                  \

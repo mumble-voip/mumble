@@ -136,6 +136,8 @@ def getDefaultValueForType(dataType):
         return "Settings::NoiseCancelBoth"
     elif dataType in ["EchoCancelOptionID"]:
         return "EchoCancelOptionID::SPEEX_MULTICHANNEL"
+    elif dataType in ["QuitBehavior"]:
+        return "QuitBehavior::ALWAYS_QUIT"
     elif dataType in ["OverlayShow"]:
         return "OverlaySettings::HomeChannel"
     elif dataType in ["OverlayShow"]:
