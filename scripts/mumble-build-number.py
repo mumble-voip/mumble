@@ -9,16 +9,22 @@
 
 import argparse
 import urllib.request
+import urllib.parse
 import sys
 
 def fetch_build_number(commit = None, version = None, password = None):
     if commit is None or version is None:
         return None
 
-    query = "https://mumble.info/get-build-number?commit=" + commit + "&version=" + version
+    parameter = {
+        "commit": commit,
+        "version": version
+    }
 
     if not password is None:
-        query += "&token=" + password
+        parameter["token"] = password
+
+    query = "https://mumble.info/get-build-number?" + urllib.parse.urlencode(parameter)
 
     try:
         request = urllib.request.urlopen(query)
