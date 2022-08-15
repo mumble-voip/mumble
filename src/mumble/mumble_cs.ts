@@ -3683,13 +3683,6 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5988,14 +5981,6 @@ kontextové nabídce kanálů.</translation>
         <translation>Resetovat avatar zvoleného uživatele.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Upravit místní hlasitost mluvení uživatele.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Otevře dialogové okno s posuvníkem pro hlasitost. Toto použijte u ostatních uživatelů v místnosti.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6037,10 +6022,6 @@ kontextové nabídce kanálů.</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6149,10 +6130,6 @@ kontextové nabídce kanálů.</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6434,6 +6411,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8534,33 +8515,6 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Místní hlasitost pro ostatní uživatele</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Upraví místní hlasitost ostatních uživatelů&lt;/b&gt;&lt;br /&gt;Mumble podporuje místní úpravu hlasitosti ostatních uižvatelů.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Upravování místní hlasitosti pro %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Použijte posuvník nebo textový rámeček pro změnu hlasitosti uživatele.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Upozornění!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Přílišným zvýšením hlasitosti uživatele si můžete natrvalo pškodit svůj sluch. Můžete tím také zvýšit hluk z jeho okolí.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -8964,6 +8918,17 @@ Prosím kontaktujte Vašeho administrátora serveru pro další informace.</tran
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -3687,13 +3687,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>%1을(를) 듣기 위한 로컬 볼륨 조절</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5996,14 +5989,6 @@ the channel&apos;s context menu.</source>
         <translation>선택한 유저의 아바타를 초기화합니다.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>유저의 음성 볼륨을 로컬에서 조절합니다.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>볼륨 슬라이더가 있는 대화 상자를 엽니다. 같은 방에 있는 다른 유저에게 사용합니다.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>개발자(&amp;D)</translation>
     </message>
@@ -6046,10 +6031,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Ban...</source>
         <translation>차단(&amp;B)...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>로컬 볼륨 조절...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6158,10 +6139,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>채널에 입장하지 않고 듣기</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>가상 귀의 볼륨을 로컬에서 조절합니다.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6467,6 +6444,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8569,33 +8550,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>다른 유저의 로컬 볼륨</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;다른 유저의 로컬 볼륨 조절&lt;/b&gt;&lt;br /&gt;Mumble은 다른 유저의 로컬 볼륨을 조절할 수 있도록 지원합니다.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>%1의 로컬 볼륨 조절 중</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;슬라이더 또는 텍스트 상자를 사용하여 유저의 볼륨을 변경합니다.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;주의!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;유저의 볼륨을 너무 높이면 청력이 영구적으로 손상될 수 있습니다. 또한 유저의 배경 소음을 증가시킬 수 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>유저 볼륨</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9000,6 +8954,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>녹음을 시작할 수 없음 - 오디오 출력이 잘못 구성됨 (0Hz 샘플 속도)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

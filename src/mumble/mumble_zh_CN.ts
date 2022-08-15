@@ -3687,13 +3687,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>调整监听 %1 的本地音量</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5996,14 +5989,6 @@ the channel&apos;s context menu.</source>
         <translation>重置所选用户的头像。</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>本地调整用户的语音音量。</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>打开一个带有音量滑块的对话框。需要对同一频道的其他用户使用。</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>开发者(&amp;D)</translation>
     </message>
@@ -6046,10 +6031,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Ban...</source>
         <translation>封禁(&amp;B)...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>本地音量调整...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6158,10 +6139,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>监听频道而无需加入</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>本地调整此监听的音量。</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6528,6 +6505,10 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
         <translation>您当前处于简洁模式但尚未连接服务器。您可以通过上下文菜单连接服务器或禁用简洁模式。</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8629,33 +8610,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>其他用户本地音量</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;调整其他用户的本地音量&lt;/b&gt;&lt;br /&gt;Mumble 支持在本地调整其他用户的语音音量。</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>调整 %1 的本地音量</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> 分贝</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;使用滑块或文本框改变此用户的音量。&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;注意！&lt;/span&gt;&lt;/p&gt;&lt;p&gt;过度增大用户的音量可能会永久性地损害您的听力。同时也可能会增大此用户的背景噪声。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>用户音量</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9060,6 +9014,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>无法开始录音 - 音频输出配置错误（采样率为 0Hz）</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

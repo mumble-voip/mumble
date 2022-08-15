@@ -3688,13 +3688,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Προσαρμογή τοπικής έντασης για ακρόαση %1</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5997,14 +5990,6 @@ the channel&apos;s context menu.</source>
         <translation>Να γίνει reset το avatar του επιλεγμένου χρήστη.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Ρυθμίστε τοπικά την ένταση ομιλίας του χρήστη.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Ανοίγει ένα παράθυρο διαλόγου με ένα ρυθμιστικό έντασης. Χρησιμοποιήστε το σε άλλους χρήστες στο ίδιο δωμάτιο.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Προγραμματιστής</translation>
     </message>
@@ -6047,10 +6032,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Απαγορεύστε την είσοδο...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Τοπική προσαρμογή έντασης ήχου...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6159,10 +6140,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Ακρόαση στο κανάλι χωρίς σύνδεση σε αυτό</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Προσαρμόστε τοπικά την ένταση ήχου για αυτό το εικονικό αυτί.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6468,6 +6445,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8571,33 +8552,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Τοπική ένταση για άλλους χρήστες</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Ρυθμίστε τοπικά την ένταση ήχου άλλων χρηστών&lt;/b&gt;&lt;br /&gt;Το Mumble υποστηρίζει την τοπική ρύθμιση της έντασης του ήχου άλλων χρηστών.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Γίνεται ρύθμιση της τοπικής έντασης για τον %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Χρησιμοποιήστε αυτό τον ολισθητή ή το πλαίσιο κειμένου για να αλλάξετε την ένταση του ήχου του χρήστη.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Προσοχή!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Η υπερβολική αύξηση της έντασης του ήχου ενός χρήστη μπορεί να προκαλέσει μόνιμη βλάβη στην ακοή σας. Μπορεί επίσης να αυξήσει το περιβαλλοντολογικό θόρυβο του χρήστη.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Ένταση χρήστη</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9002,6 +8956,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Δεν είναι δυνατόν να αρχίσει η ηχογράφιση - η έξοδος ήχου δεν είναι ρυθμισμένη σωστά (συχνότητα δείγματος 0Hz)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

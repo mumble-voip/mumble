@@ -3689,13 +3689,6 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Dostosowywanie lokalnej głośności do słuchania %1</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5998,14 +5991,6 @@ kanały mają być filtrowane.</translation>
         <translation>Resetuj awatar wybranego użytkownika.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Lokalnie dostosuj głośność mowy użytkownika.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Otwiera okno z kontrolą głośności. Użyj tego na innych użytkownikach znajdujących się w tym samym pomieszczeniu.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Programista</translation>
     </message>
@@ -6048,10 +6033,6 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Banuj...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Lokalne dopasowanie głośności...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6160,10 +6141,6 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Słuchaj tego kanału bez dołączania do niego</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Lokalnie dostosuj głośność tego wirtualnego ucha.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6530,6 +6507,10 @@ Prawidłowe opcje to:
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
         <translation>Jesteś obecnie w widoku minimalnym, ale nie masz połączenia z serwerem. Użyj menu kontekstowego, aby połączyć się z serwerem lub wyłączyć widok minimalny.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8633,33 +8614,6 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Lokalna głośność dla innych użytkowników</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Dostosuj lokalnie głośność innych użytkowników&lt;/b&gt;&lt;br /&gt;Mumble wspiera lokalne ustawienie głośności innych użytkowników.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Dostosowywanie lokalnej głośności dla %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Użyj suwaka albo pola tekstowego do zmiany głośności użytkownika.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Uwaga!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Zbyt duże zwiększenie poziomu głośności może skutkować trwałą utratą słuchu. Może również zwiększyć szum u użytkownika.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Głośność użytkownika</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9064,6 +9018,17 @@ Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Nie można rozpocząć nagrywania - wyjście audio jest źle skonfigurowane (częstotliwość próbkowania 0 Hz)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

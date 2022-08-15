@@ -3702,13 +3702,6 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Justerer lokal lydstyrke for lytting til %1</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -6012,14 +6005,6 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
         <translation>Tilbakestill avataren tilhørende valgt bruker.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Lokal justering av brukerens talelydstyrkenivå</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Åpner en dialog med en lydstyrkeglidebryter. Bruk denne på andre brukere i samme rom.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Utvikler</translation>
     </message>
@@ -6062,10 +6047,6 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Bannlys…</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Lokal lydstyrkejustering…</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6174,10 +6155,6 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Lytt til denne kanalen uten å ta del i den</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation type="unfinished">Juster lydstyrken for dette virtuelle øret lokalt.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6483,6 +6460,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8587,33 +8568,6 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Lokalt lydstyrkenivå for andre brukere</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Juster lydstyrkenivået til andre brukere lokalt&lt;/b&gt;&lt;br /&gt;Mumble støtter justering av volumet til andre brukere lokalt.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Justerer lokalt voum for %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bruk glidebryteren eller tekstboksen for å endre lydstyrken på brukeren.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Advarsel!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Økning av lydstyrken av en bruker kan skade hørselen din permanent. Det kan også øke bakgrunnstøten til brukeren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Brukerlydstyrke</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9017,6 +8971,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation type="unfinished">Kunne ikke starte opptak — lydutgangen er satt opp feil (0 Hz samplingstakt)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
