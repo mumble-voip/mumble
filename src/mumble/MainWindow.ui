@@ -393,17 +393,6 @@
     <string>Silently drops all text messages from the user.</string>
    </property>
   </action>
-  <action name="qaUserLocalVolume">
-   <property name="text">
-    <string>Local Volume Adjustment...</string>
-   </property>
-   <property name="toolTip">
-    <string>Locally adjust the user's speech volume.</string>
-   </property>
-   <property name="whatsThis">
-    <string>Opens a dialog with a volume slider. Use this on other users in the same room.</string>
-   </property>
-  </action>
   <action name="qaUserLocalMute">
    <property name="checkable">
     <bool>true</bool>
@@ -1010,14 +999,6 @@ the channel's context menu.</string>
    </property>
    <property name="toolTip">
     <string>Listen to this channel without joining it</string>
-   </property>
-  </action>
-  <action name="qaListenerLocalVolume">
-   <property name="text">
-    <string>Local Volume Adjustment...</string>
-   </property>
-   <property name="toolTip">
-    <string>Locally adjust the volume for this virtual ear.</string>
    </property>
   </action>
   <action name="qaTalkingUIToggle">

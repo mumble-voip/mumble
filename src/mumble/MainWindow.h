@@ -16,9 +16,9 @@
 #include "MUComboBox.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
+#include "QtUtils.h"
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
-#include "UserLocalVolumeDialog.h"
 
 #include "ui_MainWindow.h"
 
@@ -38,9 +38,14 @@ class UserInformation;
 class VoiceRecorderDialog;
 class PositionalAudioViewer;
 class PTTButtonWidget;
+
 namespace Search {
 class SearchDialog;
 };
+
+class MenuLabel;
+class ListenerLocalVolumeSlider;
+class UserLocalVolumeSlider;
 
 struct ShortcutTarget;
 
@@ -78,8 +83,7 @@ public:
 	QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer,
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
-	QMap< unsigned int, UserLocalVolumeDialog * > qmUserVolTracker;
-	std::unordered_map< unsigned int, NicknameDialogPtr > qmUserNicknameTracker;
+	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
 	QAction *qaEmpty;
@@ -136,7 +140,6 @@ public:
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
-	void openUserLocalVolumeDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
 	bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
@@ -177,6 +180,10 @@ protected:
 	QAction *qaTransmitModeSeparator;
 
 	Search::SearchDialog *m_searchDialog = nullptr;
+
+	qt_unique_ptr< MenuLabel > m_localVolumeLabel;
+	qt_unique_ptr< UserLocalVolumeSlider > m_userLocalVolumeSlider;
+	qt_unique_ptr< ListenerLocalVolumeSlider > m_listenerLocalVolumeSlider;
 
 	void createActions();
 	void setupGui();
@@ -233,7 +240,6 @@ public slots:
 	void on_qaUserLocalIgnoreTTS_triggered();
 	void on_qaUserLocalMute_triggered();
 	void on_qaUserLocalNickname_triggered();
-	void on_qaUserLocalVolume_triggered();
 	void on_qaUserTextMessage_triggered();
 	void on_qaUserRegister_triggered();
 	void on_qaUserInformation_triggered();
@@ -253,7 +259,6 @@ public slots:
 	void on_qaChannelSendMessage_triggered();
 	void on_qaChannelFilter_triggered();
 	void on_qaChannelCopyURL_triggered();
-	void on_qaListenerLocalVolume_triggered();
 	void on_qaAudioReset_triggered();
 	void on_qaAudioMute_triggered();
 	void on_qaAudioDeaf_triggered();

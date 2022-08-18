@@ -203,6 +203,18 @@ QMenu::item {
   border-radius: 2px;
 }
 
+QMenu QLabel {
+  margin: 0px;
+  padding: 5px;
+  padding-right: 8px;
+  padding-left: 25px;
+}
+
+QMenu QSlider {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 QMenu::icon {
   left: 4px;
 }

@@ -3688,13 +3688,6 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Justera lokala volymen för att lyssna på %1</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5997,14 +5990,6 @@ kanalens innehållsmeny.</translation>
         <translation>Återställ visningsbild för den valda användaren.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Lokal justering av användarens talvolym.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Öppnar ett fönster med en volymkontroll. Använd den på andra användare i samma kanal.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Utvecklare</translation>
     </message>
@@ -6047,10 +6032,6 @@ kanalens innehållsmeny.</translation>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Bannlys...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Lokal volymjustering...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6159,10 +6140,6 @@ kanalens innehållsmeny.</translation>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Lyssna på den här kanalen utan att gå med i den</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Justera volymen lokalt för det här virtuella örat.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6468,6 +6445,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8570,33 +8551,6 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Lokal volym för andra användare</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Anpassar volymen av andra användare lokalt.&lt;/b&gt;&lt;br /&gt;Mumble stödjer justering av volymen lokalt för andra användare.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Anpassa lokal volym för %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Använd reglaget eller textboxen för att ändra volymen på användaren.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;OBS!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Höja volymen av en användare för mycket kan permanent skada din hörsel. Det kanske även höjer bakgrundljudet från användaren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Användarvolym</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9000,6 +8954,17 @@ Kontakta din serveradministratör för mer information.</translation>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

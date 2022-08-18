@@ -3676,13 +3676,6 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>%1 hangerejének módosítása egyénileg</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5980,14 +5973,6 @@ the channel&apos;s context menu.</source>
         <translation>Kiválasztott felhasználó profilképének eltávolítása</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>Fe&amp;jlesztő</translation>
     </message>
@@ -6030,10 +6015,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Tiltás...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Hangerő módosítása...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6141,10 +6122,6 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6426,6 +6403,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8521,33 +8502,6 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Felhasználó hangerejének módosítása egyénileg</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Felhasználó hangerejének módosítása egyénileg&lt;/b&gt;&lt;br /&gt;A Mumble képes az egyes felhasználók hangerejének módosítására.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>%1 felhasználó hangerejének módosítása</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ezzel a beállítással egyénileg módosíthatja a felhasználó hangerejét.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Figyelem!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;A felhasználó hangerejének jelentős növelése tartós halláskárosodáshoz vezethet. A hangerő növelése egyben a háttérzajt is felerősíti.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Felhasználó hangereje</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -8950,6 +8904,17 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

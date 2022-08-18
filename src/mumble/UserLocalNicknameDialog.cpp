@@ -13,7 +13,8 @@
 #include <QtWidgets/QPushButton>
 
 UserLocalNicknameDialog::UserLocalNicknameDialog(
-	unsigned int sessionId, std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker)
+	unsigned int sessionId,
+	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker)
 	: QDialog(nullptr), m_clientSession(sessionId), m_qmUserNicknameTracker(qmUserNicknameTracker) {
 	setupUi(this);
 
@@ -43,16 +44,15 @@ void UserLocalNicknameDialog::closeEvent(QCloseEvent *event) {
 	event->accept();
 }
 
-void UserLocalNicknameDialog::present(unsigned int sessionId,
-									  std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker) {
+void UserLocalNicknameDialog::present(
+	unsigned int sessionId,
+	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker) {
 	if (qmUserNicknameTracker.find(sessionId) != qmUserNicknameTracker.end()) {
 		qmUserNicknameTracker.at(sessionId)->show();
 		qmUserNicknameTracker.at(sessionId)->raise();
 	} else {
-		// Make sure to use the custom deleter for QObjects that calls deleteLater() on them instead of using
-		// delete directly as the latter can lead to segmentation faults.
-		NicknameDialogPtr userNickname(new UserLocalNicknameDialog(sessionId, qmUserNicknameTracker),
-									   Mumble::QtUtils::deleteQObject);
+		qt_unique_ptr< UserLocalNicknameDialog > userNickname =
+			make_qt_unique< UserLocalNicknameDialog >(sessionId, qmUserNicknameTracker);
 		userNickname->show();
 		qmUserNicknameTracker.insert(std::make_pair(sessionId, std::move(userNickname)));
 	}

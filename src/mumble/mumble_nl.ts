@@ -3688,13 +3688,6 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Lokaal ijkend (%1-luistervolume)</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5997,14 +5990,6 @@ context-menu van het kanaal.</translation>
         <translation>Wis de profielfoto van de geselecteerde gebruiker.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Pas het lokale spreekvolume van de gebruiker aan.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Opent een venster met een volumeschuifje. Gebruik op andere kanaalgebruiker(s).</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Ontwikkelaar</translation>
     </message>
@@ -6047,10 +6032,6 @@ context-menu van het kanaal.</translation>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Verban...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Pas lokaal volume aan...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6159,10 +6140,6 @@ context-menu van het kanaal.</translation>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Naar dit kanaal luisteren zonder binnen te knijpen</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Dit virtuele oortje mag bij geluidszwakte evt. lokaal bijgesteld.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6468,6 +6445,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8571,33 +8552,6 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Lokaal-volume voor andere gebruikers</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Volume van andere gebruikers bijstellen&lt;/b&gt;&lt;br /&gt;Mumble volumebijstelling van andere gebruikers (lokaal) laten doen.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Lokaal ijkend (%1-volume)</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gebruik de schuifbalk of het tekstvak om het volume van de gebruiker aan te passen.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Opgelet!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Het volume van een gebruiker te sterk verhogen kan permanente gehoorschade veroorzaken. Het kan ook de achtergrondruis bij die gebruiker verhogen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Gebruiksvolume</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9002,6 +8956,17 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Kon de opname niet starten - het uitvoerapparaat is verkeerd geconfigureerd (bemonsteringsfrequentie van 0 Hz)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

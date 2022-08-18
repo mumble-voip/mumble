@@ -3687,13 +3687,6 @@ Bu alan LCD aygıtın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekra
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>%1 unsurunu dinlemek için yerel ses düzeyi ayarlanıyor</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5996,14 +5989,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
         <translation>Seçilen kullanıcının havarisini sıfırla.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Kullanıcının konuşma ses seviyesini yerel olarak ayarla.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Ses seviyesini belirleyen kaydırıcı içeren bir diyalog açar. Bunu, aynı odadaki diğer kullanıcılar üzerinde kullanın.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Geliştirici</translation>
     </message>
@@ -6046,10 +6031,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Yasakla...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Yerel Ses Ayarı...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6158,10 +6139,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Bu kanalı ona katılmadan dinle</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Bu sanal kulak için ses seviyesini yerel olarak ayarla.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6528,6 +6505,10 @@ Geçerli seçenekler şunlardır:
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
         <translation>Şu anda küçük görünümdesiniz ancak bir sunucuya bağlı değilsiniz. Bir sunucuya bağlanmak veya küçük görünümü devre dışı bırakmak için içerik menüsünü kullanın.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8629,33 +8610,6 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Diğer kullanıcılar için yerel ses seviyesi</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Diğer kullanıcıların ses seviyesini yerel olarak ayarla&lt;/b&gt;&lt;br /&gt;Mumble, diğer kullanıcıların ses seviyesinin yerel olarak ayarlanmasını destekler.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>%1 için yerel ses seviyesi ayarlanıyor</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> dB</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kullanıcın ses seviyesini değiştirmek için sürgüyü ya da metin kutusunu kullanın. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Dikkat!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Herhangi bir kullanıcının ses seviyesini fazla arttırmanız kalıcı işitme kaybına sebep olabilir. Aynı zamanda kullanıcının arka plan gürültüsünün artmasına yol açabilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Kullanıcı ses seviyesi</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9060,6 +9014,17 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Kayıt başlatılamıyor - ses çıktısı yanlış yapılandırıldı (0Hz örnekleme hızı)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

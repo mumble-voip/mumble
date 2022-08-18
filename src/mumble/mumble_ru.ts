@@ -3689,13 +3689,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
 </context>
 <context>
-    <name>ListenerLocalVolumeDialog</name>
-    <message>
-        <source>Adjusting local volume for listening to %1</source>
-        <translation>Локальная громкость прослушивания установлена на %1</translation>
-    </message>
-</context>
-<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -5998,14 +5991,6 @@ the channel&apos;s context menu.</source>
         <translation>Удалить аватар выбранного пользователя.</translation>
     </message>
     <message>
-        <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation>Локально настроить громкость речи пользователя.</translation>
-    </message>
-    <message>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Открывает диалог с ползунком громкости. Используйте его на других пользователей в той же комнате.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Разработчик</translation>
     </message>
@@ -6048,10 +6033,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Ban...</source>
         <translation>За&amp;банить...</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment...</source>
-        <translation>Локальная регулировка громкости ...</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
@@ -6160,10 +6141,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Listen to this channel without joining it</source>
         <translation>Слушать этот канал, не присоединяясь к нему</translation>
-    </message>
-    <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
-        <translation>Локально настроить громкость этого виртуального уха.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6469,6 +6446,10 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8573,33 +8554,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
-    <name>UserLocalVolumeDialog</name>
-    <message>
-        <source>Local volume for other users</source>
-        <translation>Местная громкость для других пользователей</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation>&lt;b&gt;Локально отрегулируйте громкость пользователей.&lt;/b&gt;&lt;br /&gt;Mumble поддерживает локальную регулировку громкости пользователей.</translation>
-    </message>
-    <message>
-        <source>Adjusting local volume for %1</source>
-        <translation>Местная громкость установлена на %1</translation>
-    </message>
-    <message>
-        <source> dB</source>
-        <translation> дБ</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Используйте ползунок или текстовое поле, чтобы изменить громкость пользователя.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Внимание!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Чрезмерное увеличение громкости может привести к необратимому повреждению слуха. Также это может увеличить фоновый шум пользователя.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>User volume</source>
-        <translation>Громкость пользователя</translation>
-    </message>
-</context>
-<context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
@@ -9004,6 +8958,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Невозможно начать запись - аудиовыход настроен на микрофон (частота дискретизации 0 Гц)</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Slider for volume adjustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
