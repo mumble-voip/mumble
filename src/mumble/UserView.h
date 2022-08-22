@@ -17,13 +17,14 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(UserDelegate)
 
-	int m_flagTotalDimension;
-	int m_flagIconPadding;
-	int m_flagIconDimension;
+	int m_iconTotalDimension;
+	int m_iconIconPadding;
+	int m_iconIconDimension;
 
 public:
-	UserDelegate(QObject *parent, int flagTotalDimension, int flagIconPadding, int flagIconDimension);
+	UserDelegate(QObject *parent);
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+	void adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension);
 
 public slots:
 	bool helpEvent(QHelpEvent *event, QAbstractItemView *view, const QStyleOptionViewItem &option,
@@ -35,7 +36,9 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(UserView)
 
-	int m_flagTotalDimension;
+	int m_iconTotalDimension;
+	UserDelegate *m_userDelegate;
+	void adjustIcons();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
