@@ -109,10 +109,9 @@ bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QSt
 	return QStyledItemDelegate::helpEvent(evt, view, option, index);
 }
 
-UserView::UserView(QWidget *p) : QTreeView(p) {
-	m_userDelegate = new UserDelegate(this);
+UserView::UserView(QWidget *p) : QTreeView(p), m_userDelegate(make_qt_unique< UserDelegate >(this)) {
 	adjustIcons();
-	setItemDelegate(m_userDelegate);
+	setItemDelegate(m_userDelegate.get());
 
 	// Because in Qt fonts take some time to initialize properly, we have to delay the call
 	// to adjustIcons a bit in order to give the fonts the necessary time (so we can read out

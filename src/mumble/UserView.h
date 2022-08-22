@@ -10,6 +10,7 @@
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTreeView>
 
+#include "QtUtils.h"
 #include "Timer.h"
 
 class UserDelegate : public QStyledItemDelegate {
@@ -37,7 +38,7 @@ private:
 	Q_DISABLE_COPY(UserView)
 
 	int m_iconTotalDimension;
-	UserDelegate *m_userDelegate;
+	qt_unique_ptr< UserDelegate > m_userDelegate;
 	void adjustIcons();
 
 protected:
