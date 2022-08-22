@@ -679,7 +679,9 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 
 	if (tc) {
-		tc->insertHtml(qtd.toHtml());
+		QTextCursor tcNew(&qtd);
+		tcNew.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+		tc->insertFragment(tcNew.selection());
 		return QString();
 	} else {
 		return qtd.toHtml();
@@ -705,16 +707,28 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc = Global::get().mw->qteLog->textCursor();
 
+		tc.movePosition(QTextCursor::End);
+
+		// A newline is inserted after each frame, but this spaces out the
+		// log entries too much, so the font size is set to near-zero in order
+		// to reduce the space between log entries. This font size is set only
+		// for the blank lines between entries, not for entries themselves.
+		QTextCharFormat cf = tc.blockCharFormat();
+		cf.setFontPointSize(0.01);
+		tc.setBlockCharFormat(cf);
+
 		// We copy the value from the settings in order to make sure that
 		// we use the same margin everywhere while in this method (even if
 		// the setting might change in that time).
 		const int msgMargin = Global::get().s.iChatMessageMargins;
 
+		QTextFrameFormat qttf;
+		qttf.setTopMargin(0);
+		qttf.setBottomMargin(msgMargin);
+
 		LogTextBrowser *tlog     = Global::get().mw->qteLog;
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll        = (oldscrollvalue == tlog->getLogScrollMaximum());
-
-		tc.movePosition(QTextCursor::End);
 
 		if (qdDate != dt.date()) {
 			qdDate = dt.date();
@@ -727,13 +741,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		// Convert CRLF to unix-style LF and old mac-style LF (single \r) to unix-style as well
 		QString fixedNLPlain =
 			plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
-
-		QTextFrameFormat qttf;
-		// `insertFrame` causes a blank line to precede the inserted frame.
-		// This is remedied by setting a negative top margin of equal height.
-		static int lineSpacing = QFontMetrics(tc.currentFrame()->format().toCharFormat().font()).lineSpacing();
-		qttf.setTopMargin(-lineSpacing);
-		qttf.setBottomMargin(msgMargin);
 
 		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
 			// If the message ends with one or more blank lines (or lines only containing whitespace)
@@ -754,6 +761,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
 		Global::get().mw->qteLog->setTextCursor(tc);
+
+		// Shrink trailing blank line after the most recent log entry.
+		tc.setBlockCharFormat(cf);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();
