@@ -22,10 +22,12 @@ get_filename_component(SOURCE_NAME "${SOURCE_TO_COPY}" NAME)
 set(COPIED_HEADER "${CUSTOM_INCLUDE_DIR}/${HEADER_NAME}")
 set(COPIED_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${SOURCE_NAME}")
 
-add_custom_command(OUTPUT "${COPIED_SOURCE}"
+add_custom_command(
+	OUTPUT "${COPIED_SOURCE}"
 	COMMAND ${CMAKE_COMMAND} -E copy "${HEADER_TO_COPY}" "${COPIED_HEADER}"
 	COMMAND ${CMAKE_COMMAND} -E copy "${SOURCE_TO_COPY}" "${COPIED_SOURCE}"
 	DEPENDS "${HEADER_TO_COPY}" "${SOURCE_TO_COPY}"
+	COMMENT "Copying necessary source files"
 )
 
 target_sources(TestAudioReceiverBuffer PRIVATE "${COPIED_SOURCE}")
