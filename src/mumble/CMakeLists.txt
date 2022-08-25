@@ -38,6 +38,19 @@ option(portaudio "Build support for PortAudio" ON)
 option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
 
+include(FindPythonInterpreter)
+set(PYTHON_HINTS
+	"C:/Python39-x64" # Path on the AppVeyor CI server
+)
+
+find_python_interpreter(
+	VERSION 3
+	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
+	HINTS ${PYTHON_HINTS}
+	REQUIRED
+)
+
+
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
@@ -93,7 +106,6 @@ set(MUMBLE_SOURCES
 	"ACLEditor.ui"
 	"API_v_1_x_x.cpp"
 	"API.h"
-	"ApplicationPalette.h"
 	"AudioConfigDialog.cpp"
 	"AudioConfigDialog.h"
 	"Audio.cpp"
@@ -365,6 +377,17 @@ else()
 	endif()
 endif()
 
+add_custom_command(
+	OUTPUT "ApplicationPalette.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ApplicationPalette-class.py --template ${CMAKE_CURRENT_SOURCE_DIR}/ApplicationPaletteTemplate.h
+		--output ApplicationPalette.h
+	COMMENT "Generating ApplicationPalette.h"
+	DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ApplicationPaletteTemplate.h"
+)
+target_sources(mumble PRIVATE "ApplicationPalette.h")
+target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+
 set_property(TARGET mumble_client_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 set_property(TARGET mumble PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
@@ -379,6 +402,13 @@ target_compile_definitions(mumble_client_object_lib
 set_target_properties(mumble PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set_target_properties(mumble_client_object_lib
+	PROPERTIES
+		AUTOMOC ON
+		AUTORCC ON
+		AUTOUIC ON
+)
+
+set_target_properties(mumble
 	PROPERTIES
 		AUTOMOC ON
 		AUTORCC ON

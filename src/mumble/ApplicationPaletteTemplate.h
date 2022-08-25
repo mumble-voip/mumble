@@ -52,28 +52,31 @@
 	/// till the application terminates.
 	///
 	class ApplicationPalette : public QWidget {
-	Q_OBJECT
-		%(properties)s public : explicit ApplicationPalette(QWidget *p = 0)
-		: QWidget(p),
-	m_originalPalette(QApplication::palette()){
-		// Empty
-	}
+		Q_OBJECT
+		%(properties)s
+	public:
+		explicit ApplicationPalette(QWidget *p = 0) : QWidget(p), m_originalPalette(QApplication::palette()) {
+			// Empty
+		}
 
 		%(getterssetters)s
 
-		private slots : void updateApplicationPalette() {
-		qWarning() << "Updating application palette";
+	private slots:
+		void updateApplicationPalette() {
+			qWarning() << "Updating application palette";
 
-		QPalette newPalette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up
-												 // system style changes though.
+			QPalette newPalette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up
+													 // system style changes though.
 
-		%(paletteupdates)s
+			%(paletteupdates)s
 
-				QApplication::setPalette(newPalette);
-		resetAllProperties();
+			QApplication::setPalette(newPalette);
+			resetAllProperties();
 	}
 
-	void resetAllProperties() { %(propertyresets)s }
+	void resetAllProperties() {
+		%(propertyresets)s
+	}
 
 protected:
 	bool event(QEvent *e) Q_DECL_OVERRIDE {
