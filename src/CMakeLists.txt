@@ -21,6 +21,21 @@ option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 
+# Locate a usable Python3 interpreter
+include(FindPythonInterpreter)
+set(PYTHON_HINTS
+	"C:/Python39-x64" # Path on the AppVeyor CI server
+)
+
+find_python_interpreter(
+	VERSION 3
+	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
+	HINTS ${PYTHON_HINTS}
+	REQUIRED
+)
+
+
+
 find_pkg(Qt5
 	COMPONENTS
 		Core
@@ -98,7 +113,6 @@ set(SHARED_HEADERS
 	"ByteSwap.h"
 	"EnvUtils.h"
 	"FFDHE.h"
-	"FFDHETable.h"
 	"HostAddress.h"
 	"HTMLFilter.h"
 	"License.h"
@@ -129,6 +143,14 @@ set(SHARED_HEADERS
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.h"
 )
+
+add_custom_command(
+	OUTPUT "FFDHETable.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ffdhe.py --output FFDHETable.h
+	COMMENT "Generating FFDHETable.h"
+)
+list(APPEND SHARED_HEADERS "FFDHETable.h")
 
 target_sources(shared
 	PRIVATE

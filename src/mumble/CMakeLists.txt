@@ -38,19 +38,6 @@ option(portaudio "Build support for PortAudio" ON)
 option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
 
-include(FindPythonInterpreter)
-set(PYTHON_HINTS
-	"C:/Python39-x64" # Path on the AppVeyor CI server
-)
-
-find_python_interpreter(
-	VERSION 3
-	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
-	HINTS ${PYTHON_HINTS}
-	REQUIRED
-)
-
-
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
