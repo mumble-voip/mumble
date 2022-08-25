@@ -10,8 +10,8 @@
 # template_source and writes it into target after
 # template expansion.
 
-template_source = "ApplicationPaletteTemplate.h"
-target = "ApplicationPalette.h"
+import argparse
+import os
 
 color_group = ["Active", "Disabled", "Inactive"]
 color_role = [ "WindowText", "Button", "Light", "Midlight", "Dark", "Mid",
@@ -110,9 +110,15 @@ def add_role_group_property(variables, role, group):
 
 
 if __name__ == "__main__":
-    template = open(template_source, "r").read()
+    parser = argparse.ArgumentParser("Turns the ApplicationPalette template into an actually usable source file")
+    parser.add_argument("--template", help="Path to the template file", metavar="PATH", required=True)
+    parser.add_argument("--output", help="Path to the file to which to write the generated source file", metavar="PATH", default=None)
 
-    variables = {"warning": "// Auto-generated from %s . Do not edit manually." % template_source,
+    args = parser.parse_args()
+
+    template = open(args.template, "r").read()
+
+    variables = {"warning": "// Auto-generated from %s . Do not edit manually." % os.path.basename(args.template),
                  "properties": "",
                  "propertyresets": "",
                  "getterssetters": "",
@@ -126,4 +132,9 @@ if __name__ == "__main__":
             add_role_group_property(variables, role, group)
 
 
-    open(target, "w").write(template % variables)
+    generatedSource = template % variables
+
+    if args.output:
+        open(args.output, "w").write(generatedSource)
+    else:
+        print(generatedSource)
