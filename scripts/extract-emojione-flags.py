@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2015-2022 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
@@ -28,7 +28,7 @@ from __future__ import (unicode_literals, print_function, division)
 
 import os
 import shutil
-import sys
+import argparse
 
 # Beginning and end of the Regional Indicator Symbol range,
 # as defined by Unicode 6.0's emoji support.
@@ -39,47 +39,42 @@ REGIONAL_INDICATOR_SYMBOL_LETTER_A = 0x1F1E6
 REGIONAL_INDICATOR_SYMBOL_LETTER_Z = 0x1F1FF
 
 def is_region(points):
-	for point in points:
-		if point > REGIONAL_INDICATOR_SYMBOL_LETTER_Z \
-		   or point < REGIONAL_INDICATOR_SYMBOL_LETTER_A:
-			return False	
-	return True
+    for point in points:
+        if point > REGIONAL_INDICATOR_SYMBOL_LETTER_Z \
+                or point < REGIONAL_INDICATOR_SYMBOL_LETTER_A:
+                    return False	
+    return True
+
 
 def region_name(points):
-	name = ''
-	for point in points:
-		name += chr(point - REGIONAL_INDICATOR_SYMBOL_LETTER_A + ord('a'))
-	return name
+    name = ''
+    for point in points:
+        name += chr(point - REGIONAL_INDICATOR_SYMBOL_LETTER_A + ord('a'))
+    return name
+
 
 def main():
-	if len(sys.argv) < 3:
-		print('''Usage: extract-emojione-flags.py [emojione-svg-dir] [dst-dir]
+    parser = argparse.ArgumentParser(description="Extract SVG flags from the Emoji One (now joypixels) emoji collection.")
+    parser.add_argument("emojione-svg-dir", help="Path to the directory containing Emoji One SVGs, such as $EMOJIONE_SRC_TREE/assets/svg")
+    parser.add_argument("dst-dir", help="Path to which the resulting SVGs shall be written")
 
-emojione-svg-dir: point this to the directory containing Emoji One SVGs, such as
-                  $EMOJIONE_SRC_TREE/assets/svg.
+    args = parser.parse_args()
 
-dst-dir: point this to the directory you want the resulting SVGs to be written to.
 
-''')
-		sys.exit(1)
+    files = os.listdir(args.emojione_svg_dir)
+    for fn in files:
+        base, ext = os.path.splitext(fn.lower())
+        if not ext == '.svg':
+            continue
 
-	emojiOneSvgDir = sys.argv[1]
-	dstDir = sys.argv[2]
+        pointsStr = base.split('-')
+        points = [int(p, 16) for p in pointsStr]
 
-	files = os.listdir(emojiOneSvgDir)
-	for fn in files:
-		base, ext = os.path.splitext(fn.lower())
-		if not ext == '.svg':
-			continue
-		
-		pointsStr = base.split('-')
-		points = [int(p, 16) for p in pointsStr]
-		
-		if is_region(points):
-			name = region_name(points)
-			svgName = name + '.svg'
-			shutil.copy(os.path.join(emojiOneSvgDir, fn),
-			            os.path.join(dstDir, svgName))
+        if is_region(points):
+            name = region_name(points)
+            svgName = name + '.svg'
+            shutil.copy(os.path.join(args.emojione_svg_dir, fn),
+                    os.path.join(args.dst_dir, svgName))
 
 if __name__ == '__main__':
-	main()
+    main()
