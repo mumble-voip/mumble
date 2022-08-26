@@ -234,6 +234,21 @@ if(ice)
 		VERBATIM
 	)
 
+	add_custom_target(generate_murmur_ice_wrapper
+		DEPENDS "MurmurIceWrapper.cpp" 
+	)
+	add_dependencies(mumble-server generate_murmur_ice_wrapper)
+	add_custom_command(
+		OUTPUT "MurmurIceWrapper.cpp"
+		COMMAND ${PYTHON_INTERPRETER}
+		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice"
+			-g "${ICE_FILE_NAME}.h" -o "MurmurIceWrapper.cpp" -q
+		DEPENDS ${ICE_GENERATED_FILES}
+		COMMENT "Generating MurmurIceWrapper"
+	)
+	# Even though the file is a .cpp, it is still being included in MurmurIce.cpp
+	target_include_directories(mumble-server PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+
 	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
