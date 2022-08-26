@@ -320,9 +320,16 @@ set(MUMBLE_SOURCES
 	"${3RDPARTY_DIR}/smallft/smallft.cpp"
 
 	"mumble.qrc"
-	"flags/mumble_flags_0.qrc"
 	"${CMAKE_SOURCE_DIR}/themes/DefaultTheme.qrc"
 )
+
+add_custom_command(
+	OUTPUT "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_flag_qrc.py" --flag-dir "${CMAKE_SOURCE_DIR}/icons/flags" --output "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
+	COMMENT "Generating mumble_flags.qrc"
+)
+list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
 
