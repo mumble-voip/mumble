@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2015-2022 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
@@ -7,6 +7,7 @@
 
 from __future__ import (unicode_literals, print_function, division)
 
+import argparse
 import os
 import platform
 import sys
@@ -41,7 +42,7 @@ def parseTranslationsConfig(configFile):
 
         # Replace the trailing .ts with .qm as this is what lrelease will turn it into
         translationFileName = translationFileName[:-3] + ".qm"
-        
+
         local_qt_translations.append(translationFileName)
 
         if operator == "fallback":
@@ -67,7 +68,7 @@ def getComponentName(fileName):
         lastUnderscoreIdx = component.rfind('_')
         component = fileName[:lastUnderscoreIdx]
         lang = fileName[lastUnderscoreIdx+1:]
-    
+
     return component
 
 
@@ -95,7 +96,7 @@ def filesToQrc(outFile, processedComponents, fileNames, directoryPath, localTran
 
         if not component in allowed_components:
             continue
-        
+
         if name in processedComponents and not isOverride:
             continue
 
@@ -115,26 +116,27 @@ def filesToQrc(outFile, processedComponents, fileNames, directoryPath, localTran
 
 def main():
     # python generate-mumble_qt-qrc.py <output-fn> [inputs...] localDir
-    output = sys.argv[1]
-    inputs = sys.argv[2:-1]
-    localDir = sys.argv[-1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", help="The path to which to write the generated QRC file", metavar="PATH", required=True)
+    parser.add_argument("--translation-dir", help="The path to the directory containing the official Qt translations",
+            action="append", metavar="PATH", required=True)
+    parser.add_argument("--local-translation-dir", help="The path to the local translation directory", metavar="PATH", required=True)
+
+    args = parser.parse_args()
 
     # parse config file
-    if localDir.endswith("/") or localDir.endswith("\\"):
-        localDir = localDir[:-1]
-
-    configFile = os.path.join(localDir, "translations.conf")
+    configFile = os.path.join(args.local_translation_dir, "translations.conf")
     if os.path.isfile(configFile):
         parseTranslationsConfig(configFile)
 
-    of = open(output, 'w')
+    of = open(args.output, 'w')
     of.write('<!DOCTYPE RCC><RCC version="1.0">\n')
     of.write('<qresource>\n')
     processedComponents = []
-    for dirName in inputs:
+    for dirName in args.translation_dir:
         processedComponents.extend(dirToQrc(of, dirName, processedComponents))
     # Process translations provided by Mumble itself (aka local translations)
-    filesToQrc(of, processedComponents, local_qt_translations, localDir, True)
+    filesToQrc(of, processedComponents, local_qt_translations, args.local_translation_dir, True)
     of.write('</qresource>\n')
     of.write('</RCC>\n')
     of.close()

@@ -122,7 +122,8 @@ function(bundle_qt_translations TARGET)
 	# Generate the QRC file that contains the Qt translations and potentially our overwrites of them
 	execute_process(
 		COMMAND "${PYTHON_INTERPRETER}" "${CMAKE_SOURCE_DIR}/scripts/generate-mumble_qt-qrc.py"
-			"${GENERATED_QRC_FILE}" "${QT_TRANSLATIONS_DIRECTORY}" "${QT_TRANSLATION_OVERWRITE_DIR}"
+			--output "${GENERATED_QRC_FILE}" --translation-dir "${QT_TRANSLATIONS_DIRECTORY}"
+			--local-translation-dir "${QT_TRANSLATION_OVERWRITE_DIR}"
 		RESULT_VARIABLE GENERATOR_EXIT_CODE
 	)
 
