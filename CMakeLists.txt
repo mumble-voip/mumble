@@ -14,6 +14,7 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
 endif()
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
+set(BUILD_RELEASE_DATE CACHE STRING "The release date to be used in the generated appstream metadata.")
 
 if ("${BUILD_NUMBER}" STREQUAL "")
 	if(packaging)
