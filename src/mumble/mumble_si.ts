@@ -637,6 +637,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInput</name>
