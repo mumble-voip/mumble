@@ -362,7 +362,8 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s\n", qPrintable(License::authors()));
+			qInfo("%s\n",
+				  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
 			return 0;
 #endif
 		} else if (args.at(i) == QLatin1String("-third-party-licenses")

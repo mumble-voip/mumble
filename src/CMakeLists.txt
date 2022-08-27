@@ -116,7 +116,6 @@ set(SHARED_HEADERS
 	"HostAddress.h"
 	"HTMLFilter.h"
 	"License.h"
-	"licenses.h"
 	"LogEmitter.h"
 	"MumbleProtocol.h"
 	"Net.h"
@@ -151,6 +150,18 @@ add_custom_command(
 	COMMENT "Generating FFDHETable.h"
 )
 list(APPEND SHARED_HEADERS "FFDHETable.h")
+
+add_custom_command(
+	OUTPUT "licenses.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_license_header.py" --output "licenses.h"
+	COMMENT "Generating licenses.h"
+)
+add_custom_target(generate_license_header
+	DEPENDS "licenses.h"
+)
+add_dependencies(shared generate_license_header)
+target_include_directories(shared PRIVATE "${CMAKE_BINARY_DIR}")
 
 target_sources(shared
 	PRIVATE

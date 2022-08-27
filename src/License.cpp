@@ -11,10 +11,6 @@ QString License::license() {
 	return QString::fromUtf8(licenseMumble);
 }
 
-QString License::authors() {
-	return QString::fromUtf8(authorsMumble);
-}
-
 QList< LicenseInfo > License::thirdPartyLicenses() {
 	QList< LicenseInfo > licenses;
 	for (int i = 0; !licenses3rdParties[i].isEmpty(); i++) {
