@@ -5,7 +5,7 @@
 
 #ifndef MUMBLE_MUMBLE_G15LCDENGINE_LGLCD_H_
 #	define MUMBLE_MUMBLE_G15LCDENGINE_LGLCD_H_
-#	include "../../g15helper/g15helper.h"
+#	include "g15helper/g15helper.h"
 #	include "LCD.h"
 
 class G15LCDDeviceLGLCD;

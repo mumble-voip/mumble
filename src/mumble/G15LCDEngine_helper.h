@@ -6,7 +6,7 @@
 #ifndef MUMBLE_MUMBLE_G15LCDENGINE_HELPER_H_
 #	define MUMBLE_MUMBLE_G15LCDENGINE_HELPER_H_
 
-#	include "../../g15helper/g15helper.h"
+#	include "g15helper/g15helper.h"
 #	include "LCD.h"
 
 #	include <QtCore/QProcess>

@@ -149,7 +149,7 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 add_subdirectory(src)
 
 if(g15 AND WIN32)
-	add_subdirectory(g15helper)
+	add_subdirectory("helpers/g15helper")
 endif()
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
