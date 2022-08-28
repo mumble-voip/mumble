@@ -241,7 +241,7 @@ if(ice)
 	add_custom_command(
 		OUTPUT "MurmurIceWrapper.cpp"
 		COMMAND ${PYTHON_INTERPRETER}
-		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice"
+		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
 			-g "${ICE_FILE_NAME}.h" -o "MurmurIceWrapper.cpp" -q
 		DEPENDS ${ICE_GENERATED_FILES}
 		COMMENT "Generating MurmurIceWrapper"
@@ -276,7 +276,7 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
 	)
 	
-	file(COPY "Murmur.ice" DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY "${ICE_FILE}" DESTINATION ${CMAKE_BINARY_DIR})
 endif()
 
 install(TARGETS mumble-server RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
