@@ -175,6 +175,8 @@ if(plugins AND client)
 	add_subdirectory(plugins)
 endif()
 
+add_subdirectory(auxiliary_files)
+
 if(packaging)
 	file(COPY 
 		${CMAKE_SOURCE_DIR}/installer/gpl.txt

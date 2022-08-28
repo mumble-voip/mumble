@@ -13,7 +13,7 @@ target_sources(mumble_exe PRIVATE
 	"mumble_exe.cpp"
 	"Overlay.cpp"
 
-	"${SHARED_SOURCE_DIR}/mumble/mumble.appcompat.manifest"
+	"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 	"${MUMBLE_RC}"
 )
 

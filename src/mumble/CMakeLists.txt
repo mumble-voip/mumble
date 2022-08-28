@@ -353,7 +353,7 @@ else()
 	if(WIN32)
 		target_sources(mumble_client_object_lib
 			PRIVATE
-				"mumble.appcompat.manifest"
+				"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 				"${MUMBLE_RC}"
 		)
 
@@ -417,9 +417,6 @@ else()
 	else()
 		install(TARGETS mumble BUNDLE DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 	endif()
-
-	# Install Mumble man files
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 endif()
 
 target_compile_definitions(mumble_client_object_lib

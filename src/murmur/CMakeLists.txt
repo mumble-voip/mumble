@@ -118,7 +118,7 @@ if(WIN32)
 			"Tray.h"
 			"murmur.qrc"
 
-			"${SHARED_SOURCE_DIR}/mumble/mumble.appcompat.manifest"
+			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 			"${MURMUR_RC}"
 	)
 
@@ -280,14 +280,6 @@ if(ice)
 endif()
 
 install(TARGETS mumble-server RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
-
-file(COPY "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION ${CMAKE_BINARY_DIR})
-
-if(UNIX)
-	# Install Murmur man files
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-endif()
 
 if(packaging)
 	if(WIN32)
