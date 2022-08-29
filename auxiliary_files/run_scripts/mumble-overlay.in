@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2005-2020 The Mumble Developers. All rights reserved.
+# Copyright 2005-@MUMBLE_BUILD_YEAR@ The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -12,7 +12,7 @@ fi
 
 for libpath in /usr/lib /usr/lib/mumble /usr/lib32 /usr/lib32/mumble /usr/lib64 /usr/lib64/mumble; do
   if [ -d "$libpath" ]; then
-    for lib in $libpath/libmumbleoverlay*.so
+    for lib in $libpath/lib@MUMBLE_OVERLAY_BINARY_BASENAME@*.so
     do
       case $(file -L "$lib") in
         *64-bit*) MUMBLE_OVERLAY_PATH_64="$lib" ; echo set ;;
@@ -41,14 +41,14 @@ is32=no
 case $(file -L "$binary") in
 	*64-bit*)
 		if [ -z "${MUMBLE_OVERLAY_PATH_64}" ]; then
-			echo "64-bit libmumbleoverlay.so not found" >&2
+			echo "64-bit lib@MUMBLE_OVERLAY_BINARY_BASENAME@.so not found" >&2
 			exit 1
 		fi
 		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}"
 		;;
 	*32-bit*)
 		if [ -z "${MUMBLE_OVERLAY_PATH_32}" ]; then
-			echo "32-bit libmumbleoverlay.so not found" >&2
+			echo "32-bit lib@MUMBLE_OVERLAY_BINARY_BASENAME@.so not found" >&2
 			exit 1
 		fi
 		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_32}"
@@ -61,7 +61,7 @@ case $(file -L "$binary") in
 			MUMBLE_PRELOAD="${MUMBLE_PRELOAD} ${MUMBLE_OVERLAY_PATH_32}"
 		fi
 		if [ -z "${MUMBLE_PRELOAD}" ]; then
-			echo "Neither 32-bit or 64-bit libmumbleoverlay.so found"
+			echo "Neither 32-bit or 64-bit lib@MUMBLE_OVERLAY_BINARY_BASENAME@.so found"
 			exit 1
 		fi
 esac

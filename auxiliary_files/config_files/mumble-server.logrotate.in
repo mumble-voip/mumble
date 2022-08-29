@@ -1,0 +1,10 @@
+/var/log/@MUMBLE_SERVER_BINARY_NAME@/mumble-server.log {
+	weekly
+	rotate 7
+	compress
+	delaycompress
+	missingok
+	postrotate
+		start-stop-daemon --quiet --oknodo --stop --signal 1 --exec /usr/sbin/@MUMBLE_SERVER_BINARY_NAME@ --user mumble-server --pidfile /var/run/@MUMBLE_SERVER_BINARY_NAME@/mumble-server.pid
+	endscript
+}

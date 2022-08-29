@@ -1,10 +1,10 @@
 [Unit]
-Description=Mumble Daemon
+Description=Mumble server
 After=network.target
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/murmurd -fg -ini /etc/murmur.ini
+ExecStart=/usr/bin/@MUMBLE_SERVER_BINARY_NAME@ -fg -ini /etc/mumble-server.ini
 Restart=always
 PrivateDevices=true
 PrivateTmp=true

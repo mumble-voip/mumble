@@ -51,6 +51,21 @@ include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
+include(FindPythonInterpreter)
+
+# Locate a usable Python3 interpreter
+set(PYTHON_HINTS
+	"C:/Python39-x64" # Path on the AppVeyor CI server
+)
+
+find_python_interpreter(
+	VERSION 3
+	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
+	HINTS ${PYTHON_HINTS}
+	REQUIRED
+)
+
+
 
 check_ipo_supported(RESULT LTO_DEFAULT)
 

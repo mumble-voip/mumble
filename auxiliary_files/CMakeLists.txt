@@ -3,34 +3,85 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-if(client)
-	# Install Mumble man files
-	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+include(delayed_configure_files)
 
+if(NOT BUILD_RELEASE_DATE)
+	# If BUILD_RELEASE_DATE has not been set, default to time of build
+	string(TIMESTAMP BUILD_RELEASE_DATE "%Y-%m-%d")
+endif()
+
+if(client)
 	if(UNIX AND NOT APPLE)
-		configure_file("config_files/info.mumble.Mumble.appdata.xml.in" "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml")
-		configure_file("config_files/info.mumble.Mumble.desktop.in" "${CMAKE_BINARY_DIR}/info.mumble.Mumble.desktop")
-		install(FILES "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-		install(FILES "${CMAKE_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+		delayed_configure_files(
+			TARGET mumble
+			FILES
+			"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.appdata.xml.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml"
+			"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.desktop.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop"
+			PASSTHROUGH_VARIABLES
+				MUMBLE_BUILD_YEAR
+				CMAKE_PROJECT_VERSION
+				BUILD_RELEASE_DATE
+				CMAKE_PROJECT_HOMEPAGE_URL
+				CMAKE_PROJECT_DESCRIPTION
+			VARIABLES
+				"MUMBLE_CLIENT_BINARY_NAME=$<TARGET_FILE_NAME:mumble>"
+			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
+			@ONLY
+		)
+
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+
+		# Install Mumble client man files
+		install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+
 	endif()
 endif()
 
 if(server)
-	file(COPY "mumble_server.ini" DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY "mumble-server.ini" DESTINATION ${CMAKE_BINARY_DIR})
 	file(COPY "config_files/mumble-server.conf" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-	if(UNIX)
-		# Install Murmur man files
+	if(UNIX AND NOT APPLE)
+		delayed_configure_files(
+			TARGET mumble-server
+			FILES
+				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.logrotate.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.logrotate"
+				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.service.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service"
+				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-server-user-wrapper.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper"
+			PASSTHROUGH_VARIABLES
+				MUMBLE_BUILD_YEAR
+			VARIABLES
+				"MUMBLE_SERVER_BINARY_NAME=$<TARGET_FILE_NAME:mumble-server>"
+			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
+			@ONLY
+		)
+
+		# Install Mumble server man files
 		install(FILES "man_files/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 	endif()
 endif()
+
 if(overlay)
 	if(UNIX)
+		delayed_configure_files(
+			TARGET overlay_gl
+			FILES
+				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-overlay.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay"
+			PASSTHROUGH_VARIABLES
+				MUMBLE_BUILD_YEAR
+			VARIABLES
+				"MUMBLE_OVERLAY_BINARY_BASENAME=$<TARGET_FILE_BASE_NAME:overlay_gl>"
+			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
+			@ONLY
+		)
+
 		# install overlay script
-		install(PROGRAMS "run_scripts/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
+		install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
 
 		# install overlay man-files
 		install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 	endif()
 endif()
+

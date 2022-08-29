@@ -21,20 +21,6 @@ option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 
-# Locate a usable Python3 interpreter
-include(FindPythonInterpreter)
-set(PYTHON_HINTS
-	"C:/Python39-x64" # Path on the AppVeyor CI server
-)
-
-find_python_interpreter(
-	VERSION 3
-	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
-	HINTS ${PYTHON_HINTS}
-	REQUIRED
-)
-
-
 
 find_pkg(Qt5
 	COMPONENTS
