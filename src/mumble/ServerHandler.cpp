@@ -23,6 +23,7 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
+#include "ProtoUtils.h"
 #include "RichTextEditor.h"
 #include "SSL.h"
 #include "ServerResolver.h"
@@ -196,7 +197,7 @@ int ServerHandler::getConnectionID() const {
 	return connectionID;
 }
 
-void ServerHandler::setProtocolVersion(Version::mumble_raw_version_t version) {
+void ServerHandler::setProtocolVersion(Version::full_t version) {
 	uiVersion = version;
 
 	m_udpPingEncoder.setProtocolVersion(version);
@@ -772,12 +773,8 @@ void ServerHandler::serverConnectionConnected() {
 	}
 
 	MumbleProto::Version mpv;
-	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
-
-	unsigned int version = Version::getRaw();
-	if (version) {
-		mpv.set_version(version);
-	}
+	mpv.set_release(u8(Version::getRelease()));
+	MumbleProto::setVersion(mpv, Version::get());
 
 	if (!Global::get().s.bHideOS) {
 		mpv.set_os(u8(OSInfo::getOS()));
@@ -1029,7 +1026,7 @@ void ServerHandler::setUserComment(unsigned int uiSession, const QString &commen
 void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba) {
 	QByteArray texture;
 
-	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
+	if ((uiVersion >= Version::fromComponents(1, 2, 2)) || qba.isEmpty()) {
 		texture = qba;
 	} else {
 		QByteArray raw = qba;

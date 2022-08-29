@@ -12,7 +12,8 @@ std::mt19937 rng(rd());
 std::uniform_int_distribution< unsigned int > random_context(Mumble::Protocol::AudioContext::begin,
 															 Mumble::Protocol::AudioContext::end);
 std::uniform_int_distribution< int > random_volume_adjustment(-60, 30 + 1);
-std::uniform_int_distribution< unsigned int > random_version(Version::toRaw(1, 2, 0), Version::toRaw(1, 6, 0));
+std::uniform_int_distribution< Version::full_t > random_version(Version::fromComponents(1, 2, 0),
+																Version::fromComponents(1, 6, 0));
 
 std::vector< Mumble::Protocol::audio_context_t > contexts;
 std::vector< VolumeAdjustment > volumeAdjustments;

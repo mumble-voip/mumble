@@ -938,7 +938,8 @@ void MetaDBus::quit() {
 	QCoreApplication::instance()->quit();
 }
 
-void MetaDBus::getVersion(int &major, int &minor, int &patch, QString &text) {
+void MetaDBus::getVersion(Version::component_t &major, Version::component_t &minor, Version::component_t &patch,
+						  QString &text) {
 	Meta::getVersion(major, minor, patch, text);
 }
 

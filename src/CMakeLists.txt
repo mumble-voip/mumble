@@ -74,6 +74,7 @@ set(SHARED_SOURCES
 	"PlatformCheck.cpp"
 	"QtUtils.cpp"
 	"ProcessResolver.cpp"
+	"ProtoUtils.cpp"
 	"SelfSignedCertificate.cpp"
 	"ServerAddress.cpp"
 	"ServerResolver.cpp"
@@ -109,6 +110,7 @@ set(SHARED_HEADERS
 	"PasswordGenerator.h"
 	"PlatformCheck.h"
 	"ProcessResolver.h"
+	"ProtoUtils.h"
 	"SelfSignedCertificate.h"
 	"ServerAddress.h"
 	"ServerResolver.h"
@@ -136,7 +138,10 @@ target_sources(shared
 
 target_compile_definitions(shared
 	PUBLIC
-		"MUMBLE_VERSION=${PROJECT_VERSION}"
+		"MUMBLE_VERSION=${CMAKE_PROJECT_VERSION}"
+		"MUMBLE_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR}"
+		"MUMBLE_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR}"
+		"MUMBLE_VERSION_PATCH=${CMAKE_PROJECT_VERSION_PATCH}"
 )
 
 target_compile_definitions(shared

@@ -10,8 +10,12 @@ package MumbleProto;
 option optimize_for = SPEED;
 
 message Version {
-	// 2-byte Major, 1-byte Minor and 1-byte Patch version number.
-	optional uint32 version = 1;
+	// Legacy version number format.
+	optional uint32 version_v1 = 1;
+	// New version number format.
+	// Necessary since patch level may exceed 255. (See https://github.com/mumble-voip/mumble/issues/5827)
+	optional uint64 version_v2 = 5;
+
 	// Client release name.
 	optional string release = 2;
 	// Client OS name.
@@ -581,8 +585,12 @@ message ServerConfig {
 // Sent by the server to inform the clients of suggested client configuration
 // specified by the server administrator.
 message SuggestConfig {
-	// Suggested client version.
-	optional uint32 version = 1;
+	// Suggested client version in the legacy format.
+	optional uint32 version_v1 = 1;
+	// Suggested client version in the new format.
+	// Necessary since patch level may exceed 255. (See https://github.com/mumble-voip/mumble/issues/5827)
+	optional uint64 version_v2 = 4;
+
 	// True if the administrator suggests positional audio to be used on this
 	// server.
 	optional bool positional = 2;

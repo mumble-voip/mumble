@@ -8,6 +8,7 @@
 #include "Audio.h"
 #include "CELTCodec.h"
 #include "HostAddress.h"
+#include "ProtoUtils.h"
 #include "QtUtils.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
@@ -128,9 +129,16 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		showcon = true;
 
 		const MumbleProto::Version &mpv = msg.version();
-
-		qlVersion->setText(tr("%1 (%2)").arg(Version::toString(mpv.version())).arg(u8(mpv.release())));
+		Version::full_t version         = MumbleProto::getVersion(mpv);
+		qlVersion->setText(tr("%1 (%2)").arg(Version::toString(version)).arg(u8(mpv.release())));
 		qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
+
+		if (Version::getPatch(version) == 255) {
+			// The patch level 255 might indicate that the server is incapable of parsing
+			// the new version format (or the patch level is actually exactly 255).
+			// Show a warning to the user just in case.
+			qlVersionNote->show();
+		}
 	}
 	if (msg.celt_versions_size() > 0) {
 		QStringList qsl;

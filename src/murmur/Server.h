@@ -144,7 +144,7 @@ public:
 	unsigned int iPluginMessageLimit;
 	unsigned int iPluginMessageBurst;
 
-	QVariant qvSuggestVersion;
+	Version::full_t m_suggestVersion;
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
@@ -248,7 +248,6 @@ public:
 	HANDLE hNotify;
 	QList< SOCKET > qlUdpSocket;
 #endif
-	Version::mumble_raw_version_t m_versionBlob;
 	QList< QSocketNotifier * > qlUdpNotifier;
 
 	/// This lock provides synchronization between the
@@ -328,22 +327,24 @@ public:
 	void clearWhisperTargetCache();
 
 	void sendProtoAll(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type,
-					  unsigned int minversion);
+					  Version::full_t version, Version::CompareMode mode);
 	void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type,
-						 unsigned int minversion);
+						 Version::full_t version, Version::CompareMode mode);
 	void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type);
 
 	// sendAll sends a protobuf message to all users on the server whose version is either bigger than v or
 	// lower than ~v. If v == 0 the message is sent to everyone.
-#define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                        \
-	void sendAll(const MumbleProto::name &msg, unsigned int v = 0) {                   \
-		sendProtoAll(msg, Mumble::Protocol::TCPMessageType::name, v);                  \
-	}                                                                                  \
-	void sendExcept(ServerUser *u, const MumbleProto::name &msg, unsigned int v = 0) { \
-		sendProtoExcept(u, msg, Mumble::Protocol::TCPMessageType::name, v);            \
-	}                                                                                  \
-	void sendMessage(ServerUser *u, const MumbleProto::name &msg) {                    \
-		sendProtoMessage(u, msg, Mumble::Protocol::TCPMessageType::name);              \
+#define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                                        \
+	void sendAll(const MumbleProto::name &msg, Version::full_t v = Version::UNKNOWN,                   \
+				 Version::CompareMode mode = Version::CompareMode::AtLeast) {                          \
+		sendProtoAll(msg, Mumble::Protocol::TCPMessageType::name, v, mode);                            \
+	}                                                                                                  \
+	void sendExcept(ServerUser *u, const MumbleProto::name &msg, Version::full_t v = Version::UNKNOWN, \
+					Version::CompareMode mode = Version::CompareMode::AtLeast) {                       \
+		sendProtoExcept(u, msg, Mumble::Protocol::TCPMessageType::name, v, mode);                      \
+	}                                                                                                  \
+	void sendMessage(ServerUser *u, const MumbleProto::name &msg) {                                    \
+		sendProtoMessage(u, msg, Mumble::Protocol::TCPMessageType::name);                              \
 	}
 
 	MUMBLE_ALL_TCP_MESSAGES

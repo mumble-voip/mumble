@@ -17,7 +17,7 @@
 namespace Mumble {
 namespace Protocol {
 
-	bool protocolVersionsAreCompatible(Version::mumble_raw_version_t lhs, Version::mumble_raw_version_t rhs) {
+	bool protocolVersionsAreCompatible(Version::full_t lhs, Version::full_t rhs) {
 		// At this point the protocol version only makes a difference between pre-protobuf and post-protobuf
 		return (lhs < PROTOBUF_INTRODUCTION_VERSION) == (rhs < PROTOBUF_INTRODUCTION_VERSION);
 	}
@@ -60,21 +60,19 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	ProtocolHandler< role >::ProtocolHandler(Version::mumble_raw_version_t protocolVersion)
-		: m_protocolVersion(protocolVersion) {}
+	ProtocolHandler< role >::ProtocolHandler(Version::full_t protocolVersion) : m_protocolVersion(protocolVersion) {}
 
-	template< Role role > Version::mumble_raw_version_t ProtocolHandler< role >::getProtocolVersion() const {
+	template< Role role > Version::full_t ProtocolHandler< role >::getProtocolVersion() const {
 		return m_protocolVersion;
 	}
 
-	template< Role role >
-	void ProtocolHandler< role >::setProtocolVersion(Version::mumble_raw_version_t protocolVersion) {
+	template< Role role > void ProtocolHandler< role >::setProtocolVersion(Version::full_t protocolVersion) {
 		m_protocolVersion = protocolVersion;
 	}
 
 
 	template< Role role >
-	UDPAudioEncoder< role >::UDPAudioEncoder(Version::mumble_raw_version_t protocolVersion)
+	UDPAudioEncoder< role >::UDPAudioEncoder(Version::full_t protocolVersion)
 		: ProtocolHandler< role >(protocolVersion) {
 		m_byteBuffer.resize(MAX_UDP_PACKET_SIZE);
 
@@ -402,8 +400,7 @@ namespace Protocol {
 
 
 	template< Role role >
-	UDPPingEncoder< role >::UDPPingEncoder(Version::mumble_raw_version_t protocolVersion)
-		: ProtocolHandler< role >(protocolVersion) {
+	UDPPingEncoder< role >::UDPPingEncoder(Version::full_t protocolVersion) : ProtocolHandler< role >(protocolVersion) {
 		// Use the assumption that a general ping package will be < 32bytes long (the legacy ping packet is at most
 		// 12bytes long)
 		m_byteBuffer.reserve(32);
@@ -448,7 +445,8 @@ namespace Protocol {
 
 			if (writeAdditionalInformation) {
 				std::uint32_t *dataArray = reinterpret_cast< std::uint32_t * >(m_byteBuffer.data());
-				dataArray[0]             = qToBigEndian(data.serverVersion);
+				// Legacy pings expect the version to be encoded using the old (legacy) format
+				dataArray[0] = qToBigEndian(Version::toLegacyVersion(data.serverVersion));
 				// dataArray[1] and dataArray[2] together hold the timestamp (written below)
 				dataArray[3] = qToBigEndian(data.userCount);
 				dataArray[4] = qToBigEndian(data.maxUserCount);
@@ -487,7 +485,7 @@ namespace Protocol {
 		if (data.requestAdditionalInformation) {
 			m_pingMessage.set_request_extended_information(true);
 		} else if (data.containsAdditionalInformation) {
-			m_pingMessage.set_server_version(data.serverVersion);
+			m_pingMessage.set_server_version_v2(data.serverVersion);
 			m_pingMessage.set_user_count(data.userCount);
 			m_pingMessage.set_max_user_count(data.maxUserCount);
 			m_pingMessage.set_max_bandwidth_per_user(data.maxBandwidthPerUser);
@@ -502,8 +500,7 @@ namespace Protocol {
 
 
 	template< Role role >
-	UDPDecoder< role >::UDPDecoder(Version::mumble_raw_version_t protocolVersion)
-		: ProtocolHandler< role >(protocolVersion) {
+	UDPDecoder< role >::UDPDecoder(Version::full_t protocolVersion) : ProtocolHandler< role >(protocolVersion) {
 		m_byteBuffer.resize(MAX_UDP_PACKET_SIZE);
 	}
 
@@ -629,7 +626,9 @@ namespace Protocol {
 					// Extended ping containing meta-information
 					const std::uint32_t *dataArray = reinterpret_cast< const std::uint32_t * >(data.data());
 
-					m_pingData.serverVersion = qFromBigEndian(dataArray[0]);
+					// Legacy pings only support the version to be encoded using the old (legacy) format
+					m_pingData.serverVersion = Version::fromLegacyVersion(qFromBigEndian(dataArray[0]));
+
 					// Virtual array entries 1 and 2 are actually a single uint64. Note that the timestamp is
 					// whatever the client sent to the server and thus it does not require an endian-transformation
 					m_pingData.timestamp           = *reinterpret_cast< const std::uint64_t * >(&dataArray[1]);
@@ -685,7 +684,7 @@ namespace Protocol {
 
 		// m_pingMessage now contains the parsed data
 		m_pingData.timestamp     = m_pingMessage.timestamp();
-		m_pingData.serverVersion = m_pingMessage.server_version();
+		m_pingData.serverVersion = m_pingMessage.server_version_v2();
 
 		// 0 is not a valid version specifier, so if this field is zero, it means Protobuf has used a default
 		// value and thus the field was not set. Thus we assume that none of the extra fields are set.

@@ -419,7 +419,7 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == "--version" || args.at(i) == "-V") {
 				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 				// using e.g. qWarning
-				std::cout << "Mumble version " << Version::toString(Version::getRaw()).toStdString() << std::endl;
+				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
 				return 0;
 			} else {
 				if (PluginInstaller::canBePluginFile(args.at(i))) {

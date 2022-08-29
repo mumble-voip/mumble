@@ -1380,7 +1380,7 @@ void ConnectDialog::initList() {
 	url.setPath(QLatin1String("/v1/list"));
 
 	QUrlQuery query;
-	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
+	query.addQueryItem(QLatin1String("version"), Version::getRelease());
 	url.setQuery(query);
 
 	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray, QUrl, QMap< QString, QString >)));
@@ -1747,8 +1747,7 @@ void ConnectDialog::lookedUp() {
 	}
 }
 
-void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port,
-							 Version::mumble_raw_version_t protocolVersion) {
+void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port, Version::full_t protocolVersion) {
 	ServerAddress addr(HostAddress(host), port);
 
 	quint64 uiRand;
@@ -1784,8 +1783,7 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port,
 		++si->uiSent;
 }
 
-bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port,
-							  Version::mumble_raw_version_t protocolVersion,
+bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port, Version::full_t protocolVersion,
 							  const Mumble::Protocol::PingData &pingData) {
 	m_udpPingEncoder.setProtocolVersion(protocolVersion);
 

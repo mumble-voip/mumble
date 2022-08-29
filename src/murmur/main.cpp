@@ -345,7 +345,7 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-version") || (arg == "--version") || (arg == "-V")) {
 			// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 			// using e.g. qWarning
-			std::cout << "Mumble server version " << Version::toString(Version::getRaw()).toStdString() << std::endl;
+			std::cout << "Mumble server version " << Version::getRelease().toStdString() << std::endl;
 			return 0;
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 #ifdef Q_OS_WIN
@@ -648,11 +648,7 @@ int main(int argc, char **argv) {
 
 	meta->getOSInfo();
 
-	int major, minor, patch;
-	QString strver;
-	meta->getVersion(major, minor, patch, strver);
-
-	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver),
+	qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
 			 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
 	meta->bootAll();

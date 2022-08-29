@@ -16,10 +16,9 @@
 #include <QDebug>
 
 QDebug &operator<<(QDebug &stream, const ServerUser &user) {
-	int major, minor, patch;
-	Version::fromRaw(user.uiVersion, &major, &minor, &patch);
-	return stream.nospace() << "ServerUser{ session: " << user.uiSession << ", version: " << major << "." << minor
-							<< "." << patch << ", deaf: " << user.bDeaf << ", selfDeaf: " << user.bSelfDeaf
+	return stream.nospace() << "ServerUser{ session: " << user.uiSession
+							<< ", version: " << Version::toString(user.uiVersion) << ", deaf: " << user.bDeaf
+							<< ", selfDeaf: " << user.bSelfDeaf
 							<< ", ssContext: " << QString::fromStdString(user.ssContext) << " }";
 }
 
@@ -35,10 +34,10 @@ bool operator<(const AudioReceiver &lhs, const AudioReceiver &rhs) {
 }
 
 
-Version::mumble_raw_version_t vOld1 = Version::toRaw(1, 2, 5);
-Version::mumble_raw_version_t vOld2 = Version::toRaw(1, 3, 1);
-Version::mumble_raw_version_t vOld3 = Version::toRaw(1, 4, 0);
-Version::mumble_raw_version_t vNew  = Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION;
+Version::full_t vOld1 = Version::fromComponents(1, 2, 5);
+Version::full_t vOld2 = Version::fromComponents(1, 3, 1);
+Version::full_t vOld3 = Version::fromComponents(1, 4, 0);
+Version::full_t vNew  = Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION;
 
 std::array< ServerUser, 5 > users = { ServerUser(0, vOld1), ServerUser(1, vOld2), ServerUser(2, vOld3),
 									  ServerUser(3, vNew), ServerUser(4, vNew) };
@@ -61,7 +60,7 @@ class PseudoEncoder {
 public:
 	PseudoEncoder() = default;
 
-	bool checkRequiresEncoding(Version::mumble_raw_version_t protocolVersion, Mumble::Protocol::audio_context_t context,
+	bool checkRequiresEncoding(Version::full_t protocolVersion, Mumble::Protocol::audio_context_t context,
 							   float volumeAdjustment) {
 		bool requiresEncoding = m_encodings == 0
 								|| !Mumble::Protocol::protocolVersionsAreCompatible(m_protocolVersion, protocolVersion)
@@ -83,10 +82,10 @@ public:
 	void reset() { m_encodings = 0; }
 
 protected:
-	std::size_t m_encodings                         = 0;
-	Version::mumble_raw_version_t m_protocolVersion = Version::UNKNOWN;
-	Mumble::Protocol::audio_context_t m_context     = Mumble::Protocol::AudioContext::INVALID;
-	float m_volumeAdjustment                        = 0.0f;
+	std::size_t m_encodings                     = 0;
+	Version::full_t m_protocolVersion           = Version::UNKNOWN;
+	Mumble::Protocol::audio_context_t m_context = Mumble::Protocol::AudioContext::INVALID;
+	float m_volumeAdjustment                    = 0.0f;
 };
 
 class TestAudioReceiverBuffer : public QObject {
