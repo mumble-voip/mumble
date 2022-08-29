@@ -30,6 +30,7 @@
 #include "ServerAddress.h"
 #include "Timer.h"
 #include "UnresolvedServerAddress.h"
+#include "Version.h"
 
 struct FavoriteServer;
 class QUdpSocket;
@@ -52,7 +53,7 @@ protected:
 	void init();
 
 public:
-	quint32 uiVersion;
+	Version::full_t uiVersion;
 	quint32 uiPing;
 	quint32 uiPingSort;
 	quint32 uiUsers;

@@ -113,7 +113,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 		return;
 	}
 
-	if (Global::get().sh->uiVersion < 0x010203) {
+	if (Global::get().sh->uiVersion < Version::fromComponents(1, 2, 3)) {
 		QMessageBox::critical(this, tr("Recorder"),
 							  tr("The server you are currently connected to is version 1.2.2 or older. "
 								 "For privacy reasons, recording on servers of versions older than 1.2.3 "

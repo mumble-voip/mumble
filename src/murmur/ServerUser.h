@@ -16,6 +16,7 @@
 #include "HostAddress.h"
 #include "Timer.h"
 #include "User.h"
+#include "Version.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QStringList>
@@ -114,7 +115,7 @@ public:
 	float dTCPPingAvg, dTCPPingVar;
 	quint32 uiUDPPackets, uiTCPPackets;
 
-	unsigned int uiVersion;
+	Version::full_t uiVersion;
 	QString qsRelease;
 	QString qsOS;
 	QString qsOSVersion;

@@ -25,6 +25,7 @@
 #endif
 #include "ChannelListenerManager.h"
 #include "PluginManager.h"
+#include "ProtoUtils.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
 #include "User.h"
@@ -1153,8 +1154,8 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 ///
 /// @param msg The message object with the respective information
 void MainWindow::msgVersion(const MumbleProto::Version &msg) {
-	if (msg.has_version())
-		Global::get().sh->uiVersion = msg.version();
+	Global::get().sh->uiVersion = MumbleProto::getVersion(msg);
+
 	if (msg.has_release())
 		Global::get().sh->qsRelease = u8(msg.release());
 	if (msg.has_os()) {
@@ -1232,7 +1233,8 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 #endif
 
 	// Workaround for broken 1.2.2 servers
-	if (Global::get().sh && Global::get().sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {
+	if (Global::get().sh && Global::get().sh->uiVersion == Version::fromComponents(1, 2, 2) && alpha != -1
+		&& alpha == beta) {
 		if (pref)
 			beta = Global::get().iCodecBeta;
 		else
@@ -1299,9 +1301,13 @@ void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 ///
 /// @param msg The message object containing the suggestions
 void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
-	if (msg.has_version() && (msg.version() > Version::getRaw())) {
-		Global::get().l->log(Log::Warning,
-							 tr("The server requests minimum client version %1").arg(Version::toString(msg.version())));
+	Version::full_t requestedVersion = MumbleProto::getSuggestedVersion(msg);
+	if (requestedVersion <= Version::get()) {
+		requestedVersion = Version::UNKNOWN;
+	}
+	if (requestedVersion != Version::UNKNOWN) {
+		Global::get().l->log(
+			Log::Warning, tr("The server requests minimum client version %1").arg(Version::toString(requestedVersion)));
 	}
 	if (msg.has_positional() && (msg.positional() != Global::get().s.doPositionalAudio())) {
 		if (msg.positional())

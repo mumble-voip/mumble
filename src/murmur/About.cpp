@@ -56,7 +56,7 @@ AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 	text->setText(tr("<h3>Murmur (%1)</h3>"
 					 "<p>%3</p>"
 					 "<p><tt><a href=\"%2\">%2</a></tt></p>")
-					  .arg(QLatin1String(MUMBLE_RELEASE))
+					  .arg(Version::getRelease())
 					  .arg(QLatin1String("http://www.mumble.info/"))
 					  .arg(QLatin1String("Copyright 2005-2020 The Mumble Developers")));
 	QHBoxLayout *qhbl = new QHBoxLayout(about);

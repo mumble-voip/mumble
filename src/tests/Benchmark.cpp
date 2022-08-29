@@ -100,7 +100,7 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String("1.2.1 Benchmark")));
-	mpv.set_version(0x010203);
+	mpv.set_version_v1(Version::toLegacyVersion(Version::fromComponents(1, 2, 3)));
 
 	sendMessage(mpv, MessageHandler::Version);
 

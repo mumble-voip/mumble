@@ -352,7 +352,7 @@ int main(int argc, char **argv) {
 			bVerbose = true;
 		} else if ((arg == "-version") || (arg == "--version")) {
 			detach = false;
-			qInfo("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+			qInfo("%s -- %s", qPrintable(args.at(0)), Version::getRelease().toStdString().c_str());
 			return 0;
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 #ifdef Q_OS_WIN
@@ -663,11 +663,7 @@ int main(int argc, char **argv) {
 
 	meta->getOSInfo();
 
-	int major, minor, patch;
-	QString strver;
-	meta->getVersion(major, minor, patch, strver);
-
-	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver),
+	qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
 			 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
 	meta->bootAll();

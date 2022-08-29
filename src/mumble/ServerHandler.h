@@ -36,6 +36,7 @@
 #include "Mumble.pb.h"
 #include "ServerAddress.h"
 #include "Timer.h"
+#include "Version.h"
 
 class Connection;
 class Database;
@@ -106,7 +107,7 @@ public:
 	QHash< ServerAddress, QString > qhHostnames;
 	ServerAddress saTargetServer;
 
-	unsigned int uiVersion;
+	Version::full_t uiVersion;
 	QString qsRelease;
 	QString qsOS;
 	QString qsOSVersion;

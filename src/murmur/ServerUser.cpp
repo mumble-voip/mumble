@@ -26,7 +26,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket)
 	uiUDPPackets = uiTCPPackets = 0;
 
 	aiUdpFlag            = 1;
-	uiVersion            = 0;
+	uiVersion            = Version::UNKNOWN;
 	bVerified            = true;
 	iLastPermissionCheck = -1;
 

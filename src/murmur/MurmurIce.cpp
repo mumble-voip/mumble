@@ -111,7 +111,8 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	const ServerUser *u = static_cast< const ServerUser * >(p);
 	mp.onlinesecs       = u->bwr.onlineSeconds();
 	mp.bytespersec      = u->bwr.bandwidth();
-	mp.version          = u->uiVersion;
+	mp.version2         = u->uiVersion;
+	mp.version          = Version::toLegacyVersion(u->uiVersion);
 	mp.release          = iceString(u->qsRelease);
 	mp.os               = iceString(u->qsOS);
 	mp.osversion        = iceString(u->qsOSVersion);
@@ -1663,12 +1664,12 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 			mpus.set_session(user->uiSession);
 			mpus.set_texture(blob(user->qbaTexture));
 
-			server->sendAll(mpus, ~0x010202);
+			server->sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 			if (!user->qbaTextureHash.isEmpty()) {
 				mpus.clear_texture();
 				mpus.set_texture_hash(blob(user->qbaTextureHash));
 			}
-			server->sendAll(mpus, 0x010202);
+			server->sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
 		}
 
 		cb->ice_response();
@@ -1927,7 +1928,7 @@ static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServers
 
 #define ACCESS_Meta_getVersion_ALL
 static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, const Ice::ObjectAdapterPtr) {
-	int major, minor, patch;
+	Version::component_t major, minor, patch;
 	QString txt;
 	::Meta::getVersion(major, minor, patch, txt);
 	cb->ice_response(major, minor, patch, iceString(txt));

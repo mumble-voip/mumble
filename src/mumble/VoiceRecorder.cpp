@@ -280,7 +280,7 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO &soundFileInfo, boost::shared_
 void VoiceRecorder::run() {
 	Q_ASSERT(!m_recording);
 
-	if (Global::get().sh && Global::get().sh->uiVersion < 0x010203)
+	if (Global::get().sh && Global::get().sh->uiVersion < Version::fromComponents(1, 2, 3))
 		return;
 
 	SF_INFO soundFileInfo = createSoundFileInfo();
@@ -293,7 +293,8 @@ void VoiceRecorder::run() {
 		m_sleepLock.lock();
 		m_sleepCondition.wait(&m_sleepLock);
 
-		if (!m_recording || m_abort || (Global::get().sh && Global::get().sh->uiVersion < 0x010203)) {
+		if (!m_recording || m_abort
+			|| (Global::get().sh && Global::get().sh->uiVersion < Version::fromComponents(1, 2, 3))) {
 			m_sleepLock.unlock();
 			break;
 		}
