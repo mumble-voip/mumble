@@ -177,9 +177,16 @@ endif()
 # to ON, before including the respective subdirectory
 set(TRACY_ENABLE ${tracy} CACHE BOOL "" FORCE)
 set(TRACY_ON_DEMAND ON CACHE BOOL "" FORCE)
+# We force to build Tracy as a static library in order to not create a dependency on the respective .so file
+# (can cause issues for packagers as that dependency is retained even though Tracy is disabled)
+set(PREV_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_subdirectory("${3RDPARTY_DIR}/tracy" "tracy")
 disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/tracy")
 message(STATUS "Tracy: ${TRACY_ENABLE}")
+
+# Restore whatever BUILD_SHARED_LIBS was set to before
+set(BUILD_SHARED_LIBS ${PREV_BUILD_SHARED_LIBS} CACHE BOOL "" FORCE)
 
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
