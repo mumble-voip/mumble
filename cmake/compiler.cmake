@@ -67,7 +67,7 @@ elseif(UNIX OR MINGW)
 	)
 
 	# Avoid "File too big" error
-	check_cxx_compiler_flag("Wa,-mbig-obj" COMPILER_HAS_MBIG_OBJ)
+	check_cxx_compiler_flag("-Wa,-mbig-obj" COMPILER_HAS_MBIG_OBJ)
 	if (${COMPILER_HAS_MBIG_OBJ})
 		add_compile_options("-Wa,-mbig-obj")
 	endif()
