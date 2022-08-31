@@ -149,7 +149,7 @@ void to_json(nlohmann::json &j, const Settings &settings) {
 	j[SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY] = settings.mumbleQuitNormally;
 }
 
-void migrateSettings(nlohmann::json json, int settingsVersion) {
+void migrateSettings(nlohmann::json &json, int settingsVersion) {
 	// Perform conversions required to transform the given JSON into the format applicable to be read out by the most
 	// recent standards
 
