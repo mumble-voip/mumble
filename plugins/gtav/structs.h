@@ -118,7 +118,7 @@ struct CCameraManagerAngles {
 	ptr_t cameraAngles; // CCameraAngles *
 };
 
-struct CCameraAngles {
+struct alignas(8) CCameraAngles {
 	uint8_t pad1[960];
 	ptr_t playerAngles; // CPlayerAngles *
 	uint8_t pad2[60];
