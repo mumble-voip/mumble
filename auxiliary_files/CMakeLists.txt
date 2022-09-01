@@ -27,10 +27,10 @@ if(overlay)
 		)
 
 		# install overlay script
-		install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
+		install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}" COMPONENT mumble_client)
 
 		# install overlay man-files
-		install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+		install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT mumble_client)
 	endif()
 endif()
 
@@ -52,11 +52,11 @@ if(client AND UNIX AND NOT APPLE)
 		@ONLY
 	)
 
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo" COMPONENT mumble_client)
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications" COMPONENT mumble_client)
 
 	# Install Mumble client man files
-	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT mumble_client)
 endif()
 
 if(server)
@@ -103,7 +103,7 @@ if(server)
 			@ONLY
 		)
 
-		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT mumble_server)
 
 		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 
@@ -113,7 +113,7 @@ if(server)
 	endif()
 
 	if(UNIX AND NOT APPLE)
-		install(FILES "man_files/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+		install(FILES "man_files/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT mumble_server)
 
 		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
 
