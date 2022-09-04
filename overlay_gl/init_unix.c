@@ -190,8 +190,8 @@ static int find_odlsym() {
 		return -1;
 	}
 #endif
-	bool hashTableGNU    = false;
-	uintptr_t hashTable  = 0;
+	uintptr_t hashTable       = 0;
+	uintptr_t legacyHashTable = 0;
 	const char *strTable = NULL;
 	Elf_Sym *symTable    = NULL;
 #if defined(__GLIBC__)
@@ -202,21 +202,20 @@ static int find_odlsym() {
 	for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
 		switch (dyn->d_tag) {
 			case DT_GNU_HASH:
-				if (!hashTable) {
-					hashTable    = base + dyn->d_un.d_ptr;
-					hashTableGNU = true;
-				}
+				hashTable = base + dyn->d_un.d_ptr;
+				ods("Found DT_GNU_HASH at: 0x%" PRIxPTR, hashTable);
 				break;
 			case DT_HASH:
-				if (!hashTable) {
-					hashTable = base + dyn->d_un.d_ptr;
-				}
+				legacyHashTable = base + dyn->d_un.d_ptr;
+				ods("Found DT_HASH at: 0x%" PRIxPTR, legacyHashTable);
 				break;
 			case DT_STRTAB:
 				strTable = (const char *) (base + dyn->d_un.d_ptr);
+				ods("Found DT_STRTAB at: %p", strTable);
 				break;
 			case DT_SYMTAB:
 				symTable = (Elf_Sym *) (base + dyn->d_un.d_ptr);
+				ods("Found DT_SYMTAB at: %p", symTable);
 				break;
 		}
 
@@ -225,32 +224,11 @@ static int find_odlsym() {
 		}
 	}
 
-	ods("hashTable: 0x%" PRIxPTR ", strTable: %p, symTable: %p", hashTable, strTable, symTable);
-
-	if (!hashTable || !strTable || !symTable) {
+	if (!strTable || !symTable) {
 		return -1;
 	}
 
-	if (!hashTableGNU) {
-		ods("Using DT_HASH");
-		// Hash table pseudo-struct:
-		// uint32_t nBucket;
-		// uint32_t nChain;
-		// uint32_t bucket[nBucket];
-		// uint32_t chain[nChain];
-		const uint32_t nChain = ((uint32_t *) hashTable)[1];
-
-		for (uint32_t i = 0; i < nChain; ++i) {
-			if (ELF_ST_TYPE(symTable[i].st_info) != STT_FUNC) {
-				continue;
-			}
-
-			if (strcmp(strTable + symTable[i].st_name, "dlsym") == 0) {
-				odlsym = (void *) lm->l_addr + symTable[i].st_value;
-				break;
-			}
-		}
-	} else {
+	if (hashTable) {
 		ods("Using DT_GNU_HASH");
 		// Hash table pseudo-struct:
 		// uint32_t  nBucket;
@@ -283,11 +261,32 @@ static int find_odlsym() {
 		}
 	}
 
+	if (!odlsym && legacyHashTable) {
+		ods("Using DT_HASH");
+		// Hash table pseudo-struct:
+		// uint32_t nBucket;
+		// uint32_t nChain;
+		// uint32_t bucket[nBucket];
+		// uint32_t chain[nChain];
+		const uint32_t nChain = ((uint32_t *) legacyHashTable)[1];
+
+		for (uint32_t i = 0; i < nChain; ++i) {
+			if (ELF_ST_TYPE(symTable[i].st_info) != STT_FUNC) {
+				continue;
+			}
+
+			if (strcmp(strTable + symTable[i].st_name, "dlsym") == 0) {
+				odlsym = (void *) lm->l_addr + symTable[i].st_value;
+				break;
+			}
+		}
+	}
+
 	if (!odlsym) {
 		return -1;
 	}
 
-	ods("Original dlsym at %p", odlsym);
+	ods("Original dlsym() at %p", odlsym);
 	return 0;
 }
 
