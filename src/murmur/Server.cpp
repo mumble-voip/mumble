@@ -863,7 +863,7 @@ void Server::run() {
 				ServerUser *u = qhPeerUsers.value(key);
 
 				if (u) {
-					m_udpDecoder.setProtocolVersion(u->uiVersion);
+					m_udpDecoder.setProtocolVersion(u->m_version);
 				} else {
 					m_udpDecoder.setProtocolVersion(Version::UNKNOWN);
 				}
@@ -1303,10 +1303,10 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			// Setup encoder for this range
 			if (isFirstIteration
 				|| !Mumble::Protocol::protocolVersionsAreCompatible(encoder.getProtocolVersion(),
-																	currentRange.begin->getReceiver().uiVersion)) {
+																	currentRange.begin->getReceiver().m_version)) {
 				ZoneScopedN(TracyConstants::AUDIO_ENCODE);
 
-				encoder.setProtocolVersion(currentRange.begin->getReceiver().uiVersion);
+				encoder.setProtocolVersion(currentRange.begin->getReceiver().m_version);
 
 				// We have to re-encode the "fixed" part of the audio message
 				encoder.prepareAudioPacket(audioData);
@@ -1711,7 +1711,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 
 		u->aiUdpFlag = 0;
 
-		m_tcpTunnelDecoder.setProtocolVersion(u->uiVersion);
+		m_tcpTunnelDecoder.setProtocolVersion(u->m_version);
 
 		if (m_tcpTunnelDecoder.decode(gsl::span< const Mumble::Protocol::byte >(
 				reinterpret_cast< const Mumble::Protocol::byte * >(qbaMsg.constData()), qbaMsg.size()))) {
@@ -1830,7 +1830,7 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 
 			const bool isUnknown = version == Version::UNKNOWN;
 			const bool fulfillsVersionRequirement =
-				mode == Version::CompareMode::AtLeast ? usr->uiVersion >= version : usr->uiVersion < version;
+				mode == Version::CompareMode::AtLeast ? usr->m_version >= version : usr->m_version < version;
 			if (isUnknown || fulfillsVersionRequirement) {
 				usr->sendMessage(msg, msgType, cache);
 			}

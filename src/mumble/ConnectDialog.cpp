@@ -73,7 +73,7 @@ void PingStats::init() {
 	uiBandwidth = 0;
 	uiSent      = 0;
 	uiRecv      = 0;
-	uiVersion   = Version::UNKNOWN;
+	m_version   = Version::UNKNOWN;
 }
 
 void PingStats::reset() {
@@ -322,7 +322,7 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qlAddresses = si->qlAddresses;
 	bCA         = si->bCA;
 
-	uiVersion   = si->uiVersion;
+	m_version   = si->m_version;
 	uiPing      = si->uiPing;
 	uiPingSort  = si->uiPing;
 	uiUsers     = si->uiUsers;
@@ -543,7 +543,7 @@ QVariant ServerItem::data(int column, int role) const {
 									 QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
 								.arg(ConnectDialog::tr("Version"))
-								.arg(Version::toString(uiVersion));
+								.arg(Version::toString(m_version));
 				}
 			}
 			qs += QLatin1String("</table>");
@@ -1578,7 +1578,7 @@ void ConnectDialog::timeTick() {
 		tHover.restart();
 
 	for (const ServerAddress &addr : si->qlAddresses) {
-		sendPing(addr.host.toAddress(), addr.port, si->uiVersion);
+		sendPing(addr.host.toAddress(), addr.port, si->m_version);
 	}
 }
 
@@ -1832,7 +1832,7 @@ void ConnectDialog::udpReply() {
 				quint64 elapsed = tPing.elapsed() - (pingData.timestamp ^ qhPingRand.value(address));
 
 				for (ServerItem *si : qhPings.value(address)) {
-					si->uiVersion    = pingData.serverVersion;
+					si->m_version    = pingData.serverVersion;
 					quint32 users    = pingData.userCount;
 					quint32 maxusers = pingData.maxUserCount;
 					si->uiBandwidth  = pingData.maxBandwidthPerUser;

@@ -112,8 +112,8 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	const ServerUser *u = static_cast< const ServerUser * >(p);
 	mp.onlinesecs       = u->bwr.onlineSeconds();
 	mp.bytespersec      = u->bwr.bandwidth();
-	mp.version2         = u->uiVersion;
-	mp.version          = Version::toLegacyVersion(u->uiVersion);
+	mp.version2         = u->m_version;
+	mp.version          = Version::toLegacyVersion(u->m_version);
 	mp.release          = iceString(u->qsRelease);
 	mp.os               = iceString(u->qsOS);
 	mp.osversion        = iceString(u->qsOSVersion);

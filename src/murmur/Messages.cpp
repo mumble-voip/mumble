@@ -71,7 +71,7 @@
 	{                                                                 \
 		MumbleProto::PermissionDenied mppd;                           \
 		mppd.set_type(MumbleProto::PermissionDenied_DenyType_##type); \
-		if (uSource->uiVersion < version)                             \
+		if (uSource->m_version < version)                             \
 			mppd.set_reason(u8(text));                                \
 		sendMessage(uSource, mppd);                                   \
 	}
@@ -361,7 +361,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		mpcs.set_position(c->iPosition);
 
-		if ((uSource->uiVersion >= Version::fromComponents(1, 2, 2)) && !c->qbaDescHash.isEmpty())
+		if ((uSource->m_version >= Version::fromComponents(1, 2, 2)) && !c->qbaDescHash.isEmpty())
 			mpcs.set_description_hash(blob(c->qbaDescHash));
 		else if (!c->qsDesc.isEmpty())
 			mpcs.set_description(u8(c->qsDesc));
@@ -449,7 +449,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpus.set_name(u8(u->qsName));
 		if (u->iId >= 0)
 			mpus.set_user_id(u->iId);
-		if (uSource->uiVersion >= Version::fromComponents(1, 2, 2)) {
+		if (uSource->m_version >= Version::fromComponents(1, 2, 2)) {
 			if (!u->qbaTextureHash.isEmpty())
 				mpus.set_texture_hash(blob(u->qbaTextureHash));
 			else if (!u->qbaTexture.isEmpty())
@@ -476,7 +476,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
-		if ((uSource->uiVersion >= Version::fromComponents(1, 2, 2)) && !u->qbaCommentHash.isEmpty())
+		if ((uSource->m_version >= Version::fromComponents(1, 2, 2)) && !u->qbaCommentHash.isEmpty())
 			mpus.set_comment_hash(blob(u->qbaCommentHash));
 		else if (!u->qsComment.isEmpty())
 			mpus.set_comment(u8(u->qsComment));
@@ -532,7 +532,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		sendMessage(uSource, mpsug);
 	}
 
-	if (uSource->uiVersion < Version::fromComponents(1, 4, 0) && Meta::mp.iMaxListenersPerChannel != 0
+	if (uSource->m_version < Version::fromComponents(1, 4, 0) && Meta::mp.iMaxListenersPerChannel != 0
 		&& Meta::mp.iMaxListenerProxiesPerUser != 0) {
 		// The server has the ChannelListener feature enabled but the client that connects doesn't have version 1.4.0 or
 		// newer meaning that this client doesn't know what ChannelListeners are. Thus we'll send that user a
@@ -1930,7 +1930,7 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 
 	RATELIMIT(uSource);
 
-	uSource->uiVersion = MumbleProto::getVersion(msg);
+	uSource->m_version = MumbleProto::getVersion(msg);
 	if (msg.has_release()) {
 		uSource->qsRelease = convertWithSizeRestriction(msg.release(), 100);
 	}
@@ -1943,7 +1943,7 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 	}
 
 	log(uSource, QString("Client version %1 (%2 %3: %4)")
-					 .arg(Version::toString(uSource->uiVersion))
+					 .arg(Version::toString(uSource->m_version))
 					 .arg(uSource->qsOS)
 					 .arg(uSource->qsOSVersion)
 					 .arg(uSource->qsRelease));
@@ -2015,7 +2015,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				} else {
 					MumbleProto::PermissionDenied mppd;
 					mppd.set_type(MumbleProto::PermissionDenied_DenyType_UserName);
-					if (uSource->uiVersion < Version::fromComponents(1, 2, 1))
+					if (uSource->m_version < Version::fromComponents(1, 2, 1))
 						mppd.set_reason(u8(QString::fromLatin1("%1 is not a valid username").arg(name)));
 					else
 						mppd.set_name(u8(name));
@@ -2147,8 +2147,8 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 		MumbleProto::Version *mpv;
 
 		mpv = msg.mutable_version();
-		if (pDstServerUser->uiVersion != Version::UNKNOWN) {
-			MumbleProto::setVersion(*mpv, pDstServerUser->uiVersion);
+		if (pDstServerUser->m_version != Version::UNKNOWN) {
+			MumbleProto::setVersion(*mpv, pDstServerUser->m_version);
 		}
 		if (!pDstServerUser->qsRelease.isEmpty()) {
 			mpv->set_release(u8(pDstServerUser->qsRelease));

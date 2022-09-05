@@ -115,7 +115,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	usPort                  = 0;
 	bUdp                    = true;
 	tConnectionTimeoutTimer = nullptr;
-	uiVersion               = Version::UNKNOWN;
+	m_version               = Version::UNKNOWN;
 	iInFlightTCPPings       = 0;
 
 	// assign connection ID
@@ -198,7 +198,7 @@ int ServerHandler::getConnectionID() const {
 }
 
 void ServerHandler::setProtocolVersion(Version::full_t version) {
-	uiVersion = version;
+	m_version = version;
 
 	m_udpPingEncoder.setProtocolVersion(version);
 	m_udpDecoder.setProtocolVersion(version);
@@ -455,7 +455,7 @@ void ServerHandler::run() {
 
 		accUDP = accTCP = accClean;
 
-		uiVersion   = Version::UNKNOWN;
+		m_version   = Version::UNKNOWN;
 		qsRelease   = QString();
 		qsOS        = QString();
 		qsOSVersion = QString();
@@ -580,7 +580,7 @@ void ServerHandler::sendPingInternal() {
 		pingData.timestamp                    = t;
 		pingData.requestAdditionalInformation = false;
 
-		m_udpPingEncoder.setProtocolVersion(uiVersion);
+		m_udpPingEncoder.setProtocolVersion(m_version);
 		gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
 		sendMessage(encodedPacket.data(), encodedPacket.size(), true);
@@ -1026,7 +1026,7 @@ void ServerHandler::setUserComment(unsigned int uiSession, const QString &commen
 void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba) {
 	QByteArray texture;
 
-	if ((uiVersion >= Version::fromComponents(1, 2, 2)) || qba.isEmpty()) {
+	if ((m_version >= Version::fromComponents(1, 2, 2)) || qba.isEmpty()) {
 		texture = qba;
 	} else {
 		QByteArray raw = qba;

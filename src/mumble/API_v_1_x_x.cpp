@@ -1561,7 +1561,7 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 	mpdt.set_dataid(dataID);
 
 	if (Global::get().sh) {
-		if (Global::get().sh->uiVersion < Version::fromComponents(1, 4, 0)) {
+		if (Global::get().sh->m_version < Version::fromComponents(1, 4, 0)) {
 			// The sendMessage call relies on the server relaying the message to the respective receiver. This
 			// functionality was added to the server protocol in version 1.4.0, so an older server will not know what to
 			// do with the received message.

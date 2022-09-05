@@ -17,7 +17,7 @@
 
 QDebug &operator<<(QDebug &stream, const ServerUser &user) {
 	return stream.nospace() << "ServerUser{ session: " << user.uiSession
-							<< ", version: " << Version::toString(user.uiVersion) << ", deaf: " << user.bDeaf
+							<< ", version: " << Version::toString(user.m_version) << ", deaf: " << user.bDeaf
 							<< ", selfDeaf: " << user.bSelfDeaf
 							<< ", ssContext: " << QString::fromStdString(user.ssContext) << " }";
 }
@@ -233,14 +233,14 @@ private slots:
 			qWarning() << "Start:" << *receiverRange.begin;
 			qWarning() << "End:" << *(receiverRange.end - 1);
 
-			QVERIFY2(encoder.checkRequiresEncoding(receiverRange.begin->getReceiver().uiVersion,
+			QVERIFY2(encoder.checkRequiresEncoding(receiverRange.begin->getReceiver().m_version,
 												   receiverRange.begin->getContext(),
 												   receiverRange.begin->getVolumeAdjustment().factor),
 					 "Starting a new range, but no re-encoding is required");
 
 			for (auto it = receiverRange.begin; it != receiverRange.end; ++it) {
 				qWarning() << "Processing" << *it;
-				QVERIFY2(!encoder.checkRequiresEncoding(it->getReceiver().uiVersion, it->getContext(),
+				QVERIFY2(!encoder.checkRequiresEncoding(it->getReceiver().m_version, it->getContext(),
 														it->getVolumeAdjustment().factor),
 						 "Mid-range re-encoding required");
 				processedReceiver++;
@@ -259,7 +259,7 @@ private slots:
 			encoder.reset();
 
 			for (const AudioReceiver &current : receivers) {
-				encoder.checkRequiresEncoding(current.getReceiver().uiVersion, current.getContext(),
+				encoder.checkRequiresEncoding(current.getReceiver().m_version, current.getContext(),
 											  current.getVolumeAdjustment().factor);
 			}
 

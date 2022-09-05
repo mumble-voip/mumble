@@ -1422,7 +1422,7 @@ void MainWindow::on_qmSelf_aboutToShow() {
 
 	qaSelfRegister->setEnabled(user && (user->iId < 0) && !user->qsHash.isEmpty()
 							   && (Global::get().pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
-	if (Global::get().sh && Global::get().sh->uiVersion >= Version::fromComponents(1, 2, 3)) {
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 3)) {
 		qaSelfPrioritySpeaker->setEnabled(user && Global::get().pPermissions & (ChanACL::Write | ChanACL::MuteDeafen));
 		qaSelfPrioritySpeaker->setChecked(user && user->bPrioritySpeaker);
 	} else {
@@ -1618,7 +1618,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserBan);
 	qmUser->addAction(qaUserMute);
 	qmUser->addAction(qaUserDeaf);
-	if (Global::get().sh && Global::get().sh->uiVersion >= Version::fromComponents(1, 2, 3))
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 3))
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
@@ -1644,7 +1644,7 @@ void MainWindow::qmUser_aboutToShow() {
 	}
 
 	qmUser->addAction(qaUserTextMessage);
-	if (Global::get().sh && Global::get().sh->uiVersion >= Version::fromComponents(1, 2, 2))
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 2))
 		qmUser->addAction(qaUserInformation);
 
 	if (p && (p->iId < 0) && !p->qsHash.isEmpty()
@@ -1707,7 +1707,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalIgnoreTTS->setEnabled(!isSelf);
 		// If the server's version is less than 1.4.0 it won't support the new permission to reset a comment/avatar, so
 		// fall back to the old method
-		if (Global::get().sh->uiVersion < Version::fromComponents(1, 4, 0)) {
+		if (Global::get().sh->m_version < Version::fromComponents(1, 4, 0)) {
 			qaUserCommentReset->setEnabled(!p->qbaCommentHash.isEmpty()
 										   && (Global::get().pPermissions & (ChanACL::Move | ChanACL::Write)));
 			qaUserTextureReset->setEnabled(!p->qbaTextureHash.isEmpty()
@@ -2181,7 +2181,7 @@ void MainWindow::qmChannel_aboutToShow() {
 		qmChannel->addSeparator();
 	}
 
-	if (c && Global::get().sh && Global::get().sh->uiVersion >= Version::fromComponents(1, 4, 0)) {
+	if (c && Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 4, 0)) {
 		// If the server's version is less than 1.4, the listening feature is not supported yet
 		// and thus it doesn't make sense to show the action for it
 		qmChannel->addAction(qaChannelListen);

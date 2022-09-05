@@ -108,7 +108,7 @@ public:
 	QHash< ServerAddress, QString > qhHostnames;
 	ServerAddress saTargetServer;
 
-	Version::full_t uiVersion;
+	Version::full_t m_version;
 	QString qsRelease;
 	QString qsOS;
 	QString qsOSVersion;

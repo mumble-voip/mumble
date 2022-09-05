@@ -54,7 +54,7 @@ protected:
 	void init();
 
 public:
-	Version::full_t uiVersion;
+	Version::full_t m_version;
 	quint32 uiPing;
 	quint32 uiPingSort;
 	quint32 uiUsers;

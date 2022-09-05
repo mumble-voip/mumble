@@ -135,9 +135,9 @@ void AudioReceiverBuffer::preprocessBuffer(std::vector< AudioReceiver > &receive
 	// Note: The list doesn't contains any duplicate receivers
 	std::sort(receiverList.begin(), receiverList.end(), [](const AudioReceiver &lhs, const AudioReceiver &rhs) {
 		// 1. Sort into block of compatible protocol versions
-		if (!Mumble::Protocol::protocolVersionsAreCompatible(lhs.getReceiver().uiVersion,
-															 rhs.getReceiver().uiVersion)) {
-			return lhs.getReceiver().uiVersion < rhs.getReceiver().uiVersion;
+		if (!Mumble::Protocol::protocolVersionsAreCompatible(lhs.getReceiver().m_version,
+															 rhs.getReceiver().m_version)) {
+			return lhs.getReceiver().m_version < rhs.getReceiver().m_version;
 		}
 
 		// 2. Within each block, sort based on the audio context

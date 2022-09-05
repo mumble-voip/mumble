@@ -80,8 +80,8 @@ public:
 		// the exact same audio packet (thus: no re-encoding required between sending the packet to them).
 		range.end = std::lower_bound(begin, end, *begin, [](const AudioReceiver &lhs, const AudioReceiver &rhs) {
 			return lhs.getContext() == rhs.getContext()
-				   && Mumble::Protocol::protocolVersionsAreCompatible(lhs.getReceiver().uiVersion,
-																	  rhs.getReceiver().uiVersion)
+				   && Mumble::Protocol::protocolVersionsAreCompatible(lhs.getReceiver().m_version,
+																	  rhs.getReceiver().m_version)
 				   // Allow a little variance between volume adjustments
 				   && std::abs(lhs.getVolumeAdjustment().factor - rhs.getVolumeAdjustment().factor) < 0.05f;
 		});

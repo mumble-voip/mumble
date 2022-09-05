@@ -1234,7 +1234,7 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	}
 
 	// Workaround for broken 1.2.2 servers
-	if (Global::get().sh && Global::get().sh->uiVersion == Version::fromComponents(1, 2, 2) && alpha != -1
+	if (Global::get().sh && Global::get().sh->m_version == Version::fromComponents(1, 2, 2) && alpha != -1
 		&& alpha == beta) {
 		if (pref)
 			beta = Global::get().iCodecBeta;
