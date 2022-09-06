@@ -34,6 +34,7 @@ use_test("TestSSLLocks")
 use_test("TestStdAbs")
 use_test("TestTimer")
 use_test("TestUnresolvedServerAddress")
+use_test("TestVersion")
 
 if(online-tests)
 	message(STATUS "Including online tests - These will fail if you don't have a working internet connection when running them")
