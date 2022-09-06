@@ -36,7 +36,7 @@ public:
 		audioData.frameNumber            = 42;
 		audioData.isLastFrame            = false;
 		audioData.senderSession          = 137;
-		audioData.targetOrContext        = Mumble::Protocol::AudioContext::Normal;
+		audioData.targetOrContext        = Mumble::Protocol::AudioContext::NORMAL;
 		audioData.usedCodec              = Mumble::Protocol::AudioCodec::Opus;
 		audioData.position               = { 1.25f, 1260.539f, -3.0765f };
 		audioData.containsPositionalData = true;
