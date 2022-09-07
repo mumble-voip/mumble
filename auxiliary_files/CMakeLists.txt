@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(delayed_configure_files)
+include(pkg-utils)
 
 if(NOT BUILD_RELEASE_DATE)
 	# If BUILD_RELEASE_DATE has not been set, default to time of build
@@ -43,6 +44,17 @@ if(server)
 	file(COPY "config_files/mumble-server.conf" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 	if(UNIX AND NOT APPLE)
+		get_pkgconf_variable(
+			OUTPUT_VARIABLE SYSUSERS_DIR
+			MODULE systemd
+			VARIABLE_NAME sysusersdir
+			QUIET
+		)
+		if(NOT SYSUSERS_DIR)
+			# Fallback value, in case it could not be fetched via pkg-config
+			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysconfig.d")
+		endif()
+
 		delayed_configure_files(
 			TARGET mumble-server
 			FILES
@@ -63,6 +75,8 @@ if(server)
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
 		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+
+		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 	endif()
 endif()
 
