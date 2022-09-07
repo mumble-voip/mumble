@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/@MUMBLE_SERVER_BINARY_NAME@ -fg -ini /etc/mumble-server.ini
+ExecStart=@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -fg -ini @MUMBLE_INSTALL_ABS_SYSCONFDIR@/mumble-server.ini
 Restart=always
 PrivateDevices=true
 PrivateTmp=true

@@ -51,6 +51,8 @@ if(server)
 				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-server-user-wrapper.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper"
 			PASSTHROUGH_VARIABLES
 				MUMBLE_BUILD_YEAR
+				MUMBLE_INSTALL_ABS_EXECUTABLEDIR
+				MUMBLE_INSTALL_ABS_SYSCONFDIR
 			VARIABLES
 				"MUMBLE_SERVER_BINARY_NAME=$<TARGET_FILE_NAME:mumble-server>"
 			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
@@ -60,6 +62,8 @@ if(server)
 		# Install Mumble server man files
 		install(FILES "man_files/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+
+		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
 	endif()
 endif()
 
