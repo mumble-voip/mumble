@@ -58,46 +58,45 @@ set(MUMBLE_INSTALL_MANDIR "${MANDIR_DEFAULT}" CACHE PATH "The directory to insta
 set(MUMBLE_INSTALL_DOCDIR "${DOCDIR_DEFAULT}" CACHE PATH "The directory to install documentation files into")
 set(MUMBLE_INSTALL_LICENSEDIR "${LICENSEDIR_DEFAULT}" CACHE PATH "The directory to install license files into")
 
-if(packaging)
-	# Using absolute install paths doesn't allow CPack to create the installer for us.
-	# Therefore we have to make sure that the paths are indeed relative.
-	assert_is_relative("${MUMBLE_INSTALL_EXECUTABLEDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_LIBDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_PLUGINDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_SCRIPTDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_MANDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_DOCDIR}")
-	assert_is_relative("${MUMBLE_INSTALL_LICENSEDIR}")
+# Using absolute install paths doesn't allow CPack to create the installer for us.
+# Therefore we have to make sure that the paths are indeed relative.
+assert_is_relative("${MUMBLE_INSTALL_EXECUTABLEDIR}")
+assert_is_relative("${MUMBLE_INSTALL_LIBDIR}")
+assert_is_relative("${MUMBLE_INSTALL_PLUGINDIR}")
+assert_is_relative("${MUMBLE_INSTALL_SCRIPTDIR}")
+assert_is_relative("${MUMBLE_INSTALL_MANDIR}")
+assert_is_relative("${MUMBLE_INSTALL_DOCDIR}")
+assert_is_relative("${MUMBLE_INSTALL_LICENSEDIR}")
 
-	if(WIN32)
-		if(NOT "${MUMBLE_INSTALL_LIBDIR}" STREQUAL "${LIBDIR_DEFAULT}")
-			# The path has been altered which will not allow for a working installer to be created
-			message(FATAL_ERROR "Found non default MUMBLE_INSTALL_LIBDIR path, that will not result in a working installer! (\"${MUMBLE_INSTALL_LIBDIR}\")")
-		endif()
+if (packaging AND WIN32)
+	if(NOT "${MUMBLE_INSTALL_LIBDIR}" STREQUAL "${LIBDIR_DEFAULT}")
+		# The path has been altered which will not allow for a working installer to be created
+		message(FATAL_ERROR "Found non default MUMBLE_INSTALL_LIBDIR path, that will not result in a working installer! (\"${MUMBLE_INSTALL_LIBDIR}\")")
 	endif()
-else()
-	# Turn all install paths into absolute ones as this is required for e.g. shared libraries to be loaded
-	make_absolute(MUMBLE_INSTALL_EXECUTABLEDIR "${MUMBLE_INSTALL_EXECUTABLEDIR}")
-	make_absolute(MUMBLE_INSTALL_LIBDIR "${MUMBLE_INSTALL_LIBDIR}")
-	make_absolute(MUMBLE_INSTALL_PLUGINDIR "${MUMBLE_INSTALL_PLUGINDIR}")
-	make_absolute(MUMBLE_INSTALL_SCRIPTDIR "${MUMBLE_INSTALL_SCRIPTDIR}")
-	make_absolute(MUMBLE_INSTALL_MANDIR "${MUMBLE_INSTALL_MANDIR}")
-	make_absolute(MUMBLE_INSTALL_DOCDIR "${MUMBLE_INSTALL_DOCDIR}")
-	make_absolute(MUMBLE_INSTALL_LICENSEDIR "${MUMBLE_INSTALL_LICENSEDIR}")
 endif()
+
+# Generate an absolute path from all our relative install paths, so they can be used in places where
+# the final, full installation path is required.
+make_absolute(MUMBLE_INSTALL_ABS_EXECUTABLEDIR "${MUMBLE_INSTALL_EXECUTABLEDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_LIBDIR "${MUMBLE_INSTALL_LIBDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_PLUGINDIR "${MUMBLE_INSTALL_PLUGINDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_SCRIPTDIR "${MUMBLE_INSTALL_SCRIPTDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_MANDIR "${MUMBLE_INSTALL_MANDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_DOCDIR "${MUMBLE_INSTALL_DOCDIR}")
+make_absolute(MUMBLE_INSTALL_ABS_LICENSEDIR "${MUMBLE_INSTALL_LICENSEDIR}")
 
 option(display-install-paths OFF)
 
 if(display-install-paths)
 	message(STATUS "")
 	message(STATUS "These are the paths the different components will be installed to:")
-	message(STATUS "Executables:    \"${MUMBLE_INSTALL_EXECUTABLEDIR}\"")
-	message(STATUS "Libraries:      \"${MUMBLE_INSTALL_LIBDIR}\"")
-	message(STATUS "Plugins:        \"${MUMBLE_INSTALL_PLUGINDIR}\"")
-	message(STATUS "Scripts:        \"${MUMBLE_INSTALL_SCRIPTDIR}\"")
-	message(STATUS "Man-files:      \"${MUMBLE_INSTALL_MANDIR}\"")
-	message(STATUS "Documentation:  \"${MUMBLE_INSTALL_DOCDIR}\"")
-	message(STATUS "Licenses:       \"${MUMBLE_INSTALL_LICENSEDIR}\"")
+	message(STATUS "Executables:    \"${MUMBLE_INSTALL_ABS_EXECUTABLEDIR}\"")
+	message(STATUS "Libraries:      \"${MUMBLE_INSTALL_ABS_LIBDIR}\"")
+	message(STATUS "Plugins:        \"${MUMBLE_INSTALL_ABS_PLUGINDIR}\"")
+	message(STATUS "Scripts:        \"${MUMBLE_INSTALL_ABS_SCRIPTDIR}\"")
+	message(STATUS "Man-files:      \"${MUMBLE_INSTALL_ABS_MANDIR}\"")
+	message(STATUS "Documentation:  \"${MUMBLE_INSTALL_ABS_DOCDIR}\"")
+	message(STATUS "Licenses:       \"${MUMBLE_INSTALL_ABS_LICENSEDIR}\"")
 	message(STATUS "")
 endif()
 

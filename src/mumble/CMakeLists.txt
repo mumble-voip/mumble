@@ -389,8 +389,8 @@ target_link_libraries(mumble mumble_client_object_lib)
 
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
-		"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_LIBDIR}"
-		"MUMBLE_PLUGIN_PATH=${MUMBLE_INSTALL_PLUGINDIR}"
+	"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_ABS_LIBDIR}"
+	"MUMBLE_PLUGIN_PATH=${MUMBLE_INSTALL_ABS_PLUGINDIR}"
 )
 
 set_target_properties(mumble PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
