@@ -46,7 +46,6 @@ if(server)
 		delayed_configure_files(
 			TARGET mumble-server
 			FILES
-				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.logrotate.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.logrotate"
 				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.service.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service"
 				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-server-user-wrapper.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper"
 			PASSTHROUGH_VARIABLES
