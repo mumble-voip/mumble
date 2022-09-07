@@ -20,6 +20,7 @@ cmake -G Ninja \
 	  -DBUILD_NUMBER=$BUILD_NUMBER \
 	  $CMAKE_OPTIONS \
       -DCMAKE_UNITY_BUILD=ON \
+	  -Ddisplay-install-paths=ON \
 	  $ADDITIONAL_CMAKE_OPTIONS \
 	  $VCPKG_CMAKE_OPTIONS
 
