@@ -54,6 +54,18 @@ if(server)
 			# Fallback value, in case it could not be fetched via pkg-config
 			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysconfig.d")
 		endif()
+		get_pkgconf_variable(
+			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
+			MODULE systemd
+			VARIABLE_NAME systemd_system_unit_dir
+			QUIET
+		)
+		if(NOT SYSTEMD_SERVICE_DIR)
+			# Default to /etc/systemd/system - This is not where packages ought to install their service files (rather
+			# it's where an admin is supposed to add their system files), but this seems to be the most consistent
+			# path across different platforms, so we use it anyway.
+			set(SYSTEMD_SERVICE_DIR "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system")
+		endif()
 
 		delayed_configure_files(
 			TARGET mumble-server
@@ -77,6 +89,9 @@ if(server)
 		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
 
 		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
 	endif()
 endif()
 
