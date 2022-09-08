@@ -74,7 +74,7 @@ bool Themes::applyConfigured() {
 
 	QStringList skinPaths;
 	skinPaths << qssFile.path();
-	skinPaths << QLatin1String(":/themes/Mumble"); // Some skins might want to fall-back on our built-in resources
+	skinPaths << QLatin1String(":/themes/Default"); // Some skins might want to fall-back on our built-in resources
 
 	QString themeQss = QString::fromUtf8(file.readAll());
 	setTheme(themeQss, skinPaths);
