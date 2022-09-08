@@ -68,7 +68,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 					 "<p>%3</p>"
 					 "<p><b>An Open Source, low-latency, high quality voice-chat utility</b></p>"
 					 "<p><tt><a href=\"%2\">%2</a></tt></p>")
-					  .arg(QLatin1String(MUMBLE_RELEASE))
+					  .arg(Version::getRelease())
 					  .arg(QLatin1String("https://www.mumble.info/"))
 					  .arg(copyrightText));
 	QHBoxLayout *qhbl = new QHBoxLayout(about);

@@ -4734,10 +4734,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>URL-Schema ist nicht &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Diese Version von Mumble kann keine URLs von Mumble Version %1.%2.%3 verarbeiten</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
@@ -6504,6 +6500,10 @@ Gültige Optionen sind:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Diese Version von Mumble kann keine URLs von Mumble Version %1 verarbeiten</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7840,6 +7840,10 @@ Sie können sie jedoch erneut registrieren.</translation>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation>Zugriff auf das Mikrofon wurde aufgrund von Systembeschränkungen verweigert. Sie werden in der aktuellen Sitzung nicht in der Lage sein, ihr Mikrofon zu verwenden.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8556,6 +8560,10 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>Ping deviation</source>
         <translation>Ping Abweichung</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

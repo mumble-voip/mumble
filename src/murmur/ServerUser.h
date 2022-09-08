@@ -114,7 +114,7 @@ public:
 	float dTCPPingAvg, dTCPPingVar;
 	quint32 uiUDPPackets, uiTCPPackets;
 
-	unsigned int uiVersion;
+	Version::full_t m_version;
 	QString qsRelease;
 	QString qsOS;
 	QString qsOSVersion;

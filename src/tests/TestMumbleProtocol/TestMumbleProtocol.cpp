@@ -84,11 +84,9 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 	Mumble::Protocol::UDPPingEncoder< encoderRole > encoder;
 	Mumble::Protocol::UDPDecoder< decoderRole > decoder;
 
-	for (Version::mumble_raw_version_t version :
-		 { Version::toRaw(1, 3, 0), Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION }) {
-		int major, minor, patch;
-		Version::fromRaw(version, &major, &minor, &patch);
-		qWarning("Using protocol version %d.%d.%d", major, minor, patch);
+	for (Version::full_t version :
+		 { Version::fromComponents(1, 3, 0), Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION }) {
+		qWarning("Using protocol version %s", Version::toString(Version::get()).toStdString().c_str());
 
 		// Note: When the decoder is set to a version < PROTOBUF_INTRODUCTION_VERSION, it can decode pings in
 		// either format
@@ -147,10 +145,10 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 
 	std::string payloadData = "I am the payload";
 
-	for (Version::mumble_raw_version_t version :
-		 { Version::toRaw(1, 3, 0), Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION }) {
-		int major, minor, patch;
-		Version::fromRaw(version, &major, &minor, &patch);
+	for (Version::full_t version :
+		 { Version::fromComponents(1, 3, 0), Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION }) {
+		Version::component_t major, minor, patch;
+		Version::getComponents(major, minor, patch, version);
 		qWarning("Using protocol version %d.%d.%d", major, minor, patch);
 
 		encoder.setProtocolVersion(version);

@@ -4735,10 +4735,6 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <translation>Adres URL nie jest obsługiwany przez Mumble (brak mumble:// w adresie)</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Ta wersja Mumble nie obsługuje adresów URL starszych wersji Mumble %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Łączenie z %1</translation>
     </message>
@@ -6512,6 +6508,10 @@ Prawidłowe opcje to:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Ta wersja Mumble nie obsługuje adresów URL starszych wersji Mumble %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7848,6 +7848,10 @@ Możesz je ponownie zarejestrować.</translation>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation>Odmówiono dostępu do mikrofonu z powodu ograniczeń systemowych. W tej sesji nie będzie można korzystać z mikrofonu.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8565,6 +8569,10 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     <message>
         <source>Ping deviation</source>
         <translation>Odchylenie</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

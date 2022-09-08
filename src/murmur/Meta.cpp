@@ -314,9 +314,7 @@ void MetaParams::read(QString fname) {
 	iBanTime       = typeCheckedFromSettings("autobanTime", iBanTime);
 	bBanSuccessful = typeCheckedFromSettings("autobanSuccessfulConnections", bBanSuccessful);
 
-	qvSuggestVersion = Version::getRaw(qsSettings->value("suggestVersion").toString());
-	if (qvSuggestVersion.toUInt() == 0)
-		qvSuggestVersion = QVariant();
+	m_suggestVersion = Version::fromConfig(qsSettings->value("suggestVersion"));
 
 	qvSuggestPositional = qsSettings->value("suggestPositional");
 	if (qvSuggestPositional.toString().trimmed().isEmpty())
@@ -416,8 +414,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("forceExternalAuth"),
 					bForceExternalAuth ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("suggestversion"),
-					qvSuggestVersion.isNull() ? QString() : qvSuggestVersion.toString());
+	qmConfig.insert(QLatin1String("suggestversion"), Version::toConfigString(m_suggestVersion));
 	qmConfig.insert(QLatin1String("suggestpositional"),
 					qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
 	qmConfig.insert(QLatin1String("suggestpushtotalk"),

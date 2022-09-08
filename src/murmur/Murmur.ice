@@ -49,8 +49,10 @@ module Murmur
 		int onlinesecs;
 		/** Average transmission rate in bytes per second over the last few seconds. */
 		int bytespersec;
-		/** Client version. Major version in upper 16 bits, followed by 8 bits of minor version and 8 bits of patchlevel. Version 1.2.3 = 0x010203. */
+		/** Legacy client version. */
 		int version;
+		/** New client version. (See https://github.com/mumble-voip/mumble/issues/5827) */
+		long version2;
 		/** Client release. For official releases, this equals the version. For snapshots and git compiles, this will be something else. */
 		string release;
 		/** Client OS. */

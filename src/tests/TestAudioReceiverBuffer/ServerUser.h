@@ -11,12 +11,12 @@
 #include <string>
 
 struct ServerUser {
-	ServerUser(unsigned int uiSession, Version::mumble_raw_version_t version, bool deaf = false, bool selfDeaf = false,
+	ServerUser(unsigned int uiSession, Version::full_t version, bool deaf = false, bool selfDeaf = false,
 			   const std::string context = "")
-		: uiSession(uiSession), uiVersion(version), bDeaf(deaf), bSelfDeaf(selfDeaf), ssContext(context) {}
+		: uiSession(uiSession), m_version(version), bDeaf(deaf), bSelfDeaf(selfDeaf), ssContext(context) {}
 
 	unsigned int uiSession;
-	Version::mumble_raw_version_t uiVersion;
+	Version::full_t m_version;
 	bool bDeaf;
 	bool bSelfDeaf;
 	std::string ssContext;

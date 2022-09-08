@@ -210,8 +210,8 @@ void CrashReporter::run() {
 										 "name=\"os\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2 %3\r\n")
 						 .arg(boundary, OSInfo::getOS(), OSInfo::getOSVersion());
 		QString ver = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; "
-										  "name=\"ver\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2 %3\r\n")
-						  .arg(boundary, QLatin1String(MUMTEXT(MUMBLE_VERSION)), QLatin1String(MUMBLE_RELEASE));
+										  "name=\"ver\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n")
+						  .arg(boundary, Version::getRelease());
 		QString email = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; "
 											"name=\"email\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n")
 							.arg(boundary, qleEmail->text());

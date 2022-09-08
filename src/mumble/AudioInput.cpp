@@ -1317,7 +1317,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 				recorder->getRecordUser().addFrame(audioData);
 			}
 
-			m_udpEncoder.setProtocolVersion(sh->uiVersion);
+			m_udpEncoder.setProtocolVersion(sh->m_version);
 		}
 	}
 

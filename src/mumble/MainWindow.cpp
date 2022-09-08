@@ -257,7 +257,7 @@ void MainWindow::createActions() {
 	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
 
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
-	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	qstiIcon->setToolTip(tr("Mumble -- %1").arg(Version::getRelease()));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), QVariant::fromValue(ShortcutTarget()));
@@ -1088,19 +1088,14 @@ void MainWindow::openUrl(const QUrl &url) {
 		return;
 	}
 
-	int major, minor, patch;
-	int thismajor, thisminor, thispatch;
-	Version::get(&thismajor, &thisminor, &thispatch);
-
-	// With no version parameter given assume the link refers to our version
-	major = thismajor;
-	minor = thisminor;
-	patch = thispatch;
+	Version::full_t thisVersion   = Version::get();
+	Version::full_t targetVersion = Version::UNKNOWN;
 
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
 	if (version.size() > 0) {
-		if (!Version::get(&major, &minor, &patch, version)) {
+		targetVersion = Version::fromString(version);
+		if (targetVersion == Version::UNKNOWN) {
 			// The version format is invalid
 			Global::get().l->log(Log::Warning,
 								 QObject::tr("The provided URL uses an invalid version format: \"%1\"").arg(version));
@@ -1108,21 +1103,20 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 	}
 
+	// With no version parameter given assume the link refers to our version
+	if (targetVersion == Version::UNKNOWN) {
+		targetVersion = thisVersion;
+	}
+
 	// We can't handle URLs for versions < 1.2.0
-	const int minMajor   = 1;
-	const int minMinor   = 2;
-	const int minPatch   = 0;
-	const bool isPre_120 = major < minMajor || (major == minMajor && minor < minMinor)
-						   || (major == minMajor && minor == minMinor && patch < minPatch);
+	const bool isPre_120 = targetVersion < Version::fromComponents(1, 2, 0);
 	// We also can't handle URLs for versions newer than the running Mumble instance
-	const bool isFuture = major > thismajor || (major == thismajor && minor > thisminor)
-						  || (major == thismajor && minor == thisminor && patch > thispatch);
+	const bool isFuture = thisVersion < targetVersion;
 
 	if (isPre_120 || isFuture) {
-		Global::get().l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3")
-											   .arg(major)
-											   .arg(minor)
-											   .arg(patch));
+		Global::get().l->log(
+			Log::Warning,
+			tr("This version of Mumble can't handle URLs for Mumble version %1").arg(Version::toString(targetVersion)));
 		return;
 	}
 
@@ -1428,7 +1422,7 @@ void MainWindow::on_qmSelf_aboutToShow() {
 
 	qaSelfRegister->setEnabled(user && (user->iId < 0) && !user->qsHash.isEmpty()
 							   && (Global::get().pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
-	if (Global::get().sh && Global::get().sh->uiVersion >= 0x010203) {
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 3)) {
 		qaSelfPrioritySpeaker->setEnabled(user && Global::get().pPermissions & (ChanACL::Write | ChanACL::MuteDeafen));
 		qaSelfPrioritySpeaker->setChecked(user && user->bPrioritySpeaker);
 	} else {
@@ -1624,7 +1618,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserBan);
 	qmUser->addAction(qaUserMute);
 	qmUser->addAction(qaUserDeaf);
-	if (Global::get().sh && Global::get().sh->uiVersion >= 0x010203)
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 3))
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
@@ -1650,7 +1644,7 @@ void MainWindow::qmUser_aboutToShow() {
 	}
 
 	qmUser->addAction(qaUserTextMessage);
-	if (Global::get().sh && Global::get().sh->uiVersion >= 0x010202)
+	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 2))
 		qmUser->addAction(qaUserInformation);
 
 	if (p && (p->iId < 0) && !p->qsHash.isEmpty()
@@ -1713,7 +1707,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalIgnoreTTS->setEnabled(!isSelf);
 		// If the server's version is less than 1.4.0 it won't support the new permission to reset a comment/avatar, so
 		// fall back to the old method
-		if (Global::get().sh->uiVersion < 0x010400) {
+		if (Global::get().sh->m_version < Version::fromComponents(1, 4, 0)) {
 			qaUserCommentReset->setEnabled(!p->qbaCommentHash.isEmpty()
 										   && (Global::get().pPermissions & (ChanACL::Move | ChanACL::Write)));
 			qaUserTextureReset->setEnabled(!p->qbaTextureHash.isEmpty()
@@ -2187,7 +2181,7 @@ void MainWindow::qmChannel_aboutToShow() {
 		qmChannel->addSeparator();
 	}
 
-	if (c && Global::get().sh && Global::get().sh->uiVersion >= 0x010400) {
+	if (c && Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 4, 0)) {
 		// If the server's version is less than 1.4, the listening feature is not supported yet
 		// and thus it doesn't make sense to show the action for it
 		qmChannel->addAction(qaChannelListen);
@@ -3453,7 +3447,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 		}
 	}
-	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	qstiIcon->setToolTip(tr("Mumble -- %1").arg(Version::getRelease()));
 	AudioInput::setMaxBandwidth(-1);
 
 	if (Global::get().s.bMinimalView) {

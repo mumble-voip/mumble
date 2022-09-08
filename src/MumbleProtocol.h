@@ -107,23 +107,23 @@ namespace Protocol {
 
 	enum class Role { Server, Client };
 
-	constexpr Version::mumble_raw_version_t PROTOBUF_INTRODUCTION_VERSION = Version::toRaw(1, 5, 0);
+	constexpr Version::full_t PROTOBUF_INTRODUCTION_VERSION = Version::fromComponents(1, 5, 0);
 
 
-	bool protocolVersionsAreCompatible(Version::mumble_raw_version_t lhs, Version::mumble_raw_version_t rhs);
+	bool protocolVersionsAreCompatible(Version::full_t lhs, Version::full_t rhs);
 
 
 	template< Role role > class ProtocolHandler {
 	public:
-		ProtocolHandler(Version::mumble_raw_version_t protocolVersion = Version::UNKNOWN);
+		ProtocolHandler(Version::full_t protocolVersion = Version::UNKNOWN);
 
-		Version::mumble_raw_version_t getProtocolVersion() const;
-		void setProtocolVersion(Version::mumble_raw_version_t protocolVersion);
+		Version::full_t getProtocolVersion() const;
+		void setProtocolVersion(Version::full_t protocolVersion);
 
 		constexpr Role getRole() const { return role; };
 
 	protected:
-		Version::mumble_raw_version_t m_protocolVersion;
+		Version::full_t m_protocolVersion;
 	};
 
 	struct AudioData {
@@ -145,7 +145,7 @@ namespace Protocol {
 		std::uint64_t timestamp            = 0;
 		bool requestAdditionalInformation  = false;
 		bool containsAdditionalInformation = false;
-		std::uint32_t serverVersion        = Version::UNKNOWN;
+		Version::full_t serverVersion      = Version::UNKNOWN;
 		std::uint32_t userCount            = 0;
 		std::uint32_t maxUserCount         = 0;
 		std::uint32_t maxBandwidthPerUser  = 0;
@@ -156,7 +156,7 @@ namespace Protocol {
 
 	template< Role role > class UDPAudioEncoder : public ProtocolHandler< role > {
 	public:
-		UDPAudioEncoder(Version::mumble_raw_version_t protocolVersion = Version::UNKNOWN);
+		UDPAudioEncoder(Version::full_t protocolVersion = Version::UNKNOWN);
 
 		/**
 		 * Encodes an audio packet based on the provided data.
@@ -234,7 +234,7 @@ namespace Protocol {
 
 	template< Role role > class UDPPingEncoder : public ProtocolHandler< role > {
 	public:
-		UDPPingEncoder(Version::mumble_raw_version_t protocolVersion = Version::UNKNOWN);
+		UDPPingEncoder(Version::full_t protocolVersion = Version::UNKNOWN);
 
 		gsl::span< const byte > encodePingPacket(const PingData &data);
 
@@ -248,7 +248,7 @@ namespace Protocol {
 
 	template< Role role > class UDPDecoder : public ProtocolHandler< role > {
 	public:
-		UDPDecoder(Version::mumble_raw_version_t protocolVersion = Version::UNKNOWN);
+		UDPDecoder(Version::full_t protocolVersion = Version::UNKNOWN);
 
 		gsl::span< byte > getBuffer();
 		bool decode(const gsl::span< const byte > data, bool restrictToPing = false);

@@ -4733,10 +4733,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>URL düzeni &apos;mumble&apos; değil</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Mumble&apos;ın bu sürümü %1.%2.%3 sayılı sürümün URL&apos;lerini işleyemez</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>%1 adresine bağlanılıyor</translation>
     </message>
@@ -6510,6 +6506,10 @@ Geçerli seçenekler şunlardır:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Mumble&apos;ın bu sürümü %1 sayılı sürümün URL&apos;lerini işleyemez</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7846,6 +7846,10 @@ Bunları tekrar kaydedebilirsiniz.</translation>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation>Sistem kısıtlamaları nedeniyle mikrofona erişim reddedildi. Bu oturumda mikrofonu kullanamayacaksınız.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8561,6 +8565,10 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <source>Ping deviation</source>
         <translation>Ping sapması</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

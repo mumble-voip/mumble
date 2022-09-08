@@ -108,7 +108,7 @@ public:
 	QHash< ServerAddress, QString > qhHostnames;
 	ServerAddress saTargetServer;
 
-	unsigned int uiVersion;
+	Version::full_t m_version;
 	QString qsRelease;
 	QString qsOS;
 	QString qsOSVersion;
@@ -132,7 +132,7 @@ public:
 	void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 	int getConnectionID() const;
 
-	void setProtocolVersion(Version::mumble_raw_version_t version);
+	void setProtocolVersion(Version::full_t version);
 
 	void sendProtoMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type);
 	void sendMessage(const unsigned char *data, int len, bool force = false);

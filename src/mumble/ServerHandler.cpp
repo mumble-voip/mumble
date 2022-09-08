@@ -23,6 +23,7 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
+#include "ProtoUtils.h"
 #include "RichTextEditor.h"
 #include "SSL.h"
 #include "ServerResolver.h"
@@ -114,7 +115,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	usPort                  = 0;
 	bUdp                    = true;
 	tConnectionTimeoutTimer = nullptr;
-	uiVersion               = Version::UNKNOWN;
+	m_version               = Version::UNKNOWN;
 	iInFlightTCPPings       = 0;
 
 	// assign connection ID
@@ -196,8 +197,8 @@ int ServerHandler::getConnectionID() const {
 	return connectionID;
 }
 
-void ServerHandler::setProtocolVersion(Version::mumble_raw_version_t version) {
-	uiVersion = version;
+void ServerHandler::setProtocolVersion(Version::full_t version) {
+	m_version = version;
 
 	m_udpPingEncoder.setProtocolVersion(version);
 	m_udpDecoder.setProtocolVersion(version);
@@ -454,7 +455,7 @@ void ServerHandler::run() {
 
 		accUDP = accTCP = accClean;
 
-		uiVersion   = Version::UNKNOWN;
+		m_version   = Version::UNKNOWN;
 		qsRelease   = QString();
 		qsOS        = QString();
 		qsOSVersion = QString();
@@ -579,7 +580,7 @@ void ServerHandler::sendPingInternal() {
 		pingData.timestamp                    = t;
 		pingData.requestAdditionalInformation = false;
 
-		m_udpPingEncoder.setProtocolVersion(uiVersion);
+		m_udpPingEncoder.setProtocolVersion(m_version);
 		gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
 		sendMessage(encodedPacket.data(), encodedPacket.size(), true);
@@ -772,12 +773,8 @@ void ServerHandler::serverConnectionConnected() {
 	}
 
 	MumbleProto::Version mpv;
-	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
-
-	unsigned int version = Version::getRaw();
-	if (version) {
-		mpv.set_version(version);
-	}
+	mpv.set_release(u8(Version::getRelease()));
+	MumbleProto::setVersion(mpv, Version::get());
 
 	if (!Global::get().s.bHideOS) {
 		mpv.set_os(u8(OSInfo::getOS()));
@@ -1029,7 +1026,7 @@ void ServerHandler::setUserComment(unsigned int uiSession, const QString &commen
 void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba) {
 	QByteArray texture;
 
-	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
+	if ((m_version >= Version::fromComponents(1, 2, 2)) || qba.isEmpty()) {
 		texture = qba;
 	} else {
 		QByteArray raw = qba;

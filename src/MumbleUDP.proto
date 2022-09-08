@@ -68,10 +68,11 @@ message Ping {
 
 	// Below are the fields for the "additional information" that are filled out by the server on request.
 
-
-	// The version of the server encoded into a single integer. The 32 bits are partitioned in regions of (left to right)
-	// 16, 8 and 8 bits representing the major, minor and patch version number respectively.
-	uint32 server_version = 3;
+	// The version of the server in the new version format.
+	// The new protobuf Ping packet introduced with 1.5 drops support for the legacy version format
+	// since both server and client have to support this new format.
+	// (See https://github.com/mumble-voip/mumble/issues/5827)
+	uint64 server_version_v2 = 3;
 
 	// The amount of users currently connected to the server
 	uint32 user_count = 4;

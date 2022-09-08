@@ -78,7 +78,7 @@ void Tray::on_ShowLog_triggered() {
 	QTextBrowser *tb = new QTextBrowser();
 	mw->resize(675, 300);
 	mw->setCentralWidget(tb);
-	mw->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(MUMBLE_RELEASE));
+	mw->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(Version::getRelease()));
 
 	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 

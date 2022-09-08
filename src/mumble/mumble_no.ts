@@ -4749,10 +4749,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation type="unfinished">URL-forordningen er ikke &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Denne versjonen av Mumble kan ikke håndtere URL-er for Mumble versjon %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Kobler til %1</translation>
     </message>
@@ -6466,6 +6462,10 @@ Valid options are:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Denne versjonen av Mumble kan ikke håndtere URL-er for Mumble versjon %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7802,6 +7802,10 @@ Du kan registrere dem igjen.</translation>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation>Tilgang til mikrofon ble ikke innvilget som følge av systembegrensninger. Du vil ikke kunne bruke mikrofonen i denne økten.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8519,6 +8523,10 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <source>Ping deviation</source>
         <translation>Svartidsavvik</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
