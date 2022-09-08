@@ -702,7 +702,15 @@ void MainWindow::updateTransmitModeComboBox(Settings::AudioTransmit newMode) {
 
 QMenu *MainWindow::createPopupMenu() {
 	if ((Global::get().s.wlWindowLayout == Settings::LayoutCustom) && !Global::get().s.bLockLayout) {
-		return QMainWindow::createPopupMenu();
+		// We have to explicitly create a menu here instead of simply referring to QMainWindow::createPopupMenu as we
+		// don't want a toggle for showing/hiding the minimal view note (which is also present as a QDockWidget). Thus,
+		// we have to explicitly add only those widgets that we really want to be toggleable.
+		QMenu *menu = new QMenu(this);
+		menu->addAction(qdwChat->toggleViewAction());
+		menu->addAction(qdwLog->toggleViewAction());
+		menu->addAction(qtIconToolbar->toggleViewAction());
+
+		return menu;
 	}
 
 	return nullptr;
