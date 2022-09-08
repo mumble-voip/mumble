@@ -116,7 +116,7 @@ if(server)
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
 		install(FILES "config_files/mumble-server.conf" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/dbus-1/system.d" COMPONENT mumble_server)
-		install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/Murmur.ice" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+		install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/MumbleServer.ice" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
 	endif()
 endif()
 

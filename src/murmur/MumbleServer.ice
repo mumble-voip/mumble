@@ -13,7 +13,7 @@
 
 #include <Ice/SliceChecksumDict.ice>
 
-module Murmur
+module MumbleServer
 {
 
 	/** A network address in IPv6 format.

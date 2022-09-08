@@ -10,7 +10,7 @@ set(MURMUR_PLIST "${CMAKE_CURRENT_BINARY_DIR}/murmur.plist")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.plist.in" "${MURMUR_PLIST}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.rc.in" "${MURMUR_RC}")
 
-set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice")
+set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleServer.ice")
 
 include(qt-utils)
 
@@ -235,18 +235,18 @@ if(ice)
 	)
 
 	add_custom_target(generate_murmur_ice_wrapper
-		DEPENDS "MurmurIceWrapper.cpp" 
+		DEPENDS "MumbleServerIceWrapper.cpp" 
 	)
 	add_dependencies(mumble-server generate_murmur_ice_wrapper)
 	add_custom_command(
-		OUTPUT "MurmurIceWrapper.cpp"
+		OUTPUT "MumbleServerIceWrapper.cpp"
 		COMMAND ${PYTHON_INTERPRETER}
 		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
-			-g "${ICE_FILE_NAME}.h" -o "MurmurIceWrapper.cpp" -q
+			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" -q
 		DEPENDS ${ICE_GENERATED_FILES}
-		COMMENT "Generating MurmurIceWrapper"
+		COMMENT "Generating MumbleServerIceWrapper"
 	)
-	# Even though the file is a .cpp, it is still being included in MurmurIce.cpp
+	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
 	target_include_directories(mumble-server PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
@@ -255,8 +255,8 @@ if(ice)
 
 	target_sources(mumble-server
 		PRIVATE
-			"MurmurIce.cpp"
-			"MurmurIce.h"
+			"MumbleServerIce.cpp"
+			"MumbleServerIce.h"
 			${ICE_GENERATED_FILES}
 	)
 	target_compile_definitions(mumble-server

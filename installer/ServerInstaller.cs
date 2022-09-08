@@ -18,7 +18,7 @@ public class ServerInstaller : MumbleInstall {
 		string upgradeGuid = "03E9476F-0F75-4661-BFC9-A9DAEB23D3A0";
 		string[] binaries = {
 			"mumble-server.exe",
-			"Murmur.ice"
+			"MumbleServer.ice"
 		};
 
 		string[] licenses = {

@@ -3,32 +3,31 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef USE_ICE
-#	ifndef MUMBLE_MURMUR_MURMURICE_H_
-#		define MUMBLE_MURMUR_MURMURICE_H_
+#ifndef MUMBLE_MURMUR_MURMURICE_H_
+#define MUMBLE_MURMUR_MURMURICE_H_
 
-#		include <QtCore/QtGlobal>
+#include <QtCore/QtGlobal>
 
-#		if defined(Q_OS_WIN) && !defined(WIN32_LEAN_AND_MEAN)
+#if defined(Q_OS_WIN) && !defined(WIN32_LEAN_AND_MEAN)
 // To prevent <windows.h> (included by Ice) from including <winsock.h>.
-#			define WIN32_LEAN_AND_MEAN
-#		endif
+#	define WIN32_LEAN_AND_MEAN
+#endif
 
-#		include <QtCore/QList>
-#		include <QtCore/QMap>
-#		include <QtCore/QMutex>
-#		include <QtCore/QObject>
-#		include <QtCore/QWaitCondition>
-#		include <QtNetwork/QSslCertificate>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QWaitCondition>
+#include <QtNetwork/QSslCertificate>
 
-#		include "MurmurI.h"
+#include "MumbleServerI.h"
 
 class Channel;
 class Server;
 class User;
 struct TextMessage;
 
-class MurmurIce : public QObject {
+class MumbleServerIce : public QObject {
 	friend class MurmurLocker;
 	Q_OBJECT;
 
@@ -37,36 +36,37 @@ protected:
 	QMutex qmEvent;
 	QWaitCondition qwcEvent;
 	void customEvent(QEvent *evt);
-	void badMetaProxy(const ::Murmur::MetaCallbackPrx &prx);
-	void badServerProxy(const ::Murmur::ServerCallbackPrx &prx, const ::Server *server);
+	void badMetaProxy(const ::MumbleServer::MetaCallbackPrx &prx);
+	void badServerProxy(const ::MumbleServer::ServerCallbackPrx &prx, const ::Server *server);
 	void badAuthenticator(::Server *);
-	QList<::Murmur::MetaCallbackPrx > qlMetaCallbacks;
-	QMap< int, QList<::Murmur::ServerCallbackPrx > > qmServerCallbacks;
-	QMap< int, QMap< int, QMap< QString, ::Murmur::ServerContextCallbackPrx > > > qmServerContextCallbacks;
-	QMap< int, ::Murmur::ServerAuthenticatorPrx > qmServerAuthenticator;
-	QMap< int, ::Murmur::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
+	QList<::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
+	QMap< int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
+	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
+	QMap< int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
+	QMap< int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
 
 public:
 	Ice::CommunicatorPtr communicator;
 	Ice::ObjectAdapterPtr adapter;
-	MurmurIce();
-	~MurmurIce();
+	MumbleServerIce();
+	~MumbleServerIce();
 
-	void addMetaCallback(const ::Murmur::MetaCallbackPrx &prx);
-	void removeMetaCallback(const ::Murmur::MetaCallbackPrx &prx);
-	void addServerCallback(const ::Server *server, const ::Murmur::ServerCallbackPrx &prx);
-	void removeServerCallback(const ::Server *server, const ::Murmur::ServerCallbackPrx &prx);
+	void addMetaCallback(const ::MumbleServer::MetaCallbackPrx &prx);
+	void removeMetaCallback(const ::MumbleServer::MetaCallbackPrx &prx);
+	void addServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrx &prx);
+	void removeServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrx &prx);
 	void removeServerCallbacks(const ::Server *server);
 	void addServerContextCallback(const ::Server *server, int session_id, const QString &action,
-								  const ::Murmur::ServerContextCallbackPrx &prx);
-	const QMap< int, QMap< QString, ::Murmur::ServerContextCallbackPrx > >
+								  const ::MumbleServer::ServerContextCallbackPrx &prx);
+	const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > >
 		getServerContextCallbacks(const ::Server *server) const;
 	void removeServerContextCallback(const ::Server *server, int session_id, const QString &action);
-	void setServerAuthenticator(const ::Server *server, const ::Murmur::ServerAuthenticatorPrx &prx);
-	const ::Murmur::ServerAuthenticatorPrx getServerAuthenticator(const ::Server *server) const;
+	void setServerAuthenticator(const ::Server *server, const ::MumbleServer::ServerAuthenticatorPrx &prx);
+	const ::MumbleServer::ServerAuthenticatorPrx getServerAuthenticator(const ::Server *server) const;
 	void removeServerAuthenticator(const ::Server *server);
-	void setServerUpdatingAuthenticator(const ::Server *server, const ::Murmur::ServerUpdatingAuthenticatorPrx &prx);
-	const ::Murmur::ServerUpdatingAuthenticatorPrx getServerUpdatingAuthenticator(const ::Server *server) const;
+	void setServerUpdatingAuthenticator(const ::Server *server,
+										const ::MumbleServer::ServerUpdatingAuthenticatorPrx &prx);
+	const ::MumbleServer::ServerUpdatingAuthenticatorPrx getServerUpdatingAuthenticator(const ::Server *server) const;
 	void removeServerUpdatingAuthenticator(const ::Server *server);
 
 public slots:
@@ -96,5 +96,4 @@ public slots:
 
 	void contextAction(const User *, const QString &, unsigned int, int);
 };
-#	endif
 #endif
