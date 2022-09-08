@@ -101,7 +101,7 @@ if(NOT APPLE)
 		endif()
 	endif()
 else()
-	add_subdirectory("${3RDPARTY_DIR}/mach-override-build" "${CMAKE_CURRENT_BINARY_DIR}/mach-override")
+	add_subdirectory("${3RDPARTY_DIR}/mach-override-build" "${CMAKE_CURRENT_BINARY_DIR}/mach-override" EXCLUDE_FROM_ALL)
 
 	find_library(LIB_COREFOUNDATION "CoreFoundation")
 

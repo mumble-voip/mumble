@@ -506,7 +506,7 @@ endif()
 if(bundled-json)
 	set(JSON_BuildTests OFF CACHE INTERNAL "")
 	set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
-	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/")
+	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
 else()
 	find_pkg("nlohmann_json" REQUIRED)
 endif()
@@ -596,7 +596,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QWindowsIntegrationPlugin)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck")
+	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/xinputcheck-build")
@@ -698,7 +698,7 @@ if(bundled-opus)
 		option(OPUS_STACK_PROTECTOR "" OFF)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus")
+	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the Opus code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
@@ -725,7 +725,7 @@ else()
 endif()
 
 if(bundled-speex)
-	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp")
+	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the speexdsp code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speexdsp-build")
@@ -754,7 +754,7 @@ if(rnnoise)
 	target_compile_definitions(mumble_client_object_lib PRIVATE "USE_RNNOISE")
 
 	if(bundled-rnnoise)
-		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise")
+		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise" EXCLUDE_FROM_ALL)
 
 		# Disable all warnings that the RNNoise code may emit
 		disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
