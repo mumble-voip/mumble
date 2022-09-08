@@ -1,0 +1,48 @@
+name: Find and close stale issues
+on:
+  schedule:
+    - cron: "45 2 * * *"
+    - cron: "45 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  no-response:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/stale@v5
+        with:
+          days-before-issue-stale: 14
+          days-before-issue-close:  7
+          stale-issue-message: |
+            This issue has been marked as stale, because our request for more information has thus far not been fulfilled.
+
+            If no further action occurs, this issue will be closed within 7 days.
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-label: "stale-no-response"
+          only-issue-labels: "needs-more-input"
+          operations-per-run: 400
+
+  support:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/stale@v5
+        with:
+          days-before-issue-stale: 4
+          days-before-issue-close: 3
+          stale-issue-message: |
+            As there has been no activity on this issue for a couple of days, we assume that your issue has been fixed in the meantime.
+            Should this not be the case, please let us know.
+
+            If no further activity happens, this issue will be closed within 3 days.
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-label: "stale-support"
+          only-issue-labels: "support"
+          operations-per-run: 400
