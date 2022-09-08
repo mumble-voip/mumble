@@ -10,7 +10,7 @@ if [ -z "$1" -o "$1" = '--help' ]; then
 	exit 1
 fi
 
-for libpath in /usr/lib /usr/lib/mumble /usr/lib32 /usr/lib32/mumble /usr/lib64 /usr/lib64/mumble; do
+for libpath in @MUMBLE_INSTALL_ABS_LIBDIR@ /usr/lib /usr/lib/mumble /usr/lib32 /usr/lib32/mumble /usr/lib64 /usr/lib64/mumble; do
   if [ -d "$libpath" ]; then
     for lib in $libpath/lib@MUMBLE_OVERLAY_BINARY_BASENAME@*.so
     do
