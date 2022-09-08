@@ -1306,10 +1306,13 @@ void MainWindow::setupView(bool toggle_minimize) {
 	}
 
 
-	// Hide/Show respective UI elements
-	qdwLog->setVisible(showit);
-	qdwChat->setVisible(showit);
-	qtIconToolbar->setVisible(showit);
+	// Explicitly hide UI elements, if we're entering minimal view
+	// Note that showing them again is handled above via restoreState/restoreGeometry calls
+	if (!showit) {
+		qdwLog->setVisible(false);
+		qdwChat->setVisible(false);
+		qtIconToolbar->setVisible(false);
+	}
 	menuBar()->setVisible(showit);
 
 	// Display the Transmit Mode Dropdown, if configured to do so, otherwise
