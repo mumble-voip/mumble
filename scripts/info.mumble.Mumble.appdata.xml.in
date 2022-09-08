@@ -31,7 +31,7 @@
 	</screenshots>
 
 	<releases>
-		<release type="stable" version="@CMAKE_PROJECT_VERSION@"/>
+		<release type="stable" version="@CMAKE_PROJECT_VERSION@" date="@BUILD_RELEASE_DATE@" />
 	</releases>
 	<provides>
 		<binary>mumble</binary>
