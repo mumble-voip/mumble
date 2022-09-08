@@ -1438,6 +1438,10 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

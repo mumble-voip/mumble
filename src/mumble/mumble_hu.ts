@@ -1432,6 +1432,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

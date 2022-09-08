@@ -1436,6 +1436,10 @@ Este valor permite que você especifique o número máximo de usuárias permitid
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

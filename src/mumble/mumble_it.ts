@@ -1436,6 +1436,10 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

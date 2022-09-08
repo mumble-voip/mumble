@@ -1422,6 +1422,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source> m</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
