@@ -59,18 +59,37 @@ function(include_translations OUT_VAR OUT_DIR TS_FILES)
 	compile_translations(QM_FILES "${OUT_DIR}" "${TS_FILES}")
 
 	set(QRC_PATH "${OUT_DIR}/mumble_translations.qrc")
+	set(TMP_PATH "${QRC_PATH}.tmp")
 
 	# Create a resource file (.qrc) containing the name of the compiled translation files (.qm).
 	# This is required in order to embed those files into the built executable.
 	# NOTE: We write the files' name instead of their path because they are in the same directory as the resource file.
-	file(WRITE ${QRC_PATH} "<!DOCTYPE RCC><RCC version=\"1.0\">\n<qresource>\n")
+	file(WRITE ${TMP_PATH} "<!DOCTYPE RCC><RCC version=\"1.0\">\n<qresource>\n")
 
 	foreach(QM_FILE ${QM_FILES})
 		get_filename_component(FILENAME ${QM_FILE} NAME)
-		file(APPEND ${QRC_PATH} "\t<file>${FILENAME}</file>\n")
+		file(APPEND ${TMP_PATH} "\t<file>${FILENAME}</file>\n")
 	endforeach()
 
-	file(APPEND ${QRC_PATH} "</qresource>\n</RCC>\n")
+	file(APPEND ${TMP_PATH} "</qresource>\n</RCC>\n")
+
+	if(EXISTS "${QRC_PATH}")
+		# The QRC file already exists - there's a chance that it has been generated before already and that
+		# its contents have not changed. In this case, we don't want to overwrite it, as to not suggest to
+		# cmake that it has changed and that it needs to be recompiled.
+		execute_process(COMMAND "${CMAKE_COMMAND}" -E compare_files "${TMP_PATH}" "${QRC_PATH}" RESULT_VARIABLE COMP_RESULT)
+
+		if(COMP_RESULT EQUAL 0)
+			# Files are equal -> Don't overwrite
+		elseif(COMP_RESULT 1)
+			# Files are different -> overwrite
+			file(RENAME "${TMP_PATH}" "${QRC_PATH}")
+		else()
+			message(FATAL_ERROR "Encountered error while comparing files \"${QRC_PATH}\" and \"${TMP_PATH}\"")
+		endif()
+	else()
+		file(RENAME "${TMP_PATH}" "${QRC_PATH}")
+	endif()
 
 	set("${OUT_VAR}" "${QRC_PATH}" PARENT_SCOPE)
 endfunction()
