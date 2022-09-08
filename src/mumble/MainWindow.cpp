@@ -605,7 +605,7 @@ void MainWindow::changeEvent(QEvent *e) {
 
 #else
 	if (isMinimized() && qstiIcon->isSystemTrayAvailable() && Global::get().s.bHideInTray) {
-		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
+		// Workaround https://forum.qt.io/topic/4327/minimizing-application-to-tray/24
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
 #endif
