@@ -4661,10 +4661,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <translation>Forma de URL não é &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Esta versão do Mumble não pode lidar com URLs para o Mumble versão %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Conectando a %1</translation>
     </message>
@@ -6361,6 +6357,10 @@ Valid options are:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Esta versão do Mumble não pode lidar com URLs para o Mumble versão %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7621,6 +7621,10 @@ Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot
 You can register them again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8337,6 +8341,10 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <source>Ping deviation</source>
         <translation>Variação de ping</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

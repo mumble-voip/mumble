@@ -4661,10 +4661,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>URL-Schema ist nicht &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Diese Version von Mumble kann keine URLs von Mumble Version %1.%2.%3 verarbeiten</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
@@ -6416,6 +6412,10 @@ Erlaubte Optionen sind:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Dies wird den Suchdialog öffnen oder schließen, je nachdem ob er bereits geöffnet ist</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Diese Version von Mumble kann keine URLs von Mumble Version %1 verarbeiten</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7677,6 +7677,10 @@ You can register them again.</source>
         <translation>Leider konnte(n) %1 Tastenkürzel nicht migriert werden.
 Sie können sie jedoch erneut registrieren.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8393,6 +8397,10 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>Ping deviation</source>
         <translation>Ping Abweichung</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

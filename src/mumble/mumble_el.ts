@@ -4661,10 +4661,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Το σχήμα διεύθυνσης URL δεν είναι &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Αυτή η έκδοση του Mumble δεν μπορεί να χειριστεί διευθύνσεις URL για την έκδοση Mumble %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Γίνεται σύνδεση στο %1</translation>
     </message>
@@ -6420,6 +6416,10 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Αυτό θα ανοίξει ή θα κλείσει το παράθυρο διαλόγου αναζήτησης ανάλογα με το αν έχει ήδη ανοίξει ήδη</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Αυτή η έκδοση του Mumble δεν μπορεί να χειριστεί διευθύνσεις URL για την έκδοση Mumble %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7681,6 +7681,10 @@ You can register them again.</source>
         <translation>Δυστυχώς, δεν ήταν δυνατή η μετεγκατάσταση %1 συντόμευσης.
 Μπορείτε να τις καταχωρήσετε ξανά.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8397,6 +8401,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Ping deviation</source>
         <translation>Απόκλιση ping</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

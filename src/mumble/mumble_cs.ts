@@ -4654,10 +4654,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Schéma URL není &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Tato verze Mumble neumí pracovat s URL pro verzi Mumble %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Připojuji se k %1</translation>
     </message>
@@ -6327,6 +6323,10 @@ Valid options are:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Tato verze Mumble neumí pracovat s URL pro verzi Mumble %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7584,6 +7584,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
 You can register them again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8301,6 +8305,10 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     <message>
         <source>Ping deviation</source>
         <translation>Odchylka odezvy</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

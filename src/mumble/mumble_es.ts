@@ -4662,10 +4662,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>El esquema del URL no es &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Esta versión de Mumble no puede manejar URLs para la versión %1.%2.%3 de Mumble</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Conectando a %1</translation>
     </message>
@@ -6339,6 +6335,10 @@ Valid options are:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Estro abrirá o cerrará el diálogo de búsqueda dependiendo de si ya está abierto o no</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Esta versión de Mumble no puede manejar URLs para la versión %1 de Mumble</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7600,6 +7600,10 @@ You can register them again.</source>
         <translation>Desafortunadamente %1 atajo(s) no pudieron ser migrados.
 Puedes registrarlos otra vez.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8316,6 +8320,10 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <source>Ping deviation</source>
         <translation>Desviación del ping</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

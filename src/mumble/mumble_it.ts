@@ -4661,10 +4661,6 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
         <translation>Lo schema dell&apos;URL non è &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
@@ -6420,6 +6416,10 @@ Le opzioni valide sono:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Questo aprirà o chiuderà il menù di ricerca a seconda dello stato attuale</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7681,6 +7681,10 @@ You can register them again.</source>
         <translation>Sfortunatamente la shortcut %1 non può essere migrata.
 Puoi registrarle di nuovo.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8397,6 +8401,10 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <source>Ping deviation</source>
         <translation>Deviazione ping</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

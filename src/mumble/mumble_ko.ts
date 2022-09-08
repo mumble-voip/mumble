@@ -4660,10 +4660,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>URL 스킴이 &apos;mumble&apos;이 아님</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>이 버전의 Mumble은 Mumble 버전 %1.%2.%3 URL을 처리할 수 없음</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>%1에 연결 중</translation>
     </message>
@@ -6419,6 +6415,10 @@ mumble://[&lt;유저이름&gt;[:&lt;비밀번호&gt;]@]&lt;호스트&gt;[:&lt;�
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>현재 열려 있는지에 따라 검색 대화 상자를 열거나 닫습니다</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">이 버전의 Mumble은 Mumble 버전 %1 URL을 처리할 수 없음</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7680,6 +7680,10 @@ You can register them again.</source>
         <translation>유감스럽게도 %1 단축키(들)가 이동되지 않았습니다.
 다시 등록할 수 있습니다.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8395,6 +8399,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Ping deviation</source>
         <translation>핑 편차</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
