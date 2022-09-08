@@ -4734,10 +4734,6 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <translation>URL schemat kan inte användas av Mumble</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Den här versionen av Mumble kan inte hantera URLer för Mumble version %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Ansluter till %1</translation>
     </message>
@@ -6451,6 +6447,10 @@ Valid options are:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Den här versionen av Mumble kan inte hantera URLer för Mumble version %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7786,6 +7786,10 @@ You can register them again.</source>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8502,6 +8506,10 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <source>Ping deviation</source>
         <translation>Pingavvikelser</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

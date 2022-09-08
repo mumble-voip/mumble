@@ -4674,10 +4674,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6359,6 +6355,10 @@ Valid options are:
         <source>Local Volume Adjustment:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7687,6 +7687,10 @@ You can register them again.</source>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8399,6 +8403,10 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
