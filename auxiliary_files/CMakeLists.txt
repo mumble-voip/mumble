@@ -37,6 +37,28 @@ if(client)
 		install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
 	endif()
+
+	if(overlay)
+		if(UNIX)
+			delayed_configure_files(
+				TARGET overlay_gl
+				FILES
+					"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-overlay.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay"
+				PASSTHROUGH_VARIABLES
+					MUMBLE_BUILD_YEAR
+				VARIABLES
+					"MUMBLE_OVERLAY_BINARY_BASENAME=$<TARGET_FILE_BASE_NAME:overlay_gl>"
+				PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
+				@ONLY
+			)
+
+			# install overlay script
+			install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
+
+			# install overlay man-files
+			install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+		endif()
+	endif()
 endif()
 
 if(server)
@@ -92,28 +114,6 @@ if(server)
 
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
-	endif()
-endif()
-
-if(overlay)
-	if(UNIX)
-		delayed_configure_files(
-			TARGET overlay_gl
-			FILES
-				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-overlay.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay"
-			PASSTHROUGH_VARIABLES
-				MUMBLE_BUILD_YEAR
-			VARIABLES
-				"MUMBLE_OVERLAY_BINARY_BASENAME=$<TARGET_FILE_BASE_NAME:overlay_gl>"
-			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
-			@ONLY
-		)
-
-		# install overlay script
-		install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
-
-		# install overlay man-files
-		install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 	endif()
 endif()
 
