@@ -1440,7 +1440,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posisjonsbasert lyd fungerer ikke med lydenheter som kun spiller mono (én kanal).</translation>
     </message>
 </context>
 <context>
@@ -3104,11 +3104,11 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv4-adresse</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6-adresse</translation>
     </message>
 </context>
 <context>
@@ -3875,7 +3875,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[innebygd innhold]</translation>
     </message>
 </context>
 <context>
@@ -4117,7 +4117,7 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Meldingslydstyrke</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
@@ -7818,7 +7818,7 @@ Du kan registrere dem igjen.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukjent versjon</translation>
     </message>
 </context>
 <context>
@@ -8193,7 +8193,7 @@ Du kan registrere dem igjen.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Ukjent kanal &gt;</translation>
     </message>
 </context>
 <context>
@@ -9003,11 +9003,11 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Glidebryter for lydstyrkejustering</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydstyrkejustering</translation>
     </message>
 </context>
 <context>
