@@ -6451,6 +6451,16 @@ Valid options are:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">Mumble-versie kan URL&apos;s voor Mumble versie %1 niet aan</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8161,6 +8171,10 @@ Je kunt ze opnieuw registreren.</translation>
     <message>
         <source>Press to show button combination</source>
         <translation>Druk om knoppencombinatie weer te geven</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

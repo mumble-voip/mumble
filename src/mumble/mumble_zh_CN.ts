@@ -6510,6 +6510,16 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">当前版本的 Mumble 无法处理用于 Mumble %1 的 URL</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8220,6 +8230,10 @@ You can register them again.</source>
     <message>
         <source>Press to show button combination</source>
         <translation>点击显示组合键</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

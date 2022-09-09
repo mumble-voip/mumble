@@ -6450,6 +6450,16 @@ Valid options are:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">이 버전의 Mumble은 Mumble 버전 %1 URL을 처리할 수 없음</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8160,6 +8170,10 @@ You can register them again.</source>
     <message>
         <source>Press to show button combination</source>
         <translation>버튼 조합을 표시하려면 누르세요</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

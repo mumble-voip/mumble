@@ -6512,6 +6512,16 @@ Prawidłowe opcje to:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">Ta wersja Mumble nie obsługuje adresów URL starszych wersji Mumble %1</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8222,6 +8232,10 @@ Możesz je ponownie zarejestrować.</translation>
     <message>
         <source>Press to show button combination</source>
         <translation>Naciśnij, aby wyświetlić kombinację przycisków</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

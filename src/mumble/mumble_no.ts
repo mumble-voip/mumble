@@ -6466,6 +6466,16 @@ Valid options are:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">Denne versjonen av Mumble kan ikke håndtere URL-er for Mumble versjon %1</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8176,6 +8186,10 @@ Du kan registrere dem igjen.</translation>
     <message>
         <source>Press to show button combination</source>
         <translation>Trykk for å vise tastekombinasjon</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
