@@ -1438,7 +1438,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>位置音频无法在单声道输出设备上使用！</translation>
     </message>
 </context>
 <context>
@@ -6508,16 +6508,16 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>本地音量调整：</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">当前版本的 Mumble 无法处理用于 Mumble %1 的 URL</translation>
+        <translation>当前版本的 Mumble 无法处理用于 Mumble %1 的 URL</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>监听频道</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
@@ -7862,7 +7862,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>未知版本</translation>
     </message>
 </context>
 <context>
@@ -8586,7 +8586,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>警告：此服务器报告的客户端协议版本似乎被截断了。（详见：&lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;）</translation>
     </message>
 </context>
 <context>
@@ -9046,11 +9046,11 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>音量调整滑块</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>音量调整</translation>
     </message>
 </context>
 <context>
