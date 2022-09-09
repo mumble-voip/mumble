@@ -23,6 +23,7 @@
 #include <QVariant>
 #include <Qt>
 
+#include "Channel.h"
 #include "EchoCancelOption.h"
 #include "SSL.h"
 #include "SearchDialog.h"
@@ -51,6 +52,20 @@ struct Shortcut {
 	bool isServerSpecific() const;
 	bool operator==(const Shortcut &) const;
 };
+
+struct ChannelTarget {
+	int channelID = Channel::ROOT_ID;
+
+	ChannelTarget() = default;
+	ChannelTarget(int id) : channelID(id) {}
+
+	friend bool operator==(const ChannelTarget &lhs, const ChannelTarget &rhs);
+	friend bool operator<(const ChannelTarget &lhs, const ChannelTarget &rhs);
+};
+
+Q_DECLARE_METATYPE(ChannelTarget)
+
+quint32 qHash(const ChannelTarget &);
 
 struct ShortcutTarget {
 	bool bCurrentSelection           = false;

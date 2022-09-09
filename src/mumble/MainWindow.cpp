@@ -239,6 +239,12 @@ void MainWindow::createActions() {
 	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
 	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
+	gsListenChannel =
+		new GlobalShortcut(this, GlobalShortcutType::ListenToChannel, tr("Listen to Channel", "Global Shortcut"),
+						   QVariant::fromValue(ChannelTarget()));
+	gsListenChannel->setObjectName(QLatin1String("gsListenChannel"));
+	gsListenChannel->qsToolTip = tr("Toggles listening to the given channel.", "Global Shortcut");
+
 #ifdef USE_OVERLAY
 	gsToggleOverlay =
 		new GlobalShortcut(this, GlobalShortcutType::ToggleOverlay, tr("Toggle Overlay", "Global Shortcut"));
@@ -3097,6 +3103,19 @@ void MainWindow::on_gsToggleMainWindowVisibility_triggered(bool down, QVariant) 
 			Global::get().mw->hide();
 		} else {
 			Global::get().mw->show();
+		}
+	}
+}
+
+void MainWindow::on_gsListenChannel_triggered(bool down, QVariant scdata) {
+	ChannelTarget target = scdata.value< ChannelTarget >();
+	const Channel *c     = Channel::get(target.channelID);
+
+	if (down && c) {
+		if (!Global::get().channelListenerManager->isListening(Global::get().uiSession, c->iId)) {
+			Global::get().sh->startListeningToChannel(c->iId);
+		} else {
+			Global::get().sh->stopListeningToChannel(c->iId);
 		}
 	}
 }

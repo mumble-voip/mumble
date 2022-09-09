@@ -36,6 +36,7 @@ enum Type {
 	SendTextMessageClipboard,
 	ToggleTalkingUI,
 	ToggleSearch,
+	ListenToChannel,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending
