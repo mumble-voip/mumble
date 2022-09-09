@@ -10,6 +10,7 @@
 #include "Utils.h"
 #include "Version.h"
 #include "Global.h"
+#include "GlobalShortcutTypes.h"
 
 #include <QSettings>
 #include <QtCore/QStandardPaths>
@@ -163,7 +164,9 @@ Database::Database(const QString &dbname) {
 
 	execQueryAndLogFailure(
 		query, QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` "
-							 "BLOB, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
+							 "BLOB, `type` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
+	query.exec(QLatin1String(
+		"ALTER TABLE `shortcut` ADD COLUMN `type` INTEGER")); // Upgrade path, failing this query is not noteworthy
 	execQueryAndLogFailure(query,
 						   QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`digest`)"));
 
@@ -546,13 +549,25 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 	QList< Shortcut > ql;
 	QSqlQuery query(db);
 
-	query.prepare(QLatin1String("SELECT `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `digest` = ?"));
+	query.prepare(QLatin1String("SELECT `type`, `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
 	while (query.next()) {
 		Shortcut sc;
 
-		QByteArray a = query.value(0).toByteArray();
+		QVariant type = query.value(0);
+
+		if (type.isNull()) {
+			// The shortcut's type was originally not explicitly stored, because the assumption was that the only
+			// server-specific shortcuts (which are the ones we're dealing with here) are those configuring whispers or
+			// shouts. Thus, if the field is not set, we assume that we're loading a shortcut from that era, which means
+			// that we'll assume it to be a whisper/shout shortcut as well.
+			sc.iIndex = GlobalShortcutType::Whisper_Shout;
+		} else {
+			sc.iIndex = type.toInt();
+		}
+
+		QByteArray a = query.value(1).toByteArray();
 
 		{
 			QDataStream s(&a, QIODevice::ReadOnly);
@@ -560,7 +575,7 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 			s >> sc.qlButtons;
 		}
 
-		a = query.value(1).toByteArray();
+		a = query.value(2).toByteArray();
 
 		{
 			QDataStream s(&a, QIODevice::ReadOnly);
@@ -568,7 +583,7 @@ QList< Shortcut > Database::getShortcuts(const QByteArray &digest) {
 			s >> sc.qvData;
 		}
 
-		sc.bSuppress = query.value(2).toBool();
+		sc.bSuppress = query.value(3).toBool();
 		ql << sc;
 	}
 	return ql;
@@ -590,11 +605,13 @@ void Database::setShortcuts(const QByteArray &digest, const QList< Shortcut > &s
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
 
-	query.prepare(
-		QLatin1String("INSERT INTO `shortcut` (`digest`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?)"));
+	query.prepare(QLatin1String(
+		"INSERT INTO `shortcut` (`digest`, `type`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?,?)"));
 	for (const Shortcut &sc : shortcuts) {
 		if (sc.isServerSpecific()) {
 			query.addBindValue(digest);
+
+			query.addBindValue(sc.iIndex);
 
 			QByteArray a;
 			{

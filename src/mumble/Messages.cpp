@@ -160,10 +160,6 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	QList< Shortcut > sc = Global::get().db->getShortcuts(Global::get().sh->qbaDigest);
 	if (!sc.isEmpty()) {
-		for (int i = 0; i < sc.count(); ++i) {
-			Shortcut &s = sc[i];
-			s.iIndex    = Global::get().mw->gsWhisper->idx;
-		}
 		Global::get().s.qlShortcuts << sc;
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 	}
