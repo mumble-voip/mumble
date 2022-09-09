@@ -1436,6 +1436,10 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

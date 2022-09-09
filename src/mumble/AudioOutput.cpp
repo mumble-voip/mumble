@@ -10,6 +10,7 @@
 #include "AudioOutputSpeech.h"
 #include "Channel.h"
 #include "ChannelListenerManager.h"
+#include "Log.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "Timer.h"
@@ -344,6 +345,10 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	}
 	iSampleSize = static_cast< int >(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
+
+	if (Global::get().s.bPositionalAudio && iChannels == 1) {
+		Global::get().l->logOrDefer(Log::Warning, tr("Positional audio cannot work with mono output devices!"));
+	}
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {

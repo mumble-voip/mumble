@@ -1436,6 +1436,10 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

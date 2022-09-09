@@ -1436,6 +1436,10 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <source> m</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>

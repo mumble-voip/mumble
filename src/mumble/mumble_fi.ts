@@ -1436,6 +1436,10 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <source> m</source>
         <translation> m</translation>
     </message>
+    <message>
+        <source>Positional audio cannot work with mono output devices!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
