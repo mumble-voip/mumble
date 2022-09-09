@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Error : canal invalid</translation>
+        <translation>Error&#x202f;: canal invalid</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID : %1</translation>
+        <translation>ID&#x202f;: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -1118,7 +1118,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Qualitat de la compression (pic de benda passanta)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
@@ -1729,7 +1729,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Metòde d’entrada per l’àudio</translation>
     </message>
     <message>
         <source>Device</source>
@@ -3229,7 +3229,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation>Error HTTP %1&#xa0;: « %2 »</translation>
+        <translation>Error HTTP %1&#xa0;: «&#x202f;%2&#x202f;»</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -4842,7 +4842,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activitat vocala</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -5467,11 +5467,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Messatge de benvenguda : %1</translation>
+        <translation>Messatge de benvenguda&#x202f;: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Mumble : %1</translation>
+        <translation>Mumble&#x202f;: %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -6163,7 +6163,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation>%1 : %2</translation>
+        <translation>%1&#x202f;: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -8053,7 +8053,7 @@ You can register them again.</source>
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alucat</translation>
     </message>
     <message>
         <source>Off</source>
@@ -8151,7 +8151,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alucat</translation>
     </message>
 </context>
 <context>
@@ -8406,7 +8406,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation>%1&#x202f;kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -8725,7 +8725,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation>DNS : %1</translation>
+        <translation>DNS&#x202f;: %1</translation>
     </message>
     <message>
         <source>Issued by:</source>

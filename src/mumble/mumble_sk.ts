@@ -2216,7 +2216,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2430,7 +2430,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2527,7 +2527,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3095,7 +3095,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
@@ -3566,7 +3566,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Size</source>
@@ -6347,7 +6347,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umiestnenie</translation>
     </message>
     <message>
         <source>Y</source>
@@ -6554,7 +6554,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -7137,7 +7137,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -8558,7 +8558,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Flags</source>
