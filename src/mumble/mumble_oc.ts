@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Error&#x202f;: canal invalid</translation>
+        <translation>Error : canal invalid</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID&#x202f;: %1</translation>
+        <translation>ID : %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -152,7 +152,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation type="unfinished"></translation>
+        <translation>Tirar lo membre del grop</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -160,7 +160,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Active ACLs</source>
-        <translation type="unfinished"></translation>
+        <translation>LCAs activas</translation>
     </message>
     <message>
         <source>List of entries</source>
@@ -295,7 +295,7 @@ Ajustar un grop novèl.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar als jos salons</translation>
     </message>
     <message>
         <source>Permissions</source>
@@ -494,7 +494,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>ASIO</source>
-        <translation type="unfinished"></translation>
+        <translation>ASIO</translation>
     </message>
     <message>
         <source>Device selection</source>
@@ -522,7 +522,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consultar</translation>
     </message>
     <message>
         <source>Configure selected device</source>
@@ -620,7 +620,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Licéncias tèrças</translation>
     </message>
     <message>
         <source>OK</source>
@@ -628,7 +628,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Acòrd de licéncia</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -636,7 +636,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Acòrd de licéncia tèrça</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -655,7 +655,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Metòde d’entrada per l’àudio</translation>
     </message>
     <message>
         <source>Device</source>
@@ -663,7 +663,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Periferic d’entrada àudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
@@ -719,7 +719,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Alucat</translation>
     </message>
     <message>
         <source>Preview the audio cues</source>
@@ -751,7 +751,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Silence Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenci en dejós</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
@@ -759,7 +759,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Parlar per dessús</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
@@ -775,7 +775,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitat de la compression (pic de benda passanta)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
@@ -875,11 +875,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pe_rcórrer...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>A_percebut</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -907,7 +907,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Senhal àudio</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
@@ -951,7 +951,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Amudir</translation>
     </message>
     <message>
         <source>after</source>
@@ -959,7 +959,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Anullacion de resson</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
@@ -1015,7 +1015,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Fòrça de supression de Speex</translation>
     </message>
     <message>
         <source>Mute cue</source>
@@ -1038,15 +1038,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Activitat vocala</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Quichar per parlar</translation>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada àudio</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1074,7 +1074,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistèma àudio</translation>
     </message>
     <message>
         <source>Input device</source>
@@ -3229,7 +3229,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation>Error HTTP %1&#xa0;: «&#x202f;%2&#x202f;»</translation>
+        <translation>Error HTTP %1&#xa0;: « %2 »</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -5467,11 +5467,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation>Messatge de benvenguda&#x202f;: %1</translation>
+        <translation>Messatge de benvenguda : %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Mumble&#x202f;: %1</translation>
+        <translation>Mumble : %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -6163,7 +6163,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation>%1&#x202f;: %2</translation>
+        <translation>%1 : %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -8406,7 +8406,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1&#x202f;kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -8725,7 +8725,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation>DNS&#x202f;: %1</translation>
+        <translation>DNS : %1</translation>
     </message>
     <message>
         <source>Issued by:</source>
