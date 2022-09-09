@@ -157,6 +157,7 @@ set(MUMBLE_SOURCES
 	"GlobalShortcutButtons.h"
 	"GlobalShortcutButtons.ui"
 	"GlobalShortcutTarget.ui"
+	"GlobalShortcutTypes.h"
 	"JSONSerialization.cpp"
 	"JSONSerialization.h"
 	"LCD.cpp"

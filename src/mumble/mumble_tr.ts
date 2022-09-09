@@ -6514,6 +6514,16 @@ Geçerli seçenekler şunlardır:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">Mumble&apos;ın bu sürümü %1 sayılı sürümün URL&apos;lerini işleyemez</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8224,6 +8234,10 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     <message>
         <source>Press to show button combination</source>
         <translation>Düğme kombinasyonunu göstermek için basın</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

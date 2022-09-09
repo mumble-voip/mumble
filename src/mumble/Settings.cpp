@@ -59,6 +59,9 @@ bool Shortcut::isServerSpecific() const {
 		const ShortcutTarget &sc = qvariant_cast< ShortcutTarget >(qvData);
 		return sc.isServerSpecific();
 	}
+	if (qvData.canConvert< ChannelTarget >()) {
+		return true;
+	}
 	return false;
 }
 
@@ -378,6 +381,26 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 	}
 }
 
+QDataStream &operator<<(QDataStream &qds, const ChannelTarget &target) {
+	return qds << target.channelID;
+}
+
+QDataStream &operator>>(QDataStream &qds, ChannelTarget &target) {
+	return qds >> target.channelID;
+}
+
+bool operator==(const ChannelTarget &lhs, const ChannelTarget &rhs) {
+	return lhs.channelID == rhs.channelID;
+}
+
+bool operator<(const ChannelTarget &lhs, const ChannelTarget &rhs) {
+	return lhs.channelID < rhs.channelID;
+}
+
+quint32 qHash(const ChannelTarget &target) {
+	return qHash(target.channelID);
+}
+
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
@@ -492,6 +515,8 @@ Settings::Settings() {
 #endif
 	qRegisterMetaType< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
+	qRegisterMetaType< ChannelTarget >("ChannelTarget");
+	qRegisterMetaTypeStreamOperators< ChannelTarget >("ChannelTarget");
 	qRegisterMetaType< QVariant >("QVariant");
 	qRegisterMetaType< PluginSetting >("PluginSetting");
 	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");

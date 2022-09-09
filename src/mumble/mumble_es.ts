@@ -6433,6 +6433,16 @@ Valid options are:
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
         <translation type="unfinished">Esta versión de Mumble no puede manejar URLs para la versión %1 de Mumble</translation>
     </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8143,6 +8153,10 @@ Puedes registrarlos otra vez.</translation>
     <message>
         <source>Press to show button combination</source>
         <translation>Presione para mostrar la combinación de botones</translation>
+    </message>
+    <message>
+        <source>&lt; Unknown Channel &gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

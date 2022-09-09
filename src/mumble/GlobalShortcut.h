@@ -11,6 +11,7 @@
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QToolButton>
 
+#include "Channel.h"
 #include "ConfigDialog.h"
 #include "MUComboBox.h"
 #include "Timer.h"
@@ -70,6 +71,17 @@ public:
 	ShortcutToggleWidget(QWidget *p = nullptr);
 	int index() const;
 	void setIndex(int);
+};
+
+class ChannelSelectWidget : public MUComboBox {
+	Q_OBJECT
+	Q_DISABLE_COPY(ChannelSelectWidget)
+	Q_PROPERTY(ChannelTarget currentChannel READ currentChannel WRITE setCurrentChannel USER true)
+public:
+	ChannelSelectWidget(QWidget *parent = nullptr);
+
+	ChannelTarget currentChannel() const;
+	void setCurrentChannel(const ChannelTarget &);
 };
 
 /**
@@ -136,6 +148,7 @@ public slots:
  * @see ShortcutKeyWidget
  * @see ShortcutActionWidget
  * @see ShortcutTargetWidget
+ * @see ChannelSelectWidget
  */
 class ShortcutDelegate : public QStyledItemDelegate {
 	Q_OBJECT

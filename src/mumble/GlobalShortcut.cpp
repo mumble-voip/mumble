@@ -26,6 +26,8 @@
 #	include <QtCore/QOperatingSystemVersion>
 #endif
 
+#include <cassert>
+
 const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig");
 
 /**
@@ -101,6 +103,31 @@ void ShortcutToggleWidget::setIndex(int idx) {
 }
 
 int ShortcutToggleWidget::index() const {
+	return itemData(currentIndex()).toInt();
+}
+
+ChannelSelectWidget::ChannelSelectWidget(QWidget *parent) : MUComboBox(parent) {
+	QReadLocker lock(&Channel::c_qrwlChannels);
+
+	int index = 0;
+
+	for (const Channel *currentChannel : Channel::c_qhChannels) {
+		assert(currentChannel);
+
+		insertItem(index, currentChannel->qsName);
+		setItemData(index, currentChannel->iId);
+
+		index++;
+	}
+
+	model()->sort(0);
+}
+
+void ChannelSelectWidget::setCurrentChannel(const ChannelTarget &target) {
+	setCurrentIndex(findData(target.channelID));
+}
+
+ChannelTarget ChannelSelectWidget::currentChannel() const {
 	return itemData(currentIndex()).toInt();
 }
 
@@ -432,6 +459,8 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
 	factory->registerEditor(static_cast< QVariant::Type >(QVariant::fromValue(ShortcutTarget()).userType()),
 							new QStandardItemEditorCreator< ShortcutTargetWidget >());
+	factory->registerEditor(static_cast< QVariant::Type >(QVariant::fromValue(ChannelTarget()).userType()),
+							new QStandardItemEditorCreator< ChannelSelectWidget >());
 	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< QLineEdit >());
 	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator< QWidget >());
 	setItemEditorFactory(factory);
@@ -448,6 +477,15 @@ ShortcutDelegate::~ShortcutDelegate() {
 QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) const {
 	if (item.userType() == QVariant::fromValue(ShortcutTarget()).userType()) {
 		return ShortcutTargetWidget::targetString(item.value< ShortcutTarget >());
+	} else if (item.userType() == QVariant::fromValue(ChannelTarget()).userType()) {
+		ChannelTarget target = item.value< ChannelTarget >();
+
+		const Channel *c = Channel::get(target.channelID);
+		if (c) {
+			return c->qsName;
+		} else {
+			return tr("< Unknown Channel >");
+		}
 	}
 
 	switch (item.type()) {
@@ -665,7 +703,7 @@ void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, in
 	sc.bSuppress = item->checkState(3) == Qt::Checked;
 
 	const ::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
-	if (gs && sc.qvData.type() != gs->qvDefault.type()) {
+	if (gs && sc.qvData.userType() != gs->qvDefault.userType()) {
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
 	}
 }
