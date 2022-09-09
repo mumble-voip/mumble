@@ -1438,7 +1438,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>Konumsal ses, mono çıkış aygıtlarıyla çalışamaz!</translation>
     </message>
 </context>
 <context>
@@ -6508,21 +6508,21 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel Ses Ayarı:</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Mumble&apos;ın bu sürümü %1 sayılı sürümün URL&apos;lerini işleyemez</translation>
+        <translation>Mumble&apos;ın bu sürümü Mumble %1 sürümü için URL&apos;leri işleyemiyor</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanalı Dinle</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Verilen kanalı dinlemeye geçer.</translation>
     </message>
 </context>
 <context>
@@ -7862,7 +7862,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen Sürüm</translation>
     </message>
 </context>
 <context>
@@ -8237,7 +8237,7 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Bilinmeyen Kanal &gt;</translation>
     </message>
 </context>
 <context>
@@ -8586,7 +8586,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyarı: Sunucu bu istemci için kesilmiş bir protokol sürümü bildiriyor gibi görünüyor. (Bkz: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Sorun #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
@@ -9046,11 +9046,11 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses seviyesi ayarı için kaydırıcı</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses Ayarı</translation>
     </message>
 </context>
 <context>

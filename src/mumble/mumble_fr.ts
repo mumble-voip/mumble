@@ -6506,11 +6506,11 @@ Les options valides sont&#xa0;:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous êtes actuellement en vue minimale mais vous n&apos;êtes pas connecté à un serveur. Utilisez le menu contextuel pour vous connecter à un serveur ou désactiver la vue minimale.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglage du volume local :</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
@@ -9049,11 +9049,11 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Curseur pour le réglage du volume</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglage du volume</translation>
     </message>
 </context>
 <context>

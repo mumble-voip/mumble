@@ -5,94 +5,97 @@
     <name>ACLEditor</name>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialóg</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vlastnosti</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu zadajte heslo kanála.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt; Heslo&lt;/b&gt;&lt;br /&gt;Toto pole vám umožňuje ľahko nastaviť a zmeniť heslo kanála. Na pozadí používa funkciu prístupových tokenov Mumble. Použite ACL a skupiny, ak potrebujete podrobnejšie a výkonnejšie riadenie prístupu.</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Umiestnenie</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto je poradie zoradenia kanála.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pozícia&lt;/b&gt;&lt;br/&gt;
+Táto hodnota umožňuje zmeniť spôsob, akým Mumble usporiada kanály v strome. Kanál s vyššou hodnotou &lt;i&gt;Position&lt;/i&gt; bude vždy umiestnený pod kanálom s nižšou hodnotou a naopak. Ak je hodnota &lt;i&gt;Pozícia&lt;/i&gt; dvoch kanálov rovnaká, budú zoradené abecedne podľa svojho názvu.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximálny počet používateľov</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximálny povolený počet používateľov v kanáli</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Maximálny počet používateľov&lt;/b&gt;&lt;br /&gt;
+Táto hodnota umožňuje nastaviť maximálny počet používateľov povolených v kanáli. Ak je hodnota vyššia ako nula, do kanála bude môcť vstúpiť len tento počet používateľov. Ak je hodnota nulová, maximálny počet používateľov v kanáli je daný predvoleným limitom servera.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Začiarknite, ak chcete vytvoriť dočasný kanál.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dočasné&lt;/b&gt;&lt;br /&gt;
+Po začiarknutí bude vytvorený kanál označený ako dočasný. To znamená, že keď ho opustí posledný hráč, server kanál automaticky vymaže.</translation>
     </message>
     <message>
         <source>Temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>Dočasné</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu zadajte názov kanála.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Názov&lt;/b&gt;&lt;br /&gt;Do tohto poľa zadajte názov kanála. Názov musí spĺňať obmedzenia stanovené serverom, ku ktorému ste pripojení.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>ID kanála.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Názov</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skupiny</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoznam skupín</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
@@ -2213,7 +2216,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2427,7 +2430,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2524,7 +2527,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3092,7 +3095,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
@@ -3563,7 +3566,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Size</source>
@@ -6344,7 +6347,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umiestnenie</translation>
     </message>
     <message>
         <source>Y</source>
@@ -6551,7 +6554,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heslo</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -7134,7 +7137,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -8555,7 +8558,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <source>Flags</source>
