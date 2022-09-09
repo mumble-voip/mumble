@@ -388,12 +388,12 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QList< QHostAdd
 
 	tag = doc.createElement(QLatin1String("version"));
 	root.appendChild(tag);
-	t = doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION)));
+	t = doc.createTextNode(Version::getRelease());
 	tag.appendChild(t);
 
 	tag = doc.createElement(QLatin1String("release"));
 	root.appendChild(tag);
-	t = doc.createTextNode(QLatin1String(MUMBLE_RELEASE));
+	t = doc.createTextNode(Version::getRelease());
 	tag.appendChild(t);
 
 	tag = doc.createElement(QLatin1String("os"));

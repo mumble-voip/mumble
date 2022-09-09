@@ -1358,7 +1358,7 @@ void ConnectDialog::initList() {
 	url.setPath(QLatin1String("/v1/list"));
 
 	QUrlQuery query;
-	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
+	query.addQueryItem(QLatin1String("version"), Version::getRelease());
 	url.setQuery(query);
 
 	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray, QUrl, QMap< QString, QString >)));
@@ -1778,7 +1778,7 @@ void ConnectDialog::udpReply() {
 				quint64 elapsed = tPing.elapsed() - (*ts ^ qhPingRand.value(address));
 
 				foreach (ServerItem *si, qhPings.value(address)) {
-					si->uiVersion    = qFromBigEndian(ping[0]);
+					si->uiVersion    = Version::fromLegacyVersion(qFromBigEndian(ping[0]));
 					quint32 users    = qFromBigEndian(ping[3]);
 					quint32 maxusers = qFromBigEndian(ping[4]);
 					si->uiBandwidth  = qFromBigEndian(ping[5]);

@@ -4598,10 +4598,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>“Mumble” 不支援的網址</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>目前的 Mumble 無法處理版本 %1.%2.%3 產生的網址</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>正在連線到 %1</translation>
     </message>
@@ -6271,6 +6267,10 @@ Valid options are:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">目前的 Mumble 無法處理版本 %1 產生的網址</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7528,6 +7528,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
 You can register them again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8242,6 +8246,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Ping deviation</source>
         <translation>Ping 誤差</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -80,12 +80,12 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	}
 
 	if (changed) {
-		sendAll(mpus, ~0x010202);
+		sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 		if (mpus.has_comment() && !pUser->qbaCommentHash.isEmpty()) {
 			mpus.clear_comment();
 			mpus.set_comment_hash(blob(pUser->qbaCommentHash));
 		}
-		sendAll(mpus, 0x010202);
+		sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
 
 		emit userStateChanged(pUser);
 	}
@@ -299,12 +299,12 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	if (updated)
 		updateChannel(cChannel);
 	if (changed) {
-		sendAll(mpcs, ~0x010202);
+		sendAll(mpcs, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 		if (mpcs.has_description() && !cChannel->qbaDescHash.isEmpty()) {
 			mpcs.clear_description();
 			mpcs.set_description_hash(blob(cChannel->qbaDescHash));
 		}
-		sendAll(mpcs, 0x010202);
+		sendAll(mpcs, Version::fromComponents(1, 2, 2), Version::CompareMode::AtLeast);
 		emit channelStateChanged(cChannel);
 	}
 
@@ -581,8 +581,9 @@ void Meta::connectListener(QObject *obj) {
 	connect(this, SIGNAL(stopped(Server *)), obj, SLOT(stopped(Server *)));
 }
 
-void Meta::getVersion(int &major, int &minor, int &patch, QString &string) {
-	string = QLatin1String(MUMBLE_RELEASE);
+void Meta::getVersion(Version::component_t &major, Version::component_t &minor, Version::component_t &patch,
+					  QString &string) {
+	string = Version::getRelease();
 	major = minor = patch = 0;
-	Version::get(&major, &minor, &patch);
+	Version::getComponents(major, minor, patch);
 }

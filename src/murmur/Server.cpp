@@ -15,6 +15,7 @@
 #include "Message.h"
 #include "Meta.h"
 #include "PacketDataStream.h"
+#include "ProtoUtils.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "SpeechFlags.h"
@@ -226,12 +227,6 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	readLinks();
 	initializeCert();
 
-	int major, minor, patch;
-	QString release;
-	Meta::getVersion(major, minor, patch, release);
-
-	uiVersionBlob = qToBigEndian(static_cast< quint32 >((major << 16) | (minor << 8) | patch));
-
 	if (bValid) {
 #ifdef USE_ZEROCONF
 		if (bBonjour)
@@ -315,41 +310,6 @@ Server::~Server() {
 	log("Stopped");
 }
 
-/// normalizeSuggestVersion normalizes a 'suggestversion' config value.
-/// The config value may be a version string, or a bitmasked
-/// integer representing the version.
-/// This function converts the 'suggestversion' config value to
-/// always be a bitmasked integer representation.
-///
-/// On error, the function returns an empty QVariant.
-static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
-	uint integerValue = suggestVersion.toUInt();
-
-	// If the integer value is 0, it can mean two things:
-	//
-	// Either the suggestversion is set to 0.
-	// Or, the suggestversion is a version string such as "1.3.0",
-	// and cannot be converted to an integer value.
-	//
-	// We handle both cases the same: by pretending the
-	// suggestversion is a version string in both cases.
-	//
-	// If it is a version string, the call to Version::getRaw()
-	// will return the bitmasked representation.
-	//
-	// If it is not a version string, the call to Version::getRaw()
-	// will return 0, so it is effectively a no-op.
-	if (integerValue == 0) {
-		integerValue = Version::getRaw(suggestVersion.toString());
-	}
-
-	if (integerValue != 0) {
-		return integerValue;
-	}
-
-	return QVariant();
-}
-
 void Server::readParams() {
 	qsPassword             = Meta::mp.qsPassword;
 	usPort                 = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
@@ -381,7 +341,7 @@ void Server::readParams() {
 	iMessageBurst          = Meta::mp.iMessageBurst;
 	iPluginMessageLimit    = Meta::mp.iPluginMessageLimit;
 	iPluginMessageBurst    = Meta::mp.iPluginMessageBurst;
-	qvSuggestVersion       = Meta::mp.qvSuggestVersion;
+	m_suggestVersion       = Meta::mp.m_suggestVersion;
 	qvSuggestPositional    = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk    = Meta::mp.qvSuggestPushToTalk;
 	iOpusThreshold         = Meta::mp.iOpusThreshold;
@@ -461,9 +421,8 @@ void Server::readParams() {
 	bCertRequired      = getConf("certrequired", bCertRequired).toBool();
 	bForceExternalAuth = getConf("forceExternalAuth", bForceExternalAuth).toBool();
 
-	qvSuggestVersion = normalizeSuggestVersion(getConf("suggestversion", qvSuggestVersion));
-	if (qvSuggestVersion.toUInt() == 0)
-		qvSuggestVersion = QVariant();
+	m_suggestVersion =
+		Version::fromString(getConf("suggestversion", Version::toConfigString(m_suggestVersion)).toString());
 
 	qvSuggestPositional = getConf("suggestpositional", qvSuggestPositional);
 	if (qvSuggestPositional.toString().trimmed().isEmpty())
@@ -608,8 +567,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "channelname")
 		qrChannelName = !v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 	else if (key == "suggestversion")
-		qvSuggestVersion =
-			!v.isNull() ? (v.isEmpty() ? QVariant() : normalizeSuggestVersion(v)) : Meta::mp.qvSuggestVersion;
+		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp.m_suggestVersion;
 	else if (key == "suggestpositional")
 		qvSuggestPositional = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
@@ -704,7 +662,7 @@ void Server::udpActivated(int socket) {
 	// Cloned from ::run(), as it's the only UDP data we care about until the thread is started.
 	quint32 *ping = reinterpret_cast< quint32 * >(encrypt);
 	if ((len == 12) && (*ping == 0) && bAllowPing) {
-		ping[0] = uiVersionBlob;
+		ping[0] = qToBigEndian(Version::toLegacyVersion(Version::get()));
 		ping[3] = qToBigEndian(static_cast< quint32 >(qhUsers.count()));
 		ping[4] = qToBigEndian(static_cast< quint32 >(iMaxUsers));
 		ping[5] = qToBigEndian(static_cast< quint32 >(iMaxBandwidth));
@@ -848,7 +806,7 @@ void Server::run() {
 				quint32 *ping = reinterpret_cast< quint32 * >(encrypt);
 
 				if ((len == 12) && (*ping == 0) && bAllowPing) {
-					ping[0] = uiVersionBlob;
+					ping[0] = qToBigEndian(Version::toLegacyVersion(Version::get()));
 					// 1 and 2 will be the timestamp, which we return unmodified.
 					ping[3] = qToBigEndian(static_cast< quint32 >(qhUsers.count()));
 					ping[4] = qToBigEndian(static_cast< quint32 >(iMaxUsers));
@@ -1457,15 +1415,11 @@ void Server::newClient() {
 
 void Server::encrypted() {
 	ServerUser *uSource = qobject_cast< ServerUser * >(sender());
-	int major, minor, patch;
-	QString release;
-
-	Meta::getVersion(major, minor, patch, release);
 
 	MumbleProto::Version mpv;
-	mpv.set_version((major << 16) | (minor << 8) | patch);
+	MumbleProto::setVersion(mpv, Version::get());
 	if (Meta::mp.bSendVersion) {
-		mpv.set_release(u8(release));
+		mpv.set_release(u8(Version::getRelease()));
 		mpv.set_os(u8(meta->qsOS));
 		mpv.set_os_version(u8(meta->qsOSVersion));
 	}
@@ -1779,18 +1733,25 @@ void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &
 	u->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int version) {
-	sendProtoExcept(nullptr, msg, msgType, version);
+void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, Version::full_t version,
+						  Version::CompareMode mode) {
+	sendProtoExcept(nullptr, msg, msgType, version, mode);
 }
 
 void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType,
-							 unsigned int version) {
+							 Version::full_t version, Version::CompareMode mode) {
 	QByteArray cache;
 	foreach (ServerUser *usr, qhUsers)
-		if ((usr != u) && (usr->sState == ServerUser::Authenticated))
-			if ((version == 0) || (usr->uiVersion >= version)
-				|| ((version & 0x80000000) && (usr->uiVersion < (~version))))
+		if ((usr != u) && (usr->sState == ServerUser::Authenticated)) {
+			assert(mode == Version::CompareMode::AtLeast || mode == Version::CompareMode::LessThan);
+
+			const bool isUnknown = version == Version::UNKNOWN;
+			const bool fulfillsVersionRequirement =
+				mode == Version::CompareMode::AtLeast ? usr->uiVersion >= version : usr->uiVersion < version;
+			if (isUnknown || fulfillsVersionRequirement) {
 				usr->sendMessage(msg, msgType, cache);
+			}
+		}
 }
 
 void Server::removeChannel(int id) {

@@ -24,6 +24,7 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
+#include "ProtoUtils.h"
 #include "RichTextEditor.h"
 #include "SSL.h"
 #include "ServerResolver.h"
@@ -112,7 +113,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	usPort                  = 0;
 	bUdp                    = true;
 	tConnectionTimeoutTimer = nullptr;
-	uiVersion               = 0;
+	uiVersion               = Version::UNKNOWN;
 	iInFlightTCPPings       = 0;
 
 	// assign connection ID
@@ -452,7 +453,7 @@ void ServerHandler::run() {
 
 		accUDP = accTCP = accClean;
 
-		uiVersion   = 0;
+		uiVersion   = Version::UNKNOWN;
 		qsRelease   = QString();
 		qsOS        = QString();
 		qsOSVersion = QString();
@@ -771,12 +772,8 @@ void ServerHandler::serverConnectionConnected() {
 	}
 
 	MumbleProto::Version mpv;
-	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
-
-	unsigned int version = Version::getRaw();
-	if (version) {
-		mpv.set_version(version);
-	}
+	mpv.set_release(u8(Version::getRelease()));
+	MumbleProto::setVersion(mpv, Version::get());
 
 	if (!Global::get().s.bHideOS) {
 		mpv.set_os(u8(OSInfo::getOS()));
@@ -1032,7 +1029,7 @@ void ServerHandler::setUserComment(unsigned int uiSession, const QString &commen
 void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba) {
 	QByteArray texture;
 
-	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
+	if ((uiVersion >= Version::fromComponents(1, 2, 2)) || qba.isEmpty()) {
 		texture = qba;
 	} else {
 		QByteArray raw = qba;

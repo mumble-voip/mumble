@@ -5,35 +5,76 @@
 
 #include "Version.h"
 
-#include <QtCore/QRegExp>
+#include <QObject>
+#include <QRegExp>
 
 namespace Version {
 
-unsigned int getRaw(const QString &version) {
-	int major, minor, patch;
-
-	if (get(&major, &minor, &patch, version))
-		return toRaw(major, minor, patch);
-
-	return 0;
+QString getRelease() {
+	return MUMBLE_RELEASE;
 }
 
-QString toString(unsigned int v) {
-	int major, minor, patch;
-	fromRaw(v, &major, &minor, &patch);
+Version::full_t fromString(const QString &version) {
+	Version::component_t major, minor, patch;
+
+	if (Version::getComponents(major, minor, patch, version)) {
+		return Version::fromComponents(major, minor, patch);
+	}
+
+	return Version::UNKNOWN;
+}
+
+Version::full_t fromConfig(const QVariant &config) {
+	Version::full_t version;
+
+	bool ok                    = false;
+	std::uint64_t integerValue = config.toULongLong(&ok);
+	if (ok) {
+		if ((integerValue >> Version::OFFSET_MAJOR) != 0) {
+			// We assume this must be the new version format (v2), as a bit
+			// after the 32nd is set.
+			version = static_cast< Version::full_t >(integerValue);
+		} else {
+			version = Version::fromLegacyVersion(static_cast< std::uint32_t >(integerValue));
+		}
+	} else {
+		// The config contains non-numeric characters -> We assume it contains a version string such as "1.5.0".
+		// If this call fails, UNKNOWN is returned.
+		version = Version::fromString(config.toString());
+	}
+
+	if (version == 0) {
+		// 0 is not a valid value for a suggested version
+		version = Version::UNKNOWN;
+	}
+
+	return version;
+}
+
+QString toString(Version::full_t v) {
+	if (v == Version::UNKNOWN) {
+		return QObject::tr("Unknown Version");
+	}
+	Version::component_t major, minor, patch;
+	Version::getComponents(major, minor, patch, v);
 	return QString::fromLatin1("%1.%2.%3").arg(major).arg(minor).arg(patch);
 }
 
-bool get(int *major, int *minor, int *patch, const QString &version) {
+QString toConfigString(Version::full_t v) {
+	if (v == Version::UNKNOWN) {
+		return QString();
+	}
+	return Version::toString(v);
+}
+
+bool getComponents(Version::component_t &major, Version::component_t &minor, Version::component_t &patch,
+				   const QString &version) {
 	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
 
 	if (rx.exactMatch(version)) {
-		if (major)
-			*major = rx.cap(1).toInt();
-		if (minor)
-			*minor = rx.cap(2).toInt();
-		if (patch)
-			*patch = rx.cap(3).toInt();
+		major = rx.cap(1).toInt();
+		minor = rx.cap(2).toInt();
+		patch = rx.cap(3).toInt();
 
 		return true;
 	}

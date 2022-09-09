@@ -312,8 +312,8 @@ mumble_error_t Plugin::init() {
 	// Step 1: Introduce ourselves (inform the plugin about Mumble's (API) version
 
 	// Get Mumble version
-	int mumbleMajor, mumbleMinor, mumblePatch;
-	Version::get(&mumbleMajor, &mumbleMinor, &mumblePatch);
+	Version::component_t mumbleMajor, mumbleMinor, mumblePatch;
+	Version::getComponents(mumbleMajor, mumbleMinor, mumblePatch);
 
 	// Require API version 1.0.0 as the minimal supported one
 	setMumbleInfo({ mumbleMajor, mumbleMinor, mumblePatch }, MUMBLE_PLUGIN_API_VERSION, { 1, 0, 0 });

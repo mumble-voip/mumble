@@ -8,6 +8,8 @@
 
 #include "Timer.h"
 
+#include "Version.h"
+
 #ifdef Q_OS_WIN
 #	include "win.h"
 #endif
@@ -141,7 +143,7 @@ public:
 	QString qsName;
 #endif
 
-	QVariant qvSuggestVersion;
+	Version::full_t m_suggestVersion;
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
@@ -207,7 +209,8 @@ public:
 	void killAll();
 	void getOSInfo();
 	void connectListener(QObject *);
-	static void getVersion(int &major, int &minor, int &patch, QString &string);
+	static void getVersion(Version::component_t &major, Version::component_t &minor, Version::component_t &patch,
+						   QString &string);
 signals:
 	void started(Server *);
 	void stopped(Server *);

@@ -4661,10 +4661,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Le schéma d&apos;URL n&apos;est pas &apos;mumble&apos;</translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1.%2.%3</translation>
-    </message>
-    <message>
         <source>Connecting to %1</source>
         <translation>Connexion à %1</translation>
     </message>
@@ -6361,6 +6357,10 @@ Valid options are:
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
         <translation>Cela ouvrira ou fermera la boîte de dialogue de recherche selon qu&apos;elle est déjà ouverte ou non</translation>
     </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7622,6 +7622,10 @@ You can register them again.</source>
         <translation>Malheureusement %1 raccourci(s) n&apos;ont pu être migrés.
 Vous pouvez les enregistrer à nouveau.</translation>
     </message>
+    <message>
+        <source>Unknown Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8338,6 +8342,10 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <source>Ping deviation</source>
         <translation>Déviation du ping</translation>
+    </message>
+    <message>
+        <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

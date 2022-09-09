@@ -58,7 +58,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-	if (Global::get().sh->uiVersion >= 0x010300) {
+	if (Global::get().sh->uiVersion >= Version::fromComponents(1, 3, 0)) {
 		qsbChannelMaxUsers->setRange(0, INT_MAX);
 		qsbChannelMaxUsers->setValue(0);
 		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
@@ -124,7 +124,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
 	qsbChannelPosition->setValue(pChannel->iPosition);
 
-	if (Global::get().sh->uiVersion >= 0x010300) {
+	if (Global::get().sh->uiVersion >= Version::fromComponents(1, 3, 0)) {
 		qsbChannelMaxUsers->setRange(0, INT_MAX);
 		qsbChannelMaxUsers->setValue(pChannel->uiMaxUsers);
 		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
@@ -148,7 +148,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		if (!name.isEmpty()) {
 			// If the server's version is less than 1.4.0 then it won't support the new permissions.
 			// Skipping this iteration of the loop prevents checkboxes for it being added to the UI.
-			if (Global::get().sh->uiVersion < Version::toRaw(1, 4, 0)
+			if (Global::get().sh->uiVersion < Version::fromComponents(1, 4, 0)
 				&& (perm == ChanACL::ResetUserContent || perm == ChanACL::Listen)) {
 				continue;
 			}

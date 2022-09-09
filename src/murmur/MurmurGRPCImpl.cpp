@@ -17,6 +17,7 @@
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Utils.h"
+#include "Version.h"
 
 #include <chrono>
 
@@ -274,7 +275,7 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	const auto su = static_cast< const ServerUser * >(u);
 	ru->set_online_secs(su->bwr.onlineSeconds());
 	ru->set_bytes_per_sec(su->bwr.bandwidth());
-	ru->mutable_version()->set_version(su->uiVersion);
+	ru->mutable_version()->set_version(::Version::toLegacyVersion(su->uiVersion));
 	ru->mutable_version()->set_release(u8(su->qsRelease));
 	ru->mutable_version()->set_os(u8(su->qsOS));
 	ru->mutable_version()->set_os_version(u8(su->qsOSVersion));
@@ -1316,10 +1317,10 @@ namespace Wrapper {
 
 	void V1_GetVersion::impl(bool) {
 		::MurmurRPC::Version version;
-		int major, minor, patch;
+		::Version::component_t major, minor, patch;
 		QString release;
 		Meta::getVersion(major, minor, patch, release);
-		version.set_version(major << 16 | minor << 8 | patch);
+		version.set_version(::Version::toLegacyVersion(::Version::fromComponents(major, minor, patch)));
 		version.set_release(u8(release));
 		end(version);
 	}
