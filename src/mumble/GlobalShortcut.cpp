@@ -665,7 +665,7 @@ void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, in
 	sc.bSuppress = item->checkState(3) == Qt::Checked;
 
 	const ::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
-	if (gs && sc.qvData.type() != gs->qvDefault.type()) {
+	if (gs && sc.qvData.userType() != gs->qvDefault.userType()) {
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
 	}
 }
