@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Це скасовує привілей %1. Якщо привілей одночасно дозволений і заборонений, він буде заборонений.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -88,7 +88,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Позиція&lt;/b&gt;&lt;br/&gt;
+Це значення дозволяє змінити спосіб розташування каналів Mumble у дереві. Канал з більшим значенням &lt;i&gt;Позиції&lt;/i&gt; завжди буде розміщено нижче каналу з меншим значенням і навпаки. Якщо значення &lt;i&gt;Позиції&lt;/i&gt; двох каналів однакові, вони будуть упорядковані абетково за їхніми назвами.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -172,7 +173,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Задає, чи будуть застосовуватися ACL по ланцюжку батьківських каналів до цього об&apos;єкту чи ні. Успадковуватимуться лише ті записи, які у батьківському об&apos;єкті позначені як &quot;Застосовувати до підканалів&quot;.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
@@ -184,7 +185,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Переміщує запис вгору в списку. Оскільки записи оцінюються в порядку, це може змінити ефективні дозволи користувачів. Ви не можете перемістити запис вище успадкованого запису, якщо вам це дійсно потрібно, вам доведеться продублювати успадкований запис.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -196,7 +197,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Переміщує запис вниз у списку. Оскільки записи оцінюються по порядку, це може змінити ефективні дозволи користувачів.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -208,7 +209,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"></translation>
+        <translation>Додає новий запис, який спочатку був встановлений без дозволів і застосовується до всіх.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -233,19 +234,19 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Застосовувати до каналу.</translation>
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Робить запис застосовним до цього каналу.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати до цього каналу</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосовувати до підканалів.</translation>
     </message>
     <message>
         <source>Add new group</source>
