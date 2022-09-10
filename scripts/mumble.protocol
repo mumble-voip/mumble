@@ -1,8 +1,0 @@
-[Protocol]
-exec=mumble %u
-protocol=mumble
-input=none
-output=none
-Icon=mumble
-helper=true
-Description=A low-latency, high quality voice chat program for gaming

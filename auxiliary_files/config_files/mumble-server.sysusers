@@ -1,0 +1,5 @@
+# When this file is processed by systemd-sysusers, it will create the user and group that the Mumble server
+# is intended to run under (e.g. when started via systemd)
+
+# Type # Name         # ID # GECOS              # Home # Shell
+u      _mumble-server -    "Mumble server user" -      -

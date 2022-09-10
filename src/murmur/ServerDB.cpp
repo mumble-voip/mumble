@@ -124,32 +124,33 @@ ServerDB::ServerDB() {
 			found = db->open();
 		} else {
 			QStringList datapaths;
-			int i;
 
 			datapaths << Meta::mp.qdBasePath.absolutePath();
 			datapaths << QDir::currentPath();
 			datapaths << QCoreApplication::instance()->applicationDirPath();
 			datapaths << QDir::homePath();
 
-			for (i = 0; (i < datapaths.size()) && !found; i++) {
-				if (!datapaths[i].isEmpty()) {
-					QFile f(datapaths[i] + "/murmur.sqlite");
-					if (f.exists()) {
-						db->setDatabaseName(f.fileName());
-						found = db->open();
-					}
-				}
-			}
+			// We use a lambda, so we can easily "break out" of all levels of nested loops using return
+			[&]() {
+				for (bool searchExistingDB : { true, false }) {
+					for (const QString &currentDir : datapaths) {
+						// Prefer "mumble-server.sqlite", but for legacy reasons also keep looking for "murmur.sqlite"
+						for (const QString &currentFilename :
+							 { QStringLiteral("mumble-server.sqlite"), QStringLiteral("murmur.sqlite") }) {
+							QFile currentFile(currentDir + "/" + currentFilename);
 
-			if (!found) {
-				for (i = 0; (i < datapaths.size()) && !found; i++) {
-					if (!datapaths[i].isEmpty()) {
-						QFile f(datapaths[i] + "/murmur.sqlite");
-						db->setDatabaseName(f.fileName());
-						found = db->open();
+							if (!searchExistingDB || currentFile.exists()) {
+								db->setDatabaseName(currentFile.fileName());
+
+								if (db->open()) {
+									found = true;
+									return;
+								}
+							}
+						}
 					}
 				}
-			}
+			}();
 		}
 		if (found) {
 			QFileInfo fi(db->databaseName());

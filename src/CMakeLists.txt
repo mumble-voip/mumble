@@ -21,6 +21,7 @@ option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 
+
 find_pkg(Qt5
 	COMPONENTS
 		Core
@@ -98,11 +99,9 @@ set(SHARED_HEADERS
 	"ByteSwap.h"
 	"EnvUtils.h"
 	"FFDHE.h"
-	"FFDHETable.h"
 	"HostAddress.h"
 	"HTMLFilter.h"
 	"License.h"
-	"licenses.h"
 	"LogEmitter.h"
 	"MumbleProtocol.h"
 	"Net.h"
@@ -129,6 +128,26 @@ set(SHARED_HEADERS
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.h"
 )
+
+add_custom_command(
+	OUTPUT "FFDHETable.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ffdhe.py --output FFDHETable.h
+	COMMENT "Generating FFDHETable.h"
+)
+list(APPEND SHARED_HEADERS "FFDHETable.h")
+
+add_custom_command(
+	OUTPUT "licenses.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_license_header.py" --output "licenses.h"
+	COMMENT "Generating licenses.h"
+)
+add_custom_target(generate_license_header
+	DEPENDS "licenses.h"
+)
+add_dependencies(shared generate_license_header)
+target_include_directories(shared PRIVATE "${CMAKE_BINARY_DIR}")
 
 target_sources(shared
 	PRIVATE
@@ -186,7 +205,7 @@ set(TRACY_ON_DEMAND ON CACHE BOOL "" FORCE)
 # (can cause issues for packagers as that dependency is retained even though Tracy is disabled)
 set(PREV_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-add_subdirectory("${3RDPARTY_DIR}/tracy" "tracy")
+add_subdirectory("${3RDPARTY_DIR}/tracy" "tracy" EXCLUDE_FROM_ALL)
 disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/tracy")
 message(STATUS "Tracy: ${TRACY_ENABLE}")
 
@@ -197,7 +216,7 @@ target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
 # Add the GSL
 if(bundled-gsl)
-	add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl")
+	add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl" EXCLUDE_FROM_ALL)
 
 	target_link_libraries(shared PUBLIC GSL)
 else()
@@ -225,11 +244,7 @@ endif()
 if(client)
 	add_subdirectory(mumble)
 
-	configure_file("${CMAKE_SOURCE_DIR}/scripts/info.mumble.Mumble.appdata.xml.in" "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml")
-
 	if(UNIX AND NOT APPLE)
-		install(FILES "${CMAKE_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-		install(FILES "${CMAKE_SOURCE_DIR}/scripts/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble.svg" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps")
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble_256x256.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/256x256/apps" RENAME "mumble.png")
 	endif()

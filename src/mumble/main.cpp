@@ -356,7 +356,8 @@ int main(int argc, char **argv) {
 				printf("%s\n", qPrintable(License::license()));
 				return 0;
 			} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
-				printf("%s\n", qPrintable(License::authors()));
+				printf("%s\n",
+					   "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
 				return 0;
 			} else if (args.at(i) == QLatin1String("-third-party-licenses")
 					   || args.at(i) == QLatin1String("--third-party-licenses")) {

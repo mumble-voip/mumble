@@ -51,6 +51,21 @@ include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
+include(FindPythonInterpreter)
+
+# Locate a usable Python3 interpreter
+set(PYTHON_HINTS
+	"C:/Python39-x64" # Path on the AppVeyor CI server
+)
+
+find_python_interpreter(
+	VERSION 3
+	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
+	HINTS ${PYTHON_HINTS}
+	REQUIRED
+)
+
+
 
 check_ipo_supported(RESULT LTO_DEFAULT)
 
@@ -149,7 +164,7 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 add_subdirectory(src)
 
 if(g15 AND WIN32)
-	add_subdirectory(g15helper)
+	add_subdirectory("helpers/g15helper")
 endif()
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
@@ -174,6 +189,8 @@ endif()
 if(plugins AND client)
 	add_subdirectory(plugins)
 endif()
+
+add_subdirectory(auxiliary_files)
 
 if(packaging)
 	file(COPY 

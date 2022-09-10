@@ -72,7 +72,7 @@ MetaParams::MetaParams() {
 	iDBPort                    = 0;
 	qsDBusService              = "net.sourceforge.mumble.murmur";
 	qsDBDriver                 = "QSQLITE";
-	qsLogfile                  = "murmur.log";
+	qsLogfile                  = "mumble-server.log";
 
 	iLogDays = 31;
 
@@ -169,6 +169,7 @@ void MetaParams::read(QString fname) {
 		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
 #else
 		datapaths << QDir::homePath() + QLatin1String("/.murmurd");
+		datapaths << QDir::homePath() + QLatin1String("/.mumble-server");
 		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 
@@ -181,20 +182,24 @@ void MetaParams::read(QString fname) {
 		datapaths << QDir::currentPath();
 		datapaths << QCoreApplication::instance()->applicationDirPath();
 
-		foreach (const QString &p, datapaths) {
+		for (const QString &p : datapaths) {
 			if (!p.isEmpty()) {
-				QFileInfo fi(p, "murmur.ini");
-				if (fi.exists() && fi.isReadable()) {
-					qdBasePath            = QDir(p);
-					qsAbsSettingsFilePath = fi.absoluteFilePath();
-					break;
+				// Prefer "mumble-server.ini" but for legacy reasons also keep looking for "murmur.ini"
+				for (const QString &currentFileName :
+					 { QStringLiteral("mumble-server.ini"), QStringLiteral("murmur.ini") }) {
+					QFileInfo fi(p, currentFileName);
+					if (fi.exists() && fi.isReadable()) {
+						qdBasePath            = QDir(p);
+						qsAbsSettingsFilePath = fi.absoluteFilePath();
+						break;
+					}
 				}
 			}
 		}
 		if (qsAbsSettingsFilePath.isEmpty()) {
 			QDir::root().mkpath(qdBasePath.absolutePath());
 			qdBasePath            = QDir(datapaths.at(0));
-			qsAbsSettingsFilePath = qdBasePath.absolutePath() + QLatin1String("/murmur.ini");
+			qsAbsSettingsFilePath = qdBasePath.absolutePath() + QLatin1String("/mumble-server.ini");
 		}
 	} else {
 		QFile f(fname);
@@ -562,7 +567,7 @@ bool MetaParams::loadSSLSettings() {
 	QString qsSSLDHParamsIniValue = qsSettings->value(QLatin1String("sslDHParams")).toString();
 	if (!qsSSLDHParamsIniValue.isEmpty()) {
 		qFatal("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur "
-			   "will not start unless you remove the option from your murmur.ini file.");
+			   "will not start unless you remove the option from your mumble-server.ini (murmur.ini)file.");
 		return false;
 	}
 #endif

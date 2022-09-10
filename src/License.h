@@ -26,8 +26,6 @@ class License {
 public:
 	/// Get the Mumble license text (the LICENSE file)
 	static QString license();
-	/// Get the Mumble authors list (the AUTHORS file)
-	static QString authors();
 	/// Get a list of license information for Mumble's
 	/// third-party libraries.
 	static QList< LicenseInfo > thirdPartyLicenses();

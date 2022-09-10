@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Mumble
+GenericName=Voice Chat
+GenericName[de]=Sprachkonferenz
+GenericName[fr]=Chat vocal
+Comment=@CMAKE_PROJECT_DESCRIPTION@
+Comment[de]=Ein Open Source Sprachkonferenzprogramm mit niedriger Latenz und hoher Qualität
+Comment[fr]=Un logiciel de chat vocal de haute qualité et de faible latence
+Exec=@MUMBLE_CLIENT_BINARY_NAME@ %u
+Icon=mumble
+Terminal=false
+Type=Application
+StartupNotify=false
+StartupWMClass=mumble
+MimeType=x-scheme-handler/mumble;
+Categories=Network;Chat;Qt;
+Keywords=VoIP;Messaging;Voice Chat;Secure Communication;
+Version=1.0

@@ -10,7 +10,7 @@ set(MURMUR_PLIST "${CMAKE_CURRENT_BINARY_DIR}/murmur.plist")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.plist.in" "${MURMUR_PLIST}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.rc.in" "${MURMUR_RC}")
 
-set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice")
+set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleServer.ice")
 
 include(qt-utils)
 
@@ -118,7 +118,7 @@ if(WIN32)
 			"Tray.h"
 			"murmur.qrc"
 
-			"${SHARED_SOURCE_DIR}/mumble/mumble.appcompat.manifest"
+			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 			"${MURMUR_RC}"
 	)
 
@@ -234,14 +234,29 @@ if(ice)
 		VERBATIM
 	)
 
+	add_custom_target(generate_murmur_ice_wrapper
+		DEPENDS "MumbleServerIceWrapper.cpp" 
+	)
+	add_dependencies(mumble-server generate_murmur_ice_wrapper)
+	add_custom_command(
+		OUTPUT "MumbleServerIceWrapper.cpp"
+		COMMAND ${PYTHON_INTERPRETER}
+		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
+			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" -q
+		DEPENDS ${ICE_GENERATED_FILES}
+		COMMENT "Generating MumbleServerIceWrapper"
+	)
+	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
+	target_include_directories(mumble-server PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+
 	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
 
 	target_sources(mumble-server
 		PRIVATE
-			"MurmurIce.cpp"
-			"MurmurIce.h"
+			"MumbleServerIce.cpp"
+			"MumbleServerIce.h"
 			${ICE_GENERATED_FILES}
 	)
 	target_compile_definitions(mumble-server
@@ -261,18 +276,10 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
 	)
 	
-	file(COPY "Murmur.ice" DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY "${ICE_FILE}" DESTINATION ${CMAKE_BINARY_DIR})
 endif()
 
 install(TARGETS mumble-server RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
-
-file(COPY "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION ${CMAKE_BINARY_DIR})
-
-if(UNIX)
-	# Install Murmur man files
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-endif()
 
 if(packaging)
 	if(WIN32)

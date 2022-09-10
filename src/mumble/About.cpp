@@ -28,10 +28,13 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qteLicense->setPlainText(License::license());
 	qteLicense->setAccessibleName(tr("License agreement"));
 
-	QTextEdit *qteAuthors = new QTextEdit(qtwTab);
-	qteAuthors->setReadOnly(true);
-	qteAuthors->setPlainText(License::authors());
-	qteAuthors->setAccessibleName(tr("Authors"));
+	QTextBrowser *authors = new QTextBrowser(qtwTab);
+	authors->setReadOnly(true);
+	authors->setOpenExternalLinks(true);
+	authors->setText(tr("For a list of authors, please see <a "
+						"href=\"https://github.com/mumble-voip/mumble/graphs/contributors\">https://github.com/"
+						"mumble-voip/mumble/graphs/contributors</a>"));
+	authors->setAccessibleName(tr("Authors"));
 
 	QTextBrowser *qtb3rdPartyLicense = new QTextBrowser(qtwTab);
 	qtb3rdPartyLicense->setReadOnly(true);
@@ -77,7 +80,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	qtwTab->addTab(about, tr("&About Mumble"));
 	qtwTab->addTab(qteLicense, tr("&License"));
-	qtwTab->addTab(qteAuthors, tr("A&uthors"));
+	qtwTab->addTab(authors, tr("A&uthors"));
 	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-Party Licenses"));
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);

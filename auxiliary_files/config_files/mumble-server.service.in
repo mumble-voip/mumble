@@ -1,0 +1,36 @@
+[Unit]
+Description=Mumble server
+After=network.target
+Wants=network-online.target
+
+[Service]
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+ExecStart=@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini @MUMBLE_INSTALL_ABS_SYSCONFDIR@/mumble-server.ini -fg
+Group=_mumble-server
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+PrivateDevices=true
+PrivateTmp=true
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHome=true
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=full
+RestrictAddressFamilies=~AF_PACKET AF_NETLINK
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+Restart=always
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+Type=simple
+User=_mumble-server
+
+[Install]
+WantedBy=multi-user.target
+

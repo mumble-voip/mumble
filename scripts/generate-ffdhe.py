@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2017-2022 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
@@ -104,14 +104,15 @@ from __future__ import (unicode_literals, print_function, division)
 # we can easily be compatible with both
 # interpreters.
 try:
-	type(long)
+    type(long)
 except NameError:
-	long = int
+    long = int
 
 import doctest
 import os
 import base64
 import codecs
+import argparse
 
 # The following P values are copy/pasted from RFC 7919 at
 # https://tools.ietf.org/rfc/rfc7919.txt
@@ -266,319 +267,318 @@ g = '''02''' # Not just '2' because these hex strings must
              # only contain bytes.
 
 def dehexify(hexString):
-	'''
-		Convert the "bignum" hexString
-		representation to a bytearray
-		containing the number.
-	'''
-	return bytearray.fromhex(' '.join(line.strip() for line in hexString.splitlines()))
+    '''
+        Convert the "bignum" hexString
+        representation to a bytearray
+        containing the number.
+    '''
+    return bytearray.fromhex(' '.join(line.strip() for line in hexString.splitlines()))
 
 def derLength(size):
-	'''
-		Returns the ASN.1 DER length bytes
-		for the given size.
+    '''
+        Returns the ASN.1 DER length bytes
+        for the given size.
 
-		Short form: For lengths <= 127,
-		the length is just a byte containing
-		the literal number. (Note that for
-		numbers <= 127, the MSB is not
-		set.)
+        Short form: For lengths <= 127,
+        the length is just a byte containing
+        the literal number. (Note that for
+        numbers <= 127, the MSB is not
+        set.)
 
-		In doctest form, that is:
+        In doctest form, that is:
 
-		>>> derLength(1)
-		bytearray(b'\\x01')
+        >>> derLength(1)
+        bytearray(b'\\x01')
 
-		>>> derLength(127)
-		bytearray(b'\\x7f')
+        >>> derLength(127)
+        bytearray(b'\\x7f')
 
-		Long form: For lengths > 127,
-		the encoding is different: The
-		first byte has the MSB set (that
-		is, by itself, 0x80). The rest of
-		the bits in the first byte specify
-		the number of bytes that follow.
+        Long form: For lengths > 127,
+        the encoding is different: The
+        first byte has the MSB set (that
+        is, by itself, 0x80). The rest of
+        the bits in the first byte specify
+        the number of bytes that follow.
 
-		So, to encode the length 128, you
-		would emit
+        So, to encode the length 128, you
+        would emit
 
-			0x81 0x80
+            0x81 0x80
 
-		The high bit of the first byte is set.
-		This means the remaining 7 bits contain
-		how many bytes follow it. If we mask the
-		MSB away, we end up with 0x01. So, only
-		a single byte follows.
-		The value of the following byte is 0x80,
-		which is 128 decimal.
+        The high bit of the first byte is set.
+        This means the remaining 7 bits contain
+        how many bytes follow it. If we mask the
+        MSB away, we end up with 0x01. So, only
+        a single byte follows.
+        The value of the following byte is 0x80,
+        which is 128 decimal.
 
-		In doctest form, that is:
+        In doctest form, that is:
 
-		>>> derLength(128)
-		bytearray(b'\\x81\\x80')
+        >>> derLength(128)
+        bytearray(b'\\x81\\x80')
 
-		Error cases:
+        Error cases:
 
-		The size passed to this function must be an integer:
+        The size passed to this function must be an integer:
 
-		>>> derLength(0.1)
-		Traceback (most recent call last):
-		...
-		Exception: bad type
+        >>> derLength(0.1)
+        Traceback (most recent call last):
+            ...
+        Exception: bad type
 
-		>>> derLength('5')
-		Traceback (most recent call last):
-		...
-		Exception: bad type
+        >>> derLength('5')
+        Traceback (most recent call last):
+            ...
+        Exception: bad type
 
-		Negative numbers are not supported, and throw an exception:
+        Negative numbers are not supported, and throw an exception:
 
-		>>> derLength(-1)
-		Traceback (most recent call last):
-		...
-		Exception: bad size
+        >>> derLength(-1)
+        Traceback (most recent call last):
+            ...
+        Exception: bad size
 
-		The long form does not support very large numbers. This is
-		because the 'additional bytes' counter can only count up to
-		127 (2**7-1) bytes.
+        The long form does not support very large numbers. This is
+        because the 'additional bytes' counter can only count up to
+        127 (2**7-1) bytes.
 
-		So, if we try to encode a length that will use exactly 127
-		bytes, it will succeed:
+        So, if we try to encode a length that will use exactly 127
+        bytes, it will succeed:
 
-		>>> derLength(int('ff'*127, 16)) # doctest:+ELLIPSIS
-		bytearray(b'\\xff...\\xff')
+        >>> derLength(int('ff'*127, 16)) # doctest:+ELLIPSIS
+        bytearray(b'\\xff...\\xff')
 
-		But if we try to go over that limit, we get an exception:
+        But if we try to go over that limit, we get an exception:
 
-		>>> derLength(int('ff'*128, 16))
-		Traceback (most recent call last):
-		...
-		Exception: unencodable
-	'''
+        >>> derLength(int('ff'*128, 16))
+        Traceback (most recent call last):
+            ...
+        Exception: unencodable
+    '''
 
-	# Ensure that the passed-in size is an integer.
-	if not isinstance(size, (int, long)):
-		raise Exception('bad type')
+    # Ensure that the passed-in size is an integer.
+    if not isinstance(size, (int, long)):
+        raise Exception('bad type')
 
-	if size > 127:
-		# Convert 'size' to a hexString-style
-		# bignum that we can pass to dehexify.
-		#
-		# Strip '0x' prefix from the hex string.
-		hexString = hex(size)[2:]
-		# In Python 2.7, the output of hex()
-		# can have an L suffix. Make sure we
-		# strip that.
-		if hexString.endswith('L'):
-			hexString = hexString[:-1]
-		# Ensure the final hex string only
-		# contains full bytes. If not, prepend
-		# a zero byte.
-		if len(hexString) % 2 != 0:
-			hexString = '0' + hexString
+    if size > 127:
+        # Convert 'size' to a hexString-style
+        # bignum that we can pass to dehexify.
+        #
+        # Strip '0x' prefix from the hex string.
+        hexString = hex(size)[2:]
+        # In Python 2.7, the output of hex()
+        # can have an L suffix. Make sure we
+        # strip that.
+        if hexString.endswith('L'):
+            hexString = hexString[:-1]
+        # Ensure the final hex string only
+        # contains full bytes. If not, prepend
+        # a zero byte.
+        if len(hexString) % 2 != 0:
+            hexString = '0' + hexString
 
-		# If the computed hexString bignum
-		# contains more than 127 bytes, we
-		# can't encode it using ASN.1 DER
-		# encoding. Throw an exception.
-		nbytes = len(hexString) // 2
-		if nbytes > 127:
-			raise Exception('unencodable')
+        # If the computed hexString bignum
+        # contains more than 127 bytes, we
+        # can't encode it using ASN.1 DER
+        # encoding. Throw an exception.
+        nbytes = len(hexString) // 2
+        if nbytes > 127:
+            raise Exception('unencodable')
 
-		buf = dehexify(hexString)
-		out = bytearray((0x80 | nbytes,))
-		out += buf
-		return out
-	elif size > 0:
-		# Short form is simply the number itself,
-		# as a byte.
-		return bytearray((size,))
-	else:
-		# We don't support negative sizes.
-		raise Exception('bad size')
+        buf = dehexify(hexString)
+        out = bytearray((0x80 | nbytes,))
+        out += buf
+        return out
+    elif size > 0:
+        # Short form is simply the number itself,
+        # as a byte.
+        return bytearray((size,))
+    else:
+        # We don't support negative sizes.
+        raise Exception('bad size')
 
 def derSequence(sequence):
-	'''
-		Encode an ASN.1 DER sequence
+    '''
+        Encode an ASN.1 DER sequence
 
-		Takes a sequence of DER data as its input.
+        Takes a sequence of DER data as its input.
 
-		Returns a bytearray of the resulting data.
+        Returns a bytearray of the resulting data.
 
-		The encoding of a DER sequence is simply
-		an identifier (0x30), a length (the length
-		of the content bytes -- see the derLength
-		function), and the content itself (just a
-		byte stream of other ASN.1 DER objects)
-	'''
-	out = bytearray((0x30,)) # SEQUENCE tag
-	content = bytearray()
-	for entry in sequence:
-		content += entry
-	out += derLength(len(content))
-	out += content
-	return out
+        The encoding of a DER sequence is simply
+        an identifier (0x30), a length (the length
+        of the content bytes -- see the derLength
+        function), and the content itself (just a
+        byte stream of other ASN.1 DER objects)
+    '''
+    out = bytearray((0x30,)) # SEQUENCE tag
+    content = bytearray()
+    for entry in sequence:
+        content += entry
+    out += derLength(len(content))
+    out += content
+    return out
 
 def derUnsignedInteger(hexString):
-	'''
-		Encode a hex string to a ASN.1 DER INTEGER.
-		This function only handles unsigned integers.
+    '''
+        Encode a hex string to a ASN.1 DER INTEGER.
+        This function only handles unsigned integers.
 
-		Returns a bytearray of the resulting data.
+        Returns a bytearray of the resulting data.
 
-		The encoding of an ASN.1 DER INTEGER is an
-		identifier (0x02), a length (the length of the
-		content bytes -- see the derLength function),
-		and the content, which in this case is the
-		bytes that make up the integer.
+        The encoding of an ASN.1 DER INTEGER is an
+        identifier (0x02), a length (the length of the
+        content bytes -- see the derLength function),
+        and the content, which in this case is the
+        bytes that make up the integer.
 
-		An INTEGER can be signed, or unsigned. Our
-		function here only deals with unsigned integers.
+        An INTEGER can be signed, or unsigned. Our
+        function here only deals with unsigned integers.
 
-		Signed integers have the MSB/sign bit set.
+        Signed integers have the MSB/sign bit set.
 
-		Our input data is guaranteed to be unsigned,
-		so if we detect that the MSB is set in the
-		data, we prepend a zero byte to it. This
-		is the way to signal that the value is unsigned
-		rather than signed.
-	'''
-	out = bytearray((0x02,)) # INTEGER tag
-	buf = dehexify(hexString)
+        Our input data is guaranteed to be unsigned,
+        so if we detect that the MSB is set in the
+        data, we prepend a zero byte to it. This
+        is the way to signal that the value is unsigned
+        rather than signed.
+    '''
+    out = bytearray((0x02,)) # INTEGER tag
+    buf = dehexify(hexString)
 
-	# If the sign bit is set, prepend a zero byte.
-	# Otherwise, the number will be treated as signed,
-	# which we don't want.
-	if (buf[0] & 0x80) != 0:
-		buf = bytearray((0,)) + buf
-	out += derLength(len(buf))
-	out += buf
-	return out
+    # If the sign bit is set, prepend a zero byte.
+    # Otherwise, the number will be treated as signed,
+    # which we don't want.
+    if (buf[0] & 0x80) != 0:
+        buf = bytearray((0,)) + buf
+    out += derLength(len(buf))
+    out += buf
+    return out
 
 def pem(der, kind='DH PARAMETERS'):
-	'''
-		Convert the ASN.1 DER data to PEM form.
+    '''
+        Convert the ASN.1 DER data to PEM form.
 
-		Returns the resulting string (type 'unicode' for Python 2).
+        Returns the resulting string (type 'unicode' for Python 2).
 
-		The PEM format consists of a header, the content itself (base64,
-		using the standard alphabet) and a trailer.
+        The PEM format consists of a header, the content itself (base64,
+        using the standard alphabet) and a trailer.
 
-		The header is of the form:
-			-----BEGIN $KIND-----
+        The header is of the form:
+            -----BEGIN $KIND-----
 
-		and the trailer is of the form:
-			-----END $KIND-----
+        and the trailer is of the form:
+            -----END $KIND-----
 
-		where $KIND defines the type of data
-		contained in the PEM data.
+        where $KIND defines the type of data
+        contained in the PEM data.
 
-		Between the header and the trailer is
-		the content itself. The content is the
-		DER form encoded using base64.
+        Between the header and the trailer is
+        the content itself. The content is the
+        DER form encoded using base64.
 
-		Our implementation splits the base64
-		data such that each line of base64 data
-		can be no longer than 64 characters long.
-	'''
-	out = u'-----BEGIN {0}-----\n'.format(kind)
-	enc = base64.b64encode(der)
-	n = 0
-	for ch in enc:
-		if type(ch) == int: # Python 3
-			out += chr(ch)
-		else:
-			out += ch
-		n += 1
-		if n == 64:
-			out += '\n'
-			n = 0
-	if out[-1] != '\n':
-		out += '\n'
-	out += u'-----END {0}-----\n'.format(kind)
-	return out
+        Our implementation splits the base64
+        data such that each line of base64 data
+        can be no longer than 64 characters long.
+    '''
+    out = u'-----BEGIN {0}-----\n'.format(kind)
+    enc = base64.b64encode(der)
+    n = 0
+    for ch in enc:
+        if type(ch) == int: # Python 3
+            out += chr(ch)
+        else:
+            out += ch
+        n += 1
+        if n == 64:
+            out += '\n'
+            n = 0
+    if out[-1] != '\n':
+        out += '\n'
+    out += u'-----END {0}-----\n'.format(kind)
+    return out
 
 def writeHeader(f):
-	'''
-		Output the LICENSE.header file plus a warning
-		about the output file being auto-generated.
+    '''
+        Output a warning about the output file being auto-generated.
 
-	'''
-	hf = codecs.open('LICENSE.header', 'r', 'utf-8')
-	hdr = hf.read()
-	hf.close()
-
-	f.write(hdr)
-	f.write('\n')
-	f.write('// Automatically generated by "{0}". DO NOT EDIT BY HAND.\n'.format(os.path.basename(__file__)))
-	f.write('\n')
+    '''
+    f.write('\n')
+    f.write('// Automatically generated by "{0}". DO NOT EDIT BY HAND.\n'.format(os.path.basename(__file__)))
+    f.write('\n')
 
 def writeCStr(f, identifier, str):
-	'''
-		Output the string 'str' as a static
-		C-style string (in array form, so sizeof works).
-	'''
-	f.write('static const char {0}[] = \\\n'.format(identifier))
-	splat = str.split('\n')
-	splat = splat[:-1]
-	lastLine = splat[-1]
-	for line in splat:
-		terminator = ''
-		if line == lastLine:
-			terminator = ';'
-		if len(line) > 0:
-			f.write('"{0}\\n"{1}\n'.format(line, terminator))
+    '''
+        Output the string 'str' as a static
+        C-style string (in array form, so sizeof works).
+    '''
+    f.write('static const char {0}[] = \\\n'.format(identifier))
+    splat = str.split('\n')
+    splat = splat[:-1]
+    lastLine = splat[-1]
+    for line in splat:
+        terminator = ''
+        if line == lastLine:
+            terminator = ';'
+        if len(line) > 0:
+            f.write('"{0}\\n"{1}\n'.format(line, terminator))
 def main():
-	doctest.testmod()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", help="Path to the file to which the generated output shall be written", required=True)
 
-	f = codecs.open(os.path.join('src', 'FFDHETable.h'), 'w', 'utf-8')
+    args = parser.parse_args()
 
-	writeHeader(f)
+    doctest.testmod()
 
-	writeCStr(f, 'ffdhe2048_pem', pem(
-		derSequence((
-			derUnsignedInteger(ffdhe2048_p),
-			derUnsignedInteger(g),
-		))
-	))
+    f = codecs.open(args.output, 'w', 'utf-8')
 
-	f.write('\n')
+    writeHeader(f)
 
-	writeCStr(f, 'ffdhe3072_pem', pem(
-		derSequence((
-			derUnsignedInteger(ffdhe3072_p),
-			derUnsignedInteger(g)
-		))
-	))
+    writeCStr(f, 'ffdhe2048_pem', pem(
+        derSequence((
+            derUnsignedInteger(ffdhe2048_p),
+            derUnsignedInteger(g),
+            ))
+        ))
 
-	f.write('\n')
+    f.write('\n')
 
-	writeCStr(f, 'ffdhe4096_pem', pem(
-		derSequence((
-			derUnsignedInteger(ffdhe4096_p),
-			derUnsignedInteger(g),
-		))
-	))
+    writeCStr(f, 'ffdhe3072_pem', pem(
+        derSequence((
+            derUnsignedInteger(ffdhe3072_p),
+            derUnsignedInteger(g)
+            ))
+        ))
 
-	f.write('\n')
+    f.write('\n')
 
-	writeCStr(f, 'ffdhe6144_pem', pem(
-		derSequence((
-			derUnsignedInteger(ffdhe6144_p),
-			derUnsignedInteger(g),
-		))
-	))
+    writeCStr(f, 'ffdhe4096_pem', pem(
+        derSequence((
+            derUnsignedInteger(ffdhe4096_p),
+            derUnsignedInteger(g),
+            ))
+        ))
 
-	f.write('\n')
+    f.write('\n')
 
-	writeCStr(f, 'ffdhe8192_pem', pem(
-		derSequence((
-			derUnsignedInteger(ffdhe8192_p),
-			derUnsignedInteger(g),
-		))
-	))
+    writeCStr(f, 'ffdhe6144_pem', pem(
+        derSequence((
+            derUnsignedInteger(ffdhe6144_p),
+            derUnsignedInteger(g),
+            ))
+        ))
 
-	f.close()
+    f.write('\n')
+
+    writeCStr(f, 'ffdhe8192_pem', pem(
+        derSequence((
+            derUnsignedInteger(ffdhe8192_p),
+            derUnsignedInteger(g),
+            ))
+        ))
+
+    f.close()
 
 if __name__ == '__main__':
-	main()
+    main()

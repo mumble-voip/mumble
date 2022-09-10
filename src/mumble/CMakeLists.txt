@@ -93,7 +93,6 @@ set(MUMBLE_SOURCES
 	"ACLEditor.ui"
 	"API_v_1_x_x.cpp"
 	"API.h"
-	"ApplicationPalette.h"
 	"AudioConfigDialog.cpp"
 	"AudioConfigDialog.h"
 	"Audio.cpp"
@@ -321,9 +320,16 @@ set(MUMBLE_SOURCES
 	"${3RDPARTY_DIR}/smallft/smallft.cpp"
 
 	"mumble.qrc"
-	"flags/mumble_flags_0.qrc"
 	"${CMAKE_SOURCE_DIR}/themes/DefaultTheme.qrc"
 )
+
+add_custom_command(
+	OUTPUT "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_flag_qrc.py" --flag-dir "${CMAKE_SOURCE_DIR}/icons/flags" --output "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
+	COMMENT "Generating mumble_flags.qrc"
+)
+list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
 
@@ -347,7 +353,7 @@ else()
 	if(WIN32)
 		target_sources(mumble_client_object_lib
 			PRIVATE
-				"mumble.appcompat.manifest"
+				"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 				"${MUMBLE_RC}"
 		)
 
@@ -365,6 +371,17 @@ else()
 	endif()
 endif()
 
+add_custom_command(
+	OUTPUT "ApplicationPalette.h"
+	COMMAND ${PYTHON_INTERPRETER}
+	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ApplicationPalette-class.py --template ${CMAKE_CURRENT_SOURCE_DIR}/ApplicationPaletteTemplate.h
+		--output ApplicationPalette.h
+	COMMENT "Generating ApplicationPalette.h"
+	DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/ApplicationPaletteTemplate.h"
+)
+target_sources(mumble PRIVATE "ApplicationPalette.h")
+target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+
 set_property(TARGET mumble_client_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 set_property(TARGET mumble PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
@@ -372,13 +389,20 @@ target_link_libraries(mumble mumble_client_object_lib)
 
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
-		"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_LIBDIR}"
-		"MUMBLE_PLUGIN_PATH=${MUMBLE_INSTALL_PLUGINDIR}"
+	"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_ABS_LIBDIR}"
+	"MUMBLE_PLUGIN_PATH=${MUMBLE_INSTALL_ABS_PLUGINDIR}"
 )
 
 set_target_properties(mumble PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set_target_properties(mumble_client_object_lib
+	PROPERTIES
+		AUTOMOC ON
+		AUTORCC ON
+		AUTOUIC ON
+)
+
+set_target_properties(mumble
 	PROPERTIES
 		AUTOMOC ON
 		AUTORCC ON
@@ -393,9 +417,6 @@ else()
 	else()
 		install(TARGETS mumble BUNDLE DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 	endif()
-
-	# Install Mumble man files
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 endif()
 
 target_compile_definitions(mumble_client_object_lib
@@ -485,7 +506,7 @@ endif()
 if(bundled-json)
 	set(JSON_BuildTests OFF CACHE INTERNAL "")
 	set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
-	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/")
+	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
 else()
 	find_pkg("nlohmann_json" REQUIRED)
 endif()
@@ -575,7 +596,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QWindowsIntegrationPlugin)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck")
+	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/xinputcheck-build")
@@ -677,7 +698,7 @@ if(bundled-opus)
 		option(OPUS_STACK_PROTECTOR "" OFF)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus")
+	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the Opus code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
@@ -704,7 +725,7 @@ else()
 endif()
 
 if(bundled-speex)
-	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp")
+	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the speexdsp code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speexdsp-build")
@@ -733,7 +754,7 @@ if(rnnoise)
 	target_compile_definitions(mumble_client_object_lib PRIVATE "USE_RNNOISE")
 
 	if(bundled-rnnoise)
-		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise")
+		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise" EXCLUDE_FROM_ALL)
 
 		# Disable all warnings that the RNNoise code may emit
 		disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
@@ -906,7 +927,8 @@ if(g15)
 			PRIVATE
 				"G15LCDEngine_helper.cpp"
 				"G15LCDEngine_helper.h"
-	)
+		)
+	target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
 	else()
 		find_library(LIB_G15DAEMON_CLIENT "g15daemon_client")
 		if(LIB_G15DAEMON_CLIENT-NOTFOUND)
