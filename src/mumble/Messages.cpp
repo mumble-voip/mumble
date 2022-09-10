@@ -1211,58 +1211,15 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 	}
 }
 
-/// This message is being received in order for the server to instruct this client which version of the CELT
-/// codec it should use.
+/// This message is being received in order for the server to instruct this client which codec it should use.
 ///
 /// @param msg The message object
 void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
-	int alpha = msg.has_alpha() ? msg.alpha() : -1;
-	int beta  = msg.has_beta() ? msg.beta() : -1;
-	bool pref = msg.prefer_alpha();
+	if (!msg.opus()) {
+		Global::get().l->log(Log::CriticalError, tr("Server instructed us to use an audio codec different from Opus, "
+													"which is no longer supported. Disconnecting..."));
 
-	static bool warnedOpus = false;
-	Global::get().bOpus    = msg.opus();
-
-	if (!Global::get().oCodec && !warnedOpus) {
-		Global::get().l->log(Log::CriticalError,
-							 tr("Failed to load Opus, it will not be available for audio encoding/decoding."));
-		warnedOpus = true;
-	}
-
-	// Workaround for broken 1.2.2 servers
-	if (Global::get().sh && Global::get().sh->m_version == Version::fromComponents(1, 2, 2) && alpha != -1
-		&& alpha == beta) {
-		if (pref)
-			beta = Global::get().iCodecBeta;
-		else
-			alpha = Global::get().iCodecAlpha;
-	}
-
-	if ((alpha != -1) && (alpha != Global::get().iCodecAlpha)) {
-		Global::get().iCodecAlpha = alpha;
-		if (pref && !Global::get().qmCodecs.contains(alpha))
-			pref = !pref;
-	}
-	if ((beta != -1) && (beta != Global::get().iCodecBeta)) {
-		Global::get().iCodecBeta = beta;
-		if (!pref && !Global::get().qmCodecs.contains(beta))
-			pref = !pref;
-	}
-	Global::get().bPreferAlpha = pref;
-
-	int willuse = pref ? Global::get().iCodecAlpha : Global::get().iCodecBeta;
-
-	static bool warnedCELT = false;
-
-	if (!Global::get().qmCodecs.contains(willuse)) {
-		if (!warnedCELT) {
-			Global::get().l->log(Log::CriticalError,
-								 tr("Unable to find matching CELT codecs with other clients. You will not be "
-									"able to talk to all users."));
-			warnedCELT = true;
-		}
-	} else {
-		warnedCELT = false;
+		Global::get().sh->disconnect();
 	}
 }
 

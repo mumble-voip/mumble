@@ -5701,10 +5701,6 @@ Ha nem ön az, ellenőrizze a felhasználónevét és a tanúsítványt!</transl
         <translation>Kiszolgáló</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Opus kódoló betöltése sikertelen, így más kódoló lesz betöltve.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>A kiszolgálóhoz való csatlakozáshoz legalább %1 változat telepítése szükséges</translation>
     </message>
@@ -5751,10 +5747,6 @@ Ha nem ön az, ellenőrizze a felhasználónevét és a tanúsítványt!</transl
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 hangosította %1-t.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Nem sikerült a többi kliens CELT kódolójának megfelelő kódolót találni. Ön nem lesz képes minden felhasználóval beszélni.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6421,6 +6413,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8348,10 +8344,6 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     <message>
         <source>IP Address</source>
         <translation>IP-cím</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT verzió</translation>
     </message>
     <message>
         <source>Details...</source>

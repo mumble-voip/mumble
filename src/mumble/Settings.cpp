@@ -1026,7 +1026,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(iRecordingFormat, "recording/format");
 
 	// Special configuration options not exposed to UI
-	LOAD(bDisableCELT, "audio/disablecelt");
 	LOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 	LOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 

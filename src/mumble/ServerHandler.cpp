@@ -274,6 +274,11 @@ void ServerHandler::udpReady() {
 }
 
 void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioData) {
+	if (audioData.usedCodec != Mumble::Protocol::AudioCodec::Opus) {
+		qWarning("Dropping audio packet using invalid codec (not Opus): %d", static_cast< int >(audioData.usedCodec));
+		return;
+	}
+
 	ClientUser *sender = ClientUser::get(audioData.senderSession);
 
 	AudioOutputPtr ao = Global::get().ao;
@@ -791,9 +796,6 @@ void ServerHandler::serverConnectionConnected() {
 	foreach (const QString &qs, tokens)
 		mpa.add_tokens(u8(qs));
 
-	QMap< int, CELTCodec * >::const_iterator i;
-	for (i = Global::get().qmCodecs.constBegin(); i != Global::get().qmCodecs.constEnd(); ++i)
-		mpa.add_celt_versions(i.key());
 	mpa.set_opus(true);
 	sendMessage(mpa);
 

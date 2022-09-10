@@ -5716,10 +5716,6 @@ seu certificado e nome de usuário.</translation>
         <translation>Servidor</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Falhou ao carregar Opus, ele estará indisponível para de/codificação de áudio.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>O servidor requer a versão %1 mínima de cliente</translation>
     </message>
@@ -5766,10 +5762,6 @@ seu certificado e nome de usuário.</translation>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%1 desemudecido por %2.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Impossível encontrar decodificadores CELT correspondentes com outros clientes. Você não será capaz de falar com todos usuários.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6463,6 +6455,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8397,10 +8393,6 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <source>IP Address</source>
         <translation>Endereço IP</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>Versões do CELT</translation>
     </message>
     <message>
         <source>Details...</source>

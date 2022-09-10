@@ -12,7 +12,6 @@
 #include "AudioStats.h"
 #include "AudioWizard.h"
 #include "BanEditor.h"
-#include "CELTCodec.h"
 #include "Cert.h"
 #include "Channel.h"
 #include "ConnectDialog.h"
@@ -3209,10 +3208,6 @@ void MainWindow::viewCertificate(bool) {
 void MainWindow::serverConnected() {
 	Global::get().uiSession    = 0;
 	Global::get().pPermissions = ChanACL::None;
-	Global::get().iCodecAlpha  = 0x8000000b;
-	Global::get().bPreferAlpha = true;
-	Global::get().bOpus        = true;
-	Global::get().iCodecBeta   = 0;
 
 #ifdef Q_OS_MAC
 	// Suppress AppNap while we're connected to a server.

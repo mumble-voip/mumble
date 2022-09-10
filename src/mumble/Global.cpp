@@ -111,11 +111,6 @@ Global::Global(const QString &qsConfigPath) {
 	iAudioBandwidth = -1;
 	iMaxBandwidth   = -1;
 
-	iCodecAlpha  = 0;
-	iCodecBeta   = 0;
-	bPreferAlpha = true;
-	bOpus        = true;
-
 	bAttenuateOthers              = false;
 	prioritySpeakerActiveOverride = false;
 

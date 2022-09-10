@@ -5714,10 +5714,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Sunucu</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Opus&apos;ın yüklenmesi başarısız oldu, ses kodlaması ve kodlama çözmesi için kullanılamayacaktır.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Sunucu asgari %1 istemci sürümünü talep ediyor</translation>
     </message>
@@ -5764,10 +5760,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%1 adlı kullanıcının susturulması %2 tarafından kaldırıldı.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Diğer istemcilerle uyumlu CELT kodekleri bulunamadı. Diğer kullanıcılar ile konuşamayacaksınız.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6523,6 +6515,10 @@ Geçerli seçenekler şunlardır:
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
         <translation>Verilen kanalı dinlemeye geçer.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8456,10 +8452,6 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <source>IP Address</source>
         <translation>İP Adresi</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT Sürümleri</translation>
     </message>
     <message>
         <source>Details...</source>

@@ -5715,10 +5715,6 @@ Altrimenti annulla e controlla il tuo certificato ed il nome utente.</translatio
         <translation>Server</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Caricamento Opus fallito, non sarà disponibile per la codifica/decodifica audio.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Il server richiede una versione superiore o uguale alla %1</translation>
     </message>
@@ -5765,10 +5761,6 @@ Altrimenti annulla e controlla il tuo certificato ed il nome utente.</translatio
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 ha riattivato il microfono di %1.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Impossibile trovare una versione del codec CELT uguale a quella degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6463,6 +6455,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8398,10 +8394,6 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <source>IP Address</source>
         <translation>Indirizzo IP</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>Versioni CELT</translation>
     </message>
     <message>
         <source>Details...</source>

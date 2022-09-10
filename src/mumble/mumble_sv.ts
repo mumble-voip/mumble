@@ -5715,10 +5715,6 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>server</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Misslyckades med att ladda Opus, den kommer inte att vara tillgängligt för ljudkodning/avkodning.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Servern kräver klientversionen %1</translation>
     </message>
@@ -5765,10 +5761,6 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 aktiverade mikrofon för %1.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Kunde inte hitta liknande CELT-kodekar med andra klienter. Du kan inte tala med alla användare.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6463,6 +6455,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8397,10 +8393,6 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <source>IP Address</source>
         <translation>IP adress</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT versioner</translation>
     </message>
     <message>
         <source>Details...</source>

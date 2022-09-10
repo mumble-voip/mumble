@@ -251,7 +251,6 @@ const SettingsKey RECORDING_MODE_KEY   = { "recording_mode" };
 const SettingsKey RECORDING_FORMAT_KEY = { "recording_format" };
 
 // Hidden
-const SettingsKey DISABLE_CELT_KEY                   = { "disable_celt" };
 const SettingsKey DISABLE_CONNECT_DIALOG_EDITING_KEY = { "disable_connect_dialog_editing" };
 
 // Overlay (win)

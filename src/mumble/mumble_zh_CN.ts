@@ -5714,10 +5714,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>加载 Opus 失败，无法进行音频编解码。</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>服务器要求客户端版本至少为 %1</translation>
     </message>
@@ -5764,10 +5760,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 开启了 %1 麦克风。</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>无法找到与其他客户端匹配的 CELT 编解码器。您将无法与所有用户交谈。</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6522,6 +6514,10 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8456,10 +8452,6 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>IP Address</source>
         <translation>IP 地址</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT 版本</translation>
     </message>
     <message>
         <source>Details...</source>

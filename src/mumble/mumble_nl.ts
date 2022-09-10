@@ -5715,10 +5715,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Server</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Laden van Opus mislukt; het zal niet beschikbaar zijn bij het encoderen en decoderen van geluid.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Server verwacht minstens Mumble versie %1</translation>
     </message>
@@ -5765,10 +5761,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 liet %1 weer spreken.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Kon samen met de andere deelnemers geen gemeenschappelijke CELT-codec vinden. Je zal niet met iedereen kunnen spreken.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6463,6 +6455,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8398,10 +8394,6 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <message>
         <source>IP Address</source>
         <translation>IP-Adres</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT-versies</translation>
     </message>
     <message>
         <source>Details...</source>

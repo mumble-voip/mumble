@@ -34,11 +34,6 @@ Build an x86 overlay
 Bundle Qt's translations as well
 (Default: ${static})
 
-### bundled-celt
-
-Build the included version of CELT instead of looking for one on the system.
-(Default: ON)
-
 ### bundled-gsl
 
 Use the bundled GSL version instead of looking for one on the system

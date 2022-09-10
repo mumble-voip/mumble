@@ -5715,10 +5715,6 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Serveur</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Impossible de charger Opus, ce codec ne sera pas disponible pour le codage/décodage audio.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Le serveur requière au minimum la version %1 du client</translation>
     </message>
@@ -5765,10 +5761,6 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 a rendu la voix à %1.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6524,6 +6516,10 @@ Les options valides sont&#xa0;:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8459,10 +8455,6 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <source>IP Address</source>
         <translation>Adresse IP</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>Versions CELT</translation>
     </message>
     <message>
         <source>Details...</source>
