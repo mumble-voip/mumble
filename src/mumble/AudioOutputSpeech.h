@@ -6,8 +6,6 @@
 #ifndef MUMBLE_MUMBLE_AUDIOOUTPUTSPEECH_H_
 #define MUMBLE_MUMBLE_AUDIOOUTPUTSPEECH_H_
 
-#include <celt.h>
-#include <speex/speex.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_resampler.h>
 
@@ -20,7 +18,6 @@
 #include <mutex>
 #include <vector>
 
-class CELTCodec;
 class OpusCodec;
 class ClientUser;
 struct OpusDecoder;
@@ -58,14 +55,8 @@ protected:
 	JitterBuffer *jbJitter;
 	int iMissCount;
 
-	CELTCodec *cCodec;
-	CELTDecoder *cdDecoder;
-
 	OpusCodec *oCodec;
 	OpusDecoder *opusState;
-
-	SpeexBits sbBits;
-	void *dsSpeex;
 
 	QList< QByteArray > qlFrames;
 

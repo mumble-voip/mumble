@@ -1,68 +1,8 @@
 ;
-; speex.def
+; speexdsp.def
 ;
-LIBRARY speex
+LIBRARY speexdsp
 EXPORTS
-;
-;
-;	speex.h
-;
-speex_encoder_init
-speex_encoder_destroy
-speex_encode
-speex_encode_int
-speex_encoder_ctl
-speex_decoder_init
-speex_decoder_destroy
-speex_decode
-speex_decode_int
-speex_decoder_ctl
-speex_mode_query
-speex_lib_ctl
-speex_lib_get_mode
-
-;
-;	speex_bits.h
-;
-speex_bits_init
-speex_bits_init_buffer
-speex_bits_set_bit_buffer
-speex_bits_destroy
-speex_bits_reset
-speex_bits_rewind
-speex_bits_read_from
-speex_bits_read_whole_bytes
-speex_bits_write
-speex_bits_write_whole_bytes
-speex_bits_pack
-speex_bits_unpack_signed
-speex_bits_unpack_unsigned
-speex_bits_nbytes
-speex_bits_peek_unsigned
-speex_bits_peek
-speex_bits_advance
-speex_bits_remaining
-speex_bits_insert_terminator
-
-;
-;	speex_callbacks.h
-;
-speex_inband_handler
-speex_std_mode_request_handler
-speex_std_high_mode_request_handler
-speex_std_char_handler
-speex_default_user_handler
-speex_std_low_mode_request_handler
-speex_std_vbr_request_handler
-speex_std_enh_request_handler
-speex_std_vbr_quality_request_handler
-
-;
-;	speex_header.h
-;
-speex_init_header
-speex_header_to_packet
-speex_packet_to_header
 
 ;
 ;	speex_echo.h

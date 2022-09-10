@@ -223,9 +223,7 @@
 	PROCESS(recording, RECORDING_FORMAT_KEY, iRecordingFormat)
 
 
-#define HIDDEN_SETTINGS                             \
-	PROCESS(hidden, DISABLE_CELT_KEY, bDisableCELT) \
-	PROCESS(hidden, DISABLE_CONNECT_DIALOG_EDITING_KEY, disableConnectDialogEditing)
+#define HIDDEN_SETTINGS PROCESS(hidden, DISABLE_CONNECT_DIALOG_EDITING_KEY, disableConnectDialogEditing)
 
 
 #define WIN_OVERLAY_SETTINGS                                                            \

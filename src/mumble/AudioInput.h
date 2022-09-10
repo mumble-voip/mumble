@@ -7,19 +7,21 @@
 #define MUMBLE_MUMBLE_AUDIOINPUT_H_
 
 #include <QElapsedTimer>
-#include <QtCore/QObject>
-#include <QtCore/QThread>
+#include <QObject>
+#include <QThread>
+
 #include <boost/array.hpp>
 #include <boost/shared_ptr.hpp>
+
 #include <fstream>
 #include <list>
 #include <memory>
 #include <mutex>
-#include <speex/speex.h>
+#include <vector>
+
 #include <speex/speex_echo.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_resampler.h>
-#include <vector>
 
 #include "Audio.h"
 #include "EchoCancelOption.h"
@@ -28,9 +30,7 @@
 #include "Timer.h"
 
 class AudioInput;
-class CELTCodec;
 class OpusCodec;
-struct CELTEncoder;
 struct OpusEncoder;
 struct DenoiseState;
 typedef boost::shared_ptr< AudioInput > AudioInputPtr;
@@ -170,7 +170,6 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioInput)
 protected:
-	typedef enum { CodecCELT, CodecSpeex } CodecFormat;
 	typedef enum { SampleShort, SampleFloat } SampleFormat;
 	typedef void (*inMixerFunc)(float *RESTRICT, const void *RESTRICT, unsigned int, unsigned int, quint64);
 
@@ -197,7 +196,6 @@ private:
 	typedef boost::array< unsigned char, 960 > EncodingOutputBuffer;
 
 	int encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer);
-	int encodeCELTFrame(short *pSource, EncodingOutputBuffer &buffer);
 
 	QElapsedTimer qetLastMuteCue;
 
@@ -224,9 +222,6 @@ protected:
 	QMutex qmSpeex;
 	SpeexPreprocessState *sppPreprocess;
 	SpeexEchoState *sesEcho;
-
-	CELTCodec *cCodec;
-	CELTEncoder *ceEncoder;
 
 	/// bResetEncoder is a flag that notifies
 	/// our encoder functions that the encoder

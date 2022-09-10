@@ -23,7 +23,6 @@ option(translations "Include languages other than English." ON)
 option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
 
 option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
-option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
@@ -122,8 +121,6 @@ set(MUMBLE_SOURCES
 	"BanEditor.cpp"
 	"BanEditor.h"
 	"BanEditor.ui"
-	"CELTCodec.cpp"
-	"CELTCodec.h"
 	"Cert.cpp"
 	"Cert.h"
 	"Cert.ui"
@@ -706,58 +703,28 @@ else()
 	target_include_directories(mumble_client_object_lib PUBLIC ${opus_INCLUDE_DIRS})
 endif()
 
-if(bundled-celt)
-	add_subdirectory("${3RDPARTY_DIR}/celt-0.7.0-build" "${CMAKE_CURRENT_BINARY_DIR}/celt")
-
-	# Disable all warnings that the Celt code may emit
-	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/celt-0.7.0-build")
-
-	add_dependencies(mumble_client_object_lib celt)
-
-	target_include_directories(mumble_client_object_lib PUBLIC "${3RDPARTY_DIR}/celt-0.7.0-src/libcelt")
-
-	if(WIN32)
-		# Shared library on Windows (e.g. ".dll")
-		set_target_properties(celt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	else()
-		# Shared library on UNIX (e.g. ".so")
-		set_target_properties(celt PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	endif()
-
-	install_library(celt mumble_client)
-else()
-	find_pkg(celt REQUIRED)
-	if(${celt_VERSION} VERSION_LESS          0.7 OR
-	   ${celt_VERSION} VERSION_GREATER_EQUAL 0.8)
-		message(FATAL_ERROR "CELT 0.7.x is required, found ${celt_VERSION}!")
-	endif()
-	target_include_directories(mumble_client_object_lib PUBLIC ${celt_INCLUDE_DIRS})
-endif()
-
 if(bundled-speex)
-	add_subdirectory("${3RDPARTY_DIR}/speex-build" "${CMAKE_CURRENT_BINARY_DIR}/speex")
+	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp")
 
-	# Disable all warnings that the speex code may emit
-	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speex-build")
+	# Disable all warnings that the speexdsp code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speexdsp-build")
 
-	target_link_libraries(mumble_client_object_lib PUBLIC speex)
+	target_link_libraries(mumble_client_object_lib PUBLIC speexdsp)
 
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
-		set_target_properties(speex PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		set_target_properties(speexdsp PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 	else()
 		# Shared library on UNIX (e.g. ".so")
-		set_target_properties(speex PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		set_target_properties(speexdsp PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 	endif()
 
-	install_library(speex mumble_client)
+	install_library(speexdsp mumble_client)
 else()
-	find_pkg(speex REQUIRED)
 	find_pkg(speexdsp REQUIRED)
 
 	target_link_libraries(mumble_client_object_lib
 		PUBLIC
-			${speex_LIBRARIES}
 			${speexdsp_LIBRARIES}
 	)
 endif()

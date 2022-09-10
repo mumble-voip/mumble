@@ -7,7 +7,6 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "CELTCodec.h"
 #include "Log.h"
 #include "OpusCodec.h"
 #include "PacketDataStream.h"
@@ -41,36 +40,10 @@ void CodecInit::initialize() {
 			QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
 		delete oCodec;
 	}
-
-	if (Global::get().s.bDisableCELT) {
-		// Kill switch for CELT activated. Do not initialize it.
-		return;
-	}
-
-	CELTCodec *codec = nullptr;
-
-	codec = new CELTCodec070(QLatin1String("0.7.0"));
-	if (codec->isValid()) {
-		codec->report();
-		Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
-	} else {
-		delete codec;
-		codec = new CELTCodec070(QLatin1String("0.0.0"));
-		if (codec->isValid()) {
-			codec->report();
-			Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
-		} else {
-			delete codec;
-		}
-	}
 }
 
 void CodecInit::destroy() {
 	delete Global::get().oCodec;
-
-	foreach (CELTCodec *codec, Global::get().qmCodecs)
-		delete codec;
-	Global::get().qmCodecs.clear();
 }
 
 LoopUser::LoopUser() {

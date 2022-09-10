@@ -525,9 +525,6 @@ struct Settings {
 
 	// Special configuration options not exposed to UI
 
-	/// Codec kill-switch
-	bool bDisableCELT = false;
-
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing = false;
 

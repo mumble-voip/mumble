@@ -6,7 +6,6 @@
 #include "UserInformation.h"
 
 #include "Audio.h"
-#include "CELTCodec.h"
 #include "HostAddress.h"
 #include "ProtoUtils.h"
 #include "QtUtils.h"
@@ -139,18 +138,6 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 			// Show a warning to the user just in case.
 			qlVersionNote->show();
 		}
-	}
-	if (msg.celt_versions_size() > 0) {
-		QStringList qsl;
-		for (int i = 0; i < msg.celt_versions_size(); ++i) {
-			int v         = msg.celt_versions(i);
-			CELTCodec *cc = Global::get().qmCodecs.value(v);
-			if (cc)
-				qsl << cc->version();
-			else
-				qsl << QString::number(v, 16);
-		}
-		qlCELT->setText(qsl.join(tr(", ")));
 	}
 	if (msg.has_opus()) {
 		qlOpus->setText(msg.opus() ? tr("Supported") : tr("Not Supported"));

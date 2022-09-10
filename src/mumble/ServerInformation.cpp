@@ -4,7 +4,6 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerInformation.h"
-#include "CELTCodec.h"
 #include "Connection.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
@@ -77,15 +76,8 @@ void ServerInformation::updateServerInformation() {
 }
 
 static const QString currentCodec() {
-	if (Global::get().bOpus)
-		return QLatin1String("Opus");
-
-	int v         = Global::get().bPreferAlpha ? Global::get().iCodecAlpha : Global::get().iCodecBeta;
-	CELTCodec *cc = Global::get().qmCodecs.value(v);
-	if (cc)
-		return QString::fromLatin1("CELT %1").arg(cc->version());
-	else
-		return QString::fromLatin1("CELT %1").arg(QString::number(v, 16));
+	// We now always use Opus
+	return "Opus";
 }
 
 void ServerInformation::updateAudioBandwidth() {
