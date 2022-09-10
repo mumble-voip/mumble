@@ -36,7 +36,7 @@ jobs:
     workspace:
       clean: all
     pool:
-      vmImage: 'ubuntu-18.04'
+      vmImage: 'ubuntu-20.04'
     steps:
     - template: steps_linux.yml
 
