@@ -5655,10 +5655,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5704,10 +5700,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6373,6 +6365,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8300,10 +8296,6 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>IP Address</source>
         <translation>Cyfeiriad IP</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>Fersiynau CELT</translation>
     </message>
     <message>
         <source>Details...</source>

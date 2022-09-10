@@ -5731,10 +5731,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Tjener</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished">Klarte ikke å laste inn Opus til bruk for lydkoding og dekoding.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Tjeneren forespør minimum klientversjon %1</translation>
     </message>
@@ -5781,10 +5777,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 opphevet %1 sin stumhet.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Kunne ikke finne samsvarende CELT-kodek delt av andre klienter. Du vil ikke kunne snakke med alle brukerne.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6478,6 +6470,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8414,10 +8410,6 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <source>IP Address</source>
         <translation>IP-adresse</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT-versjoner</translation>
     </message>
     <message>
         <source>Details...</source>

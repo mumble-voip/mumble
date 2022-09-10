@@ -5716,10 +5716,6 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Servidor</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>No se pudo cargar Opus, no estará disponible para la codificación/decodificación del audio.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>El servidor solicita que el cliente tenga la versión %1 como mínimo</translation>
     </message>
@@ -5766,10 +5762,6 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 dio voz a %1.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>No se pudieron encontrar codecs CELT adecuados para los otros clientes. No podrá hablar a todos los usuarios.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6441,6 +6433,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8376,10 +8372,6 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <source>IP Address</source>
         <translation>Dirección IP</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>Versiones CELT</translation>
     </message>
     <message>
         <source>Details...</source>

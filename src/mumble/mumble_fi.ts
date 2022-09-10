@@ -5715,10 +5715,6 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
         <translation>Palvelin</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Opusin lataaminen epäonnistui, se ei ole käytettävissä äänen pakkaukseen ja purkuun.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Palvelin vaatii ohjelmaversion olevan vähintään %1</translation>
     </message>
@@ -5765,10 +5761,6 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 poisti käyttäjän %1 mykistyksen.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Vastaavia CELT-koodekkeja ei löydy muilta käyttäjiltä. Et pysty puhumaan kaikille käyttäjille.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6462,6 +6454,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8397,10 +8393,6 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     <message>
         <source>IP Address</source>
         <translation>IP-osoite</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT-versiot</translation>
     </message>
     <message>
         <source>Details...</source>

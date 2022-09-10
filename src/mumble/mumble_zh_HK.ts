@@ -5652,10 +5652,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>伺服器</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>伺服器要求使用 %1 以上版本客戶端</translation>
     </message>
@@ -5702,10 +5698,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%1 被 %2 重新開啟語音。</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>找不到符合CELT編碼的使用者。您不能對所有人說話。</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6373,6 +6365,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8302,10 +8298,6 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>IP Address</source>
         <translation>IP位址</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT版本</translation>
     </message>
     <message>
         <source>Details...</source>

@@ -5715,10 +5715,6 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
         <translation>Server</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Das Laden von Opus ist fehlgeschlagen, es ist nicht für die Audiokodierung/Dekodierung verfügbar.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Der Server empfiehlt mindestens die Client-Version %1</translation>
     </message>
@@ -5765,10 +5761,6 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>Stummstellen von %1 wurde durch %2 deaktiviert.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Es wurde kein für alle Benutzer passender CELT-Codec gefunden. Sie werden nicht zu allen Benutzern sprechen können.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6516,6 +6508,10 @@ Gültige Optionen sind:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8451,10 +8447,6 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>IP Address</source>
         <translation>IP-Adresse</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT-Versionen</translation>
     </message>
     <message>
         <source>Details...</source>

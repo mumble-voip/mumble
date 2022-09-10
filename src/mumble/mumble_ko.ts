@@ -5714,10 +5714,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>서버</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Opus를 로드하지 못했습니다. 오디오 인코딩/디코딩에 사용할 수 없습니다.</translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>서버가 최소 클라이언트 %1 버전을 요청합니다</translation>
     </message>
@@ -5764,10 +5760,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2이(가) %1의 마이크 음소거를 해제했습니다.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>다른 클라이언트와 일치하는 CELT 코덱을 찾을 수 없습니다. 모든 유저와 대화할 수 없습니다.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6462,6 +6454,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8396,10 +8392,6 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>IP Address</source>
         <translation>IP 주소</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT 버전</translation>
     </message>
     <message>
         <source>Details...</source>

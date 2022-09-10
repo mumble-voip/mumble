@@ -5704,10 +5704,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>server</translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The server requests minimum client version %1</source>
         <translation>Serveren kræver minimum klientversion %1</translation>
     </message>
@@ -5754,10 +5750,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>%1 unmuted by %2.</source>
         <translation>%2 aktiverede mikrofon for %1.</translation>
-    </message>
-    <message>
-        <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Kunne ikke finde matchende CELT-codecs host andre klienter. Du vil ikke være i stand til at snakke med alle brugere.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
@@ -6425,6 +6417,10 @@ Valid options are:
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8355,10 +8351,6 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <source>IP Address</source>
         <translation>IP Adresse</translation>
-    </message>
-    <message>
-        <source>CELT Versions</source>
-        <translation>CELT Versioner</translation>
     </message>
     <message>
         <source>Details...</source>
