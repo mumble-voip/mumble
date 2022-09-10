@@ -4456,7 +4456,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation>Wyświetlaj lokalne dopasowanie głośności dla każdego użytkownika (jeśli istnieje).</translation>
+        <translation>Wyświetlaj lokalną regulację głośności dla każdego użytkownika (jeśli istnieje).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
@@ -6419,7 +6419,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Ta wersja Mumble nie obsługuje adresów URL starszych wersji Mumble %1</translation>
+        <translation>Ta wersja Mumble nie obsługuje adresów URL dla Mumble w wersji %1</translation>
     </message>
 </context>
 <context>
@@ -7548,7 +7548,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation>Lokalne dopasowanie głośności...</translation>
+        <translation>Lokalna regulacja głośności...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7684,7 +7684,7 @@ Możesz je ponownie zarejestrować.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieznana wersja</translation>
     </message>
 </context>
 <context>
@@ -8406,7 +8406,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrzeżenie: wydaje się, że serwer zgłasza temu klientowi okrojoną wersję protokołu. (Zobacz: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>

@@ -3874,7 +3874,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[innebygd innhold]</translation>
     </message>
 </context>
 <context>
@@ -7639,7 +7639,7 @@ Du kan registrere dem igjen.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukjent versjon</translation>
     </message>
 </context>
 <context>
