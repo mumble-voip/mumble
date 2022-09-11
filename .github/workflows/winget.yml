@@ -1,0 +1,25 @@
+name: Publish to WinGet
+on:
+  release:
+    types: [released]
+jobs:
+  publish:
+    runs-on: windows-latest # action can only be run on windows
+    steps:
+      - name: Publish Mumble client
+        uses: vedantmgoyal2009/winget-releaser@latest
+        with:
+          identifier: Mumble.Mumble.Client
+          installers-regex: mumble_client.*.msi$
+          token: ${{ secrets.WINGET_TOKEN }}
+
+      # The action will clone winget-pkgs again, to start fresh
+      - name: Clean working directory
+        run: Remove-Item -Recurse -Force .\winget-pkgs\
+
+      - name: Publish Mumble server
+        uses: vedantmgoyal2009/winget-releaser@latest
+        with:
+          identifier: Mumble.Mumble.Server
+          installers-regex: mumble_server.*.msi$
+          token: ${{ secrets.WINGET_TOKEN }}
