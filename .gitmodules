@@ -1,4 +1,4 @@
-[submodule "opus"]
+[submodule "3rdparty/opus"]
 	path = 3rdparty/opus
 	url = https://gitlab.xiph.org/xiph/opus.git
 [submodule "3rdparty/minhook"]
