@@ -10,11 +10,11 @@
 
 class Channel;
 
-class ListenerLocalVolumeSlider : public VolumeSliderWidgetAction {
+class ListenerVolumeSlider : public VolumeSliderWidgetAction {
 	Q_OBJECT
 
 public:
-	ListenerLocalVolumeSlider(QWidget *parent = nullptr);
+	ListenerVolumeSlider(QWidget *parent = nullptr);
 
 	/// Must be called before adding this object as an action
 	void setListenedChannel(const Channel &channel);
@@ -24,7 +24,8 @@ private:
 	const Channel *m_channel;
 
 private slots:
-	void on_VolumeSlider_valueChanged(int value);
+	void on_VolumeSlider_valueChanged(int value) override;
+	void on_VolumeSlider_sliderReleased() override;
 };
 
 #endif

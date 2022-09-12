@@ -26,7 +26,7 @@ protected:
 	void updateTooltip(int value);
 
 protected slots:
-	virtual void on_VolumeSlider_valueChanged(int value) = 0;
+	virtual void on_VolumeSlider_valueChanged(int){};
 	virtual void on_VolumeSlider_sliderReleased(){};
 };
 

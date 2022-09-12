@@ -10,13 +10,17 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 
+std::size_t qHash(const ChannelListener &listener) {
+	return std::hash< ChannelListener >()(listener);
+};
+
+bool operator==(const ChannelListener &lhs, const ChannelListener &rhs) {
+	return lhs.channelID == rhs.channelID && lhs.userSession == rhs.userSession;
+}
+
 ChannelListenerManager::ChannelListenerManager()
-	: QObject(nullptr), m_listenerLock(), m_listeningUsers(), m_listenedChannels()
-#ifdef MUMBLE
-	  ,
-	  m_volumeLock(), m_listenerVolumeAdjustments()
-#endif
-{
+	: QObject(nullptr), m_listenerLock(), m_listeningUsers(), m_listenedChannels(), m_volumeLock(),
+	  m_listenerVolumeAdjustments() {
 }
 
 void ChannelListenerManager::addListener(unsigned int userSession, int channelID) {
@@ -75,49 +79,69 @@ int ChannelListenerManager::getListenedChannelCountForUser(unsigned int userSess
 	return m_listeningUsers[userSession].size();
 }
 
-#ifdef MUMBLE
-void ChannelListenerManager::setListenerLocalVolumeAdjustment(int channelID, float volumeAdjustment) {
-	float oldValue;
+void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSession, int channelID,
+														 const VolumeAdjustment &volumeAdjustment) {
+	float oldValue = 1.0f;
 	{
 		QWriteLocker lock(&m_volumeLock);
 
-		oldValue = m_listenerVolumeAdjustments.value(channelID, 1.0f);
-		m_listenerVolumeAdjustments.insert(channelID, volumeAdjustment);
-	}
+		ChannelListener key = {};
+		key.channelID       = channelID;
+		key.userSession     = userSession;
 
-	if (oldValue != volumeAdjustment) {
-		emit localVolumeAdjustmentsChanged(channelID, volumeAdjustment, oldValue);
-	}
-}
-
-float ChannelListenerManager::getListenerLocalVolumeAdjustment(int channelID) const {
-	QReadLocker lock(&m_volumeLock);
-
-	return m_listenerVolumeAdjustments.value(channelID, 1.0f);
-}
-
-QHash< int, float > ChannelListenerManager::getAllListenerLocalVolumeAdjustments(bool filter) const {
-	QReadLocker lock(&m_volumeLock);
-
-	if (!filter) {
-		return m_listenerVolumeAdjustments;
-	} else {
-		QHash< int, float > volumeMap;
-
-		QHashIterator< int, float > it(m_listenerVolumeAdjustments);
-
-		while (it.hasNext()) {
-			it.next();
-
-			if (it.value() != 1.0f) {
-				volumeMap.insert(it.key(), it.value());
-			}
+		auto it = m_listenerVolumeAdjustments.find(key);
+		if (it != m_listenerVolumeAdjustments.end()) {
+			oldValue = it->second.factor;
 		}
 
-		return volumeMap;
+		m_listenerVolumeAdjustments[key] = volumeAdjustment;
+	}
+
+	if (oldValue != volumeAdjustment.factor) {
+		emit localVolumeAdjustmentsChanged(channelID, volumeAdjustment.factor, oldValue);
 	}
 }
-#endif
+
+const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
+																			int channelID) const {
+	static VolumeAdjustment fallbackObj = VolumeAdjustment::fromFactor(1.0f);
+
+	QReadLocker lock(&m_volumeLock);
+
+	ChannelListener key = {};
+	key.channelID       = channelID;
+	key.userSession     = userSession;
+
+	auto it = m_listenerVolumeAdjustments.find(key);
+
+	if (it == m_listenerVolumeAdjustments.end()) {
+		return fallbackObj;
+	} else {
+		return it->second;
+	}
+}
+
+std::unordered_map< int, VolumeAdjustment >
+	ChannelListenerManager::getAllListenerVolumeAdjustments(unsigned int userSession) const {
+	QReadLocker lock1(&m_volumeLock);
+	QReadLocker lock2(&m_listenerLock);
+
+	std::unordered_map< int, VolumeAdjustment > adjustments;
+
+	for (int channelID : m_listeningUsers.value(userSession)) {
+		ChannelListener listener = {};
+		listener.channelID       = channelID;
+		listener.userSession     = userSession;
+
+		auto it = m_listenerVolumeAdjustments.find(listener);
+
+		if (it != m_listenerVolumeAdjustments.end() && it->second.factor != 1.0f) {
+			adjustments[channelID] = it->second;
+		}
+	}
+
+	return adjustments;
+}
 
 void ChannelListenerManager::clear() {
 	{
@@ -125,10 +149,8 @@ void ChannelListenerManager::clear() {
 		m_listeningUsers.clear();
 		m_listenedChannels.clear();
 	}
-#ifdef MUMBLE
 	{
 		QWriteLocker lock(&m_volumeLock);
 		m_listenerVolumeAdjustments.clear();
 	}
-#endif
 }

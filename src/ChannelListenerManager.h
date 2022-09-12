@@ -6,15 +6,34 @@
 #ifndef MUMBLE_CHANNELLISTENERMANAGER_H_
 #define MUMBLE_CHANNELLISTENERMANAGER_H_
 
+#include "VolumeAdjustment.h"
+
 #include <QtCore/QHash>
 #include <QtCore/QObject>
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QSet>
 
-#include <atomic>
+#include <unordered_map>
 
 class User;
 class Channel;
+
+struct ChannelListener {
+	/// The session ID of the owning user
+	unsigned int userSession;
+	/// The ID of the channel this listener is placed in
+	int channelID;
+};
+
+// Make ChannelListener hashable and comparable
+template<> struct std::hash< ChannelListener > {
+	std::size_t operator()(const ChannelListener &val) const {
+		return std::hash< unsigned int >()(val.userSession) ^ (std::hash< int >()(val.channelID) << 2);
+	}
+};
+std::size_t qHash(const ChannelListener &listener);
+bool operator==(const ChannelListener &lhs, const ChannelListener &rhs);
+
 
 /// This class serves as a namespace for storing information about ChannelListeners. This is a feature
 /// that allows a user to listen to a channel without being in it. Kinda similar to linked channels
@@ -31,13 +50,11 @@ protected:
 	QHash< unsigned int, QSet< int > > m_listeningUsers;
 	/// A map between a channel's ID and a list of all user-sessions of users listening to that channel
 	QHash< int, QSet< unsigned int > > m_listenedChannels;
-#ifdef MUMBLE
 	/// A lock for guarding m_listenerVolumeAdjustments
 	mutable QReadWriteLock m_volumeLock;
 	/// A map between channel IDs and local volume adjustments to be made for ChannelListeners
 	/// in that channel
-	QHash< int, float > m_listenerVolumeAdjustments;
-#endif
+	std::unordered_map< ChannelListener, VolumeAdjustment > m_listenerVolumeAdjustments;
 
 public:
 	/// Constructor
@@ -84,29 +101,26 @@ public:
 	/// @returns The amount of channels the given user is listening to
 	int getListenedChannelCountForUser(unsigned int userSession) const;
 
-#ifdef MUMBLE
-	/// Sets the local volume adjustment for any channelListener in the given channel.
+	/// Sets the volume adjustment for the channelListener of the given user in the given channel.
 	///
+	/// @param userSession The session ID of the user
 	/// @param channelID The ID of the channel
 	/// @param volumeAdjustment The volume adjustment to apply
-	void setListenerLocalVolumeAdjustment(int channelID, float volumeAdjustment);
+	void setListenerVolumeAdjustment(unsigned int userSession, int channelID, const VolumeAdjustment &volumeAdjustment);
 
+	/// @param userSession The session ID of the user
 	/// @param channelID The ID of the channel
-	/// @param The local volume adjustment for the given channel. If none has been set,
-	/// 	1.0f is being returned.
-	float getListenerLocalVolumeAdjustment(int channelID) const;
+	/// @returns The volume adjustment for the listener of the given user in the given channel.
+	const VolumeAdjustment &getListenerVolumeAdjustment(unsigned int userSession, int channelID) const;
 
-	/// @param filter Whether to filter out adjustments of 1 (which have no effect)
+	/// @param userSession The session ID of the user whose listener's volume adjustments to obtain
 	/// @returns A map between channel IDs and the currently set volume adjustment
-	QHash< int, float > getAllListenerLocalVolumeAdjustments(bool filter = false) const;
-#endif
+	std::unordered_map< int, VolumeAdjustment > getAllListenerVolumeAdjustments(unsigned int userSession) const;
 
 	/// Clears all ChannelListeners and volume adjustments
 	void clear();
 signals:
-#ifdef MUMBLE
 	void localVolumeAdjustmentsChanged(int channelID, float newAdjustment, float oldAdjustment);
-#endif
 };
 
 #endif // MUMBLE_CHANNELLISTENERMANAGER_H_

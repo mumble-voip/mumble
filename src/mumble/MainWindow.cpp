@@ -29,7 +29,7 @@
 #endif
 #include "../SignalCurry.h"
 #include "ChannelListenerManager.h"
-#include "ListenerLocalVolumeSlider.h"
+#include "ListenerVolumeSlider.h"
 #include "Markdown.h"
 #include "MenuLabel.h"
 #include "PTTButtonWidget.h"
@@ -98,7 +98,7 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast< QEvent::Type >(OU_QEVEN
 MainWindow::MainWindow(QWidget *p)
 	: QMainWindow(p), m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
 	  m_userLocalVolumeSlider(make_qt_unique< UserLocalVolumeSlider >(this)),
-	  m_listenerLocalVolumeSlider(make_qt_unique< ListenerLocalVolumeSlider >(this)) {
+	  m_listenerVolumeSlider(make_qt_unique< ListenerVolumeSlider >(this)) {
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteServer, QLatin1String("skin:muted_server.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSuppressed, QLatin1String("skin:muted_suppressed.svg"));
@@ -1759,8 +1759,8 @@ void MainWindow::qmListener_aboutToShow() {
 		qmListener->addAction(m_localVolumeLabel.get());
 		Channel *channel = getContextMenuChannel();
 		if (channel) {
-			m_listenerLocalVolumeSlider->setListenedChannel(*channel);
-			qmListener->addAction(m_listenerLocalVolumeSlider.get());
+			m_listenerVolumeSlider->setListenedChannel(*channel);
+			qmListener->addAction(m_listenerVolumeSlider.get());
 			qmListener->addSeparator();
 		}
 

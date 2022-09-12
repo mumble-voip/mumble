@@ -339,6 +339,9 @@ ServerDB::ServerDB() {
 				SQLQUERY("ALTER TABLE `%1user_info` RENAME TO `%1user_info%2`");
 				SQLQUERY("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info%2`");
 			}
+			if (version >= 9) {
+				SQLQUERY("ALTER TABLE `%1channel_listeners` RENAME TO `%1channel_listeners%2`");
+			}
 		}
 
 		// Now we generate new tables that conform to the state-of-the-art structure
@@ -367,6 +370,9 @@ ServerDB::ServerDB() {
 				SQLDO("DROP TRIGGER IF EXISTS `%1acl_del_user`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1channel_links_del_channel`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1bans_del_server`");
+				SQLDO("DROP TRIGGER IF EXISTS `%1channel_listeners_del_server`");
+				SQLDO("DROP TRIGGER IF EXISTS `%1channel_listeners_del_channel`");
+				SQLDO("DROP TRIGGER IF EXISTS `%1channel_listeners_del_user`");
 
 				SQLDO("DROP INDEX IF EXISTS `%1log_time`");
 				SQLDO("DROP INDEX IF EXISTS `%1slog_time`");
@@ -463,6 +469,17 @@ ServerDB::ServerDB() {
 				  "`hash` TEXT, `reason` TEXT, `start` DATE, `duration` INTEGER)");
 			SQLDO("CREATE TRIGGER `%1bans_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM "
 				  "`%1bans` WHERE `server_id` = old.`server_id`; END;");
+
+			SQLDO("CREATE TABLE `%1channel_listeners` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, "
+				  "`channel_id` INTEGER NOT NULL, `volume_adjustment` FLOAT DEFAULT 1, `enabled` SMALLINT DEFAULT 1)");
+			SQLDO("CREATE TRIGGER `%1channel_listeners_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN "
+				  "DELETE FROM `%1channel_listeners` WHERE `server_id` = old.`server_id`; END;");
+			SQLDO("CREATE TRIGGER `%1channel_listeners_del_channel` AFTER DELETE ON `%1channels` FOR EACH ROW BEGIN "
+				  "DELETE FROM `%1channel_listeners` WHERE `server_id` = old.`server_id` AND `channel_id` = "
+				  "old.`channel_id`; END;");
+			SQLDO("CREATE TRIGGER `%1channel_listeners_del_user` AFTER DELETE ON `%1users` FOR EACH ROW BEGIN "
+				  "DELETE FROM `%1channel_listeners` WHERE `server_id` = old.`server_id` AND `user_id` = "
+				  "old.`user_id`; END;");
 		} else if (Meta::mp.qsDBDriver == "QPSQL") {
 			if (version > 0) {
 				typedef QPair< QString, QString > qsp;
@@ -594,6 +611,18 @@ ServerDB::ServerDB() {
 					 "varchar(255), `hash` CHAR(40), `reason` TEXT, `start` TIMESTAMP, `duration` INTEGER)");
 			SQLQUERY("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES "
 					 "`%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLQUERY(
+				"CREATE TABLE `%1channel_listeners` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, "
+				"`channel_id` INTEGER NOT NULL, `volume_adjustment` FLOAT DEFAULT 1, `enabled` SMALLINT DEFAULT 1)");
+			SQLQUERY("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_server` FOREIGN "
+					 "KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+			SQLQUERY("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_channel` FOREIGN KEY "
+					 "(`server_id`, "
+					 "`channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
+			SQLQUERY("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_user` FOREIGN KEY "
+					 "(`server_id`, "
+					 "`user_id`) REFERENCES `%1users`(`server_id`, `user_id`) ON DELETE CASCADE");
 		} else {
 			// MySQL
 			if (version > 0) {
@@ -694,6 +723,15 @@ ServerDB::ServerDB() {
 				  "varchar(255), `hash` CHAR(40), `reason` TEXT, `start` DATETIME, `duration` INTEGER) ENGINE=InnoDB");
 			SQLDO("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES "
 				  "`%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE `%1channel_listeners` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, "
+				  "`channel_id` INTEGER NOT NULL, `volume_adjustment` FLOAT DEFAULT 1, `enabled` SMALLINT DEFAULT 1)");
+			SQLDO("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_server` FOREIGN "
+				  "KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+			SQLDO("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_channel` FOREIGN KEY "
+				  "(`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
+			SQLDO("ALTER TABLE `%1channel_listeners` ADD CONSTRAINT `%1channel_listeners_del_user` FOREIGN KEY "
+				  "(`server_id`, `user_id`) REFERENCES `%1users`(`server_id`, `user_id`) ON DELETE CASCADE");
 		}
 
 		if (version == 0) {
@@ -809,6 +847,9 @@ ServerDB::ServerDB() {
 				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info%2`");
 			}
 
+			if (version >= 9) {
+				SQLDO("INSERT INTO `%1channel_listeners` SELECT * FROM `%1channel_listeners%2`");
+			}
 			if (Meta::mp.qsDBDriver == "QMYSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
@@ -826,6 +867,7 @@ ServerDB::ServerDB() {
 			SQLQUERY("DROP TABLE IF EXISTS `%1channels%2`");
 			SQLQUERY("DROP TABLE IF EXISTS `%1bans%2`");
 			SQLQUERY("DROP TABLE IF EXISTS `%1servers%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1channel_listeners%2`");
 
 			SQLDO_NO_CONVERSION(QLatin1String("UPDATE `%1meta` SET `value` = ")
 								+ QString::fromLatin1("'%1' WHERE `keystring` = 'version'").arg(DB_STRUCTURE_VERSION));
@@ -2369,6 +2411,129 @@ void Server::dblog(const QString &str) const {
 	query.addBindValue(iServerNum);
 	query.addBindValue(str);
 	SQLEXEC();
+}
+
+void Server::loadChannelListenersOf(const ServerUser &user) {
+	if (user.iId < 0) {
+		// Not registered
+		return;
+	}
+
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	SQLPREP("SELECT `channel_id`, `volume_adjustment`, `enabled` FROM `%1channel_listeners` WHERE `server_id` = ? AND "
+			"`user_id` = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(user.iId);
+	SQLEXEC();
+
+	while (query.next()) {
+		int channelID = query.value(0).toInt();
+		float volume  = query.value(1).toFloat();
+		bool enabled  = query.value(2).toUInt() == 1;
+
+		if (enabled) {
+			m_channelListenerManager.addListener(user.uiSession, channelID);
+		}
+
+		// We load the volume adjustment regardless of whether the listener is currently enabled in case the listener
+		// gets re-activated
+		m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channelID,
+															 VolumeAdjustment::fromFactor(volume));
+	}
+}
+
+void Server::addChannelListener(const ServerUser &user, const Channel &channel) {
+	if (user.iId >= 0) {
+		TransactionHolder th;
+		QSqlQuery &query = *th.qsqQuery;
+
+		// Update or insert entry
+		SQLPREP(
+			"SELECT COUNT(*) FROM `%1channel_listeners` WHERE `server_id` = ? AND `user_id` = ? AND `channel_id` = ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(user.iId);
+		query.addBindValue(channel.iId);
+
+		SQLEXEC();
+
+		bool entryAlreadyExists = query.next() && query.value(0).toInt() > 0;
+
+		if (entryAlreadyExists) {
+			SQLPREP("UPDATE `%1channel_listeners` SET `enabled` = 1 WHERE `server_id` = ? AND `user_id`= ? AND "
+					"`channel_id` = ?");
+		} else {
+			SQLPREP("INSERT INTO `%1channel_listeners` (`server_id`, `user_id`, `channel_id`) VALUES (?, ?, ?)");
+		}
+
+		query.addBindValue(iServerNum);
+		query.addBindValue(user.iId);
+		query.addBindValue(channel.iId);
+
+		SQLEXEC();
+	}
+
+	m_channelListenerManager.addListener(user.uiSession, channel.iId);
+}
+
+void Server::disableChannelListener(const ServerUser &user, const Channel &channel) {
+	if (!m_channelListenerManager.isListening(user.uiSession, channel.iId)) {
+		return;
+	}
+
+	if (user.iId >= 0) {
+		TransactionHolder th;
+		QSqlQuery &query = *th.qsqQuery;
+
+		SQLPREP("UPDATE `%1channel_listeners` SET `enabled` = ? WHERE `server_id` = ? AND `user_id` = ? AND "
+				"`channel_id` = ?");
+		// Explicit cast to int is required for Postgresql
+		query.addBindValue(static_cast< int >(false));
+		query.addBindValue(iServerNum);
+		query.addBindValue(user.iId);
+		query.addBindValue(channel.iId);
+		SQLEXEC();
+	}
+
+	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
+}
+
+void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
+	if (!m_channelListenerManager.isListening(user.uiSession, channel.iId)) {
+		return;
+	}
+
+	if (user.iId >= 0) {
+		TransactionHolder th;
+		QSqlQuery &query = *th.qsqQuery;
+
+		SQLPREP("DELETE FROM `%1channel_listeners` WHERE `server_id` = ? AND `user_id` = ? AND `channel_id` = ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(user.iId);
+		query.addBindValue(channel.iId);
+		SQLEXEC();
+	}
+
+	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
+}
+
+void Server::setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volumeAdjustment) {
+	if (user.iId >= 0) {
+		TransactionHolder th;
+		QSqlQuery &query = *th.qsqQuery;
+
+		SQLPREP("UPDATE `%1channel_listeners` SET `volume_adjustment` = ? WHERE `server_id` = ? AND `user_id` = ? AND "
+				"`channel_id` = ?");
+		query.addBindValue(volumeAdjustment);
+		query.addBindValue(iServerNum);
+		query.addBindValue(user.iId);
+		query.addBindValue(channel.iId);
+		SQLEXEC();
+	}
+
+	m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
+														 VolumeAdjustment::fromFactor(volumeAdjustment));
 }
 
 void ServerDB::wipeLogs() {

@@ -22,6 +22,7 @@
 #include "Timer.h"
 #include "User.h"
 #include "Version.h"
+#include "VolumeAdjustment.h"
 
 #ifndef Q_MOC_RUN
 #	include <boost/function.hpp>
@@ -144,7 +145,10 @@ public:
 	unsigned int iPluginMessageLimit;
 	unsigned int iPluginMessageBurst;
 
+	bool broadcastListenerVolumeAdjustments;
+
 	Version::full_t m_suggestVersion;
+
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
@@ -309,6 +313,7 @@ public:
 
 	QList< Ban > qlBans;
 
+	void addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, ServerUser &user, const Channel &channel);
 	void processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, AudioReceiverBuffer &buffer,
 					Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > &encoder);
 	void sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force = false);
@@ -380,6 +385,8 @@ public:
 	void clearTempGroups(User *user, Channel *cChannel = nullptr, bool recurse = true);
 	void startListeningToChannel(ServerUser *user, Channel *cChannel);
 	void stopListeningToChannel(ServerUser *user, Channel *cChannel);
+	void setListenerVolumeAdjustment(ServerUser *user, const Channel *cChannel,
+									 const VolumeAdjustment &volumeAdjustment);
 	void sendWelcomeMessageTo(ServerUser *user);
 signals:
 	void registerUserSig(int &, const QMap< int, QString > &);
@@ -456,7 +463,16 @@ public:
 	void setConf(const QString &key, const QVariant &value);
 	void dblog(const QString &str) const;
 
-	// From msgHandler. Implementation in Messages.cpp
+	// These functions perform both the necessary changes to ChannelListeners as
+	// well as persisting the changed listeners state to the DB. You should use
+	// these unless you have a good reason not to
+	void loadChannelListenersOf(const ServerUser &user);
+	void addChannelListener(const ServerUser &user, const Channel &channel);
+	void disableChannelListener(const ServerUser &user, const Channel &channel);
+	void deleteChannelListener(const ServerUser &user, const Channel &channel);
+	void setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volumeAdjustment);
+
+	// Implementation in Messages.cpp
 #define PROCESS_MUMBLE_TCP_MESSAGE(name, value) void msg##name(ServerUser *, MumbleProto::name &);
 	MUMBLE_ALL_TCP_MESSAGES
 #undef PROCESS_MUMBLE_TCP_MESSAGE
