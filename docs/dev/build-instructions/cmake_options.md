@@ -139,6 +139,11 @@ Build a heavily optimized version, specific to the machine it's being compiled o
 (No description available)
 (Default: ON)
 
+### OPUS_BUILD_TESTS
+
+(No description available)
+(Default: OFF)
+
 ### OPUS_STACK_PROTECTOR
 
 (No description available)
