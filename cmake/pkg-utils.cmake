@@ -249,24 +249,32 @@ function(get_pkgconf_variable)
 		message(FATAL_ERROR "get_pkgconf_variable: pkg-config was not found - can't use it to fetch variables")
 	endif()
 
-	if(GET_PKGCONF_VAR_DEBUG)
-		message(STATUS "get_pkgconf_variable: Searching for \"${GET_PKGCONF_VAR_VARIABLE_NAME}\" in module \"${GET_PKGCONF_VAR_MODULE}\"")
-	endif()
-
-	pkg_get_variable(VAR_VALUE "${GET_PKGCONF_VAR_MODULE}" "${GET_PKGCONF_VAR_VARIABLE_NAME}")
-
-	if(NOT VAR_VALUE AND GET_PKGCONF_VAR_VARIABLE_NAME MATCHES ".*_.*")
-		# There seems to be a difference between pkgconf and pkg-config where one uses underscores
-		# in variable names, whereas the other does not. We assume that VAR_NAME is the version with
-		# the underscores, so if that failed to fetch a value, we try again without the underscores.
-		string(REPLACE "_" "" VAR_NAME_WITHOUT_UNDERSCORES "${GET_PKGCONF_VAR_VARIABLE_NAME}")
-
+	pkg_search_module("${GET_PKGCONF_VAR_MODULE}" QUIET)
+	if(NOT ${GET_PKGCONF_VAR_MODULE}_FOUND)
 		if(GET_PKGCONF_VAR_DEBUG)
-			message(STATUS "get_pkgconf_variable: Removed underscores from variable name")
-			message(STATUS "get_pkgconf_variable: Now searching for variable \"${VAR_NAME_WITHOUT_UNDERSCORES}\"")
+			message(STATUS "Unable to find module \"${GET_PKGCONF_VAR_MODULE}\" via pkg-conf")
+			set(VAR_VALUE "NOTFOUND")
+		endif()
+	else()
+		if(GET_PKGCONF_VAR_DEBUG)
+			message(STATUS "get_pkgconf_variable: Searching for \"${GET_PKGCONF_VAR_VARIABLE_NAME}\" in module \"${GET_PKGCONF_VAR_MODULE}\"")
 		endif()
 
-		pkg_get_variable(VAR_VALUE "${GET_PKGCONF_VAR_MODULE}" "${VAR_NAME_WITHOUT_UNDERSCORES}")
+		pkg_get_variable(VAR_VALUE "${GET_PKGCONF_VAR_MODULE}" "${GET_PKGCONF_VAR_VARIABLE_NAME}")
+
+		if(NOT VAR_VALUE AND GET_PKGCONF_VAR_VARIABLE_NAME MATCHES ".*_.*")
+			# There seems to be a difference between pkgconf and pkg-config where one uses underscores
+			# in variable names, whereas the other does not. We assume that VAR_NAME is the version with
+			# the underscores, so if that failed to fetch a value, we try again without the underscores.
+			string(REPLACE "_" "" VAR_NAME_WITHOUT_UNDERSCORES "${GET_PKGCONF_VAR_VARIABLE_NAME}")
+
+			if(GET_PKGCONF_VAR_DEBUG)
+				message(STATUS "get_pkgconf_variable: Removed underscores from variable name")
+				message(STATUS "get_pkgconf_variable: Now searching for variable \"${VAR_NAME_WITHOUT_UNDERSCORES}\"")
+			endif()
+
+			pkg_get_variable(VAR_VALUE "${GET_PKGCONF_VAR_MODULE}" "${VAR_NAME_WITHOUT_UNDERSCORES}")
+		endif()
 	endif()
 
 	if(NOT VAR_VALUE)
