@@ -6,6 +6,8 @@
 add_library(mumble_server_database STATIC
 	"ServerDatabase.cpp"
 	"DBChannel.cpp"
+	"DBUser.cpp"
+	"DBUserData.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
@@ -13,14 +15,18 @@ add_library(mumble_server_database STATIC
 	"ConfigTable.cpp"
 	"ChannelTable.cpp"
 	"ChannelPropertyTable.cpp"
+	"UserTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
-target_link_libraries(mumble_server_database PUBLIC mumble_database)
+# We require boost::optional (until we can move to CXX17 and switch to std::optional), which was
+# introduced in Boost v1.30.0
+find_pkg(Boost 1.30.0 REQUIRED)
+
+target_link_libraries(mumble_server_database PUBLIC mumble_database GSL Boost::headers)
 
 target_include_directories(mumble_server_database
 	PUBLIC
 		"${SHARED_SOURCE_DIR}"
-		"${CMAKE_SOURCE_DIR}/src/murmur"
 )

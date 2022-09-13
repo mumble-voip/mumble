@@ -8,6 +8,7 @@
 
 #include "database/AccessException.h"
 #include "database/Backend.h"
+#include "database/FormatException.h"
 #include "database/NoDataException.h"
 
 #include "database/ChannelPropertyTable.h"
@@ -17,6 +18,7 @@
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
+#include "database/UserTable.h"
 
 #include "MumbleConstants.h"
 
@@ -24,6 +26,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
+#include <chrono>
 #include <cstring>
 #include <iostream>
 #include <unordered_map>
@@ -62,6 +66,24 @@ template<> char *toString(const std::string &str) {
 	return buffer;
 }
 
+template<> char *toString(const ::msdb::DBUserData &data) {
+	std::stringstream sstream;
+	sstream << "{ name: \"" << data.name << "\", last_active: "
+			<< std::chrono::duration_cast< std::chrono::seconds >(data.lastActive.time_since_epoch()).count()
+			<< ", last_disconnect: "
+			<< std::chrono::duration_cast< std::chrono::seconds >(data.lastDisconnect.time_since_epoch()).count()
+			<< ", last_channel_id: " << data.lastChannelID << ", texture: " << data.texture.size()
+			<< " bytes, password: { \"" << data.password.passwordHash << "\", \"" << data.password.salt << "\", "
+			<< data.password.kdfIterations << " } }";
+
+	std::string str = sstream.str();
+
+	char *buffer = new char[str.size() + 1];
+	std::strcpy(buffer, str.data());
+
+	return buffer;
+}
+
 }; // namespace QTest
 
 
@@ -76,6 +98,14 @@ void print_exception_message(const std::exception &e) {
 		print_exception_message(nested);
 	}
 }
+
+/**
+ * Helper function to convert a std::chrono::timepoint to seconds since epoch
+ */
+template< typename TimePoint > std::size_t toSeconds(const TimePoint &tp) {
+	return std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count();
+}
+
 
 class TestDB : public msdb::ServerDatabase {
 public:
@@ -100,6 +130,7 @@ private slots:
 	void configTable_general();
 	void channelTable_general();
 	void channelPropertyTable_general();
+	void userTable_general();
 };
 
 
@@ -366,6 +397,195 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 
 	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
 	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position));
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::userTable_general() {
+	BEGIN_TEST_CASE
+
+	const unsigned int existingServerID     = 0;
+	const unsigned int nonExistingServerID  = 5;
+	const unsigned int existingChannelID    = 1;
+	const unsigned int nonExistingChannelID = 5;
+	::msdb::DBChannel rootChannel;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel channel;
+	channel.serverID  = existingServerID;
+	channel.channelID = existingChannelID;
+	channel.parentID  = rootChannel.channelID;
+	channel.name      = "Test channel";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(channel);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(channel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+
+	::msdb::UserTable &table = db.getUserTable();
+
+	::msdb::DBUser testUser;
+	testUser.serverID         = existingServerID;
+	testUser.registeredUserID = 3;
+
+	::msdb::DBUserData testUserData;
+	testUserData.name = "Test user";
+
+	QVERIFY(!table.userExists(testUser));
+
+	table.addUser(testUser, testUserData.name);
+
+	QVERIFY(table.userExists(testUser));
+
+	// Adding a user with an invalid (empty) name should throw
+	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, 13), {}), ::mdb::FormatException);
+	// Adding a user to a non-existing server should throw
+	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(nonExistingServerID, 13), "bob"), ::mdb::AccessException);
+	// Adding a user with an already in-use ID should throw
+	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, testUser.registeredUserID), "bob"),
+							 ::mdb::AccessException);
+	// Adding a user with an already in-use name should throw
+	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, 14), testUserData.name),
+							 ::mdb::AccessException);
+
+#define CHECK_USER_DATA(user, data)                                                     \
+	QCOMPARE(table.getData(user), data);                                                \
+	QCOMPARE(toSeconds(table.getLastDisconnect(user)), toSeconds(data.lastDisconnect)); \
+	QCOMPARE(toSeconds(table.getLastActive(user)), toSeconds(data.lastActive));         \
+	QCOMPARE(table.getLastChannelID(user), data.lastChannelID);                         \
+	QCOMPARE(table.getTexture(user), data.texture);                                     \
+	QCOMPARE(table.getPassword(user), data.password);                                   \
+	QCOMPARE(table.getName(user), data.name);
+
+	CHECK_USER_DATA(testUser, testUserData);
+
+	testUserData.password.passwordHash = "Imagine this was a password hash";
+	const std::uint8_t textureBuffer[] = "< A beautiful avatar >";
+	testUserData.texture = std::vector< std::uint8_t >(textureBuffer, textureBuffer + sizeof(textureBuffer));
+
+	table.updateData(testUser, testUserData);
+	CHECK_USER_DATA(testUser, testUserData);
+
+	testUserData.name                     = "Alice";
+	const std::uint8_t newTextureBuffer[] = "Alice's very special texture 💓";
+	testUserData.texture = std::vector< std::uint8_t >(newTextureBuffer, newTextureBuffer + sizeof(newTextureBuffer));
+	testUserData.password.passwordHash  = "lksdhfsekldjf";
+	testUserData.password.salt          = "salt'n'pepper";
+	testUserData.password.kdfIterations = 424242;
+	testUserData.lastChannelID          = channel.channelID;
+	testUserData.lastActive             = std::chrono::steady_clock::now();
+	testUserData.lastDisconnect         = std::chrono::steady_clock::now();
+
+	table.updateData(testUser, testUserData);
+	CHECK_USER_DATA(testUser, testUserData);
+#undef CHECK_USER_DATA
+
+	// Test clear* functions
+	table.clearLastDisconnect(testUser);
+	QCOMPARE(table.getLastDisconnect(testUser), std::chrono::time_point< std::chrono::steady_clock >());
+
+	table.clearLastActive(testUser);
+	QCOMPARE(table.getLastActive(testUser), std::chrono::time_point< std::chrono::steady_clock >());
+
+	// "Clearing" the last channel really means resetting it to the root channel ID
+	table.clearLastChannelID(testUser);
+	QCOMPARE(table.getLastChannelID(testUser), Mumble::ROOT_CHANNEL_ID);
+
+	table.clearTexture(testUser);
+	QCOMPARE(table.getTexture(testUser), std::vector< std::uint8_t >());
+
+	table.clearPassword(testUser);
+	QCOMPARE(table.getPassword(testUser), ::msdb::DBUserData::PasswordData());
+
+
+	// Test set* functions
+	std::chrono::time_point< std::chrono::steady_clock > now = std::chrono::steady_clock::now();
+	table.setLastDisconnect(testUser, now);
+	QCOMPARE(toSeconds(table.getLastDisconnect(testUser)), toSeconds(now));
+
+	table.setLastActive(testUser, now);
+	QCOMPARE(toSeconds(table.getLastActive(testUser)), toSeconds(now));
+
+	table.setLastChannelID(testUser, existingChannelID);
+	QCOMPARE(table.getLastChannelID(testUser), existingChannelID);
+	QVERIFY_EXCEPTION_THROWN(table.setLastChannelID(testUser, nonExistingChannelID), ::mdb::AccessException);
+
+	table.setTexture(testUser, testUserData.texture);
+	QCOMPARE(table.getTexture(testUser), testUserData.texture);
+
+	table.setPassword(testUser, testUserData.password);
+	QCOMPARE(table.getPassword(testUser), testUserData.password);
+
+	testUserData.name = "Pia";
+	table.setName(testUser, testUserData.name);
+	QCOMPARE(table.getName(testUser), testUserData.name);
+	QVERIFY_EXCEPTION_THROWN(table.setName(testUser, ""), ::mdb::FormatException);
+
+
+	::msdb::DBUser nonExistingUser(existingServerID, 42);
+	QVERIFY(!table.userExists(nonExistingUser));
+
+	// All get* functions should throw, if given a non-existing user
+	QVERIFY_EXCEPTION_THROWN(table.getData(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getLastDisconnect(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getLastActive(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getLastChannelID(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getTexture(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getPassword(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getName(nonExistingUser), ::mdb::AccessException);
+
+
+	// Test findUser
+	boost::optional< unsigned int > userID = table.findUser(existingServerID, testUserData.name);
+	QVERIFY(userID);
+	QCOMPARE(userID.get(), testUser.registeredUserID);
+
+	userID = table.findUser(existingServerID, "I don't exist");
+	QVERIFY(!userID);
+
+	userID = table.findUser(nonExistingServerID, testUserData.name);
+	QVERIFY(!userID);
+
+
+	// Test getRegisteredUsers
+	::msdb::DBUser additionalUser(existingServerID, 128);
+	table.addUser(additionalUser, "Dummy name");
+	std::vector<::msdb::DBUser > expectedUsers = { testUser, additionalUser };
+	std::vector<::msdb::DBUser > actualUsers   = table.getRegisteredUsers(existingServerID);
+	QVERIFY(expectedUsers.size() == actualUsers.size()
+			&& std::is_permutation(expectedUsers.begin(), expectedUsers.end(), actualUsers.begin()));
+
+	actualUsers = table.getRegisteredUsers(nonExistingServerID);
+	QVERIFY(actualUsers.empty());
+
+
+	// Test that a user's last channel is reset to the root channel, if the referenced channel gets deleted
+	QVERIFY(channel.channelID != Mumble::ROOT_CHANNEL_ID);
+	table.setLastChannelID(testUser, channel.channelID);
+	QCOMPARE(table.getLastChannelID(testUser), channel.channelID);
+	db.getChannelTable().removeChannel(channel);
+	QCOMPARE(table.getLastChannelID(testUser), Mumble::ROOT_CHANNEL_ID);
+
+
+	// Test that changing a user's last channel automatically updates the last_active stats as well
+	std::chrono::time_point< std::chrono::steady_clock > lastActive(std::chrono::seconds(1200));
+	QVERIFY(toSeconds(lastActive) < toSeconds(std::chrono::steady_clock::now()));
+	table.setLastActive(testUser, lastActive);
+	QCOMPARE(toSeconds(table.getLastActive(testUser)), toSeconds(lastActive));
+	table.setLastChannelID(testUser, Mumble::ROOT_CHANNEL_ID);
+	QVERIFY(toSeconds(table.getLastActive(testUser)) > toSeconds(lastActive));
+
+
+	table.removeUser(testUser);
+	QVERIFY(!table.userExists(testUser));
 
 	END_TEST_CASE
 }
