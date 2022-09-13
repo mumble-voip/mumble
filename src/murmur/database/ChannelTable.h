@@ -28,8 +28,7 @@ namespace server {
 		 */
 		class ChannelTable : public ::mumble::db::Table {
 		public:
-			static constexpr const char *NAME             = "channels";
-			static constexpr unsigned int ROOT_CHANNEL_ID = 0;
+			static constexpr const char *NAME = "channels";
 
 			ChannelTable(soci::session &sql, ::mumble::db::Backend backend, const ServerTable &serverTable);
 			~ChannelTable() = default;
