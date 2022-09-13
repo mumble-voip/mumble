@@ -9,6 +9,7 @@
 #include "ConfigTable.h"
 #include "LogTable.h"
 #include "ServerTable.h"
+#include "UserTable.h"
 
 #include <cassert>
 
@@ -26,6 +27,7 @@ namespace server {
 				ConfigTable,
 				ChannelTable,
 				ChannelPropertyTable,
+				UserTable,
 			};
 		}
 
@@ -51,6 +53,9 @@ namespace server {
 			id = addTable(std::make_unique< ChannelPropertyTable >(m_sql, m_backend, getChannelTable()));
 			assert(id == TableIndex::ChannelPropertyTable);
 
+			id = addTable(std::make_unique< UserTable >(m_sql, m_backend, getServerTable(), getChannelTable()));
+			assert(id == TableIndex::UserTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -68,6 +73,7 @@ namespace server {
 		GET_TABLE_IMPL(ConfigTable)
 		GET_TABLE_IMPL(ChannelTable)
 		GET_TABLE_IMPL(ChannelPropertyTable)
+		GET_TABLE_IMPL(UserTable)
 
 	} // namespace db
 } // namespace server
