@@ -34,7 +34,6 @@ namespace server {
 		} // namespace column
 
 		constexpr const char *ChannelTable::NAME;
-		constexpr unsigned int ChannelTable::ROOT_CHANNEL_ID;
 
 		ChannelTable::ChannelTable(soci::session &sql, ::mdb::Backend backend, const ServerTable &serverTable)
 			: ::mdb::Table(sql, backend, NAME) {
