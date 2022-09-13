@@ -18,6 +18,8 @@
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
 
+#include "Channel.h"
+
 #include "TestUtils.h"
 
 #include <nlohmann/json.hpp>
@@ -233,7 +235,7 @@ void ServerDatabaseTest::channelTable_general() {
 
 	::msdb::DBChannel rootChannel;
 	rootChannel.serverID   = existingServerID;
-	rootChannel.channelID  = ::msdb::ChannelTable::ROOT_CHANNEL_ID;
+	rootChannel.channelID  = Channel::ROOT_ID;
 	rootChannel.parentID   = rootChannel.channelID;
 	rootChannel.name       = "Root";
 	rootChannel.inheritACL = false;
@@ -244,12 +246,11 @@ void ServerDatabaseTest::channelTable_general() {
 
 	QVERIFY(channelTable.channelExists(rootChannel));
 
-	::msdb::DBChannel fetchedData =
-		channelTable.getChannelData(existingServerID, ::msdb::ChannelTable::ROOT_CHANNEL_ID);
+	::msdb::DBChannel fetchedData = channelTable.getChannelData(existingServerID, Channel::ROOT_ID);
 	QCOMPARE(fetchedData, rootChannel);
 
 	// Referencing a non-existing server ID should throw an exception (as should using an invalid channel ID)
-	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, ::msdb::ChannelTable::ROOT_CHANNEL_ID),
+	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, Channel::ROOT_ID),
 							 ::mdb::NoDataException);
 	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(existingServerID, 5), ::mdb::NoDataException);
 
@@ -317,7 +318,7 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 		std::string("Random description"));
 	QCOMPARE(table.getProperty< int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers), 5);
 	QCOMPARE(table.getProperty< unsigned int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers),
-			 static_cast<unsigned int>(5));
+			 static_cast< unsigned int >(5));
 	// By default, querying non-existing values or using a wrong type will result in an exception
 	QVERIFY_EXCEPTION_THROWN(
 		table.getProperty< int >(nonExistingServerID, existingChannelID, ::msdb::ChannelProperty::Description),
