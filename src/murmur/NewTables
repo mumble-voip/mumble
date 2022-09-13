@@ -88,13 +88,17 @@
 		- NOT NULL
 	- texture
 		- BLOB
+		* DEFAULT: NULL
 	- last_active
 		- INTEGER (epoch time)
+		- NOT NULL
+		* DEFAULT: 0
 	- last_disconnect
 		- INTEGER (epoch time)
-	* FOREIGN KEY (server_id, last_channel_id) REFERENCES channels(server_id, channel_id)
-	* INDEX (server_id, last_channel_id)
+		- NOT NULL
+		* DEFAULT: 0
 	* PRIMARY KEY (server_id, user_id)
 	* UNIQUE INDEX (server_id, name)
 	*? TRIGGER AFTER UPDATE OF lastchannel ON users: SET last_active = NOW() WHERE user_id = old.user_id AND server_id = old.server_id
 	* FOREIGN KEY server_id REFERENCES servers(server_id)
+	(* TRIGGER AFTER DELETE ON channels: UPDATE users SET channel_id = 0 WHERE server_id = old.server_id AND last_channel_id = old.channel_id)
