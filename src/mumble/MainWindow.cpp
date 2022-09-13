@@ -19,6 +19,7 @@
 #include "Database.h"
 #include "DeveloperConsole.h"
 #include "Log.h"
+#include "MumbleConstants.h"
 #include "Net.h"
 #include "NetworkConfig.h"
 #include "GlobalShortcut.h"
@@ -137,7 +138,7 @@ MainWindow::MainWindow(QWidget *p)
 	forceQuit     = false;
 	restartOnQuit = false;
 
-	Channel::add(Channel::ROOT_ID, tr("Root"));
+	Channel::add(Mumble::ROOT_CHANNEL_ID, tr("Root"));
 
 	aclEdit   = nullptr;
 	banEdit   = nullptr;
@@ -601,7 +602,7 @@ MainWindow::~MainWindow() {
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
-	delete Channel::get(Channel::ROOT_ID);
+	delete Channel::get(Mumble::ROOT_CHANNEL_ID);
 }
 
 void MainWindow::msgBox(QString msg) {
@@ -1330,7 +1331,7 @@ void MainWindow::openUrl(const QUrl &url) {
 void MainWindow::findDesiredChannel() {
 	bool found          = false;
 	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
-	Channel *chan       = Channel::get(Channel::ROOT_ID);
+	Channel *chan       = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	QString str         = QString();
 	while (chan && qlChans.count() > 0) {
 		QString elem = qlChans.takeFirst().toLower();
@@ -2297,7 +2298,7 @@ void MainWindow::qmChannel_aboutToShow() {
 			remove = true;
 		}
 		if (!c)
-			c = Channel::get(Channel::ROOT_ID);
+			c = Channel::get(Mumble::ROOT_CHANNEL_ID);
 		unlinkall = (home->qhLinks.count() > 0);
 		if (home != c) {
 			if (c->allLinks().contains(home))
@@ -2436,7 +2437,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = getContextMenuChannel();
 	if (!c)
-		c = Channel::get(Channel::ROOT_ID);
+		c = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	unsigned int id = c->iId;
 
 	if (!c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
@@ -2461,7 +2462,7 @@ void MainWindow::on_qaChannelLink_triggered() {
 	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	Channel *l = getContextMenuChannel();
 	if (!l)
-		l = Channel::get(Channel::ROOT_ID);
+		l = Channel::get(Mumble::ROOT_CHANNEL_ID);
 
 	Global::get().sh->addChannelLink(c->iId, l->iId);
 }
@@ -2470,7 +2471,7 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	Channel *l = getContextMenuChannel();
 	if (!l)
-		l = Channel::get(Channel::ROOT_ID);
+		l = Channel::get(Mumble::ROOT_CHANNEL_ID);
 
 	Global::get().sh->removeChannelLink(c->iId, l->iId);
 }
@@ -2890,7 +2891,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 	if (idx < 0) {
 		switch (idx) {
 			case SHORTCUT_TARGET_ROOT:
-				c = Channel::get(Channel::ROOT_ID);
+				c = Channel::get(Mumble::ROOT_CHANNEL_ID);
 				break;
 			case SHORTCUT_TARGET_PARENT:
 			case SHORTCUT_TARGET_CURRENT:
@@ -3428,7 +3429,7 @@ void MainWindow::serverConnected() {
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
 
-	Channel *root = Channel::get(Channel::ROOT_ID);
+	Channel *root = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	pmModel->renameChannel(root, tr("Root"));
 	pmModel->setCommentHash(root, QByteArray());
 	root->uiPermissions = 0;

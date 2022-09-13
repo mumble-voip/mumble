@@ -25,6 +25,7 @@
 
 #include "Channel.h"
 #include "EchoCancelOption.h"
+#include "MumbleConstants.h"
 #include "QuitBehavior.h"
 #include "SSL.h"
 #include "SearchDialog.h"
@@ -55,7 +56,7 @@ struct Shortcut {
 };
 
 struct ChannelTarget {
-	unsigned int channelID = Channel::ROOT_ID;
+	unsigned int channelID = Mumble::ROOT_CHANNEL_ID;
 
 	ChannelTarget() = default;
 	ChannelTarget(unsigned int id) : channelID(id) {}

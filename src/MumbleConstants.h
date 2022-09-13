@@ -7,6 +7,10 @@
 #define MUMBLE_MUMBLECONSTANTS_H_
 
 namespace Mumble {
+
+constexpr unsigned int ROOT_CHANNEL_ID = 0;
+constexpr unsigned int SUPERUSER_ID    = 0;
+
 namespace Plugins {
 	namespace PluginMessage {
 
