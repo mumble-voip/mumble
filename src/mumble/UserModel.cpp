@@ -12,6 +12,7 @@
 #include "LCD.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "MumbleConstants.h"
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
@@ -267,7 +268,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	iChannelDescription = -1;
 	bClicked            = false;
 
-	miRoot = new ModelItem(Channel::get(Channel::ROOT_ID));
+	miRoot = new ModelItem(Channel::get(Mumble::ROOT_CHANNEL_ID));
 }
 
 UserModel::~UserModel() {
@@ -1059,7 +1060,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, &ClientUser::localVolumeAdjustmentsChanged, this, &UserModel::userStateChanged);
 	connect(p, &ClientUser::localNicknameChanged, this, &UserModel::userStateChanged);
 
-	Channel *c       = Channel::get(Channel::ROOT_ID);
+	Channel *c       = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	item->parent = citem;
@@ -1793,7 +1794,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 	Channel *c;
 	if (!p.isValid()) {
-		c = Channel::get(Channel::ROOT_ID);
+		c = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	} else {
 		c = getChannel(p);
 	}

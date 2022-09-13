@@ -19,6 +19,7 @@
 #include "Database.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "MumbleConstants.h"
 #include "GlobalShortcut.h"
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
@@ -177,7 +178,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 						 &AudioInput::onUserMuteDeafStateChanged);
 	}
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Mumble::ROOT_CHANNEL_ID)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
@@ -348,7 +349,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		channel = Channel::get(msg.channel_id());
 		if (!channel) {
 			qWarning("msgUserState(): unknown channel.");
-			channel = Channel::get(Channel::ROOT_ID);
+			channel = Channel::get(Mumble::ROOT_CHANNEL_ID);
 		}
 	}
 

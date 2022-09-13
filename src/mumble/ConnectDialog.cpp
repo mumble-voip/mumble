@@ -11,6 +11,7 @@
 
 #include "Channel.h"
 #include "Database.h"
+#include "MumbleConstants.h"
 #include "ServerHandler.h"
 #include "ServerResolver.h"
 #include "Utils.h"
@@ -783,7 +784,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 			unsigned short port = DEFAULT_MUMBLE_PORT;
 
 			Global::get().sh->getConnectionInfo(host, port, user, pw);
-			Channel *c = Channel::get(Channel::ROOT_ID);
+			Channel *c = Channel::get(Mumble::ROOT_CHANNEL_ID);
 			if (c && c->qsName != QLatin1String("Root")) {
 				name = c->qsName;
 			}

@@ -18,7 +18,7 @@
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
 
-#include "Channel.h"
+#include "MumbleConstants.h"
 
 #include "TestUtils.h"
 
@@ -235,7 +235,7 @@ void ServerDatabaseTest::channelTable_general() {
 
 	::msdb::DBChannel rootChannel;
 	rootChannel.serverID   = existingServerID;
-	rootChannel.channelID  = Channel::ROOT_ID;
+	rootChannel.channelID  = Mumble::ROOT_CHANNEL_ID;
 	rootChannel.parentID   = rootChannel.channelID;
 	rootChannel.name       = "Root";
 	rootChannel.inheritACL = false;
@@ -246,11 +246,11 @@ void ServerDatabaseTest::channelTable_general() {
 
 	QVERIFY(channelTable.channelExists(rootChannel));
 
-	::msdb::DBChannel fetchedData = channelTable.getChannelData(existingServerID, Channel::ROOT_ID);
+	::msdb::DBChannel fetchedData = channelTable.getChannelData(existingServerID, Mumble::ROOT_CHANNEL_ID);
 	QCOMPARE(fetchedData, rootChannel);
 
 	// Referencing a non-existing server ID should throw an exception (as should using an invalid channel ID)
-	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, Channel::ROOT_ID),
+	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, Mumble::ROOT_CHANNEL_ID),
 							 ::mdb::NoDataException);
 	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(existingServerID, 5), ::mdb::NoDataException);
 
