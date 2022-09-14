@@ -181,8 +181,8 @@ namespace server {
 						  << ") SELECT server_id, channel_id, :key, description FROM \"channels"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\" WHERE description IS NOT NULL",
 						soci::use(static_cast< int >(ChannelProperty::Description));
-				} else if (fromSchemeVersion < 9) {
-					// In v9 we renamed this table from "servers" to "virtual_servers"
+				} else if (fromSchemeVersion < 10) {
+					// In v10 we renamed this table from "servers" to "virtual_servers"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id
 						  << ") SELECT server_id FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";

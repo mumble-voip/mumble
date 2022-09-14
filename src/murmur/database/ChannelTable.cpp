@@ -218,8 +218,8 @@ namespace server {
 			assert(fromSchemeVersion < toSchemeVersion);
 
 			try {
-				if (fromSchemeVersion < 9) {
-					// In v9 we renamed columns "name" -> "channel_name" and "inheritacl" -> "inherit_acl"
+				if (fromSchemeVersion < 10) {
+					// In v10 we renamed columns "name" -> "channel_name" and "inheritacl" -> "inherit_acl"
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
 						  << ", " << column::parent_id << ", " << column::name << ", " << column::inherit_acl
 						  << ") SELECT server_id, channel_id, parent_id, name, inheritacl FROM \"channels"

@@ -26,7 +26,7 @@ namespace server {
 			 * has to be accompanied by increasing this number. A decrease is never allowed!
 			 * Using a scheme version like this allows us to be able to create migration paths between scheme versions.
 			 */
-			static constexpr unsigned int DB_SCHEME_VERSION = 9;
+			static constexpr unsigned int DB_SCHEME_VERSION = 10;
 
 			ServerDatabase(::mumble::db::Backend backend);
 			~ServerDatabase() = default;
