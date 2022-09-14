@@ -175,8 +175,8 @@ namespace server {
 						  << column::value << ") SELECT server_id, keystring, value FROM \"config"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 
-				} else if (fromSchemeVersion < 9) {
-					// In v9 we renamed the columns "key" -> "config_name" and "value" -> "config_value"
+				} else if (fromSchemeVersion < 10) {
+					// In v10 we renamed the columns "key" -> "config_name" and "value" -> "config_value"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::key << ", "
 						  << column::value << ") SELECT server_id, key, value FROM \"config"

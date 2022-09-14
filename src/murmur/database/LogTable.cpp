@@ -82,8 +82,8 @@ namespace server {
 			assert(fromSchemeVersion < toSchemeVersion);
 
 			try {
-				if (fromSchemeVersion < 9) {
-					// In v9 we renamed this table from "slog" to "server_logs"
+				if (fromSchemeVersion < 10) {
+					// In v10 we renamed this table from "slog" to "server_logs"
 					// -> Import all data from the old table into the new one
 					// Note that we also changed the type of the date column from DATE/TIMESTAMP to seconds since
 					// epoch -> this requires conversion
