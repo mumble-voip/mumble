@@ -6,9 +6,12 @@
 #ifndef MUMBLE_DATABASE_UTILS_H_
 #define MUMBLE_DATABASE_UTILS_H_
 
+#include "Backend.h"
 #include "NoDataException.h"
 
 #include <soci/soci.h>
+
+#include <string>
 
 namespace mumble {
 namespace db {
@@ -26,6 +29,13 @@ namespace db {
 								+ sql.get_last_query());
 			}
 		}
+
+		/**
+		 * @returns A SQL statement that will raise an error (and rollback the current transaction) that can
+		 * be used inside a trigger to signal an error.
+		 */
+		std::string triggerErrorStatement(Backend backend, const std::string &errorMsg);
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble
