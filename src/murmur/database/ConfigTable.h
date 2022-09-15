@@ -29,6 +29,14 @@ namespace server {
 		public:
 			static constexpr const char *NAME = "config";
 
+			struct column {
+				column()                               = delete;
+				static constexpr const char *server_id = "server_id";
+				static constexpr const char *key       = "config_name";
+				static constexpr const char *value     = "config_value";
+			};
+
+
 			ConfigTable(soci::session &sql, ::mumble::db::Backend backend, const ServerTable &serverTable);
 			~ConfigTable() = default;
 

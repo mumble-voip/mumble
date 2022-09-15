@@ -25,15 +25,13 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		namespace column {
-			constexpr const char *server_id   = "server_id";
-			constexpr const char *channel_id  = "channel_id";
-			constexpr const char *parent_id   = "parent_id";
-			constexpr const char *name        = "channel_name";
-			constexpr const char *inherit_acl = "inherit_acl";
-		} // namespace column
-
 		constexpr const char *ChannelTable::NAME;
+		constexpr const char *ChannelTable::column::server_id;
+		constexpr const char *ChannelTable::column::channel_id;
+		constexpr const char *ChannelTable::column::parent_id;
+		constexpr const char *ChannelTable::column::name;
+		constexpr const char *ChannelTable::column::inherit_acl;
+
 
 		ChannelTable::ChannelTable(soci::session &sql, ::mdb::Backend backend, const ServerTable &serverTable)
 			: ::mdb::Table(sql, backend, NAME) {

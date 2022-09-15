@@ -25,13 +25,11 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		namespace column {
-			constexpr const char *server_id = "server_id";
-			constexpr const char *message   = "message";
-			constexpr const char *date      = "message_date";
-		} // namespace column
-
 		constexpr const char *LogTable::NAME;
+		constexpr const char *LogTable::column::server_id;
+		constexpr const char *LogTable::column::message;
+		constexpr const char *LogTable::column::date;
+
 
 		LogTable::LogTable(soci::session &sql, ::mdb::Backend backend, const ServerTable &serverTable)
 			: ::mdb::Table(sql, backend, NAME) {

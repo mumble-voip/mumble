@@ -25,14 +25,12 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		namespace column {
-			constexpr const char *server_id  = "server_id";
-			constexpr const char *channel_id = "channel_id";
-			constexpr const char *key        = "property_key";
-			constexpr const char *value      = "property_value";
-		} // namespace column
-
 		constexpr const char *ChannelPropertyTable::NAME;
+		constexpr const char *ChannelPropertyTable::column::server_id;
+		constexpr const char *ChannelPropertyTable::column::channel_id;
+		constexpr const char *ChannelPropertyTable::column::key;
+		constexpr const char *ChannelPropertyTable::column::value;
+
 
 		ChannelPropertyTable::ChannelPropertyTable(soci::session &sql, ::mdb::Backend backend,
 												   const ChannelTable &channelTable)

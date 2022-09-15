@@ -25,13 +25,11 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		namespace column {
-			constexpr const char *server_id = "server_id";
-			constexpr const char *key       = "config_name";
-			constexpr const char *value     = "config_value";
-		} // namespace column
-
 		constexpr const char *ConfigTable::NAME;
+		constexpr const char *ConfigTable::column::server_id;
+		constexpr const char *ConfigTable::column::key;
+		constexpr const char *ConfigTable::column::value;
+
 
 		ConfigTable::ConfigTable(soci::session &sql, ::mdb::Backend backend, const ServerTable &serverTable)
 			: ::mdb::Table(sql, backend, NAME) {

@@ -6,23 +6,14 @@
 add_library(mumble_server_database STATIC
 	"ServerDatabase.cpp"
 	"DBChannel.cpp"
-)
 
-set(TABLE_IMPLEMENTATIONS
+	# Table implementations
 	"ServerTable.cpp"
 	"LogTable.cpp"
 	"ConfigTable.cpp"
 	"ChannelTable.cpp"
 	"ChannelPropertyTable.cpp"
 )
-
-foreach(CURRENT_TABLE IN LISTS TABLE_IMPLEMENTATIONS)
-	# As there are many duplicates in the used column name variables that all live in the
-	# same namespace in the cpp files, we have to avoid them being batched together.
-	set_source_files_properties("${CURRENT_TABLE}" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
-
-	target_sources(mumble_server_database PRIVATE "${CURRENT_TABLE}")
-endforeach()
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
