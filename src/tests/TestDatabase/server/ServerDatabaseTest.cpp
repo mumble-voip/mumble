@@ -33,7 +33,9 @@ namespace mdb  = ::mumble::db;
 namespace msdb = ::mumble::server::db;
 
 std::vector< mdb::Backend > backends = {
+#ifdef MUMBLE_TEST_SQLITE
 	mdb::Backend::SQLite,
+#endif
 #ifdef MUMBLE_TEST_MYSQL
 	mdb::Backend::MySQL,
 #endif
