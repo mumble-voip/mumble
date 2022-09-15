@@ -34,6 +34,14 @@ namespace server {
 		public:
 			static constexpr const char *NAME = "channel_properties";
 
+			struct column {
+				column()                                = delete;
+				static constexpr const char *server_id  = "server_id";
+				static constexpr const char *channel_id = "channel_id";
+				static constexpr const char *key        = "property_key";
+				static constexpr const char *value      = "property_value";
+			};
+
 			ChannelPropertyTable(soci::session &sql, ::mumble::db::Backend backend, const ChannelTable &channelTable);
 			~ChannelPropertyTable() = default;
 

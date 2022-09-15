@@ -23,11 +23,9 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		namespace column {
-			constexpr const char *server_id = "server_id";
-		}
-
 		constexpr const char *ServerTable::NAME;
+		constexpr const char *ServerTable::column::server_id;
+
 
 		ServerTable::ServerTable(soci::session &sql, ::mdb::Backend backend) : ::mdb::Table(sql, backend, NAME) {
 			::mdb::Column serverCol(column::server_id, ::mdb::DataType(::mdb::DataType::Integer),

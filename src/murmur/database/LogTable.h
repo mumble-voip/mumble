@@ -28,6 +28,14 @@ namespace server {
 		public:
 			static constexpr const char *NAME = "server_logs";
 
+			struct column {
+				column()                               = delete;
+				static constexpr const char *server_id = "server_id";
+				static constexpr const char *message   = "message";
+				static constexpr const char *date      = "message_date";
+			};
+
+
 			LogTable(soci::session &sql, ::mumble::db::Backend backend, const ServerTable &serverTable);
 			~LogTable() = default;
 
