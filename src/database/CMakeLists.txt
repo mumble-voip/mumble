@@ -21,6 +21,7 @@ add_library(mumble_database STATIC
 	"SQLiteConnectionParameter.cpp"
 	"Table.cpp"
 	"Trigger.cpp"
+	"Utils.cpp"
 	"Version.cpp"
 )
 
