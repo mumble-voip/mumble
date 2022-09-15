@@ -135,7 +135,7 @@ namespace db {
 				break;
 			case DataType::Blob:
 				if (backend == Backend::PostgreSQL) {
-					sqlRepr = "BYTEA";
+					sqlRepr = "OID";
 				} else {
 					sqlRepr = "BLOB";
 				}
