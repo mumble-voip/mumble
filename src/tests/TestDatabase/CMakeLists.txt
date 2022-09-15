@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-option(database-mysql-test "Whether to include the MySQL database tests (requires special setup)" OFF)
+option(database-mysql-tests "Whether to include the MySQL database tests (requires special setup)" OFF)
 option(database-postgresql-tests "Whether to include the PostgreSQL database tests (requires special setup)" OFF)
  
 add_executable(TestDatabase
