@@ -30,6 +30,16 @@ namespace server {
 		public:
 			static constexpr const char *NAME = "channels";
 
+			struct column {
+				column() = delete;
+				static constexpr const char *server_id   = "server_id";
+				static constexpr const char *channel_id  = "channel_id";
+				static constexpr const char *parent_id   = "parent_id";
+				static constexpr const char *name        = "channel_name";
+				static constexpr const char *inherit_acl = "inherit_acl";
+			};
+
+
 			ChannelTable(soci::session &sql, ::mumble::db::Backend backend, const ServerTable &serverTable);
 			~ChannelTable() = default;
 

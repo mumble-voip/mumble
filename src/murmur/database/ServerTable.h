@@ -24,6 +24,12 @@ namespace server {
 		public:
 			static constexpr const char *NAME = "virtual_servers";
 
+			struct column {
+				column()                               = delete;
+				static constexpr const char *server_id = "server_id";
+			};
+
+
 			ServerTable(soci::session &sql, ::mumble::db::Backend backend);
 			~ServerTable() = default;
 
