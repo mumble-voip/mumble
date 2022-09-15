@@ -36,7 +36,9 @@
 using namespace mumble::db;
 
 std::vector< Backend > backends = {
+#ifdef MUMBLE_TEST_SQLITE
 	Backend::SQLite,
+#endif
 #ifdef MUMBLE_TEST_MYSQL
 	Backend::MySQL,
 #endif

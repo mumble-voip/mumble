@@ -3,6 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+option(database-sqlite-tests "Whether to include the SQLite database tests" ON)
 option(database-mysql-tests "Whether to include the MySQL database tests (requires special setup)" OFF)
 option(database-postgresql-tests "Whether to include the PostgreSQL database tests (requires special setup)" OFF)
  
@@ -21,6 +22,9 @@ add_executable(TestDatabase
 
 set(MUMBLE_DB_TEST_DEFINES "")
 
+if(database-sqlite-tests)
+	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_SQLITE")
+endif()
 if(database-mysql-tests)
 	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_MYSQL")
 endif()
