@@ -4204,10 +4204,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Kullanıcılar kanalların üstünde</translation>
     </message>
     <message>
-        <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Bağlantıdayken programdan çıkmak istediğinizde, emin olup olmadığınızı sorar.&lt;/b&gt;</translation>
-    </message>
-    <message>
         <source>Show number of users in each channel</source>
         <translation>Her kanaldaki kullanıcı sayısını göster</translation>
     </message>
@@ -4271,14 +4267,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Channel Dragging</source>
         <translation>Kanal Kaydırma</translation>
-    </message>
-    <message>
-        <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>Mumble&apos;dan çıkış seçildiğinde uygulamanın kapatılması ve küçültülmesi seçimi sun.</translation>
-    </message>
-    <message>
-        <source>Ask on quit while connected</source>
-        <translation>Bağlantıdayken çıkışta sor</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4584,6 +4572,38 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <source>Action (Channel):</source>
         <translation>Eylem (Kanal):</translation>
     </message>
+    <message>
+        <source>Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always Ask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ask when connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimize when connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -4674,10 +4694,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Close</source>
         <translation>Kapat</translation>
-    </message>
-    <message>
-        <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>Mumble hâlihazırda bir sunucuya bağlıdır. Kapatmak mı istiyorsunuz, küçültmek mi?</translation>
     </message>
     <message>
         <source>Mute Self</source>
@@ -6527,6 +6543,14 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to conenct to a server or disable minimal view.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
