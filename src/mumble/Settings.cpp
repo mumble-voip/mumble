@@ -953,7 +953,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(ceUserDrag, "ui/userdrag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
-	LOAD(bAskOnQuit, "ui/askonquit");
 	LOAD(bEnableDeveloperMenu, "ui/developermenu");
 	LOAD(bLockLayout, "ui/locklayout");
 	LOAD(bMinimalView, "ui/minimalview");
@@ -993,6 +992,15 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(bLog24HourClock, "ui/24HourClock");
 	LOAD(iChatMessageMargins, "ui/ChatMessageMargins");
 	LOAD(bDisablePublicList, "ui/disablepubliclist");
+
+	if (settings_ptr->contains("ui/askonquit")) {
+		// Compatibility layer for overtaking the old (now deprecated) settings
+		// This block should only be called once at the first start of the new Mumble version
+		bool deprecatedAskOnQuit = true;
+		LOAD(deprecatedAskOnQuit, "ui/askonquit");
+
+		quitBehavior = deprecatedAskOnQuit ? QuitBehavior::ALWAYS_ASK : QuitBehavior::ALWAYS_QUIT;
+	}
 
 	// TalkingUI
 	LOAD(qpTalkingUI_Position, "ui/talkingUIPosition");

@@ -25,6 +25,7 @@
 
 #include "Channel.h"
 #include "EchoCancelOption.h"
+#include "QuitBehavior.h"
 #include "SSL.h"
 #include "SearchDialog.h"
 
@@ -407,7 +408,7 @@ struct Settings {
 	bool bMinimalView                    = false;
 	bool bHideFrame                      = false;
 	AlwaysOnTopBehaviour aotbAlwaysOnTop = OnTopNever;
-	bool bAskOnQuit                      = true;
+	QuitBehavior quitBehavior            = QuitBehavior::ALWAYS_ASK;
 	bool bEnableDeveloperMenu            = false;
 	bool bLockLayout                     = false;
 	bool bHideInTray                     = false;

@@ -150,7 +150,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 								execinfo.nShow       = SW_NORMAL;
 
 								if (ShellExecuteExW(&execinfo)) {
-									Global::get().mw->bSuppressAskOnQuit = true;
+									Global::get().mw->forceQuit = true;
 									qApp->closeAllWindows();
 								} else {
 									Global::get().mw->msgBox(tr("Failed to launch snapshot installer."));

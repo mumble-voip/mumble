@@ -149,11 +149,20 @@ void to_json(nlohmann::json &j, const Settings &settings) {
 	j[SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY] = settings.mumbleQuitNormally;
 }
 
-void migrateSettings(nlohmann::json json, int settingsVersion) {
+void migrateSettings(nlohmann::json &json, int settingsVersion) {
 	// Perform conversions required to transform the given JSON into the format applicable to be read out by the most
 	// recent standards
 
-	(void) json;
+	// Check if the old ask_on_quit key exists and the new one does not exist within the json file
+	if (json.contains("ask_on_quit")
+		&& (!json.contains(static_cast< const char * >(SettingsKeys::QUIT_BEHAVIOR_KEY)))) {
+		if (!json.at("ask_on_quit").get< bool >()) {
+			json[SettingsKeys::QUIT_BEHAVIOR_KEY] = QuitBehavior::ALWAYS_QUIT;
+		} else {
+			json[SettingsKeys::QUIT_BEHAVIOR_KEY] = QuitBehavior::ALWAYS_ASK;
+		}
+	}
+
 	(void) settingsVersion;
 }
 

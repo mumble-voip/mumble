@@ -113,7 +113,7 @@ public:
 	bool bRetryServer;
 	QString qsDesiredChannel;
 
-	bool bSuppressAskOnQuit;
+	bool forceQuit;
 	/// Restart the client after shutdown
 	bool restartOnQuit;
 	bool bAutoUnmute;

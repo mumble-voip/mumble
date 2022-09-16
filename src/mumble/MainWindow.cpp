@@ -132,9 +132,9 @@ MainWindow::MainWindow(QWidget *p)
 #ifdef Q_OS_WIN
 	uiNewHardware = 1;
 #endif
-	bSuppressAskOnQuit = false;
-	restartOnQuit      = false;
-	bAutoUnmute        = false;
+	forceQuit     = false;
+	restartOnQuit = false;
+	bAutoUnmute   = false;
 
 	Channel::add(Channel::ROOT_ID, tr("Root"));
 
@@ -524,29 +524,56 @@ bool MainWindow::nativeEvent(const QByteArray &, void *message, long *) {
 #endif
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+	ServerHandlerPtr sh               = Global::get().sh;
+	QuitBehavior quitBehavior         = Global::get().s.quitBehavior;
+	const bool alwaysAsk              = quitBehavior == QuitBehavior::ALWAYS_ASK;
+	const bool askDueToConnected      = sh && sh->isRunning() && quitBehavior == QuitBehavior::ASK_WHEN_CONNECTED;
+	const bool alwaysMinimize         = quitBehavior == QuitBehavior::ALWAYS_MINIMIZE;
+	const bool minimizeDueToConnected = sh && sh->isRunning() && quitBehavior == QuitBehavior::MINIMIZE_WHEN_CONNECTED;
+
+	if (!forceQuit && (alwaysAsk || askDueToConnected)) {
 #ifndef Q_OS_MAC
-	ServerHandlerPtr sh = Global::get().sh;
-	if (sh && sh->isRunning() && Global::get().s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
-					   tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"),
+					   tr("Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?"),
 					   QMessageBox::NoButton, this);
+		QCheckBox *qcbRemember   = new QCheckBox(tr("Remember this setting"));
 		QPushButton *qpbClose    = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
 		QPushButton *qpbCancel   = mb.addButton(tr("Cancel"), QMessageBox::RejectRole);
 		mb.setDefaultButton(qpbClose);
 		mb.setEscapeButton(qpbCancel);
+		mb.setCheckBox(qcbRemember);
 		mb.exec();
 		if (mb.clickedButton() == qpbMinimize) {
 			showMinimized();
 			e->ignore();
+
+			// If checkbox is checked and not connected, always minimize
+			// If checkbox is checked and connected, always minimize when connected
+			if (qcbRemember->isChecked() && !(sh && sh->isRunning())) {
+				Global::get().s.quitBehavior = QuitBehavior::ALWAYS_MINIMIZE;
+			} else if (qcbRemember->isChecked()) {
+				Global::get().s.quitBehavior = QuitBehavior::MINIMIZE_WHEN_CONNECTED;
+			}
+
 			return;
 		} else if (mb.clickedButton() == qpbCancel) {
 			e->ignore();
 			return;
 		}
-	}
-	sh.reset();
+
+		// If checkbox is checked, quit always
+		if (qcbRemember->isChecked()) {
+			Global::get().s.quitBehavior = QuitBehavior::ALWAYS_QUIT;
+		}
 #endif
+	} else if (!forceQuit && (alwaysMinimize || minimizeDueToConnected)) {
+		showMinimized();
+		e->ignore();
+		return;
+	}
+
+	sh.reset();
 
 	if (Global::get().s.bMinimalView) {
 		Global::get().s.qbaMinimalViewGeometry = saveGeometry();
@@ -2091,7 +2118,7 @@ void MainWindow::on_qaHide_triggered() {
 }
 
 void MainWindow::on_qaQuit_triggered() {
-	bSuppressAskOnQuit = true;
+	forceQuit = true;
 	this->close();
 }
 
@@ -2716,8 +2743,8 @@ void MainWindow::on_qaConfigDialog_triggered() {
 					   tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
 					   QMessageBox::Yes | QMessageBox::No)
 					   == QMessageBox::Yes) {
-				bSuppressAskOnQuit = true;
-				restartOnQuit      = true;
+				forceQuit     = true;
+				restartOnQuit = true;
 
 				close();
 			}
