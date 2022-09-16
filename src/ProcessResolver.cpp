@@ -239,7 +239,7 @@ void ProcessResolver::doResolve() {
 #	ifdef KVM_NO_FILES
 	kvm_t *kd = kvm_openfiles(NULL, NULL, NULL, KVM_NO_FILES, error);
 #	else
-	kvm_t *kd = kvm_openfiles(NULL, _PATH_DEVNULL, NULL, O_RDONLY, error);
+	kvm_t *kd                     = kvm_openfiles(NULL, _PATH_DEVNULL, NULL, O_RDONLY, error);
 #	endif
 
 	if (!kd) {
@@ -250,7 +250,13 @@ void ProcessResolver::doResolve() {
 	}
 
 	int n_procs;
+#	if defined(__NetBSD__)
+	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_ALL, 0, &n_procs);
+#	elif defined(__OpenBSD__)
+	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_ALL, 0, sizeof(*procs_info), &n_procs);
+#	else
 	struct kinfo_proc *procs_info = kvm_getprocs(kd, KERN_PROC_PROC, 0, &n_procs);
+#	endif
 	if (!procs_info) {
 #	ifndef QT_NO_DEBUG
 		qCritical("ProcessResolver: kvm_getprocs() failed\n");
@@ -261,7 +267,11 @@ void ProcessResolver::doResolve() {
 	}
 
 	for (int i = 0; i < n_procs; ++i) {
+#	if defined(__NetBSD__) || defined(__OpenBSD__)
+		addEntry(procs_info[i].p_pid, procs_info[i].p_comm, m_processMap);
+#	else
 		addEntry(procs_info[i].ki_pid, procs_info[i].ki_comm, m_processMap);
+#	endif
 	}
 
 	kvm_cleanup(kd);
