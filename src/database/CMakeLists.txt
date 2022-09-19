@@ -62,7 +62,8 @@ if (bundled-soci)
 		"soci_core_static"
 	)
 else()
-	find_pkg("Soci" 4.0.0 COMPONENTS mysql postgresql sqlite3 core REQUIRED)
+	# Only Soci 4.1 introduces the general BLOB operations that we require
+	find_pkg("Soci" 4.1.0 COMPONENTS mysql postgresql sqlite3 core REQUIRED)
 
 	set(soci_static "")
 	set(soci_components
