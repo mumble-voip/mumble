@@ -155,12 +155,15 @@ namespace db {
 				}
 				std::string triggerBody = "EXECUTE PROCEDURE lo_manage(" + currentCol.getName() + ");";
 
-				addTrigger(Trigger(currentCol.getName() + "_lo_manage_update_trigger", Trigger::Timing::Before,
-								   Trigger::Event::Update, triggerBody),
-						   false);
-				addTrigger(Trigger(currentCol.getName() + "_lo_manage_delete_trigger", Trigger::Timing::Before,
-								   Trigger::Event::Delete, triggerBody),
-						   false);
+				Trigger updateTrigger = Trigger(currentCol.getName() + "_lo_manage_update_trigger",
+												Trigger::Timing::Before, Trigger::Event::Update, triggerBody);
+				updateTrigger.setDropBeforeDeleteTable(false);
+				Trigger deleteTrigger = Trigger(currentCol.getName() + "_lo_manage_delete_trigger",
+												Trigger::Timing::Before, Trigger::Event::Delete, triggerBody);
+				deleteTrigger.setDropBeforeDeleteTable(false);
+
+				addTrigger(std::move(updateTrigger), false);
+				addTrigger(std::move(deleteTrigger), false);
 			}
 		}
 

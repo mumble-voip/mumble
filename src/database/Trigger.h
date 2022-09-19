@@ -42,6 +42,9 @@ namespace db {
 		const std::string &getBody() const;
 		void setBody(const std::string &body);
 
+		bool dropBeforeDeleteTable() const;
+		void setDropBeforeDeleteTable(bool drop);
+
 		std::string creationQuery(const Table &table, Backend backend) const;
 		std::string dropQuery(const Table &table, Backend backend) const;
 
@@ -53,6 +56,7 @@ namespace db {
 		Timing m_timing;
 		Event m_event;
 		std::string m_triggerBody;
+		bool dropBeforeDelete = true;
 	};
 
 } // namespace db
