@@ -144,6 +144,26 @@ namespace db {
 
 		createQuery += ")";
 
+
+		// In PostgreSQL, one is instructed to create special triggers for every BLOB column, that call
+		// lo_manage, which (presumably) makes sure that the created BLOBs are deleted once they are no longer
+		// referenced.
+		if (m_backend == Backend::PostgreSQL) {
+			for (const Column &currentCol : getColumns()) {
+				if (currentCol.getType().getType() != DataType::Blob) {
+					continue;
+				}
+				std::string triggerBody = "EXECUTE PROCEDURE lo_manage(" + currentCol.getName() + ");";
+
+				addTrigger(Trigger(currentCol.getName() + "_lo_manage_update_trigger", Trigger::Timing::Before,
+								   Trigger::Event::Update, triggerBody),
+						   false);
+				addTrigger(Trigger(currentCol.getName() + "_lo_manage_delete_trigger", Trigger::Timing::Before,
+								   Trigger::Event::Delete, triggerBody),
+						   false);
+			}
+		}
+
 		try {
 			m_sql << createQuery;
 
