@@ -31,7 +31,7 @@ namespace server {
 			static constexpr const char *NAME = "channels";
 
 			struct column {
-				column() = delete;
+				column()                                 = delete;
 				static constexpr const char *server_id   = "server_id";
 				static constexpr const char *channel_id  = "channel_id";
 				static constexpr const char *parent_id   = "parent_id";

@@ -19,7 +19,7 @@ namespace db {
 	class Index {
 	public:
 		enum Flag {
-			NONE = 0,
+			NONE   = 0,
 			UNIQUE = 1 << 0,
 		};
 
