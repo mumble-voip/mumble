@@ -33,4 +33,4 @@
 	url = https://github.com/lipis/flag-icons.git
 [submodule "3rdparty/soci"]
 	path = 3rdparty/soci
-	url = https://github.com/SOCI/soci.git
+	url = https://github.com/Krzmbrzl/soci.git
