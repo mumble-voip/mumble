@@ -5,6 +5,7 @@
 
 #include "Trigger.h"
 #include "Table.h"
+#include "UnsupportedOperationException.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -14,8 +15,17 @@ namespace mumble {
 namespace db {
 
 	Trigger::Trigger(const std::string &name, Trigger::Timing timing, Trigger::Event event,
-					 const std::string &triggerBody)
-		: m_name(name), m_timing(timing), m_event(event), m_triggerBody(triggerBody) {}
+					 const std::string &triggerBody, const std::string &condition)
+		: m_name(name), m_timing(timing), m_event(event), m_triggerBody(triggerBody), m_condition(condition) {
+		// Ensure trigger body always ends in semicolon
+		if (!boost::ends_with(m_triggerBody, ";") && !m_triggerBody.empty()) {
+			m_triggerBody += ";";
+		}
+		// Ensure condition never ends in semicolon
+		if (boost::ends_with(m_condition, ";")) {
+			m_condition.erase(m_condition.size() - 1);
+		}
+	}
 
 	const std::string &Trigger::getName() const { return m_name; }
 
@@ -31,7 +41,31 @@ namespace db {
 
 	const std::string &Trigger::getBody() const { return m_triggerBody; }
 
-	void Trigger::setBody(const std::string &body) { m_triggerBody = body; }
+	void Trigger::setBody(const std::string &body) {
+		m_triggerBody = body;
+
+		// Ensure trigger body always ends in semicolon
+		if (!boost::ends_with(m_triggerBody, ";") && !m_triggerBody.empty()) {
+			m_triggerBody += ";";
+		}
+	}
+
+	const std::string &Trigger::getCondition() const { return m_condition; }
+
+	void Trigger::setCondition(const std::string &condition) {
+		m_condition = condition;
+
+		// Ensure condition never ends in semicolon
+		if (boost::ends_with(m_condition, ";")) {
+			m_condition.erase(m_condition.size() - 1);
+		}
+	}
+
+	bool Trigger::hasCondition() const { return !getCondition().empty(); }
+
+	bool Trigger::dropBeforeDeleteTable() const { return dropBeforeDelete; }
+
+	void Trigger::setDropBeforeDeleteTable(bool drop) { dropBeforeDelete = drop; }
 
 	std::string Trigger::creationQuery(const Table &table, Backend backend) const {
 		std::string query = "CREATE TRIGGER \"" + m_name + "\"";
@@ -57,22 +91,58 @@ namespace db {
 		}
 
 		query += "ON \"" + table.getName() + "\" FOR EACH ROW ";
+
 		switch (backend) {
-			case Backend::SQLite:
-				// Fallthrough
-			case Backend::MySQL:
+			case Backend::SQLite: {
+				if (hasCondition()) {
+					query += "WHEN (" + m_condition + ") ";
+				}
 				query += "BEGIN " + m_triggerBody + " END";
 				break;
-			case Backend::PostgreSQL:
+			}
+			case Backend::MySQL: {
+				if (hasCondition()) {
+					// MySQL doesn't support the WHEN clause -> we require a workaround using IF statement
+					query += "BEGIN DECLARE trigger_condition BOOLEAN DEFAULT FALSE; ";
+					query += "SET trigger_condition = (SELECT " + m_condition + "); ";
+					query += "IF trigger_condition THEN " + m_triggerBody + " END IF; END";
+				} else {
+					query += "BEGIN " + m_triggerBody + " END";
+				}
+				break;
+			}
+			case Backend::PostgreSQL: {
 				if (boost::istarts_with(m_triggerBody, "EXECUTE PROCEDURE")) {
+					if (hasCondition()) {
+						throw UnsupportedOperationException(
+							"Can't use conditions with triggers containing an EXECUTE PROCEDURE body");
+					}
+
 					query += m_triggerBody;
 				} else {
 					// Postgres requires us to create a function that can then be executed by the trigger
-					query = "CREATE FUNCTION \"" + m_name + "_trigger_function\""
-							+ "() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ BEGIN " + m_triggerBody + " END; $$; " + query
-							+ "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
+					std::string queryPrefix = "CREATE FUNCTION \"" + m_name + "_trigger_function\""
+											  + "() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ ";
+					if (hasCondition()) {
+						queryPrefix += "DECLARE trigger_condition BOOLEAN DEFAULT FALSE;";
+						queryPrefix += "BEGIN SELECT " + m_condition + " INTO trigger_condition;";
+						queryPrefix += "IF trigger_condition THEN ";
+					} else {
+						queryPrefix += "BEGIN ";
+					}
+
+					queryPrefix += m_triggerBody;
+
+					if (hasCondition()) {
+						queryPrefix += " END IF; ";
+					}
+
+					queryPrefix += " END; $$; ";
+
+					query = queryPrefix + query + "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
 				}
 				break;
+			}
 		}
 
 		return query;
@@ -88,7 +158,7 @@ namespace db {
 				std::string query = "DROP TRIGGER \"" + m_name + "\" ON \"" + table.getName() + "\";";
 
 				// Also drop the function that we created for this trigger
-				query += " DROP FUNCTION \"" + m_name + "_trigger_function\"()";
+				query += " DROP FUNCTION IF EXISTS \"" + m_name + "_trigger_function\"()";
 
 				return query;
 		}

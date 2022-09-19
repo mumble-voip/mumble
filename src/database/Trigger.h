@@ -28,7 +28,7 @@ namespace db {
 		};
 
 		Trigger(const std::string &name = "", Timing timing = Timing::After, Event event = Event::Insert,
-				const std::string &triggerBody = "");
+				const std::string &triggerBody = "", const std::string &condition = "");
 
 		const std::string &getName() const;
 		void setName(const std::string &name);
@@ -41,6 +41,10 @@ namespace db {
 
 		const std::string &getBody() const;
 		void setBody(const std::string &body);
+
+		const std::string &getCondition() const;
+		void setCondition(const std::string &condition);
+		bool hasCondition() const;
 
 		bool dropBeforeDeleteTable() const;
 		void setDropBeforeDeleteTable(bool drop);
@@ -56,6 +60,7 @@ namespace db {
 		Timing m_timing;
 		Event m_event;
 		std::string m_triggerBody;
+		std::string m_condition;
 		bool dropBeforeDelete = true;
 	};
 
