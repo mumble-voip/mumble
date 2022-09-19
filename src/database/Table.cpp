@@ -8,6 +8,7 @@
 #include "DBUtils.h"
 #include "Database.h"
 #include "FormatException.h"
+#include "Trigger.h"
 
 #include "database/Column.h"
 #include <soci/soci.h>
@@ -149,6 +150,11 @@ namespace db {
 			// Also create all necessary indices
 			for (const Index &currentIndex : m_indices) {
 				m_sql << currentIndex.creationQuery(*this, m_backend);
+			}
+
+			// Finally, add triggers
+			for (const Trigger &currentTrigger : m_trigger) {
+				m_sql << currentTrigger.creationQuery(*this, m_backend);
 			}
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
