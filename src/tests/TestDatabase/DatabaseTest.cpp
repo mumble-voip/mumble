@@ -658,6 +658,8 @@ void DatabaseTest::triggers() {
 		Table *table       = db.getTable(id);
 		const Column *colA = table->findColumn("colA");
 		QVERIFY(colA != nullptr);
+		const Column *colB = table->findColumn("colB");
+		QVERIFY(colB != nullptr);
 
 		for (Trigger::Timing timing : { Trigger::Timing::Before, Trigger::Timing::After }) {
 			qInfo() << "Current timing:" << static_cast< int >(timing);
@@ -680,6 +682,16 @@ void DatabaseTest::triggers() {
 				// Adding without applying and then removing with applying should error
 				table->addTrigger(trigger, false);
 				QVERIFY_EXCEPTION_THROWN(table->removeTrigger(trigger, true), AccessException);
+				table->removeTrigger(trigger, false);
+
+				// Now create a trigger with a condition
+				Trigger conditionalTrigger("myConditionalTestTrigger", timing, event,
+										   "UPDATE \"" + table->getName() + "\" SET " + colA->getName() + "=1;",
+										   "EXISTS( SELECT 1 from \"" + table->getName() + "\" WHERE " + colB->getName()
+											   + " = 0.5 )");
+
+				table->addTrigger(conditionalTrigger, true);
+				table->removeTrigger(conditionalTrigger, true);
 			}
 		}
 	}
