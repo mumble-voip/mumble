@@ -14,9 +14,9 @@ namespace db {
 		std::string triggerErrorStatement(Backend backend, const std::string &errorMsg) {
 			switch (backend) {
 				case Backend::SQLite:
-					return "RAISE(ROLLBACK, '" + errorMsg + "')";
+					return "SELECT RAISE(ROLLBACK, '" + errorMsg + "')";
 				case Backend::MySQL:
-					return "SIGNAL SQLSTATE '45000' SET MESSAGE TEXT = '" + errorMsg + "'";
+					return "SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '" + errorMsg + "'";
 				case Backend::PostgreSQL:
 					return "RAISE EXCEPTION '" + errorMsg + "'";
 			}
