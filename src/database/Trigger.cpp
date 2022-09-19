@@ -6,6 +6,8 @@
 #include "Trigger.h"
 #include "Table.h"
 
+#include <boost/algorithm/string.hpp>
+
 #include <cassert>
 
 namespace mumble {
@@ -62,10 +64,14 @@ namespace db {
 				query += "BEGIN " + m_triggerBody + " END";
 				break;
 			case Backend::PostgreSQL:
-				// Postgres requires us to create a function that can then be executed by the trigger
-				query = "CREATE FUNCTION \"" + m_name + "_trigger_function\""
-						+ "() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ BEGIN " + m_triggerBody + " END; $$; " + query
-						+ "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
+				if (boost::istarts_with(m_triggerBody, "EXECUTE PROCEDURE")) {
+					query += m_triggerBody;
+				} else {
+					// Postgres requires us to create a function that can then be executed by the trigger
+					query = "CREATE FUNCTION \"" + m_name + "_trigger_function\""
+							+ "() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ BEGIN " + m_triggerBody + " END; $$; " + query
+							+ "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
+				}
 				break;
 		}
 
