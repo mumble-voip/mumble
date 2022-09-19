@@ -548,7 +548,8 @@ namespace db {
 					break;
 				}
 				case Backend::PostgreSQL: {
-					if (getBackendVersion() < Version{ 10, 0, 0 }) {
+					Version backendVersion = getBackendVersion();
+					if (backendVersion < Version{ 10, 0, 0 }) {
 						// Support for identity columns (which we use for auto-incrementing columns) was only added in
 						// PostgreSQL 10
 						throw InitException(
@@ -562,6 +563,23 @@ namespace db {
 
 					if (!boost::iequals(encoding, "utf8")) {
 						throw InitException("Invalid (non-UTF-8) database encoding encountered: " + encoding);
+					}
+
+					// Install the "lo" extension, which is used for managing (B)LOBs - it provides the lo_manage
+					// function that we require.
+					int lo_installed = false;
+					m_sql << "SELECT 1 FROM pg_extension WHERE extname='lo'", soci::into(lo_installed);
+					if (!lo_installed) {
+						// The "lo" extension was marked "trusted" in Postgresql v13, which means that from then on, we
+						// can install this extension without requiring superuser privileges. For older versions, the
+						// user will have to do this manually.
+						if (backendVersion < Version(13, 0, 0)) {
+							throw InitException(
+								"The extension \"lo\" is not installed, but is required. For your version of "
+								"Postgresql, you'll have to manually install this extension for the Mumble database.");
+						} else {
+							m_sql << "CREATE EXTENSION \"lo\";";
+						}
 					}
 
 					break;
