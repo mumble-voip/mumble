@@ -137,6 +137,10 @@ namespace db {
 						queryPrefix += " END IF; ";
 					}
 
+					// In PostgreSQL a trigger function must always return a value. Returning anything but NEW here,
+					// might alter the original query this trigger was fired for.
+					queryPrefix += "RETURN NEW; ";
+
 					queryPrefix += " END; $$; ";
 
 					query = queryPrefix + query + "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
