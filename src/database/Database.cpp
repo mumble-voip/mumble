@@ -251,6 +251,19 @@ namespace db {
 		std::size_t prevNTables = 0;
 		std::size_t nTables     = countTables(m_tables);
 
+		// First drop all triggers that are supposed to be dropped before the tables are deleted
+		for (const std::unique_ptr< Table > &currentTable : m_tables) {
+			if (!currentTable) {
+				continue;
+			}
+
+			for (const Trigger &currentTrigger : currentTable->getTrigger()) {
+				if (currentTrigger.dropBeforeDeleteTable()) {
+					m_sql << currentTrigger.dropQuery(*currentTable, m_backend);
+				}
+			}
+		}
+
 		while (prevNTables != nTables) {
 			std::unordered_set< std::string > referencedTables;
 
