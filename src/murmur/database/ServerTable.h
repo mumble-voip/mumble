@@ -39,6 +39,8 @@ namespace server {
 
 			bool serverExists(unsigned int id);
 
+			unsigned int getFreeServerID();
+
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 

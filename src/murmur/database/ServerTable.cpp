@@ -11,6 +11,7 @@
 #include "database/DataType.h"
 #include "database/Database.h"
 #include "database/PrimaryKey.h"
+#include "database/Utils.h"
 
 #include <soci/soci.h>
 
@@ -80,6 +81,23 @@ namespace server {
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(
 					::mdb::AccessException("Failed checking whether server with ID " + std::to_string(id) + " exists"));
+			}
+		}
+
+		unsigned int ServerTable::getFreeServerID() {
+			try {
+				int freeID = 0;
+
+				soci::transaction transaction(m_sql);
+
+				m_sql << ::mdb::utils::getLowestUnoccupiedIDStatement(m_backend, NAME, column::server_id),
+					soci::into(freeID);
+
+				transaction.commit();
+
+				return static_cast< unsigned int >(freeID);
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at fetching next free server ID"));
 			}
 		}
 
