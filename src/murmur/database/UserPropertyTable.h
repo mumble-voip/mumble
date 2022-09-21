@@ -29,7 +29,7 @@ namespace server {
 		class UserTable;
 
 		/**
-		 * Table for storing optional properties of channels. Optional in the sense that a given channel might or might
+		 * Table for storing optional properties of users. Optional in the sense that a given user might or might
 		 * not have a value set for the given property.
 		 */
 		class UserPropertyTable : public ::mumble::db::Table {
