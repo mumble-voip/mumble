@@ -19,6 +19,7 @@ namespace server {
 		class ChannelTable;
 		class ChannelPropertyTable;
 		class UserTable;
+		class UserPropertyTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -40,6 +41,7 @@ namespace server {
 			ChannelTable &getChannelTable();
 			ChannelPropertyTable &getChannelPropertyTable();
 			UserTable &getUserTable();
+			UserPropertyTable &getUserPropertyTable();
 
 		protected:
 			void setupStandardTables() override;

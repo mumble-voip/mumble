@@ -16,6 +16,7 @@ add_library(mumble_server_database STATIC
 	"ChannelTable.cpp"
 	"ChannelPropertyTable.cpp"
 	"UserTable.cpp"
+	"UserPropertyTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})

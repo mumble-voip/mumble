@@ -18,6 +18,8 @@
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
+#include "database/UserProperty.h"
+#include "database/UserPropertyTable.h"
 #include "database/UserTable.h"
 
 #include "MumbleConstants.h"
@@ -131,6 +133,7 @@ private slots:
 	void channelTable_general();
 	void channelPropertyTable_general();
 	void userTable_general();
+	void userPropertyTable_general();
 };
 
 
@@ -591,6 +594,85 @@ void ServerDatabaseTest::userTable_general() {
 
 	table.removeUser(testUser);
 	QVERIFY(!table.userExists(testUser));
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::userPropertyTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 0;
+	unsigned int nonExistingServerID = 5;
+	unsigned int existingUserID      = 0;
+	unsigned int nonExistingUserID   = 5;
+	::msdb::DBUser user(existingServerID, existingUserID);
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getUserTable().addUser(user, "Pete");
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getUserTable().userExists(user));
+	QVERIFY(!db.getUserTable().userExists(::msdb::DBUser(existingServerID, nonExistingUserID)));
+
+	::msdb::UserPropertyTable &table = db.getUserPropertyTable();
+
+	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::Email));
+
+	table.setProperty(user, ::msdb::UserProperty::Email, "pete@random.com");
+	table.setProperty(user, ::msdb::UserProperty::kdfIterations, std::to_string(5));
+
+	QCOMPARE(table.getProperty< std::string >(user, ::msdb::UserProperty::Email), std::string("pete@random.com"));
+	QCOMPARE(table.getProperty< int >(user, ::msdb::UserProperty::kdfIterations), 5);
+	QCOMPARE(table.getProperty< unsigned int >(user, ::msdb::UserProperty::kdfIterations),
+			 static_cast< unsigned int >(5));
+	// By default, querying non-existing values or using a wrong type will result in an exception
+	QVERIFY_EXCEPTION_THROWN(
+		table.getProperty< int >(::msdb::DBUser(nonExistingServerID, existingUserID), ::msdb::UserProperty::Email),
+		::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(
+		table.getProperty< int >(::msdb::DBUser(existingServerID, nonExistingUserID), ::msdb::UserProperty::Email),
+		::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(table.getProperty< int >(user, ::msdb::UserProperty::Comment), ::mdb::AccessException);
+	// However, we can instead request for a default value to be returned instead
+	std::string fetchedValue = table.getProperty< std::string, false >(
+		::msdb::DBUser(existingServerID, nonExistingUserID), ::msdb::UserProperty::Comment, "A random comment");
+	QCOMPARE(fetchedValue, std::string("A random comment"));
+	fetchedValue = table.getProperty< std::string, false >(user, ::msdb::UserProperty::Comment, "A random comment");
+	QCOMPARE(fetchedValue, std::string("A random comment"));
+
+	fetchedValue = table.getProperty< std::string, false >(user, ::msdb::UserProperty::Comment, "A random comment");
+	QCOMPARE(fetchedValue, std::string("A random comment"));
+
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::Email));
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
+
+	table.clearProperty(user, ::msdb::UserProperty::Email);
+
+	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::Email));
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
+
+	table.setProperty(user, ::msdb::UserProperty::CertificateHash, "CertHash");
+
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::CertificateHash));
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
+
+	table.clearAllProperties(::msdb::DBUser(nonExistingServerID, nonExistingUserID));
+
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::CertificateHash));
+	QVERIFY(table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
+
+	table.clearAllProperties(user);
+
+	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::CertificateHash));
+	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
 
 	END_TEST_CASE
 }
