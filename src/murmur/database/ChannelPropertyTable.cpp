@@ -181,10 +181,12 @@ namespace server {
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\" WHERE description IS NOT NULL",
 						soci::use(static_cast< int >(ChannelProperty::Description));
 				} else if (fromSchemeVersion < 10) {
-					// In v10 we renamed this table from "servers" to "virtual_servers"
+					// In v10 we renamed this table from "channel_info" to "channel_properties"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id
-						  << ") SELECT server_id FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::channel_id
+						  << ", " << column::key << ", " << column::value
+						  << ") SELECT server_id, channel_id, key, value FROM \"channel_info"
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
