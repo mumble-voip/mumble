@@ -346,7 +346,7 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 
 	::msdb::ChannelPropertyTable &table = db.getChannelPropertyTable();
 
-	QVERIFY(!table.isPropertySet(existingChannelID, existingChannelID, ::msdb::ChannelProperty::Description));
+	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description));
 
 	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, "Random description");
 	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers, std::to_string(5));
@@ -397,6 +397,11 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 
 	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers));
 	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position));
+
+	// Get a default string value
+	std::string fetchedStr = table.getProperty< std::string, false >(
+		existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, "My default");
+	QCOMPARE(fetchedStr, std::string("My default"));
 
 	END_TEST_CASE
 }
