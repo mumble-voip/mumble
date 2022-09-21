@@ -75,8 +75,8 @@ namespace server {
 				return val;
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
-					"Failed at fetching property " + std::to_string(static_cast< int >(property)) + " for channel "
-					+ std::to_string(channelID) + " on server " + std::to_string(serverID)));
+					"Failed at fetching property " + std::to_string(static_cast< int >(property))
+					+ " for channel with ID " + std::to_string(channelID) + " on server " + std::to_string(serverID)));
 			}
 		}
 
@@ -97,7 +97,8 @@ namespace server {
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
 					"Failed at checking whether property " + std::to_string(static_cast< int >(property))
-					+ " is set for channel " + std::to_string(channelID) + " on server " + std::to_string(serverID)));
+					+ " is set for channel with ID " + std::to_string(channelID) + " on server "
+					+ std::to_string(serverID)));
 			}
 		}
 
@@ -125,7 +126,7 @@ namespace server {
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
 					"Failed at setting or updating property " + std::to_string(static_cast< int >(property))
-					+ " for channel " + std::to_string(channelID) + " on server " + std::to_string(serverID)));
+					+ " for channel with ID " + std::to_string(channelID) + " on server " + std::to_string(serverID)));
 			}
 		}
 
@@ -141,8 +142,8 @@ namespace server {
 				transaction.commit();
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
-					"Failed at clearing property " + std::to_string(static_cast< int >(property)) + " for channel "
-					+ std::to_string(channelID) + " on channel " + std::to_string(serverID)));
+					"Failed at clearing property " + std::to_string(static_cast< int >(property))
+					+ " for channel with ID " + std::to_string(channelID) + " on server " + std::to_string(serverID)));
 			}
 		}
 
@@ -156,8 +157,8 @@ namespace server {
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at clearing all properties for channel "
-															  + std::to_string(channelID) + " on channel "
+				std::throw_with_nested(::mdb::AccessException("Failed at clearing all properties for channel with ID "
+															  + std::to_string(channelID) + " on server "
 															  + std::to_string(serverID)));
 			}
 		}
