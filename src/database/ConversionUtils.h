@@ -3,8 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_DATABASE_UTILS_H_
-#define MUMBLE_DATABASE_UTILS_H_
+#ifndef MUMBLE_DATABASE_CONVERSIONUTILS_H_
+#define MUMBLE_DATABASE_CONVERSIONUTILS_H_
 
 #include <string>
 
@@ -27,4 +27,4 @@ namespace db {
 } // namespace db
 } // namespace mumble
 
-#endif // MUMBLE_DATABASE_UTILS_H_
+#endif // MUMBLE_DATABASE_CONVERSIONUTILS_H_
