@@ -34,8 +34,10 @@ namespace server {
 			~ServerTable() = default;
 
 			void addServer(unsigned int id);
+
 			void removeServer(unsigned int id);
-			bool serverExists(unsigned int id) const;
+
+			bool serverExists(unsigned int id);
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};

@@ -28,8 +28,7 @@ namespace server {
 
 
 		ServerTable::ServerTable(soci::session &sql, ::mdb::Backend backend) : ::mdb::Table(sql, backend, NAME) {
-			::mdb::Column serverCol(column::server_id, ::mdb::DataType(::mdb::DataType::Integer),
-									::mdb::Column::AUTOINCREMENT);
+			::mdb::Column serverCol(column::server_id, ::mdb::DataType(::mdb::DataType::Integer));
 
 			serverCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
 
@@ -64,7 +63,7 @@ namespace server {
 			}
 		}
 
-		bool ServerTable::serverExists(unsigned int id) const {
+		bool ServerTable::serverExists(unsigned int id) {
 			try {
 				int exists = 0;
 
