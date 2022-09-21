@@ -35,7 +35,7 @@ namespace server {
 		class ChannelTable;
 
 		/**
-		 * Table for storing the existing channels
+		 * Table for storing the existing users
 		 */
 		class UserTable : public ::mumble::db::Table {
 		public:
