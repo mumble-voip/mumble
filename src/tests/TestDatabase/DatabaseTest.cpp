@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 #include <sstream>
 #include <unordered_set>
 #include <vector>
@@ -97,7 +98,12 @@ public:
 	using Database::Database;
 	~TestDatabase() override {
 		// Clear up everything that we have created in our test case
-		this->destroyTables();
+		try {
+			this->destroyTables();
+		} catch (const Exception &e) {
+			std::cerr << "Exception encountered while destroying tables:" << std::endl;
+			std::cerr << e.what() << std::endl;
+		}
 	}
 
 	unsigned int getSchemeVersion() const override { return 42; }

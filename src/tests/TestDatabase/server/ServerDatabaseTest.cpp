@@ -65,13 +65,30 @@ template<> char *toString(const std::string &str) {
 }; // namespace QTest
 
 
+/**
+ * Helper function to print exception messages that can also fully unfold nested exceptions
+ */
+void print_exception_message(const std::exception &e) {
+	std::cerr << "  " << e.what() << "\n";
+	try {
+		std::rethrow_if_nested(e);
+	} catch (const std::exception &nested) {
+		print_exception_message(nested);
+	}
+}
+
 class TestDB : public msdb::ServerDatabase {
 public:
 	using msdb::ServerDatabase::ServerDatabase;
 
 	~TestDB() override {
 		// Clear up everything that we have created in our test case
-		this->destroyTables();
+		try {
+			this->destroyTables();
+		} catch (const ::mdb::Exception &e) {
+			std::cerr << "Exception encountered while destroying tables:" << std::endl;
+			print_exception_message(e);
+		}
 	}
 };
 
@@ -84,18 +101,6 @@ private slots:
 	void channelTable_general();
 	void channelPropertyTable_general();
 };
-
-/**
- * Helper function to print exception messages that can also fully unfold nested exceptions
- */
-void print_exception_message(const std::exception &e) {
-	std::cerr << "  " << e.what() << "\n";
-	try {
-		std::rethrow_if_nested(e);
-	} catch (const std::exception &nested) {
-		print_exception_message(nested);
-	}
-}
 
 
 
