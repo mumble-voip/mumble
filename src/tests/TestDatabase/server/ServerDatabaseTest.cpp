@@ -505,7 +505,7 @@ void ServerDatabaseTest::userTable_general() {
 
 	// "Clearing" the last channel really means resetting it to the root channel ID
 	table.clearLastChannelID(testUser);
-	QCOMPARE(table.getLastChannelID(testUser), Mumble::ROOT_CHANNEL_ID);
+	QCOMPARE(table.getLastChannelID(testUser), static_cast< unsigned int >(Mumble::ROOT_CHANNEL_ID));
 
 	table.clearTexture(testUser);
 	QCOMPARE(table.getTexture(testUser), std::vector< std::uint8_t >());
@@ -580,7 +580,7 @@ void ServerDatabaseTest::userTable_general() {
 	table.setLastChannelID(testUser, channel.channelID);
 	QCOMPARE(table.getLastChannelID(testUser), channel.channelID);
 	db.getChannelTable().removeChannel(channel);
-	QCOMPARE(table.getLastChannelID(testUser), Mumble::ROOT_CHANNEL_ID);
+	QCOMPARE(table.getLastChannelID(testUser), static_cast< unsigned int >(Mumble::ROOT_CHANNEL_ID));
 
 
 	// Test that changing a user's last channel automatically updates the last_active stats as well
