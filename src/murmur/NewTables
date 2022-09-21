@@ -116,3 +116,28 @@
 		- NOT NULL
 	* PRIMARY KEY: (server_id, user_id, property_key)
 	* FOREIGN KEY: (server_id, user_id, key) REFERENCES channels(server_id, channel_id)
+
+- groups
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- group_id
+		- INTEGER
+		- NOT NULL
+	- group_name
+		- VARCHAR(255)
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- inherit
+		- INTEGER
+		- NOT NULL
+		* DEFAULT: 1
+	- is_inheritable
+		- INTEGER
+		- NOT NULL
+		* DEFAULT: 1
+	* PRIMARY KEY(server_id, group_id)
+	* FOREIGN KEY (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* UNIQUE INDEX (server_id, channel_id, name)
