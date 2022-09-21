@@ -9,7 +9,7 @@ add_library(mumble_database STATIC
 	"Backend.cpp"
 	"Column.cpp"
 	"Constraint.cpp"
-	"DBUtils.cpp"
+	"ConversionUtils.cpp"
 	"DataType.cpp"
 	"ForeignKey.cpp"
 	"Database.cpp"
