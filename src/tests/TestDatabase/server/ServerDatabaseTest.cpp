@@ -584,7 +584,7 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test that changing a user's last channel automatically updates the last_active stats as well
-	std::chrono::time_point< std::chrono::steady_clock > lastActive(std::chrono::seconds(1200));
+	std::chrono::time_point< std::chrono::steady_clock > lastActive(std::chrono::seconds(12));
 	QVERIFY(toSeconds(lastActive) < toSeconds(std::chrono::steady_clock::now()));
 	table.setLastActive(testUser, lastActive);
 	QCOMPARE(toSeconds(table.getLastActive(testUser)), toSeconds(lastActive));
