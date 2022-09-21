@@ -14,6 +14,7 @@
 #include "database/MetaTable.h"
 #include "database/Trigger.h"
 #include "database/UnsupportedOperationException.h"
+#include "database/Utils.h"
 
 #include "AutoIncrementTable.h"
 #include "CompositeForeignKeyTable.h"
@@ -21,6 +22,7 @@
 #include "ConstraintTable.h"
 #include "DefaultTable.h"
 #include "ForeignKeyTable.h"
+#include "IntegerTable.h"
 #include "KeyValueTable.h"
 #include "PrimaryKeyTable.h"
 #include "TestUtils.h"
@@ -136,6 +138,7 @@ private slots:
 	void dataTypes();
 	void keyValueTable();
 	void unicode();
+	void fetchMinimumFreeID();
 };
 
 void DatabaseTest::connect() {
@@ -800,6 +803,45 @@ void DatabaseTest::unicode() {
 			QCOMPARE(table->query(symbol), symbol);
 			table->clear();
 		}
+	}
+}
+
+void DatabaseTest::fetchMinimumFreeID() {
+	for (Backend currentBackend : backends) {
+		qInfo() << "Current backend:" << QString::fromStdString(backendToString(currentBackend));
+
+		TestDatabase db(currentBackend);
+
+		Database::table_id id = db.addTable(std::make_unique< test::IntegerTable >(db.getSQLHandle(), currentBackend));
+
+		db.init(test::utils::getConnectionParamter(currentBackend));
+
+		test::IntegerTable *table = static_cast< test::IntegerTable * >(db.getTable(id));
+
+		// Default-populate table
+		table->init();
+
+		int fetchedID =
+			table->selectMinFreeID(utils::getLowestUnoccupiedIDStatement(currentBackend, test::IntegerTable::NAME,
+																		 test::IntegerTable::column::int_col),
+								   "second", nullptr);
+		QCOMPARE(fetchedID, test::IntegerTable::lowestID_unconstrained);
+
+		std::string secondColReq = "";
+		fetchedID =
+			table->selectMinFreeID(utils::getLowestUnoccupiedIDStatement(
+									   currentBackend, test::IntegerTable::NAME, test::IntegerTable::column::int_col,
+									   { utils::ColAlias(::test::IntegerTable::column::second_col, "second") }),
+								   "second", &secondColReq);
+		QCOMPARE(fetchedID, test::IntegerTable::lowestID_second_empty);
+
+		secondColReq = "bla";
+		fetchedID =
+			table->selectMinFreeID(utils::getLowestUnoccupiedIDStatement(
+									   currentBackend, test::IntegerTable::NAME, test::IntegerTable::column::int_col,
+									   { utils::ColAlias(::test::IntegerTable::column::second_col, "second") }),
+								   "second", &secondColReq);
+		QCOMPARE(fetchedID, test::IntegerTable::lowestID_second_bla);
 	}
 }
 

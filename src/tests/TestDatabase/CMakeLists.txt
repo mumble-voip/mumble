@@ -18,6 +18,7 @@ add_executable(TestDatabase
 	CompositePrimaryKeyTable.cpp
 	ForeignKeyTable.cpp
 	CompositeForeignKeyTable.cpp
+	IntegerTable.cpp
 )
 
 set(MUMBLE_DB_TEST_DEFINES "")

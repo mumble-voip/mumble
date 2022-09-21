@@ -12,6 +12,7 @@
 #include <soci/soci.h>
 
 #include <string>
+#include <vector>
 
 namespace mumble {
 namespace db {
@@ -35,6 +36,18 @@ namespace db {
 		 * be used inside a trigger to signal an error.
 		 */
 		std::string triggerErrorStatement(Backend backend, const std::string &errorMsg);
+
+		struct ColAlias {
+			std::string colName  = {};
+			std::string colAlias = {};
+
+			ColAlias(std::string colName);
+			ColAlias(std::string colName, std::string colAlias);
+		};
+
+		std::string getLowestUnoccupiedIDStatement(Backend backend, const std::string &tableName,
+												   const std::string &idColName,
+												   const std::vector< ColAlias > &additionalCols = {});
 
 	} // namespace utils
 } // namespace db
