@@ -13,6 +13,7 @@
 #include "database/Database.h"
 #include "database/ForeignKey.h"
 #include "database/NoDataException.h"
+#include "database/Utils.h"
 
 #include <soci/soci.h>
 
@@ -189,19 +190,13 @@ namespace server {
 
 				unsigned int id = 0;
 
-				// There does not seem to be a good way of finding the first non-occupied integer in the column, which
-				// would allow us to fill gaps in the range of used channel IDs before using larger IDs. Thus, we'll
-				// just have to live with the fact that the found ID will always be larger than the largest currently
-				// used channel ID. Holes in the range created by deleted channels won't be filled unless all channels
-				// with higher IDs have been deleted as well. However, since we don't expect to get millions and
-				// millions of channels, this should not cause any issues.
-				m_sql << "SELECT MAX(" << column::channel_id << ") + 1 FROM \"" << NAME << "\" WHERE "
-					  << column::server_id << " = :serverID",
-					soci::use(serverID), soci::into(id);
+				m_sql << ::mdb::utils::getLowestUnoccupiedIDStatement(
+					m_backend, NAME, column::channel_id, { ::mdb::utils::ColAlias(column::server_id, "serverID") }),
+					soci::use(serverID, "serverID"), soci::into(id);
 
 				transaction.commit();
 
-				assert(id > 0);
+				::mdb::utils::verifyQueryResultedInData(m_sql);
 
 				return id;
 			} catch (const soci::soci_error &) {

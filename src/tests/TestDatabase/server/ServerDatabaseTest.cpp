@@ -267,11 +267,14 @@ void ServerDatabaseTest::channelTable_general() {
 	BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 1;
+	unsigned int otherServerID       = 2;
 	unsigned int nonExistingServerID = 5;
 
 	db.getServerTable().addServer(existingServerID);
+	db.getServerTable().addServer(otherServerID);
 
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(db.getServerTable().serverExists(otherServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
 
 	::msdb::ChannelTable &channelTable = db.getChannelTable();
@@ -299,6 +302,8 @@ void ServerDatabaseTest::channelTable_general() {
 							 ::mdb::NoDataException);
 	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(existingServerID, 5), ::mdb::NoDataException);
 
+	QCOMPARE(channelTable.getFreeChannelID(existingServerID), static_cast< unsigned int >(1));
+
 	::msdb::DBChannel other;
 	other.serverID   = nonExistingServerID;
 	other.channelID  = channelTable.getFreeChannelID(existingServerID);
@@ -325,6 +330,22 @@ void ServerDatabaseTest::channelTable_general() {
 	fetchedData = channelTable.getChannelData(updatedOther.serverID, updatedOther.channelID);
 	QCOMPARE(fetchedData, updatedOther);
 
+	QCOMPARE(channelTable.getFreeChannelID(existingServerID), static_cast< unsigned int >(2));
+
+	::msdb::DBChannel third;
+	third.serverID  = existingServerID;
+	third.channelID = channelTable.getFreeChannelID(existingServerID);
+	third.parentID  = rootChannel.channelID;
+	third.name      = "Third channel";
+
+	channelTable.addChannel(third);
+	channelTable.removeChannel(other);
+
+	// We expect to first re-use the ID 1 before moving on to ID 3
+	QCOMPARE(channelTable.getFreeChannelID(existingServerID), static_cast< unsigned int >(1));
+
+	// On this other server, we expect to start at 0 (there are no channels yet)
+	QCOMPARE(channelTable.getFreeChannelID(otherServerID), static_cast< unsigned int >(0));
 
 	END_TEST_CASE
 }
