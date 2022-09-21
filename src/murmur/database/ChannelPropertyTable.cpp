@@ -13,6 +13,7 @@
 #include "database/Database.h"
 #include "database/ForeignKey.h"
 #include "database/PrimaryKey.h"
+#include "database/Utils.h"
 
 #include <soci/soci.h>
 
@@ -69,6 +70,8 @@ namespace server {
 				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :serverID AND " << column::channel_id << " = :channelID AND " << column::key << " = :key",
 					soci::into(val), soci::use(serverID), soci::use(channelID), soci::use(static_cast< int >(property));
+
+				::mdb::utils::verifyQueryResultedInData(m_sql);
 
 				transaction.commit();
 

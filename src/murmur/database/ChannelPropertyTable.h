@@ -12,6 +12,7 @@
 
 #include "database/AccessException.h"
 #include "database/Backend.h"
+#include "database/NoDataException.h"
 #include "database/Table.h"
 
 #include <string>
@@ -48,15 +49,19 @@ namespace server {
 			template< typename T, bool throwOnError = true >
 			T getProperty(unsigned int serverID, unsigned int channelID, ChannelProperty property,
 						  const T &defaultValue = {}) {
-				std::string strProp = doGetProperty(serverID, channelID, property);
-
 				bool success = false;
-				T val        = StringConverter< T >::convert(strProp, &success);
+				bool gotData = true;
+				T val        = defaultValue;
+				try {
+					std::string strProp = doGetProperty(serverID, channelID, property);
+					val                 = StringConverter< T >::convert(strProp, &success);
+				} catch (const ::mumble::db::NoDataException &) {
+					gotData = false;
+				}
 
 				if (!success) {
 					if (throwOnError) {
-						std::string suffix =
-							strProp.empty() ? " (fetched property turned out to be empty/non-existent)" : "";
+						std::string suffix = !gotData ? " (fetched property turned out to be empty/non-existent)" : "";
 						throw ::mumble::db::AccessException(
 							"Failed to perform type conversion for property "
 							+ std::to_string(static_cast< int >(property)) + " for channel with ID "
