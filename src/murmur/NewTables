@@ -99,6 +99,21 @@
 		* DEFAULT: 0
 	* PRIMARY KEY (server_id, user_id)
 	* UNIQUE INDEX (server_id, name)
-	*? TRIGGER AFTER UPDATE OF lastchannel ON users: SET last_active = NOW() WHERE user_id = old.user_id AND server_id = old.server_id
 	* FOREIGN KEY server_id REFERENCES servers(server_id)
-	(* TRIGGER AFTER DELETE ON channels: UPDATE users SET channel_id = 0 WHERE server_id = old.server_id AND last_channel_id = old.channel_id)
+	* TRIGGER AFTER DELETE ON channels: UPDATE users SET channel_id = 0 WHERE server_id = old.server_id AND last_channel_id = old.channel_id
+
+- user_properties
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- property_key
+		- INTEGER
+		- NOT NULL
+	- property_value
+		- TEXT
+		- NOT NULL
+	* PRIMARY KEY: (server_id, user_id, property_key)
+	* FOREIGN KEY: (server_id, user_id, key) REFERENCES channels(server_id, channel_id)
