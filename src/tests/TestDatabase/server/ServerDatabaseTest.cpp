@@ -162,11 +162,13 @@ void ServerDatabaseTest::serverTable_server_management() {
 	::msdb::ServerTable &table = db.getServerTable();
 
 	QVERIFY(!table.serverExists(0));
+	QCOMPARE(table.getFreeServerID(), static_cast< unsigned int >(0));
 	table.addServer(0);
 	QVERIFY(table.serverExists(0));
 	// Some RMDBs (looking at you MySQL!) will by default treat an explicit value of zero as "please auto-generate the
 	// next number in this auto_increment column" which usually happens to be 1.
 	QVERIFY(!table.serverExists(1));
+	QCOMPARE(table.getFreeServerID(), static_cast< unsigned int >(1));
 	table.addServer(1);
 	QVERIFY(table.serverExists(1));
 	QVERIFY(!table.serverExists(2));
@@ -174,6 +176,8 @@ void ServerDatabaseTest::serverTable_server_management() {
 	QVERIFY(table.serverExists(2));
 	table.removeServer(2);
 	QVERIFY(!table.serverExists(2));
+	table.addServer(3);
+	QCOMPARE(table.getFreeServerID(), static_cast< unsigned int >(2));
 
 	// Server IDs have to be unique, so we expect an error when attempting to add a duplicate ID
 	QVERIFY_EXCEPTION_THROWN(table.addServer(1), ::mdb::AccessException);
