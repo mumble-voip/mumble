@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerDatabase.h"
+#include "ACLTable.h"
 #include "ChannelPropertyTable.h"
 #include "ChannelTable.h"
 #include "ConfigTable.h"
@@ -35,6 +36,7 @@ namespace server {
 				UserPropertyTable,
 				GroupTable,
 				GroupMemberTable,
+				ACLTable,
 			};
 		}
 
@@ -72,6 +74,10 @@ namespace server {
 			id = addTable(std::make_unique< GroupMemberTable >(m_sql, m_backend, getGroupTable(), getUserTable()));
 			assert(id == TableIndex::GroupMemberTable);
 
+			id = addTable(
+				std::make_unique< ACLTable >(m_sql, m_backend, getChannelTable(), getUserTable(), getGroupTable()));
+			assert(id == TableIndex::ACLTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -93,6 +99,7 @@ namespace server {
 		GET_TABLE_IMPL(UserPropertyTable)
 		GET_TABLE_IMPL(GroupTable)
 		GET_TABLE_IMPL(GroupMemberTable)
+		GET_TABLE_IMPL(ACLTable)
 
 	} // namespace db
 } // namespace server

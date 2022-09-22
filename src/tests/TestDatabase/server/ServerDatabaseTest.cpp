@@ -11,9 +11,11 @@
 #include "database/FormatException.h"
 #include "database/NoDataException.h"
 
+#include "database/ACLTable.h"
 #include "database/ChannelPropertyTable.h"
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
+#include "database/DBAcl.h"
 #include "database/DBChannel.h"
 #include "database/DBGroup.h"
 #include "database/DBGroupMember.h"
@@ -140,6 +142,7 @@ private slots:
 	void userPropertyTable_general();
 	void groupTable_general();
 	void groupMemberTable_general();
+	void aclTable_general();
 };
 
 
@@ -928,6 +931,128 @@ void ServerDatabaseTest::groupMemberTable_general() {
 	memberA.serverID = existingServerID;
 	memberA.userID   = nonExistingUserID;
 	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::aclTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int nonExistingChannelID = 5;
+	unsigned int nonExistingUserID    = 42;
+	unsigned int nonExistingGroupID   = 45;
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel otherChannel;
+	otherChannel.channelID = 3;
+	otherChannel.parentID  = rootChannel.channelID;
+	otherChannel.serverID  = existingServerID;
+	otherChannel.name      = "Other channel";
+
+	::msdb::DBGroup groupA;
+	groupA.serverID  = existingServerID;
+	groupA.groupID   = 0;
+	groupA.channelID = rootChannel.channelID;
+	groupA.name      = "Group A";
+
+	::msdb::DBGroup groupB;
+	groupB.serverID  = existingServerID;
+	groupB.groupID   = 1;
+	groupB.channelID = otherChannel.channelID;
+	groupB.name      = "Group B";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(otherChannel);
+	db.getGroupTable().addGroup(groupA);
+	db.getGroupTable().addGroup(groupB);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(otherChannel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+	QVERIFY(!db.getUserTable().userExists(::msdb::DBUser(existingServerID, nonExistingUserID)));
+	QVERIFY(!db.getGroupTable().groupExists(existingServerID, nonExistingGroupID));
+	QVERIFY(db.getGroupTable().groupExists(groupA));
+	QVERIFY(db.getGroupTable().groupExists(groupB));
+
+
+	::msdb::ACLTable &table = db.getACLTable();
+
+	::msdb::DBAcl acl;
+	acl.serverID        = existingServerID;
+	acl.channelID       = groupA.channelID;
+	acl.affectedGroupID = groupA.groupID;
+	acl.priority        = 5;
+
+	QVERIFY(!table.aclExists(acl));
+	table.addACL(acl);
+	QVERIFY(table.aclExists(acl));
+
+	// Duplicating the same ACL should error
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl), ::mdb::AccessException);
+	// Changing the priority should be enough to make the insert successful though
+	::msdb::DBAcl acl2 = acl;
+	acl2.priority += 1;
+	table.addACL(acl2);
+
+	QVERIFY(table.aclExists(acl2));
+	table.removeACL(acl2);
+	QVERIFY(!table.aclExists(acl2));
+
+	// Invalid server should throw
+	acl2.serverID = nonExistingServerID;
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+
+	// Invalid channel should throw
+	acl2.serverID  = existingServerID;
+	acl2.channelID = nonExistingChannelID;
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+
+	// Invalid group should throw
+	acl2.channelID = rootChannel.channelID;
+	acl2.affectedUserID.reset();
+	acl2.affectedGroupID = nonExistingGroupID;
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+
+	// Invalid user should throw
+	acl2.channelID      = rootChannel.channelID;
+	acl2.affectedUserID = nonExistingUserID;
+	acl2.affectedGroupID.reset();
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+
+	// Having neither the affected group nor the affected user set should throw
+	acl2.affectedUserID.reset();
+	acl2.affectedGroupID.reset();
+	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::FormatException);
+
+	acl2.affectedGroupID = groupB.groupID;
+	acl2.channelID       = groupB.channelID;
+
+	table.addACL(acl2);
+
+	QCOMPARE(table.countOverallACLs(existingServerID), static_cast< std::size_t >(2));
+	QCOMPARE(table.countOverallACLs(nonExistingServerID), static_cast< std::size_t >(0));
+
+	std::vector<::msdb::DBAcl > expectedACLs = { acl };
+	QCOMPARE(table.getAllACLs(acl.serverID, acl.channelID), expectedACLs);
+
+	expectedACLs = { acl2 };
+	QCOMPARE(table.getAllACLs(acl2.serverID, acl2.channelID), expectedACLs);
+
+	table.clearACLs(acl2.serverID, acl2.channelID);
+
+	QCOMPARE(table.countOverallACLs(existingServerID), static_cast< std::size_t >(1));
+
+	QVERIFY(table.getAllACLs(acl2.serverID, acl2.channelID).empty());
 
 	END_TEST_CASE
 }

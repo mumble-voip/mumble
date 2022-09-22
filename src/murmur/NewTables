@@ -159,3 +159,38 @@
 	* PRIMARY KEY(server_id, group_id)
 	* FOREIGN KEY: (server_id, group_id) REFERENCES groups(server_id, group_id)
 	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+
+- access_control_lists
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- priority
+		- INTEGER
+		- NOT NULL
+	- affected_user_id
+		- INTEGER
+		- DEFAULT:  NULL
+	- affected_group_id
+		- INTEGER
+		- DEFAULT: NULL
+	- apply_in_current_channel
+		- INTEGER
+		- NOT NULL
+	- apply_in_sub_channels
+		- INTEGER
+		- NOT NULL
+	- granted_privilege_flags
+		- INTEGER
+		- NOT NULL
+		- DEFAULT: 0
+	- revoked_privilege_flags
+		- INTEGER
+		- NOT NULL
+		- DEFAULT: 0
+	* PRIMARY KEY(server_id, channel_id, priority)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: (server_id, affected_user_id) REFERENCES users(server_id, user_id)
+	* FOREIGN KEY: (server_id, affected_group_id) REFERENCES groups(server_id, group_id)
