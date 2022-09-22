@@ -22,6 +22,7 @@ namespace server {
 		class UserPropertyTable;
 		class GroupTable;
 		class GroupMemberTable;
+		class ACLTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -46,6 +47,7 @@ namespace server {
 			UserPropertyTable &getUserPropertyTable();
 			GroupTable &getGroupTable();
 			GroupMemberTable &getGroupMemberTable();
+			ACLTable &getACLTable();
 
 		protected:
 			void setupStandardTables() override;
