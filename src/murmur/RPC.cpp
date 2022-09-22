@@ -408,10 +408,6 @@ void Server::setListenerVolumeAdjustment(ServerUser *user, const Channel *cChann
 	MumbleProto::UserState mpus;
 	mpus.set_session(user->uiSession);
 
-	if (!broadcastListenerVolumeAdjustments) {
-		sendExcept(user, mpus);
-	}
-
 	MumbleProto::UserState::VolumeAdjustment *volume_adjustment = mpus.add_listening_volume_adjustment();
 	volume_adjustment->set_listening_channel(cChannel->iId);
 	volume_adjustment->set_volume_adjustment(volumeAdjustment.factor);
