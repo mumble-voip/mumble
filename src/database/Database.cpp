@@ -252,16 +252,20 @@ namespace db {
 		std::size_t nTables     = countTables(m_tables);
 
 		// First drop all triggers that are supposed to be dropped before the tables are deleted
-		for (const std::unique_ptr< Table > &currentTable : m_tables) {
-			if (!currentTable) {
-				continue;
-			}
+		try {
+			for (const std::unique_ptr< Table > &currentTable : m_tables) {
+				if (!currentTable) {
+					continue;
+				}
 
-			for (const Trigger &currentTrigger : currentTable->getTrigger()) {
-				if (currentTrigger.dropBeforeDeleteTable()) {
-					m_sql << currentTrigger.dropQuery(*currentTable, m_backend);
+				for (const Trigger &currentTrigger : currentTable->getTrigger()) {
+					if (currentTrigger.dropBeforeDeleteTable()) {
+						m_sql << currentTrigger.dropQuery(*currentTable, m_backend);
+					}
 				}
 			}
+		} catch (const soci::soci_error &e) {
+			throw AccessException(std::string("Failed at dropping trigger: ") + e.what());
 		}
 
 		while (prevNTables != nTables) {
