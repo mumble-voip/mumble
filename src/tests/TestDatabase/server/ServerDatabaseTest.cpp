@@ -15,6 +15,8 @@
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
 #include "database/DBChannel.h"
+#include "database/DBGroup.h"
+#include "database/GroupTable.h"
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
 #include "database/ServerTable.h"
@@ -134,6 +136,7 @@ private slots:
 	void channelPropertyTable_general();
 	void userTable_general();
 	void userPropertyTable_general();
+	void groupTable_general();
 };
 
 
@@ -698,6 +701,114 @@ void ServerDatabaseTest::userPropertyTable_general() {
 
 	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::CertificateHash));
 	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::groupTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int existingChannelID    = 3;
+	unsigned int nonExistingChannelID = 5;
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel otherChannel;
+	otherChannel.channelID = existingChannelID;
+	otherChannel.parentID  = rootChannel.channelID;
+	otherChannel.serverID  = existingServerID;
+	otherChannel.name      = "Other channel";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(otherChannel);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(otherChannel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+
+	::msdb::GroupTable &table = db.getGroupTable();
+
+	::msdb::DBGroup group;
+	group.serverID  = existingServerID;
+	group.name      = "Example group";
+	group.groupID   = 0;
+	group.channelID = otherChannel.channelID;
+
+	QVERIFY(!table.groupExists(group));
+	QCOMPARE(table.getFreeGroupID(existingServerID), static_cast< unsigned int >(0));
+
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
+	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
+
+	table.addGroup(group);
+
+	QVERIFY(table.groupExists(group));
+	QCOMPARE(table.getFreeGroupID(existingServerID), static_cast< unsigned int >(1));
+
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(1));
+	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
+
+	QCOMPARE(table.getGroup(group.serverID, group.groupID), group);
+
+	group.inherit        = false;
+	group.is_inheritable = false;
+	group.name           = "Another group name";
+
+	table.updateGroup(group);
+
+	QCOMPARE(table.getGroup(group.serverID, group.groupID), group);
+
+	// Empty group names are invalid
+	group.name = "";
+	QVERIFY_EXCEPTION_THROWN(table.updateGroup(group), ::mdb::FormatException);
+	unsigned int oldID = group.groupID;
+	group.groupID      = table.getFreeGroupID(group.serverID);
+	QVERIFY_EXCEPTION_THROWN(table.addGroup(group), ::mdb::FormatException);
+
+	group.groupID = oldID;
+
+	QVERIFY(table.groupExists(group));
+	table.removeGroup(group);
+	QVERIFY(!table.groupExists(group));
+
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
+
+	group.name = "My group";
+
+	table.addGroup(group);
+
+	::msdb::DBGroup otherGroup = group;
+	otherGroup.groupID         = table.getFreeGroupID(group.serverID);
+	otherGroup.channelID       = nonExistingChannelID;
+	otherGroup.name            = "Other group";
+
+	// Non-existing channel should throw
+	QVERIFY_EXCEPTION_THROWN(table.addGroup(otherGroup), ::mdb::AccessException);
+
+	otherGroup.channelID = group.channelID;
+	otherGroup.name      = group.name;
+	// Duplicate group name should throw
+	QVERIFY_EXCEPTION_THROWN(table.addGroup(otherGroup), ::mdb::AccessException);
+
+	otherGroup.name = "Other group";
+	table.addGroup(otherGroup);
+
+	std::vector<::msdb::DBGroup > expectedGroups = { group, otherGroup };
+
+	QVERIFY(table.getAllGroups(existingServerID, rootChannel.channelID).empty());
+	std::vector<::msdb::DBGroup > fetchedGroups = table.getAllGroups(group.serverID, group.channelID);
+	QCOMPARE(fetchedGroups.size(), static_cast< std::size_t >(table.countGroups(group.serverID, group.channelID)));
+	QVERIFY(fetchedGroups.size() == expectedGroups.size()
+			&& std::is_permutation(expectedGroups.begin(), expectedGroups.end(), fetchedGroups.begin()));
 
 	END_TEST_CASE
 }

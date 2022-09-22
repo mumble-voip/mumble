@@ -56,10 +56,12 @@ namespace server {
 			bool groupExists(const DBGroup &group);
 			bool groupExists(unsigned int serverID, unsigned int groupID);
 
+			DBGroup getGroup(unsigned int serverID, unsigned int groupID);
+
 
 			std::size_t countGroups(unsigned int serverID, unsigned int channelID);
 
-			std::vector< DBGroup > getGroups(unsigned int serverID, unsigned int channelID);
+			std::vector< DBGroup > getAllGroups(unsigned int serverID, unsigned int channelID);
 
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;

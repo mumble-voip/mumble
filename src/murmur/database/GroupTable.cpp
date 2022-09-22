@@ -45,7 +45,6 @@ namespace server {
 
 			::mdb::Column groupIDCol(column::group_id, ::mdb::DataType(::mdb::DataType::Integer));
 			groupIDCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
-			groupIDCol.setFlags(::mdb::Column::AUTOINCREMENT);
 
 			::mdb::Column groupNameCol(column::group_name, ::mdb::DataType(::mdb::DataType::VarChar, 255));
 			groupNameCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
@@ -110,7 +109,7 @@ namespace server {
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
 					  << column::channel_id << ", " << column::group_name << ", " << column::inherit << ", "
 					  << column::is_inheritable
-					  << " VALUES (:serverID, :groupID, :channelID, :name, :inherit, :inheritable)",
+					  << ") VALUES (:serverID, :groupID, :channelID, :name, :inherit, :inheritable)",
 					soci::use(group.serverID), soci::use(group.groupID), soci::use(group.channelID),
 					soci::use(group.name), soci::use(static_cast< int >(group.inherit)),
 					soci::use(static_cast< int >(group.is_inheritable)), soci::into(group_id);
@@ -128,6 +127,10 @@ namespace server {
 		void GroupTable::updateGroup(const DBGroup &group) {
 			assert(groupExists(group));
 
+			if (group.name.empty()) {
+				throw ::mdb::FormatException("A group's name must not be empty");
+			}
+
 			try {
 				soci::transaction transaction(m_sql);
 
@@ -141,7 +144,7 @@ namespace server {
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at updating group with ID"
+				std::throw_with_nested(::mdb::AccessException("Failed at updating group with ID "
 															  + std::to_string(group.groupID) + " on server with ID "
 															  + std::to_string(group.serverID)));
 			}
@@ -159,7 +162,7 @@ namespace server {
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at updating group with ID"
+				std::throw_with_nested(::mdb::AccessException("Failed at updating group with ID "
 															  + std::to_string(groupID) + " on server with ID "
 															  + std::to_string(serverID)));
 			}
@@ -181,7 +184,41 @@ namespace server {
 
 				return exists;
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at checking of existence of group with ID"
+				std::throw_with_nested(::mdb::AccessException("Failed at checking of existence of group with ID "
+															  + std::to_string(groupID) + " on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
+		DBGroup GroupTable::getGroup(unsigned int serverID, unsigned int groupID) {
+			assert(groupExists(serverID, groupID));
+
+			try {
+				DBGroup group;
+				group.serverID = serverID;
+				group.groupID  = groupID;
+
+				int inherit        = false;
+				int is_inheritable = false;
+
+				soci::transaction transaction(m_sql);
+
+				m_sql << "SELECT " << column::channel_id << ", " << column::group_name << ", " << column::inherit
+					  << ", " << column::is_inheritable << " FROM \"" << NAME << "\" WHERE " << column::server_id
+					  << " = :serverID AND " << column::group_id << " = :groupID",
+					soci::into(group.channelID), soci::into(group.name), soci::into(inherit),
+					soci::into(is_inheritable), soci::use(serverID), soci::use(groupID);
+
+				::mdb::utils::verifyQueryResultedInData(m_sql);
+
+				transaction.commit();
+
+				group.inherit        = inherit;
+				group.is_inheritable = is_inheritable;
+
+				return group;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting details for group with ID "
 															  + std::to_string(groupID) + " on server with ID "
 															  + std::to_string(serverID)));
 			}
@@ -194,7 +231,7 @@ namespace server {
 				soci::transaction transaction(m_sql);
 
 				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::channel_id << " = :channelID)",
+					  << " = :serverID AND " << column::channel_id << " = :channelID) AS dummy",
 					soci::use(serverID), soci::use(channelID), soci::into(nGroups);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -203,24 +240,24 @@ namespace server {
 
 				return static_cast< std::size_t >(nGroups);
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at counting groups for channel with ID"
+				std::throw_with_nested(::mdb::AccessException("Failed at counting groups for channel with ID "
 															  + std::to_string(channelID) + " on server with ID "
 															  + std::to_string(serverID)));
 			}
 		}
 
-		std::vector< DBGroup > GroupTable::getGroups(unsigned int serverID, unsigned int channelID) {
+		std::vector< DBGroup > GroupTable::getAllGroups(unsigned int serverID, unsigned int channelID) {
 			try {
 				std::vector< DBGroup > groups;
 				soci::row row;
 
 				soci::transaction transaction(m_sql);
 
-				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::group_id << ", " << column::group_name << ", "
-								   << column::inherit << ", " << column::is_inheritable << " WHERE "
-								   << column::server_id << " = :serverID AND " << column::channel_id << " = :channelID",
-					 soci::use(serverID), soci::use(channelID), soci::into(row));
+				soci::statement stmt = (m_sql.prepare << "SELECT " << column::group_id << ", " << column::group_name
+													  << ", " << column::inherit << ", " << column::is_inheritable
+													  << " FROM \"" << NAME << "\" WHERE " << column::server_id
+													  << " = :serverID AND " << column::channel_id << " = :channelID",
+										soci::use(serverID), soci::use(channelID), soci::into(row));
 
 				stmt.execute(false);
 
@@ -242,13 +279,11 @@ namespace server {
 					groups.push_back(std::move(group));
 				}
 
-				::mdb::utils::verifyQueryResultedInData(m_sql);
-
 				transaction.commit();
 
 				return groups;
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at counting groups for channel with ID"
+				std::throw_with_nested(::mdb::AccessException("Failed at getting all groups for channel with ID "
 															  + std::to_string(channelID) + " on server with ID "
 															  + std::to_string(serverID)));
 			}
