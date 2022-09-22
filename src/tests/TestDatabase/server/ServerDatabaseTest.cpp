@@ -16,6 +16,8 @@
 #include "database/ConfigTable.h"
 #include "database/DBChannel.h"
 #include "database/DBGroup.h"
+#include "database/DBGroupMember.h"
+#include "database/GroupMemberTable.h"
 #include "database/GroupTable.h"
 #include "database/LogTable.h"
 #include "database/ServerDatabase.h"
@@ -137,6 +139,7 @@ private slots:
 	void userTable_general();
 	void userPropertyTable_general();
 	void groupTable_general();
+	void groupMemberTable_general();
 };
 
 
@@ -809,6 +812,122 @@ void ServerDatabaseTest::groupTable_general() {
 	QCOMPARE(fetchedGroups.size(), static_cast< std::size_t >(table.countGroups(group.serverID, group.channelID)));
 	QVERIFY(fetchedGroups.size() == expectedGroups.size()
 			&& std::is_permutation(expectedGroups.begin(), expectedGroups.end(), fetchedGroups.begin()));
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::groupMemberTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int nonExistingChannelID = 5;
+	unsigned int nonExistingUserID    = 42;
+	unsigned int nonExistingGroupID   = 45;
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel otherChannel;
+	otherChannel.channelID = 3;
+	otherChannel.parentID  = rootChannel.channelID;
+	otherChannel.serverID  = existingServerID;
+	otherChannel.name      = "Other channel";
+
+	::msdb::DBUser userA(existingServerID, 0);
+	::msdb::DBUser userB(existingServerID, 1);
+
+	::msdb::DBGroup groupA;
+	groupA.serverID  = existingServerID;
+	groupA.groupID   = 0;
+	groupA.channelID = rootChannel.channelID;
+	groupA.name      = "Group A";
+
+	::msdb::DBGroup groupB;
+	groupB.serverID  = existingServerID;
+	groupB.groupID   = 1;
+	groupB.channelID = otherChannel.channelID;
+	groupB.name      = "Group B";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(otherChannel);
+	db.getUserTable().addUser(userA, "userA");
+	db.getUserTable().addUser(userB, "userB");
+	db.getGroupTable().addGroup(groupA);
+	db.getGroupTable().addGroup(groupB);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(otherChannel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+	QVERIFY(!db.getUserTable().userExists(::msdb::DBUser(existingServerID, nonExistingUserID)));
+	QVERIFY(db.getUserTable().userExists(userA));
+	QVERIFY(db.getUserTable().userExists(userB));
+	QVERIFY(!db.getGroupTable().groupExists(existingServerID, nonExistingGroupID));
+	QVERIFY(db.getGroupTable().groupExists(groupA));
+	QVERIFY(db.getGroupTable().groupExists(groupB));
+
+
+	::msdb::GroupMemberTable &table = db.getGroupMemberTable();
+
+	::msdb::DBGroupMember memberA(existingServerID, groupA.groupID, userA.registeredUserID);
+	::msdb::DBGroupMember memberB(existingServerID, groupB.groupID, userB.registeredUserID);
+
+	QVERIFY(!table.entryExists(memberA));
+	QVERIFY(!table.entryExists(memberB));
+
+	std::vector<::msdb::DBGroupMember > fetchedMembers = table.getEntries(existingServerID, groupA.groupID);
+	QVERIFY(fetchedMembers.empty());
+
+	table.addEntry(memberA);
+
+	QVERIFY(table.entryExists(memberA));
+	QVERIFY(!table.entryExists(memberB));
+
+	std::vector<::msdb::DBGroupMember > expectedMembers = { memberA };
+
+	fetchedMembers = table.getEntries(existingServerID, groupB.groupID);
+	QVERIFY(fetchedMembers.empty());
+
+	fetchedMembers = table.getEntries(existingServerID, groupA.groupID);
+	QCOMPARE(fetchedMembers, expectedMembers);
+
+	table.addEntry(memberB);
+
+	QVERIFY(table.entryExists(memberB));
+
+	expectedMembers = { memberA };
+	fetchedMembers  = table.getEntries(existingServerID, groupA.groupID);
+	QCOMPARE(fetchedMembers, expectedMembers);
+
+	expectedMembers = { memberB };
+	fetchedMembers  = table.getEntries(existingServerID, groupB.groupID);
+	QCOMPARE(fetchedMembers, expectedMembers);
+
+	table.removeEntry(memberA);
+	QVERIFY(!table.entryExists(memberA));
+
+	// Re-adding the same entry should error
+	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberB), ::mdb::AccessException);
+
+	// Referencing a non-existent group ID should error
+	memberA.groupID = nonExistingGroupID;
+	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+
+	// Using a non-existent server ID should error
+	memberA.groupID  = groupA.groupID;
+	memberA.serverID = nonExistingServerID;
+	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+
+	// Using a non-existent user ID should error
+	memberA.serverID = existingServerID;
+	memberA.userID   = nonExistingUserID;
+	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
 
 	END_TEST_CASE
 }

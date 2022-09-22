@@ -9,6 +9,7 @@ add_library(mumble_server_database STATIC
 	"DBUser.cpp"
 	"DBUserData.cpp"
 	"DBGroup.cpp"
+	"DBGroupMember.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
@@ -19,6 +20,7 @@ add_library(mumble_server_database STATIC
 	"UserTable.cpp"
 	"UserPropertyTable.cpp"
 	"GroupTable.cpp"
+	"GroupMemberTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
