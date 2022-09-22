@@ -47,7 +47,7 @@ namespace db {
 				  "SELECT " + idColName + " FROM "
 				+ "("
 				+	"SELECT 0 AS " + idColName
-				+ ") \"helperTable1\" "
+				+ ") AS \"helperTable1\" "
 				+ "WHERE NOT EXISTS "
 				+ "("
 				+	"SELECT 1 FROM \"" + tableName + "\" "
@@ -65,7 +65,7 @@ namespace db {
 				+			")"
 				+		"ORDER BY " + idColName + " "
 				+		"LIMIT 1"
-				+	") helperTable2 "
+				+	") AS \"helperTable2\" "
 				+ "ORDER BY " + idColName + " "
 				+ "LIMIT 1";
 			// clang-format on
