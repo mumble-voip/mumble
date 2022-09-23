@@ -194,3 +194,18 @@
 	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
 	* FOREIGN KEY: (server_id, affected_user_id) REFERENCES users(server_id, user_id)
 	* FOREIGN KEY: (server_id, affected_group_id) REFERENCES groups(server_id, group_id)
+
+- channel_links
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- first_channel_id
+		- INTEGER
+		- NOT NULL
+	- second_channel_id
+		- INTEGER
+		- NOT NULL
+	* PRIMARY KEY(server_id, first_channel_id, second_channel_id)
+	* FOREIGN KEY (server_id, first_channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY (server_id, second_channel_id) REFERENCES channels(server_id, channel_id)
+	* CHECK that second_channel_id > first_channel_id (help to avoid duplicates of the form (a,b) and (b,a))

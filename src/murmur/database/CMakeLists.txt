@@ -11,6 +11,7 @@ add_library(mumble_server_database STATIC
 	"DBGroup.cpp"
 	"DBGroupMember.cpp"
 	"DBAcl.cpp"
+	"DBChannelLink.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
@@ -23,6 +24,7 @@ add_library(mumble_server_database STATIC
 	"GroupTable.cpp"
 	"GroupMemberTable.cpp"
 	"ACLTable.cpp"
+	"ChannelLinkTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})

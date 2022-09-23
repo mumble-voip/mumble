@@ -12,11 +12,13 @@
 #include "database/NoDataException.h"
 
 #include "database/ACLTable.h"
+#include "database/ChannelLinkTable.h"
 #include "database/ChannelPropertyTable.h"
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
 #include "database/DBAcl.h"
 #include "database/DBChannel.h"
+#include "database/DBChannelLink.h"
 #include "database/DBGroup.h"
 #include "database/DBGroupMember.h"
 #include "database/GroupMemberTable.h"
@@ -128,6 +130,8 @@ public:
 			print_exception_message(e);
 		}
 	}
+
+	soci::session &getSQLHandle() { return m_sql; }
 };
 
 class ServerDatabaseTest : public QObject {
@@ -143,6 +147,7 @@ private slots:
 	void groupTable_general();
 	void groupMemberTable_general();
 	void aclTable_general();
+	void channelLinkTable_general();
 };
 
 
@@ -1053,6 +1058,123 @@ void ServerDatabaseTest::aclTable_general() {
 	QCOMPARE(table.countOverallACLs(existingServerID), static_cast< std::size_t >(1));
 
 	QVERIFY(table.getAllACLs(acl2.serverID, acl2.channelID).empty());
+
+	END_TEST_CASE
+}
+
+void ServerDatabaseTest::channelLinkTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int nonExistingChannelID = 5;
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel firstChannel;
+	firstChannel.channelID = 3;
+	firstChannel.parentID  = rootChannel.channelID;
+	firstChannel.serverID  = existingServerID;
+	firstChannel.name      = "First channel";
+
+	::msdb::DBChannel secondChannel;
+	secondChannel.channelID = 2;
+	secondChannel.parentID  = rootChannel.channelID;
+	secondChannel.serverID  = existingServerID;
+	secondChannel.name      = "Second channel";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(firstChannel);
+	db.getChannelTable().addChannel(secondChannel);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(firstChannel));
+	QVERIFY(db.getChannelTable().channelExists(secondChannel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+
+
+	::msdb::ChannelLinkTable &table = db.getChannelLinkTable();
+
+	QVERIFY(table.getAllLinks(existingServerID).empty());
+
+	::msdb::DBChannelLink firstLink(existingServerID, rootChannel.channelID, firstChannel.channelID);
+	::msdb::DBChannelLink secondLink(existingServerID, rootChannel.channelID, secondChannel.channelID);
+
+	QVERIFY(!table.linkExists(firstLink));
+
+	// Adding with an invalid server ID should error
+	firstLink.serverID = nonExistingServerID;
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+
+	// Adding with an invalid channel ID should error
+	firstLink.serverID       = existingServerID;
+	firstLink.firstChannelID = nonExistingChannelID;
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	firstLink.firstChannelID  = rootChannel.channelID;
+	firstLink.secondChannelID = nonExistingChannelID;
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+
+	// Adding a link from a channel to itself should throw
+	firstLink.secondChannelID = rootChannel.channelID;
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::FormatException);
+
+	firstLink.secondChannelID = firstChannel.channelID;
+
+	table.addLink(firstLink);
+
+	QVERIFY(table.linkExists(firstLink));
+
+	// Re-adding the same link should throw
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+
+	// Swapping the two channel IDs shouldn't make a difference
+	std::swap(firstLink.firstChannelID, firstLink.secondChannelID);
+	QVERIFY(table.linkExists(firstLink));
+	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+
+
+	QVERIFY(table.getAllLinks(nonExistingServerID).empty());
+
+	std::vector<::msdb::DBChannelLink > expectedLinks = { firstLink };
+	QCOMPARE(table.getAllLinks(existingServerID), expectedLinks);
+
+	table.addLink(secondLink);
+
+	expectedLinks                                    = { firstLink, secondLink };
+	std::vector<::msdb::DBChannelLink > fetchedLinks = table.getAllLinks(existingServerID);
+	QVERIFY(expectedLinks.size() == fetchedLinks.size());
+	QVERIFY(std::is_permutation(expectedLinks.begin(), expectedLinks.end(), fetchedLinks.begin()));
+
+	QVERIFY(table.linkExists(secondLink));
+	table.removeLink(secondLink);
+	QVERIFY(!table.linkExists(secondLink));
+
+	// Inserting such that secondID <= firstID should error
+	try {
+		unsigned int firstID  = firstChannel.channelID;
+		unsigned int secondID = secondChannel.channelID;
+
+		if (secondID > firstID) {
+			std::swap(firstID, secondID);
+		}
+
+		db.getSQLHandle() << "INSERT INTO \"" << ::msdb::ChannelLinkTable::NAME << "\" ("
+						  << ::msdb::ChannelLinkTable::column::server_id << ", "
+						  << ::msdb::ChannelLinkTable::column::first_id << ", "
+						  << ::msdb::ChannelLinkTable::column::second_id << ") VALUES (:serverID, :firstID, :secondID)",
+			soci::use(existingServerID), soci::use(firstID), soci::use(secondID);
+
+		QFAIL("Was able to insert secondID <= firstID - violates internal constraint");
+	} catch (const soci::soci_error &) {
+		// Above statement throwing, is exactly what we want
+	}
 
 	END_TEST_CASE
 }
