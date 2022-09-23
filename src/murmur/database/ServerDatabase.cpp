@@ -5,6 +5,7 @@
 
 #include "ServerDatabase.h"
 #include "ACLTable.h"
+#include "ChannelLinkTable.h"
 #include "ChannelPropertyTable.h"
 #include "ChannelTable.h"
 #include "ConfigTable.h"
@@ -37,6 +38,7 @@ namespace server {
 				GroupTable,
 				GroupMemberTable,
 				ACLTable,
+				ChannelLinkTable,
 			};
 		}
 
@@ -78,6 +80,9 @@ namespace server {
 				std::make_unique< ACLTable >(m_sql, m_backend, getChannelTable(), getUserTable(), getGroupTable()));
 			assert(id == TableIndex::ACLTable);
 
+			id = addTable(std::make_unique< ChannelLinkTable >(m_sql, m_backend, getChannelTable()));
+			assert(id == TableIndex::ChannelLinkTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -100,6 +105,7 @@ namespace server {
 		GET_TABLE_IMPL(GroupTable)
 		GET_TABLE_IMPL(GroupMemberTable)
 		GET_TABLE_IMPL(ACLTable)
+		GET_TABLE_IMPL(ChannelLinkTable)
 
 	} // namespace db
 } // namespace server
