@@ -195,7 +195,7 @@ namespace db {
 			type = DataType::Text;
 		} else if (boost::iequals(name, "BIGINT")) {
 			type = DataType::EpochTime;
-		} else if (boost::iequals(name, "BLOB") || boost::iequals(name, "BYTEA")) {
+		} else if (boost::iequals(name, "BLOB") || boost::iequals(name, "OID")) {
 			type = DataType::Blob;
 		} else {
 			throw UnknownDataTypeException("Unknown data type \"" + name + "\"");
