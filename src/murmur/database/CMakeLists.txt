@@ -12,6 +12,7 @@ add_library(mumble_server_database STATIC
 	"DBGroupMember.cpp"
 	"DBAcl.cpp"
 	"DBChannelLink.cpp"
+	"DBBan.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
@@ -31,7 +32,8 @@ set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION
 
 # We require boost::optional (until we can move to CXX17 and switch to std::optional), which was
 # introduced in Boost v1.30.0
-find_pkg(Boost 1.30.0 REQUIRED)
+# Also we require boost::algorithm::lower_hex which was introduced in Boost v1.62.0
+find_pkg(Boost 1.62.0 REQUIRED)
 
 target_link_libraries(mumble_server_database PUBLIC mumble_database GSL Boost::headers)
 

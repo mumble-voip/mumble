@@ -17,6 +17,7 @@
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
 #include "database/DBAcl.h"
+#include "database/DBBan.h"
 #include "database/DBChannel.h"
 #include "database/DBChannelLink.h"
 #include "database/DBGroup.h"
@@ -37,8 +38,11 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <array>
 #include <chrono>
+#include <cstdint>
 #include <cstring>
+#include <iomanip>
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -96,6 +100,29 @@ template<> char *toString(const ::msdb::DBUserData &data) {
 
 }; // namespace QTest
 
+namespace std {
+template< std::size_t size > char *toString(const std::array< std::uint8_t, size > array) {
+	std::stringstream sstream;
+	sstream << "{ ";
+	for (std::size_t i = 0; i < size; ++i) {
+		sstream << "0x" << std::setfill('0') << std::setw(2) << std::hex << static_cast< int >(array[i]);
+
+		if (i + 1 < size) {
+			sstream << ", ";
+		}
+	}
+	sstream << " }";
+
+	std::string str = sstream.str();
+
+	char *buffer = new char[str.size() + 1];
+	std::strcpy(buffer, str.data());
+
+	return buffer;
+}
+
+} // namespace std
+
 
 /**
  * Helper function to print exception messages that can also fully unfold nested exceptions
@@ -148,6 +175,7 @@ private slots:
 	void groupMemberTable_general();
 	void aclTable_general();
 	void channelLinkTable_general();
+	void ipAddress_conversions();
 };
 
 
@@ -1177,6 +1205,40 @@ void ServerDatabaseTest::channelLinkTable_general() {
 	}
 
 	END_TEST_CASE
+}
+
+void ServerDatabaseTest::ipAddress_conversions() {
+	std::array< std::uint8_t, 16 > ipv6Address;
+	ipv6Address.fill(0);
+
+	std::string stringRep                      = ::msdb::DBBan::ipv6ToString(ipv6Address);
+	std::string expectedRep                    = "0000:0000:0000:0000:0000:0000:0000:0000";
+	std::array< std::uint8_t, 16 > fetchedAddr = ::msdb::DBBan::ipv6FromString(expectedRep);
+
+	QCOMPARE(stringRep, expectedRep);
+	QCOMPARE(fetchedAddr, ipv6Address);
+
+	expectedRep = "2345:0425:2ca1:0000:0000:0567:5673:23b5";
+	ipv6Address = { 0x23, 0x45, 0x04, 0x25, 0x2c, 0xa1, 0x00, 0x00, 0x00, 0x00, 0x05, 0x67, 0x56, 0x73, 0x23, 0xb5 };
+	fetchedAddr = ::msdb::DBBan::ipv6FromString(expectedRep);
+	stringRep   = ::msdb::DBBan::ipv6ToString(ipv6Address);
+
+	QCOMPARE(stringRep, expectedRep);
+	QCOMPARE(fetchedAddr, ipv6Address);
+
+	std::array< std::uint8_t, 4 > ipv4Address = { 127, 0, 0, 1 };
+	ipv6Address = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7f, 0x00, 0x00, 0x01 };
+	fetchedAddr = ::msdb::DBBan::ipv4ToIpv6(ipv4Address, false);
+
+	std::uint32_t ipv4Numeric = (static_cast< std::uint32_t >(127) << (8 + 8 + 8)) + 1;
+	std::uint8_t *ipv4Ptr     = reinterpret_cast< std::uint8_t * >(&ipv4Numeric);
+	ipv4Address[0]            = ipv4Ptr[0];
+	ipv4Address[1]            = ipv4Ptr[1];
+	ipv4Address[2]            = ipv4Ptr[2];
+	ipv4Address[3]            = ipv4Ptr[3];
+	fetchedAddr               = ::msdb::DBBan::ipv4ToIpv6(ipv4Address, true);
+
+	QCOMPARE(fetchedAddr, ipv6Address);
 }
 
 
