@@ -24,6 +24,7 @@ namespace server {
 		class GroupMemberTable;
 		class ACLTable;
 		class ChannelLinkTable;
+		class BanTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -50,6 +51,7 @@ namespace server {
 			GroupMemberTable &getGroupMemberTable();
 			ACLTable &getACLTable();
 			ChannelLinkTable &getChannelLinkTable();
+			BanTable &getBanTable();
 
 		protected:
 			void setupStandardTables() override;
