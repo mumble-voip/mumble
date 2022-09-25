@@ -4,8 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "LogTable.h"
-#include "ServerTable.h"
 #include "ChronoUtils.h"
+#include "ServerTable.h"
 
 #include "database/AccessException.h"
 #include "database/Column.h"

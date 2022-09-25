@@ -14,10 +14,10 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		DBBan::DBBan(unsigned int serverID, std::array< std::uint8_t, 16 > baseAddress, unsigned int prefixLength)
+		DBBan::DBBan(unsigned int serverID, DBBan::ipv6_type baseAddress, std::uint8_t prefixLength)
 			: serverID(serverID), baseAddress(std::move(baseAddress)), prefixLength(prefixLength) {}
 
-		std::string DBBan::ipv6ToString(const std::array< std::uint8_t, 16 > &address) {
+		std::string DBBan::ipv6ToString(const DBBan::ipv6_type &address) {
 			std::string str;
 			// Each byte will be represented by 2 hexadecimal digits and every two bytes, there will be a separator
 			// (":")
@@ -39,14 +39,14 @@ namespace server {
 			return str;
 		}
 
-		std::array< std::uint8_t, 16 > DBBan::ipv6FromString(const std::string &str) {
+		DBBan::ipv6_type DBBan::ipv6FromString(const std::string &str) {
 			// Each of the 16 bytes is represented by 2 hexadecimal digits and after every 2 bytes (4 digits) there is a
 			// colon acting as a separator
 			if (str.size() != 16 * 2 + 7) {
 				throw boost::algorithm::hex_decode_error();
 			}
 
-			std::array< std::uint8_t, 16 > address;
+			DBBan::ipv6_type address;
 			auto outIt = address.begin();
 			auto inIt  = str.begin();
 
@@ -69,8 +69,8 @@ namespace server {
 			return *first_byte == 0x00;
 		}
 
-		std::array< std::uint8_t, 16 > DBBan::ipv4ToIpv6(const std::array< std::uint8_t, 4 > &address,
-														 bool convertHostToNetworkByteOrder) {
+		DBBan::ipv6_type DBBan::ipv4ToIpv6(const std::array< std::uint8_t, 4 > &address,
+										   bool convertHostToNetworkByteOrder) {
 			// see https://www.rfc-editor.org/rfc/rfc4291#section-2.5.5.2
 			std::array< std::uint8_t, 16 > ipv6Address;
 			ipv6Address.fill(0);
@@ -95,10 +95,11 @@ namespace server {
 			return ipv6Address;
 		}
 
-		unsigned int DBBan::subNetMaskToPrefixLength(unsigned int mask) {
+		std::uint8_t DBBan::subNetMaskToPrefixLength(std::uint8_t mask) {
 			// When mapping an IPv4 address to IPv6, the actual address is written only to the last 4 bytes of the 16
 			// byte address. Thus, the subnet mask that has to be applied to these last 4 bytes also needs to ignore the
 			// leading 12 bytes = 96 bits.
+			assert(mask <= 32);
 			return mask + 96;
 		}
 
