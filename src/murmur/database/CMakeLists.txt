@@ -26,6 +26,7 @@ add_library(mumble_server_database STATIC
 	"GroupMemberTable.cpp"
 	"ACLTable.cpp"
 	"ChannelLinkTable.cpp"
+	"BanTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})

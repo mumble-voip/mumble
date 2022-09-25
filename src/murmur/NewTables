@@ -209,3 +209,33 @@
 	* FOREIGN KEY (server_id, first_channel_id) REFERENCES channels(server_id, channel_id)
 	* FOREIGN KEY (server_id, second_channel_id) REFERENCES channels(server_id, channel_id)
 	* CHECK that second_channel_id > first_channel_id (help to avoid duplicates of the form (a,b) and (b,a))
+
+- bans
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- ipv6_base_address
+		- VARCHAR(45)
+		- NOT NULL
+	- prefix_length
+		- INTEGER
+		- NOT NULL
+	- banned_user_name
+		- VARCHAR(255)
+		- DEFAULT: NULL
+	- banned_user_cert_hash
+		- VARCHAR(255)
+		- DEFAULT: NULL
+	- reason
+		- TEXT
+		- DEFAULT: NULL
+	- start_date
+		- INTEGER (epoch time)
+		- NOT NULL
+		- DEFAULT: 0
+	- duration
+		- INTEGER (in seconds)
+		- NOT NULL
+		- DEFAULT: 0
+	* PRIMARY KEY: (server_id, ipv6_base_address, prefix_length)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)

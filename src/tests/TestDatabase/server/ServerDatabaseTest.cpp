@@ -12,6 +12,7 @@
 #include "database/NoDataException.h"
 
 #include "database/ACLTable.h"
+#include "database/BanTable.h"
 #include "database/ChannelLinkTable.h"
 #include "database/ChannelPropertyTable.h"
 #include "database/ChannelTable.h"
@@ -176,6 +177,7 @@ private slots:
 	void aclTable_general();
 	void channelLinkTable_general();
 	void ipAddress_conversions();
+	void banTable_general();
 };
 
 
@@ -1239,6 +1241,94 @@ void ServerDatabaseTest::ipAddress_conversions() {
 	fetchedAddr               = ::msdb::DBBan::ipv4ToIpv6(ipv4Address, true);
 
 	QCOMPARE(fetchedAddr, ipv6Address);
+
+	bool success                                = false;
+	std::array< std::uint8_t, 4 > expectedArray = { 0xab, 0xff, 0x32, 0x4f };
+	std::array< std::uint8_t, 4 > fetchedArray  = ::msdb::DBBan::toByteArray< 4 >("0xabff324f", &success);
+	QVERIFY(success);
+	QCOMPARE(fetchedArray, expectedArray);
+	fetchedArray = ::msdb::DBBan::toByteArray< 4 >("abff324f", &success);
+	QVERIFY(success);
+	QCOMPARE(fetchedArray, expectedArray);
+	fetchedArray = ::msdb::DBBan::toByteArray< 4 >("AbFf324f", &success);
+	QVERIFY(success);
+	QCOMPARE(fetchedArray, expectedArray);
+}
+
+void ServerDatabaseTest::banTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID    = 0;
+	unsigned int nonExistingServerID = 5;
+
+	db.getServerTable().addServer(existingServerID);
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+
+
+	::msdb::BanTable &table = db.getBanTable();
+
+	::msdb::DBBan ban(
+		existingServerID,
+		{ 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, 0x78, 0x89, 0x9a, 0xab, 0xbc, 0xcd, 0xde, 0xef, 0x1f, 0x2f }, 64);
+
+	QVERIFY(!table.banExists(ban));
+	QVERIFY(table.getAllBans(existingServerID).empty());
+
+	table.addBan(ban);
+
+	QVERIFY(table.banExists(ban));
+
+	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength), ban);
+
+	std::vector<::msdb::DBBan > expectedBans = { ban };
+
+	QCOMPARE(table.getAllBans(existingServerID), expectedBans);
+
+	::msdb::DBBan ban2(existingServerID, ban.baseAddress, ban.prefixLength);
+	ban2.bannedUserName     = "Hugo";
+	ban2.bannedUserCertHash = "xyz";
+	ban2.reason             = "Hugo didn't behave properly";
+	ban2.startDate          = std::chrono::steady_clock::now();
+	ban2.duration           = std::chrono::seconds(42);
+
+	// Since we re-used the server ID, base address and prefix length, adding this should error
+	QVERIFY_EXCEPTION_THROWN(table.addBan(ban2), ::mdb::AccessException);
+
+	ban2.prefixLength += 1;
+	QVERIFY(!table.banExists(ban2));
+	table.addBan(ban2);
+	QVERIFY(table.banExists(ban2));
+
+	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength), ban2);
+
+	expectedBans                            = { ban, ban2 };
+	std::vector<::msdb::DBBan > fetchedBans = table.getAllBans(existingServerID);
+	QCOMPARE(fetchedBans.size(), expectedBans.size());
+	QVERIFY(std::is_permutation(expectedBans.begin(), expectedBans.end(), fetchedBans.begin()));
+
+	table.clearBans(nonExistingServerID);
+	QVERIFY(table.banExists(ban));
+
+	table.clearBans(existingServerID);
+	QVERIFY(!table.banExists(ban));
+	QVERIFY(!table.banExists(ban2));
+
+	table.addBan(ban);
+	QVERIFY(table.banExists(ban));
+
+	table.setBans(existingServerID, { ban2 });
+
+	QVERIFY(!table.banExists(ban));
+	QVERIFY(table.banExists(ban2));
+
+	// Adding to a non-existing server should error
+	QVERIFY_EXCEPTION_THROWN(table.addBan(::msdb::DBBan(nonExistingServerID, {}, 0)), ::mdb::AccessException);
+
+	QVERIFY(table.getAllBans(nonExistingServerID).empty());
+
+	END_TEST_CASE
 }
 
 
