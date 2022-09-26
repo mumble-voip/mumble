@@ -7,6 +7,7 @@
 #include "ACLTable.h"
 #include "BanTable.h"
 #include "ChannelLinkTable.h"
+#include "ChannelListenerTable.h"
 #include "ChannelPropertyTable.h"
 #include "ChannelTable.h"
 #include "ConfigTable.h"
@@ -41,6 +42,7 @@ namespace server {
 				ACLTable,
 				ChannelLinkTable,
 				BanTable,
+				ChannelListenerTable,
 			};
 		}
 
@@ -88,6 +90,10 @@ namespace server {
 			id = addTable(std::make_unique< BanTable >(m_sql, m_backend, getServerTable()));
 			assert(id == TableIndex::BanTable);
 
+			id =
+				addTable(std::make_unique< ChannelListenerTable >(m_sql, m_backend, getUserTable(), getChannelTable()));
+			assert(id == TableIndex::ChannelListenerTable);
+
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
 		}
@@ -112,6 +118,7 @@ namespace server {
 		GET_TABLE_IMPL(ACLTable)
 		GET_TABLE_IMPL(ChannelLinkTable)
 		GET_TABLE_IMPL(BanTable)
+		GET_TABLE_IMPL(ChannelListenerTable)
 
 #undef GET_TABLE_IMPL
 

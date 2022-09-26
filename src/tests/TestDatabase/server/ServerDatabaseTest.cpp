@@ -14,6 +14,7 @@
 #include "database/ACLTable.h"
 #include "database/BanTable.h"
 #include "database/ChannelLinkTable.h"
+#include "database/ChannelListenerTable.h"
 #include "database/ChannelPropertyTable.h"
 #include "database/ChannelTable.h"
 #include "database/ConfigTable.h"
@@ -21,6 +22,7 @@
 #include "database/DBBan.h"
 #include "database/DBChannel.h"
 #include "database/DBChannelLink.h"
+#include "database/DBChannelListener.h"
 #include "database/DBGroup.h"
 #include "database/DBGroupMember.h"
 #include "database/GroupMemberTable.h"
@@ -178,6 +180,7 @@ private slots:
 	void channelLinkTable_general();
 	void ipAddress_conversions();
 	void banTable_general();
+	void channelListenerTable_general();
 };
 
 
@@ -1331,6 +1334,125 @@ void ServerDatabaseTest::banTable_general() {
 	END_TEST_CASE
 }
 
+void ServerDatabaseTest::channelListenerTable_general() {
+	BEGIN_TEST_CASE
+
+	unsigned int existingServerID     = 0;
+	unsigned int nonExistingServerID  = 5;
+	unsigned int nonExistingChannelID = 7;
+	unsigned int nonExistingUserID    = 5;
+
+	::msdb::DBUser user1(existingServerID, 2);
+	::msdb::DBUser user2(existingServerID, 3);
+
+	::msdb::DBChannel rootChannel;
+	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
+	rootChannel.parentID  = rootChannel.channelID;
+	rootChannel.serverID  = existingServerID;
+	rootChannel.name      = "Root";
+
+	::msdb::DBChannel firstChannel;
+	firstChannel.channelID = 3;
+	firstChannel.parentID  = rootChannel.channelID;
+	firstChannel.serverID  = existingServerID;
+	firstChannel.name      = "First channel";
+
+	db.getServerTable().addServer(existingServerID);
+	db.getChannelTable().addChannel(rootChannel);
+	db.getChannelTable().addChannel(firstChannel);
+	db.getUserTable().addUser(user1, "User 1");
+	db.getUserTable().addUser(user2, "User 2");
+
+	QVERIFY(db.getServerTable().serverExists(existingServerID));
+	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
+	QVERIFY(db.getChannelTable().channelExists(rootChannel));
+	QVERIFY(db.getChannelTable().channelExists(firstChannel));
+	QVERIFY(!db.getChannelTable().channelExists(existingServerID, nonExistingChannelID));
+	QVERIFY(db.getUserTable().userExists(user1));
+	QVERIFY(db.getUserTable().userExists(user2));
+	QVERIFY(!db.getUserTable().userExists(::msdb::DBUser(existingServerID, nonExistingUserID)));
+
+
+	::msdb::ChannelListenerTable &table = db.getChannelListenerTable();
+
+	::msdb::DBChannelListener listener1(existingServerID, firstChannel.channelID, user1.registeredUserID);
+	::msdb::DBChannelListener listener2(existingServerID, rootChannel.channelID, user2.registeredUserID);
+
+	listener2.volumeAdjustment = 3.5;
+	listener2.enabled          = false;
+
+	QVERIFY(table.getListenersForChannel(existingServerID, rootChannel.channelID).empty());
+	QVERIFY(table.getListenersForChannel(nonExistingServerID, rootChannel.channelID).empty());
+	QVERIFY(table.getListenersForChannel(existingServerID, nonExistingChannelID).empty());
+	QVERIFY(table.getListenersForUser(existingServerID, user1.registeredUserID).empty());
+	QVERIFY(table.getListenersForUser(nonExistingServerID, user1.registeredUserID).empty());
+	QVERIFY(table.getListenersForUser(existingServerID, nonExistingUserID).empty());
+
+	QVERIFY(!table.listenerExists(listener1));
+	QVERIFY(!table.listenerExists(listener2));
+
+	table.addListener(listener1);
+
+	QVERIFY(table.listenerExists(listener1));
+	QVERIFY(!table.listenerExists(listener2));
+
+	table.addListener(listener2);
+
+	QVERIFY(table.listenerExists(listener2));
+
+	std::vector<::msdb::DBChannelListener > expectedListeners = { listener1 };
+	std::vector<::msdb::DBChannelListener > fetchedListeners =
+		table.getListenersForUser(user1.serverID, user1.registeredUserID);
+
+	QCOMPARE(fetchedListeners, expectedListeners);
+
+	expectedListeners = { listener2 };
+	fetchedListeners  = table.getListenersForChannel(rootChannel.serverID, rootChannel.channelID);
+
+	QCOMPARE(fetchedListeners, expectedListeners);
+
+	table.removeListener(listener2);
+
+	QVERIFY(!table.listenerExists(listener2));
+
+	listener2.channelID = listener1.channelID;
+
+	table.addListener(listener2);
+
+	expectedListeners = { listener1, listener2 };
+	fetchedListeners  = table.getListenersForChannel(firstChannel.serverID, firstChannel.channelID);
+	QVERIFY(expectedListeners.size() == fetchedListeners.size());
+	QVERIFY(std::is_permutation(expectedListeners.begin(), expectedListeners.end(), fetchedListeners.begin()));
+
+	listener1.volumeAdjustment = 0.876;
+	table.updateListener(listener1);
+
+	expectedListeners = { listener1 };
+	fetchedListeners  = table.getListenersForUser(user1.serverID, user1.registeredUserID);
+
+	QCOMPARE(fetchedListeners, expectedListeners);
+
+	// Double-adding should error
+	QVERIFY_EXCEPTION_THROWN(table.addListener(listener1), ::mdb::AccessException);
+
+	// Adding to invalid server should error
+	::msdb::DBChannelListener invalid = listener1;
+	invalid.serverID                  = nonExistingServerID;
+	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+
+	// Adding with invalid channel should error
+	invalid.serverID  = existingServerID;
+	invalid.channelID = nonExistingChannelID;
+	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+
+	// Adding with invalid user should error
+	invalid.channelID = rootChannel.channelID;
+	invalid.userID    = nonExistingUserID;
+	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+
+
+	END_TEST_CASE
+}
 
 QTEST_MAIN(ServerDatabaseTest)
 #include "ServerDatabaseTest.moc"
