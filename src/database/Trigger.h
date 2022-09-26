@@ -64,8 +64,8 @@ namespace db {
 		Event m_event;
 		std::string m_triggerBody;
 		std::string m_condition;
-		bool dropBeforeDelete = true;
-		bool m_created         = false;
+		bool m_dropBeforeDelete = true;
+		bool m_created          = false;
 	};
 
 } // namespace db
