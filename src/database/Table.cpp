@@ -176,8 +176,10 @@ namespace db {
 			}
 
 			// Finally, add triggers
-			for (const Trigger &currentTrigger : m_trigger) {
+			for (Trigger &currentTrigger : m_trigger) {
 				m_sql << currentTrigger.creationQuery(*this, m_backend);
+
+				currentTrigger.setCreated(true);
 			}
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
@@ -265,16 +267,18 @@ namespace db {
 
 	const std::vector< Trigger > &Table::getTrigger() const { return m_trigger; }
 
-	void Table::addTrigger(const Trigger &trigger, bool applyToDB) {
+	void Table::addTrigger(Trigger trigger, bool applyToDB) {
 		if (applyToDB) {
 			try {
 				m_sql << trigger.creationQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at creating trigger \"" + trigger.getName() + "\": " + e.what());
 			}
+
+			trigger.setCreated(true);
 		}
 
-		m_trigger.push_back(trigger);
+		m_trigger.push_back(std::move(trigger));
 	}
 
 	bool Table::removeTrigger(const Trigger &trigger, bool applyToDB) {
