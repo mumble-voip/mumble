@@ -121,7 +121,7 @@ namespace server {
 				soci::transaction transaction(m_sql);
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID",
+					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID LIMIT 1",
 					soci::use(serverID), soci::use(groupID), soci::use(userID), soci::into(exists);
 
 				transaction.commit();

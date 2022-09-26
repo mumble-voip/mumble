@@ -161,7 +161,7 @@ namespace server {
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND LOWER("
 					  << column::base_address << ") = LOWER(:baseAddress) AND " << column::prefix_length
-					  << " = :prefixLength",
+					  << " = :prefixLength LIMIT 1",
 					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength), soci::into(exists);
 
 				transaction.commit();
