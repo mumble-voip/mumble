@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "DBBan.h"
+#include "ChronoUtils.h"
 
 #include <boost/algorithm/hex.hpp>
 
@@ -101,15 +102,11 @@ namespace server {
 			return mask + 96;
 		}
 
-		template< typename TimePoint > std::size_t toSeconds(const TimePoint &tp) {
-			return std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count();
-		}
-
 		bool operator==(const DBBan &lhs, const DBBan &rhs) {
 			return lhs.serverID == rhs.serverID && lhs.baseAddress == rhs.baseAddress
 				   && lhs.prefixLength == rhs.prefixLength && lhs.bannedUserName == rhs.bannedUserName
 				   && lhs.bannedUserCertHash == rhs.bannedUserCertHash && lhs.reason == rhs.reason
-				   && toSeconds(lhs.startDate) == toSeconds(rhs.startDate) && lhs.duration == rhs.duration;
+				   && toEpochSeconds(lhs.startDate) == toEpochSeconds(rhs.startDate) && lhs.duration == rhs.duration;
 		}
 
 		bool operator!=(const DBBan &lhs, const DBBan &rhs) { return !(lhs == rhs); }
