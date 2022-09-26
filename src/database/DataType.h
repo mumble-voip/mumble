@@ -24,6 +24,7 @@ namespace db {
 		enum Type {
 			Integer,
 			SmallInteger,
+			Float,
 			Double,
 			FixedSizeString,
 			VarChar,

@@ -38,6 +38,8 @@ namespace db {
 				return false;
 			case DataType::SmallInteger:
 				return false;
+			case DataType::Float:
+				return false;
 			case DataType::Double:
 				return false;
 			case DataType::FixedSizeString:
@@ -64,6 +66,8 @@ namespace db {
 			case DataType::Integer:
 				return true;
 			case DataType::SmallInteger:
+				return true;
+			case DataType::Float:
 				return true;
 			case DataType::Double:
 				return true;
@@ -94,6 +98,7 @@ namespace db {
 				return true;
 			case DataType::Type::Integer:
 			case DataType::Type::SmallInteger:
+			case DataType::Type::Float:
 			case DataType::Type::Double:
 			case DataType::Type::EpochTime:
 			case DataType::Type::Blob:
@@ -114,6 +119,13 @@ namespace db {
 				break;
 			case DataType::SmallInteger:
 				sqlRepr = "SMALLINT";
+				break;
+			case DataType::Float:
+				if (backend == Backend::PostgreSQL) {
+					sqlRepr = "REAL";
+				} else {
+					sqlRepr = "FLOAT";
+				}
 				break;
 			case DataType::Double:
 				sqlRepr = "DOUBLE PRECISION";
@@ -185,6 +197,8 @@ namespace db {
 			type = DataType::Integer;
 		} else if (boost::iequals(name, "SMALLINT")) {
 			type = DataType::SmallInteger;
+		} else if (boost::iequals(name, "FLOAT") || boost::iequals(name, "REAL")) {
+			type = DataType::Float;
 		} else if (boost::iequals(name, "DOUBLE PRECISION")) {
 			type = DataType::Double;
 		} else if (boost::iequals(name, "CHAR")) {

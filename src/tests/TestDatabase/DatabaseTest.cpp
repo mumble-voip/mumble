@@ -715,7 +715,7 @@ void DatabaseTest::dataTypes() {
 		db.init(test::utils::getConnectionParamter(currentBackend));
 
 		for (DataType::Type currentType :
-			 { DataType::Integer, DataType::SmallInteger, DataType::Double, DataType::FixedSizeString,
+			 { DataType::Integer, DataType::SmallInteger, DataType::Float, DataType::Double, DataType::FixedSizeString,
 			   DataType::VarChar, DataType::Text, DataType::EpochTime, DataType::Blob }) {
 			qInfo() << "Current data type:" << currentType;
 
