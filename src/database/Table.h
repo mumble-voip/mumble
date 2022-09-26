@@ -61,7 +61,7 @@ namespace db {
 		bool removeIndex(const Index &index, bool applyToDB);
 
 		const std::vector< Trigger > &getTrigger() const;
-		void addTrigger(const Trigger &trigger, bool applyToDB);
+		void addTrigger(Trigger trigger, bool applyToDB);
 		bool removeTrigger(const Trigger &trigger, bool applyToDB);
 
 		bool hasPrimaryKey() const;
