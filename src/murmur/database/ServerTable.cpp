@@ -70,8 +70,8 @@ namespace server {
 
 				soci::transaction transaction(m_sql);
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(id),
-					soci::into(exists);
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id LIMIT 1",
+					soci::use(id), soci::into(exists);
 
 				transaction.commit();
 

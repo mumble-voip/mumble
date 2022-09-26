@@ -136,7 +136,7 @@ namespace server {
 				int exists = 0;
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+					  << column::channel_id << " = :channelID LIMIT 1",
 					soci::use(serverID), soci::use(channelID), soci::into(exists);
 
 				transaction.commit();
