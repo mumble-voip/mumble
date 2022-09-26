@@ -239,3 +239,25 @@
 		- DEFAULT: 0
 	* PRIMARY KEY: (server_id, ipv6_base_address, prefix_length)
 	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_listeners:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- volume_adjustment
+		- FLOAT
+		- NOT NULL
+		- DEFAULT 1
+	- enabled
+		- SMALLINT
+		- NOT NULL
+		-DEFAULT: 1
+	* PRIMARY KEY: (server_id, user_id, channel_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)

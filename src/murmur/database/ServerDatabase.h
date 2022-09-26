@@ -25,6 +25,7 @@ namespace server {
 		class ACLTable;
 		class ChannelLinkTable;
 		class BanTable;
+		class ChannelListenerTable;
 
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
@@ -52,6 +53,7 @@ namespace server {
 			ACLTable &getACLTable();
 			ChannelLinkTable &getChannelLinkTable();
 			BanTable &getBanTable();
+			ChannelListenerTable &getChannelListenerTable();
 
 		protected:
 			void setupStandardTables() override;
