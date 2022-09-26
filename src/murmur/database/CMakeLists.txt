@@ -13,6 +13,7 @@ add_library(mumble_server_database STATIC
 	"DBAcl.cpp"
 	"DBChannelLink.cpp"
 	"DBBan.cpp"
+	"DBChannelListener.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
@@ -27,6 +28,7 @@ add_library(mumble_server_database STATIC
 	"ACLTable.cpp"
 	"ChannelLinkTable.cpp"
 	"BanTable.cpp"
+	"ChannelListenerTable.cpp"
 )
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})

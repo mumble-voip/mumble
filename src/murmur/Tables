@@ -214,3 +214,26 @@
 		- INTEGER
 	(* TRIGGER AFTER DELETE ON servers: DELETE FROM bans WHERE server_id = old.server_id)
 	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_listeners:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- volume_adjustment
+		- FLOAT
+		- DEFAULT 1
+	- enabled
+		- SMALLINT
+		-DEFAULT: 1
+	(* TRIGGER AFTER DELETE ON servers: DELETE FROM channel_listeners WHERE server_id = old.server_id)
+	(* TRIGGER AFTER DELETE ON channels: DELETE FROM channel_listeners WHERE server_id = old.server_id AND channel_id = old.channel_id)
+	(* TRIGGER AFTER DELETE ON users: DELETE FROM channel_listeners WHERE server_id = old.server_id AND user_id = old.user_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
