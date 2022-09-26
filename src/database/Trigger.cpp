@@ -63,9 +63,9 @@ namespace db {
 
 	bool Trigger::hasCondition() const { return !getCondition().empty(); }
 
-	bool Trigger::dropBeforeDeleteTable() const { return dropBeforeDelete; }
+	bool Trigger::dropBeforeDeleteTable() const { return m_dropBeforeDelete; }
 
-	void Trigger::setDropBeforeDeleteTable(bool drop) { dropBeforeDelete = drop; }
+	void Trigger::setDropBeforeDeleteTable(bool drop) { m_dropBeforeDelete = drop; }
 
 	bool Trigger::created() const { return m_created; }
 
