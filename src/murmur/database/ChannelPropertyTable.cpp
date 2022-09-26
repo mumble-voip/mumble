@@ -12,6 +12,7 @@
 #include "database/DataType.h"
 #include "database/Database.h"
 #include "database/ForeignKey.h"
+#include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
 #include "database/Utils.h"
 
@@ -195,7 +196,7 @@ namespace server {
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
 				}
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException(
+				std::throw_with_nested(::mdb::MigrationException(
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}

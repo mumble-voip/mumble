@@ -513,7 +513,7 @@ namespace server {
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
 				}
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException(
+				std::throw_with_nested(::mdb::MigrationException(
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}
