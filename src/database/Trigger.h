@@ -49,6 +49,9 @@ namespace db {
 		bool dropBeforeDeleteTable() const;
 		void setDropBeforeDeleteTable(bool drop);
 
+		bool created() const;
+		void setCreated(bool created);
+
 		std::string creationQuery(const Table &table, Backend backend) const;
 		std::string dropQuery(const Table &table, Backend backend) const;
 
@@ -62,6 +65,7 @@ namespace db {
 		std::string m_triggerBody;
 		std::string m_condition;
 		bool dropBeforeDelete = true;
+		bool m_created         = false;
 	};
 
 } // namespace db

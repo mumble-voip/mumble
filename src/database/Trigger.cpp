@@ -67,6 +67,10 @@ namespace db {
 
 	void Trigger::setDropBeforeDeleteTable(bool drop) { dropBeforeDelete = drop; }
 
+	bool Trigger::created() const { return m_created; }
+
+	void Trigger ::setCreated(bool created) { m_created = created; }
+
 	std::string Trigger::creationQuery(const Table &table, Backend backend) const {
 		std::string query = "CREATE TRIGGER \"" + m_name + "\"";
 		switch (m_timing) {

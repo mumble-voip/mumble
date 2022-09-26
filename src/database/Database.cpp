@@ -259,7 +259,7 @@ namespace db {
 				}
 
 				for (const Trigger &currentTrigger : currentTable->getTrigger()) {
-					if (currentTrigger.dropBeforeDeleteTable()) {
+					if (currentTrigger.created() && currentTrigger.dropBeforeDeleteTable()) {
 						m_sql << currentTrigger.dropQuery(*currentTable, m_backend);
 					}
 				}
