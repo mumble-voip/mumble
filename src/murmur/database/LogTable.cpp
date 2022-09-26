@@ -5,6 +5,7 @@
 
 #include "LogTable.h"
 #include "ServerTable.h"
+#include "ChronoUtils.h"
 
 #include "database/AccessException.h"
 #include "database/Column.h"
@@ -56,8 +57,7 @@ namespace server {
 
 		void LogTable::logMessage(unsigned int serverID, const std::string &message,
 								  const std::chrono::time_point< std::chrono::steady_clock > &date) {
-			std::size_t timeSinceEpoch =
-				std::chrono::duration_cast< std::chrono::seconds >(date.time_since_epoch()).count();
+			std::size_t timeSinceEpoch = toEpochSeconds(date);
 
 			try {
 				soci::transaction transaction(m_sql);

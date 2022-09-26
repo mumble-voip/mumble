@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "DBUserData.h"
+#include "ChronoUtils.h"
 
 #include <chrono>
 
@@ -20,14 +21,10 @@ namespace server {
 			return !(lhs == rhs);
 		}
 
-		template< typename TimePoint > std::size_t toSeconds(const TimePoint &tp) {
-			return std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count();
-		}
-
 		bool operator==(const DBUserData &lhs, const DBUserData &rhs) {
 			return lhs.name == rhs.name && lhs.password == rhs.password && lhs.lastChannelID == rhs.lastChannelID
-				   && lhs.texture == rhs.texture && toSeconds(lhs.lastActive) == toSeconds(rhs.lastActive)
-				   && toSeconds(lhs.lastDisconnect) == toSeconds(rhs.lastDisconnect);
+				   && lhs.texture == rhs.texture && toEpochSeconds(lhs.lastActive) == toEpochSeconds(rhs.lastActive)
+				   && toEpochSeconds(lhs.lastDisconnect) == toEpochSeconds(rhs.lastDisconnect);
 		}
 
 		bool operator!=(const DBUserData &lhs, const DBUserData &rhs) { return !(lhs == rhs); }

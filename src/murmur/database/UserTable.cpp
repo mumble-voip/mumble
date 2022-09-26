@@ -5,6 +5,7 @@
 
 #include "UserTable.h"
 #include "ChannelTable.h"
+#include "ChronoUtils.h"
 #include "ServerTable.h"
 
 #include "database/AccessException.h"
@@ -225,11 +226,8 @@ namespace server {
 
 					// These fields will be 0, if the corresponding time-point was not set explicitly (and was thus
 					// default-constructed), which coincides with our default value for these properties.
-					std::size_t lastActive =
-						std::chrono::duration_cast< std::chrono::seconds >(data.lastActive.time_since_epoch()).count();
-					std::size_t lastDisconnect =
-						std::chrono::duration_cast< std::chrono::seconds >(data.lastDisconnect.time_since_epoch())
-							.count();
+					std::size_t lastActive     = toEpochSeconds(data.lastActive);
+					std::size_t lastDisconnect = toEpochSeconds(data.lastDisconnect);
 
 					m_sql << "UPDATE \"" << NAME << "\" SET " << column::password_hash << " = :pwHash, " << column::salt
 						  << " = :salt, " << column::kdf_iterations << " = :kdfIter, " << column::user_name
@@ -305,8 +303,7 @@ namespace server {
 			assert(userExists(user));
 
 			try {
-				std::size_t lastDisconnect =
-					std::chrono::duration_cast< std::chrono::seconds >(timepoint.time_since_epoch()).count();
+				std::size_t lastDisconnect = toEpochSeconds(timepoint);
 
 				soci::transaction transaction(m_sql);
 
@@ -350,8 +347,7 @@ namespace server {
 			assert(userExists(user));
 
 			try {
-				std::size_t lastActive =
-					std::chrono::duration_cast< std::chrono::seconds >(timepoint.time_since_epoch()).count();
+				std::size_t lastActive = toEpochSeconds(timepoint);
 
 				soci::transaction transaction(m_sql);
 
@@ -400,9 +396,7 @@ namespace server {
 
 			// Setting a user's last channel tends to indicate that said user just moved in a new channel and thus was
 			// just active
-			std::size_t lastActive =
-				std::chrono::duration_cast< std::chrono::seconds >(std::chrono::steady_clock::now().time_since_epoch())
-					.count();
+			std::size_t lastActive = toEpochSeconds(std::chrono::steady_clock::now());
 
 			try {
 				soci::transaction transaction(m_sql);
