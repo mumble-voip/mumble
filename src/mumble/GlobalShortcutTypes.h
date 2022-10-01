@@ -37,6 +37,7 @@ enum Type {
 	ToggleTalkingUI,
 	ToggleSearch,
 	ListenToChannel,
+	ToggleRNNoise,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending
