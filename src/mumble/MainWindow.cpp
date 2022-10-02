@@ -284,6 +284,10 @@ void MainWindow::createActions() {
 	gsToggleMainWindowVisibility = new GlobalShortcut(this, GlobalShortcutType::ToggleMainWindowVisibility,
 													  tr("Hide/show main window", "Global Shortcut"));
 	gsToggleMainWindowVisibility->setObjectName(QLatin1String("gsToggleMainWindowVisibility"));
+	
+	gsToggleRNNoise = new GlobalShortcut(this, GlobalShortcutType::ToggleRNNoise,
+					     							  tr("Toggle RNNnoise on or off", "Global Shortcut"));
+	gsToggleRNNoise->setObjectName(QLatin1String("gsToggleRNNoise"));
 
 	gsTransmitModePushToTalk = new GlobalShortcut(this, GlobalShortcutType::UsePushToTalk,
 												  tr("Set Transmit Mode to Push-To-Talk", "Global Shortcut"));
@@ -3132,6 +3136,11 @@ void MainWindow::on_gsToggleMainWindowVisibility_triggered(bool down, QVariant) 
 		}
 	}
 }
+
+void MainWindow::on_gsToggleRNNoise_triggered(bool down, QVariant) {
+	if(down) {
+		setRNNoise(AudioInput::selectNoiseCancel());
+	}
 
 void MainWindow::on_gsListenChannel_triggered(bool down, QVariant scdata) {
 	ChannelTarget target = scdata.value< ChannelTarget >();
