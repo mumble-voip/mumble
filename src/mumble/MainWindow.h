@@ -98,7 +98,7 @@ public:
 		*gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 	GlobalShortcut *gsToggleTalkingUI;
-	GlobalShortcut *gsToggleSearch;
+	GlobalShortcut *gsToggleSearch, *gsToggleRNNoise;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -299,6 +299,7 @@ public slots:
 	void on_gsListenChannel_triggered(bool, QVariant);
 	void on_gsCycleTransmitMode_triggered(bool, QVariant);
 	void on_gsToggleMainWindowVisibility_triggered(bool, QVariant);
+	void on_gsToggleRNNoise_triggered(bool, QVariant);
 	void on_gsTransmitModePushToTalk_triggered(bool, QVariant);
 	void on_gsTransmitModeContinuous_triggered(bool, QVariant);
 	void on_gsTransmitModeVAD_triggered(bool, QVariant);
