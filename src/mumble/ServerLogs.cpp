@@ -3,15 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "MainWindow.h"
-<<<<<<< Updated upstream
-#include "ServerHandler.h"
 #include "ServerLogs.h"
+#include "MainWindow.h"
+#include "ServerHandler.h"
 #include "Version.h"
 #include "Global.h"
-=======
-#include "ServerLogs.h"
->>>>>>> Stashed changes
 
 #include <QTableWidgetItem>
 
@@ -31,11 +27,9 @@ void ServerLogs::updateFields() {
 }
 
 void ServerLogs::updateTimeSpan() {
-
 }
 
 void ServerLogs::updateLogs() {
-
 }
 
 
