@@ -38,6 +38,7 @@ class UserInformation;
 class VoiceRecorderDialog;
 class PositionalAudioViewer;
 class PTTButtonWidget;
+class ServerLogs;
 
 namespace Search {
 class SearchDialog;
@@ -220,6 +221,7 @@ public slots:
 	void on_qaServerTexture_triggered();
 	void on_qaServerTextureRemove_triggered();
 	void on_qaServerTokens_triggered();
+	void on_qaServerLogs_triggered();
 	void on_qmSelf_aboutToShow();
 	void on_qaSelfComment_triggered();
 	void on_qaSelfRegister_triggered();

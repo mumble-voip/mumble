@@ -4,10 +4,14 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "MainWindow.h"
+<<<<<<< Updated upstream
 #include "ServerHandler.h"
 #include "ServerLogs.h"
 #include "Version.h"
 #include "Global.h"
+=======
+#include "ServerLogs.h"
+>>>>>>> Stashed changes
 
 #include <QTableWidgetItem>
 

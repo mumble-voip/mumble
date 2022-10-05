@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui version="4.0">
+	<class>ServerLogs</class>
+	<widget class="QDialog" name="ServerLogs">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>541</width>
+				<height>726</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Mumble - Server Logs</string>
+		</property>
+		<layout class="QVBoxLayout" name="verticalLayout">
+			<item>
+				<widget class="QListWidget" name="qlwServerLogs">
+					<property name="toolTip">
+						<string>List of the server logs.</string>
+					</property>
+					<property name="whatsThis">
+						<string>
+							&lt;b&gt;This is a list of the server logs within a specified amount of time.&lt;/b&gt;
+							&lt;br /&gt;
+							Users with the appropriate permissions are able to see the server logs up to a certain amount of time.
+						</string>
+					</property>
+					<property name="editTriggers">
+						<set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+					</property>
+					<property name="alternatingRowColors">
+						<bool>true</bool>
+					</property>
+					<property name="selectionMode">
+						<enum>QAbstractItemView::MultiSelection</enum>
+					</property>
+					<property name="sortingEnabled">
+						<bool>true</bool>
+					</property>
+				</widget>
+			</item>
+			<item>
+				<layout class="QHBoxLayout">
+					<item>
+						<widget class="QPushButton" name="qpb1d">
+							<property name="text">
+								<string>&amp;1d</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QPushButton" name="qpb1w">
+							<property name="text">
+								<string>&amp;1w</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QPushButton" name="qpb1m">
+							<property name="text">
+								<string>&amp;1m</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QPushButton" name="qpb3w">
+							<property name="text">
+								<string>&amp;3w</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QPushButton" name="qpb2w">
+							<property name="text">
+								<string>&amp;2w</string>
+							</property>
+						</widget>
+					</item>
+				</layout>
+			</item>
+			<item>
+				<widget class="QDialogButtonBox" name="qbbButtons">
+					<property name="orientation">
+						<enum>Qt::Horizontal</enum>
+					</property>
+					<property name="standardButtons">
+						<set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+					</property>
+				</widget>
+			</item>
+		</layout>
+	</widget>
+	<tabstops>
+		<tabstop>qlwServerLogs</tabstop>
+		<tabstop>qbbButtons</tabstop>
+	</tabstops>
+	<resources/>
+	<connections/>
+</ui>
