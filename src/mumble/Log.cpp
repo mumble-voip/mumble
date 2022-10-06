@@ -509,7 +509,7 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 }
 
 QString Log::formatChannel(::Channel *c) {
-	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>")
+	return QString::fromLatin1("<a href='channelid://id.%1/%3' class='log-channel'>%2</a>")
 		.arg(c->iId)
 		.arg(c->qsName.toHtmlEscaped())
 		.arg(QString::fromLatin1(Global::get().sh->qbaDigest.toBase64()));
@@ -539,7 +539,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 	if (cu) {
 		QString name = (displayName.isNull() ? cu->qsName : displayName).toHtmlEscaped();
 		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>")
+			return QString::fromLatin1("<a href='clientid://id.%2/%4' class='log-user log-%1'>%3</a>")
 				.arg(className)
 				.arg(cu->uiSession)
 				.arg(name)

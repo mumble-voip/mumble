@@ -829,6 +829,10 @@ ContextMenuTarget MainWindow::getContextMenuTargets() {
 }
 
 bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
+	// This method abuses QUrls for internal data serialization
+	// The protocol, host and path parts of the URL may contain
+	// special values which are only parsable by this method.
+
 	if (url.scheme() == QString::fromLatin1("clientid")) {
 		bool ok = false;
 		QString maybeUserHash(url.host());
@@ -839,8 +843,13 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				ok            = true;
 			}
 		} else {
+			// We expect the host part of the URL to contain the user id in the format
+			// id.<id>
+			// where <id> is the user id as integer. This is necessary, because QUrl parses
+			// plain integers in the host field as IP addresses
 			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-			cuContextUser              = ClientUser::get(url.host().toInt(&ok, 10));
+			QString id                 = url.host().split(".").value(1, "-1");
+			cuContextUser              = ClientUser::get(id.toInt(&ok, 10));
 			ServerHandlerPtr sh        = Global::get().sh;
 			ok                         = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		}
@@ -855,9 +864,14 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 		}
 		cuContextUser.clear();
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
+		// We expect the host part of the URL to contain the channel id in the format
+		// id.<id>
+		// where <id> is the channel id as integer. This is necessary, because QUrl parses
+		// plain integers in the host field as IP addresses
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-		cContextChannel            = Channel::get(url.host().toInt(&ok, 10));
+		QString id                 = url.host().split(".").value(1, "-1");
+		cContextChannel            = Channel::get(id.toInt(&ok, 10));
 		ServerHandlerPtr sh        = Global::get().sh;
 		ok                         = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		if (ok) {
