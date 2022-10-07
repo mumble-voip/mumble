@@ -2502,32 +2502,22 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
  * @see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
  */
 void MainWindow::updateMenuPermissions() {
-	ClientUser *cu = nullptr;
-	Channel *c     = nullptr;
+	ContextMenuTarget target = getContextMenuTargets();
 
-	if (Global::get().uiSession) {
-		cu = getContextMenuUser();
-		if (!cu)
-			cu = pmModel->getUser(qtvUsers->currentIndex());
+	ChanACL::Permissions p =
+		target.channel ? static_cast< ChanACL::Permissions >(target.channel->uiPermissions) : ChanACL::None;
 
-		c = cu ? cu->cChannel : getContextMenuChannel();
-		if (!c)
-			c = pmModel->getChannel(qtvUsers->currentIndex());
-	}
-
-	ChanACL::Permissions p = c ? static_cast< ChanACL::Permissions >(c->uiPermissions) : ChanACL::None;
-
-	if (c && !p) {
-		Global::get().sh->requestChannelPermissions(c->iId);
-		if (c->iId == 0)
+	if (target.channel && !p) {
+		Global::get().sh->requestChannelPermissions(target.channel->iId);
+		if (target.channel->iId == 0)
 			p = Global::get().pPermissions;
 		else
 			p = ChanACL::All;
 
-		c->uiPermissions = p;
+		target.channel->uiPermissions = p;
 	}
 
-	Channel *cparent = c ? c->cParent : nullptr;
+	Channel *cparent = target.channel ? target.channel->cParent : nullptr;
 	ChanACL::Permissions pparent =
 		cparent ? static_cast< ChanACL::Permissions >(cparent->uiPermissions) : ChanACL::None;
 
@@ -2555,14 +2545,15 @@ void MainWindow::updateMenuPermissions() {
 		homec->uiPermissions = homep;
 	}
 
-	if (cu) {
+	if (target.user) {
 		qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen)
-							   && ((cu != user) || cu->bMute || cu->bSuppress));
-		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && ((cu != user) || cu->bDeaf));
+							   && ((target.user != user) || target.user->bMute || target.user->bSuppress));
+		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen)
+							   && ((target.user != user) || target.user->bDeaf));
 		qaUserPrioritySpeaker->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 		qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 		qaUserInformation->setEnabled((Global::get().pPermissions & (ChanACL::Write | ChanACL::Register))
-									  || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
+									  || (p & (ChanACL::Write | ChanACL::Enter)) || (target.user == user));
 	} else {
 		qaUserMute->setEnabled(false);
 		qaUserDeaf->setEnabled(false);
@@ -2582,11 +2573,19 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel))
 								|| (homep & (ChanACL::Write | ChanACL::LinkChannel)));
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
-
-	qaChannelCopyURL->setEnabled(c);
+	qaChannelCopyURL->setEnabled(target.channel);
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelFilter->setEnabled(true);
-	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+
+	bool chatBarEnabled = false;
+	if (Global::get().uiSession) {
+		if (Global::get().s.bChatBarUseSelection && (target.channel || target.user)) {
+			chatBarEnabled = p & (ChanACL::Write | ChanACL::TextMessage);
+		} else if (homec) {
+			chatBarEnabled = homep & (ChanACL::Write | ChanACL::TextMessage);
+		}
+	}
+	qteChat->setEnabled(chatBarEnabled);
 }
 
 void MainWindow::userStateChanged() {
