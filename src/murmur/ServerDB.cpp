@@ -2225,12 +2225,14 @@ int Server::readLastChannel(int id) {
 		}
 
 		QDateTime last_active = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
+		last_active.setTimeSpec(Qt::UTC);
 		QDateTime last_disconnect;
 
 		// NULL column for last_disconnect will yield an empty invalid QDateTime object.
 		// Using that object with QDateTime::secsTo() will return 0 as per Qt specification.
 		if (!query.value(2).isNull()) {
 			last_disconnect = QDateTime::fromString(query.value(2).toString(), Qt::ISODate);
+			last_disconnect.setTimeSpec(Qt::UTC);
 		}
 
 		if (last_active.secsTo(last_disconnect) <= 0) {
