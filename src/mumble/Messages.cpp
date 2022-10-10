@@ -886,8 +886,9 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 			p             = nullptr; // No need to move it later
 
 			ServerHandlerPtr sh = Global::get().sh;
-			if (sh)
-				c->bFiltered = Global::get().db->isChannelFiltered(sh->qbaDigest, c->iId);
+			if (sh) {
+				c->m_filterMode = Global::get().db->getChannelFilterMode(sh->qbaDigest, c->iId);
+			}
 
 		} else {
 			qWarning("Server attempted state change on nonexistent channel");
@@ -970,21 +971,14 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	}
 
 	if (updateUI) {
-		// Passing nullptr to this function will make it do not much except fire a dataChanged event
-		// which leads to the UI being updated (reflecting the changes that just took effect).
-		this->pmModel->toggleChannelFiltered(nullptr);
+		this->pmModel->forceVisualUpdate();
 	}
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 	Channel *c = Channel::get(msg.channel_id());
 	if (c && (c->iId != 0)) {
-		if (c->bFiltered) {
-			ServerHandlerPtr sh = Global::get().sh;
-			if (sh)
-				Global::get().db->setChannelFiltered(sh->qbaDigest, c->iId, false);
-			c->bFiltered = false;
-		}
+		c->clearFilterMode();
 
 		if (Global::get().mw->m_searchDialog) {
 			QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_channelRemoved", Qt::QueuedConnection,

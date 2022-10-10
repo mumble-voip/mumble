@@ -15,6 +15,7 @@
 
 #ifdef MUMBLE
 #	include <atomic>
+#	include "ChannelFilterMode.h"
 #endif
 
 class User;
@@ -71,7 +72,12 @@ public:
 
 #ifdef MUMBLE
 	unsigned int uiPermissions;
-	bool bFiltered;
+
+	ChannelFilterMode m_filterMode;
+
+	void setFilterMode(ChannelFilterMode filterMode);
+	void clearFilterMode();
+	bool isFiltered() const;
 
 	static QHash< int, Channel * > c_qhChannels;
 	static QReadWriteLock c_qrwlChannels;

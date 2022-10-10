@@ -255,6 +255,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiComment         = QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen     = QIcon(QLatin1String("skin:comment_seen.svg"));
 	qiFilter          = QIcon(QLatin1String("skin:filter.svg"));
+	qiPin             = QIcon(QLatin1String("skin:pin.svg"));
 	qiLock_locked     = QIcon(QLatin1String("skin:lock_locked.svg"));
 	qiLock_unlocked   = QIcon(QLatin1String("skin:lock_unlocked.svg"));
 	qiEar             = QIcon(QLatin1String("skin:ear.svg"));
@@ -540,8 +541,17 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (!c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 
-				if (c->bFiltered)
-					l << (qiFilter);
+				switch (c->m_filterMode) {
+					case ChannelFilterMode::HIDE:
+						l << (qiFilter);
+						break;
+					case ChannelFilterMode::PIN:
+						l << (qiPin);
+						break;
+					case ChannelFilterMode::NORMAL:
+						// NOOP
+						break;
+				}
 
 				// Show a lock icon for enter restricted channels
 				if (c->hasEnterRestrictions.load()) {
@@ -775,15 +785,18 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 												   "valign=\"middle\">%11</td></tr>"
 												   "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%12</td></tr>"
-												   "<tr><td><img src=\"skin:lock_locked.svg\" height=64 /></td><td "
+												   "<tr><td><img src=\"skin:pin.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%13</td></tr>"
-												   "<tr><td><img src=\"skin:lock_unlocked.svg\" height=64 /></td><td "
+												   "<tr><td><img src=\"skin:lock_locked.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%14</td></tr>"
+												   "<tr><td><img src=\"skin:lock_unlocked.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%15</td></tr>"
 												   "</table>")
 							.arg(tr("This shows the flags the channel has, if any:"),
 								 tr("Channel has a new comment set (click to show)"),
 								 tr("Channel has a comment set, which you've already seen. (click to show)"),
 								 tr("Channel will be hidden when filtering is enabled"),
+								 tr("Channel will be pinned when filtering is enabled"),
 								 tr("Channel has access restrictions so that you can't enter it"),
 								 tr("Channel has access restrictions but you can enter nonetheless"));
 			}
@@ -1702,13 +1715,9 @@ void UserModel::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, fl
 	emit dataChanged(idx, idx);
 }
 
-void UserModel::toggleChannelFiltered(Channel *c) {
+void UserModel::forceVisualUpdate(Channel *c) {
 	QModelIndex idx;
 	if (c) {
-		c->bFiltered = !c->bFiltered;
-
-		ServerHandlerPtr sh = Global::get().sh;
-		Global::get().db->setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
 		idx = index(c);
 	}
 

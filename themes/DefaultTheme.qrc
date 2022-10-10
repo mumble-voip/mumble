@@ -45,6 +45,7 @@
     <file alias="muted_suppressed.svg">Default/muted_suppressed.svg</file>
     <file alias="muted_pushtomute.svg">Default/muted_pushtomute.svg</file>
     <file alias="overlay.mumblelay">Default/overlay.mumblelay</file>
+    <file alias="pin.svg">Default/pin.svg</file>
     <file alias="priority_speaker.svg">Default/priority_speaker.svg</file>
     <file alias="self_comment.svg">Default/self_comment.svg</file>
     <file alias="self_undeafened.svg">Default/self_undeafened.svg</file>

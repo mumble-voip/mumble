@@ -220,6 +220,9 @@ Database::Database(const QString &dbname) {
 							 "`server_cert_digest` TEXT NOT NULL, `channel_id` INTEGER NOT NULL)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `filtered_channels_entry` ON "
 												"`filtered_channels`(`server_cert_digest`, `channel_id`)"));
+	query.exec(QLatin1String("ALTER TABLE `filtered_channels` ADD COLUMN `filter_mode` INTEGER DEFAULT ")
+			   + QString::number(
+				   static_cast< int >(ChannelFilterMode::HIDE))); // Upgrade path, failing this query is not noteworthy
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY "
 												"AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
@@ -396,30 +399,41 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	execQueryAndLogFailure(query);
 }
 
-bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id) {
+ChannelFilterMode Database::getChannelFilterMode(const QByteArray &server_cert_digest, const int channel_id) {
 	QSqlQuery query(db);
 
 	query.prepare(QLatin1String(
-		"SELECT `channel_id` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+		"SELECT `filter_mode` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
 	query.addBindValue(server_cert_digest);
 	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
 
-	return query.next();
+	if (query.first()) {
+		return static_cast< ChannelFilterMode >(query.value(0).toInt());
+	}
+
+	return ChannelFilterMode::NORMAL;
 }
 
-void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {
+void Database::setChannelFilterMode(const QByteArray &server_cert_digest, const int channel_id,
+									const ChannelFilterMode filterMode) {
 	QSqlQuery query(db);
 
-	if (hidden)
-		query.prepare(
-			QLatin1String("INSERT INTO `filtered_channels` (`server_cert_digest`, `channel_id`) VALUES (?, ?)"));
-	else
-		query.prepare(
-			QLatin1String("DELETE FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+	switch (filterMode) {
+		case ChannelFilterMode::NORMAL:
+			query.prepare(
+				QLatin1String("DELETE FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+			break;
+		case ChannelFilterMode::PIN:
+		case ChannelFilterMode::HIDE:
+			query.prepare(QLatin1String("INSERT OR REPLACE INTO `filtered_channels` (`server_cert_digest`, "
+										"`channel_id`, `filter_mode`) VALUES (?, ?, ?)"));
+			query.bindValue(2, static_cast< int >(filterMode));
+			break;
+	}
 
-	query.addBindValue(server_cert_digest);
-	query.addBindValue(channel_id);
+	query.bindValue(0, server_cert_digest);
+	query.bindValue(1, channel_id);
 
 	execQueryAndLogFailure(query);
 }

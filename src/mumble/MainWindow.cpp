@@ -752,7 +752,7 @@ void MainWindow::updateTrayIcon() {
 
 void MainWindow::updateUserModel() {
 	UserModel *um = static_cast< UserModel * >(qtvUsers->model());
-	um->toggleChannelFiltered(nullptr); // Force a UI refresh
+	um->forceVisualUpdate();
 }
 
 void MainWindow::updateTransmitModeComboBox(Settings::AudioTransmit newMode) {
@@ -2262,7 +2262,8 @@ void MainWindow::qmChannel_aboutToShow() {
 	// hiding the root is nonsense
 	if (c && c->cParent) {
 		qmChannel->addSeparator();
-		qmChannel->addAction(qaChannelFilter);
+		qmChannel->addAction(qaChannelHide);
+		qmChannel->addAction(qaChannelPin);
 	}
 
 #ifndef Q_OS_MAC
@@ -2305,8 +2306,10 @@ void MainWindow::qmChannel_aboutToShow() {
 		}
 	}
 
-	if (c)
-		qaChannelFilter->setChecked(c->bFiltered);
+	if (c) {
+		qaChannelHide->setChecked(c->m_filterMode == ChannelFilterMode::HIDE);
+		qaChannelPin->setChecked(c->m_filterMode == ChannelFilterMode::PIN);
+	}
 
 	qaChannelAdd->setEnabled(add);
 	qaChannelRemove->setEnabled(remove);
@@ -2350,12 +2353,31 @@ void MainWindow::on_qaChannelListen_triggered() {
 	}
 }
 
-void MainWindow::on_qaChannelFilter_triggered() {
+void MainWindow::on_qaChannelHide_triggered() {
 	Channel *c = getContextMenuChannel();
 
 	if (c) {
 		UserModel *um = static_cast< UserModel * >(qtvUsers->model());
-		um->toggleChannelFiltered(c);
+		if (qaChannelHide->isChecked()) {
+			c->setFilterMode(ChannelFilterMode::HIDE);
+		} else {
+			c->setFilterMode(ChannelFilterMode::NORMAL);
+		}
+		um->forceVisualUpdate(c);
+	}
+}
+
+void MainWindow::on_qaChannelPin_triggered() {
+	Channel *c = getContextMenuChannel();
+
+	if (c) {
+		UserModel *um = static_cast< UserModel * >(qtvUsers->model());
+		if (qaChannelPin->isChecked()) {
+			c->setFilterMode(ChannelFilterMode::PIN);
+		} else {
+			c->setFilterMode(ChannelFilterMode::NORMAL);
+		}
+		um->forceVisualUpdate(c);
 	}
 }
 
@@ -2576,7 +2598,8 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 	qaChannelCopyURL->setEnabled(target.channel);
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
-	qaChannelFilter->setEnabled(true);
+	qaChannelHide->setEnabled(target.channel);
+	qaChannelPin->setEnabled(target.channel);
 
 	bool chatBarEnabled = false;
 	if (Global::get().uiSession) {
