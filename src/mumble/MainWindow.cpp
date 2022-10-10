@@ -2219,6 +2219,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addAction(qaAudioTTS);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
+	qmConfig->addAction(qaFilterToggle);
 
 	qaTalkingUIToggle->setChecked(Global::get().talkingUI && Global::get().talkingUI->isVisible());
 
