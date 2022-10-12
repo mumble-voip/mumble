@@ -1980,6 +1980,12 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 			p->bSuppress = !mayspeak;
 			mpus.set_suppress(p->bSuppress);
 		}
+
+		if (p->bPrioritySpeaker) {
+			// Clear priority speaker flag when switching channels
+			p->bPrioritySpeaker = false;
+			mpus.set_priority_speaker(p->bPrioritySpeaker);
+		}
 	}
 
 	clearACLCache(p);
