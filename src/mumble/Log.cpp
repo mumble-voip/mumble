@@ -404,6 +404,10 @@ Log::Log(QObject *p) : QObject(p) {
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
+
+	// remove gap above first chat message; the gaps below
+	// each chat message are handled within `Log::log`.
+	Global::get().mw->qteLog->document()->firstBlock().setVisible(false);
 }
 
 // Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
@@ -709,14 +713,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 		tc.movePosition(QTextCursor::End);
 
-		// A newline is inserted after each frame, but this spaces out the
-		// log entries too much, so the font size is set to near-zero in order
-		// to reduce the space between log entries. This font size is set only
-		// for the blank lines between entries, not for entries themselves.
-		QTextCharFormat cf = tc.blockCharFormat();
-		cf.setFontPointSize(0.01);
-		tc.setBlockCharFormat(cf);
-
 		// We copy the value from the settings in order to make sure that
 		// we use the same margin everywhere while in this method (even if
 		// the setting might change in that time).
@@ -762,8 +758,26 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tc.movePosition(QTextCursor::End);
 		Global::get().mw->qteLog->setTextCursor(tc);
 
-		// Shrink trailing blank line after the most recent log entry.
-		tc.setBlockCharFormat(cf);
+		// Qt's document model for [Rich Text Documents][RT] is based on blocks and frames.
+		// You always have a root frame and at least one block per frame:
+		//
+		// [Document]
+		//     +--> [Root frame]
+		//               +--> [Block]
+		//               +--> [Frame]
+		//               +--> [Block]
+		//               +--> [Frame]
+		//               +--> [Block]
+		//
+		// [RT]: https://doc.qt.io/qt-5/richtext-structure.html
+		//
+		// However, the issue is that the blocks between the frames are mandatory. They lead
+		// to additional gaps, especially on Windows, where `QTextCursor::setBlockCharFormat`
+		// cannot be used to decrease the trailing block's size.
+		//
+		// Fortunately, the `tlog`/`LogTextBrowser` is a `QTextBrowser` with a `QDocument*`.
+		// This allows us to hide the last block created by `QTextCursor::insertFrame()`.
+		tlog->document()->lastBlock().setVisible(false);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();
