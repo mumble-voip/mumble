@@ -495,9 +495,14 @@ namespace db {
 	void Database::applyBackendSpecificSetup(const ConnectionParameter &parameter) {
 		assert(parameter.applicability() == m_backend);
 
+
 		try {
 			switch (m_backend) {
 				case Backend::SQLite: {
+					// We don't have to (and can't) set the transaction isolation level for SQLite as it will
+					// always use the SERIALIZABLE level (via global read-write locks).
+					// See also https://stackoverflow.com/a/34008401
+
 					// Check the DB encoding to make sure that it is Unicode-compatible
 					std::string encoding;
 					m_sql << "PRAGMA ENCODING", soci::into(encoding);
@@ -534,8 +539,11 @@ namespace db {
 				case Backend::MySQL: {
 					// Make MySQL as conforming to ANSI standard SQL as possible and disable the "feature" of producing
 					// the next auto-incremented value in an auto_increment column when explicitly inserting zero.
-					m_sql << "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE";
 					m_sql << "SET sql_mode = 'ANSI,NO_AUTO_VALUE_ON_ZERO'";
+
+					// Set transaction isolation level
+					m_sql << "SET TRANSACTION ISOLATION LEVEL READ COMMITTED";
+
 
 					// Ensure that MySQL uses proper Unicode character encoding (note that "utf8" isn't actual proper
 					// UTF8, so we have to use the fixed version "utf8mb4" instead
@@ -573,6 +581,9 @@ namespace db {
 							"We require at least PostgreSQL v10.0.0 as earlier version don't implement all "
 							"necessary features");
 					}
+
+					// Set transaction isolation level
+					m_sql << "SET DEFAULT_TRANSACTION_ISOLATION TO 'READ COMMITTED'";
 
 					// Check the DB encoding to make sure that it is Unicode-compatible
 					std::string encoding;
