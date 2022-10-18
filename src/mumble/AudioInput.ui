@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>953</height>
+    <width>711</width>
+    <height>1012</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -772,43 +772,6 @@
       <string>Misc</string>
      </property>
      <layout class="QGridLayout" name="_2">
-      <item row="1" column="3">
-       <widget class="QLabel" name="qlPushClickOn">
-        <property name="text">
-         <string>On</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLineEdit" name="qlePushClickPathOn">
-        <property name="toolTip">
-         <string>Gets played when starting to transmit</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QLabel" name="qliIdle">
-        <property name="text">
-         <string>Idle action</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="6">
-       <widget class="QPushButton" name="qpbPushClickPreview">
-        <property name="toolTip">
-         <string>Preview the audio cues</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Preview</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="4">
        <widget class="QLineEdit" name="qlePushClickPathOff">
         <property name="toolTip">
@@ -878,26 +841,27 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="qcbPushClick">
-        <property name="toolTip">
-         <string>Audible audio cue when starting or stopping to transmit</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
-        </property>
+      <item row="3" column="4">
+       <widget class="QLineEdit" name="qleMuteCuePath"/>
+      </item>
+      <item row="3" column="5">
+       <widget class="QPushButton" name="qpbMuteCueBrowse">
         <property name="text">
-         <string>Audio cue</string>
+         <string>Br&amp;owse...</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="4">
-       <widget class="QCheckBox" name="qcbUndoIdleAction">
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="qlePushClickPathOn">
         <property name="toolTip">
-         <string>The idle action will be reversed upon any key or mouse button input</string>
+         <string>Gets played when starting to transmit</string>
         </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="qliIdle">
         <property name="text">
-         <string>Undo Idle action upon activity</string>
+         <string>Idle action</string>
         </property>
        </widget>
       </item>
@@ -908,16 +872,6 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOff">
-        <property name="toolTip">
-         <string>Browse for off audio file</string>
-        </property>
-        <property name="text">
-         <string>B&amp;rowse...</string>
         </property>
        </widget>
       </item>
@@ -941,13 +895,30 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOn">
+      <item row="3" column="6">
+       <widget class="QPushButton" name="qpbMuteCuePreview">
+        <property name="text">
+         <string>Pre&amp;view</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOff">
         <property name="toolTip">
-         <string>Browse for on audio file</string>
+         <string>Browse for off audio file</string>
         </property>
         <property name="text">
-         <string>&amp;Browse...</string>
+         <string>B&amp;rowse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="4">
+       <widget class="QCheckBox" name="qcbUndoIdleAction">
+        <property name="toolTip">
+         <string>The idle action will be reversed upon any key or mouse button input</string>
+        </property>
+        <property name="text">
+         <string>Undo Idle action upon activity</string>
         </property>
        </widget>
       </item>
@@ -958,22 +929,75 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="4">
-       <widget class="QLineEdit" name="qleMuteCuePath"/>
-      </item>
-      <item row="3" column="5">
-       <widget class="QPushButton" name="qpbMuteCueBrowse">
+      <item row="1" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOn">
+        <property name="toolTip">
+         <string>Browse for on audio file</string>
+        </property>
         <property name="text">
-         <string>Br&amp;owse...</string>
+         <string>&amp;Browse...</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="6">
-       <widget class="QPushButton" name="qpbMuteCuePreview">
+      <item row="1" column="6">
+       <widget class="QPushButton" name="qpbPushClickPreview">
+        <property name="toolTip">
+         <string>Preview the audio cues</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
+        </property>
         <property name="text">
-         <string>Pre&amp;view</string>
+         <string>&amp;Preview</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="qlPushClickOn">
+        <property name="text">
+         <string>On</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qlAudioCue">
+        <property name="text">
+         <string>Audio cue when using...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="qcbEnableCuePTT">
+          <property name="toolTip">
+           <string>Audible audio cue when starting or stopping to transmit using Push To Talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
+          </property>
+          <property name="text">
+           <string>Push To Talk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbEnableCueVAD">
+          <property name="toolTip">
+           <string>Audible audio cue when starting or stopping to transmit using Voice Activity</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
+          </property>
+          <property name="text">
+           <string>Voice Activity</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

@@ -163,6 +163,11 @@ void migrateSettings(nlohmann::json &json, int settingsVersion) {
 		}
 	}
 
+	if (json.contains("play_transmit_cue")
+		&& (!json.contains(static_cast< const char * >(SettingsKeys::TRANSMIT_CUE_WHEN_PTT_KEY)))) {
+		json[SettingsKeys::TRANSMIT_CUE_WHEN_PTT_KEY] = json.at("play_transmit_cue").get< bool >();
+	}
+
 	(void) settingsVersion;
 }
 

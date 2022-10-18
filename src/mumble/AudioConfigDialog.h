@@ -15,6 +15,9 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioInputDialog)
+
+	void updateAudioCueEnabled();
+
 protected:
 	QTimer *qtTick;
 	void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
@@ -38,7 +41,8 @@ public slots:
 	void continuePlayback();
 	void verifyMicrophonePermission();
 
-	void on_qcbPushClick_clicked(bool);
+	void on_qcbEnableCuePTT_clicked();
+	void on_qcbEnableCueVAD_clicked();
 	void on_qpbPushClickBrowseOn_clicked();
 	void on_qpbPushClickBrowseOff_clicked();
 	void on_qpbPushClickPreview_clicked();

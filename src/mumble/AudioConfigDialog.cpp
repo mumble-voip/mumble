@@ -84,7 +84,6 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
-	on_qcbPushClick_clicked(Global::get().s.bTxAudioCue);
 	on_qcbMuteCue_clicked(Global::get().s.bTxMuteCue);
 	on_Tick_timeout();
 	on_qcbIdleAction_currentIndexChanged(Global::get().s.iaeIdleAction);
@@ -145,7 +144,9 @@ void AudioInputDialog::load(const Settings &r) {
 		qrbSNR->setChecked(true);
 
 	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
-	loadCheckBox(qcbPushClick, r.bTxAudioCue);
+	loadCheckBox(qcbEnableCuePTT, r.audioCueEnabledPTT);
+	loadCheckBox(qcbEnableCueVAD, r.audioCueEnabledVAD);
+	updateAudioCueEnabled();
 	loadCheckBox(qcbMuteCue, r.bTxMuteCue);
 	loadSlider(qsQuality, r.iQuality);
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
@@ -268,7 +269,8 @@ void AudioInputDialog::save() const {
 	s.bUndoIdleActionUponActivity = qcbUndoIdleAction->isChecked();
 
 	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
-	s.bTxAudioCue          = qcbPushClick->isChecked();
+	s.audioCueEnabledPTT   = qcbEnableCuePTT->isChecked();
+	s.audioCueEnabledVAD   = qcbEnableCueVAD->isChecked();
 	s.qsTxAudioCueOn       = qlePushClickPathOn->text();
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
@@ -384,15 +386,25 @@ void AudioInputDialog::updateBitrate() {
 	qsQuality->setMinimum(8000);
 }
 
-void AudioInputDialog::on_qcbPushClick_clicked(bool b) {
-	qpbPushClickBrowseOn->setEnabled(b);
-	qpbPushClickBrowseOff->setEnabled(b);
-	qpbPushClickPreview->setEnabled(b);
-	qpbPushClickReset->setEnabled(b);
-	qlePushClickPathOn->setEnabled(b);
-	qlePushClickPathOff->setEnabled(b);
-	qlPushClickOn->setEnabled(b);
-	qlPushClickOff->setEnabled(b);
+void AudioInputDialog::on_qcbEnableCuePTT_clicked() {
+	updateAudioCueEnabled();
+}
+
+void AudioInputDialog::on_qcbEnableCueVAD_clicked() {
+	updateAudioCueEnabled();
+}
+
+void AudioInputDialog::updateAudioCueEnabled() {
+	bool enabled = qcbEnableCuePTT->isChecked() || qcbEnableCueVAD->isChecked();
+
+	qpbPushClickBrowseOn->setEnabled(enabled);
+	qpbPushClickBrowseOff->setEnabled(enabled);
+	qpbPushClickPreview->setEnabled(enabled);
+	qpbPushClickReset->setEnabled(enabled);
+	qlePushClickPathOn->setEnabled(enabled);
+	qlePushClickPathOff->setEnabled(enabled);
+	qlPushClickOn->setEnabled(enabled);
+	qlPushClickOff->setEnabled(enabled);
 }
 
 void AudioInputDialog::on_qpbPushClickBrowseOn_clicked() {

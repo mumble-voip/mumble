@@ -788,7 +788,7 @@ void Settings::legacyLoad(const QString &path) {
 	LOADENUM(atTransmit, "audio/transmit");
 	LOAD(uiDoublePush, "audio/doublepush");
 	LOAD(pttHold, "audio/ptthold");
-	LOAD(bTxAudioCue, "audio/pushclick");
+	LOAD(audioCueEnabledPTT, "audio/pushclick");
 	LOAD(qsTxAudioCueOn, "audio/pushclickon");
 	LOAD(qsTxAudioCueOff, "audio/pushclickoff");
 	LOAD(bTxMuteCue, "audio/mutecue");
