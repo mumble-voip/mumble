@@ -6641,15 +6641,6 @@ Gültige Optionen sind:
         <translation>Verbindung</translation>
     </message>
     <message>
-        <source>Use TCP compatibility mode</source>
-        <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Benutze TCP-Kompatibilitätsmodus</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;TCP-Kompatibilitätsmodus aktivieren&lt;/b&gt;.&lt;br /&gt;Dies lässt Mumble nur TCP zur Kommunikation mit dem Server nutzen. Dies wird den Overhead erhöhen und bei verlorenen Paketen hörbare Pausen produzieren. Sie sollten diese Einstellung also nur verwenden, wenn die Standardeinstellungen nicht funktionieren.</translation>
-    </message>
-    <message>
         <source>Reconnect when disconnected</source>
         <translation>Nach Verbindungsabbruch erneut verbinden</translation>
     </message>
@@ -6692,10 +6683,6 @@ Gültige Optionen sind:
     <message>
         <source>Hostname of the proxy</source>
         <translation>Hostname des Proxys</translation>
-    </message>
-    <message>
-        <source>Force TCP mode</source>
-        <translation>Erzwinge TCP-Modus</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -6842,6 +6829,58 @@ Verhindert, dass potenziell identifizierende Informationen über das Betriebssys
     <message>
         <source>Automatically download and install plugin updates</source>
         <translation>Lade Plugin Updates herunter und installiere sie automatisch</translation>
+    </message>
+    <message>
+        <source>Disable UDP mode completely</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Disable UDP mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable UDP mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP stream mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound stream is UDP and outbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Inbound stream is UDP and outbound is TCP.&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound stream is UDP and inbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Outbound stream is UDP and inbound is TCP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both inbound and outbound stream is UDP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Both inbound and outbound stream is UDP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bidirectional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

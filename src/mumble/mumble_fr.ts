@@ -6649,15 +6649,6 @@ Les options valides sont&#xa0;:
         <translation>Connexion</translation>
     </message>
     <message>
-        <source>Use TCP compatibility mode</source>
-        <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Utiliser le mode de compatibilité TCP</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Activer le mode de compatibilité TCP&lt;/b&gt;.&lt;br /&gt;Cela permet d&apos;utiliser Mumble uniquement avec le protocole TCP pour communiquer avec le serveur. Cette initiative augmente l&apos;utilisation de la bande passante, et provoque la perte de paquets, produisant des pauses dans la communication. Elle ne devrait donc être choisie que si vous ne pouvez pas utiliser les paramètres par défaut (qui utilise pour la voix UDP et TCP pour le contrôle).</translation>
-    </message>
-    <message>
         <source>Reconnect when disconnected</source>
         <translation>Reconnexion quand vous êtes déconnecté</translation>
     </message>
@@ -6700,10 +6691,6 @@ Les options valides sont&#xa0;:
     <message>
         <source>Hostname of the proxy</source>
         <translation>Nom d&apos;hôte du proxy</translation>
-    </message>
-    <message>
-        <source>Force TCP mode</source>
-        <translation>Forcer le mode TCP</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -6850,6 +6837,58 @@ Empêche le client d&apos;envoyer des informations pouvant identifier le systèm
     <message>
         <source>Automatically download and install plugin updates</source>
         <translation>Télécharger et installer automatiquement les mises à jour du plugin</translation>
+    </message>
+    <message>
+        <source>Disable UDP mode completely</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Disable UDP mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable UDP mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP stream mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound stream is UDP and outbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Inbound stream is UDP and outbound is TCP.&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound stream is UDP and inbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Outbound stream is UDP and inbound is TCP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both inbound and outbound stream is UDP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Both inbound and outbound stream is UDP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bidirectional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

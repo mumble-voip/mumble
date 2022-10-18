@@ -6649,15 +6649,6 @@ Prawidłowe opcje to:
         <translation>Połączenie</translation>
     </message>
     <message>
-        <source>Use TCP compatibility mode</source>
-        <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Używaj trybu zgodności TCP</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Uaktywnij tryb zgodności TCP&lt;/b&gt;.&lt;br /&gt;Dzięki tej opcji Mumble działa w przypadkach, kiedy nie można się połączyć w trybie UDP. Negatywnym skutkiem tej opcji jest utracenie pewnej liczby pakietów.</translation>
-    </message>
-    <message>
         <source>Reconnect when disconnected</source>
         <translation>Połącz ponownie po zerwaniu połączenia</translation>
     </message>
@@ -6700,10 +6691,6 @@ Prawidłowe opcje to:
     <message>
         <source>Hostname of the proxy</source>
         <translation>Nazwa hosta serwera pośredniczącego</translation>
-    </message>
-    <message>
-        <source>Force TCP mode</source>
-        <translation>Wymuś tryb TCP</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -6850,6 +6837,58 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     <message>
         <source>Automatically download and install plugin updates</source>
         <translation>Automatycznie pobieraj i instaluj aktualizacje wtyczek</translation>
+    </message>
+    <message>
+        <source>Disable UDP mode completely</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Disable UDP mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable UDP mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP stream mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound stream is UDP and outbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Inbound stream is UDP and outbound is TCP.&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound stream is UDP and inbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Outbound stream is UDP and inbound is TCP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both inbound and outbound stream is UDP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Both inbound and outbound stream is UDP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bidirectional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
