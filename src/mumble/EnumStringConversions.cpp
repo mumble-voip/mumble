@@ -147,6 +147,11 @@
 	PROCESS(OverlaySettings::OverlayExclusionMode, WhitelistExclusionMode, "Whitelist")           \
 	PROCESS(OverlaySettings::OverlayExclusionMode, BlacklistExclusionMode, "Blacklist")
 
+#define UDP_MODES                                        \
+	PROCESS(UDPMode::Mode, Disabled, "Disabled")         \
+	PROCESS(UDPMode::Mode, InboundOnly, "InboundOnly")   \
+	PROCESS(UDPMode::Mode, OutboundOnly, "OutboundOnly") \
+	PROCESS(UDPMode::Mode, Bidirectional, "Bidirectional")
 
 #define PROCESS_ALL_ENUMS                              \
 	BEFORE_CODE(Settings::AudioTransmit)               \
@@ -214,6 +219,9 @@
 	AFTER_CODE                                         \
 	BEFORE_CODE(OverlaySettings::OverlayExclusionMode) \
 	OVERLAY_EXCLUSION_MODE_VALUES                      \
+	AFTER_CODE                                         \
+	BEFORE_CODE(UDPMode::Mode)                         \
+	UDP_MODES                                          \
 	AFTER_CODE
 
 
@@ -275,3 +283,4 @@ PROCESS_ALL_ENUMS
 #undef LOOP_MODE_VALUES
 #undef VAD_SOURCE_VALUES
 #undef AUDIO_TRANSMIT_VALUES
+#undef UDP_MODES

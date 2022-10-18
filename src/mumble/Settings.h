@@ -1,5 +1,5 @@
-// Copyright 2007-2022 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
+// Copyright 2007-2022 The Mumble Developers. All rights reserved.
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
@@ -184,6 +184,27 @@ struct OverlaySettings {
 	friend bool operator==(const OverlaySettings &lhs, const OverlaySettings &rhs);
 	friend bool operator!=(const OverlaySettings &lhs, const OverlaySettings &rhs);
 };
+
+namespace UDPMode {
+enum Mode {
+	Disabled      = 1 << 0,
+	InboundOnly   = 1 << 1,
+	OutboundOnly  = 1 << 2,
+	Bidirectional = InboundOnly | OutboundOnly
+};
+inline bool isUdpModeDisabled(UDPMode::Mode m) {
+	return (m & UDPMode::Disabled);
+}
+inline bool isUdpModeInboundOnly(UDPMode::Mode m) {
+	return (m & UDPMode::InboundOnly) && !(m & UDPMode::OutboundOnly);
+}
+inline bool isUdpModeOutboundOnly(UDPMode::Mode m) {
+	return (m & UDPMode::OutboundOnly) && !(m & UDPMode::InboundOnly);
+}
+inline bool isUdpModeBidirectional(UDPMode::Mode m) {
+	return (m & UDPMode::InboundOnly) && (m & UDPMode::OutboundOnly);
+}
+} // namespace UDPMode
 
 struct Settings {
 	enum AudioTransmit { Continuous, VAD, PushToTalk };
@@ -449,7 +470,9 @@ struct Settings {
 	QByteArray qbaPTTButtonWindowGeometry = {};
 
 	// Network settings
-	bool bTCPCompat   = false;
+	bool bUdpDisabled      = false;
+	UDPMode::Mode eUdpMode = UDPMode::Bidirectional;
+
 	bool bReconnect   = true;
 	bool bAutoConnect = false;
 	bool bQoS         = true;

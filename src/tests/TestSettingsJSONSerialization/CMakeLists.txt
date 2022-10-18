@@ -8,7 +8,7 @@ find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
 # kpCertificate: We can't create a value for that on-the-fly, so we have to exclude it from the test
 # All other: These settings are not saved
 set(IGNORED_FIELDS
-	"kpCertificate,bSuppressIdentity,lmLoopMode,dPacketLoss,dMaxPacketDelay,requireRestartToApply,settingsLocation,createdSettingsBackup")
+	"kpCertificate,bSuppressIdentity,lmLoopMode,dPacketLoss,dMaxPacketDelay,requireRestartToApply,settingsLocation,createdSettingsBackup,eUdpMode")
 
 include(FindPythonInterpreter)
 

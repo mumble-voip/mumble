@@ -1131,6 +1131,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
+	// A client may force the server to transmit audio through TCP mode only.
+	if (msg.has_disable_udp_mode()) {
+		uSource->bUdpModeDisabled = msg.disable_udp_mode();
+	}
+
 	emit userStateChanged(pDstServerUser);
 }
 

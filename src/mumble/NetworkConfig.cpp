@@ -7,6 +7,7 @@
 
 #include "MainWindow.h"
 #include "OSInfo.h"
+#include "ServerHandler.h"
 #include "Global.h"
 
 #include <QSignalBlocker>
@@ -49,7 +50,13 @@ QIcon NetworkConfig::icon() const {
 }
 
 void NetworkConfig::load(const Settings &r) {
-	loadCheckBox(qcbTcpMode, s.bTCPCompat);
+	loadCheckBox(qcbUdpModeDisabled, UDPMode::isUdpModeDisabled(s.eUdpMode));
+	// To make sure we always select one of the radio buttons as the default choice which is "Bidirectional".
+	loadRadioButton(qrbUdpBidirectional,
+					UDPMode::isUdpModeBidirectional(s.eUdpMode) || UDPMode::isUdpModeDisabled(s.eUdpMode));
+	loadRadioButton(qrbUdpIn, UDPMode::isUdpModeInboundOnly(s.eUdpMode));
+	loadRadioButton(qrbUdpOut, UDPMode::isUdpModeOutboundOnly(s.eUdpMode));
+	qgbUdpMode->setDisabled(UDPMode::isUdpModeDisabled(s.eUdpMode));
 	loadCheckBox(qcbQoS, s.bQoS);
 	loadCheckBox(qcbAutoReconnect, s.bReconnect);
 	loadCheckBox(qcbAutoConnect, s.bAutoConnect);
@@ -79,7 +86,18 @@ void NetworkConfig::load(const Settings &r) {
 }
 
 void NetworkConfig::save() const {
-	s.bTCPCompat         = qcbTcpMode->isChecked();
+	s.bUdpDisabled = qcbUdpModeDisabled->isChecked();
+	s.eUdpMode =
+		(qcbUdpModeDisabled->isChecked()
+			 ? UDPMode::Disabled
+			 : (qrbUdpIn->isChecked() ? UDPMode::InboundOnly
+									  : (qrbUdpOut->isChecked() ? UDPMode::OutboundOnly : UDPMode::Bidirectional)));
+	qgbUdpMode->setDisabled(UDPMode::isUdpModeDisabled(s.eUdpMode));
+	if (Global::get().sh) {
+		Global::get().sh->disableUdpMode(UDPMode::isUdpModeDisabled(s.eUdpMode)
+										 || UDPMode::isUdpModeOutboundOnly(s.eUdpMode));
+	}
+
 	s.bQoS               = qcbQoS->isChecked();
 	s.bReconnect         = qcbAutoReconnect->isChecked();
 	s.bAutoConnect       = qcbAutoConnect->isChecked();
@@ -122,9 +140,10 @@ void NetworkConfig::SetupProxy() {
 	QNetworkProxy::setApplicationProxy(proxy);
 }
 
-bool NetworkConfig::TcpModeEnabled() {
+bool NetworkConfig::UdpModeDisabled() {
 	/*
-	 * We force TCP mode for both HTTP and SOCKS5 proxies, even though SOCKS5 supports UDP.
+	 * We force TCP mode by disabling UDP mode completely for both HTTP and SOCKS5 proxies,
+	 * even though SOCKS5 supports UDP.
 	 *
 	 * This is because Qt's automatic application-wide proxying fails when we're in UDP
 	 * mode since the datagram transmission code assumes that its socket is created in its
@@ -138,7 +157,11 @@ bool NetworkConfig::TcpModeEnabled() {
 	 * itself already is a potential latency killer.
 	 */
 
-	return Global::get().s.ptProxyType != Settings::NoProxy || Global::get().s.bTCPCompat;
+	return Global::get().s.ptProxyType != Settings::NoProxy || UDPMode::isUdpModeDisabled(Global::get().s.eUdpMode);
+}
+
+bool NetworkConfig::canSendTcpMessage() {
+	return (UdpModeDisabled() || UDPMode::isUdpModeInboundOnly(Global::get().s.eUdpMode));
 }
 
 void NetworkConfig::accept() const {
@@ -152,9 +175,13 @@ void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 	qlePort->setEnabled(pt != Settings::NoProxy);
 	qleUsername->setEnabled(pt != Settings::NoProxy);
 	qlePassword->setEnabled(pt != Settings::NoProxy);
-	qcbTcpMode->setEnabled(pt == Settings::NoProxy);
+	qcbUdpModeDisabled->setEnabled(pt == Settings::NoProxy);
 
 	s.ptProxyType = pt;
+}
+
+void NetworkConfig::on_qcbUdpModeDisabled_stateChanged(int v) {
+	qgbUdpMode->setDisabled(v != 0);
 }
 
 #ifdef NO_UPDATE_CHECK

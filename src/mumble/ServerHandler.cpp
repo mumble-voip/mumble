@@ -301,7 +301,7 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 	if (!connection || !connection->csCrypt->isValid())
 		return;
 
-	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
+	if (!force && NetworkConfig::canSendTcpMessage()) {
 		QByteArray qba;
 
 		qba.resize(len + 6);
@@ -580,7 +580,7 @@ void ServerHandler::sendPingInternal() {
 
 	quint64 t = tTimestamp.elapsed();
 
-	if (qusUdp) {
+	if (qusUdp && !NetworkConfig::UdpModeDisabled()) {
 		Mumble::Protocol::PingData pingData;
 		pingData.timestamp                    = t;
 		pingData.requestAdditionalInformation = false;
@@ -651,7 +651,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			if (((connection->csCrypt->uiRemoteGood == 0) || (connection->csCrypt->uiGood == 0)) && bUdp
 				&& (tTimestamp.elapsed() > 20000000ULL)) {
 				bUdp = false;
-				if (!NetworkConfig::TcpModeEnabled()) {
+				if (!NetworkConfig::UdpModeDisabled()) {
 					if ((connection->csCrypt->uiRemoteGood == 0) && (connection->csCrypt->uiGood == 0))
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
@@ -666,7 +666,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 				}
 			} else if (!bUdp && (connection->csCrypt->uiRemoteGood > 3) && (connection->csCrypt->uiGood > 3)) {
 				bUdp = true;
-				if (!NetworkConfig::TcpModeEnabled()) {
+				if (!NetworkConfig::UdpModeDisabled()) {
 					Global::get().mw->msgBox(
 						tr("UDP packets can be sent to and received from the server. Switching back to UDP mode."));
 
@@ -798,6 +798,10 @@ void ServerHandler::serverConnectionConnected() {
 
 	mpa.set_opus(true);
 	sendMessage(mpa);
+
+	if (UDPMode::isUdpModeDisabled(Global::get().s.eUdpMode)) {
+		disableUdpMode(true);
+	}
 
 	{
 		QMutexLocker qml(&qmUdp);
@@ -1125,6 +1129,12 @@ void ServerHandler::setSelfMuteDeafState(bool mute, bool deaf) {
 void ServerHandler::announceRecordingState(bool recording) {
 	MumbleProto::UserState mpus;
 	mpus.set_recording(recording);
+	sendMessage(mpus);
+}
+
+void ServerHandler::disableUdpMode(bool value) {
+	MumbleProto::UserState mpus;
+	mpus.set_disable_udp_mode(value);
 	sendMessage(mpus);
 }
 

@@ -24,8 +24,10 @@ protected:
 	void loadSlider(QSlider *, int);
 	void loadCheckBox(QAbstractButton *, bool);
 	void loadComboBox(QComboBox *, int);
+	void loadRadioButton(QAbstractButton *, bool);
 signals:
 	void intSignal(int);
+	void boolSignal(bool);
 
 public:
 	Settings &s;

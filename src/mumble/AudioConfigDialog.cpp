@@ -349,7 +349,7 @@ void AudioInputDialog::updateBitrate() {
 	overhead = 100 * 8 * (20 + 8 + 4 + 1 + 2 + p);
 
 	// TCP is 12 more bytes than UDP
-	if (NetworkConfig::TcpModeEnabled())
+	if (NetworkConfig::UdpModeDisabled())
 		overhead += 100 * 8 * 12;
 
 	if (Global::get().s.bTransmitPosition)
