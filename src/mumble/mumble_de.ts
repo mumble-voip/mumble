@@ -651,7 +651,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Für die Liste der Autoren, besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1442,7 +1442,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Positionsabhängiges Audio funktioniert nicht mit Monoausgabegeräten!</translation>
     </message>
 </context>
 <context>
@@ -4067,7 +4067,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Sonstige</translation>
+        <translation>Sonstige.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4576,35 +4576,35 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verhalten beim Schließen</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diese Einstellung steuert das Verhalten beim Klicken auf das X in der oberen rechten Ecke.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diese Einstellung steuert das Verhalten beim Schließen von Mumble. Zur Auswahl steht Schließen mit Bestätigen, Minimieren oder Schließen ohne Bestätigung. Zusätzlich kann eingestellt werden, dass für Schließen mit Bestätigen und Minimieren nur aktiv sind, wenn Mumble mit einem Server verbunden ist (in diesen Fall, wird Mumble ohne Bestätigung geschlossen, wenn keine Verbindung besteht).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Immer Bestätigen</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bestätigen wenn verbunden</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Immer Minimieren</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Minimieren wenn verbunden</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Immer Schließen</translation>
     </message>
 </context>
 <context>
@@ -6389,7 +6389,7 @@ Mögliche Aktionen sind:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation>Ungültige Konfigurationsdatei</translation>
+        <translation>Ungültige Konfigurationsdatei.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6532,15 +6532,15 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server hat uns beauftragt einen anderen Audiocodec als Opus zu verwenden, welcher nicht mehr unterstützt wird. Verbindung wird getrennt...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sind Sie sicher, dass Sie Mumble beenden wollen? Vielleicht bevorzugen Sie es Mumble stattdessen zu minimieren?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diese Einstellung merken</translation>
     </message>
 </context>
 <context>
@@ -8255,7 +8255,7 @@ Sie können sie jedoch erneut registrieren.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt; Unbekannter Kanal &gt;</translation>
     </message>
 </context>
 <context>
