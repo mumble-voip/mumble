@@ -239,7 +239,7 @@ void MainWindow::createActions() {
 	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
 	gsListenChannel =
-		new GlobalShortcut(this, GlobalShortcutType::ListenToChannel, tr("Listen to Channel", "Global Shortcut"),
+		new GlobalShortcut(this, GlobalShortcutType::ListenToChannel, tr("Listen to channel", "Global Shortcut"),
 						   QVariant::fromValue(ChannelTarget()));
 	gsListenChannel->setObjectName(QLatin1String("gsListenChannel"));
 	gsListenChannel->qsToolTip = tr("Toggles listening to the given channel.", "Global Shortcut");
