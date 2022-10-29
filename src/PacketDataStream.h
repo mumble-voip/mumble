@@ -144,40 +144,46 @@ public:
 			// Signed number.
 			i = ~i;
 			if (i <= 0x3) {
-				// Shortcase for -1 to -4
+				// Special case for -1 to -4. The most significant bits of the first byte must be (in binary) 111111
+				// followed by the 2 bits representing the absolute value of the encoded number. Shortcase for -1 to -4
 				append(0xFC | i);
 				return *this;
 			} else {
+				// Add flag byte, whose most significant bits are (in binary) 111110 that indicates
+				// that what follows is the varint encoding of the absolute value of i, but that the
+				// value itself is supposed to be negative.
 				append(0xF8);
 			}
 		}
 		if (i < 0x80) {
-			// Need top bit clear
+			// Encode as 7-bit, positive number -> most significant bit of first byte must be zero
 			append(i);
 		} else if (i < 0x4000) {
-			// Need top two bits clear
+			// Encode as 14-bit, positive number -> most significant bits of first byte must be (in binary) 10
 			append((i >> 8) | 0x80);
 			append(i & 0xFF);
 		} else if (i < 0x200000) {
-			// Need top three bits clear
+			// Encode as 21-bit, positive number -> most significant bits of first byte must be (in binary) 110
 			append((i >> 16) | 0xC0);
 			append((i >> 8) & 0xFF);
 			append(i & 0xFF);
 		} else if (i < 0x10000000) {
-			// Need top four bits clear
+			// Encode as 28-bit, positive number -> most significant bits of first byte must be (in binary) 1110
 			append((i >> 24) | 0xE0);
 			append((i >> 16) & 0xFF);
 			append((i >> 8) & 0xFF);
 			append(i & 0xFF);
 		} else if (i < 0x100000000LL) {
-			// It's a full 32-bit integer.
+			// Encode as 32-bit, positive number -> most significant bits of first byte must be (in binary) 111100
+			// Remaining bits in first byte remain unused
 			append(0xF0);
 			append((i >> 24) & 0xFF);
 			append((i >> 16) & 0xFF);
 			append((i >> 8) & 0xFF);
 			append(i & 0xFF);
 		} else {
-			// It's a 64-bit value.
+			// Encode as 64-bit, positive number -> most significant bits of first byte must be (in binary) 111101
+			// Remaining bits in first byte remain unused
 			append(0xF4);
 			append((i >> 56) & 0xFF);
 			append((i >> 48) & 0xFF);
