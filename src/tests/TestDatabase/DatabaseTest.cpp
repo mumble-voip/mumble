@@ -780,7 +780,7 @@ void DatabaseTest::unicode() {
 		test::KeyValueTable *table = static_cast< test::KeyValueTable * >(db.getTable(id));
 		QVERIFY(table != nullptr);
 
-		for (const std::string &symbol :
+		for (const std::string symbol :
 			 { "Ä", "è", "ß", "¼", "💚", "🚒", "ձ", "Φ", "ヲ", "𐌒", "Ю", "¥", "ℏ", "ℜ", "¯_(ツ)_/¯" }) {
 			qInfo() << "Current symbol:" << QString::fromStdString(symbol);
 
