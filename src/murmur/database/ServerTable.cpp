@@ -102,6 +102,33 @@ namespace server {
 			}
 		}
 
+		std::vector< unsigned int > ServerTable::getAllServerIDs() {
+			try {
+				std::vector< unsigned int > ids;
+				soci::row row;
+
+				soci::transaction transaction(m_sql);
+
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT " << column::server_id << " FROM \"" << NAME << "\"", soci::into(row));
+
+				stmt.execute(false);
+
+				while (stmt.fetch()) {
+					assert(row.size() == 1);
+					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+
+					ids.push_back(static_cast< unsigned int >(row.get< int >(0)));
+				}
+
+				transaction.commit();
+
+				return ids;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at fetching all server IDs"));
+			}
+		}
+
 		void ServerTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
