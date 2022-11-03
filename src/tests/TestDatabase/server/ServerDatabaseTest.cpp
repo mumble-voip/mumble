@@ -25,6 +25,7 @@
 #include "database/DBChannelListener.h"
 #include "database/DBGroup.h"
 #include "database/DBGroupMember.h"
+#include "database/DBLogEntry.h"
 #include "database/GroupMemberTable.h"
 #include "database/GroupTable.h"
 #include "database/LogTable.h"
@@ -251,11 +252,13 @@ void ServerDatabaseTest::logTable_logMessage() {
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
 
-	QVERIFY_EXCEPTION_THROWN(db.getLogTable().logMessage(nonExistingServerID, "Dummy msg"), ::mdb::AccessException);
+	QVERIFY_EXCEPTION_THROWN(db.getLogTable().logMessage(nonExistingServerID, ::msdb::DBLogEntry("Dummy msg")),
+							 ::mdb::AccessException);
 
-	db.getLogTable().logMessage(existingServerID, "I am a test message");
+	db.getLogTable().logMessage(existingServerID, ::msdb::DBLogEntry("I am a test message"));
 
-	db.getLogTable().logMessage(existingServerID, "I am a test message containing some unicode characters: ✅ 👀");
+	db.getLogTable().logMessage(existingServerID,
+								::msdb::DBLogEntry("I am a test message containing some unicode characters: ✅ 👀"));
 
 	END_TEST_CASE
 }
