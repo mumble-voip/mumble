@@ -9,6 +9,8 @@
 #include "database/Backend.h"
 #include "database/Table.h"
 
+#include <vector>
+
 namespace soci {
 class session;
 };
@@ -40,6 +42,8 @@ namespace server {
 			bool serverExists(unsigned int id);
 
 			unsigned int getFreeServerID();
+
+			std::vector< unsigned int > getAllServerIDs();
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
