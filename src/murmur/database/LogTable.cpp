@@ -56,21 +56,21 @@ namespace server {
 			addIndex(dateIndex, false);
 		}
 
-		void LogTable::logMessage(unsigned int serverID, const std::string &message,
-								  const std::chrono::time_point< std::chrono::steady_clock > &date) {
-			std::size_t timeSinceEpoch = toEpochSeconds(date);
+		void LogTable::logMessage(unsigned int serverID, const DBLogEntry &entry) {
+			std::size_t timeSinceEpoch = toEpochSeconds(entry.timestamp);
 
 			try {
 				soci::transaction transaction(m_sql);
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::message << ", "
 					  << column::date << ") VALUES (:id, :msg, :date)",
-					soci::use(serverID), soci::use(message), soci::use(timeSinceEpoch);
+					soci::use(serverID), soci::use(entry.message), soci::use(timeSinceEpoch);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at logging message for server with ID "
-															  + std::to_string(serverID) + ": \"" + message + "\""));
+															  + std::to_string(serverID) + ": \"" + entry.message
+															  + "\""));
 			}
 		}
 
