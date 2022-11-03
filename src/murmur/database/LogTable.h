@@ -9,7 +9,7 @@
 #include "database/Backend.h"
 #include "database/Table.h"
 
-#include <chrono>
+#include "DBLogEntry.h"
 
 namespace soci {
 class session;
@@ -39,9 +39,7 @@ namespace server {
 			LogTable(soci::session &sql, ::mumble::db::Backend backend, const ServerTable &serverTable);
 			~LogTable() = default;
 
-			void logMessage(
-				unsigned int serverID, const std::string &message,
-				const std::chrono::time_point< std::chrono::steady_clock > &date = std::chrono::steady_clock::now());
+			void logMessage(unsigned int serverID, const DBLogEntry &entry);
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
