@@ -6,6 +6,7 @@
 #include "ACL.h"
 #include "Channel.h"
 #include "ChannelListenerManager.h"
+#include "ClientType.h"
 #include "Connection.h"
 #include "Group.h"
 #include "Meta.h"
@@ -599,6 +600,17 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 
 		sendMessage(uSource, mptm);
+	}
+
+	switch (msg.client_type()) {
+		case static_cast< int >(ClientType::BOT):
+			uSource->m_clientType = ClientType::BOT;
+			m_botCount++;
+			break;
+		case static_cast< int >(ClientType::REGULAR):
+			// No-op (also applies to unknown values of msg.client_type())
+			// (The default client type is regular anyway, so we don't need to change anything here)
+			break;
 	}
 
 	log(uSource, "Authenticated");
