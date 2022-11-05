@@ -74,6 +74,57 @@ namespace server {
 			}
 		}
 
+		void LogTable::clearLog(unsigned int serverID) {
+			try {
+				soci::transaction transaction(m_sql);
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID",
+					soci::use(serverID);
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(
+					::mdb::AccessException("Failed at clearing logs for server with ID " + std::to_string(serverID)));
+			}
+		}
+
+		std::vector< DBLogEntry > LogTable::getLogs(unsigned int serverID, unsigned int maxEntries,
+													unsigned int startOffset) {
+			try {
+				std::vector< DBLogEntry > entries;
+				soci::row row;
+
+				soci::transaction transaction(m_sql);
+
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT " << column::date << ", " << column::message << " FROM \"" << NAME
+								   << "\" WHERE " << column::server_id << " = :serverID ORDER BY " << column::date
+								   << " DESC LIMIT :limit OFFSET :offset",
+					 soci::use(serverID), soci::use(maxEntries), soci::use(startOffset), soci::into(row));
+
+				stmt.execute(false);
+
+				while (stmt.fetch()) {
+					assert(row.size() == 2);
+					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+					assert(row.get_properties(1).get_data_type() == soci::dt_string);
+
+					DBLogEntry entry;
+					entry.message   = row.get< std::string >(1);
+					entry.timestamp = std::chrono::steady_clock::time_point(std::chrono::seconds(row.get< int >(0)));
+
+					entries.push_back(std::move(entry));
+				}
+
+				transaction.commit();
+
+				return entries;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(
+					::mdb::AccessException("Failed at getting logs for server with ID " + std::to_string(serverID)));
+			}
+		}
+
 
 		void LogTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this

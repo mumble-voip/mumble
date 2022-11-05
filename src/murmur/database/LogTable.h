@@ -11,6 +11,8 @@
 
 #include "DBLogEntry.h"
 
+#include <limits>
+
 namespace soci {
 class session;
 };
@@ -40,6 +42,12 @@ namespace server {
 			~LogTable() = default;
 
 			void logMessage(unsigned int serverID, const DBLogEntry &entry);
+
+			void clearLog(unsigned int serverID);
+
+			std::vector< DBLogEntry > getLogs(unsigned int serverID,
+											  unsigned int maxEntries  = std::numeric_limits< unsigned int >::max(),
+											  unsigned int startOffset = 0);
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};

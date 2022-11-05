@@ -255,10 +255,53 @@ void ServerDatabaseTest::logTable_logMessage() {
 	QVERIFY_EXCEPTION_THROWN(db.getLogTable().logMessage(nonExistingServerID, ::msdb::DBLogEntry("Dummy msg")),
 							 ::mdb::AccessException);
 
+	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(0));
+
 	db.getLogTable().logMessage(existingServerID, ::msdb::DBLogEntry("I am a test message"));
+
+	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(1));
 
 	db.getLogTable().logMessage(existingServerID,
 								::msdb::DBLogEntry("I am a test message containing some unicode characters: ✅ 👀"));
+
+	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(2));
+
+	db.getLogTable().clearLog(nonExistingServerID);
+
+	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(2));
+	QCOMPARE(db.getLogTable().getLogs(nonExistingServerID).size(), static_cast< std::size_t >(0));
+
+	db.getLogTable().clearLog(existingServerID);
+
+	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(0));
+
+	// Populate table with several default entries
+	std::vector<::msdb::DBLogEntry > entries;
+	for (std::size_t i = 0; i < 10; ++i) {
+		entries.emplace_back(std::string("Message ") + std::to_string(i),
+							 std::chrono::steady_clock::time_point(std::chrono::seconds(i)));
+
+		db.getLogTable().logMessage(existingServerID, entries[i]);
+	}
+
+	for (std::size_t maxEntries = 0; maxEntries < entries.size() + 2; ++maxEntries) {
+		for (std::size_t offset = 0; offset < entries.size() + 2; ++offset) {
+			std::vector<::msdb::DBLogEntry > fetchedEntries =
+				db.getLogTable().getLogs(existingServerID, maxEntries, offset);
+
+			QCOMPARE(
+				static_cast< int >(fetchedEntries.size()),
+				std::max(static_cast< int >(std::min(maxEntries, entries.size())) - static_cast< int >(offset), 0));
+
+			// This check is more to ensure that we don't run into UB below
+			QVERIFY(fetchedEntries.empty() || fetchedEntries.size() + offset <= entries.size());
+
+			for (std::size_t i = 0; i < fetchedEntries.size(); ++i) {
+				QCOMPARE(fetchedEntries[i].timestamp, entries[i + offset].timestamp);
+				QCOMPARE(fetchedEntries[i].message, entries[i + offset].message);
+			}
+		}
+	}
 
 	END_TEST_CASE
 }
