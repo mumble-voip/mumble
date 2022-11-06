@@ -72,7 +72,7 @@ elseif(UNIX OR MINGW)
 		add_compile_options("-Wa,-mbig-obj")
 	endif()
 
-	if(options)
+	if(optimize)
 		add_compile_options(
 			"-O3"
 			"-march=native"
