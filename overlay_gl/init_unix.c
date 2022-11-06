@@ -162,124 +162,136 @@ __attribute__((visibility("default"))) void *dlsym(void *handle, const char *nam
 }
 
 static int find_odlsym() {
-#if defined(__linux__)
-	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
-	if (!dl) {
-		ods("Failed to open libdl.so.2!");
-		return -1;
-	}
+	// clang-format off
+	const char *libs[] = {
+		"libc.so.6",
+		"libdl.so.2",
+		"/libexec/ld-elf.so.1"
+	};
+	// clang-format on
 
-	struct link_map *lm = dl;
-#elif defined(__FreeBSD__)
-	struct link_map *lm = NULL;
-	if (dlinfo(RTLD_SELF, RTLD_DI_LINKMAP, &lm) == -1) {
-		ods("Unable to acquire link_map: %s", dlerror());
-		return -1;
-	}
-
-	while (lm) {
-		if (strcmp(lm->l_name, "/libexec/ld-elf.so.1") == 0) {
-			break;
+	for (uint8_t libIdx = 0; libIdx < sizeof(libs) / sizeof(libs[0]); ++libIdx) {
+		const char *lib = libs[libIdx];
+		ods("Searching for dlsym() in \"%s\"...", lib);
+#ifdef RTLD_SELF
+		struct link_map *lm = NULL;
+		if (dlinfo(RTLD_SELF, RTLD_DI_LINKMAP, &lm) == -1) {
+			ods("Unable to acquire link_map: %s", dlerror());
+			return -1;
 		}
 
-		lm = lm->l_next;
-	}
+		while (lm) {
+			if (strcmp(lm->l_name, lib) == 0) {
+				break;
+			}
 
-	if (!lm) {
-		ods("Failed to find ld-elf.so.1!");
-		return -1;
-	}
-#endif
-	bool hashTableGNU    = false;
-	uintptr_t hashTable  = 0;
-	const char *strTable = NULL;
-	Elf_Sym *symTable    = NULL;
-#if defined(__GLIBC__)
-	const uintptr_t base = 0;
+			lm = lm->l_next;
+		}
+
+		if (!lm) {
+			ods("Failed to find \"%s\"!", lib);
+			continue;
+		}
 #else
-	const uintptr_t base = (uintptr_t) lm->l_addr;
+		void *dl = dlopen(lib, RTLD_LAZY);
+		if (!dl) {
+			ods("dlopen() failed: %s", dlerror());
+			continue;
+		}
+
+		const struct link_map *lm = dl;
 #endif
-	for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
-		switch (dyn->d_tag) {
-			case DT_GNU_HASH:
-				if (!hashTable) {
-					hashTable    = base + dyn->d_un.d_ptr;
-					hashTableGNU = true;
-				}
-				break;
-			case DT_HASH:
-				if (!hashTable) {
-					hashTable = base + dyn->d_un.d_ptr;
-				}
-				break;
-			case DT_STRTAB:
-				strTable = (const char *) (base + dyn->d_un.d_ptr);
-				break;
-			case DT_SYMTAB:
-				symTable = (Elf_Sym *) (base + dyn->d_un.d_ptr);
-				break;
-		}
-
-		if (hashTable && strTable && symTable) {
-			break;
-		}
-	}
-
-	ods("hashTable: 0x%" PRIxPTR ", strTable: %p, symTable: %p", hashTable, strTable, symTable);
-
-	if (!hashTable || !strTable || !symTable) {
-		return -1;
-	}
-
-	if (!hashTableGNU) {
-		ods("Using DT_HASH");
-		// Hash table pseudo-struct:
-		// uint32_t nBucket;
-		// uint32_t nChain;
-		// uint32_t bucket[nBucket];
-		// uint32_t chain[nChain];
-		const uint32_t nChain = ((uint32_t *) hashTable)[1];
-
-		for (uint32_t i = 0; i < nChain; ++i) {
-			if (ELF_ST_TYPE(symTable[i].st_info) != STT_FUNC) {
-				continue;
+		bool hashTableGNU    = false;
+		uintptr_t hashTable  = 0;
+		const char *strTable = NULL;
+		Elf_Sym *symTable    = NULL;
+#if defined(__GLIBC__)
+		const uintptr_t base = 0;
+#else
+		const uintptr_t base      = (uintptr_t) lm->l_addr;
+#endif
+		for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
+			switch (dyn->d_tag) {
+				case DT_GNU_HASH:
+					if (!hashTable) {
+						hashTable    = base + dyn->d_un.d_ptr;
+						hashTableGNU = true;
+					}
+					break;
+				case DT_HASH:
+					if (!hashTable) {
+						hashTable = base + dyn->d_un.d_ptr;
+					}
+					break;
+				case DT_STRTAB:
+					strTable = (const char *) (base + dyn->d_un.d_ptr);
+					break;
+				case DT_SYMTAB:
+					symTable = (Elf_Sym *) (base + dyn->d_un.d_ptr);
+					break;
 			}
 
-			if (strcmp(strTable + symTable[i].st_name, "dlsym") == 0) {
-				odlsym = (void *) lm->l_addr + symTable[i].st_value;
+			if (hashTable && strTable && symTable) {
 				break;
 			}
 		}
-	} else {
-		ods("Using DT_GNU_HASH");
-		// Hash table pseudo-struct:
-		// uint32_t  nBucket;
-		// uint32_t  symOffset;
-		// uint32_t  nBloom;
-		// uint32_t  bloomShift;
-		// uintptr_t blooms[nBloom];
-		// uint32_t  buckets[nBucket];
-		// uint32_t  chain[];
-		uint32_t *hashStruct = (uint32_t *) hashTable;
 
-		const uint32_t nBucket   = hashStruct[0];
-		const uint32_t symOffset = hashStruct[1];
-		const uint32_t nBloom    = hashStruct[2];
-		const uintptr_t *bloom   = (uintptr_t *) &hashStruct[4];
-		const uint32_t *buckets  = (uint32_t *) &bloom[nBloom];
-		const uint32_t *chain    = &buckets[nBucket];
+		ods("hashTable: 0x%" PRIxPTR ", strTable: %p, symTable: %p", hashTable, strTable, symTable);
 
-		for (uint32_t i = 0; i < nBucket; ++i) {
-			uint32_t symIndex = buckets[i];
-			if (symIndex < symOffset) {
-				continue;
-			}
+		if (!hashTable || !strTable || !symTable) {
+			continue;
+		}
 
-			do {
-				if (strcmp(strTable + symTable[symIndex].st_name, "dlsym") == 0) {
-					odlsym = (void *) lm->l_addr + symTable[symIndex].st_value;
+		if (!hashTableGNU) {
+			ods("Using DT_HASH");
+			// Hash table pseudo-struct:
+			// uint32_t nBucket;
+			// uint32_t nChain;
+			// uint32_t bucket[nBucket];
+			// uint32_t chain[nChain];
+			const uint32_t nChain = ((uint32_t *) hashTable)[1];
+
+			for (uint32_t i = 0; i < nChain; ++i) {
+				if (ELF_ST_TYPE(symTable[i].st_info) != STT_FUNC) {
+					continue;
 				}
-			} while (!odlsym && !(chain[symIndex++ - symOffset] & 1));
+
+				if (strcmp(strTable + symTable[i].st_name, "dlsym") == 0) {
+					odlsym = (void *) lm->l_addr + symTable[i].st_value;
+					break;
+				}
+			}
+		} else {
+			ods("Using DT_GNU_HASH");
+			// Hash table pseudo-struct:
+			// uint32_t  nBucket;
+			// uint32_t  symOffset;
+			// uint32_t  nBloom;
+			// uint32_t  bloomShift;
+			// uintptr_t blooms[nBloom];
+			// uint32_t  buckets[nBucket];
+			// uint32_t  chain[];
+			uint32_t *hashStruct = (uint32_t *) hashTable;
+
+			const uint32_t nBucket   = hashStruct[0];
+			const uint32_t symOffset = hashStruct[1];
+			const uint32_t nBloom    = hashStruct[2];
+			const uintptr_t *bloom   = (uintptr_t *) &hashStruct[4];
+			const uint32_t *buckets  = (uint32_t *) &bloom[nBloom];
+			const uint32_t *chain    = &buckets[nBucket];
+
+			for (uint32_t i = 0; i < nBucket; ++i) {
+				uint32_t symIndex = buckets[i];
+				if (symIndex < symOffset) {
+					continue;
+				}
+
+				do {
+					if (strcmp(strTable + symTable[symIndex].st_name, "dlsym") == 0) {
+						odlsym = (void *) lm->l_addr + symTable[symIndex].st_value;
+					}
+				} while (!odlsym && !(chain[symIndex++ - symOffset] & 1));
+			}
 		}
 	}
 
