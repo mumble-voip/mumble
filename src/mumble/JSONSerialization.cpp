@@ -213,9 +213,9 @@ void from_json(const nlohmann::json &j, Settings &settings) {
 	}
 
 #ifndef USE_RNNOISE
-	if (settings.noiseCancelMode == NoiseCancelRNN || settings.noiseCancelMode == NoiseCancelBoth) {
+	if (settings.noiseCancelMode == Settings::NoiseCancelRNN || settings.noiseCancelMode == Settings::NoiseCancelBoth) {
 		// Use Speex instead as this Mumble build was built without support for RNNoise
-		settings.noiseCancelMode = NoiseCancelSpeex;
+		settings.noiseCancelMode = Settings::NoiseCancelSpeex;
 	}
 #endif
 }
