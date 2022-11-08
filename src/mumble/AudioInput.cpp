@@ -1017,10 +1017,19 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 		if (ao) {
 			if (Global::get().s.bTxAudioCue) {
-				if (bIsSpeech && !bPreviousVoice) {
-					ao->playSample(Global::get().s.qsTxAudioCueOn, Global::get().s.cueVolume);
-				} else if (!bIsSpeech && bPreviousVoice) {
-					ao->playSample(Global::get().s.qsTxAudioCueOff, Global::get().s.cueVolume);
+				const bool playAudioOnCue  = bIsSpeech && !bPreviousVoice;
+				const bool playAudioOffCue = !bIsSpeech && bPreviousVoice;
+				const bool stopActiveCue   = m_activeAudioCue && (playAudioOnCue || playAudioOffCue);
+
+				if (stopActiveCue) {
+					// Cancel active cue first, if there is any
+					ao->removeToken(m_activeAudioCue);
+				}
+
+				if (playAudioOnCue) {
+					m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOn, Global::get().s.cueVolume);
+				} else if (playAudioOffCue) {
+					m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOff, Global::get().s.cueVolume);
 				}
 			}
 
