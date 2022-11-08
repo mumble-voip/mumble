@@ -5,6 +5,7 @@
 
 #include "API.h"
 #include "AudioOutput.h"
+#include "AudioOutputToken.h"
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"

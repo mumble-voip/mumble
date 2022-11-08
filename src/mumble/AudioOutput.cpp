@@ -77,6 +77,11 @@ bool AudioOutputRegistrar::canExclusive() const {
 	return false;
 }
 
+AudioOutput::AudioOutput() {
+	QObject::connect(this, &AudioOutput::bufferInvalidated, this, &AudioOutput::handleInvalidatedBuffer);
+	QObject::connect(this, &AudioOutput::bufferPositionChanged, this, &AudioOutput::handlePositionedBuffer);
+}
+
 AudioOutput::~AudioOutput() {
 	bRunning = false;
 	wait();
@@ -128,8 +133,23 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 }
 
 void AudioOutput::wipe() {
-	foreach (AudioOutputUser *aop, qmOutputs)
-		removeBuffer(aop);
+	// We need to remove all buffers from the qmOutputs map.
+	// However, the removeBuffer calls a signal-slot mechanism
+	// asynchronously. Doing that while iterating over the map
+	// will cause a concurrent modification
+
+	QList< AudioOutputUser * > list;
+
+	{
+		QReadLocker locker(&qrwlOutputs);
+		for (AudioOutputUser *buffer : qmOutputs) {
+			list.append(buffer);
+		}
+	}
+
+	for (AudioOutputUser *buffer : list) {
+		removeBuffer(buffer);
+	}
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
@@ -177,26 +197,58 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::removeBuffer(const ClientUser *user) {
-	removeBuffer(qmOutputs.value(user));
-}
-
-void AudioOutput::removeBuffer(AudioOutputUser *aop) {
+void AudioOutput::handleInvalidatedBuffer(AudioOutputUser *buffer) {
 	QWriteLocker locker(&qrwlOutputs);
-	QMultiHash< const ClientUser *, AudioOutputUser * >::iterator i;
-	for (i = qmOutputs.begin(); i != qmOutputs.end(); ++i) {
-		if (i.value() == aop) {
-			qmOutputs.erase(i);
-			delete aop;
+	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
+		if (iter.value() == buffer) {
+			qmOutputs.erase(iter);
+			delete buffer;
 			break;
 		}
 	}
 }
 
-AudioOutputSample *AudioOutput::playSample(const QString &filename, float volume, bool loop) {
+void AudioOutput::handlePositionedBuffer(AudioOutputUser *buffer, float x, float y, float z) {
+	QWriteLocker locker(&qrwlOutputs);
+	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
+		if (iter.value() == buffer) {
+			buffer->fPos[0] = x;
+			buffer->fPos[1] = y;
+			buffer->fPos[2] = z;
+			break;
+		}
+	}
+}
+
+void AudioOutput::setBufferPosition(const AudioOutputToken &token, float x, float y, float z) {
+	if (!token) {
+		return;
+	}
+
+	emit bufferPositionChanged(token.m_buffer, x, y, z);
+}
+
+void AudioOutput::removeBuffer(AudioOutputUser *buffer) {
+	if (!buffer) {
+		return;
+	}
+
+	emit bufferInvalidated(buffer);
+}
+
+void AudioOutput::removeUser(const ClientUser *user) {
+	removeBuffer(qmOutputs.value(user));
+}
+
+void AudioOutput::removeToken(AudioOutputToken &token) {
+	removeBuffer(token.m_buffer);
+	token = {};
+}
+
+AudioOutputToken AudioOutput::playSample(const QString &filename, float volume, bool loop) {
 	SoundFile *handle = AudioOutputSample::loadSndfile(filename);
 	if (!handle)
-		return nullptr;
+		return AudioOutputToken();
 
 	Timer t;
 	const quint64 oneSecond = 1000000;
@@ -208,17 +260,17 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, float volume
 	// If we've waited for more than one second, we declare timeout.
 	if (t.isElapsed(oneSecond)) {
 		qWarning("AudioOutput: playSample() timed out after 1 second: device not ready");
-		return nullptr;
+		return AudioOutputToken();
 	}
 
 	if (!iMixerFreq)
-		return nullptr;
+		return AudioOutputToken();
 
 	QWriteLocker locker(&qrwlOutputs);
 	AudioOutputSample *aos = new AudioOutputSample(filename, handle, volume, loop, iMixerFreq, iBufferSize);
 	qmOutputs.insert(nullptr, aos);
 
-	return aos;
+	return AudioOutputToken(sample);
 }
 
 void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadphone) {
