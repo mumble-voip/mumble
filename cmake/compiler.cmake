@@ -76,8 +76,6 @@ elseif(UNIX OR MINGW)
 		add_compile_options(
 			"-O3"
 			"-march=native"
-			"-ffast-math"
-			"-ftree-vectorize"
 		)
 	endif()
 
@@ -128,7 +126,7 @@ elseif(UNIX OR MINGW)
 			add_compile_options("-g")
 		endif()
 	endif()
-endif() 
+endif()
 
 function(target_disable_warnings TARGET)
 	if(MSVC)
