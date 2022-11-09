@@ -15,6 +15,7 @@
 #include "database/ForeignKey.h"
 #include "database/Index.h"
 #include "database/MigrationException.h"
+#include "database/Utils.h"
 
 #include <soci/soci.h>
 
@@ -90,6 +91,11 @@ namespace server {
 
 		std::vector< DBLogEntry > LogTable::getLogs(unsigned int serverID, unsigned int maxEntries,
 													unsigned int startOffset) {
+			// We can't pass unsigned values to SOCI and therefore, we have to ensure that we don't exceed a signed
+			// int's max value (as that'd end up being interpreted as a negative number)
+			assert(maxEntries <= std::numeric_limits< int >::max());
+			assert(startOffset <= std::numeric_limits< int >::max());
+
 			try {
 				std::vector< DBLogEntry > entries;
 				soci::row row;
@@ -99,19 +105,20 @@ namespace server {
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::date << ", " << column::message << " FROM \"" << NAME
 								   << "\" WHERE " << column::server_id << " = :serverID ORDER BY " << column::date
-								   << " DESC LIMIT :limit OFFSET :offset",
+								   << " DESC " << ::mdb::utils::limitOffset(m_backend, ":limit", ":offset"),
 					 soci::use(serverID), soci::use(maxEntries), soci::use(startOffset), soci::into(row));
 
 				stmt.execute(false);
 
 				while (stmt.fetch()) {
 					assert(row.size() == 2);
-					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+					assert(row.get_properties(0).get_data_type() == soci::dt_long_long);
 					assert(row.get_properties(1).get_data_type() == soci::dt_string);
 
 					DBLogEntry entry;
-					entry.message   = row.get< std::string >(1);
-					entry.timestamp = std::chrono::steady_clock::time_point(std::chrono::seconds(row.get< int >(0)));
+					entry.message = row.get< std::string >(1);
+					entry.timestamp =
+						std::chrono::steady_clock::time_point(std::chrono::seconds(row.get< long long >(0)));
 
 					entries.push_back(std::move(entry));
 				}
