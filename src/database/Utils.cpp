@@ -71,6 +71,22 @@ namespace db {
 			// clang-format on
 		}
 
+		std::string limitOffset(Backend backend, const std::string &limit, const std::string &offset) {
+			std::string statement = "LIMIT " + limit;
+
+			switch (backend) {
+				case Backend::MySQL:
+				case Backend::PostgreSQL:
+				case Backend::SQLite:
+					statement += " OFFSET ";
+					break;
+			}
+
+			statement += offset;
+
+			return statement;
+		}
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble

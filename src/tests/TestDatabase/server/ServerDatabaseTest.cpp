@@ -283,22 +283,29 @@ void ServerDatabaseTest::logTable_logMessage() {
 
 		db.getLogTable().logMessage(existingServerID, entries[i]);
 	}
+	// Sort values such that most recent entry comes first
+	std::reverse(entries.begin(), entries.end());
 
 	for (std::size_t maxEntries = 0; maxEntries < entries.size() + 2; ++maxEntries) {
 		for (std::size_t offset = 0; offset < entries.size() + 2; ++offset) {
 			std::vector<::msdb::DBLogEntry > fetchedEntries =
 				db.getLogTable().getLogs(existingServerID, maxEntries, offset);
 
-			QCOMPARE(
-				static_cast< int >(fetchedEntries.size()),
-				std::max(static_cast< int >(std::min(maxEntries, entries.size())) - static_cast< int >(offset), 0));
+			const int totalEntryCount = static_cast< int >(entries.size());
+			int maxPossibleEntries    = totalEntryCount - std::min(static_cast< int >(offset), totalEntryCount);
+			int requestableEntryCount = std::min(static_cast< int >(maxEntries), totalEntryCount);
+			int expectedEntryCount    = requestableEntryCount;
+			expectedEntryCount += std::min(maxPossibleEntries - requestableEntryCount, 0);
+			expectedEntryCount = std::max(expectedEntryCount, 0);
+
+			QCOMPARE(static_cast< int >(fetchedEntries.size()), expectedEntryCount);
 
 			// This check is more to ensure that we don't run into UB below
 			QVERIFY(fetchedEntries.empty() || fetchedEntries.size() + offset <= entries.size());
 
 			for (std::size_t i = 0; i < fetchedEntries.size(); ++i) {
-				QCOMPARE(fetchedEntries[i].timestamp, entries[i + offset].timestamp);
 				QCOMPARE(fetchedEntries[i].message, entries[i + offset].message);
+				QCOMPARE(fetchedEntries[i].timestamp, entries[i + offset].timestamp);
 			}
 		}
 	}
