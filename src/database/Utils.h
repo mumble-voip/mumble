@@ -49,6 +49,12 @@ namespace db {
 												   const std::string &idColName,
 												   const std::vector< ColAlias > &additionalCols = {});
 
+		/**
+		 * @returns The SQL statement for the respective backend to achieve limiting a query to a given
+		 *  	size and optionally also starting at a specific offset.
+		 */
+		std::string limitOffset(Backend backend, const std::string &limit, const std::string &offset = "0");
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble
