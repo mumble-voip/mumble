@@ -206,6 +206,39 @@ namespace server {
 			}
 		}
 
+		std::vector< unsigned int > ChannelTable::getChildrenOf(unsigned int serverID, unsigned int channelID) {
+			try {
+				soci::transaction transaction(m_sql);
+
+				std::vector< unsigned int > children;
+				soci::row row;
+
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT " << column::channel_id << " FROM \"" << NAME << "\" WHERE "
+								   << column::server_id << " = :serverID AND " << column::parent_id
+								   << " = :parentID AND NOT " << column::channel_id << " = :parentID",
+					 soci::use(serverID, "serverID"), soci::use(channelID, "parentID"), soci::into(row));
+
+				stmt.execute(false);
+
+				while (stmt.fetch()) {
+					assert(row.size() == 1);
+					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+
+					children.push_back(static_cast< unsigned int >(row.get< int >(0)));
+				}
+
+				transaction.commit();
+
+				return children;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at fetching children of channel "
+															  + std::to_string(channelID) + " on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
+
 		void ChannelTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
