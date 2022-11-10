@@ -63,6 +63,8 @@ namespace server {
 
 			unsigned int getFreeChannelID(unsigned int serverID);
 
+			std::vector< unsigned int > getChildrenOf(unsigned int serverID, unsigned int channelID);
+
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 

@@ -387,6 +387,7 @@ void ServerDatabaseTest::channelTable_general() {
 
 	::msdb::ChannelTable &channelTable = db.getChannelTable();
 
+	QVERIFY(channelTable.getChildrenOf(existingServerID, Mumble::ROOT_CHANNEL_ID).empty());
 	QVERIFY(!channelTable.channelExists(existingServerID, 5));
 
 	::msdb::DBChannel rootChannel;
@@ -401,6 +402,7 @@ void ServerDatabaseTest::channelTable_general() {
 	channelTable.addChannel(rootChannel);
 
 	QVERIFY(channelTable.channelExists(rootChannel));
+	QVERIFY(channelTable.getChildrenOf(existingServerID, Mumble::ROOT_CHANNEL_ID).empty());
 
 	::msdb::DBChannel fetchedData = channelTable.getChannelData(existingServerID, Mumble::ROOT_CHANNEL_ID);
 	QCOMPARE(fetchedData, rootChannel);
@@ -428,6 +430,8 @@ void ServerDatabaseTest::channelTable_general() {
 
 	channelTable.addChannel(other);
 
+	QCOMPARE(channelTable.getChildrenOf(existingServerID, rootChannel.channelID).size(), static_cast< std::size_t >(1));
+
 	::msdb::DBChannel updatedOther = other;
 	updatedOther.name              = "New name❗";
 
@@ -447,6 +451,9 @@ void ServerDatabaseTest::channelTable_general() {
 	third.name      = "Third channel";
 
 	channelTable.addChannel(third);
+
+	QCOMPARE(channelTable.getChildrenOf(existingServerID, rootChannel.channelID).size(), static_cast< std::size_t >(2));
+
 	channelTable.removeChannel(other);
 
 	// We expect to first re-use the ID 1 before moving on to ID 3
