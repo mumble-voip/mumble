@@ -81,7 +81,7 @@ function(include_translations OUT_VAR OUT_DIR TS_FILES)
 
 		if(COMP_RESULT EQUAL 0)
 			# Files are equal -> Don't overwrite
-		elseif(COMP_RESULT 1)
+		elseif(COMP_RESULT EQUAL 1)
 			# Files are different -> overwrite
 			file(RENAME "${TMP_PATH}" "${QRC_PATH}")
 		else()
