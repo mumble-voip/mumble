@@ -14,6 +14,7 @@ if(BUILD_OVERLAY_XCOMPILE)
 		LANGUAGES CXX
 	)
 
+	list(APPEND CMAKE_MODULE_PATH "${3RDPARTY_DIR}/cmake-compiler-flags")
 	include("${MUMBLE_SOURCE_ROOT}/cmake/compiler.cmake")
 endif()
 
@@ -162,6 +163,7 @@ if(64_BIT AND MSVC)
 				"-DMUMBLE_SOURCE_ROOT=${CMAKE_SOURCE_DIR}"
 				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
 				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				"-D3RDPARTY_DIR=${3RDPARTY_DIR}"
 				# Force MSVC, because CMake prioritizes MinGW over it.
 				"-DCMAKE_C_COMPILER=cl.exe"
 				"-DCMAKE_CXX_COMPILER=cl.exe"
@@ -184,6 +186,7 @@ if(64_BIT AND MSVC)
 				"-DMUMBLE_SOURCE_ROOT=${CMAKE_SOURCE_DIR}"
 				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
 				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				"-D3RDPARTY_DIR=${3RDPARTY_DIR}"
 				# Force MSVC, because CMake prioritizes MinGW over it.
 				"-DCMAKE_C_COMPILER=cl.exe"
 				"-DCMAKE_CXX_COMPILER=cl.exe"

@@ -34,6 +34,8 @@ find_pkg(OpenSSL
 
 find_pkg(Protobuf REQUIRED)
 
+add_compile_options(${MUMBLE_COMPILER_FLAGS})
+
 add_library(shared STATIC)
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)

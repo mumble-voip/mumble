@@ -44,6 +44,7 @@ list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake"
 	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
 	"${3RDPARTY_DIR}/FindPythonInterpreter"
+	"${3RDPARTY_DIR}/cmake-compiler-flags"
 )
 
 
