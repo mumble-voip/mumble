@@ -16,6 +16,7 @@
 #	include "win.h"
 #endif
 
+#include <unistd.h>
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
@@ -96,7 +97,18 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 #ifdef Q_OS_WIN
 		qlsSocket->connectToServer(QLatin1String("MumbleOverlayPipe"));
 #else
-		qlsSocket->connectToServer(QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe")));
+		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
+		QString mumbleRuntimePath;
+		if (!xdgRuntimePath.isNull()) {
+		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
+		} else {
+			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
+		}
+		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
+		mumbleRuntimeDir.mkpath(".");
+		QString pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
+		qWarning() << "connectToServer(" << pipepath << ")";
+		qlsSocket->connectToServer(pipepath);
 #endif
 	}
 
@@ -166,7 +178,7 @@ void OverlayWidget::disconnected() {
 }
 
 void OverlayWidget::error(QLocalSocket::LocalSocketError) {
-	qWarning() << "error";
+	perror("error");
 	disconnected();
 }
 

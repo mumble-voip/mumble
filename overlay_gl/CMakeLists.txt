@@ -31,10 +31,9 @@ if(NOT APPLE)
 			"-Wl,-z,lazy"
 	)
 
-	set_target_properties(overlay_gl
-		PROPERTIES
-			COMPILE_DEFINITIONS
-				"TARGET_UNIX"
+	target_compile_definitions(overlay_gl
+		PRIVATE
+			"TARGET_UNIX"
 	)
 
 	if(overlay-xcompile)

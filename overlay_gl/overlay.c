@@ -147,6 +147,24 @@ static void newContext(Context *ctx) {
 	ctx->timeT             = clock();
 	ctx->frameCount        = 0;
 
+#ifdef __linux__
+	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
+
+	if (xdgRuntimeDir != NULL) {
+		ctx->saName.sun_family = PF_UNIX;
+		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
+		if(xdgRuntimeDir[(strlen(xdgRuntimeDir)-1)] != '/')
+			strcat(ctx->saName.sun_path, "/");
+		strcat(ctx->saName.sun_path, "mumble/MumbleOverlayPipe");
+	} else {
+		char uid[10];
+		sprintf(uid, "%d", getuid());
+		ctx->saName.sun_family = PF_UNIX;
+		strcpy(ctx->saName.sun_path, "/run/user/");
+		strcat(ctx->saName.sun_path, uid);
+		strcat(ctx->saName.sun_path, "/mumble/MumbleOverlayPipe");
+	}
+#else
 	char *home = getenv("HOME");
 	if (home == NULL) {
 		struct passwd *pwent = getpwuid(getuid());
@@ -154,18 +172,12 @@ static void newContext(Context *ctx) {
 			home = pwent->pw_dir;
 		}
 	}
-
-	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
-
-	if (xdgRuntimeDir != NULL) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
-		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
-	} else if (home) {
+	if (home) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, home);
-		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
+		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
 	}
+#endif
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
 		glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));

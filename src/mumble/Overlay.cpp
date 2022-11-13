@@ -244,13 +244,15 @@ void Overlay::createPipe() {
 #else
 	{
 		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QDir xdgRuntimeDir     = QDir(xdgRuntimePath);
-
-		if (!xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
-			pipepath = xdgRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
+		QString mumbleRuntimePath;
+		if (!xdgRuntimePath.isNull()) {
+		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
 		} else {
-			pipepath = QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe"));
+			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
 		}
+		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
+		mumbleRuntimeDir.mkpath(".");
+		pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
 	}
 
 	{

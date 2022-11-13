@@ -236,13 +236,15 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 #else
 	{
 		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QDir xdgRuntimeDir     = QDir(xdgRuntimePath);
-
-		if (!xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
-			pipepath = xdgRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
+		QString mumbleRuntimePath;
+		if (!xdgRuntimePath.isNull()) {
+		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
 		} else {
-			pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
+			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
 		}
+		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
+		mumbleRuntimeDir.mkpath(".");
+		pipepath = mumbleRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
 	}
 
 	{
@@ -280,13 +282,15 @@ bool SocketRPC::send(const QString &basename, const QString &request, const QMap
 #else
 	{
 		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QDir xdgRuntimeDir     = QDir(xdgRuntimePath);
-
-		if (!xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
-			pipepath = xdgRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
+		QString mumbleRuntimePath;
+		if (!xdgRuntimePath.isNull()) {
+		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
 		} else {
-			pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
+			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
 		}
+		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
+		mumbleRuntimeDir.mkpath(".");
+		pipepath = mumbleRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
 	}
 #endif
 
@@ -325,3 +329,4 @@ bool SocketRPC::send(const QString &basename, const QString &request, const QMap
 
 	return QVariant(succ.text()).toBool();
 }
+
