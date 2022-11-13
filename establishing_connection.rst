@@ -138,7 +138,7 @@ by transmitting partial ChannelState message for every channel on this server. T
 messages lack the channel link information as the client does not yet have full
 picture of all the channels. Once the initial ChannelState has been transmitted
 for all channels the server updates the linked channels by sending new packets for
-these. The full structure of these ChanneLState messages is shown below:
+these. The full structure of these ChannelState messages is shown below:
 
 .. table:: ChannelState message
 
