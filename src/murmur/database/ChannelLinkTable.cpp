@@ -15,6 +15,7 @@
 #include "database/FormatException.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Trigger.h"
 #include "database/Utils.h"
 
@@ -95,7 +96,7 @@ namespace server {
 					;
 				}
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::first_id << ", "
 					  << column::second_id << ") VALUES (:serverID, :firstID, :secondID)",
@@ -111,7 +112,7 @@ namespace server {
 
 		void ChannelLinkTable::removeLink(const DBChannelLink &link) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::first_id << " = :firstID AND " << column::second_id << " = :secondID",
@@ -140,7 +141,7 @@ namespace server {
 
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::first_id << " = :firstID AND " << column::second_id << " = :secondID LIMIT 1",
@@ -162,7 +163,7 @@ namespace server {
 				std::vector< DBChannelLink > links;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::first_id << ", " << column::second_id << " FROM \"" << NAME

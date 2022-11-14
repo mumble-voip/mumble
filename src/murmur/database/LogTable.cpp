@@ -15,6 +15,7 @@
 #include "database/ForeignKey.h"
 #include "database/Index.h"
 #include "database/MigrationException.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -61,7 +62,7 @@ namespace server {
 			std::size_t timeSinceEpoch = toEpochSeconds(entry.timestamp);
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::message << ", "
 					  << column::date << ") VALUES (:id, :msg, :date)",
@@ -77,7 +78,7 @@ namespace server {
 
 		void LogTable::clearLog(unsigned int serverID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID",
 					soci::use(serverID);
@@ -100,7 +101,7 @@ namespace server {
 				std::vector< DBLogEntry > entries;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::date << ", " << column::message << " FROM \"" << NAME

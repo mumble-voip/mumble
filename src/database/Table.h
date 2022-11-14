@@ -12,6 +12,7 @@
 #include "Index.h"
 #include "PrimaryKey.h"
 #include "Trigger.h"
+#include "TransactionHolder.h"
 
 #include <string>
 #include <unordered_set>
@@ -25,6 +26,8 @@ class session;
 
 namespace mumble {
 namespace db {
+
+	class Database;
 
 	class Table {
 	public:
@@ -56,6 +59,13 @@ namespace db {
 		virtual void destroy();
 		virtual void clear();
 
+		/**
+		 * @returns The Database this table is part of or nullptr if it does not belong to a DB
+		 */
+		Database *getDatabase();
+		const Database *getDatabase() const;
+		void setDatabase(Database *database);
+
 		const std::vector< Index > &getIndices() const;
 		void addIndex(const Index &index, bool applyToDB);
 		bool removeIndex(const Index &index, bool applyToDB);
@@ -72,6 +82,8 @@ namespace db {
 		void addForeignKey(const ForeignKey &key);
 		void removeForeignKey(const ForeignKey &key);
 		void clearForeignKeys();
+
+		TransactionHolder ensureTransaction();
 
 		/**
 		 * Imports the data from the given JSON into the table represented by this object. Note
@@ -94,6 +106,7 @@ namespace db {
 		std::vector< Trigger > m_trigger;
 		PrimaryKey m_primaryKey;
 		std::vector< ForeignKey > m_foreignKeys;
+		Database *m_database = nullptr;
 
 		void performCtorAssertions();
 	};

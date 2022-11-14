@@ -12,6 +12,7 @@
 #include "database/Database.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -42,7 +43,7 @@ namespace server {
 
 		void ServerTable::addServer(unsigned int id) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ") VALUES (:id)", soci::use(id);
 
@@ -54,7 +55,7 @@ namespace server {
 
 		void ServerTable::removeServer(unsigned int id) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(id);
 
@@ -69,7 +70,7 @@ namespace server {
 			try {
 				int exists = 0;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id LIMIT 1",
 					soci::use(id), soci::into(exists);
@@ -89,7 +90,7 @@ namespace server {
 			try {
 				int freeID = 0;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << ::mdb::utils::getLowestUnoccupiedIDStatement(m_backend, NAME, column::server_id),
 					soci::into(freeID);
@@ -107,7 +108,7 @@ namespace server {
 				std::vector< unsigned int > ids;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::server_id << " FROM \"" << NAME << "\"", soci::into(row));
