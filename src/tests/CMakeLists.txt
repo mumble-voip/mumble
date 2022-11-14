@@ -33,6 +33,7 @@ if(client)
 		# For some reason Qt segfaults when executing this test on FreeBSD without a display (even when using the offscreen plugin)
 		add_subdirectory("TestSettingsJSONSerialization")
 	endif()
+	add_subdirectory("OverlayTest")
 endif()
 
 if(server)

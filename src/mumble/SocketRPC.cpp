@@ -333,4 +333,3 @@ bool SocketRPC::send(const QString &basename, const QString &request, const QMap
 
 	return QVariant(succ.text()).toBool();
 }
-
