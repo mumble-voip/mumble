@@ -5976,10 +5976,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Αυτό σας επιτρέπει να επεξεργαστείτε τη λίστα απαγορεύσεων IP του διακομιστή.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Φίλτρο ενεργο/μη ενεργό</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6487,6 +6483,14 @@ Valid options are:
     </message>
     <message>
         <source>Remember this setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8739,6 +8743,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Το κανάλι έχει περιορισμούς πρόσβασης, αλλά μπορείτε να εισέλθετε παρόλα αυτά</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

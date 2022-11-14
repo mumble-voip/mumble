@@ -5977,10 +5977,6 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Esto le permite editar la lista de bans por IP del servidor.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filtro on/off</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6465,6 +6461,14 @@ Valid options are:
     </message>
     <message>
         <source>Remember this setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8717,6 +8721,10 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Este canal tiene restricciones, pero puedes entrar de todas maneras</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -5976,10 +5976,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Laat toe om de lijst met verbanningen op IP op de server te bewerken.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filteren aan/uit</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6487,6 +6483,14 @@ Valid options are:
     </message>
     <message>
         <source>Remember this setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8739,6 +8743,10 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Er staan toegangsrestricties ingesteld op het kanaal, maar desondanks kan je deze toch betreden</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
