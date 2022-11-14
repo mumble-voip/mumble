@@ -53,7 +53,7 @@ namespace db {
 		applyBackendSpecificSetup(parameter);
 
 		// Start a transaction to ensure that we don't mess up the DB should anything fail during initialization
-		soci::transaction transaction(m_sql);
+		TransactionHolder transaction = ensureTransaction();
 
 		// Create a meta-table
 		auto metaTable = std::make_unique< MetaTable >(m_sql, m_backend);
@@ -89,6 +89,7 @@ namespace db {
 	}
 
 	Database::table_id Database::addTable(std::unique_ptr< Table > table) {
+		table->setDatabase(this);
 		m_tables.push_back(std::move(table));
 
 		// The "table ID" is just the index of the table in the used vector
@@ -136,6 +137,8 @@ namespace db {
 
 			it->reset();
 
+			ptr->setDatabase(nullptr);
+
 			return ptr;
 		} else {
 			return nullptr;
@@ -151,6 +154,8 @@ namespace db {
 
 			m_tables[tableID].reset();
 
+			ptr->setDatabase(nullptr);
+
 			return ptr;
 		} else {
 			return nullptr;
@@ -164,7 +169,7 @@ namespace db {
 	void Database::importFromJSON(const nlohmann::json &json, bool createMissingTables) {
 		// We wrap the entire import into a transaction to make sure, that we don't end up with partial imports if an
 		// error is encountered during the import.
-		soci::transaction transaction(m_sql);
+		TransactionHolder transaction = ensureTransaction();
 
 		if (!json.contains("meta_data")) {
 			throw FormatException("JSON-import: JSON is missing top-level \"meta_data\" object");
@@ -362,6 +367,10 @@ namespace db {
 		}
 
 		return version;
+	}
+
+	TransactionHolder Database::ensureTransaction() {
+		return TransactionHolder(m_sql, !m_activeTransaction, &m_activeTransaction);
 	}
 
 	void Database::connectToDB(const ConnectionParameter &parameter) {

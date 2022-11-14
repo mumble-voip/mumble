@@ -14,6 +14,7 @@
 #include "database/ForeignKey.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -64,7 +65,7 @@ namespace server {
 		std::string ChannelPropertyTable::doGetProperty(unsigned int serverID, unsigned int channelID,
 														ChannelProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::string val;
 
@@ -87,7 +88,7 @@ namespace server {
 		bool ChannelPropertyTable::isPropertySet(unsigned int serverID, unsigned int channelID,
 												 ChannelProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				int exists = 0;
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
@@ -110,7 +111,7 @@ namespace server {
 											   const std::string &value) {
 			bool propertyAlreadySet = isPropertySet(serverID, channelID, property);
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				if (propertyAlreadySet) {
 					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
@@ -137,7 +138,7 @@ namespace server {
 		void ChannelPropertyTable::clearProperty(unsigned int serverID, unsigned int channelID,
 												 ChannelProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
@@ -153,7 +154,7 @@ namespace server {
 
 		void ChannelPropertyTable::clearAllProperties(unsigned int serverID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID",

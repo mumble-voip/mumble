@@ -16,6 +16,7 @@
 #include "database/ForeignKey.h"
 #include "database/FormatException.h"
 #include "database/MigrationException.h"
+#include "database/TransactionHolder.h"
 #include "database/Trigger.h"
 #include "database/Utils.h"
 
@@ -138,7 +139,7 @@ namespace server {
 			}
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 					  << column::user_name << ", " << column::last_channel_id
@@ -156,7 +157,7 @@ namespace server {
 
 		void UserTable::removeUser(const DBUser &user) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID",
@@ -174,7 +175,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID LIMIT 1",
@@ -192,7 +193,7 @@ namespace server {
 
 		void UserTable::updateData(const DBUser &user, const DBUserData &data) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Ensure that the blob's lifetime never escapes the transaction
 				{
@@ -254,7 +255,7 @@ namespace server {
 			DBUserData data;
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Ensure that the blob's lifetime never escapes the transaction
 				{
@@ -306,7 +307,7 @@ namespace server {
 			try {
 				std::size_t lastDisconnect = toEpochSeconds(timepoint);
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_disconnect << " = :lastDisconnect WHERE "
 					  << column::server_id << " = :serverID AND " << column::user_id << " = :userID",
@@ -322,7 +323,7 @@ namespace server {
 
 		std::chrono::steady_clock::time_point UserTable::getLastDisconnect(const DBUser &user) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::size_t lastDisconnected = 0;
 
@@ -350,7 +351,7 @@ namespace server {
 			try {
 				std::size_t lastActive = toEpochSeconds(timepoint);
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_active << " = :lastActive WHERE "
 					  << column::server_id << " = :serverID AND " << column::user_id << " = :userID",
@@ -366,7 +367,7 @@ namespace server {
 
 		std::chrono::steady_clock::time_point UserTable::getLastActive(const DBUser &user) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::size_t lastActive = 0;
 
@@ -400,7 +401,7 @@ namespace server {
 			std::size_t lastActive = toEpochSeconds(std::chrono::steady_clock::now());
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_channel_id << " = :lastChannel, "
 					  << column::last_active << " = :lastActive WHERE " << column::server_id << " = :serverID AND "
@@ -418,7 +419,7 @@ namespace server {
 
 		unsigned int UserTable::getLastChannelID(const DBUser &user) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				unsigned int last_channel_id = Mumble::ROOT_CHANNEL_ID;
 
@@ -444,7 +445,7 @@ namespace server {
 			assert(userExists(user));
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Ensure that the blob's lifetime never escapes the transaction
 				{
@@ -474,7 +475,7 @@ namespace server {
 			try {
 				std::vector< std::uint8_t > texture;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Ensure that the blob's lifetime never escapes the transaction
 				{
@@ -512,7 +513,7 @@ namespace server {
 			assert(userExists(user));
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::indicator pwInd   = password.passwordHash.empty() ? soci::i_null : soci::i_ok;
 				soci::indicator saltInd = password.salt.empty() ? soci::i_null : soci::i_ok;
@@ -541,7 +542,7 @@ namespace server {
 				soci::indicator pwSaltInd;
 				soci::indicator kdfIterInd;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT " << column::password_hash << ", " << column::salt << ", " << column::kdf_iterations
 					  << " FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
@@ -570,7 +571,7 @@ namespace server {
 			}
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::user_name << " = :name WHERE " << column::server_id
 					  << " = :serverID AND " << column::user_id << " = :userID",
@@ -588,7 +589,7 @@ namespace server {
 			try {
 				std::string name;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT " << column::user_name << " FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :serverID AND " << column::user_id << " = :userID",
@@ -613,7 +614,7 @@ namespace server {
 			try {
 				unsigned int id;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::string nameCol =
 					caseSensitive ? column::user_name : std::string("LOWER(") + column::user_name + ")";
@@ -637,7 +638,7 @@ namespace server {
 				std::vector< DBUser > users;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt = (m_sql.prepare << "SELECT " << column::user_id << " FROM \"" << NAME
 													  << "\" WHERE " << column::server_id << " = :serverID",

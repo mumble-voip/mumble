@@ -17,6 +17,7 @@
 #include "database/Index.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -81,7 +82,7 @@ namespace server {
 			try {
 				int freeID;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << ::mdb::utils::getLowestUnoccupiedIDStatement(
 					m_backend, NAME, column::group_id, { ::mdb::utils::ColAlias(column::server_id, "serverID") }),
@@ -104,7 +105,7 @@ namespace server {
 			}
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				long long group_id = 0;
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
@@ -133,7 +134,7 @@ namespace server {
 			}
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\"SET " << column::group_name << " = :name, " << column::channel_id
 					  << " = :channelID, " << column::inherit << " = :inherit, " << column::is_inheritable
@@ -155,7 +156,7 @@ namespace server {
 
 		void GroupTable::removeGroup(unsigned int serverID, unsigned int groupID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::group_id << " = :groupID",
@@ -175,7 +176,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::group_id << " = :groupID LIMIT 1",
@@ -202,7 +203,7 @@ namespace server {
 				int inherit        = false;
 				int is_inheritable = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT " << column::channel_id << ", " << column::group_name << ", " << column::inherit
 					  << ", " << column::is_inheritable << " FROM \"" << NAME << "\" WHERE " << column::server_id
@@ -229,7 +230,7 @@ namespace server {
 			try {
 				long long nGroups = 0;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :serverID AND " << column::channel_id << " = :channelID) AS dummy",
@@ -252,7 +253,7 @@ namespace server {
 				std::vector< DBGroup > groups;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt = (m_sql.prepare << "SELECT " << column::group_id << ", " << column::group_name
 													  << ", " << column::inherit << ", " << column::is_inheritable

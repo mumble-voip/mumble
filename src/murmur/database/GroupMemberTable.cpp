@@ -18,6 +18,7 @@
 #include "database/Index.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -75,7 +76,7 @@ namespace server {
 		void GroupMemberTable::addEntry(unsigned int serverID, unsigned int groupID, unsigned int userID,
 										bool addToGroup) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
 					  << column::user_id << ", " << column::add_to_group
@@ -97,7 +98,7 @@ namespace server {
 
 		void GroupMemberTable::removeEntry(unsigned int serverID, unsigned int groupID, unsigned int userID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID",
@@ -119,7 +120,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID LIMIT 1",
@@ -140,7 +141,7 @@ namespace server {
 				std::vector< DBGroupMember > groups;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt = (m_sql.prepare << "SELECT " << column::user_id << ", " << column::add_to_group
 													  << " FROM \"" << NAME << "\" WHERE " << column::server_id
