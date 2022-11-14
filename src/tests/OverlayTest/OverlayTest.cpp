@@ -14,14 +14,18 @@
 
 #ifdef Q_OS_WIN
 #	include "win.h"
+#else
+#   include <unistd.h>
 #endif
 
-#include <unistd.h>
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
 
-#include <ctime>
+#include <QWidget>
+#include <QMainWindow>
+#include <QApplication>
+
 
 class OverlayWidget : public QWidget {
 	Q_OBJECT
@@ -33,7 +37,7 @@ protected:
 	SharedMemory2 *smMem;
 	QTimer *qtTimer;
 	QRect qrActive;
-	QTime qtWall;
+	QElapsedTimer qtWall;
 
 	unsigned int iFrameCount;
 	int iLastFpsUpdate;
@@ -185,7 +189,6 @@ void OverlayWidget::error(QLocalSocket::LocalSocketError) {
 void OverlayWidget::update() {
 	++iFrameCount;
 
-	clock_t t     = clock();
 	float elapsed = static_cast< float >(qtWall.elapsed() - iLastFpsUpdate) / 1000.0f;
 
 	if (elapsed > OVERLAY_FPS_INTERVAL) {
@@ -216,12 +219,12 @@ void OverlayWidget::readyRead() {
 		int ready = qlsSocket->bytesAvailable();
 
 		if (om.omh.iLength == -1) {
-			if (ready < sizeof(OverlayMsgHeader))
+			if ((size_t)ready < sizeof(OverlayMsgHeader))
 				break;
 			else {
 				qlsSocket->read(reinterpret_cast< char * >(om.headerbuffer), sizeof(OverlayMsgHeader));
 				if ((om.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (om.omh.iLength < 0)
-					|| (om.omh.iLength > sizeof(OverlayMsgShmem))) {
+					|| ((size_t)om.omh.iLength > sizeof(OverlayMsgShmem))) {
 					detach();
 					return;
 				}
@@ -264,11 +267,12 @@ void OverlayWidget::readyRead() {
 					if (!smMem)
 						break;
 
-					if (((omb->x + omb->w) > img.width()) || ((omb->y + omb->h) > img.height()))
+					if (((omb->x + omb->w) > (unsigned int)img.width())
+						|| ((omb->y + omb->h) > (unsigned int)img.height()))
 						break;
 
 
-					for (int y = 0; y < omb->h; ++y) {
+					for (unsigned int y = 0; y < omb->h; ++y) {
 						unsigned char *src =
 							reinterpret_cast< unsigned char * >(smMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
 						unsigned char *dst = img.scanLine(y + omb->y) + omb->x * 4;
