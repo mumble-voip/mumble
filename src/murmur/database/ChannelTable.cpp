@@ -14,6 +14,7 @@
 #include "database/ForeignKey.h"
 #include "database/MigrationException.h"
 #include "database/NoDataException.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -69,7 +70,7 @@ namespace server {
 
 		void ChannelTable::addChannel(const DBChannel &channel) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
 					  << column::parent_id << ", " << column::name << ", " << column::inherit_acl
@@ -91,7 +92,7 @@ namespace server {
 
 		void ChannelTable::removeChannel(unsigned int serverID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID",
@@ -109,7 +110,7 @@ namespace server {
 			assert(channelExists(channel));
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::parent_id << " = :parentID, " << column::name
 					  << " = :name, " << column::inherit_acl << " = :inheritACL WHERE " << column::server_id
@@ -132,7 +133,7 @@ namespace server {
 
 		bool ChannelTable::channelExists(unsigned int serverID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				int exists = 0;
 
@@ -156,7 +157,7 @@ namespace server {
 			channel.channelID = channelID;
 
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				int inherit = 0;
 
@@ -187,7 +188,7 @@ namespace server {
 
 		unsigned int ChannelTable::getFreeChannelID(unsigned int serverID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				unsigned int id = 0;
 
@@ -208,7 +209,7 @@ namespace server {
 
 		std::vector< unsigned int > ChannelTable::getChildrenOf(unsigned int serverID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::vector< unsigned int > children;
 				soci::row row;

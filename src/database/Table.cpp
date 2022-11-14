@@ -232,6 +232,12 @@ namespace db {
 		}
 	}
 
+	Database *Table::getDatabase() { return m_database; }
+
+	const Database *Table::getDatabase() const { return m_database; }
+
+	void Table::setDatabase(Database *database) { m_database = database; }
+
 	const std::vector< Index > &Table::getIndices() const { return m_indices; }
 
 	void Table::addIndex(const Index &index, bool applyToDB) {
@@ -323,6 +329,12 @@ namespace db {
 	}
 
 	void Table::clearForeignKeys() { m_foreignKeys.clear(); }
+
+	TransactionHolder Table::ensureTransaction() {
+		// If this table is part of a Database, we want to start a global (database-wide known) transaction. Otherwise,
+		// we'll have to be content with a transaction only locally known.
+		return m_database ? m_database->ensureTransaction() : TransactionHolder(m_sql, true);
+	}
 
 #define THROW_FORMATERROR(msg) throw FormatException(std::string("JSON-Import (table \"") + m_name + "\"): " + msg)
 	void Table::importFromJSON(const nlohmann::json &json, bool create) {

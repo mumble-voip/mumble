@@ -18,6 +18,7 @@
 #include "database/FormatException.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -112,7 +113,7 @@ namespace server {
 					groupID  = acl.affectedGroupID.get();
 				}
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
 					  << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id << ", "
@@ -138,7 +139,7 @@ namespace server {
 
 		void ACLTable::removeACL(unsigned int serverID, unsigned int channelID, unsigned int priority) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID AND " << column::priority << " = :prio",
@@ -158,7 +159,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID AND " << column::priority << " = :prio LIMIT 1",
@@ -177,7 +178,7 @@ namespace server {
 
 		void ACLTable::clearACLs(unsigned int serverID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID",
@@ -196,7 +197,7 @@ namespace server {
 				std::vector< DBAcl > acls;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::priority << ", " << column::aff_user_id << ", "
@@ -251,7 +252,7 @@ namespace server {
 			try {
 				int count = 0;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :serverID) AS dummy",

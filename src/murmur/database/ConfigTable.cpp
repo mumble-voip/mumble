@@ -14,6 +14,7 @@
 #include "database/ForeignKey.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 
 #include <soci/soci.h>
 
@@ -60,7 +61,7 @@ namespace server {
 			try {
 				std::string value = defaultValue;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :id AND " << column::key << " = :key",
@@ -77,7 +78,7 @@ namespace server {
 
 		void ConfigTable::setConfig(unsigned int serverID, const std::string &configName, const std::string &value) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Perform an "upsert" operation - insert if it doesn't exist yet, insert otherwise
 				int exists = 0;
@@ -104,7 +105,7 @@ namespace server {
 
 		void ConfigTable::clearConfig(unsigned int serverID, const std::string &configName) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND " << column::key
 					  << " = :key",
@@ -123,7 +124,7 @@ namespace server {
 			try {
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt = (m_sql.prepare << "SELECT " << column::key << ", " << column::value << " FROM \""
 													  << NAME << "\" WHERE " << column::server_id << " = :id",
@@ -150,7 +151,7 @@ namespace server {
 
 		void ConfigTable::clearAllConfigs(unsigned int serverID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(serverID);
 

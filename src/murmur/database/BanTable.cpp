@@ -17,6 +17,7 @@
 #include "database/FormatException.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -109,7 +110,7 @@ namespace server {
 					reasonInd = soci::i_ok;
 				}
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::base_address << ", "
 					  << column::prefix_length << ", " << column::user_name << ", " << column::cert_hash << ", "
@@ -134,7 +135,7 @@ namespace server {
 
 		void BanTable::removeBan(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND LOWER("
 					  << column::base_address << ") = LOWER(:baseAddress) AND " << column::prefix_length
@@ -157,7 +158,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND LOWER("
 					  << column::base_address << ") = LOWER(:baseAddress) AND " << column::prefix_length
@@ -196,7 +197,7 @@ namespace server {
 				soci::indicator certInd;
 				soci::indicator reasonInd;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT " << column::user_name << ", " << column::cert_hash << ", " << column::reason << ", "
 					  << column::start_date << ", " << column::duration << " FROM \"" << NAME << "\" WHERE "
@@ -235,7 +236,7 @@ namespace server {
 				std::vector< DBBan > bans;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::base_address << ", " << column::prefix_length << ", "
@@ -292,7 +293,7 @@ namespace server {
 
 		void BanTable::clearBans(unsigned int serverID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				doClearBans(m_sql, serverID);
 
@@ -305,7 +306,7 @@ namespace server {
 
 		void BanTable::setBans(unsigned int serverID, const std::vector< DBBan > &bans) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				// Step 1: Clear old bans
 				doClearBans(m_sql, serverID);

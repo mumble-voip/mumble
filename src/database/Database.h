@@ -10,6 +10,7 @@
 #include "ConnectionParameter.h"
 #include "NonCopyable.h"
 #include "Table.h"
+#include "TransactionHolder.h"
 #include "Version.h"
 
 #include <memory>
@@ -74,10 +75,18 @@ namespace db {
 		 */
 		Version getBackendVersion();
 
+		/**
+		 * If the database is not already in a transaction, a new transaction will be started.
+		 *
+		 * @return A TransactionHolder managing the (potentially) started transaction.
+		 */
+		TransactionHolder ensureTransaction();
+
 	protected:
 		Backend m_backend;
 		std::vector< std::unique_ptr< Table > > m_tables;
 		soci::session m_sql;
+		bool m_activeTransaction = false;
 
 		void connectToDB(const ConnectionParameter &parameter);
 

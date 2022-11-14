@@ -15,6 +15,7 @@
 #include "database/ForeignKey.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -71,7 +72,7 @@ namespace server {
 
 		void ChannelListenerTable::addListener(const DBChannelListener &listener) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 					  << column::channel_id << ", " << column::volume_adjustment << ", " << column::enabled
@@ -95,7 +96,7 @@ namespace server {
 
 		void ChannelListenerTable::removeListener(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID",
@@ -117,7 +118,7 @@ namespace server {
 			try {
 				int exists = false;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID LIMIT 1",
@@ -136,7 +137,7 @@ namespace server {
 
 		void ChannelListenerTable::updateListener(const DBChannelListener &listener) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::volume_adjustment << " = :volAdjustment, "
 					  << column::enabled << " = :enabled WHERE " << column::server_id << " = :serverID AND "
@@ -160,7 +161,7 @@ namespace server {
 				std::vector< DBChannelListener > listeners;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::channel_id << ", " << column::volume_adjustment << ", "
@@ -204,7 +205,7 @@ namespace server {
 				std::vector< DBChannelListener > listeners;
 				soci::row row;
 
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::user_id << ", " << column::volume_adjustment << ", "

@@ -14,6 +14,7 @@
 #include "database/ForeignKey.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
+#include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -62,7 +63,7 @@ namespace server {
 
 		std::string UserPropertyTable::doGetProperty(const DBUser &user, UserProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::string val;
 
@@ -85,7 +86,7 @@ namespace server {
 
 		bool UserPropertyTable::isPropertySet(const DBUser &user, UserProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				int exists = 0;
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
@@ -107,7 +108,7 @@ namespace server {
 		void UserPropertyTable::setProperty(const DBUser &user, UserProperty property, const std::string &value) {
 			bool propertyAlreadySet = isPropertySet(user, property);
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				if (propertyAlreadySet) {
 					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
@@ -133,7 +134,7 @@ namespace server {
 
 		void UserPropertyTable::clearProperty(const DBUser &user, UserProperty property) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID AND " << column::key << " = :key",
@@ -149,7 +150,7 @@ namespace server {
 
 		void UserPropertyTable::clearAllProperties(const DBUser &user) {
 			try {
-				soci::transaction transaction(m_sql);
+				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID",
