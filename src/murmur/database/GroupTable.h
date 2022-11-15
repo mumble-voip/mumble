@@ -11,6 +11,9 @@
 #include "database/Backend.h"
 #include "database/Table.h"
 
+#include <boost/optional.hpp>
+
+#include <string>
 #include <vector>
 
 namespace soci {
@@ -57,6 +60,10 @@ namespace server {
 			bool groupExists(unsigned int serverID, unsigned int groupID);
 
 			DBGroup getGroup(unsigned int serverID, unsigned int groupID);
+
+			void clearGroups(unsigned int serverID, unsigned int channelID);
+
+			boost::optional< unsigned int > findGroupID(unsigned int serverID, const std::string &name);
 
 
 			std::size_t countGroups(unsigned int serverID, unsigned int channelID);
