@@ -226,6 +226,43 @@ namespace server {
 			}
 		}
 
+		void GroupTable::clearGroups(unsigned int serverID, unsigned int channelID) {
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
+					  << column::channel_id << " = :channelID",
+					soci::use(serverID), soci::use(channelID);
+
+				transaction.commit();
+
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at clearing groups for channel with ID "
+															  + std::to_string(channelID) + " on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
+		boost::optional< unsigned int > GroupTable::findGroupID(unsigned int serverID, const std::string &name) {
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				unsigned int groupID;
+
+				m_sql << "SELECT " << column::group_id << " FROM \"" << NAME << "\" WHERE " << column::server_id
+					  << " = :serverID AND " << column::group_name << " = :groupName",
+					soci::use(serverID), soci::use(name), soci::into(groupID);
+
+				transaction.commit();
+
+				return m_sql.got_data() ? boost::optional< unsigned int >(groupID) : boost::none;
+
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at searching for group with name \"" + name
+															  + "\" on server with ID " + std::to_string(serverID)));
+			}
+		}
+
 		std::size_t GroupTable::countGroups(unsigned int serverID, unsigned int channelID) {
 			try {
 				long long nGroups = 0;
