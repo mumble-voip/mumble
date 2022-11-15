@@ -34,7 +34,15 @@ namespace db {
 	TransactionHolder::~TransactionHolder() {
 		if (!m_handled) {
 			// Wrapper went out of scope without explicit handling -> rollback as this indicates an error has happened
-			rollback();
+			// We normally ignore any exception that might be throw here in order to not throw from the dtor
+			try {
+				rollback();
+			} catch (...) {
+				// In debug builds (or more general: builds with assertions enabled) we want to abort here as an error
+				// encountered during rollback of a transaction indicates a bug of some sort, that we should
+				// investigate.
+				assert(false);
+			}
 		}
 	}
 
