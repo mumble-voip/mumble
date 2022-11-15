@@ -38,7 +38,7 @@ jobs:
       shell: bash
 
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
           path: '${{ env.MUMBLE_BUILD_ENV_PATH }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
