@@ -32,8 +32,7 @@ namespace db {
 		}
 
 		/**
-		 * @returns A SQL statement that will raise an error (and rollback the current transaction) that can
-		 * be used inside a trigger to signal an error.
+		 * @returns A SQL statement that will raise an error that can be used inside a trigger to signal an error.
 		 */
 		std::string triggerErrorStatement(Backend backend, const std::string &errorMsg);
 
