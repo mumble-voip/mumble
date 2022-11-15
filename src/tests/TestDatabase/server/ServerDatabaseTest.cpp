@@ -861,11 +861,21 @@ void ServerDatabaseTest::groupTable_general() {
 	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
 	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
 
+	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >());
+
 	table.addGroup(group);
+
+	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >(group.groupID));
+	QCOMPARE(table.findGroupID(nonExistingServerID, group.name), boost::optional< unsigned int >());
 
 	QVERIFY(table.groupExists(group));
 	QCOMPARE(table.getFreeGroupID(existingServerID), static_cast< unsigned int >(1));
 
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(1));
+	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
+
+	// This should be a no-op as there currently are no groups connected with the root channel
+	table.clearGroups(existingServerID, rootChannel.channelID);
 	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(1));
 	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
 
@@ -921,6 +931,10 @@ void ServerDatabaseTest::groupTable_general() {
 	QCOMPARE(fetchedGroups.size(), static_cast< std::size_t >(table.countGroups(group.serverID, group.channelID)));
 	QVERIFY(fetchedGroups.size() == expectedGroups.size()
 			&& std::is_permutation(expectedGroups.begin(), expectedGroups.end(), fetchedGroups.begin()));
+
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(2));
+	table.clearGroups(existingServerID, otherChannel.channelID);
+	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
 
 	END_TEST_CASE
 }
