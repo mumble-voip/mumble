@@ -7,6 +7,7 @@
 
 #include "Channel.h"
 #include "ClientUser.h"
+#include "IPCUtils.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "Global.h"
@@ -229,34 +230,18 @@ void SocketRPCClient::processXml() {
 SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 	qlsServer = new QLocalServer(this);
 
-	QString pipepath;
-
-#ifdef Q_OS_WIN
-	pipepath = basename;
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
-		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		pipepath = mumbleRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
-	}
+	const std::string pipepath = Mumble::getAndCreateSocketPath(basename.toStdString());
+	QString qPipepath          = QString::fromUtf8(pipepath.data(), int(pipepath.size()));
 
 	{
-		QFile f(pipepath);
+		QFile f(qPipepath);
 		if (f.exists()) {
-			qWarning() << "SocketRPC: Removing old socket on" << pipepath;
+			qWarning() << "SocketRPC: Removing old socket on" << qPipepath;
 			f.remove();
 		}
 	}
-#endif
 
-	if (!qlsServer->listen(pipepath)) {
+	if (!qlsServer->listen(qPipepath)) {
 		qWarning() << "SocketRPC: Listen failed";
 		delete qlsServer;
 		qlsServer = nullptr;
@@ -275,27 +260,11 @@ void SocketRPC::newConnection() {
 }
 
 bool SocketRPC::send(const QString &basename, const QString &request, const QMap< QString, QVariant > &param) {
-	QString pipepath;
-
-#ifdef Q_OS_WIN
-	pipepath = basename;
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
-		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		pipepath = mumbleRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
-	}
-#endif
+	const std::string pipepath = Mumble::getAndCreateSocketPath(basename.toStdString());
+	QString qPipepath          = QString::fromUtf8(pipepath.data(), int(pipepath.size()));
 
 	QLocalSocket qls;
-	qls.connectToServer(pipepath);
+	qls.connectToServer(qPipepath);
 	if (!qls.waitForConnected(1000)) {
 		return false;
 	}
@@ -329,4 +298,3 @@ bool SocketRPC::send(const QString &basename, const QString &request, const QMap
 
 	return QVariant(succ.text()).toBool();
 }
-

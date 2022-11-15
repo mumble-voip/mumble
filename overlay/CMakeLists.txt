@@ -94,6 +94,8 @@ target_sources(overlay
 		"dxgi.cpp"
 		"excludecheck.cpp"
 		"excludecheck.h"
+		"ipc_utils.h"
+		"ipc_utils.c"
 		"lib.cpp"
 		"lib.h"
 		"ods.cpp"

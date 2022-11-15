@@ -8,6 +8,7 @@
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"
+#include "IPCUtils.h"
 #include "MainWindow.h"
 #include "OverlayClient.h"
 #include "OverlayText.h"
@@ -238,36 +239,21 @@ void Overlay::createPipe() {
 	// Allow anyone to access the pipe in order to communicate with the overlay
 	qlsServer->setSocketOptions(QLocalServer::WorldAccessOption);
 
-	QString pipepath;
-#ifdef Q_OS_WIN
-	pipepath = QLatin1String("MumbleOverlayPipe");
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
-		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
-	}
+	const std::string pipepath = Mumble::getAndCreateOverlayPipePath();
+	QString qPipepath          = QString::fromUtf8(pipepath.data(), int(pipepath.size()));
 
 	{
-		QFile f(pipepath);
+		QFile f(qPipepath);
 		if (f.exists()) {
-			qWarning() << "Overlay: Removing old socket on" << pipepath;
+			qWarning() << "Overlay: Removing old socket on" << qPipepath;
 			f.remove();
 		}
 	}
-#endif
 
-	if (!qlsServer->listen(pipepath)) {
+	if (!qlsServer->listen(qPipepath)) {
 		QMessageBox::warning(nullptr, QLatin1String("Mumble"),
 							 tr("Failed to create communication with overlay at %2: %1. No overlay will be available.")
-								 .arg(qlsServer->errorString().toHtmlEscaped(), pipepath.toHtmlEscaped()),
+								 .arg(qlsServer->errorString().toHtmlEscaped(), qPipepath.toHtmlEscaped()),
 							 QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();

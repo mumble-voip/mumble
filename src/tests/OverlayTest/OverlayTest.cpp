@@ -8,6 +8,9 @@
  */
 
 #include "../../overlay/overlay.h"
+extern "C" {
+#include "../../overlay/ipc_utils.h"
+}
 
 #include "SharedMemory.h"
 #include "Timer.h"
@@ -15,17 +18,16 @@
 #ifdef Q_OS_WIN
 #	include "win.h"
 #else
-#   include <unistd.h>
+#	include <unistd.h>
 #endif
 
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
 
-#include <QWidget>
-#include <QMainWindow>
 #include <QApplication>
-
+#include <QMainWindow>
+#include <QWidget>
 
 class OverlayWidget : public QWidget {
 	Q_OBJECT
@@ -98,22 +100,17 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 		connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 		connect(qlsSocket, SIGNAL(error(QLocalSocket::LocalSocketError)), this,
 				SLOT(error(QLocalSocket::LocalSocketError)));
-#ifdef Q_OS_WIN
-		qlsSocket->connectToServer(QLatin1String("MumbleOverlayPipe"));
-#else
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
+
+		char *c_pipepath = getAndCreateOverlayPipePath__();
+		if (c_pipepath == NULL) {
+			perror("Could not create MumbleOverlayPipe.");
+			return;
 		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		QString pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
-		qWarning() << "connectToServer(" << pipepath << ")";
-		qlsSocket->connectToServer(pipepath);
-#endif
+		const std::string pipepath = c_pipepath;
+
+		QString qPipepath = QString::fromUtf8(pipepath.data(), int(pipepath.size()));
+		qWarning() << "connectToServer(" << qPipepath << ")";
+		qlsSocket->connectToServer(qPipepath);
 	}
 
 	QPainter painter(this);
@@ -219,12 +216,12 @@ void OverlayWidget::readyRead() {
 		int ready = qlsSocket->bytesAvailable();
 
 		if (om.omh.iLength == -1) {
-			if ((size_t)ready < sizeof(OverlayMsgHeader))
+			if ((size_t) ready < sizeof(OverlayMsgHeader))
 				break;
 			else {
 				qlsSocket->read(reinterpret_cast< char * >(om.headerbuffer), sizeof(OverlayMsgHeader));
 				if ((om.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (om.omh.iLength < 0)
-					|| ((size_t)om.omh.iLength > sizeof(OverlayMsgShmem))) {
+					|| ((size_t) om.omh.iLength > sizeof(OverlayMsgShmem))) {
 					detach();
 					return;
 				}
@@ -267,8 +264,8 @@ void OverlayWidget::readyRead() {
 					if (!smMem)
 						break;
 
-					if (((omb->x + omb->w) > (unsigned int)img.width())
-						|| ((omb->y + omb->h) > (unsigned int)img.height()))
+					if (((omb->x + omb->w) > (unsigned int) img.width())
+						|| ((omb->y + omb->h) > (unsigned int) img.height()))
 						break;
 
 
