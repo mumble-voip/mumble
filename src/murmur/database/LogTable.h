@@ -49,6 +49,8 @@ namespace server {
 											  unsigned int maxEntries  = std::numeric_limits< int >::max(),
 											  unsigned int startOffset = 0);
 
+			std::size_t getLogSize(unsigned int serverID);
+
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 

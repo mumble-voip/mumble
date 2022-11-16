@@ -133,6 +133,27 @@ namespace server {
 			}
 		}
 
+		std::size_t LogTable::getLogSize(unsigned int serverID) {
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				std::size_t size = 0;
+
+				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
+					  << "  = :serverID) AS dummy",
+					soci::use(serverID), soci::into(size);
+
+				::mdb::utils::verifyQueryResultedInData(m_sql);
+
+				transaction.commit();
+
+				return size;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting log size for server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
 
 		void LogTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
