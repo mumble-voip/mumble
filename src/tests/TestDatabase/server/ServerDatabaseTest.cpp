@@ -169,7 +169,7 @@ class ServerDatabaseTest : public QObject {
 	Q_OBJECT;
 private slots:
 	void serverTable_server_management();
-	void logTable_logMessage();
+	void logTable_general();
 	void configTable_general();
 	void channelTable_general();
 	void channelPropertyTable_general();
@@ -241,7 +241,7 @@ void ServerDatabaseTest::serverTable_server_management() {
 	END_TEST_CASE
 }
 
-void ServerDatabaseTest::logTable_logMessage() {
+void ServerDatabaseTest::logTable_general() {
 	BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 1;
@@ -256,10 +256,13 @@ void ServerDatabaseTest::logTable_logMessage() {
 							 ::mdb::AccessException);
 
 	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(0));
+	QCOMPARE(db.getLogTable().getLogSize(existingServerID), static_cast< std::size_t >(0));
 
 	db.getLogTable().logMessage(existingServerID, ::msdb::DBLogEntry("I am a test message"));
 
 	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(1));
+	QCOMPARE(db.getLogTable().getLogSize(existingServerID), static_cast< std::size_t >(1));
+	QCOMPARE(db.getLogTable().getLogSize(nonExistingServerID), static_cast< std::size_t >(0));
 
 	db.getLogTable().logMessage(existingServerID,
 								::msdb::DBLogEntry("I am a test message containing some unicode characters: ✅ 👀"));
@@ -285,6 +288,8 @@ void ServerDatabaseTest::logTable_logMessage() {
 	}
 	// Sort values such that most recent entry comes first
 	std::reverse(entries.begin(), entries.end());
+
+	QCOMPARE(db.getLogTable().getLogSize(existingServerID), static_cast< std::size_t >(10));
 
 	for (std::size_t maxEntries = 0; maxEntries < entries.size() + 2; ++maxEntries) {
 		for (std::size_t offset = 0; offset < entries.size() + 2; ++offset) {
