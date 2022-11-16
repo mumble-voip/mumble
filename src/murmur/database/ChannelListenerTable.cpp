@@ -135,6 +135,41 @@ namespace server {
 			}
 		}
 
+		DBChannelListener ChannelListenerTable::getListenerDetails(const DBChannelListener &listener) {
+			return getListenerDetails(listener.serverID, listener.userID, listener.channelID);
+		}
+
+		DBChannelListener ChannelListenerTable::getListenerDetails(unsigned int serverID, unsigned int userID,
+																   unsigned int channelID) {
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				DBChannelListener listener(serverID, channelID, userID);
+				int enabled;
+				double volAdj;
+
+				m_sql << "SELECT " << column::enabled << ", " << column::volume_adjustment << " FROM \"" << NAME
+					  << "\" WHERE " << column::server_id << " = :serverID AND " << column::user_id << " = :userID AND "
+					  << column::channel_id << " = :channelID",
+					soci::use(serverID), soci::use(userID), soci::use(channelID), soci::into(enabled),
+					soci::into(volAdj);
+
+				::mdb::utils::verifyQueryResultedInData(m_sql);
+
+				transaction.commit();
+
+				listener.enabled          = enabled;
+				listener.volumeAdjustment = volAdj;
+
+				return listener;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting details of listener of user with ID "
+															  + std::to_string(userID) + " to channel with ID "
+															  + std::to_string(channelID) + " on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
 		void ChannelListenerTable::updateListener(const DBChannelListener &listener) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();

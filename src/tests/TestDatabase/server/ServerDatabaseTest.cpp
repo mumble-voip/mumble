@@ -1474,6 +1474,7 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	QVERIFY(table.getListenersForUser(existingServerID, user1.registeredUserID).empty());
 	QVERIFY(table.getListenersForUser(nonExistingServerID, user1.registeredUserID).empty());
 	QVERIFY(table.getListenersForUser(existingServerID, nonExistingUserID).empty());
+	QVERIFY_EXCEPTION_THROWN(table.getListenerDetails(listener1), ::mdb::NoDataException);
 
 	QVERIFY(!table.listenerExists(listener1));
 	QVERIFY(!table.listenerExists(listener2));
@@ -1486,6 +1487,7 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	table.addListener(listener2);
 
 	QVERIFY(table.listenerExists(listener2));
+	QCOMPARE(table.getListenerDetails(listener2), listener2);
 
 	std::vector<::msdb::DBChannelListener > expectedListeners = { listener1 };
 	std::vector<::msdb::DBChannelListener > fetchedListeners =

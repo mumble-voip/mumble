@@ -52,6 +52,9 @@ namespace server {
 			bool listenerExists(const DBChannelListener &listener);
 			bool listenerExists(unsigned int serverID, unsigned int userID, unsigned int channelID);
 
+			DBChannelListener getListenerDetails(const DBChannelListener &listener);
+			DBChannelListener getListenerDetails(unsigned int serverID, unsigned int userID, unsigned int channelID);
+
 			void updateListener(const DBChannelListener &listener);
 
 			std::vector< DBChannelListener > getListenersForUser(unsigned int serverID, unsigned int userID);
