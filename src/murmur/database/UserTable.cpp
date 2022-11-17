@@ -299,6 +299,29 @@ namespace server {
 			return data;
 		}
 
+		unsigned int UserTable::getFreeUserID(unsigned int serverID) {
+			DBUserData data;
+
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				unsigned int id;
+
+				m_sql << ::mdb::utils::getLowestUnoccupiedIDStatement(
+					m_backend, NAME, column::user_id, { ::mdb::utils::ColAlias(column::server_id, "serverID") }),
+					soci::use(serverID, "serverID"), soci::into(id);
+
+				::mdb::utils::verifyQueryResultedInData(m_sql);
+
+				transaction.commit();
+
+				return id;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at getting free user ID on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
 		void UserTable::clearLastDisconnect(const DBUser &user) { setLastDisconnect(user, {}); }
 
 		void UserTable::setLastDisconnect(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint) {
