@@ -70,6 +70,8 @@ namespace server {
 			void updateData(const DBUser &user, const DBUserData &data);
 			DBUserData getData(const DBUser &user);
 
+			unsigned int getFreeUserID(unsigned int serverID);
+
 			void clearLastDisconnect(const DBUser &user);
 			void setLastDisconnect(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint =
 														   std::chrono::steady_clock::now());

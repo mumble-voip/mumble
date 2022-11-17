@@ -593,10 +593,13 @@ void ServerDatabaseTest::userTable_general() {
 	testUserData.name = "Test user";
 
 	QVERIFY(!table.userExists(testUser));
+	QCOMPARE(table.getFreeUserID(existingServerID), static_cast< unsigned int >(0));
 
 	table.addUser(testUser, testUserData.name);
 
 	QVERIFY(table.userExists(testUser));
+	// As the testUser uses an ID > 0, getFreeUserID should still return 0
+	QCOMPARE(table.getFreeUserID(existingServerID), static_cast< unsigned int >(0));
 
 	// Adding a user with an invalid (empty) name should throw
 	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, 13), {}), ::mdb::FormatException);
@@ -709,7 +712,7 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test getRegisteredUsers
-	::msdb::DBUser additionalUser(existingServerID, 128);
+	::msdb::DBUser additionalUser(existingServerID, 0);
 	table.addUser(additionalUser, "Dummy name");
 	std::vector<::msdb::DBUser > expectedUsers = { testUser, additionalUser };
 	std::vector<::msdb::DBUser > actualUsers   = table.getRegisteredUsers(existingServerID);
@@ -718,6 +721,8 @@ void ServerDatabaseTest::userTable_general() {
 
 	actualUsers = table.getRegisteredUsers(nonExistingServerID);
 	QVERIFY(actualUsers.empty());
+
+	QCOMPARE(table.getFreeUserID(existingServerID), static_cast< unsigned int >(1));
 
 
 	// Test that a user's last channel is reset to the root channel, if the referenced channel gets deleted
