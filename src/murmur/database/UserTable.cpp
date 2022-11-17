@@ -656,16 +656,17 @@ namespace server {
 			}
 		}
 
-		std::vector< DBUser > UserTable::getRegisteredUsers(unsigned int serverID) {
+		std::vector< DBUser > UserTable::getRegisteredUsers(unsigned int serverID, const std::string &filter) {
 			try {
 				std::vector< DBUser > users;
 				soci::row row;
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				soci::statement stmt = (m_sql.prepare << "SELECT " << column::user_id << " FROM \"" << NAME
-													  << "\" WHERE " << column::server_id << " = :serverID",
-										soci::use(serverID), soci::into(row));
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT " << column::user_id << " FROM \"" << NAME << "\" WHERE "
+								   << column::server_id << " = :serverID AND " << column::user_name << " LIKE :filter",
+					 soci::use(serverID), soci::use(filter), soci::into(row));
 
 				stmt.execute(false);
 

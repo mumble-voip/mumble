@@ -103,7 +103,7 @@ namespace server {
 													 bool caseSensitive = false);
 
 
-			std::vector< DBUser > getRegisteredUsers(unsigned int serverID);
+			std::vector< DBUser > getRegisteredUsers(unsigned int serverID, const std::string &filter = "%");
 
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
