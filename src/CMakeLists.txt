@@ -6,9 +6,6 @@
 set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Mumble.proto")
 set(UDP_PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleUDP.proto")
 
-option(client "Build the client (Mumble)" ON)
-option(server "Build the server (Murmur)" ON)
-
 option(benchmarks "Build benchmarks" OFF)
 
 option(qssldiffiehellmanparameters "Build support for custom Diffie-Hellman parameters." ON)

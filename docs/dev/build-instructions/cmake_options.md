@@ -152,7 +152,7 @@ Build support for OSS.
 ### overlay
 
 Build overlay.
-(Default: ON)
+(Default: ${client})
 
 ### overlay-xcompile
 
