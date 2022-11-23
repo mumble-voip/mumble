@@ -390,20 +390,21 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Didžiausias naudotojų skaičius</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Didžiausias leistinas kanalo naudotojų skaičius</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Didžiausias naudotojų skaičius&lt;/b&gt;&lt;br /&gt;
+Ši reikšmė leidžia nustatyti didžiausią kanale leidžiamą naudotojų skaičių. Jei reikšmė yra didesnė už nulį, į kanalą bus leidžiama įeiti tik tokiam naudotojų skaičiui. Jei reikšmė lygi nuliui, maksimalų naudotojų skaičių kanale nurodo serverio numatytoji riba.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tai yra kanalo rūšiavimo tvarka.</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -415,7 +416,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Didžiausias naudotojų skaičius</translation>
     </message>
     <message>
         <source>Channel name</source>
@@ -423,7 +424,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveldėti grupės nariai</translation>
     </message>
     <message>
         <source>Foreign group members</source>
@@ -524,15 +525,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Užklausa</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigūruoti pasirinktą įrenginį</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Taip sukonfigūruojamas pasirinktas įrenginys. Atminkite, kad daugelis ASIO tvarkyklių yra labai klaidingos, o jų užklausa gali sukelti programos arba sistemos gedimą.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -540,7 +541,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Capabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Galimybės</translation>
     </message>
     <message>
         <source>Driver name</source>
