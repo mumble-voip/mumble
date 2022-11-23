@@ -651,7 +651,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazarların listesi için lütfen &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt; adresine bakın</translation>
     </message>
 </context>
 <context>
@@ -4575,35 +4575,35 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıkış Davranışı</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayar, sağ üst köşedeki X işaretine tıklandığında ne olacağını denetler.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayar Mumble&apos;ı kapatırkenki davranışı denetler. Onay istenmesi, kapanma yerine simge durumuna küçültme veya herhangi bir ek istem olmadan yalnızca kapanma arasında seçim yapabilirsiniz. İsteğe bağlı olarak, ilk iki seçenek yalnızca o anda bir sunucuya bağlı olduğunuzda uygulanabilir (bu durumda, Mumble herhangi bir sunucuya bağlı değilken sormadan çıkacaktır).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Her Zaman Sor</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlandığında sor</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Her Zaman Küçült</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlandığında küçült</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Her Zaman Çık</translation>
     </message>
 </context>
 <context>
@@ -6538,15 +6538,15 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu, artık desteklenmeyen Opus&apos;tan farklı bir ses codec&apos;i kullanmamızı istedi. Bağlantı kesiliyor...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble&apos;ı kapatmak istediğinizden emin misiniz? Belki de bunun yerine küçültmeyi tercih edersiniz?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayarı hatırla</translation>
     </message>
 </context>
 <context>
