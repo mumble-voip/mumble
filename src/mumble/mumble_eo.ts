@@ -2929,7 +2929,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>%Redakti…</translation>
+        <translation>&amp;Redakti…</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
@@ -6001,7 +6001,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">%Redakti</translation>
+        <translation>&amp;Redakti...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
