@@ -651,7 +651,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Per la lista degli autori, per favore consulta &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1442,7 +1442,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;Audio Posizionale non può funzionare con dispositivi di riproduzione mono!</translation>
     </message>
 </context>
 <context>
@@ -3094,11 +3094,11 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo IPv6</translation>
     </message>
 </context>
 <context>
@@ -3423,7 +3423,7 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Il sistema di Scorciatoie Globali di Mumble al momento non funziona correttamente in combinazione con il protocollo Wayland. Per maggiori informazioni, visita &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3865,7 +3865,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[contenuto incorporato]</translation>
     </message>
 </context>
 <context>
@@ -4095,59 +4095,59 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Premi per abilitare Sintesi Vocale</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita Sintesi Vocale</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Premi per impostare il limite per gli eventi %1.&lt;br /&gt;Se selezionato, le notifiche per il tipo di eventi scelto non verranno riprodotte oltre alla soglia stabilita.</translation>
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume Messaggio</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore volume per i segnali acustici</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Questo è il modificatore del volume dei segnali acustici.&lt;/b&gt;&lt;br /&gt;Un valore di 0 dB significa nessuna modifica al livello sonoro.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume Sintesi Vocale</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore volume notifiche</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore volume per i suoni di notifica</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Questo è il modificatore del volume per i suoni di notifica.&lt;/b&gt;&lt;br /&gt;Un valore di 0 dB significa nessuna modifica al livello sonoro.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore volume segnali acustici</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore volume per i suoni di notifica</translation>
     </message>
 </context>
 <context>
@@ -4576,35 +4576,35 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Azione di chiusura</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa impostazione controlla l&apos;azione eseguita alla pressione della X di chiusura in alto a destra.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa impostazione controlla l&apos;azione eseguita alla chiusura di Mumble. Puoi scegliere tra ricevere una conferma, minimizzare la finestra invece di chiuderla o semplicemente chiudere il programma senza ulteriori conferme. In aggiunta, le prime due opzioni possono essere applicate solamente quando si è connessi ad un server (in questo caso Mumble verrà chiuso senza conferma quando non connesso ad un server).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiedi Sempre</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiedi quando connesso</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizza Sempre</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizza quando connesso</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Esci Sempre</translation>
     </message>
 </context>
 <context>
@@ -6389,7 +6389,7 @@ Azioni valide:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>File di configurazione non valido trovato.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6453,41 +6453,101 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt; | &lt;lista_plugin&gt;]
+
+&lt;url&gt; specifica un URL a cui connettersi dopo l&apos;avvio, invece di mostrare
+la finestra di connessione, e ha la seguente forma:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;lista_dei_plugin&gt; è un elenco di file di plugin che devono essere installati.
+Il parametro della query version deve essere impostato per richiamare la versione 
+versione corretta del client. Attualmente la versione predefinita è la 1.2.0.
+
+Le opzioni valide sono:
+  -h, --help Mostra il testo di aiuto ed esce.
+  -V, --version Stampa le informazioni sulla versione ed esce.
+  -m, -multiple
+                Consente di avviare più istanze del client.
+  -c, --config
+                Specifica un file di configurazione alternativo.
+                Se si usa questo file per eseguire più istanze di Mumble contemporaneamente,
+                assicurarsi di impostare un valore alternativo di &quot;database&quot; nella configurazione.
+  --default-certificate-dir &lt;dir&gt;
+                Specifica un percorso alternativo per il certificato predefinito.
+                Questo percorso viene utilizzato solo se non c&apos;è un certificato caricato
+                dalle impostazioni.
+  -n, --noidentity
+                Sopprime il caricamento dei file di identità (cioè dei certificati).
+  -jn, --jackname &lt;arg&gt;
+                Imposta il nome personalizzato del client Jack.
+  --license
+                Mostra la licenza di Mumble.
+  --authors
+                Mostra gli autori di Mumble.
+  --third-party-licenses
+                Mostra le licenze dei software di terze parti utilizzati da Mumble.
+  --window-title-ext &lt;arg&gt;
+                Imposta l&apos;estensione del titolo di una finestra personalizzata.
+  --dump-input-streams
+                Esegue il dump dei flussi PCM in varie parti della catena di ingresso.
+                (utile per il debug)
+                - ingresso microfonico grezzo
+                - lettura dell&apos;altoparlante per la cancellazione dell&apos;eco
+                - ingresso microfonico elaborato
+  --print-echocancel-queue
+                Stampa su stdout lo stato della coda di cancellazione dell&apos;eco
+                (utile per il debug)
+  -translation-dir &lt;dir&gt;
+                Specifica un&apos;ulteriore directory di traduzione &lt;dir&gt;
+                nella quale Mumble cercherà i file di traduzione che
+                sovrascrivono quelli in bundle
+                Le directory aggiunte in questo modo hanno una priorità più alta rispetto
+                delle posizioni predefinite usate altrimenti
+  --print-translation-dirs
+                Stampa i percorsi in cui Mumble cercherà i file di traduzione che
+                i file di traduzione che sovrascrivono quelli in bundle.
+                (Utile per i traduttori che testano le loro traduzioni).
+  --locale &lt;locale&gt;
+                Sovrascrive il locale presente nelle impostazioni di Mumble con un locale
+                locale che corrisponde alla stringa di locale indicata.
+                Se il formato non è valido, Mumble darà un errore.
+                Altrimenti il locale verrà salvato in modo permanente nelle
+                impostazioni di Mumble.
+</translation>
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Al momento sei in modalità Interfaccia Minima ma non connesso ad alcun server. Utilizza il menù contestuale per connetterti ad un server o disattivare l&apos;Interfaccia Minima.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore Locale Volume:</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1</translation>
+        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ascolta il Canale</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Attiva/Disattiva l&apos;ascolto del canale scelto.</translation>
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Il server ha richiesto l&apos;utilizzao di un codec audio differente da Opus, e che non è più supportato. Disconnessione...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei sicuro di voler chiudere Mumble? Per caso preferisci minimizzarlo invece?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ricorda questa impostazione</translation>
     </message>
 </context>
 <context>
@@ -7803,31 +7863,31 @@ Puoi registrarle di nuovo.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Impostazioni potenzialmente rotte</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Caricare le impostazioni di backup?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembra che Mumble non abbia eseguito un arresto normale. Se non hai intenzionalmente terminato l&apos;applicazione, potrebbe significare che le impostazioni utilizzare hanno causato l&apos;arresto anomalo. Vuoi caricare le impostazioni di backup invece?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Anche le impostazioni di backup sembrano essere state salvate senza una normale chiusura di mumble (potenziale indicazione di crash).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se sperimenti ripetuti arresti anomali con queste impostazioni, dovrai cancellare manualmente le impostazioni su &lt;pre&gt;%1&lt;/pre&gt; e &lt;pre&gt;%2&lt;/pre&gt; per poter reimpostare tutti i valori predefiniti.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;accesso al microfono è stato negato da restrizioni del sistema. Non potrai utilizzare il microfono in questa sessione.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione Sconosciuta</translation>
     </message>
 </context>
 <context>
@@ -8137,19 +8197,19 @@ Puoi registrarle di nuovo.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Indica se la connessione supporta Perfect Forward Secrecy (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sì</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -8202,7 +8262,7 @@ Puoi registrarle di nuovo.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Canale Sconosciuto &gt;</translation>
     </message>
 </context>
 <context>
@@ -8548,7 +8608,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Attenzione: Il server sembra segnalare una versione troncata del protocollo per questo client. (Vedi: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
@@ -9001,18 +9061,18 @@ Per favore contatta l&apos;amministratore del server per maggiori informazioni.<
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile avviare la registrazione - errore nella configuazione dell&apos;uscita audio (0Hz frequenza di campionamento)</translation>
     </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Cursore per il modificatore audio</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificatore Volume</translation>
     </message>
 </context>
 <context>
