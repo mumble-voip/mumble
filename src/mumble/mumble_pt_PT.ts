@@ -3026,7 +3026,7 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Oceania</source>
-        <translation>Oceania</translation>
+        <translation>Oceânia</translation>
     </message>
     <message>
         <source>South America</source>
@@ -6314,7 +6314,7 @@ Valid actions are:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Alterna a visibilidade da UI de Falantes.</translation>
+        <translation>Alterna a visibilidade da IU de Falar.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -7323,7 +7323,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Ativar</translation>
+        <translation>Ativar</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7542,7 +7542,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
