@@ -651,7 +651,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour une liste des auteurs, voyez &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1442,7 +1442,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;audio positionnel ne peut fonctionner avec les périphériques de sortie mono !</translation>
     </message>
 </context>
 <context>
@@ -4576,35 +4576,35 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Comportement lors de fermeture</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce réglage contrôle le comportement suite à un clic sur le X dans le coin supérieur droit.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce réglage contrôle le comportement lors de la fermeture de Mumble. Vous pouvez choisir entre une demande de confirmation, minimiser au lieu de fermer et fermer simplement sans aucune invite supplémentaire. De manière facultative, les deux premières options peuvent ne s&apos;appliquer que lorsque vous êtes connecté à un serveur (dans ce cas, Mumble quittera sans demander de confirmation, si vous n&apos;êtes connecté à aucun serveur).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours demander</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Demander quand vous êtes connecté</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours minimiser</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimiser lorsque vous êtes connecté</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours quitter</translation>
     </message>
 </context>
 <context>
@@ -6526,29 +6526,29 @@ Les options valides sont&#xa0;:
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1</translation>
+        <translation>Cette version de Mumble ne peut pas manipuler les URL pour Mumble version %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Écouter le salon</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bascule l&apos;écoute du salon donné.</translation>
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Le serveur nous a demandé d&apos;utiliser un codec audio différent d&apos;Opus, qui n&apos;est plus pris en charge. Déconnexion...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous certain de vouloir fermer Mumble ? Peut-être préféreriez-vous minimiser ?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Se souvenir de ce réglage</translation>
     </message>
 </context>
 <context>
@@ -7888,7 +7888,7 @@ Vous pouvez les enregistrer à nouveau.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version inconnue</translation>
     </message>
 </context>
 <context>
@@ -8263,7 +8263,7 @@ Vous pouvez les enregistrer à nouveau.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Salon inconnu&gt;</translation>
     </message>
 </context>
 <context>
@@ -8609,7 +8609,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement : le serveur semble signaler une version protocole tronquée pour ce client. (Voyez : &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Problème #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
