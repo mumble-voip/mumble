@@ -651,7 +651,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista autorów znajduje się na stronie &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -4577,35 +4577,35 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowanie zamykania</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>To ustawienie kontroluje zachowanie kliknięcia X w prawym górnym rogu.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>To ustawienie kontroluje zachowanie podczas zamykania Mumble. Możesz wybrać między pytaniem o potwierdzenie, minimalizacją zamiast zamykania, a zwykłym zamykaniem bez dodatkowego monitu. Opcjonalnie dwie pierwsze opcje mogą mieć zastosowanie tylko wtedy, gdy utrzymywane jest połączenie z serwerem (w takim przypadku Mumble zakończy działanie bez pytania, gdy nie ma połączenia z żadnym serwerem).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawsze pytaj</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Pytaj, gdy połączony</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawsze minimalizuj</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalizuj, gdy połączony</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawsze zamykaj</translation>
     </message>
 </context>
 <context>
@@ -6540,15 +6540,15 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Serwer polecił używanie kodeka dźwięku innego niż Opus, który nie jest już obsługiwany. Rozłączanie...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy na pewno chcesz zamknąć Mumble? A może wolisz go zminimalizować?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapamiętaj to ustawienie</translation>
     </message>
 </context>
 <context>
