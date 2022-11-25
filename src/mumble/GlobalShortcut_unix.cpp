@@ -4,6 +4,9 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "GlobalShortcut_unix.h"
+#ifdef USE_DBUS
+#  include "GlobalShortcut_xdp.h"
+#endif
 
 #include "Settings.h"
 #include "Global.h"
@@ -45,8 +48,15 @@
  * @see GlobalShortcutX
  * @see GlobalShortcutMac
  * @see GlobalShortcutWin
+ * @see GlobalShortcutXdp
  */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
+#ifdef USE_DBUS
+	if (GlobalShortcutXdp::isAvailable()) {
+		return new GlobalShortcutXdp;
+	}
+#endif
+
 	return new GlobalShortcutX();
 }
 

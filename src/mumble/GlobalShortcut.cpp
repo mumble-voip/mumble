@@ -545,6 +545,15 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
 	bool canDisable  = GlobalShortcutEngine::engine->canDisable();
+	bool canConfigure = GlobalShortcutEngine::engine->canConfigure();
+
+	qpbAdd->setVisible(!canConfigure);
+	qpbRemove->setVisible(!canConfigure);
+	qpbConfigure->setVisible(canConfigure);
+	if (canConfigure) {
+		connect(qpbConfigure, &QPushButton::clicked, GlobalShortcutEngine::engine, &GlobalShortcutEngine::configure);
+		connect(GlobalShortcutEngine::engine, &GlobalShortcutEngine::shortcutsChanged, this, &GlobalShortcutConfig::reload);
+	}
 
 	qwWarningContainer->setVisible(false);
 
@@ -564,14 +573,6 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 		qtwShortcuts->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
-
-	qlWaylandNote->setVisible(false);
-#ifdef Q_OS_LINUX
-	if (EnvUtils::waylandIsUsed()) {
-		// Our global shortcut system doesn't work properly with Wayland
-		qlWaylandNote->setVisible(true);
-	}
-#endif
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
@@ -905,6 +906,10 @@ bool GlobalShortcutEngine::enabled() {
 }
 
 bool GlobalShortcutEngine::canDisable() {
+	return false;
+}
+
+bool GlobalShortcutEngine::canConfigure() {
 	return false;
 }
 
