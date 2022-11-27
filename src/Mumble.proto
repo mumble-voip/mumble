@@ -41,6 +41,8 @@ message Authenticate {
 	// A list of CELT bitstream version constants supported by the client.
 	repeated int32 celt_versions = 4;
 	optional bool opus = 5 [default = false];
+	// 0 = REGULAR, 1 = BOT
+	optional int32 client_type = 6 [default = 0];
 }
 
 // Sent by the client to notify the server that the client is still alive.

@@ -126,6 +126,7 @@ public:
 	QString qsWelcomeTextFile;
 	bool bCertRequired;
 	bool bForceExternalAuth;
+	unsigned int m_botCount = 0;
 
 	QString qsRegName;
 	QString qsRegPassword;

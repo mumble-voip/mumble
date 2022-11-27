@@ -12,6 +12,7 @@
 #	include "win.h"
 #endif
 
+#include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
 #include "Timer.h"
@@ -108,6 +109,7 @@ protected:
 public:
 	enum State { Connected, Authenticated };
 	State sState;
+	ClientType m_clientType;
 	operator QString() const;
 
 	float dUDPPingAvg, dUDPPingVar;

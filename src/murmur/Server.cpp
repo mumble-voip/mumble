@@ -7,6 +7,7 @@
 
 #include "ACL.h"
 #include "Channel.h"
+#include "ClientType.h"
 #include "Connection.h"
 #include "EnvUtils.h"
 #include "Group.h"
@@ -641,7 +642,7 @@ gsl::span< const Mumble::Protocol::byte >
 		pingData.requestAdditionalInformation = false;
 
 		pingData.serverVersion                 = Version::get();
-		pingData.userCount                     = qhUsers.size();
+		pingData.userCount                     = qhUsers.size() - m_botCount;
 		pingData.maxUserCount                  = iMaxUsers;
 		pingData.maxBandwidthPerUser           = iMaxBandwidth;
 		pingData.containsAdditionalInformation = true;
@@ -1661,6 +1662,10 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
+
+		if (u->m_clientType == ClientType::BOT) {
+			m_botCount--;
+		}
 
 		emit userDisconnected(u);
 	}
