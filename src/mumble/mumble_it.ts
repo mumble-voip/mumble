@@ -5976,10 +5976,6 @@ Altrimenti annulla e controlla il tuo certificato ed il nome utente.</translatio
         <translation>Questo ti permette di modificare la lista dei ban per IP dal server.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filtro on/off</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6548,6 +6544,14 @@ Le opzioni valide sono:
     <message>
         <source>Remember this setting</source>
         <translation>Ricorda questa impostazione</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8799,6 +8803,10 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Il canale ha delle restrizioni ma tu puoi entrare lo stesso</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

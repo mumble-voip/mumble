@@ -614,7 +614,7 @@
      <activeon>skin:filter_on.svg</activeon>skin:filter_off.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Filter on/off</string>
+    <string>Channel &amp;Filter</string>
    </property>
    <property name="toolTip">
     <string>Toggle the channel filter (Alt+F)</string>
@@ -897,12 +897,20 @@ the channel's context menu.</string>
     <string>&amp;Join Channel</string>
    </property>
   </action>
-  <action name="qaChannelFilter">
+  <action name="qaChannelHide">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
     <string>&amp;Hide Channel when Filtering</string>
+   </property>
+  </action>
+  <action name="qaChannelPin">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Pin Channel when Filtering</string>
    </property>
   </action>
   <action name="qaUserCommentView">

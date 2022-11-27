@@ -5977,10 +5977,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Позволяет изменить список банов по IP на сервере.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Фильтр вкл/выкл</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6549,6 +6545,14 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     <message>
         <source>Remember this setting</source>
         <translation>Запомнить эту настройку</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8801,6 +8805,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Канал имеет ограничения доступа, но вы все равно можете войти</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

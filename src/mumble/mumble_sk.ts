@@ -4884,10 +4884,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Toggle the channel filter (Alt+F)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6360,6 +6356,14 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Remember this setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8594,6 +8598,10 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

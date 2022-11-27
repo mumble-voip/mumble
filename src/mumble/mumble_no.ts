@@ -5992,10 +5992,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Dette lar deg endre den tjenerbaserte bannlysningslisten over IP-adresser.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filter på/av</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6502,6 +6498,14 @@ Valid options are:
     </message>
     <message>
         <source>Remember this setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8755,6 +8759,10 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Kanalen har tilgangsbegrensninger, men du kan ta del iden likevel</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

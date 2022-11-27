@@ -5975,10 +5975,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>使您可以编辑服务端的 IP 封禁列表。</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>切换筛选(&amp;F)</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6547,6 +6543,14 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Remember this setting</source>
         <translation>记住此设置</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8797,6 +8801,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>频道具有访问限制，但您仍可以进入</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

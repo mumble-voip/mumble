@@ -5975,10 +5975,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Bu, sunucuda IP yasaklama listesini düzenlemenize izin verir.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filtre Aç/Kapat</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6547,6 +6543,14 @@ Geçerli seçenekler şunlardır:
     <message>
         <source>Remember this setting</source>
         <translation>Bu ayarı hatırla</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8797,6 +8801,10 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Kanalın erişim kısıtlamaları var ancak yine de girebilirsiniz</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

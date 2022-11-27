@@ -11,8 +11,11 @@
 #include <QtCore/QStack>
 
 #ifdef MUMBLE
+#	include <queue>
 #	include "PluginManager.h"
 #	include "Global.h"
+#	include "Database.h"
+#	include "ServerHandler.h"
 
 QHash< int, Channel * > Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
@@ -30,11 +33,11 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 		cParent->addChannel(this);
 #ifdef MUMBLE
 	uiPermissions = 0;
-	bFiltered     = false;
+	m_filterMode  = ChannelFilterMode::NORMAL;
 
 	hasEnterRestrictions.store(false);
 	localUserCanEnter.store(true);
-#endif
+#endif // MUMBLE
 }
 
 Channel::~Channel() {
@@ -84,7 +87,88 @@ void Channel::remove(Channel *c) {
 	QWriteLocker lock(&c_qrwlChannels);
 	c_qhChannels.remove(c->iId);
 }
-#endif
+
+void Channel::setFilterMode(ChannelFilterMode filterMode) {
+	m_filterMode        = filterMode;
+	ServerHandlerPtr sh = Global::get().sh;
+	if (sh) {
+		Global::get().db->setChannelFilterMode(sh->qbaDigest, iId, m_filterMode);
+	}
+}
+
+void Channel::clearFilterMode() {
+	if (m_filterMode != ChannelFilterMode::NORMAL) {
+		setFilterMode(ChannelFilterMode::NORMAL);
+	}
+}
+
+bool Channel::isFiltered() const {
+	if (!Global::get().s.bFilterActive) {
+		// Channel filtering is disabled
+		return false;
+	}
+
+	const Channel *userChannel = nullptr;
+
+	if (Global::get().uiSession != 0) {
+		const ClientUser *user = ClientUser::get(Global::get().uiSession);
+		if (user) {
+			userChannel = user->cChannel;
+		}
+	}
+
+	bool hasUser = false;
+	bool hasHide = false;
+	bool hasPin  = false;
+
+	// Iterate tree down
+	std::queue< const Channel * > channelSearch;
+	channelSearch.push(this);
+
+	while (!channelSearch.empty()) {
+		const Channel *c = channelSearch.front();
+		channelSearch.pop();
+
+		// Never hide channel, if user resides in this channel or a subchannel
+		if (userChannel && c == userChannel) {
+			return false;
+		}
+
+		if (c->m_filterMode == ChannelFilterMode::PIN) {
+			hasPin = true;
+		}
+
+		if (!c->qlUsers.isEmpty()) {
+			hasUser = true;
+		}
+
+		for (const Channel *currentSubChannel : c->qlChannels) {
+			channelSearch.push(currentSubChannel);
+		}
+	}
+
+	// Iterate tree up
+	const Channel *c = this;
+	while (c) {
+		if (c->m_filterMode == ChannelFilterMode::HIDE) {
+			hasHide = true;
+			break;
+		}
+		c = c->cParent;
+	}
+
+	if (hasPin) {
+		return false;
+	}
+
+	if (hasHide) {
+		return true;
+	}
+
+	return Global::get().s.bFilterHidesEmptyChannels && !hasUser;
+}
+
+#endif // MUMBLE
 
 bool Channel::lessThan(const Channel *first, const Channel *second) {
 	if ((first->iPosition != second->iPosition) && (first->cParent == second->cParent))

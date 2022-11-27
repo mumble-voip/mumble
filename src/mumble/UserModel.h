@@ -75,7 +75,7 @@ protected:
 	QIcon qiDeafenedSelf, qiDeafenedServer;
 	QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 	QIcon qiFriend;
-	QIcon qiComment, qiCommentSeen, qiFilter;
+	QIcon qiComment, qiCommentSeen, qiFilter, qiPin;
 	QIcon qiLock_locked, qiLock_unlocked;
 	QIcon qiEar;
 	ModelItem *miRoot;
@@ -212,7 +212,7 @@ public slots:
 	void ensureSelfVisible();
 	void recheckLinks();
 	void updateOverlay() const;
-	void toggleChannelFiltered(Channel *c);
+	void forceVisualUpdate(Channel *c = nullptr);
 signals:
 	/// A signal emitted whenever a user is added to the model.
 	///

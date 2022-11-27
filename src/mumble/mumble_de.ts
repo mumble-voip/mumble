@@ -5976,10 +5976,6 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
         <translation>Dies lässt Sie die Server-seitige IP-Bannliste bearbeiten.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filter an/aus</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6541,6 +6537,14 @@ Gültige Optionen sind:
     <message>
         <source>Remember this setting</source>
         <translation>Diese Einstellung merken</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8792,6 +8796,10 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Der Kanal ist Zutritts-beschränkt, Sie sind zum Beitritt jedoch befugt</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

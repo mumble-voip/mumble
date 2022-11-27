@@ -198,8 +198,15 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		} else if (channel && !channel->qbaDescHash.isEmpty()) {
 			hasComment = true;
 
-			if (channel->bFiltered)
-				commentIconPxOffset -= m_iconTotalDimension;
+			switch (channel->m_filterMode) {
+				case ChannelFilterMode::PIN:
+				case ChannelFilterMode::HIDE:
+					commentIconPxOffset -= m_iconTotalDimension;
+					break;
+				case ChannelFilterMode::NORMAL:
+					// NOOP
+					break;
+			}
 
 			if (channel->hasEnterRestrictions) {
 				commentIconPxOffset -= m_iconTotalDimension;
@@ -254,28 +261,6 @@ void UserView::keyboardSearch(const QString &) {
 	return;
 }
 
-bool channelHasUsers(const Channel *c) {
-	if (c->qlUsers.isEmpty() == false)
-		return true;
-
-	int i;
-
-	for (i = 0; i < c->qlChannels.count(); i++) {
-		if (channelHasUsers(c->qlChannels[i]))
-			return true;
-	}
-	return false;
-}
-
-static bool channelFiltered(const Channel *c) {
-	while (c) {
-		if (c->bFiltered)
-			return true;
-		c = c->cParent;
-	}
-	return false;
-}
-
 void UserView::updateChannel(const QModelIndex &idx) {
 	UserModel *um = static_cast< UserModel * >(model());
 
@@ -290,36 +275,7 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 
 	if (c && idx.parent().isValid()) {
-		if (Global::get().s.bFilterActive == false) {
-			setRowHidden(idx.row(), idx.parent(), false);
-		} else {
-			bool isChannelUserIsIn = false;
-
-			// Check whether user resides in this channel or a subchannel
-			if (Global::get().uiSession != 0) {
-				const ClientUser *user = ClientUser::get(Global::get().uiSession);
-				if (user) {
-					Channel *chan = user->cChannel;
-					while (chan) {
-						if (chan == c) {
-							isChannelUserIsIn = true;
-							break;
-						}
-						chan = chan->cParent;
-					}
-				}
-			}
-
-			if (channelFiltered(c) && !isChannelUserIsIn) {
-				setRowHidden(idx.row(), idx.parent(), true);
-			} else {
-				if (Global::get().s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
-					setRowHidden(idx.row(), idx.parent(), true);
-				} else {
-					setRowHidden(idx.row(), idx.parent(), false);
-				}
-			}
-		}
+		setRowHidden(idx.row(), idx.parent(), c->isFiltered());
 	}
 }
 

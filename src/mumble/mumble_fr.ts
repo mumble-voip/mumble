@@ -5976,10 +5976,6 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Ceci permet d&apos;éditer liste des utilisateurs bannis du serveur.</translation>
     </message>
     <message>
-        <source>&amp;Filter on/off</source>
-        <translation>&amp;Filtre on/off</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6549,6 +6545,14 @@ Les options valides sont&#xa0;:
     <message>
         <source>Remember this setting</source>
         <translation>Se souvenir de ce réglage</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8800,6 +8804,10 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation>Le salon a des restrictions mais vous pouvez quand même entrer</translation>
+    </message>
+    <message>
+        <source>Channel will be pinned when filtering is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

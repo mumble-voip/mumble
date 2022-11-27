@@ -123,6 +123,7 @@ set(MUMBLE_SOURCES
 	"Cert.cpp"
 	"Cert.h"
 	"Cert.ui"
+	"ChannelFilterMode.h"
 	"ClientUser.cpp"
 	"ClientUser.h"
 	"ConfigDialog.cpp"
