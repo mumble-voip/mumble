@@ -65,6 +65,11 @@ set_property(TARGET mumble_server_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATI
 set_target_properties(mumble_server_object_lib
 	PROPERTIES
 		AUTOMOC ON
+)
+
+set_target_properties(mumble-server
+	PROPERTIES
+		AUTOMOC ON
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
