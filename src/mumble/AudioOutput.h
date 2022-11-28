@@ -41,7 +41,7 @@
 
 class AudioOutput;
 class ClientUser;
-class AudioOutputUser;
+class AudioOutputBuffer;
 class AudioOutputToken;
 
 typedef boost::shared_ptr< AudioOutput > AudioOutputPtr;
@@ -79,11 +79,11 @@ private:
 	bool *bSpeakerPositional = nullptr;
 	/// Used when panning stereo stream w.r.t. each speaker.
 	float *fStereoPanningFactor = nullptr;
-	void removeBuffer(AudioOutputUser *);
+	void removeBuffer(AudioOutputBuffer *);
 
 private slots:
-	void handleInvalidatedBuffer(AudioOutputUser *);
-	void handlePositionedBuffer(AudioOutputUser *, float x, float y, float z);
+	void handleInvalidatedBuffer(AudioOutputBuffer *);
+	void handlePositionedBuffer(AudioOutputBuffer *, float x, float y, float z);
 
 protected:
 	enum { SampleShort, SampleFloat } eSampleFormat = SampleFloat;
@@ -94,7 +94,7 @@ protected:
 	unsigned int iSampleSize                        = 0;
 	unsigned int iBufferSize                        = 0;
 	QReadWriteLock qrwlOutputs;
-	QMultiHash< const ClientUser *, AudioOutputUser * > qmOutputs;
+	QMultiHash< const ClientUser *, AudioOutputBuffer * > qmOutputs;
 
 #ifdef USE_MANUAL_PLUGIN
 	QHash< unsigned int, Position2D > positions;
@@ -151,8 +151,8 @@ signals:
 	void audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
 								unsigned int sampleRate, bool *modifiedAudio);
 
-	void bufferInvalidated(AudioOutputUser *);
-	void bufferPositionChanged(AudioOutputUser *, float x, float y, float z);
+	void bufferInvalidated(AudioOutputBuffer *);
+	void bufferPositionChanged(AudioOutputBuffer *, float x, float y, float z);
 };
 
 #endif
