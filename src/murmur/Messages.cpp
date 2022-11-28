@@ -800,13 +800,27 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED_TYPE(SuperUser);
 			return;
 		}
-		if (uSource->cChannel->bTemporary) {
-			PERM_DENIED_TYPE(TemporaryChannel);
-			return;
-		}
 		if (!hasPermission(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen) || msg.suppress()) {
 			PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen);
 			return;
+		}
+	}
+
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
+		if (pDstServerUser->cChannel->bTemporary) {
+			// If the destination user is inside a temporary channel,
+			// the source user needs to have the MuteDeafen ACL in the first
+			// non-temporary parent channel.
+
+			Channel *c = pDstServerUser->cChannel;
+			while (c && c->bTemporary) {
+				c = c->cParent;
+			}
+
+			if (!c || !hasPermission(uSource, c, ChanACL::MuteDeafen)) {
+				PERM_DENIED_TYPE(TemporaryChannel);
+				return;
+			}
 		}
 	}
 
