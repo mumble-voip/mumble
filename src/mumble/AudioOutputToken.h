@@ -12,12 +12,12 @@
 
 #include <cassert>
 
-class AudioOutputUser;
+class AudioOutputBuffer;
 
 class AudioOutputToken {
 public:
 	AudioOutputToken() = default;
-	AudioOutputToken(AudioOutputUser *buffer) : m_buffer(buffer) {}
+	AudioOutputToken(AudioOutputBuffer *buffer) : m_buffer(buffer) {}
 
 	~AudioOutputToken() = default;
 
@@ -33,7 +33,7 @@ public:
 	}
 
 private:
-	AudioOutputUser *m_buffer = nullptr;
+	AudioOutputBuffer *m_buffer = nullptr;
 
 	friend class AudioOutput;
 };
