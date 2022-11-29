@@ -5,6 +5,7 @@
 
 #include "AudioWizard.h"
 
+#include "Accessibility.h"
 #include "AudioInput.h"
 #include "AudioOutputToken.h"
 #include "Log.h"
@@ -36,6 +37,11 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qsOutputDelay->setAccessibleName(tr("Output delay"));
 	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
 	qsVAD->setAccessibleName(tr("VAD level"));
+
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityLow, qlQualityLow);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityBalanced, qlQualityBalanced);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityUltra, qlQualityUltra);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityCustom, qlQualityCustom);
 
 	// Done
 	qcbUsage->setChecked(Global::get().s.bUsage);
