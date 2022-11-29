@@ -192,6 +192,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	qpbStart->setDisabled(true);
 	qpbStop->setEnabled(true);
+	qpbStop->setFocus();
 	qgbMode->setDisabled(true);
 	qgbOutput->setDisabled(true);
 }
@@ -257,6 +258,7 @@ void VoiceRecorderDialog::reset(bool resettimer) {
 	}
 
 	qpbStart->setEnabled(true);
+	qpbStart->setFocus();
 	qpbStop->setDisabled(true);
 	qpbStop->setText(tr("S&top"));
 
