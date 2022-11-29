@@ -13,6 +13,7 @@
 
 #include "Cert.h"
 
+#include "Accessibility.h"
 #include "SelfSignedCertificate.h"
 #include "Utils.h"
 #include "Global.h"
@@ -130,6 +131,8 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	cvExport->setAccessibleName(tr("Current certificate"));
 	qleEmail->setAccessibleName(tr("Email address"));
 	qleName->setAccessibleName(tr("Your name"));
+
+	Mumble::Accessibility::fixWizardButtonLabels(this);
 
 	setOption(QWizard::NoCancelButton, false);
 

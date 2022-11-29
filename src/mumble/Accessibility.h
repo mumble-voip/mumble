@@ -8,11 +8,13 @@
 
 #include <QLabel>
 #include <QWidget>
+#include <QWizard>
 
 namespace Mumble {
 namespace Accessibility {
 
 	void setDescriptionFromLabel(QWidget *widget, const QLabel *label);
+	void fixWizardButtonLabels(QWizard *wizard);
 
 } // namespace Accessibility
 } // namespace Mumble
