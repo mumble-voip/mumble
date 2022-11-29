@@ -7,12 +7,12 @@
 #include "AccessException.h"
 #include "Column.h"
 #include "DataType.h"
+#include "FormatException.h"
 #include "InitException.h"
 #include "PrimaryKey.h"
 
 #include <soci/soci.h>
 
-#include "FormatException.h"
 #include <nlohmann/json.hpp>
 
 namespace mumble {
@@ -44,8 +44,16 @@ namespace db {
 
 	void MetaTable::setSchemeVersion(unsigned int version) {
 		try {
-			m_sql << "INSERT INTO \"" << m_name << "\" (meta_key, meta_value) VALUES ('scheme_version', :version)",
-				soci::use(version);
+			int containsScheme = false;
+			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE meta_key = 'scheme_version'", soci::into(containsScheme);
+
+			if (containsScheme) {
+				m_sql << "UPDATE \"" << m_name << "\" SET meta_value = :version WHERE meta_key = 'scheme_version'",
+					soci::use(version);
+			} else {
+				m_sql << "INSERT INTO \"" << m_name << "\" (meta_key, meta_value) VALUES ('scheme_version', :version)",
+					soci::use(version);
+			}
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
