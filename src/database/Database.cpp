@@ -62,7 +62,10 @@ namespace db {
 			metaTable->create();
 		}
 
+		// Get scheme version of already existing DB scheme and then set the version of the scheme we are going to apply
+		// to the DB
 		unsigned int schemeVersion = metaTable->getSchemeVersion();
+		metaTable->setSchemeVersion(getSchemeVersion());
 
 		addTable(std::move(metaTable));
 
