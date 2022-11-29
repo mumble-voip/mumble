@@ -215,6 +215,7 @@ void DatabaseTest::simpleExport() {
 		MetaTable *metaTable = static_cast< MetaTable * >(db.getTable(MetaTable::NAME));
 
 		metaTable->setSchemeVersion(5);
+		QCOMPARE(metaTable->getSchemeVersion(), static_cast< unsigned int >(5));
 
 		// clang-format off
 		nlohmann::json expectedJson = {

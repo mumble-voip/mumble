@@ -34,7 +34,7 @@ namespace db {
 	unsigned int MetaTable::getSchemeVersion() {
 		try {
 			unsigned int version = 0;
-			m_sql << "SELECT meta_value FROM " << m_name << " WHERE meta_key='version'", soci::into(version);
+			m_sql << "SELECT meta_value FROM " << m_name << " WHERE meta_key='scheme_version'", soci::into(version);
 
 			return version;
 		} catch (const soci::soci_error &e) {
