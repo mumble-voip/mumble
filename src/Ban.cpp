@@ -38,5 +38,5 @@ QString Ban::toString() const {
 }
 
 quint32 qHash(const Ban &b) {
-	return qHash(b.qsHash) ^ qHash(b.haAddress) ^ qHash(b.qsUsername) ^ qHash(b.iMask);
+	return static_cast< quint32 >(std::hash< Ban >{}(b));
 }
