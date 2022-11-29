@@ -11,8 +11,8 @@
 #include "ForeignKey.h"
 #include "Index.h"
 #include "PrimaryKey.h"
-#include "Trigger.h"
 #include "TransactionHolder.h"
+#include "Trigger.h"
 
 #include <string>
 #include <unordered_set>
