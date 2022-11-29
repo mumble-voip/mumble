@@ -219,6 +219,8 @@ protected:
 	ClientUser *getContextMenuUser();
 	ContextMenuTarget getContextMenuTargets();
 
+	void autocompleteUsername();
+
 public slots:
 	void on_qmServer_aboutToShow();
 	void on_qaServerConnect_triggered(bool autoconnect = false);
