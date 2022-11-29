@@ -11,55 +11,52 @@ if(NOT BUILD_RELEASE_DATE)
 	string(TIMESTAMP BUILD_RELEASE_DATE "%Y-%m-%d")
 endif()
 
-if(client)
-	if(UNIX AND NOT APPLE)
+if(overlay)
+	if(UNIX)
 		delayed_configure_files(
-			TARGET mumble
+			TARGET overlay_gl
 			FILES
-			"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.appdata.xml.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml"
-			"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.desktop.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop"
+				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-overlay.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay"
 			PASSTHROUGH_VARIABLES
 				MUMBLE_BUILD_YEAR
-				CMAKE_PROJECT_VERSION
-				BUILD_RELEASE_DATE
-				CMAKE_PROJECT_HOMEPAGE_URL
-				CMAKE_PROJECT_DESCRIPTION
+				MUMBLE_INSTALL_ABS_LIBDIR
 			VARIABLES
-				"MUMBLE_CLIENT_BINARY_NAME=$<TARGET_FILE_NAME:mumble>"
+				"MUMBLE_OVERLAY_BINARY_BASENAME=$<TARGET_FILE_BASE_NAME:overlay_gl>"
 			PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
 			@ONLY
 		)
 
-		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+		# install overlay script
+		install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
 
-		# Install Mumble client man files
-		install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-
+		# install overlay man-files
+		install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 	endif()
+endif()
 
-	if(overlay)
-		if(UNIX)
-			delayed_configure_files(
-				TARGET overlay_gl
-				FILES
-					"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-overlay.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay"
-				PASSTHROUGH_VARIABLES
-					MUMBLE_BUILD_YEAR
-					MUMBLE_INSTALL_ABS_LIBDIR
-				VARIABLES
-					"MUMBLE_OVERLAY_BINARY_BASENAME=$<TARGET_FILE_BASE_NAME:overlay_gl>"
-				PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
-				@ONLY
-			)
+if(client AND UNIX AND NOT APPLE)
+	delayed_configure_files(
+		TARGET mumble
+		FILES
+		"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.appdata.xml.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml"
+		"${CMAKE_CURRENT_SOURCE_DIR}/config_files/info.mumble.Mumble.desktop.in=${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop"
+		PASSTHROUGH_VARIABLES
+			MUMBLE_BUILD_YEAR
+			CMAKE_PROJECT_VERSION
+			BUILD_RELEASE_DATE
+			CMAKE_PROJECT_HOMEPAGE_URL
+			CMAKE_PROJECT_DESCRIPTION
+		VARIABLES
+			"MUMBLE_CLIENT_BINARY_NAME=$<TARGET_FILE_NAME:mumble>"
+		PYTHON_INTERPRETER "${PYTHON_INTERPRETER}"
+		@ONLY
+	)
 
-			# install overlay script
-			install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/mumble-overlay" DESTINATION "${MUMBLE_INSTALL_SCRIPTDIR}")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
 
-			# install overlay man-files
-			install(FILES "man_files/mumble-overlay.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
-		endif()
-	endif()
+	# Install Mumble client man files
+	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 endif()
 
 if(server)
