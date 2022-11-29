@@ -13,7 +13,7 @@ namespace server {
 		/**
 		 * An enum for all existing user properties
 		 */
-		enum class UserProperty {
+		enum class UserProperty : unsigned int {
 			Name,
 			Email,
 			Comment,
