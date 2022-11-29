@@ -2170,14 +2170,6 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 	}
 }
 
-/**
- * Controls tab username completion for the chatbar.
- * @see ChatbarLineEdit::completeAtCursor()
- */
-void MainWindow::on_qteChat_tabPressed() {
-	qteChat->completeAtCursor();
-}
-
 /// Handles Backtab/Shift-Tab for qteChat, which allows
 /// users to move focus to the previous widget in
 /// MainWindow.
@@ -2185,14 +2177,34 @@ void MainWindow::on_qteChat_backtabPressed() {
 	focusPreviousChild();
 }
 
-/**
- * Controls ctrl space username completion and selection for the chatbar.
- * @see ChatbarLineEdit::completeAtCursor()
- */
 void MainWindow::on_qteChat_ctrlSpacePressed() {
-	unsigned int res = qteChat->completeAtCursor();
-	if (res == 0)
+	autocompleteUsername();
+}
+
+void MainWindow::on_qteChat_tabPressed() {
+	// Only autocomplete the username, if the user entered text starts with a "@".
+	// Otherwise TAB should be reserved for accessible keyboard navigation.
+	QString currentText = qteChat->toPlainText();
+	if (currentText.startsWith("@")) {
+		currentText.remove(0, 1);
+
+		qteChat->clear();
+		QTextCursor tc = qteChat->textCursor();
+		tc.insertText(currentText);
+		qteChat->setTextCursor(tc);
+
+		autocompleteUsername();
 		return;
+	}
+
+	focusNextMainWidget();
+}
+
+void MainWindow::autocompleteUsername() {
+	unsigned int res = qteChat->completeAtCursor();
+	if (res == 0) {
+		return;
+	}
 	qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(res)));
 }
 
