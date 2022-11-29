@@ -3,4 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "Accessiblity.h"
+#include "Accessibility.h"
+
+namespace Mumble {
+namespace Accessibility {
+
+	void setDescriptionFromLabel(QWidget *widget, const QLabel *label) {
+		widget->setAccessibleDescription(label->text().remove(QRegExp("<[^>]*>")));
+	}
+
+} // namespace Accessibility
+} // namespace Mumble
