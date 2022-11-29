@@ -16,6 +16,7 @@
 #include "AudioReceiverBuffer.h"
 #include "Ban.h"
 #include "ChannelListenerManager.h"
+#include "DBWrapper.h"
 #include "HostAddress.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
@@ -24,9 +25,13 @@
 #include "Version.h"
 #include "VolumeAdjustment.h"
 
+#include "database/ConnectionParameter.h"
+
 #ifndef Q_MOC_RUN
 #	include <boost/function.hpp>
 #endif
+
+#include <boost/optional.hpp>
 
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
@@ -48,6 +53,8 @@
 #ifdef Q_OS_WIN
 #	include <winsock2.h>
 #endif
+
+#include <vector>
 
 class Zeroconf;
 class Channel;
@@ -150,8 +157,8 @@ public:
 
 	Version::full_t m_suggestVersion;
 
-	QVariant qvSuggestPositional;
-	QVariant qvSuggestPushToTalk;
+	boost::optional< bool > m_suggestPositional;
+	boost::optional< bool > m_suggestPushToTalk;
 
 	bool bUsingMetaCert;
 	QSslCertificate qscCert;
@@ -243,7 +250,7 @@ signals:
 	void tcpTransmit(QByteArray, unsigned int id);
 
 public:
-	int iServerNum;
+	unsigned int iServerNum;
 	QQueue< unsigned int > qqIds;
 	QList< SslServer * > qlServer;
 	QTimer *qtTimeout;
@@ -314,7 +321,9 @@ public:
 	QHash< int, QString > qhUserNameCache;
 	QHash< QString, int > qhUserIDCache;
 
-	QList< Ban > qlBans;
+	std::vector< Ban > m_bans;
+
+	DBWrapper m_dbWrapper;
 
 	void addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, ServerUser &user, const Channel &channel);
 	void processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, AudioReceiverBuffer &buffer,
@@ -374,10 +383,43 @@ public:
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
 
-	Server(int snum, QObject *parent = nullptr);
+	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);
 	~Server();
 
 	bool canNest(Channel *newParent, Channel *channel = nullptr) const;
+
+	/// @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
+	///         -3 for authentication failures where the data could (temporarily) not be verified.
+	int authenticate(QString &name, const QString &password, int sessionId = 0, const QStringList &emails = {},
+					 const QString &certhash = {}, bool bStrongCert = false,
+					 const QList< QSslCertificate > &certs = {});
+	bool setTexture(ServerUser &user, const QByteArray &texture);
+	bool storeTexture(const ServerUserInfo &userInfo, const QByteArray &texture);
+	void loadTexture(ServerUser &user);
+	QByteArray getTexture(const ServerUserInfo &userInfo);
+	bool setComment(ServerUser &user, const QString &comment);
+	void loadComment(ServerUser &user);
+
+	void addChannelListener(const ServerUser &user, const Channel &channel);
+	void setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume);
+	void disableChannelListener(const ServerUser &user, const Channel &channel);
+
+	QString getRegisteredUserName(int userID);
+	int getRegisteredUserID(const QString &name);
+
+	bool registerUser(ServerUser &user);
+	int registerUser(const ServerUserInfo &userInfo);
+
+	bool setUserProperties(int userID, QMap< int, QString > properties);
+	QMap< int, QString > getUserProperties(int userID);
+
+	Channel *createNewChannel(Channel *parent, const QString &name, bool temporary = false, int position = 0,
+							  unsigned int maxUser = 0);
+
+	void linkChannels(Channel &first, Channel &second);
+	void unlinkChannels(Channel &first, Channel &second);
+
+	std::vector< UserInfo > getAllRegisteredUserProperties(QString nameSubstring = "");
 
 	// RPC functions. Implementation in RPC.cpp
 	void connectAuthenticator(QObject *p);
@@ -428,52 +470,6 @@ public:
 	/// Returns true if a channel is full. If a user is provided, false will always
 	/// be returned if the user has write permission in the channel.
 	bool isChannelFull(Channel *c, ServerUser *u = 0);
-
-	// Database / DBus functions. Implementation in ServerDB.cpp
-	void initialize();
-	int authenticate(QString &name, const QString &pw, int sessionId = 0, const QStringList &emails = QStringList(),
-					 const QString &certhash = QString(), bool bStrongCert = false,
-					 const QList< QSslCertificate > & = QList< QSslCertificate >());
-	Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0,
-						unsigned int maxUsers = 0);
-	void removeChannelDB(const Channel *c);
-	void readChannels(Channel *p = nullptr);
-	void readLinks();
-	void updateChannel(const Channel *c);
-	void readChannelPrivs(Channel *c);
-	void setLastChannel(const User *u);
-	int readLastChannel(int id);
-
-	/// Set last_disconnect of a registered user to the current time
-	void setLastDisconnect(const User *u);
-	void dumpChannel(const Channel *c);
-	int getUserID(const QString &name);
-	QString getUserName(int id);
-	QByteArray getUserTexture(int id);
-	QMap< int, QString > getRegistration(int id);
-	int registerUser(const QMap< int, QString > &info);
-	bool unregisterUserDB(int id);
-	QList< UserInfo > getRegisteredUsersEx();
-	QMap< int, QString > getRegisteredUsers(const QString &filter = QString());
-	bool setInfo(int id, const QMap< int, QString > &info);
-	bool setTexture(int id, const QByteArray &texture);
-	bool isUserId(int id);
-	void addLink(Channel *c, Channel *l);
-	void removeLink(Channel *c, Channel *l);
-	void getBans();
-	void saveBans();
-	QVariant getConf(const QString &key, QVariant def);
-	void setConf(const QString &key, const QVariant &value);
-	void dblog(const QString &str) const;
-
-	// These functions perform both the necessary changes to ChannelListeners as
-	// well as persisting the changed listeners state to the DB. You should use
-	// these unless you have a good reason not to
-	void loadChannelListenersOf(const ServerUser &user);
-	void addChannelListener(const ServerUser &user, const Channel &channel);
-	void disableChannelListener(const ServerUser &user, const Channel &channel);
-	void deleteChannelListener(const ServerUser &user, const Channel &channel);
-	void setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volumeAdjustment);
 
 	// Implementation in Messages.cpp
 #define PROCESS_MUMBLE_TCP_MESSAGE(name, value) void msg##name(ServerUser *, MumbleProto::name &);

@@ -14,8 +14,11 @@
 #include "Connection.h"
 #include "QtUtils.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "ServerUser.h"
+#include "ServerUserInfo.h"
+
+#include "murmur/database/ChronoUtils.h"
+#include "murmur/database/UserProperty.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QStack>
@@ -24,6 +27,8 @@
 #include <QtDBus/QDBusMessage>
 #include <QtDBus/QDBusMetaType>
 #include <QtDBus/QDBusReply>
+
+#include <cassert>
 
 #ifdef Q_OS_WIN
 #	include <winsock2.h>
@@ -220,7 +225,7 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 void MurmurDBus::registerUserSlot(int &res, const QMap< int, QString > &info) {
 	QDBusInterface remoteApp(qsAuthService, qsAuthPath, QString(), *qdbc);
 	QDBusReply< int > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer",
-											 info.value(ServerDB::User_Name));
+											 info.value(static_cast< int >(::mumble::server::db::UserProperty::Name)));
 	if (reply.isValid()) {
 		res = reply.value();
 		if ((info.count() > 1) && (res > 0))
@@ -241,9 +246,9 @@ void MurmurDBus::getRegistrationSlot(int &res, int id, QMap< int, QString > &inf
 		remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegistration", id);
 	if (reply.isValid()) {
 		const RegisteredPlayer &r = reply.value();
-		info.insert(ServerDB::User_Name, r.name);
+		info.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), r.name);
 		if (!r.email.isEmpty())
-			info.insert(ServerDB::User_Email, r.email);
+			info.insert(static_cast< int >(::mumble::server::db::UserProperty::Email), r.email);
 		res = 1;
 	}
 }
@@ -259,24 +264,27 @@ void MurmurDBus::getRegisteredUsersSlot(const QString &filter, QMap< int, QStrin
 }
 
 void MurmurDBus::setInfoSlot(int &res, int id, const QMap< int, QString > &info) {
-	if (info.contains(ServerDB::User_Name)) {
+	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Name))) {
 		QDBusInterface remoteApp(qsAuthService, qsAuthPath, QString(), *qdbc);
-		QDBusReply< int > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName", id,
-												 info.value(ServerDB::User_Name));
+		QDBusReply< int > reply =
+			remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName", id,
+						   info.value(static_cast< int >(::mumble::server::db::UserProperty::Name)));
 		if (reply.isValid())
 			res = reply.value();
 	}
-	if (info.contains(ServerDB::User_Password)) {
+	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Password))) {
 		QDBusInterface remoteApp(qsAuthService, qsAuthPath, QString(), *qdbc);
-		QDBusReply< int > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW", id,
-												 info.value(ServerDB::User_Password));
+		QDBusReply< int > reply =
+			remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW", id,
+						   info.value(static_cast< int >(::mumble::server::db::UserProperty::Password)));
 		if (reply.isValid())
 			res = reply.value();
 	}
-	if (info.contains(ServerDB::User_Email)) {
+	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Email))) {
 		QDBusInterface remoteApp(qsAuthService, qsAuthPath, QString(), *qdbc);
-		QDBusReply< int > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail", id,
-												 info.value(ServerDB::User_Email));
+		QDBusReply< int > reply =
+			remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail", id,
+						   info.value(static_cast< int >(::mumble::server::db::UserProperty::Email)));
 		if (reply.isValid())
 			res = reply.value();
 	}
@@ -406,10 +414,10 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
-		nc = server->addChannel(cChannel, name);
+		nc = server->createNewChannel(cChannel, name);
 	}
 
-	server->updateChannel(nc);
+	server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
 	newid = static_cast< int >(nc->iId);
 
 	MumbleProto::ChannelState mpcs;
@@ -556,12 +564,12 @@ void MurmurDBus::setACL(int id, const QList< ACLInfo > &acls, const QList< Group
 	}
 
 	server->clearACLCache();
-	server->updateChannel(cChannel);
+	server->m_dbWrapper.updateChannelData(server->iServerNum, *cChannel);
 }
 
 void MurmurDBus::getBans(QList< BanInfo > &bi) {
 	bi.clear();
-	foreach (const Ban &b, server->qlBans) {
+	for (const Ban &b : server->m_bans) {
 		if (!b.haAddress.isV6())
 			bi << BanInfo(b);
 	}
@@ -572,17 +580,22 @@ void MurmurDBus::setBans(const QList< BanInfo > &, const QDBusMessage &) {
 
 void MurmurDBus::getPlayerNames(const QList< int > &ids, const QDBusMessage &, QStringList &names) {
 	names.clear();
-	foreach (int id, ids) { names << server->getUserName(id); }
+	for (int id : ids) {
+		names << server->getRegisteredUserName(id);
+	}
 }
 
 void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QList< int > &ids) {
 	ids.clear();
-	foreach (QString name, names) { ids << server->getUserID(name); }
+	for (QString name : names) {
+		ids << server->getRegisteredUserID(name);
+	}
 }
 
 void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, int &id) {
-	QMap< int, QString > info;
-	info.insert(ServerDB::User_Name, name);
+	ServerUserInfo info;
+	info.qsName = name;
+
 	id = server->registerUser(info);
 	if (id < 0) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
@@ -598,15 +611,15 @@ void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
 }
 
 void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &user) {
-	QMap< int, QString > info = server->getRegistration(id);
+	QMap< int, QString > info = server->getUserProperties(id);
 	if (info.isEmpty()) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 
 	user.id    = id;
-	user.name  = info.value(ServerDB::User_Name);
-	user.email = info.value(ServerDB::User_Email);
+	user.name  = info.value(static_cast< int >(::mumble::server::db::UserProperty::Name));
+	user.email = info.value(static_cast< int >(::mumble::server::db::UserProperty::Email));
 }
 
 void MurmurDBus::setRegistration(int id, const QString &name, const QString &email, const QString &pw,
@@ -620,37 +633,47 @@ void MurmurDBus::setRegistration(int id, const QString &name, const QString &ema
 }
 
 void MurmurDBus::updateRegistration(const RegisteredPlayer &user, const QDBusMessage &msg) {
-	QMap< int, QString > info;
+	QMap< int, QString > properties;
 
-	if (!user.name.isEmpty())
-		info.insert(ServerDB::User_Name, user.name);
+	if (!user.name.isEmpty()) {
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), user.name);
+	}
 
-	if (!user.email.isEmpty())
-		info.insert(ServerDB::User_Email, user.email);
+	if (!user.email.isEmpty()) {
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Email), user.email);
+	}
 
-	if (!user.pw.isEmpty())
-		info.insert(ServerDB::User_Password, user.pw);
+	if (!user.pw.isEmpty()) {
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password), user.pw);
+	}
 
-	if (info.isEmpty() || !server->setInfo(user.id, info)) {
+	if (properties.empty() || !server->setUserProperties(user.id, properties)) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 }
 
 void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture) {
-	if (!server->isUserId(id)) {
+	if (!server->m_dbWrapper.registeredUserExists(server->iServerNum, id)) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
-	texture = server->getUserTexture(id);
+	ServerUserInfo info;
+	info.iId = id;
+
+	texture = server->getTexture(info);
 }
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
-	if (!server->isUserId(id)) {
+	if (!server->m_dbWrapper.registeredUserExists(server->iServerNum, id)) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
-	if (!server->setTexture(id, texture)) {
+
+	ServerUserInfo info;
+	info.iId = id;
+
+	if (!server->storeTexture(info, texture)) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.texture", "Invalid texture"));
 		return;
 	}
@@ -658,12 +681,11 @@ void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessag
 
 void MurmurDBus::getRegisteredPlayers(const QString &filter, QList< RegisteredPlayer > &users) {
 	users.clear();
-	QMap< int, QString > l = server->getRegisteredUsers(filter);
-	QMap< int, QString >::const_iterator i;
-	for (i = l.constBegin(); i != l.constEnd(); ++i) {
+	std::vector< UserInfo > l = server->getAllRegisteredUserProperties(filter);
+	for (const UserInfo &info : l) {
 		RegisteredPlayer r;
-		r.id   = i.key();
-		r.name = i.value();
+		r.id   = info.user_id;
+		r.name = info.name;
 		users << r;
 	}
 }
@@ -778,9 +800,9 @@ LogEntry::LogEntry() {
 	timestamp = 0;
 }
 
-LogEntry::LogEntry(const ServerDB::LogRecord &r) {
-	timestamp = r.first;
-	txt       = r.second;
+LogEntry::LogEntry(const ::mumble::server::db::DBLogEntry &entry) {
+	timestamp = ::mumble::server::db::toEpochSeconds(entry.timestamp);
+	txt       = QString::fromStdString(entry.message);
 }
 
 void MurmurDBus::userStateChanged(const User *p) {
@@ -832,9 +854,9 @@ void MetaDBus::stopped(Server *s) {
 void MetaDBus::start(int server_id, const QDBusMessage &msg) {
 	if (meta->qhServers.contains(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
-	} else if (!ServerDB::serverExists(server_id)) {
+	} else if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
-	} else if (!meta->boot(server_id)) {
+	} else if (!meta->boot(Meta::getConnectionParameter(), server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.bootfail", "Booting server failed"));
 	}
 }
@@ -848,25 +870,28 @@ void MetaDBus::stop(int server_id, const QDBusMessage &msg) {
 }
 
 void MetaDBus::newServer(int &server_id) {
-	server_id = ServerDB::addServer();
+	server_id = meta->dbWrapper.addServer();
 }
 
 void MetaDBus::deleteServer(int server_id, const QDBusMessage &msg) {
 	if (meta->qhServers.contains(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server is running"));
-	} else if (!ServerDB::serverExists(server_id)) {
+	} else if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		ServerDB::deleteServer(server_id);
+		meta->dbWrapper.removeServer(server_id);
 	}
 }
 
-void MetaDBus::getBootedServers(QList< int > &server_list) {
+void MetaDBus::getBootedServers(QList< unsigned int > &server_list) {
 	server_list = meta->qhServers.keys();
 }
 
 void MetaDBus::getAllServers(QList< int > &server_list) {
-	server_list = ServerDB::getAllServers();
+	server_list.clear();
+	for (unsigned int id : meta->dbWrapper.getAllServers()) {
+		server_list.push_back(static_cast< unsigned int >(id));
+	}
 }
 
 void MetaDBus::isBooted(int server_id, bool &booted) {
@@ -874,22 +899,22 @@ void MetaDBus::isBooted(int server_id, bool &booted) {
 }
 
 void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &msg, QString &value) {
-	if (!ServerDB::serverExists(server_id)) {
+	if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		if (key == "key" || key == "passphrase")
 			MurmurDBus::qdbc->send(
 				msg.createErrorReply("net.sourceforge.mumble.Error.writeonly", "Requested read of write-only field."));
 		else
-			value = ServerDB::getConf(server_id, key).toString();
+			meta->dbWrapper.getConfigurationTo(server_id, key.toStdString(), value);
 	}
 }
 
 void MetaDBus::setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &msg) {
-	if (!ServerDB::serverExists(server_id)) {
+	if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		ServerDB::setConf(server_id, key, value);
+		meta->dbWrapper.setConfiguration(server_id, key.toStdString(), value.toStdString());
 		Server *s = meta->qhServers.value(server_id);
 		if (s)
 			s->setLiveConf(key, value);
@@ -897,25 +922,34 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 }
 
 void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &values) {
-	if (!ServerDB::serverExists(server_id)) {
+	if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		values = ServerDB::getAllConf(server_id);
+		values.clear();
 
-		values.remove("key");
-		values.remove("passphrase");
+		for (const std::pair< std::string, std::string > &currentConfig :
+			 meta->dbWrapper.getAllConfigurations(server_id)) {
+			if (currentConfig.first == "key" || currentConfig.second == "passphrase") {
+				continue;
+			}
+
+			values.insert(QString::fromStdString(currentConfig.first), QString::fromStdString(currentConfig.second));
+		}
 	}
 }
 
 void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBusMessage &msg,
 					  QList< LogEntry > &entries) {
-	if (!ServerDB::serverExists(server_id)) {
+	if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		entries.clear();
-		QList< ServerDB::LogRecord > dblog = ServerDB::getLog(server_id, static_cast< unsigned int >(min_offset),
-															  static_cast< unsigned int >(max_offset));
-		foreach (const ServerDB::LogRecord &e, dblog) { entries << LogEntry(e); }
+		assert(max_offset >= min_offset);
+		std::vector<::mumble::server::db::DBLogEntry > logs = meta->dbWrapper.getLogs(
+			server_id, static_cast< unsigned int >(min_offset), static_cast< unsigned int >(max_offset - min_offset));
+		for (const ::mumble::server::db::DBLogEntry &currentEntry : logs) {
+			entries.push_back(LogEntry(currentEntry));
+		}
 	}
 }
 
@@ -927,10 +961,10 @@ void MetaDBus::getDefaultConf(ConfigMap &values) {
 }
 
 void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
-	if (!ServerDB::serverExists(server_id)) {
+	if (!meta->dbWrapper.serverExists(server_id)) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		ServerDB::setSUPW(server_id, pw);
+		meta->dbWrapper.setSuperUserPassword(server_id, pw.toStdString());
 	}
 }
 

@@ -15,9 +15,9 @@
 #include "HostAddress.h"
 #include "Meta.h"
 #include "MumbleProtocol.h"
+#include "PBKDF2.h"
 #include "ProtoUtils.h"
 #include "QtUtils.h"
-#include "ServerDB.h"
 #include "ServerUser.h"
 #include "User.h"
 #include "Version.h"
@@ -27,6 +27,9 @@
 #endif
 
 #include "Utils.h"
+
+#include "murmur/database/DBUserData.h"
+#include "murmur/database/UserProperty.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSet>
@@ -77,7 +80,8 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 
-Server::Server(int snum, QObject *p) : QThread(p) {
+Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *p)
+	: QThread(p), m_dbWrapper(connectionParam) {
 	tracy::SetThreadName("Main");
 
 	bValid     = true;
@@ -101,7 +105,6 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	qnamNetwork = nullptr;
 
 	readParams();
-	initialize();
 
 	foreach (const QHostAddress &qha, qlBind) {
 		SslServer *ss = new SslServer(this);
@@ -233,9 +236,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
 
-	getBans();
-	readChannels();
-	readLinks();
+	m_bans = m_dbWrapper.getBans(iServerNum);
+	m_dbWrapper.initializeChannels(*this);
+	m_dbWrapper.initializeChannelLinks(*this);
+
 	initializeCert();
 
 	if (bValid) {
@@ -355,13 +359,15 @@ void Server::readParams() {
 	iPluginMessageBurst                = Meta::mp.iPluginMessageBurst;
 	broadcastListenerVolumeAdjustments = Meta::mp.broadcastListenerVolumeAdjustments;
 	m_suggestVersion                   = Meta::mp.m_suggestVersion;
-	qvSuggestPositional                = Meta::mp.qvSuggestPositional;
-	qvSuggestPushToTalk                = Meta::mp.qvSuggestPushToTalk;
+	m_suggestPositional                = Meta::mp.suggestPositional;
+	m_suggestPushToTalk                = Meta::mp.suggestPushToTalk;
 	iOpusThreshold                     = Meta::mp.iOpusThreshold;
 	iChannelNestingLimit               = Meta::mp.iChannelNestingLimit;
 	iChannelCountLimit                 = Meta::mp.iChannelCountLimit;
 
-	QString qsHost = getConf("host", QString()).toString();
+	QString qsHost;
+	m_dbWrapper.getConfigurationTo(iServerNum, "host", qsHost);
+
 	if (!qsHost.isEmpty()) {
 		qlBind.clear();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
@@ -394,20 +400,20 @@ void Server::readParams() {
 			qlBind = Meta::mp.qlBind;
 	}
 
-	qsPassword             = getConf("password", qsPassword).toString();
-	usPort                 = static_cast< unsigned short >(getConf("port", usPort).toUInt());
-	iTimeout               = getConf("timeout", iTimeout).toInt();
-	iMaxBandwidth          = getConf("bandwidth", iMaxBandwidth).toInt();
-	iMaxUsers              = getConf("users", iMaxUsers).toUInt();
-	iMaxUsersPerChannel    = getConf("usersperchannel", iMaxUsersPerChannel).toUInt();
-	iMaxTextMessageLength  = getConf("textmessagelength", iMaxTextMessageLength).toInt();
-	iMaxImageMessageLength = getConf("imagemessagelength", iMaxImageMessageLength).toInt();
-	bAllowHTML             = getConf("allowhtml", bAllowHTML).toBool();
-	iDefaultChan           = getConf("defaultchannel", iDefaultChan).toUInt();
-	bRememberChan          = getConf("rememberchannel", bRememberChan).toBool();
-	iRememberChanDuration  = getConf("rememberchannelduration", iRememberChanDuration).toInt();
-	qsWelcomeText          = getConf("welcometext", qsWelcomeText).toString();
-	qsWelcomeTextFile      = getConf("welcometextfile", qsWelcomeTextFile).toString();
+	m_dbWrapper.getConfigurationTo(iServerNum, "password", qsPassword);
+	m_dbWrapper.getConfigurationTo(iServerNum, "port", usPort);
+	m_dbWrapper.getConfigurationTo(iServerNum, "timeout", iTimeout);
+	m_dbWrapper.getConfigurationTo(iServerNum, "bandwidth", iMaxBandwidth);
+	m_dbWrapper.getConfigurationTo(iServerNum, "users", iMaxUsers);
+	m_dbWrapper.getConfigurationTo(iServerNum, "usersperchannel", iMaxUsersPerChannel);
+	m_dbWrapper.getConfigurationTo(iServerNum, "textmessagelength", iMaxTextMessageLength);
+	m_dbWrapper.getConfigurationTo(iServerNum, "imagemessagelength", iMaxImageMessageLength);
+	m_dbWrapper.getConfigurationTo(iServerNum, "allowhtml", bAllowHTML);
+	m_dbWrapper.getConfigurationTo(iServerNum, "defaultchannel", iDefaultChan);
+	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannel", bRememberChan);
+	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannelduration", iRememberChanDuration);
+	m_dbWrapper.getConfigurationTo(iServerNum, "welcometext", qsWelcomeText);
+	m_dbWrapper.getConfigurationTo(iServerNum, "welcometextfile", qsWelcomeTextFile);
 
 	if (!qsWelcomeTextFile.isEmpty()) {
 		if (qsWelcomeText.isEmpty()) {
@@ -424,54 +430,59 @@ void Server::readParams() {
 		}
 	}
 
-	qsRegName          = getConf("registername", qsRegName).toString();
-	qsRegPassword      = getConf("registerpassword", qsRegPassword).toString();
-	qsRegHost          = getConf("registerhostname", qsRegHost).toString();
-	qsRegLocation      = getConf("registerlocation", qsRegLocation).toString();
-	qurlRegWeb         = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
-	bBonjour           = getConf("bonjour", bBonjour).toBool();
-	bAllowPing         = getConf("allowping", bAllowPing).toBool();
-	bCertRequired      = getConf("certrequired", bCertRequired).toBool();
-	bForceExternalAuth = getConf("forceExternalAuth", bForceExternalAuth).toBool();
+	m_dbWrapper.getConfigurationTo(iServerNum, "registername", qsRegName);
+	m_dbWrapper.getConfigurationTo(iServerNum, "registerpassword", qsRegPassword);
+	m_dbWrapper.getConfigurationTo(iServerNum, "registerhostname", qsRegHost);
+	m_dbWrapper.getConfigurationTo(iServerNum, "registerlocation", qsRegLocation);
 
-	m_suggestVersion =
-		Version::fromString(getConf("suggestversion", Version::toConfigString(m_suggestVersion)).toString());
+	QString registerURL;
+	m_dbWrapper.getConfigurationTo(iServerNum, "registerurl", registerURL);
+	qurlRegWeb = QUrl(std::move(registerURL));
 
-	qvSuggestPositional = getConf("suggestpositional", qvSuggestPositional);
-	if (qvSuggestPositional.toString().trimmed().isEmpty())
-		qvSuggestPositional = QVariant();
+	m_dbWrapper.getConfigurationTo(iServerNum, "bonjour", bBonjour);
+	m_dbWrapper.getConfigurationTo(iServerNum, "allowping", bAllowPing);
+	m_dbWrapper.getConfigurationTo(iServerNum, "certrequired", bCertRequired);
+	m_dbWrapper.getConfigurationTo(iServerNum, "forceExternalAuth", bForceExternalAuth);
 
-	qvSuggestPushToTalk = getConf("suggestpushtotalk", qvSuggestPushToTalk);
-	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
-		qvSuggestPushToTalk = QVariant();
+	QString suggestVersion = Version::toConfigString(m_suggestVersion);
+	m_dbWrapper.getConfigurationTo(iServerNum, "suggestversion", suggestVersion);
+	m_suggestVersion = Version::fromString(suggestVersion);
 
-	iOpusThreshold = getConf("opusthreshold", iOpusThreshold).toInt();
 
-	iChannelNestingLimit = getConf("channelnestinglimit", iChannelNestingLimit).toInt();
-	iChannelCountLimit   = getConf("channelcountlimit", iChannelCountLimit).toInt();
+	m_dbWrapper.getConfigurationTo(iServerNum, "suggestpositional", m_suggestPositional);
+	m_dbWrapper.getConfigurationTo(iServerNum, "suggestpushtotalk", m_suggestPushToTalk);
 
-	qrUserName    = QRegExp(getConf("username", qrUserName.pattern()).toString());
-	qrChannelName = QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
+	m_dbWrapper.getConfigurationTo(iServerNum, "opusthreshold", iOpusThreshold);
 
-	iMessageLimit = getConf("messagelimit", iMessageLimit).toUInt();
+	m_dbWrapper.getConfigurationTo(iServerNum, "channelnestinglimit", iChannelNestingLimit);
+	m_dbWrapper.getConfigurationTo(iServerNum, "channelcountlimit", iChannelCountLimit);
+
+	QString regex = qrUserName.pattern();
+	m_dbWrapper.getConfigurationTo(iServerNum, "username", regex);
+	qrUserName = QRegExp(regex);
+	regex      = qrChannelName.pattern();
+	m_dbWrapper.getConfigurationTo(iServerNum, "channelname", regex);
+	qrChannelName = QRegExp(std::move(regex));
+
+	m_dbWrapper.getConfigurationTo(iServerNum, "messagelimit", iMessageLimit);
 	if (iMessageLimit < 1) { // Prevent disabling messages entirely
 		iMessageLimit = 1;
 	}
-	iMessageBurst = getConf("messageburst", iMessageBurst).toUInt();
+	m_dbWrapper.getConfigurationTo(iServerNum, "messageburst", iMessageBurst);
 	if (iMessageBurst < 1) { // Prevent disabling messages entirely
 		iMessageBurst = 1;
 	}
 
-	iPluginMessageLimit = getConf("mpluginessagelimit", iPluginMessageLimit).toUInt();
+	m_dbWrapper.getConfigurationTo(iServerNum, "pluginmessagelimit", iPluginMessageLimit);
 	if (iPluginMessageLimit < 1) { // Prevent disabling messages entirely
 		iPluginMessageLimit = 1;
 	}
-	iPluginMessageBurst = getConf("pluginmessageburst", iPluginMessageBurst).toUInt();
+	m_dbWrapper.getConfigurationTo(iServerNum, "pluginmessageburst", iPluginMessageBurst);
 	if (iPluginMessageBurst < 1) { // Prevent disabling messages entirely
 		iPluginMessageBurst = 1;
 	}
-	broadcastListenerVolumeAdjustments =
-		getConf("broadcastlistenervolumeadjustments", broadcastListenerVolumeAdjustments).toBool();
+	m_dbWrapper.getConfigurationTo(iServerNum, "broadcastlistenervolumeadjustments",
+								   broadcastListenerVolumeAdjustments);
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {
@@ -586,9 +597,13 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "suggestversion")
 		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp.m_suggestVersion;
 	else if (key == "suggestpositional")
-		qvSuggestPositional = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
+		m_suggestPositional =
+			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
+						: Meta::mp.suggestPositional;
 	else if (key == "suggestpushtotalk")
-		qvSuggestPushToTalk = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
+		m_suggestPushToTalk =
+			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
+						: Meta::mp.suggestPushToTalk;
 	else if (key == "opusthreshold")
 		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
 	else if (key == "channelnestinglimit")
@@ -1349,7 +1364,10 @@ void Server::log(ServerUser *u, const QString &str) const {
 }
 
 void Server::log(const QString &msg) const {
-	dblog(msg);
+	// New philosophy is that DB access can't be considered const, but old code requires this function
+	// to be const. Thus, we require a const_cast here.
+	const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
+
 	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
 }
 
@@ -1374,17 +1392,17 @@ void Server::newClient() {
 
 		HostAddress ha(adr);
 
-		QList< Ban > tmpBans = qlBans;
-		foreach (const Ban &ban, qlBans) {
-			if (ban.isExpired())
-				tmpBans.removeOne(ban);
-		}
-		if (qlBans.count() != tmpBans.count()) {
-			qlBans = tmpBans;
-			saveBans();
+		// Get rid of expired bans
+		std::size_t nBans = m_bans.size();
+		m_bans.erase(std::partition(m_bans.begin(), m_bans.end(), [](const Ban &ban) { return !ban.isExpired(); }),
+					 m_bans.end());
+
+		if (m_bans.size() != nBans) {
+			// Save changed bans
+			m_dbWrapper.saveBans(iServerNum, m_bans);
 		}
 
-		foreach (const Ban &ban, qlBans) {
+		for (const Ban &ban : m_bans) {
 			if (ban.haAddress.match(ha, static_cast< unsigned int >(ban.iMask))) {
 				log(QString("Ignoring connection: %1, Reason: %2, Username: %3, Hash: %4 (Server ban)")
 						.arg(addressToString(sock->peerAddress(), sock->peerPort()), ban.qsReason, ban.qsUsername,
@@ -1529,7 +1547,7 @@ void Server::encrypted() {
 							 .arg(issuer));
 		}
 
-		foreach (const Ban &ban, qlBans) {
+		for (const Ban &ban : m_bans) {
 			if (ban.qsHash == uSource->qsHash) {
 				log(uSource, QString("Certificate hash is banned: %1, Username: %2, Reason: %3.")
 								 .arg(ban.qsHash, ban.qsUsername, ban.qsReason));
@@ -1631,7 +1649,9 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
-	setLastDisconnect(u);
+	if (u->iId >= 0) {
+		m_dbWrapper.updateLastDisconnect(iServerNum, u->iId);
+	}
 
 	if (u->sState == ServerUser::Authenticated) {
 		if (m_channelListenerManager.isListeningToAny(u->uiSession)) {
@@ -1883,7 +1903,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 			continue;
 		}
 
-		deleteChannelListener(*user, *chan);
+		m_dbWrapper.deleteChannelListener(iServerNum, *user, *chan);
 
 		// Notify that all clients that have been listening to this channel, will do so no more
 		MumbleProto::UserState mpus;
@@ -1897,7 +1917,8 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	mpcr.set_channel_id(chan->iId);
 	sendAll(mpcr);
 
-	removeChannelDB(chan);
+	m_dbWrapper.deleteChannel(iServerNum, static_cast< unsigned int >(chan->iId));
+
 	emit channelRemoved(chan);
 
 	if (chan->cParent) {
@@ -1909,33 +1930,46 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 }
 
 bool Server::unregisterUser(int id) {
-	if (!unregisterUserDB(id))
+	if (id < 0 || getRegisteredUserName(id).isEmpty()) {
 		return false;
+	}
+
+	QMap< int, QString > details = m_dbWrapper.getRegisteredUserDetails(iServerNum, static_cast< unsigned int >(id));
+
+	assert(details.contains(static_cast< int >(::mumble::server::db::UserProperty::Name)));
+	qhUserIDCache.remove(details.value(static_cast< int >(::mumble::server::db::UserProperty::Name)));
+	qhUserNameCache.remove(id);
+
+	int res = -2;
+	emit unregisterUserSig(res, id);
+	m_dbWrapper.unregisterUser(iServerNum, static_cast< unsigned int >(id));
+
 
 	{
 		QMutexLocker lock(&qmCache);
 
-		foreach (Channel *c, qhChannels) {
+		for (Channel *c : qhChannels) {
 			bool write            = false;
 			QList< ChanACL * > ql = c->qlACL;
 
-			foreach (ChanACL *acl, ql) {
+			for (ChanACL *acl : ql) {
 				if (acl->iUserId == id) {
 					c->qlACL.removeAll(acl);
 					write = true;
 				}
 			}
-			foreach (Group *g, c->qhGroups) {
+			for (Group *g : c->qhGroups) {
 				bool addrem = g->qsAdd.remove(id);
 				bool remrem = g->qsRemove.remove(id);
 				write       = write || addrem || remrem;
 			}
-			if (write)
-				updateChannel(c);
+			if (write) {
+				m_dbWrapper.updateChannelData(iServerNum, *c);
+			}
 		}
 	}
 
-	foreach (ServerUser *u, qhUsers) {
+	for (ServerUser *u : qhUsers) {
 		if (u->iId == id) {
 			clearACLCache(u);
 			MumbleProto::UserState mpus;
@@ -1951,6 +1985,7 @@ bool Server::unregisterUser(int id) {
 			break;
 		}
 	}
+
 	return true;
 }
 
@@ -1981,7 +2016,8 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	}
 
 	clearACLCache(p);
-	setLastChannel(p);
+
+	m_dbWrapper.setLastChannel(iServerNum, *static_cast< ServerUser * >(p));
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
 		QCoreApplication::instance()->postEvent(this,
@@ -2457,6 +2493,661 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 
 	return cache;
 }
+
+/// @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
+///         -3 for authentication failures where the data could (temporarily) not be verified.
+int Server::authenticate(QString &name, const QString &password, int sessionId, const QStringList &emails,
+						 const QString &certhash, bool bStrongCert, const QList< QSslCertificate > &certs) {
+	int res = bForceExternalAuth ? -3 : -2;
+
+	(void) name;
+	(void) password;
+	(void) sessionId;
+	(void) emails;
+	(void) certhash;
+	(void) bStrongCert;
+	(void) certs;
+
+	return res;
+
+	// TODO: Implement properly
+
+	// emit authenticateSig(res, name, sessionId, certs, certhash, bStrongCert, password);
+
+	// if (res != -2) {
+	// 	// External authentication handled it. Ignore certificate completely.
+	// 	if (res != -1) {
+	// 		TransactionHolder th;
+	// 		QSqlQuery &query = *th.qsqQuery;
+
+	// 		int lchan = readLastChannel(res);
+	// 		if (lchan < 0)
+	// 			lchan = 0;
+
+	// 		if (Meta::mp.qsDBDriver == "QPSQL") {
+	// 			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES "
+	// 					"(:server_id,:user_id,:name,:lastchannel) ON CONFLICT (`server_id`, `user_id`) DO UPDATE SET "
+	// 					"`name` = :u_name, `lastchannel` = :u_lastchannel WHERE `%1users`.`server_id` = :u_server_id "
+	// 					"AND `%1users`.`user_id` = :u_user_id");
+	// 			query.bindValue(":server_id", iServerNum);
+	// 			query.bindValue(":user_id", res);
+	// 			query.bindValue(":name", name);
+	// 			query.bindValue(":lastchannel", lchan);
+	// 			query.bindValue(":u_server_id", iServerNum);
+	// 			query.bindValue(":u_user_id", res);
+	// 			query.bindValue(":u_name", name);
+	// 			query.bindValue(":u_lastchannel", lchan);
+	// 			SQLEXEC();
+	// 		} else {
+	// 			SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
+	// 			query.addBindValue(iServerNum);
+	// 			query.addBindValue(res);
+	// 			query.addBindValue(name);
+	// 			query.addBindValue(lchan);
+	// 			SQLEXEC();
+	// 		}
+	// 	}
+	// 	if (res >= 0) {
+	// 		qhUserNameCache.remove(res);
+	// 		qhUserIDCache.remove(name);
+	// 	}
+	// 	return res;
+	// }
+
+	// TransactionHolder th;
+	// QSqlQuery &query = *th.qsqQuery;
+
+	// SQLPREP("SELECT `user_id`,`name`,`pw`, `salt`, `kdfiterations` FROM `%1users` WHERE `server_id` = ? AND "
+	// 		"LOWER(`name`) = LOWER(?)");
+	// query.addBindValue(iServerNum);
+	// query.addBindValue(name);
+	// SQLEXEC();
+	// if (query.next()) {
+	// 	const int userId                 = query.value(0).toInt();
+	// 	const QString storedPasswordHash = query.value(2).toString();
+	// 	const QString storedSalt         = query.value(3).toString();
+	// 	const int storedKdfIterations    = query.value(4).toInt();
+	// 	res                              = -1;
+
+	// 	if (!storedPasswordHash.isEmpty()) {
+	// 		// A user has password authentication enabled if there is a password hash.
+
+	// 		if (storedKdfIterations <= 0) {
+	// 			// If storedKdfIterations is <=0 this means this is an old-style SHA1 hash
+	// 			// that hasn't been converted yet. Or we are operating in legacy mode.
+	// 			if (ServerDB::getLegacySHA1Hash(password) == storedPasswordHash) {
+	// 				name = query.value(1).toString();
+	// 				res  = query.value(0).toInt();
+
+	// 				if (!Meta::mp.legacyPasswordHash) {
+	// 					// Unless disabled upgrade the user password hash
+	// 					QMap< int, QString > info;
+	// 					info.insert(ServerDB::User_Password, password);
+	// 					info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+
+	// 					if (!setInfo(userId, info)) {
+	// 						qWarning("ServerDB: Failed to upgrade user account to PBKDF2 hash, rejecting login.");
+	// 						return -1;
+	// 					}
+	// 				}
+	// 			}
+	// 		} else {
+	// 			if (PBKDF2::getHash(storedSalt, password, storedKdfIterations) == storedPasswordHash) {
+	// 				name = query.value(1).toString();
+	// 				res  = query.value(0).toInt();
+
+	// 				if (Meta::mp.legacyPasswordHash) {
+	// 					// Downgrade the password to the legacy hash
+	// 					QMap< int, QString > info;
+	// 					info.insert(ServerDB::User_Password, password);
+
+	// 					if (!setInfo(userId, info)) {
+	// 						qWarning("ServerDB: Failed to downgrade user account to legacy hash, rejecting login.");
+	// 						return -1;
+	// 					}
+	// 				} else if (storedKdfIterations != Meta::mp.kdfIterations) {
+	// 					// User kdfiterations not equal to the global one. Update it.
+	// 					QMap< int, QString > info;
+	// 					info.insert(ServerDB::User_Password, password);
+	// 					info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+
+	// 					if (!setInfo(userId, info)) {
+	// 						qWarning() << "ServerDB: Failed to update user PBKDF2 to new iteration count"
+	// 								   << Meta::mp.kdfIterations << ", rejecting login.";
+	// 						return -1;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+
+	// 	if (userId == 0 && res < 0) {
+	// 		// For SuperUser only password based authentication is allowed.
+	// 		// If we couldn't verify the password don't proceed to cert auth
+	// 		// and instead reject the login attempt.
+	// 		return -1;
+	// 	}
+	// }
+
+	// // No password match. Try cert or email match, but only for non-SuperUser.
+	// if (!certhash.isEmpty() && (res < 0)) {
+	// 	SQLPREP("SELECT `user_id` FROM `%1user_info` WHERE `server_id` = ? AND `key` = ? AND `value` = ?");
+	// 	query.addBindValue(iServerNum);
+	// 	query.addBindValue(ServerDB::User_Hash);
+	// 	query.addBindValue(certhash);
+	// 	SQLEXEC();
+	// 	if (query.next()) {
+	// 		res = query.value(0).toInt();
+	// 	} else if (bStrongCert) {
+	// 		foreach (const QString &email, emails) {
+	// 			if (!email.isEmpty()) {
+	// 				query.addBindValue(iServerNum);
+	// 				query.addBindValue(ServerDB::User_Email);
+	// 				query.addBindValue(email);
+	// 				SQLEXEC();
+	// 				if (query.next()) {
+	// 					res = query.value(0).toInt();
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	if (res > 0) {
+	// 		SQLPREP("SELECT `name` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+	// 		query.addBindValue(iServerNum);
+	// 		query.addBindValue(res);
+	// 		SQLEXEC();
+	// 		if (!query.next()) {
+	// 			res = -1;
+	// 		} else {
+	// 			name = query.value(0).toString();
+	// 		}
+	// 	}
+	// }
+	// if (!certhash.isEmpty() && (res > 0)) {
+	// 	if (Meta::mp.qsDBDriver == "QPSQL") {
+	// 		SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, "
+	// 				":key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE "
+	// 				"`%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND "
+	// 				"`%1user_info`.`key` = :u_key");
+	// 		query.bindValue(":server_id", iServerNum);
+	// 		query.bindValue(":user_id", res);
+	// 		query.bindValue(":key", ServerDB::User_Hash);
+	// 		query.bindValue(":value", certhash);
+	// 		query.bindValue(":u_server_id", iServerNum);
+	// 		query.bindValue(":u_user_id", res);
+	// 		query.bindValue(":u_key", ServerDB::User_Hash);
+	// 		query.bindValue(":u_value", certhash);
+	// 		SQLEXEC();
+	// 	} else {
+	// 		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+	// 		query.addBindValue(iServerNum);
+	// 		query.addBindValue(res);
+	// 		query.addBindValue(ServerDB::User_Hash);
+	// 		query.addBindValue(certhash);
+	// 		SQLEXEC();
+	// 	}
+
+	// 	if (!emails.isEmpty()) {
+	// 		if (Meta::mp.qsDBDriver == "QPSQL") {
+	// 			query.bindValue(":server_id", iServerNum);
+	// 			query.bindValue(":user_id", res);
+	// 			query.bindValue(":key", ServerDB::User_Email);
+	// 			query.bindValue(":value", emails.at(0));
+	// 			query.bindValue(":u_server_id", iServerNum);
+	// 			query.bindValue(":u_user_id", res);
+	// 			query.bindValue(":u_key", ServerDB::User_Email);
+	// 			query.bindValue(":u_value", emails.at(0));
+	// 			SQLEXEC();
+	// 		} else {
+	// 			query.addBindValue(iServerNum);
+	// 			query.addBindValue(res);
+	// 			query.addBindValue(ServerDB::User_Email);
+	// 			query.addBindValue(emails.at(0));
+	// 			SQLEXEC();
+	// 		}
+	// 	}
+	// }
+	// if (res >= 0) {
+	// 	qhUserNameCache.remove(res);
+	// 	qhUserIDCache.remove(name);
+	// }
+	// return res;
+}
+
+bool Server::setTexture(ServerUser &user, const QByteArray &texture) {
+	QByteArray tex;
+	if (texture.size() == 600 * 60 * 4) {
+		tex = qCompress(texture);
+	} else {
+		tex = texture;
+	}
+
+	hashAssign(user.qbaTexture, user.qbaTextureHash, tex);
+
+	return storeTexture(user, tex);
+}
+
+bool Server::storeTexture(const ServerUserInfo &userInfo, const QByteArray &texture) {
+	if (userInfo.iId <= 0) {
+		return false;
+	}
+
+	QByteArray tex;
+	if (texture.size() == 600 * 60 * 4) {
+		tex = qCompress(texture);
+	} else {
+		tex = texture;
+	}
+
+	int res = -2;
+	emit setTextureSig(res, userInfo.iId, tex);
+	if (res >= 0) {
+		return res > 0;
+	}
+
+	m_dbWrapper.storeUserTexture(iServerNum, userInfo);
+
+	return true;
+}
+
+void Server::loadTexture(ServerUser &user) {
+	if (user.iId <= 0) {
+		return;
+	}
+
+	QByteArray texture = getTexture(user);
+
+	hashAssign(user.qbaTexture, user.qbaTextureHash, texture);
+}
+
+QByteArray Server::getTexture(const ServerUserInfo &userInfo) {
+	if (userInfo.iId <= 0) {
+		return {};
+	}
+
+	QByteArray texture;
+	emit idToTextureSig(texture, userInfo.iId);
+
+	if (!texture.isNull()) {
+		return texture;
+	} else {
+		return m_dbWrapper.getUserTexture(iServerNum, userInfo);
+	}
+}
+
+bool Server::setComment(ServerUser &user, const QString &comment) {
+	hashAssign(user.qsComment, user.qbaCommentHash, comment);
+
+	if (user.iId <= 0) {
+		return false;
+	}
+
+	QMap< int, QString > info;
+	info.insert(static_cast< int >(::mumble::server::db::UserProperty::Comment), std::move(comment));
+
+	int res = -2;
+	emit setInfoSig(res, user.iId, info);
+
+	if (res >= 0) {
+		// Externally handled
+		return (res > 0);
+	}
+
+	m_dbWrapper.storeUserProperty(iServerNum, user, ::mumble::server::db::UserProperty::Comment,
+								  info[static_cast< int >(::mumble::server::db::UserProperty::Comment)].toStdString());
+
+	return true;
+}
+
+void Server::loadComment(ServerUser &user) {
+	QMap< int, QString > info;
+
+	int res = -2;
+	emit getRegistrationSig(res, user.iId, info);
+
+	QString comment;
+	if (res >= 0) {
+		if (!info.contains(static_cast< int >(::mumble::server::db::UserProperty::Comment))) {
+			return;
+		}
+
+		comment = std::move(info[static_cast< int >(::mumble::server::db::UserProperty::Comment)]);
+	} else {
+		comment = QString::fromStdString(
+			m_dbWrapper.getUserProperty(iServerNum, user, ::mumble::server::db::UserProperty::Comment));
+	}
+
+	hashAssign(user.qsComment, user.qbaCommentHash, comment);
+}
+
+void Server::addChannelListener(const ServerUser &user, const Channel &channel) {
+	if (m_channelListenerManager.isListening(user.uiSession, channel.iId)) {
+		return;
+	}
+
+	if (user.iId > 0) {
+		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user, channel);
+	}
+
+	m_channelListenerManager.addListener(user.uiSession, channel.iId);
+}
+
+void Server::setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume) {
+	if (user.iId > 0) {
+		m_dbWrapper.storeChannelListenerVolume(iServerNum, user, channel, volume);
+	}
+
+	m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
+														 VolumeAdjustment::fromFactor(volume));
+}
+
+void Server::disableChannelListener(const ServerUser &user, const Channel &channel) {
+	if (!m_channelListenerManager.isListening(user.uiSession, channel.iId)) {
+		return;
+	}
+
+	if (user.iId > 0) {
+		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user, channel);
+	}
+
+	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
+}
+
+QString Server::getRegisteredUserName(int userID) {
+	if (userID < 0) {
+		return {};
+	}
+
+	if (qhUserNameCache.contains(userID)) {
+		return qhUserNameCache.value(userID);
+	}
+
+	QString name;
+	emit idToNameSig(name, userID);
+
+	if (name.isEmpty()) {
+		name = QString::fromStdString(m_dbWrapper.getUserName(iServerNum, static_cast< unsigned int >(userID)));
+
+		assert(!name.isEmpty());
+	}
+
+	// Cache for re-use
+	qhUserIDCache.insert(name, userID);
+	qhUserNameCache.insert(userID, name);
+
+	return name;
+}
+
+int Server::getRegisteredUserID(const QString &name) {
+	if (qhUserIDCache.contains(name)) {
+		return qhUserIDCache.value(name);
+	}
+
+	// External handling
+	int id = -2;
+	emit nameToIdSig(id, name);
+	if (id == -2) {
+		// External handling failed, use internal instead
+		if (!validateUserName(name)) {
+			return id;
+		}
+
+		id = m_dbWrapper.registeredUserNameToID(iServerNum, name.toStdString());
+
+		if (id > 0) {
+			qhUserIDCache.insert(name, id);
+			qhUserNameCache.insert(id, name);
+		}
+	}
+
+	return id;
+}
+
+bool Server::registerUser(ServerUser &user) {
+	int id = registerUser(static_cast< ServerUserInfo & >(user));
+	if (id < 0) {
+		return false;
+	}
+
+	user.iId = id;
+
+	m_dbWrapper.setLastChannel(iServerNum, user);
+
+	return true;
+}
+
+int Server::registerUser(const ServerUserInfo &userInfo) {
+	QMap< int, QString > properties;
+
+	properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), userInfo.qsName);
+	properties.insert(static_cast< int >(::mumble::server::db::UserProperty::CertificateHash), userInfo.qsHash);
+
+	if (!userInfo.qslEmail.isEmpty()) {
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Email), userInfo.qslEmail.first());
+	}
+
+	// Preliminary checks
+	if (userInfo.qsName.isEmpty()) {
+		return -3;
+	}
+	if (!validateUserName(userInfo.qsName)) {
+		return -3;
+	}
+
+	if (getRegisteredUserID(userInfo.qsName) >= 0) {
+		return -1;
+	}
+
+	qhUserIDCache.remove(userInfo.qsName);
+
+	int id = -2;
+
+	// Find available user ID via external service
+	emit registerUserSig(id, properties);
+
+	if (id == -1) {
+		// External indicated failed registration
+		return -1;
+	}
+	if (id < 0) {
+		// Get available user ID via internal method
+		id = m_dbWrapper.getNextAvailableUserID(iServerNum);
+	}
+
+	// Insert new user information into our database
+	m_dbWrapper.registerUser(iServerNum, userInfo);
+
+
+	qhUserNameCache.remove(id);
+
+	setUserProperties(id, properties);
+
+	return id;
+}
+
+QString getLegacySHA1Hash(const QString &password) {
+	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
+
+	return QString::fromLatin1(hash.toHex());
+}
+
+
+bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
+	if (userID < 0) {
+		return false;
+	}
+
+	int res = -2;
+
+	if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::Name))) {
+		const QString &name = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Name));
+
+		if (name.isEmpty()) {
+			return false;
+		}
+
+		int id = getRegisteredUserID(name);
+
+		if (id >= 0 && userID != id) {
+			return false;
+		}
+
+		qhUserIDCache.remove(qhUserNameCache.value(id));
+		qhUserNameCache.remove(id);
+		qhUserIDCache.remove(name);
+	}
+
+	emit setInfoSig(res, userID, properties);
+	if (res >= 0) {
+		return (res > 0);
+	}
+
+	::mumble::server::db::DBUserData userData;
+	bool updateUserData = false;
+
+	if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::Password))) {
+		const QString password = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Password));
+
+		if (Meta::mp.legacyPasswordHash) {
+			userData.password.passwordHash = getLegacySHA1Hash(password).toStdString();
+		} else {
+			userData.password.kdfIterations = Meta::mp.kdfIterations;
+
+			if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations))) {
+				const int targetIterations =
+					properties.value(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations)).toInt();
+
+				if (targetIterations > 0) {
+					userData.password.kdfIterations = targetIterations;
+				}
+			}
+
+			userData.password.salt = PBKDF2::getSalt().toStdString();
+			userData.password.passwordHash =
+				PBKDF2::getHash(PBKDF2::getSalt(), password, userData.password.kdfIterations).toStdString();
+		}
+
+		updateUserData = true;
+
+		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::Password));
+	}
+
+	if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::Name))) {
+		userData.name  = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Name)).toStdString();
+		updateUserData = true;
+
+		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::Name));
+	}
+
+	if (updateUserData) {
+		m_dbWrapper.setUserData(iServerNum, static_cast< unsigned int >(userID), userData);
+	}
+
+	if (!properties.isEmpty()) {
+		// Store remaining properties
+		std::vector< std::pair< unsigned int, std::string > > convertedProperties;
+		convertedProperties.reserve(properties.size());
+
+		for (auto it = properties.begin(); it != properties.end(); ++it) {
+			convertedProperties.push_back({ static_cast< unsigned int >(it.key()), it.value().toStdString() });
+		}
+
+		m_dbWrapper.setUserProperties(iServerNum, static_cast< unsigned int >(userID), convertedProperties);
+	}
+
+	return true;
+}
+
+QMap< int, QString > Server::getUserProperties(int userID) {
+	QMap< int, QString > properties;
+
+	// First try external service
+	int res = -2;
+	emit getRegistrationSig(res, userID, properties);
+	if (res >= 0) {
+		return properties;
+	}
+
+	for (const std::pair< unsigned int, std::string > &currentProp :
+		 m_dbWrapper.getUserProperties(iServerNum, userID)) {
+		properties.insert(static_cast< int >(currentProp.first), QString::fromStdString(currentProp.second));
+	}
+
+	return properties;
+}
+
+Channel *Server::createNewChannel(Channel *parent, const QString &name, bool temporary, int position,
+								  unsigned int maxUsers) {
+	int id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
+
+	if (temporary) {
+		// Make sure temporary channel IDs will not collide with regular channel IDs
+		id += iChannelCountLimit > 0 ? iChannelCountLimit * 2 : 1e5;
+	}
+
+	Channel *c    = new Channel(id, name, parent);
+	c->bTemporary = temporary;
+	c->iPosition  = position;
+	c->uiMaxUsers = maxUsers;
+	qhChannels.insert(id, c);
+
+	if (!temporary) {
+		m_dbWrapper.createChannel(iServerNum, *c);
+	}
+
+	return c;
+}
+
+void Server::linkChannels(Channel &first, Channel &second) {
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		first.link(&second);
+	}
+
+	if (first.bTemporary || second.bTemporary) {
+		return;
+	}
+
+	m_dbWrapper.addChannelLink(iServerNum, first, second);
+}
+
+void Server::unlinkChannels(Channel &first, Channel &second) {
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		first.unlink(&second);
+	}
+
+	if (first.bTemporary || second.bTemporary) {
+		return;
+	}
+
+	m_dbWrapper.removeChannelLink(iServerNum, first, second);
+}
+
+std::vector< UserInfo > Server::getAllRegisteredUserProperties(QString nameSubstring) {
+	// First get the list of users handled by the external authenticator
+	QMap< int, QString > rpcUsers;
+	emit getRegisteredUsersSig(nameSubstring, rpcUsers);
+
+	std::vector< UserInfo > users;
+	for (auto it = rpcUsers.begin(); it != rpcUsers.end(); ++it) {
+		users.push_back(UserInfo(it.key(), it.value()));
+	}
+
+	// Make the nameSubstring ready to be processed by SQL as a filter
+	if (nameSubstring.isEmpty()) {
+		// Allow any name
+		nameSubstring = "%";
+	} else {
+		nameSubstring = "%" + nameSubstring + "%";
+	}
+
+	m_dbWrapper.addAllRegisteredUserInfoTo(users, iServerNum, nameSubstring.toStdString());
+
+	return users;
+}
+
 
 #undef SIO_UDP_CONNRESET
 #undef SENDTO

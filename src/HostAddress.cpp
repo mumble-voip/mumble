@@ -24,6 +24,9 @@
 #include <cstdint>
 #include <utility>
 
+HostAddress::HostAddress(ipv6_bytes ipv6_address) : m_byteRepresentation(std::move(ipv6_address)) {
+}
+
 HostAddress::HostAddress(const Q_IPV6ADDR &address) {
 	memcpy(m_byteRepresentation.data(), address.c, m_byteRepresentation.size());
 }

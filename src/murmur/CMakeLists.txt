@@ -31,11 +31,11 @@ add_library(mumble_server_object_lib OBJECT
 	"RPC.cpp"
 	"Server.cpp"
 	"Server.h"
-	"ServerDB.cpp"
-	"ServerDB.h"
 	"ServerUser.cpp"
 	"ServerUser.h"
 	"Globals.cpp"
+	"ServerApplication.cpp"
+	"DBWrapper.cpp"
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
 	"${SHARED_SOURCE_DIR}/ACL.h"

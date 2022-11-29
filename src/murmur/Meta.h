@@ -6,13 +6,17 @@
 #ifndef MUMBLE_MURMUR_META_H_
 #define MUMBLE_MURMUR_META_H_
 
+#include "DBWrapper.h"
 #include "Timer.h"
-
 #include "Version.h"
+
+#include "database/ConnectionParameter.h"
 
 #ifdef Q_OS_WIN
 #	include "win.h"
 #endif
+
+#include <boost/optional.hpp>
 
 #include <QtCore/QDir>
 #include <QtCore/QList>
@@ -28,6 +32,7 @@ class QSettings;
 
 class MetaParams {
 public:
+	/// This is the path to the directory in which the loaded server ini file is located
 	QDir qdBasePath;
 
 	QList< QHostAddress > qlBind;
@@ -141,8 +146,8 @@ public:
 #endif
 
 	Version::full_t m_suggestVersion;
-	QVariant qvSuggestPositional;
-	QVariant qvSuggestPushToTalk;
+	boost::optional< bool > suggestPositional;
+	boost::optional< bool > suggestPushToTalk;
 
 	/// A flag indicating whether changes in groups should be logged
 	bool bLogGroupChanges;
@@ -179,18 +184,22 @@ private:
 
 public:
 	static MetaParams mp;
-	QHash< int, Server * > qhServers;
+	QHash< unsigned int, Server * > qhServers;
 	QHash< QHostAddress, QList< Timer > > qhAttempts;
 	QHash< QHostAddress, Timer > qhBans;
 	QString qsOS, qsOSVersion;
 	Timer tUptime;
 
+	DBWrapper dbWrapper;
+
 #ifdef Q_OS_WIN
 	static HANDLE hQoS;
 #endif
 
-	Meta();
+	Meta(const ::mumble::db::ConnectionParameter &connectParam);
 	~Meta();
+
+	static const ::mumble::db::ConnectionParameter &getConnectionParameter();
 
 	/// reloadSSLSettings reloads Murmur's MetaParams's
 	/// SSL settings, and updates the certificate and
@@ -198,14 +207,14 @@ public:
 	/// Meta server's certificate and private key.
 	bool reloadSSLSettings();
 
-	void bootAll();
-	bool boot(int);
+	void bootAll(const ::mumble::db::ConnectionParameter &connectionParam, bool createDefaultInstance);
+	bool boot(const ::mumble::db::ConnectionParameter &connectionParam, unsigned int);
 	bool banCheck(const QHostAddress &);
 
 	/// Called whenever we get a successful connection from a client.
 	/// Used to reset autoban tracking for the address.
 	void successfulConnectionFrom(const QHostAddress &);
-	void kill(int);
+	void kill(unsigned int);
 	void killAll();
 	void getOSInfo();
 	void connectListener(QObject *);

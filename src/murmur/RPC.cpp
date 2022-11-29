@@ -15,7 +15,6 @@
 #include "Meta.h"
 #include "QtUtils.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
 
@@ -55,8 +54,8 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		mpus.set_comment(u8(comment));
 		if (pUser->iId >= 0) {
 			QMap< int, QString > info;
-			info.insert(ServerDB::User_Comment, comment);
-			setInfo(pUser->iId, info);
+			info.insert(static_cast< int >(::mumble::server::db::UserProperty::Comment), comment);
+			setUserProperties(pUser->iId, info);
 		}
 	}
 	if (name != pUser->qsName) {
@@ -138,7 +137,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		// Remove
 		foreach (Channel *l, oldset) {
 			if (!links.contains(l)) {
-				removeLink(cChannel, l);
+				unlinkChannels(*cChannel, *l);
 				mpcs.add_links_remove(l->iId);
 			}
 		}
@@ -146,7 +145,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		// Add
 		foreach (Channel *l, links) {
 			if (!oldset.contains(l)) {
-				addLink(cChannel, l);
+				linkChannels(*cChannel, *l);
 				mpcs.add_links_add(l->iId);
 			}
 		}
@@ -169,7 +168,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	}
 
 	if (updated)
-		updateChannel(cChannel);
+		m_dbWrapper.updateChannelData(iServerNum, *cChannel);
 	if (changed) {
 		sendAll(mpcs, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 		if (mpcs.has_description() && !cChannel->qbaDescHash.isEmpty()) {

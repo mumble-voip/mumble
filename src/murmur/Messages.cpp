@@ -14,16 +14,19 @@
 #include "ProtoUtils.h"
 #include "QtUtils.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "ServerUser.h"
 #include "User.h"
 #include "Version.h"
 #include "crypto/CryptState.h"
 
+#include "murmur/database/UserProperty.h"
+
 #include <QtCore/QStack>
 #include <QtCore/QtEndian>
 
+#include <algorithm>
 #include <cassert>
+#include <set>
 #include <unordered_map>
 
 #include <tracy/Tracy.hpp>
@@ -294,8 +297,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		clearACLCache(uSource);
 	}
 
-	Channel *lc       = nullptr;
-	int lastChannelID = readLastChannel(uSource->iId);
+	Channel *lc = nullptr;
+	int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, *uSource);
 	if (lastChannelID >= 0) {
 		lc = qhChannels.value(static_cast< unsigned int >(lastChannelID));
 	}
@@ -425,7 +428,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 	}
 
-	loadChannelListenersOf(*uSource);
+	m_dbWrapper.loadChannelListenersOf(iServerNum, *uSource, m_channelListenerManager);
 
 	// Transmit user profile
 	MumbleProto::UserState mpus;
@@ -442,20 +445,20 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (uSource->iId >= 0) {
 		mpus.set_user_id(static_cast< unsigned int >(uSource->iId));
 
-		hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, getUserTexture(uSource->iId));
+		loadTexture(*uSource);
 
-		if (!uSource->qbaTextureHash.isEmpty())
+		if (!uSource->qbaTextureHash.isEmpty()) {
 			mpus.set_texture_hash(blob(uSource->qbaTextureHash));
-		else if (!uSource->qbaTexture.isEmpty())
+		} else if (!uSource->qbaTexture.isEmpty()) {
 			mpus.set_texture(blob(uSource->qbaTexture));
+		}
 
-		const QMap< int, QString > &info = getRegistration(uSource->iId);
-		if (info.contains(ServerDB::User_Comment)) {
-			hashAssign(uSource->qsComment, uSource->qbaCommentHash, info.value(ServerDB::User_Comment));
-			if (!uSource->qbaCommentHash.isEmpty())
-				mpus.set_comment_hash(blob(uSource->qbaCommentHash));
-			else if (!uSource->qsComment.isEmpty())
-				mpus.set_comment(u8(uSource->qsComment));
+		loadComment(*uSource);
+
+		if (!uSource->qbaCommentHash.isEmpty()) {
+			mpus.set_comment_hash(blob(uSource->qbaCommentHash));
+		} else if (!uSource->qsComment.isEmpty()) {
+			mpus.set_comment(u8(uSource->qsComment));
 		}
 	}
 	if (!uSource->qsHash.isEmpty())
@@ -597,10 +600,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (m_suggestVersion != Version::UNKNOWN) {
 		MumbleProto::setSuggestedVersion(mpsug, m_suggestVersion);
 	}
-	if (!qvSuggestPositional.isNull())
-		mpsug.set_positional(qvSuggestPositional.toBool());
-	if (!qvSuggestPushToTalk.isNull())
-		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
+	if (m_suggestPositional)
+		mpsug.set_positional(m_suggestPositional.get());
+	if (m_suggestPushToTalk)
+		mpsug.set_push_to_talk(m_suggestPushToTalk.get());
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
 	if (mpsug.ByteSizeLong() > 0) {
 #else
@@ -655,7 +658,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 
 	MSG_SETUP(ServerUser::Authenticated);
 
-	QSet< Ban > previousBans, newBans;
+	std::set< Ban > previousBans;
 	if (!hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
 		return;
@@ -663,7 +666,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	if (msg.query()) {
 		msg.clear_query();
 		msg.clear_bans();
-		foreach (const Ban &b, qlBans) {
+		for (const Ban &b : m_bans) {
 			MumbleProto::BanList_BanEntry *be = msg.add_bans();
 			be->set_address(b.haAddress.toStdString());
 			be->set_mask(static_cast< unsigned int >(b.iMask));
@@ -675,13 +678,9 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		}
 		sendMessage(uSource, msg);
 	} else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		previousBans = QSet< Ban >(qlBans.begin(), qlBans.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		previousBans = qlBans.toSet();
-#endif
-		qlBans.clear();
+		previousBans = std::set< Ban >(m_bans.begin(), m_bans.end());
+
+		m_bans.clear();
 		for (int i = 0; i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
 
@@ -699,20 +698,25 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			}
 			b.iDuration = be.duration();
 			if (b.isValid()) {
-				qlBans << b;
+				m_bans.push_back(std::move(b));
 			}
 		}
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		newBans = QSet< Ban >(qlBans.begin(), qlBans.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		newBans = qlBans.toSet();
-#endif
-		QSet< Ban > removed = previousBans - newBans;
-		QSet< Ban > added   = newBans - previousBans;
-		foreach (const Ban &b, removed) { log(uSource, QString("Removed ban: %1").arg(b.toString())); }
-		foreach (const Ban &b, added) { log(uSource, QString("New ban: %1").arg(b.toString())); }
-		saveBans();
+		// m_bans needs to be sorted in order for it to be used in the set_difference functions below
+		std::sort(m_bans.begin(), m_bans.end());
+
+		std::vector< Ban > removed, added;
+		std::set_difference(previousBans.begin(), previousBans.end(), m_bans.begin(), m_bans.end(), removed.begin());
+		std::set_difference(m_bans.begin(), m_bans.end(), previousBans.begin(), previousBans.end(), added.begin());
+
+		for (const Ban &b : removed) {
+			log(uSource, QString("Removed ban: %1").arg(b.toString()));
+		}
+
+		for (const Ban &b : added) {
+			log(uSource, QString("New ban: %1").arg(b.toString()));
+		}
+
+		m_dbWrapper.saveBans(iServerNum, m_bans);
 		log(uSource, "Updated banlist");
 	}
 }
@@ -929,7 +933,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		QByteArray qba = blob(msg.texture());
 		if (pDstServerUser->iId > 0) {
 			// For registered users store the texture we just received in the database
-			if (!setTexture(pDstServerUser->iId, qba)) {
+			if (!setTexture(*pDstServerUser, qba)) {
 				return;
 			}
 		} else {
@@ -977,13 +981,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (!comment.isNull()) {
-		hashAssign(pDstServerUser->qsComment, pDstServerUser->qbaCommentHash, comment);
+		setComment(*uSource, comment);
 
-		if (pDstServerUser->iId >= 0) {
-			QMap< int, QString > info;
-			info.insert(ServerDB::User_Comment, pDstServerUser->qsComment);
-			setInfo(pDstServerUser->iId, info);
-		}
 		bBroadcast = true;
 	}
 
@@ -1121,22 +1120,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	bool bDstAclChanged = false;
 	if (msg.has_user_id()) {
 		// Handle user (Self-)Registration
-		QMap< int, QString > info;
-
-		info.insert(ServerDB::User_Name, pDstServerUser->qsName);
-		info.insert(ServerDB::User_Hash, pDstServerUser->qsHash);
-		if (!pDstServerUser->qslEmail.isEmpty())
-			info.insert(ServerDB::User_Email, pDstServerUser->qslEmail.first());
-		int id = registerUser(info);
-		if (id > 0) {
-			pDstServerUser->iId = id;
-			setLastChannel(pDstServerUser);
-			msg.set_user_id(static_cast< unsigned int >(id));
+		if (registerUser(*pDstServerUser)) {
+			msg.set_user_id(pDstServerUser->iId);
 			bDstAclChanged = true;
 		} else {
 			// Registration failed
 			msg.clear_user_id();
 		}
+
 		bBroadcast = true;
 	}
 
@@ -1219,8 +1210,9 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 		b.qsHash     = pDstServerUser->qsHash;
 		b.qdtStart   = QDateTime::currentDateTime().toUTC();
 		b.iDuration  = 0;
-		qlBans << b;
-		saveBans();
+
+		m_bans.push_back(std::move(b));
+		m_dbWrapper.saveBans(iServerNum, m_bans);
 	}
 
 	sendAll(msg);
@@ -1335,7 +1327,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		c = addChannel(p, qsName, msg.temporary(), msg.position(), msg.max_users());
+		c = createNewChannel(p, qsName, msg.temporary(), msg.position(), msg.max_users());
 		hashAssign(c->qsDesc, c->qbaDescHash, qsDesc);
 
 		if (uSource->iId >= 0) {
@@ -1356,7 +1348,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 			clearACLCache();
 		}
-		updateChannel(c);
+
+		m_dbWrapper.updateChannelData(iServerNum, *c);
 
 		msg.set_channel_id(c->iId);
 		log(uSource, QString("Added channel %1 under %2").arg(QString(*c), QString(*p)));
@@ -1499,13 +1492,18 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		if (msg.has_position())
 			c->iPosition = msg.position();
 
-		foreach (Channel *l, qlAdd) { addLink(c, l); }
-		foreach (Channel *l, qlRemove) { removeLink(c, l); }
+		for (Channel *l : qlAdd) {
+			linkChannels(*c, *l);
+		}
+
+		for (Channel *l : qlRemove) {
+			unlinkChannels(*c, *l);
+		}
 
 		if (msg.has_max_users())
 			c->uiMaxUsers = msg.max_users();
 
-		updateChannel(c);
+		m_dbWrapper.updateChannelData(iServerNum, *c);
 		emit channelStateChanged(c);
 
 		sendAll(msg, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
@@ -1711,7 +1709,7 @@ void logGroups(Server *server, const Channel *c, QString prefix = QString()) {
 	foreach (Group *currentGroup, c->qhGroups) {
 		QString memberList;
 		foreach (int m, currentGroup->members()) {
-			memberList += QString::fromLatin1("\"%1\"").arg(server->getUserName(m));
+			memberList += QString::fromLatin1("\"%1\"").arg(server->getRegisteredUserName(m));
 			memberList += ", ";
 		}
 
@@ -1838,7 +1836,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		MumbleProto::QueryUsers mpqu;
 		foreach (unsigned int id, qsId) {
-			QString uname = getUserName(static_cast< int >(id));
+			QString uname = getRegisteredUserName(id);
 			if (!uname.isEmpty()) {
 				mpqu.add_ids(id);
 				mpqu.add_names(u8(uname));
@@ -1887,10 +1885,10 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				g->bInherit                             = group.inherit();
 				g->bInheritable                         = group.inheritable();
 				for (int j = 0; j < group.add_size(); ++j)
-					if (!getUserName(static_cast< int >(group.add(j))).isEmpty())
+					if (!getRegisteredUserName(static_cast< int >(group.add(j))).isEmpty())
 						g->qsAdd << static_cast< int >(group.add(j));
 				for (int j = 0; j < group.remove_size(); ++j)
-					if (!getUserName(static_cast< int >(group.remove(j))).isEmpty())
+					if (!getRegisteredUserName(static_cast< int >(group.remove(j))).isEmpty())
 						g->qsRemove << static_cast< int >(group.remove(j));
 
 				g->qsTemporary = hOldTemp.value(g->qsName);
@@ -1903,7 +1901,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-				if (mpacl.has_user_id() && getUserName(static_cast< int >(mpacl.user_id())).isEmpty())
+				if (mpacl.has_user_id() && getRegisteredUserName(static_cast< int >(mpacl.user_id())).isEmpty())
 					continue;
 
 				a             = new ChanACL(c);
@@ -1944,7 +1942,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		}
 
 
-		updateChannel(c);
+		m_dbWrapper.updateChannelData(iServerNum, *c);
 		log(uSource, QString("Updated ACL in channel %1").arg(*c));
 
 		// Send refreshed enter states of this channel to all clients
@@ -1968,19 +1966,21 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 	MumbleProto::QueryUsers reply;
 
 	for (int i = 0; i < msg.ids_size(); ++i) {
-		unsigned int id     = msg.ids(i);
-		const QString &name = getUserName(static_cast< int >(id));
-		if (!name.isEmpty()) {
-			reply.add_ids(id);
-			reply.add_names(u8(name));
+		unsigned int id = msg.ids(i);
+		if (id >= 0) {
+			const QString &name = getRegisteredUserName(static_cast< int >(id));
+			if (!name.isEmpty()) {
+				reply.add_ids(id);
+				reply.add_names(u8(name));
+			}
 		}
 	}
 
 	for (int i = 0; i < msg.names_size(); ++i) {
 		QString name = u8(msg.names(i));
-		int id       = getUserID(name);
+		int id       = getRegisteredUserID(name);
 		if (id >= 0) {
-			name = getUserName(id);
+			name = getRegisteredUserName(id);
 			reply.add_ids(static_cast< unsigned int >(id));
 			reply.add_names(u8(name));
 		}
@@ -2109,18 +2109,17 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 
 	if (msg.users_size() == 0) {
 		// Query mode.
-		QList< UserInfo > users              = getRegisteredUsersEx();
-		QList< UserInfo >::const_iterator it = users.constBegin();
-		for (; it != users.constEnd(); ++it) {
+		std::vector< UserInfo > users = getAllRegisteredUserProperties();
+		for (const UserInfo &info : users) {
 			// Skip the SuperUser
-			if (it->user_id > 0) {
+			if (info.user_id > 0) {
 				::MumbleProto::UserList_User *user = msg.add_users();
-				user->set_user_id(static_cast< unsigned int >(it->user_id));
-				user->set_name(u8(it->name));
-				if (it->last_channel >= 0) {
-					user->set_last_channel(static_cast< unsigned int >(*it->last_channel));
+				user->set_user_id(static_cast< unsigned int >(info.user_id));
+				user->set_name(u8(info.name));
+				if (info.last_channel) {
+					user->set_last_channel(*info.last_channel);
 				}
-				user->set_last_seen(u8(it->last_active.toString(Qt::ISODate)));
+				user->set_last_seen(u8(info.last_active.toString(Qt::ISODate)));
 			}
 		}
 		sendMessage(uSource, msg);
@@ -2142,8 +2141,8 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
 					QMap< int, QString > info;
-					info.insert(ServerDB::User_Name, name);
-					setInfo(static_cast< int >(id), info);
+					info.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), name);
+					setUserProperties(id, info);
 
 					MumbleProto::UserState mpus;
 					foreach (ServerUser *serverUser, qhUsers) {
