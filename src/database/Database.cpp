@@ -388,14 +388,24 @@ namespace db {
 		std::string connectionString;
 		switch (m_backend) {
 			case Backend::SQLite: {
-				register_factory_sqlite3();
+				static bool registered = false;
+				if (!registered) {
+					register_factory_sqlite3();
+					registered = true;
+				}
+
 				const auto &sqliteParameter = static_cast< const SQLiteConnectionParameter & >(parameter);
 
 				connectionString = "sqlite3://dbname=" + sqliteParameter.dbPath;
 				break;
 			}
 			case Backend::MySQL: {
-				register_factory_mysql();
+				static bool registered = false;
+				if (!registered) {
+					register_factory_mysql();
+					registered = true;
+				}
+
 				const auto &mysqlParameter = static_cast< const MySQLConnectionParameter & >(parameter);
 
 				connectionString = "mysql://dbname='" + mysqlParameter.dbName + "'";
@@ -415,7 +425,12 @@ namespace db {
 				break;
 			}
 			case Backend::PostgreSQL: {
-				register_factory_postgresql();
+				static bool registered = false;
+				if (!registered) {
+					register_factory_postgresql();
+					registered = true;
+				}
+
 				const auto &postgresqlParameter = static_cast< const PostgreSQLConnectionParameter & >(parameter);
 
 				connectionString = "postgresql://dbname='" + postgresqlParameter.dbName + "'";
