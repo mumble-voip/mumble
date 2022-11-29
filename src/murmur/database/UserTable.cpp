@@ -703,7 +703,7 @@ namespace server {
 						  << ") SELECT server_id, player_id, name, pw, lastchannel, texture, last_active FROM \"players"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else if (fromSchemeVersion < 6) {
-					// Before v6, there were no salt an kdfIteration columns
+					// Before v6, there were no salt and kdfIteration columns
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 						  << column::user_name << ", " << column::password_hash << ", " << column::last_channel_id
 						  << ", " << column::texture << ", " << column::last_active
