@@ -38,6 +38,8 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
 	qsVAD->setAccessibleName(tr("VAD level"));
 
+	Mumble::Accessibility::fixWizardButtonLabels(this);
+
 	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityLow, qlQualityLow);
 	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityBalanced, qlQualityBalanced);
 	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityUltra, qlQualityUltra);
