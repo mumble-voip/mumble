@@ -85,6 +85,8 @@ find_pkg(Qt5
 set(MUMBLE_SOURCES
 	"About.cpp"
 	"About.h"
+	"Accessibility.cpp"
+	"Accessibility.h"
 	"ACLEditor.cpp"
 	"ACLEditor.h"
 	"ACLEditor.ui"
