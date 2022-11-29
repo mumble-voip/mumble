@@ -218,6 +218,12 @@ namespace db {
 									  + "\" is not an object");
 			}
 
+			// First ensure the table is empty
+			if (!tableIsNew) {
+				table->clear();
+			}
+
+			// Then import new data into the table
 			table->importFromJSON(body, tableIsNew);
 		}
 
