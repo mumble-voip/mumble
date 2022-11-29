@@ -14,8 +14,13 @@
 #include <array>
 #include <cstdint>
 
+#include <array>
+
 struct HostAddress {
+	using ipv6_bytes = std::array< std::uint8_t, 16 >;
+
 	HostAddress() = default;
+	HostAddress(ipv6_bytes ipv6_address);
 	HostAddress(const Q_IPV6ADDR &);
 	HostAddress(const std::string &);
 	HostAddress(const QHostAddress &);
@@ -40,7 +45,7 @@ struct HostAddress {
 	void toSockaddr(struct sockaddr_storage *dst) const;
 	std::uint32_t toIPv4() const;
 
-	const std::array< std::uint8_t, 16 > &getByteRepresentation() const;
+	const ipv6_bytes &getByteRepresentation() const;
 
 	void reset();
 
@@ -50,7 +55,7 @@ struct HostAddress {
 
 private:
 	// Binary representation of an IPv6 address
-	std::array< std::uint8_t, 16 > m_byteRepresentation;
+	ipv6_bytes m_byteRepresentation;
 };
 
 Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);
