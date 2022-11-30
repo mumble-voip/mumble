@@ -552,6 +552,8 @@ QVariant ServerItem::data(int column, int role) const {
 				qc.setAlpha(32);
 				return qc;
 			}
+		} else if (role == Qt::AccessibleTextRole) {
+			return QString("%1 %2").arg(ConnectDialog::tr("Server")).arg(qsName);
 		}
 	}
 	return QTreeWidgetItem::data(column, role);
@@ -968,6 +970,10 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("C&onnect"));
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setFocusPolicy(Qt::TabFocus);
+
+	qdbbButtonBox->button(QDialogButtonBox::Cancel)->setFocusPolicy(Qt::TabFocus);
+	qdbbButtonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);
 
 	QPushButton *qpbAdd = new QPushButton(tr("&Add New..."), this);
 	qpbAdd->setDefault(false);
@@ -1088,6 +1094,14 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		restoreGeometry(Global::get().s.qbaConnectDialogGeometry);
 	if (!Global::get().s.qbaConnectDialogHeader.isEmpty())
 		qtwServers->header()->restoreState(Global::get().s.qbaConnectDialogHeader);
+
+	setTabOrder(qtwServers, qleSearchServername);
+	setTabOrder(qleSearchServername, qcbSearchLocation);
+	setTabOrder(qcbSearchLocation, qcbFilter);
+	setTabOrder(qcbFilter, qpbAdd);
+	setTabOrder(qpbAdd, qpbEdit);
+	setTabOrder(qpbEdit, qdbbButtonBox->button(QDialogButtonBox::Ok));
+	setTabOrder(qdbbButtonBox->button(QDialogButtonBox::Ok), qtwServers);
 }
 
 ConnectDialog::~ConnectDialog() {
@@ -1180,6 +1194,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 		qtwServers->siFavorite->addServerItem(si);
 		qtwServers->setCurrentItem(si);
 		startDns(si);
+		qdbbButtonBox->button(QDialogButtonBox::Ok)->setFocus();
 	}
 	delete cde;
 }
