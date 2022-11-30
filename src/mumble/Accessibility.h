@@ -6,7 +6,11 @@
 #ifndef MUMBLE_MUMBLE_ACCESSIBILITY_H_
 #define MUMBLE_MUMBLE_ACCESSIBILITY_H_
 
+#include "Channel.h"
+#include "ClientUser.h"
+
 #include <QLabel>
+#include <QString>
 #include <QWidget>
 #include <QWizard>
 
@@ -15,6 +19,11 @@ namespace Accessibility {
 
 	void setDescriptionFromLabel(QWidget *widget, const QLabel *label);
 	void fixWizardButtonLabels(QWizard *wizard);
+
+	QString userToText(const ClientUser *user);
+	QString userToDescription(const ClientUser *user);
+	QString channelToText(const Channel *channel);
+	QString channelToDescription(const Channel *channel);
 
 } // namespace Accessibility
 } // namespace Mumble

@@ -5,6 +5,7 @@
 
 #include "UserModel.h"
 
+#include "Accessibility.h"
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"
@@ -515,6 +516,16 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (!p->qsFriendName.isEmpty() && !item->isListener)
 					l << qiFriend;
 				return l;
+			case Qt::AccessibleTextRole:
+				if (item->isListener) {
+					return tr("Channel Listener");
+				}
+				return Mumble::Accessibility::userToText(p);
+			case Qt::AccessibleDescriptionRole:
+				if (item->isListener) {
+					return tr("This channel listener belongs to %1").arg(Mumble::Accessibility::userToText(p));
+				}
+				return Mumble::Accessibility::userToDescription(p);
 			default:
 				break;
 		}
@@ -583,6 +594,10 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					return qc;
 				}
 				break;
+			case Qt::AccessibleTextRole:
+				return Mumble::Accessibility::channelToText(c);
+			case Qt::AccessibleDescriptionRole:
+				return Mumble::Accessibility::channelToDescription(c);
 			default:
 				break;
 		}
