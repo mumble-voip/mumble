@@ -163,7 +163,6 @@ MainWindow::MainWindow(QWidget *p)
 	createActions();
 	setupUi(this);
 	setupGui();
-	qtvUsers->setAccessibleName(tr("Channels and users"));
 	qteLog->setAccessibleName(tr("Activity log"));
 	qteChat->setAccessibleName(tr("Chat message"));
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
@@ -472,6 +471,7 @@ void MainWindow::setupGui() {
 	qaAudioTTS->setChecked(Global::get().s.bTTS);
 #endif
 	qaFilterToggle->setChecked(Global::get().s.bFilterActive);
+	on_qaFilterToggle_triggered();
 
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
@@ -2653,6 +2653,11 @@ void MainWindow::on_qaAudioReset_triggered() {
 
 void MainWindow::on_qaFilterToggle_triggered() {
 	Global::get().s.bFilterActive = qaFilterToggle->isChecked();
+	if (!Global::get().s.bFilterActive) {
+		qtvUsers->setAccessibleName(tr("Channels and users"));
+	} else {
+		qtvUsers->setAccessibleName(tr("Filtered channels and users"));
+	}
 	updateUserModel();
 }
 
