@@ -167,6 +167,14 @@ bool DBWrapper::serverExists(unsigned int serverID) {
 	WRAPPER_END
 }
 
+void DBWrapper::setServerBootProperty(unsigned int serverID, bool boot) {
+	WRAPPER_BEGIN
+
+	m_serverDB.getConfigTable().setConfig(serverID, "boot", std::to_string(boot));
+
+	WRAPPER_END
+}
+
 void DBWrapper::setSuperUserPassword(unsigned int serverID, const std::string &password) {
 	WRAPPER_BEGIN
 
