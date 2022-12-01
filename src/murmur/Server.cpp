@@ -1903,7 +1903,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 			continue;
 		}
 
-		m_dbWrapper.deleteChannelListener(iServerNum, *user, *chan);
+		deleteChannelListener(*user, *chan);
 
 		// Notify that all clients that have been listening to this channel, will do so no more
 		MumbleProto::UserState mpus;
@@ -2017,7 +2017,9 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 
 	clearACLCache(p);
 
-	m_dbWrapper.setLastChannel(iServerNum, *static_cast< ServerUser * >(p));
+	if (p->iId >= 0) {
+		m_dbWrapper.setLastChannel(iServerNum, *static_cast< ServerUser * >(p));
+	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
 		QCoreApplication::instance()->postEvent(this,
@@ -2801,6 +2803,13 @@ bool Server::setComment(ServerUser &user, const QString &comment) {
 }
 
 void Server::loadComment(ServerUser &user) {
+	if (user.iId < 0) {
+		user.qsComment.clear();
+		user.qbaCommentHash.clear();
+
+		return;
+	}
+
 	QMap< int, QString > info;
 
 	int res = -2;
@@ -2849,6 +2858,14 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 
 	if (user.iId > 0) {
 		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user, channel);
+	}
+
+	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
+}
+
+void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
+	if (user.iId > 0) {
+		m_dbWrapper.deleteChannelListener(iServerNum, user, channel);
 	}
 
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
@@ -3061,6 +3078,10 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 
 QMap< int, QString > Server::getUserProperties(int userID) {
 	QMap< int, QString > properties;
+
+	if (userID < 0) {
+		return properties;
+	}
 
 	// First try external service
 	int res = -2;
