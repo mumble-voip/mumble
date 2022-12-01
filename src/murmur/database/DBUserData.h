@@ -33,8 +33,8 @@ namespace server {
 			PasswordData password                                               = {};
 			unsigned int lastChannelID                                          = {};
 			std::vector< std::uint8_t > texture                                 = {};
-			std::chrono::time_point< std::chrono::steady_clock > lastActive     = {};
-			std::chrono::time_point< std::chrono::steady_clock > lastDisconnect = {};
+			std::chrono::time_point< std::chrono::system_clock > lastActive     = {};
+			std::chrono::time_point< std::chrono::system_clock > lastDisconnect = {};
 
 			DBUserData() = default;
 

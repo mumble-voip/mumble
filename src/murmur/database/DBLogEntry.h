@@ -17,14 +17,14 @@ namespace server {
 		 * A small struct representing what the database needs to know/knows about a log entry
 		 */
 		struct DBLogEntry {
-			using timestamp_type = std::chrono::time_point< std::chrono::steady_clock >;
+			using timestamp_type = std::chrono::time_point< std::chrono::system_clock >;
 
 			DBLogEntry() = default;
-			DBLogEntry(std::string msg, timestamp_type timestamp = std::chrono::steady_clock::now())
+			DBLogEntry(std::string msg, timestamp_type timestamp = std::chrono::system_clock::now())
 				: message(std::move(msg)), timestamp(std::move(timestamp)) {}
 
 			std::string message;
-			timestamp_type timestamp = std::chrono::steady_clock::now();
+			timestamp_type timestamp = std::chrono::system_clock::now();
 		};
 
 	} // namespace db

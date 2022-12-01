@@ -33,7 +33,7 @@ namespace server {
 			boost::optional< std::string > bannedUserName                  = {};
 			boost::optional< std::string > bannedUserCertHash              = {};
 			boost::optional< std::string > reason                          = {};
-			std::chrono::time_point< std::chrono::steady_clock > startDate = {};
+			std::chrono::time_point< std::chrono::system_clock > startDate = {};
 			std::chrono::seconds duration                                  = {};
 
 			DBBan() = default;

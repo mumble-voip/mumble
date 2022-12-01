@@ -255,7 +255,7 @@ void DBWrapper::saveBans(unsigned int serverID, const std::vector< Ban > &bans) 
 		dbBan.duration     = std::chrono::seconds(currentBan.iDuration);
 		dbBan.prefixLength = currentBan.iMask;
 		dbBan.startDate =
-			std::chrono::steady_clock::time_point(std::chrono::seconds(currentBan.qdtStart.toSecsSinceEpoch()));
+			std::chrono::system_clock::time_point(std::chrono::seconds(currentBan.qdtStart.toSecsSinceEpoch()));
 		dbBan.baseAddress = currentBan.haAddress.getByteRepresentation();
 		if (!currentBan.qsHash.isEmpty()) {
 			dbBan.bannedUserCertHash = currentBan.qsHash.toStdString();
