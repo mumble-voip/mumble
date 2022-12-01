@@ -73,14 +73,14 @@ namespace server {
 			unsigned int getFreeUserID(unsigned int serverID);
 
 			void clearLastDisconnect(const DBUser &user);
-			void setLastDisconnect(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint =
-														   std::chrono::steady_clock::now());
-			std::chrono::steady_clock::time_point getLastDisconnect(const DBUser &user);
+			void setLastDisconnect(const DBUser &user, const std::chrono::system_clock::time_point &timepoint =
+														   std::chrono::system_clock::now());
+			std::chrono::system_clock::time_point getLastDisconnect(const DBUser &user);
 
 			void clearLastActive(const DBUser &user);
-			void setLastActive(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint =
-													   std::chrono::steady_clock::now());
-			std::chrono::steady_clock::time_point getLastActive(const DBUser &user);
+			void setLastActive(const DBUser &user, const std::chrono::system_clock::time_point &timepoint =
+													   std::chrono::system_clock::now());
+			std::chrono::system_clock::time_point getLastActive(const DBUser &user);
 
 			void clearLastChannelID(const DBUser &user);
 			void setLastChannelID(const DBUser &user, unsigned int channelID);

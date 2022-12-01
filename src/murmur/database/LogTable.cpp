@@ -119,7 +119,7 @@ namespace server {
 					DBLogEntry entry;
 					entry.message = row.get< std::string >(1);
 					entry.timestamp =
-						std::chrono::steady_clock::time_point(std::chrono::seconds(row.get< long long >(0)));
+						std::chrono::system_clock::time_point(std::chrono::seconds(row.get< long long >(0)));
 
 					entries.push_back(std::move(entry));
 				}
