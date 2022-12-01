@@ -218,7 +218,7 @@ namespace server {
 				if (reasonInd == soci::i_ok) {
 					ban.reason = std::move(reason);
 				}
-				ban.startDate = std::chrono::time_point< std::chrono::steady_clock >(std::chrono::seconds(startEpoch));
+				ban.startDate = std::chrono::time_point< std::chrono::system_clock >(std::chrono::seconds(startEpoch));
 				ban.duration  = std::chrono::seconds(duration);
 
 				transaction.commit();
@@ -270,7 +270,7 @@ namespace server {
 					if (row.get_indicator(4) == soci::i_ok) {
 						ban.reason = row.get< std::string >(4);
 					}
-					ban.startDate = std::chrono::time_point< std::chrono::steady_clock >(
+					ban.startDate = std::chrono::time_point< std::chrono::system_clock >(
 						std::chrono::seconds(row.get< long long >(5)));
 					ban.duration = std::chrono::seconds(row.get< int >(6));
 

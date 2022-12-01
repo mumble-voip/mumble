@@ -285,8 +285,8 @@ namespace server {
 													data.texture.size());
 					}
 
-					data.lastActive     = std::chrono::steady_clock::time_point(std::chrono::seconds(lastActive));
-					data.lastDisconnect = std::chrono::steady_clock::time_point(std::chrono::seconds(lastDisconnect));
+					data.lastActive     = std::chrono::system_clock::time_point(std::chrono::seconds(lastActive));
+					data.lastDisconnect = std::chrono::system_clock::time_point(std::chrono::seconds(lastDisconnect));
 				}
 
 				transaction.commit();
@@ -324,7 +324,7 @@ namespace server {
 
 		void UserTable::clearLastDisconnect(const DBUser &user) { setLastDisconnect(user, {}); }
 
-		void UserTable::setLastDisconnect(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint) {
+		void UserTable::setLastDisconnect(const DBUser &user, const std::chrono::system_clock::time_point &timepoint) {
 			assert(userExists(user));
 
 			try {
@@ -344,7 +344,7 @@ namespace server {
 			}
 		}
 
-		std::chrono::steady_clock::time_point UserTable::getLastDisconnect(const DBUser &user) {
+		std::chrono::system_clock::time_point UserTable::getLastDisconnect(const DBUser &user) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
@@ -358,7 +358,7 @@ namespace server {
 
 				transaction.commit();
 
-				return std::chrono::steady_clock::time_point(std::chrono::seconds(lastDisconnected));
+				return std::chrono::system_clock::time_point(std::chrono::seconds(lastDisconnected));
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at getting last_disconnect for user with ID "
 															  + std::to_string(user.registeredUserID)
@@ -368,7 +368,7 @@ namespace server {
 
 		void UserTable::clearLastActive(const DBUser &user) { setLastActive(user, {}); }
 
-		void UserTable::setLastActive(const DBUser &user, const std::chrono::steady_clock::time_point &timepoint) {
+		void UserTable::setLastActive(const DBUser &user, const std::chrono::system_clock::time_point &timepoint) {
 			assert(userExists(user));
 
 			try {
@@ -388,7 +388,7 @@ namespace server {
 			}
 		}
 
-		std::chrono::steady_clock::time_point UserTable::getLastActive(const DBUser &user) {
+		std::chrono::system_clock::time_point UserTable::getLastActive(const DBUser &user) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
@@ -402,7 +402,7 @@ namespace server {
 
 				transaction.commit();
 
-				return std::chrono::steady_clock::time_point(std::chrono::seconds(lastActive));
+				return std::chrono::system_clock::time_point(std::chrono::seconds(lastActive));
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at getting last_active for user with ID "
 															  + std::to_string(user.registeredUserID)
@@ -421,7 +421,7 @@ namespace server {
 
 			// Setting a user's last channel tends to indicate that said user just moved in a new channel and thus was
 			// just active
-			std::size_t lastActive = toEpochSeconds(std::chrono::steady_clock::now());
+			std::size_t lastActive = toEpochSeconds(std::chrono::system_clock::now());
 
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();

@@ -282,7 +282,7 @@ void ServerDatabaseTest::logTable_general() {
 	std::vector<::msdb::DBLogEntry > entries;
 	for (std::size_t i = 0; i < 10; ++i) {
 		entries.emplace_back(std::string("Message ") + std::to_string(i),
-							 std::chrono::steady_clock::time_point(std::chrono::seconds(i)));
+							 std::chrono::system_clock::time_point(std::chrono::seconds(i)));
 
 		db.getLogTable().logMessage(existingServerID, entries[i]);
 	}
@@ -637,8 +637,8 @@ void ServerDatabaseTest::userTable_general() {
 	testUserData.password.salt          = "salt'n'pepper";
 	testUserData.password.kdfIterations = 424242;
 	testUserData.lastChannelID          = channel.channelID;
-	testUserData.lastActive             = std::chrono::steady_clock::now();
-	testUserData.lastDisconnect         = std::chrono::steady_clock::now();
+	testUserData.lastActive             = std::chrono::system_clock::now();
+	testUserData.lastDisconnect         = std::chrono::system_clock::now();
 
 	table.updateData(testUser, testUserData);
 	CHECK_USER_DATA(testUser, testUserData);
@@ -646,10 +646,10 @@ void ServerDatabaseTest::userTable_general() {
 
 	// Test clear* functions
 	table.clearLastDisconnect(testUser);
-	QCOMPARE(table.getLastDisconnect(testUser), std::chrono::time_point< std::chrono::steady_clock >());
+	QCOMPARE(table.getLastDisconnect(testUser), std::chrono::time_point< std::chrono::system_clock >());
 
 	table.clearLastActive(testUser);
-	QCOMPARE(table.getLastActive(testUser), std::chrono::time_point< std::chrono::steady_clock >());
+	QCOMPARE(table.getLastActive(testUser), std::chrono::time_point< std::chrono::system_clock >());
 
 	// "Clearing" the last channel really means resetting it to the root channel ID
 	table.clearLastChannelID(testUser);
@@ -663,7 +663,7 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test set* functions
-	std::chrono::time_point< std::chrono::steady_clock > now = std::chrono::steady_clock::now();
+	std::chrono::time_point< std::chrono::system_clock > now = std::chrono::system_clock::now();
 	table.setLastDisconnect(testUser, now);
 	QCOMPARE(toSeconds(table.getLastDisconnect(testUser)), toSeconds(now));
 
@@ -734,8 +734,8 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test that changing a user's last channel automatically updates the last_active stats as well
-	std::chrono::time_point< std::chrono::steady_clock > lastActive(std::chrono::seconds(12));
-	QVERIFY(toSeconds(lastActive) < toSeconds(std::chrono::steady_clock::now()));
+	std::chrono::time_point< std::chrono::system_clock > lastActive(std::chrono::seconds(12));
+	QVERIFY(toSeconds(lastActive) < toSeconds(std::chrono::system_clock::now()));
 	table.setLastActive(testUser, lastActive);
 	QCOMPARE(toSeconds(table.getLastActive(testUser)), toSeconds(lastActive));
 	table.setLastChannelID(testUser, Mumble::ROOT_CHANNEL_ID);
@@ -1385,7 +1385,7 @@ void ServerDatabaseTest::banTable_general() {
 	ban2.bannedUserName     = "Hugo";
 	ban2.bannedUserCertHash = "xyz";
 	ban2.reason             = "Hugo didn't behave properly";
-	ban2.startDate          = std::chrono::steady_clock::now();
+	ban2.startDate          = std::chrono::system_clock::now();
 	ban2.duration           = std::chrono::seconds(42);
 
 	// Since we re-used the server ID, base address and prefix length, adding this should error
