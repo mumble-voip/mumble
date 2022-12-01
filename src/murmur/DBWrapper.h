@@ -41,6 +41,7 @@ public:
 	unsigned int addServer();
 	void removeServer(unsigned int serverID);
 	bool serverExists(unsigned int serverID);
+	void setServerBootProperty(unsigned int serverID, bool boot);
 
 	void setSuperUserPassword(unsigned int serverID, const std::string &password);
 	void disableSuperUser(unsigned int serverID);
