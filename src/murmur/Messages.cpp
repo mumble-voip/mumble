@@ -298,9 +298,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	Channel *lc = nullptr;
-	int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, *uSource);
-	if (lastChannelID >= 0) {
-		lc = qhChannels.value(static_cast< unsigned int >(lastChannelID));
+	if (uSource->iId >= 0) {
+		int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, *uSource);
+		if (lastChannelID >= 0) {
+			lc = qhChannels.value(static_cast< unsigned int >(lastChannelID));
+		}
 	}
 
 	if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
@@ -428,7 +430,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 	}
 
-	m_dbWrapper.loadChannelListenersOf(iServerNum, *uSource, m_channelListenerManager);
+	if (uSource->iId >= 0) {
+		m_dbWrapper.loadChannelListenersOf(iServerNum, *uSource, m_channelListenerManager);
+	}
 
 	// Transmit user profile
 	MumbleProto::UserState mpus;
