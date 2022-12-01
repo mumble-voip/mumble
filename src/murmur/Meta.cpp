@@ -808,6 +808,7 @@ void Meta::bootAll(const ::mumble::db::ConnectionParameter &connectionParam, boo
 	if (bootServerIDs.empty() && createDefaultInstance) {
 		// Create a default server instance
 		bootServerIDs.push_back(dbWrapper.addServer());
+		dbWrapper.setServerBootProperty(bootServerIDs[0], true);
 		qWarning("Created new server default instance");
 	}
 
