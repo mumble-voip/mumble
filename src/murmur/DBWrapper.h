@@ -42,6 +42,8 @@ public:
 	void removeServer(unsigned int serverID);
 	bool serverExists(unsigned int serverID);
 	void setServerBootProperty(unsigned int serverID, bool boot);
+	boost::optional< unsigned int > loadPBKDF2IterationCount();
+	void storePBKDF2IterationCount(unsigned int count);
 
 	void setSuperUserPassword(unsigned int serverID, const std::string &password);
 	void disableSuperUser(unsigned int serverID);
