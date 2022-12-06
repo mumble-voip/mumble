@@ -11,9 +11,11 @@
 #include "InitException.h"
 #include "PrimaryKey.h"
 
+#include <boost/optional.hpp>
+
 #include <soci/soci.h>
 
-#include <nlohmann/json.hpp>
+#include <string>
 
 namespace mumble {
 namespace db {
@@ -32,28 +34,37 @@ namespace db {
 	}
 
 	unsigned int MetaTable::getSchemeVersion() {
-		try {
-			unsigned int version = 0;
-			m_sql << "SELECT meta_value FROM " << m_name << " WHERE meta_key='scheme_version'", soci::into(version);
+		boost::optional< std::string > strVersion = queryKey("scheme_version");
 
-			return version;
+		return strVersion ? std::stoi(strVersion.get()) : 0;
+	}
+
+	void MetaTable::setSchemeVersion(unsigned int version) { setKey("scheme_version", std::to_string(version)); }
+
+	void MetaTable::setKey(const std::string &key, const std::string &value) {
+		try {
+			int containsKey = false;
+			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE meta_key = :key", soci::use(key),
+				soci::into(containsKey);
+
+			if (containsKey) {
+				m_sql << "UPDATE \"" << m_name << "\" SET meta_value = :value WHERE meta_key = :key", soci::use(value),
+					soci::use(key);
+			} else {
+				m_sql << "INSERT INTO \"" << m_name << "\" (meta_key, meta_value) VALUES (:key, :value)",
+					soci::use(key), soci::use(value);
+			}
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
 	}
 
-	void MetaTable::setSchemeVersion(unsigned int version) {
+	boost::optional< std::string > MetaTable::queryKey(const std::string &key) {
 		try {
-			int containsScheme = false;
-			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE meta_key = 'scheme_version'", soci::into(containsScheme);
+			std::string value;
+			m_sql << "SELECT meta_value FROM " << m_name << " WHERE meta_key = :key", soci::use(key), soci::into(value);
 
-			if (containsScheme) {
-				m_sql << "UPDATE \"" << m_name << "\" SET meta_value = :version WHERE meta_key = 'scheme_version'",
-					soci::use(version);
-			} else {
-				m_sql << "INSERT INTO \"" << m_name << "\" (meta_key, meta_value) VALUES ('scheme_version', :version)",
-					soci::use(version);
-			}
+			return m_sql.got_data() ? boost::optional< std::string >(value) : boost::none;
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
