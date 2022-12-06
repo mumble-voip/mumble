@@ -22,7 +22,7 @@ namespace server {
 				int kdfIterations        = 0;
 
 				PasswordData() = default;
-				PasswordData(std::string hash, std::string salt = {}, int kdfIterations = 0)
+				explicit PasswordData(std::string hash, std::string salt = {}, int kdfIterations = 0)
 					: passwordHash(std::move(hash)), salt(std::move(salt)), kdfIterations(kdfIterations) {}
 
 				friend bool operator==(const PasswordData &lhs, const PasswordData &rhs);
