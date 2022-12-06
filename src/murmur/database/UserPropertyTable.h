@@ -83,6 +83,9 @@ namespace server {
 
 			void clearAllProperties(const DBUser &user);
 
+			std::vector< unsigned int > findUsersWithProperty(unsigned int serverID, UserProperty property,
+															  const std::string &value);
+
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 
 		protected:

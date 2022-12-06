@@ -776,8 +776,15 @@ void ServerDatabaseTest::userPropertyTable_general() {
 
 	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::Email));
 
+	QVERIFY(table.findUsersWithProperty(existingServerID, ::msdb::UserProperty::Email, "pete@random.com").empty());
+
 	table.setProperty(user, ::msdb::UserProperty::Email, "pete@random.com");
 	table.setProperty(user, ::msdb::UserProperty::kdfIterations, std::to_string(5));
+
+	QVERIFY(table.findUsersWithProperty(existingServerID, ::msdb::UserProperty::Email, "pete@random.com").size() == 1);
+	QVERIFY(table.findUsersWithProperty(nonExistingServerID, ::msdb::UserProperty::Email, "pete@random.com").empty());
+	QCOMPARE(table.findUsersWithProperty(existingServerID, ::msdb::UserProperty::Email, "pete@random.com")[0],
+			 user.registeredUserID);
 
 	QCOMPARE(table.getProperty< std::string >(user, ::msdb::UserProperty::Email), std::string("pete@random.com"));
 	QCOMPARE(table.getProperty< int >(user, ::msdb::UserProperty::kdfIterations), 5);

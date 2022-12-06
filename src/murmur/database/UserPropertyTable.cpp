@@ -17,10 +17,12 @@
 #include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
+#include <boost/optional/optional.hpp>
 #include <soci/soci.h>
 
 #include <cassert>
 #include <exception>
+#include <vector>
 
 namespace mdb = ::mumble::db;
 
@@ -161,6 +163,42 @@ namespace server {
 				std::throw_with_nested(::mdb::AccessException("Failed at clearing all properties for user with ID "
 															  + std::to_string(user.registeredUserID) + " on server "
 															  + std::to_string(user.serverID)));
+			}
+		}
+
+		std::vector< unsigned int > UserPropertyTable::findUsersWithProperty(unsigned int serverID,
+																			 UserProperty property,
+																			 const std::string &value) {
+			try {
+				std::vector< unsigned int > matchingIDs;
+
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				soci::row row;
+
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT " << column::user_id << " FROM \"" << NAME << "\" WHERE "
+								   << column::server_id << " = :serverID AND " << column::key << " = :key AND "
+								   << column::value << " = :value",
+					 soci::use(serverID), soci::use(static_cast< int >(property)), soci::use(value), soci::into(row));
+
+				stmt.execute(false);
+
+				while (stmt.fetch()) {
+					assert(row.size() == 1);
+					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+
+					matchingIDs.push_back(row.get< int >(0));
+				}
+
+				transaction.commit();
+
+				return matchingIDs;
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at searching for users with property "
+															  + std::to_string(static_cast< unsigned int >(property))
+															  + " set to \"" + value + "\" on server "
+															  + std::to_string(serverID)));
 			}
 		}
 
