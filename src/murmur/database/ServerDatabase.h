@@ -10,6 +10,9 @@
 #include "database/Database.h"
 
 namespace mumble {
+namespace db {
+	class MetaTable;
+}
 namespace server {
 	namespace db {
 
@@ -41,6 +44,7 @@ namespace server {
 
 			unsigned int getSchemeVersion() const override;
 
+			::mumble::db::MetaTable &getMetaTable();
 			ServerTable &getServerTable();
 			LogTable &getLogTable();
 			ConfigTable &getConfigTable();

@@ -19,6 +19,8 @@
 #include "UserPropertyTable.h"
 #include "UserTable.h"
 
+#include "database/MetaTable.h"
+
 #include <cassert>
 
 namespace mdb = ::mumble::db;
@@ -96,6 +98,13 @@ namespace server {
 
 			// Mark id as unused in case the asserts are disabled (e.g. in release builds)
 			(void) id;
+		}
+
+		::mdb::MetaTable &ServerDatabase::getMetaTable() {
+			assert(m_tables.size() > TableIndex::MetaTable);
+			::mdb::Table *table = m_tables[TableIndex::MetaTable].get();
+			assert(table);
+			return *static_cast<::mdb::MetaTable * >(table);
 		}
 
 #define GET_TABLE_IMPL(tableName)                                    \
