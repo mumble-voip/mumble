@@ -269,7 +269,7 @@ int main(int argc, char **argv) {
 	bool disableSu     = false;
 	bool wipeSsl       = false;
 	bool wipeLogs      = false;
-	unsigned int sunum = 1;
+	unsigned int sunum = 0;
 #ifdef Q_OS_UNIX
 	bool readPw = false;
 #endif
