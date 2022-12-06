@@ -550,6 +550,7 @@ int main(int argc, char **argv) {
 	MumbleSSL::addSystemCA();
 
 	meta = new Meta(Meta::getConnectionParameter());
+	meta->initPBKDF2IterationCount();
 
 #ifdef Q_OS_UNIX
 	// It doesn't matter that this code comes after the forking because detach is

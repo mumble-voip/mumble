@@ -207,6 +207,8 @@ public:
 	/// Meta server's certificate and private key.
 	bool reloadSSLSettings();
 
+	void initPBKDF2IterationCount();
+
 	void bootAll(const ::mumble::db::ConnectionParameter &connectionParam, bool createDefaultInstance);
 	bool boot(const ::mumble::db::ConnectionParameter &connectionParam, unsigned int);
 	bool banCheck(const QHostAddress &);

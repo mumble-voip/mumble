@@ -17,6 +17,7 @@
 
 #include "database/Exception.h"
 #include "database/FormatException.h"
+#include "database/MetaTable.h"
 #include "database/NoDataException.h"
 #include "database/TransactionHolder.h"
 
@@ -171,6 +172,33 @@ void DBWrapper::setServerBootProperty(unsigned int serverID, bool boot) {
 	WRAPPER_BEGIN
 
 	m_serverDB.getConfigTable().setConfig(serverID, "boot", std::to_string(boot));
+
+	WRAPPER_END
+}
+
+boost::optional< unsigned int > DBWrapper::loadPBKDF2IterationCount() {
+	WRAPPER_BEGIN
+
+	boost::optional< std::string > strIterations = m_serverDB.getMetaTable().queryKey("pbkdf2_iterations");
+
+	if (!strIterations) {
+		return boost::none;
+	}
+
+	try {
+		return std::stoi(strIterations.get());
+	} catch (const std::invalid_argument &) {
+		// Conversion to number failed
+		return boost::none;
+	}
+
+	WRAPPER_END
+}
+
+void DBWrapper::storePBKDF2IterationCount(unsigned int count) {
+	WRAPPER_BEGIN
+
+	m_serverDB.getMetaTable().setKey("pbkdf2_iterations", std::to_string(count));
 
 	WRAPPER_END
 }

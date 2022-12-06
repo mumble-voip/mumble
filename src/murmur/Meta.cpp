@@ -10,6 +10,7 @@
 #include "FFDHE.h"
 #include "Net.h"
 #include "OSInfo.h"
+#include "PBKDF2.h"
 #include "SSL.h"
 #include "Server.h"
 #include "Version.h"
@@ -19,6 +20,9 @@
 #include "database/SQLiteConnectionParameter.h"
 
 #include <boost/algorithm/string.hpp>
+#include <boost/optional.hpp>
+
+#include <cassert>
 
 #include <QDir>
 #include <QFile>
@@ -795,6 +799,33 @@ bool Meta::reloadSSLSettings() {
 	}
 
 	return true;
+}
+
+void Meta::initPBKDF2IterationCount() {
+	if (Meta::mp.kdfIterations <= 0) {
+		// No explicit iteration count given -> load from DB
+		boost::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
+
+		if (storedIterationCount) {
+			Meta::mp.kdfIterations = storedIterationCount.get();
+		} else {
+			// No stored value -> initialize from scratch
+			Meta::mp.kdfIterations = PBKDF2::benchmark();
+
+			qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations
+					   << "iterations as default";
+
+			dbWrapper.storePBKDF2IterationCount(Meta::mp.kdfIterations);
+		}
+	}
+
+	assert(Meta::mp.kdfIterations > 0);
+
+	if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
+		qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp.kdfIterations
+				   << "is below minimum recommended value of" << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT
+				   << "and could be insecure.";
+	}
 }
 
 void Meta::getOSInfo() {
