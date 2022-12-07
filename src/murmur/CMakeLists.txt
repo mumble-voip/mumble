@@ -22,6 +22,7 @@ add_library(mumble_server_object_lib OBJECT
 	"AudioReceiverBuffer.cpp"
 	"AudioReceiverBuffer.h"
 	"Cert.cpp"
+	"LegacyPasswordHash.cpp"
 	"Messages.cpp"
 	"Meta.cpp"
 	"Meta.h"

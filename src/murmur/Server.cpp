@@ -2983,13 +2983,6 @@ int Server::registerUser(const ServerUserInfo &userInfo) {
 	return id;
 }
 
-QString getLegacySHA1Hash(const QString &password) {
-	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
-
-	return QString::fromLatin1(hash.toHex());
-}
-
-
 bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 	if (userID < 0) {
 		return false;
@@ -3027,7 +3020,7 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 		const QString password = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Password));
 
 		if (Meta::mp.legacyPasswordHash) {
-			userData.password.passwordHash = getLegacySHA1Hash(password).toStdString();
+			userData.password.passwordHash = getLegacyPasswordHash(password).toStdString();
 		} else {
 			userData.password.kdfIterations = Meta::mp.kdfIterations;
 
