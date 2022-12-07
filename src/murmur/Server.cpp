@@ -3019,28 +3019,12 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 	if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::Password))) {
 		const QString password = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Password));
 
-		if (Meta::mp.legacyPasswordHash) {
-			userData.password.passwordHash = getLegacyPasswordHash(password).toStdString();
-		} else {
-			userData.password.kdfIterations = Meta::mp.kdfIterations;
-
-			if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations))) {
-				const int targetIterations =
-					properties.value(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations)).toInt();
-
-				if (targetIterations > 0) {
-					userData.password.kdfIterations = targetIterations;
-				}
-			}
-
-			userData.password.salt = PBKDF2::getSalt().toStdString();
-			userData.password.passwordHash =
-				PBKDF2::getHash(PBKDF2::getSalt(), password, userData.password.kdfIterations).toStdString();
-		}
-
-		updateUserData = true;
+		m_dbWrapper.storeRegisteredUserPassword(
+			iServerNum, userID, password,
+			properties.value(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations)).toInt());
 
 		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::Password));
+		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations));
 	}
 
 	if (properties.contains(static_cast< int >(::mumble::server::db::UserProperty::Name))) {

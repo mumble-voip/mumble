@@ -204,13 +204,7 @@ void DBWrapper::storePBKDF2IterationCount(unsigned int count) {
 }
 
 void DBWrapper::setSuperUserPassword(unsigned int serverID, const std::string &password) {
-	WRAPPER_BEGIN
-
-	const ::msdb::DBUser superUser(serverID, Mumble::SUPERUSER_ID);
-
-	m_serverDB.getUserTable().setPassword(superUser, password);
-
-	WRAPPER_END
+	storeRegisteredUserPassword(serverID, Mumble::SUPERUSER_ID, password);
 }
 
 void DBWrapper::disableSuperUser(unsigned int serverID) {
@@ -978,6 +972,37 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 
 		userInfo.push_back(std::move(info));
 	}
+
+	WRAPPER_END
+}
+
+void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
+											unsigned int kdfIterations) {
+	storeRegisteredUserPassword(serverID, userID, password.toStdString(), kdfIterations);
+}
+
+void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,
+											unsigned int kdfIterations) {
+	WRAPPER_BEGIN
+
+	const ::msdb::DBUser user(serverID, userID);
+
+	::msdb::DBUserData::PasswordData pwData;
+
+	if (password.empty()) {
+	} else {
+		if (Meta::mp.legacyPasswordHash) {
+			pwData.passwordHash = getLegacyPasswordHash(password).toStdString();
+		} else {
+			pwData.kdfIterations = kdfIterations > 0 ? kdfIterations : Meta::mp.kdfIterations;
+			pwData.salt          = PBKDF2::getSalt().toStdString();
+			pwData.passwordHash = PBKDF2::getHash(QString::fromStdString(pwData.salt), QString::fromStdString(password),
+												  pwData.kdfIterations)
+									  .toStdString();
+		}
+	}
+
+	m_serverDB.getUserTable().setPassword(user, pwData);
 
 	WRAPPER_END
 }
