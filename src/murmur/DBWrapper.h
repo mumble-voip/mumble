@@ -111,6 +111,10 @@ public:
 	QMap< int, QString > getRegisteredUserDetails(unsigned int serverID, unsigned int userID);
 	void addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, unsigned int serverID,
 									const std::string &nameFilter);
+	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
+									 unsigned int kdfIterations = 0);
+	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,
+									 unsigned int kdfIterations = 0);
 
 	void setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo);
 	int getLastChannelID(unsigned int serverID, const ServerUserInfo &userInfo);
