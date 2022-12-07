@@ -24,8 +24,8 @@ namespace db {
 		unsigned int getSchemeVersion();
 		void setSchemeVersion(unsigned int version);
 
-		void setKey(const std::string &key, const std::string &value);	
-		boost::optional<std::string> queryKey(const std::string &key);
+		void setKey(const std::string &key, const std::string &value);
+		boost::optional< std::string > queryKey(const std::string &key);
 	};
 
 } // namespace db
