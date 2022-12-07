@@ -20,7 +20,6 @@
 
 #include <cassert>
 #include <csignal>
-#include <iostream>
 
 #ifdef Q_OS_WIN
 #	include "About.h"
