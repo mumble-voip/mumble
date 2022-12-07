@@ -108,9 +108,12 @@ public:
 	void unregisterUser(unsigned int serverID, unsigned int userID);
 	int registeredUserNameToID(unsigned int serverID, const std::string &name);
 	bool registeredUserExists(unsigned int serverID, unsigned int userID);
+	::mumble::server::db::DBUserData getRegisteredUserData(unsigned int serverID, unsigned int userID);
 	QMap< int, QString > getRegisteredUserDetails(unsigned int serverID, unsigned int userID);
 	void addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, unsigned int serverID,
 									const std::string &nameFilter);
+	boost::optional< unsigned int > findRegisteredUserByCert(unsigned int serverID, const std::string &certHash);
+	boost::optional< unsigned int > findRegisteredUserByEmail(unsigned int serverID, const std::string &email);
 	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
 									 unsigned int kdfIterations = 0);
 	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,
@@ -123,10 +126,10 @@ public:
 	QByteArray getUserTexture(unsigned int serverID, const ServerUserInfo &userInfo);
 	void storeUserTexture(unsigned int serverID, const ServerUserInfo &userInfo);
 
-	std::string getUserProperty(unsigned int serverID, const ServerUserInfo &userInfo,
+	std::string getUserProperty(unsigned int serverID, unsigned int userID,
 								::mumble::server::db::UserProperty property);
-	void storeUserProperty(unsigned int serverID, const ServerUserInfo &userInfo,
-						   ::mumble::server::db::UserProperty prop, const std::string &value);
+	void storeUserProperty(unsigned int serverID, unsigned int userID, ::mumble::server::db::UserProperty prop,
+						   const std::string &value);
 	void setUserProperties(unsigned int serverID, unsigned int userID,
 						   const std::vector< std::pair< unsigned int, std::string > > &properties);
 	std::vector< std::pair< unsigned int, std::string > > getUserProperties(unsigned int serverID, unsigned int userID);
