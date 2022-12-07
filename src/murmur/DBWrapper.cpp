@@ -8,8 +8,10 @@
 #include "Channel.h"
 #include "ChannelListenerManager.h"
 #include "Group.h"
+#include "LegacyPasswordHash.h"
 #include "Meta.h"
 #include "MumbleConstants.h"
+#include "PBKDF2.h"
 #include "PasswordGenerator.h"
 #include "Server.h"
 #include "ServerUser.h"
@@ -46,13 +48,16 @@
 #include "murmur/database/UserPropertyTable.h"
 #include "murmur/database/UserTable.h"
 
+#include <boost/optional.hpp>
+
 #include <iostream>
 #include <limits>
 #include <stdexcept>
+#include <utility>
+#include <vector>
 
 #include <QDateTime>
 #include <QString>
-#include <utility>
 
 namespace mdb  = ::mumble::db;
 namespace msdb = ::mumble::server::db;
@@ -935,6 +940,16 @@ bool DBWrapper::registeredUserExists(unsigned int serverID, unsigned int userID)
 	WRAPPER_END
 }
 
+::msdb::DBUserData DBWrapper::getRegisteredUserData(unsigned int serverID, unsigned int userID) {
+	WRAPPER_BEGIN
+
+	::msdb::DBUser user(serverID, userID);
+
+	return m_serverDB.getUserTable().getData(user);
+
+	WRAPPER_END
+}
+
 QMap< int, QString > DBWrapper::getRegisteredUserDetails(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
@@ -972,6 +987,34 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 
 		userInfo.push_back(std::move(info));
 	}
+
+	WRAPPER_END
+}
+
+boost::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int serverID,
+																	const std::string &certHash) {
+	WRAPPER_BEGIN
+
+	std::vector< unsigned int > candidates = m_serverDB.getUserPropertyTable().findUsersWithProperty(
+		serverID, ::msdb::UserProperty::CertificateHash, certHash);
+
+	// We don't expect that multiple users with the same certificate hash can exist on the same server
+	assert(candidates.size() < 2);
+
+	// Only return the client ID, if the chosen client is unique
+	return candidates.size() == 1 ? boost::optional< unsigned int >(candidates[0]) : boost::none;
+
+	WRAPPER_END
+}
+
+boost::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned int serverID, const std::string &email) {
+	WRAPPER_BEGIN
+
+	std::vector< unsigned int > candidates =
+		m_serverDB.getUserPropertyTable().findUsersWithProperty(serverID, ::msdb::UserProperty::Email, email);
+
+	// Only return the client ID, if the chosen client is unique
+	return candidates.size() == 1 ? boost::optional< unsigned int >(candidates[0]) : boost::none;
 
 	WRAPPER_END
 }
@@ -1075,26 +1118,21 @@ void DBWrapper::storeUserTexture(unsigned int serverID, const ServerUserInfo &us
 	WRAPPER_END
 }
 
-std::string DBWrapper::getUserProperty(unsigned int serverID, const ServerUserInfo &userInfo,
-									   ::msdb::UserProperty property) {
+std::string DBWrapper::getUserProperty(unsigned int serverID, unsigned int userID, ::msdb::UserProperty property) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	::msdb::DBUser user(serverID, userInfo.iId);
+	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserPropertyTable().getProperty< std::string, false >(user, property, {});
 
 	WRAPPER_END
 }
 
-void DBWrapper::storeUserProperty(unsigned int serverID, const ServerUserInfo &userInfo, ::msdb::UserProperty property,
+void DBWrapper::storeUserProperty(unsigned int serverID, unsigned int userID, ::msdb::UserProperty property,
 								  const std::string &value) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	::msdb::DBUser user(serverID, userInfo.iId);
+	::msdb::DBUser user(serverID, userID);
 
 	if (value.empty()) {
 		m_serverDB.getUserPropertyTable().clearProperty(user, property);

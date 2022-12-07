@@ -13,7 +13,9 @@
 #include "Group.h"
 #include "HTMLFilter.h"
 #include "HostAddress.h"
+#include "LegacyPasswordHash.h"
 #include "Meta.h"
+#include "MumbleConstants.h"
 #include "MumbleProtocol.h"
 #include "PBKDF2.h"
 #include "ProtoUtils.h"
@@ -39,6 +41,7 @@
 #include <QtNetwork/QSslConfiguration>
 
 #include <boost/bind/bind.hpp>
+#include <boost/optional.hpp>
 
 #include "TracyConstants.h"
 #include <tracy/Tracy.hpp>
@@ -2499,222 +2502,172 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 /// @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
 ///         -3 for authentication failures where the data could (temporarily) not be verified.
 int Server::authenticate(QString &name, const QString &password, int sessionId, const QStringList &emails,
-						 const QString &certhash, bool bStrongCert, const QList< QSslCertificate > &certs) {
-	int res = bForceExternalAuth ? -3 : -2;
+						 const QString &certhash, bool certificatePassedVerification,
+						 const QList< QSslCertificate > &certs) {
+	int userID = bForceExternalAuth ? -3 : -2;
 
-	(void) name;
-	(void) password;
-	(void) sessionId;
-	(void) emails;
-	(void) certhash;
-	(void) bStrongCert;
-	(void) certs;
+	emit authenticateSig(userID, name, sessionId, certs, certhash, certificatePassedVerification, password);
 
-	return res;
+	if (userID < -2) {
+		// External authentication is required, but could not be performed
+		return -3;
+	}
 
-	// TODO: Implement properly
+	if (userID != -2) {
+		// External authenticator handled authentication
+		if (userID < 0) {
+			// Authentication did not pass
+			return -1;
+		}
+	} else {
+		// No authentication performed externally -> use internal method
+		userID = m_dbWrapper.registeredUserNameToID(iServerNum, name.toStdString());
 
-	// emit authenticateSig(res, name, sessionId, certs, certhash, bStrongCert, password);
+		bool usedReservedName = userID >= 0;
 
-	// if (res != -2) {
-	// 	// External authentication handled it. Ignore certificate completely.
-	// 	if (res != -1) {
-	// 		TransactionHolder th;
-	// 		QSqlQuery &query = *th.qsqQuery;
+		if (userID >= 0) {
+			// There exists a registered user with the given name
+			::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, userID);
 
-	// 		int lchan = readLastChannel(res);
-	// 		if (lchan < 0)
-	// 			lchan = 0;
+			if (!userData.password.passwordHash.empty()) {
+				// User has password-based authentication enabled
+				if (userData.password.kdfIterations <= 0) {
+					// If kdfIterations is <=0 this means this is an old-style SHA1 hash
+					// that hasn't been converted yet. Or we are operating in legacy mode.
+					if (getLegacyPasswordHash(password).toStdString() == userData.password.passwordHash) {
+						// Password matched
 
-	// 		if (Meta::mp.qsDBDriver == "QPSQL") {
-	// 			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES "
-	// 					"(:server_id,:user_id,:name,:lastchannel) ON CONFLICT (`server_id`, `user_id`) DO UPDATE SET "
-	// 					"`name` = :u_name, `lastchannel` = :u_lastchannel WHERE `%1users`.`server_id` = :u_server_id "
-	// 					"AND `%1users`.`user_id` = :u_user_id");
-	// 			query.bindValue(":server_id", iServerNum);
-	// 			query.bindValue(":user_id", res);
-	// 			query.bindValue(":name", name);
-	// 			query.bindValue(":lastchannel", lchan);
-	// 			query.bindValue(":u_server_id", iServerNum);
-	// 			query.bindValue(":u_user_id", res);
-	// 			query.bindValue(":u_name", name);
-	// 			query.bindValue(":u_lastchannel", lchan);
-	// 			SQLEXEC();
-	// 		} else {
-	// 			SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
-	// 			query.addBindValue(iServerNum);
-	// 			query.addBindValue(res);
-	// 			query.addBindValue(name);
-	// 			query.addBindValue(lchan);
-	// 			SQLEXEC();
-	// 		}
-	// 	}
-	// 	if (res >= 0) {
-	// 		qhUserNameCache.remove(res);
-	// 		qhUserIDCache.remove(name);
-	// 	}
-	// 	return res;
-	// }
+						if (!Meta::mp.legacyPasswordHash) {
+							// Upgrade this user account to the newer hashing system
+							QMap< int, QString > properties;
+							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
+											  password);
+							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations),
+											  QString::number(Meta::mp.kdfIterations));
 
-	// TransactionHolder th;
-	// QSqlQuery &query = *th.qsqQuery;
+							if (!setUserProperties(userID, properties)) {
+								qWarning("Failed to upgrade user account to PBKDF2 hash -> rejecting login");
+								return -1;
+							}
+						}
+					} else {
+						// Wrong password
+						return -1;
+					}
+				} else {
+					// User uses modern PBKDF2 verification
+					if (PBKDF2::getHash(QString::fromStdString(userData.password.salt), password,
+										userData.password.kdfIterations)
+							.toStdString()
+						== userData.password.passwordHash) {
+						// Password matched
 
-	// SQLPREP("SELECT `user_id`,`name`,`pw`, `salt`, `kdfiterations` FROM `%1users` WHERE `server_id` = ? AND "
-	// 		"LOWER(`name`) = LOWER(?)");
-	// query.addBindValue(iServerNum);
-	// query.addBindValue(name);
-	// SQLEXEC();
-	// if (query.next()) {
-	// 	const int userId                 = query.value(0).toInt();
-	// 	const QString storedPasswordHash = query.value(2).toString();
-	// 	const QString storedSalt         = query.value(3).toString();
-	// 	const int storedKdfIterations    = query.value(4).toInt();
-	// 	res                              = -1;
+						if (Meta::mp.legacyPasswordHash) {
+							// Downgrade to old SHA1 password hash
+							QMap< int, QString > properties;
+							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
+											  password);
 
-	// 	if (!storedPasswordHash.isEmpty()) {
-	// 		// A user has password authentication enabled if there is a password hash.
+							if (!setUserProperties(userID, properties)) {
+								qWarning("Failed to downgrade user account to legacy hash -> rejecting login");
+								return -1;
+							}
+						} else if (userData.password.kdfIterations != Meta::mp.kdfIterations) {
+							// User's kdfIterations doesn't match the global setting -> update it
+							QMap< int, QString > properties;
+							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
+											  password);
+							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations),
+											  QString::number(Meta::mp.kdfIterations));
 
-	// 		if (storedKdfIterations <= 0) {
-	// 			// If storedKdfIterations is <=0 this means this is an old-style SHA1 hash
-	// 			// that hasn't been converted yet. Or we are operating in legacy mode.
-	// 			if (ServerDB::getLegacySHA1Hash(password) == storedPasswordHash) {
-	// 				name = query.value(1).toString();
-	// 				res  = query.value(0).toInt();
+							if (!setUserProperties(userID, properties)) {
+								qWarning("Failed to update user PBKDF2 to new iteration count -> rejecting login");
+								return -1;
+							}
+						}
+					} else {
+						// Wrong password
+						return -1;
+					}
+				}
+			} else if (!password.isEmpty()) {
+				// A password was provided for a user account that doesn't have password authentication enabled -> fail
+				// Note: The provided password could be intended to be used as a server-password but given that the
+				// chosen name matches a registered user, we can't allow this user to authenticate via server password.
+				return -1;
+			} else if (userID == Mumble::SUPERUSER_ID) {
+				// We force SuperUser to use password authentication
+				return -1;
+			}
+		}
 
-	// 				if (!Meta::mp.legacyPasswordHash) {
-	// 					// Unless disabled upgrade the user password hash
-	// 					QMap< int, QString > info;
-	// 					info.insert(ServerDB::User_Password, password);
-	// 					info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+		if (userID < 0 && certhash.isEmpty()) {
+			// The only alternative to password-based authentication is the one based on certificates.
+			// If none was provided and password authentication did not apply, then we report that
+			// we don't know this user.
+			return -2;
+		}
 
-	// 					if (!setInfo(userId, info)) {
-	// 						qWarning("ServerDB: Failed to upgrade user account to PBKDF2 hash, rejecting login.");
-	// 						return -1;
-	// 					}
-	// 				}
-	// 			}
-	// 		} else {
-	// 			if (PBKDF2::getHash(storedSalt, password, storedKdfIterations) == storedPasswordHash) {
-	// 				name = query.value(1).toString();
-	// 				res  = query.value(0).toInt();
+		if (userID < 0) {
+			// Use certificate-based authentication
+			boost::optional< unsigned int > potentialID =
+				m_dbWrapper.findRegisteredUserByCert(iServerNum, certhash.toStdString());
+			if (potentialID) {
+				// A user with the given certHash has been found
+				userID = potentialID.get();
+			} else if (certificatePassedVerification) {
+				// The certificate match did not yield a match in our DB. However, the user provided us with a strong
+				// certificate (that means that the certificate has passed all verification - that means that this has
+				// to be a proper certificate issued by a trusted certificate authority). The reason why this matters is
+				// that such certificates come with an expiration date and therefore have to be renewed every now and
+				// then. Such renewal will of course change the certificate's hash. However, such certificates may
+				// contain an email address. If this was the case for this user, we use the email instead of the
+				// certificate itself for authentication. Mind you, this is only valid because the certificate (and thus
+				// the email within) has been verified by a certificate authority.
+				for (const QString &currentMail : emails) {
+					if (currentMail.isEmpty()) {
+						continue;
+					}
 
-	// 				if (Meta::mp.legacyPasswordHash) {
-	// 					// Downgrade the password to the legacy hash
-	// 					QMap< int, QString > info;
-	// 					info.insert(ServerDB::User_Password, password);
+					potentialID = m_dbWrapper.findRegisteredUserByEmail(iServerNum, currentMail.toStdString());
+					if (potentialID) {
+						userID = potentialID.get();
+						break;
+					}
+				}
+			}
+		}
+		if (userID < 0) {
+			// Authentication has failed
+			return usedReservedName ? -1 : -2;
+		}
 
-	// 					if (!setInfo(userId, info)) {
-	// 						qWarning("ServerDB: Failed to downgrade user account to legacy hash, rejecting login.");
-	// 						return -1;
-	// 					}
-	// 				} else if (storedKdfIterations != Meta::mp.kdfIterations) {
-	// 					// User kdfiterations not equal to the global one. Update it.
-	// 					QMap< int, QString > info;
-	// 					info.insert(ServerDB::User_Password, password);
-	// 					info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+		// Ensure that the user will use the name exactly as we have stored it in our DB. For password
+		::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, userID);
 
-	// 					if (!setInfo(userId, info)) {
-	// 						qWarning() << "ServerDB: Failed to update user PBKDF2 to new iteration count"
-	// 								   << Meta::mp.kdfIterations << ", rejecting login.";
-	// 						return -1;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
+		// Make sure the user name uses the same casing that is stored in the DB
+		name = QString::fromStdString(userData.name);
 
-	// 	if (userId == 0 && res < 0) {
-	// 		// For SuperUser only password based authentication is allowed.
-	// 		// If we couldn't verify the password don't proceed to cert auth
-	// 		// and instead reject the login attempt.
-	// 		return -1;
-	// 	}
-	// }
 
-	// // No password match. Try cert or email match, but only for non-SuperUser.
-	// if (!certhash.isEmpty() && (res < 0)) {
-	// 	SQLPREP("SELECT `user_id` FROM `%1user_info` WHERE `server_id` = ? AND `key` = ? AND `value` = ?");
-	// 	query.addBindValue(iServerNum);
-	// 	query.addBindValue(ServerDB::User_Hash);
-	// 	query.addBindValue(certhash);
-	// 	SQLEXEC();
-	// 	if (query.next()) {
-	// 		res = query.value(0).toInt();
-	// 	} else if (bStrongCert) {
-	// 		foreach (const QString &email, emails) {
-	// 			if (!email.isEmpty()) {
-	// 				query.addBindValue(iServerNum);
-	// 				query.addBindValue(ServerDB::User_Email);
-	// 				query.addBindValue(email);
-	// 				SQLEXEC();
-	// 				if (query.next()) {
-	// 					res = query.value(0).toInt();
-	// 					break;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	if (res > 0) {
-	// 		SQLPREP("SELECT `name` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
-	// 		query.addBindValue(iServerNum);
-	// 		query.addBindValue(res);
-	// 		SQLEXEC();
-	// 		if (!query.next()) {
-	// 			res = -1;
-	// 		} else {
-	// 			name = query.value(0).toString();
-	// 		}
-	// 	}
-	// }
-	// if (!certhash.isEmpty() && (res > 0)) {
-	// 	if (Meta::mp.qsDBDriver == "QPSQL") {
-	// 		SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, "
-	// 				":key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE "
-	// 				"`%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND "
-	// 				"`%1user_info`.`key` = :u_key");
-	// 		query.bindValue(":server_id", iServerNum);
-	// 		query.bindValue(":user_id", res);
-	// 		query.bindValue(":key", ServerDB::User_Hash);
-	// 		query.bindValue(":value", certhash);
-	// 		query.bindValue(":u_server_id", iServerNum);
-	// 		query.bindValue(":u_user_id", res);
-	// 		query.bindValue(":u_key", ServerDB::User_Hash);
-	// 		query.bindValue(":u_value", certhash);
-	// 		SQLEXEC();
-	// 	} else {
-	// 		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
-	// 		query.addBindValue(iServerNum);
-	// 		query.addBindValue(res);
-	// 		query.addBindValue(ServerDB::User_Hash);
-	// 		query.addBindValue(certhash);
-	// 		SQLEXEC();
-	// 	}
+		// If provided, store this user's certificate hash
+		if (!certhash.isEmpty()) {
+			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::CertificateHash,
+										  certhash.toStdString());
+		}
+		// If provided, store this user's email
+		if (!emails.isEmpty()) {
+			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::Email,
+										  emails[0].toStdString());
+		}
+	}
 
-	// 	if (!emails.isEmpty()) {
-	// 		if (Meta::mp.qsDBDriver == "QPSQL") {
-	// 			query.bindValue(":server_id", iServerNum);
-	// 			query.bindValue(":user_id", res);
-	// 			query.bindValue(":key", ServerDB::User_Email);
-	// 			query.bindValue(":value", emails.at(0));
-	// 			query.bindValue(":u_server_id", iServerNum);
-	// 			query.bindValue(":u_user_id", res);
-	// 			query.bindValue(":u_key", ServerDB::User_Email);
-	// 			query.bindValue(":u_value", emails.at(0));
-	// 			SQLEXEC();
-	// 		} else {
-	// 			query.addBindValue(iServerNum);
-	// 			query.addBindValue(res);
-	// 			query.addBindValue(ServerDB::User_Email);
-	// 			query.addBindValue(emails.at(0));
-	// 			SQLEXEC();
-	// 		}
-	// 	}
-	// }
-	// if (res >= 0) {
-	// 	qhUserNameCache.remove(res);
-	// 	qhUserIDCache.remove(name);
-	// }
-	// return res;
+	assert(userID >= 0);
+
+	// Update caches
+	qhUserNameCache.remove(userID);
+	qhUserIDCache.remove(name);
+
+	return userID;
 }
 
 bool Server::setTexture(ServerUser &user, const QByteArray &texture) {
@@ -2796,7 +2749,7 @@ bool Server::setComment(ServerUser &user, const QString &comment) {
 		return (res > 0);
 	}
 
-	m_dbWrapper.storeUserProperty(iServerNum, user, ::mumble::server::db::UserProperty::Comment,
+	m_dbWrapper.storeUserProperty(iServerNum, user.iId, ::mumble::server::db::UserProperty::Comment,
 								  info[static_cast< int >(::mumble::server::db::UserProperty::Comment)].toStdString());
 
 	return true;
@@ -2824,7 +2777,7 @@ void Server::loadComment(ServerUser &user) {
 		comment = std::move(info[static_cast< int >(::mumble::server::db::UserProperty::Comment)]);
 	} else {
 		comment = QString::fromStdString(
-			m_dbWrapper.getUserProperty(iServerNum, user, ::mumble::server::db::UserProperty::Comment));
+			m_dbWrapper.getUserProperty(iServerNum, user.iId, ::mumble::server::db::UserProperty::Comment));
 	}
 
 	hashAssign(user.qsComment, user.qbaCommentHash, comment);
