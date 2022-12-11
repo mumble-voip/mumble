@@ -23,8 +23,8 @@ public:
 	void setUser(unsigned int sessionId);
 
 private slots:
-	void on_VolumeSlider_valueChanged(int value);
-	void on_VolumeSlider_changeCompleted();
+	void on_VolumeSlider_valueChanged(int value) override;
+	void on_VolumeSlider_changeCompleted() override;
 };
 
 #endif
