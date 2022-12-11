@@ -11,16 +11,20 @@
 #include "QtUtils.h"
 
 class QSlider;
+class QLabel;
 
 class VolumeSliderWidgetAction : public QWidgetAction {
 	Q_OBJECT
 
 public:
-	VolumeSliderWidgetAction(QObject *parent = nullptr);
+	VolumeSliderWidgetAction(QWidget *parent = nullptr);
 
 protected:
-	qt_unique_ptr< QSlider > m_volumeSlider;
+	qt_unique_ptr< QWidget > m_widget;
+	QSlider *m_volumeSlider;
+	QLabel *m_label;
 
+	void updateLabelValue(bool checkMouseButtons = true);
 	void updateSliderValue(float value);
 	void displayTooltip(int value);
 	void updateTooltip(int value);

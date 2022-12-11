@@ -43,5 +43,7 @@ void UserLocalVolumeSlider::on_VolumeSlider_changeCompleted() {
 		} else {
 			Global::get().mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 		}
+
+		updateLabelValue();
 	}
 }
