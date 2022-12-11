@@ -7,7 +7,9 @@
 
 #include <algorithm>
 
+#include <QApplication>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QWheelEvent>
 #include <QWidget>
 
@@ -67,6 +69,47 @@ bool MouseWheelEventObserver::eventFilter(QObject *obj, QEvent *event) {
 	return m_consume;
 }
 
+MouseClickEventObserver::MouseClickEventObserver(QObject *parent, bool consume) : QObject(parent), m_consume(consume) {
+}
+
+bool MouseClickEventObserver::eventFilter(QObject *obj, QEvent *event) {
+	if (event->type() == QEvent::MouseButtonRelease) {
+		QMouseEvent *mouseEvent = static_cast< QMouseEvent * >(event);
+
+		emit clickEventObserved(mouseEvent->buttons());
+
+		return m_consume;
+	}
+
+	return QObject::eventFilter(obj, event);
+}
+
+UpDownKeyEventFilter::UpDownKeyEventFilter(QObject *parent) : QObject(parent) {
+}
+
+bool UpDownKeyEventFilter::eventFilter(QObject *obj, QEvent *event) {
+	// Converts up/down to tab/backtab
+	// Useful when overriding interactive QWidgetActions such as sliders
+
+	if (event->type() == QEvent::KeyPress) {
+		QKeyEvent *keyEvent = static_cast< QKeyEvent * >(event);
+
+		if (keyEvent->key() == Qt::Key_Up) {
+			QKeyEvent *keyPress = new QKeyEvent(QEvent::KeyPress, Qt::Key_Backtab, Qt::NoModifier);
+			QApplication::sendEvent(QApplication::focusWidget(), keyPress);
+			return true;
+		}
+
+		if (keyEvent->key() == Qt::Key_Down) {
+			QKeyEvent *keyPress = new QKeyEvent(QEvent::KeyPress, Qt::Key_Tab, Qt::NoModifier);
+			QApplication::sendEvent(QApplication::focusWidget(), keyPress);
+			return true;
+		}
+	}
+
+	return QObject::eventFilter(obj, event);
+}
+
 OverrideTabOrderFilter::OverrideTabOrderFilter(QObject *parent, QWidget *target)
 	: QObject(parent), focusTarget(target) {
 }
@@ -77,6 +120,32 @@ bool OverrideTabOrderFilter::eventFilter(QObject *obj, QEvent *event) {
 
 		if (keyEvent->key() == Qt::Key_Tab && QApplication::focusWidget() == obj) {
 			focusTarget->setFocus(Qt::TabFocusReason);
+			return true;
+		}
+	}
+
+	return QObject::eventFilter(obj, event);
+}
+
+SkipFocusEventFilter::SkipFocusEventFilter(QObject *parent) : QObject(parent) {
+}
+
+bool SkipFocusEventFilter::eventFilter(QObject *obj, QEvent *event) {
+	// Detecting FocusIn events is glitchy, therefore we detect key release events
+	// and forward the focus to the next/previous element.
+
+	if (event->type() == QEvent::KeyRelease && QApplication::focusWidget() == obj) {
+		QKeyEvent *keyEvent = static_cast< QKeyEvent * >(event);
+
+		if (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Backtab) {
+			QKeyEvent *keyPress = new QKeyEvent(QEvent::KeyPress, Qt::Key_Backtab, Qt::NoModifier);
+			QApplication::sendEvent(QApplication::focusWidget(), keyPress);
+			return true;
+		}
+
+		if (keyEvent->key() == Qt::Key_Down || keyEvent->key() == Qt::Key_Tab) {
+			QKeyEvent *keyPress = new QKeyEvent(QEvent::KeyPress, Qt::Key_Tab, Qt::NoModifier);
+			QApplication::sendEvent(QApplication::focusWidget(), keyPress);
 			return true;
 		}
 	}
