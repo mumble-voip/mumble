@@ -139,6 +139,11 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	qwpExport->setCommitPage(true);
 	qwpExport->setComplete(false);
 	qlPasswordNotice->setVisible(false);
+
+	m_overrideFilter = new OverrideTabOrderFilter(this, this);
+	installEventFilter(m_overrideFilter);
+
+	connect(this, &CertWizard::currentIdChanged, this, &CertWizard::showPage);
 }
 
 int CertWizard::nextId() const {
@@ -177,6 +182,22 @@ int CertWizard::nextId() const {
 				return 3;
 	}
 	return -1;
+}
+
+void CertWizard::showPage(int pageid) {
+	if (pageid == -1) {
+		return;
+	}
+
+	setFocus(Qt::ActiveWindowFocusReason);
+
+	QWidget *selectedWidget = Mumble::Accessibility::getFirstFocusableChild(currentPage());
+
+	if (selectedWidget) {
+		m_overrideFilter->focusTarget = selectedWidget;
+	} else {
+		m_overrideFilter->focusTarget = button(QWizard::NextButton);
+	}
 }
 
 void CertWizard::initializePage(int id) {

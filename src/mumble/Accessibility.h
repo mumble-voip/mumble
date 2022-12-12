@@ -25,6 +25,8 @@ namespace Accessibility {
 	QString channelToText(const Channel *channel);
 	QString channelToDescription(const Channel *channel);
 
+	QWidget *getFirstFocusableChild(QObject *object);
+
 } // namespace Accessibility
 } // namespace Mumble
 

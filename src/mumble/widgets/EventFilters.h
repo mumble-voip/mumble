@@ -47,4 +47,15 @@ private:
 	bool m_consume;
 };
 
+class OverrideTabOrderFilter : public QObject {
+	Q_OBJECT
+
+public:
+	OverrideTabOrderFilter(QObject *parent, QWidget *target);
+	QWidget *focusTarget;
+
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
+};
+
 #endif

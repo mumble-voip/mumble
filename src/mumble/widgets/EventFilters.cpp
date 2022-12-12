@@ -66,3 +66,20 @@ bool MouseWheelEventObserver::eventFilter(QObject *obj, QEvent *event) {
 
 	return m_consume;
 }
+
+OverrideTabOrderFilter::OverrideTabOrderFilter(QObject *parent, QWidget *target)
+	: QObject(parent), focusTarget(target) {
+}
+
+bool OverrideTabOrderFilter::eventFilter(QObject *obj, QEvent *event) {
+	if (event->type() == QEvent::KeyPress) {
+		QKeyEvent *keyEvent = static_cast< QKeyEvent * >(event);
+
+		if (keyEvent->key() == Qt::Key_Tab && QApplication::focusWidget() == obj) {
+			focusTarget->setFocus(Qt::TabFocusReason);
+			return true;
+		}
+	}
+
+	return QObject::eventFilter(obj, event);
+}
