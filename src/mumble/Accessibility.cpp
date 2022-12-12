@@ -10,6 +10,8 @@
 #include <QAbstractButton>
 #include <QObject>
 
+#include <queue>
+
 namespace Mumble {
 namespace Accessibility {
 
@@ -133,6 +135,46 @@ namespace Accessibility {
 		}
 
 		return description;
+	}
+
+	QWidget *getFirstFocusableChild(QObject *object) {
+		std::queue< QObject * > search;
+		search.push(object);
+
+		QWidget *selectedWidget = nullptr;
+
+		while (!search.empty()) {
+			QObject *o = search.front();
+			search.pop();
+
+			for (QObject *child : o->children()) {
+				search.push(child);
+			}
+
+			selectedWidget = qobject_cast< QWidget * >(o);
+			if (!selectedWidget) {
+				continue;
+			}
+
+			if (!selectedWidget->isEnabled()) {
+				selectedWidget = nullptr;
+				continue;
+			}
+
+			if (selectedWidget->focusPolicy() == Qt::NoFocus) {
+				selectedWidget = nullptr;
+				continue;
+			}
+
+			if (qobject_cast< QLabel * >(selectedWidget)) {
+				selectedWidget = nullptr;
+				continue;
+			}
+
+			break;
+		}
+
+		return selectedWidget;
 	}
 
 } // namespace Accessibility
