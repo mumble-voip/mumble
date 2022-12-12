@@ -14,6 +14,7 @@
 #include <QtNetwork/QSslCertificate>
 
 #include "Settings.h"
+#include "widgets/EventFilters.h"
 
 class QLabel;
 class QWidget;
@@ -37,6 +38,9 @@ class CertWizard : public QWizard, public Ui::Certificates {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CertWizard)
+
+	OverrideTabOrderFilter *m_overrideFilter;
+
 protected:
 	Settings::KeyPair kpCurrent, kpNew;
 
@@ -57,6 +61,7 @@ public slots:
 	void on_qleImportFile_textChanged(const QString &);
 	void on_qlePassword_textChanged(const QString &);
 	void on_qlIntroText_linkActivated(const QString &);
+	void showPage(int);
 };
 
 #endif

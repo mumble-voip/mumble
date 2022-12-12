@@ -198,6 +198,9 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	ticker->setSingleShot(false);
 	ticker->start(20);
+
+	m_overrideFilter = new OverrideTabOrderFilter(this, this);
+	installEventFilter(m_overrideFilter);
 }
 
 bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
@@ -347,6 +350,16 @@ void AudioWizard::showPage(int pageid) {
 			Global::get().s.atTransmit = Settings::VAD;
 	} else {
 		Global::get().s.atTransmit = Settings::Continuous;
+	}
+
+	setFocus(Qt::ActiveWindowFocusReason);
+
+	QWidget *selectedWidget = Mumble::Accessibility::getFirstFocusableChild(currentPage());
+
+	if (selectedWidget) {
+		m_overrideFilter->focusTarget = selectedWidget;
+	} else {
+		m_overrideFilter->focusTarget = button(QWizard::NextButton);
 	}
 }
 
