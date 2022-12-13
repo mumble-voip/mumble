@@ -14,7 +14,6 @@
 #include "database/ConnectionParameter.h"
 
 #include "Ban.h"
-#include "ServerUserInfo.h"
 #include "User.h"
 
 #include <boost/optional.hpp>
@@ -24,7 +23,7 @@
 #include <vector>
 
 class Server;
-class ServerUser;
+class ServerUserInfo;
 class Channel;
 class Meta;
 class ChannelListenerManager;
@@ -92,11 +91,11 @@ public:
 	 */
 	void updateLastDisconnect(unsigned int serverID, unsigned int userID);
 
-	void addChannelListenerIfNotExists(unsigned int serverID, const ServerUserInfo &userInfo, const Channel &channel);
-	void disableChannelListenerIfExists(unsigned int serverID, const ServerUserInfo &userInfo, const Channel &channel);
-	void deleteChannelListener(unsigned int serverID, const ServerUserInfo &userInfo, const Channel &channel);
+	void addChannelListenerIfNotExists(unsigned int serverID, unsigned int userID, unsigned int channelID);
+	void disableChannelListenerIfExists(unsigned int serverID, unsigned int userID, unsigned int channelID);
+	void deleteChannelListener(unsigned int serverID, unsigned int userID, unsigned int channelID);
 	void loadChannelListenersOf(unsigned int serverID, const ServerUserInfo &userInfo, ChannelListenerManager &manager);
-	void storeChannelListenerVolume(unsigned int serverID, const ServerUserInfo &userInfo, const Channel &channel,
+	void storeChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID,
 									float volumeFactor);
 
 	/**
@@ -121,10 +120,11 @@ public:
 	std::vector< unsigned int > getRegisteredUserIDs(unsigned int serverID);
 
 	void setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo);
-	int getLastChannelID(unsigned int serverID, const ServerUserInfo &userInfo);
+	void setLastChannel(unsigned int serverID, unsigned int userID, unsigned int channelID);
+	int getLastChannelID(unsigned int serverID, unsigned int userID);
 
 
-	QByteArray getUserTexture(unsigned int serverID, const ServerUserInfo &userInfo);
+	QByteArray getUserTexture(unsigned int serverID, unsigned int userID);
 	void storeUserTexture(unsigned int serverID, const ServerUserInfo &userInfo);
 
 	std::string getUserProperty(unsigned int serverID, unsigned int userID,

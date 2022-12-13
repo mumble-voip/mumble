@@ -658,10 +658,8 @@ void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
-	ServerUserInfo info;
-	info.iId = id;
 
-	texture = server->getTexture(info);
+	texture = server->getTexture(id);
 }
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
