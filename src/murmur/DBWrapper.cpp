@@ -1050,6 +1050,24 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 	WRAPPER_END
 }
 
+std::vector< unsigned int > DBWrapper::getRegisteredUserIDs(unsigned int serverID) {
+	WRAPPER_BEGIN
+
+	std::vector< unsigned int > userIDs;
+
+	std::vector<::msdb::DBUser > users = m_serverDB.getUserTable().getRegisteredUsers(serverID);
+
+	userIDs.reserve(users.size());
+
+	for (const ::msdb::DBUser &currentUser : users) {
+		userIDs.push_back(currentUser.registeredUserID);
+	}
+
+	return userIDs;
+
+	WRAPPER_END
+}
+
 void DBWrapper::setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo) {
 	WRAPPER_BEGIN
 

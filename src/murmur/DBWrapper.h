@@ -118,6 +118,7 @@ public:
 									 unsigned int kdfIterations = 0);
 	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,
 									 unsigned int kdfIterations = 0);
+	std::vector< unsigned int > getRegisteredUserIDs(unsigned int serverID);
 
 	void setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo);
 	int getLastChannelID(unsigned int serverID, const ServerUserInfo &userInfo);
