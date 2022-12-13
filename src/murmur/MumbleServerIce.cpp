@@ -1673,10 +1673,7 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 		return;
 	}
 
-	ServerUserInfo info;
-	info.iId = userid;
-
-	const QByteArray &qba = server->getTexture(info);
+	const QByteArray &qba = server->getTexture(userid);
 
 	::MumbleServer::Texture tex;
 	tex.resize(static_cast< std::size_t >(qba.size()));
