@@ -546,115 +546,123 @@ int main(int argc, char **argv) {
 	unixhandler.finalcap();
 #endif
 
-	MumbleSSL::addSystemCA();
+	try {
+		MumbleSSL::addSystemCA();
 
-	meta = new Meta(Meta::getConnectionParameter());
-	meta->initPBKDF2IterationCount();
+		meta = new Meta(Meta::getConnectionParameter());
+		meta->initPBKDF2IterationCount();
 
 #ifdef Q_OS_UNIX
-	// It doesn't matter that this code comes after the forking because detach is
-	// set to false when readPw is set to true.
-	if (readPw) {
-		char password[256];
-		char *p;
+		// It doesn't matter that this code comes after the forking because detach is
+		// set to false when readPw is set to true.
+		if (readPw) {
+			char password[256];
+			char *p;
 
-		printf("Password: ");
-		fflush(nullptr);
-		if (fgets(password, 255, stdin) != password)
-			qFatal("No password provided");
-		p = strchr(password, '\r');
-		if (p)
-			*p = 0;
-		p = strchr(password, '\n');
-		if (p)
-			*p = 0;
+			printf("Password: ");
+			fflush(nullptr);
+			if (fgets(password, 255, stdin) != password)
+				qFatal("No password provided");
+			p = strchr(password, '\r');
+			if (p)
+				*p = 0;
+			p = strchr(password, '\n');
+			if (p)
+				*p = 0;
 
-		supw = QLatin1String(password);
-	}
+			supw = QLatin1String(password);
+		}
 #endif
 
-	if (!supw.isNull()) {
-		if (supw.isEmpty()) {
-			qFatal("Superuser password can not be empty");
+		if (!supw.isNull()) {
+			if (supw.isEmpty()) {
+				qFatal("Superuser password can not be empty");
+			}
+			meta->dbWrapper.setSuperUserPassword(sunum, supw.toStdString());
+			qInfo("Superuser password set on server %u", sunum);
+			return 0;
 		}
-		meta->dbWrapper.setSuperUserPassword(sunum, supw.toStdString());
-		qInfo("Superuser password set on server %u", sunum);
-		return 0;
-	}
 
-	if (disableSu) {
-		meta->dbWrapper.disableSuperUser(sunum);
+		if (disableSu) {
+			meta->dbWrapper.disableSuperUser(sunum);
 
-		qInfo("SuperUser password disabled on server %u", sunum);
-		return 0;
-	}
+			qInfo("SuperUser password disabled on server %u", sunum);
+			return 0;
+		}
 
-	if (wipeSsl) {
-		qWarning("Removing all per-server SSL certificates from the database.");
+		if (wipeSsl) {
+			qWarning("Removing all per-server SSL certificates from the database.");
 
-		meta->dbWrapper.clearAllPerServerSLLConfigurations();
-	}
+			meta->dbWrapper.clearAllPerServerSLLConfigurations();
+		}
 
-	if (wipeLogs) {
-		qWarning("Removing all log entries from the database.");
+		if (wipeLogs) {
+			qWarning("Removing all log entries from the database.");
 
-		meta->dbWrapper.clearAllServerLogs();
-	}
+			meta->dbWrapper.clearAllServerLogs();
+		}
 
 #ifdef USE_DBUS
-	MurmurDBus::registerTypes();
+		MurmurDBus::registerTypes();
 
-	if (!Meta::mp.qsDBus.isEmpty()) {
-		if (Meta::mp.qsDBus == "session")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
-		else if (Meta::mp.qsDBus == "system")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
-		else {
-			// QtDBus is not quite finished yet.
-			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
-			if (!MurmurDBus::qdbc->isConnected()) {
-				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
-				qWarning("%s", qPrintable(qdbs->lastError().name()));
-				qWarning("%d", qdbs->isConnected());
-				qWarning("%s", qPrintable(qdbs->address()));
+		if (!Meta::mp.qsDBus.isEmpty()) {
+			if (Meta::mp.qsDBus == "session")
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
+			else if (Meta::mp.qsDBus == "system")
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
+			else {
+				// QtDBus is not quite finished yet.
+				qWarning("Warning: Peer-to-peer session support is currently nonworking.");
 				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+				if (!MurmurDBus::qdbc->isConnected()) {
+					QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
+					qWarning("%s", qPrintable(qdbs->lastError().name()));
+					qWarning("%d", qdbs->isConnected());
+					qWarning("%s", qPrintable(qdbs->address()));
+					MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+				}
 			}
-		}
-		if (!MurmurDBus::qdbc->isConnected()) {
-			qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
-		} else {
-			new MetaDBus(meta);
-			if (MurmurDBus::qdbc->isConnected()) {
-				if (!MurmurDBus::qdbc->registerObject("/", meta)
-					|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
-					QDBusError e = MurmurDBus::qdbc->lastError();
-					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
-				} else {
-					qWarning("DBus registration succeeded");
+			if (!MurmurDBus::qdbc->isConnected()) {
+				qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
+			} else {
+				new MetaDBus(meta);
+				if (MurmurDBus::qdbc->isConnected()) {
+					if (!MurmurDBus::qdbc->registerObject("/", meta)
+						|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
+						QDBusError e = MurmurDBus::qdbc->lastError();
+						qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
+					} else {
+						qWarning("DBus registration succeeded");
+					}
 				}
 			}
 		}
-	}
 #endif
 
 #ifdef USE_ICE
-	IceStart();
+		IceStart();
 #endif
 
-	meta->getOSInfo();
+		meta->getOSInfo();
 
-	qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
-			 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
+		qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
+				 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
-	meta->bootAll(Meta::getConnectionParameter(), true);
+		meta->bootAll(Meta::getConnectionParameter(), true);
 
-	signal(SIGTERM, cleanup);
-	signal(SIGINT, cleanup);
+		signal(SIGTERM, cleanup);
+		signal(SIGINT, cleanup);
 
-	res = a.exec();
+		res = a.exec();
 
-	cleanup(res);
+		cleanup(res);
 
-	return res;
+		return res;
+	} catch (const std::exception &e) {
+		std::cerr << "[ERROR]: " << e.what() << std::endl;
+		return 1;
+	} catch (...) {
+		std::cerr << "[ERROR]: Caught unknown error (bug)" << std::endl;
+		return 2;
+	}
 }
