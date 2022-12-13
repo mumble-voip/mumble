@@ -84,6 +84,25 @@ void printExceptionMessage(std::ostream &stream, const std::exception &e, int in
 	}
 }
 
+static inline void assertValidID(unsigned int id) {
+	/*
+	 * In many places in our code IDs are represented as signed integers in order to be able to represent an invalid ID
+	 * by a negative value. If such a value is converted to an unsigned integer, it is mapped to some value bigger than
+	 * the biggest positive value that can be represented with a signed integer. In order to catch cases in which such a
+	 * conversion happened, we perform below assertion. And even if at some point the signed integer representation gets
+	 * replaced by e.g. an optional< unsigned int >, producing IDs that are larger than INT_MAX is likely an error of
+	 * some sort as an int should (at least) have 2^32 possible positive values, which is expected to be far more than
+	 * enough for any valid use case.
+	 */
+	assert(id <= std::numeric_limits< int >::max());
+	(void) id;
+}
+
+static inline void assertValidID(int id) {
+	assert(id >= 0);
+	(void) id;
+}
+
 #define WRAPPER_BEGIN try {
 // Our error handling consists in properly printing the encountered error and then throwing
 // a standard std::exception that should be caught in our QCoreApplication's notify function,
@@ -159,6 +178,8 @@ unsigned int DBWrapper::addServer() {
 void DBWrapper::removeServer(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	m_serverDB.getServerTable().removeServer(serverID);
 
 	WRAPPER_END
@@ -174,6 +195,8 @@ bool DBWrapper::serverExists(unsigned int serverID) {
 
 void DBWrapper::setServerBootProperty(unsigned int serverID, bool boot) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	m_serverDB.getConfigTable().setConfig(serverID, "boot", std::to_string(boot));
 
@@ -208,11 +231,15 @@ void DBWrapper::storePBKDF2IterationCount(unsigned int count) {
 }
 
 void DBWrapper::setSuperUserPassword(unsigned int serverID, const std::string &password) {
+	assertValidID(serverID);
+
 	storeRegisteredUserPassword(serverID, Mumble::SUPERUSER_ID, password);
 }
 
 void DBWrapper::disableSuperUser(unsigned int serverID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	const ::msdb::DBUser superUser(serverID, Mumble::SUPERUSER_ID);
 
@@ -247,6 +274,8 @@ void DBWrapper::clearAllServerLogs() {
 std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::vector< Ban > bans;
 
 	for (const ::msdb::DBBan &currentBan : m_serverDB.getBanTable().getAllBans(serverID)) {
@@ -278,6 +307,8 @@ std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 
 void DBWrapper::saveBans(unsigned int serverID, const std::vector< Ban > &bans) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::vector<::msdb::DBBan > dbBans;
 	dbBans.reserve(bans.size());
@@ -416,6 +447,8 @@ void DBWrapper::initializeChannelLinks(Server &server) {
 unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	return m_serverDB.getChannelTable().getFreeChannelID(serverID);
 
 	WRAPPER_END
@@ -466,6 +499,9 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 void DBWrapper::createChannel(unsigned int serverID, const Channel &channel) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(channel.iId);
+
 	// Add the given channel to the DB
 	::msdb::DBChannel dbChannel = channelToDB(serverID, channel);
 
@@ -491,6 +527,9 @@ void DBWrapper::createChannel(unsigned int serverID, const Channel &channel) {
 void DBWrapper::deleteChannel(unsigned int serverID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(channelID);
+
 	m_serverDB.getChannelTable().removeChannel(serverID, channelID);
 
 	WRAPPER_END
@@ -498,6 +537,9 @@ void DBWrapper::deleteChannel(unsigned int serverID, unsigned int channelID) {
 
 void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(channel.iId);
 
 	if (channel.bTemporary) {
 		// Temporary channels by definition are not stored in the DB
@@ -582,6 +624,10 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 void DBWrapper::addChannelLink(unsigned int serverID, const Channel &first, const Channel &second) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(first.iId);
+	assertValidID(second.iId);
+
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
 	m_serverDB.getChannelLinkTable().addLink(link);
@@ -592,6 +638,10 @@ void DBWrapper::addChannelLink(unsigned int serverID, const Channel &first, cons
 void DBWrapper::removeChannelLink(unsigned int serverID, const Channel &first, const Channel &second) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(first.iId);
+	assertValidID(second.iId);
+
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
 	m_serverDB.getChannelLinkTable().removeLink(link);
@@ -601,6 +651,8 @@ void DBWrapper::removeChannelLink(unsigned int serverID, const Channel &first, c
 
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, QString &outVar) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
@@ -614,6 +666,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, std::string &outVar) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
 	if (!property.empty()) {
@@ -626,6 +680,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, QByteArray &outVar) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
 	if (!property.empty()) {
@@ -637,6 +693,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, unsigned short &outVar) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
@@ -659,6 +717,8 @@ bool stringToBool(const std::string &str) {
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, bool &outVar) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
 	if (!property.empty()) {
@@ -670,6 +730,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, int &outVar) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
@@ -687,6 +749,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, unsigned int &outVar) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
@@ -706,6 +770,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 								   boost::optional< bool > &outVar) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
 	outVar = property.empty() ? boost::none : boost::optional< bool >(stringToBool(property));
@@ -715,6 +781,8 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 std::vector< std::pair< std::string, std::string > > DBWrapper::getAllConfigurations(unsigned int serverID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	std::vector< std::pair< std::string, std::string > > configs;
 
@@ -730,6 +798,8 @@ std::vector< std::pair< std::string, std::string > > DBWrapper::getAllConfigurat
 void DBWrapper::setConfiguration(unsigned int serverID, const std::string &configKey, const std::string &value) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	m_serverDB.getConfigTable().setConfig(serverID, configKey, value);
 
 	WRAPPER_END
@@ -738,6 +808,8 @@ void DBWrapper::setConfiguration(unsigned int serverID, const std::string &confi
 void DBWrapper::clearConfiguration(unsigned int serverID, const std::string &configKey) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	m_serverDB.getConfigTable().clearConfig(serverID, configKey);
 
 	WRAPPER_END
@@ -745,6 +817,8 @@ void DBWrapper::clearConfiguration(unsigned int serverID, const std::string &con
 
 void DBWrapper::logMessage(unsigned int serverID, const std::string &msg) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	::msdb::DBLogEntry entry(msg);
 
@@ -756,6 +830,8 @@ void DBWrapper::logMessage(unsigned int serverID, const std::string &msg) {
 std::vector<::msdb::DBLogEntry > DBWrapper::getLogs(unsigned int serverID, unsigned int startOffset, int amount) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	return m_serverDB.getLogTable().getLogs(serverID, amount >= 0 ? amount : std::numeric_limits< int >::max(),
 											startOffset);
 
@@ -765,6 +841,8 @@ std::vector<::msdb::DBLogEntry > DBWrapper::getLogs(unsigned int serverID, unsig
 std::size_t DBWrapper::getLogSize(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	return m_serverDB.getLogTable().getLogSize(serverID);
 
 	WRAPPER_END
@@ -772,6 +850,9 @@ std::size_t DBWrapper::getLogSize(unsigned int serverID) {
 
 void DBWrapper::updateLastDisconnect(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -783,6 +864,10 @@ void DBWrapper::updateLastDisconnect(unsigned int serverID, unsigned int userID)
 void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
+
 	::msdb::DBChannelListener listener(serverID, userID, channelID);
 
 	if (!m_serverDB.getChannelListenerTable().listenerExists(listener)) {
@@ -792,8 +877,12 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned in
 	WRAPPER_END
 }
 
-void DBWrapper::disableChannelListenerIfExists(unsigned serverID, unsigned int userID, unsigned int channelID) {
+void DBWrapper::disableChannelListenerIfExists(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
 
 	::msdb::DBChannelListener listener(serverID, userID, channelID);
 
@@ -812,6 +901,10 @@ void DBWrapper::disableChannelListenerIfExists(unsigned serverID, unsigned int u
 void DBWrapper::deleteChannelListener(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
+
 	m_serverDB.getChannelListenerTable().removeListener(serverID, userID, channelID);
 
 	WRAPPER_END
@@ -821,7 +914,8 @@ void DBWrapper::loadChannelListenersOf(unsigned int serverID, const ServerUserIn
 									   ChannelListenerManager &manager) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
+	assertValidID(serverID);
+	assertValidID(userInfo.iId);
 
 	for (const ::msdb::DBChannelListener &currentListener :
 		 m_serverDB.getChannelListenerTable().getListenersForUser(serverID, userInfo.iId)) {
@@ -839,6 +933,10 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 										   float volumeFactor) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
+
 	::msdb::DBChannelListener listener =
 		m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
 
@@ -852,6 +950,8 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 
 unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo &userInfo) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	assert(userInfo.cChannel);
 	assert(!userInfo.qsName.isEmpty());
@@ -907,6 +1007,9 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 void DBWrapper::unregisterUser(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 	m_serverDB.getUserTable().removeUser(user);
 
@@ -915,6 +1018,8 @@ void DBWrapper::unregisterUser(unsigned int serverID, unsigned int userID) {
 
 int DBWrapper::registeredUserNameToID(unsigned int serverID, const std::string &name) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
 
 	boost::optional< unsigned int > id = m_serverDB.getUserTable().findUser(serverID, name, false);
 
@@ -926,6 +1031,9 @@ int DBWrapper::registeredUserNameToID(unsigned int serverID, const std::string &
 bool DBWrapper::registeredUserExists(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserTable().userExists(user);
@@ -936,6 +1044,9 @@ bool DBWrapper::registeredUserExists(unsigned int serverID, unsigned int userID)
 ::msdb::DBUserData DBWrapper::getRegisteredUserData(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserTable().getData(user);
@@ -945,6 +1056,9 @@ bool DBWrapper::registeredUserExists(unsigned int serverID, unsigned int userID)
 
 QMap< int, QString > DBWrapper::getRegisteredUserDetails(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	QMap< int, QString > details;
 
@@ -969,6 +1083,8 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 										   const std::string &nameFilter) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	for (const ::msdb::DBUser &currentUser : m_serverDB.getUserTable().getRegisteredUsers(serverID, nameFilter)) {
 		::msdb::DBUserData userData = m_serverDB.getUserTable().getData(currentUser);
 
@@ -988,6 +1104,8 @@ boost::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int
 																	const std::string &certHash) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::vector< unsigned int > candidates = m_serverDB.getUserPropertyTable().findUsersWithProperty(
 		serverID, ::msdb::UserProperty::CertificateHash, certHash);
 
@@ -1003,6 +1121,8 @@ boost::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int
 boost::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned int serverID, const std::string &email) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::vector< unsigned int > candidates =
 		m_serverDB.getUserPropertyTable().findUsersWithProperty(serverID, ::msdb::UserProperty::Email, email);
 
@@ -1014,12 +1134,18 @@ boost::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned in
 
 void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
 											unsigned int kdfIterations) {
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	storeRegisteredUserPassword(serverID, userID, password.toStdString(), kdfIterations);
 }
 
 void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,
 											unsigned int kdfIterations) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	const ::msdb::DBUser user(serverID, userID);
 
@@ -1046,6 +1172,8 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 std::vector< unsigned int > DBWrapper::getRegisteredUserIDs(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	std::vector< unsigned int > userIDs;
 
 	std::vector<::msdb::DBUser > users = m_serverDB.getUserTable().getRegisteredUsers(serverID);
@@ -1062,14 +1190,20 @@ std::vector< unsigned int > DBWrapper::getRegisteredUserIDs(unsigned int serverI
 }
 
 void DBWrapper::setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo) {
-	assert(userInfo.iId >= 0);
+	assertValidID(serverID);
+	assertValidID(userInfo.iId);
 	assert(userInfo.cChannel);
+	assertValidID(userInfo.cChannel->iId);
 
 	setLastChannel(serverID, userInfo.iId, userInfo.cChannel->iId);
 }
 
 void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1081,6 +1215,9 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserTable().getData(user).lastChannelID;
@@ -1090,6 +1227,9 @@ int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID) {
 
 QByteArray DBWrapper::getUserTexture(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	::msdb::DBUser user(serverID, userID);
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
@@ -1113,7 +1253,8 @@ QByteArray DBWrapper::getUserTexture(unsigned int serverID, unsigned int userID)
 void DBWrapper::storeUserTexture(unsigned int serverID, const ServerUserInfo &userInfo) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
+	assertValidID(serverID);
+	assertValidID(userInfo.iId);
 
 	::msdb::DBUser user(serverID, userInfo.iId);
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
@@ -1132,6 +1273,9 @@ void DBWrapper::storeUserTexture(unsigned int serverID, const ServerUserInfo &us
 std::string DBWrapper::getUserProperty(unsigned int serverID, unsigned int userID, ::msdb::UserProperty property) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserPropertyTable().getProperty< std::string, false >(user, property, {});
@@ -1142,6 +1286,9 @@ std::string DBWrapper::getUserProperty(unsigned int serverID, unsigned int userI
 void DBWrapper::storeUserProperty(unsigned int serverID, unsigned int userID, ::msdb::UserProperty property,
 								  const std::string &value) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1157,6 +1304,9 @@ void DBWrapper::storeUserProperty(unsigned int serverID, unsigned int userID, ::
 void DBWrapper::setUserProperties(unsigned int serverID, unsigned int userID,
 								  const std::vector< std::pair< unsigned int, std::string > > &properties) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1187,6 +1337,9 @@ void DBWrapper::setUserProperties(unsigned int serverID, unsigned int userID,
 std::vector< std::pair< unsigned int, std::string > > DBWrapper::getUserProperties(unsigned int serverID,
 																				   unsigned int userID) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	std::vector< std::pair< unsigned int, std::string > > properties;
 
@@ -1233,6 +1386,9 @@ std::vector< std::pair< unsigned int, std::string > > DBWrapper::getUserProperti
 std::string DBWrapper::getUserName(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+	assertValidID(userID);
+
 	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserTable().getData(user).name;
@@ -1243,6 +1399,8 @@ std::string DBWrapper::getUserName(unsigned int serverID, unsigned int userID) {
 unsigned int DBWrapper::getNextAvailableUserID(unsigned int serverID) {
 	WRAPPER_BEGIN
 
+	assertValidID(serverID);
+
 	return m_serverDB.getUserTable().getFreeUserID(serverID);
 
 	WRAPPER_END
@@ -1250,6 +1408,9 @@ unsigned int DBWrapper::getNextAvailableUserID(unsigned int serverID) {
 
 void DBWrapper::setUserData(unsigned int serverID, unsigned int userID, const ::msdb::DBUserData &data) {
 	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
 
 	::msdb::DBUser user(serverID, userID);
 
