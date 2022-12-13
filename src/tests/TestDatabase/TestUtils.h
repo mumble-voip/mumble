@@ -81,6 +81,13 @@ namespace db {
 			 */
 			void alignColumnOrder(const nlohmann::json &reference, nlohmann::json &target);
 
+			/**
+			 * Same as alignColumnOrder, but this time it's the "rows" array of the different table specification
+			 * that is brought into a consistent order (such that operator== returns true for tables containing the same
+			 * content)
+			 */
+			void alignRowOrder(const nlohmann::json &reference, nlohmann::json &target);
+
 			const mumble::db::ConnectionParameter &getConnectionParamter(mumble::db::Backend backend);
 
 		} // namespace utils

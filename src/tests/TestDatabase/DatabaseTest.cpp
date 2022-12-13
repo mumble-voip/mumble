@@ -248,6 +248,7 @@ void DatabaseTest::simpleExport() {
 		nlohmann::json actualJSON = db.exportToJSON();
 
 		test::utils::alignColumnOrder(actualJSON, expectedJson);
+		test::utils::alignRowOrder(actualJSON, expectedJson);
 
 		QCOMPARE(db.exportToJSON(), expectedJson);
 	}
