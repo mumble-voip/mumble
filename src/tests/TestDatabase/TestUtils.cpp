@@ -53,6 +53,27 @@ namespace db {
 				}
 			}
 
+			void alignRowOrder(const nlohmann::json &reference, nlohmann::json &target) {
+				for (auto it = reference["tables"].begin(); it != reference["tables"].end(); ++it) {
+					const nlohmann::json &referenceTable = it.value();
+					nlohmann::json &targetTable          = target["tables"][it.key()];
+
+					if (referenceTable["rows"].size() != targetTable["rows"].size()
+						|| !std::is_permutation(referenceTable["rows"].begin(), referenceTable["rows"].end(),
+												targetTable["rows"].begin())) {
+						// If the rows are not a simple permutation of each other, these tables are not equal
+						// in any case, so we don't even try to align their ordering
+						continue;
+					}
+
+					std::vector< std::size_t > permutation =
+						test::utils::find_permutation(referenceTable["rows"], targetTable["rows"]);
+
+					// Align the order in which the rows are listed to each other
+					test::utils::apply_permutation(targetTable["rows"], permutation);
+				}
+			}
+
 
 			const mumble::db::ConnectionParameter &getConnectionParamter(mumble::db::Backend backend) {
 				switch (backend) {
