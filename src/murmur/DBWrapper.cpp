@@ -14,7 +14,7 @@
 #include "PBKDF2.h"
 #include "PasswordGenerator.h"
 #include "Server.h"
-#include "ServerUser.h"
+#include "ServerUserInfo.h"
 #include "VolumeAdjustment.h"
 
 #include "database/Exception.h"
@@ -781,13 +781,10 @@ void DBWrapper::updateLastDisconnect(unsigned int serverID, unsigned int userID)
 	WRAPPER_END
 }
 
-void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, const ServerUserInfo &userInfo,
-											  const Channel &channel) {
+void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	::msdb::DBChannelListener listener(serverID, channel.iId, userInfo.iId);
+	::msdb::DBChannelListener listener(serverID, userID, channelID);
 
 	if (!m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		m_serverDB.getChannelListenerTable().addListener(listener);
@@ -796,11 +793,10 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, const Serve
 	WRAPPER_END
 }
 
-void DBWrapper::disableChannelListenerIfExists(unsigned serverID, const ServerUserInfo &userInfo,
-											   const Channel &channel) {
+void DBWrapper::disableChannelListenerIfExists(unsigned serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
-	::msdb::DBChannelListener listener(serverID, channel.iId, userInfo.iId);
+	::msdb::DBChannelListener listener(serverID, userID, channelID);
 
 	if (m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		listener = m_serverDB.getChannelListenerTable().getListenerDetails(listener);
@@ -814,12 +810,10 @@ void DBWrapper::disableChannelListenerIfExists(unsigned serverID, const ServerUs
 	WRAPPER_END
 }
 
-void DBWrapper::deleteChannelListener(unsigned int serverID, const ServerUserInfo &userInfo, const Channel &channel) {
+void DBWrapper::deleteChannelListener(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	m_serverDB.getChannelListenerTable().removeListener(serverID, userInfo.iId, channel.iId);
+	m_serverDB.getChannelListenerTable().removeListener(serverID, userID, channelID);
 
 	WRAPPER_END
 }
@@ -842,14 +836,12 @@ void DBWrapper::loadChannelListenersOf(unsigned int serverID, const ServerUserIn
 	WRAPPER_END
 }
 
-void DBWrapper::storeChannelListenerVolume(unsigned int serverID, const ServerUserInfo &userInfo,
-										   const Channel &channel, float volumeFactor) {
+void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID,
+										   float volumeFactor) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
 	::msdb::DBChannelListener listener =
-		m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userInfo.iId, channel.iId);
+		m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
 
 	if (listener.volumeAdjustment != volumeFactor) {
 		listener.volumeAdjustment = volumeFactor;
@@ -862,6 +854,8 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, const ServerUs
 unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo &userInfo) {
 	WRAPPER_BEGIN
 
+	assert(userInfo.cChannel);
+	assert(!userInfo.qsName.isEmpty());
 	assert(userInfo.cChannel);
 
 	::mdb::TransactionHolder transaction = m_serverDB.ensureTransaction();
@@ -1069,36 +1063,36 @@ std::vector< unsigned int > DBWrapper::getRegisteredUserIDs(unsigned int serverI
 }
 
 void DBWrapper::setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo) {
-	WRAPPER_BEGIN
-
 	assert(userInfo.iId >= 0);
 	assert(userInfo.cChannel);
 
-	::msdb::DBUser user(serverID, userInfo.iId);
+	setLastChannel(serverID, userInfo.iId, userInfo.cChannel->iId);
+}
 
-	m_serverDB.getUserTable().setLastChannelID(user, userInfo.cChannel->iId);
+void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsigned int channelID) {
+	WRAPPER_BEGIN
+
+	::msdb::DBUser user(serverID, userID);
+
+	m_serverDB.getUserTable().setLastChannelID(user, channelID);
 
 	WRAPPER_END
 }
 
-int DBWrapper::getLastChannelID(unsigned int serverID, const ServerUserInfo &userInfo) {
+int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	::msdb::DBUser user(serverID, userInfo.iId);
+	::msdb::DBUser user(serverID, userID);
 
 	return m_serverDB.getUserTable().getData(user).lastChannelID;
 
 	WRAPPER_END
 }
 
-QByteArray DBWrapper::getUserTexture(unsigned int serverID, const ServerUserInfo &userInfo) {
+QByteArray DBWrapper::getUserTexture(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
-	assert(userInfo.iId >= 0);
-
-	::msdb::DBUser user(serverID, userInfo.iId);
+	::msdb::DBUser user(serverID, userID);
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
 
 	QByteArray texture;

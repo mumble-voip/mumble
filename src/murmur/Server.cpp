@@ -2711,23 +2711,23 @@ void Server::loadTexture(ServerUser &user) {
 		return;
 	}
 
-	QByteArray texture = getTexture(user);
+	QByteArray texture = getTexture(user.iId);
 
 	hashAssign(user.qbaTexture, user.qbaTextureHash, texture);
 }
 
-QByteArray Server::getTexture(const ServerUserInfo &userInfo) {
-	if (userInfo.iId <= 0) {
+QByteArray Server::getTexture(int userID) {
+	if (userID <= 0) {
 		return {};
 	}
 
 	QByteArray texture;
-	emit idToTextureSig(texture, userInfo.iId);
+	emit idToTextureSig(texture, userID);
 
 	if (!texture.isNull()) {
 		return texture;
 	} else {
-		return m_dbWrapper.getUserTexture(iServerNum, userInfo);
+		return m_dbWrapper.getUserTexture(iServerNum, userID);
 	}
 }
 
@@ -2789,7 +2789,7 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 	}
 
 	if (user.iId > 0) {
-		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user, channel);
+		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user.iId, channel.iId);
 	}
 
 	m_channelListenerManager.addListener(user.uiSession, channel.iId);
@@ -2797,7 +2797,7 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 
 void Server::setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume) {
 	if (user.iId > 0) {
-		m_dbWrapper.storeChannelListenerVolume(iServerNum, user, channel, volume);
+		m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
 	}
 
 	m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
@@ -2810,7 +2810,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 	}
 
 	if (user.iId > 0) {
-		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user, channel);
+		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user.iId, channel.iId);
 	}
 
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
@@ -2818,7 +2818,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 
 void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
 	if (user.iId > 0) {
-		m_dbWrapper.deleteChannelListener(iServerNum, user, channel);
+		m_dbWrapper.deleteChannelListener(iServerNum, user.iId, channel.iId);
 	}
 
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);

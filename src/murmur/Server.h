@@ -396,7 +396,7 @@ public:
 	bool setTexture(ServerUser &user, const QByteArray &texture);
 	bool storeTexture(const ServerUserInfo &userInfo, const QByteArray &texture);
 	void loadTexture(ServerUser &user);
-	QByteArray getTexture(const ServerUserInfo &userInfo);
+	QByteArray getTexture(int userID);
 	bool setComment(ServerUser &user, const QString &comment);
 	void loadComment(ServerUser &user);
 
