@@ -2650,12 +2650,12 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 
 		// If provided, store this user's certificate hash
-		if (!certhash.isEmpty()) {
+		if (userID != Mumble::SUPERUSER_ID && !certhash.isEmpty()) {
 			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::CertificateHash,
 										  certhash.toStdString());
 		}
 		// If provided, store this user's email
-		if (!emails.isEmpty()) {
+		if (userID != Mumble::SUPERUSER_ID && !emails.isEmpty()) {
 			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::Email,
 										  emails[0].toStdString());
 		}
