@@ -84,24 +84,21 @@ void printExceptionMessage(std::ostream &stream, const std::exception &e, int in
 	}
 }
 
-static inline void assertValidID(unsigned int id) {
-	/*
-	 * In many places in our code IDs are represented as signed integers in order to be able to represent an invalid ID
-	 * by a negative value. If such a value is converted to an unsigned integer, it is mapped to some value bigger than
-	 * the biggest positive value that can be represented with a signed integer. In order to catch cases in which such a
-	 * conversion happened, we perform below assertion. And even if at some point the signed integer representation gets
-	 * replaced by e.g. an optional< unsigned int >, producing IDs that are larger than INT_MAX is likely an error of
-	 * some sort as an int should (at least) have 2^32 possible positive values, which is expected to be far more than
-	 * enough for any valid use case.
-	 */
-	assert(id <= std::numeric_limits< int >::max());
-	(void) id;
-}
-
-static inline void assertValidID(int id) {
-	assert(id >= 0);
-	(void) id;
-}
+/*
+ * In many places in our code IDs are represented as signed integers in order to be able to represent an invalid ID
+ * by a negative value. If such a value is converted to an unsigned integer, it is mapped to some value bigger than
+ * the biggest positive value that can be represented with a signed integer. In order to catch cases in which such a
+ * conversion happened, we perform below assertion. And even if at some point the signed integer representation gets
+ * replaced by e.g. an optional< unsigned int >, producing IDs that are larger than INT_MAX is likely an error of
+ * some sort as an int should (at least) have 2^32 possible positive values, which is expected to be far more than
+ * enough for any valid use case.
+ *
+ * In case we are asserting on a signed type, we simply have to check that the value is not negative
+ *
+ * Note: We treat id == 0 as a separate branch instead of checking id >= 0 in order to prevent overly smart compilers
+ * from warning us that this is always true for unsigned types.
+ */
+#define assertValidID(id) assert(id == 0 || (id > 0 && id <= std::numeric_limits< int >::max()));
 
 #define WRAPPER_BEGIN try {
 // Our error handling consists in properly printing the encountered error and then throwing
@@ -1418,3 +1415,5 @@ void DBWrapper::setUserData(unsigned int serverID, unsigned int userID, const ::
 
 	WRAPPER_END
 }
+
+#undef assertValidID
