@@ -176,6 +176,12 @@
 	- affected_group_id
 		- INTEGER
 		- DEFAULT: NULL
+	- affected_meta_group_id
+		- INTEGER
+		- DEFAULT: NULL
+	- group_modifiers
+		- VARCHAR(31)
+		- DEFAULT: NULL
 	- apply_in_current_channel
 		- INTEGER
 		- NOT NULL
