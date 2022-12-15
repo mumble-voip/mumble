@@ -7,17 +7,30 @@
 #define MUMBLE_SERVER_DATABASE_DBACL_H_
 
 #include <boost/optional.hpp>
+#include <vector>
 
 namespace mumble {
 namespace server {
 	namespace db {
 
 		struct DBAcl {
+			enum class MetaGroup {
+				None,
+				All,
+				Auth,
+				Strong,
+				In,
+				Out,
+				Sub,
+			};
+
 			unsigned int serverID                           = {};
 			unsigned int channelID                          = {};
 			unsigned int priority                           = {};
 			boost::optional< unsigned int > affectedUserID  = {};
 			boost::optional< unsigned int > affectedGroupID = {};
+			boost::optional< MetaGroup > affectedMetaGroup  = {};
+			std::vector< std::string > groupModifiers       = {};
 			bool applyInCurrentChannel                      = true;
 			bool applyInSubChannels                         = true;
 			unsigned int grantedPrivilegeFlags              = {};

@@ -1139,6 +1139,9 @@ void ServerDatabaseTest::aclTable_general() {
 	// Changing the priority should be enough to make the insert successful though
 	::msdb::DBAcl acl2 = acl;
 	acl2.priority += 1;
+	acl2.affectedGroupID.reset();
+	acl2.affectedMetaGroup = ::msdb::DBAcl::MetaGroup::Sub;
+	acl2.groupModifiers    = { "!", "~", ",0,1" };
 	table.addACL(acl2);
 
 	QVERIFY(table.aclExists(acl2));
@@ -1169,10 +1172,11 @@ void ServerDatabaseTest::aclTable_general() {
 	// Having neither the affected group nor the affected user set should throw
 	acl2.affectedUserID.reset();
 	acl2.affectedGroupID.reset();
+	acl2.affectedMetaGroup.reset();
 	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::FormatException);
 
-	acl2.affectedGroupID = groupB.groupID;
-	acl2.channelID       = groupB.channelID;
+	acl2.affectedMetaGroup = ::msdb::DBAcl::MetaGroup::Sub;
+	acl2.channelID         = groupB.channelID;
 
 	table.addACL(acl2);
 
