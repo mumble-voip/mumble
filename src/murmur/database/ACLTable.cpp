@@ -25,6 +25,9 @@
 
 #include <cassert>
 #include <exception>
+#include <sstream>
+#include <string>
+#include <vector>
 
 namespace mdb = ::mumble::db;
 
@@ -38,6 +41,8 @@ namespace server {
 		constexpr const char *ACLTable::column::priority;
 		constexpr const char *ACLTable::column::aff_user_id;
 		constexpr const char *ACLTable::column::aff_group_id;
+		constexpr const char *ACLTable::column::aff_meta_group_id;
+		constexpr const char *ACLTable::column::group_modifiers;
 		constexpr const char *ACLTable::column::apply_in_current;
 		constexpr const char *ACLTable::column::apply_in_sub;
 		constexpr const char *ACLTable::column::granted_flags;
@@ -62,6 +67,12 @@ namespace server {
 			::mdb::Column affectedGroupCol(column::aff_group_id, ::mdb::DataType(::mdb::DataType::Integer));
 			affectedGroupCol.setDefaultValue("NULL");
 
+			::mdb::Column affectedMetaGroupCol(column::aff_meta_group_id, ::mdb::DataType(::mdb::DataType::Integer));
+			affectedMetaGroupCol.setDefaultValue("NULL");
+
+			::mdb::Column groupModifiersCol(column::group_modifiers, ::mdb::DataType(::mdb::DataType::VarChar, 31));
+			groupModifiersCol.setDefaultValue("NULL");
+
 			::mdb::Column applyCurCol(column::apply_in_current, ::mdb::DataType(::mdb::DataType::SmallInteger));
 			applyCurCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
 
@@ -77,8 +88,8 @@ namespace server {
 			revokedCol.setDefaultValue("0");
 
 
-			setColumns({ serverCol, channelIDCol, priorityCol, affectedUserCol, affectedGroupCol, applyCurCol,
-						 applySubCol, grantedCol, revokedCol });
+			setColumns({ serverCol, channelIDCol, priorityCol, affectedUserCol, affectedGroupCol, affectedMetaGroupCol,
+						 groupModifiersCol, applyCurCol, applySubCol, grantedCol, revokedCol });
 
 
 			::mdb::PrimaryKey pk(std::vector< std::string >{ column::server_id, column::channel_id, column::priority });
@@ -95,35 +106,61 @@ namespace server {
 		}
 
 		void ACLTable::addACL(const DBAcl &acl) {
-			if (!acl.affectedGroupID && !acl.affectedUserID) {
+			if (!acl.affectedGroupID && !acl.affectedUserID && !acl.affectedMetaGroup) {
 				throw ::mdb::FormatException("Can't add ACL that doesn't affect anyone (neither group nor user)");
 			}
 
 			try {
 				unsigned int userID      = 0;
 				unsigned int groupID     = 0;
-				soci::indicator userInd  = soci::i_null;
-				soci::indicator groupInd = soci::i_null;
+				unsigned int metaGroupID = 0;
+				std::string groupModifiers;
+				soci::indicator userInd      = soci::i_null;
+				soci::indicator groupInd     = soci::i_null;
+				soci::indicator metaGroupInd = soci::i_null;
+				soci::indicator groupModInd  = soci::i_null;
 
 				if (acl.affectedUserID) {
 					userInd = soci::i_ok;
 					userID  = acl.affectedUserID.get();
-				} else {
+				} else if (acl.affectedGroupID) {
 					groupInd = soci::i_ok;
 					groupID  = acl.affectedGroupID.get();
+				} else if (acl.affectedMetaGroup) {
+					metaGroupInd = soci::i_ok;
+					metaGroupID  = static_cast< unsigned int >(acl.affectedMetaGroup.get());
+				}
+
+				if (!acl.groupModifiers.empty()) {
+					for (std::size_t i = 0; i < acl.groupModifiers.size(); ++i) {
+						if (i > 0) {
+							// Separate individual group modifiers by a semicolon
+							groupModifiers += ";";
+						}
+
+						// Assert that the modifier itself does not contain a semicolon
+						assert(std::find(acl.groupModifiers[i].begin(), acl.groupModifiers[i].end(), ';')
+							   == acl.groupModifiers[i].end());
+
+						groupModifiers += acl.groupModifiers[i];
+					}
+
+					groupModInd = soci::i_ok;
 				}
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
 					  << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id << ", "
+					  << column::aff_meta_group_id << ", " << column::group_modifiers << ", "
 					  << column::apply_in_current << ", " << column::apply_in_sub << ", " << column::granted_flags
 					  << ", " << column::revoked_flags
-					  << ") VALUES (:serverID, :channelID, :prio, :affectedUserID, :affectedGroupID, :applyCurrent, "
+					  << ") VALUES (:serverID, :channelID, :prio, :affectedUserID, :affectedGroupID, "
+						 ":affectedMetaGroupID, :groupModifiers, :applyCurrent, "
 						 ":applySub, :granted, :revoked)",
 					soci::use(acl.serverID), soci::use(acl.channelID), soci::use(acl.priority),
-					soci::use(userID, userInd), soci::use(groupID, groupInd),
-					soci::use(static_cast< int >(acl.applyInCurrentChannel)),
+					soci::use(userID, userInd), soci::use(groupID, groupInd), soci::use(metaGroupID, metaGroupInd),
+					soci::use(groupModifiers, groupModInd), soci::use(static_cast< int >(acl.applyInCurrentChannel)),
 					soci::use(static_cast< int >(acl.applyInSubChannels)), soci::use(acl.grantedPrivilegeFlags),
 					soci::use(acl.revokedPrivilegeFlags);
 
@@ -201,7 +238,8 @@ namespace server {
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT " << column::priority << ", " << column::aff_user_id << ", "
-								   << column::aff_group_id << ", " << column::apply_in_current << ", "
+								   << column::aff_group_id << ", " << column::aff_meta_group_id << ", "
+								   << column::group_modifiers << ", " << column::apply_in_current << ", "
 								   << column::apply_in_sub << ", " << column::granted_flags << ", "
 								   << column::revoked_flags << " FROM \"" << NAME << "\" WHERE " << column::server_id
 								   << " = :serverID AND " << column::channel_id << " = :channelID ORDER BY "
@@ -211,14 +249,17 @@ namespace server {
 				stmt.execute(false);
 
 				while (stmt.fetch()) {
-					assert(row.size() == 7);
+					assert(row.size() == 9);
 					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
 					assert(row.get_properties(1).get_data_type() == soci::dt_integer);
 					assert(row.get_properties(2).get_data_type() == soci::dt_integer);
 					assert(row.get_properties(3).get_data_type() == soci::dt_integer);
-					assert(row.get_properties(4).get_data_type() == soci::dt_integer);
+					assert(row.get_properties(4).get_data_type() == soci::dt_string);
+
 					assert(row.get_properties(5).get_data_type() == soci::dt_integer);
 					assert(row.get_properties(6).get_data_type() == soci::dt_integer);
+					assert(row.get_properties(7).get_data_type() == soci::dt_integer);
+					assert(row.get_properties(8).get_data_type() == soci::dt_integer);
 
 					DBAcl acl;
 					acl.serverID  = serverID;
@@ -230,10 +271,44 @@ namespace server {
 					if (row.get_indicator(2) == soci::i_ok) {
 						acl.affectedGroupID = static_cast< unsigned int >(row.get< int >(2));
 					}
-					acl.applyInCurrentChannel = row.get< int >(3);
-					acl.applyInSubChannels    = row.get< int >(4);
-					acl.grantedPrivilegeFlags = static_cast< unsigned int >(row.get< int >(5));
-					acl.revokedPrivilegeFlags = static_cast< unsigned int >(row.get< int >(6));
+					if (row.get_indicator(3) == soci::i_ok) {
+						int metaGroup = row.get< int >(3);
+						bool isValid  = false;
+						// We use a switch without default case to get a compiler warning if a new entry is added to the
+						// MetaGroup enum
+						switch (static_cast< DBAcl::MetaGroup >(metaGroup)) {
+							case DBAcl::MetaGroup::None:
+							case DBAcl::MetaGroup::All:
+							case DBAcl::MetaGroup::Auth:
+							case DBAcl::MetaGroup::Strong:
+							case DBAcl::MetaGroup::In:
+							case DBAcl::MetaGroup::Out:
+							case DBAcl::MetaGroup::Sub:
+								isValid = true;
+								break;
+						}
+						assert(isValid);
+						if (!isValid) {
+							// Forget about this ACL
+							continue;
+						}
+						acl.affectedMetaGroup = static_cast< DBAcl::MetaGroup >(metaGroup);
+					}
+					if (row.get_indicator(4) == soci::i_ok) {
+						std::string modifiers = row.get< std::string >(4);
+						std::stringstream stream(modifiers);
+						std::string modifier;
+
+						// Extract the semicolon-delimited individual modifiers again
+						while (std::getline(stream, modifier, ';')) {
+							acl.groupModifiers.push_back(std::move(modifier));
+							modifier.clear();
+						}
+					}
+					acl.applyInCurrentChannel = row.get< int >(5);
+					acl.applyInSubChannels    = row.get< int >(6);
+					acl.grantedPrivilegeFlags = static_cast< unsigned int >(row.get< int >(7));
+					acl.revokedPrivilegeFlags = static_cast< unsigned int >(row.get< int >(8));
 
 					acls.push_back(std::move(acl));
 				}

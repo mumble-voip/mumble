@@ -33,16 +33,18 @@ namespace server {
 			static constexpr const char *NAME = "access_control_lists";
 
 			struct column {
-				column()                                      = delete;
-				static constexpr const char *server_id        = "server_id";
-				static constexpr const char *channel_id       = "channel_id";
-				static constexpr const char *priority         = "priority";
-				static constexpr const char *aff_user_id      = "affected_user_id";
-				static constexpr const char *aff_group_id     = "affected_group_id";
-				static constexpr const char *apply_in_current = "apply_in_current_channel";
-				static constexpr const char *apply_in_sub     = "apply_in_sub_channels";
-				static constexpr const char *granted_flags    = "granted_privilege_flags";
-				static constexpr const char *revoked_flags    = "revoked_privilege_flags";
+				column()                                       = delete;
+				static constexpr const char *server_id         = "server_id";
+				static constexpr const char *channel_id        = "channel_id";
+				static constexpr const char *priority          = "priority";
+				static constexpr const char *aff_user_id       = "affected_user_id";
+				static constexpr const char *aff_group_id      = "affected_group_id";
+				static constexpr const char *aff_meta_group_id = "affected_meta_group_id";
+				static constexpr const char *group_modifiers   = "group_modifiers";
+				static constexpr const char *apply_in_current  = "apply_in_current_channel";
+				static constexpr const char *apply_in_sub      = "apply_in_sub_channels";
+				static constexpr const char *granted_flags     = "granted_privilege_flags";
+				static constexpr const char *revoked_flags     = "revoked_privilege_flags";
 			};
 
 
