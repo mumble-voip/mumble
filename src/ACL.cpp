@@ -148,7 +148,7 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 
 		foreach (acl, ch->qlACL) {
 			bool matchUser  = (acl->iUserId != -1) && (acl->iUserId == p->iId);
-			bool matchGroup = Group::isMember(chan, ch, acl->qsGroup, p);
+			bool matchGroup = Group::appliesToUser(*chan, *ch, acl->qsGroup, *p);
 			if (matchUser || matchGroup) {
 				if (acl->pAllow & Traverse)
 					traverse = true;

@@ -1236,7 +1236,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 									foreach (User *p, tc->qlUsers) {
 										ServerUser *su = static_cast< ServerUser * >(p);
 
-										if (!group || Group::isMember(tc, tc, qsg, su)) {
+										if (!group || Group::appliesToUser(*tc, *tc, qsg, *su)) {
 											channel.insert(su);
 										}
 									}
@@ -1245,7 +1245,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 											 m_channelListenerManager.getListenersForChannel(tc->iId)) {
 										ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
-										if (pDst && (!group || Group::isMember(tc, tc, qsg, pDst))) {
+										if (pDst && (!group || Group::appliesToUser(*tc, *tc, qsg, *pDst))) {
 											// Only send audio to listener if the user exists and it is in the group the
 											// speech is directed at (if any)
 											addListener(cachedListeners, *pDst, *tc);

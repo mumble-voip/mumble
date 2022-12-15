@@ -33,7 +33,8 @@ public:
 	static QSet< QString > groupNames(Channel *c);
 	static Group *getGroup(Channel *c, QString name);
 
-	static bool isMember(Channel *c, Channel *aclChan, QString name, ServerUser *);
+	static bool appliesToUser(const Channel &currentChannel, const Channel &aclChannel, QString groupSpecification,
+							  const ServerUser &user);
 #endif
 };
 
