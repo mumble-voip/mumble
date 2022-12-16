@@ -101,146 +101,152 @@ QSet< QString > Group::groupNames(Channel *chan) {
 #	define RET_FALSE (invert ? true : false)
 #	define RET_TRUE (invert ? false : true)
 
-bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUser *pl) {
-	Channel *p;
-	Channel *c;
-	Group *g;
+bool Group::appliesToUser(const Channel &currentChannel, const Channel &aclChannel, QString groupSpecification,
+						  const ServerUser &user) {
+	bool matches                  = false;
+	bool invert                   = false;
+	bool isAccessToken            = false;
+	bool isCertHash               = false;
+	const Channel *contextChannel = &currentChannel;
 
-	bool m      = false;
-	bool invert = false;
-	bool token  = false;
-	bool hash   = false;
-	c           = curChan;
-
-	while (true) {
-		if (name.isEmpty())
-			return false;
-
-		if (name.startsWith(QChar::fromLatin1('!'))) {
-			invert = true;
-			name   = name.remove(0, 1);
+	while (!groupSpecification.isEmpty()) {
+		if (groupSpecification.startsWith(QChar::fromLatin1('!'))) {
+			invert             = true;
+			groupSpecification = groupSpecification.remove(0, 1);
 			continue;
 		}
 
-		if (name.startsWith(QChar::fromLatin1('~'))) {
-			c    = aclChan;
-			name = name.remove(0, 1);
+		if (groupSpecification.startsWith(QChar::fromLatin1('~'))) {
+			contextChannel     = &aclChannel;
+			groupSpecification = groupSpecification.remove(0, 1);
 			continue;
 		}
 
-		if (name.startsWith(QChar::fromLatin1('#'))) {
-			token = true;
-			name  = name.remove(0, 1);
+		if (groupSpecification.startsWith(QChar::fromLatin1('#'))) {
+			isAccessToken      = true;
+			groupSpecification = groupSpecification.remove(0, 1);
 			continue;
 		}
-		if (name.startsWith(QChar::fromLatin1('$'))) {
-			hash = true;
-			name = name.remove(0, 1);
+		if (groupSpecification.startsWith(QChar::fromLatin1('$'))) {
+			isCertHash         = true;
+			groupSpecification = groupSpecification.remove(0, 1);
 			continue;
 		}
 
 		break;
 	}
 
-	if (token)
-		m = pl->qslAccessTokens.contains(name, Group::accessTokenCaseSensitivity);
-	else if (hash)
-		m = pl->qsHash == name;
-	else if (name == QLatin1String("none"))
-		m = false;
-	else if (name == QLatin1String("all"))
-		m = true;
-	else if (name == QLatin1String("auth"))
-		m = (pl->iId >= 0);
-	else if (name == QLatin1String("strong"))
-		m = pl->bVerified;
-	else if (name == QLatin1String("in"))
-		m = (pl->cChannel == c);
-	else if (name == QLatin1String("out"))
-		m = !(pl->cChannel == c);
-	else if (name == QLatin1String("sub") || name.startsWith(QLatin1String("sub,"))) {
-		name             = name.remove(0, 4);
-		int mindesc      = 1;
-		int maxdesc      = 1000;
-		int minpath      = 0;
-		QStringList args = name.split(QLatin1String(","));
-		if (args.count() >= 3) {
-			maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
-		}
-		if (args.count() >= 2) {
-			mindesc = args[1].isEmpty() ? mindesc : args[1].toInt();
-		}
-		if (args.count() >= 1) {
-			minpath = args[0].isEmpty() ? minpath : args[0].toInt();
-		}
+	if (groupSpecification.isEmpty()) {
+		return false;
+	}
 
-		Channel *home = pl->cChannel;
-		QList< Channel * > playerChain;
-		QList< Channel * > groupChain;
 
-		p = home;
-		while (p) {
-			playerChain.prepend(p);
-			p = p->cParent;
+	// First, all special cases that aren't even groups and meta groups (groups that don't actually exist as groups but
+	// have a special meaning based on their name
+	if (isAccessToken)
+		matches = user.qslAccessTokens.contains(groupSpecification, Group::accessTokenCaseSensitivity);
+	else if (isCertHash)
+		matches = user.qsHash == groupSpecification;
+	else if (groupSpecification == QLatin1String("none"))
+		matches = false;
+	else if (groupSpecification == QLatin1String("all"))
+		matches = true;
+	else if (groupSpecification == QLatin1String("auth"))
+		matches = (user.iId >= 0);
+	else if (groupSpecification == QLatin1String("strong"))
+		matches = user.bVerified;
+	else if (groupSpecification == QLatin1String("in"))
+		matches = (user.cChannel == contextChannel);
+	else if (groupSpecification == QLatin1String("out"))
+		matches = !(user.cChannel == contextChannel);
+	else if (groupSpecification == QLatin1String("sub") || groupSpecification.startsWith(QLatin1String("sub,"))) {
+		groupSpecification = groupSpecification.remove(0, 4);
+
+		int requiredChannelOffset = 0;
+		int minDescendantLevel    = 1;
+		int maxDescendantLevel    = 1000;
+
+		// Parse arguments, if any
+		QStringList args = groupSpecification.split(QLatin1String(","));
+		if (args.count() >= 1 && !args[0].isEmpty()) {
+			requiredChannelOffset = args[0].toInt();
 		}
-
-		p = curChan;
-		while (p) {
-			groupChain.prepend(p);
-			p = p->cParent;
+		if (args.count() >= 2 && !args[1].isEmpty()) {
+			minDescendantLevel = args[1].toInt();
+		}
+		if (args.count() >= 3 && !args[2].isEmpty()) {
+			maxDescendantLevel = args[2].toInt();
 		}
 
-		int cofs = groupChain.indexOf(c);
-		Q_ASSERT(cofs != -1);
+		// Assemble channel hierarchy from root channel to the channel the player is currently in
+		QList< const Channel * > homeChannelHierarchy;
+		const Channel *channel = user.cChannel;
+		while (channel) {
+			homeChannelHierarchy.prepend(channel);
+			channel = channel->cParent;
+		}
 
-		cofs += minpath;
+		// Assemble channel hierarchy from root channel to the channel the ACL containing this specification is
+		// evaluated for
+		QList< const Channel * > currentChannelHierarchy;
+		channel = &currentChannel;
+		while (channel) {
+			currentChannelHierarchy.prepend(channel);
+			channel = channel->cParent;
+		}
 
-		if (cofs >= groupChain.count()) {
+		int requiredChannelIndex = currentChannelHierarchy.indexOf(contextChannel);
+		Q_ASSERT(requiredChannelIndex != -1);
+
+		requiredChannelIndex += requiredChannelOffset;
+
+		if (requiredChannelIndex >= currentChannelHierarchy.count()) {
 			return RET_FALSE;
-		} else if (cofs < 0) {
-			cofs = 0;
+		} else if (requiredChannelIndex < 0) {
+			requiredChannelIndex = 0;
 		}
 
-		Channel *needed = groupChain[cofs];
-		if (playerChain.indexOf(needed) == -1) {
+		const Channel *requiredChannel = currentChannelHierarchy[requiredChannelIndex];
+		if (homeChannelHierarchy.indexOf(requiredChannel) == -1) {
 			return RET_FALSE;
 		}
 
-		int mindepth = cofs + mindesc;
-		int maxdepth = cofs + maxdesc;
+		const int minDepth = requiredChannelIndex + minDescendantLevel;
+		const int maxDepth = requiredChannelIndex + maxDescendantLevel;
 
-		int pdepth = playerChain.count() - 1;
+		const int totalDepth = homeChannelHierarchy.count() - 1;
 
-		m = (pdepth >= mindepth) && (pdepth <= maxdepth);
+		matches = (totalDepth >= minDepth) && (totalDepth <= maxDepth);
 	} else {
-		QStack< Group * > s;
+		// The group specification is an actual group name
+		QStack< const Group * > groupStack;
 
-		p = c;
+		const Channel *channel = contextChannel;
 
-		while (p) {
-			g = p->qhGroups.value(name);
+		while (channel) {
+			const Group *group = channel->qhGroups.value(groupSpecification);
 
-			if (g) {
-				if ((p != c) && !g->bInheritable)
+			if (group) {
+				if ((channel != contextChannel) && !group->bInheritable)
 					break;
-				s.push(g);
-				if (!g->bInherit)
+				groupStack.push(group);
+				if (!group->bInherit)
 					break;
 			}
 
-			p = p->cParent;
+			channel = channel->cParent;
 		}
 
-		while (!s.isEmpty()) {
-			g = s.pop();
-			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId)
-				|| g->qsTemporary.contains(-static_cast< int >(pl->uiSession)))
-				m = true;
-			if (g->qsRemove.contains(pl->iId))
-				m = false;
+		while (!groupStack.isEmpty()) {
+			const Group *group = groupStack.pop();
+			if (group->qsAdd.contains(user.iId) || group->qsTemporary.contains(user.iId)
+				|| group->qsTemporary.contains(-static_cast< int >(user.uiSession)))
+				matches = true;
+			if (group->qsRemove.contains(user.iId))
+				matches = false;
 		}
 	}
-	return invert ? !m : m;
+	return invert ? !matches : matches;
 }
 
 #endif
