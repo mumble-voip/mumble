@@ -50,6 +50,7 @@
 
 #include <boost/optional.hpp>
 
+#include <algorithm>
 #include <limits>
 #include <stdexcept>
 #include <utility>
@@ -114,6 +115,85 @@ void printExceptionMessage(std::ostream &stream, const std::exception &e, int in
 		throw std::runtime_error("Database error");                       \
 	}
 
+std::string toString(::msdb::DBAcl::MetaGroup group) {
+	switch (group) {
+		case ::msdb::DBAcl::MetaGroup::All:
+			return "all";
+		case ::msdb::DBAcl::MetaGroup::Auth:
+			return "auth";
+		case ::msdb::DBAcl::MetaGroup::In:
+			return "in";
+		case ::msdb::DBAcl::MetaGroup::None:
+			return "none";
+		case ::msdb::DBAcl::MetaGroup::Out:
+			return "out";
+		case ::msdb::DBAcl::MetaGroup::Strong:
+			return "strong";
+		case ::msdb::DBAcl::MetaGroup::Sub:
+			return "sub";
+	}
+
+	assert(false);
+	throw std::runtime_error("Reached supposedly unreachable code");
+}
+
+boost::optional<::msdb::DBAcl::MetaGroup > metaGroupFromString(const std::string &str) {
+	if (str == "all") {
+		return ::msdb::DBAcl::MetaGroup::All;
+	} else if (str == "auth") {
+		return ::msdb::DBAcl::MetaGroup::Auth;
+	} else if (str == "in") {
+		return ::msdb::DBAcl::MetaGroup::In;
+	} else if (str == "none") {
+		return ::msdb::DBAcl::MetaGroup::None;
+	} else if (str == "out") {
+		return ::msdb::DBAcl::MetaGroup::Out;
+	} else if (str == "strong") {
+		return ::msdb::DBAcl::MetaGroup::Strong;
+	} else if (str == "sub") {
+		return ::msdb::DBAcl::MetaGroup::Sub;
+	}
+
+	// Not a meta group
+	return boost::none;
+}
+
+struct GroupSpecComponents {
+	std::string name;
+	std::vector< std::string > modifiers;
+};
+
+GroupSpecComponents parseGroupSpecification(std::string specification) {
+	static const std::vector< char > existingGroupModifiers = { '!', '~', '#', '$' };
+
+	GroupSpecComponents components;
+
+	while (!specification.empty()
+		   && std::find(existingGroupModifiers.begin(), existingGroupModifiers.end(), specification[0])
+				  != existingGroupModifiers.end()) {
+		components.modifiers.push_back(std::string(1, specification[0]));
+
+		// Remove modifier from group name
+		specification.erase(specification.begin());
+	}
+
+	// Reverse modifier order as they will also be applied in reverse order and therefore reversing here retains the
+	// original order
+	std::reverse(components.modifiers.begin(), components.modifiers.end());
+
+	if (!specification.empty() && specification.size() > 4 && specification.substr(0, 4) == "sub,") {
+		// This is the "sub" metagroup and it contains the special modifier representing a parameter list
+		std::string parameters = specification.substr(3, std::string::npos);
+		specification.erase(3, std::string::npos);
+
+		components.modifiers.push_back(std::move(parameters));
+	}
+
+	components.name = std::move(specification);
+
+	return components;
+}
+
 std::vector< unsigned int > DBWrapper::getAllServers() {
 	WRAPPER_BEGIN
 
@@ -144,6 +224,8 @@ std::vector< unsigned int > DBWrapper::getBootServers() {
 unsigned int DBWrapper::addServer() {
 	WRAPPER_BEGIN
 
+	::mdb::TransactionHolder transaction = m_serverDB.ensureTransaction();
+
 	unsigned int serverID = m_serverDB.getServerTable().getFreeServerID();
 
 	m_serverDB.getServerTable().addServer(serverID);
@@ -153,7 +235,7 @@ unsigned int DBWrapper::addServer() {
 	rootChannel.serverID  = serverID;
 	rootChannel.channelID = Mumble::ROOT_CHANNEL_ID;
 	rootChannel.name      = "Root";
-	m_serverDB.getChannelTable().addChannel(rootChannel);
+	createChannel(rootChannel);
 
 	// Ensure that a SuperUser entry exists
 	::msdb::DBUser superUser(serverID, Mumble::SUPERUSER_ID);
@@ -166,6 +248,45 @@ unsigned int DBWrapper::addServer() {
 
 	// Write the default password into the DB, in case it needs to be fetched at a later point
 	logMessage(serverID, "Initialized 'SuperUser' password on server " + std::to_string(serverID) + " to '" + pw + "'");
+
+	// Add server-wide admin group
+	::msdb::DBGroup adminGroup;
+	adminGroup.serverID       = serverID;
+	adminGroup.groupID        = m_serverDB.getGroupTable().getFreeGroupID(serverID);
+	adminGroup.channelID      = rootChannel.channelID;
+	adminGroup.is_inheritable = true;
+	adminGroup.inherit        = true;
+	adminGroup.name           = "admin";
+
+	m_serverDB.getGroupTable().addGroup(adminGroup);
+
+	// Setup default ACLs
+	::msdb::DBAcl acl;
+	acl.serverID              = serverID;
+	acl.applyInCurrentChannel = true;
+	acl.applyInSubChannels    = true;
+	acl.channelID             = Mumble::ROOT_CHANNEL_ID;
+	acl.priority              = 1;
+
+	// Add ACL granting "Write" privilege to server admin
+	acl.affectedGroupID       = adminGroup.groupID;
+	acl.grantedPrivilegeFlags = ChanACL::Write;
+	m_serverDB.getACLTable().addACL(acl);
+
+	// Add ACL granting privilege to create temp channels to authenticated users
+	acl.priority++;
+	acl.affectedGroupID.reset();
+	acl.affectedMetaGroup     = ::msdb::DBAcl::MetaGroup::Auth;
+	acl.grantedPrivilegeFlags = ChanACL::MakeTempChannel;
+	m_serverDB.getACLTable().addACL(acl);
+
+	// Add ACL granting everyone the possibility to self-register
+	acl.priority++;
+	acl.affectedMetaGroup     = ::msdb::DBAcl::MetaGroup::All;
+	acl.grantedPrivilegeFlags = ChanACL::SelfRegister;
+	m_serverDB.getACLTable().addACL(acl);
+
+	transaction.commit();
 
 	return serverID;
 
@@ -414,7 +535,25 @@ void DBWrapper::initializeChannelDetails(Server &server) {
 			if (currentAcl.affectedGroupID) {
 				acl->qsGroup = QString::fromStdString(
 					m_serverDB.getGroupTable().getGroup(server.iServerNum, currentAcl.affectedGroupID.get()).name);
+			} else if (currentAcl.affectedMetaGroup) {
+				// The main ChanACL class doesn't distinguish real groups from meta groups
+				acl->qsGroup = QString::fromStdString(toString(currentAcl.affectedMetaGroup.get()));
 			}
+
+			// Potentially add group modifiers to group name
+			for (const std::string &currentModifier : currentAcl.groupModifiers) {
+				assert(!currentModifier.empty());
+
+				// All modifiers are prefix modifiers and should therefore simply be prepended to the group's name
+				// The only exception is the syntax for the "sub" metagroup which takes optional trailing arguments
+				// separated by commas.
+				if (currentModifier[0] == ',') {
+					acl->qsGroup.append(QString::fromStdString(currentModifier));
+				} else {
+					acl->qsGroup.prepend(QString::fromStdString(currentModifier));
+				}
+			}
+
 			acl->bApplyHere = currentAcl.applyInCurrentChannel;
 			acl->bApplySubs = currentAcl.applyInSubChannels;
 			acl->pAllow     = static_cast< ChanACL::Permissions >(currentAcl.grantedPrivilegeFlags);
@@ -466,14 +605,18 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	::msdb::DBGroup dbGroup;
 	dbGroup.serverID       = serverID;
 	dbGroup.groupID        = groupID;
-	dbGroup.name           = group.qsName.toStdString();
 	dbGroup.inherit        = group.bInherit;
 	dbGroup.is_inheritable = group.bInheritable;
+	dbGroup.name           = group.qsName.toStdString();
+
+	// Assert that we are not trying to add a meta group to the DB (those shouldn't be Group objects to begin with)
+	assert(!metaGroupFromString(parseGroupSpecification(dbGroup.name).name).has_value());
 
 	return dbGroup;
 }
 
 ::msdb::DBAcl aclToDB(unsigned int serverID, unsigned int priority, boost::optional< unsigned int > groupID,
+					  boost::optional<::msdb::DBAcl::MetaGroup > metaGroup, std::vector< std::string > groupModifiers,
 					  const ChanACL &acl) {
 	::msdb::DBAcl dbAcl;
 	assert(acl.c);
@@ -484,6 +627,8 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	dbAcl.applyInCurrentChannel = acl.bApplyHere;
 	dbAcl.applyInSubChannels    = acl.bApplySubs;
 	dbAcl.affectedGroupID       = std::move(groupID);
+	dbAcl.affectedMetaGroup     = std::move(metaGroup);
+	dbAcl.groupModifiers        = std::move(groupModifiers);
 	if (acl.iUserId >= 0) {
 		dbAcl.affectedUserID = acl.iUserId;
 	}
@@ -494,29 +639,36 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 }
 
 void DBWrapper::createChannel(unsigned int serverID, const Channel &channel) {
-	WRAPPER_BEGIN
-
 	assertValidID(serverID);
 	assertValidID(channel.iId);
 
-	// Add the given channel to the DB
-	::msdb::DBChannel dbChannel = channelToDB(serverID, channel);
+	createChannel(channelToDB(serverID, channel), channel.iPosition, channel.uiMaxUsers, channel.qsDesc.toStdString());
+}
 
-	m_serverDB.getChannelTable().addChannel(dbChannel);
+void DBWrapper::createChannel(const ::mumble::server::db::DBChannel &channel, unsigned int position,
+							  unsigned int maxUsers, const std::string &description) {
+	WRAPPER_BEGIN
+
+	assertValidID(channel.serverID);
+	assertValidID(channel.channelID);
+
+	// Add the given channel to the DB
+	m_serverDB.getChannelTable().addChannel(channel);
 
 	// Add channel properties to DB
-	if (!channel.qsDesc.isEmpty()) {
-		m_serverDB.getChannelPropertyTable().setProperty(serverID, channel.iId, ::msdb::ChannelProperty::Description,
-														 channel.qsDesc.toStdString());
+	if (!description.empty()) {
+		m_serverDB.getChannelPropertyTable().setProperty(channel.serverID, channel.channelID,
+														 ::msdb::ChannelProperty::Description, description);
 	} else {
-		m_serverDB.getChannelPropertyTable().clearProperty(serverID, channel.iId, ::msdb::ChannelProperty::Description);
+		m_serverDB.getChannelPropertyTable().clearProperty(channel.serverID, channel.channelID,
+														   ::msdb::ChannelProperty::Description);
 	}
 
-	m_serverDB.getChannelPropertyTable().setProperty(serverID, channel.iId, ::msdb::ChannelProperty::Position,
-													 std::to_string(channel.iPosition));
+	m_serverDB.getChannelPropertyTable().setProperty(channel.serverID, channel.channelID,
+													 ::msdb::ChannelProperty::Position, std::to_string(position));
 
-	m_serverDB.getChannelPropertyTable().setProperty(serverID, channel.iId, ::msdb::ChannelProperty::MaxUsers,
-													 std::to_string(channel.uiMaxUsers));
+	m_serverDB.getChannelPropertyTable().setProperty(channel.serverID, channel.channelID,
+													 ::msdb::ChannelProperty::MaxUsers, std::to_string(maxUsers));
 
 	WRAPPER_END
 }
@@ -599,16 +751,28 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 		assert(currentACL);
 
 		boost::optional< unsigned int > associatedGroupID;
-		if (!currentACL->qsGroup.isEmpty()) {
-			associatedGroupID = m_serverDB.getGroupTable().findGroupID(serverID, currentACL->qsGroup.toStdString());
+		boost::optional<::msdb::DBAcl::MetaGroup > metaGroup;
+		std::vector< std::string > groupModifiers;
 
-			if (!associatedGroupID) {
-				throw ::mdb::NoDataException("Required ID of non-existing group \"" + currentACL->qsGroup.toStdString()
-											 + "\"");
+		if (!currentACL->qsGroup.isEmpty()) {
+			GroupSpecComponents components = parseGroupSpecification(currentACL->qsGroup.toStdString());
+
+			metaGroup = metaGroupFromString(components.name);
+
+			groupModifiers = std::move(components.modifiers);
+
+			if (!metaGroup) {
+				associatedGroupID = m_serverDB.getGroupTable().findGroupID(serverID, components.name);
+
+				if (!associatedGroupID) {
+					throw ::mdb::NoDataException("Required ID of non-existing group \""
+												 + currentACL->qsGroup.toStdString() + "\"");
+				}
 			}
 		}
 
-		::msdb::DBAcl acl = aclToDB(serverID, priority++, std::move(associatedGroupID), *currentACL);
+		::msdb::DBAcl acl = aclToDB(serverID, priority++, std::move(associatedGroupID), std::move(metaGroup),
+									std::move(groupModifiers), *currentACL);
 
 		m_serverDB.getACLTable().addACL(acl);
 	}
