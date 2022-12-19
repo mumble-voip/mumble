@@ -6,6 +6,7 @@
 #ifndef MUMBLE_SERVER_DBWRAPPER_H_
 #define MUMBLE_SERVER_DBWRAPPER_H_
 
+#include "murmur/database/DBChannel.h"
 #include "murmur/database/DBLogEntry.h"
 #include "murmur/database/DBUserData.h"
 #include "murmur/database/ServerDatabase.h"
@@ -59,6 +60,8 @@ public:
 
 	unsigned int getNextAvailableChannelID(unsigned int serverID);
 	void createChannel(unsigned int serverID, const Channel &channel);
+	void createChannel(const ::mumble::server::db::DBChannel &channel, unsigned int position = 0,
+					   unsigned int maxUsers = 0, const std::string &description = {});
 	void deleteChannel(unsigned int serverID, unsigned int channelID);
 	void updateChannelData(unsigned int serverID, const Channel &channel);
 
