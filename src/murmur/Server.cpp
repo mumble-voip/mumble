@@ -330,7 +330,7 @@ Server::~Server() {
 
 void Server::readParams() {
 	qsPassword                         = Meta::mp.qsPassword;
-	usPort                             = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
+	usPort                             = static_cast< unsigned short >(Meta::mp.usPort + iServerNum);
 	iTimeout                           = Meta::mp.iTimeout;
 	iMaxBandwidth                      = Meta::mp.iMaxBandwidth;
 	iMaxUsers                          = Meta::mp.iMaxUsers;
