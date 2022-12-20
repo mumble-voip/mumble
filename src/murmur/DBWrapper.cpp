@@ -602,8 +602,11 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 }
 
 ::msdb::DBGroup groupToDB(unsigned int serverID, unsigned int groupID, const Group &group) {
+	assert(group.c);
+
 	::msdb::DBGroup dbGroup;
 	dbGroup.serverID       = serverID;
+	dbGroup.channelID      = group.c->iId;
 	dbGroup.groupID        = groupID;
 	dbGroup.inherit        = group.bInherit;
 	dbGroup.is_inheritable = group.bInheritable;
