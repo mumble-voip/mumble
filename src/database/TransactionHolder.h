@@ -26,13 +26,11 @@ namespace db {
 		~TransactionHolder();
 
 		void commit();
-		void rollback();
 
 		bool isActive() const;
 
 	protected:
 		bool m_active                 = false;
-		bool m_handled                = false;
 		bool *m_transactionStatusFlag = nullptr;
 		soci::session &m_sql;
 	};

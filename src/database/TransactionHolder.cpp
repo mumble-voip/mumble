@@ -7,6 +7,8 @@
 
 #include <cassert>
 
+#include <iostream>
+
 namespace mumble {
 namespace db {
 
@@ -24,19 +26,22 @@ namespace db {
 	}
 
 	TransactionHolder::TransactionHolder(TransactionHolder &&other) noexcept
-		: m_active(other.m_active), m_handled(other.m_handled), m_transactionStatusFlag(other.m_transactionStatusFlag),
-		  m_sql(other.m_sql) {
+		: m_active(other.m_active), m_transactionStatusFlag(other.m_transactionStatusFlag), m_sql(other.m_sql) {
 		// Prevent other from automatic rollback
-		other.m_active  = false;
-		other.m_handled = true;
+		other.m_active = false;
 	}
 
 	TransactionHolder::~TransactionHolder() {
-		if (!m_handled) {
+		if (m_active) {
 			// Wrapper went out of scope without explicit handling -> rollback as this indicates an error has happened
 			// We normally ignore any exception that might be throw here in order to not throw from the dtor
 			try {
-				rollback();
+				m_sql.rollback();
+
+				// Indicate that the transaction has ended
+				if (m_transactionStatusFlag) {
+					*m_transactionStatusFlag = false;
+				}
 			} catch (...) {
 				// In debug builds (or more general: builds with assertions enabled) we want to abort here as an error
 				// encountered during rollback of a transaction indicates a bug of some sort, that we should
@@ -47,8 +52,6 @@ namespace db {
 	}
 
 	void TransactionHolder::commit() {
-		assert(!m_handled);
-
 		if (m_active) {
 			// If this is not the "active" holder, then committing does not actually commit in order to not interrupt
 			// the transaction prematurely
@@ -58,22 +61,9 @@ namespace db {
 			if (m_transactionStatusFlag) {
 				*m_transactionStatusFlag = false;
 			}
+
+			m_active = false;
 		}
-
-		m_handled = true;
-	}
-
-	void TransactionHolder::rollback() {
-		assert(!m_handled);
-
-		m_sql.rollback();
-
-		// Indicate that the transaction has ended
-		if (m_transactionStatusFlag) {
-			*m_transactionStatusFlag = false;
-		}
-
-		m_handled = true;
 	}
 
 } // namespace db
