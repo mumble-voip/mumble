@@ -417,6 +417,9 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 		nc = server->createNewChannel(cChannel, name);
 	}
 
+	if (!nc->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
+	}
 	server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
 	newid = static_cast< int >(nc->iId);
 
@@ -564,7 +567,9 @@ void MurmurDBus::setACL(int id, const QList< ACLInfo > &acls, const QList< Group
 	}
 
 	server->clearACLCache();
-	server->m_dbWrapper.updateChannelData(server->iServerNum, *cChannel);
+	if (!cChannel->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *cChannel);
+	}
 }
 
 void MurmurDBus::getBans(QList< BanInfo > &bi) {

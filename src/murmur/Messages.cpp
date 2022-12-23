@@ -1353,7 +1353,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			clearACLCache();
 		}
 
-		m_dbWrapper.updateChannelData(iServerNum, *c);
+		if (!c->bTemporary) {
+			m_dbWrapper.updateChannelData(iServerNum, *c);
+		}
 
 		msg.set_channel_id(c->iId);
 		log(uSource, QString("Added channel %1 under %2").arg(QString(*c), QString(*p)));
@@ -1507,7 +1509,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		if (msg.has_max_users())
 			c->uiMaxUsers = msg.max_users();
 
-		m_dbWrapper.updateChannelData(iServerNum, *c);
+		if (!c->bTemporary) {
+			m_dbWrapper.updateChannelData(iServerNum, *c);
+		}
 		emit channelStateChanged(c);
 
 		sendAll(msg, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
@@ -1946,7 +1950,9 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		}
 
 
-		m_dbWrapper.updateChannelData(iServerNum, *c);
+		if (!c->bTemporary) {
+			m_dbWrapper.updateChannelData(iServerNum, *c);
+		}
 		log(uSource, QString("Updated ACL in channel %1").arg(*c));
 
 		// Send refreshed enter states of this channel to all clients
