@@ -1920,7 +1920,9 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	mpcr.set_channel_id(chan->iId);
 	sendAll(mpcr);
 
-	m_dbWrapper.deleteChannel(iServerNum, static_cast< unsigned int >(chan->iId));
+	if (!chan->bTemporary) {
+		m_dbWrapper.deleteChannel(iServerNum, static_cast< unsigned int >(chan->iId));
+	}
 
 	emit channelRemoved(chan);
 
@@ -1966,7 +1968,7 @@ bool Server::unregisterUser(int id) {
 				bool remrem = g->qsRemove.remove(id);
 				write       = write || addrem || remrem;
 			}
-			if (write) {
+			if (write && !c->bTemporary) {
 				m_dbWrapper.updateChannelData(iServerNum, *c);
 			}
 		}
@@ -2020,7 +2022,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 
 	clearACLCache(p);
 
-	if (p->iId >= 0) {
+	if (p->iId >= 0 && !p->cChannel->bTemporary) {
 		m_dbWrapper.setLastChannel(iServerNum, *static_cast< ServerUser * >(p));
 	}
 
@@ -2788,7 +2790,7 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 		return;
 	}
 
-	if (user.iId > 0) {
+	if (user.iId > 0 && !channel.bTemporary) {
 		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user.iId, channel.iId);
 	}
 
@@ -2796,7 +2798,7 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 }
 
 void Server::setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume) {
-	if (user.iId > 0) {
+	if (user.iId > 0 && !channel.bTemporary) {
 		m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
 	}
 
@@ -2809,7 +2811,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 		return;
 	}
 
-	if (user.iId > 0) {
+	if (user.iId > 0 && !channel.bTemporary) {
 		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user.iId, channel.iId);
 	}
 
@@ -2817,7 +2819,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 }
 
 void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
-	if (user.iId > 0) {
+	if (user.iId > 0 && !channel.bTemporary) {
 		m_dbWrapper.deleteChannelListener(iServerNum, user.iId, channel.iId);
 	}
 
@@ -2882,7 +2884,9 @@ bool Server::registerUser(ServerUser &user) {
 
 	user.iId = id;
 
-	m_dbWrapper.setLastChannel(iServerNum, user);
+	if (!user.cChannel->bTemporary) {
+		m_dbWrapper.setLastChannel(iServerNum, user);
+	}
 
 	return true;
 }

@@ -644,6 +644,7 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 void DBWrapper::createChannel(unsigned int serverID, const Channel &channel) {
 	assertValidID(serverID);
 	assertValidID(channel.iId);
+	assert(!channel.bTemporary);
 
 	createChannel(channelToDB(serverID, channel), channel.iPosition, channel.uiMaxUsers, channel.qsDesc.toStdString());
 }
@@ -692,6 +693,7 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 
 	assertValidID(serverID);
 	assertValidID(channel.iId);
+	assert(!channel.bTemporary);
 
 	if (channel.bTemporary) {
 		// Temporary channels by definition are not stored in the DB
@@ -791,6 +793,8 @@ void DBWrapper::addChannelLink(unsigned int serverID, const Channel &first, cons
 	assertValidID(serverID);
 	assertValidID(first.iId);
 	assertValidID(second.iId);
+	assert(!first.bTemporary);
+	assert(!second.bTemporary);
 
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
@@ -805,6 +809,8 @@ void DBWrapper::removeChannelLink(unsigned int serverID, const Channel &first, c
 	assertValidID(serverID);
 	assertValidID(first.iId);
 	assertValidID(second.iId);
+	assert(!first.bTemporary);
+	assert(!second.bTemporary);
 
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
