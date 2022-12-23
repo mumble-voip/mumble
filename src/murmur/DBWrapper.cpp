@@ -1119,6 +1119,19 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 	WRAPPER_END
 }
 
+float DBWrapper::getChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID) {
+	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
+	assert(m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID));
+
+	return m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID).volumeAdjustment;
+
+	WRAPPER_END
+}
+
 bool DBWrapper::channelListenerExists(unsigned int serverID, unsigned int userID, unsigned int channelID) {
 	WRAPPER_BEGIN
 
