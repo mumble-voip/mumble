@@ -62,21 +62,23 @@ set(MUMBLE_INSTALL_DOCDIR "${DOCDIR_DEFAULT}" CACHE PATH "The directory to insta
 set(MUMBLE_INSTALL_LICENSEDIR "${LICENSEDIR_DEFAULT}" CACHE PATH "The directory to install license files into")
 set(MUMBLE_INSTALL_SYSCONFDIR "${SYSCONFDIR_DEFAULT}" CACHE PATH "The directory to install system-wide config files to")
 
-# Using absolute install paths doesn't allow CPack to create the installer for us.
-# Therefore we have to make sure that the paths are indeed relative.
-assert_is_relative("${MUMBLE_INSTALL_EXECUTABLEDIR}")
-assert_is_relative("${MUMBLE_INSTALL_LIBDIR}")
-assert_is_relative("${MUMBLE_INSTALL_PLUGINDIR}")
-assert_is_relative("${MUMBLE_INSTALL_SCRIPTDIR}")
-assert_is_relative("${MUMBLE_INSTALL_MANDIR}")
-assert_is_relative("${MUMBLE_INSTALL_DOCDIR}")
-assert_is_relative("${MUMBLE_INSTALL_LICENSEDIR}")
-assert_is_relative("${MUMBLE_INSTALL_SYSCONFDIR}")
+if(packaging)
+	# Using absolute install paths doesn't allow CPack to create the installer for us.
+	# Therefore we have to make sure that the paths are indeed relative.
+	assert_is_relative("${MUMBLE_INSTALL_EXECUTABLEDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_LIBDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_PLUGINDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_SCRIPTDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_MANDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_DOCDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_LICENSEDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_SYSCONFDIR}")
 
-if (packaging AND WIN32)
-	if(NOT "${MUMBLE_INSTALL_LIBDIR}" STREQUAL "${LIBDIR_DEFAULT}")
-		# The path has been altered which will not allow for a working installer to be created
-		message(FATAL_ERROR "Found non default MUMBLE_INSTALL_LIBDIR path, that will not result in a working installer! (\"${MUMBLE_INSTALL_LIBDIR}\")")
+	if (WIN32)
+		if(NOT "${MUMBLE_INSTALL_LIBDIR}" STREQUAL "${LIBDIR_DEFAULT}")
+			# The path has been altered which will not allow for a working installer to be created
+			message(FATAL_ERROR "Found non default MUMBLE_INSTALL_LIBDIR path, that will not result in a working installer! (\"${MUMBLE_INSTALL_LIBDIR}\")")
+		endif()
 	endif()
 endif()
 
