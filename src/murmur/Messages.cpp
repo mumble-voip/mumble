@@ -935,7 +935,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_texture()) {
 		QByteArray qba = blob(msg.texture());
-		if (pDstServerUser->iId > 0) {
+		if (pDstServerUser->iId >= 0) {
 			// For registered users store the texture we just received in the database
 			if (!setTexture(*pDstServerUser, qba)) {
 				return;

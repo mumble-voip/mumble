@@ -2790,7 +2790,7 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 		return;
 	}
 
-	if (user.iId > 0 && !channel.bTemporary) {
+	if (user.iId >= 0 && !channel.bTemporary) {
 		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user.iId, channel.iId);
 
 		// If the listener existed already, there might have been a volume adjustment for it stored, which
@@ -2809,7 +2809,7 @@ void Server::setChannelListenerVolume(const ServerUser &user, const Channel &cha
 	// However, sometimes the DB really is the only entity knowing about a given listener.
 	if (m_channelListenerManager.isListening(user.uiSession, channel.iId)
 		|| m_dbWrapper.channelListenerExists(iServerNum, user.iId, channel.iId)) {
-		if (user.iId > 0 && !channel.bTemporary) {
+		if (user.iId >= 0 && !channel.bTemporary) {
 			m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
 		}
 
@@ -2828,7 +2828,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 		return;
 	}
 
-	if (user.iId > 0 && !channel.bTemporary) {
+	if (user.iId >= 0 && !channel.bTemporary) {
 		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user.iId, channel.iId);
 	}
 
@@ -2836,7 +2836,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 }
 
 void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
-	if (user.iId > 0 && !channel.bTemporary) {
+	if (user.iId >= 0 && !channel.bTemporary) {
 		m_dbWrapper.deleteChannelListener(iServerNum, user.iId, channel.iId);
 	}
 
