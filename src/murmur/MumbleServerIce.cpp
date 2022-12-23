@@ -1407,7 +1407,9 @@ static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPt
 	QString qsName = u8(name);
 
 	nc = server->createNewChannel(p, qsName);
-	server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
+	if (!nc->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
+	}
 
 	unsigned int newid = nc->iId;
 
@@ -1541,7 +1543,9 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	}
 
 	server->clearACLCache();
-	server->m_dbWrapper.updateChannelData(server->iServerNum, *channel);
+	if (!channel->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *channel);
+	}
 	cb->ice_response();
 }
 

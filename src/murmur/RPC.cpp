@@ -167,7 +167,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		mpcs.set_description(u8(desc));
 	}
 
-	if (updated)
+	if (updated && !cChannel->bTemporary)
 		m_dbWrapper.updateChannelData(iServerNum, *cChannel);
 	if (changed) {
 		sendAll(mpcs, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
