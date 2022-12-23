@@ -100,6 +100,7 @@ public:
 	void loadChannelListenersOf(unsigned int serverID, const ServerUserInfo &userInfo, ChannelListenerManager &manager);
 	void storeChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID,
 									float volumeFactor);
+	float getChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID);
 	bool channelListenerExists(unsigned int serverID, unsigned int userID, unsigned int channelID);
 
 	/**
