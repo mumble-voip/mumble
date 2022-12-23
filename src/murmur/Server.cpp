@@ -2798,12 +2798,23 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 }
 
 void Server::setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume) {
-	if (user.iId > 0 && !channel.bTemporary) {
-		m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
-	}
+	// We check the ChannelListenerManager first, as this check does not require DB access (which might be slow) and
+	// we expect this check to return true for most cases in which this function is called.
+	// However, sometimes the DB really is the only entity knowing about a given listener.
+	if (m_channelListenerManager.isListening(user.uiSession, channel.iId)
+		|| m_dbWrapper.channelListenerExists(iServerNum, user.iId, channel.iId)) {
+		if (user.iId > 0 && !channel.bTemporary) {
+			m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
+		}
 
-	m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
-														 VolumeAdjustment::fromFactor(volume));
+		m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
+															 VolumeAdjustment::fromFactor(volume));
+	} else {
+		log(QString::fromLatin1(
+				"Attempted to set volume adjustment on non-existent channel listener (\"%1\" listening to \"%2\")")
+				.arg(QString(user))
+				.arg(QString(channel)));
+	}
 }
 
 void Server::disableChannelListener(const ServerUser &user, const Channel &channel) {

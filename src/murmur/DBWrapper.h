@@ -100,6 +100,7 @@ public:
 	void loadChannelListenersOf(unsigned int serverID, const ServerUserInfo &userInfo, ChannelListenerManager &manager);
 	void storeChannelListenerVolume(unsigned int serverID, unsigned int userID, unsigned int channelID,
 									float volumeFactor);
+	bool channelListenerExists(unsigned int serverID, unsigned int userID, unsigned int channelID);
 
 	/**
 	 * Performs the registration of the given user in the database
