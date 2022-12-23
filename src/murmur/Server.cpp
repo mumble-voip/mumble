@@ -2792,6 +2792,12 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 
 	if (user.iId > 0 && !channel.bTemporary) {
 		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user.iId, channel.iId);
+
+		// If the listener existed already, there might have been a volume adjustment for it stored, which
+		// we want to make sure to load
+		m_channelListenerManager.setListenerVolumeAdjustment(
+			user.uiSession, channel.iId,
+			VolumeAdjustment::fromFactor(m_dbWrapper.getChannelListenerVolume(iServerNum, user.iId, channel.iId)));
 	}
 
 	m_channelListenerManager.addListener(user.uiSession, channel.iId);
