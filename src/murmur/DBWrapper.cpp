@@ -1106,6 +1106,7 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 	assertValidID(serverID);
 	assertValidID(userID);
 	assertValidID(channelID);
+	assert(m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID));
 
 	::msdb::DBChannelListener listener =
 		m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
@@ -1114,6 +1115,18 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 		listener.volumeAdjustment = volumeFactor;
 		m_serverDB.getChannelListenerTable().updateListener(listener);
 	}
+
+	WRAPPER_END
+}
+
+bool DBWrapper::channelListenerExists(unsigned int serverID, unsigned int userID, unsigned int channelID) {
+	WRAPPER_BEGIN
+
+	assertValidID(serverID);
+	assertValidID(userID);
+	assertValidID(channelID);
+
+	return m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID);
 
 	WRAPPER_END
 }
