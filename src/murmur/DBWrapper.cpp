@@ -1042,6 +1042,15 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned in
 
 	if (!m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		m_serverDB.getChannelListenerTable().addListener(listener);
+	} else {
+		::msdb::DBChannelListener listener =
+			m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
+
+		if (!listener.enabled) {
+			// Mark this listener as enabled again
+			listener.enabled = true;
+			m_serverDB.getChannelListenerTable().updateListener(listener);
+		}
 	}
 
 	WRAPPER_END
