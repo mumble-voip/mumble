@@ -1038,7 +1038,7 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned in
 	assertValidID(userID);
 	assertValidID(channelID);
 
-	::msdb::DBChannelListener listener(serverID, userID, channelID);
+	::msdb::DBChannelListener listener(serverID, channelID, userID);
 
 	if (!m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		m_serverDB.getChannelListenerTable().addListener(listener);
@@ -1054,7 +1054,7 @@ void DBWrapper::disableChannelListenerIfExists(unsigned int serverID, unsigned i
 	assertValidID(userID);
 	assertValidID(channelID);
 
-	::msdb::DBChannelListener listener(serverID, userID, channelID);
+	::msdb::DBChannelListener listener(serverID, channelID, userID);
 
 	if (m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		listener = m_serverDB.getChannelListenerTable().getListenerDetails(listener);
