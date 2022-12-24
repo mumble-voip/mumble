@@ -651,7 +651,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Katso tekijät osoitteesta &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -4095,11 +4095,11 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Napsauta kytkeäksesi tekstistä puheeksi -ominaisuuden käyttöön</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä tekstistä puheeksi -ominaisuutta</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -4123,7 +4123,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstistä puheeksi -äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
@@ -6466,7 +6466,7 @@ Valid options are:
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntele kanavaa</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
@@ -6487,11 +6487,11 @@ Valid options are:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanava&amp;suodatin</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kiinnitä kanava suodattaessa</translation>
     </message>
 </context>
 <context>
@@ -7807,7 +7807,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahdollisesti rikkinäiset asetukset</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
