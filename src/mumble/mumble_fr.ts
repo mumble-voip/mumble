@@ -6548,11 +6548,11 @@ Les options valides sont&#xa0;:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtre de salon</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Épingler le salon lors du filtrage</translation>
     </message>
 </context>
 <context>
@@ -8807,7 +8807,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Le salon sera épinglé lorsque le filtrage sera activé</translation>
     </message>
 </context>
 <context>
