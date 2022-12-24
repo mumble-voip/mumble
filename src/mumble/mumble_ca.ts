@@ -1442,7 +1442,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;àudio posicional no pot treballar amb dispositius de sortida en mono!</translation>
     </message>
 </context>
 <context>
@@ -1958,7 +1958,7 @@ Mumble està en desenvolupament continu i l&apos;equip de desenvolupament vol ce
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitza Tex-A-Veu per a llegir les notificacions i els missatges.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
