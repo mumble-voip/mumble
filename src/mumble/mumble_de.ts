@@ -6540,11 +6540,11 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal&amp;filter</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal beim Filtern an&amp;pinnen</translation>
     </message>
 </context>
 <context>
@@ -8799,7 +8799,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal wird angepinnt, wenn Filtern aktiviert ist</translation>
     </message>
 </context>
 <context>
