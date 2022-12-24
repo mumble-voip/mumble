@@ -6335,7 +6335,7 @@ Valid actions are:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation>开关频道过滤器 (Alt+F)</translation>
+        <translation>开关频道筛选器 (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
@@ -6546,11 +6546,11 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>频道筛选器(&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>筛选时固定频道(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -8804,7 +8804,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>启用频道筛选时，此频道会被固定</translation>
     </message>
 </context>
 <context>
