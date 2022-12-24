@@ -255,7 +255,8 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Додати&lt;/b&gt;&lt;br/&gt;
+Додати нову групу.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -263,15 +264,15 @@ Add a new group.</source>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Містить список користувачів, доданих до групи цим каналом.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Містить список користувачів, чиє членство в групі не буде успадковано з батьківського каналу.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Містить список учасників, успадкованих іншими каналами.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
@@ -291,11 +292,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Робить запис застосовним до підканалів цього каналу.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосовується до підканалів</translation>
     </message>
     <message>
         <source>Permissions</source>
@@ -307,7 +308,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>Група, до якої буде застосований цей запис</translation>
     </message>
     <message>
         <source>User ID</source>
@@ -315,11 +316,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач, до якого застосовується цей запис</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач, для якого потрібно застосувати данний запис. Просто напишіть ім&apos;я користувача і натисніть кнопку enter щоби надіслати запит на сервер.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -327,52 +328,57 @@ Add a new group.</source>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Назва&lt;/b&gt;&lt;br /&gt;Введіть назву каналу у цьому полі. Вона повиння відповідати правилам сервера, до якого ви під&apos;єднані.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Тимчасовий&lt;/b&gt;&lt;br /&gt;
+При відмітці, створений канал буде позначено як тимчасовий. Це означає, що коли останній користувач його покине, канал буде автоматично видалено сервером.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Група&lt;/b&gt;&lt;br /&gt;
+Це всі групи, визначені для цього каналу. Щоб створити нову групу, просто впишіть її назву та натисніть enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Видалити&lt;/b&gt;&lt;br /&gt;Це видаляє вибрану групу. Якщо група успадковується, її не буде видалено із списку, але вся локальна інформація про групу буде очищена.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Успадкувати&lt;/b&gt;&lt;br /&gt;Це успадковує всіх учасників від батьків, якщо група позначена як &lt;i&gt;Успадковувана&lt;/i&gt; в батьківському каналі.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Успадковувана&lt;/b&gt;&lt;br /&gt;Це робить цю групу успадковуваною для підканалів. Якщо ця група не успадковувана, підканали все ще можуть створити нову групу із такою назвою.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Успадкована&lt;/b&gt;&lt;br /&gt;Це вказує на те, що група була успадкована від батьківського каналу. Ви не можете редагувати цей прапорець, він існує лише для інформації.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Користувачі&lt;/b&gt;&lt;br /&gt;
+Список містить усіх користувачів, доданих до групи батьківським каналом. Зверніть увагу, це не включає користувачів, доданих вищими гілками дерева каналів. Список таких користувачів можна знайити в &lt;i&gt;Успадкованих користувачах&lt;/i&gt;. Щоб цей список не був успадкований дочірніми каналами, зніміть мітку з &lt;i&gt;Успадковуваний&lt;/i&gt;, або вручну додайте користувачів до списку &lt;i&gt;Виключені користувачі&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Виключені користувачі&lt;/b&gt;&lt;br /&gt;
+Містить список користувачів, чия участь у групі не буде успадкована з батьківського каналу.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Успадковані користувачі&lt;/b&gt;&lt;br /&gt;
+Містить список користувачів, успадкованих батьківським каналом. Зніміть позначку з &lt;i&gt;Успадковувати&lt;/i&gt;, щоб заборонити успадковування з каналів вищого рівня.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це контролює до якої групи користувачів використовується цей запис.&lt;br /&gt;Зауважте, що група визначена в контексті каналу, в якому вона використана. Наприклад, стандартний СКД (список керування доступом) для каналу Root дає дозвіл &lt;i&gt;Запис&lt;/i&gt; для групи &lt;i&gt;admin&lt;/i&gt;. Цей запис, у разі успадкування каналом, дасть користувачу права запису, якщо він належить &lt;i&gt;admin&lt;/i&gt; в цьому каналі навіть якщо він не належить до групи &lt;i&gt;admin&lt;/i&gt; в каналі, де визначений СКД.&lt;br /&gt;Якщо назва групи починається з «!», то вона використовується як заперечення, і якщо вона починається з «~», то права групи визначаються в каналі, де був визначений СКД, замість каналу, де СКД активний.&lt;br /&gt;Якщо назва групи починається з «#», вона інтерпритується як ключ доступу. Користувачі мали б ввести те, що йде після «#» в їх списку ключів доступу, щоб вони могли ввійти. Це може бути використано для дуже простого парольного доступу до каналів для користувачів, що не автентифікувалися.&lt;br /&gt;Якщо назва групи починається з «$», увійти зможуть лише ті користувачі, чий хеш сертифікату зходиться з тим, що йде після «$».&lt;br /&gt;Спеціальні групи ,що визначені завчасно:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Усі користувачі.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Усі автентифіковані користувачі.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Користувачі у каналі не вище &lt;i&gt;a&lt;/i&gt;, і між &lt;i&gt;b&lt;/i&gt; і &lt;i&gt;c&lt;/i&gt; каналів вниз по ланцюжку. Перейдіть на вебсайт для перегляду повної документації.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Користувачі, що зараз знаходяться в каналі (зручніший варіант для «&lt;i&gt;sub,0,0,0&lt;/i&gt;»).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Користувачі, що знаходяться поза каналом (зручніший варіант для «&lt;i&gt;!sub,0,0,0&lt;/i&gt;»).&lt;br /&gt;Зауважте, що запис використовується або для користувача, або для групи, але не всіх зразу.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
