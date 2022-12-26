@@ -14,8 +14,18 @@
 
 #include <QSignalBlocker>
 
+#include <cmath>
+
 const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
 const QString AudioInputDialog::name  = QLatin1String("AudioInputWidget");
+
+constexpr int bitrateToLog(int bitrate) {
+	return std::log10(static_cast< float >(bitrate)) * 100;
+}
+
+constexpr int logToBitrate(int log) {
+	return std::pow(10, static_cast< float >(log) / 100);
+}
 
 
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
@@ -146,7 +156,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
 	loadCheckBox(qcbPushClick, r.bTxAudioCue);
 	loadCheckBox(qcbMuteCue, r.bTxMuteCue);
-	loadSlider(qsQuality, r.iQuality);
+	loadSlider(qsQuality, bitrateToLog(r.iQuality));
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
 	if (r.iSpeexNoiseCancelStrength != 0) {
 		loadSlider(qsSpeexNoiseSupStrength, -r.iSpeexNoiseCancelStrength);
@@ -236,7 +246,7 @@ void AudioInputDialog::verifyMicrophonePermission() {
 }
 
 void AudioInputDialog::save() const {
-	s.iQuality                  = qsQuality->value();
+	s.iQuality                  = qsbQuality->value() * 1000;
 	s.bAllowLowDelay            = qcbAllowLowDelay->isChecked();
 	s.iSpeexNoiseCancelStrength = (qsSpeexNoiseSupStrength->value() == 14) ? 0 : -qsSpeexNoiseSupStrength->value();
 
@@ -312,8 +322,21 @@ void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 
-void AudioInputDialog::on_qsQuality_valueChanged(int v) {
-	qlQuality->setText(tr("%1 kb/s").arg(static_cast< float >(v) / 1000.0f, 0, 'f', 1));
+void AudioInputDialog::on_qsQuality_valueChanged(int logValue) {
+	QSignalBlocker blocker(qsbQuality);
+
+	// Note: qsQuality is in b/s whereas qsbQuality is in kb/s
+	qsbQuality->setValue(static_cast< float >(logToBitrate(logValue)) / 1000);
+
+	updateBitrate();
+}
+
+void AudioInputDialog::on_qsbQuality_valueChanged(double bitrate) {
+	QSignalBlocker blocker(qsQuality);
+
+	// Note: qsQuality is in b/s whereas qsbQuality is in kb/s
+	qsQuality->setValue(bitrateToLog(bitrate * 1000));
+
 	updateBitrate();
 }
 
@@ -338,7 +361,7 @@ void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 void AudioInputDialog::updateBitrate() {
 	if (!qsQuality || !qsFrames || !qlBitrate)
 		return;
-	int q = qsQuality->value();
+	int q = qsbQuality->value() * 1000;
 	int p = qsFrames->value();
 
 	int audiorate, overhead, posrate;
@@ -379,8 +402,6 @@ void AudioInputDialog::updateBitrate() {
 					.arg(posrate / 1000.0, 0, 'f', 1);
 
 	qlBitrate->setText(v);
-
-	qsQuality->setMinimum(8000);
 }
 
 void AudioInputDialog::on_qcbPushClick_clicked(bool b) {

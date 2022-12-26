@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>953</height>
+    <width>592</width>
+    <height>961</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -447,7 +447,92 @@
      <property name="title">
       <string>Compression</string>
      </property>
-     <layout class="QGridLayout">
+     <layout class="QGridLayout" rowstretch="0,0,0,0" columnstretch="0,0,0,0">
+      <item row="3" column="0" colspan="4">
+       <widget class="QLabel" name="qlBitrate">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Maximum bandwidth used for sending audio</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="qlFrames">
+        <property name="minimumSize">
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbAllowLowDelay">
+        <property name="toolTip">
+         <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
+        </property>
+        <property name="whatsThis">
+         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
+        </property>
+        <property name="text">
+         <string>Allow low delay mode</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSlider" name="qsQuality">
+        <property name="toolTip">
+         <string>Quality of compression (peak bandwidth)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+        </property>
+        <property name="minimum">
+         <number>390</number>
+        </property>
+        <property name="maximum">
+         <number>571</number>
+        </property>
+        <property name="singleStep">
+         <number>1</number>
+        </property>
+        <property name="pageStep">
+         <number>20</number>
+        </property>
+        <property name="value">
+         <number>390</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliQuality">
+        <property name="text">
+         <string>&amp;Quality</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsQuality</cstring>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliFrames">
         <property name="text">
@@ -480,101 +565,19 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="qlQuality">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
+      <item row="0" column="3">
+       <widget class="QDoubleSpinBox" name="qsbQuality">
+        <property name="suffix">
+         <string> kb/s</string>
         </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="qlFrames">
-        <property name="minimumSize">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSlider" name="qsQuality">
-        <property name="toolTip">
-         <string>Quality of compression (peak bandwidth)</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+        <property name="decimals">
+         <number>1</number>
         </property>
         <property name="minimum">
-         <number>8000</number>
+         <double>8.000000000000000</double>
         </property>
         <property name="maximum">
-         <number>192000</number>
-        </property>
-        <property name="singleStep">
-         <number>1000</number>
-        </property>
-        <property name="pageStep">
-         <number>5000</number>
-        </property>
-        <property name="value">
-         <number>32000</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="3">
-       <widget class="QLabel" name="qlBitrate">
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string>Maximum bandwidth used for sending audio</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliQuality">
-        <property name="text">
-         <string>&amp;Quality</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsQuality</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbAllowLowDelay">
-        <property name="toolTip">
-         <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
-        </property>
-        <property name="whatsThis">
-         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
-        </property>
-        <property name="text">
-         <string>Allow low delay mode</string>
+         <double>510.000000000000000</double>
         </property>
        </widget>
       </item>
