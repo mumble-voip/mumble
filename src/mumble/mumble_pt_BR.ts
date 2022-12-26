@@ -1040,6 +1040,10 @@ Este valor permite que você especifique o número máximo de usuárias permitid
         <source>Pre&amp;view</source>
         <translation>Pré-visualizar</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>

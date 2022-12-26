@@ -1040,6 +1040,10 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <source>Pre&amp;view</source>
         <translation>Anteprima</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>

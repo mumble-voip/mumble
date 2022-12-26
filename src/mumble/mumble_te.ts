@@ -1038,6 +1038,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Pre&amp;view</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1067,10 +1071,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

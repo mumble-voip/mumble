@@ -1040,6 +1040,10 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <source>Pre&amp;view</source>
         <translation>&amp;Voorbeeld</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>

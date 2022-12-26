@@ -1040,6 +1040,10 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <source>Pre&amp;view</source>
         <translation>For&amp;hondsvis</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>

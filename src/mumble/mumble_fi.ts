@@ -1040,6 +1040,10 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <source>Pre&amp;view</source>
         <translation>Test&amp;aa</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>

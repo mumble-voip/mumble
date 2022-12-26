@@ -1040,6 +1040,10 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <source>Pre&amp;view</source>
         <translation>Pre&amp;visualitza</translation>
     </message>
+    <message>
+        <source> kb/s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1070,10 +1074,6 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
-    </message>
-    <message>
-        <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>
