@@ -1,6 +1,6 @@
-[submodule "opus"]
+[submodule "3rdparty/opus"]
 	path = 3rdparty/opus
-	url = https://gitlab.xiph.org/xiph/opus.git
+	url = https://github.com/mumble-voip/opus.git
 [submodule "3rdparty/minhook"]
 	path = 3rdparty/minhook
 	url = https://github.com/mumble-voip/minhook.git
@@ -25,3 +25,5 @@
 [submodule "3rdparty/gsl"]
 	path = 3rdparty/gsl
 	url = https://github.com/microsoft/GSL.git
+[submodule "opus"]
+	url = https://github.com/mumble-voip/opus.git

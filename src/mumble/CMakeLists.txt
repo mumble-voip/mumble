@@ -696,6 +696,7 @@ endif()
 
 if(bundled-opus)
 	option(OPUS_BUILD_SHARED_LIBRARY "" ON)
+	option(OPUS_BUILD_TESTS "" OFF)
 	if(MINGW)
 		option(OPUS_STACK_PROTECTOR "" OFF)
 	endif()
