@@ -6547,7 +6547,7 @@ Le opzioni valide sono:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Canale &amp;Filtro</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>

@@ -6548,11 +6548,11 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtr kanału</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Przypnij kanał podczas filtrowania</translation>
     </message>
 </context>
 <context>
@@ -8768,7 +8768,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation>Kanał będzie ukryty, gdy filtrowanie będzie włączone</translation>
+        <translation>Kanał będzie ukryty, gdy włączone jest filtrowanie</translation>
     </message>
     <message>
         <source>Name</source>
@@ -8808,7 +8808,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanał będzie przypięty, gdy włączone jest filtrowanie</translation>
     </message>
 </context>
 <context>

@@ -710,7 +710,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation>Geluidssignaal naar standaardwaarde herstellen</translation>
+        <translation>Geluidshint naar standaardwaarde herstellen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
@@ -734,7 +734,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Preview the audio cues</source>
-        <translation>Geluidssignaal-voorbeelden beluisteren</translation>
+        <translation>Voorbeeld beluisteren van geluidshint</translation>
     </message>
     <message>
         <source>Use SNR based speech detection</source>
@@ -910,15 +910,15 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Hoorbaar geluidssignaal wanneer het verzenden begint of eindigt</translation>
+        <translation>Hoorbare geluidshint wanneer het verzenden begint of eindigt</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Genereert geluidssignalen bij zenden.&lt;/b&gt;&lt;br /&gt;Instellen geeft je een kort start/stop-geluidssignaal.</translation>
+        <translation>&lt;b&gt;Schakelt geluidshints bij transmissies in.&lt;/b&gt;&lt;br /&gt;Het inschakelen hiervan zal een kort start-/stop-signaal laten horen wanneer je begint en stopt met verzenden.</translation>
     </message>
     <message>
         <source>Audio cue</source>
-        <translation>Geluidssignaal</translation>
+        <translation>Geluidshint</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
@@ -1030,7 +1030,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Mute cue</source>
-        <translation>Stomheidssignaal</translation>
+        <translation>Stomheidshint</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -3423,7 +3423,7 @@ Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen nie
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s globaal snelkoppelingssysteem werkt momenteel niet goed onder Wayland. Voor meer informatie, zie &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3865,7 +3865,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ingebedde inhoud]</translation>
     </message>
 </context>
 <context>
@@ -4111,43 +4111,43 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation>Volumeregeling voor geluidssignalen</translation>
+        <translation>Bijstelling volume voor geluidshints</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dit stelt het volume van geluidshints bij.&lt;/b&gt;&lt;br /&gt;Een waarde van 0 dB betekent dat de sample afgespeeld wordt zoals hij is, zonder bijstelling.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst-naar-Spraak</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijstelling notificatievolume</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijstelling van het volume van notificaties</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dit stelt het volume van notificaties bij.&lt;/b&gt;&lt;br /&gt;Een waarde van 0 dB betekent dat de sample afgespeeld wordt zoals hij is, zonder bijstelling.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijstelling volume geluidshint</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijstelling volume notificaties</translation>
     </message>
 </context>
 <context>
@@ -4576,35 +4576,35 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedrag bij afsluiten</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze instelling bepaalt het gedrag van het klikken op de sluitknop van het venster.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze instelling bepaalt het gedrag van Mumble bij het afsluiten. Je kan kiezen tussen gevraagd worden om bevestiging, of het minimaliseren van het venster in plaats van het te sluiten zonder meer. De voorgaande twee opties zijn alleen van toepassing als je momenteel met een server verbonden bent (anders sluit Mumble altijd zonder meer af).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Altijd bevestigen</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Vragen wanneer verbonden</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Altijd minimaliseren</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimaliseren wanneer verbonden</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Altijd afsluiten</translation>
     </message>
 </context>
 <context>
@@ -6453,45 +6453,45 @@ Valid options are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je gebruikt momenteel de minimale weergave maar bent niet verbonden met een server. Gebruik het contextmenu om met een server te verbinden, of schakel de minimale weergave eerst uit.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokale bijstelling volume:</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Mumble-versie kan URL&apos;s voor Mumble versie %1 niet aan</translation>
+        <translation>Deze Mumble-versie kan URL&apos;s uit Mumble-versie %1 niet correct afhandelen</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Naar kanaal luisteren</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schakelt het luisteren naar het opgegeven kanaal in of uit.</translation>
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>De server vraagt ons om een andere audiocodec dan Opus te gebruiken, maar dit wordt niet (meer) ondersteund. Verbinding wordt verbroken...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Weer je zeker dat je Mumble wil sluiten? Wilde je in plaats hiervan misschien minimaliseren?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze instelling onthouden</translation>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaal&amp;filter</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaal &amp;vastzetten tijdens filteren</translation>
     </message>
 </context>
 <context>
@@ -7831,7 +7831,7 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekende versie</translation>
     </message>
 </context>
 <context>
@@ -8206,7 +8206,7 @@ Je kunt ze opnieuw registreren.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Onbekend kanaal&gt;</translation>
     </message>
 </context>
 <context>
@@ -8552,7 +8552,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarschuwing: Deze server lijkt een afgebroken protocolversie te rapporteren aan deze client. (Zie ook: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
@@ -8746,7 +8746,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaal zal vastgezet worden wanneer er gefilterd wordt</translation>
     </message>
 </context>
 <context>

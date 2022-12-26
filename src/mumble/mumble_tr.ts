@@ -6546,11 +6546,11 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal &amp;Filtresi</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtreleme Sırasında Kanalı &amp;Sabitle</translation>
     </message>
 </context>
 <context>
@@ -8804,7 +8804,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtreleme etkinleştirildiğinde kanal sabitlenecektir</translation>
     </message>
 </context>
 <context>
