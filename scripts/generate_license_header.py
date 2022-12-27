@@ -22,7 +22,6 @@ repoRoot = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 # List of (3rdparty) licenses  [<variableName>, <pathToLicenseFile>, <DisplayName>, <URL>, (<define-guard>)?]
 licenses = [
     ["licenseMumble", "LICENSE", "Mumble", "https://www.mumble.info/"],
-    ["licenseOpus", "3rdparty/opus/COPYING", "Opus", "http://www.opus-codec.org/"],
     ["licenseSPEEXDSP", "3rdparty/speexdsp/COPYING", "SpeexDSP", "http://www.speex.org/"],
     ["licenseOpenSSL", "3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],
     ["licenseLibsndfile", "3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"],

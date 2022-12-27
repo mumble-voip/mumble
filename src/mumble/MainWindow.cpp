@@ -21,7 +21,6 @@
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
-#include "OpusCodec.h"
 #include "GlobalShortcut.h"
 #include "GlobalShortcutTypes.h"
 #ifdef USE_OVERLAY

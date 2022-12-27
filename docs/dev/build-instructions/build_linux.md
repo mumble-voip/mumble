@@ -28,6 +28,7 @@ sudo apt install \
   libasound2-dev \
   libogg-dev \
   libsndfile1-dev \
+  libopus-dev \
   libspeechd-dev \
   libavahi-compat-libdnssd-dev \
   libxcb-xinerama0 \

@@ -18,7 +18,6 @@
 #include <mutex>
 #include <vector>
 
-class OpusCodec;
 class ClientUser;
 struct OpusDecoder;
 
@@ -55,7 +54,6 @@ protected:
 	JitterBuffer *jbJitter;
 	int iMissCount;
 
-	OpusCodec *oCodec;
 	OpusDecoder *opusState;
 
 	QList< QByteArray > qlFrames;

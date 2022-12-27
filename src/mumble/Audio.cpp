@@ -8,7 +8,6 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Log.h"
-#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
 #include "Global.h"
@@ -18,33 +17,9 @@
 #include <cstring>
 
 
-class CodecInit : public DeferInit {
-public:
-	void initialize();
-	void destroy();
-};
-
 #define DOUBLE_RAND (rand() / static_cast< double >(RAND_MAX))
 
 LoopUser LoopUser::lpLoopy;
-CodecInit ciInit;
-
-void CodecInit::initialize() {
-	OpusCodec *oCodec = new OpusCodec();
-	if (oCodec->isValid()) {
-		oCodec->report();
-		Global::get().oCodec = oCodec;
-	} else {
-		Log::logOrDefer(
-			Log::CriticalError,
-			QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
-		delete oCodec;
-	}
-}
-
-void CodecInit::destroy() {
-	delete Global::get().oCodec;
-}
 
 LoopUser::LoopUser() {
 	qsName    = QLatin1String("Loopy");

@@ -23,6 +23,7 @@ sudo apt -y install \
 	libasound2-plugins-extra \
 	libogg-dev \
 	libsndfile1-dev \
+	libopus-dev \
 	libspeechd-dev \
 	libavahi-compat-libdnssd-dev \
 	libzeroc-ice-dev \

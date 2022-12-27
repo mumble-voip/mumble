@@ -1,6 +1,3 @@
-[submodule "3rdparty/opus"]
-	path = 3rdparty/opus
-	url = https://github.com/mumble-voip/opus.git
 [submodule "3rdparty/minhook"]
 	path = 3rdparty/minhook
 	url = https://github.com/mumble-voip/minhook.git

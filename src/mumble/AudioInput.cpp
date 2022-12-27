@@ -10,7 +10,6 @@
 #include "MainWindow.h"
 #include "MumbleProtocol.h"
 #include "NetworkConfig.h"
-#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
@@ -18,6 +17,8 @@
 #include "Utils.h"
 #include "VoiceRecorder.h"
 #include "Global.h"
+
+#include <opus.h>
 
 #ifdef USE_RNNOISE
 extern "C" {
@@ -228,24 +229,20 @@ AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE
 	m_codec = Mumble::Protocol::AudioCodec::Opus;
 
 	activityState = ActivityStateActive;
-	oCodec        = nullptr;
 	opusState     = nullptr;
 
-	oCodec = Global::get().oCodec;
-	if (oCodec) {
-		if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, nullptr);
-			qWarning("AudioInput: Opus encoder set for low delay");
-		} else if (iAudioQuality >= 32000) { // > 32 kbit/s bitrate
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, nullptr);
-			qWarning("AudioInput: Opus encoder set for high quality speech");
-		} else {
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, nullptr);
-			qWarning("AudioInput: Opus encoder set for low quality speech");
-		}
-
-		oCodec->opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
+	if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, nullptr);
+		qWarning("AudioInput: Opus encoder set for low delay");
+	} else if (iAudioQuality >= 32000) { // > 32 kbit/s bitrate
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, nullptr);
+		qWarning("AudioInput: Opus encoder set for high quality speech");
+	} else {
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, nullptr);
+		qWarning("AudioInput: Opus encoder set for low quality speech");
 	}
+
+	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 
 #ifdef USE_RNNOISE
 	denoiseState = rnnoise_create(nullptr);
@@ -296,7 +293,7 @@ AudioInput::~AudioInput() {
 	wait();
 
 	if (opusState) {
-		oCodec->opus_encoder_destroy(opusState);
+		opus_encoder_destroy(opusState);
 	}
 
 #ifdef USE_RNNOISE
@@ -846,18 +843,14 @@ void AudioInput::selectNoiseCancel() {
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
 	int len;
-	if (!oCodec) {
-		return 0;
-	}
-
 	if (bResetEncoder) {
-		oCodec->opus_encoder_ctl(opusState, OPUS_RESET_STATE, nullptr);
+		opus_encoder_ctl(opusState, OPUS_RESET_STATE, nullptr);
 		bResetEncoder = false;
 	}
 
-	oCodec->opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = oCodec->opus_encode(opusState, source, size, &buffer[0], static_cast< opus_int32 >(buffer.size()));
+	len = opus_encode(opusState, source, size, &buffer[0], static_cast< opus_int32 >(buffer.size()));
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate                  = (len * 100 * 8) / tenMsFrameCount;
 	return len;

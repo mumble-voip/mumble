@@ -7,10 +7,11 @@
 
 #include "Audio.h"
 #include "ClientUser.h"
-#include "OpusCodec.h"
 #include "PacketDataStream.h"
 #include "Utils.h"
 #include "Global.h"
+
+#include <opus.h>
 
 #include <algorithm>
 #include <cassert>
@@ -59,7 +60,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 	: AudioOutputUser(user->qsName), iMixerFreq(freq), m_codec(codec), p(user) {
 	int err;
 
-	oCodec    = nullptr;
 	opusState = nullptr;
 
 	bHasTerminator = false;
@@ -80,13 +80,10 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 
 	// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
 	// https://tools.ietf.org/html/rfc6716#section-2.1.2
-	bStereo = true;
-	oCodec  = Global::get().oCodec;
-	if (oCodec) {
-		opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, nullptr);
-		oCodec->opus_decoder_ctl(
-			opusState, OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
-	}
+	bStereo   = true;
+	opusState = opus_decoder_create(iSampleRate, bStereo ? 2 : 1, nullptr);
+	opus_decoder_ctl(opusState,
+					 OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 
 	// iAudioBufferSize: size (in unit of float) of the buffer used to store decoded pcm data.
 	// For opus, the maximum frame size of a packet is 60ms.
@@ -157,7 +154,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 
 AudioOutputSpeech::~AudioOutputSpeech() {
 	if (opusState) {
-		oCodec->opus_decoder_destroy(opusState);
+		opus_decoder_destroy(opusState);
 	}
 
 	if (srs)
@@ -186,12 +183,9 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
 	assert(audioData.usedCodec == m_codec);
 
-	if (oCodec) {
-		samples =
-			oCodec->opus_decoder_get_nb_samples(opusState, audioData.payload.data(),
-												audioData.payload.size()); // this function return samples per channel
-		samples *= 2; // since we assume all input stream is stereo.
-	}
+	samples = opus_decoder_get_nb_samples(opusState, audioData.payload.data(),
+										  audioData.payload.size()); // this function return samples per channel
+	samples *= 2;                                                    // since we assume all input stream is stereo.
 
 	// We can't handle frames which are not a multiple of our configured framesize.
 	if (samples % iFrameSize != 0) {
@@ -334,27 +328,24 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 				assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
 
-				if (oCodec) {
-					if (qba.isEmpty() || !(p && p->bLocalMute)) {
-						// If qba is empty, we have to let Opus know about the packet loss
-						// Otherwise if the associated user is not locally muted, we want to decode the audio
-						// packet normally in order to be able to play it.
-						decodedSamples = oCodec->opus_decode_float(
-							opusState,
-							qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-							qba.size(), pOut, iAudioBufferSize, 0);
-					} else {
-						// If the packet is non-empty, but the associated user is locally muted,
-						// we don't have to decode the packet. Instead it is enough to know how many
-						// samples it contained so that we can then mute the appropriate output length
-						decodedSamples = oCodec->opus_packet_get_samples_per_frame(
-							reinterpret_cast< const unsigned char * >(qba.constData()), SAMPLE_RATE);
-					}
-
-					// The returned sample count we get from the Opus functions refer to samples per channel.
-					// Thus in order to get the total amount, we have to multiply by the channel count.
-					decodedSamples *= channels;
+				if (qba.isEmpty() || !(p && p->bLocalMute)) {
+					// If qba is empty, we have to let Opus know about the packet loss
+					// Otherwise if the associated user is not locally muted, we want to decode the audio
+					// packet normally in order to be able to play it.
+					decodedSamples = opus_decode_float(
+						opusState, qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
+						qba.size(), pOut, iAudioBufferSize, 0);
+				} else {
+					// If the packet is non-empty, but the associated user is locally muted,
+					// we don't have to decode the packet. Instead it is enough to know how many
+					// samples it contained so that we can then mute the appropriate output length
+					decodedSamples = opus_packet_get_samples_per_frame(
+						reinterpret_cast< const unsigned char * >(qba.constData()), SAMPLE_RATE);
 				}
+
+				// The returned sample count we get from the Opus functions refer to samples per channel.
+				// Thus in order to get the total amount, we have to multiply by the channel count.
+				decodedSamples *= channels;
 
 				if (decodedSamples < 0) {
 					decodedSamples = iFrameSize;
@@ -395,10 +386,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				}
 			} else {
 				assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
-				if (oCodec) {
-					decodedSamples = oCodec->opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
-					decodedSamples *= channels;
-				}
+				decodedSamples = opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
+				decodedSamples *= channels;
 
 				if (decodedSamples < 0) {
 					decodedSamples = iFrameSize;
