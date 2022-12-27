@@ -1085,7 +1085,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Įvesties įrenginys</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -1133,7 +1133,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Didžiausias stiprinimas</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
@@ -7580,10 +7580,6 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8034,7 +8030,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iš naujo sinchronizuoti</translation>
     </message>
     <message>
         <source>Outgoing</source>

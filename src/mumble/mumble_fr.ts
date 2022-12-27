@@ -7701,10 +7701,6 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit&#xa0;: Échec du chargement d&apos;Opus, il ne sera pas disponible pour le codage/décodage audio.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Mode d&apos;affichage Tribune</translation>
     </message>

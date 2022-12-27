@@ -7640,10 +7640,6 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Ei voitu ladata Opusta, se ei ole saatavilla audion enkoodaamisessa/dekoodaamisessa.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Puhujalista</translation>
     </message>

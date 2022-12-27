@@ -7701,10 +7701,6 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Nie udało się załadować Opus, nie będzie on dostępny do kodowania i dekodowania dźwięku.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Interfejs mówiących</translation>
     </message>

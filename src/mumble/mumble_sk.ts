@@ -7504,10 +7504,6 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"></translation>
     </message>

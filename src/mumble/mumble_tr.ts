@@ -7699,10 +7699,6 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Opus&apos;un yüklenmesi başarısız oldu, ses kodlamak/kodlamayı açmak için kullanılamayacaktır.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Konuşma Arayüzü</translation>
     </message>

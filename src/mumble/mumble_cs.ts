@@ -7605,10 +7605,6 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation type="unfinished"></translation>
     </message>

@@ -7655,10 +7655,6 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished">CodecInit: Klarte ikke å laste inn Opus for koding og dekoding av lyd.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Snakkingsgrensesnitt</translation>
     </message>
