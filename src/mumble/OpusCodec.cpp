@@ -42,32 +42,28 @@ OpusCodec::OpusCodec() {
 	alternatives << QString::fromLatin1("opus0.dll");
 	alternatives << QString::fromLatin1("opus.dll");
 #endif
-	foreach (const QString &lib, alternatives) {
-		qlOpus.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
-		if (qlOpus.load()) {
-			bValid = true;
-			break;
-		}
 
+
+	QStringList basePaths;
+	basePaths << MumbleApplication::instance()->applicationVersionRootPath() + "/";
 #ifdef Q_OS_MAC
-		qlOpus.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/../Codecs/") + lib);
-		if (qlOpus.load()) {
-			bValid = true;
-			break;
-		}
+	basePaths << QApplication::instance()->applicationDirPath() + "/../Codecs/";
 #endif
-
 #ifdef MUMBLE_LIBRARY_PATH
-		qlOpus.setFileName(QLatin1String(MUMTEXT(MUMBLE_LIBRARY_PATH) "/") + lib);
-		if (qlOpus.load()) {
-			bValid = true;
-			break;
-		}
+	basePaths << MUMTEXT(MUMBLE_LIBRARY_PATH) "/";
 #endif
+	basePaths << ""; // General search without telling it a particular path to look for
 
-		qlOpus.setFileName(lib);
-		if (qlOpus.load()) {
-			bValid = true;
+	for (const QString &basePath : basePaths) {
+		for (const QString &libName : alternatives) {
+			qlOpus.setFileName(basePath + libName);
+			if (qlOpus.load()) {
+				bValid = true;
+				break;
+			}
+		}
+
+		if (bValid) {
 			break;
 		}
 	}
