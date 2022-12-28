@@ -22,7 +22,6 @@ option(update "Check for updates by default." ON)
 option(translations "Include languages other than English." ON)
 option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
 
-option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
@@ -184,8 +183,6 @@ set(MUMBLE_SOURCES
 	"NetworkConfig.cpp"
 	"NetworkConfig.h"
 	"NetworkConfig.ui"
-	"OpusCodec.cpp"
-	"OpusCodec.h"
 	"PluginConfig.cpp"
 	"PluginConfig.h"
 	"PluginConfig.ui"
@@ -521,7 +518,7 @@ find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
 if("${sndfile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
 	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_OPUS)
 else()
-	message(WARNING "libsnfile is missing Opus-support -> No Opus-format recording")
+	message(WARNING "libsndfile is missing Opus-support -> No Opus-format recording")
 endif()
 
 # Look for various targets as they are named differently on different platforms
@@ -694,37 +691,15 @@ else()
 	endif()
 endif()
 
-if(bundled-opus)
-	option(OPUS_BUILD_SHARED_LIBRARY "" ON)
-	option(OPUS_BUILD_TESTS "" OFF)
-	if(MINGW)
-		option(OPUS_STACK_PROTECTOR "" OFF)
-	endif()
-
-	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus" EXCLUDE_FROM_ALL)
-
-	# Disable all warnings that the Opus code may emit
-	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
-
-	# Opus doesn't work in unity builds
-	set_target_properties(opus PROPERTIES UNITY_BUILD FALSE)
-
-	add_dependencies(mumble_client_object_lib opus)
-
-	target_include_directories(mumble_client_object_lib PUBLIC "${3RDPARTY_DIR}/opus/include")
-
-	if(WIN32)
-		# Shared library on Windows (e.g. ".dll")
-		set_target_properties(opus PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	else()
-		# Shared library on UNIX (e.g. ".so")
-		set_target_properties(opus PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	endif()
-
-	install_library(opus mumble_client)
-else()
-	find_pkg(opus REQUIRED)
-	target_include_directories(mumble_client_object_lib PUBLIC ${opus_INCLUDE_DIRS})
+find_pkg("opus;Opus" REQUIRED)
+target_include_directories(mumble_client_object_lib PUBLIC ${opus_INCLUDE_DIRS})
+target_link_libraries(mumble_client_object_lib PUBLIC ${opus_LIBRARIES})
+if(TARGET opus)
+	target_link_libraries(mumble_client_object_lib PUBLIC opus)
+elseif(TARGET Opus)
+	target_link_libraries(mumble_client_object_lib PUBLIC Opus)
+elseif(TARGET Opus::opus)
+	target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
 endif()
 
 if(bundled-speex)

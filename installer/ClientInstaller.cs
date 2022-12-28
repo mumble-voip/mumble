@@ -86,7 +86,6 @@ public class ClientInstaller : MumbleInstall {
 			// 64 bit
 			this.Platform = WixSharp.Platform.x64;
 			binaries = new List<string>() {
-				"opus.dll",
 				"rnnoise.dll",
 				"speexdsp.dll",
 				"mumble.exe",
@@ -107,7 +106,6 @@ public class ClientInstaller : MumbleInstall {
 			// 32 bit
 			this.Platform = WixSharp.Platform.x86;
 			binaries = new List<string>() {
-				"opus.dll",
 				"rnnoise.dll",
 				"speexdsp.dll",
 				"mumble.exe",

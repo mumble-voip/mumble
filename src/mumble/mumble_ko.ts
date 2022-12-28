@@ -7639,10 +7639,6 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Opus를 로드하지 못했습니다. 오디오를 인코딩/디코딩할 수 없습니다.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>대화 UI</translation>
     </message>

@@ -7693,10 +7693,6 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: Laden von Opus ist fehlgeschlagen. Es ist daher nicht verfügbar zum de- und kodieren von Audio.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Gesprächsansicht</translation>
     </message>

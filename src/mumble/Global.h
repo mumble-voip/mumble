@@ -31,7 +31,6 @@ class Overlay;
 class LCD;
 class Zeroconf;
 class OverlayClient;
-class OpusCodec;
 class LogEmitter;
 class DeveloperConsole;
 class TalkingUI;
@@ -96,7 +95,6 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	QDir qdBasePath;
-	OpusCodec *oCodec;
 	bool bAttenuateOthers;
 	/// If set the AudioOutput::mix will forcefully adjust the volume of all
 	/// non-priority speakers.

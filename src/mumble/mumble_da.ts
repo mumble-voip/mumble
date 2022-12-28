@@ -7601,10 +7601,6 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation type="unfinished"></translation>
     </message>

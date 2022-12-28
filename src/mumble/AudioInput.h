@@ -30,7 +30,6 @@
 #include "Timer.h"
 
 class AudioInput;
-class OpusCodec;
 struct OpusEncoder;
 struct DenoiseState;
 typedef boost::shared_ptr< AudioInput > AudioInputPtr;
@@ -187,7 +186,6 @@ private:
 	inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
 	void resetAudioProcessor();
 
-	OpusCodec *oCodec;
 	OpusEncoder *opusState;
 	DenoiseState *denoiseState;
 	bool selectCodec();

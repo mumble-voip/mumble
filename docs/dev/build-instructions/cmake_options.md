@@ -44,11 +44,6 @@ Use the bundled GSL version instead of looking for one on the system
 Build the included version of nlohmann_json instead of looking for one on the system
 (Default: ON)
 
-### bundled-opus
-
-Build the included version of Opus instead of looking for one on the system.
-(Default: ON)
-
 ### bundled-rnnoise
 
 Build the included version of RNNoise instead of looking for one on the system.
@@ -132,21 +127,6 @@ Whether or not tests that need a working internet connection should be included
 ### optimize
 
 Build a heavily optimized version, specific to the machine it's being compiled on.
-(Default: OFF)
-
-### OPUS_BUILD_SHARED_LIBRARY
-
-(No description available)
-(Default: ON)
-
-### OPUS_BUILD_TESTS
-
-(No description available)
-(Default: OFF)
-
-### OPUS_STACK_PROTECTOR
-
-(No description available)
 (Default: OFF)
 
 ### oss

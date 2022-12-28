@@ -7618,10 +7618,6 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation>CodecInit: No se pudo cargar Opus, no estará disponible para la codificación/decodificación del audio.</translation>
-    </message>
-    <message>
         <source>Talking UI</source>
         <translation>Interfaz de uso del habla</translation>
     </message>
