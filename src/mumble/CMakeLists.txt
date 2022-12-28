@@ -518,7 +518,7 @@ find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
 if("${sndfile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
 	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_OPUS)
 else()
-	message(WARNING "libsnfile is missing Opus-support -> No Opus-format recording")
+	message(WARNING "libsndfile is missing Opus-support -> No Opus-format recording")
 endif()
 
 # Look for various targets as they are named differently on different platforms
