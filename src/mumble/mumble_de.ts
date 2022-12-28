@@ -2781,11 +2781,11 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation>Kann Bild nicht senden: zu groß.</translation>
+        <translation>Bild konnte nicht gesendet werden: Maximale Größe überschritten.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation>Kann Bild %1 nicht senden: zu groß.</translation>
+        <translation>Bild %1 konnte nicht gesendet werden: Maximale Größe überschritten.</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
