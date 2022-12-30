@@ -595,12 +595,17 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QWindowsIntegrationPlugin)
 	endif()
 
+	add_subdirectory("${3RDPARTY_DIR}/SPSCQueue" "${CMAKE_CURRENT_BINARY_DIR}/SPSCQueue" EXCLUDE_FROM_ALL)
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/xinputcheck-build")
 
-	target_link_libraries(mumble_client_object_lib PUBLIC xinputcheck)
+	target_link_libraries(mumble_client_object_lib
+		PUBLIC
+			SPSCQueue
+			xinputcheck
+	)
 
 	if(MSVC)
 		target_link_libraries(mumble_client_object_lib
