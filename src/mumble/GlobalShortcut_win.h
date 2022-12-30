@@ -12,8 +12,13 @@
 #	include "XboxInput.h"
 #endif
 
+#include <condition_variable>
 #include <memory>
 #include <unordered_map>
+
+#include <gsl/span>
+
+#include <rigtorp/SPSCQueue.h>
 
 #ifdef USE_GKEY
 class GKeyLibrary;
@@ -44,17 +49,52 @@ public:
 	~GlobalShortcutWin() override;
 public slots:
 	void deviceRemoved(const HANDLE deviceHandle);
-	void timeTicked();
-
-	void on_hidMessage(const HANDLE deviceHandle, std::vector< char > reports, const uint32_t reportSize);
-	void on_keyboardMessage(const uint16_t flags, uint16_t scanCode, const uint16_t virtualKey);
-	void on_mouseMessage(const uint16_t flags, const uint16_t data);
-signals:
-	void hidMessage(const HANDLE deviceHandle, std::vector< char > reports, const uint32_t reportSize);
-	void keyboardMessage(const uint16_t flags, uint16_t scanCode, const uint16_t virtualKey);
-	void mouseMessage(const uint16_t flags, const uint16_t data);
 
 protected:
+	class MsgRaw {
+	public:
+		enum Type : uint8_t { Hid, Keyboard, Mouse };
+
+		constexpr Type type() { return m_type; };
+
+	protected:
+		MsgRaw(const Type type) : m_type(type) {}
+
+	private:
+		Type m_type;
+	};
+
+	class MsgHid : public MsgRaw {
+	public:
+		using RawReports = gsl::span< const BYTE >;
+
+		MsgHid(HANDLE deviceHandle, const RawReports rawReports, const DWORD reportSize)
+			: MsgRaw(Hid), deviceHandle(deviceHandle), reports(rawReports.size()), reportSize(reportSize) {
+			memcpy(reports.data(), rawReports.data(), reports.size());
+		}
+
+		HANDLE deviceHandle;
+		std::vector< char > reports;
+		DWORD reportSize;
+	};
+
+	class MsgKeyboard : public MsgRaw {
+	public:
+		MsgKeyboard(const USHORT flags, const USHORT scanCode, const USHORT virtualKey)
+			: MsgRaw(Keyboard), flags(flags), scanCode(scanCode), virtualKey(virtualKey) {}
+
+		USHORT flags;
+		USHORT scanCode;
+		USHORT virtualKey;
+	};
+
+	class MsgMouse : public MsgRaw {
+	public:
+		MsgMouse(const USHORT buttonFlags) : MsgRaw(Mouse), buttonFlags(buttonFlags) {}
+
+		USHORT buttonFlags;
+	};
+
 	struct Device {
 		std::string name;
 		std::string prefix;
@@ -66,6 +106,15 @@ protected:
 		Device() : xinput(false){};
 #endif
 	};
+
+	void processMsgHid(MsgHid &msg);
+	void processMsgKeyboard(MsgKeyboard &msg);
+	void processMsgMouse(const MsgMouse &msg);
+	void processOther();
+
+	std::condition_variable m_condVar;
+
+	rigtorp::SPSCQueue< std::unique_ptr< MsgRaw > > m_msgQueue;
 
 	typedef std::unordered_map< HANDLE, Device > DeviceMap;
 	DeviceMap m_devices;
