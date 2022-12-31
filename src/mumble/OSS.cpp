@@ -14,6 +14,9 @@
 #include "User.h"
 #include "Global.h"
 
+#include <memory>
+#include <vector>
+
 #define NBLOCKS 8
 
 class OSSEnumerator {
@@ -175,6 +178,22 @@ OSSInput::~OSSInput() {
 	wait();
 }
 
+class FileDescriptor {
+public:
+	FileDescriptor(int fd = -1) : m_fd(fd) {}
+	~FileDescriptor() {
+		if (m_fd != -1) {
+			close(m_fd);
+			m_fd = -1;
+		}
+	}
+
+	operator int() const { return m_fd; }
+
+private:
+	int m_fd = -1;
+};
+
 void OSSInput::run() {
 	QByteArray device = cards->qhDevices.value(Global::get().s.qsOSSInput).toLatin1();
 	if (device.isEmpty()) {
@@ -182,7 +201,7 @@ void OSSInput::run() {
 		device = cards->qhDevices.value(QString()).toLatin1();
 	}
 
-	int fd = open(device.constData(), O_RDONLY, 0);
+	FileDescriptor fd(open(device.constData(), O_RDONLY, 0));
 	if (fd == -1) {
 		qWarning("OSSInput: Failed to open %s", device.constData());
 		return;
@@ -193,20 +212,20 @@ void OSSInput::run() {
 	ival = AFMT_S16_NE;
 	if ((ioctl(fd, SNDCTL_DSP_SETFMT, &ival) == -1) || (ival != AFMT_S16_NE)) {
 		qWarning("OSSInput: Failed to set sound format");
-		goto out;
+		return;
 	}
 
 	ival = 1;
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1)) {
 		qWarning("OSSInput: Failed to set mono mode");
-		goto out;
+		return;
 	}
 	iMicChannels = ival;
 
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSInput: Failed to set speed");
-		goto out;
+		return;
 	}
 	iMicFreq = ival;
 
@@ -229,9 +248,6 @@ void OSSInput::run() {
 
 	qWarning("OSSInput: Releasing.");
 	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
-
-out:
-	close(fd);
 }
 
 OSSOutput::OSSOutput() {
