@@ -171,7 +171,7 @@ if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
 
-if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
+if(APPLE AND MUMBLE_TARGET_ARCH MATCHES "arm.*")
 	# mach_override doesn't support ARM
 	# https://github.com/rentzsch/mach_override/issues/6
 	set(overlay OFF CACHE BOOL "" FORCE)
