@@ -2506,30 +2506,34 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 int Server::authenticate(QString &name, const QString &password, int sessionId, const QStringList &emails,
 						 const QString &certhash, bool certificatePassedVerification,
 						 const QList< QSslCertificate > &certs) {
-	int userID = bForceExternalAuth ? -3 : -2;
+	constexpr const int AUTHENTICATION_FAILED  = -1;
+	constexpr const int UNKNOWN_USER           = -2;
+	constexpr const int TEMPORARY_UNVERIFIABLE = -3;
+
+	int userID = bForceExternalAuth ? TEMPORARY_UNVERIFIABLE : UNKNOWN_USER;
 
 	emit authenticateSig(userID, name, sessionId, certs, certhash, certificatePassedVerification, password);
 
-	if (userID < -2) {
+	if (userID < UNKNOWN_USER) {
 		// External authentication is required, but could not be performed
-		return -3;
+		static_assert(TEMPORARY_UNVERIFIABLE < UNKNOWN_USER, "Assumption for program logic violated");
+		return TEMPORARY_UNVERIFIABLE;
 	}
 
-	if (userID != -2) {
+	if (userID >= AUTHENTICATION_FAILED) {
 		// External authenticator handled authentication
-		if (userID < 0) {
-			// Authentication did not pass
-			return -1;
-		}
+		static_assert(AUTHENTICATION_FAILED == -1,
+					  "AUTHENTICATION_FAILURE is expected to be first invalid (negative) ID");
+		return userID;
 	} else {
 		// No authentication performed externally -> use internal method
-		userID = m_dbWrapper.registeredUserNameToID(iServerNum, name.toStdString());
+		int knownUserID = m_dbWrapper.registeredUserNameToID(iServerNum, name.toStdString());
 
-		bool usedReservedName = userID >= 0;
+		bool usedReservedName = knownUserID >= 0;
 
-		if (userID >= 0) {
+		if (usedReservedName) {
 			// There exists a registered user with the given name
-			::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, userID);
+			::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, knownUserID);
 
 			if (!userData.password.passwordHash.empty()) {
 				// User has password-based authentication enabled
@@ -2538,6 +2542,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 					// that hasn't been converted yet. Or we are operating in legacy mode.
 					if (getLegacyPasswordHash(password).toStdString() == userData.password.passwordHash) {
 						// Password matched
+						userID = knownUserID;
 
 						if (!Meta::mp.legacyPasswordHash) {
 							// Upgrade this user account to the newer hashing system
@@ -2549,12 +2554,12 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 							if (!setUserProperties(userID, properties)) {
 								qWarning("Failed to upgrade user account to PBKDF2 hash -> rejecting login");
-								return -1;
+								return AUTHENTICATION_FAILED;
 							}
 						}
 					} else {
 						// Wrong password
-						return -1;
+						return AUTHENTICATION_FAILED;
 					}
 				} else {
 					// User uses modern PBKDF2 verification
@@ -2563,6 +2568,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 							.toStdString()
 						== userData.password.passwordHash) {
 						// Password matched
+						userID = knownUserID;
 
 						if (Meta::mp.legacyPasswordHash) {
 							// Downgrade to old SHA1 password hash
@@ -2572,7 +2578,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 							if (!setUserProperties(userID, properties)) {
 								qWarning("Failed to downgrade user account to legacy hash -> rejecting login");
-								return -1;
+								return AUTHENTICATION_FAILED;
 							}
 						} else if (userData.password.kdfIterations != Meta::mp.kdfIterations) {
 							// User's kdfIterations doesn't match the global setting -> update it
@@ -2584,22 +2590,22 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 							if (!setUserProperties(userID, properties)) {
 								qWarning("Failed to update user PBKDF2 to new iteration count -> rejecting login");
-								return -1;
+								return AUTHENTICATION_FAILED;
 							}
 						}
 					} else {
 						// Wrong password
-						return -1;
+						return AUTHENTICATION_FAILED;
 					}
 				}
 			} else if (!password.isEmpty()) {
 				// A password was provided for a user account that doesn't have password authentication enabled -> fail
 				// Note: The provided password could be intended to be used as a server-password but given that the
 				// chosen name matches a registered user, we can't allow this user to authenticate via server password.
-				return -1;
+				return AUTHENTICATION_FAILED;
 			} else if (userID == Mumble::SUPERUSER_ID) {
 				// We force SuperUser to use password authentication
-				return -1;
+				return AUTHENTICATION_FAILED;
 			}
 		}
 
@@ -2607,7 +2613,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			// The only alternative to password-based authentication is the one based on certificates.
 			// If none was provided and password authentication did not apply, then we report that
 			// we don't know this user.
-			return -2;
+			return UNKNOWN_USER;
 		}
 
 		if (userID < 0) {
@@ -2641,7 +2647,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 		if (userID < 0) {
 			// Authentication has failed
-			return usedReservedName ? -1 : -2;
+			return usedReservedName ? AUTHENTICATION_FAILED : UNKNOWN_USER;
 		}
 
 		// Ensure that the user will use the name exactly as we have stored it in our DB. For password
