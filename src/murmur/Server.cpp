@@ -2843,6 +2843,19 @@ void Server::deleteChannelListener(const ServerUser &user, const Channel &channe
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
 }
 
+bool Server::channelListenerExists(const ServerUser &user, const Channel &channel) {
+	// First the quick check that can confirm existence: ask the manager
+	if (m_channelListenerManager.isListening(user.uiSession, channel.iId)) {
+		return true;
+	}
+	if (user.iId < 0) {
+		return false;
+	}
+	// For registered users we might have listeners stored in the DB but which are currently inactive and thus the
+	// manager doesn't know about them
+	return m_dbWrapper.channelListenerExists(iServerNum, user.iId, channel.iId);
+}
+
 QString Server::getRegisteredUserName(int userID) {
 	if (userID < 0) {
 		return {};

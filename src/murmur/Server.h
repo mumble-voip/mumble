@@ -404,6 +404,7 @@ public:
 	void setChannelListenerVolume(const ServerUser &user, const Channel &channel, float volume);
 	void disableChannelListener(const ServerUser &user, const Channel &channel);
 	void deleteChannelListener(const ServerUser &user, const Channel &channel);
+	bool channelListenerExists(const ServerUser &user, const Channel &channel);
 
 	QString getRegisteredUserName(int userID);
 	int getRegisteredUserID(const QString &name);
