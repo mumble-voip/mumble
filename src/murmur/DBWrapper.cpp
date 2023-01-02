@@ -1417,7 +1417,8 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 	WRAPPER_END
 }
 
-int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID) {
+int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration,
+								unsigned int serverUptimeSecs) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
@@ -1425,7 +1426,26 @@ int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID) {
 
 	::msdb::DBUser user(serverID, userID);
 
-	return m_serverDB.getUserTable().getData(user).lastChannelID;
+	::msdb::DBUserData userData = m_serverDB.getUserTable().getData(user);
+
+	if (maxRememberDuration == 0) {
+		// Channels shall be remembered forever
+		return userData.lastChannelID;
+	}
+
+	if (userData.lastDisconnect < userData.lastActive) {
+		// If the last disconnect time is smaller than the last active time, the disconnect time is invalid.
+		// This can happen, if the entire server is shut down while the user still was connected.
+		// In such cases, we instead take the server's up time as a reference point.
+		userData.lastDisconnect = std::chrono::system_clock::now();
+		userData.lastDisconnect -= std::chrono::seconds(serverUptimeSecs);
+	}
+
+	long inactiveSeconds =
+		std::chrono::duration_cast< std::chrono::seconds >(std::chrono::system_clock::now() - userData.lastDisconnect)
+			.count();
+
+	return maxRememberDuration >= inactiveSeconds ? userData.lastChannelID : Mumble::ROOT_CHANNEL_ID;
 
 	WRAPPER_END
 }
