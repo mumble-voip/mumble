@@ -299,7 +299,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	Channel *lc = nullptr;
 	if (uSource->iId >= 0) {
-		int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, uSource->iId);
+		int lastChannelID =
+			m_dbWrapper.getLastChannelID(iServerNum, uSource->iId, iRememberChanDuration, tUptime.elapsed() / 1e6);
 		if (lastChannelID >= 0) {
 			lc = qhChannels.value(static_cast< unsigned int >(lastChannelID));
 		}
