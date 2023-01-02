@@ -289,6 +289,8 @@ module MumbleServer
 	exception WriteOnlyException extends MurmurException {};
 	/** This is thrown when invalid input data was specified. */
 	exception InvalidInputDataException extends MurmurException {};
+	/** This is thrown when the referenced channel listener does not actually exist */
+	exception InvalidListenerException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
