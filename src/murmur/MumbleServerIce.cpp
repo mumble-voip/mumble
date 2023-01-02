@@ -902,6 +902,12 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	::Channel *channel; \
 	NEED_CHANNEL_VAR(channel, channelid);
 
+#define REQUIRE_EXISTING_LISTENER(user, channel)                       \
+	if (!server->channelListenerExists(*user, *channel)) {             \
+		cb->ice_exception(::MumbleServer::InvalidListenerException()); \
+		return;                                                        \
+	}
+
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
 	int server_id = u8(current.id.name).toInt();
@@ -1863,6 +1869,7 @@ static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Se
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
+	REQUIRE_EXISTING_LISTENER(user, channel);
 
 	server->setListenerVolumeAdjustment(user, channel, VolumeAdjustment::fromFactor(volumeAdjustment));
 
