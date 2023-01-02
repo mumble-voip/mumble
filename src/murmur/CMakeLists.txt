@@ -185,7 +185,7 @@ if(zeroconf)
 	)
 endif()
 
-if(dbus AND NOT WIN32 AND NOT APPLE)
+if(NOT WIN32 AND NOT APPLE)
 	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble-server
@@ -194,7 +194,7 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 			"DBus.h"
 	)
 
-	target_compile_definitions(mumble-server PRIVATE "USE_DBUS")
+	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
 	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
 endif()
 

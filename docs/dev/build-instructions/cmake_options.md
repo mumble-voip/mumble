@@ -69,11 +69,6 @@ Build support for CoreAudio.
 Include support for reporting crashes to the Mumble developers.
 (Default: ON)
 
-### dbus
-
-Build support for DBus.
-(Default: ON)
-
 ### debug-dependency-search
 
 Prints extended information during the search for the needed dependencies
