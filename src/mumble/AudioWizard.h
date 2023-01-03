@@ -29,7 +29,7 @@ protected:
 
 	QGraphicsScene *qgsScene;
 	QGraphicsItem *qgiSource;
-	AudioOutputSample *aosSource;
+	AudioOutputToken m_chord;
 	float fAngle;
 	float fX, fY;
 
@@ -46,7 +46,7 @@ protected:
 	int iMaxPeak;
 	int iTicks;
 
-	void restartAudio();
+	void restartAudio(bool restartChord);
 	void playChord();
 
 	bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;

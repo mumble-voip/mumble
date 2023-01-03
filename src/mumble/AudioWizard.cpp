@@ -6,7 +6,7 @@
 #include "AudioWizard.h"
 
 #include "AudioInput.h"
-#include "AudioOutputSample.h"
+#include "AudioOutputToken.h"
 #include "Log.h"
 #include "MainWindow.h"
 #include "Utils.h"
@@ -153,7 +153,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	fX = fY   = 0.0f;
 	qgsScene  = nullptr;
 	qgiSource = nullptr;
-	aosSource = nullptr;
 	qgvView->scale(1.0f, -1.0f);
 	qgvView->viewport()->installEventFilter(this);
 	qgvView->setRenderHints(QPainter::Antialiasing);
@@ -290,7 +289,7 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1 ms").arg(v * 10));
 	Global::get().s.iOutputDelay = v;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
@@ -306,7 +305,7 @@ void AudioWizard::showPage(int pageid) {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
 		ao->wipe();
-	aosSource = nullptr;
+	m_chord = {};
 
 	Global::get().bPosTest = false;
 
@@ -356,13 +355,16 @@ int AudioWizard::nextId() const {
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = Global::get().ao;
-	if (!ao || aosSource || bInit)
+
+	if (!ao || m_chord || bInit) {
 		return;
-	aosSource = ao->playSample(QLatin1String(":/wb_male.oga"), 1.0f, true);
+	}
+
+	m_chord = ao->playSample(QLatin1String(":/wb_male.oga"), 1.0f, true);
 }
 
-void AudioWizard::restartAudio() {
-	aosSource = nullptr;
+void AudioWizard::restartAudio(bool restartChord) {
+	m_chord = AudioOutputToken();
 
 	Audio::stop();
 
@@ -377,8 +379,13 @@ void AudioWizard::restartAudio() {
 		qgsScene  = nullptr;
 	}
 
-	if ((currentPage() == qwpPositional) || (currentPage() == qwpDeviceTuning))
+	if (!restartChord) {
+		return;
+	}
+
+	if ((currentPage() == qwpPositional) || (currentPage() == qwpDeviceTuning)) {
 		playChord();
+	}
 }
 
 void AudioWizard::reject() {
@@ -393,7 +400,7 @@ void AudioWizard::reject() {
 	ao.reset();
 
 	Global::get().bPosTest = false;
-	restartAudio();
+	restartAudio(false);
 	Global::get().bInAudioWizard = false;
 
 	QWizard::reject();
@@ -428,7 +435,7 @@ void AudioWizard::accept() {
 
 	Global::get().s.bUsage = qcbUsage->isChecked();
 	Global::get().bPosTest = false;
-	restartAudio();
+	restartAudio(false);
 	Global::get().bInAudioWizard = false;
 	QWizard::accept();
 }
@@ -563,10 +570,8 @@ void AudioWizard::on_Ticker_timeout() {
 		}
 
 		qgiSource->setPos(xp, yp);
-		if (aosSource) {
-			aosSource->fPos[0] = xp;
-			aosSource->fPos[1] = 0;
-			aosSource->fPos[2] = yp;
+		if (m_chord) {
+			ao->setBufferPosition(m_chord, xp, 0, yp);
 		}
 	}
 }
@@ -661,18 +666,18 @@ void AudioWizard::on_qcbEcho_clicked(bool on) {
 	} else {
 		Global::get().s.echoOption = EchoCancelOptionID::DISABLED;
 	}
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qcbHeadphone_clicked(bool on) {
 	Global::get().s.bPositionalHeadphone = on;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qcbPositional_clicked(bool on) {
 	Global::get().s.bPositionalAudio  = on;
 	Global::get().s.bTransmitPosition = on;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::updateTriggerWidgets(bool ptt) {
@@ -717,25 +722,25 @@ void AudioWizard::on_qcbHighContrast_clicked(bool on) {
 void AudioWizard::on_qrbQualityLow_clicked() {
 	Global::get().s.iQuality         = 16000;
 	Global::get().s.iFramesPerPacket = 6;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qrbQualityBalanced_clicked() {
 	Global::get().s.iQuality         = 40000;
 	Global::get().s.iFramesPerPacket = 2;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qrbQualityUltra_clicked() {
 	Global::get().s.iQuality         = 72000;
 	Global::get().s.iFramesPerPacket = 1;
-	restartAudio();
+	restartAudio(true);
 }
 
 void AudioWizard::on_qrbQualityCustom_clicked() {
 	Global::get().s.iQuality         = sOldSettings.iQuality;
 	Global::get().s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
-	restartAudio();
+	restartAudio(true);
 }
 
 EchoCancelOptionID AudioWizard::firstUsableEchoCancellation(AudioInputRegistrar *air, const QString outputSys) {

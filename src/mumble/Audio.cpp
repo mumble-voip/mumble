@@ -110,7 +110,7 @@ RecordUser::RecordUser() {
 RecordUser::~RecordUser() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
-		ao->removeBuffer(this);
+		ao->removeUser(this);
 }
 
 void RecordUser::addFrame(const Mumble::Protocol::AudioData &audioData) {

@@ -123,9 +123,8 @@ sf_count_t SoundFile::vio_tell(void *user_data) {
 	return sf->qfFile.pos();
 }
 
-AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, float volume, bool loop,
-									 unsigned int freq, unsigned int systemMaxBufferSize)
-	: AudioOutputUser(name) {
+AudioOutputSample::AudioOutputSample(SoundFile *psndfile, float volume, bool loop, unsigned int freq,
+									 unsigned int systemMaxBufferSize) {
 	int err;
 
 	sfHandle       = psndfile;

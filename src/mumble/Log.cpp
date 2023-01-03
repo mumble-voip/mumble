@@ -7,6 +7,7 @@
 
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
+#include "AudioOutputToken.h"
 #include "Channel.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
@@ -345,8 +346,9 @@ void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem *item, int column) {
 	if (item && item != allMessagesItem && column == ColStaticSoundPath) {
 		AudioOutputPtr ao = Global::get().ao;
 		if (ao) {
-			if (!ao->playSample(item->text(ColStaticSoundPath), Global::get().s.notificationVolume))
+			if (!ao->playSample(item->text(ColStaticSoundPath), Global::get().s.notificationVolume)) {
 				browseForAudioFile();
+			}
 		}
 	}
 }
@@ -814,6 +816,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			&& !(flags & Settings::LogMessageLimit && connectedUsers > Global::get().s.iMessageLimitUserThreshold)) {
 			QString sSound    = Global::get().s.qmMessageSounds.value(mt);
 			AudioOutputPtr ao = Global::get().ao;
+
 			if (!ao || !ao->playSample(sSound, Global::get().s.notificationVolume)) {
 				qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
 				flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS

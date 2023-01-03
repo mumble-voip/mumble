@@ -11,7 +11,7 @@
 #include <sndfile.h>
 #include <speex/speex_resampler.h>
 
-#include "AudioOutputUser.h"
+#include "AudioOutputBuffer.h"
 
 class SoundFile : public QObject {
 private:
@@ -41,7 +41,7 @@ public:
 	sf_count_t read(float *ptr, sf_count_t items);
 };
 
-class AudioOutputSample : public AudioOutputUser {
+class AudioOutputSample : public AudioOutputBuffer {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioOutputSample)
@@ -65,8 +65,7 @@ public:
 	static QString browseForSndfile(QString defaultpath = QString());
 	virtual bool prepareSampleBuffer(unsigned int frameCount) Q_DECL_OVERRIDE;
 	float getVolume() const;
-	AudioOutputSample(const QString &name, SoundFile *psndfile, float volume, bool repeat, unsigned int freq,
-					  unsigned int bufferSize);
+	AudioOutputSample(SoundFile *psndfile, float volume, bool repeat, unsigned int freq, unsigned int bufferSize);
 	~AudioOutputSample() Q_DECL_OVERRIDE;
 };
 

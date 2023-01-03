@@ -3,18 +3,18 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_AUDIOOUTPUTUSER_H_
-#define MUMBLE_MUMBLE_AUDIOOUTPUTUSER_H_
+#ifndef MUMBLE_MUMBLE_AUDIOOUTPUTBUFFER_H_
+#define MUMBLE_MUMBLE_AUDIOOUTPUTBUFFER_H_
 
 #include <QtCore/QObject>
 
 #include <array>
 #include <memory>
 
-class AudioOutputUser : public QObject {
+class AudioOutputBuffer : public QObject {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(AudioOutputUser)
+	Q_DISABLE_COPY(AudioOutputBuffer)
 protected:
 	unsigned int iBufferSize;
 
@@ -26,9 +26,8 @@ protected:
 	void resizeBuffer(unsigned int newsize);
 
 public:
-	AudioOutputUser(const QString &name);
-	~AudioOutputUser() Q_DECL_OVERRIDE;
-	const QString qsName;
+	AudioOutputBuffer(){};
+	~AudioOutputBuffer() Q_DECL_OVERRIDE;
 	float *pfBuffer                   = nullptr;
 	float *pfVolume                   = nullptr;
 	float m_suggestedVolumeAdjustment = 1.0f;
@@ -38,4 +37,4 @@ public:
 	virtual bool prepareSampleBuffer(unsigned int snum) = 0;
 };
 
-#endif // AUDIOOUTPUTUSER_H_
+#endif // AUDIOOUTPUTBUFFER_H_

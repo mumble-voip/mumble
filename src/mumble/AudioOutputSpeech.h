@@ -11,8 +11,8 @@
 
 #include <QtCore/QMutex>
 
+#include "AudioOutputBuffer.h"
 #include "AudioOutputCache.h"
-#include "AudioOutputUser.h"
 #include "MumbleProtocol.h"
 
 #include <mutex>
@@ -21,7 +21,7 @@
 class ClientUser;
 struct OpusDecoder;
 
-class AudioOutputSpeech : public AudioOutputUser {
+class AudioOutputSpeech : public AudioOutputBuffer {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioOutputSpeech)
