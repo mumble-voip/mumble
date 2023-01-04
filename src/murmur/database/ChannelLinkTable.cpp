@@ -93,7 +93,6 @@ namespace server {
 				} else {
 					firstID  = link.secondChannelID;
 					secondID = link.firstChannelID;
-					;
 				}
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
@@ -112,11 +111,22 @@ namespace server {
 
 		void ChannelLinkTable::removeLink(const DBChannelLink &link) {
 			try {
+				// Ensure secondID > firstID
+				unsigned int firstID;
+				unsigned int secondID;
+				if (link.secondChannelID > link.firstChannelID) {
+					firstID  = link.firstChannelID;
+					secondID = link.secondChannelID;
+				} else {
+					firstID  = link.secondChannelID;
+					secondID = link.firstChannelID;
+				}
+
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::first_id << " = :firstID AND " << column::second_id << " = :secondID",
-					soci::use(link.serverID), soci::use(link.firstChannelID), soci::use(link.secondChannelID);
+					soci::use(link.serverID), soci::use(firstID), soci::use(secondID);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -181,8 +191,8 @@ namespace server {
 					link.serverID = serverID;
 					// Soci doesn't support unsigned integers directly, so we have to take the detour over
 					// the signed int.
-					link.firstChannelID = static_cast< unsigned int >(row.get< int >(0));
-					link.firstChannelID = static_cast< unsigned int >(row.get< int >(1));
+					link.firstChannelID  = static_cast< unsigned int >(row.get< int >(0));
+					link.secondChannelID = static_cast< unsigned int >(row.get< int >(1));
 
 					links.push_back(std::move(link));
 				}
