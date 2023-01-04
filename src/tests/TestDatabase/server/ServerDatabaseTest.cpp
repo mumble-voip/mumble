@@ -1241,7 +1241,7 @@ void ServerDatabaseTest::channelLinkTable_general() {
 	QVERIFY(table.getAllLinks(existingServerID).empty());
 
 	::msdb::DBChannelLink firstLink(existingServerID, rootChannel.channelID, firstChannel.channelID);
-	::msdb::DBChannelLink secondLink(existingServerID, rootChannel.channelID, secondChannel.channelID);
+	::msdb::DBChannelLink secondLink(existingServerID, firstChannel.channelID, secondChannel.channelID);
 
 	QVERIFY(!table.linkExists(firstLink));
 
