@@ -663,11 +663,13 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 
 	MSG_SETUP(ServerUser::Authenticated);
 
-	std::set< Ban > previousBans;
 	if (!hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
 		return;
 	}
+
+	std::set< Ban > previousBans;
+
 	if (msg.query()) {
 		msg.clear_query();
 		msg.clear_bans();
@@ -710,8 +712,10 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		std::sort(m_bans.begin(), m_bans.end());
 
 		std::vector< Ban > removed, added;
-		std::set_difference(previousBans.begin(), previousBans.end(), m_bans.begin(), m_bans.end(), removed.begin());
-		std::set_difference(m_bans.begin(), m_bans.end(), previousBans.begin(), previousBans.end(), added.begin());
+		std::set_difference(previousBans.begin(), previousBans.end(), m_bans.begin(), m_bans.end(),
+							std::back_inserter(removed));
+		std::set_difference(m_bans.begin(), m_bans.end(), previousBans.begin(), previousBans.end(),
+							std::back_inserter(added));
 
 		for (const Ban &b : removed) {
 			log(uSource, QString("Removed ban: %1").arg(b.toString()));
