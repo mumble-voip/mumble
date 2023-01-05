@@ -6651,15 +6651,6 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <translation>连接</translation>
     </message>
     <message>
-        <source>Use TCP compatibility mode</source>
-        <oldsource>Use TCP compatability mode</oldsource>
-        <translation>使用 TCP 兼容模式</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;启用 TCP 兼容模式&lt;/b&gt;。&lt;br /&gt;设置 Mumble 仅使用 TCP 协议与服务器通信。这将会增加开销并且会导致丢包，使您在交谈中遇到中断，所以请仅在无法使用默认模式（UDP 语音，TCP 控制）的情况下使用。</translation>
-    </message>
-    <message>
         <source>Reconnect when disconnected</source>
         <translation>在连接断开时重新连接</translation>
     </message>
@@ -6702,10 +6693,6 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Hostname of the proxy</source>
         <translation>代理的主机名</translation>
-    </message>
-    <message>
-        <source>Force TCP mode</source>
-        <translation>强制 TCP 模式</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -6852,6 +6839,58 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>Automatically download and install plugin updates</source>
         <translation>自动下载并安装插件更新</translation>
+    </message>
+    <message>
+        <source>Disable UDP mode completely</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Disable UDP mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable UDP mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP stream mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound stream is UDP and outbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Inbound stream is UDP and outbound is TCP.&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound stream is UDP and inbound is TCP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Outbound stream is UDP and inbound is TCP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both inbound and outbound stream is UDP.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Both inbound and outbound stream is UDP.&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bidirectional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

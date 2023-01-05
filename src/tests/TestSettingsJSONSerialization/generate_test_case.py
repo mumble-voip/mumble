@@ -160,6 +160,8 @@ def getDefaultValueForType(dataType):
         return "Settings::Socks5Proxy"
     elif dataType in ["RecordingMode"]:
         return "Settings::RecordingMultichannel"
+    elif dataType in ["UDPMode::Mode"]:
+        return "UDPMode::Bidirectional"
     elif dataType.startswith("QMap") or dataType.startswith("QHash"):
         types = getTemplateArguments(dataType)
 

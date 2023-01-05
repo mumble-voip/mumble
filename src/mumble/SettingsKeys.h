@@ -90,7 +90,8 @@ const SettingsKey POSITIONAL_TRANSMIT_POSITION_KEY = { "transmit_position" };
 // Network
 const SettingsKey JITTER_BUFFER_SIZE_KEY            = { "jitter_buffer_size" };
 const SettingsKey FRAMES_PER_PACKET_KEY             = { "frames_per_packet" };
-const SettingsKey RESTRICT_TO_TCP_KEY               = { "restrict_to_tcp" };
+const SettingsKey RESTRICT_TO_TCP_KEY               = { "disable_udp", "restrict_to_tcp" };
+const SettingsKey UDP_MODE_KEY                      = { "udp_mode" };
 const SettingsKey USE_QUALITY_OF_SERVICE_KEY        = { "use_quality_of_service" };
 const SettingsKey AUTO_RECONNECT_KEY                = { "reconnect_automatically" };
 const SettingsKey AUTO_CONNECT_LAST_SERVER_KEY      = { "auto_connect_to_last_server" };

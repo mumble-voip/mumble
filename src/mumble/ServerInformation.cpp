@@ -99,7 +99,7 @@ void ServerInformation::updateConnectionDetails() {
 	}
 
 	// UDP
-	if (NetworkConfig::TcpModeEnabled()) {
+	if (NetworkConfig::UdpModeDisabled()) {
 		connection_udp_infoMessage->show();
 
 		connection_udp_encryption->hide();

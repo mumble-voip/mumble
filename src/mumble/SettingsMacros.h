@@ -73,11 +73,11 @@
 	PROCESS(positional_audio, POSITIONAL_HEADPHONE_MODE_KEY, bPositionalHeadphone) \
 	PROCESS(positional_audio, POSITIONAL_TRANSMIT_POSITION_KEY, bTransmitPosition)
 
-
 #define NETWORK_SETTINGS                                                     \
 	PROCESS(network, JITTER_BUFFER_SIZE_KEY, iJitterBufferSize)              \
 	PROCESS(network, FRAMES_PER_PACKET_KEY, iFramesPerPacket)                \
-	PROCESS(network, RESTRICT_TO_TCP_KEY, bTCPCompat)                        \
+	PROCESS(network, RESTRICT_TO_TCP_KEY, bUdpDisabled)                      \
+	PROCESS(network, UDP_MODE_KEY, eUdpMode)                                 \
 	PROCESS(network, USE_QUALITY_OF_SERVICE_KEY, bQoS)                       \
 	PROCESS(network, AUTO_RECONNECT_KEY, bReconnect)                         \
 	PROCESS(network, AUTO_CONNECT_LAST_SERVER_KEY, bAutoConnect)             \

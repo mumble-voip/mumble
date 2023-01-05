@@ -60,6 +60,14 @@ void ConfigWidget::loadCheckBox(QAbstractButton *c, bool v) {
 	}
 }
 
+void ConfigWidget::loadRadioButton(QAbstractButton *c, bool v) {
+	if (v != c->isChecked()) {
+		c->setChecked(v);
+	} else {
+		c->toggled(v);
+	}
+}
+
 void ConfigWidget::loadComboBox(QComboBox *c, int v) {
 	if (c->currentIndex() != v) {
 		c->setCurrentIndex(v);

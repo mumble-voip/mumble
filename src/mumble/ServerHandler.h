@@ -177,6 +177,7 @@ public:
 	void requestChannelPermissions(unsigned int channel);
 	void setSelfMuteDeafState(bool mute, bool deaf);
 	void announceRecordingState(bool recording);
+	void disableUdpMode(bool value);
 
 	/// Return connection information as a URL
 	QUrl getServerURL(bool withPassword = false) const;

@@ -27,16 +27,77 @@
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="qcbTcpMode">
+       <widget class="QCheckBox" name="qcbUdpModeDisabled">
         <property name="toolTip">
-         <string>Use TCP compatibility mode</string>
+         <string>Disable UDP mode completely</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
+         <string>&lt;b&gt;Disable UDP mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
         </property>
         <property name="text">
-         <string>Force TCP mode</string>
+         <string>Disable UDP mode</string>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="qgbUdpMode">
+        <property name="title">
+         <string>UDP stream mode</string>
+        </property>
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QRadioButton" name="qrbUdpIn">
+           <property name="toolTip">
+            <string>Inbound stream is UDP and outbound is TCP.</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;b&gt;Inbound stream is UDP and outbound is TCP.&lt;</string>
+           </property>
+           <property name="text">
+            <string>Inbound only</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="qrbUdpOut">
+           <property name="toolTip">
+            <string>Outbound stream is UDP and inbound is TCP.</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;b&gt;Outbound stream is UDP and inbound is TCP.&lt;b&gt;</string>
+           </property>
+           <property name="text">
+            <string>Outbound only</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="qrbUdpBidirectional">
+           <property name="toolTip">
+            <string>Both inbound and outbound stream is UDP.</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;b&gt;Both inbound and outbound stream is UDP.&lt;b&gt;</string>
+           </property>
+           <property name="text">
+            <string>Bidirectional</string>
+           </property>
+          </widget>
+         </item>
+         <!-- <item>
+          <widget class="QRadioButton" name="qrbUdpAuto">
+           <property name="toolTip">
+            <string>Auto mode(Disable user controlled UDP stream mode)</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;b&gt;Auto mode(Disable user controlled UDP stream mode).&lt;b&gt;</string>
+           </property>
+           <property name="text">
+            <string>Disabled(Auto)</string>
+           </property>
+          </widget>
+         </item> -->
+        </layout>
        </widget>
       </item>
       <item>

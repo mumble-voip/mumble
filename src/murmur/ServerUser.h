@@ -139,6 +139,10 @@ public:
 	/// UDP.
 	QAtomicInt aiUdpFlag;
 
+	/// This flag forces the server to only send data packets
+	/// through TCP mode.
+	bool bUdpModeDisabled;
+
 	QList< int > qlCodecs;
 	bool bOpus;
 

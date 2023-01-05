@@ -730,7 +730,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 
 int AudioInput::getNetworkBandwidth(int bitrate, int frames) {
 	int overhead = 20 + 8 + 4 + 1 + 2 + (Global::get().s.bTransmitPosition ? 12 : 0)
-				   + (NetworkConfig::TcpModeEnabled() ? 12 : 0) + frames;
+				   + (NetworkConfig::UdpModeDisabled() ? 12 : 0) + frames;
 	overhead *= (800 / frames);
 	int bw = overhead + bitrate;
 

@@ -160,7 +160,6 @@ void Settings::save(const QString &path) const {
 	{
 		// The separate scope makes sure, the stream is closed again after the write has finished
 		std::ofstream stream(tmpFile.fileName().toUtf8());
-
 		stream << settingsJSON.dump(4) << std::endl;
 	}
 
@@ -921,7 +920,7 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(qsTTSLanguage, "tts/language");
 
 	// Network settings
-	LOAD(bTCPCompat, "net/tcponly");
+	LOAD(bUdpDisabled, "net/tcponly");
 	LOAD(bQoS, "net/qos");
 	LOAD(bReconnect, "net/reconnect");
 	LOAD(bAutoConnect, "net/autoconnect");

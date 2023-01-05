@@ -239,6 +239,9 @@ message UserState {
 	repeated uint32 listening_channel_remove = 22;
 	// A list of volume adjustments the user has applied to listeners
 	repeated VolumeAdjustment listening_volume_adjustment = 23;
+	// Force the server to send audio packets to the client via TCP only.
+	// Values: false(Default/Auto-detect), true(UDP disabled)
+	optional bool disable_udp_mode = 24;
 }
 
 // Relays information on the bans. The client may send the BanList message to

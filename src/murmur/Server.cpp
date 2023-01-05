@@ -1352,7 +1352,8 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 
 			// Send encoded packet to all receivers of this range
 			for (auto it = currentRange.begin; it != currentRange.end; ++it) {
-				sendMessage(it->getReceiver(), encodedPacket.data(), encodedPacket.size(), tcpCache);
+				sendMessage(it->getReceiver(), encodedPacket.data(), encodedPacket.size(), tcpCache,
+							(it->getReceiver().bUdpModeDisabled) ? false : true);
 			}
 
 			// Find next range
