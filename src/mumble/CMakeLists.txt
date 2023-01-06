@@ -821,10 +821,16 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 		PRIVATE
 			"DBus.cpp"
 			"DBus.h"
+			"GlobalShortcut_xdp.cpp"
 	)
 
+	qt5_add_dbus_interface(mumble_xdp_SRCS ${CMAKE_SOURCE_DIR}/auxiliary_files/org.freedesktop.portal.GlobalShortcuts.xml globalshortcuts_portal_interface)
+	qt5_add_dbus_interface(mumble_xdp_SRCS ${CMAKE_SOURCE_DIR}/auxiliary_files/org.freedesktop.portal.Request.xml portalsrequest_interface)
+	target_sources(mumble_client_object_lib PRIVATE ${mumble_xdp_SRCS})
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
 	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::DBus)
+	target_include_directories(mumble_client_object_lib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+
 endif()
 
 if(translations)

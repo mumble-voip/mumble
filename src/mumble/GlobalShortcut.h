@@ -253,13 +253,16 @@ public:
 	static void remove(GlobalShortcut *);
 
 	virtual bool canDisable();
+	virtual bool canConfigure();
 	virtual bool canSuppress();
 	virtual bool enabled();
 	virtual void setEnabled(bool b);
+	virtual void configure() {}
 
 	virtual ButtonInfo buttonInfo(const QVariant &) = 0;
 signals:
 	void buttonPressed(bool last);
+	void shortcutsChanged();
 };
 
 #endif

@@ -552,14 +552,6 @@ Settings::Settings() {
 	lmLoopMode = Server;
 #endif
 
-
-#ifdef Q_OS_LINUX
-	if (EnvUtils::waylandIsUsed()) {
-		// Due to the issues we're currently having on Wayland, we disable shortcuts by default
-		bShortcutEnable = false;
-	}
-#endif
-
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		qmMessages.insert(i,
 						  Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS | Settings::LogMessageLimit);
