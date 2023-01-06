@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_ACCESSIBLEQGROUPBOX_H_
 #define MUMBLE_MUMBLE_ACCESSIBLEQGROUPBOX_H_
 
+#include <QGridLayout>
 #include <QGroupBox>
 
 class AccessibleQGroupBox : public QGroupBox {
@@ -13,6 +14,8 @@ class AccessibleQGroupBox : public QGroupBox {
 
 public:
 	AccessibleQGroupBox(QWidget *parent);
+
+	QString textAtPosition(QGridLayout *gridLayout, int y, int x);
 
 	void updateAccessibleText();
 };
