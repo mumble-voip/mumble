@@ -17,6 +17,8 @@
 namespace Mumble {
 namespace Accessibility {
 
+	QString removeHTMLTags(QString value);
+
 	void setDescriptionFromLabel(QWidget *widget, const QLabel *label);
 	void fixWizardButtonLabels(QWizard *wizard);
 
