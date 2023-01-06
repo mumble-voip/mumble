@@ -5,13 +5,34 @@
 
 #include "AccessibleQGroupBox.h"
 
+#include "Accessibility.h"
+
 #include <QFormLayout>
-#include <QGridLayout>
 #include <QLabel>
+#include <QLayoutItem>
 
 AccessibleQGroupBox::AccessibleQGroupBox(QWidget *parent) : QGroupBox(parent) {
 	setFocusPolicy(Qt::TabFocus);
 	updateAccessibleText();
+}
+
+QString AccessibleQGroupBox::textAtPosition(QGridLayout *gridLayout, int y, int x) {
+	QLayoutItem *item = gridLayout->itemAtPosition(y, x);
+	if (!item) {
+		return "";
+	}
+
+	QLabel *label = qobject_cast< QLabel * >(item->widget());
+	if (!label || !label->isVisible()) {
+		return "";
+	}
+
+	QString content = Mumble::Accessibility::removeHTMLTags(label->text());
+	if (content.trimmed().isEmpty()) {
+		content = tr("empty");
+	}
+
+	return content;
 }
 
 void AccessibleQGroupBox::updateAccessibleText() {
@@ -21,22 +42,22 @@ void AccessibleQGroupBox::updateAccessibleText() {
 	// and concat all the label contents.
 	QGridLayout *gridLayout = qobject_cast< QGridLayout * >(layout());
 	if (gridLayout) {
-		for (int y = 0; y < gridLayout->rowCount(); y++) {
-			for (int x = 0; x < gridLayout->columnCount(); x++) {
-				QLabel *label = qobject_cast< QLabel * >(gridLayout->itemAtPosition(y, x)->widget());
-				if (!label) {
-					continue;
+		bool tableMode = gridLayout->itemAtPosition(0, 0) == nullptr;
+
+		for (int y = tableMode ? 1 : 0; y < gridLayout->rowCount(); y++) {
+			for (int x = tableMode ? 1 : 0; x < gridLayout->columnCount(); x++) {
+				if (tableMode) {
+					text += textAtPosition(gridLayout, y, 0);
+					text += " ";
+					text += textAtPosition(gridLayout, 0, x);
+					text += ", ";
+					text += textAtPosition(gridLayout, y, x);
+				} else {
+					text += textAtPosition(gridLayout, y, x);
 				}
 
-				text += " ";
-
-				QString content = label->text();
-				if (content.trimmed().isEmpty()) {
-					content = tr("empty");
-				}
-				text += content;
+				text += ", ";
 			}
-			text += ",";
 		}
 		setAccessibleDescription(text);
 		return;
@@ -48,25 +69,35 @@ void AccessibleQGroupBox::updateAccessibleText() {
 	if (formLayout) {
 		for (int y = 0; y < formLayout->rowCount(); y++) {
 			QLabel *label;
+			QLayoutItem *item;
 
-			label = qobject_cast< QLabel * >(formLayout->itemAt(y, QFormLayout::SpanningRole)->widget());
-			if (label) {
-				text += label->text() + ", ";
-				continue;
-			}
-
-			label = qobject_cast< QLabel * >(formLayout->itemAt(y, QFormLayout::LabelRole)->widget());
-			if (label) {
-				text += label->text();
-			}
-
-			label = qobject_cast< QLabel * >(formLayout->itemAt(y, QFormLayout::FieldRole)->widget());
-			if (label) {
-				QString content = label->text();
-				if (content.trimmed().isEmpty()) {
-					content = tr("empty");
+			item = formLayout->itemAt(y, QFormLayout::SpanningRole);
+			if (item) {
+				label = qobject_cast< QLabel * >(item->widget());
+				if (label && label->isVisible()) {
+					text += Mumble::Accessibility::removeHTMLTags(label->text()) + ", ";
+					continue;
 				}
-				text += " " + content;
+			}
+
+			item = formLayout->itemAt(y, QFormLayout::LabelRole);
+			if (item) {
+				label = qobject_cast< QLabel * >(item->widget());
+				if (label && label->isVisible()) {
+					text += Mumble::Accessibility::removeHTMLTags(label->text());
+				}
+			}
+
+			item = formLayout->itemAt(y, QFormLayout::FieldRole);
+			if (item) {
+				label = qobject_cast< QLabel * >(item->widget());
+				if (label && label->isVisible()) {
+					QString content = Mumble::Accessibility::removeHTMLTags(label->text());
+					if (content.trimmed().isEmpty()) {
+						content = "empty";
+					}
+					text += " " + content;
+				}
 			}
 
 			text += ", ";
@@ -80,11 +111,11 @@ void AccessibleQGroupBox::updateAccessibleText() {
 	QObjectList childObjects = children();
 	for (int i = 0; i < childObjects.length(); i++) {
 		QLabel *label = qobject_cast< QLabel * >(childObjects[i]);
-		if (!label) {
+		if (!label || !label->isVisible()) {
 			continue;
 		}
 
-		text += label->text() + ",";
+		text += label->text() + ", ";
 	}
 	setAccessibleDescription(text);
 }
