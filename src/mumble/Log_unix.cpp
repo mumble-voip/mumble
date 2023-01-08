@@ -7,9 +7,7 @@
 #include "MainWindow.h"
 #include "Settings.h"
 
-#ifdef USE_DBUS
-#	include <QtDBus/QDBusInterface>
-#endif
+#include <QDBusInterface>
 
 void Log::postNotification(MsgType mt, const QString &plain) {
 	// Message notification with balloon tooltips
@@ -30,7 +28,6 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 			break;
 	}
 
-#ifdef USE_DBUS
 	QDBusMessage response;
 	QVariantMap hints;
 	hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
@@ -66,9 +63,6 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 	if (response.type() == QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
 		uiLastId = response.arguments().at(0).toUInt();
 	} else {
-#else
-	if (true) {
-#endif
 		postQtNotification(mt, plain);
 	}
 }

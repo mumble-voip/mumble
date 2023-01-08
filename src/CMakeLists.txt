@@ -12,8 +12,6 @@ option(qssldiffiehellmanparameters "Build support for custom Diffie-Hellman para
 
 option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
-option(dbus "Build support for DBus." ON)
-
 option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)

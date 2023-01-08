@@ -3,20 +3,19 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef USE_DBUS
-#	ifndef MUMBLE_MURMUR_DBUS_H_
-#		define MUMBLE_MURMUR_DBUS_H_
+#ifndef MUMBLE_MURMUR_DBUS_H_
+#define MUMBLE_MURMUR_DBUS_H_
 
-#		include <QtDBus/QDBusAbstractAdaptor>
-#		include <QtDBus/QDBusConnection>
+#include <QDBusAbstractAdaptor>
+#include <QDBusConnection>
 
-#		include "ACL.h"
-#		include "Channel.h"
-#		include "Group.h"
-#		include "Meta.h"
-#		include "Server.h"
-#		include "ServerDB.h"
-#		include "User.h"
+#include "ACL.h"
+#include "Channel.h"
+#include "Group.h"
+#include "Meta.h"
+#include "Server.h"
+#include "ServerDB.h"
+#include "User.h"
 
 struct Ban;
 class QDBusObjectPath;
@@ -239,5 +238,4 @@ signals:
 	void stopped(int server_id);
 };
 
-#	endif
 #endif
