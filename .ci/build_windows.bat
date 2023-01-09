@@ -36,6 +36,9 @@ if not exist "%MUMBLE_BUILD_DIRECTORY%" mkdir "%MUMBLE_BUILD_DIRECTORY%
 
 cd "%MUMBLE_BUILD_DIRECTORY%"
 
+for /f "tokens=* USEBACKQ" %%g in (`vswhere -latest -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 ^
+	-property installationPath`) do ( set "VCVARS_PATH=%%g\VC\Auxiliary\Build\vcvars64.bat" )
+
 call "%VCVARS_PATH%"
 
 set PATH=%PATH%;C:\WixSharp
