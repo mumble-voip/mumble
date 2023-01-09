@@ -125,5 +125,6 @@ Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.19
 Write-Host "Exracting WixSharp to C:/WixSharp..."
 Invoke-Command 7z x "WixSharp.7z" "-oC:/WixSharp"
 
+choco install vswhere
 
 Write-Host "Build environment successfully installed"
