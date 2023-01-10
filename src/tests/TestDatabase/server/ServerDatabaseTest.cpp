@@ -1169,10 +1169,11 @@ void ServerDatabaseTest::aclTable_general() {
 	acl2.affectedGroupID.reset();
 	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
 
-	// Having neither the affected group nor the affected user set should throw
+	// An ACL that doesn't affect anyone should throw
 	acl2.affectedUserID.reset();
 	acl2.affectedGroupID.reset();
 	acl2.affectedMetaGroup.reset();
+	acl2.accessToken.reset();
 	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::FormatException);
 
 	acl2.affectedMetaGroup = ::msdb::DBAcl::MetaGroup::Sub;
@@ -1194,6 +1195,16 @@ void ServerDatabaseTest::aclTable_general() {
 	QCOMPARE(table.countOverallACLs(existingServerID), static_cast< std::size_t >(1));
 
 	QVERIFY(table.getAllACLs(acl2.serverID, acl2.channelID).empty());
+
+	acl2.affectedMetaGroup.reset();
+	acl2.accessToken = "LetMeIn";
+
+	QVERIFY(!table.aclExists(acl2));
+	table.addACL(acl2);
+	QVERIFY(table.aclExists(acl2));
+
+	expectedACLs = { acl2 };
+	QCOMPARE(table.getAllACLs(acl2.serverID, acl2.channelID), expectedACLs);
 
 	END_TEST_CASE
 }
