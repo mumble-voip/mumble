@@ -6,8 +6,10 @@
 #ifndef MUMBLE_SERVER_DATABASE_DBACL_H_
 #define MUMBLE_SERVER_DATABASE_DBACL_H_
 
-#include <boost/optional.hpp>
+#include <string>
 #include <vector>
+
+#include <boost/optional.hpp>
 
 namespace mumble {
 namespace server {
@@ -30,6 +32,7 @@ namespace server {
 			boost::optional< unsigned int > affectedUserID  = {};
 			boost::optional< unsigned int > affectedGroupID = {};
 			boost::optional< MetaGroup > affectedMetaGroup  = {};
+			boost::optional< std::string > accessToken      = {};
 			std::vector< std::string > groupModifiers       = {};
 			bool applyInCurrentChannel                      = true;
 			bool applyInSubChannels                         = true;

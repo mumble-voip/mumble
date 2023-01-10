@@ -12,8 +12,8 @@ namespace server {
 		bool operator==(const DBAcl &lhs, const DBAcl &rhs) {
 			return lhs.serverID == rhs.serverID && lhs.channelID == rhs.channelID && lhs.priority == rhs.priority
 				   && lhs.affectedUserID == rhs.affectedUserID && lhs.affectedGroupID == rhs.affectedGroupID
-				   && lhs.affectedMetaGroup == rhs.affectedMetaGroup && lhs.groupModifiers == rhs.groupModifiers
-				   && lhs.applyInCurrentChannel == rhs.applyInCurrentChannel
+				   && lhs.affectedMetaGroup == rhs.affectedMetaGroup && lhs.accessToken == rhs.accessToken
+				   && lhs.groupModifiers == rhs.groupModifiers && lhs.applyInCurrentChannel == rhs.applyInCurrentChannel
 				   && lhs.applyInSubChannels == rhs.applyInSubChannels
 				   && lhs.grantedPrivilegeFlags == rhs.grantedPrivilegeFlags
 				   && lhs.revokedPrivilegeFlags == rhs.revokedPrivilegeFlags;
