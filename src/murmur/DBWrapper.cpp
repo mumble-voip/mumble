@@ -160,6 +160,7 @@ boost::optional<::msdb::DBAcl::MetaGroup > metaGroupFromString(const std::string
 
 struct GroupSpecComponents {
 	std::string name;
+	bool isAccessToken = false;
 	std::vector< std::string > modifiers;
 };
 
@@ -171,7 +172,11 @@ GroupSpecComponents parseGroupSpecification(std::string specification) {
 	while (!specification.empty()
 		   && std::find(existingGroupModifiers.begin(), existingGroupModifiers.end(), specification[0])
 				  != existingGroupModifiers.end()) {
-		components.modifiers.push_back(std::string(1, specification[0]));
+		if (specification[0] == '#') {
+			components.isAccessToken = true;
+		} else {
+			components.modifiers.push_back(std::string(1, specification[0]));
+		}
 
 		// Remove modifier from group name
 		specification.erase(specification.begin());
@@ -538,6 +543,9 @@ void DBWrapper::initializeChannelDetails(Server &server) {
 			} else if (currentAcl.affectedMetaGroup) {
 				// The main ChanACL class doesn't distinguish real groups from meta groups
 				acl->qsGroup = QString::fromStdString(toString(currentAcl.affectedMetaGroup.get()));
+			} else if (currentAcl.accessToken) {
+				// "Group names" containing the # modifier are understood to represent access tokens
+				acl->qsGroup = '#' + QString::fromStdString(currentAcl.accessToken.get());
 			}
 
 			// Potentially add group modifiers to group name
@@ -619,8 +627,8 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 }
 
 ::msdb::DBAcl aclToDB(unsigned int serverID, unsigned int priority, boost::optional< unsigned int > groupID,
-					  boost::optional<::msdb::DBAcl::MetaGroup > metaGroup, std::vector< std::string > groupModifiers,
-					  const ChanACL &acl) {
+					  boost::optional<::msdb::DBAcl::MetaGroup > metaGroup, boost::optional< std::string > accessToken,
+					  std::vector< std::string > groupModifiers, const ChanACL &acl) {
 	::msdb::DBAcl dbAcl;
 	assert(acl.c);
 
@@ -631,6 +639,7 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	dbAcl.applyInSubChannels    = acl.bApplySubs;
 	dbAcl.affectedGroupID       = std::move(groupID);
 	dbAcl.affectedMetaGroup     = std::move(metaGroup);
+	dbAcl.accessToken           = std::move(accessToken);
 	dbAcl.groupModifiers        = std::move(groupModifiers);
 	if (acl.iUserId >= 0) {
 		dbAcl.affectedUserID = acl.iUserId;
@@ -757,27 +766,31 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 
 		boost::optional< unsigned int > associatedGroupID;
 		boost::optional<::msdb::DBAcl::MetaGroup > metaGroup;
+		boost::optional< std::string > accessToken;
 		std::vector< std::string > groupModifiers;
 
 		if (!currentACL->qsGroup.isEmpty()) {
 			GroupSpecComponents components = parseGroupSpecification(currentACL->qsGroup.toStdString());
 
-			metaGroup = metaGroupFromString(components.name);
-
 			groupModifiers = std::move(components.modifiers);
 
-			if (!metaGroup) {
+			if (components.isAccessToken) {
+				accessToken = std::move(components.name);
+			} else {
+				metaGroup = metaGroupFromString(components.name);
+			}
+
+			if (!metaGroup && !accessToken) {
 				associatedGroupID = m_serverDB.getGroupTable().findGroupID(serverID, components.name);
 
 				if (!associatedGroupID) {
-					throw ::mdb::NoDataException("Required ID of non-existing group \""
-												 + currentACL->qsGroup.toStdString() + "\"");
+					throw ::mdb::NoDataException("Required ID of non-existing group \"" + components.name + "\"");
 				}
 			}
 		}
 
 		::msdb::DBAcl acl = aclToDB(serverID, priority++, std::move(associatedGroupID), std::move(metaGroup),
-									std::move(groupModifiers), *currentACL);
+									std::move(accessToken), std::move(groupModifiers), *currentACL);
 
 		m_serverDB.getACLTable().addACL(acl);
 	}
