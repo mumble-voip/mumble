@@ -3,17 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "AudioOutputUser.h"
+#include "AudioOutputBuffer.h"
 
-AudioOutputUser::AudioOutputUser(const QString &name) : qsName(name) {
-}
-
-AudioOutputUser::~AudioOutputUser() {
+AudioOutputBuffer::~AudioOutputBuffer() {
 	delete[] pfBuffer;
 	delete[] pfVolume;
 }
 
-void AudioOutputUser::resizeBuffer(unsigned int newsize) {
+void AudioOutputBuffer::resizeBuffer(unsigned int newsize) {
 	if (newsize > iBufferSize) {
 		float *n = new float[newsize];
 		if (pfBuffer) {

@@ -57,7 +57,7 @@ std::size_t AudioOutputSpeech::storeAudioOutputCache(const Mumble::Protocol::Aud
 
 AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble::Protocol::AudioCodec codec,
 									 unsigned int systemMaxBufferSize)
-	: AudioOutputUser(user->qsName), iMixerFreq(freq), m_codec(codec), p(user) {
+	: iMixerFreq(freq), m_codec(codec), p(user) {
 	int err;
 
 	opusState = nullptr;
