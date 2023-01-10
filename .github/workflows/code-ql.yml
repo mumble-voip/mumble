@@ -6,7 +6,7 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   CMAKE_OPTIONS: |
-      -Dtests=OFF -Dsymbols=ON
+      -Dtests=OFF -Dsymbols=ON -Dwarnings-as-errors=OFF
 
 jobs:
   pre_run:
@@ -24,10 +24,15 @@ jobs:
     needs: pre_run
     if: needs.pre_run.outputs.should_skip != 'true'
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
           submodules: 'recursive'
 
