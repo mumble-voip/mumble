@@ -909,18 +909,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>기타</translation>
     </message>
     <message>
-        <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>전송 시작 또는 중지 시 오디오 신호음</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;오디오 신호를 전송할 수 있습니다.&lt;/b&gt;&lt;br /&gt;이 설정을 사용하면 전송을 시작하거나 중지할 때 짧은 오디오 신호음이 들립니다.</translation>
-    </message>
-    <message>
-        <source>Audio cue</source>
-        <translation>오디오 신호</translation>
-    </message>
-    <message>
         <source>Gets played when starting to transmit</source>
         <translation>전송을 시작할 때 재생</translation>
     </message>
@@ -1039,6 +1027,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Pre&amp;view</source>
         <translation>미리보기(&amp;V)</translation>
+    </message>
+    <message>
+        <source>Audio cue when using...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push To Talk</source>
+        <translation type="unfinished">눌러서 말하기</translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice Activity</source>
+        <translation type="unfinished">음성 감지</translation>
     </message>
 </context>
 <context>
