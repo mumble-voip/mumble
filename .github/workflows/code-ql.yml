@@ -6,14 +6,33 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   CMAKE_OPTIONS: |
-      -Dtests=OFF -Dsymbols=ON
+      -Dtests=OFF -Dsymbols=ON -Dwarnings-as-errors=OFF
 
 jobs:
+  pre_run:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5
+        with:
+          concurrent_skipping: same_content_newer
+          skip_after_successful_duplicate: 'true'
+
   CodeQL-Build:
-    runs-on: ubuntu-20.04
+    needs: pre_run
+    if: needs.pre_run.outputs.should_skip != 'true'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
           submodules: 'recursive'
 
