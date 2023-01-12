@@ -122,6 +122,7 @@ public class ClientInstaller : MumbleInstall {
 			}
 		}
 
+		this.Arch = arch;
 		this.Name = "Mumble (client)";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);

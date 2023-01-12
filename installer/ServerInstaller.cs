@@ -38,6 +38,7 @@ public class ServerInstaller : MumbleInstall {
 			this.Platform = WixSharp.Platform.x86;
 		}
 
+		this.Arch = arch;
 		this.Name = "Mumble Server";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
