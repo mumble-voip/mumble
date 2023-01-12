@@ -972,20 +972,26 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		iHoldFrames = 0;
 	}
 
+	// If Global::get().iPushToTalk > 0 that means that we are currently in some sort of PTT action. For
+	// instance this could mean we're currently whispering
+	bool isPTT = Global::get().iPushToTalk > 0;
+
 	if (Global::get().s.atTransmit == Settings::Continuous
 		|| API::PluginData::get().overwriteMicrophoneActivation.load()) {
 		// Continuous transmission is enabled
 		bIsSpeech = true;
 	} else if (Global::get().s.atTransmit == Settings::PushToTalk) {
 		// PTT is enabled, so check if it is currently active
-		bIsSpeech = Global::get().s.uiDoublePush
-					&& ((Global::get().uiDoublePush < Global::get().s.uiDoublePush)
-						|| (Global::get().tDoublePush.elapsed() < Global::get().s.uiDoublePush));
+		bool doublePush = Global::get().s.uiDoublePush > 0
+						  && ((Global::get().uiDoublePush < Global::get().s.uiDoublePush)
+							  || (Global::get().tDoublePush.elapsed() < Global::get().s.uiDoublePush));
+
+		// With double push enabled, we might be in a PTT state without pressing any PTT key
+		isPTT     = isPTT || doublePush;
+		bIsSpeech = isPTT;
 	}
 
-	// If Global::get().iPushToTalk > 0 that means that we are currently in some sort of PTT action. For
-	// instance this could mean we're currently whispering
-	bIsSpeech = bIsSpeech || (Global::get().iPushToTalk > 0);
+	bIsSpeech = bIsSpeech || isPTT;
 
 	ClientUser *p          = ClientUser::get(Global::get().uiSession);
 	bool bTalkingWhenMuted = false;
@@ -1012,25 +1018,29 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			p->setTalking(Settings::Shouting);
 	}
 
-	if (Global::get().uiSession != 0 && (Global::get().s.bTxAudioCue || Global::get().s.bTxMuteCue)) {
+	if (Global::get().uiSession != 0) {
 		AudioOutputPtr ao = Global::get().ao;
 
 		if (ao) {
-			if (Global::get().s.bTxAudioCue) {
-				const bool playAudioOnCue  = bIsSpeech && !bPreviousVoice;
-				const bool playAudioOffCue = !bIsSpeech && bPreviousVoice;
-				const bool stopActiveCue   = m_activeAudioCue && (playAudioOnCue || playAudioOffCue);
+			const bool treatAsPTT         = isPTT || previousPTT;
+			const bool audioCueEnabledPTT = Global::get().s.audioCueEnabledPTT && treatAsPTT;
+			const bool audioCueEnabledVAD =
+				Global::get().s.audioCueEnabledVAD && Global::get().s.atTransmit == Settings::VAD && !treatAsPTT;
+			const bool audioCueEnabled = audioCueEnabledPTT || audioCueEnabledVAD;
 
-				if (stopActiveCue) {
-					// Cancel active cue first, if there is any
-					ao->removeToken(m_activeAudioCue);
-				}
+			const bool playAudioOnCue  = bIsSpeech && !bPreviousVoice && audioCueEnabled;
+			const bool playAudioOffCue = !bIsSpeech && bPreviousVoice && audioCueEnabled;
+			const bool stopActiveCue   = m_activeAudioCue && (playAudioOnCue || playAudioOffCue);
 
-				if (playAudioOnCue) {
-					m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOn, Global::get().s.cueVolume);
-				} else if (playAudioOffCue) {
-					m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOff, Global::get().s.cueVolume);
-				}
+			if (stopActiveCue) {
+				// Cancel active cue first, if there is any
+				ao->removeToken(m_activeAudioCue);
+			}
+
+			if (playAudioOnCue) {
+				m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOn, Global::get().s.cueVolume);
+			} else if (playAudioOffCue) {
+				m_activeAudioCue = ao->playSample(Global::get().s.qsTxAudioCueOff, Global::get().s.cueVolume);
 			}
 
 			if (Global::get().s.bTxMuteCue && !Global::get().bPushToMute && !Global::get().s.bDeaf
@@ -1132,6 +1142,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		iBitrate = 0;
 
 	bPreviousVoice = bIsSpeech;
+	previousPTT    = isPTT;
 }
 
 static void sendAudioFrame(gsl::span< const Mumble::Protocol::byte > encodedPacket) {

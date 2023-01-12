@@ -24,7 +24,8 @@
 	PROCESS(audio, TRANSMIT_MODE_KEY, atTransmit)                                           \
 	PROCESS(audio, DOUBLE_PUSH_DELAY_KEY, uiDoublePush)                                     \
 	PROCESS(audio, PTT_HOLD_KEY, pttHold)                                                   \
-	PROCESS(audio, PLAY_TRANSMIT_CUE_KEY, bTxAudioCue)                                      \
+	PROCESS(audio, TRANSMIT_CUE_WHEN_PTT_KEY, audioCueEnabledPTT)                           \
+	PROCESS(audio, TRANSMIT_CUE_WHEN_VAD_KEY, audioCueEnabledVAD)                           \
 	PROCESS(audio, TRANSMIT_CUE_START_KEY, qsTxAudioCueOn)                                  \
 	PROCESS(audio, TRANSMIT_CUE_STOP_KEY, qsTxAudioCueOff)                                  \
 	PROCESS(audio, PLAY_MUTE_CUE_KEY, bTxMuteCue)                                           \

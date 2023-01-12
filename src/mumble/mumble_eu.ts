@@ -911,18 +911,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Misc</translation>
     </message>
     <message>
-        <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Audio seinale entzungarria transmisioa hasi edo amaitzerakoan</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Audio cue</source>
-        <translation>Audio seinalea</translation>
-    </message>
-    <message>
         <source>Gets played when starting to transmit</source>
         <translation>Transmititzen hasi ondoren, martxan jartzen da</translation>
     </message>
@@ -1041,6 +1029,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Pre&amp;view</source>
         <translation>Aurrebista(&amp;v)</translation>
+    </message>
+    <message>
+        <source>Audio cue when using...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push To Talk</source>
+        <translation type="unfinished">Sakatu Hitz egiteko</translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice Activity</source>
+        <translation type="unfinished">Ahots Jarduera</translation>
     </message>
 </context>
 <context>

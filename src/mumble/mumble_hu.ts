@@ -905,18 +905,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Egyéb</translation>
     </message>
     <message>
-        <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Hallható jelzés az adás kezdetekor vagy végekor</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Audio cue</source>
-        <translation>Hangjelzés</translation>
-    </message>
-    <message>
         <source>Gets played when starting to transmit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1035,6 +1023,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Pre&amp;view</source>
         <translation>&amp;Előnézet</translation>
+    </message>
+    <message>
+        <source>Audio cue when using...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push To Talk</source>
+        <translation type="unfinished">Beszédhez-nyomd</translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice Activity</source>
+        <translation type="unfinished">Beszéd érzékelése</translation>
     </message>
 </context>
 <context>

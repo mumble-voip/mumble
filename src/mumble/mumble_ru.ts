@@ -909,18 +909,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Разное</translation>
     </message>
     <message>
-        <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Звуковой сигнал при передаче речи</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Включить звуковое сопровождение кнопки передачи речи.&lt;/b&gt;&lt;br /&gt;Эта опция включит проигрывание короткого звука, когда Вы нажимаете и отпускаете кнопку для передачи речи.</translation>
-    </message>
-    <message>
-        <source>Audio cue</source>
-        <translation>Звук PTT</translation>
-    </message>
-    <message>
         <source>Gets played when starting to transmit</source>
         <translation>Звучит перед началом передачи речи</translation>
     </message>
@@ -1039,6 +1027,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Pre&amp;view</source>
         <translation>&amp;Предпросмотр</translation>
+    </message>
+    <message>
+        <source>Audio cue when using...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push To Talk</source>
+        <translation type="unfinished">Активация по кнопке</translation>
+    </message>
+    <message>
+        <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice Activity</source>
+        <translation type="unfinished">Активация по голосу</translation>
     </message>
 </context>
 <context>

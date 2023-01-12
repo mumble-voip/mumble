@@ -250,6 +250,7 @@ protected:
 
 	volatile bool bRunning;
 	volatile bool bPreviousVoice;
+	volatile bool previousPTT;
 
 	int iFrameCounter;
 	int iSilentFrames;
