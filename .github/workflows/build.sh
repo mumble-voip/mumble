@@ -9,15 +9,11 @@ mkdir "$buildDir"
 
 cd "$buildDir"
 
-VERSION=$("${GITHUB_WORKSPACE}/scripts/mumble-version.py")
-BUILD_NUMBER=$("${GITHUB_WORKSPACE}/scripts/mumble-build-number.py" --commit "${GITHUB_SHA}" --version "${VERSION}" \
-	--password "${MUMBLE_BUILD_NUMBER_TOKEN}" --default 0)
-
 # Run cmake with all necessary options
 cmake -G Ninja \
 	  -S "$GITHUB_WORKSPACE" \
 	  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-	  -DBUILD_NUMBER=$BUILD_NUMBER \
+	  -DBUILD_NUMBER=$MUMBLE_BUILD_NUMBER \
 	  $CMAKE_OPTIONS \
       -DCMAKE_UNITY_BUILD=ON \
 	  -Ddisplay-install-paths=ON \
