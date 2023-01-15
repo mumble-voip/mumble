@@ -11,7 +11,7 @@ env:
 
 
 jobs:
-  pre_run:
+  skip_test:
     runs-on: ubuntu-latest
     outputs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
@@ -22,9 +22,26 @@ jobs:
           concurrent_skipping: same_content_newer
           skip_after_successful_duplicate: 'true'
 
+  fetch_build_number:
+    runs-on: ubuntu-latest
+    outputs:
+      build_number: ${{ steps.fetch.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 1
+      - id: fetch
+        shell: bash
+        run: |
+          echo "build_number=$( '${{ github. workspace }}/scripts/mumble-build-number.py' \
+            --commit ${{ github.sha }} --version $( '${{ github.workspace }}/scripts/mumble-version.py' ) \
+            --password '${{ secrets.BUILD_NUMBER_TOKEN }}' --default 0 )" >> $GITHUB_OUTPUT
+
+
   build:
-    needs: pre_run
-    if: needs.pre_run.outputs.should_skip != 'true'
+    needs: [ skip_test, fetch_build_number ]
+
+    if: needs.skip_test.outputs.should_skip != 'true'
 
     strategy:
         fail-fast: false
@@ -69,7 +86,7 @@ jobs:
       run: ./.github/workflows/build.sh
       shell: bash
       env:
-          MUMBLE_BUILD_NUMBER_TOKEN: ${{ secrets.BUILD_NUMBER_TOKEN }}
+          MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
 
     - name: Test
       working-directory: ${{ github.workspace }}/build
