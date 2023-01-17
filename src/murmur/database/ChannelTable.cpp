@@ -51,7 +51,7 @@ namespace server {
 			channelIDCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
 
 			::mdb::Column inheritACLCol(column::inherit_acl, ::mdb::DataType(::mdb::DataType::SmallInteger));
-			channelIDCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
+			inheritACLCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
 
 
 			setColumns({ serverCol, channelIDCol, parentIDCol, nameCol, inheritACLCol });
