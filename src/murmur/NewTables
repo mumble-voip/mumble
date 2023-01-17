@@ -43,6 +43,7 @@
 		- NOT NULL
 	- inherit_acl
 		- INTEGER
+		- NOT NULL
 	* PRIMARY KEY (server_id, channel_id)
 	* FOREIGN KEY: (server_id, parent_id) REFERENCES channels(server_id, channel_id)
 	* FOREIGN KEY: server_id REFERENCES servers(server_id)
