@@ -91,6 +91,8 @@ namespace db {
 		transaction.commit();
 	}
 
+	Backend Database::getBackend() const { return m_backend; }
+
 	Database::table_id Database::addTable(std::unique_ptr< Table > table) {
 		table->setDatabase(this);
 		m_tables.push_back(std::move(table));
