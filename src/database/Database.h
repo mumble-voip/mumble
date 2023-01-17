@@ -42,6 +42,8 @@ namespace db {
 
 		virtual unsigned int getSchemeVersion() const = 0;
 
+		Backend getBackend() const;
+
 		table_id addTable(std::unique_ptr< Table > table);
 
 		const Table *getTable(const std::string &name) const;
