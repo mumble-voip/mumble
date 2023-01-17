@@ -38,6 +38,7 @@
 		- NOT NULL
 	- parent_id
 		- INTEGER
+		- NOT NULL
 	- channel_name
 		- VARCHAR(255)
 		- NOT NULL
