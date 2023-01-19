@@ -718,7 +718,8 @@ void DatabaseTest::dataTypes() {
 
 		for (DataType::Type currentType :
 			 { DataType::Integer, DataType::SmallInteger, DataType::Float, DataType::Double, DataType::FixedSizeString,
-			   DataType::VarChar, DataType::Text, DataType::EpochTime, DataType::Blob }) {
+			   DataType::VarChar, DataType::Text, DataType::EpochTime, DataType::Blob, DataType::Binary,
+			   DataType::Timestamp }) {
 			qInfo() << "Current data type:" << currentType;
 
 			for (bool sized : { true, false }) {
