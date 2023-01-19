@@ -40,8 +40,6 @@ namespace db {
 
 	Database::Database(Backend backend) : m_backend(backend){};
 
-	Database::~Database() {}
-
 	void Database::init(const ConnectionParameter &parameter) {
 		assert(parameter.applicability() == m_backend);
 		if (parameter.applicability() != m_backend) {
