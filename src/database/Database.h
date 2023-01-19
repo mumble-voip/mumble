@@ -36,7 +36,7 @@ namespace db {
 		static constexpr const char *OLD_TABLE_SUFFIX = "_old";
 
 		Database(Backend backend);
-		virtual ~Database();
+		virtual ~Database() = default;
 
 		virtual void init(const ConnectionParameter &parameter);
 
