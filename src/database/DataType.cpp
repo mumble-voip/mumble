@@ -52,6 +52,10 @@ namespace db {
 				return false;
 			case DataType::Blob:
 				return false;
+			case DataType::Binary:
+				return false;
+			case DataType::Timestamp:
+				return false;
 		}
 
 		// This code should be unreachable
@@ -81,6 +85,10 @@ namespace db {
 				return true;
 			case DataType::Blob:
 				return true;
+			case DataType::Binary:
+				return true;
+			case DataType::Timestamp:
+				return true;
 		}
 
 		// This code should be unreachable
@@ -102,6 +110,8 @@ namespace db {
 			case DataType::Type::Double:
 			case DataType::Type::EpochTime:
 			case DataType::Type::Blob:
+			case DataType::Type::Binary:
+			case DataType::Type::Timestamp:
 				return false;
 		}
 
@@ -152,6 +162,27 @@ namespace db {
 					sqlRepr = "BLOB";
 				}
 				break;
+			case DataType::Binary: {
+				switch (backend) {
+					case Backend::MySQL:
+						sqlRepr = "BINARY";
+						break;
+					case Backend::PostgreSQL:
+						sqlRepr = "BYTEA";
+						break;
+					case Backend::SQLite:
+						sqlRepr = "BINARY_BLOB";
+						break;
+				}
+				break;
+				case DataType::Timestamp:
+					if (backend == Backend::SQLite) {
+						sqlRepr = "DATETIME";
+					} else {
+						sqlRepr = "TIMESTAMP";
+					}
+					break;
+			}
 		}
 
 		assert(!sqlRepr.empty());
@@ -211,6 +242,11 @@ namespace db {
 			type = DataType::EpochTime;
 		} else if (boost::iequals(name, "BLOB") || boost::iequals(name, "OID")) {
 			type = DataType::Blob;
+		} else if (boost::iequals(name, "BINARY_BLOB") || boost::iequals(name, "BYTEA")
+				   || boost::iequals(name, "BINARY")) {
+			type = DataType::Binary;
+		} else if (boost::iequals(name, "TIMESTAMP") || boost::iequals(name, "DATETIME")) {
+			type = DataType::Timestamp;
 		} else {
 			throw UnknownDataTypeException("Unknown data type \"" + name + "\"");
 		}

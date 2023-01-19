@@ -31,6 +31,8 @@ namespace db {
 			Text,
 			EpochTime,
 			Blob,
+			Binary,
+			Timestamp,
 		};
 		static constexpr const std::size_t Unsized = std::numeric_limits< std::size_t >::max();
 
