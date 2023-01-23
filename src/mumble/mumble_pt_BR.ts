@@ -9027,11 +9027,11 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider para ajuste de volume</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de Volume</translation>
     </message>
 </context>
 <context>
