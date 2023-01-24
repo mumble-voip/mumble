@@ -456,12 +456,14 @@ namespace db {
 		}
 		query += ") VALUES(" + valuePlaceholder + ")";
 
-		// We assume that this function will be called from a place that already started a transaction
-		// on the DB, so we can't initiate another one here.
+		TransactionHolder transaction = ensureTransaction();
+
 		soci::statement stmt = m_sql.prepare << query;
 
 		std::vector< std::string > values;
+		std::vector< soci::indicator > indicators;
 		values.reserve(colNames.size());
+		indicators.reserve(colNames.size());
 		for (const nlohmann::json &currentRow : rows) {
 			assert(currentRow.size() == colNames.size());
 
@@ -469,10 +471,16 @@ namespace db {
 			// are not destroyed in the middle of the DB statement (which might happen, if we were to use
 			// the temporaries directly)
 			for (const nlohmann::json &currentVal : currentRow) {
-				values.push_back(utils::to_string(currentVal));
+				if (!currentVal.is_null()) {
+					values.push_back(utils::to_string(currentVal));
+					indicators.push_back(soci::i_ok);
+				} else {
+					values.push_back({});
+					indicators.push_back(soci::i_null);
+				}
 			}
 			for (std::size_t i = 0; i < values.size(); ++i) {
-				stmt.exchange(soci::use(values[i]));
+				stmt.exchange(soci::use(values[i], indicators[i]));
 			}
 
 			stmt.define_and_bind();
@@ -480,7 +488,10 @@ namespace db {
 			stmt.bind_clean_up();
 
 			values.clear();
+			indicators.clear();
 		}
+
+		transaction.commit();
 	}
 #undef THROW_FORMATERROR
 
