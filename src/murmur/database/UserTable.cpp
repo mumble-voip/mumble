@@ -694,22 +694,10 @@ namespace server {
 			// migration path always stays the same regardless of whether the respective named constants change.
 			assert(fromSchemeVersion < toSchemeVersion);
 
+			// TODO: In v6 the field kdfiterations was called "kdfmeter"
+
 			try {
-				if (fromSchemeVersion < 4) {
-					// Before v4, the table was called "players" and the "user_id" col was called "player_id"
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-						  << column::user_name << ", " << column::password_hash << ", " << column::last_channel_id
-						  << ", " << column::texture << ", " << column::last_active
-						  << ") SELECT server_id, player_id, name, pw, lastchannel, texture, last_active FROM \"players"
-						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
-				} else if (fromSchemeVersion < 6) {
-					// Before v6, there were no salt and kdfIteration columns
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-						  << column::user_name << ", " << column::password_hash << ", " << column::last_channel_id
-						  << ", " << column::texture << ", " << column::last_active
-						  << ") SELECT server_id, user_id, name, pw, lastchannel, texture, last_active FROM \"users"
-						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
-				} else if (fromSchemeVersion < 8) {
+				if (fromSchemeVersion < 8) {
 					// Before v8 there was no last_disconnect column
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 						  << column::user_name << ", " << column::password_hash << ", " << column::salt << ", "
