@@ -688,7 +688,6 @@ namespace db {
 
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable) {
-				assert(tableNames.find(currentTable->getName()) != tableNames.end());
 				assert(tablesToBeRemoved.find(currentTable->getName()) == tablesToBeRemoved.end());
 
 				// First make sure the new table is created
