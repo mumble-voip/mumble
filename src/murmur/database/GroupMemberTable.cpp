@@ -180,13 +180,7 @@ namespace server {
 			assert(fromSchemeVersion < toSchemeVersion);
 
 			try {
-				if (fromSchemeVersion < 4) {
-					// Before v4, the column "user_id" was still called "player_id"
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
-						  << column::user_id << ", " << column::add_to_group
-						  << ") SELECT server_id, group_id, player_id, addit FROM \"group_members"
-						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
-				} else if (fromSchemeVersion < 10) {
+				if (fromSchemeVersion < 10) {
 					// In v10 we renamed the column "addit" -> "add_to_group"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
