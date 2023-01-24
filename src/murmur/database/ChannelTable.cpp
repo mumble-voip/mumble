@@ -248,9 +248,14 @@ namespace server {
 			try {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed columns "name" -> "channel_name" and "inheritacl" -> "inherit_acl"
+					// Furthermore, the following changes have been made:
+					// - For the root channel parent_id is no longer NULL but instead equal to the channel's ID
+					// - name can no longer be NULL (if there is an entry with a NULL name, we want the migration to fail)
+					// - inheritacl can no longer be NULL. Corresponding entries should instead use 0 (false) as the default
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
 						  << ", " << column::parent_id << ", " << column::name << ", " << column::inherit_acl
-						  << ") SELECT server_id, channel_id, parent_id, name, inheritacl FROM \"channels"
+						  << ") SELECT server_id, channel_id, COALESCE(parent_id, channel_id), name, "
+							 "COALESCE(inheritacl, 0) FROM \"channels"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
