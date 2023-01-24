@@ -11,6 +11,7 @@
 #include "MySQLConnectionParameter.h"
 #include "PostgreSQLConnectionParameter.h"
 #include "SQLiteConnectionParameter.h"
+#include "MigrationException.h"
 
 #include <algorithm>
 #include <cassert>
@@ -719,7 +720,7 @@ namespace db {
 		} while (prevSize > tablesToBeRemoved.size());
 
 		if (!tablesToBeRemoved.empty()) {
-			throw AccessException("Failed to delete " + std::to_string(tablesToBeRemoved.size())
+			throw MigrationException("Failed to delete " + std::to_string(tablesToBeRemoved.size())
 								  + " old tables after migration");
 		}
 	}
