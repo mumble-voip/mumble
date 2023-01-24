@@ -54,6 +54,10 @@ namespace db {
 		}
 
 		nlohmann::json to_json(const soci::row &row, std::size_t columnIndex) {
+			if (row.get_indicator(columnIndex) == soci::i_null) {
+				return {};
+			}
+
 			const soci::column_properties &props = row.get_properties(columnIndex);
 
 			switch (props.get_data_type()) {
