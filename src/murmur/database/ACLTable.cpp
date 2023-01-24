@@ -402,7 +402,7 @@ namespace server {
 					// Check if the migration produced any useless ACLs (ones that apply to no one)
 					int uselessACLs = 0;
 					m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::aff_user_id
-						  << " = NULL AND " << column::aff_group_id << " = NULL) AS dummy",
+						  << " IS NULL AND " << column::aff_group_id << " IS NULL) AS dummy",
 						soci::into(uselessACLs);
 
 					if (uselessACLs > 0) {
