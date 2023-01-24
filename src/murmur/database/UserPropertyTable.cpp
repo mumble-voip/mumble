@@ -208,18 +208,7 @@ namespace server {
 			assert(fromSchemeVersion < toSchemeVersion);
 
 			try {
-				if (fromSchemeVersion < 3) {
-					// Nothing to do here
-				} else if (fromSchemeVersion == 3) {
-					// Before v4, this table didn't exist, so there is no need to do any migration from an older version
-					// of this table. However, before v4 a users's email was stored in the "players" table and
-					// thus, we'll have to move it out of there.
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-						  << column::key << ", " << column::value
-						  << ") SELECT server_id, player_id, :key, email FROM \"users"
-						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\" WHERE email IS NOT NULL",
-						soci::use(static_cast< int >(UserProperty::Email));
-				} else if (fromSchemeVersion < 10) {
+				if (fromSchemeVersion < 10) {
 					// In v10 we renamed this table from "user_info" to "user_properties"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::user_id

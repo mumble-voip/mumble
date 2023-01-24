@@ -20,6 +20,7 @@
 #include "UserTable.h"
 
 #include "database/MetaTable.h"
+#include "database/MigrationException.h"
 
 #include <cassert>
 
@@ -53,6 +54,22 @@ namespace server {
 		ServerDatabase::ServerDatabase(::mdb::Backend backend) : ::mdb::Database(backend) {}
 
 		unsigned int ServerDatabase::getSchemeVersion() const { return DB_SCHEME_VERSION; }
+
+		void ServerDatabase::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+			// Ensure that the migration is in a range that we actually support
+			if (toSchemeVersion != DB_SCHEME_VERSION) {
+				throw ::mdb::MigrationException(
+					"Requested to migrate to scheme version " + std::to_string(toSchemeVersion)
+					+ " but can only migrate to latest scheme version (" + std::to_string(DB_SCHEME_VERSION) + ")");
+			}
+			if (fromSchemeVersion < 6) {
+				throw ::mdb::MigrationException("Requested to migrate from scheme version "
+												+ std::to_string(fromSchemeVersion)
+												+ " but support for versions < 6 has been dropped");
+			}
+
+			::mdb::Database::migrateTables(fromSchemeVersion, toSchemeVersion);
+		}
 
 		void ServerDatabase::setupStandardTables() {
 			::mdb::Database::table_id id = addTable(std::make_unique< ServerTable >(m_sql, m_backend));
