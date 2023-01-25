@@ -165,14 +165,19 @@ bool isChannelEnterRestricted(Channel *c) {
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	ZoneScoped;
 
-	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
+	if (uSource->sState == ServerUser::Authenticated && (msg.tokens_size() > 0 || !uSource->qslAccessTokens.empty())) {
+		// Process a change in access tokens for already authenticated users
 		QStringList qsl;
-		for (int i = 0; i < msg.tokens_size(); ++i)
+
+		for (int i = 0; i < msg.tokens_size(); ++i) {
 			qsl << u8(msg.tokens(i));
+		}
+
 		{
 			QMutexLocker qml(&qmCache);
 			uSource->qslAccessTokens = qsl;
 		}
+
 		clearACLCache(uSource);
 
 		// Send back updated enter states of all channels
@@ -215,6 +220,28 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 						  uSource->bVerified, uSource->peerCertificateChain());
 
 	uSource->iId = id >= 0 ? id : -1;
+
+	if (uSource->iId >= 0) {
+		if (msg.tokens_size() > 0) {
+			// Set the access tokens for the newly connected user
+			QStringList qsl;
+
+			for (int i = 0; i < msg.tokens_size(); ++i) {
+				qsl << u8(msg.tokens(i));
+			}
+
+			{
+				QMutexLocker qml(&qmCache);
+				uSource->qslAccessTokens = qsl;
+			}
+		}
+
+		// Clear cache as the "auth" ACL depends on the user id
+		// and any cached ACL won't have taken that into account yet
+		// Also, if we set access tokens above, we have to reset
+		// the ACL cache anyway.
+		clearACLCache(uSource);
+	}
 
 	QString reason;
 	MumbleProto::Reject_RejectType rtType = MumbleProto::Reject_RejectType_None;
