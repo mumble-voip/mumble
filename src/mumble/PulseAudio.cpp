@@ -566,14 +566,22 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
 	Q_ASSERT(s == pas->pasOutput);
 
+	const PulseAudio &pa = pas->m_pulseAudio;
+
 	AudioOutputPtr ao     = Global::get().ao;
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(ao.get());
 
 	if (!pao) {
+		// The AudioSystem pointer is invalid, probably because of an AudioSystem restart.
+		// However, PA expects this callback to return exactly the provided number of
+		// bytes. Failing to do so will cause PA to never call this again,
+		// effectively removing the audio output completely until Mumble is restarted.
+		// See: https://github.com/mumble-voip/mumble/issues/4883
+		// See: https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1132
+		unsigned char buffer[bytes] = {};
+		pa.stream_write(s, buffer, bytes, nullptr, 0, PA_SEEK_RELATIVE);
 		return;
 	}
-
-	const auto &pa = pas->m_pulseAudio;
 
 	const pa_sample_spec *pss = pa.stream_get_sample_spec(s);
 	const pa_channel_map *pcm = pa.stream_get_channel_map(pas->pasOutput);
