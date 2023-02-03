@@ -20,102 +20,129 @@
 #	endif
 #endif
 
-HostAddress::HostAddress() {
-	addr[0] = addr[1] = 0ULL;
-}
+#include <cassert>
+#include <cstdint>
+#include <utility>
 
 HostAddress::HostAddress(const Q_IPV6ADDR &address) {
-	memcpy(qip6.c, address.c, 16);
+	memcpy(m_byteRepresentation.data(), address.c, m_byteRepresentation.size());
 }
 
 HostAddress::HostAddress(const std::string &address) {
-	if (address.length() != 16)
-		addr[0] = addr[1] = 0ULL;
-	else
-		for (int i = 0; i < 16; ++i)
-			qip6[i] = address[i];
+	if (address.length() != 16) {
+		// This is an invalid address -> reset the currently stored address
+		m_byteRepresentation.fill(0);
+	} else {
+		for (std::size_t i = 0; i < m_byteRepresentation.size(); ++i) {
+			m_byteRepresentation[i] = static_cast< unsigned char >(address[i]);
+		}
+	}
 }
 
 HostAddress::HostAddress(const QByteArray &address) {
-	if (address.length() != 16)
-		addr[0] = addr[1] = 0ULL;
-	else
-		for (int i = 0; i < 16; ++i)
-			qip6[i] = address[i];
+	if (address.length() != 16) {
+		// This is an invalid address -> reset the currently stored address
+		m_byteRepresentation.fill(0);
+	} else {
+		for (unsigned int i = 0; i < m_byteRepresentation.size(); ++i) {
+			m_byteRepresentation[i] = static_cast< unsigned char >(address[i]);
+		}
+	}
 }
 
 HostAddress::HostAddress(const QHostAddress &address) {
 	if (address.protocol() == QAbstractSocket::IPv6Protocol) {
 		const Q_IPV6ADDR &a = address.toIPv6Address();
-		memcpy(qip6.c, a.c, 16);
+		memcpy(m_byteRepresentation.data(), a.c, m_byteRepresentation.size());
 	} else {
-		addr[0]   = 0ULL;
-		shorts[4] = 0;
-		shorts[5] = 0xffff;
-		hash[3]   = htonl(address.toIPv4Address());
+		fromIPv4(address.toIPv4Address());
 	}
 }
 
 HostAddress::HostAddress(const sockaddr_storage &address) {
 	if (address.ss_family == AF_INET) {
 		const struct sockaddr_in *in = reinterpret_cast< const struct sockaddr_in * >(&address);
-		addr[0]                      = 0ULL;
-		shorts[4]                    = 0;
-		shorts[5]                    = 0xffff;
-		hash[3]                      = in->sin_addr.s_addr;
+		fromIPv4(in->sin_addr.s_addr, false);
 	} else if (address.ss_family == AF_INET6) {
 		const struct sockaddr_in6 *in6 = reinterpret_cast< const struct sockaddr_in6 * >(&address);
-		memcpy(qip6.c, in6->sin6_addr.s6_addr, 16);
+		memcpy(m_byteRepresentation.data(), in6->sin6_addr.s6_addr, m_byteRepresentation.size());
 	} else {
-		addr[0] = addr[1] = 0ULL;
+		m_byteRepresentation.fill(0);
 	}
+}
+
+void HostAddress::fromIPv4(std::uint32_t address, bool convertToNetworkOrder) {
+	// Store IPv4 address in IPv6 format:
+	// - address is stored in the 4 last bytes in network byte order
+	// - the 2 bytes just before that are set to 0xFF respectively
+	m_byteRepresentation.fill(0);
+
+	m_byteRepresentation[10] = 0xFF;
+	m_byteRepresentation[11] = 0xFF;
+
+	if (convertToNetworkOrder) {
+		address = htonl(address);
+	}
+
+	memcpy(&m_byteRepresentation[12], &address, sizeof(std::uint32_t));
 }
 
 bool HostAddress::operator<(const HostAddress &other) const {
-	return memcmp(qip6.c, other.qip6.c, 16) < 0;
+	return m_byteRepresentation < other.m_byteRepresentation;
 }
 
 bool HostAddress::operator==(const HostAddress &other) const {
-	return ((addr[0] == other.addr[0]) && (addr[1] == other.addr[1]));
+	return m_byteRepresentation == other.m_byteRepresentation;
 }
 
-bool HostAddress::match(const HostAddress &netmask, int bits) const {
-	quint64 mask[2];
+bool HostAddress::match(const HostAddress &netmask, unsigned int bits) const {
+	for (std::size_t i = 0; i < m_byteRepresentation.size(); ++i) {
+		if (bits >= 8) {
+			// Compare full byte
+			if (m_byteRepresentation[i] != netmask.m_byteRepresentation[i]) {
+				return false;
+			}
+			bits -= 8;
+		} else {
+			// Compare only the first bits bits (no this is not a typo)
+			using mask_t = std::uint8_t;
+			mask_t mask =
+				static_cast< mask_t >(std::numeric_limits< mask_t >::max() >> (sizeof(mask_t) * CHAR_BIT - bits));
+			mask = static_cast< mask_t >(htons(mask));
 
-	if (bits == 128) {
-		mask[0] = mask[1] = 0xffffffffffffffffULL;
-	} else if (bits > 64) {
-		mask[0] = 0xffffffffffffffffULL;
-		mask[1] = SWAP64(~((1ULL << (128 - bits)) - 1));
-	} else {
-		mask[0] = SWAP64(~((1ULL << (64 - bits)) - 1));
-		mask[1] = 0ULL;
+			if ((m_byteRepresentation[i] & mask) != (netmask.m_byteRepresentation[i] & mask)) {
+				return false;
+			}
+
+			break;
+		}
 	}
-	return ((addr[0] & mask[0]) == (netmask.addr[0] & mask[0])) && ((addr[1] & mask[1]) == (netmask.addr[1] & mask[1]));
+
+	return true;
 }
 
 std::string HostAddress::toStdString() const {
-	return std::string(reinterpret_cast< const char * >(qip6.c), 16);
+	return std::string(reinterpret_cast< const char * >(m_byteRepresentation.data()), m_byteRepresentation.size());
 }
 
 bool HostAddress::isV6() const {
-	return (addr[0] != 0ULL) || (shorts[4] != 0) || (shorts[5] != 0xffff);
+	std::uint64_t firstEightBytes      = *(reinterpret_cast< const std::uint64_t * >(m_byteRepresentation.data()));
+	std::uint16_t bytesNineAndTen      = *(reinterpret_cast< const std::uint16_t * >(&m_byteRepresentation[8]));
+	std::uint16_t bytesElevenAndTwelve = *(reinterpret_cast< const std::uint16_t * >(&m_byteRepresentation[10]));
+	return firstEightBytes != 0 || bytesNineAndTen != 0 || bytesElevenAndTwelve != 0xFFFF;
 }
 
 bool HostAddress::isValid() const {
-	return (addr[0] != 0ULL) || (addr[1] != 0ULL);
+	return m_byteRepresentation != decltype(m_byteRepresentation){};
 }
 
 QHostAddress HostAddress::toAddress() const {
-	if (isV6())
-		return QHostAddress(qip6);
-	else {
-		return QHostAddress(ntohl(hash[3]));
-	}
+	return QHostAddress(m_byteRepresentation.data());
 }
 
 QByteArray HostAddress::toByteArray() const {
-	return QByteArray(reinterpret_cast< const char * >(qip6.c), 16);
+	return QByteArray(reinterpret_cast< const char * >(m_byteRepresentation.data()),
+					  static_cast< int >(m_byteRepresentation.size()));
 }
 
 void HostAddress::toSockaddr(sockaddr_storage *dst) const {
@@ -123,16 +150,34 @@ void HostAddress::toSockaddr(sockaddr_storage *dst) const {
 	if (isV6()) {
 		struct sockaddr_in6 *in6 = reinterpret_cast< struct sockaddr_in6 * >(dst);
 		dst->ss_family           = AF_INET6;
-		memcpy(in6->sin6_addr.s6_addr, qip6.c, 16);
+		memcpy(in6->sin6_addr.s6_addr, m_byteRepresentation.data(), m_byteRepresentation.size());
 	} else {
 		struct sockaddr_in *in = reinterpret_cast< struct sockaddr_in * >(dst);
 		dst->ss_family         = AF_INET;
-		in->sin_addr.s_addr    = hash[3];
+		in->sin_addr.s_addr    = toIPv4();
 	}
 }
 
+std::uint32_t HostAddress::toIPv4() const {
+	// The IPv4 address is stored in the last four bytes (in network byte order)
+	return *(reinterpret_cast< const std::uint32_t * >(m_byteRepresentation[12]));
+}
+
+const std::array< std::uint8_t, 16 > &HostAddress::getByteRepresentation() const {
+	return m_byteRepresentation;
+}
+
+void HostAddress::reset() {
+	m_byteRepresentation.fill(0);
+}
+
+void HostAddress::setByte(std::size_t idx, std::uint8_t value) {
+	assert(idx < m_byteRepresentation.size());
+	m_byteRepresentation[idx] = value;
+}
+
 quint32 qHash(const HostAddress &ha) {
-	return (ha.hash[0] ^ ha.hash[1] ^ ha.hash[2] ^ ha.hash[3]);
+	return qHashRange(ha.m_byteRepresentation.begin(), ha.m_byteRepresentation.end());
 }
 
 QString HostAddress::toString(bool bracketEnclosed) const {
@@ -145,21 +190,19 @@ QString HostAddress::toString(bool bracketEnclosed) const {
 				squareBracketOpen  = "[";
 				squareBracketClose = "]";
 			}
-#if QT_VERSION >= 0x050500
-			str = QString::asprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shorts[0]),
-									ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]),
-									ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]), squareBracketClose);
-#else
-			// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
-			str.sprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shorts[0]), ntohs(shorts[1]),
-						ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]),
-						ntohs(shorts[7]), squareBracketClose);
-#endif
+
+			const std::uint16_t *shortArray = reinterpret_cast< const std::uint16_t * >(m_byteRepresentation.data());
+
+			str = QString::asprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shortArray[0]),
+									ntohs(shortArray[1]), ntohs(shortArray[2]), ntohs(shortArray[3]),
+									ntohs(shortArray[4]), ntohs(shortArray[5]), ntohs(shortArray[6]),
+									ntohs(shortArray[7]), squareBracketClose);
+
 			return str.replace(QRegExp(QLatin1String("(:0)+")), QLatin1String(":"));
 		} else {
 			return bracketEnclosed ? QLatin1String("[::]") : QLatin1String("::");
 		}
 	} else {
-		return QHostAddress(ntohl(hash[3])).toString();
+		return toAddress().toString();
 	}
 }

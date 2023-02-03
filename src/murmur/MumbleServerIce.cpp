@@ -132,9 +132,9 @@ static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
 #endif
 
 	::MumbleServer::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = u->haAddress.qip6;
-	for (int i = 0; i < 16; ++i)
-		addr[i] = a[i];
+	for (unsigned int i = 0; i < 16; ++i) {
+		addr[i] = u->haAddress.getByteRepresentation()[i];
+	}
 
 	mp.address = addr;
 }
@@ -172,9 +172,9 @@ static void groupToGroup(const ::Group *g, ::MumbleServer::Group &mg) {
 
 static void banToBan(const ::Ban &b, ::MumbleServer::Ban &mb) {
 	::MumbleServer::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = b.haAddress.qip6;
-	for (int i = 0; i < 16; ++i)
-		addr[i] = a[i];
+	for (unsigned int i = 0; i < 16; ++i) {
+		addr[i] = b.haAddress.getByteRepresentation()[i];
+	}
 
 	mb.address  = addr;
 	mb.bits     = b.iMask;
@@ -186,12 +186,13 @@ static void banToBan(const ::Ban &b, ::MumbleServer::Ban &mb) {
 }
 
 static void banToBan(const ::MumbleServer::Ban &mb, ::Ban &b) {
-	if (mb.address.size() != 16)
-		for (int i = 0; i < 16; ++i)
-			b.haAddress.qip6[i] = 0;
-	else
-		for (int i = 0; i < 16; ++i)
-			b.haAddress.qip6[i] = mb.address[i];
+	if (mb.address.size() != 16) {
+		b.haAddress.reset();
+	} else {
+		for (unsigned int i = 0; i < 16; ++i) {
+			b.haAddress.setByte(i, mb.address[i]);
+		}
+	}
 	b.iMask      = mb.bits;
 	b.qsUsername = u8(mb.name);
 	b.qsHash     = u8(mb.hash);

@@ -6,26 +6,23 @@
 #ifndef MUMBLE_HOSTADDRESS_H_
 #define MUMBLE_HOSTADDRESS_H_
 
-#include <QtCore/QByteArray>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
-#include <QtNetwork/QHostAddress>
-#include <QtNetwork/Q_IPV6ADDR>
+#include <QByteArray>
+#include <QHostAddress>
+#include <QString>
+#include <Q_IPV6ADDR>
+
+#include <array>
+#include <cstdint>
 
 struct HostAddress {
-	union {
-		Q_IPV6ADDR qip6;
-		quint16 shorts[8];
-		quint32 hash[4];
-		quint64 addr[2];
-	};
-
-	HostAddress();
+	HostAddress() = default;
 	HostAddress(const Q_IPV6ADDR &);
 	HostAddress(const std::string &);
 	HostAddress(const QHostAddress &);
 	HostAddress(const QByteArray &);
 	HostAddress(const struct sockaddr_storage &);
+
+	void fromIPv4(std::uint32_t address, bool convertToNetworkOrder = true);
 
 	bool isV6() const;
 	bool isValid() const;
@@ -33,7 +30,7 @@ struct HostAddress {
 	bool operator<(const HostAddress &) const;
 	bool operator==(const HostAddress &) const;
 
-	bool match(const HostAddress &, int bits) const;
+	bool match(const HostAddress &, unsigned int bits) const;
 
 	QString toString(bool bracketEnclosed = true) const;
 
@@ -41,10 +38,21 @@ struct HostAddress {
 	QHostAddress toAddress() const;
 	QByteArray toByteArray() const;
 	void toSockaddr(struct sockaddr_storage *dst) const;
+	std::uint32_t toIPv4() const;
+
+	const std::array< std::uint8_t, 16 > &getByteRepresentation() const;
+
+	void reset();
+
+	void setByte(std::size_t idx, std::uint8_t value);
+
+	friend quint32 qHash(const HostAddress &);
+
+private:
+	// Binary representation of an IPv6 address
+	std::array< std::uint8_t, 16 > m_byteRepresentation;
 };
 
 Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);
-
-quint32 qHash(const HostAddress &);
 
 #endif

@@ -1064,7 +1064,8 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 			cmsg->cmsg_len              = CMSG_LEN(sizeof(struct in6_pktinfo));
 			struct in6_pktinfo *pktinfo = reinterpret_cast< struct in6_pktinfo * >(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
-			memcpy(&pktinfo->ipi6_addr.s6_addr[0], &tcpha.qip6.c[0], sizeof(pktinfo->ipi6_addr.s6_addr));
+			memcpy(&pktinfo->ipi6_addr.s6_addr[0], tcpha.getByteRepresentation().data(),
+				   sizeof(pktinfo->ipi6_addr.s6_addr));
 		} else {
 			cmsg->cmsg_level           = IPPROTO_IP;
 			cmsg->cmsg_type            = IP_PKTINFO;
@@ -1073,7 +1074,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 			memset(pktinfo, 0, sizeof(*pktinfo));
 			if (tcpha.isV6())
 				return;
-			pktinfo->ipi_spec_dst.s_addr = tcpha.hash[3];
+			pktinfo->ipi_spec_dst.s_addr = tcpha.toIPv4();
 		}
 
 

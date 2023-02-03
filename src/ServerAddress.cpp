@@ -5,9 +5,6 @@
 
 #include "ServerAddress.h"
 
-ServerAddress::ServerAddress() : port(0) {
-}
-
 ServerAddress::ServerAddress(HostAddress host_, unsigned short port_) : host(host_), port(port_) {
 }
 

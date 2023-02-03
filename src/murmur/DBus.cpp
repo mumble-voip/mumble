@@ -766,7 +766,7 @@ GroupInfo::GroupInfo(const Group *g) : inherited(false) {
 }
 
 BanInfo::BanInfo(const Ban &b) {
-	address = ntohl(b.haAddress.hash[3]);
+	address = ntohl(b.haAddress.toIPv4());
 	bits    = b.iMask;
 }
 
