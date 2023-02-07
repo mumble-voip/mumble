@@ -339,8 +339,9 @@ namespace server {
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
 						  << column::group_name << ", " << column::channel_id << ", " << column::inherit << ", "
-						  << column::is_inheritable
-						  << ") SELECT server_id, group_id, name, channel_id, inherit, inheritable FROM \"groups"
+						  << column::is_inheritable << ") SELECT server_id, group_id, name, channel_id, "
+						  << ::mdb::utils::nonNullOf("inherit").otherwise("1") << ", "
+						  << ::mdb::utils::nonNullOf("inheritable").otherwise("1") << " FROM \"groups"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
