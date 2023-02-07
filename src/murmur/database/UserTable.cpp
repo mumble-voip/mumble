@@ -694,17 +694,17 @@ namespace server {
 			// migration path always stays the same regardless of whether the respective named constants change.
 			assert(fromSchemeVersion < toSchemeVersion);
 
-			// TODO: In v6 the field kdfiterations was called "kdfmeter"
-
 			try {
 				if (fromSchemeVersion < 8) {
 					// Before v8 there was no last_disconnect column
+
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 						  << column::user_name << ", " << column::password_hash << ", " << column::salt << ", "
 						  << column::kdf_iterations << ", " << column::last_channel_id << ", " << column::texture
 						  << ", " << column::last_active
-						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, lastchannel, "
-							 "texture, last_active FROM \"users"
+						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, "
+						  << ::mdb::utils::nonNullOf("lastchannel").otherwise("0") << ", texture, "
+						  << ::mdb::utils::nonNullOf("last_active").otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else if (fromSchemeVersion < 10) {
 					// In v10, we renamed columns "name" -> "user_name", "pw" -> "password_hash",
