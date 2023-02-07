@@ -54,6 +54,34 @@ namespace db {
 		 */
 		std::string limitOffset(Backend backend, const std::string &limit, const std::string &offset = "0");
 
+		namespace details {
+
+			/**
+			 * Wrapper class that makes writing COALESCE SQL statements (with only two choices) more readable.
+			 */
+			struct CoalesceHelper {
+			public:
+				CoalesceHelper(const char *baseValue);
+
+				/**
+				 * Provide the fallback value, if the base value turns out to be NULL
+				 *
+				 * @returns The SQL query that does the job (COALESCE)
+				 */
+				std::string otherwise(const std::string &fallbackValue);
+
+			private:
+				const char *m_baseValue = nullptr;
+			};
+		} // namespace details
+
+		/**
+		 * Produces a query that selects the given value, if it is not NULL. The default value to
+		 * use in the cases if the selected value does indeed turn out to be NULL, must be provided
+		 * by calling the "otherwise" function on the returned object.
+		 */
+		details::CoalesceHelper nonNullOf(const std::string &value);
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble
