@@ -87,6 +87,16 @@ namespace db {
 			return statement;
 		}
 
+		namespace details {
+			CoalesceHelper::CoalesceHelper(const char *baseValue) : m_baseValue(baseValue) {}
+
+			std::string CoalesceHelper::otherwise(const std::string &fallbackValue) {
+				return std::string("COALESCE(") + m_baseValue + ", " + fallbackValue + ")";
+			}
+		} // namespace details
+
+		details::CoalesceHelper nonNullOf(const std::string &value) { return { value.c_str() }; }
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble
