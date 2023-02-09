@@ -1659,7 +1659,7 @@ static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getR
 
 	const std::vector<::UserInfo > l = server->getAllRegisteredUserProperties(u8(filter));
 	for (const ::UserInfo &info : l) {
-		rpl.at(info.user_id) = u8(info.name);
+		rpl[info.user_id] = u8(info.name);
 	}
 
 	cb->ice_response(rpl);
