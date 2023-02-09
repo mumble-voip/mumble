@@ -177,9 +177,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		// Send back updated enter states of all channels
 		MumbleProto::ChannelState mpcs;
-		foreach (Channel *chan, qhChannels) {
+
+		for (Channel *chan : qhChannels) {
 			mpcs.set_channel_id(chan->iId);
-			mpcs.set_can_enter(ChanACL::hasPermission(uSource, chan, ChanACL::Enter, &acCache));
+			mpcs.set_can_enter(hasPermission(uSource, chan, ChanACL::Enter));
 			// As no ACLs have changed, we don't need to update the is_access_restricted message field
 
 			sendMessage(uSource, mpcs);
@@ -348,6 +349,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	QSet< Channel * > chans;
 	q << root;
 	MumbleProto::ChannelState mpcs;
+
 	while (!q.isEmpty()) {
 		c = q.dequeue();
 		chans.insert(c);
@@ -373,7 +375,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		// Include info about enter restrictions of this channel
 		mpcs.set_is_enter_restricted(isChannelEnterRestricted(c));
-		mpcs.set_can_enter(ChanACL::hasPermission(uSource, c, ChanACL::Enter, &acCache));
+		mpcs.set_can_enter(hasPermission(uSource, c, ChanACL::Enter));
 
 		sendMessage(uSource, mpcs);
 
@@ -1916,9 +1918,10 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		// Send refreshed enter states of this channel to all clients
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(c->iId);
-		foreach (ServerUser *user, qhUsers) {
+
+		for (ServerUser *user : qhUsers) {
 			mpcs.set_is_enter_restricted(isChannelEnterRestricted(c));
-			mpcs.set_can_enter(ChanACL::hasPermission(user, c, ChanACL::Enter, &acCache));
+			mpcs.set_can_enter(hasPermission(user, c, ChanACL::Enter));
 
 			sendMessage(uSource, mpcs);
 		}
