@@ -59,7 +59,7 @@ namespace server {
 			setColumns({ serverCol, groupIDCol, userIDCol, addToGroupCol });
 
 
-			::mdb::PrimaryKey pk(std::vector< std::string >{ column::server_id, column::group_id });
+			::mdb::PrimaryKey pk(std::vector< std::string >{ column::server_id, column::group_id, column::user_id });
 			setPrimaryKey(pk);
 
 			::mdb::ForeignKey fk1(groupTable, { serverCol, groupIDCol });

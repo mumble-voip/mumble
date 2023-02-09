@@ -156,7 +156,7 @@
 		- INTEGER
 		- NOT NULL
 		- DEFAULT: 1
-	* PRIMARY KEY(server_id, group_id)
+	* PRIMARY KEY(server_id, group_id, user_id)
 	* FOREIGN KEY: (server_id, group_id) REFERENCES groups(server_id, group_id)
 	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
 
