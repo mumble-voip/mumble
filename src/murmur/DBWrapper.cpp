@@ -1171,9 +1171,7 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 
 	assertValidID(serverID);
 
-	assert(userInfo.cChannel);
 	assert(!userInfo.qsName.isEmpty());
-	assert(userInfo.cChannel);
 
 	::mdb::TransactionHolder transaction = m_serverDB.ensureTransaction();
 
@@ -1185,7 +1183,7 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 
 	::msdb::DBUserData data;
 	data.name          = userInfo.qsName.toStdString();
-	data.lastChannelID = userInfo.cChannel->iId;
+	data.lastChannelID = userInfo.cChannel ? userInfo.cChannel->iId : Mumble::ROOT_CHANNEL_ID;
 	if (!userInfo.qbaTexture.isEmpty()) {
 		data.texture.resize(userInfo.qbaTexture.size());
 
