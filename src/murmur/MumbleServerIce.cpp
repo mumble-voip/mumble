@@ -1610,7 +1610,7 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 										   int id, const ::MumbleServer::UserInfoMap &im) {
 	NEED_SERVER;
 
-	if (!server->getRegisteredUserName(id).isEmpty()) {
+	if (server->getRegisteredUserName(id).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
