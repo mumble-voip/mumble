@@ -44,7 +44,7 @@ namespace server {
 
 			unsigned int getSchemeVersion() const override;
 
-			void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+			void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 
 			::mumble::db::MetaTable &getMetaTable();
 			ServerTable &getServerTable();

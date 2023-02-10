@@ -8,16 +8,18 @@
 #include "FormatException.h"
 #include "InitException.h"
 #include "MetaTable.h"
+#include "MigrationException.h"
 #include "MySQLConnectionParameter.h"
 #include "PostgreSQLConnectionParameter.h"
 #include "SQLiteConnectionParameter.h"
-#include "MigrationException.h"
 
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
 #include <memory>
 #include <unordered_set>
+
+#include <iostream>
 
 #include <nlohmann/json.hpp>
 
@@ -675,6 +677,8 @@ namespace db {
 		std::unordered_set< std::string > tablesToBeRemoved;
 		tablesToBeRemoved.reserve(tableNames.size());
 
+		TransactionHolder transaction = ensureTransaction();
+
 		// Rename all existing tables
 		try {
 			for (const std::string &currentTableName : tableNames) {
@@ -689,6 +693,7 @@ namespace db {
 
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable) {
+				std::cout << "Current table: " << currentTable->getName() << "\n";
 				assert(tablesToBeRemoved.find(currentTable->getName()) == tablesToBeRemoved.end());
 
 				// First make sure the new table is created
@@ -721,8 +726,10 @@ namespace db {
 
 		if (!tablesToBeRemoved.empty()) {
 			throw MigrationException("Failed to delete " + std::to_string(tablesToBeRemoved.size())
-								  + " old tables after migration");
+									 + " old tables after migration");
 		}
+
+		transaction.commit();
 	}
 
 	void Database::importMetaData(const nlohmann::json &metaData) {
