@@ -101,13 +101,12 @@ namespace db {
 		virtual void setupStandardTables();
 		void createTables();
 		/**
-		 * Initiates the migration of all tables currently contained in this database. Note that this function
-		 * assumes that a transaction has already been started before calling this function.
+		 * Initiates the migration of all tables currently contained in this database.
 		 *
 		 * @param fromSchemeVersion The scheme version to migrate from
 		 * @param toSchemeVersion The scheme version to migrate to
 		 */
-		void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+		virtual void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
 
 		virtual void importMetaData(const nlohmann::json &json);
 		virtual nlohmann::json exportMetaData() const;
