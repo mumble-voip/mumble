@@ -1923,7 +1923,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			mpcs.set_is_enter_restricted(isChannelEnterRestricted(c));
 			mpcs.set_can_enter(hasPermission(user, c, ChanACL::Enter));
 
-			sendMessage(uSource, mpcs);
+			sendMessage(user, mpcs);
 		}
 	}
 }
