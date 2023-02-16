@@ -243,7 +243,7 @@ int main(int argc, char **argv) {
 								   "\n"
 								   "Valid options are:\n"
 								   "  -h, --help    Show this help text and exit.\n"
-								   "  -V, --version Print version information and exit\n"
+								   "  --version     Print version information and exit\n"
 								   "  -m, --multiple\n"
 								   "                Allow multiple instances of the client to be started.\n"
 								   "  -c, --config\n"
@@ -417,7 +417,7 @@ int main(int argc, char **argv) {
 					qCritical("Missing argument for --locale!");
 					return 1;
 				}
-			} else if (args.at(i) == "--version" || args.at(i) == "-V") {
+			} else if (args.at(i) == "--version") {
 				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 				// using e.g. qWarning
 				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
