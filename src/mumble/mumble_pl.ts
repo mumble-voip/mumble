@@ -1030,31 +1030,31 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sygnał dźwiękowy podczas używania...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Sygnał dźwiękowy podczas rozpoczynania lub zatrzymywania transmisji za pomocą Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Umożliwia to przesyłanie sygnałów dźwiękowych podczas korzystania z funkcji Aktywacja przyciskiem.&lt;/b&gt;&lt;br /&gt;Ustawienie tego spowoduje wyemitowanie krótkiego sygnału dźwiękowego podczas rozpoczynania i kończenia transmisji.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Aktywacja przyciskiem</translation>
+        <translation>Aktywacja przyciskiem</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sygnał dźwiękowy podczas rozpoczynania lub zatrzymywania transmisji za pomocą Aktywacji głosowej</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Umożliwia to przesyłanie sygnałów dźwiękowych podczas korzystania z funkcju Aktywacja głosowa.&lt;/b&gt;&lt;br /&gt;Wybranie tego ustawienia spowoduje wyemitowanie krótkiego sygnału dźwiękowego podczas rozpoczynania i kończenia transmisji.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Aktywacja głosowa</translation>
+        <translation>Aktywacja głosowa</translation>
     </message>
 </context>
 <context>
@@ -1434,7 +1434,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Tłum innych użytkowników podczas mówienia jako nadrzędny mówca&lt;/b&gt;&lt;br /&gt;Mumble obsługuje zmniejszanie głośności innych użytkowników podczas mówienia jako &lt;i&gt;Nadrzędny mówca &lt;/i&gt;, aby uniknąć bycia zakłóconym. Zaznaczenie tego pola wyboru spowoduje włączenie tej funkcji.</translation>
+        <translation>&lt;b&gt;Tłum innych użytkowników podczas mówienia jako nadrzędny mówca.&lt;/b&gt;&lt;br /&gt;Mumble obsługuje zmniejszanie głośności innych użytkowników podczas mówienia jako &lt;i&gt;Nadrzędny mówca&lt;/i&gt;, aby uniknąć bycia zakłóconym. Zaznaczenie tego pola wyboru spowoduje włączenie tej funkcji.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
@@ -4643,7 +4643,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Wyświetla twój status Aktywacji przyciskiem, w zależności jak długo będziesz trzymać przycisk, tak długo będziesz transmitować swój głos.</translation>
+        <translation>Wyświetla status Aktywacji przyciskiem, w zależności jak długo będziesz trzymać przycisk, tak długo będziesz transmitować swój głos.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
@@ -6759,7 +6759,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Wysyłaj anonimowe statystyki.&lt;/b&gt;&lt;br /&gt;Mumble posiada mały zespół deweloperów, który musi skupić się na funkcjach, które są najbardziej potrzebne. Wysyłając statystyki pomagasz projektowi w określeniu na czym skupić się w przyszłości.</translation>
+        <translation>&lt;b&gt;Wysyłaj anonimowe statystyki.&lt;/b&gt;&lt;br /&gt;Mumble tworzy mały zespół deweloperów, który musi skupić się na funkcjach, które są najbardziej potrzebne. Wysyłając statystyki pomagasz projektowi w określeniu, na czym skupić się w przyszłości.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
@@ -9059,7 +9059,7 @@ Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Wciśnij, aby mówić</translation>
+        <translation>Aktywacja przyciskiem</translation>
     </message>
 </context>
 </TS>

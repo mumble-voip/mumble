@@ -1030,31 +1030,31 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiohinweis bei Verwendung von …</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Hörbarer Audiohinweis beim Starten und Stoppen der Übertragung mittels Push-To-Talk</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies ermöglicht Übertragung-Audiohinweise bei Verwendung von Push-To-Talk.&lt;/b&gt;&lt;br /&gt;Bei Aktivierung wird beim Starten und Stoppen der Übertragung ein Piepton zu hören sein.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Push-To-Talk</translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Hörbarer Audiohinweis beim Starten und Stoppen der Übertragung mittels Sprachaktivierung</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies ermöglicht Übertragung-Audiohinweise bei Verwendung von Sprachaktivierung.&lt;/b&gt;&lt;br /&gt;Bei Aktivierung wird beim Starten und Stoppen der Übertragung ein Piepton zu hören sein.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprachaktivierung</translation>
     </message>
 </context>
 <context>

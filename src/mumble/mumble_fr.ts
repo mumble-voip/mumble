@@ -1018,7 +1018,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>Mute cue</source>
-        <translation>Rendre le signal muet</translation>
+        <translation>Indiquer si muet</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1030,31 +1030,31 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateur audio lors de l&apos;utilisation de...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateur audible lors du début ou de la fin de la transmission avec Appuyer pour parler</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ceci active la transmission d&apos;indicateurs audio lors de l&apos;utilisation d&apos;appuyer pour parler&lt;/b&gt;&lt;br /&gt;Activer cela vous donnera un court sonore bip lorsque vous commencerez à ou cesserez de transmettre.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Appuyer-pour-parler</translation>
+        <translation>Appuyer-pour-parler</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateur audio lors du début ou de la fin de la transmission en utilisant l&apos;activité vocale</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ceci active la transmission d&apos;indicateurs audio lors de l&apos;utilisation de l&apos;activité vocale.&lt;/b&gt;&lt;br /&gt;Activer cela vous donnera un court bip sonore lorsque vous commencerez à ou cesserez de transmettre.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Activité vocale</translation>
     </message>
 </context>
 <context>

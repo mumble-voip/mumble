@@ -1030,31 +1030,31 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanırken ses işareti...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Bas ve konuş kullanarak aktarımı başlatırken veya durdururken duyulabilir ses işareti</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, Bas ve konuş kullanırken aktarım ses işaretlerini etkinleştirir.&lt;/b&gt;&lt;br /&gt;Bunu ayarlamak, aktarımı başlattığınızda ve durdurduğunuzda size kısa bir ses bip sesi verecektir.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Bas ve Konuş</translation>
+        <translation>Bas ve Konuş</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses Etkinliğini kullanarak aktarımı başlatırken veya durdururken duyulabilir ses işareti</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, Ses Etkinliğini kullanırken aktarım ses işaretlerini etkinleştirir.&lt;/b&gt;&lt;br /&gt;Bunu ayarlamak, aktarımı başlattığınızda ve durdurduğunuzda size kısa bir ses bip sesi verecektir.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Ses Etkinliği</translation>
+        <translation>Ses Etkinliği</translation>
     </message>
 </context>
 <context>
@@ -9055,7 +9055,7 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Tıklayıp konuşun</translation>
+        <translation>Bas ve konuş</translation>
     </message>
 </context>
 </TS>

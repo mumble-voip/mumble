@@ -1030,31 +1030,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>当使用功能时播放音频提示…</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>当开始或停止按键发言时播放音频提示</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;这会在使用按键发言时启用传输状态音频提示。&lt;/b&gt;&lt;br /&gt;如果设置，您在开始或停止传输时会听到简短的提示音频。</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">按键发言</translation>
+        <translation>按键发言</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>当开始或停止语音激活时播放音频提示</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;这会在使用语音激活时启用传输状态音频提示。&lt;/b&gt;&lt;br /&gt;如果设置，您在开始或停止传输时会听到简短的提示音频。</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">语音激活</translation>
+        <translation>语音激活</translation>
     </message>
 </context>
 <context>
