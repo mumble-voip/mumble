@@ -6403,6 +6403,48 @@ Valid actions are:
         <translation>遇到无效设置文件。</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>您当前处于简洁模式但尚未连接服务器。您可以通过上下文菜单连接服务器或禁用简洁模式。</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>本地音量调整：</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation>当前版本的 Mumble 无法处理用于 Mumble %1 的 URL</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>监听频道</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation>切换指定频道的监听状态。</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>服务器指示我们使用不再支持的非 Opus 音频编解码器。正在断开连接……</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>您确定要关闭 Mumble 吗？可能您更愿意最小化？</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>记住此设置</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation>频道筛选器(&amp;F)</translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation>筛选时固定频道(&amp;P)</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6415,7 +6457,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6464,109 +6506,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
-
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
-URL 的格式为：
-mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;插件列表&gt; 是需要安装的插件列表
-必须设置 version 请求参数以调用正确的客户端版本，
-当前的默认值为 1.2.0。
-
-可用的选项：
-  -h, --help    显示此帮助信息并退出。
-  -V, --version 显示版本信息并退出
-  -m, --multiple
-                允许启动多个客户端实例。
-  -c, --config
-                指定替代配置文件。
-                如果您使用此参数同时运行多个 Mumble 实例，
-                请确保在配置文件内设置替代“database”选项。
-  --default-certificate-dir &lt;目录&gt;
-                指定替代的默认证书目录。
-                此路径仅在没有从设置中
-                加载证书时生效。
-  -n, --noidentity
-                禁止加载身份认证文件（即证书）。
-  -jn, --jackname &lt;参数&gt;
-                设置自定义 Jack 客户端名称。
-  --license
-                显示 Mumble 许可。
-  --authors
-                显示 Mumble 作者。
-  --third-party-licenses
-                显示 Mumble 使用的第三方软件的许可。
-  --window-title-ext &lt;参数&gt;
-                设置自定义窗口标题后缀名。
-  --dump-input-streams
-                转储输入链上各部分的 PCM 流。
-                （适用于调试目的）
-                - 原始麦克风输入
-                - 扬声器回声消除重读取
-                - 已处理的麦克风输入
-  --print-echocancel-queue
-                向标准输出打印回声消除队列状态。
-                （适用于调试目的）
-  --translation-dir &lt;目录&gt;
-                指定一个额外的目录，
-                Mumble 会在其中搜索翻译文件
-                来覆盖内置的翻译。
-                通过此方式添加的目录比其它情况
-                下的默认位置具有更高的优先级。
-  --print-translation-dirs
-                输出 Mumble 会在哪些目录搜索翻译文件
-                以覆盖内置翻译。
-                （适用于译者测试自己的翻译）
-  --locale &lt;区域语言代码&gt;
-                用指定字符串对应的语言
-                覆盖 Mumble 的语言设置。
-                如果字符串格式无效，Mumble 会出错。
-                否则，指定的语言会
-                永久保存到 Mumble 设置中。
-</translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>您当前处于简洁模式但尚未连接服务器。您可以通过上下文菜单连接服务器或禁用简洁模式。</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>本地音量调整：</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>当前版本的 Mumble 无法处理用于 Mumble %1 的 URL</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>监听频道</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation>切换指定频道的监听状态。</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>服务器指示我们使用不再支持的非 Opus 音频编解码器。正在断开连接……</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>您确定要关闭 Mumble 吗？可能您更愿意最小化？</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>记住此设置</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation>频道筛选器(&amp;F)</translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
-        <translation>筛选时固定频道(&amp;P)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

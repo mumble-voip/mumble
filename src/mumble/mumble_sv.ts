@@ -6404,6 +6404,48 @@ Giltiga åtgärder är:
         <translation type="unfinished">Ogiltig inställningsfil påträffades.</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>Du är i en minimal vy, men är inte ansluten till en server. Använd sammanhangsmenyn för att ansluta till en server eller stäng av minimal vy.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>Lokal volymjustering:</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation type="unfinished">Den här versionen av Mumble kan inte hantera URLer för Mumble version %1</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>Lyssna till kanal</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished">Växlar lyssning till den angivna kanalen.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>Servern instruerade oss att använda en ljud-avkodare som är annorlunda mot Opus som inte längre stöds. Kopplar ner...</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>Är du säker på att du vill stänga ner Mumble? Föredrar du kanske att minimera det istället?</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>Kom ihåg den här inställningen</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6416,7 +6458,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6465,48 +6507,6 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>Du är i en minimal vy, men är inte ansluten till en server. Använd sammanhangsmenyn för att ansluta till en server eller stäng av minimal vy.</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>Lokal volymjustering:</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Den här versionen av Mumble kan inte hantera URLer för Mumble version %1</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>Lyssna till kanal</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation type="unfinished">Växlar lyssning till den angivna kanalen.</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>Servern instruerade oss att använda en ljud-avkodare som är annorlunda mot Opus som inte längre stöds. Kopplar ner...</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>Är du säker på att du vill stänga ner Mumble? Föredrar du kanske att minimera det istället?</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>Kom ihåg den här inställningen</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

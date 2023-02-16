@@ -6405,6 +6405,48 @@ Valid actions are:
         <translation>Обнаружен недопустимый файл настроек.</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>В настоящее время вы находитесь в режиме минималистичного вида, но не подключены к серверу. Используйте контекстное меню, чтобы подключиться к серверу или отключить минималистичный вид.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>Локальная регулировка громкости:</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation>Эта версия Mumble не может использовать ссылки из Mumble версий %1</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>Слушать канал</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation>Переключает прослушивание заданного канала.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>Сервер сообщил нам использовать аудиокодек, отличный от Opus, который больше не поддерживается. Отключение…</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>Вы уверены, что хотите закрыть Mumble? Возможно, вы хотите свернуть его?</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>Запомнить эту настройку</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6417,7 +6459,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6466,108 +6508,6 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Использование: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; указывает URL для подключения после запуска вместо показа
-окна подключения, и имеет следующий вид:
-mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;подканал&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; - это список файлов плагинов, которые должны быть установлены.
-Параметр запроса версии должен быть установлен для того, чтобы вызвать
-правильную версию клиента. В настоящее время по умолчанию используется версия 1.2.0.
-
-Возможные варианты:
-  -h, --help Вывести текст справки и выйти.
-  -V, --version Вывести информацию о версии и выйти.
-  -m, --multiple
-                Разрешить запуск нескольких экземпляров клиента.
-  -c, --config
-                Указать альтернативный файл конфигурации.
-                Если вы используете этот параметр для одновременного запуска нескольких экземпляров Mumble,
-                не забудьте задать альтернативное значение &apos;database&apos; в конфигурации.
-  --default-certificate-dir &lt;dir&gt;
-                Укажите альтернативный путь к сертификату по умолчанию.
-                Этот путь используется только в том случае, если сертификат не загружен
-                из настроек.
-  -n, --noidentity
-                Подавить загрузку файлов идентификации (т.е. сертификатов).
-  -jn, --jackname &lt;arg&gt;
-                Установить пользовательское имя клиента Jack.
-  --license
-                Показать лицензию Mumble.
-  --authors
-                Показать авторов Mumble.
-  --third-party-licenses
-                Показать лицензии на стороннее программное обеспечение, используемое Mumble.
-  --window-title-ext &lt;arg&gt;
-                Устанавливает пользовательское расширение заголовка окна.
-  --dump-input-streams
-                Выгрузить потоки PCM на различных участках входной цепи.
-                (полезно для отладки)
-                - необработанный микрофонный вход
-                - считывание с динамика для эхоподавления
-                - обработанный микрофонный вход
-  --print-echocancel-queue
-                Вывести на stdout состояние очереди эхоподавления
-                (полезно для отладки)
-  --translation-dir &lt;dir&gt;
-                Указывает дополнительный каталог переводов, &lt;dir&gt;
-                где Mumble будет искать файлы перевода, которые
-                перезаписывают встроенные.
-                Каталоги, добавленные таким образом, имеют более высокий приоритет, чем
-                директории по умолчанию.
-  --print-translation-dirs
-                Вывести пути, по которым Mumble будет искать
-                файлы перевода.
-                (Полезно для переводчиков, тестирующих свои переводы)
-  --locale &lt;локаль&gt;
-                Переписать локаль в настройках Mumble на
-                локаль, соответствующую заданной строке.
-                Если формат недействителен, Mumble выдаст ошибку.
-                В противном случае локаль будет навсегда сохранена в
-                настройках Mumble.
-</translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>В настоящее время вы находитесь в режиме минималистичного вида, но не подключены к серверу. Используйте контекстное меню, чтобы подключиться к серверу или отключить минималистичный вид.</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>Локальная регулировка громкости:</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Эта версия Mumble не может использовать ссылки из Mumble версий %1</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>Слушать канал</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation>Переключает прослушивание заданного канала.</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>Сервер сообщил нам использовать аудиокодек, отличный от Opus, который больше не поддерживается. Отключение…</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>Вы уверены, что хотите закрыть Mumble? Возможно, вы хотите свернуть его?</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>Запомнить эту настройку</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
