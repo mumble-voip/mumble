@@ -6388,6 +6388,48 @@ Azioni valide:
         <translation>File di configurazione non valido trovato.</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>Al momento sei in modalità Interfaccia Minima ma non connesso ad alcun server. Utilizza il menù contestuale per connetterti ad un server o disattivare l&apos;Interfaccia Minima.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>Modificatore Locale Volume:</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>Ascolta il Canale</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation>Attiva/Disattiva l&apos;ascolto del canale scelto.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>Il server ha richiesto l&apos;utilizzao di un codec audio differente da Opus, e che non è più supportato. Disconnessione...</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>Sei sicuro di voler chiudere Mumble? Per caso preferisci minimizzarlo invece?</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>Ricorda questa impostazione</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation>Canale &amp;Filtro</translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6400,7 +6442,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6449,108 +6491,6 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt; | &lt;lista_plugin&gt;]
-
-&lt;url&gt; specifica un URL a cui connettersi dopo l&apos;avvio, invece di mostrare
-la finestra di connessione, e ha la seguente forma:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;lista_dei_plugin&gt; è un elenco di file di plugin che devono essere installati.
-Il parametro della query version deve essere impostato per richiamare la versione 
-versione corretta del client. Attualmente la versione predefinita è la 1.2.0.
-
-Le opzioni valide sono:
-  -h, --help Mostra il testo di aiuto ed esce.
-  -V, --version Stampa le informazioni sulla versione ed esce.
-  -m, -multiple
-                Consente di avviare più istanze del client.
-  -c, --config
-                Specifica un file di configurazione alternativo.
-                Se si usa questo file per eseguire più istanze di Mumble contemporaneamente,
-                assicurarsi di impostare un valore alternativo di &quot;database&quot; nella configurazione.
-  --default-certificate-dir &lt;dir&gt;
-                Specifica un percorso alternativo per il certificato predefinito.
-                Questo percorso viene utilizzato solo se non c&apos;è un certificato caricato
-                dalle impostazioni.
-  -n, --noidentity
-                Sopprime il caricamento dei file di identità (cioè dei certificati).
-  -jn, --jackname &lt;arg&gt;
-                Imposta il nome personalizzato del client Jack.
-  --license
-                Mostra la licenza di Mumble.
-  --authors
-                Mostra gli autori di Mumble.
-  --third-party-licenses
-                Mostra le licenze dei software di terze parti utilizzati da Mumble.
-  --window-title-ext &lt;arg&gt;
-                Imposta l&apos;estensione del titolo di una finestra personalizzata.
-  --dump-input-streams
-                Esegue il dump dei flussi PCM in varie parti della catena di ingresso.
-                (utile per il debug)
-                - ingresso microfonico grezzo
-                - lettura dell&apos;altoparlante per la cancellazione dell&apos;eco
-                - ingresso microfonico elaborato
-  --print-echocancel-queue
-                Stampa su stdout lo stato della coda di cancellazione dell&apos;eco
-                (utile per il debug)
-  -translation-dir &lt;dir&gt;
-                Specifica un&apos;ulteriore directory di traduzione &lt;dir&gt;
-                nella quale Mumble cercherà i file di traduzione che
-                sovrascrivono quelli in bundle
-                Le directory aggiunte in questo modo hanno una priorità più alta rispetto
-                delle posizioni predefinite usate altrimenti
-  --print-translation-dirs
-                Stampa i percorsi in cui Mumble cercherà i file di traduzione che
-                i file di traduzione che sovrascrivono quelli in bundle.
-                (Utile per i traduttori che testano le loro traduzioni).
-  --locale &lt;locale&gt;
-                Sovrascrive il locale presente nelle impostazioni di Mumble con un locale
-                locale che corrisponde alla stringa di locale indicata.
-                Se il formato non è valido, Mumble darà un errore.
-                Altrimenti il locale verrà salvato in modo permanente nelle
-                impostazioni di Mumble.
-</translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>Al momento sei in modalità Interfaccia Minima ma non connesso ad alcun server. Utilizza il menù contestuale per connetterti ad un server o disattivare l&apos;Interfaccia Minima.</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>Modificatore Locale Volume:</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>Ascolta il Canale</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation>Attiva/Disattiva l&apos;ascolto del canale scelto.</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>Il server ha richiesto l&apos;utilizzao di un codec audio differente da Opus, e che non è più supportato. Disconnessione...</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>Sei sicuro di voler chiudere Mumble? Per caso preferisci minimizzarlo invece?</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>Ricorda questa impostazione</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation>Canale &amp;Filtro</translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

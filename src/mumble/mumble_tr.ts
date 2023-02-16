@@ -6387,6 +6387,48 @@ Geçerli eylemler şunlardır:
         <translation>Geçersiz ayar dosyası bulundu.</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>Şu anda küçük görünümdesiniz ancak bir sunucuya bağlı değilsiniz. Bir sunucuya bağlanmak veya küçük görünümü devre dışı bırakmak için içerik menüsünü kullanın.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>Yerel Ses Ayarı:</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation>Mumble&apos;ın bu sürümü Mumble %1 sürümü için URL&apos;leri işleyemiyor</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>Kanalı Dinle</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation>Verilen kanalı dinlemeye geçer.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>Sunucu, artık desteklenmeyen Opus&apos;tan farklı bir ses codec&apos;i kullanmamızı istedi. Bağlantı kesiliyor...</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>Mumble&apos;ı kapatmak istediğinizden emin misiniz? Belki de bunun yerine küçültmeyi tercih edersiniz?</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>Bu ayarı hatırla</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation>Kanal &amp;Filtresi</translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation>Filtreleme Sırasında Kanalı &amp;Sabitle</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6399,7 +6441,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6448,109 +6490,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
-
-&lt;url&gt; bağlantı penceresini göstermek yerine başlangıçtan sonra
-bağlanılacak bir URL belirtir ve aşağıdaki biçime sahiptir:
-mumble://[&lt;kullanıcıadı&gt;[:&lt;parola&gt;]@]&lt;anamakine&gt;[:&lt;bağlantınoktası&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
-
-&lt;eklenti_listesi&gt; kurulacak eklenti dosyalarının bir listesidir.
-Doğru istemci sürümünü çalıştırmak için sürüm sorgu
-parametresi ayarlanmalıdır. Şu anda öntanımlı olarak 1.2.0&apos;dır.
-
-Geçerli seçenekler şunlardır:
-  -h, --help    Bu yardım metnini göster ve çık.
-  -V, --version Sürüm bilgisini yazdır ve çık.
-  -m, --multiple
-                Birden fazla istemci örneğinin başlatılmasına izin ver.
-  -c, --config
-                Alternatif bir yapılandırma dosyası belirt.
-                Bunu aynı anda birden fazla Mumble örneği çalıştırmak için kullanırsanız,
-                yapılandırmada alternatif bir &apos;database&apos; değeri ayarladığınızdan emin olun.
-  --default-certificate-dir &lt;dizin&gt;
-                Alternatif bir öntanımlı sertifika yolu belirt.
-                Bu yol yalnızca ayarlardan yüklenmiş bir sertifika
-                yoksa kullanılır.
-  -n, --noidentity
-                Kimlik dosyalarının (örneğin sertifikaların) yüklenmesini önle.
-  -jn, --jackname &lt;argüman&gt;
-                Özel Jack istemci adı ayarla.
-  --license
-                Mumble lisansını göster.
-  --authors
-                Mumble yazarlarını göster.
-  --third-party-licenses
-                Mumble tarafından kullanılan üçüncü taraf yazılımların lisanslarını göster.
-  --window-title-ext &lt;argüman&gt;
-                Özel bir pencere başlığı uzantısı ayarlar.
-  --dump-input-streams
-                Girdi zincirinin çeşitli bölümlerinde PCM akışlarını dök
-                (hata ayıklama amaçları için kullanışlıdır)
-                - ham mikrofon girdisi
-                - yankı iptali için hoparlör geri okuması
-                - işlenen mikrofon girdisi
-  --print-echocancel-queue
-                Yankı iptal kuyruğu durumunu standart çıkışa yazdır
-                (hata ayıklama amaçları için kullanışlıdır)
-  --translation-dir &lt;dizin&gt;
-                Mumble&apos;ın paketlenmiş olanların üzerine yazacak çeviri
-                dosyalarını arayacağı ek bir çeviri dizini olarak
-                &lt;dizin&gt; belirtir.
-                Bu şekilde eklenen dizinler, aksi takdirde kullanılan
-                öntanımlı konumlardan daha yüksek önceliğe sahiptir.
-  --print-translation-dirs
-                Mumble&apos;ın paketlenmiş olanların üzerine yazacak çeviri
-                dosyalarını arayacağı yolları yazdır.
-                (Çevirilerini test eden çevirmenler için kullanışlıdır)
-  --locale &lt;yerel_ayar&gt;
-                Mumble&apos;ın ayarlarındaki yerel ayarın yerine, verilen
-                yerel ayar dizgesine karşılık gelen bir yerel ayar kullan.
-                Biçim geçersizse, Mumble hata verecektir.
-                Aksi takdirde yerel ayar kalıcı olarak Mumble&apos;ın
-                ayarlarına kaydedilecektir.
-</translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>Şu anda küçük görünümdesiniz ancak bir sunucuya bağlı değilsiniz. Bir sunucuya bağlanmak veya küçük görünümü devre dışı bırakmak için içerik menüsünü kullanın.</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>Yerel Ses Ayarı:</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Mumble&apos;ın bu sürümü Mumble %1 sürümü için URL&apos;leri işleyemiyor</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>Kanalı Dinle</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation>Verilen kanalı dinlemeye geçer.</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>Sunucu, artık desteklenmeyen Opus&apos;tan farklı bir ses codec&apos;i kullanmamızı istedi. Bağlantı kesiliyor...</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>Mumble&apos;ı kapatmak istediğinizden emin misiniz? Belki de bunun yerine küçültmeyi tercih edersiniz?</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>Bu ayarı hatırla</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation>Kanal &amp;Filtresi</translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
-        <translation>Filtreleme Sırasında Kanalı &amp;Sabitle</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

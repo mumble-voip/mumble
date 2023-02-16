@@ -6388,6 +6388,48 @@ Valide acties zijn:
         <translation>Instellingenbestand is ongeldig.</translation>
     </message>
     <message>
+        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
+        <translation>Je gebruikt momenteel de minimale weergave maar bent niet verbonden met een server. Gebruik het contextmenu om met een server te verbinden, of schakel de minimale weergave eerst uit.</translation>
+    </message>
+    <message>
+        <source>Local Volume Adjustment:</source>
+        <translation>Lokale bijstelling volume:</translation>
+    </message>
+    <message>
+        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
+        <translation>Deze Mumble-versie kan URL&apos;s uit Mumble-versie %1 niet correct afhandelen</translation>
+    </message>
+    <message>
+        <source>Listen to Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation>Naar kanaal luisteren</translation>
+    </message>
+    <message>
+        <source>Toggles listening to the given channel.</source>
+        <comment>Global Shortcut</comment>
+        <translation>Schakelt het luisteren naar het opgegeven kanaal in of uit.</translation>
+    </message>
+    <message>
+        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
+        <translation>De server vraagt ons om een andere audiocodec dan Opus te gebruiken, maar dit wordt niet (meer) ondersteund. Verbinding wordt verbroken...</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
+        <translation>Weer je zeker dat je Mumble wil sluiten? Wilde je in plaats hiervan misschien minimaliseren?</translation>
+    </message>
+    <message>
+        <source>Remember this setting</source>
+        <translation>Deze instelling onthouden</translation>
+    </message>
+    <message>
+        <source>Channel &amp;Filter</source>
+        <translation>Kanaal&amp;filter</translation>
+    </message>
+    <message>
+        <source>&amp;Pin Channel when Filtering</source>
+        <translation>Kanaal &amp;vastzetten tijdens filteren</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6400,7 +6442,7 @@ correct client version. It currently defaults to 1.2.0.
 
 Valid options are:
   -h, --help    Show this help text and exit.
-  -V, --version Print version information and exit
+  --version     Print version information and exit
   -m, --multiple
                 Allow multiple instances of the client to be started.
   -c, --config
@@ -6450,48 +6492,6 @@ Valid options are:
                 Mumble&apos;s settings.
 </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation>Je gebruikt momenteel de minimale weergave maar bent niet verbonden met een server. Gebruik het contextmenu om met een server te verbinden, of schakel de minimale weergave eerst uit.</translation>
-    </message>
-    <message>
-        <source>Local Volume Adjustment:</source>
-        <translation>Lokale bijstelling volume:</translation>
-    </message>
-    <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Deze Mumble-versie kan URL&apos;s uit Mumble-versie %1 niet correct afhandelen</translation>
-    </message>
-    <message>
-        <source>Listen to Channel</source>
-        <comment>Global Shortcut</comment>
-        <translation>Naar kanaal luisteren</translation>
-    </message>
-    <message>
-        <source>Toggles listening to the given channel.</source>
-        <comment>Global Shortcut</comment>
-        <translation>Schakelt het luisteren naar het opgegeven kanaal in of uit.</translation>
-    </message>
-    <message>
-        <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation>De server vraagt ons om een andere audiocodec dan Opus te gebruiken, maar dit wordt niet (meer) ondersteund. Verbinding wordt verbroken...</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation>Weer je zeker dat je Mumble wil sluiten? Wilde je in plaats hiervan misschien minimaliseren?</translation>
-    </message>
-    <message>
-        <source>Remember this setting</source>
-        <translation>Deze instelling onthouden</translation>
-    </message>
-    <message>
-        <source>Channel &amp;Filter</source>
-        <translation>Kanaal&amp;filter</translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
-        <translation>Kanaal &amp;vastzetten tijdens filteren</translation>
     </message>
 </context>
 <context>
