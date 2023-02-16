@@ -342,7 +342,7 @@ int main(int argc, char **argv) {
 			detach = false;
 		} else if ((arg == "-v")) {
 			bVerbose = true;
-		} else if ((arg == "-version") || (arg == "--version") || (arg == "-V")) {
+		} else if ((arg == "-version") || (arg == "--version")) {
 			// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 			// using e.g. qWarning
 			std::cout << "Mumble server version " << Version::getRelease().toStdString() << std::endl;
@@ -379,7 +379,7 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-				  "  -V, --version          Print version information and exit\n"
+				  "  --version              Print version information and exit\n"
 				  "  -ini <inifile>         Specify ini file to use.\n"
 				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
