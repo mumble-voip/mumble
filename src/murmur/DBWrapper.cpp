@@ -23,6 +23,7 @@
 #include "database/NoDataException.h"
 #include "database/TransactionHolder.h"
 
+#include "murmur/database/ACLCompat.h"
 #include "murmur/database/ACLTable.h"
 #include "murmur/database/BanTable.h"
 #include "murmur/database/ChannelLinkTable.h"
@@ -114,90 +115,6 @@ void printExceptionMessage(std::ostream &stream, const std::exception &e, int in
                                                                           \
 		throw std::runtime_error("Database error");                       \
 	}
-
-std::string toString(::msdb::DBAcl::MetaGroup group) {
-	switch (group) {
-		case ::msdb::DBAcl::MetaGroup::All:
-			return "all";
-		case ::msdb::DBAcl::MetaGroup::Auth:
-			return "auth";
-		case ::msdb::DBAcl::MetaGroup::In:
-			return "in";
-		case ::msdb::DBAcl::MetaGroup::None:
-			return "none";
-		case ::msdb::DBAcl::MetaGroup::Out:
-			return "out";
-		case ::msdb::DBAcl::MetaGroup::Strong:
-			return "strong";
-		case ::msdb::DBAcl::MetaGroup::Sub:
-			return "sub";
-	}
-
-	assert(false);
-	throw std::runtime_error("Reached supposedly unreachable code");
-}
-
-boost::optional<::msdb::DBAcl::MetaGroup > metaGroupFromString(const std::string &str) {
-	if (str == "all") {
-		return ::msdb::DBAcl::MetaGroup::All;
-	} else if (str == "auth") {
-		return ::msdb::DBAcl::MetaGroup::Auth;
-	} else if (str == "in") {
-		return ::msdb::DBAcl::MetaGroup::In;
-	} else if (str == "none") {
-		return ::msdb::DBAcl::MetaGroup::None;
-	} else if (str == "out") {
-		return ::msdb::DBAcl::MetaGroup::Out;
-	} else if (str == "strong") {
-		return ::msdb::DBAcl::MetaGroup::Strong;
-	} else if (str == "sub") {
-		return ::msdb::DBAcl::MetaGroup::Sub;
-	}
-
-	// Not a meta group
-	return boost::none;
-}
-
-struct GroupSpecComponents {
-	std::string name;
-	bool isAccessToken = false;
-	std::vector< std::string > modifiers;
-};
-
-GroupSpecComponents parseGroupSpecification(std::string specification) {
-	static const std::vector< char > existingGroupModifiers = { '!', '~', '#', '$' };
-
-	GroupSpecComponents components;
-
-	while (!specification.empty()
-		   && std::find(existingGroupModifiers.begin(), existingGroupModifiers.end(), specification[0])
-				  != existingGroupModifiers.end()) {
-		if (specification[0] == '#') {
-			components.isAccessToken = true;
-		} else {
-			components.modifiers.push_back(std::string(1, specification[0]));
-		}
-
-		// Remove modifier from group name
-		specification.erase(specification.begin());
-	}
-
-	// Reverse modifier order as they will also be applied in reverse order and therefore reversing here retains the
-	// original order
-	std::reverse(components.modifiers.begin(), components.modifiers.end());
-
-	if (!specification.empty() && specification.size() > 4 && specification.substr(0, 4) == "sub,") {
-		// This is the "sub" metagroup and it contains the special modifier representing a parameter list
-		std::string parameters = specification.substr(3, std::string::npos);
-		specification.erase(3, std::string::npos);
-
-		components.modifiers.push_back(std::move(parameters));
-	}
-
-	components.name = std::move(specification);
-
-	return components;
-}
 
 std::vector< unsigned int > DBWrapper::getAllServers() {
 	WRAPPER_BEGIN
@@ -537,30 +454,7 @@ void DBWrapper::initializeChannelDetails(Server &server) {
 			 m_serverDB.getACLTable().getAllACLs(server.iServerNum, currentChannel->iId)) {
 			ChanACL *acl = new ChanACL(currentChannel);
 			acl->iUserId = currentAcl.affectedUserID ? static_cast< int >(currentAcl.affectedUserID.get()) : -1;
-			if (currentAcl.affectedGroupID) {
-				acl->qsGroup = QString::fromStdString(
-					m_serverDB.getGroupTable().getGroup(server.iServerNum, currentAcl.affectedGroupID.get()).name);
-			} else if (currentAcl.affectedMetaGroup) {
-				// The main ChanACL class doesn't distinguish real groups from meta groups
-				acl->qsGroup = QString::fromStdString(toString(currentAcl.affectedMetaGroup.get()));
-			} else if (currentAcl.accessToken) {
-				// "Group names" containing the # modifier are understood to represent access tokens
-				acl->qsGroup = '#' + QString::fromStdString(currentAcl.accessToken.get());
-			}
-
-			// Potentially add group modifiers to group name
-			for (const std::string &currentModifier : currentAcl.groupModifiers) {
-				assert(!currentModifier.empty());
-
-				// All modifiers are prefix modifiers and should therefore simply be prepended to the group's name
-				// The only exception is the syntax for the "sub" metagroup which takes optional trailing arguments
-				// separated by commas.
-				if (currentModifier[0] == ',') {
-					acl->qsGroup.append(QString::fromStdString(currentModifier));
-				} else {
-					acl->qsGroup.prepend(QString::fromStdString(currentModifier));
-				}
-			}
+			acl->qsGroup = QString::fromStdString(::msdb::getLegacyGroupData(currentAcl, m_serverDB.getGroupTable()));
 
 			acl->bApplyHere = currentAcl.applyInCurrentChannel;
 			acl->bApplySubs = currentAcl.applyInSubChannels;
@@ -621,7 +515,7 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	dbGroup.name           = group.qsName.toStdString();
 
 	// Assert that we are not trying to add a meta group to the DB (those shouldn't be Group objects to begin with)
-	assert(!metaGroupFromString(parseGroupSpecification(dbGroup.name).name).has_value());
+	assert(!::msdb::parseMetaGroup(::msdb::parseLegacyGroupSpecification(dbGroup.name).name).has_value());
 
 	return dbGroup;
 }
@@ -770,21 +664,21 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 		std::vector< std::string > groupModifiers;
 
 		if (!currentACL->qsGroup.isEmpty()) {
-			GroupSpecComponents components = parseGroupSpecification(currentACL->qsGroup.toStdString());
+			::msdb::LegacyGroupData data = ::msdb::parseLegacyGroupSpecification(currentACL->qsGroup.toStdString());
 
-			groupModifiers = std::move(components.modifiers);
+			groupModifiers = std::move(data.modifiers);
 
-			if (components.isAccessToken) {
-				accessToken = std::move(components.name);
+			if (data.isAccessToken) {
+				accessToken = std::move(data.name);
 			} else {
-				metaGroup = metaGroupFromString(components.name);
+				metaGroup = ::msdb::parseMetaGroup(data.name);
 			}
 
 			if (!metaGroup && !accessToken) {
-				associatedGroupID = m_serverDB.getGroupTable().findGroupID(serverID, components.name);
+				associatedGroupID = m_serverDB.getGroupTable().findGroupID(serverID, data.name);
 
 				if (!associatedGroupID) {
-					throw ::mdb::NoDataException("Required ID of non-existing group \"" + components.name + "\"");
+					throw ::mdb::NoDataException("Required ID of non-existing group \"" + data.name + "\"");
 				}
 			}
 		}

@@ -14,6 +14,7 @@ add_library(mumble_server_database STATIC
 	"DBChannelLink.cpp"
 	"DBBan.cpp"
 	"DBChannelListener.cpp"
+	"ACLCompat.cpp"
 
 	# Table implementations
 	"ServerTable.cpp"
