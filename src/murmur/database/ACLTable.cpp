@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ACLTable.h"
+#include "ACLCompat.h"
 #include "ChannelTable.h"
 #include "GroupTable.h"
 #include "UserTable.h"
@@ -19,6 +20,7 @@
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
 #include "database/TransactionHolder.h"
+#include "database/Trigger.h"
 #include "database/Utils.h"
 
 #include <soci/soci.h>
@@ -109,6 +111,22 @@ namespace server {
 			addForeignKey(fk3);
 		}
 
+		std::string formatGroupModifiers(const std::vector< std::string > &modifiers) {
+			std::string modifierString;
+			for (std::size_t i = 0; i < modifiers.size(); ++i) {
+				if (i > 0) {
+					// Separate individual group modifiers by a semicolon
+					modifierString += ";";
+				}
+
+				// Assert that the modifier itself does not contain a semicolon
+				assert(std::find(modifiers[i].begin(), modifiers[i].end(), ';') == modifiers[i].end());
+
+				modifierString += modifiers[i];
+			}
+			return modifierString;
+		}
+
 		void ACLTable::addACL(const DBAcl &acl) {
 			if (!acl.affectedGroupID && !acl.affectedUserID && !acl.affectedMetaGroup && !acl.accessToken) {
 				throw ::mdb::FormatException(
@@ -145,18 +163,7 @@ namespace server {
 				}
 
 				if (!acl.groupModifiers.empty()) {
-					for (std::size_t i = 0; i < acl.groupModifiers.size(); ++i) {
-						if (i > 0) {
-							// Separate individual group modifiers by a semicolon
-							groupModifiers += ";";
-						}
-
-						// Assert that the modifier itself does not contain a semicolon
-						assert(std::find(acl.groupModifiers[i].begin(), acl.groupModifiers[i].end(), ';')
-							   == acl.groupModifiers[i].end());
-
-						groupModifiers += acl.groupModifiers[i];
-					}
+					groupModifiers = formatGroupModifiers(acl.groupModifiers);
 
 					groupModInd = soci::i_ok;
 				}
@@ -368,7 +375,6 @@ namespace server {
 
 			try {
 				if (fromSchemeVersion < 10) {
-					// Before v4, the column "user_id" was still called "player_id"
 					// In v10 we renamed the table from "acl" to "access_control_lists" and the following columns have
 					// been renamed as well:
 					// "user_id" -> "affected_user_id"
@@ -378,50 +384,129 @@ namespace server {
 					// 	"apply_sub" -> "apply_in_sub_channels"
 					// 	"grantpriv" -> "granted_privilege_flags"
 					// 	"revokepriv" -> "revoked_privilege_flags"
-					std::string oldUserCol = fromSchemeVersion < 4 ? "player_id" : "user_id";
 
-					// We have to look up the group ID corresponding to the group_name that was previously stored in the
-					// acl table.
-					// Our assumption here is that the GroupTable has already been migrated, so we can fetch the values
-					// from the migrated table.
-					// clang-format off
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
-						  << ", " << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id
-						  << ", " << column::apply_in_current << ", " << column::apply_in_sub << ", "
-						  << column::granted_flags << ", " << column::revoked_flags
-						  << ") SELECT server_id, channel_id, priority, " << oldUserCol << ", "
-						  << "("
-						  <<	"SELECT group_id FROM \"" << GroupTable::NAME << "\" "
-						  << 	"WHERE "
-						  <<		GroupTable::column::server_id << " = outer_query.server_id "
-						  <<		"AND " << GroupTable::column::group_name << " = outer_query.group_name"
-						  << "), apply_here, apply_sub, grantpriv, revokepriv FROM \"acl"
-						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\" AS outer_query";
-					// clang-format on
+					soci::row row;
+					soci::statement stmt =
+						(m_sql.prepare << "SELECT server_id, channel_id, priority, user_id, group_name, apply_here, "
+										  "apply_sub, grantpriv, revokepriv FROM \"acl"
+									   << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
+						 soci::into(row));
 
-					// Check if the migration produced any useless ACLs (ones that apply to no one)
-					int uselessACLs = 0;
-					m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::aff_user_id
-						  << " IS NULL AND " << column::aff_group_id << " IS NULL) AS dummy",
-						soci::into(uselessACLs);
+					stmt.execute(false);
 
-					if (uselessACLs > 0) {
-						// Immediately throwing on this might be a bit over-cautious but better safe than sorry.
-						// By aborting the migration process by throwing an exception, we give the user to manually
-						// inspect the database and perform the cleanup manually (in a way they see fit).
-						throw ::mdb::MigrationException(
-							std::string("Migration of table \"") + NAME + "\" from scheme version "
-							+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)
-							+ " resulted in " + std::to_string(uselessACLs)
-							+ " invalid ACLs (ones that apply neither to a user nor to a group.\n"
-							+ "This could be the result of having ACLs in the database that reference non-existing "
-							+ "group names.");
+					while (stmt.fetch()) {
+						assert(row.size() == 9);
+						assert(row.get_properties(0).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(1).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(2).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(3).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(4).get_data_type() == soci::dt_string);
+						assert(row.get_properties(5).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(6).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(7).get_data_type() == soci::dt_integer);
+						assert(row.get_properties(8).get_data_type() == soci::dt_integer);
+
+						int serverID, channelID, priority, userID, applyHere, applySub, grantPriv, revokePriv;
+						std::string groupName;
+						soci::indicator userInd;
+
+						serverID  = row.get< int >(0);
+						channelID = row.get< int >(1);
+						priority  = row.get< int >(2);
+						if (row.get_indicator(3) != soci::i_null) {
+							userID  = row.get< int >(3);
+							userInd = soci::i_ok;
+						} else {
+							userInd = soci::i_null;
+						}
+						if (row.get_indicator(4) != soci::i_null) {
+							groupName = row.get< std::string >(4);
+						}
+
+						applyHere  = row.get_indicator(5) != soci::i_null ? row.get< int >(5) == 1 : true;
+						applySub   = row.get_indicator(6) != soci::i_null ? row.get< int >(6) == 1 : true;
+						grantPriv  = row.get_indicator(7) != soci::i_null ? row.get< int >(7) : 0;
+						revokePriv = row.get_indicator(8) != soci::i_null ? row.get< int >(8) : 0;
+
+						int groupID = 0, metaGroupID = 0;
+						std::string accessToken, groupModifiers;
+						soci::indicator groupInd, metaGroupInd, accessTokenInd, groupModInd;
+						groupInd = metaGroupInd = accessTokenInd = groupModInd = soci::i_null;
+						if (!groupName.empty()) {
+							LegacyGroupData data = parseLegacyGroupSpecification(groupName);
+
+							if (data.isAccessToken) {
+								if (data.name.empty()) {
+									throw ::mdb::MigrationException(
+										"Invalid access token (empty) encountered (original entry is '" + groupName
+										+ "')");
+								}
+								accessToken    = std::move(data.name);
+								accessTokenInd = soci::i_ok;
+							} else {
+								boost::optional< DBAcl::MetaGroup > metaGroup = parseMetaGroup(data.name);
+
+								if (metaGroup) {
+									metaGroupID  = static_cast< int >(metaGroup.get());
+									metaGroupInd = soci::i_ok;
+								} else {
+									// This is a proper group -> look up its ID
+									m_sql << "SELECT " << GroupTable::column::group_id << " FROM \"" << GroupTable::NAME
+										  << "\" WHERE " << GroupTable::column::server_id << " = :serverID AND "
+										  << GroupTable::column::group_name << " = :groupName",
+										soci::use(serverID), soci::use(data.name), soci::into(groupID);
+
+									if (!m_sql.got_data()) {
+										throw ::mdb::MigrationException("Existing ACL references non-existing group '"
+																		+ data.name + "'");
+									}
+
+									groupInd = soci::i_ok;
+								}
+							}
+
+							if (!data.modifiers.empty()) {
+								groupModifiers = formatGroupModifiers(data.modifiers);
+								groupModInd    = soci::i_ok;
+							}
+						}
+
+						if (userInd == soci::i_null && groupInd == soci::i_null && metaGroupInd == soci::i_null
+							&& accessTokenInd == soci::i_null) {
+							// This ACL does not apply to anyone
+							throw ::mdb::MigrationException("On server " + std::to_string(serverID) + ", channel "
+															+ std::to_string(channelID)
+															+ ": ACL does not apply to anyone");
+						}
+						if (grantPriv == 0 && revokePriv == 0) {
+							// This ACL doesn't do anything
+							throw ::mdb::MigrationException("On server " + std::to_string(serverID) + ", channel "
+															+ std::to_string(channelID)
+															+ ": ACL does not have any effect on permissions");
+						}
+
+						m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
+							  << ", " << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id
+							  << ", " << column::aff_meta_group_id << ", " << column::access_token << ", "
+							  << column::group_modifiers << ", " << column::apply_in_current << ", "
+							  << column::apply_in_sub << ", " << column::granted_flags << ", " << column::revoked_flags
+							  << ") VALUES (:serverID, :channelID, :priority, :userID, :groupID, :metaGroupID, "
+								 ":accessToken, :groupModifier, :applyCurrent, :applySub, :granted, :revoked)",
+							soci::use(serverID), soci::use(channelID), soci::use(priority), soci::use(userID, userInd),
+							soci::use(groupID, groupInd), soci::use(metaGroupID, metaGroupInd),
+							soci::use(accessToken, accessTokenInd), soci::use(groupModifiers, groupModInd),
+							soci::use(static_cast< int >(applyHere)), soci::use(static_cast< int >(applySub)),
+							soci::use(grantPriv), soci::use(revokePriv);
 					}
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
 				}
 			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::MigrationException(
+					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
+					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+			} catch (const ::mdb::MigrationException &) {
 				std::throw_with_nested(::mdb::MigrationException(
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
