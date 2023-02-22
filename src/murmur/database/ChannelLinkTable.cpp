@@ -221,10 +221,10 @@ namespace server {
 					// clang-format off
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::first_id << ", "
 						  << column::second_id << ") "
-						  << "SELECT server_id, channel_id, link_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\""
-						  <<	"WHERE channel_id < link_id"
-						  << "UNION"
-						  << "SELECT server_id, link_id, channel_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\""
+						  << "SELECT server_id, channel_id, link_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
+						  <<	"WHERE channel_id < link_id "
+						  << "UNION "
+						  << "SELECT server_id, link_id, channel_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
 						  <<	"WHERE link_id < channel_id";
 					// clang-format on
 				} else {
