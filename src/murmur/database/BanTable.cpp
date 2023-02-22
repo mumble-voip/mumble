@@ -390,7 +390,7 @@ namespace server {
 					std::string baseConversion;
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
-							startConversion = "UNIXEPOCH(start)";
+							startConversion = "STRFTIME('%s', start)";
 							baseConversion  = "HEX(base)";
 							break;
 						case ::mdb::Backend::MySQL:
