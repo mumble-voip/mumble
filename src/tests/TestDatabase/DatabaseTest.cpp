@@ -30,7 +30,9 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <cctype>
 #include <cstring>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <unordered_set>
@@ -63,6 +65,29 @@ template<> char *toString(const nlohmann::json &json) {
 }
 
 template<> char *toString(const std::string &str) {
+	char *buffer = new char[str.size() + 1];
+	std::strcpy(buffer, str.data());
+
+	return buffer;
+}
+
+template<> char *toString(const std::vector< std::uint8_t > &vec) {
+	std::stringstream sstream;
+	sstream << std::setfill('0') << std::setw(2) << std::hex;
+
+	sstream << "{ ";
+	for (std::size_t i = 0; i < vec.size(); ++i) {
+		sstream << "0x" << static_cast< unsigned int >(vec[i]);
+
+		if (i + 1 < vec.size()) {
+			sstream << ", ";
+		}
+	}
+
+	sstream << "}";
+
+	std::string str = sstream.str();
+
 	char *buffer = new char[str.size() + 1];
 	std::strcpy(buffer, str.data());
 
@@ -122,6 +147,7 @@ public:
 class DatabaseTest : public QObject {
 	Q_OBJECT;
 private slots:
+	void hexConversions();
 	void connect();
 	void getBackendVersion();
 	void tableExistsInDB();
@@ -140,6 +166,71 @@ private slots:
 	void unicode();
 	void fetchMinimumFreeID();
 };
+
+void DatabaseTest::hexConversions() {
+	qInfo() << "Hex to binary";
+
+	std::string hex                           = "abcd";
+	std::vector< std::uint8_t > expectedBytes = { 0xab, 0xcd };
+	QCOMPARE(expectedBytes, utils::hexToBinary< decltype(expectedBytes) >(hex));
+
+	// Using a prefix shouldn't change the result
+	hex = "0x" + hex;
+	QCOMPARE(expectedBytes, utils::hexToBinary< decltype(expectedBytes) >(hex));
+
+	// Case shouldn't matter
+	std::transform(hex.begin(), hex.end(), hex.begin(), [](char c) { return std::toupper(c); });
+	QCOMPARE(expectedBytes, utils::hexToBinary< decltype(expectedBytes) >(hex));
+
+	hex                                         = "0xFf12640003";
+	std::array< std::uint8_t, 5 > expectedArray = { 0xff, 0x12, 0x64, 0x00, 0x03 };
+	QCOMPARE(expectedArray, utils::hexToBinary< decltype(expectedArray) >(hex));
+
+	hex                                      = "0x";
+	std::array< std::uint8_t, 0 > emptyArray = {};
+	QCOMPARE(emptyArray, utils::hexToBinary< decltype(emptyArray) >(hex));
+
+	bool success = true;
+	// Too little input
+	utils::hexToBinary< 1 >("", &success);
+	QVERIFY(!success);
+	success = true;
+	// invalid character
+	utils::hexToBinary< 1 >("ak", &success);
+	QVERIFY(!success);
+	success = true;
+	// Too much input
+	utils::hexToBinary< 1 >("ab4f", &success);
+	QVERIFY(!success);
+	success = true;
+	// Invalid number of characters
+	utils::hexToBinary< decltype(expectedArray) >("ab4", &success);
+	QVERIFY(!success);
+	success = true;
+
+
+	qInfo() << "Binary to hex";
+
+	std::string expectedHex = "0xabcd";
+	QCOMPARE(expectedHex, utils::binaryToHex(std::vector< std::uint8_t >{ 0xab, 0xcd }));
+	expectedHex = "0x";
+	QCOMPARE(expectedHex, utils::binaryToHex(std::vector< std::uint8_t >{}));
+	expectedHex = "0x000001";
+	QCOMPARE(expectedHex, utils::binaryToHex(std::vector< std::uint8_t >{ 0x00, 0x00, 0x01 }));
+
+
+	qInfo() << "Consistency checks";
+
+	for (const std::vector< std::uint8_t > &current :
+		 std::vector< std::vector< std::uint8_t > >{ { 0xaf, 0x12 }, {}, { 0x26, 0xff, 0x78, 0xf9 } }) {
+		bool success = false;
+		std::vector< std::uint8_t > produced =
+			utils::hexToBinary< decltype(produced) >(utils::binaryToHex(current), &success);
+
+		QVERIFY(success);
+		QCOMPARE(current, produced);
+	}
+}
 
 void DatabaseTest::connect() {
 	for (Backend currentBackend : backends) {

@@ -1358,18 +1358,6 @@ void ServerDatabaseTest::ipAddress_conversions() {
 	fetchedAddr               = ::msdb::DBBan::ipv4ToIpv6(ipv4Address, true);
 
 	QCOMPARE(fetchedAddr, ipv6Address);
-
-	bool success                                = false;
-	std::array< std::uint8_t, 4 > expectedArray = { 0xab, 0xff, 0x32, 0x4f };
-	std::array< std::uint8_t, 4 > fetchedArray  = ::msdb::DBBan::toByteArray< 4 >("0xabff324f", &success);
-	QVERIFY(success);
-	QCOMPARE(fetchedArray, expectedArray);
-	fetchedArray = ::msdb::DBBan::toByteArray< 4 >("abff324f", &success);
-	QVERIFY(success);
-	QCOMPARE(fetchedArray, expectedArray);
-	fetchedArray = ::msdb::DBBan::toByteArray< 4 >("AbFf324f", &success);
-	QVERIFY(success);
-	QCOMPARE(fetchedArray, expectedArray);
 }
 
 void ServerDatabaseTest::banTable_general() {
