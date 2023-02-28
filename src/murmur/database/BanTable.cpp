@@ -448,8 +448,9 @@ namespace server {
 						prefixLength = row.get< int >(2);
 
 						if (fromSchemeVersion < 4) {
-							bool success                       = false;
-							std::array< std::uint8_t, 4 > ipv4 = DBBan::toByteArray< 4 >(baseAddress, &success);
+							bool success = false;
+							std::array< std::uint8_t, 4 > ipv4 =
+								::mdb::utils::hexToBinary< decltype(ipv4) >(baseAddress, &success);
 
 							if (!success) {
 								throw ::mdb::MigrationException(
@@ -470,7 +471,7 @@ namespace server {
 							assert(row.get_indicator(7) == soci::i_ok);
 
 							bool success          = false;
-							DBBan::ipv6_type ipv6 = DBBan::toByteArray< 16 >(baseAddress, &success);
+							DBBan::ipv6_type ipv6 = ::mdb::utils::hexToBinary< decltype(ipv6) >(baseAddress, &success);
 
 							if (!success) {
 								throw ::mdb::MigrationException(

@@ -40,37 +40,6 @@ namespace server {
 			DBBan(unsigned int serverID, ipv6_type baseAddress, std::uint8_t prefixLength);
 
 
-			template< std::size_t size >
-			static std::array< std::uint8_t, size > toByteArray(const std::string &hex, bool *success = nullptr) {
-				std::size_t offset = boost::istarts_with(hex, "0x") ? 2 : 0;
-
-				if (hex.size() % 2 != 0 || (hex.size() - offset) / 2 != size) {
-					if (success) {
-						*success = false;
-					}
-					return {};
-				}
-
-				std::array< std::uint8_t, size > array;
-				for (std::size_t i = 1; i <= size; ++i) {
-					std::size_t processedChars = 0;
-					array[size - i]            = std::stoi(hex.substr(hex.size() - 2 * i, 2), &processedChars, 16);
-
-					if (processedChars != 2) {
-						if (success) {
-							*success = false;
-						}
-						return {};
-					}
-				}
-
-				if (success) {
-					*success = true;
-				}
-
-				return array;
-			}
-
 			static std::string ipv6ToString(const ipv6_type &address);
 			static ipv6_type ipv6FromString(const std::string &str);
 			static ipv6_type ipv4ToIpv6(const std::array< std::uint8_t, 4 > &address,

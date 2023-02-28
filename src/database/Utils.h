@@ -11,7 +11,13 @@
 
 #include <soci/soci.h>
 
+#include <array>
+#include <cassert>
+#include <cstdint>
+#include <iomanip>
+#include <sstream>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace mumble {
@@ -81,6 +87,106 @@ namespace db {
 		 * by calling the "otherwise" function on the returned object.
 		 */
 		details::CoalesceHelper nonNullOf(const std::string &value);
+
+		namespace details {
+			template< typename Container > struct Resizer {
+				static void resize(Container &container, std::size_t size) { container.resize(size); }
+
+				static bool canResize() { return true; }
+			};
+
+			template< typename Type, std::size_t size > struct Resizer< std::array< Type, size > > {
+				static void resize(std::array< Type, size > &, std::size_t newSize) {
+					assert(newSize == size);
+					if (newSize != size) {
+						throw std::runtime_error("Can't resize a std::array");
+					}
+				}
+
+				static bool canResize() { return false; }
+			};
+		} // namespace details
+
+#define FAIL_CONVERSION                               \
+	std::fill(container.begin(), container.end(), 0); \
+	if (success) {                                    \
+		*success = false;                             \
+	}                                                 \
+	return;
+
+		template< typename Container >
+		static void hexToBinary(const std::string &hex, Container &container, bool *success = nullptr) {
+			static_assert(std::is_same< typename Container::value_type, std::uint8_t >::value,
+						  "Container required to store bytes");
+
+			std::size_t offset = hex.size() >= 2 && hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X') ? 2 : 0;
+
+			if (hex.size() % 2 != 0) {
+				FAIL_CONVERSION
+			}
+
+			std::size_t byteSize = (hex.size() - offset) / 2;
+
+			// Ensure container has correct size
+			if (details::Resizer< Container >::canResize()) {
+				details::Resizer< Container >::resize(container, byteSize);
+			} else if (container.size() != byteSize) {
+				FAIL_CONVERSION
+			}
+
+			for (std::size_t i = 1; i <= byteSize; ++i) {
+				std::size_t processedChars = 0;
+				try {
+					container[byteSize - i] = std::stoi(hex.substr(hex.size() - 2 * i, 2), &processedChars, 16);
+				} catch (std::exception &) {
+					FAIL_CONVERSION
+				}
+
+				if (processedChars != 2) {
+					FAIL_CONVERSION
+				}
+			}
+
+			if (success) {
+				*success = true;
+			}
+		}
+#undef FAIL_CONVERSION
+
+		template< typename Container > static Container hexToBinary(const std::string &hex, bool *success = nullptr) {
+			Container bytes;
+
+			hexToBinary(hex, bytes, success);
+
+			return bytes;
+		}
+
+		template< std::size_t byteSize >
+		static std::array< std::uint8_t, byteSize > hexToBinary(const std::string &hex, bool *success = nullptr) {
+			return hexToBinary< std::array< std::uint8_t, byteSize > >(hex, success);
+		}
+
+		template< typename Container > std::string binaryToHex(const Container &container) {
+			static_assert(std::is_same< typename Container::value_type, std::uint8_t >::value,
+						  "Container required to store bytes");
+
+			std::stringstream sstream;
+			sstream << std::hex << "0x";
+
+			for (std::uint8_t currentByte : container) {
+				// Prevent interpretation as char
+				sstream << std::setfill('0') << std::setw(2) << std::nouppercase
+						<< static_cast< unsigned int >(currentByte);
+			}
+
+			std::string hex = sstream.str();
+
+			// We encode every byte with two characters and prefix the whole thing with '0x'
+			assert(hex.size() == container.size() * 2 + 2);
+
+			return hex;
+		}
+
 
 	} // namespace utils
 } // namespace db
