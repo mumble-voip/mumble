@@ -9,6 +9,7 @@
 #include "Database.h"
 #include "FormatException.h"
 #include "Trigger.h"
+#include "Utils.h"
 
 #include "database/Column.h"
 #include <soci/soci.h>
@@ -461,8 +462,11 @@ namespace db {
 		soci::statement stmt = m_sql.prepare << query;
 
 		std::vector< std::string > values;
+		std::vector< soci::blob > binaryValues;
 		std::vector< soci::indicator > indicators;
+
 		values.reserve(colNames.size());
+		binaryValues.reserve(colNames.size());
 		indicators.reserve(colNames.size());
 		for (const nlohmann::json &currentRow : rows) {
 			assert(currentRow.size() == colNames.size());
@@ -470,17 +474,36 @@ namespace db {
 			// We have to first transfer our values into the values vector in order to guarantee that they
 			// are not destroyed in the middle of the DB statement (which might happen, if we were to use
 			// the temporaries directly)
-			for (const nlohmann::json &currentVal : currentRow) {
-				if (!currentVal.is_null()) {
-					values.push_back(utils::to_string(currentVal));
-					indicators.push_back(soci::i_ok);
-				} else {
+			for (std::size_t i = 0; i < currentRow.size(); ++i) {
+				const nlohmann::json &currentVal = currentRow[i];
+
+				if (currentVal.is_null()) {
 					values.push_back({});
 					indicators.push_back(soci::i_null);
+
+					stmt.exchange(soci::use(values[values.size() - 1], indicators[indicators.size() - 1]));
+
+					continue;
 				}
-			}
-			for (std::size_t i = 0; i < values.size(); ++i) {
-				stmt.exchange(soci::use(values[i], indicators[i]));
+
+				if (getColumns()[i].getType() == DataType::Blob || getColumns()[i].getType() == DataType::Binary) {
+					// We have to handle binary data special in order to prevent SOCI suggesting to the DB backend that
+					// the hex representation (which we expect here) is in fact to be interpreted as a string (which
+					// would lead to various undesired behavior depending on the used backend)
+					binaryValues.push_back(soci::blob{ m_sql });
+					// Convert hex representation to binary values
+					std::vector< std::uint8_t > binary =
+						utils::hexToBinary< decltype(binary) >(currentVal.get< std::string >());
+					// Write the binary data into a BLOB object, which can be bound to our statement
+					binaryValues[binaryValues.size() - 1].write_from_start(
+						reinterpret_cast< const char * >(binary.data()), binary.size());
+
+					stmt.exchange(soci::use(binaryValues[binaryValues.size() - 1]));
+				} else {
+					values.push_back(utils::to_string(currentVal));
+
+					stmt.exchange(soci::use(values[values.size() - 1]));
+				}
 			}
 
 			stmt.define_and_bind();
@@ -488,6 +511,7 @@ namespace db {
 			stmt.bind_clean_up();
 
 			values.clear();
+			binaryValues.clear();
 			indicators.clear();
 		}
 

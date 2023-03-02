@@ -377,16 +377,16 @@ void DatabaseTest::simpleImport() {
 					{ "test_table",
 						{
 							{
-								"column_names", { "col1", "col2", "col3" }
+								"column_names", { "col1", "col2", "col3", "col4" }
 							},
 							{
-								"column_types", { "INTEGER", "DOUBLE PRECISION", "VARCHAR(100)" }
+								"column_types", { "INTEGER", "DOUBLE PRECISION", "VARCHAR(100)", DataType(DataType::Blob).sqlRepresentation(currentBackend) }
 							},
 							{
 								"rows", nlohmann::json::array({
-										{ 1, 42.42, "I am a test" },
-										{ 2, 0.5, "Other test" }
-										})
+									{ 1, 42.42, "I am a test", "0x234504252ca1000000000567567323b5" },
+									{ 2, 0.5, "Other test", nlohmann::json{} }
+								})
 							}
 						}
 					}
@@ -426,6 +426,7 @@ void DatabaseTest::simpleImport() {
 		nlohmann::json exported = db.exportToJSON();
 
 		test::utils::alignColumnOrder(exported, serializedDB);
+		test::utils::alignRowOrder(exported, serializedDB);
 		QCOMPARE(exported, serializedDB);
 	}
 }
