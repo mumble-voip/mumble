@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ConversionUtils.h"
+#include "Utils.h"
 
 #include <soci/soci.h>
 
@@ -71,9 +72,17 @@ namespace db {
 					return row.get< long long >(columnIndex);
 				case soci::dt_unsigned_long_long:
 					return row.get< unsigned long long >(columnIndex);
+				case soci::dt_blob: {
+					std::string data = row.get< std::string >(columnIndex);
+
+					// We have to convert the data into a series of uint8_t values (strings store chars, which are
+					// signed by default on most architectures)
+					std::vector< std::uint8_t > dataContainer(data.begin(), data.end());
+
+					return utils::binaryToHex(dataContainer);
+				} break;
 				case soci::dt_date:
 				case soci::dt_xml:
-				case soci::dt_blob:
 					std::cerr << "[ERROR]: Tried to convert unsupported DB datatype to JSON: " << props.get_data_type()
 							  << std::endl;
 					std::abort();
