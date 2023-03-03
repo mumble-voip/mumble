@@ -28,7 +28,15 @@ public:
 
 	int lastError() const;
 
-	void *mapMemory(const char *name, std::size_t size);
+	bool mapMemory(const char *name, std::size_t size);
+
+	bool isMemoryMapped();
+
+	void read(void *dest, std::size_t size);
+
+	void write(const void *source, std::size_t size);
+
+	void fillWithZero();
 
 private:
 	void *m_data;

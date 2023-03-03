@@ -15,9 +15,36 @@
 #	include <errno.h>
 #endif
 
+#include <atomic>
+#include <climits>
+#include <cstdint>
 #include <cstring>
 
 #include <iostream>
+
+#include <vector>
+
+// A Chunk is one atomically accessed chunk of shared memory.
+//
+// The only way to check at compile time if operations on a
+// given atomic type are always lock-free before C++17 is
+// using the C macros ATOMIC_*_LOCK_FREE, which aren't defined
+// for fixed-width integer types. But we want the width of our
+// atomic operations to be fixed, both to make the protocol
+// easier to implement in other programming languages and to
+// prevent interoperability problems when a game is built
+// for a different platform than Mumble, e.g. if it's running
+// in box86 or WoW64.
+//
+// int32_t is virtually always the same as int, so we check to
+// make sure that's the case and that ATOMIC_INT_LOCK_FREE
+// is 2, which means std::atomic< int > is *always* lock-free.
+static_assert(std::is_same< int, std::int32_t >::value, "int isn't the same as std::int32_t");
+static_assert(ATOMIC_INT_LOCK_FREE == 2, "std::atomic< int > may not be lock-free");
+using Chunk = int;
+
+static constexpr std::size_t chunkSize = sizeof(Chunk);
+static_assert(sizeof(std::atomic< Chunk >) == chunkSize, "std::atomic< Chunk > has a size different from Chunk's");
 
 SharedMemory::SharedMemory()
 	: m_data(nullptr), m_size(0), m_error(0),
@@ -67,7 +94,10 @@ int SharedMemory::lastError() const {
 	return m_error;
 }
 
-void *SharedMemory::mapMemory(const char *name, std::size_t size) {
+bool SharedMemory::mapMemory(const char *name, std::size_t size) {
+	// Round size up to the nearest multiple of the chunk size
+	size = (size + chunkSize - 1) / chunkSize * chunkSize;
+
 	close();
 
 	bool created = false;
@@ -82,7 +112,7 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 		if (m_handle == NULL) {
 			m_error = GetLastError();
 
-			return nullptr;
+			return false;
 		}
 
 		created = true;
@@ -95,7 +125,7 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 
 		CloseHandle(m_handle);
 
-		return nullptr;
+		return false;
 	}
 #else
 	m_name.clear();
@@ -111,7 +141,7 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 
 		if (fd == -1) {
 			m_error = errno;
-			return nullptr;
+			return false;
 		}
 
 		// Truncate to specified size
@@ -120,7 +150,7 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 
 			::close(fd);
 
-			return nullptr;
+			return false;
 		}
 
 		created = true;
@@ -135,7 +165,7 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 
 		::close(fd);
 
-		return nullptr;
+		return false;
 	}
 
 	// Quoting from the mmap manpage:
@@ -149,8 +179,46 @@ void *SharedMemory::mapMemory(const char *name, std::size_t size) {
 	m_size = size;
 
 	if (created) {
-		std::memset(m_data, 0, m_size);
+		fillWithZero();
 	}
 
-	return m_data;
+	return true;
+}
+
+bool SharedMemory::isMemoryMapped() {
+	return m_data != nullptr;
+}
+
+void SharedMemory::read(void *dest, std::size_t size) {
+	const auto *data = static_cast< const std::atomic< Chunk > * >(m_data);
+
+	std::vector< Chunk > buff(m_size / chunkSize, 0);
+
+	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
+		buff[i] = data[i].load(std::memory_order_relaxed);
+	}
+
+	// bitcast the chunks with memcpy to avoid running afoul
+	// of type-based alias analysis
+	std::memcpy(dest, &buff[0], std::min(size, m_size));
+}
+
+void SharedMemory::write(const void *source, std::size_t size) {
+	auto *data = static_cast< std::atomic< Chunk > * >(m_data);
+
+	std::vector< Chunk > buff(m_size / chunkSize, 0);
+
+	std::memcpy(&buff[0], source, std::min(size, m_size));
+
+	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
+		data[i].store(buff[i], std::memory_order_relaxed);
+	}
+}
+
+void SharedMemory::fillWithZero() {
+	auto *data = static_cast< std::atomic< Chunk > * >(m_data);
+
+	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
+		data[i].store(0, std::memory_order_relaxed);
+	}
 }
