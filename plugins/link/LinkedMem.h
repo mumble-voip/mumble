@@ -18,6 +18,9 @@
 #	include <unistd.h>
 #endif
 
+// NOTE: To prevent possible undefined behavior in
+// `SharedMemory::write`, this struct must not
+// have any padding.
 struct LinkedMem {
 #ifdef _WIN32
 	UINT32 uiVersion;
