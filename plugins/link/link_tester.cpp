@@ -25,9 +25,9 @@ std::mt19937 rng(dev());
 std::uniform_real_distribution< float > generator(0, 100);
 
 void initMumble() {
-	sharedMem.mapMemory(getLinkedMemoryName(), sizeof(LinkedMem));
+	sharedMem.mapMemory(getLinkedMemoryName());
 
-	std::memset(&lm, 0, sizeof(lm));
+	lm = LinkedMem();
 }
 
 void updateMumble() {
@@ -83,7 +83,7 @@ void updateMumble() {
 	memcpy(lm.context, "ContextBlob\x00\x01\x02\x03\x04", 16);
 	lm.context_len = 16;
 
-	sharedMem.write(&lm, sizeof(lm));
+	sharedMem.write(lm);
 }
 
 void signalHandler(int signum) {

@@ -5,6 +5,8 @@
 
 #include "SharedMemory.h"
 
+#include "LinkedMem.h"
+
 #ifdef _WIN32
 #else
 // Note: Linking to the "rt" library is required
@@ -21,8 +23,6 @@
 #include <cstring>
 
 #include <iostream>
-
-#include <vector>
 
 // A Chunk is one atomically accessed chunk of shared memory.
 //
@@ -43,11 +43,14 @@ static_assert(std::is_same< int, std::int32_t >::value, "int isn't the same as s
 static_assert(ATOMIC_INT_LOCK_FREE == 2, "std::atomic< int > may not be lock-free");
 using Chunk = int;
 
-static constexpr std::size_t chunkSize = sizeof(Chunk);
+static constexpr std::size_t chunkSize  = sizeof(Chunk);
+static constexpr std::size_t chunkCount = sizeof(LinkedMem) / chunkSize;
+
 static_assert(sizeof(std::atomic< Chunk >) == chunkSize, "std::atomic< Chunk > has a size different from Chunk's");
+static_assert(chunkSize * chunkCount == sizeof(LinkedMem), "LinkedMem's size isn't a multiple of Chunk's size");
 
 SharedMemory::SharedMemory()
-	: m_data(nullptr), m_size(0), m_error(0),
+	: m_data(nullptr), m_error(0),
 #ifdef _WIN32
 	  m_handle(NULL)
 #else
@@ -58,10 +61,6 @@ SharedMemory::SharedMemory()
 
 SharedMemory::~SharedMemory() {
 	close();
-}
-
-std::size_t SharedMemory::size() {
-	return m_size;
 }
 
 void SharedMemory::close() {
@@ -76,7 +75,7 @@ void SharedMemory::close() {
 	m_handle = NULL;
 #else
 	if (m_data) {
-		munmap(m_data, m_size);
+		munmap(m_data, sizeof(LinkedMem));
 	}
 	if (!m_name.empty()) {
 		shm_unlink(m_name.c_str());
@@ -86,7 +85,6 @@ void SharedMemory::close() {
 #endif
 
 	m_data  = nullptr;
-	m_size  = 0;
 	m_error = 0;
 }
 
@@ -94,10 +92,7 @@ int SharedMemory::lastError() const {
 	return m_error;
 }
 
-bool SharedMemory::mapMemory(const char *name, std::size_t size) {
-	// Round size up to the nearest multiple of the chunk size
-	size = (size + chunkSize - 1) / chunkSize * chunkSize;
-
+bool SharedMemory::mapMemory(const char *name) {
 	close();
 
 	bool created = false;
@@ -107,7 +102,7 @@ bool SharedMemory::mapMemory(const char *name, std::size_t size) {
 
 	if (m_handle == NULL) {
 		// Attaching failed, so we have to create it
-		m_handle = CreateFileMappingA(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, size, name);
+		m_handle = CreateFileMappingA(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, sizeof(LinkedMem), name);
 
 		if (m_handle == NULL) {
 			m_error = GetLastError();
@@ -144,8 +139,8 @@ bool SharedMemory::mapMemory(const char *name, std::size_t size) {
 			return false;
 		}
 
-		// Truncate to specified size
-		if (ftruncate(fd, size) != 0) {
+		// Truncate to correct size
+		if (ftruncate(fd, sizeof(LinkedMem)) != 0) {
 			m_error = errno;
 
 			::close(fd);
@@ -156,7 +151,7 @@ bool SharedMemory::mapMemory(const char *name, std::size_t size) {
 		created = true;
 	}
 
-	m_data = mmap(nullptr, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	m_data = mmap(nullptr, sizeof(LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
 	if (m_data == reinterpret_cast< void * >(-1)) {
 		m_data = nullptr;
@@ -176,49 +171,45 @@ bool SharedMemory::mapMemory(const char *name, std::size_t size) {
 	m_name.assign(name);
 #endif
 
-	m_size = size;
-
 	if (created) {
-		fillWithZero();
+		reset();
 	}
 
 	return true;
 }
 
-bool SharedMemory::isMemoryMapped() {
+bool SharedMemory::isMemoryMapped() const {
 	return m_data != nullptr;
 }
 
-void SharedMemory::read(void *dest, std::size_t size) {
+LinkedMem SharedMemory::read() const {
 	const auto *data = static_cast< const std::atomic< Chunk > * >(m_data);
 
-	std::vector< Chunk > buff(m_size / chunkSize, 0);
+	Chunk buff[chunkCount];
 
-	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
+	for (std::size_t i = 0; i < chunkCount; i++) {
 		buff[i] = data[i].load(std::memory_order_relaxed);
 	}
 
 	// bitcast the chunks with memcpy to avoid running afoul
 	// of type-based alias analysis
-	std::memcpy(dest, &buff[0], std::min(size, m_size));
+	LinkedMem dest;
+	std::memcpy(&dest, buff, sizeof(LinkedMem));
+	return dest;
 }
 
-void SharedMemory::write(const void *source, std::size_t size) {
+void SharedMemory::write(const LinkedMem &source) {
 	auto *data = static_cast< std::atomic< Chunk > * >(m_data);
 
-	std::vector< Chunk > buff(m_size / chunkSize, 0);
+	Chunk buff[chunkCount];
 
-	std::memcpy(&buff[0], source, std::min(size, m_size));
+	std::memcpy(buff, &source, sizeof(LinkedMem));
 
-	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
+	for (std::size_t i = 0; i < chunkCount; i++) {
 		data[i].store(buff[i], std::memory_order_relaxed);
 	}
 }
 
-void SharedMemory::fillWithZero() {
-	auto *data = static_cast< std::atomic< Chunk > * >(m_data);
-
-	for (std::size_t i = 0; i < m_size / chunkSize; i++) {
-		data[i].store(0, std::memory_order_relaxed);
-	}
+void SharedMemory::reset() {
+	write(LinkedMem());
 }

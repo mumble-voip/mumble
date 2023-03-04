@@ -43,7 +43,7 @@ static std::uint64_t getTimeSinceEpoch() {
 mumble_error_t mumble_init(mumble_plugin_id_t id) {
 	UNUSED(id);
 
-	if (!sharedMem.mapMemory(getLinkedMemoryName(), sizeof(LinkedMem))) {
+	if (!sharedMem.mapMemory(getLinkedMemoryName())) {
 		std::cerr << "Link plugin: Failed to setup shared memory: " << sharedMem.lastError() << std::endl;
 
 		return MUMBLE_EC_INTERNAL_ERROR;
@@ -117,8 +117,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
-	LinkedMem lm;
-	sharedMem.read(&lm, sizeof(lm));
+	LinkedMem lm = sharedMem.read();
 
 	if ((lm.uiVersion == 1) || (lm.uiVersion == 2)) {
 		if (lm.uiTick != last_tick) {
@@ -162,8 +161,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	SET_TO_ZERO(cameraDir);
 	SET_TO_ZERO(cameraAxis);
 
-	LinkedMem lm;
-	sharedMem.read(&lm, sizeof(lm));
+	LinkedMem lm = sharedMem.read();
 
 	if (lm.uiTick != last_tick) {
 		last_tick      = lm.uiTick;
@@ -231,7 +229,7 @@ void mumble_shutdownPositionalData() {
 	pluginContext.clear();
 	pluginIdentity.clear();
 
-	sharedMem.fillWithZero();
+	sharedMem.reset();
 }
 
 MumbleStringWrapper mumble_getPositionalDataContextPrefix() {
