@@ -19,34 +19,36 @@
 #endif
 
 // NOTE: To prevent possible undefined behavior in
-// `SharedMemory::write`, this struct must not
-// have any padding.
+// `SharedMemory::write` and `SharedMemory::reset`, this
+// struct must not have any padding, and no members may
+// have indeterminate bits when this struct is
+// default-constructed.
 struct LinkedMem {
 #ifdef _WIN32
-	UINT32 uiVersion;
-	DWORD uiTick;
+	UINT32 uiVersion = 0;
+	DWORD uiTick     = 0;
 #else
-	uint32_t uiVersion;
-	uint32_t uiTick;
+	uint32_t uiVersion    = 0;
+	uint32_t uiTick       = 0;
 #endif
-	float fAvatarPosition[3];
-	float fAvatarFront[3];
-	float fAvatarTop[3];
-	wchar_t name[256];
-	float fCameraPosition[3];
-	float fCameraFront[3];
-	float fCameraTop[3];
-	wchar_t identity[256];
+	float fAvatarPosition[3] = { 0 };
+	float fAvatarFront[3]    = { 0 };
+	float fAvatarTop[3]      = { 0 };
+	wchar_t name[256]        = { 0 };
+	float fCameraPosition[3] = { 0 };
+	float fCameraFront[3]    = { 0 };
+	float fCameraTop[3]      = { 0 };
+	wchar_t identity[256]    = { 0 };
 #ifdef _WIN32
-	UINT32 context_len;
+	UINT32 context_len = 0;
 #else
-	uint32_t context_len;
+	uint32_t context_len  = 0;
 #endif
-	unsigned char context[256];
-	wchar_t description[2048];
+	unsigned char context[256] = { 0 };
+	wchar_t description[2048]  = { 0 };
 };
 
-static const char *getLinkedMemoryName() {
+static inline const char *getLinkedMemoryName() {
 #ifdef _WIN32
 	return "MumbleLink";
 #else

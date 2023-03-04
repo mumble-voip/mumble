@@ -17,30 +17,29 @@
 #	include <string>
 #endif
 
+struct LinkedMem;
+
 class SharedMemory {
 public:
 	explicit SharedMemory();
 	~SharedMemory();
 
-	std::size_t size();
-
 	void close();
 
 	int lastError() const;
 
-	bool mapMemory(const char *name, std::size_t size);
+	bool mapMemory(const char *name);
 
-	bool isMemoryMapped();
+	bool isMemoryMapped() const;
 
-	void read(void *dest, std::size_t size);
+	LinkedMem read() const;
 
-	void write(const void *source, std::size_t size);
+	void write(const LinkedMem &source);
 
-	void fillWithZero();
+	void reset();
 
 private:
 	void *m_data;
-	std::size_t m_size;
 	int m_error;
 
 #ifdef _WIN32
