@@ -117,7 +117,9 @@ if(server)
 
 		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
 
-		install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/MumbleServer.ice" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+		if(ice)
+			install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/MumbleServer.ice" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+		endif()
 	endif()
 endif()
 
