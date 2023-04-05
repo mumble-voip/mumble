@@ -34,7 +34,7 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_CONTACT}")
 set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_DEPENDS "libasound2 (>= 1.0.16), libavahi-compat-libdnssd1 (>= 0.6.16), libc6 (>= 2.29), libgcc-s1 (>= 3.0),
 	libjack-jackd2-0 (>= 1.9.10+20150825), 	libprotobuf23 (>= 3.12.4), libpulse0 (>= 0.99.1), libqt5core5a (>= 5.15.1), libqt5dbus5 (>= 5.14.1),
 	libqt5gui5 (>= 5.14.1), libqt5network5 (>= 5.14.1), libqt5sql5 (>= 5.3.0), libqt5sql5-sqlite, libqt5svg5 (>= 5.6.0~beta), libqt5widgets5 (>= 5.14.1),
-	libqt5xml5 (>= 5.0.2), libsndfile1 (>= 1.0.20), libspeechd2 (>= 0.7.1), libspeexdsp1 (>= 1.2~beta3.2-1), libssl1.1 (>= 1.1.0), 	libstdc++6 (>= 9),
+	libqt5xml5 (>= 5.0.2), libsndfile1 (>= 1.0.20), libspeechd2 (>= 0.7.1), libspeexdsp1 (>= 1.2~beta3.2-1), libssl3 (>= 3.0.0), libstdc++6 (>= 9),
 	libx11-6 (>= 2:1.2.99.901), libxi6 (>= 2:1.2.99.4), lsb-release, libopus0")
 set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_SUGGESTS "speech-dispatcher" "mumble-server")
 set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_BREAKS "mumble")
@@ -45,7 +45,7 @@ set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_REPLACES "mumble")
 # server
 set(CPACK_DEBIAN_MUMBLE_SERVER_PACKAGE_DEPENDS "adduser, debconf (>= 0.5), libavahi-compat-libdnssd1 (>= 0.6.16), libc6 (>= 2.17), libcap2 (>=
 	1:2.10), libgcc-s1 (>= 3.0), libprotobuf23 (>= 3.12.4), libqt5core5a (>= 5.15.1), libqt5dbus5 (>= 5.14.1), libqt5network5 (>= 5.14.1),
-	libqt5sql5 (>= 5.0.2), libqt5sql5-sqlite, libqt5sql5-mysql, libqt5sql5-psql, libqt5xml5 (>= 5.0.2), libssl1.1 (>= 1.1.0), libstdc++6 (>= 5.2),
+	libqt5sql5 (>= 5.0.2), libqt5sql5-sqlite, libqt5sql5-mysql, libqt5sql5-psql, libqt5xml5 (>= 5.0.2), libssl3 (>= 3.0.0), libstdc++6 (>= 5.2),
 	libzeroc-ice3.7, lsb-base (>= 3.0-6)")
 set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_BREAKS "mumble-server" "murmur")
 set(CPACK_DEBIAN_MUMBLE_CLIENT_PACKAGE_CONFLICTS "mumble-server" "murmur")
