@@ -16,7 +16,7 @@ written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server (murmur).
 The client works on Windows, Linux, FreeBSD, OpenBSD and macOS,
-while the server should work on anything Qt can be installed on.
+while the server should work on anything Qt can be installed on. By the new module. 
 
 Please note that with "Windows" we mean 7 and newer.
 Vista may be supported, but we can't guarantee it.
