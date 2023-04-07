@@ -68,7 +68,7 @@ if(server)
 		get_pkgconf_variable(
 			OUTPUT_VARIABLE SYSUSERS_DIR
 			MODULE systemd
-			VARIABLE_NAME sysusersdir
+			VARIABLE_NAME sysusers_dir
 		)
 		if(NOT SYSUSERS_DIR)
 			# Fallback value, in case it could not be fetched via pkg-config
