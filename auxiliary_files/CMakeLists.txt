@@ -73,6 +73,7 @@ if(server)
 		if(NOT SYSUSERS_DIR)
 			# Fallback value, in case it could not be fetched via pkg-config
 			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
+			message(WARNING "Using fallback install path for sysusers directory at '${SYSUSERS_DIR}'")
 		endif()
 		get_pkgconf_variable(
 			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
@@ -84,6 +85,7 @@ if(server)
 			# it's where an admin is supposed to add their system files), but this seems to be the most consistent
 			# path across different platforms, so we use it anyway.
 			set(SYSTEMD_SERVICE_DIR "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system")
+			message(WARNING "Using fallback install path for systemd service directory at '${SYSTEMD_SERVICE_DIR}'")
 		endif()
 
 		delayed_configure_files(
