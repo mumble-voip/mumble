@@ -87,6 +87,15 @@ if(server)
 			set(SYSTEMD_SERVICE_DIR "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system")
 			message(WARNING "Using fallback install path for systemd service directory at '${SYSTEMD_SERVICE_DIR}'")
 		endif()
+		get_pkgconf_variable(
+			OUTPUT_VARIABLE TMPFILES_DIR
+			MODULE systemd
+			VARIABLE_NAME tmpfiles_dir
+		)
+		if(NOT TMPFILES_DIR)
+			set(TMPFILES_DIR "${CMAKE_INSTALL_SYSCONFDIR}/tmpfiles.d")
+			message(WARNING "Using fallback install path for tmpfiles directory at '${TMPFILES_DIR}'")
+		endif()
 
 		delayed_configure_files(
 			TARGET mumble-server
@@ -106,6 +115,7 @@ if(server)
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
 		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "config_files/mumble-server.tmpfiles" DESTINATION "${TMPFILES_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
