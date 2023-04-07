@@ -72,7 +72,7 @@ if(server)
 		)
 		if(NOT SYSUSERS_DIR)
 			# Fallback value, in case it could not be fetched via pkg-config
-			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysconfig.d")
+			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
 		endif()
 		get_pkgconf_variable(
 			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
