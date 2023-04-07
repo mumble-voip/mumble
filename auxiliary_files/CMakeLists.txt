@@ -69,7 +69,6 @@ if(server)
 			OUTPUT_VARIABLE SYSUSERS_DIR
 			MODULE systemd
 			VARIABLE_NAME sysusersdir
-			QUIET
 		)
 		if(NOT SYSUSERS_DIR)
 			# Fallback value, in case it could not be fetched via pkg-config
@@ -79,7 +78,6 @@ if(server)
 			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
 			MODULE systemd
 			VARIABLE_NAME systemd_system_unit_dir
-			QUIET
 		)
 		if(NOT SYSTEMD_SERVICE_DIR)
 			# Default to /etc/systemd/system - This is not where packages ought to install their service files (rather
