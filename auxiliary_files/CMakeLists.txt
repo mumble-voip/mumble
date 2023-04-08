@@ -61,7 +61,6 @@ endif()
 
 if(server)
 	file(COPY "mumble-server.ini" DESTINATION ${CMAKE_BINARY_DIR})
-	file(COPY "config_files/mumble-server.conf" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 	# systemd related files
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
@@ -89,7 +88,6 @@ if(server)
 		install(
 			FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server
 			PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-		install(FILES "config_files/mumble-server.conf" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/dbus-1/system.d" COMPONENT mumble_server)
 	endif()
 
 	if(UNIX AND NOT APPLE)
