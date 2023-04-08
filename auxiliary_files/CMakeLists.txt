@@ -52,8 +52,8 @@ if(client AND UNIX AND NOT APPLE)
 		@ONLY
 	)
 
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${MUMBLE_INSTALL_METADATADIR}")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${MUMBLE_INSTALL_APPLICATIONSDIR}")
 
 	# Install Mumble client man files
 	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
@@ -65,38 +65,6 @@ if(server)
 
 	# systemd related files
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-		get_pkgconf_variable(
-			OUTPUT_VARIABLE SYSUSERS_DIR
-			MODULE systemd
-			VARIABLE_NAME sysusers_dir
-		)
-		if(NOT SYSUSERS_DIR)
-			# Fallback value, in case it could not be fetched via pkg-config
-			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
-			message(WARNING "Using fallback install path for sysusers directory at '${SYSUSERS_DIR}'")
-		endif()
-		get_pkgconf_variable(
-			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
-			MODULE systemd
-			VARIABLE_NAME systemd_system_unit_dir
-		)
-		if(NOT SYSTEMD_SERVICE_DIR)
-			# Default to /etc/systemd/system - This is not where packages ought to install their service files (rather
-			# it's where an admin is supposed to add their system files), but this seems to be the most consistent
-			# path across different platforms, so we use it anyway.
-			set(SYSTEMD_SERVICE_DIR "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system")
-			message(WARNING "Using fallback install path for systemd service directory at '${SYSTEMD_SERVICE_DIR}'")
-		endif()
-		get_pkgconf_variable(
-			OUTPUT_VARIABLE TMPFILES_DIR
-			MODULE systemd
-			VARIABLE_NAME tmpfiles_dir
-		)
-		if(NOT TMPFILES_DIR)
-			set(TMPFILES_DIR "${CMAKE_INSTALL_SYSCONFDIR}/tmpfiles.d")
-			message(WARNING "Using fallback install path for tmpfiles directory at '${TMPFILES_DIR}'")
-		endif()
-
 		delayed_configure_files(
 			TARGET mumble-server
 			FILES
@@ -114,10 +82,10 @@ if(server)
 
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
-		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
-		install(FILES "config_files/mumble-server.tmpfiles" DESTINATION "${TMPFILES_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${MUMBLE_INSTALL_SYSUSERSDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "config_files/mumble-server.tmpfiles" DESTINATION "${MUMBLE_INSTALL_TMPFILESDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 
-		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${MUMBLE_INSTALL_SERVICEFILEDIR}" COMPONENT mumble_server)
 		install(
 			FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server
 			PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
