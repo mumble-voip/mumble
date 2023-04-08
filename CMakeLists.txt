@@ -27,7 +27,7 @@ endif()
 # Get compilation year
 string(TIMESTAMP MUMBLE_BUILD_YEAR "%Y")
 
-project(Mumble
+project(mumble
 	VERSION "1.6.${BUILD_NUMBER}"
 	DESCRIPTION "Open source, low-latency, high quality voice chat."
 	HOMEPAGE_URL "https://www.mumble.info"
