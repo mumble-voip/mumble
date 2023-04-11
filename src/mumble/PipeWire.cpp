@@ -213,13 +213,14 @@ PipeWireEngine::~PipeWireEngine() {
 		return;
 	}
 
+	if (m_stream) {
+		pws->pw_stream_destroy(m_stream);
+	}
+
 	if (m_thread) {
 		pws->pw_thread_loop_destroy(m_thread);
 	}
 
-	if (m_stream) {
-		pws->pw_stream_destroy(m_stream);
-	}
 
 	if (m_loop) {
 		pws->pw_loop_destroy(m_loop);
