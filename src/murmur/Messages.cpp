@@ -26,7 +26,7 @@
 #include <cassert>
 #include <unordered_map>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #define RATELIMIT(user)                   \
 	if (user->leakyBucket.ratelimit(1)) { \
