@@ -38,8 +38,8 @@
 #include <boost/bind/bind.hpp>
 
 #include "TracyConstants.h"
-#include <Tracy.hpp>
-#include <TracyC.h>
+#include <tracy/Tracy.hpp>
+#include <tracy/TracyC.h>
 
 #include <algorithm>
 #include <cassert>
