@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 class AudioReceiver {
 public:
