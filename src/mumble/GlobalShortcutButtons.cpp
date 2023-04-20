@@ -93,10 +93,12 @@ void GlobalShortcutButtons::toggleCapture(const bool enabled) {
 		GlobalShortcutEngine::engine->resetMap();
 		connect(GlobalShortcutEngine::engine, &GlobalShortcutEngine::buttonPressed, this,
 				&GlobalShortcutButtons::updateButtons);
+		m_ui->addButton->setText(QObject::tr("Listening for input"));
 	} else {
 		disconnect(GlobalShortcutEngine::engine, &GlobalShortcutEngine::buttonPressed, this,
 				   &GlobalShortcutButtons::updateButtons);
 		removeEventFilter(this);
+		m_ui->addButton->setText(QObject::tr("Add"));
 	}
 }
 
