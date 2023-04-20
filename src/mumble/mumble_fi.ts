@@ -6519,7 +6519,7 @@ oikeaa asiakasversiota. Sen oletusarvo on tällä hetkellä 1.2.0.
 
 Hyväksytyt valinnat ovat
   -h, --help    Näytä tämä ohjeteksti ja poistu.
-  -V, --version Tulosta versiotiedot ja poistu.
+  --version     Tulosta versiotiedot ja poistu.
   -m, --multiple
                 Sallii monen asiakasohjelman instanssin käynnistämisen
   -c, --config
