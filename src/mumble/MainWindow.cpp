@@ -1592,6 +1592,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addSeparator();
 	qmServer->addAction(qaServerDisconnect);
 	qmServer->addAction(qaServerInformation);
+	qmServer->addAction(qaSearch);
 	qmServer->addAction(qaServerTokens);
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerBanList);
