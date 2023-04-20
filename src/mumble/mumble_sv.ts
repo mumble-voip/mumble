@@ -1030,31 +1030,31 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudsignal när du använder...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudsignal vid start eller stopp för sändning med Push To Talk</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Det här aktiverar ljudmeddelanden vid sändning när du använder Push To Talk.&lt;/b&gt;&lt;br /&gt;Om du ställer in detta ger det dig ett kort ljudpip när du börjar och slutar sända.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Tryck för att Tala</translation>
+        <translation>Tryck för att tala</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudsignal när du börjar eller slutar sända med hjälp av Voice Activity</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt; Detta möjliggör överföring av ljudsignaler när du använder Voice Activity. &lt;/b&gt; &lt;br /&gt; Om du ställer in detta får du ett kort ljudpip när du startar och slutar sända.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Ljudaktivitet</translation>
+        <translation>Röstaktivitet</translation>
     </message>
 </context>
 <context>
