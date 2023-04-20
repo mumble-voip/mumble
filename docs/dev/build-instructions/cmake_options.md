@@ -106,7 +106,7 @@ Build support for JackAudio.
 
 ### lto
 
-Enables link-time optimizations
+Enables link-time optimizations for release builds
 (Default: ${LTO_DEFAULT})
 
 ### manual-plugin
