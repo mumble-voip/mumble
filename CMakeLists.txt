@@ -94,12 +94,9 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
         "-DDEBUG"
         "-DSNAPSHOT_BUILD"
     )
-
-	# Disable LTO in Debug builds in order to reduce time required for linking
-	set(LTO_DEFAULT OFF)
 endif()
 
-option(lto "Enables link-time optimizations" ${LTO_DEFAULT})
+option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
 
 include(compiler)
 include(os)
@@ -108,14 +105,14 @@ target_architecture(MUMBLE_TARGET_ARCH)
 string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
 
 message(STATUS "##################################################")
-message(STATUS "Mumble version:          ${PROJECT_VERSION}")
-message(STATUS "Architecture:            ${MUMBLE_TARGET_ARCH}")
+message(STATUS "Mumble version:              ${PROJECT_VERSION}")
+message(STATUS "Architecture:                ${MUMBLE_TARGET_ARCH}")
 if(NOT IS_MULTI_CONFIG)
-    message(STATUS "Build type:              ${CMAKE_BUILD_TYPE}")
+    message(STATUS "Build type:                  ${CMAKE_BUILD_TYPE}")
 else()
     message(STATUS "Using multi-config generator that will determine build type on-the-fly")
 endif()
-message(STATUS "Using LTO:               ${lto}")
+message(STATUS "Using LTO in release builds: ${lto}")
 message(STATUS "##################################################")
 
 include(install-paths)
@@ -162,6 +159,7 @@ add_compile_definitions(MUMBLE_TARGET_OS="${MUMBLE_TARGET_OS}")
 
 
 set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ${lto})
 
 if(client OR server)
 	add_subdirectory(src)
