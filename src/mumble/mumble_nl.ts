@@ -690,11 +690,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>Wanneer je spraak verzenden</translation>
+        <translation>Wanneer je spraak verzonden zal worden</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Bepaalt wanneer spraak wordt verzonden.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continue&lt;/i&gt; - Heel de tijd&lt;br /&gt;&lt;i&gt;Spreek Activiteit&lt;/i&gt; - Wanneer duidelijk sprekend.&lt;br /&gt;&lt;i&gt;Druk Om Te Praten&lt;/i&gt; - Wanneer sneltoets-indrukkend (ingesteld onder &lt;i&gt;Sneltoetsen&lt;/i&gt;).</translation>
+        <translation>&lt;b&gt;Bepaalt wanneer spraak wordt verzonden.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - Heel de tijd&lt;br /&gt;&lt;i&gt;Spraakactiviteit&lt;/i&gt; - Wanneer er duidelijk wordt gepraat.&lt;br /&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - Wanneer een sneltoets wordt ingedrukt (ingesteld onder &lt;i&gt;Sneltoetsen&lt;/i&gt;).</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -706,7 +706,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;DubbelDruk Tijd&lt;/b&gt;&lt;br /&gt;Dubbel binnen ingestelde tijdsinterval de Druk-om-te-Praten-knop indrukken zorgt voor inhouding. Mumble blijft zenden tot je een laatste maal op de knop drukt om DotP los te laten.</translation>
+        <translation>&lt;b&gt;DubbelDruk Tijd&lt;/b&gt;&lt;br /&gt;Als je de Push-To-Talk knop twee keer indrukt tijdens de geconfigureerde interval van tijd, wordt hij geblokkeerd. Mumble blijft zenden tot je nog een keer de knop indrukt om Push-To-Talk weer te deblokkeren.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -898,11 +898,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Toon een venster dat zich altijd op de voorgrond bevindt dat voorzien is van een Druk-om-te-Praten-knop</translation>
+        <translation>Toon een venster dat zich altijd op de voorgrond bevindt met een Push-To-Talk knop</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation>Druk-om-te-Praten-venster tonen</translation>
+        <translation>Push-To-Talk venster tonen</translation>
     </message>
     <message>
         <source>Misc</source>
@@ -950,7 +950,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>mute</source>
-        <translation>maak stom</translation>
+        <translation>dempen</translation>
     </message>
     <message>
         <source>after</source>
@@ -990,7 +990,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation>Onderdruk ruis niet.</translation>
+        <translation>Gebruik geen ruisonderdrukking.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
@@ -1018,7 +1018,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Mute cue</source>
-        <translation>Stomheidshint</translation>
+        <translation>Dempgeluid</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1030,31 +1030,31 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Geluidssignaal wanneer er wordt gebruikt...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Geluidssignaal wanneer er wordt gestart of gestopt met praten via Push-To-Talk</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dit zet audio-uitzendingsgeluiden aan wanneer je Push-To-Talk gebruikt&lt;/b&gt;&lt;br /&gt;Als je dit aanzet hoor je een korte pieptoon als je begint of stopt met praten.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Druk-om-te-Praten</translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Geluid wanneer het wordt gestart of gestopt van uitzenden met Spraakactiviteit</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dit zet uitzendingsgeluidssignalen aan wanneer Spraakactiviteit wordt gebruikt.&lt;/b&gt;&lt;br /&gt;Als je dit aanzet hoor je een kort piepje wanneer je begint en stopt met uitzenden.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Spraakactiviteit</translation>
+        <translation>Spraakactiviteit</translation>
     </message>
 </context>
 <context>
@@ -1069,7 +1069,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Druk-om-te-Praten</translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1653,7 +1653,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Waarschijnlijkheid dat het laatste frame (20 ms) spraak was en geen omgevingsruis.&lt;br /&gt;Spraakactiviteit verzenden is afhankelijk van dit juist hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en het begin van spraak. Het is lastig gezucht onderscheiden van een woord begint met &apos;h&lt;br /&gt;Als dit in dierenarts lettertype staat verzend Mumble (mit verbonden).</translation>
+        <translation>Dit is de waarschijnlijkheid dat de laatste frame (20 ms) spraak was en geen omgevingsruis.&lt;br /&gt;Spraakactiviteit verzenden is afhankelijk van dit juist ingesteld te hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en het begin van spraak. Het is lastig om het gezucht te onderscheiden van een woord dat begint met een &apos;h&apos;.&lt;br /&gt;Als dit in vet lettertype staat betekent het dat Mumble nu spraak aan het uitzenden is (als je verbonden bent).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
@@ -1673,7 +1673,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tijd tussen twee laatste activaties van Druk-om-te-Praten</translation>
+        <translation>Tijd tussen de twee laatste Push-To-Talk activaties</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -1697,7 +1697,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Toont een trillingsanalyse van het invoersignaal (rode lijn) en een ruisschatting (blauw gevuld).&lt;br /&gt;Amplitude wordt vermenigvuldigd met 30 te tonen hoeveel ↑ signaal t.o.v. ruis per golfgebied aanwezig is.&lt;br /&gt;Alleen interessant als je ruisomstandigheden fijn probeert te stellen op je microfoon. Onder goede omstandigheden is slechts een klein fladder blauwig aan de onderkant. Als het blauwe voorbij halverwege ↑ grafiek gaat dan bevind je je in een extreem luide omgeving.</translation>
+        <translation>Dit toont het sterktespectrum van het invoersignaal (rode lijn) en een ruisschatting (blauw gevuld).&lt;br /&gt;Alle amplitudes worden vermenigvuldigd met 30 om interessante delen te laten zien zoals hoeveel meer signaal dan ruis er aanwezig is in elke golfband.&lt;br /&gt;Dit is waarschijnlijk alleen interessant als je probeert de ruiscondities op je microfoon nauwkeurig af te stellen. Onder goede condities zou er maar een klein beetje blauw aan de bodem zitten. Als het blauwe gedeelte meer dan de helft op de grafiek is, heb je een ernstig ruisvolle omgeving.</translation>
     </message>
     <message>
         <source>Echo Analysis</source>
@@ -1946,7 +1946,7 @@ Mumble geniet continu verdere ontwikkelingen, en het ontwikkelteam focust zich h
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Druk-om-te-Praten:</translation>
+        <translation>Push-To-Talk:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -2531,10 +2531,10 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;p&gt;Je hebt al een certificaat in Mumble opgeslagen, en staat op het punt om deze te vervangen.&lt;/p&gt;
 &lt;p&gt;Indien je probeert te switchen naar een certificaat dat je kreeg van een vertrouwde certificaatautoriteit, en het e-mailadres komt overeen met je huidig certificaat, dan is dit volkomen veilig. De servers waarmee je verbindt zullen automatisch het sterke certificaat herkennen op basis van jouw e-mailadres.
 &lt;/p&gt;
-&lt;p&gt;Is dit niet het geval, dan zal je niet meer herkend worden door servers die je voorheen bezocht had. Heb je je nog nergens geregistreerd, dan is er geen reden tot paniek.
+&lt;p&gt;Is dit niet het geval is, dan zal je niet meer herkend worden door servers die je voorheen bezocht had. Heb je je nog nergens geregistreerd, dan maakt het niet uit.
 &lt;/p&gt;
 &lt;p&gt;
-Weet je zeker dat je je certificaat wil vervangen?
+Weet je zeker dat je jouw certificaat wilt vervangen?
 &lt;/p&gt;
 </translation>
     </message>
@@ -2629,8 +2629,8 @@ Weet je zeker dat je je certificaat wil vervangen?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mocht je je certificaat verliezen - wat kan gebeuren als je hardware faalt, of je je computer opnieuw installeert - kun je je niet (meer) aanmelden bij servers waarop je geregistreerd bent. Het is hierdoor &lt;b&gt;essentieel&lt;/b&gt; dat je een reservekopie van je certificaat maakt. We raden aan om de reservekopie op een verwijderbaar opslagmedium (zoals een USB-stick) op te slaan.&lt;/p&gt;
-&lt;p&gt;Merk op dat dit bestand niet versleuteld wordt, en als iemand ertoe toegang krijgt, ze jouw identiteit kunnen overnemen; draag er dus goed zorg voor.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mocht je je certificaat verliezen - wat kan gebeuren als je hardware faalt, of je je computer opnieuw installeert - kun je niet meer aanmelden bij servers waarop je geregistreerd bent. Het is hierdoor &lt;b&gt;essentieel&lt;/b&gt; dat je een reservekopie van je certificaat maakt. We raden aan om de reservekopie op een verwisselbaar opslagmedium (zoals een USB-stick) op te slaan.&lt;/p&gt;
+&lt;p&gt;Het is belangrijk om te weten dat dit bestand niet versleuteld wordt, en als iemand ertoe toegang krijgt, ze jouw identiteit kunnen overnemen; draag er dus goed zorg voor.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
@@ -2657,7 +2657,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation>Maak stom/doof</translation>
+        <translation>Dempen/Doof</translation>
     </message>
     <message>
         <source>Make channel</source>
@@ -2689,7 +2689,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde stom); kunnen niet spreken totdat het stom zijn wordt opgeheven door bevoegde.</translation>
+        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden gedempt door de server en kunnen niet spreken totdat het dempen wordt opgeheven door bevoegde.</translation>
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
@@ -2697,7 +2697,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Toestemming om anderen stom en doof te maken. Eenmaal stom gemaakt, blijft een gebruiker zo tot hij door een andere, bevoegde gebruiker dit opheft of hij opnieuw met de server verbindt.</translation>
+        <translation>Toestemming om anderen te dempen en doof te maken. Eenmaal gedempt, blijft een gebruiker zo tot een andere, bevoegde gebruiker dit opheft of hij opnieuw met de server verbindt.</translation>
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
@@ -2828,7 +2828,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation>Stom (server)</translation>
+        <translation>Gedempt (server)</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
@@ -2840,11 +2840,11 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Maak lokaal stom</translation>
+        <translation>Lokaal dempen</translation>
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation>Stom (zelf)</translation>
+        <translation>Gedempt (zelf)</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
@@ -3429,9 +3429,9 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation>&lt;b&gt;Snelkoppelingen in toegestane applicaties inschakelen&lt;/b&gt;.&lt;br /&gt;Ook bekend als &quot;UIAccess&quot;. Hierdoor ontvangt Mumble globale snelkoppelingsgebeurtenissen uit programma&apos;s die draaien onder hoge privilege-niveau&apos;s, zoals een Beheer Commando Prompt of oudere spellen die draaien met beheerprivileges.
+        <translation>&lt;b&gt;Sneltoetsen in toegestane applicaties inschakelen&lt;/b&gt;.&lt;br /&gt;Ook bekend als &quot;UIAccess&quot;. Hierdoor ontvangt Mumble globale sneltoetsgebeurtenissen uit programma&apos;s die hoge rechten hebben, zoals een Beheerders Commando Prompt of oudere spellen die draaien met beheersrechten.
 &lt;br /&gt;&lt;br /&gt;
-Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen niet vanuit toegestane applicaties. Dit lijkt inconsistent, want bijvoorbeeld, als de Druk om te Praten-knop is ingedrukt in een niet-toegestaan programma, maar los is gelaten in een toegestaan programma, dan neemt Mumble niet waar dat de knop is losgelaten en blijf je praten totdat je weer Druk-om-te-Praten indrukt.</translation>
+Als deze optie is uitgeschakeld, werken Mumble&apos;s globale sneltoetsen niet in programma&apos;s met hoge rechten. Dit kan inconsistent lijken: bijvoorbeeld, als de Push-To-Talk knop is ingedrukt in een programma met lage rechten, maar los is gelaten in een programma met hoge rechten, dan neemt Mumble niet waar dat de knop is losgelaten en blijf je praten totdat je weer Push-To-Talk indrukt.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
@@ -3731,7 +3731,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation>Iemand anders maakte zichzelf stom/doof</translation>
+        <translation>Iemand anders heeft zichzelf gedempt/doof gemaakt</translation>
     </message>
     <message>
         <source>User recording state changed</source>
@@ -3747,23 +3747,23 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>You self-muted</source>
-        <translation>Je maakte jezelf stom</translation>
+        <translation>Je hebt jezelf gedempt</translation>
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation>Gebruiker stom gemaakt (jij)</translation>
+        <translation>Gebruiker dempt (jou)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation>Gebruiker stom gemaakt (door jou)</translation>
+        <translation>Gebruiker gedempt (door jou)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation>Gebruiker stom gemaakt (andere)</translation>
+        <translation>Gebruiker gedempt (andere)</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation>Je liet jezelf weer spreken</translation>
+        <translation>Je hebt jezelf ongedempt</translation>
     </message>
     <message>
         <source>You self-deafened</source>
@@ -4408,7 +4408,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation>Schakelt het herordenen uit als je je in de aangepaste lay-out-modus bevindt.</translation>
+        <translation>Schakelt het herordenen uit als je in de aangepaste lay-out-modus zit.</translation>
     </message>
     <message>
         <source>Lock layout</source>
@@ -4632,7 +4632,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Druk-om-te-Praten</translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -4642,7 +4642,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit stelt de Druk-om-te-Praten-knop in. Zolang deze knop ingedrukt blijft, zal er spraak verstuurd worden.</translation>
+        <translation>Dit stelt de Push-To-Talk knop in. Zolang deze knop ingedrukt blijft, zal er spraak verstuurd worden.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
@@ -4657,7 +4657,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Druk-voor-Stomheid</translation>
+        <translation>Push-To-Mute</translation>
     </message>
     <message>
         <source>Join Channel</source>
@@ -4716,17 +4716,17 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Maak jezelf stom</translation>
+        <translation>Demp jezelf</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Status zelf stom gemaakt instellen.</translation>
+        <translation>Zet zelf-demp status.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit schakelt om of je stom bent of niet. Als je dit uitzet, zal je ook het zelf doof maken uitschakelen.</translation>
+        <translation>Dit schakelt of je gedempt bent of niet. Als je dit uitzet, zal je ook het zelf doof maken uitschakelen.</translation>
     </message>
     <message>
         <source>Deafen Self</source>
@@ -4741,7 +4741,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit schakelt of je doof gemaakt bent in of uit. Dit inschakelen zal ook het stom maken van jezelf inschakelen.</translation>
+        <translation>Dit schakelt of je doof bent in of uit. Dit inschakelen zal ook het dempen van jezelf inschakelen.</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
@@ -4906,7 +4906,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Stel verzendmodus voor Druk-om-te-Praten in</translation>
+        <translation>Zet zendmodus naar Push-To-Talk</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
@@ -4931,7 +4931,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit stuurt de inhoud van je klembord naar het kanaal waarin je je momenteel bevindt.</translation>
+        <translation>Dit stuurt de inhoud van je klembord naar het kanaal waar je nu in zit.</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -4943,7 +4943,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Druk-om-te-Praten</translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4967,11 +4967,11 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation>Zendmodus naar Spraakactivtiteit ingesteld</translation>
+        <translation>Zendmodus is ingesteld op Spraakactivtiteit</translation>
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Zendmodus ingesteld op Druk-om-te-Praten</translation>
+        <translation>Zendmodus ingesteld op Push-To-Talk</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -5020,19 +5020,19 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Unmuted and undeafened.</source>
-        <translation>Stom- en doofheid opgeheven.</translation>
+        <translation>Dempen en doofheid opgeheven.</translation>
     </message>
     <message>
         <source>Unmuted.</source>
-        <translation>Stomheid opgeheven.</translation>
+        <translation>Dempen opgeheven.</translation>
     </message>
     <message>
         <source>Muted.</source>
-        <translation>Stom gemaakt.</translation>
+        <translation>Gedempt.</translation>
     </message>
     <message>
         <source>Muted and deafened.</source>
-        <translation>Stom en doof gemaakt.</translation>
+        <translation>Gedempt en verdooft.</translation>
     </message>
     <message>
         <source>Deafened.</source>
@@ -5176,7 +5176,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation>&amp;Maak stom</translation>
+        <translation>&amp;Dempen</translation>
     </message>
     <message>
         <source>&amp;Deafen</source>
@@ -5184,7 +5184,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Maak lokaal stom</translation>
+        <translation>&amp;Lokaal Dempen</translation>
     </message>
     <message>
         <source>Send a Text Message</source>
@@ -5248,11 +5248,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Mute user</source>
-        <translation>Maak gebruiker stom</translation>
+        <translation>Gebruiker dempen</translation>
     </message>
     <message>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Maak gebruiker stom of hef dit op op de server. Het stom zijn bij een dove gebruiker opheffen, zal ook doofheid opheffen.</translation>
+        <translation>Demp of ondemp de gebruiker op de server. Het dempen bij een dove gebruiker opheffen, zal ook doofheid opheffen.</translation>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
@@ -5268,15 +5268,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Maak gebruiker doof of hef dit op op de server. Een gebruiker doof maken zal deze ook stom maken.</translation>
+        <translation>Maak gebruiker doof of ondoof op de server. Een gebruiker doof maken zal deze dempen.</translation>
     </message>
     <message>
         <source>Mute user locally</source>
-        <translation>Maak gebruiker lokaal stom</translation>
+        <translation>Gebruiker lokaal dempen</translation>
     </message>
     <message>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Maak gebruiker lokaal stom of hef dit op. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
+        <translation>Lokaal gebruiker dempen of ondempen. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
@@ -5314,19 +5314,19 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Herstelt geluidsverwerking (ruisonderdrukking, versterking en spraakactiviteit-herkenning). Als de geluidsomgeving tijdelijk verslechtert (zoals vallende microfoon), gebruik het om wachten te voorkomen totdat de geluidsverwerking heraanpast.</translation>
+        <translation>Dit herstelt geluidsverwerking (ruisonderdrukking, versterking en spraakactiviteitsherkenning). Als iets de geluidsomgeving opeens verslechtert (zoals de microfoon laten vallen), gebruik dit om te voorkomen te wachten totdat de geluidsverwerking zich aanpast.</translation>
     </message>
     <message>
         <source>&amp;Mute Self</source>
-        <translation>&amp;Maak jezelf stom</translation>
+        <translation>&amp;Jezelf dempen</translation>
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation>Maak jezelf stom</translation>
+        <translation>Jezelf dempen</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Maak jezelf stom of hef dit op. Wanneer je stom bent, zal je geen data naar de server versturen. Het stom zijn opheffen terwijl je doof bent, zal je ook terug laten horen.</translation>
+        <translation>Jezelf dempen of ondempen. Wanneer je gedempt bent, zal je geen data naar de server versturen. Jezelf ondempen terwijl je doof bent, zal je ook weer laten horen.</translation>
     </message>
     <message>
         <source>&amp;Deafen Self</source>
@@ -5338,7 +5338,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Maak jezelf doof of hef dit op. Wanneer je doof bent, kan je niets horen. Jezelf doof maken, zal je ook stom maken.</translation>
+        <translation>Maak jezelf doof of hef dit op. Wanneer je doof bent, kan je niets horen. Jezelf doof maken, zal je ook dempen.</translation>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
@@ -5514,7 +5514,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation>Je maakte %1 stom en doof.</translation>
+        <translation>Je hebt %1 gedempt en doof gemaakt.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
@@ -5530,7 +5530,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%1 werd door %1 stom en doof gemaakt.</translation>
+        <translation>%1 werd door %1 gedempt en doof gemaakt.</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
@@ -5558,7 +5558,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 is nu stom en doof.</translation>
+        <translation>%1 is nu gedempt en doof.</translation>
     </message>
     <message>
         <source>Your account information can not be verified currently. Please try again later</source>
@@ -5638,11 +5638,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 is now muted.</source>
-        <translation>%1 is nu stom.</translation>
+        <translation>%1 is nu gedempt.</translation>
     </message>
     <message>
         <source>%1 is now unmuted.</source>
-        <translation>%1 kan nu weer spreken.</translation>
+        <translation>%1 is niet meer gedempt.</translation>
     </message>
     <message>
         <source>Recording started</source>
@@ -5706,7 +5706,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were muted by %1.</source>
-        <translation>Je werd stom gemaakt door %1.</translation>
+        <translation>Je werd gedempt door %1.</translation>
     </message>
     <message>
         <source>You were undeafened by %1.</source>
@@ -5764,11 +5764,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation>De server vraagt dat je Druk-om-te-Praten inschakelt.</translation>
+        <translation>De server vraagt dat je Push-To-Talk inschakelt.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation>De server vraagt dat je Druk-om-te-Praten uitschakelt.</translation>
+        <translation>De server vraagt dat je Push-To-Talk uitschakelt.</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
@@ -5776,7 +5776,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You muted %1.</source>
-        <translation>Je maakte %1 stom.</translation>
+        <translation>Je hebt %1 gedempt.</translation>
     </message>
     <message>
         <source>You unsuppressed %1.</source>
@@ -5788,7 +5788,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 muted by %2.</source>
-        <translation>%2 maakte %1 stom.</translation>
+        <translation>%2 heeft %1 gedempt.</translation>
     </message>
     <message>
         <source>%1 unsuppressed by %2.</source>
@@ -5796,12 +5796,12 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 unmuted by %2.</source>
-        <translation>%2 liet %1 weer spreken.</translation>
+        <translation>%2 heeft %1 niet meer gedempt.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>Je werd stom en doof gemaakt door %1.</translation>
+        <translation>Je werd gedempt en doof gemaakt door %1.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
@@ -6311,16 +6311,16 @@ Valid actions are:
 </source>
         <translation>Gebruik: mumble rpc &lt;action&gt; [options]
 
-Het is mogelijk om op afstand een instantie van Mumble te bedienen d.m.v.
+Het is mogelijk om op afstand een instantie van Mumble te bedienen met
 het &apos;mumble rpc&apos; commando.
 
 Valide acties zijn:
   mute
-                Maak jezelf stom
+                Jezelf dempen
   unmute
                 Laat jezelf weer spreken
   togglemute
-                Schakel het stom zijn in of uit
+                Schakel het dempen in of uit
   deaf
                 Maak jezelf doof
   undeaf
@@ -6377,7 +6377,7 @@ Valide acties zijn:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation>Hef stomheid op</translation>
+        <translation>Jezelf niet meer dempen</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
@@ -7175,11 +7175,11 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Muted or deafened</source>
-        <translation>Stom of doof</translation>
+        <translation>Gedempt of doof</translation>
     </message>
     <message>
         <source>Mute state</source>
-        <translation>Stomheid-status</translation>
+        <translation>Dempen-status</translation>
     </message>
     <message>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
@@ -7317,7 +7317,7 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation>Dit laat plug-ins voor ondersteunde spellen toe om je positie in het spel te achterhalen en dit mee te sturen met elk (netwerk)pakket met spraak. Dit stelt andere gebruikers die meespelen in staat je stem te horen vanuit de richting waar je je in het spel bevindt t.o.v. waar zij zich bevinden.</translation>
+        <translation>Dit laat plug-ins voor ondersteunde spellen toe om je positie in het spel te achterhalen en dit mee te sturen met elk netwerkpakket met spraak. Dit stelt andere gebruikers die meespelen in staat je stem te horen vanuit de richting waar je je in het spel bevindt t.o.v. waar zij zich bevinden.</translation>
     </message>
     <message>
         <source>Link to Game and Transmit Position</source>
@@ -7671,7 +7671,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Maak lokaal stom</translation>
+        <translation>Lokaal dempen</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7695,7 +7695,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation>Spreekt (stom)</translation>
+        <translation>Spreekt (gedempt)</translation>
     </message>
     <message>
         <source>All messages</source>
@@ -8666,23 +8666,23 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Muted (manually muted by self)</source>
-        <translation>Stom (door zichzelf handmatig stom gemaakt)</translation>
+        <translation>Gedempt (handmatig door zichzelf gedempt)</translation>
     </message>
     <message>
         <source>Muted (manually muted by admin)</source>
-        <translation>Stom (door beheerder handmatig stom gemaakt)</translation>
+        <translation>Gedempt (handmatig door beheerder gedempt)</translation>
     </message>
     <message>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Stom (mag niet spreken in het huidige kanaal)</translation>
+        <translation>Gedempt (mag niet spreken in het huidige kanaal)</translation>
     </message>
     <message>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Stom (door jou stom gemaakt, enkel op jouw computer)</translation>
+        <translation>Gedempt (door jou gedempt, alleen op jouw computer)</translation>
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation>Stom (Druk-voor-Stomheid)</translation>
+        <translation>Gedempt (Push-To-Mute)</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
@@ -8742,7 +8742,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation>Spreekt terwijl je stom bent aan jouw kant</translation>
+        <translation>Spreekt terwijl gedempt aan jouw kant</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
@@ -9057,7 +9057,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Druk-om-te-Praten</translation>
+        <translation>Push-To-Talk</translation>
     </message>
 </context>
 </TS>
