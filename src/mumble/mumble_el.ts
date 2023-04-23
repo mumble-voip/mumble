@@ -651,7 +651,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Για μια λίστα συγγραφέων, ανατρέξτε στο &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1442,7 +1442,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>Το positional audio δεν μπορεί να λειτουργήσει με συσκευές μονοφωνικής εξόδου!</translation>
     </message>
 </context>
 <context>
@@ -3094,11 +3094,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Διεύθυνση IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Διεύθυνση IPv6</translation>
     </message>
 </context>
 <context>
@@ -3423,7 +3423,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Το σύστημα καθολικών συντομεύσεων του Mumble προς το παρόν δεν λειτουργεί σωστά σε συνδυασμό με το πρωτόκολλο Wayland. Για περισσότερες πληροφορίες, επισκεφθείτε &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3865,7 +3865,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ενσωματωμένο περιεχόμενο]</translation>
     </message>
 </context>
 <context>
@@ -4103,19 +4103,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Κάντε κλικ εδώ για εναλλαγή του περιορισμού για %1 συμβάντα.&lt;br /&gt;Εάν είναι επιλεγμένο, οι ειδοποιήσεις για αυτόν τον τύπο συμβάντος δεν θα αναπαράγονται όταν ο αριθμός των χρηστών στον διακομιστή υπερβεί το καθορισμένο όριο.</translation>
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένταση μηνυμάτων</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου για ηχητικές ενδείξεις</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η ρύθμιση της έντασης ήχου για ηχητικά σήματα.&lt;/b&gt;&lt;br /&gt;Η τιμή 0 dB σημαίνει ότι δεν γίνεται αλλαγή στο δείγμα ήχου.</translation>
     </message>
     <message>
         <source> dB</source>
@@ -4123,23 +4123,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ένταση μετατροπής κειμένου σε ομιλία</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου ειδοποίησης</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου για τους ήχους ειδοποιήσεων</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Αυτή είναι η ρύθμιση έντασης ήχου για τους ήχους ειδοποιήσεων.&lt;/b&gt;&lt;br /&gt;Η τιμή 0 dB σημαίνει ότι δεν γίνεται αλλαγή στο δείγμα ήχου.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου υπόδειξης</translation>
     </message>
     <message>
         <source> %</source>
@@ -4147,7 +4147,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου ειδοποίησης</translation>
     </message>
 </context>
 <context>
@@ -4576,35 +4576,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Διακοπή Συμπεριφοράς</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτή η ρύθμιση ελέγχει τη συμπεριφορά του κλικ στο X στην επάνω δεξιά γωνία.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτή η ρύθμιση ελέγχει τη συμπεριφορά κατά το κλείσιμο του Mumble. Μπορείτε να επιλέξετε μεταξύ του να σας ζητηθεί επιβεβαίωση, να ελαχιστοποιήσετε κατά το κλείσιμο ή απλώς να κλείσετε χωρίς πρόσθετη προτροπή. Προαιρετικά, οι δύο πρώτες επιλογές μπορούν να εφαρμοστούν μόνο όταν είστε συνδεδεμένοι αυτήν τη στιγμή σε διακομιστή (σε αυτήν την περίπτωση, το Mumble θα τερματιστεί χωρίς να ρωτήσει, όταν δεν είναι συνδεδεμένο σε κανένα διακομιστή).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Ερώτηση Πάντα</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ερώτηση κατά τη σύνδεση</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Πάντα ελαχιστοποίηση</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ελαχιστοποιήστε όταν είναι συνδεδεμένο</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Πάντα έξοδος</translation>
     </message>
 </context>
 <context>
@@ -6389,11 +6389,11 @@ Valid actions are:
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτήν τη στιγμή βρίσκεστε σε ελάχιστη προβολή αλλά δεν είστε συνδεδεμένοι σε διακομιστή. Χρησιμοποιήστε το μενού περιβάλλοντος για να συνδεθείτε σε έναν διακομιστή ή να απενεργοποιήσετε την ελάχιστη προβολή.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοπική προσαρμογή έντασης ήχου:</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
@@ -6402,32 +6402,32 @@ Valid actions are:
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ακρόαση του καναλιού</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Πραγματοποιεί εναλλαγή της ακρόασης του συγκεκριμένου καναλιού.</translation>
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ο διακομιστής μας έδωσε εντολή να χρησιμοποιήσουμε έναν κωδικοποιητή ήχου διαφορετικό από τον Opus, ο οποίος δεν υποστηρίζεται πλέον. Αποσύνδεση...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Είστε βέβαιοι ότι θέλετε να κλείσετε το Mumble; Ίσως προτιμάτε να το ελαχιστοποιήσετε;</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Να θυμάσαι αυτήν τη ρύθμιση</translation>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Κανάλι &amp;Φίλτρο</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Καρφίτσωμα καναλιού κατά το φιλτράρισμα</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6491,7 +6491,67 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση: mumble [επιλογές] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+Το &lt;url&gt; καθορίζει μια διεύθυνση URL για σύνδεση μετά την εκκίνηση αντί να εμφανίζεται
+το παράθυρο σύνδεσης και έχει την ακόλουθη μορφή:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Το &lt;plugin_list&gt; είναι μια λίστα με αρχεία πρόσθετων που θα εγκατασταθούν
+Η παράμετρος ερωτήματος έκδοσης πρέπει να οριστεί για να ενεργοποιηθεί η
+σωστή έκδοση πελάτη. Προς το παρόν είναι προεπιλεγμένη η 1.2.0.
+
+Οι έγκυρες επιλογές είναι:
+   -h, --help Εμφάνιση αυτού του κειμένου βοήθειας και έξοδος.
+   -V, --έκδοση Εκτύπωση πληροφοριών έκδοσης και έξοδος
+   -m, --πολλαπλά
+                 Να επιτρέπεται η εκκίνηση πολλαπλών παρουσιών του πελάτη.
+   -c, --config
+                 Καθορίστε ένα εναλλακτικό αρχείο διαμόρφωσης.
+                 Εάν το χρησιμοποιήσετε για να εκτελέσετε πολλές παρουσίες του Mumble ταυτόχρονα,
+                 φροντίστε να ορίσετε μια εναλλακτική τιμή «βάσης δεδομένων» στη διαμόρφωση.
+   --default-certificate-dir &lt;dir&gt;
+                 Καθορίστε μια εναλλακτική προεπιλεγμένη διαδρομή πιστοποιητικού.
+                 Αυτή η διαδρομή χρησιμοποιείται μόνο εάν δεν έχει φορτωθεί πιστοποιητικό
+                 από τις ρυθμίσεις.
+   -n, --noidentity
+                 Καταργήστε τη φόρτωση αρχείων ταυτότητας (δηλαδή πιστοποιητικών.)
+   -jn, --jackname &lt;arg&gt;
+                 Ορίστε προσαρμοσμένο όνομα πελάτη Jack.
+   --license
+                 Εμφάνιση της άδειας Mumble.
+   --authors
+                 Εμφάνιση των συγγραφέων Mumble.
+   --third-party-licenses
+                 Εμφάνιση αδειών για λογισμικό τρίτων κατασκευαστών που χρησιμοποιείται από το Mumble.
+   --window-title-ext &lt;arg&gt;
+                 Ορίζει μια προσαρμοσμένη επέκταση τίτλου παραθύρου.
+   --dump-input-streams
+                 Απόρριψη ροών PCM σε διάφορα μέρη της αλυσίδας εισόδου
+                 (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων)
+                 - ακατέργαστη είσοδο μικροφώνου
+                 - Ανάγνωση ηχείου για ακύρωση ηχούς
+                 - επεξεργασμένη είσοδο μικροφώνου
+   --print-echocancel-queue
+                 Εκτυπώστε στο stdout την κατάσταση ουράς ακύρωσης ηχούς
+                 (χρήσιμο για σκοπούς εντοπισμού σφαλμάτων)
+   --translation-dir &lt;dir&gt;
+                 Καθορίζει έναν πρόσθετο κατάλογο μετάφρασης &lt;dir&gt;
+                 στο οποίο το Mumble θα αναζητήσει αρχεία μετάφρασης που
+                 αντικαταστήστε τις συσσωρευμένες
+                 Οι κατάλογοι που προστίθενται με αυτόν τον τρόπο έχουν μεγαλύτερη προτεραιότητα από
+                 οι προεπιλεγμένες τοποθεσίες που χρησιμοποιούνται διαφορετικά
+   --print-translation-dirs
+                 Εκτυπώστε τις διαδρομές στις οποίες θα αναζητήσει το Mumble
+                 αρχεία μετάφρασης που αντικαθιστούν τα ομαδοποιημένα.
+                 (Χρήσιμο για τους μεταφραστές που δοκιμάζουν τις μεταφράσεις τους)
+   --locale &lt;locale&gt;
+                 Αντικαταστήστε τις τοπικές ρυθμίσεις στις ρυθμίσεις του Mumble με μια
+                 τοπική γλώσσα που αντιστοιχεί στη δεδομένη συμβολοσειρά τοπικών ρυθμίσεων.
+                 Εάν η μορφή δεν είναι έγκυρη, το Mumble θα εμφανίσει σφάλμα.
+                 Διαφορετικά, η τοπική ρύθμιση θα αποθηκευτεί μόνιμα στις
+                 Ρυθμίσεις του Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -7823,11 +7883,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η πρόσβαση στο μικρόφωνο απαγορεύτηκε λόγω περιορισμών του συστήματος. Δεν θα μπορείτε να χρησιμοποιήσετε το μικρόφωνο σε αυτήν την περίοδο λειτουργίας.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Άγνωστη Έκδοση</translation>
     </message>
 </context>
 <context>
@@ -8202,7 +8262,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Άγνωστο κανάλι &gt;</translation>
     </message>
 </context>
 <context>
@@ -8548,7 +8608,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Προειδοποίηση: Ο διακομιστής φαίνεται να αναφέρει μια περικομμένη έκδοση πρωτοκόλλου για αυτόν τον πελάτη. (Βλέπε: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Πρόβλημα #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
@@ -8742,7 +8802,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Το κανάλι θα καρφιτσωθεί όταν είναι ενεργοποιημένο το φιλτράρισμα</translation>
     </message>
 </context>
 <context>
@@ -9012,11 +9072,11 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρυθμιστικό για ρύθμιση της έντασης ήχου</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ρύθμιση έντασης ήχου</translation>
     </message>
 </context>
 <context>

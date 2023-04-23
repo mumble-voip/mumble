@@ -382,11 +382,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br /&gt;Це поле дозволяє простим чином встановити, та змінити пароль каналу. Поле використовує в основі токени доступу Mumble. Використовуйте СКД (списки керування доступом) і групи якщо вам потрібно налаштувати більш тонкий і потужний контроль доступу.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це вікно показує всі записи активні на цьому каналі. Записи унаслідовані від батьківського каналу будуть відображені в курсиві.&lt;br /&gt;СКД оброблюються зверху вниз, що значить що записи нижче по списку мають вищий пріоритет.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -403,31 +403,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Максимальна кількість користувачів&lt;/b&gt;&lt;br /&gt;
+Це значення дозволяє вам встановити максимальну дозволену кількість користувачів у каналі. Якщо значення вище нуля, тільки такій кількість користувачів буде дозволено зайти у канал. Якщо це значення нуль, то максимальна кількість користувачів каналу дається лімітом за замовчуванням сервера.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це – порядок сортування каналу.</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль каналу</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна кількість користувачів</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я каналу</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Успадковані члени групи</translation>
     </message>
     <message>
         <source>Foreign group members</source>
@@ -435,22 +436,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Успадковані члени каналу</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати членів до групи</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Список записів СКД</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіокарта ALSA за замовуванням</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>

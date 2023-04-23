@@ -651,7 +651,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished">En liste over utviklere er å finne i</translation>
+        <translation>En liste over utviklere er å finne i &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -6963,7 +6963,7 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Endringer i forgrunnslag trer kun i effekt i det et program startes. Start programmer på ny etter å ha gjort endringer for å se dem.</translation>
+        <translation>Endringer i forgrunnslag trer kun i effekt i det et program startes.&lt;br /&gt;Start programmer på ny etter å ha gjort endringer for å se dem.</translation>
     </message>
     <message>
         <source>Layout</source>

@@ -6490,7 +6490,69 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
+
+&lt;url&gt;başlangıçta bağlantı penceresinin gösterilmesi yerine
+bağlanılacak bir URL belirtir ve aşağıdaki biçime sahiptir:
+mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;altsalon&gt;...]][?sürüm=&lt;x.y.z&gt;]
+
+&lt;eklenti_listesi&gt;, kurulması gereken eklenti dosyaları listesidir
+Sürüm sorgulama parametresi doğru istemci sürümünün
+çağrılabilmesi için ayarlanmalıdır. Güncel olarak varsayılan 1.2.0.
+
+Geçerli seçenekler şunlardır:
+  -h, --help    Bu yardımı görüntüle ve çık.
+  --version     Sürüm bilgisini göster ve çık
+  -m, --multiple
+                İstemcinin birden fazla örneklemesinin başlatılmasına izin ver.
+  -c, --config
+                Alternatif bir yapılandırma dosyası belirt.
+                Eğer bunu Mumble birden fazla örneklemesini ayna anda
+                çalıştırmak için kullanıyorsanız, yapılandırmada alternatif bir
+                &apos;database&apos; değeri ayarladığınızdan emin olun.
+  --default-certificate-dir &lt;dizin&gt;
+                Alternatif bir varsayılan sertifika yolu belirt.
+                Bu yol sadece ayarlardan hiçbir sertifika yüklenmedi
+                ise kullanılır.
+  -n, --noidentity
+                Kimlik dosyalarının (yani sertifikaların) yüklenmelerini engelle.
+  -jn, --jackname &lt;arg&gt;
+                Kişiselleştirilmiş bir Jack istemcisi ismi ayarla.
+  --license
+                Mumble&apos;ın lisansını göster.
+  --authors
+                Mumble&apos;ın yazarlarını göster.
+  --third-party-licenses
+                Mumble tarafından kullanılan üçüncü taraf yazılımların
+                lisanslarını göster.
+  --window-title-ext &lt;arg&gt;
+                Kişiselleştirilmiş bir pencere başlığı uzantısı ayarlar.
+  --dump-input-streams
+                Girdi dizelerinin çeşitli bölümlerinden PCM akımlarını dök
+                (hata ayıklama maksadı için yararlıdır)
+                - ham mikrofon girdisi
+                - yankı iptali için hoparlörlerden geri okuma
+                - işlenmiş mikrofon girdisi
+  --print-echocancel-queue
+                stdout üzerinde yankı iptal kuyruğunun durumunu göster
+                (hata ayıklama maksadı için yararlıdır)
+  --translation-dir &lt;dizin&gt;
+                İlave bir &lt;dizin&gt; tercüme dizini belirtir, ki Mumble burada
+                yazılımla gelen tercüme dosyalarının üzerine yazılacak
+                tercüme dosyalarını arayacaktır
+                Bu şekilde eklenen dizinlerin önceliği diğer durumlarda
+                kullanılan varsayılan konumlardan daha yüksektir
+  --print-translation-dirs
+                Mumble&apos;ın yazılımla gelen tercüme dosyalarının üzerine
+                yazılacak tercüme dosyalarını arayacağı yolları göster.
+                (Çevirilerini deneyen tercümanlar için yararlıdır)
+  --locale &lt;locale&gt;
+                Mumble ayarlarındaki yerel ayarın verilen yerel ayar
+                 dizesine karşılık gelen bir yerel ile üzerine yazar.
+                Şayet biçim geçersizse, Mumble bir hata gösterecektir.
+                Yoksa yerel ayar daimi olarak Mumble&apos;ın ayarlarına
+                kaydedilecektir.
+</translation>
     </message>
 </context>
 <context>
@@ -9039,7 +9101,7 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Tıklayıp konuşun</translation>
+        <translation>Bas ve konuş</translation>
     </message>
 </context>
 </TS>
