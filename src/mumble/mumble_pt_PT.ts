@@ -1018,7 +1018,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Deixar mudo</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1054,7 +1054,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Atividade de voz</translation>
+        <translation>Atividade de voz</translation>
     </message>
 </context>
 <context>
@@ -3110,11 +3110,11 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço IPv6</translation>
     </message>
 </context>
 <context>
