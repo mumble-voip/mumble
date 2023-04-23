@@ -382,9 +382,6 @@ add_custom_command(
 target_sources(mumble PRIVATE "ApplicationPalette.h")
 target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-set_property(TARGET mumble_client_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
-set_property(TARGET mumble PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
-
 target_link_libraries(mumble mumble_client_object_lib)
 
 target_compile_definitions(mumble_client_object_lib
