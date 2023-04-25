@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <cassert>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 AudioReceiver::AudioReceiver(ServerUser &receiver, Mumble::Protocol::audio_context_t context,
 							 const VolumeAdjustment &volumeAdjustment)
