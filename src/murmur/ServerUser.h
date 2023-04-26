@@ -76,7 +76,7 @@ class Server;
 class LeakyBucket {
 private:
 	/// The amount of tokens that are drained per second.
-	/// (The sze of the whole in the bucket)
+	/// (The size of the whole in the bucket)
 	unsigned int m_tokensPerSec;
 	/// The maximum amount of tokens that may be encountered.
 	/// (The capacity of the bucket)
