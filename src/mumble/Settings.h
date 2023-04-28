@@ -258,7 +258,7 @@ struct Settings {
 	int iVoiceHold                  = 20;
 	int iJitterBufferSize           = 1;
 	bool bAllowLowDelay             = true;
-	NoiseCancel noiseCancelMode     = NoiseCancelSpeex;
+	NoiseCancel noiseCancelMode     = NoiseCancelRNN;
 	int iSpeexNoiseCancelStrength   = -30;
 	quint64 uiAudioInputChannelMask = 0xffffffffffffffffULL;
 
