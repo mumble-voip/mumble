@@ -7529,12 +7529,12 @@ Trykk på knappen nedefor for å oppgradere.</translation>
         <translation>«%1»-programtillegget møtte på en permanent feil i innhenting av posisjonsdata</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Fant noe som ikke er et programtillegg i programtilleggsmappen: «%1»</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Klarte ikke å laste inn manual-programtillegg: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

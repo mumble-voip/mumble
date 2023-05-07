@@ -37,7 +37,8 @@ Plugin::Plugin(QString path, bool isBuiltIn, QObject *p)
 
 	if (!m_pluginIsValid) {
 		// throw an exception to indicate that the plugin isn't valid
-		throw PluginError("Unable to load the specified library");
+		throw PluginError(
+			QString::fromLatin1("Unable to load the specified library (%1)").arg(m_lib.errorString()).toStdString());
 	}
 
 	// acquire id-lock in order to assign an ID to this plugin
