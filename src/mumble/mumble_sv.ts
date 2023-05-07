@@ -7557,12 +7557,12 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Pluginet &quot;%1&quot; stötte på ett permanent fel under inhämtning av positionsdata</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Inget insticksprogram hittades i mappen för insticksprogram: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Hämtningen av manuellt insticksprogram misslyckades: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

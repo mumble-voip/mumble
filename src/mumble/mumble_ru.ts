@@ -7499,12 +7499,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Плагин &quot;%1&quot; обнаружил постоянную ошибку при сборе позиционных данных</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Не найден плагин в директории плагинов: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Ошибка при загрузке плагина вручную: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

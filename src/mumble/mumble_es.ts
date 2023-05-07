@@ -7476,12 +7476,12 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Se ha producido un error cargando el plugin manual: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

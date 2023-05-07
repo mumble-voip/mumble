@@ -7350,10 +7350,6 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PluginManager</name>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7367,6 +7363,10 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

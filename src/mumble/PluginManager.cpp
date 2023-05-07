@@ -299,7 +299,6 @@ void PluginManager::rescanPlugins() {
 					// map
 					m_pluginHashMap.insert(p->getID(), p);
 				} catch (const PluginError &e) {
-					Q_UNUSED(e);
 					// If an exception is thrown, this library does not represent a proper plugin
 					// Check if it might be a legacy plugin instead
 					try {
@@ -309,14 +308,14 @@ void PluginManager::rescanPlugins() {
 						LOG_FOUND_LEGACY_PLUGIN(lp, currentInfo.absoluteFilePath());
 #endif
 						m_pluginHashMap.insert(lp->getID(), lp);
-					} catch (const PluginError &e) {
-						Q_UNUSED(e);
+					} catch (const PluginError &el) {
+						Q_UNUSED(el);
 
 						// At the time this function is running the MainWindow is not necessarily created yet, so we
 						// can't use the normal Log::log function
-						Log::logOrDefer(
-							Log::Warning,
-							tr("Non-plugin found in plugin directory: \"%1\"").arg(currentInfo.absoluteFilePath()));
+						Log::logOrDefer(Log::Warning, tr("Non-plugin found in plugin directory: \"%1\" (%2)")
+														  .arg(currentInfo.absoluteFilePath())
+														  .arg(QString::fromUtf8(e.what())));
 					}
 				}
 			}
