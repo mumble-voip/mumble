@@ -1257,7 +1257,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Bloom</source>
-        <translation>Bloom</translation>
+        <translation>Blomning</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
@@ -1509,7 +1509,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Bloom</source>
-        <translation>Bloom</translation>
+        <translation>Blomning</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -3423,7 +3423,7 @@ Om det här alternativet inte är aktiverat fungerar det inte att använda Mumbl
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s globala systemgenvägar fungerar för närvarande inte i kombination med Wayland-protokollet. Besök &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumbles globala genvägar fungerar för närvarande inte i kombination med Wayland-protokollet. För mer information, se &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -4127,7 +4127,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished">Volymjustering för avisering</translation>
+        <translation>Volymjustering för aviseringar</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
@@ -4135,7 +4135,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation>&lt;b&gt;Det här är volymjusteringen för aviseringsljud.&lt;/b&gt;&lt;br /&gt;Ett värde på 0 dB betyder ingen förändring på ljudprovet.</translation>
+        <translation>&lt;b&gt;Det här är volymjusteringen för aviseringsljud.&lt;/b&gt;&lt;br /&gt;Ett värde av 0 dB betyder ingen förändring för ljudprovet.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
@@ -4584,7 +4584,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Den här inställningen kontrollerar beteende när Mumble stängs. Du kan välja mellan att bli tillfrågad för bekräftelse, minimera istället för att stänga eller bara stänga utan någon ytterligare prompt. Valfritt, de 2 första alternativen kan endast tillämpas när du är för närvarande ansluten till en server (i det fallet så kommer Mumble att avsluta utan att fråga när du inte är ansluten till någon server).</translation>
     </message>
     <message>
         <source>Always Ask</source>
@@ -4600,7 +4600,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimera vid anslutning</translation>
     </message>
     <message>
         <source>Always Quit</source>
@@ -6327,7 +6327,7 @@ Giltiga åtgärder är:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Växla TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6377,7 +6377,7 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Visar den positionella ljudvisaren. Den kan användas för att visa informationen som för tillfället används för positionellt ljud. Kontext och identitet visas också.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -6385,7 +6385,7 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished">Ogiltig inställningsfil påträffades.</translation>
+        <translation>Stötte på en ogiltig inställningsfil.</translation>
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
@@ -6423,11 +6423,11 @@ Giltiga åtgärder är:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal &amp;Filter</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fäst kanalen vid filtrering</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6491,7 +6491,66 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Användning: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; bestämmer vilken URL som ska anslutas till vid uppstart istället
+för att visa anslutningsfönstret och sätts enligt följande:
+mumble://[&lt;användarnamn&gt;[:&lt;lösenord&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;underkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; är en lista över pluginfiler som ska installeras.
+Version query-parametern måste sättas för att starta rätt klientversion.
+I nuläget är 1.2.0 standard.
+
+Giltiga värden för options är:
+  -h, --help    Visa denna hjälptext och avsluta.
+  -V, --version Skriv versionsinformation och avsluta.
+  -m, --multiple
+                Tillåt flera klientinstanser att startas.
+  -c, --config
+                Sätt en alternativ konfigurationsfil.
+                Om du använder detta för att köra flera Mumbleinstanser samtidigt,
+                se till att &apos;database&apos;-värdet i konfigurationen skiljer sig.
+  --default-certificate-dir &lt;dir&gt;
+                Sätt en annan förvald certifikatsökväg.
+                Sökvägen används bara om ett certifikat inte är satt i inställingarna.
+  -n, --noidentity
+                Ladda inte identitetsfiler (certifikat).
+  -jn, --jackname &lt;arg&gt;
+                Sätt ett annat klientnamn för Jack.
+  --license
+                Visa Mumble-licensen.
+  --authors
+                Visa Mumbles författare.
+  --third-party-licenses
+                Visa licenser för tredjepartsmjukvara som Mumble använder.
+  --window-title-ext &lt;arg&gt;
+                Sätt en annan ändelse för fönstertiteln.
+  --dump-input-streams
+                Dumpa PCM-strömmar vid diverse delar av input-kedjan.
+                (användbart vid debugging)
+                - rå mikrofoninput
+                - högtalardata för ekoreducering
+                - bearbetad mikrofoninput
+  --print-echocancel-queue
+                Skriv läget för ekoreduceringkön till stdout
+                (användbart för debugging)
+  --translation-dir &lt;dir&gt;
+                Sätter en till översättningsmapp, &lt;dir&gt;
+                som Mumble kommer leta efter översättningsfiler i
+                som kommer skriva över de medföljande.
+                Kataloger tillagda så här har högre prioritet än
+                de annars använda standardsökvägarna.
+  --print-translation-dirs
+                Skriv sökvägarna som Mumble kommer leta efter
+                översättningsfiler som skriver över de medföljande.
+                (Användbart för översättare som testar sina översättningar)
+  --locale &lt;locale&gt;
+                Skriv över locale-inställingen i Mumble med en
+                locale som matchar den givna strängen.
+                Ett fel kommer uppstå om formatet är ogiltigt,
+                annars kommer localen sparas permanent i
+                Mumbles inställningar.
+</translation>
     </message>
 </context>
 <context>
@@ -7373,7 +7432,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Unload</source>
-        <translation>Lossa</translation>
+        <translation>Ladda ur</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
@@ -7412,7 +7471,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished">Du är på väg att installera insticksprogrammet som listas nedanför. Önskar du fortsätta?</translation>
+        <translation>Du håller på att installera följande plugin. Vill du fortsätta?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7424,7 +7483,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Författare:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7464,15 +7523,15 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished">Fel uppstod vid bearbetning av manifestet: %1</translation>
+        <translation>Fel uppstod vid manifestbearbetning: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished">Kunde inte hitta insticksprogrammet för det nuvarande OS:et (&quot;%1&quot;) och arkitektur (&quot;%2&quot;)</translation>
+        <translation>Kunde inte hitta pluginet för det nuvarande OS:et (&quot;%1&quot;) och arkitekturen (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished">Kunde inte lokalisera insticksprogrammets bibliotek som angavs i manifestet (&quot;%1&quot;) i bunten</translation>
+        <translation>Kunde inte hitta pluginbiblioteket som angavs i manifestet (&quot;%1&quot;) i bundlet</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
@@ -7480,7 +7539,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished">Det nya insticksprogrammet &quot;%1&quot; (%2) är om att skriva över det redan installerade insticksprogrammet &quot;%3&quot; (%4). Önskar du fortsätta?</translation>
+        <translation>Det nya pluginet &quot;%1&quot; (%2) håller på att skriva över det redan installerade pluginet &quot;%3&quot; (%4). Vill du fortsätta?</translation>
     </message>
 </context>
 <context>
@@ -7495,7 +7554,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished">Insticksprogrammet &quot;%1&quot; stötte på ett permanent fel i inhämtningen av positionsdatan</translation>
+        <translation>Pluginet &quot;%1&quot; stötte på ett permanent fel under inhämtning av positionsdata</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
@@ -7560,11 +7619,11 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished">Positionell ljudvisare</translation>
+        <translation>Visualiserare av positionellt ljud</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished">Kamera-riktning</translation>
+        <translation>Kamerariktning</translation>
     </message>
     <message>
         <source>X</source>
@@ -7580,7 +7639,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished">Spelar-position</translation>
+        <translation>Spelarposition</translation>
     </message>
     <message>
         <source>Player axis</source>
@@ -7592,11 +7651,11 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished">Kamera-axel</translation>
+        <translation>Kameraaxel</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished">Kamera-position</translation>
+        <translation>Kameraposition</translation>
     </message>
     <message>
         <source>Info</source>
@@ -7793,7 +7852,7 @@ Se &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mum
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished">Migration av genvägar är ofullständigt</translation>
+        <translation>Migrering av genvägar är ofullständig</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
@@ -7811,23 +7870,23 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished">Det verkar som att Mumble inte har utfört en normal nedstängning. Om du inte dödade applikationen med flit så kan det betyda att inställningarna som har använts orsakade en krasch. Vill du ladda inställningens säkerhetskopia istället?</translation>
+        <translation>Det verkar som att Mumble inte utförde en normal nedstängning. Om du inte dödade applikationen med flit kan det betyda att de valda inställningarna orsakade en krasch. Vill du använda inställningens säkerhetskopia istället?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Säkerhetskopian av inställingarna verkar också ha sparats utan att Mumble stängts av normalt (eventuellt på grund av en krasch).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om du råkar ut för upprepade krascher med dessa inställningar kan du behöva ta bort inställingsfilen manuellt från &lt;pre&gt;%1&lt;/pre&gt; och &lt;pre&gt;%2&lt;/pre&gt; för att återställa alla inställningar till deras ursprungliga värden.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofånåtkomst nekades på grund av systembegränsningar. Du kommer inte att kunna använda mikrofonen i den här sessionen.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Okänd version</translation>
     </message>
 </context>
 <context>
@@ -7939,7 +7998,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Om användare ska sökas efter</translation>
     </message>
     <message>
         <source>&amp;Users</source>
@@ -7947,11 +8006,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Om sökningen ska göra skillnad på stora och små bokstäver</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Gör skillnad på stora och små bokstäver</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -7959,7 +8018,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Om sökningen ska tolkas som en regular expression</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
@@ -7975,7 +8034,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Om sökningen ska innefatta kanaler</translation>
     </message>
 </context>
 <context>
@@ -8137,11 +8196,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Om anslutningen stödjer perfect forward secrecy (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -8202,7 +8261,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Okänd kanal &gt;</translation>
     </message>
 </context>
 <context>
@@ -8548,7 +8607,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Varning: Servern verkar uppge en inkomplett protokollsversion för den här klienten. (se &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</translation>
     </message>
 </context>
 <context>
@@ -8742,7 +8801,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalen kommer fästas när filtrering är aktiverat</translation>
     </message>
 </context>
 <context>
@@ -8892,7 +8951,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Destruktiv komprimering</translation>
     </message>
 </context>
 <context>
@@ -9005,18 +9064,18 @@ Kontakta din serveradministratör för mer information.</translation>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte starta inspelning - ljudutgången är felkonfigurerad (0 Hz samplingsfrekvens)</translation>
     </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Volymreglage</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Volymjustering</translation>
     </message>
 </context>
 <context>
