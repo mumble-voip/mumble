@@ -7575,12 +7575,12 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
         <translation>Wtyczka &quot;%1&quot; napotkała trwały błąd podczas gromadzenia danych pozycjonowania</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Nie znaleziono wtyczki w katalogu wtyczek: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Nie udało się ręcznie załadować wtyczki: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

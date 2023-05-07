@@ -7436,11 +7436,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
+        <source>Failed at loading manual plugin: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed at loading manual plugin: %1</source>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
