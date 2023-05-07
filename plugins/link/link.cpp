@@ -29,7 +29,6 @@ std::string pluginContext;
 std::string pluginIdentity;
 
 SharedMemory sharedMem;
-LinkedMem *lm = nullptr;
 
 std::uint32_t last_tick     = 0;
 std::int64_t last_tick_time = 0;
@@ -44,9 +43,7 @@ static std::uint64_t getTimeSinceEpoch() {
 mumble_error_t mumble_init(mumble_plugin_id_t id) {
 	UNUSED(id);
 
-	lm = static_cast< LinkedMem * >(sharedMem.mapMemory(getLinkedMemoryName(), sizeof(LinkedMem)));
-
-	if (!lm) {
+	if (!sharedMem.mapMemory(getLinkedMemoryName())) {
 		std::cerr << "Link plugin: Failed to setup shared memory: " << sharedMem.lastError() << std::endl;
 
 		return MUMBLE_EC_INTERNAL_ERROR;
@@ -116,19 +113,21 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 	UNUSED(programPIDs);
 	UNUSED(programCount);
 
-	if (!lm) {
+	if (!sharedMem.isMemoryMapped()) {
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
-	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
-		if (lm->uiTick != last_tick) {
-			last_tick      = lm->uiTick;
+	LinkedMem lm = sharedMem.read();
+
+	if ((lm.uiVersion == 1) || (lm.uiVersion == 2)) {
+		if (lm.uiTick != last_tick) {
+			last_tick      = lm.uiTick;
 			last_tick_time = getTimeSinceEpoch();
 
 			wchar_t buff[2048];
 
-			if (lm->name[0]) {
-				wcsncpy(buff, lm->name, 256);
+			if (lm.name[0]) {
+				wcsncpy(buff, lm.name, 256);
 				buff[255]       = 0;
 				applicationName = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
 
@@ -136,8 +135,8 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 				pluginName += " (" + applicationName + ")";
 			}
 
-			if (lm->description[0]) {
-				wcsncpy(buff, lm->description, 2048);
+			if (lm.description[0]) {
+				wcsncpy(buff, lm.description, 2048);
 				buff[2047]        = 0;
 				pluginDescription = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
 			}
@@ -162,42 +161,44 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	SET_TO_ZERO(cameraDir);
 	SET_TO_ZERO(cameraAxis);
 
-	if (lm->uiTick != last_tick) {
-		last_tick      = lm->uiTick;
+	LinkedMem lm = sharedMem.read();
+
+	if (lm.uiTick != last_tick) {
+		last_tick      = lm.uiTick;
 		last_tick_time = getTimeSinceEpoch();
 	} else if ((getTimeSinceEpoch() - last_tick_time) > 5000) {
 		return false;
 	}
 
-	if ((lm->uiVersion != 1) && (lm->uiVersion != 2)) {
+	if ((lm.uiVersion != 1) && (lm.uiVersion != 2)) {
 		return false;
 	}
 
 	for (int i = 0; i < 3; ++i) {
-		avatarPos[i]  = lm->fAvatarPosition[i];
-		avatarDir[i]  = lm->fAvatarFront[i];
-		avatarAxis[i] = lm->fAvatarTop[i];
+		avatarPos[i]  = lm.fAvatarPosition[i];
+		avatarDir[i]  = lm.fAvatarFront[i];
+		avatarAxis[i] = lm.fAvatarTop[i];
 	}
 
-	if (lm->uiVersion == 2) {
+	if (lm.uiVersion == 2) {
 		for (int i = 0; i < 3; ++i) {
-			cameraPos[i]  = lm->fCameraPosition[i];
-			cameraDir[i]  = lm->fCameraFront[i];
-			cameraAxis[i] = lm->fCameraTop[i];
+			cameraPos[i]  = lm.fCameraPosition[i];
+			cameraDir[i]  = lm.fCameraFront[i];
+			cameraAxis[i] = lm.fCameraTop[i];
 		}
 
-		if (lm->context_len > 255) {
-			lm->context_len = 255;
+		if (lm.context_len > 255) {
+			lm.context_len = 255;
 		}
-		lm->identity[255] = 0;
+		lm.identity[255] = 0;
 
-		pluginContext.assign(reinterpret_cast< const char * >(lm->context), lm->context_len);
-		pluginIdentity = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(lm->identity);
+		pluginContext.assign(reinterpret_cast< const char * >(lm.context), lm.context_len);
+		pluginIdentity = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(lm.identity);
 	} else {
 		for (int i = 0; i < 3; ++i) {
-			cameraPos[i]  = lm->fAvatarPosition[i];
-			cameraDir[i]  = lm->fAvatarFront[i];
-			cameraAxis[i] = lm->fAvatarTop[i];
+			cameraPos[i]  = lm.fAvatarPosition[i];
+			cameraDir[i]  = lm.fAvatarFront[i];
+			cameraAxis[i] = lm.fAvatarTop[i];
 		}
 
 		pluginContext.clear();
@@ -228,9 +229,7 @@ void mumble_shutdownPositionalData() {
 	pluginContext.clear();
 	pluginIdentity.clear();
 
-	lm->uiTick = last_tick = 0;
-	lm->uiVersion          = 0;
-	lm->name[0]            = 0;
+	sharedMem.reset();
 }
 
 MumbleStringWrapper mumble_getPositionalDataContextPrefix() {
