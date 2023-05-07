@@ -7498,12 +7498,12 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
         <translation>In plug-in &quot;%1&quot; trad een permanente fout op bij het ophalen van positionele data</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Bestand gevonden dat geen plug-in is in de map met plug-ins: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Laden van manuele plug-in mislukt: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

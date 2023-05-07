@@ -7498,12 +7498,12 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>Plugin &quot;%1&quot; erlitt einen permanenten Fehler im Sammeln positioneller Daten</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Datei im Plugin-Verzeichnis gefunden, welche keine Plugin ist: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Laden des Manual Plugins fehlgeschlagen: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

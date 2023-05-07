@@ -7497,12 +7497,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>插件“%1”在收集位置数据时遇到永久性错误</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>在插件目录中发现非插件：“%1”</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>手动加载插件失败：%1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

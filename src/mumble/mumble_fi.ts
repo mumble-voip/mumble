@@ -7498,12 +7498,12 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
         <translation>Liitännäinen &quot;%1&quot; kohtasi pysyvän virheen sijaintitiedon keräyksessä</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Ei-liitännäinen löydetty liitännäiskirjastosta: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Ei voitu ladata manuaalista liitännäistä: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

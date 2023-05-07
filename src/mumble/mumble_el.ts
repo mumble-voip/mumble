@@ -7498,12 +7498,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Το πρόσθετο &quot;%1&quot; αντιμετώπισε ένα μόνιμο σφάλμα στη συλλογή δεδομένων θέσης</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Βρέθηκε μη πρόσθετο στον κατάλογο προσθετών: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Αποτυχία φόρτωσης του μη αυτόματου προσθέτου: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

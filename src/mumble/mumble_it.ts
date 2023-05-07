@@ -7498,12 +7498,12 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>Il plugin &quot;%1&quot; ha incontrato un errore permanente nella raccolta dei dati posizionali</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>Trovato un non-plugin nella cartella dei plugin: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>Impossibile caricare manuale il plugin: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

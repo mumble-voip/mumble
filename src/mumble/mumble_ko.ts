@@ -7497,12 +7497,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>&quot;%1&quot; 플러그인의 위치 데이터 수집에서 영구 오류가 발생했습니다</translation>
     </message>
     <message>
-        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation>플러그인 디렉터리에 플러그인이 없습니다: &quot;%1&quot;</translation>
-    </message>
-    <message>
         <source>Failed at loading manual plugin: %1</source>
         <translation>수동 플러그인을 로드하지 못했습니다: %1</translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
