@@ -56,6 +56,12 @@ If you want to report a bug or create a feature-request, you can open a new issu
 [GitHub](https://github.com/mumble-voip/mumble/issues/new/choose).
 
 
+## Code Signing
+
+We graciously acknowledge that this program uses free code signing provided by
+[SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=mumble), and a free code signing certificate by the
+[SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=mumble).
+
 ## Windows
 
 ### Running Mumble
