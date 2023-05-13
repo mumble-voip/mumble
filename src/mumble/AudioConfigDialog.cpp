@@ -856,20 +856,32 @@ void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 void AudioOutputDialog::on_qsMinDistance_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMinimumDistance);
 	qsbMinimumDistance->setValue(value / 10.0f);
+
+	// Ensure that max distance is always a least 1m larger than min distance
+	qsbMaximumDistance->setValue(std::max(qsbMaximumDistance->value(), (value / 10.0) + 1));
 }
 
 void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMinDistance);
 	qsMinDistance->setValue(value * 10);
+
+	// Ensure that max distance is always a least 1m larger than min distance
+	qsMaxDistance->setValue(std::max(qsMaxDistance->value(), static_cast< int >(value * 10) + 1));
 }
 
 void AudioOutputDialog::on_qsMaxDistance_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMaximumDistance);
 	qsbMaximumDistance->setValue(value / 10.0f);
+
+	// Ensure that max distance is always a least 1m larger than min distance
+	qsbMinimumDistance->setValue(std::min(qsbMinimumDistance->value(), (value / 10.0) - 1));
 }
 void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMaxDistance);
 	qsMaxDistance->setValue(value * 10);
+
+	// Ensure that max distance is always a least 1m larger than min distance
+	qsMinDistance->setValue(std::min(qsMinDistance->value(), static_cast< int >(value * 10) - 1));
 }
 
 void AudioOutputDialog::on_qsMinimumVolume_valueChanged(int value) {
