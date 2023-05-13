@@ -644,11 +644,11 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	// Distance in cm
 	qsMinDistance->setRange(0, 200);
 	// Distance in m
-	qsbMinimumDistance->setRange(0.0, 50.0);
+	qsbMinimumDistance->setRange(0.0, 1000.0);
 	// Distance in cm
 	qsMaxDistance->setRange(10, 2000);
 	// Distance in m
-	qsbMaximumDistance->setRange(1.0, 1000.0);
+	qsbMaximumDistance->setRange(1.0, 10000.0);
 	qsMinimumVolume->setRange(0, 100);
 	qsbMinimumVolume->setRange(qsMinimumVolume->minimum(), qsMinimumVolume->maximum());
 	qsBloom->setRange(0, 75);
