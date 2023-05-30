@@ -221,3 +221,5 @@ if(packaging)
 		)
 	endif()
 endif()
+
+add_subdirectory(${3RDPARTY_DIR}/CLI11)
