@@ -235,13 +235,15 @@ int main(int argc, char **argv) {
 	std::string window_title_postfix;
 	bool print_version{ false };
 	std::string extra_translation_dir;
+  std::string default_certificate_dir;
+  std::string locale;
 
 	CLI::Option *option_jackname =
 		app.add_option("--jackname", custom_jack_client_name, "Set custom Jack client name.\n");
 	CLI::Option *option_window_title_ext =
 		app.add_option("--window-title-ext", window_title_postfix, "Sets a custom window title extension.\n");
 	CLI::Option *option_default_certificate_dir =
-		app.add_option("--default-certificate-dir", qdCert,
+		app.add_option("--default-certificate-dir", default_certificate_dir,
 					   "Specify an alternative default certificate path.\n"
 					   "This path is only used if there is no certificate loaded\n"
 					   "from the settings.\n");
@@ -251,7 +253,7 @@ int main(int argc, char **argv) {
 														 "overwrite the bundled ones\n"
 														 "Directories added this way have higher priority than\n"
 														 "the default locations used otherwise\n");
-	CLI::Option *option_locale          = app.add_option("--locale", localeOverwrite,
+	CLI::Option *option_locale          = app.add_option("--locale", locale,
 														 "Overwrite the locale in Mumble's settings with a\n"
 																  "locale that corresponds to the given locale string.\n"
 																  "If the format is invalid, Mumble will error.\n"
@@ -302,27 +304,27 @@ int main(int argc, char **argv) {
 
 	CLI::Option *option_rpc_command = rpc_subcommand->add_option("rpcCommand", rpcCommand);
 
-	rpc_subcommand->callback([&]() {
-		bRpcMode = true;
-		if (!(*option_rpc_command)) {
-			QString rpcError = MainWindow::tr("Error: No RPC command specified");
-#if defined(Q_OS_WIN)
-			QMessageBox::information(nullptr, MainWindow::tr("RPC"), rpcError);
-#else
-			printf("%s\n", qPrintable(rpcError));
-#endif
-			return 1;
-		}
-	});
-
 	CLI11_PARSE(app, argc, argv);
+
+  if (*rpc_subcommand) {
+    bRpcMode = true;
+    if (!(*option_rpc_command)) {
+      QString rpcError = MainWindow::tr("Error: No RPC command specified");
+#if defined(Q_OS_WIN)
+      QMessageBox::information(nullptr, MainWindow::tr("RPC"), rpcError);
+#else
+      printf("%s\n", qPrintable(rpcError));
+#endif
+      return 1;
+    }
+  }
 
 	if (*option_jackname) {
 		if (custom_jack_client_name.empty()) {
 			qCritical("Missing argument for --jackname!");
 			return 1;
 		} else {
-			Global::get().s.qsJackClientName = custom_jack_client_name;
+			Global::get().s.qsJackClientName = QString::fromStdString(custom_jack_client_name);
 			customJackClientName             = true;
 		}
 	}
@@ -332,21 +334,23 @@ int main(int argc, char **argv) {
 			qCritical("Missing argument for --window-title-ext!");
 			return 1;
 		} else {
-			Global::get().windowTitlePostfix = window_title_postfix;
+			Global::get().windowTitlePostfix = QString::fromStdString(window_title_postfix);
 		}
 	}
 
-	if (*option_default_cerificate_dir) {
-		if (qdCert.empty()) {
+	if (*option_default_certificate_dir) {
+		if (default_certificate_dir.empty()) {
 			qCritical("Missing argument for --default-certificate-dir!");
 			return 1;
 		} else {
+      qdCert = QDir(QString::fromStdString(default_certificate_dir));
+
 			// I suppose we should really be checking whether the directory is writable here too,
 			// but there are some subtleties with doing that:
 			// (doc.qt.io/qt-5/qfile.html#platform-specific-issues)
 			// so we can just let things fail down below when this directory is used.
 			if (!qdCert.exists()) {
-				printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(args.at(i + 1))));
+				printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(QString::fromStdString(default_certificate_dir))));
 				return 1;
 			}
 		}
@@ -357,15 +361,17 @@ int main(int argc, char **argv) {
 			qCritical("Missing argument for --translation-dir!");
 			return 1;
 		} else {
-			extraTranslationDirs.append(extra_translation_dir);
+			extraTranslationDirs.append(QString::fromStdString(extra_translation_dir));
 		}
 	}
 
 	if (*option_locale) {
-		if (localeOverwrite.empty()) {
+		if (locale.empty()) {
 			qCritical("Missing argument for --locale!");
 			return 1;
-		}
+    } else {
+      localeOverwrite = QString::fromStdString(locale);
+    }
 	}
 
 	if (suppressIdentity == true) {
