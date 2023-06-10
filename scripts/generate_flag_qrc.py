@@ -39,7 +39,7 @@ def main():
     # Get a list of all flag SVGs
     flags = []
 
-    for fn in os.listdir(args.flag_dir):
+    for fn in sorted(os.listdir(args.flag_dir)):
         if not fn.lower().endswith('svg'):
             continue
         
