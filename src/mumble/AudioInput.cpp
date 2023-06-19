@@ -1048,6 +1048,11 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > MUTE_CUE_DELAY) {
 					qetLastMuteCue.start();
 					ao->playSample(Global::get().s.qsTxMuteCue, Global::get().s.cueVolume);
+
+					if (!Global::get().s.bMuteCueShown && !Global::get().bInConfigUI){
+						Global::get().mw->initializeAIConnection();
+						emit doMuteCuePopup();
+					}
 				}
 			}
 		}

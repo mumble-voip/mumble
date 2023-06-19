@@ -107,6 +107,7 @@ Global::Global(const QString &qsConfigPath) {
 	bCenterPosition = false;
 	bPosTest        = false;
 	bInAudioWizard  = false;
+	bInConfigUI		= false;
 	iAudioPathTime  = 0;
 	iAudioBandwidth = -1;
 	iMaxBandwidth   = -1;

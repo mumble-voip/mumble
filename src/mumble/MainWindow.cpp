@@ -2763,6 +2763,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	ConfigDialog *dlg = new ConfigDialog(this);
+	Global::get().bInConfigUI = true;
 
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
 
@@ -2787,6 +2788,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 		}
 	}
 
+	Global::get().bInConfigUI = false;
 	delete dlg;
 }
 
@@ -3810,4 +3812,26 @@ void MainWindow::destroyUserInformation() {
 			return;
 		}
 	}
+}
+
+void MainWindow::initializeAIConnection(){
+	AudioInputPtr ai = Global::get().ai;
+
+	QObject::connect(ai.get(), SIGNAL(doMuteCuePopup()), this, SLOT(on_muteCuePopup_triggered()));
+}
+
+void MainWindow::on_muteCuePopup_triggered() {
+	Global::get().s.bMuteCueShown = true;
+
+	QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
+					   tr("That sound was the mute cue.  It activates when you speak while muted.  Would you like to keep it enabled?"),
+					   QMessageBox::NoButton, this);
+		QPushButton *qpbAccept    = mb.addButton(tr("Yes"), QMessageBox::YesRole);
+		QPushButton *qpbReject = mb.addButton(tr("No"), QMessageBox::NoRole);
+		mb.setDefaultButton(qpbAccept);
+		mb.setEscapeButton(qpbAccept);
+		mb.exec();
+
+	if (mb.clickedButton() == qpbReject) 
+		Global::get().s.bTxMuteCue = false;
 }

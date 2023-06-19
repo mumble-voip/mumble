@@ -266,6 +266,7 @@ protected:
 signals:
 	void doDeaf();
 	void doMute();
+	void doMuteCuePopup();
 	/// A signal emitted if audio input is being encountered
 	///
 	/// @param inputPCM The encountered input PCM
