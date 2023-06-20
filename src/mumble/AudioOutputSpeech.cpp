@@ -22,7 +22,7 @@ std::vector< AudioOutputCache > AudioOutputSpeech::s_audioCaches(100);
 
 void AudioOutputSpeech::invalidateAudioOutputCache(void *maskedIndex) {
 	// The given "pointer" actually is to be understood as an index
-	std::size_t index = reinterpret_cast< std::size_t >(maskedIndex);
+	const std::size_t index = reinterpret_cast< std::size_t >(maskedIndex) - 1;
 
 	std::lock_guard< std::mutex > lock(s_audioCachesMutex);
 
@@ -201,8 +201,14 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	// We cheat a bit and instead of storing the actual audio data in the jitter buffer, we store the index to
 	// the created audio chunk in the buffer. Passing a length of 0 should ensure that this "pointer" will never
 	// be dereferenced.
+
+	// A call to jitter_buffer_put stores the packet in an internal array used for book-keeping.
+	// The library uses jbp.data == NULL to differentiate between unused and reserved elements
+	// of the book-keeping array.
+	// Since a storageIndex of zero will look the same as a null pointer, we always add one to
+	// ensure the library never erroneously confuses this entry with a free slot.
 	JitterBufferPacket jbp;
-	jbp.data      = reinterpret_cast< char * >(storageIndex);
+	jbp.data      = reinterpret_cast< char * >(storageIndex) + 1;
 	jbp.len       = 0;
 	jbp.span      = samples;
 	jbp.timestamp = iFrameSize * audioData.frameNumber;
@@ -276,11 +282,11 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					iMissCount = 0;
 
 					// The "data pointer" that is stored in the buffer is actually just an index to s_audioCaches
-					std::size_t index = reinterpret_cast< std::size_t >(jbp.data);
+					const std::size_t index = reinterpret_cast< std::size_t >(jbp.data) - 1;
 					assert(jbp.len == 0);
 					assert(index < s_audioCaches.size());
 
-					const AudioOutputCache &cache = s_audioCaches[index];
+					AudioOutputCache &cache = s_audioCaches[index];
 					assert(cache.isValid());
 
 					bHasTerminator = cache.isLastFrame();
@@ -312,6 +318,11 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 						else
 							p->fAverageAvailable *= 0.99f;
 					}
+
+					// If a destroy callback has been registered, jitter_buffer_get expects the caller to
+					// invoke the destroy callback on the returned packet.
+					// We registered a destroy callback in our constructor, so we clean up the packet here.
+					cache.clear();
 				} else {
 					// Let the jitter buffer know it's the right time to adjust the buffering delay to the network
 					// conditions.
