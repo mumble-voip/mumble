@@ -115,7 +115,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -2762,7 +2764,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	ConfigDialog *dlg = new ConfigDialog(this);
+	ConfigDialog *dlg         = new ConfigDialog(this);
 	Global::get().bInConfigUI = true;
 
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
@@ -3814,7 +3816,7 @@ void MainWindow::destroyUserInformation() {
 	}
 }
 
-void MainWindow::initializeAIConnection(){
+void MainWindow::initializeAIConnection() {
 	AudioInputPtr ai = Global::get().ai;
 
 	QObject::connect(ai.get(), SIGNAL(doMuteCuePopup()), this, SLOT(on_muteCuePopup_triggered()));
@@ -3824,14 +3826,15 @@ void MainWindow::on_muteCuePopup_triggered() {
 	Global::get().s.bMuteCueShown = true;
 
 	QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
-					   tr("That sound was the mute cue.  It activates when you speak while muted.  Would you like to keep it enabled?"),
-					   QMessageBox::NoButton, this);
-		QPushButton *qpbAccept    = mb.addButton(tr("Yes"), QMessageBox::YesRole);
-		QPushButton *qpbReject = mb.addButton(tr("No"), QMessageBox::NoRole);
-		mb.setDefaultButton(qpbAccept);
-		mb.setEscapeButton(qpbAccept);
-		mb.exec();
+				   tr("That sound was the mute cue.  It activates when you speak while muted.  Would you like to keep "
+					  "it enabled?"),
+				   QMessageBox::NoButton, this);
+	QPushButton *qpbAccept = mb.addButton(tr("Yes"), QMessageBox::YesRole);
+	QPushButton *qpbReject = mb.addButton(tr("No"), QMessageBox::NoRole);
+	mb.setDefaultButton(qpbAccept);
+	mb.setEscapeButton(qpbAccept);
+	mb.exec();
 
-	if (mb.clickedButton() == qpbReject) 
+	if (mb.clickedButton() == qpbReject)
 		Global::get().s.bTxMuteCue = false;
 }

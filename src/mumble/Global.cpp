@@ -107,7 +107,7 @@ Global::Global(const QString &qsConfigPath) {
 	bCenterPosition = false;
 	bPosTest        = false;
 	bInAudioWizard  = false;
-	bInConfigUI		= false;
+	bInConfigUI     = false;
 	iAudioPathTime  = 0;
 	iAudioBandwidth = -1;
 	iMaxBandwidth   = -1;
@@ -208,13 +208,17 @@ DeferInit::~DeferInit() {
 void DeferInit::run_initializers() {
 	if (!qmDeferers)
 		return;
-	foreach (DeferInit *d, *qmDeferers) { d->initialize(); }
+	foreach (DeferInit *d, *qmDeferers) {
+		d->initialize();
+	}
 }
 
 void DeferInit::run_destroyers() {
 	if (!qmDeferers)
 		return;
-	foreach (DeferInit *d, *qmDeferers) { d->destroy(); }
+	foreach (DeferInit *d, *qmDeferers) {
+		d->destroy();
+	}
 	delete qmDeferers;
 	qmDeferers = nullptr;
 }
