@@ -115,7 +115,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the

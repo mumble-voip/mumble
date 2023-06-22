@@ -70,7 +70,9 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	if (AudioInputRegistrar::qmNew) {
 		QList< QString > keys = AudioInputRegistrar::qmNew->keys();
-		foreach (QString key, keys) { qcbSystem->addItem(key); }
+		foreach (QString key, keys) {
+			qcbSystem->addItem(key);
+		}
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
@@ -634,7 +636,9 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 
 	if (AudioOutputRegistrar::qmNew) {
 		QList< QString > keys = AudioOutputRegistrar::qmNew->keys();
-		foreach (QString key, keys) { qcbSystem->addItem(key); }
+		foreach (QString key, keys) {
+			qcbSystem->addItem(key);
+		}
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 

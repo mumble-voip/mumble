@@ -208,13 +208,17 @@ DeferInit::~DeferInit() {
 void DeferInit::run_initializers() {
 	if (!qmDeferers)
 		return;
-	foreach (DeferInit *d, *qmDeferers) { d->initialize(); }
+	foreach (DeferInit *d, *qmDeferers) {
+		d->initialize();
+	}
 }
 
 void DeferInit::run_destroyers() {
 	if (!qmDeferers)
 		return;
-	foreach (DeferInit *d, *qmDeferers) { d->destroy(); }
+	foreach (DeferInit *d, *qmDeferers) {
+		d->destroy();
+	}
 	delete qmDeferers;
 	qmDeferers = nullptr;
 }
