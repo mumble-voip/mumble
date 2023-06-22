@@ -350,6 +350,7 @@ public slots:
 	void context_triggered();
 	void updateTarget();
 	void updateMenuPermissions();
+	void on_muteCuePopup_triggered();
 	/// Handles state changes like talking mode changes and mute/unmute
 	/// or priority speaker flag changes for the gui user
 	void userStateChanged();

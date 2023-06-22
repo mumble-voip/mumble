@@ -286,6 +286,7 @@ AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE
 
 	connect(this, SIGNAL(doDeaf()), Global::get().mw->qaAudioDeaf, SLOT(trigger()), Qt::QueuedConnection);
 	connect(this, SIGNAL(doMute()), Global::get().mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
+	connect(this, SIGNAL(doMuteCue()), Global::get().mw, SLOT(on_muteCuePopup_triggered()));
 }
 
 AudioInput::~AudioInput() {
@@ -1048,6 +1049,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > MUTE_CUE_DELAY) {
 					qetLastMuteCue.start();
 					ao->playSample(Global::get().s.qsTxMuteCue, Global::get().s.cueVolume);
+					emit doMuteCue();
 				}
 			}
 		}

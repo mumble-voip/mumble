@@ -226,6 +226,7 @@ struct Settings {
 	QString qsTxAudioCueOff = cqsDefaultPushClickOn;
 
 	bool bTxMuteCue     = true;
+	bool muteCueShown   = false;
 	QString qsTxMuteCue = cqsDefaultMuteCue;
 
 	bool bTransmitPosition         = false;

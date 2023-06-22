@@ -46,6 +46,7 @@ const SettingsKey TRANSMIT_CUE_START_KEY                      = { "transmit_cue_
 const SettingsKey TRANSMIT_CUE_STOP_KEY                       = { "transmit_cue_stop" };
 const SettingsKey PLAY_MUTE_CUE_KEY                           = { "play_mute_cue" };
 const SettingsKey MUTE_CUE_KEY                                = { "mute_cue" };
+const SettingsKey MUTE_CUE_POPUP_SHOWN                        = { "mute_cue_popup_shown" };
 const SettingsKey AUDIO_QUALITY_KEY                           = { "audio_quality" };
 const SettingsKey LOUDNESS_KEY                                = { "loudness" };
 const SettingsKey VOLUME_KEY                                  = { "volume" };
