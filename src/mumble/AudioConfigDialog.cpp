@@ -70,9 +70,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	if (AudioInputRegistrar::qmNew) {
 		QList< QString > keys = AudioInputRegistrar::qmNew->keys();
-		foreach (QString key, keys) {
-			qcbSystem->addItem(key);
-		}
+		foreach (QString key, keys) { qcbSystem->addItem(key); }
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
@@ -131,7 +129,7 @@ void AudioInputDialog::load(const Settings &r) {
 	qlePushClickPathOn->setText(r.qsTxAudioCueOn);
 	qlePushClickPathOff->setText(r.qsTxAudioCueOff);
 	qleMuteCuePath->setText(r.qsTxMuteCue);
-	s.bMuteCueShown = r.bMuteCueShown;
+	s.muteCueShown = r.muteCueShown;
 
 
 	loadComboBox(qcbTransmit, r.atTransmit);
@@ -443,7 +441,7 @@ void AudioInputDialog::on_qcbMuteCue_clicked(bool b) {
 	qleMuteCuePath->setEnabled(b);
 	qpbMuteCueBrowse->setEnabled(b);
 	qpbMuteCuePreview->setEnabled(b);
-	s.bMuteCueShown = true;
+	s.muteCueShown = true;
 }
 
 void AudioInputDialog::on_qpbMuteCueBrowse_clicked() {
@@ -636,9 +634,7 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 
 	if (AudioOutputRegistrar::qmNew) {
 		QList< QString > keys = AudioOutputRegistrar::qmNew->keys();
-		foreach (QString key, keys) {
-			qcbSystem->addItem(key);
-		}
+		foreach (QString key, keys) { qcbSystem->addItem(key); }
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
