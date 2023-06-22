@@ -83,6 +83,7 @@ public:
 	bool bCenterPosition;
 	bool bPosTest;
 	bool bInAudioWizard;
+	bool inConfigUI;
 #ifdef USE_OVERLAY
 	OverlayClient *ocIntercept;
 #endif
