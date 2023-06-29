@@ -17,6 +17,8 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(ConfigDialog)
+
+	void updateTabOrder();
 protected:
 	static QMutex s_existingWidgetsMutex;
 	static QHash< QString, ConfigWidget * > s_existingWidgets;
