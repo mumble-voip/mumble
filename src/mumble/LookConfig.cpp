@@ -205,6 +205,7 @@ void LookConfig::load(const Settings &r) {
 	const boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
+	loadCheckBox(qcbUsersAlwaysVisible, r.talkingUI_UsersAlwaysVisible);
 	loadCheckBox(qcbLocalUserVisible, r.bTalkingUI_LocalUserStaysVisible);
 	loadCheckBox(qcbAbbreviateChannelNames, r.bTalkingUI_AbbreviateChannelNames);
 	loadCheckBox(qcbAbbreviateCurrentChannel, r.bTalkingUI_AbbreviateCurrentChannel);
@@ -276,6 +277,7 @@ void LookConfig::save() const {
 		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
 	}
 
+	s.talkingUI_UsersAlwaysVisible        = qcbUsersAlwaysVisible->isChecked();
 	s.bTalkingUI_LocalUserStaysVisible    = qcbLocalUserVisible->isChecked();
 	s.bTalkingUI_AbbreviateChannelNames   = qcbAbbreviateChannelNames->isChecked();
 	s.bTalkingUI_AbbreviateCurrentChannel = qcbAbbreviateCurrentChannel->isChecked();
@@ -320,4 +322,13 @@ void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {
 	qsbPrefixCharCount->setEnabled(abbreviateNames);
 	qsbPostfixCharCount->setEnabled(abbreviateNames);
 	qleAbbreviationReplacement->setEnabled(abbreviateNames);
+}
+
+void LookConfig::on_qcbUsersAlwaysVisible_stateChanged(int state) {
+	bool usersAlwaysVisible = state == Qt::Checked;
+
+	// Only enable the local user visibility setting when all users are not always visible
+	qcbLocalUserVisible->setEnabled(!usersAlwaysVisible);
+	// Only enable the user visibility timeout settings when all users are not always visible
+	qsbSilentUserLifetime->setEnabled(!usersAlwaysVisible);
 }

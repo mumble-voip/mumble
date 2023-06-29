@@ -32,6 +32,7 @@ public slots:
 	void load(const Settings &r) Q_DECL_OVERRIDE;
 	void themeDirectoryChanged();
 	void on_qcbAbbreviateChannelNames_stateChanged(int state);
+	void on_qcbUsersAlwaysVisible_stateChanged(int state);
 
 private:
 	/// Reload themes combobox and select given configuredStyle in it

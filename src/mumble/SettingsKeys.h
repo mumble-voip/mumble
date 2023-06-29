@@ -223,6 +223,7 @@ const SettingsKey CRASH_EMAIL_ADDRESS_KEY                = { "crash_report_email
 // TalkingUI
 const SettingsKey TALKINGUI_POSITION_KEY                   = { "talkingui_position" };
 const SettingsKey SHOW_TALKINGUI_KEY                       = { "display_talkingui" };
+const SettingsKey TALKINGUI_USERS_ALWAYS_VISIBLE_KEY       = { "users_always_visible" };
 const SettingsKey TALKINGUI_LOCAL_USER_STAYS_VISIBLE_KEY   = { "local_user_stays_visible" };
 const SettingsKey TALKINGUI_ABBREVIATE_CHANNEL_NAMES_KEY   = { "abbreviate_channel_names" };
 const SettingsKey TALKINGUI_ABBREVIATE_CURRENT_CHANNEL_KEY = { "abbreviate_current_channel_name" };
