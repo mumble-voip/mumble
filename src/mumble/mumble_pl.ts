@@ -4623,6 +4623,18 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <source>Always Quit</source>
         <translation>Zawsze zamykaj</translation>
     </message>
+    <message>
+        <source> seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep users visible</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
