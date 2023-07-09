@@ -12,13 +12,16 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "MumbleConstants.h"
-#include "PluginComponents_v_1_0_x.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "Settings.h"
 #include "UserModel.h"
 #include "Version.h"
 #include "Global.h"
+
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#include "MumblePlugin.h"
+#undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
 #include <QVariant>
 #include <QtCore/QHash>
@@ -1646,7 +1649,7 @@ void MumbleAPI::playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samp
 /////////////////// C FUNCTION WRAPPERS FOR USE IN API STRUCT ///////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-mumble_error_t PLUGIN_CALLING_CONVENTION freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1669,8 +1672,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION freeMemory_v_1_0_x(mumble_plugin_id_t c
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getActiveServerConnection_v_1_0_x(mumble_plugin_id_t callerID,
-																		   mumble_connection_t *connection) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getActiveServerConnection_v_1_0_x(mumble_plugin_id_t callerID,
+																				  mumble_connection_t *connection) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1693,9 +1696,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getActiveServerConnection_v_1_0_x(mumbl
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID,
-																		  mumble_connection_t connection,
-																		  bool *synchronized) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID,
+																				 mumble_connection_t connection,
+																				 bool *synchronized) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1718,9 +1721,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION isConnectionSynchronized_v_1_0_x(mumble
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_userid_t *userID) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID,
+																	   mumble_connection_t connection,
+																	   mumble_userid_t *userID) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1743,9 +1746,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getLocalUserID_v_1_0_x(mumble_plugin_id
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserName_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t userID,
-															 const char **name) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getUserName_v_1_0_x(mumble_plugin_id_t callerID,
+																	mumble_connection_t connection,
+																	mumble_userid_t userID, const char **name) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1768,9 +1771,10 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getUserName_v_1_0_x(mumble_plugin_id_t 
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelName_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_channelid_t channelID, const char **name) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getChannelName_v_1_0_x(mumble_plugin_id_t callerID,
+																	   mumble_connection_t connection,
+																	   mumble_channelid_t channelID,
+																	   const char **name) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1793,9 +1797,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getChannelName_v_1_0_x(mumble_plugin_id
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getAllUsers_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t **users,
-															 size_t *userCount) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getAllUsers_v_1_0_x(mumble_plugin_id_t callerID,
+																	mumble_connection_t connection,
+																	mumble_userid_t **users, size_t *userCount) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1818,9 +1822,10 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getAllUsers_v_1_0_x(mumble_plugin_id_t 
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getAllChannels_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_channelid_t **channels, size_t *channelCount) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getAllChannels_v_1_0_x(mumble_plugin_id_t callerID,
+																	   mumble_connection_t connection,
+																	   mumble_channelid_t **channels,
+																	   size_t *channelCount) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1843,9 +1848,10 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getAllChannels_v_1_0_x(mumble_plugin_id
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID,
-																  mumble_connection_t connection,
-																  mumble_userid_t userID, mumble_channelid_t *channel) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID,
+																		 mumble_connection_t connection,
+																		 mumble_userid_t userID,
+																		 mumble_channelid_t *channel) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1868,10 +1874,11 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getChannelOfUser_v_1_0_x(mumble_plugin_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID,
-																   mumble_connection_t connection,
-																   mumble_channelid_t channelID,
-																   mumble_userid_t **userList, size_t *userCount) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID,
+																		  mumble_connection_t connection,
+																		  mumble_channelid_t channelID,
+																		  mumble_userid_t **userList,
+																		  size_t *userCount) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1895,7 +1902,7 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getUsersInChannel_v_1_0_x(mumble_plugin
 }
 
 
-mumble_error_t PLUGIN_CALLING_CONVENTION
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION
 	getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t *transmissionMode) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
@@ -1919,9 +1926,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID,
-																	mumble_connection_t connection,
-																	mumble_userid_t userID, bool *muted) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID,
+																		   mumble_connection_t connection,
+																		   mumble_userid_t userID, bool *muted) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1944,7 +1951,7 @@ mumble_error_t PLUGIN_CALLING_CONVENTION isUserLocallyMuted_v_1_0_x(mumble_plugi
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1967,7 +1974,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserMuted_v_1_0_x(mumble_plugin_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID,
+																			bool *deafened) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -1990,9 +1998,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserDeafened_v_1_0_x(mumble_plug
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserHash_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t userID,
-															 const char **hash) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getUserHash_v_1_0_x(mumble_plugin_id_t callerID,
+																	mumble_connection_t connection,
+																	mumble_userid_t userID, const char **hash) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2015,8 +2023,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getUserHash_v_1_0_x(mumble_plugin_id_t 
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getServerHash_v_1_0_x(mumble_plugin_id_t callerID,
-															   mumble_connection_t connection, const char **hash) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getServerHash_v_1_0_x(mumble_plugin_id_t callerID,
+																	  mumble_connection_t connection,
+																	  const char **hash) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2040,7 +2049,7 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getServerHash_v_1_0_x(mumble_plugin_id_
 }
 
 
-mumble_error_t PLUGIN_CALLING_CONVENTION
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION
 	requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t transmissionMode) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
@@ -2064,9 +2073,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserComment_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection, mumble_userid_t userID,
-																const char **comment) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getUserComment_v_1_0_x(mumble_plugin_id_t callerID,
+																	   mumble_connection_t connection,
+																	   mumble_userid_t userID, const char **comment) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2089,10 +2098,10 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getUserComment_v_1_0_x(mumble_plugin_id
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_connection_t connection,
-																	   mumble_channelid_t channelID,
-																	   const char **description) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID,
+																			  mumble_connection_t connection,
+																			  mumble_channelid_t channelID,
+																			  const char **description) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2115,9 +2124,11 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getChannelDescription_v_1_0_x(mumble_pl
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestUserMove_v_1_0_x(mumble_plugin_id_t callerID,
-																 mumble_connection_t connection, mumble_userid_t userID,
-																 mumble_channelid_t channelID, const char *password) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION requestUserMove_v_1_0_x(mumble_plugin_id_t callerID,
+																		mumble_connection_t connection,
+																		mumble_userid_t userID,
+																		mumble_channelid_t channelID,
+																		const char *password) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2140,8 +2151,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestUserMove_v_1_0_x(mumble_plugin_i
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t callerID,
-																					  bool activate) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION
+	requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t callerID, bool activate) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2164,9 +2175,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestMicrophoneActivationOverwrite_v_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID,
-																  mumble_connection_t connection,
-																  mumble_userid_t userID, bool muted) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID,
+																		 mumble_connection_t connection,
+																		 mumble_userid_t userID, bool muted) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2189,7 +2200,7 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalMute_v_1_0_x(mumble_plugin_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2212,7 +2223,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserMute_v_1_0_x(mumble_plu
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool deafened) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID,
+																			 bool deafened) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2235,9 +2247,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserDeaf_v_1_0_x(mumble_plu
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID,
-																			mumble_connection_t connection,
-																			const char *comment) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID,
+																				   mumble_connection_t connection,
+																				   const char *comment) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2260,9 +2272,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION requestSetLocalUserComment_v_1_0_x(mumb
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION findUserByName_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection, const char *userName,
-																mumble_userid_t *userID) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION findUserByName_v_1_0_x(mumble_plugin_id_t callerID,
+																	   mumble_connection_t connection,
+																	   const char *userName, mumble_userid_t *userID) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2285,10 +2297,10 @@ mumble_error_t PLUGIN_CALLING_CONVENTION findUserByName_v_1_0_x(mumble_plugin_id
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION findChannelByName_v_1_0_x(mumble_plugin_id_t callerID,
-																   mumble_connection_t connection,
-																   const char *channelName,
-																   mumble_channelid_t *channelID) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION findChannelByName_v_1_0_x(mumble_plugin_id_t callerID,
+																		  mumble_connection_t connection,
+																		  const char *channelName,
+																		  mumble_channelid_t *channelID) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2311,8 +2323,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION findChannelByName_v_1_0_x(mumble_plugin
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_settings_key_t key, bool *outValue) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
+																			  mumble_settings_key_t key,
+																			  bool *outValue) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2335,8 +2348,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_bool_v_1_0_x(mumble_pl
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
-																	  mumble_settings_key_t key, int64_t *outValue) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
+																			 mumble_settings_key_t key,
+																			 int64_t *outValue) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2359,8 +2373,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_int_v_1_0_x(mumble_plu
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, double *outValue) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
+																				mumble_settings_key_t key,
+																				double *outValue) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2383,9 +2398,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_double_v_1_0_x(mumble_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key,
-																		 const char **outValue) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
+																				mumble_settings_key_t key,
+																				const char **outValue) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2408,8 +2423,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_string_v_1_0_x(mumble_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_settings_key_t key, bool value) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION setMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
+																			  mumble_settings_key_t key, bool value) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2432,8 +2447,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_bool_v_1_0_x(mumble_pl
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
-																	  mumble_settings_key_t key, int64_t value) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION setMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
+																			 mumble_settings_key_t key, int64_t value) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2456,8 +2471,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_int_v_1_0_x(mumble_plu
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, double value) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION setMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
+																				mumble_settings_key_t key,
+																				double value) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2480,8 +2496,9 @@ mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_double_v_1_0_x(mumble_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, const char *value) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
+																				mumble_settings_key_t key,
+																				const char *value) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2504,9 +2521,11 @@ mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_string_v_1_0_x(mumble_
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-														  const mumble_userid_t *users, size_t userCount,
-														  const uint8_t *data, size_t dataLength, const char *dataID) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION sendData_v_1_0_x(mumble_plugin_id_t callerID,
+																 mumble_connection_t connection,
+																 const mumble_userid_t *users, size_t userCount,
+																 const uint8_t *data, size_t dataLength,
+																 const char *dataID) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2529,7 +2548,7 @@ mumble_error_t PLUGIN_CALLING_CONVENTION sendData_v_1_0_x(mumble_plugin_id_t cal
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION log_v_1_0_x(mumble_plugin_id_t callerID, const char *message) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION log_v_1_0_x(mumble_plugin_id_t callerID, const char *message) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2552,7 +2571,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION log_v_1_0_x(mumble_plugin_id_t callerID
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION playSample_v_1_0_x(mumble_plugin_id_t callerID,
+																   const char *samplePath) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 
@@ -2575,8 +2595,8 @@ mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_0_x(mumble_plugin_id_t c
 	return future.get();
 }
 
-mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samplePath,
-															float volume) {
+mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samplePath,
+																   float volume) {
 	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
 	api_future_t future                      = promise->get_future();
 

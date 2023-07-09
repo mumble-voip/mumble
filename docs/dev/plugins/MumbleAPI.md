@@ -98,6 +98,6 @@ That is to say: You must not wait for a job to finish asynchronously that might 
 
 ## Header files
 
-The following header files describe the Mumble-API struct that contains the function pointers as well as descriptions of the respective functions:
-- [Mumble-API v1.0.x](https://github.com/mumble-voip/mumble/blob/master/plugins/MumbleAPI_v_1_0_x.h)
+The Mumble API definition is contained in the [MumblePlugin.h](https://github.com/mumble-voip/mumble/blob/master/plugins/MumblePlugin.h) header. It
+contains a list of all available functions as well as documentation for every function.
 

@@ -5,7 +5,7 @@
 
 #include "Game.h"
 
-#include "MumblePlugin_v_1_0_x.h"
+#include "MumblePlugin.h"
 
 #include <cstring>
 #include <memory>
