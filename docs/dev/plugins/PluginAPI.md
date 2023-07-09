@@ -38,6 +38,6 @@ Unless otherwise noted in the function's description, all functions are called f
 
 ## Header files
 
-The following header files describe the plugin-API interface. They also contain a description of what each function is for.
-- [Plugin-API v1.0.x](https://github.com/mumble-voip/mumble/blob/master/plugins/MumblePlugin_v_1_0_x.h)
+The plugin function definitions are contained in the [MumblePlugin.h](https://github.com/mumble-voip/mumble/blob/master/plugins/MumblePlugin.h) header. It
+contains a list of all available functions as well as documentation for every function.
 
