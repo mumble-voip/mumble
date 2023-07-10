@@ -42,7 +42,8 @@ their README file.
 
 Once vcpkg is installed on your system, you have to switch into the directory vcpkg is installed in and then install the following packages:
 ```
-qt5-base
+qt5-base[mysqlplugin]
+qt5-base[postgresqlplugin]
 qt5-svg
 qt5-tools
 qt5-translations
@@ -53,9 +54,10 @@ libvorbis
 libogg
 libflac
 libsndfile
-libmariadb
+protobuf
 zlib
 ```
+On Windows, you'll also have to install the `mdnsresponder` package.
 
 The command for installing a package is `vcpkg install <packageName> --triplet <triplet>` where `<packageName>` is to be replaced with the name of the
 package you want to install and `<triplet>` is the desired target triplet. We recommend using these triplets:

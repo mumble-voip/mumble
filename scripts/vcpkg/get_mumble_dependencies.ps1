@@ -12,6 +12,7 @@ $mumble_deps = "qt5-base[mysqlplugin]",
                "qt5-tools",
                "qt5-translations",
                "boost-accumulators",
+               "opus"
                "poco",
                "libvorbis",
                "libogg",
