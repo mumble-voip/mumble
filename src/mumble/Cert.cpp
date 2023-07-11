@@ -98,9 +98,9 @@ void CertView::setCert(const QList< QSslCertificate > &cert) {
 
 		if (qscCert.expiryDate() <= QDateTime::currentDateTime())
 			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>")
-								  .arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate).toHtmlEscaped()));
+								  .arg(qscCert.expiryDate().toString(QLocale::system().dateFormat(QLocale::ShortFormat)).toHtmlEscaped()));
 		else
-			qlExpiry->setText(qscCert.expiryDate().toString(Qt::SystemLocaleDate));
+			qlExpiry->setText(qscCert.expiryDate().toString(QLocale::system().dateFormat(QLocale::ShortFormat)));
 
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();

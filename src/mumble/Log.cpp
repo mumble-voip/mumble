@@ -732,7 +732,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			qdDate = dt.date();
 			tc.insertBlock();
 			tc.insertHtml(
-				tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate).toHtmlEscaped()));
+				tr("[Date changed to %1]\n").arg(qdDate.toString(QLocale().dateFormat(QLocale::ShortFormat)).toHtmlEscaped()));
 			tc.movePosition(QTextCursor::End);
 		}
 
