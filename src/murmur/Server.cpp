@@ -2310,6 +2310,10 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))
 			return true;
 
+		// Don't allow any messages of any length
+		if ((iMaxTextMessageLength == -1) && (iMaxImageMessageLength == -1))
+			return false;
+
 		// Over Image limit? (If so, always fail)
 		if ((iMaxImageMessageLength != 0) && (length > iMaxImageMessageLength))
 			return false;
