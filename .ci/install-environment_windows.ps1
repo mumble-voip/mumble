@@ -93,10 +93,10 @@ if (-Not (Test-Path $MUMBLE_ENVIRONMENT_STORE)) {
 	New-Item $MUMBLE_ENVIRONMENT_STORE -ItemType Directory | Out-Null
 }
 
-if (-Not (Test-Path (Join-Path $MUMBLE_ENVIRONMENT_STORE $MUMBLE_ENVIRONMENT_VERSION))) {
+if ($True) {
 	Write-Host "Environment not cached. Downloading..."
 
-	$env_url = "$env:MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.7z"
+	$env_url = "https://cloud.susch.eu/s/XFCQyDgweocKKWR/download"
 	$env_7z = Join-Path $MUMBLE_ENVIRONMENT_STORE "$MUMBLE_ENVIRONMENT_VERSION.7z";
 
 	Download -source "$env_url" -destination "$env_7z"
