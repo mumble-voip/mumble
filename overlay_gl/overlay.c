@@ -26,6 +26,7 @@
 #include <sys/un.h>
 #include <time.h>
 #include <unistd.h>
+#include "pragma_helper.h"
 
 #if defined(TARGET_UNIX)
 #	define GLX_GLXEXT_LEGACY
@@ -66,7 +67,9 @@ typedef struct _Context {
 	GLXDrawable draw;
 #elif defined(TARGET_MAC)
 	CGLContextObj cglctx;
+PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	NSOpenGLContext *nsctx;
+POP_PRAGMA()
 #endif
 
 	unsigned int uiWidth, uiHeight;
@@ -120,7 +123,10 @@ FDEF(glXSwapBuffers);
 FDEF(glXGetProcAddressARB);
 FDEF(glXGetProcAddress);
 #elif defined(TARGET_MAC)
+PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 FDEF(CGLFlushDrawable);
+POP_PRAGMA()
+
 FDEF(CGDisplayHideCursor);
 FDEF(CGDisplayShowCursor);
 #endif
@@ -167,13 +173,17 @@ static void newContext(Context *ctx) {
 		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
 	}
 
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
 		glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
+	POP_PRAGMA()
 
 	const char *vsource = vshader;
 	const char *fsource = fshader;
 	char buffer[8192];
 	GLint l;
+
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(vs, 1, &vsource, NULL);
@@ -190,6 +200,7 @@ static void newContext(Context *ctx) {
 	glLinkProgram(ctx->uiProgram);
 
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &ctx->maxVertexAttribs);
+	POP_PRAGMA()
 	ctx->vertexAttribStates = calloc((size_t) ctx->maxVertexAttribs, sizeof(GLboolean));
 }
 
@@ -200,7 +211,9 @@ static void releaseMem(Context *ctx) {
 		ctx->uiMappedLength = 0;
 	}
 	if (ctx->texture != ~0U) {
+		PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 		glDeleteTextures(1, &ctx->texture);
+		POP_PRAGMA()
 		ctx->texture = ~0U;
 	}
 	ctx->uiLeft = ctx->uiTop = ctx->uiRight = ctx->uiBottom = 0;
@@ -230,6 +243,7 @@ static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
 }
 
 static void regenTexture(Context *ctx) {
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	if (ctx->texture != ~0U) {
 		glDeleteTextures(1, &ctx->texture);
 	}
@@ -244,6 +258,7 @@ static void regenTexture(Context *ctx) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei) ctx->uiWidth, (GLsizei) ctx->uiHeight, 0, GL_BGRA,
 				 GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+	POP_PRAGMA()
 }
 
 static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
@@ -372,12 +387,16 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 					struct OverlayMsgBlit *omb = &ctx->omMsg.omb;
 					ods("BLIT %d %d %d %d", omb->x, omb->y, omb->w, omb->h);
 					if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0U)) {
+						PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 						glBindTexture(GL_TEXTURE_2D, ctx->texture);
+						POP_PRAGMA()
 
 						if ((omb->x == 0) && (omb->y == 0) && (omb->w == ctx->uiWidth) && (omb->h == ctx->uiHeight)) {
 							ods("Optimzied fullscreen blit");
+							PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 							glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei) ctx->uiWidth, (GLsizei) ctx->uiHeight, 0,
 										 GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+							POP_PRAGMA()
 						} else {
 							// allocate temporary memory
 							unsigned int x     = omb->x;
@@ -397,8 +416,11 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							}
 
 							// copy temporary texture to opengl
+							PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 							glTexSubImage2D(GL_TEXTURE_2D, 0, (GLint) x, (GLint) y, (GLint) w, (GLint) h, GL_BGRA,
 											GL_UNSIGNED_BYTE, ptr);
+							POP_PRAGMA()
+
 							free(ptr);
 						}
 					}
@@ -434,6 +456,8 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		return;
 
 	// texture checks, that our gltexture is still valid and sane
+
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	if (!glIsTexture(ctx->texture)) {
 		ctx->texture = ~0U;
 		ods("Lost texture");
@@ -442,6 +466,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		glBindTexture(GL_TEXTURE_2D, ctx->texture);
 		GLfloat bordercolor[4];
 		glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
+
 		if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2]
 			|| bordercolor[3] != fBorder[3]) {
 			ods("Texture was hijacked! Texture will be regenerated.");
@@ -451,6 +476,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 	glBindTexture(GL_TEXTURE_2D, ctx->texture);
 	glPushMatrix();
+	POP_PRAGMA()
 
 	float w = (float) (ctx->uiWidth);
 	float h = (float) (ctx->uiHeight);
@@ -465,6 +491,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float xmx = right / w;
 	float ymx = bottom / h;
 
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	GLfloat vertex[] = { left, bottom, left,  top, right, top,
 
 						 left, bottom, right, top, right, bottom };
@@ -478,6 +505,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glPopMatrix();
+	POP_PRAGMA()
 }
 
 static void drawContext(Context *ctx, int width, int height) {
@@ -498,6 +526,7 @@ static void drawContext(Context *ctx, int width, int height) {
 		ctx->timeT      = t;
 	}
 
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	GLuint program;
 	GLint viewport[4];
 	int i;
@@ -629,9 +658,11 @@ static void drawContext(Context *ctx, int width, int height) {
 	if (vbobound != 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
+	POP_PRAGMA()
 
 	drawOverlay(ctx, (unsigned int) width, (unsigned int) height);
 
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
 	}
@@ -663,6 +694,7 @@ static void drawContext(Context *ctx, int width, int height) {
 	// drain opengl error queue
 	while (glGetError() != GL_NO_ERROR)
 		;
+	POP_PRAGMA()
 }
 
 #if defined(TARGET_UNIX)

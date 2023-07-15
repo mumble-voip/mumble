@@ -13,7 +13,7 @@ if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR ${CMAKE_SYSTEM_PROCESSOR} STRE
 	endif()
 endif()
 
-add_library(overlay_gl SHARED "overlay.c")
+add_library(overlay_gl SHARED "overlay.c" pragma_helper.h)
 
 set_target_properties(overlay_gl
 	PROPERTIES

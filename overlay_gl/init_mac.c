@@ -6,6 +6,8 @@
 // This file is included by overlay.c for
 // Mac-specific overlay initialization.
 
+#include "pragma_helper.h"
+
 @implementation NSOpenGLContext (MumbleOverlay)
 - (void)overlayFlushBuffer {
 	ods("[NSOpenGLContext flushBuffer] %p %p", self, [self CGLContextObj]);
@@ -39,7 +41,11 @@
 		height   = (int) r.size.height;
 	} else {
 		GLint viewport[4];
+
+		PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 		glGetIntegerv(GL_VIEWPORT, viewport);
+		POP_PRAGMA()
+
 		width  = viewport[2];
 		height = viewport[3];
 	}
@@ -93,7 +99,11 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 	}
 
 	GLint viewport[4];
+
+	PUSH_PRAGMA_WARNING("-Wdeprecated-declarations")
 	glGetIntegerv(GL_VIEWPORT, viewport);
+	POP_PRAGMA()
+
 	int width  = viewport[2];
 	int height = viewport[3];
 	/* Are the viewport values crazy? Skip them in that case. */
