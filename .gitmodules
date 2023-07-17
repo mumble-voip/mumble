@@ -6,7 +6,7 @@
 	url = https://github.com/mumble-voip/mach_override.git
 [submodule "3rdparty/speexdsp"]
 	path = 3rdparty/speexdsp
-	url = https://github.com/mumble-voip/speexdsp.git
+	url = https://github.com/xiph/speexdsp.git
 [submodule "3rdparty/rnnoise-src"]
 	path = 3rdparty/rnnoise-src
 	url = https://github.com/mumble-voip/rnnoise.git
