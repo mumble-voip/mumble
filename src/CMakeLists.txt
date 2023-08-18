@@ -217,8 +217,8 @@ else()
 	# GSL since version 3)
 	find_pkg("Microsoft.GSL")
 
-	if (TARGET GSL)
-		target_link_libraries(shared PUBLIC GSL)
+	if (TARGET Microsoft.GSL::GSL)
+		target_link_libraries(shared PUBLIC Microsoft.GSL::GSL)
 	else()
 		# If the above failed, it could mean that there is an installation of GSL < v3.0 on this system, which does not yet
 		# provide cmake support for finding it. Thus, we have to use our custom Find-script.
