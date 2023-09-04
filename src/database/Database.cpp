@@ -715,11 +715,17 @@ namespace db {
 		do {
 			prevSize = tablesToBeRemoved.size();
 
-			for (const std::string &currentTable : tablesToBeRemoved) {
+			auto iter = tablesToBeRemoved.begin();
+
+			while (iter != tablesToBeRemoved.end()) {
+				const std::string &currentTable = *iter;
+
 				try {
 					m_sql << "DROP TABLE \"" << currentTable << "\"";
+
+					iter = tablesToBeRemoved.erase(iter);
 				} catch (const soci::soci_error &) {
-					// ignore
+					iter++;
 				}
 			}
 		} while (prevSize > tablesToBeRemoved.size());
