@@ -14,7 +14,8 @@ sudo apt install \
   build-essential \
   cmake \
   pkg-config \
-  qt5-default \
+  qt5-qmake \
+  qtbase5-dev \
   qttools5-dev \
   qttools5-dev-tools \
   libqt5svg5-dev \
