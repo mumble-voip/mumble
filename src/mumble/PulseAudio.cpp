@@ -578,8 +578,9 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		// effectively removing the audio output completely until Mumble is restarted.
 		// See: https://github.com/mumble-voip/mumble/issues/4883
 		// See: https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1132
-		unsigned char buffer[bytes] = {};
-		pa.stream_write(s, buffer, bytes, nullptr, 0, PA_SEEK_RELATIVE);
+		unsigned char buffer[bytes];
+		memset(buffer, 0, sizeof(buffer));
+		pa.stream_write(s, buffer, sizeof(buffer), nullptr, 0, PA_SEEK_RELATIVE);
 		return;
 	}
 
