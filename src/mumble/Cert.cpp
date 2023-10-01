@@ -96,11 +96,13 @@ void CertView::setCert(const QList< QSslCertificate > &cert) {
 		else
 			qlSubjectEmail->setText(tr("(none)"));
 
+		const auto expiryDateStr = QLocale::system().toString(qscCert.expiryDate(), QLocale::ShortFormat);
+
 		if (qscCert.expiryDate() <= QDateTime::currentDateTime())
-			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>")
-								  .arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate).toHtmlEscaped()));
+			qlExpiry->setText(
+				QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(expiryDateStr.toHtmlEscaped()));
 		else
-			qlExpiry->setText(qscCert.expiryDate().toString(Qt::SystemLocaleDate));
+			qlExpiry->setText(expiryDateStr);
 
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();
