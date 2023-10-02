@@ -108,6 +108,17 @@ struct Dictionary_o {
 	Dictionary_Fields fields;
 };
 
+struct UnityEngine_AsyncOperationHandle_Fields {
+	ptr_t internalOp;
+	int32_t version;
+	ptr_t locationName;
+	bool unloadSceneOpExcludeReleaseCallback;
+};
+
+struct UnityEngine_AsyncOperationHandle_o {
+	UnityEngine_AsyncOperationHandle_Fields fields;
+};
+
 struct UnityEngine_Vector2_Fields {
 	float x;
 	float y;
@@ -138,6 +149,24 @@ struct String_o {
 	String_Fields fields;
 };
 
+struct Nullable_Uint16_Fields {
+	uint16_t value;
+	bool hasValue;
+};
+
+struct Nullable_Uint16_o {
+	Nullable_Uint16_Fields fields;
+};
+
+struct Nullable_Vector2_Fields {
+	UnityEngine_Vector2_o value;
+	bool hasValue;
+};
+
+struct Nullable_Vector2_o {
+	Nullable_Vector2_Fields fields;
+};
+
 struct UnityEngine_Object_Fields {
 	ptr_t cachedPtr;
 };
@@ -154,6 +183,7 @@ struct InnerNet_InnerNetClient_Fields : UnityEngine_Object_Fields {
 	ptr_t allObjectsFast;
 	ptr_t streams;
 	int32_t msgNum;
+	ptr_t serverLogger;
 	ptr_t networkAddress;
 	int32_t networkPort;
 	bool useDTLS;
@@ -168,8 +198,10 @@ struct InnerNet_InnerNetClient_Fields : UnityEngine_Object_Fields {
 	DisconnectReason lastDisconnectReason;
 	ptr_t lastCustomDisconnect;
 	uint8_t lastServerChatMode;
+	ptr_t lastMatchmakerError;
 	ptr_t preSpawnDispatcher;
 	ptr_t dispatcher;
+	ptr_t gameOptionsFactory;
 	bool isGamePublic;
 	GameState gameState;
 	bool isConnecting;
@@ -189,17 +221,17 @@ struct InnerNet_InnerNetObject_Fields : UnityEngine_Object_Fields {
 };
 
 struct CustomNetworkTransform_Fields : InnerNet_InnerNetObject_Fields {
-	ptr_t xRange;
-	ptr_t yRange;
 	float sendInterval;
 	float snapThreshold;
 	float interpolateMovement;
+	ptr_t myPlayer;
 	ptr_t body;
 	UnityEngine_Vector2_o targetSyncPosition;
 	UnityEngine_Vector2_o targetSyncVelocity;
 	uint16_t lastSequenceId;
 	UnityEngine_Vector2_o prevPosSent;
 	UnityEngine_Vector2_o prevVelSent;
+	Nullable_Vector2_o tempSnapPosition;
 };
 
 struct CustomNetworkTransform_o {
@@ -220,6 +252,9 @@ struct AmongUsClient_Fields : InnerNet_InnerNetClient_Fields {
 	ptr_t disconnectHandlers;
 	ptr_t gameListHandlers;
 	int32_t crossplayPrivilegeError;
+	int32_t maxClientWaitTime;
+	ptr_t logger;
+	UnityEngine_AsyncOperationHandle_o shipLoadingAsyncHandle;
 };
 
 struct AmongUsClient_StaticFields {
@@ -244,42 +279,41 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 	ptr_t puid;
 	float maxReportDistance;
 	bool moveable;
-	ptr_t bodySprites;
-	ptr_t currentBodySprite;
-	ptr_t normalBodySprite;
+	ptr_t cosmetics;
+	bool forceKillTimerContinue;
 	int32_t currentOutfitType;
 	bool inVent;
+	bool walkingToVent;
+	bool petting;
+	bool inMovingPlat;
+	bool onLadder;
 	bool protectedByGuardianThisRound;
 	bool shapeshifting;
 	ptr_t cachedData;
 	bool protectedByGuardian;
 	float flashlightAngle;
+	int32_t shapeshiftTargetPlayerId;
 	ptr_t footSteps;
 	ptr_t killSfx;
 	ptr_t killAnimations;
 	float killTimer;
 	int32_t remainingEmergencies;
-	ptr_t nameText;
 	ptr_t lightPrefab;
-	ptr_t myLight;
+	ptr_t lightSource;
 	ptr_t collider;
 	ptr_t myPhysics;
 	ptr_t netTransform;
-	ptr_t currentPet;
-	ptr_t hatRenderer;
-	ptr_t visorSlot;
-	ptr_t myAnim;
-	ptr_t horseAnim;
-	ptr_t hitBuffer;
+	ptr_t clickKillCollider;
+	UnityEngine_Vector3_o defaultCosmeticsScale;
 	ptr_t myTasks;
-	UnityEngine_Vector3_o defaultPlayerScale;
-	ptr_t scannerAnims;
-	ptr_t scannersImages;
 	ptr_t currentRoleAnimations;
-	ptr_t closest;
-	bool isNew;
+	ptr_t targetFlashlight;
 	bool isDummy;
 	bool notRealPlayer;
+	ptr_t logger;
+	ptr_t hitBuffer;
+	ptr_t closest;
+	bool isNew;
 	ptr_t cache;
 	ptr_t itemsInRange;
 	ptr_t newItemsInRange;
@@ -289,8 +323,7 @@ struct PlayerControl_Fields : InnerNet_InnerNetObject_Fields {
 
 struct PlayerControl_StaticFields {
 	ptr_t localPlayer;
-	ptr_t gameOptions;
-	ptr_t allPlayers;
+	ptr_t allPlayerControls;
 };
 
 struct PlayerControl_c {
@@ -312,7 +345,7 @@ struct GameData_PlayerOutfit_Fields {
 	ptr_t skinId;
 	ptr_t visorId;
 	ptr_t namePlateId;
-	ptr_t playerName;
+	ptr_t nameCallback;
 	ptr_t preCensorName;
 	ptr_t postCensorName;
 };
@@ -327,6 +360,8 @@ struct GameData_PlayerInfo_Fields {
 	uint8_t playerId;
 	ptr_t friendCode;
 	ptr_t puid;
+	uint16_t roleType;
+	Nullable_Uint16_o roleWhenAlive;
 	ptr_t outfits;
 	uint32_t playerLevel;
 	bool disconnected;
