@@ -224,6 +224,18 @@ SF_INFO VoiceRecorder::createSoundFileInfo() const {
 					   << "hz in OPUS format";
 			break;
 #endif
+#ifdef USE_SNDFILE_MP3
+		case VoiceRecorderFormat::MP3:
+			sfinfo.frames     = 0;
+			sfinfo.samplerate = m_config.sampleRate;
+			sfinfo.channels   = 1;
+			sfinfo.format     = SF_FORMAT_MPEG | SF_FORMAT_MPEG_LAYER_III;
+			sfinfo.sections   = 0;
+			sfinfo.seekable   = 0;
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate
+					   << "hz in MP3 format";
+			break;
+#endif
 	}
 
 	Q_ASSERT(sf_format_check(&sfinfo));
@@ -446,6 +458,10 @@ QString VoiceRecorderFormat::getFormatDescription(VoiceRecorderFormat::Format fm
 		case VoiceRecorderFormat::OPUS:
 			return VoiceRecorder::tr(".opus - Lossy compressed");
 #endif
+#ifdef USE_SNDFILE_MP3
+		case VoiceRecorderFormat::MP3:
+			return VoiceRecorder::tr(".mp3 - Lossy compressed");
+#endif
 		default:
 			return QString();
 	}
@@ -466,6 +482,10 @@ QString VoiceRecorderFormat::getFormatDefaultExtension(VoiceRecorderFormat::Form
 #ifdef USE_SNDFILE_OPUS
 		case VoiceRecorderFormat::OPUS:
 			return QLatin1String("opus");
+#endif
+#ifdef USE_SNDFILE_MP3
+		case VoiceRecorderFormat::MP3:
+			return QLatin1String("mp3");
 #endif
 		default:
 			return QString();
