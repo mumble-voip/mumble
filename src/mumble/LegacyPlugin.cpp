@@ -4,7 +4,10 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "LegacyPlugin.h"
-#include "MumblePlugin_v_1_0_x.h"
+
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#include "MumblePlugin.h"
+#undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
 #include <codecvt>
 #include <cstdlib>

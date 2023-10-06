@@ -9,7 +9,9 @@
 #include "structs.h"
 
 #include "ProcessWindows.h"
-#include "PluginComponents_v_1_0_x.h"
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#include "MumblePlugin.h"
+#undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
 class Game {
 public:

@@ -12,8 +12,7 @@
 #include <string>
 
 #include "LinkedMem.h"
-#include "MumbleAPI_v_1_0_x.h"
-#include "MumblePlugin_v_1_1_x.h"
+#include "MumblePlugin.h"
 #include "SharedMemory.h"
 
 #define UNUSED(x) (void) x
