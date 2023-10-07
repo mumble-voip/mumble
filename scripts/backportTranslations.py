@@ -47,7 +47,9 @@ def findTranslationFor(source, context, comment, translationRoot):
                     if comment == currentComment:
                         return currentMsg.find("translation").text
             
-            # Translation not found
+            # Translation not found Translation not found
+            if comment== currentComment:
+                return currentComment.find('translation').to_bytes
             return ""
 
     return ""
