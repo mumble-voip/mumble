@@ -15,11 +15,7 @@ also intended to be used as the basis for everyone that wants to start writing a
 
 What you need for creating a plugin is
 - A working C compiler. It does not matter which one
-- The Mumble plugin framework header files which are the following (the exact version number in the filename may change depending on which API version
-  you intend to use):
-    * [MumbleAPI_v_1_0_x.h](https://github.com/mumble-voip/mumble/blob/master/plugins/MumbleAPI_v_1_0_x.h)
-	* [MumblePlugin_v_1_0_x.h](https://github.com/mumble-voip/mumble/blob/master/plugins/MumblePlugin_v_1_0_x.h)
-	* [PluginComponents_v_1_0_x.h](https://github.com/mumble-voip/mumble/blob/master/plugins/PluginComponents_v_1_0_x.h)
+- The Mumble plugin header file: [MumblePlugin.h](https://github.com/mumble-voip/mumble/blob/master/plugins/MumblePlugin.h)
 
 Although not strictly required, it usually is handy to use a build system for managing your plugin project. In this guide we'll use
 [cmake](https://cmake.org/). If you have never used cmake before, have a look at [this short guide](https://stackoverflow.com/a/26007567).
@@ -28,9 +24,7 @@ All in all the following file structure is assumed to be present on your device:
 ```
 .
 ├── include
-│   ├── MumbleAPI_v_1_0_x.h
-│   ├── MumblePlugin_v_1_0_x.h
-│   └── PluginComponents_v_1_0_x.h
+│   └── MumblePlugin.h
 ├── CMakeLists.txt
 └── plugin.c
 ```
@@ -70,9 +64,9 @@ to build a shared library from the source file `plugin.c` and that everything in
 
 Now that the boilerplate is out of the way, we can start writing the actual plugin. This will be done in the `plugin.c` source file.
 
-The first thing you should do is to include `MumblePlugin_v_1_0_x.h`. Furthermore we'll need a few more C headers that we'll include as well:
+The first thing you should do is to include `MumblePlugin.h`. Furthermore we'll need a few more C headers that we'll include as well:
 ```c
-#include "MumblePlugin_v_1_0_x.h"
+#include "MumblePlugin.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +76,7 @@ The first thing you should do is to include `MumblePlugin_v_1_0_x.h`. Furthermor
 Furthermore every plugin needs a way to store at least the Mumble-API and its own ID. In C this can be done using global variables. Therefore go ahead
 and create the respective variables in the global namespace:
 ```c
-struct MumbleAPI_v_1_0_x mumbleAPI;
+MumbleAPI mumbleAPI;
 mumble_plugin_id_t ownID;
 ```
 

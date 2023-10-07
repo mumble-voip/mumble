@@ -9,13 +9,23 @@
 #ifndef EXTERNAL_MUMBLE_PLUGIN_API_STRUCTS_H_
 #define EXTERNAL_MUMBLE_PLUGIN_API_STRUCTS_H_
 
-// First, include the latest plugin API header file completely
-#include "MumbleAPI_v_1_2_x.h"
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#define MUMBLE_PLUGIN_NO_API_TYPEDEF
 
-// Include all older API headers for their API structs,
-// but prevent utility definitions (to prevent name clashes).
-#define EXTERNAL_MUMBLE_PLUGIN_API_NO_AUXILIARY_DEFINITIONS
-#include "MumbleAPI_v_1_0_x.h"
-#undef EXTERNAL_MUMBLE_PLUGIN_API_NO_AUXILIARY_DEFINITIONS
+// First, include the latest plugin API header file completely
+#include "MumblePlugin.h"
+
+
+// Re-include the API definition
+#undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
+// But this time, overwrite the version
+#undef MUMBLE_PLUGIN_API_MAJOR_MACRO
+#define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
+#undef MUMBLE_PLUGIN_API_MINOR_MACRO
+#define MUMBLE_PLUGIN_API_MINOR_MACRO 0
+
+#include "MumblePlugin.h"
+
+#undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
 #endif // EXTERNAL_MUMBLE_PLUGIN_API_STRUCTS_H_

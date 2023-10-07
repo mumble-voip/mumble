@@ -12,13 +12,16 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "MumbleConstants.h"
-#include "PluginComponents_v_1_0_x.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "Settings.h"
 #include "UserModel.h"
 #include "Version.h"
 #include "Global.h"
+
+#define MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
+#include "MumblePlugin.h"
+#undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
 #include <QVariant>
 #include <QtCore/QHash>
@@ -1646,958 +1649,282 @@ void MumbleAPI::playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samp
 /////////////////// C FUNCTION WRAPPERS FOR USE IN API STRUCT ///////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-mumble_error_t PLUGIN_CALLING_CONVENTION freeMemory_v_1_0_x(mumble_plugin_id_t callerID, const void *ptr) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().freeMemory_v_1_0_x(callerID, ptr, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
+#define C_WRAPPER(funcName)                                                                                    \
+	mumble_error_t MUMBLE_PLUGIN_CALLING_CONVENTION funcName(TYPED_ARGS) {                                     \
+		auto promise        = std::make_shared< api_promise_t >();                                             \
+		api_future_t future = promise->get_future();                                                           \
+                                                                                                               \
+		MumbleAPI::get().funcName(ARG_NAMES, promise);                                                         \
+                                                                                                               \
+		if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {                    \
+			/* The call to cancel may block until the operation is finished, if and only if the operation      \
+			 has already started and is thus in progress.*/                                                    \
+			promise->cancel();                                                                                 \
+                                                                                                               \
+			/* If the cancel-operation above blocked, this means that the operation has now finished in which  \
+			 case this will fail and we continue as if nothing had happened.                                   \
+			 If however it did not block the operation will immediately abort once it starts, meaning that the \
+			 check below will succeed. */                                                                      \
+			if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {                  \
+				promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);                                             \
+			}                                                                                                  \
+		}                                                                                                      \
+                                                                                                               \
+		return future.get();                                                                                   \
 	}
 
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getActiveServerConnection_v_1_0_x(mumble_plugin_id_t callerID,
-																		   mumble_connection_t *connection) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getActiveServerConnection_v_1_0_x(callerID, connection, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID,
-																		  mumble_connection_t connection,
-																		  bool *synchronized) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().isConnectionSynchronized_v_1_0_x(callerID, connection, synchronized, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getLocalUserID_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_userid_t *userID) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getLocalUserID_v_1_0_x(callerID, connection, userID, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserName_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t userID,
-															 const char **name) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getUserName_v_1_0_x(callerID, connection, userID, name, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelName_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_channelid_t channelID, const char **name) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getChannelName_v_1_0_x(callerID, connection, channelID, name, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getAllUsers_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t **users,
-															 size_t *userCount) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getAllUsers_v_1_0_x(callerID, connection, users, userCount, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getAllChannels_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection,
-																mumble_channelid_t **channels, size_t *channelCount) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getAllChannels_v_1_0_x(callerID, connection, channels, channelCount, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID,
-																  mumble_connection_t connection,
-																  mumble_userid_t userID, mumble_channelid_t *channel) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getChannelOfUser_v_1_0_x(callerID, connection, userID, channel, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID,
-																   mumble_connection_t connection,
-																   mumble_channelid_t channelID,
-																   mumble_userid_t **userList, size_t *userCount) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getUsersInChannel_v_1_0_x(callerID, connection, channelID, userList, userCount, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-
-mumble_error_t PLUGIN_CALLING_CONVENTION
-	getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t *transmissionMode) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getLocalUserTransmissionMode_v_1_0_x(callerID, transmissionMode, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION isUserLocallyMuted_v_1_0_x(mumble_plugin_id_t callerID,
-																	mumble_connection_t connection,
-																	mumble_userid_t userID, bool *muted) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().isUserLocallyMuted_v_1_0_x(callerID, connection, userID, muted, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().isLocalUserMuted_v_1_0_x(callerID, muted, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().isLocalUserDeafened_v_1_0_x(callerID, deafened, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserHash_v_1_0_x(mumble_plugin_id_t callerID,
-															 mumble_connection_t connection, mumble_userid_t userID,
-															 const char **hash) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getUserHash_v_1_0_x(callerID, connection, userID, hash, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getServerHash_v_1_0_x(mumble_plugin_id_t callerID,
-															   mumble_connection_t connection, const char **hash) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getServerHash_v_1_0_x(callerID, connection, hash, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-
-mumble_error_t PLUGIN_CALLING_CONVENTION
-	requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t transmissionMode) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestLocalUserTransmissionMode_v_1_0_x(callerID, transmissionMode, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getUserComment_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection, mumble_userid_t userID,
-																const char **comment) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getUserComment_v_1_0_x(callerID, connection, userID, comment, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_connection_t connection,
-																	   mumble_channelid_t channelID,
-																	   const char **description) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getChannelDescription_v_1_0_x(callerID, connection, channelID, description, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestUserMove_v_1_0_x(mumble_plugin_id_t callerID,
-																 mumble_connection_t connection, mumble_userid_t userID,
-																 mumble_channelid_t channelID, const char *password) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestUserMove_v_1_0_x(callerID, connection, userID, channelID, password, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestMicrophoneActivationOverwrite_v_1_0_x(mumble_plugin_id_t callerID,
-																					  bool activate) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestMicrophoneActivationOverwrite_v_1_0_x(callerID, activate, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalMute_v_1_0_x(mumble_plugin_id_t callerID,
-																  mumble_connection_t connection,
-																  mumble_userid_t userID, bool muted) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestLocalMute_v_1_0_x(callerID, connection, userID, muted, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserMute_v_1_0_x(mumble_plugin_id_t callerID, bool muted) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestLocalUserMute_v_1_0_x(callerID, muted, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestLocalUserDeaf_v_1_0_x(mumble_plugin_id_t callerID, bool deafened) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestLocalUserDeaf_v_1_0_x(callerID, deafened, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID,
-																			mumble_connection_t connection,
-																			const char *comment) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().requestSetLocalUserComment_v_1_0_x(callerID, connection, comment, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION findUserByName_v_1_0_x(mumble_plugin_id_t callerID,
-																mumble_connection_t connection, const char *userName,
-																mumble_userid_t *userID) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().findUserByName_v_1_0_x(callerID, connection, userName, userID, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION findChannelByName_v_1_0_x(mumble_plugin_id_t callerID,
-																   mumble_connection_t connection,
-																   const char *channelName,
-																   mumble_channelid_t *channelID) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().findChannelByName_v_1_0_x(callerID, connection, channelName, channelID, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_settings_key_t key, bool *outValue) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getMumbleSetting_bool_v_1_0_x(callerID, key, outValue, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
-																	  mumble_settings_key_t key, int64_t *outValue) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getMumbleSetting_int_v_1_0_x(callerID, key, outValue, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, double *outValue) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getMumbleSetting_double_v_1_0_x(callerID, key, outValue, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key,
-																		 const char **outValue) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().getMumbleSetting_string_v_1_0_x(callerID, key, outValue, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID,
-																	   mumble_settings_key_t key, bool value) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().setMumbleSetting_bool_v_1_0_x(callerID, key, value, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_int_v_1_0_x(mumble_plugin_id_t callerID,
-																	  mumble_settings_key_t key, int64_t value) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().setMumbleSetting_int_v_1_0_x(callerID, key, value, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_double_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, double value) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().setMumbleSetting_double_v_1_0_x(callerID, key, value, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID,
-																		 mumble_settings_key_t key, const char *value) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().setMumbleSetting_string_v_1_0_x(callerID, key, value, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-														  const mumble_userid_t *users, size_t userCount,
-														  const uint8_t *data, size_t dataLength, const char *dataID) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().sendData_v_1_0_x(callerID, connection, users, userCount, data, dataLength, dataID, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION log_v_1_0_x(mumble_plugin_id_t callerID, const char *message) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().log_v_1_0_x(callerID, message, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().playSample_v_1_0_x(callerID, samplePath, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
-
-mumble_error_t PLUGIN_CALLING_CONVENTION playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samplePath,
-															float volume) {
-	std::shared_ptr< api_promise_t > promise = std::make_shared< api_promise_t >();
-	api_future_t future                      = promise->get_future();
-
-	MumbleAPI::get().playSample_v_1_2_x(callerID, samplePath, volume, promise);
-
-	if (future.wait_for(std::chrono::milliseconds(800)) != std::future_status::ready) {
-		// The call to cancel may block until the operation is finished, if and only if the operation
-		// has already started and is thus in progress.
-		promise->cancel();
-
-		// If the cancel-operation above blocked, this means that the operation has now finished in which
-		// case this if will fail and we continue as if nothing had happened.
-		// If however it did not block the operation will immediately abort once it starts meaning that the
-		// check below will succeed.
-		if (future.wait_for(std::chrono::milliseconds(0)) != std::future_status::ready) {
-			promise->set_value(MUMBLE_EC_API_REQUEST_TIMEOUT);
-		}
-	}
-
-	return future.get();
-}
+#define TYPED_ARGS mumble_plugin_id_t callerID, const void *ptr
+#define ARG_NAMES callerID, ptr
+C_WRAPPER(freeMemory_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t *connection
+#define ARG_NAMES callerID, connection
+C_WRAPPER(getActiveServerConnection_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, bool *synchronized
+#define ARG_NAMES callerID, connection, synchronized
+C_WRAPPER(isConnectionSynchronized_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t *userID
+#define ARG_NAMES callerID, connection, userID
+C_WRAPPER(getLocalUserID_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, const char **name
+#define ARG_NAMES callerID, connection, userID, name
+C_WRAPPER(getUserName_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, const char **name
+#define ARG_NAMES callerID, connection, channelID, name
+C_WRAPPER(getChannelName_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users, size_t *userCount
+#define ARG_NAMES callerID, connection, users, userCount
+C_WRAPPER(getAllUsers_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t **channels, size_t *channelCount
+#define ARG_NAMES callerID, connection, channels, channelCount
+C_WRAPPER(getAllChannels_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, mumble_channelid_t *channel
+#define ARG_NAMES callerID, connection, userID, channel
+C_WRAPPER(getChannelOfUser_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                             \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
+		mumble_userid_t **userList, size_t *userCount
+#define ARG_NAMES callerID, connection, channelID, userList, userCount
+C_WRAPPER(getUsersInChannel_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_transmission_mode_t *transmissionMode
+#define ARG_NAMES callerID, transmissionMode
+C_WRAPPER(getLocalUserTransmissionMode_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, bool *muted
+#define ARG_NAMES callerID, connection, userID, muted
+C_WRAPPER(isUserLocallyMuted_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool *muted
+#define ARG_NAMES callerID, muted
+C_WRAPPER(isLocalUserMuted_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool *deafened
+#define ARG_NAMES callerID, deafened
+C_WRAPPER(isLocalUserDeafened_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, const char **hash
+#define ARG_NAMES callerID, connection, userID, hash
+C_WRAPPER(getUserHash_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, const char **hash
+#define ARG_NAMES callerID, connection, hash
+C_WRAPPER(getServerHash_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_transmission_mode_t transmissionMode
+#define ARG_NAMES callerID, transmissionMode
+C_WRAPPER(requestLocalUserTransmissionMode_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, const char **comment
+#define ARG_NAMES callerID, connection, userID, comment
+C_WRAPPER(getUserComment_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, const char **description
+#define ARG_NAMES callerID, connection, channelID, description
+C_WRAPPER(getChannelDescription_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                                                     \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, mumble_channelid_t channelID, \
+		const char *password
+#define ARG_NAMES callerID, connection, userID, channelID, password
+C_WRAPPER(requestUserMove_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool activate
+#define ARG_NAMES callerID, activate
+C_WRAPPER(requestMicrophoneActivationOverwrite_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, bool muted
+#define ARG_NAMES callerID, connection, userID, muted
+C_WRAPPER(requestLocalMute_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool muted
+#define ARG_NAMES callerID, muted
+C_WRAPPER(requestLocalUserMute_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool deafened
+#define ARG_NAMES callerID, deafened
+C_WRAPPER(requestLocalUserDeaf_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, const char *comment
+#define ARG_NAMES callerID, connection, comment
+C_WRAPPER(requestSetLocalUserComment_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, const char *userName, mumble_userid_t *userID
+#define ARG_NAMES callerID, connection, userName, userID
+C_WRAPPER(findUserByName_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, const char *channelName, mumble_channelid_t *channelID
+#define ARG_NAMES callerID, connection, channelName, channelID
+C_WRAPPER(findChannelByName_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, bool *outValue
+#define ARG_NAMES callerID, key, outValue
+C_WRAPPER(getMumbleSetting_bool_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, int64_t *outValue
+#define ARG_NAMES callerID, key, outValue
+C_WRAPPER(getMumbleSetting_int_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, double *outValue
+#define ARG_NAMES callerID, key, outValue
+C_WRAPPER(getMumbleSetting_double_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, const char **outValue
+#define ARG_NAMES callerID, key, outValue
+C_WRAPPER(getMumbleSetting_string_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, bool value
+#define ARG_NAMES callerID, key, value
+C_WRAPPER(setMumbleSetting_bool_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, int64_t value
+#define ARG_NAMES callerID, key, value
+C_WRAPPER(setMumbleSetting_int_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, double value
+#define ARG_NAMES callerID, key, value
+C_WRAPPER(setMumbleSetting_double_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_settings_key_t key, const char *value
+#define ARG_NAMES callerID, key, value
+C_WRAPPER(setMumbleSetting_string_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                                               \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users, size_t userCount, \
+		const uint8_t *data, size_t dataLength, const char *dataID
+#define ARG_NAMES callerID, connection, users, userCount, data, dataLength, dataID
+C_WRAPPER(sendData_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, const char *message
+#define ARG_NAMES callerID, message
+C_WRAPPER(log_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, const char *samplePath
+#define ARG_NAMES callerID, samplePath
+C_WRAPPER(playSample_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, const char *samplePath, float volume
+#define ARG_NAMES callerID, samplePath, volume
+C_WRAPPER(playSample_v_1_2_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+
+#undef C_WRAPPER
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
