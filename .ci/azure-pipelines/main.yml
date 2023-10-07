@@ -22,7 +22,7 @@ jobs:
     pool:
       vmImage: 'windows-2022'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2022-05-17~cd7e2c9.x64'
+      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.5.x~2023-10-06~0310159.x64'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
     steps:
     - template: steps_windows.yml
