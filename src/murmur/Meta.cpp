@@ -228,8 +228,13 @@ void MetaParams::read(QString fname) {
 			break;
 	}
 
-	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qsSettings->fileName()),
-			 qPrintable(qdBasePath.absolutePath()));
+	if (QFile::exists(qsAbsSettingsFilePath)) {
+		qWarning("Initializing settings from %s (basepath %s)", qPrintable(qsSettings->fileName()),
+				 qPrintable(qdBasePath.absolutePath()));
+	} else {
+		qWarning("No ini file at %s (basepath %s). Initializing with default settings.",
+				 qPrintable(qsSettings->fileName()), qPrintable(qdBasePath.absolutePath()));
+	}
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
