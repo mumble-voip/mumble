@@ -25,3 +25,6 @@
 [submodule "3rdparty/SPSCQueue"]
 	path = 3rdparty/SPSCQueue
 	url = https://github.com/rigtorp/SPSCQueue.git
+[submodule "3rdparty/cwalk"]
+	path = 3rdparty/cwalk
+	url = https://github.com/likle/cwalk.git
