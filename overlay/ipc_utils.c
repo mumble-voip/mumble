@@ -4,7 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ipc_utils.h"
-#include <cwalk.h>
+// #include <cwalk.h>
 #include <string.h>
 
 #ifdef _WIN32
@@ -20,26 +20,28 @@
 #	include <unistd.h>
 #endif
 
+// can't trust POSIX's nor Window's PATH_MAX constants
+// see: https://eklitzke.org/path-max-is-tricky
+//      https://stackoverflow.com/a/56385296
+#define MUMBLE_MAX_PATH 1024
+
 char *getRuntimePath__() {
+	char buffer[MUMBLE_MAX_PATH];
 	char *path = NULL;
 
-#ifdef __linux__
-	char buffer[MUMBLE_MAX_PATH];
+#ifdef _WIN32
+	path = strdup("\0");
+#elif __linux__
 	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
 	if (xdgRuntimeDir == NULL || !xdgRuntimeDir) {
-		char uid[10];
-		sprintf(uid, "%d", getuid());
+		// char uid[10];
+		// sprintf(uid, "%d", getuid());
 		xdgRuntimeDir = "/run/user/";
-		cwk_path_join(xdgRuntimeDir, uid, buffer, sizeof(buffer));
+		// cwk_path_join(xdgRuntimeDir, uid, buffer, sizeof(buffer));
+		snprintf(buffer, sizeof(buffer), "%s/%d", xdgRuntimeDir, getuid());
 	}
-	size_t path_len = cwk_path_join(xdgRuntimeDir, "mumble", buffer, sizeof(buffer));
-	// if (path_len != strlen(buffer))
-	// 		buffer is too small. Result is truncated
-	if ((path = malloc(path_len)) == NULL)
-		return NULL;
-	strcpy(path, buffer);
-#elif defined(_WIN32)
-	path = strdup("");
+	// size_t path_len = cwk_path_join(xdgRuntimeDir, "mumble", buffer, sizeof(buffer));
+	int path_len        = snprintf(buffer, sizeof(buffer), "%s/mumble/", xdgRuntimeDir);
 #else
 	char *home = getenv("HOME");
 	if (home == NULL) {
@@ -49,20 +51,32 @@ char *getRuntimePath__() {
 		else
 			return NULL;
 	}
-	if ((path = malloc(strlen(home))) == NULL)
+	if ((path = malloc(strlen(home) + 1)) == NULL)
 		return NULL;
-	strcpy(path, home);
+	int path_len = snprintf(buffer, sizeof(buffer), "%s/", home);
+#endif
+#if !defined _WIN32
+	// if (path_len != strlen(buffer))
+	// 		buffer is too small. Result is truncated
+	if ((path = malloc(path_len + 1)) == NULL)
+		return NULL;
+	strcpy(path, buffer);
 #endif
 	return path;
 }
 
 char *getAndCreateOverlayPipePath__() {
 	char buffer[MUMBLE_MAX_PATH];
-	char *runtimePath      = getRuntimePath__();
-	char *overlapyPipeFile = NULL;
+	char *overlapyPipeFile = "MumbleOverlayPipe";
 	char *path             = NULL;
+	char *runtimePath      = getRuntimePath__();
 	if (runtimePath == NULL)
 		return NULL;
+#if !defined __linux__ && !defined _WIN32
+	char *path_template = "%s.%s";
+#else
+	char *path_template = "%s%s";
+#endif
 #if _WIN32
 /*
  * on Windows we don't create the directory as getRuntimePath__() returns an empty string.
@@ -71,15 +85,11 @@ char *getAndCreateOverlayPipePath__() {
 #else
 	mkdir(runtimePath, 0755);
 #endif
-#if !defined __linux__ && !defined _WIN32
-	overlapyPipeFile = ".MumbleOverlayPipe";
-#else
-	overlapyPipeFile = "MumbleOverlayPipe";
-#endif
-	size_t path_len = cwk_path_join(runtimePath, overlapyPipeFile, buffer, sizeof(buffer));
+	// size_t path_len = cwk_path_join(runtimePath, overlapyPipeFile, buffer, sizeof(buffer));
+	int path_len = snprintf(buffer, sizeof(buffer), path_template, runtimePath, overlapyPipeFile);
 	// if (path_len != strlen(path))
 	// 		path is too small. Result is truncated
-	if ((path = malloc(path_len)) == NULL)
+	if ((path = malloc(path_len + 1)) == NULL)
 		return NULL;
 	strcpy(path, buffer);
 	free(runtimePath);

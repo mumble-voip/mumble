@@ -26,7 +26,6 @@ option(bundled-speex "Build the included version of Speex instead of looking for
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
 option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
-option(bundled-cwalk "Build the included version of CWalk instead of looking for one on the system." ON)
 
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
@@ -513,15 +512,7 @@ else()
 	find_pkg("nlohmann_json" REQUIRED)
 endif()
 
-if(bundled-cwalk)
-	add_subdirectory("${3RDPARTY_DIR}/cwalk" "${CMAKE_CURRENT_BINARY_DIR}/cwalk" EXCLUDE_FROM_ALL)
-	target_link_libraries(mumble_client_object_lib PUBLIC cwalk)
-	install_library(cwalk mumble_client)
-else()
-	find_pkg(Cwalk REQUIRED)
-	target_link_libraries(mumble_client_object_lib PUBLIC cwalk)
-endif()
-
+# target_link_libraries(mumble_client_object_lib PUBLIC cwalk)
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
 find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
