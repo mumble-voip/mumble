@@ -290,6 +290,8 @@ set(MUMBLE_SOURCES
 
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"
+	"widgets/EventFilters.cpp"
+	"widgets/EventFilters.h"
 	"widgets/MUComboBox.cpp"
 	"widgets/MUComboBox.h"
 	"widgets/MultiStyleWidgetWrapper.cpp"
