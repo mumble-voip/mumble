@@ -27,7 +27,7 @@ protected:
 
 protected slots:
 	virtual void on_VolumeSlider_valueChanged(int){};
-	virtual void on_VolumeSlider_sliderReleased(){};
+	virtual void on_VolumeSlider_changeCompleted(){};
 };
 
 #endif
