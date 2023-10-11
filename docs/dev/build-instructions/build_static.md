@@ -74,9 +74,9 @@ Therefore if you are on Windows, you'd install `qt5-base` as `vcpkg install qt5-
 vcpkg to install `zeroc-ice`. At the moment Ice can't be built using cmake though and therefore there does not exists a native vcpkg port (install
 target) for it.
 
-Instead you'll have to copy the entire [zeroc-ice directory](../../../helpers/vcpkg/ports/zeroc-ice) (not only the contents!) to `<vcpkg dir>/ports/`
+Instead you'll have to copy the entire [zeroc-ice directory](../../../helpers/vcpkg/ports/zeroc-ice-mumble) (not only the contents!) to `<vcpkg dir>/ports/`
 where `<vcpkg dir>` is the directory you installed vcpkg into. This will make our custom ice port available to be installed via vcpkg. Just install
-as a regular vcpkg package named `zeroc-ice`.
+as a regular vcpkg package named `zeroc-ice-mumble`.
 
 Note: The custom port uses our [own fork](https://github.com/mumble-voip/ice) of Ice that includes support for cmake.
 
