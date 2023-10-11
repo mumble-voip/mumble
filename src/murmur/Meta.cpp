@@ -199,7 +199,6 @@ void MetaParams::read(QString fname) {
 			}
 		}
 		if (qsAbsSettingsFilePath.isEmpty()) {
-			QDir::root().mkpath(qdBasePath.absolutePath());
 			qdBasePath            = QDir(datapaths.at(0));
 			qsAbsSettingsFilePath = qdBasePath.absolutePath() + QLatin1String("/mumble-server.ini");
 		}
