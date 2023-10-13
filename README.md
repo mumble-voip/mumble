@@ -15,7 +15,7 @@ Mumble is an Open Source, low-latency and high-quality voice-chat program
 written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server (murmur).
-The client works on Windows, Linux, FreeBSD, OpenBSD and macOS,
+The client works on Windows, Linux, FreeBSD, OpenBSD, and macOS,
 while the server should work on anything Qt can be installed on.
 
 Please note that with "Windows" we mean 7 and newer.
@@ -29,7 +29,7 @@ The documentation of the project can be found on the [wiki](https://wiki.mumble.
 
 ## Contributing
 
-We always welcome contributions to the project. If you have code that you would like to contribute, please go ahead and create a PR. While doing so,
+We always welcome contributions to the project. If you have some code that you would like to contribute, please go ahead and create a PR. While doing so,
 please try to make sure that you follow our [commit guidelines](COMMIT_GUIDELINES.md).
 
 If you are new to the Mumble project, you may want to check out the general [introduction to the Mumble source code](docs/dev/TheMumbleSourceCode.md).
@@ -43,16 +43,16 @@ We are using Weblate as a translation platform. [Register on Weblate](https://ho
 ### Writing plugins
 
 Mumble supports general-purpose plugins that can provide functionality that is not implemented in the main Mumble application. You can find more
-information on how this works and on how these have to be created in the [plugin documentation](docs/dev/plugins/README.md).
+information on how this works and how these have to be created in the [plugin documentation](docs/dev/plugins/README.md).
 
 ## Building
 
-For information on how to build Mumble, checkout [the dedicated documentation](docs/dev/build-instructions/README.md).
+For information on how to build Mumble, check out [the dedicated documentation](docs/dev/build-instructions/README.md).
 
 
 ## Reporting issues
 
-If you want to report a bug or create a feature-request, you can open a new issue (after you have checked that there is none already) on
+If you want to report a bug or create a feature request, you can open a new issue (after you have checked that there is none already) on
 [GitHub](https://github.com/mumble-voip/mumble/issues/new/choose).
 
 
@@ -71,7 +71,7 @@ Start Menu, from which you can start Mumble.
 
 ### Running Murmur
 
-Doubleclick the Murmur icon to start murmur. There will be a small icon on your
+Double-click the Murmur icon to start Murmur. There will be a small icon on your
 taskbar from which you can view the log.
 
 To set the superuser password, run murmur with the parameters `-supw <password>`.
@@ -97,9 +97,9 @@ For more information please see the "Running Murmur" in the Linux/Unix section b
 
 ### Running Mumble
 
-If you have installed Mumble through your distributon's package
+If you have installed Mumble through your distribution package
 repository, you should be able to find Mumble in your start menu. No
-additional steps necessary.
+additional steps are necessary.
 
 ### Running Murmur
 
@@ -125,13 +125,13 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
 #### Build and run from Docker
 
-On recent Docker versions you can build images directly from sources on GitHub:
+On recent Docker versions, you can build images directly from sources on GitHub:
 ```bash
 docker build --pull -t mumble-server github.com/mumble-voip/mumble#master
 ```
 Example `--pull`s each time to check for updated base image, then downloads and builds `master` branch.
 
-You can also specify user id (UID) and group id (GID) for the *murmur* user in the image. This allows users who use bind mount volumes to use the same UID/GID in the container as in the host:
+You can also specify the user ID (UID) and group ID (GID) for the *murmur* user in the image. This allows users who use bind mount volumes to use the same UID/GID in the container as in the host:
 ```bash
 docker build --pull -t mumble-server --build-arg UID=1234 --build-arg GID=1234 github.com/mumble-voip/mumble#master
 ```
