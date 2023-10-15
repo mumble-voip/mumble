@@ -36,6 +36,7 @@
 #include <iostream>
 #include <sstream>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 using namespace mumble::db;
@@ -165,6 +166,7 @@ private slots:
 	void keyValueTable();
 	void unicode();
 	void fetchMinimumFreeID();
+	void dateToEpoch();
 };
 
 void DatabaseTest::hexConversions() {
@@ -937,6 +939,31 @@ void DatabaseTest::fetchMinimumFreeID() {
 									   { utils::ColAlias(::test::IntegerTable::column::second_col, "second") }),
 								   "second", &secondColReq);
 		QCOMPARE(fetchedID, test::IntegerTable::lowestID_second_bla);
+	}
+}
+
+void DatabaseTest::dateToEpoch() {
+	const std::vector< std::pair< std::string, unsigned int > > tests = {
+		{ "'2016-08-11 17:15'", 1470935700 },
+		{ "'2007-01-26'", 1169769600 },
+		{ "'2007-01-26'", 1169769600 },
+	};
+
+	for (Backend currentBackend : backends) {
+		qInfo() << "Current backend:" << QString::fromStdString(backendToString(currentBackend));
+
+		for (const std::pair< std::string, unsigned int > &current : tests) {
+			qInfo() << "  " << QString::fromStdString(current.first);
+
+			TestDatabase db(currentBackend);
+			db.init(test::utils::getConnectionParamter(currentBackend));
+
+			unsigned int timestamp = 0;
+			db.getSQLHandle() << "SELECT " << utils::dateToEpoch(current.first, currentBackend, true),
+				soci::into(timestamp);
+
+			QCOMPARE(timestamp, current.second);
+		}
 	}
 }
 
