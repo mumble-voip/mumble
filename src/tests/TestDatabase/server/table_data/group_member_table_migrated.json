@@ -1,0 +1,19 @@
+{
+	"v6": {
+		"table_name": "group_members",
+		"column_names": [
+			"server_id",
+			"group_id",
+			"user_id",
+			"add_to_group"
+		],
+		"rows": [
+			[
+				1,
+				2,
+				1,
+				1
+			]
+		]
+	}
+}

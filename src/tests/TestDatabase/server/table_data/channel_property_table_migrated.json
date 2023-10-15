@@ -1,0 +1,19 @@
+{
+	"v6": {
+		"table_name": "channel_properties",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"property_key",
+			"property_value"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				42,
+				"miau"
+			]
+		]
+	}
+}

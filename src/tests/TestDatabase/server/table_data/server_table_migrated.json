@@ -1,0 +1,17 @@
+{
+	"v6": {
+		"table_name": "virtual_servers",
+		"column_names": [
+			"server_id"
+		],
+		"rows": [
+			[
+				1
+			],
+			[
+				2
+			]
+		]
+	}
+}
+

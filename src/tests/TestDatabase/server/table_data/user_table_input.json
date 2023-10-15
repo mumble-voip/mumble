@@ -1,0 +1,51 @@
+{
+	"v6": {
+		"table_name": "users",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"name",
+			"pw",
+			"salt",
+			"kdfiterations",
+			"lastchannel",
+			"texture",
+			"last_active"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"INTEGER",
+			"INTEGER",
+			"BLOB",
+			"TIMESTAMP"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				"Hugo",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+			],
+			[
+				1,
+				1,
+				"Jasmine",
+				"secret",
+				"salty",
+				42,
+				1,
+				null,
+				"2002-12-14 16:46:04"
+			]
+		]
+	}
+}

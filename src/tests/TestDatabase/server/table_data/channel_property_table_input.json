@@ -1,0 +1,25 @@
+{
+	"v6": {
+		"table_name": "channel_info",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"key",
+			"value"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"TEXT"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				42,
+				"miau"
+			]
+		]
+	}
+}

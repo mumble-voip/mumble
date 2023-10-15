@@ -386,30 +386,25 @@ namespace server {
 					//		seconds.
 					soci::row row;
 
-					std::string startConversion;
+					std::string startConversion = mdb::utils::dateToEpoch("base", m_backend);
 					std::string baseConversion;
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
-							startConversion = "STRFTIME('%s', start)";
 							baseConversion  = "HEX(base)";
 							break;
 						case ::mdb::Backend::MySQL:
-							startConversion = "UNIX_TIMESTAMP(start)";
 							baseConversion  = "HEX(base)";
 							break;
 						case ::mdb::Backend::PostgreSQL:
-							startConversion = "EXTRACT(EPOCH FROM start)";
 							baseConversion  = "ENCODE(base::bytea, 'hex')";
 							break;
 					}
 					assert(!startConversion.empty());
-					std::string selectQuery =
-						fromSchemeVersion < 4 ? std::string("SELECT server_id, ") + baseConversion + ", mask"
-											  : std::string("SELECT server_id, ") + baseConversion
-													+ ", mask, name, hash, reason, " + startConversion + ", duration";
 
 					soci::statement selectStmt =
-						(m_sql.prepare << selectQuery << " FROM \"bans" << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
+						(m_sql.prepare << "SELECT server_id, " << baseConversion << ", mask, name, hash, reason, "
+									   << startConversion << ", duration FROM \"bans"
+									   << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
 						 soci::into(row));
 
 					soci::statement insertStmt =
@@ -435,7 +430,7 @@ namespace server {
 						long long startDate       = 0;
 						int duration              = 0;
 
-						assert(fromSchemeVersion < 4 ? row.size() == 3 : row.size() == 8);
+						assert(row.size() == 8);
 						assert(row.get_properties(0).get_data_type() == soci::dt_integer);
 						assert(row.get_indicator(0) == soci::i_ok);
 						assert(row.get_properties(1).get_data_type() == soci::dt_string);
@@ -447,55 +442,48 @@ namespace server {
 						baseAddress  = row.get< std::string >(1);
 						prefixLength = row.get< int >(2);
 
-						if (fromSchemeVersion < 4) {
-							bool success = false;
-							std::array< std::uint8_t, 4 > ipv4 =
-								::mdb::utils::hexToBinary< decltype(ipv4) >(baseAddress, &success);
+						assert(row.get_properties(3).get_data_type() == soci::dt_string);
+						assert(row.get_properties(4).get_data_type() == soci::dt_string);
+						assert(row.get_properties(5).get_data_type() == soci::dt_string);
+						// The actual datatype for the start time is long, but SOCI returns a string when using SQLite
+						// due to issues with SQLite's type system (or rather the lack thereof)
+						assert(row.get_properties(6).get_data_type() == soci::dt_long_long
+							   || row.get_properties(6).get_data_type() == soci::dt_string);
+						assert(row.get_indicator(6) == soci::i_ok);
+						assert(row.get_properties(7).get_data_type() == soci::dt_integer);
 
-							if (!success) {
-								throw ::mdb::MigrationException(
-									"Encountered invalid hex-representation of IPv4 address: '" + baseAddress + "'");
-							}
+						bool success          = false;
+						DBBan::ipv6_type ipv6 = ::mdb::utils::hexToBinary< DBBan::ipv6_type >(baseAddress, &success);
 
-							// The IPv4 was stored in the host's byte order instead of network byte order
-							baseAddress = DBBan::ipv6ToString(DBBan::ipv4ToIpv6(ipv4, true));
-
-							prefixLength = DBBan::subNetMaskToPrefixLength(static_cast< std::uint8_t >(prefixLength));
-						} else {
-							assert(row.get_properties(3).get_data_type() == soci::dt_string);
-							assert(row.get_properties(4).get_data_type() == soci::dt_string);
-							assert(row.get_properties(5).get_data_type() == soci::dt_string);
-							assert(row.get_properties(6).get_data_type() == soci::dt_integer);
-							assert(row.get_indicator(6) == soci::i_ok);
-							assert(row.get_properties(7).get_data_type() == soci::dt_integer);
-							assert(row.get_indicator(7) == soci::i_ok);
-
-							bool success          = false;
-							DBBan::ipv6_type ipv6 = ::mdb::utils::hexToBinary< decltype(ipv6) >(baseAddress, &success);
-
-							if (!success) {
-								throw ::mdb::MigrationException(
-									"Encountered invalid hex-representation of IPv6 address: '" + baseAddress + "'");
-							}
-
-							baseAddress = DBBan::ipv6ToString(ipv6);
-
-							if (row.get_indicator(3) == soci::i_ok) {
-								bannedName = row.get< std::string >(3);
-								nameInd    = soci::i_ok;
-							}
-							if (row.get_indicator(4) == soci::i_ok) {
-								bannedCertHash = row.get< std::string >(4);
-								certInd        = soci::i_ok;
-							}
-							if (row.get_indicator(5) == soci::i_ok) {
-								reason    = row.get< std::string >(5);
-								reasonInd = soci::i_ok;
-							}
-
-							startDate = row.get< long long >(6);
-							duration  = row.get< int >(7);
+						if (!success) {
+							throw ::mdb::MigrationException("Encountered invalid hex-representation of IPv6 address: '"
+															+ baseAddress + "'");
 						}
+
+						baseAddress = DBBan::ipv6ToString(ipv6);
+
+						if (row.get_indicator(3) == soci::i_ok) {
+							bannedName = row.get< std::string >(3);
+							nameInd    = soci::i_ok;
+						}
+						if (row.get_indicator(4) == soci::i_ok) {
+							bannedCertHash = row.get< std::string >(4);
+							certInd        = soci::i_ok;
+						}
+						if (row.get_indicator(5) == soci::i_ok) {
+							reason    = row.get< std::string >(5);
+							reasonInd = soci::i_ok;
+						}
+
+						if (row.get_properties(6).get_data_type() == soci::dt_long_long) {
+							startDate = row.get< long long >(6);
+						} else {
+							// SQLite code path
+							assert(row.get_properties(6).get_data_type() == soci::dt_string);
+							std::string strStartDate = row.get< std::string >(6);
+							startDate                = std::stoll(strStartDate);
+						}
+						duration = row.get_indicator(7) != soci::i_null ? row.get< int >(7) : 0;
 
 						insertStmt.exchange(soci::use(serverID));
 						insertStmt.exchange(soci::use(baseAddress));

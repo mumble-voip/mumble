@@ -1,0 +1,37 @@
+{
+	"v6": {
+		"table_name": "bans",
+		"column_names": [
+			"server_id",
+			"base",
+			"mask",
+			"name",
+			"hash",
+			"reason",
+			"start",
+			"duration"
+		],
+		"column_types": [
+			"INTEGER",
+			"BINARY",
+			"INTEGER",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TIMESTAMP",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				"0x234504252CA1000000000567567323B5",
+				32,
+				"evil user",
+				"cert hash",
+				null,
+				"2013-08-04 12:04:47",
+				null
+			]
+		]
+	}
+}
