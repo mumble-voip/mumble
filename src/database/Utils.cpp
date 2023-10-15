@@ -97,6 +97,31 @@ namespace db {
 
 		details::CoalesceHelper nonNullOf(const std::string &value) { return { value.c_str() }; }
 
+		std::string dateToEpoch(const std::string &value, Backend backend, bool autocast) {
+			// Note: This function assumes that the default timezone is UTC
+			switch (backend) {
+				case Backend::SQLite:
+					return std::string("STRFTIME('%s', ") + value + ")";
+				case Backend::MySQL:
+					return std::string("UNIX_TIMESTAMP(") + value + ")";
+				case Backend::PostgreSQL:
+					std::string query("EXTRACT(EPOCH FROM ");
+					if (autocast) {
+						query += "CAST(" + value + " AS TIMESTAMP)";
+					} else {
+						query += value;
+					}
+
+					query += ")";
+
+					return query;
+			}
+
+			// This code should not be reachable
+			assert(false);
+			return value;
+		}
+
 	} // namespace utils
 } // namespace db
 } // namespace mumble

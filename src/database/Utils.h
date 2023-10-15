@@ -88,6 +88,17 @@ namespace db {
 		 */
 		details::CoalesceHelper nonNullOf(const std::string &value);
 
+		/**
+		 * Produces a query that transforms the given value from a date(time) representation
+		 * into a unix epoch timestamp (in seconds)
+		 *
+		 * @param value The value (or the name of a field) to convert
+		 * @param backend The currently used database backend
+		 * @param autocast Whether to automatically cast the given value to a suitable data
+		 * type instead of letting the backend deduce the type.
+		 */
+		std::string dateToEpoch(const std::string &value, Backend backend, bool autocast = false);
+
 		namespace details {
 			template< typename Container > struct Resizer {
 				static void resize(Container &container, std::size_t size) { container.resize(size); }
