@@ -1,0 +1,22 @@
+{
+	"v6": {
+		"table_name": "channel_links",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"link_id"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				1,
+				0
+			]
+		]
+	}
+}
