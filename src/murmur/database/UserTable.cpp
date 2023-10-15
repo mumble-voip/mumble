@@ -704,6 +704,7 @@ namespace server {
 						  << ", " << column::last_active
 						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, "
 						  << ::mdb::utils::nonNullOf("lastchannel").otherwise("0") << ", texture, "
+						  // TODO: convert date into epoch time
 						  << ::mdb::utils::nonNullOf("last_active").otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else if (fromSchemeVersion < 10) {

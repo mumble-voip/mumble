@@ -1,0 +1,19 @@
+{
+	"v6": {
+		"table_name": "servers",
+		"column_names": [
+			"server_id"
+		],
+		"column_types": [
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1
+			],
+			[
+				2
+			]
+		]
+	}
+}

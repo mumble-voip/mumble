@@ -1,0 +1,73 @@
+{
+	"v6": {
+		"table_name": "acl",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"priority",
+			"user_id",
+			"group_name",
+			"apply_here",
+			"apply_sub",
+			"grantpriv",
+			"revokepriv"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"TEXT",
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				3,
+				null,
+				"admin",
+				1,
+				0,
+				1,
+				null
+			],
+			[
+				1,
+				0,
+				4,
+				1,
+				null,
+				1,
+				0,
+				null,
+				5
+			],
+			[
+				1,
+				1,
+				1,
+				null,
+				"!sub,3,2",
+				1,
+				0,
+				null,
+				5
+			],
+			[
+				1,
+				1,
+				2,
+				null,
+				"#letmein",
+				1,
+				0,
+				null,
+				5
+			]
+		]
+	}
+}
