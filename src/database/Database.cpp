@@ -606,6 +606,9 @@ namespace db {
 							+ binlogFormat + "\"");
 					}
 
+					// Set default timezone to UTC
+					m_sql << "SET @@SESSION.time_zone = '+00:00'";
+
 					break;
 				}
 				case Backend::PostgreSQL: {
@@ -645,6 +648,9 @@ namespace db {
 							m_sql << "CREATE EXTENSION \"lo\";";
 						}
 					}
+
+					// Set default timezone to UTC
+					m_sql << "SET timezone TO 'UTC'";
 
 					break;
 				}
