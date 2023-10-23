@@ -19,7 +19,11 @@
 
 std::unique_ptr< ProcessBase > proc;
 
+#ifdef OS_WINDOWS
+static constexpr bool isWin32 = true;
+#else
 static bool isWin32 = false;
+#endif
 
 #include "client.h"
 #include "common.h"
