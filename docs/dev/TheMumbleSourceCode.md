@@ -41,7 +41,6 @@ When cloning the repo, the source tree should look something like this:
 ├── src
 │   ├── crypto
 │   ├── mumble
-│   ├── mumble_exe
 │   ├── murmur
 │   └── tests
 └── themes
@@ -81,11 +80,8 @@ mainly occupied by various scripts used throughout various tasks surrounding Mum
 default configuration file for the Mumble server.
 
 Your main focus should lie on the `src` directory as this is where the bulk of Mumble's source code is living. Directly in `src/` are shared sources
-that are used by the Mumble client as well as by the server that live in `src/mumble` and `src/murmur` respectively. The `src/mumble_exe` direcrtory
-contains code for the Windows-specific executable. In order to make sense of that you have to know that on Windows we are currently using a bit of an
-odd system: The main application is packaged inside a DLL that is loaded by the main executable. This is a historic artifact and currently only
-serves to create problems every now and then. In any case though, the mentioned "main executable" whose sole job is loading of that DLL lives in
-`mumble_exe`. Generally you don't have to worry about it. The remaining directories within `src` should be somewhat self-explanatory.
+that are used by the Mumble client as well as by the server that live in `src/mumble` and `src/murmur` respectively. The remaining directories within
+`src` should be somewhat self-explanatory.
 
 The `themes` directory contains all built-in themes that are currently shipped with Mumble. At this point there is only one theme available: the
 `Default` theme (note that it contains the Lite and the Dark theme variant). If you want to customize any kind of icons within Mumble, this is the

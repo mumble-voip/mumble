@@ -11,7 +11,6 @@ set(MUMBLE_ICON "${CMAKE_SOURCE_DIR}/icons/mumble.ico")
 set(MUMBLE_ICNS "${CMAKE_SOURCE_DIR}/icons/mumble.icns")
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.rc.in" "${MUMBLE_RC}")
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble_dll.rc.in" "${MUMBLE_DLL_RC}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.plist.in" "${MUMBLE_PLIST}")
 
 include(qt-utils)
@@ -333,42 +332,31 @@ list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
 
-if(static AND WIN32)
-	# On Windows, building a static client means building the main app into a DLL.
-	add_library(mumble SHARED "main.cpp")
-	target_compile_definitions(mumble_client_object_lib PUBLIC "MUMBLEAPP_DLL")
-
-	set_target_properties(mumble PROPERTIES OUTPUT_NAME "mumble_app")
-	if(MINGW)
-		# Remove "lib" prefix.
-		set_target_properties(mumble PROPERTIES PREFIX "")
-	endif()
-
-	target_sources(mumble_client_object_lib PRIVATE "${MUMBLE_DLL_RC}")
-
-	add_subdirectory("${SHARED_SOURCE_DIR}/mumble_exe" "${CMAKE_BINARY_DIR}/mumble_exe")
+if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+	# We don't want the console to appear in release builds.
+	add_executable(mumble WIN32 "main.cpp")
 else()
 	add_executable(mumble "main.cpp")
+endif()
 
-	if(WIN32)
-		target_sources(mumble_client_object_lib
-			PRIVATE
-				"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
-				"${MUMBLE_RC}"
-		)
+if(WIN32)
+	target_sources(mumble_client_object_lib
+		PRIVATE
+			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
+			"${MUMBLE_RC}"
+	)
 
-		if(elevation)
-			set_property(TARGET mumble APPEND_STRING PROPERTY LINK_FLAGS " /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"")
-		endif()
-	elseif(APPLE)
-		set_target_properties(mumble
-			PROPERTIES
-				OUTPUT_NAME "Mumble"
-				MACOSX_BUNDLE TRUE
-				RESOURCE ${MUMBLE_ICNS}
-				MACOSX_BUNDLE_INFO_PLIST ${MUMBLE_PLIST}
-		)
+	if(elevation)
+		set_property(TARGET mumble APPEND_STRING PROPERTY LINK_FLAGS " /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"")
 	endif()
+elseif(APPLE)
+	set_target_properties(mumble
+		PROPERTIES
+			OUTPUT_NAME "Mumble"
+			MACOSX_BUNDLE TRUE
+			RESOURCE ${MUMBLE_ICNS}
+			MACOSX_BUNDLE_INFO_PLIST ${MUMBLE_PLIST}
+	)
 endif()
 
 add_custom_command(
@@ -1144,3 +1132,44 @@ endif()
 target_include_directories(${TARGET_NAME} INTERFACE
   $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
+
+if(packaging)
+	set(overlay ON)
+	set(plugins ON)
+
+	if(translations)
+		list(APPEND installer_vars "--all-languages")
+	endif()
+
+
+	list(APPEND installer_vars
+		"--version" ${PROJECT_VERSION}
+		"--arch" "${MUMBLE_TARGET_ARCH}"
+	)
+
+	if(overlay)
+		list(APPEND installer_vars
+			"--overlay"
+		)
+	endif()
+
+	if(g15)
+		list(APPEND installer_vars
+			"--g15"
+		)
+	endif()
+
+	file(COPY
+		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
+		${CMAKE_SOURCE_DIR}/installer/ClientInstaller.cs
+		DESTINATION
+			${CMAKE_BINARY_DIR}/installer/client
+	)
+
+	add_custom_command(TARGET mumble
+		POST_BUILD
+		COMMAND cscs.exe -cd MumbleInstall.cs
+		COMMAND cscs.exe ClientInstaller.cs ${installer_vars}
+		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/client
+	)
+endif()
