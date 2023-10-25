@@ -89,7 +89,6 @@ public class ClientInstaller : MumbleInstall {
 				"rnnoise.dll",
 				"speexdsp.dll",
 				"mumble.exe",
-				"mumble_app.dll",
 			};
 
 			if (features.overlay) {
@@ -109,7 +108,6 @@ public class ClientInstaller : MumbleInstall {
 				"rnnoise.dll",
 				"speexdsp.dll",
 				"mumble.exe",
-				"mumble_app.dll",
 			};
 
 			if (features.overlay) {
