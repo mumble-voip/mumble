@@ -100,18 +100,30 @@ AudioOutput::~AudioOutput() {
 float AudioOutput::calcGain(float dotproduct, float distance) {
 	// dotproduct is in the range [-1, 1], thus we renormalize it to the range [0, 1]
 	float dotfactor = (dotproduct + 1.0f) / 2.0f;
+
+	// Volume on the ear opposite to the sound should never reach 0 in the real world.
+	// Therefore, we define the minimum volume as 1/4th of the theoretical maximum (ignoring
+	// the sound direction but taking distance into account) for _any_ ear.
+	const float offset = (1.0f - dotfactor) * 0.25f;
+	dotfactor += offset;
+
 	float att;
 
-
-	// No distance attenuation
-	if (Global::get().s.fAudioMaxDistVolume > 0.99f) {
-		att = qMin(1.0f, dotfactor + Global::get().s.fAudioBloom);
+	if (distance < 0.01f) {
+		// Listener is "inside" source -> no attenuation
+		// Without this extra check, we would have a dotfactor of 0.5
+		// despite being numerically inside the source leading to a loss
+		// of volume.
+		att = 1.0f;
+	} else if (Global::get().s.fAudioMaxDistVolume > 0.99f) {
+		// User selected no distance attenuation
+		att = std::min(1.0f, dotfactor + Global::get().s.fAudioBloom);
 	} else if (distance < Global::get().s.fAudioMinDistance) {
 		// Fade in blooming as soon as the sound source enters fAudioMinDistance and increase it to its full
 		// capability when the audio source is at the same position as the local player
 		float bloomfac = Global::get().s.fAudioBloom * (1.0f - distance / Global::get().s.fAudioMinDistance);
 
-		att = qMin(1.0f, bloomfac + dotfactor);
+		att = std::min(1.0f, bloomfac + dotfactor);
 	} else {
 		float datt;
 
@@ -119,8 +131,9 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 			datt = Global::get().s.fAudioMaxDistVolume;
 		} else {
 			float mvol = Global::get().s.fAudioMaxDistVolume;
-			if (mvol < 0.01f)
-				mvol = 0.01f;
+			if (mvol < 0.005f) {
+				mvol = 0.005f;
+			}
 
 			float drel = (distance - Global::get().s.fAudioMinDistance)
 						 / (Global::get().s.fAudioMaxDistance - Global::get().s.fAudioMinDistance);
@@ -660,21 +673,30 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					}
 				}
 
+				const bool isAudible =
+					(Global::get().s.fAudioMaxDistVolume > 0) || (len < Global::get().s.fAudioMaxDistance);
+
 				for (unsigned int s = 0; s < nchan; ++s) {
 					const float dot = bSpeakerPositional[s]
 										  ? connectionVec.x * speaker[s * 3 + 0] + connectionVec.y * speaker[s * 3 + 1]
 												+ connectionVec.z * speaker[s * 3 + 2]
 										  : 1.0f;
-					// Volume on the ear opposite to the sound should never reach 0 in the real world.
-					// The gain is multiplied by 19/20 and 1/20 is added. This will have the effect
-					// of bringing the lowest value up to 1/20, while keeping the highest value at 1.
-					// E.g. calcGain() = 1; 1 * 19/20 + 1/20 = 0.95 + 0.05 = 1
-					// calcGain() = 0; 0 * 19/20 + 1/20 = 0 + 0.05 = 0.05
-					const float str     = svol[s] * (1 / 20.0 + (19 / 20.0) * calcGain(dot, len)) * volumeAdjustment;
+					float channelVol;
+					if (isAudible) {
+						// In the current contex, we know that sound reaches at least one ear.
+						channelVol = svol[s] * calcGain(dot, len) * volumeAdjustment;
+					} else {
+						// The user has set the minimum positional volume to 0 and this sound source
+						// is exceeding the positional volume range. This means that the sound is completely
+						// inaudible at the current position. We therefore set the volume the to 0,
+						// making sure the user really can not hear any audio from that source.
+						channelVol = 0;
+					}
+
 					float *RESTRICT o   = output + s;
-					const float old     = (buffer->pfVolume[s] >= 0.0f) ? buffer->pfVolume[s] : str;
-					const float inc     = (str - old) / static_cast< float >(frameCount);
-					buffer->pfVolume[s] = str;
+					const float old     = (buffer->pfVolume[s] >= 0.0f) ? buffer->pfVolume[s] : channelVol;
+					const float inc     = (channelVol - old) / static_cast< float >(frameCount);
+					buffer->pfVolume[s] = channelVol;
 
 					// Calculates the ITD offset of the audio data this frame.
 					// Interaural Time Delay (ITD) is a small time delay between your ears
@@ -692,10 +714,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					const float incOffset = (offset - oldOffset) / static_cast< float >(frameCount);
 					buffer->piOffset[s]   = offset;
 					/*
-										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0],
-					   speaker[s*3+1], speaker[s*3+2], dot, len, str);
+										qWarning("%d: Pos %f %f %f : Dot %f Len %f ChannelVol %f", s, speaker[s*3+0],
+					   speaker[s*3+1], speaker[s*3+2], dot, len, channelVol);
 					*/
-					if ((old >= 0.00000001f) || (str >= 0.00000001f)) {
+					if ((old >= 0.00000001f) || (channelVol >= 0.00000001f)) {
 						for (unsigned int i = 0; i < frameCount; ++i) {
 							unsigned int currentOffset = oldOffset + incOffset * i;
 							if (speech && speech->bStereo) {
@@ -714,8 +736,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				// Mix the current audio source into the output by adding it to the elements of the output buffer after
 				// having applied a volume adjustment
 				for (unsigned int s = 0; s < nchan; ++s) {
-					const float str   = svol[s] * volumeAdjustment;
-					float *RESTRICT o = output + s;
+					const float channelVol = svol[s] * volumeAdjustment;
+					float *RESTRICT o      = output + s;
 					if (buffer->bStereo) {
 						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
 						// direction.
@@ -723,10 +745,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 						for (unsigned int i = 0; i < frameCount; ++i)
 							o[i * nchan] += (pfBuffer[2 * i] * fStereoPanningFactor[2 * s + 0]
 											 + pfBuffer[2 * i + 1] * fStereoPanningFactor[2 * s + 1])
-											* str;
+											* channelVol;
 					} else {
 						for (unsigned int i = 0; i < frameCount; ++i)
-							o[i * nchan] += pfBuffer[i] * str;
+							o[i * nchan] += pfBuffer[i] * channelVol;
 					}
 				}
 			}

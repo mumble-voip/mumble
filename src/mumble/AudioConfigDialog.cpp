@@ -866,22 +866,22 @@ void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
 	qsMinDistance->setValue(value * 10);
 
 	// Ensure that max distance is always a least 1m larger than min distance
-	qsMaxDistance->setValue(std::max(qsMaxDistance->value(), static_cast< int >(value * 10) + 1));
+	qsMaxDistance->setValue(std::max(qsMaxDistance->value(), static_cast< int >(value * 10) + 10));
 }
 
 void AudioOutputDialog::on_qsMaxDistance_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMaximumDistance);
 	qsbMaximumDistance->setValue(value / 10.0f);
 
-	// Ensure that max distance is always a least 1m larger than min distance
+	// Ensure that min distance is always a least 1m less than max distance
 	qsbMinimumDistance->setValue(std::min(qsbMinimumDistance->value(), (value / 10.0) - 1));
 }
 void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMaxDistance);
 	qsMaxDistance->setValue(value * 10);
 
-	// Ensure that max distance is always a least 1m larger than min distance
-	qsMinDistance->setValue(std::min(qsMinDistance->value(), static_cast< int >(value * 10) - 1));
+	// Ensure that min distance is always a least 1m less than max distance
+	qsMinDistance->setValue(std::min(qsMinDistance->value(), static_cast< int >(value * 10) - 10));
 }
 
 void AudioOutputDialog::on_qsMinimumVolume_valueChanged(int value) {
