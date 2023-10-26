@@ -96,6 +96,11 @@ if(NOT APPLE)
 					"-ldl"
 					"-lrt"
 			)
+		endif()
+	endif()
+
+	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR ${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+		if(TARGET overlay_gl_x86)
 			# install 32bit overlay library
 			install(TARGETS overlay_gl_x86 LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}")
 		endif()
