@@ -335,7 +335,7 @@ struct Settings {
 	bool bPositionalHeadphone     = false;
 	float fAudioMinDistance       = 1.0f;
 	float fAudioMaxDistance       = 15.0f;
-	float fAudioMaxDistVolume     = 0.25f;
+	float fAudioMaxDistVolume     = 0.0f;
 	float fAudioBloom             = 0.5f;
 	/// Contains the settings for each individual plugin. The key in this map is the Hex-represented SHA-1
 	/// hash of the plugin's UTF-8 encoded absolute file-path on the hard-drive.
