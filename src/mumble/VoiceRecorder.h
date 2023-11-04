@@ -55,6 +55,9 @@ enum Format {
 	// OPUS Format
 	OPUS,
 #endif
+#ifdef USE_SNDFILE_MP3
+	MP3,
+#endif
 	kEnd
 };
 

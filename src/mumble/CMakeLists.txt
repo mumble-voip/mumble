@@ -507,6 +507,13 @@ else()
 	message(WARNING "libsndfile is missing Opus-support -> No Opus-format recording")
 endif()
 
+# Check if sndfile version supports mp3
+if("${sndfile_VERSION}" VERSION_GREATER_EQUAL "1.1.0")
+	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_MP3)
+else()
+	message(WARNING "libsndfile is missing Mp3-support -> No Mp3-format recording")
+endif()
+
 # Look for various targets as they are named differently on different platforms
 if(static AND TARGET sndfile-static)
 	target_link_libraries(mumble_client_object_lib PUBLIC sndfile-static)

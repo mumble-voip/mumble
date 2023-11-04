@@ -8972,6 +8972,10 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
         <source>.opus - Lossy compressed</source>
         <translation>.opus - Stratna kompresja</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

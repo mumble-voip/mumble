@@ -8910,6 +8910,10 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
         <source>.opus - Lossy compressed</source>
         <translation>.opus - Verlieslijdend gecomprimeerd</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

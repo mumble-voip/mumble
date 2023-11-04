@@ -8888,6 +8888,10 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <source>.opus - Lossy compressed</source>
         <translation>.opus - Lossy comprimido</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

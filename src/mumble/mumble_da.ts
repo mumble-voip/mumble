@@ -8867,6 +8867,10 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <source>.opus - Lossy compressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>
