@@ -132,11 +132,7 @@ extern int os_early_init();
 extern HWND mumble_mw_hwnd;
 #endif // Q_OS_WIN
 
-#if defined(Q_OS_WIN) && !defined(MUMBLEAPP_DLL)
-extern "C" __declspec(dllexport) int main(int argc, char **argv) {
-#else
 int main(int argc, char **argv) {
-#endif
 	int res = 0;
 
 #if defined(Q_OS_WIN)
@@ -958,31 +954,3 @@ int main(int argc, char **argv) {
 	}
 	return res;
 }
-
-#if defined(Q_OS_WIN) && defined(MUMBLEAPP_DLL)
-extern "C" __declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
-	Q_UNUSED(instance)
-	Q_UNUSED(prevInstance)
-	Q_UNUSED(cmdArg)
-	Q_UNUSED(cmdShow)
-
-	int argc;
-	wchar_t **argvW = CommandLineToArgvW(GetCommandLineW(), &argc);
-	if (!argvW) {
-		return -1;
-	}
-
-	QVector< QByteArray > argvS;
-	argvS.reserve(argc);
-
-	QVector< char * > argvV(argc, nullptr);
-	for (int i = 0; i < argc; ++i) {
-		argvS.append(QString::fromWCharArray(argvW[i]).toLocal8Bit());
-		argvV[i] = argvS.back().data();
-	}
-
-	LocalFree(argvW);
-
-	return main(argc, argvV.data());
-}
-#endif
