@@ -8926,6 +8926,10 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
         <source>.opus - Lossy compressed</source>
         <translation>.opus — tapsbasert kompresjon</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

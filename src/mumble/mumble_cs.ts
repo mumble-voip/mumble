@@ -8873,6 +8873,10 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <source>.opus - Lossy compressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

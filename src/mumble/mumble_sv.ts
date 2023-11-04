@@ -8969,6 +8969,10 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
         <source>.opus - Lossy compressed</source>
         <translation>.opus - Destruktiv komprimering</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

@@ -8860,6 +8860,10 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
         <source>.opus - Lossy compressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

@@ -8842,6 +8842,10 @@ An access token is a text string, which can be used as a password for very simpl
         <source>.opus - Lossy compressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>

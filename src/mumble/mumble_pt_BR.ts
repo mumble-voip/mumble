@@ -8910,6 +8910,10 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <source>.opus - Lossy compressed</source>
         <translation>.opus - Comprimido com perdas</translation>
     </message>
+    <message>
+        <source>.mp3 - Lossy compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>
