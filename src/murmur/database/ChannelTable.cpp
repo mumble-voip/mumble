@@ -72,11 +72,13 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short inheritACL = channel.inheritACL;
+
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
 					  << column::parent_id << ", " << column::name << ", " << column::inherit_acl
 					  << ") VALUES (:serverID, :channelID, :parentID, :name, :inheritACL)",
 					soci::use(channel.serverID), soci::use(channel.channelID), soci::use(channel.parentID),
-					soci::use(channel.name), soci::use(static_cast< unsigned int >(channel.inheritACL));
+					soci::use(channel.name), soci::use(inheritACL);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -112,11 +114,13 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short inheritACL = channel.inheritACL;
+
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::parent_id << " = :parentID, " << column::name
 					  << " = :name, " << column::inherit_acl << " = :inheritACL WHERE " << column::server_id
 					  << " = :serverID AND " << column::channel_id << " = :channelID",
 					soci::use(channel.parentID), soci::use(channel.name),
-					soci::use(static_cast< unsigned int >(channel.inheritACL)), soci::use(channel.serverID),
+					soci::use(inheritACL), soci::use(channel.serverID),
 					soci::use(channel.channelID);
 
 				transaction.commit();

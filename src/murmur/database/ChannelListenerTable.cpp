@@ -74,12 +74,14 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				double adjustment = static_cast< double >(listener.volumeAdjustment);
+				short enabled     = listener.enabled;
+
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 					  << column::channel_id << ", " << column::volume_adjustment << ", " << column::enabled
 					  << ") VALUES (:serverID, :userID, :channelID, :volAdjustment, :enabled)",
 					soci::use(listener.serverID), soci::use(listener.userID), soci::use(listener.channelID),
-					soci::use(static_cast< double >(listener.volumeAdjustment)),
-					soci::use(static_cast< int >(listener.enabled));
+					soci::use(adjustment), soci::use(enabled);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -174,12 +176,14 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				double adjustment = static_cast< double >(listener.volumeAdjustment);
+				short enabled     = listener.enabled;
+
 				m_sql << "UPDATE \"" << NAME << "\" SET " << column::volume_adjustment << " = :volAdjustment, "
 					  << column::enabled << " = :enabled WHERE " << column::server_id << " = :serverID AND "
 					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID",
-					soci::use(static_cast< double >(listener.volumeAdjustment)),
-					soci::use(static_cast< int >(listener.enabled)), soci::use(listener.serverID),
-					soci::use(listener.userID), soci::use(listener.channelID);
+					soci::use(adjustment), soci::use(enabled), soci::use(listener.serverID), soci::use(listener.userID),
+					soci::use(listener.channelID);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
