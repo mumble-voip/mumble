@@ -107,14 +107,15 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short inherit      = group.inherit;
+				short inheritable  = group.is_inheritable;
 				long long group_id = 0;
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
 					  << column::channel_id << ", " << column::group_name << ", " << column::inherit << ", "
 					  << column::is_inheritable
 					  << ") VALUES (:serverID, :groupID, :channelID, :name, :inherit, :inheritable)",
 					soci::use(group.serverID), soci::use(group.groupID), soci::use(group.channelID),
-					soci::use(group.name), soci::use(static_cast< int >(group.inherit)),
-					soci::use(static_cast< int >(group.is_inheritable)), soci::into(group_id);
+					soci::use(group.name), soci::use(inherit), soci::use(inheritable), soci::into(group_id);
 
 				transaction.commit();
 
@@ -136,13 +137,15 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short inhert      = group.inherit;
+				short inheritable = group.is_inheritable;
+
 				m_sql << "UPDATE \"" << NAME << "\"SET " << column::group_name << " = :name, " << column::channel_id
 					  << " = :channelID, " << column::inherit << " = :inherit, " << column::is_inheritable
 					  << " = :inheritable WHERE " << column::server_id << " = :serverID AND " << column::group_id
 					  << " = :groupID",
-					soci::use(group.name), soci::use(group.channelID), soci::use(static_cast< int >(group.inherit)),
-					soci::use(static_cast< int >(group.is_inheritable)), soci::use(group.serverID),
-					soci::use(group.groupID);
+					soci::use(group.name), soci::use(group.channelID), soci::use(inhert), soci::use(inheritable),
+					soci::use(group.serverID), soci::use(group.groupID);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {

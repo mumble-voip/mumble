@@ -78,11 +78,12 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short add = addToGroup;
+
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
 					  << column::user_id << ", " << column::add_to_group
 					  << ") VALUES (:serverID, :groupID, :userID, :add)",
-					soci::use(serverID), soci::use(groupID), soci::use(userID),
-					soci::use(static_cast< int >(addToGroup));
+					soci::use(serverID), soci::use(groupID), soci::use(userID), soci::use(add);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {

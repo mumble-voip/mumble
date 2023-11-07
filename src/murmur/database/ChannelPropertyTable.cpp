@@ -69,9 +69,11 @@ namespace server {
 
 				std::string val;
 
+				int intProp = static_cast< int >(property);
+
 				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
 					  << " = :serverID AND " << column::channel_id << " = :channelID AND " << column::key << " = :key",
-					soci::into(val), soci::use(serverID), soci::use(channelID), soci::use(static_cast< int >(property));
+					soci::into(val), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
 
@@ -90,11 +92,11 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				int exists = 0;
+				int intProp = static_cast< int >(property);
+				int exists  = 0;
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
-					soci::into(exists), soci::use(serverID), soci::use(channelID),
-					soci::use(static_cast< int >(property));
+					soci::into(exists), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				transaction.commit();
 
@@ -113,18 +115,18 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				int intProp = static_cast< int >(property);
+
 				if (propertyAlreadySet) {
 					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
 						  << column::server_id << " = :serverID AND " << column::channel_id << " = :channelID AND "
 						  << column::key << " = :key",
-						soci::use(value), soci::use(serverID), soci::use(channelID),
-						soci::use(static_cast< int >(property));
+						soci::use(value), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 				} else {
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
 						  << ", " << column::key << ", " << column::value
 						  << ") VALUES (:serverID, :channelID, :key, :value)",
-						soci::use(serverID), soci::use(channelID), soci::use(static_cast< int >(property)),
-						soci::use(value);
+						soci::use(serverID), soci::use(channelID), soci::use(intProp), soci::use(value);
 				}
 
 				transaction.commit();
@@ -140,9 +142,11 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				int intProp = static_cast< int >(property);
+
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
 					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
-					soci::use(serverID), soci::use(channelID), soci::use(static_cast< int >(property));
+					soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
