@@ -170,6 +170,9 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
+				short applyInCurrentChannel = acl.applyInCurrentChannel;
+				short applyInSubChannels    = acl.applyInSubChannels;
+
 				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
 					  << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id << ", "
 					  << column::aff_meta_group_id << ", " << column::access_token << ", " << column::group_modifiers
@@ -181,9 +184,8 @@ namespace server {
 					soci::use(acl.serverID), soci::use(acl.channelID), soci::use(acl.priority),
 					soci::use(userID, userInd), soci::use(groupID, groupInd), soci::use(metaGroupID, metaGroupInd),
 					soci::use(accessToken, accessTokenInd), soci::use(groupModifiers, groupModInd),
-					soci::use(static_cast< int >(acl.applyInCurrentChannel)),
-					soci::use(static_cast< int >(acl.applyInSubChannels)), soci::use(acl.grantedPrivilegeFlags),
-					soci::use(acl.revokedPrivilegeFlags);
+					soci::use(applyInCurrentChannel), soci::use(applyInSubChannels),
+					soci::use(acl.grantedPrivilegeFlags), soci::use(acl.revokedPrivilegeFlags);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -495,8 +497,7 @@ namespace server {
 							soci::use(serverID), soci::use(channelID), soci::use(priority), soci::use(userID, userInd),
 							soci::use(groupID, groupInd), soci::use(metaGroupID, metaGroupInd),
 							soci::use(accessToken, accessTokenInd), soci::use(groupModifiers, groupModInd),
-							soci::use(static_cast< int >(applyHere)), soci::use(static_cast< int >(applySub)),
-							soci::use(grantPriv), soci::use(revokePriv);
+							soci::use(applyHere), soci::use(applySub), soci::use(grantPriv), soci::use(revokePriv);
 					}
 				} else {
 					// Use default implementation to handle migration without change of format
