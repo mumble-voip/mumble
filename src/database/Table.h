@@ -33,9 +33,9 @@ namespace db {
 	public:
 		static constexpr const char *BACKUP_SUFFIX = "_backup";
 
-		Table(soci::session &sql, Backend backend);
-		Table(soci::session &sql, Backend backend, const std::string &name);
-		Table(soci::session &sql, Backend backend, const std::string &name, const std::vector< Column > &columns);
+		Table(soci::session &sql, Backend backend, Database *database);
+		Table(soci::session &sql, Backend backend, const std::string &name = {},
+			  const std::vector< Column > &columns = {}, Database *database = nullptr);
 		virtual ~Table() = default;
 
 		const std::string &getName() const;
