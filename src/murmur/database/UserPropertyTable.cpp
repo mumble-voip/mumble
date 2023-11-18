@@ -113,7 +113,7 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				int intProp = static_cast< int >(intProp);
+				int intProp = static_cast< int >(property);
 
 				if (propertyAlreadySet) {
 					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
