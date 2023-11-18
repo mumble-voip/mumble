@@ -264,6 +264,8 @@ namespace db {
 	}
 
 	void Database::destroyTables() {
+		TransactionHolder transaction = ensureTransaction();
+
 		// When dropping tables, we have to make sure that we do this in an order that does not violate any potentially
 		// existing foreign key constraints between the tables. In order to do so, we have to start dropping the child
 		// (referencing) tables before dropping the parent (referenced) tables
@@ -320,14 +322,20 @@ namespace db {
 		}
 
 		assert(nTables == 0);
+
+		transaction.commit();
 	}
 
 	void Database::clearTables() {
+		TransactionHolder transaction = ensureTransaction();
+
 		for (const std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable && tableExistsInDB(currentTable->getName())) {
 				currentTable->clear();
 			}
 		}
+
+		transaction.commit();
 	}
 
 	Version Database::getBackendVersion() {
@@ -667,6 +675,8 @@ namespace db {
 	}
 
 	void Database::createTables() {
+		TransactionHolder transaction = ensureTransaction();
+
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (!currentTable) {
 				continue;
@@ -678,6 +688,8 @@ namespace db {
 
 			currentTable->create();
 		}
+
+		transaction.commit();
 	}
 
 	void Database::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
