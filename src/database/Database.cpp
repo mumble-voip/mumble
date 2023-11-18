@@ -58,6 +58,7 @@ namespace db {
 
 		// Create a meta-table
 		auto metaTable = std::make_unique< MetaTable >(m_sql, m_backend);
+		metaTable->setDatabase(this);
 
 		if (!tableExistsInDB(metaTable->getName())) {
 			metaTable->create();
