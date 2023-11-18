@@ -427,9 +427,6 @@ void DatabaseTest::simpleImport() {
 		// (potentially minus column order)
 		nlohmann::json exported = db.exportToJSON();
 
-		std::cout << exported.dump(2) << "\n";
-		std::cout << serializedDB.dump(2) << "\n";
-
 		test::utils::alignColumnOrder(exported, serializedDB);
 		test::utils::alignRowOrder(exported, serializedDB);
 		QCOMPARE(exported, serializedDB);
