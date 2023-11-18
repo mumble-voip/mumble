@@ -523,6 +523,8 @@ namespace db {
 		assert(!m_columns.empty());
 		assert(!m_name.empty());
 
+		TransactionHolder transaction = ensureTransaction();
+
 		nlohmann::json json;
 
 		std::string query = "SELECT ";
@@ -557,6 +559,8 @@ namespace db {
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
+
+		transaction.commit();
 
 		return json;
 	}
