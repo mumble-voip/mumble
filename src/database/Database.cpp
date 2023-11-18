@@ -234,6 +234,7 @@ namespace db {
 	}
 
 	nlohmann::json Database::exportToJSON() const {
+		TransactionHolder transaction = ensureTransaction();
 		nlohmann::json json;
 		json["meta_data"] = exportMetaData();
 
@@ -245,6 +246,7 @@ namespace db {
 			}
 		}
 
+		transaction.commit();
 		return json;
 	}
 
@@ -381,7 +383,7 @@ namespace db {
 		return version;
 	}
 
-	TransactionHolder Database::ensureTransaction() {
+	TransactionHolder Database::ensureTransaction() const {
 		return TransactionHolder(m_sql, !m_activeTransaction, &m_activeTransaction);
 	}
 
