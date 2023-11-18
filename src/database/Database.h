@@ -82,13 +82,13 @@ namespace db {
 		 *
 		 * @return A TransactionHolder managing the (potentially) started transaction.
 		 */
-		TransactionHolder ensureTransaction();
+		TransactionHolder ensureTransaction() const;
 
 	protected:
 		Backend m_backend;
 		std::vector< std::unique_ptr< Table > > m_tables;
-		soci::session m_sql;
-		bool m_activeTransaction = false;
+		mutable soci::session m_sql;
+		mutable bool m_activeTransaction = false;
 
 		void connectToDB(const ConnectionParameter &parameter);
 
