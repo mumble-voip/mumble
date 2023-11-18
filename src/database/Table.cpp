@@ -64,6 +64,8 @@ namespace db {
 		assert(!m_name.empty());
 		assert(!m_columns.empty());
 
+		TransactionHolder transaction = ensureTransaction();
+
 		std::string createQuery = "CREATE TABLE \"" + m_name + "\" (";
 
 		for (const Column &currentColumn : m_columns) {
@@ -185,6 +187,8 @@ namespace db {
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
+
+		transaction.commit();
 	}
 
 	void Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
@@ -215,15 +219,21 @@ namespace db {
 	void Table::destroy() {
 		assert(!m_name.empty());
 
+		TransactionHolder transaction = ensureTransaction();
+
 		try {
 			m_sql << "DROP TABLE \"" << m_name + "\"";
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
+
+		transaction.commit();
 	}
 
 	void Table::clear() {
 		assert(!m_name.empty());
+
+		TransactionHolder transaction = ensureTransaction();
 
 		try {
 			// Note that thanks to the missing WHERE clause, this deletes all rows in this table
@@ -231,6 +241,8 @@ namespace db {
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
+
+		transaction.commit();
 	}
 
 	Database *Table::getDatabase() { return m_database; }
@@ -243,11 +255,15 @@ namespace db {
 
 	void Table::addIndex(const Index &index, bool applyToDB) {
 		if (applyToDB) {
+			TransactionHolder transaction = ensureTransaction();
+
 			try {
 				m_sql << index.creationQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at creating index \"" + index.getName() + "\": " + e.what());
 			}
+
+			transaction.commit();
 		}
 
 		m_indices.push_back(index);
@@ -262,11 +278,15 @@ namespace db {
 		m_indices.erase(it);
 
 		if (applyToDB) {
+			TransactionHolder transaction = ensureTransaction();
+
 			try {
 				m_sql << index.dropQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at dropping index \"" + index.getName() + "\": " + e.what());
 			}
+
+			transaction.commit();
 		}
 
 		return true;
@@ -276,6 +296,8 @@ namespace db {
 
 	void Table::addTrigger(Trigger trigger, bool applyToDB) {
 		if (applyToDB) {
+			TransactionHolder transaction = ensureTransaction();
+
 			try {
 				m_sql << trigger.creationQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
@@ -283,6 +305,8 @@ namespace db {
 			}
 
 			trigger.setCreated(true);
+
+			transaction.commit();
 		}
 
 		m_trigger.push_back(std::move(trigger));
@@ -297,11 +321,15 @@ namespace db {
 		m_trigger.erase(it);
 
 		if (applyToDB) {
+			TransactionHolder transaction = ensureTransaction();
+
 			try {
 				m_sql << trigger.dropQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at dropping trigger \"" + trigger.getName() + "\": " + e.what());
 			}
+
+			transaction.commit();
 		}
 
 		return true;
