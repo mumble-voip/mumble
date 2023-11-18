@@ -29,10 +29,10 @@ namespace db {
 	// (Essentially this is needed to avoid an undefined reference error for this constant)
 	constexpr const char *Table::BACKUP_SUFFIX;
 
-	Table::Table(soci::session &sql, Backend backend) : Table(sql, backend, std::string{}, {}) {}
-	Table::Table(soci::session &sql, Backend backend, const std::string &name) : Table(sql, backend, name, {}) {}
-	Table::Table(soci::session &sql, Backend backend, const std::string &name, const std::vector< Column > &columns)
-		: m_name(name), m_columns(columns), m_sql(sql), m_backend(backend) {
+	Table::Table(soci::session &sql, Backend backend, Database *database) : Table(sql, backend, {}, {}, database) {}
+	Table::Table(soci::session &sql, Backend backend, const std::string &name, const std::vector< Column > &columns,
+				 Database *database)
+		: m_name(name), m_columns(columns), m_sql(sql), m_backend(backend), m_database(database) {
 		performCtorAssertions();
 	}
 
