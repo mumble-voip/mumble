@@ -697,6 +697,7 @@ namespace server {
 			try {
 				if (fromSchemeVersion < 8) {
 					// Before v8 there was no last_disconnect column
+					std::string lastActiveConversion = mdb::utils::dateToEpoch("last_active", m_backend);
 
 					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
 						  << column::user_name << ", " << column::password_hash << ", " << column::salt << ", "
@@ -704,8 +705,7 @@ namespace server {
 						  << ", " << column::last_active
 						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, "
 						  << ::mdb::utils::nonNullOf("lastchannel").otherwise("0") << ", texture, "
-						  // TODO: convert date into epoch time
-						  << ::mdb::utils::nonNullOf("last_active").otherwise("0") << " FROM \"users"
+						  << ::mdb::utils::nonNullOf(lastActiveConversion).otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else if (fromSchemeVersion < 10) {
 					// In v10, we renamed columns "name" -> "user_name", "pw" -> "password_hash",
