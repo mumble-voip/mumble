@@ -423,7 +423,7 @@ namespace server {
 
 					while (selectStmt.fetch()) {
 						int serverID;
-						std::string baseAddress;
+						soci::blob baseAddressBlob(m_sql);
 						int prefixLength;
 						std::string bannedName;
 						soci::indicator nameInd = soci::i_null;
@@ -437,14 +437,14 @@ namespace server {
 						assert(row.size() == 8);
 						assert(row.get_properties(0).get_data_type() == soci::dt_integer);
 						assert(row.get_indicator(0) == soci::i_ok);
-						assert(row.get_properties(1).get_data_type() == soci::dt_string);
+						assert(row.get_properties(1).get_data_type() == soci::dt_blob);
 						assert(row.get_indicator(1) == soci::i_ok);
 						assert(row.get_properties(2).get_data_type() == soci::dt_integer);
 						assert(row.get_indicator(2) == soci::i_ok);
 
-						serverID     = row.get< int >(0);
-						baseAddress  = row.get< std::string >(1);
-						prefixLength = row.get< int >(2);
+						serverID        = row.get< int >(0);
+						baseAddressBlob = row.move_as< soci::blob >(1);
+						prefixLength    = row.get< int >(2);
 
 						assert(row.get_properties(3).get_data_type() == soci::dt_string);
 						assert(row.get_properties(4).get_data_type() == soci::dt_string);
@@ -455,6 +455,15 @@ namespace server {
 							   || row.get_properties(6).get_data_type() == soci::dt_string);
 						assert(row.get_indicator(6) == soci::i_ok);
 						assert(row.get_properties(7).get_data_type() == soci::dt_integer);
+
+						std::vector< std::uint8_t > baseAddr;
+						baseAddr.resize(baseAddressBlob.get_len());
+						std::size_t read = baseAddressBlob.read_from_start(reinterpret_cast< char * >(baseAddr.data()),
+																		   baseAddr.size());
+						assert(read == baseAddr.size());
+						(void) read;
+
+						std::string baseAddress(baseAddr.begin(), baseAddr.end());
 
 						bool success          = false;
 						DBBan::ipv6_type ipv6 = ::mdb::utils::hexToBinary< DBBan::ipv6_type >(baseAddress, &success);
