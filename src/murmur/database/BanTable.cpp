@@ -386,7 +386,7 @@ namespace server {
 					//		seconds.
 					soci::row row;
 
-					std::string startConversion = mdb::utils::dateToEpoch("base", m_backend);
+					std::string startConversion = mdb::utils::dateToEpoch("start", m_backend);
 					std::string baseConversion;
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
