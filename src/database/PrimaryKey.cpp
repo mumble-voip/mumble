@@ -39,7 +39,7 @@ namespace db {
 		std::string sql = "PRIMARY KEY (";
 
 		for (std::size_t i = 0; i < m_columnNames.size(); ++i) {
-			sql += m_columnNames[i];
+			sql += "\"" + m_columnNames[i] + "\"";
 
 			if (i + 1 < m_columnNames.size()) {
 				sql += ", ";

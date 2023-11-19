@@ -71,8 +71,9 @@ namespace server {
 
 				int intProp = static_cast< int >(property);
 
-				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::channel_id << " = :channelID AND " << column::key << " = :key",
+				m_sql << "SELECT \"" << column::value << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::channel_id << "\" = :channelID AND \"" << column::key
+					  << "\" = :key",
 					soci::into(val), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -94,8 +95,8 @@ namespace server {
 
 				int intProp = static_cast< int >(property);
 				int exists  = 0;
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID AND \"" << column::key << "\" = :key",
 					soci::into(exists), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				transaction.commit();
@@ -118,14 +119,14 @@ namespace server {
 				int intProp = static_cast< int >(property);
 
 				if (propertyAlreadySet) {
-					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
-						  << column::server_id << " = :serverID AND " << column::channel_id << " = :channelID AND "
-						  << column::key << " = :key",
+					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::value << "\" = :value WHERE "
+						  << column::server_id << "\" = :serverID AND \"" << column::channel_id
+						  << "\" = :channelID AND \"" << column::key << "\" = :key",
 						soci::use(value), soci::use(serverID), soci::use(channelID), soci::use(intProp);
 				} else {
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
-						  << ", " << column::key << ", " << column::value
-						  << ") VALUES (:serverID, :channelID, :key, :value)",
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::channel_id
+						  << "\", \"" << column::key << "\", \"" << column::value
+						  << "\") VALUES (:serverID, :channelID, :key, :value)",
 						soci::use(serverID), soci::use(channelID), soci::use(intProp), soci::use(value);
 				}
 
@@ -144,8 +145,8 @@ namespace server {
 
 				int intProp = static_cast< int >(property);
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID AND " << column::key << " = :key",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID AND \"" << column::key << "\" = :key",
 					soci::use(serverID), soci::use(channelID), soci::use(intProp);
 
 				transaction.commit();
@@ -160,8 +161,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(channelID);
 
 				transaction.commit();
@@ -181,9 +182,9 @@ namespace server {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed this table from "channel_info" to "channel_properties"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::channel_id
-						  << ", " << column::key << ", " << column::value
-						  << ") SELECT server_id, channel_id, key, value FROM \"channel_info"
+					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id << "\", \""
+						  << column::channel_id << "\", \"" << column::key << "\", \"" << column::value
+						  << "\") SELECT \"server_id\", \"channel_id\", \"key\", value FROM \"channel_info"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

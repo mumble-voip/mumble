@@ -52,8 +52,8 @@ namespace db {
 
 		void IntegerTable::insert(int value, const std::string &secondVal) {
 			try {
-				m_sql << "INSERT INTO \"" << getName() << "\" (" << column::int_col << ", " << column::second_col
-					  << ") VALUES (:i, :second)",
+				m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::int_col << "\", \"" << column::second_col
+					  << "\") VALUES (:i, :second)",
 					soci::use(value), soci::use(secondVal);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting into IntegerTable") + e.what());

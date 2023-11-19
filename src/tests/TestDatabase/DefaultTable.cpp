@@ -29,7 +29,7 @@ namespace db {
 
 		void DefaultTable::insert(const std::string &key) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (DefaultColKey) VALUES (:key)", soci::use(key);
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"DefaultColKey\") VALUES (:key)", soci::use(key);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting default value: ") + e.what());
 			}
@@ -38,7 +38,7 @@ namespace db {
 		std::string DefaultTable::select(const std::string &key) {
 			try {
 				std::string value;
-				m_sql << "SELECT DefaultColValue FROM \"" + getName() + "\" WHERE DefaultColKey = :key", soci::use(key),
+				m_sql << "SELECT \"DefaultColValue\" FROM \"" + getName() + "\" WHERE \"DefaultColKey\" = :key", soci::use(key),
 					soci::into(value);
 
 				::mumble::db::utils::verifyQueryResultedInData(m_sql);

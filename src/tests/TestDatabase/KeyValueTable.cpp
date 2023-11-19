@@ -30,8 +30,8 @@ namespace db {
 
 		void KeyValueTable::insert(const std::string &key, const std::string &value) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (key_col, value_col) VALUES (:key, :value)", soci::use(key),
-					soci::use(value);
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"key_col\", \"value_col\") VALUES (:key, :value)",
+					soci::use(key), soci::use(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting key-value-pair: ") + e.what());
 			}
@@ -40,7 +40,7 @@ namespace db {
 		std::string KeyValueTable::query(const std::string &key) {
 			std::string value;
 			try {
-				m_sql << "SELECT value_col FROM \"" + getName() + "\" WHERE key_col = :key", soci::use(key),
+				m_sql << "SELECT \"value_col\" FROM \"" + getName() + "\" WHERE \"key_col\" = :key", soci::use(key),
 					soci::into(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at querying value for key \"" + key + "\": " + e.what());

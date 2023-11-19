@@ -74,9 +74,9 @@ namespace server {
 
 				short inheritACL = channel.inheritACL;
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
-					  << column::parent_id << ", " << column::name << ", " << column::inherit_acl
-					  << ") VALUES (:serverID, :channelID, :parentID, :name, :inheritACL)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::channel_id
+					  << "\", \"" << column::parent_id << "\", \"" << column::name << "\", \"" << column::inherit_acl
+					  << "\") VALUES (:serverID, :channelID, :parentID, :name, :inheritACL)",
 					soci::use(channel.serverID), soci::use(channel.channelID), soci::use(channel.parentID),
 					soci::use(channel.name), soci::use(inheritACL);
 
@@ -96,8 +96,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(channelID);
 
 				transaction.commit();
@@ -116,12 +116,11 @@ namespace server {
 
 				short inheritACL = channel.inheritACL;
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::parent_id << " = :parentID, " << column::name
-					  << " = :name, " << column::inherit_acl << " = :inheritACL WHERE " << column::server_id
-					  << " = :serverID AND " << column::channel_id << " = :channelID",
-					soci::use(channel.parentID), soci::use(channel.name),
-					soci::use(inheritACL), soci::use(channel.serverID),
-					soci::use(channel.channelID);
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::parent_id << "\" = :parentID, \"" << column::name
+					  << "\" = :name, \"" << column::inherit_acl << "\" = :inheritACL WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::channel_id << "\" = :channelID",
+					soci::use(channel.parentID), soci::use(channel.name), soci::use(inheritACL),
+					soci::use(channel.serverID), soci::use(channel.channelID);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -141,8 +140,8 @@ namespace server {
 
 				int exists = 0;
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID LIMIT 1",
 					soci::use(serverID), soci::use(channelID), soci::into(exists);
 
 				transaction.commit();
@@ -165,9 +164,9 @@ namespace server {
 
 				int inherit = 0;
 
-				m_sql << "SELECT " << column::parent_id << ", " << column::name << ", " << column::inherit_acl
-					  << " FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "SELECT \"" << column::parent_id << "\", \"" << column::name << "\", \"" << column::inherit_acl
+					  << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID",
 					soci::into(channel.parentID), soci::into(channel.name), soci::into(inherit), soci::use(serverID),
 					soci::use(channelID);
 
@@ -219,9 +218,9 @@ namespace server {
 				soci::row row;
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::channel_id << " FROM \"" << NAME << "\" WHERE "
-								   << column::server_id << " = :serverID AND " << column::parent_id
-								   << " = :parentID AND NOT " << column::channel_id << " = :parentID",
+					(m_sql.prepare << "SELECT \"" << column::channel_id << "\" FROM \"" << NAME << "\" WHERE \""
+								   << column::server_id << "\" = :serverID AND \"" << column::parent_id
+								   << "\" = :parentID AND NOT \"" << column::channel_id << "\" = :parentID",
 					 soci::use(serverID, "serverID"), soci::use(channelID, "parentID"), soci::into(row));
 
 				stmt.execute(false);
@@ -258,11 +257,11 @@ namespace server {
 					// fail)
 					// - inheritacl can no longer be NULL. Corresponding entries should instead use 0 (false) as the
 					// default
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
-						  << ", " << column::parent_id << ", " << column::name << ", " << column::inherit_acl
-						  << ") SELECT server_id, channel_id, "
-						  << ::mdb::utils::nonNullOf("parent_id").otherwise("channel_id") << ", name, "
-						  << ::mdb::utils::nonNullOf("inheritacl").otherwise("0") << " FROM \"channels"
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::channel_id
+						  << "\", \"" << column::parent_id << "\", \"" << column::name << "\", \""
+						  << column::inherit_acl << "\") SELECT \"server_id\", \"channel_id\", "
+						  << ::mdb::utils::nonNullOf("\"parent_id\"").otherwise("\"channel_id\"") << ", \"name\", "
+						  << ::mdb::utils::nonNullOf("\"inheritacl\"").otherwise("0") << " FROM \"channels"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

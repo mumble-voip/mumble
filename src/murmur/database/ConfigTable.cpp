@@ -63,8 +63,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT " << column::value << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :id AND " << column::key << " = :key",
+				m_sql << "SELECT \"" << column::value << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :id AND \"" << column::key << "\" = :key",
 					soci::use(serverID), soci::use(configName), soci::into(value);
 
 				transaction.commit();
@@ -82,17 +82,17 @@ namespace server {
 
 				// Perform an "upsert" operation - insert if it doesn't exist yet, insert otherwise
 				int exists = 0;
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND " << column::key
-					  << " = :key",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :id AND \""
+					  << column::key << "\" = :key",
 					soci::use(serverID), soci::use(configName), soci::into(exists);
 
 				if (exists) {
-					m_sql << "UPDATE \"" << NAME << "\" SET " << column::value << " = :value WHERE "
-						  << column::server_id << " = :id AND " << column::key << " = :key",
+					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::value << "\" = :value WHERE \""
+						  << column::server_id << "\" = :id AND \"" << column::key << "\" = :key",
 						soci::use(value), soci::use(serverID), soci::use(configName);
 				} else {
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::key << ", "
-						  << column::value << ") VALUES (:id, :key, :value)",
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::key
+						  << "\", \"" << column::value << "\") VALUES (:id, :key, :value)",
 						soci::use(serverID), soci::use(configName), soci::use(value);
 				}
 
@@ -107,8 +107,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id AND " << column::key
-					  << " = :key",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :id AND \""
+					  << column::key << "\" = :key",
 					soci::use(serverID), soci::use(configName);
 
 				transaction.commit();
@@ -126,9 +126,10 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				soci::statement stmt = (m_sql.prepare << "SELECT " << column::key << ", " << column::value << " FROM \""
-													  << NAME << "\" WHERE " << column::server_id << " = :id",
-										soci::use(serverID), soci::into(row));
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT \"" << column::key << "\", \"" << column::value << "\" FROM \"" << NAME
+								   << "\" WHERE \"" << column::server_id << "\" = :id",
+					 soci::use(serverID), soci::into(row));
 
 				stmt.execute(false);
 
@@ -153,7 +154,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(serverID);
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :id",
+					soci::use(serverID);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -172,8 +174,8 @@ namespace server {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed the columns "key" -> "config_name" and "value" -> "config_value"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", " << column::key << ", "
-						  << column::value << ") SELECT server_id, key, value FROM \"config"
+					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id << "\", \"" << column::key
+						  << "\", \"" << column::value << "\") SELECT \"server_id\", \"key\", \"value\" FROM \"config"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

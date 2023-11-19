@@ -110,10 +110,10 @@ namespace server {
 				short inherit      = group.inherit;
 				short inheritable  = group.is_inheritable;
 				long long group_id = 0;
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
-					  << column::channel_id << ", " << column::group_name << ", " << column::inherit << ", "
-					  << column::is_inheritable
-					  << ") VALUES (:serverID, :groupID, :channelID, :name, :inherit, :inheritable)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::group_id
+					  << "\", \"" << column::channel_id << "\", \"" << column::group_name << "\", \"" << column::inherit
+					  << "\", \"" << column::is_inheritable
+					  << "\") VALUES (:serverID, :groupID, :channelID, :name, :inherit, :inheritable)",
 					soci::use(group.serverID), soci::use(group.groupID), soci::use(group.channelID),
 					soci::use(group.name), soci::use(inherit), soci::use(inheritable), soci::into(group_id);
 
@@ -140,10 +140,10 @@ namespace server {
 				short inhert      = group.inherit;
 				short inheritable = group.is_inheritable;
 
-				m_sql << "UPDATE \"" << NAME << "\"SET " << column::group_name << " = :name, " << column::channel_id
-					  << " = :channelID, " << column::inherit << " = :inherit, " << column::is_inheritable
-					  << " = :inheritable WHERE " << column::server_id << " = :serverID AND " << column::group_id
-					  << " = :groupID",
+				m_sql << "UPDATE \"" << NAME << "\"SET \"" << column::group_name << "\" = :name, \""
+					  << column::channel_id << "\" = :channelID, \"" << column::inherit << "\" = :inherit, \""
+					  << column::is_inheritable << "\" = :inheritable WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::group_id << "\" = :groupID",
 					soci::use(group.name), soci::use(group.channelID), soci::use(inhert), soci::use(inheritable),
 					soci::use(group.serverID), soci::use(group.groupID);
 
@@ -161,8 +161,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::group_id << " = :groupID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::group_id << "\" = :groupID",
 					soci::use(serverID), soci::use(groupID);
 
 				transaction.commit();
@@ -181,8 +181,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::group_id << " = :groupID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::group_id << "\" = :groupID LIMIT 1",
 					soci::use(serverID), soci::use(groupID), soci::into(exists);
 
 				transaction.commit();
@@ -208,9 +208,9 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT " << column::channel_id << ", " << column::group_name << ", " << column::inherit
-					  << ", " << column::is_inheritable << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::group_id << " = :groupID",
+				m_sql << "SELECT \"" << column::channel_id << "\", \"" << column::group_name << "\", \""
+					  << column::inherit << "\", \"" << column::is_inheritable << "\" FROM \"" << NAME << "\" WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::group_id << "\" = :groupID",
 					soci::into(group.channelID), soci::into(group.name), soci::into(inherit),
 					soci::into(is_inheritable), soci::use(serverID), soci::use(groupID);
 
@@ -233,8 +233,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(channelID);
 
 				transaction.commit();
@@ -252,8 +252,8 @@ namespace server {
 
 				unsigned int groupID;
 
-				m_sql << "SELECT " << column::group_id << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::group_name << " = :groupName",
+				m_sql << "SELECT \"" << column::group_id << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::group_name << "\" = :groupName",
 					soci::use(serverID), soci::use(name), soci::into(groupID);
 
 				transaction.commit();
@@ -272,8 +272,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::channel_id << " = :channelID) AS dummy",
+				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::channel_id << "\" = :channelID) AS dummy",
 					soci::use(serverID), soci::use(channelID), soci::into(nGroups);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -295,11 +295,12 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				soci::statement stmt = (m_sql.prepare << "SELECT " << column::group_id << ", " << column::group_name
-													  << ", " << column::inherit << ", " << column::is_inheritable
-													  << " FROM \"" << NAME << "\" WHERE " << column::server_id
-													  << " = :serverID AND " << column::channel_id << " = :channelID",
-										soci::use(serverID), soci::use(channelID), soci::into(row));
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT \"" << column::group_id << "\", \"" << column::group_name << "\", \""
+								   << column::inherit << "\", \"" << column::is_inheritable << "\" FROM \"" << NAME
+								   << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+								   << column::channel_id << "\" = :channelID",
+					 soci::use(serverID), soci::use(channelID), soci::into(row));
 
 				stmt.execute(false);
 
@@ -340,11 +341,12 @@ namespace server {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed the columns "name" -> "group_name" and "inheritable" -> "is_inheritable"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
-						  << column::group_name << ", " << column::channel_id << ", " << column::inherit << ", "
-						  << column::is_inheritable << ") SELECT server_id, group_id, name, channel_id, "
-						  << ::mdb::utils::nonNullOf("inherit").otherwise("1") << ", "
-						  << ::mdb::utils::nonNullOf("inheritable").otherwise("1") << " FROM \"groups"
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::group_id
+						  << "\", \"" << column::group_name << "\", \"" << column::channel_id << "\", \""
+						  << column::inherit << "\", \"" << column::is_inheritable
+						  << "\") SELECT \"server_id\", \"group_id\", \"name\", \"channel_id\", "
+						  << ::mdb::utils::nonNullOf("\"inherit\"").otherwise("1") << ", "
+						  << ::mdb::utils::nonNullOf("\"inheritable\"").otherwise("1") << " FROM \"groups"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

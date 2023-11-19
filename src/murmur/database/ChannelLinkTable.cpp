@@ -97,8 +97,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::first_id << ", "
-					  << column::second_id << ") VALUES (:serverID, :firstID, :secondID)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::first_id
+					  << "\", \"" << column::second_id << "\") VALUES (:serverID, :firstID, :secondID)",
 					soci::use(link.serverID), soci::use(firstID), soci::use(secondID);
 
 				transaction.commit();
@@ -124,8 +124,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::first_id << " = :firstID AND " << column::second_id << " = :secondID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::first_id << "\" = :firstID AND \"" << column::second_id << "\" = :secondID",
 					soci::use(link.serverID), soci::use(firstID), soci::use(secondID);
 
 				transaction.commit();
@@ -153,8 +153,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::first_id << " = :firstID AND " << column::second_id << " = :secondID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::first_id << "\" = :firstID AND \"" << column::second_id << "\" = :secondID LIMIT 1",
 					soci::use(link.serverID), soci::use(firstID), soci::use(secondID), soci::into(exists);
 
 				transaction.commit();
@@ -176,8 +176,8 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::first_id << ", " << column::second_id << " FROM \"" << NAME
-								   << "\" WHERE " << column::server_id << " = :serverID",
+					(m_sql.prepare << "SELECT \"" << column::first_id << "\", \"" << column::second_id << "\" FROM \""
+								   << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID",
 					 soci::use(serverID), soci::into(row));
 
 				stmt.execute(false);
@@ -219,13 +219,13 @@ namespace server {
 					// Note that we also added a new constraint that requires second_channel_id > first_channel_id,
 					// so we have to make sure we are inserting the data in accordance to this new constraint.
 					// clang-format off
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::first_id << ", "
-						  << column::second_id << ") "
-						  << "SELECT server_id, channel_id, link_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
-						  <<	"WHERE channel_id < link_id "
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::first_id << "\", \""
+						  << column::second_id << "\") "
+						  << "SELECT \"server_id\", \"channel_id\", \"link_id\" FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
+						  <<	"WHERE \"channel_id\" < \"link_id\" "
 						  << "UNION "
-						  << "SELECT server_id, link_id, channel_id FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
-						  <<	"WHERE link_id < channel_id";
+						  << "SELECT \"server_id\", \"link_id\", \"channel_id\" FROM \"channel_links" << mdb::Database::OLD_TABLE_SUFFIX << "\" "
+						  <<	"WHERE \"link_id\" < \"channel_id\"";
 					// clang-format on
 				} else {
 					// Use default implementation to handle migration without change of format

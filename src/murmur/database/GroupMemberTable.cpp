@@ -80,9 +80,9 @@ namespace server {
 
 				short add = addToGroup;
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
-					  << column::user_id << ", " << column::add_to_group
-					  << ") VALUES (:serverID, :groupID, :userID, :add)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::group_id
+					  << "\", \"" << column::user_id << "\", \"" << column::add_to_group
+					  << "\") VALUES (:serverID, :groupID, :userID, :add)",
 					soci::use(serverID), soci::use(groupID), soci::use(userID), soci::use(add);
 
 				transaction.commit();
@@ -101,8 +101,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::group_id << "\" = :groupID AND \"" << column::user_id << "\" = :userID",
 					soci::use(serverID), soci::use(groupID), soci::use(userID);
 
 				transaction.commit();
@@ -123,8 +123,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::group_id << " = :groupID AND " << column::user_id << " = :userID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::group_id << "\" = :groupID AND \"" << column::user_id << "\" = :userID LIMIT 1",
 					soci::use(serverID), soci::use(groupID), soci::use(userID), soci::into(exists);
 
 				transaction.commit();
@@ -144,10 +144,11 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				soci::statement stmt = (m_sql.prepare << "SELECT " << column::user_id << ", " << column::add_to_group
-													  << " FROM \"" << NAME << "\" WHERE " << column::server_id
-													  << " = :serverID AND " << column::group_id << " = :groupID",
-										soci::use(serverID), soci::use(groupID), soci::into(row));
+				soci::statement stmt =
+					(m_sql.prepare << "SELECT \"" << column::user_id << "\", \"" << column::add_to_group << "\" FROM \""
+								   << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+								   << column::group_id << "\" = :groupID",
+					 soci::use(serverID), soci::use(groupID), soci::into(row));
 
 				stmt.execute(false);
 
@@ -184,9 +185,9 @@ namespace server {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed the column "addit" -> "add_to_group"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::group_id << ", "
-						  << column::user_id << ", " << column::add_to_group
-						  << ") SELECT server_id, group_id, user_id, addit FROM \"group_members"
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::group_id
+						  << "\", \"" << column::user_id << "\", \"" << column::add_to_group
+						  << "\") SELECT \"server_id\", \"group_id\", \"user_id\", \"addit\" FROM \"group_members"
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

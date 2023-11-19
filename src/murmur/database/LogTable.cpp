@@ -64,8 +64,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::message << ", "
-					  << column::date << ") VALUES (:id, :msg, :date)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::message
+					  << "\", \"" << column::date << "\") VALUES (:id, :msg, :date)",
 					soci::use(serverID), soci::use(entry.message), soci::use(timeSinceEpoch);
 
 				transaction.commit();
@@ -80,7 +80,7 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID",
 					soci::use(serverID);
 
 				transaction.commit();
@@ -104,9 +104,9 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::date << ", " << column::message << " FROM \"" << NAME
-								   << "\" WHERE " << column::server_id << " = :serverID ORDER BY " << column::date
-								   << " DESC " << ::mdb::utils::limitOffset(m_backend, ":limit", ":offset"),
+					(m_sql.prepare << "SELECT \"" << column::date << "\", \"" << column::message << "\" FROM \"" << NAME
+								   << "\" WHERE \"" << column::server_id << "\" = :serverID ORDER BY \"" << column::date
+								   << "\" DESC " << ::mdb::utils::limitOffset(m_backend, ":limit", ":offset"),
 					 soci::use(serverID), soci::use(maxEntries), soci::use(startOffset), soci::into(row));
 
 				stmt.execute(false);
@@ -139,8 +139,8 @@ namespace server {
 
 				std::size_t size = 0;
 
-				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << "  = :serverID) AS dummy",
+				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID) AS dummy",
 					soci::use(serverID), soci::into(size);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -167,26 +167,12 @@ namespace server {
 					// Note that we also changed the type of the date column from DATE/TIMESTAMP to seconds since
 					// epoch -> this requires conversion
 
-					switch (m_backend) {
-						case ::mdb::Backend::SQLite:
-							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
-								  << column::message << ", " << column::date << ") "
-								  << "SELECT server_id, msg, strftime('%s', msgtime) FROM \"slog"
-								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
-							break;
-						case ::mdb::Backend::MySQL:
-							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
-								  << column::message << ", " << column::date << ") "
-								  << "SELECT server_id, msg, UNIX_TIMESTAMP(msgtime) FROM \"slog"
-								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
-							break;
-						case ::mdb::Backend::PostgreSQL:
-							m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id << ", "
-								  << column::message << ", " << column::date << ") "
-								  << "SELECT server_id, msg, EXTRACT(EPOCH FROM msgtime) FROM \"slog"
-								  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
-							break;
-					}
+					std::string msgTimeConversion = ::mdb::utils::dateToEpoch("\"msgtime\"", m_backend);
+
+					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id << "\", \""
+						  << column::message << "\", \"" << column::date << "\") "
+						  << "SELECT \"server_id\", \"msg\", " << msgTimeConversion << " FROM \"slog"
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);

@@ -105,9 +105,10 @@ namespace server {
 			// foreign key for this as that would require us to specify a behavior for when a channel gets deleted.
 			// However, what we would like to do in this case (reset the  affected last channel entries to point to the
 			// root channel) is not supported with foreign keys.
-			std::string condition = std::string("NOT EXISTS (SELECT 1 FROM \"") + ChannelTable::NAME + "\" WHERE "
-									+ ChannelTable::column::server_id + " = NEW." + column::server_id + " AND "
-									+ ChannelTable::column::channel_id + " = NEW." + column::last_channel_id + ")";
+			std::string condition = std::string("NOT EXISTS (SELECT 1 FROM \"") + ChannelTable::NAME + "\" WHERE \""
+									+ ChannelTable::column::server_id + "\" = NEW.\"" + column::server_id + "\" AND \""
+									+ ChannelTable::column::channel_id + "\" = NEW.\"" + column::last_channel_id
+									+ "\")";
 			std::string channelExistsTriggerBody = ::mdb::utils::triggerErrorStatement(
 				m_backend, std::string("Attempted to use a non-existing channel as ") + column::last_channel_id);
 
@@ -122,11 +123,11 @@ namespace server {
 
 			// Add a trigger to the channel table that ensures that every time a channel is deleted, the corresponding
 			// last channel entries in the users table are reset to point to the root channel
-			std::string resetChannelTriggerBody = std::string("UPDATE \"") + NAME + "\" SET " + column::last_channel_id
-												  + " = " + std::to_string(Mumble::ROOT_CHANNEL_ID) + " WHERE "
-												  + column::server_id + " = OLD." + ChannelTable::column::server_id
-												  + " AND " + column::last_channel_id + " = OLD."
-												  + ChannelTable::column::channel_id + ";";
+			std::string resetChannelTriggerBody =
+				std::string("UPDATE \"") + NAME + "\" SET \"" + column::last_channel_id
+				+ "\" = " + std::to_string(Mumble::ROOT_CHANNEL_ID) + " WHERE \"" + column::server_id + "\" = OLD.\""
+				+ ChannelTable::column::server_id + "\" AND \"" + column::last_channel_id + "\" = OLD.\""
+				+ ChannelTable::column::channel_id + "\";";
 			::mdb::Trigger resetLastChannelOnDelete(std::string(NAME) + "_reset_last_channel_on_delete_trigger",
 													::mdb::Trigger::Timing::After, ::mdb::Trigger::Event::Delete,
 													resetChannelTriggerBody);
@@ -141,9 +142,9 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-					  << column::user_name << ", " << column::last_channel_id
-					  << ") VALUES (:serverID, :userID, :userName, :lastChannel)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
+					  << "\", \"" << column::user_name << "\", \"" << column::last_channel_id
+					  << "\") VALUES (:serverID, :userID, :userName, :lastChannel)",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::use(name),
 					soci::use(Mumble::ROOT_CHANNEL_ID);
 
@@ -159,8 +160,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID);
 
 				transaction.commit();
@@ -177,8 +178,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID LIMIT 1",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(exists);
 
 				transaction.commit();
@@ -231,12 +232,12 @@ namespace server {
 					std::size_t lastActive     = toEpochSeconds(data.lastActive);
 					std::size_t lastDisconnect = toEpochSeconds(data.lastDisconnect);
 
-					m_sql << "UPDATE \"" << NAME << "\" SET " << column::password_hash << " = :pwHash, " << column::salt
-						  << " = :salt, " << column::kdf_iterations << " = :kdfIter, " << column::user_name
-						  << " = :name, " << column::last_channel_id << " = :lastChannelID, " << column::texture
-						  << " = :texture, " << column::last_active << " = :lastActive, " << column::last_disconnect
-						  << " = :lastDisconnect WHERE " << column::server_id << " = :serverID AND " << column::user_id
-						  << " = :userID",
+					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::password_hash << "\" = :pwHash, \""
+						  << column::salt << "\" = :salt, \"" << column::kdf_iterations << "\" = :kdfIter, \""
+						  << column::user_name << "\" = :name, \"" << column::last_channel_id
+						  << "\" = :lastChannelID, \"" << column::texture << "\" = :texture, \"" << column::last_active
+						  << "\" = :lastActive, \"" << column::last_disconnect << "\" = :lastDisconnect WHERE \""
+						  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 						soci::use(data.password.passwordHash, pwHashInd), soci::use(data.password.salt, pwSaltInd),
 						soci::use(data.password.kdfIterations, kdfIterInd), soci::use(data.name),
 						soci::use(data.lastChannelID), soci::use(textureBlob, textureInd), soci::use(lastActive),
@@ -266,11 +267,11 @@ namespace server {
 					// These indicators are required in order to be able to handle NULL values
 					soci::indicator pwHashInd, pwSaltInd, kdfIterInd, textureInd;
 
-					m_sql << "SELECT " << column::user_name << ", " << column::password_hash << ", " << column::salt
-						  << ", " << column::kdf_iterations << ", " << column::last_channel_id << ", "
-						  << column::texture << ", " << column::last_active << ", " << column::last_disconnect
-						  << " FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-						  << column::user_id << " = :userID",
+					m_sql << "SELECT \"" << column::user_name << "\", \"" << column::password_hash << "\", \""
+						  << column::salt << "\", \"" << column::kdf_iterations << "\", \"" << column::last_channel_id
+						  << "\", \"" << column::texture << "\", \"" << column::last_active << "\", \""
+						  << column::last_disconnect << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+						  << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 						soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(data.name),
 						soci::into(data.password.passwordHash, pwHashInd), soci::into(data.password.salt, pwSaltInd),
 						soci::into(data.password.kdfIterations, kdfIterInd), soci::into(data.lastChannelID),
@@ -332,8 +333,9 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_disconnect << " = :lastDisconnect WHERE "
-					  << column::server_id << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::last_disconnect
+					  << "\" = :lastDisconnect WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID",
 					soci::use(lastDisconnect), soci::use(user.serverID), soci::use(user.registeredUserID);
 
 				transaction.commit();
@@ -350,8 +352,8 @@ namespace server {
 
 				std::size_t lastDisconnected = 0;
 
-				m_sql << "SELECT " << column::last_disconnect << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "SELECT \"" << column::last_disconnect << "\" FROM \"" << NAME << "\" WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(lastDisconnected);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -376,8 +378,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_active << " = :lastActive WHERE "
-					  << column::server_id << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::last_active << "\" = :lastActive WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(lastActive), soci::use(user.serverID), soci::use(user.registeredUserID);
 
 				transaction.commit();
@@ -394,8 +396,8 @@ namespace server {
 
 				std::size_t lastActive = 0;
 
-				m_sql << "SELECT " << column::last_active << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "SELECT \"" << column::last_active << "\" FROM \"" << NAME << "\" WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(lastActive);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -426,9 +428,9 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::last_channel_id << " = :lastChannel, "
-					  << column::last_active << " = :lastActive WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::last_channel_id << "\" = :lastChannel, \""
+					  << column::last_active << "\" = :lastActive WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(channelID), soci::use(lastActive), soci::use(user.serverID),
 					soci::use(user.registeredUserID);
 
@@ -446,8 +448,8 @@ namespace server {
 
 				unsigned int last_channel_id = Mumble::ROOT_CHANNEL_ID;
 
-				m_sql << "SELECT " << column::last_channel_id << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "SELECT \"" << column::last_channel_id << "\" FROM \"" << NAME << "\" WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(last_channel_id);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -481,8 +483,8 @@ namespace server {
 						textureBlob.write_from_start(reinterpret_cast< const char * >(texture.data()), texture.size());
 					}
 
-					m_sql << "UPDATE \"" << NAME << "\" SET " << column::texture << " = :texture WHERE "
-						  << column::server_id << " = :serverID AND " << column::user_id << " = :userID",
+					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::texture << "\" = :texture WHERE \""
+						  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 						soci::use(textureBlob, ind), soci::use(user.serverID), soci::use(user.registeredUserID);
 				}
 
@@ -507,8 +509,8 @@ namespace server {
 					// This indicator is required in order to be able to handle NULL values
 					soci::indicator textureInd;
 
-					m_sql << "SELECT " << column::texture << " FROM \"" << NAME << "\" WHERE " << column::server_id
-						  << " = :serverID AND " << column::user_id << " = :userID",
+					m_sql << "SELECT \"" << column::texture << "\" FROM \"" << NAME << "\" WHERE \""
+						  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 						soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(textureBlob, textureInd);
 
 					::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -542,9 +544,9 @@ namespace server {
 				soci::indicator saltInd = password.salt.empty() ? soci::i_null : soci::i_ok;
 				soci::indicator kdfInd  = password.kdfIterations == 0 ? soci::i_null : soci::i_ok;
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::password_hash << " = :pwHash, " << column::salt
-					  << " = :salt, " << column::kdf_iterations << " = :kdfIter  WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::password_hash << "\" = :pwHash, \""
+					  << column::salt << "\" = :salt, \"" << column::kdf_iterations << "\" = :kdfIter WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(password.passwordHash, pwInd), soci::use(password.salt, saltInd),
 					soci::use(password.kdfIterations, kdfInd), soci::use(user.serverID),
 					soci::use(user.registeredUserID);
@@ -567,9 +569,9 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT " << column::password_hash << ", " << column::salt << ", " << column::kdf_iterations
-					  << " FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID",
+				m_sql << "SELECT \"" << column::password_hash << "\", \"" << column::salt << "\", \""
+					  << column::kdf_iterations << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID),
 					soci::into(pwData.passwordHash, pwHashInd), soci::into(pwData.salt, pwSaltInd),
 					soci::into(pwData.kdfIterations, kdfIterInd);
@@ -596,8 +598,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::user_name << " = :name WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::user_name << "\" = :name WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(name), soci::use(user.serverID), soci::use(user.registeredUserID);
 
 				transaction.commit();
@@ -614,8 +616,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT " << column::user_name << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << column::user_id << " = :userID",
+				m_sql << "SELECT \"" << column::user_name << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					soci::use(user.serverID), soci::use(user.registeredUserID), soci::into(name);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -640,11 +642,11 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				std::string nameCol =
-					caseSensitive ? column::user_name : std::string("LOWER(") + column::user_name + ")";
+					caseSensitive ? column::user_name : std::string("LOWER(\"") + column::user_name + "\")";
 				std::string nameParam = caseSensitive ? ":userName" : "LOWER(:userName)";
 
-				m_sql << "SELECT " << column::user_id << " FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID AND " << nameCol << " = " << nameParam,
+				m_sql << "SELECT \"" << column::user_id << "\" FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND " << nameCol << " = " << nameParam,
 					soci::use(serverID), soci::use(name), soci::into(id);
 
 				transaction.commit();
@@ -663,10 +665,10 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::user_id << " FROM \"" << NAME << "\" WHERE "
-								   << column::server_id << " = :serverID AND " << column::user_name << " LIKE :filter",
-					 soci::use(serverID), soci::use(filter), soci::into(row));
+				soci::statement stmt = (m_sql.prepare << "SELECT \"" << column::user_id << "\" FROM \"" << NAME
+													  << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+													  << column::user_name << "\" LIKE :filter",
+										soci::use(serverID), soci::use(filter), soci::into(row));
 
 				stmt.execute(false);
 
@@ -697,25 +699,27 @@ namespace server {
 			try {
 				if (fromSchemeVersion < 8) {
 					// Before v8 there was no last_disconnect column
-					std::string lastActiveConversion = mdb::utils::dateToEpoch("last_active", m_backend);
+					std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
 
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-						  << column::user_name << ", " << column::password_hash << ", " << column::salt << ", "
-						  << column::kdf_iterations << ", " << column::last_channel_id << ", " << column::texture
-						  << ", " << column::last_active
-						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, "
-						  << ::mdb::utils::nonNullOf("lastchannel").otherwise("0") << ", texture, "
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
+						  << "\", \"" << column::user_name << "\", \"" << column::password_hash << "\", \""
+						  << column::salt << "\", \"" << column::kdf_iterations << "\", \"" << column::last_channel_id
+						  << "\", \"" << column::texture << "\", \"" << column::last_active
+						  << "\") SELECT \"server_id\", \"user_id\", \"name\", \"pw\", \"salt\", \"kdfiterations\", "
+						  << ::mdb::utils::nonNullOf("\"lastchannel\"").otherwise("0") << ", \"texture\", "
 						  << ::mdb::utils::nonNullOf(lastActiveConversion).otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else if (fromSchemeVersion < 10) {
 					// In v10, we renamed columns "name" -> "user_name", "pw" -> "password_hash",
 					// "kdfiterations" -> "kdf_iterations" and "lastchannel" -> "last_channel_id"
-					m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-						  << column::user_name << ", " << column::password_hash << ", " << column::salt << ", "
-						  << column::kdf_iterations << ", " << column::last_channel_id << ", " << column::texture
-						  << ", " << column::last_active << ", " << column::last_disconnect
-						  << ") SELECT server_id, user_id, name, pw, salt, kdfiterations, lastchannel, "
-							 "texture, last_active, last_disconnect FROM \"users"
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
+						  << "\", \"" << column::user_name << "\", \"" << column::password_hash << "\", \""
+						  << column::salt << "\", \"" << column::kdf_iterations << "\", \"" << column::last_channel_id
+						  << "\", \"" << column::texture << "\", \"" << column::last_active << "\", \""
+						  << column::last_disconnect
+						  << "\") SELECT \"server_id\", \"user_id\", \"name\", \"pw\", \"salt\", \"kdfiterations\", "
+							 "\"lastchannel\", "
+							 "\"texture\", \"last_active\", \"last_disconnect\" FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format

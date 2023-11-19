@@ -173,12 +173,13 @@ namespace server {
 				short applyInCurrentChannel = acl.applyInCurrentChannel;
 				short applyInSubChannels    = acl.applyInSubChannels;
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id << ", "
-					  << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id << ", "
-					  << column::aff_meta_group_id << ", " << column::access_token << ", " << column::group_modifiers
-					  << ", " << column::apply_in_current << ", " << column::apply_in_sub << ", "
-					  << column::granted_flags << ", " << column::revoked_flags
-					  << ") VALUES (:serverID, :channelID, :prio, :affectedUserID, :affectedGroupID, "
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::channel_id
+					  << "\", \"" << column::priority << "\", \"" << column::aff_user_id << "\", \""
+					  << column::aff_group_id << "\", \"" << column::aff_meta_group_id << "\", \""
+					  << column::access_token << "\", \"" << column::group_modifiers << "\", \""
+					  << column::apply_in_current << "\", \"" << column::apply_in_sub << "\", \""
+					  << column::granted_flags << "\", \"" << column::revoked_flags
+					  << "\") VALUES (:serverID, :channelID, :prio, :affectedUserID, :affectedGroupID, "
 						 ":affectedMetaGroupID, :accessToken, :groupModifiers, :applyCurrent, "
 						 ":applySub, :granted, :revoked)",
 					soci::use(acl.serverID), soci::use(acl.channelID), soci::use(acl.priority),
@@ -201,8 +202,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID AND " << column::priority << " = :prio",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID AND \"" << column::priority << "\" = :prio",
 					soci::use(serverID), soci::use(channelID), soci::use(priority);
 
 				transaction.commit();
@@ -221,8 +222,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID AND " << column::priority << " = :prio LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID AND \"" << column::priority << "\" = :prio LIMIT 1",
 					soci::use(serverID), soci::use(channelID), soci::use(priority), soci::into(exists);
 
 				transaction.commit();
@@ -240,8 +241,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(channelID);
 
 				transaction.commit();
@@ -260,13 +261,13 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::priority << ", " << column::aff_user_id << ", "
-								   << column::aff_group_id << ", " << column::aff_meta_group_id << ", "
-								   << column::access_token << ", " << column::group_modifiers << ", "
-								   << column::apply_in_current << ", " << column::apply_in_sub << ", "
-								   << column::granted_flags << ", " << column::revoked_flags << " FROM \"" << NAME
-								   << "\" WHERE " << column::server_id << " = :serverID AND " << column::channel_id
-								   << " = :channelID ORDER BY " << column::priority,
+					(m_sql.prepare << "SELECT \"" << column::priority << "\", \"" << column::aff_user_id << "\", \""
+								   << column::aff_group_id << "\", \"" << column::aff_meta_group_id << "\", \""
+								   << column::access_token << "\", \"" << column::group_modifiers << "\", \""
+								   << column::apply_in_current << "\", \"" << column::apply_in_sub << "\", \""
+								   << column::granted_flags << "\", \"" << column::revoked_flags << "\" FROM \"" << NAME
+								   << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+								   << column::channel_id << "\" = :channelID ORDER BY \"" << column::priority << "\"",
 					 soci::use(serverID), soci::use(channelID), soci::into(row));
 
 				stmt.execute(false);
@@ -355,8 +356,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id
-					  << " = :serverID) AS dummy",
+				m_sql << "SELECT COUNT(*) FROM (SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID) AS dummy",
 					soci::use(serverID), soci::into(count);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
@@ -388,11 +389,11 @@ namespace server {
 					// 	"revokepriv" -> "revoked_privilege_flags"
 
 					soci::row row;
-					soci::statement stmt =
-						(m_sql.prepare << "SELECT server_id, channel_id, priority, user_id, group_name, apply_here, "
-										  "apply_sub, grantpriv, revokepriv FROM \"acl"
-									   << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
-						 soci::into(row));
+					soci::statement stmt = (m_sql.prepare << "SELECT \"server_id\", \"channel_id\", \"priority\", "
+															 "\"user_id\", \"group_name\", \"apply_here\", "
+															 "\"apply_sub\", \"grantpriv\", \"revokepriv\" FROM \"acl"
+														  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
+											soci::into(row));
 
 					stmt.execute(false);
 
@@ -453,9 +454,10 @@ namespace server {
 									metaGroupInd = soci::i_ok;
 								} else {
 									// This is a proper group -> look up its ID
-									m_sql << "SELECT " << GroupTable::column::group_id << " FROM \"" << GroupTable::NAME
-										  << "\" WHERE " << GroupTable::column::server_id << " = :serverID AND "
-										  << GroupTable::column::group_name << " = :groupName",
+									m_sql << "SELECT \"" << GroupTable::column::group_id << "\" FROM \""
+										  << GroupTable::NAME << "\" WHERE \"" << GroupTable::column::server_id
+										  << "\" = :serverID AND \"" << GroupTable::column::group_name
+										  << "\" = :groupName",
 										soci::use(serverID), soci::use(data.name), soci::into(groupID);
 
 									if (!m_sql.got_data()) {
@@ -487,12 +489,13 @@ namespace server {
 															+ ": ACL does not have any effect on permissions");
 						}
 
-						m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::channel_id
-							  << ", " << column::priority << ", " << column::aff_user_id << ", " << column::aff_group_id
-							  << ", " << column::aff_meta_group_id << ", " << column::access_token << ", "
-							  << column::group_modifiers << ", " << column::apply_in_current << ", "
-							  << column::apply_in_sub << ", " << column::granted_flags << ", " << column::revoked_flags
-							  << ") VALUES (:serverID, :channelID, :priority, :userID, :groupID, :metaGroupID, "
+						m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \""
+							  << column::channel_id << "\", \"" << column::priority << "\", \"" << column::aff_user_id
+							  << "\", \"" << column::aff_group_id << "\", \"" << column::aff_meta_group_id << "\", \""
+							  << column::access_token << "\", \"" << column::group_modifiers << "\", \""
+							  << column::apply_in_current << "\", \"" << column::apply_in_sub << "\", \""
+							  << column::granted_flags << "\", \"" << column::revoked_flags
+							  << "\") VALUES (:serverID, :channelID, :priority, :userID, :groupID, :metaGroupID, "
 								 ":accessToken, :groupModifier, :applyCurrent, :applySub, :granted, :revoked)",
 							soci::use(serverID), soci::use(channelID), soci::use(priority), soci::use(userID, userInd),
 							soci::use(groupID, groupInd), soci::use(metaGroupID, metaGroupInd),

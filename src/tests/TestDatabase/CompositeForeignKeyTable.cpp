@@ -39,7 +39,8 @@ namespace db {
 		void CompositeForeignKeyTable::insert(const std::string &keyA, const std::string &keyB,
 											  const std::string &value) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (fk_keyA, fk_keyB, fk_value) VALUES (:keyA, :keyB, :value)",
+				m_sql << "INSERT INTO \"" + getName()
+							 + "\" (\"fk_keyA\", \"fk_keyB\", \"fk_value\") VALUES (:keyA, :keyB, :value)",
 					soci::use(keyA), soci::use(keyB), soci::use(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting: ") + e.what());
@@ -48,7 +49,8 @@ namespace db {
 
 		void CompositeForeignKeyTable::insertNullA() {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (fk_keyA, fk_keyB, fk_value) VALUES (NULL, '42', 'dummy')";
+				m_sql << "INSERT INTO \"" + getName()
+							 + "\" (\"fk_keyA\", \"fk_keyB\", \"fk_value\") VALUES (NULL, '42', 'dummy')";
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting NULL value: ") + e.what());
 			}
@@ -56,7 +58,8 @@ namespace db {
 
 		void CompositeForeignKeyTable::insertNullB() {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (fk_keyA, fk_keyB, fk_value) VALUES ('42', NULL, 'dummy')";
+				m_sql << "INSERT INTO \"" + getName()
+							 + "\" (\"fk_keyA\", \"fk_keyB\", \"fk_value\") VALUES ('42', NULL, 'dummy')";
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting NULL value: ") + e.what());
 			}
@@ -65,7 +68,8 @@ namespace db {
 		std::string CompositeForeignKeyTable::select(const std::string &keyA, const std::string &keyB) {
 			std::string value;
 			try {
-				m_sql << "SELECT fk_value FROM \"" + getName() + "\" WHERE fk_keyA = :keyA AND fk_keyB = :keyB",
+				m_sql << "SELECT \"fk_value\" FROM \"" + getName()
+							 + "\" WHERE \"fk_keyA\" = :keyA AND \"fk_keyB\" = :keyB",
 					soci::use(keyA), soci::use(keyB), soci::into(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at querying value: ") + e.what());
@@ -78,8 +82,8 @@ namespace db {
 
 		void CompositeForeignKeyTable::dropKey(const std::string &keyA, const std::string &keyB) {
 			try {
-				m_sql << "DELETE FROM \"" + getName() + "\" WHERE fk_keyA = :keyA AND fk_keyB = :keyB", soci::use(keyA),
-					soci::use(keyB);
+				m_sql << "DELETE FROM \"" + getName() + "\" WHERE \"fk_keyA\" = :keyA AND \"fk_keyB\" = :keyB",
+					soci::use(keyA), soci::use(keyB);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at dropping key: ") + e.what());
 			}
