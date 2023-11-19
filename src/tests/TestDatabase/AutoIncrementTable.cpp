@@ -34,7 +34,7 @@ namespace db {
 
 		void AutoIncrementTable::insert(const std::string &key) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (key_col) VALUES (:key)", soci::use(key);
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"key_col\") VALUES (:key)", soci::use(key);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting autoincrement value: ") + e.what());
 			}
@@ -43,7 +43,7 @@ namespace db {
 		int AutoIncrementTable::select(const std::string &key) {
 			try {
 				int value;
-				m_sql << "SELECT value_col FROM \"" + getName() + "\" WHERE key_col = :key", soci::use(key),
+				m_sql << "SELECT \"value_col\" FROM \"" + getName() + "\" WHERE \"key_col\" = :key", soci::use(key),
 					soci::into(value);
 
 				::mumble::db::utils::verifyQueryResultedInData(m_sql);

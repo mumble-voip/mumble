@@ -31,7 +31,7 @@ namespace db {
 		query += "INDEX \"" + m_name + "\" ON \"" + table.getName() + "\" (";
 
 		for (std::size_t i = 0; i < m_columns.size(); ++i) {
-			query += m_columns[i];
+			query += "\"" + m_columns[i] + "\"";
 
 			if (i + 1 < m_columns.size()) {
 				query += ", ";

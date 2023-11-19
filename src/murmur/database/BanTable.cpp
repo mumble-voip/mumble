@@ -112,10 +112,11 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::base_address << ", "
-					  << column::prefix_length << ", " << column::user_name << ", " << column::cert_hash << ", "
-					  << column::reason << ", " << column::start_date << ", " << column::duration
-					  << ") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
+					  << "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
+					  << column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+					  << column::duration
+					  << "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
 						 ":startDate, :duration)",
 					soci::use(ban.serverID), soci::use(baseAddress), soci::use(ban.prefixLength),
 					soci::use(userName, nameInd), soci::use(userCert, certInd), soci::use(reason, reasonInd),
@@ -137,9 +138,9 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND LOWER("
-					  << column::base_address << ") = LOWER(:baseAddress) AND " << column::prefix_length
-					  << " = :prefixLength",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND LOWER(\""
+					  << column::base_address << "\") = LOWER(:baseAddress) AND \"" << column::prefix_length
+					  << "\" = :prefixLength",
 					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength);
 
 				transaction.commit();
@@ -160,9 +161,9 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND LOWER("
-					  << column::base_address << ") = LOWER(:baseAddress) AND " << column::prefix_length
-					  << " = :prefixLength LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id
+					  << "\" = :serverID AND LOWER(\"" << column::base_address << "\") = LOWER(:baseAddress) AND \""
+					  << column::prefix_length << "\" = :prefixLength LIMIT 1",
 					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength), soci::into(exists);
 
 				transaction.commit();
@@ -199,10 +200,10 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT " << column::user_name << ", " << column::cert_hash << ", " << column::reason << ", "
-					  << column::start_date << ", " << column::duration << " FROM \"" << NAME << "\" WHERE "
-					  << column::server_id << " = :serverID AND " << column::base_address << " = :baseAddress AND "
-					  << column::prefix_length << " = :prefix_length",
+				m_sql << "SELECT \"" << column::user_name << "\", \"" << column::cert_hash << "\", \"" << column::reason
+					  << "\", \"" << column::start_date << "\", \"" << column::duration << "\" FROM \"" << NAME
+					  << "\" WHERE \"" << column::server_id << "\" = :serverID AND \"" << column::base_address
+					  << "\" = :baseAddress AND \"" << column::prefix_length << "\" = :prefix_length",
 					soci::into(userName, nameInd), soci::into(userCert, certInd), soci::into(reason, reasonInd),
 					soci::into(startEpoch), soci::into(duration), soci::use(serverID), soci::use(baseAddress),
 					soci::use(prefixLength);
@@ -239,10 +240,10 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::base_address << ", " << column::prefix_length << ", "
-								   << column::user_name << ", " << column::cert_hash << ", " << column::reason << ", "
-								   << column::start_date << ", " << column::duration << " FROM \"" << NAME
-								   << "\" WHERE " << column::server_id << " = :serverID",
+					(m_sql.prepare << "SELECT \"" << column::base_address << "\", \"" << column::prefix_length
+								   << "\", \"" << column::user_name << "\", \"" << column::cert_hash << "\", \""
+								   << column::reason << "\", \"" << column::start_date << "\", \"" << column::duration
+								   << "\" FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID",
 					 soci::use(serverID), soci::into(row));
 
 				stmt.execute(false);
@@ -287,7 +288,8 @@ namespace server {
 		}
 
 		void doClearBans(soci::session &sql, unsigned int serverID) {
-			sql << "DELETE FROM \"" << BanTable::NAME << "\" WHERE " << BanTable::column::server_id << " = :serverID",
+			sql << "DELETE FROM \"" << BanTable::NAME << "\" WHERE \"" << BanTable::column::server_id
+				<< "\" = :serverID",
 				soci::use(serverID);
 		}
 
@@ -314,10 +316,11 @@ namespace server {
 				// Step 2: Insert new bans
 				soci::statement stmt =
 					m_sql.prepare
-					<< "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::base_address << ", "
-					<< column::prefix_length << ", " << column::user_name << ", " << column::cert_hash << ", "
-					<< column::reason << ", " << column::start_date << ", " << column::duration
-					<< ") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
+					<< "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
+					<< "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
+					<< column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+					<< column::duration
+					<< "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
 					   ":startDate, :duration)";
 
 				for (const DBBan &currentBan : bans) {
@@ -386,33 +389,34 @@ namespace server {
 					//		seconds.
 					soci::row row;
 
-					std::string startConversion = mdb::utils::dateToEpoch("start", m_backend);
+					std::string startConversion = mdb::utils::dateToEpoch("\"start\"", m_backend);
 					std::string baseConversion;
 					switch (m_backend) {
 						case ::mdb::Backend::SQLite:
-							baseConversion  = "HEX(base)";
+							baseConversion = "HEX(\"base\")";
 							break;
 						case ::mdb::Backend::MySQL:
-							baseConversion  = "HEX(base)";
+							baseConversion = "HEX(\"base\")";
 							break;
 						case ::mdb::Backend::PostgreSQL:
-							baseConversion  = "ENCODE(base::bytea, 'hex')";
+							baseConversion = "ENCODE(\"base\"::bytea, 'hex')";
 							break;
 					}
 					assert(!startConversion.empty());
 
 					soci::statement selectStmt =
-						(m_sql.prepare << "SELECT server_id, " << baseConversion << ", mask, name, hash, reason, "
-									   << startConversion << ", duration FROM \"bans"
-									   << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
+						(m_sql.prepare << "SELECT \"server_id\", " << baseConversion
+									   << ", \"mask\", \"name\", \"hash\", \"reason\", " << startConversion
+									   << ", \"duration\" FROM \"bans" << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
 						 soci::into(row));
 
 					soci::statement insertStmt =
 						m_sql.prepare
-						<< "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::base_address
-						<< ", " << column::prefix_length << ", " << column::user_name << ", " << column::cert_hash
-						<< ", " << column::reason << ", " << column::start_date << ", " << column::duration
-						<< ") VALUES (:serverID, :baseAddr, :prefixLength, :userName, :certHash, :reason, "
+						<< "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
+						<< "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
+						<< column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+						<< column::duration
+						<< "\") VALUES (:serverID, :baseAddr, :prefixLength, :userName, :certHash, :reason, "
 						   ":startDate, :duration)";
 
 					selectStmt.execute(false);

@@ -69,7 +69,8 @@ namespace db {
 		std::string createQuery = "CREATE TABLE \"" + m_name + "\" (";
 
 		for (const Column &currentColumn : m_columns) {
-			createQuery += currentColumn.getName() + " " + currentColumn.getType().sqlRepresentation(m_backend);
+			createQuery +=
+				"\"" + currentColumn.getName() + "\" " + currentColumn.getType().sqlRepresentation(m_backend);
 
 			if (currentColumn.hasDefaultValue()) {
 				createQuery += " DEFAULT ";
@@ -156,7 +157,7 @@ namespace db {
 				if (currentCol.getType().getType() != DataType::Blob) {
 					continue;
 				}
-				std::string triggerBody = "EXECUTE PROCEDURE lo_manage(" + currentCol.getName() + ");";
+				std::string triggerBody = "EXECUTE PROCEDURE lo_manage(\"" + currentCol.getName() + "\");";
 
 				Trigger updateTrigger = Trigger(currentCol.getName() + "_lo_manage_update_trigger",
 												Trigger::Timing::Before, Trigger::Event::Update, triggerBody);
@@ -205,7 +206,7 @@ namespace db {
 				columns += ", ";
 			}
 
-			columns += it->getName();
+			columns += "\"" + it->getName() + "\"";
 		}
 
 		try {
@@ -219,15 +220,15 @@ namespace db {
 	void Table::destroy() {
 		assert(!m_name.empty());
 
-		TransactionHolder transaction = ensureTransaction();
-
 		try {
+			TransactionHolder transaction = ensureTransaction();
+
 			m_sql << "DROP TABLE \"" << m_name + "\"";
+
+			transaction.commit();
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}
-
-		transaction.commit();
 	}
 
 	void Table::clear() {
@@ -475,7 +476,7 @@ namespace db {
 		std::string query            = "INSERT INTO \"" + m_name + "\" (";
 		std::string valuePlaceholder = "";
 		for (std::size_t i = 0; i < colNames.size(); ++i) {
-			query += colNames[i].get< std::string >();
+			query += "\"" + colNames[i].get< std::string >() + "\"";
 			valuePlaceholder += ":" + colNames[i].get< std::string >();
 
 			if (i + 1 < colNames.size()) {
@@ -560,7 +561,7 @@ namespace db {
 			json["column_names"].push_back(currentColumn.getName());
 			json["column_types"].push_back(currentColumn.getType().sqlRepresentation(m_backend));
 
-			query += currentColumn.getName() + ", ";
+			query += "\"" + currentColumn.getName() + "\", ";
 		}
 		// Remove trailing ", "
 		query.erase(query.size() - 2);

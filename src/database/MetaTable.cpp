@@ -44,14 +44,14 @@ namespace db {
 	void MetaTable::setKey(const std::string &key, const std::string &value) {
 		try {
 			int containsKey = false;
-			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE meta_key = :key", soci::use(key),
+			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE \"meta_key\" = :key", soci::use(key),
 				soci::into(containsKey);
 
 			if (containsKey) {
-				m_sql << "UPDATE \"" << m_name << "\" SET meta_value = :value WHERE meta_key = :key", soci::use(value),
-					soci::use(key);
+				m_sql << "UPDATE \"" << m_name << "\" SET \"meta_value\" = :value WHERE \"meta_key\" = :key",
+					soci::use(value), soci::use(key);
 			} else {
-				m_sql << "INSERT INTO \"" << m_name << "\" (meta_key, meta_value) VALUES (:key, :value)",
+				m_sql << "INSERT INTO \"" << m_name << "\" (\"meta_key\", \"meta_value\") VALUES (:key, :value)",
 					soci::use(key), soci::use(value);
 			}
 		} catch (const soci::soci_error &e) {
@@ -62,7 +62,8 @@ namespace db {
 	boost::optional< std::string > MetaTable::queryKey(const std::string &key) {
 		try {
 			std::string value;
-			m_sql << "SELECT meta_value FROM " << m_name << " WHERE meta_key = :key", soci::use(key), soci::into(value);
+			m_sql << "SELECT \"meta_value\" FROM " << m_name << " WHERE \"meta_key\" = :key", soci::use(key),
+				soci::into(value);
 
 			return m_sql.got_data() ? boost::optional< std::string >(value) : boost::none;
 		} catch (const soci::soci_error &e) {

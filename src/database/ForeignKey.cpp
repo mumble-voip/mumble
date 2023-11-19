@@ -77,7 +77,7 @@ namespace db {
 		std::string sql = "FOREIGN KEY (";
 
 		for (std::size_t i = 0; i < m_columnNames.size(); ++i) {
-			sql += m_columnNames[i];
+			sql += "\"" + m_columnNames[i] + "\"";
 
 			if (i + 1 < m_columnNames.size()) {
 				sql += ", ";
@@ -87,7 +87,7 @@ namespace db {
 		sql += ") REFERENCES \"" + m_foreignTableName + "\"(";
 
 		for (std::size_t i = 0; i < m_foreignColumnNames.size(); ++i) {
-			sql += m_foreignColumnNames[i];
+			sql += "\"" + m_foreignColumnNames[i] + "\"";
 
 			if (i + 1 < m_foreignColumnNames.size()) {
 				sql += ", ";
