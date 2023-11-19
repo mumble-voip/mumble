@@ -45,7 +45,7 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ") VALUES (:id)", soci::use(id);
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\") VALUES (:id)", soci::use(id);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -57,7 +57,7 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id", soci::use(id);
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :id", soci::use(id);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
@@ -72,7 +72,7 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :id LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :id LIMIT 1",
 					soci::use(id), soci::into(exists);
 
 				transaction.commit();
@@ -111,7 +111,8 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::server_id << " FROM \"" << NAME << "\"", soci::into(row));
+					(m_sql.prepare << "SELECT \"" << column::server_id << "\" FROM \"" << NAME << "\"",
+					 soci::into(row));
 
 				stmt.execute(false);
 
@@ -139,8 +140,8 @@ namespace server {
 				if (fromSchemeVersion < 10) {
 					// In v10 we renamed this table from "servers" to "virtual_servers"
 					// -> Import all data from the old table into the new one
-					m_sql << "INSERT INTO \"" << getName() << "\" (" << column::server_id
-						  << ") SELECT server_id FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id
+						  << "\") SELECT \"server_id\" FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);

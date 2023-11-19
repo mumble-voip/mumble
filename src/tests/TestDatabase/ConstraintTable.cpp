@@ -42,7 +42,7 @@ namespace db {
 			std::string dummy = "dummy" + std::to_string(dummyCounter++);
 			try {
 				m_sql << "INSERT INTO \"" + getName()
-							 + "\" (not_null_key, not_null_value, unique_key) VALUES (:key, :value, "
+							 + "\" (\"not_null_key\", \"not_null_value\", \"unique_key\") VALUES (:key, :value, "
 							   ":dummy1)",
 					soci::use(key), soci::use(value), soci::use(dummy);
 			} catch (const soci::soci_error &e) {
@@ -52,7 +52,7 @@ namespace db {
 
 		void ConstraintTable::insertUnique(const std::string &key, const std::string &value) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (unique_key, unique_value) VALUES (:key, :value)",
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"unique_key\", \"unique_value\") VALUES (:key, :value)",
 					soci::use(key), soci::use(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting unique value: ") + e.what());
@@ -62,8 +62,8 @@ namespace db {
 		std::string ConstraintTable::selectNotNull(const std::string &key) {
 			try {
 				std::string value;
-				m_sql << "SELECT not_null_value FROM \"" + getName() + "\" WHERE not_null_key = :key", soci::use(key),
-					soci::into(value);
+				m_sql << "SELECT \"not_null_value\" FROM \"" + getName() + "\" WHERE \"not_null_key\" = :key",
+					soci::use(key), soci::into(value);
 
 				::mumble::db::utils::verifyQueryResultedInData(m_sql);
 
@@ -76,8 +76,8 @@ namespace db {
 		std::string ConstraintTable::selectUnique(const std::string &key) {
 			try {
 				std::string value;
-				m_sql << "SELECT unique_value FROM \"" + getName() + "\" WHERE unique_key = :key", soci::use(key),
-					soci::into(value);
+				m_sql << "SELECT \"unique_value\" FROM \"" + getName() + "\" WHERE \"unique_key\" = :key",
+					soci::use(key), soci::into(value);
 
 				::mumble::db::utils::verifyQueryResultedInData(m_sql);
 
@@ -89,7 +89,8 @@ namespace db {
 
 		void ConstraintTable::insertNullInNotNullCol() {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (not_null_key, not_null_value) VALUES (NULL, 'NullValue')";
+				m_sql << "INSERT INTO \"" + getName()
+							 + "\" (\"not_null_key\", \"not_null_value\") VALUES (NULL, 'NullValue')";
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting NULL value in not-NULL col: ") + e.what());
 			}

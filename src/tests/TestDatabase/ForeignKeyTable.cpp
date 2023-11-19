@@ -36,8 +36,8 @@ namespace db {
 
 		void ForeignKeyTable::insert(const std::string &key, const std::string &value) {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (fk_key, fk_value) VALUES (:key, :value)", soci::use(key),
-					soci::use(value);
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"fk_key\", \"fk_value\") VALUES (:key, :value)",
+					soci::use(key), soci::use(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting: ") + e.what());
 			}
@@ -45,7 +45,7 @@ namespace db {
 
 		void ForeignKeyTable::insertNull() {
 			try {
-				m_sql << "INSERT INTO \"" + getName() + "\" (fk_key, fk_value) VALUES (NULL, 'dummy')";
+				m_sql << "INSERT INTO \"" + getName() + "\" (\"fk_key\", \"fk_value\") VALUES (NULL, 'dummy')";
 			} catch (const soci::soci_error &e) {
 				throw AccessException(std::string("Failed at inserting NULL value: ") + e.what());
 			}
@@ -54,7 +54,7 @@ namespace db {
 		std::string ForeignKeyTable::select(const std::string &key) {
 			std::string value;
 			try {
-				m_sql << "SELECT fk_value FROM \"" + getName() + "\" WHERE fk_key = :key", soci::use(key),
+				m_sql << "SELECT \"fk_value\" FROM \"" + getName() + "\" WHERE \"fk_key\" = :key", soci::use(key),
 					soci::into(value);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at querying value for key \"" + key + "\": " + e.what());
@@ -67,7 +67,7 @@ namespace db {
 
 		void ForeignKeyTable::dropKey(const std::string &key) {
 			try {
-				m_sql << "DELETE FROM \"" + getName() + "\" WHERE fk_key = :key", soci::use(key);
+				m_sql << "DELETE FROM \"" + getName() + "\" WHERE \"fk_key\" = :key", soci::use(key);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at dropping key \"" + key + "\": " + e.what());
 			}

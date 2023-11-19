@@ -77,9 +77,9 @@ namespace server {
 				double adjustment = static_cast< double >(listener.volumeAdjustment);
 				short enabled     = listener.enabled;
 
-				m_sql << "INSERT INTO \"" << NAME << "\" (" << column::server_id << ", " << column::user_id << ", "
-					  << column::channel_id << ", " << column::volume_adjustment << ", " << column::enabled
-					  << ") VALUES (:serverID, :userID, :channelID, :volAdjustment, :enabled)",
+				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
+					  << "\", \"" << column::channel_id << "\", \"" << column::volume_adjustment << "\", \""
+					  << column::enabled << "\") VALUES (:serverID, :userID, :channelID, :volAdjustment, :enabled)",
 					soci::use(listener.serverID), soci::use(listener.userID), soci::use(listener.channelID),
 					soci::use(adjustment), soci::use(enabled);
 
@@ -100,8 +100,8 @@ namespace server {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "DELETE FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID",
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID AND \"" << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(userID), soci::use(channelID);
 
 				transaction.commit();
@@ -122,8 +122,8 @@ namespace server {
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID LIMIT 1",
+				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID AND \"" << column::channel_id << "\" = :channelID LIMIT 1",
 					soci::use(serverID), soci::use(userID), soci::use(channelID), soci::into(exists);
 
 				transaction.commit();
@@ -150,9 +150,9 @@ namespace server {
 				int enabled;
 				double volAdj;
 
-				m_sql << "SELECT " << column::enabled << ", " << column::volume_adjustment << " FROM \"" << NAME
-					  << "\" WHERE " << column::server_id << " = :serverID AND " << column::user_id << " = :userID AND "
-					  << column::channel_id << " = :channelID",
+				m_sql << "SELECT \"" << column::enabled << "\", \"" << column::volume_adjustment << "\" FROM \"" << NAME
+					  << "\" WHERE \"" << column::server_id << "\" = :serverID AND \"" << column::user_id
+					  << "\" = :userID AND \"" << column::channel_id << "\" = :channelID",
 					soci::use(serverID), soci::use(userID), soci::use(channelID), soci::into(enabled),
 					soci::into(volAdj);
 
@@ -179,9 +179,9 @@ namespace server {
 				double adjustment = static_cast< double >(listener.volumeAdjustment);
 				short enabled     = listener.enabled;
 
-				m_sql << "UPDATE \"" << NAME << "\" SET " << column::volume_adjustment << " = :volAdjustment, "
-					  << column::enabled << " = :enabled WHERE " << column::server_id << " = :serverID AND "
-					  << column::user_id << " = :userID AND " << column::channel_id << " = :channelID",
+				m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::volume_adjustment << "\" = :volAdjustment, \""
+					  << column::enabled << "\" = :enabled WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::user_id << "\" = :userID AND \"" << column::channel_id << "\" = :channelID",
 					soci::use(adjustment), soci::use(enabled), soci::use(listener.serverID), soci::use(listener.userID),
 					soci::use(listener.channelID);
 
@@ -203,9 +203,9 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::channel_id << ", " << column::volume_adjustment << ", "
-								   << column::enabled << " FROM \"" << NAME << "\" WHERE " << column::server_id
-								   << " = :serverID AND " << column::user_id << " = :userID",
+					(m_sql.prepare << "SELECT \"" << column::channel_id << "\", \"" << column::volume_adjustment
+								   << "\", \"" << column::enabled << "\" FROM \"" << NAME << "\" WHERE \""
+								   << column::server_id << "\" = :serverID AND \"" << column::user_id << "\" = :userID",
 					 soci::use(serverID), soci::use(userID), soci::into(row));
 
 				stmt.execute(false);
@@ -247,9 +247,10 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				soci::statement stmt =
-					(m_sql.prepare << "SELECT " << column::user_id << ", " << column::volume_adjustment << ", "
-								   << column::enabled << " FROM \"" << NAME << "\" WHERE " << column::server_id
-								   << " = :serverID AND " << column::channel_id << " = :channelID",
+					(m_sql.prepare << "SELECT \"" << column::user_id << "\", \"" << column::volume_adjustment
+								   << "\", \"" << column::enabled << "\" FROM \"" << NAME << "\" WHERE \""
+								   << column::server_id << "\" = :serverID AND \"" << column::channel_id
+								   << "\" = :channelID",
 					 soci::use(serverID), soci::use(channelID), soci::into(row));
 
 				stmt.execute(false);
