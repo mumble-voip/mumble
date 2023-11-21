@@ -820,10 +820,23 @@ void DatabaseTest::dataTypes() {
 				if ((!DataType::canBeSized(currentType) && sized) || (!DataType::canBeUnsized(currentType) && !sized)) {
 					continue;
 				}
+				// Special case for binary type
+				// The type claims that it can be sized, but this is only true for MySQL.
+				// However, there we need the sizedness during data migration (tests) and
+				// thus the type advertises itself as being able to be sized, when it
+				// isn't really.
+				if (currentType == DataType::Binary && sized) {
+					continue;
+				}
 
 				qInfo() << "Sized:" << sized;
 
 				DataType type(currentType, sized ? 42 : DataType::Unsized);
+
+				// Ensure that a datatype object can be compared against a plain type and that this
+				// disregards the size of the object
+				QVERIFY(type == currentType);
+				QVERIFY(currentType == type);
 
 				Column col1("dummyCol1", type);
 				Column col2("dummyCol2", type);

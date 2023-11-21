@@ -85,9 +85,13 @@ namespace db {
 				// Import column types from given data (and apply conversions to match representation of current
 				// backend)
 				for (const nlohmann::json &currentType : sourceRep["column_types"]) {
-					targetTableRep["column_types"].push_back(
-						::mdb::DataType::fromSQLRepresentation(currentType.get< std::string >())
-							.sqlRepresentation(backend));
+					DataType type = ::mdb::DataType::fromSQLRepresentation(currentType.get< std::string >());
+					if (backend != Backend::MySQL) {
+						// We have to hack in order to allow size-specification for MySQL without
+						// breaking Postgres
+						type.setSize(DataType::Unsized);
+					}
+					targetTableRep["column_types"].push_back(type.sqlRepresentation(backend));
 				}
 			} else {
 				// Read the column types from the actual table definition
