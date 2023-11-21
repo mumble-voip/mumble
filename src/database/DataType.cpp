@@ -268,5 +268,13 @@ namespace db {
 
 	bool operator!=(const DataType &lhs, const DataType &rhs) { return !(lhs == rhs); }
 
+	bool operator==(const DataType &lhs, DataType::Type rhs) { return lhs.m_type == rhs; }
+
+	bool operator==(DataType::Type lhs, const DataType &rhs) { return lhs == rhs.m_type; }
+
+	bool operator!=(const DataType &lhs, DataType::Type rhs) { return !(lhs == rhs); }
+
+	bool operator!=(DataType::Type lhs, const DataType &rhs) { return !(lhs == rhs); }
+
 } // namespace db
 } // namespace mumble
