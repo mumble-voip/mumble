@@ -53,7 +53,8 @@ namespace db {
 			case DataType::Blob:
 				return false;
 			case DataType::Binary:
-				return false;
+				// Hack: This is not true on PostgreSQL
+				return true;
 			case DataType::Timestamp:
 				return false;
 		}

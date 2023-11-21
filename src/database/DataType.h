@@ -31,6 +31,7 @@ namespace db {
 			Text,
 			EpochTime,
 			Blob,
+			/// Caveat: the info about sized-ness is correct only for some backends
 			Binary,
 			Timestamp,
 		};
