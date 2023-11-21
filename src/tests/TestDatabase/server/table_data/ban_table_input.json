@@ -13,7 +13,7 @@
 		],
 		"column_types": [
 			"INTEGER",
-			"BINARY",
+			"BINARY(16)",
 			"INTEGER",
 			"TEXT",
 			"TEXT",
