@@ -189,7 +189,7 @@ public:
 	~PlainDB() override {
 		// Clear up everything that we have created in our test case
 		try {
-			//this->destroyTables();
+			this->destroyTables();
 		} catch (const ::mdb::Exception &e) {
 			std::cerr << "Exception encountered while destroying tables:" << std::endl;
 			print_exception_message(e);
