@@ -62,6 +62,11 @@ namespace db {
 		friend bool operator==(const DataType &lhs, const DataType &rhs);
 		friend bool operator!=(const DataType &lhs, const DataType &rhs);
 
+		friend bool operator==(const DataType &lhs, Type rhs);
+		friend bool operator==(Type lhs, const DataType &rhs);
+		friend bool operator!=(const DataType &lhs, Type rhs);
+		friend bool operator!=(Type lhs, const DataType &rhs);
+
 	protected:
 		Type m_type;
 		std::size_t m_size;
