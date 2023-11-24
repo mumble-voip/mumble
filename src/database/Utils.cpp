@@ -105,14 +105,14 @@ namespace db {
 				case Backend::MySQL:
 					return std::string("UNIX_TIMESTAMP(") + value + ")";
 				case Backend::PostgreSQL:
-					std::string query("EXTRACT(EPOCH FROM ");
+					std::string query("CAST(EXTRACT(EPOCH FROM ");
 					if (autocast) {
 						query += "CAST(" + value + " AS TIMESTAMP)";
 					} else {
 						query += value;
 					}
 
-					query += ")";
+					query += ") AS BIGINT)";
 
 					return query;
 			}

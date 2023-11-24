@@ -971,11 +971,24 @@ void DatabaseTest::dateToEpoch() {
 			TestDatabase db(currentBackend);
 			db.init(test::utils::getConnectionParamter(currentBackend));
 
-			unsigned int timestamp = 0;
-			db.getSQLHandle() << "SELECT " << utils::dateToEpoch(current.first, currentBackend, true),
-				soci::into(timestamp);
+			const std::string query = "SELECT " + utils::dateToEpoch(current.first, currentBackend, true);
 
+			unsigned int timestamp = 0;
+			db.getSQLHandle() << query, soci::into(timestamp);
 			QCOMPARE(timestamp, current.second);
+
+			soci::row row;
+			db.getSQLHandle() << query, soci::into(row);
+			QCOMPARE(row.get_indicator(0), soci::i_ok);
+
+			if (currentBackend != Backend::SQLite) {
+				unsigned int rowStamp = row.get< unsigned int >(0);
+				QCOMPARE(rowStamp, current.second);
+			} else {
+				// Due to SQLite's lack of static typing, we can only get the stamp as a string value
+				std::string rowStamp = row.get< std::string >(0);
+				QCOMPARE(rowStamp, std::to_string(current.second));
+			}
 		}
 	}
 }
