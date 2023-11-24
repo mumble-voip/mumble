@@ -321,7 +321,7 @@ void ServerDatabaseTest::logTable_general() {
 	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(0));
 
 	// Populate table with several default entries
-	std::vector< ::msdb::DBLogEntry > entries;
+	std::vector<::msdb::DBLogEntry > entries;
 	for (std::size_t i = 0; i < 10; ++i) {
 		entries.emplace_back(std::string("Message ") + std::to_string(i),
 							 std::chrono::system_clock::time_point(std::chrono::seconds(i)));
@@ -335,7 +335,7 @@ void ServerDatabaseTest::logTable_general() {
 
 	for (std::size_t maxEntries = 0; maxEntries < entries.size() + 2; ++maxEntries) {
 		for (std::size_t offset = 0; offset < entries.size() + 2; ++offset) {
-			std::vector< ::msdb::DBLogEntry > fetchedEntries =
+			std::vector<::msdb::DBLogEntry > fetchedEntries =
 				db.getLogTable().getLogs(existingServerID, maxEntries, offset);
 
 			const int totalEntryCount = static_cast< int >(entries.size());
@@ -756,8 +756,8 @@ void ServerDatabaseTest::userTable_general() {
 	// Test getRegisteredUsers
 	::msdb::DBUser additionalUser(existingServerID, 0);
 	table.addUser(additionalUser, "Dummy name");
-	std::vector< ::msdb::DBUser > expectedUsers = { testUser, additionalUser };
-	std::vector< ::msdb::DBUser > actualUsers   = table.getRegisteredUsers(existingServerID);
+	std::vector<::msdb::DBUser > expectedUsers = { testUser, additionalUser };
+	std::vector<::msdb::DBUser > actualUsers   = table.getRegisteredUsers(existingServerID);
 	QVERIFY(expectedUsers.size() == actualUsers.size()
 			&& std::is_permutation(expectedUsers.begin(), expectedUsers.end(), actualUsers.begin()));
 
@@ -983,10 +983,10 @@ void ServerDatabaseTest::groupTable_general() {
 	otherGroup.name = "Other group";
 	table.addGroup(otherGroup);
 
-	std::vector< ::msdb::DBGroup > expectedGroups = { group, otherGroup };
+	std::vector<::msdb::DBGroup > expectedGroups = { group, otherGroup };
 
 	QVERIFY(table.getAllGroups(existingServerID, rootChannel.channelID).empty());
-	std::vector< ::msdb::DBGroup > fetchedGroups = table.getAllGroups(group.serverID, group.channelID);
+	std::vector<::msdb::DBGroup > fetchedGroups = table.getAllGroups(group.serverID, group.channelID);
 	QCOMPARE(fetchedGroups.size(), static_cast< std::size_t >(table.countGroups(group.serverID, group.channelID)));
 	QVERIFY(fetchedGroups.size() == expectedGroups.size()
 			&& std::is_permutation(expectedGroups.begin(), expectedGroups.end(), fetchedGroups.begin()));
@@ -1063,7 +1063,7 @@ void ServerDatabaseTest::groupMemberTable_general() {
 	QVERIFY(!table.entryExists(memberA));
 	QVERIFY(!table.entryExists(memberB));
 
-	std::vector< ::msdb::DBGroupMember > fetchedMembers = table.getEntries(existingServerID, groupA.groupID);
+	std::vector<::msdb::DBGroupMember > fetchedMembers = table.getEntries(existingServerID, groupA.groupID);
 	QVERIFY(fetchedMembers.empty());
 
 	table.addEntry(memberA);
@@ -1071,7 +1071,7 @@ void ServerDatabaseTest::groupMemberTable_general() {
 	QVERIFY(table.entryExists(memberA));
 	QVERIFY(!table.entryExists(memberB));
 
-	std::vector< ::msdb::DBGroupMember > expectedMembers = { memberA };
+	std::vector<::msdb::DBGroupMember > expectedMembers = { memberA };
 
 	fetchedMembers = table.getEntries(existingServerID, groupB.groupID);
 	QVERIFY(fetchedMembers.empty());
@@ -1226,7 +1226,7 @@ void ServerDatabaseTest::aclTable_general() {
 	QCOMPARE(table.countOverallACLs(existingServerID), static_cast< std::size_t >(2));
 	QCOMPARE(table.countOverallACLs(nonExistingServerID), static_cast< std::size_t >(0));
 
-	std::vector< ::msdb::DBAcl > expectedACLs = { acl };
+	std::vector<::msdb::DBAcl > expectedACLs = { acl };
 	QCOMPARE(table.getAllACLs(acl.serverID, acl.channelID), expectedACLs);
 
 	expectedACLs = { acl2 };
@@ -1331,13 +1331,13 @@ void ServerDatabaseTest::channelLinkTable_general() {
 
 	QVERIFY(table.getAllLinks(nonExistingServerID).empty());
 
-	std::vector< ::msdb::DBChannelLink > expectedLinks = { firstLink };
+	std::vector<::msdb::DBChannelLink > expectedLinks = { firstLink };
 	QCOMPARE(table.getAllLinks(existingServerID), expectedLinks);
 
 	table.addLink(secondLink);
 
-	expectedLinks                                     = { firstLink, secondLink };
-	std::vector< ::msdb::DBChannelLink > fetchedLinks = table.getAllLinks(existingServerID);
+	expectedLinks                                    = { firstLink, secondLink };
+	std::vector<::msdb::DBChannelLink > fetchedLinks = table.getAllLinks(existingServerID);
 	QVERIFY(expectedLinks.size() == fetchedLinks.size());
 	QVERIFY(std::is_permutation(expectedLinks.begin(), expectedLinks.end(), fetchedLinks.begin()));
 
@@ -1392,7 +1392,7 @@ void ServerDatabaseTest::ipAddress_conversions() {
 	fetchedAddr = ::msdb::DBBan::ipv4ToIpv6(ipv4Address, false);
 
 	std::uint32_t ipv4Numeric = (static_cast< std::uint32_t >(127) << (8 + 8 + 8)) + 1;
-	std::uint8_t *ipv4Ptr     = reinterpret_cast< std::uint8_t     *>(&ipv4Numeric);
+	std::uint8_t *ipv4Ptr     = reinterpret_cast< std::uint8_t * >(&ipv4Numeric);
 	ipv4Address[0]            = ipv4Ptr[0];
 	ipv4Address[1]            = ipv4Ptr[1];
 	ipv4Address[2]            = ipv4Ptr[2];
@@ -1429,7 +1429,7 @@ void ServerDatabaseTest::banTable_general() {
 
 	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength), ban);
 
-	std::vector< ::msdb::DBBan > expectedBans = { ban };
+	std::vector<::msdb::DBBan > expectedBans = { ban };
 
 	QCOMPARE(table.getAllBans(existingServerID), expectedBans);
 
@@ -1450,8 +1450,8 @@ void ServerDatabaseTest::banTable_general() {
 
 	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength), ban2);
 
-	expectedBans                             = { ban, ban2 };
-	std::vector< ::msdb::DBBan > fetchedBans = table.getAllBans(existingServerID);
+	expectedBans                            = { ban, ban2 };
+	std::vector<::msdb::DBBan > fetchedBans = table.getAllBans(existingServerID);
 	QCOMPARE(fetchedBans.size(), expectedBans.size());
 	QVERIFY(std::is_permutation(expectedBans.begin(), expectedBans.end(), fetchedBans.begin()));
 
@@ -1546,8 +1546,8 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	QVERIFY(table.listenerExists(listener2));
 	QCOMPARE(table.getListenerDetails(listener2), listener2);
 
-	std::vector< ::msdb::DBChannelListener > expectedListeners = { listener1 };
-	std::vector< ::msdb::DBChannelListener > fetchedListeners =
+	std::vector<::msdb::DBChannelListener > expectedListeners = { listener1 };
+	std::vector<::msdb::DBChannelListener > fetchedListeners =
 		table.getListenersForUser(user1.serverID, user1.registeredUserID);
 
 	QCOMPARE(fetchedListeners, expectedListeners);
