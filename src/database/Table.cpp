@@ -477,7 +477,16 @@ namespace db {
 		std::string valuePlaceholder = "";
 		for (std::size_t i = 0; i < colNames.size(); ++i) {
 			query += "\"" + colNames[i].get< std::string >() + "\"";
-			valuePlaceholder += ":" + colNames[i].get< std::string >();
+
+			std::string placeholder = ":" + colNames[i].get< std::string >();
+
+			if (m_backend == Backend::PostgreSQL && getColumns()[i].getType() == DataType::Binary) {
+				// Special case: we have to write the data insertion directly into the query (see binary data handling
+				// further below for why)
+				valuePlaceholder += "DECODE(" + placeholder + ", 'hex')";
+			} else {
+				valuePlaceholder += placeholder;
+			}
 
 			if (i + 1 < colNames.size()) {
 				query += ", ";
@@ -519,15 +528,26 @@ namespace db {
 					// We have to handle binary data special in order to prevent SOCI suggesting to the DB backend that
 					// the hex representation (which we expect here) is in fact to be interpreted as a string (which
 					// would lead to various undesired behavior depending on the used backend)
-					binaryValues.push_back(soci::blob{ m_sql });
-					// Convert hex representation to binary values
-					std::vector< std::uint8_t > binary =
-						utils::hexToBinary< decltype(binary) >(currentVal.get< std::string >());
-					// Write the binary data into a BLOB object, which can be bound to our statement
-					binaryValues[binaryValues.size() - 1].write_from_start(
-						reinterpret_cast< const char * >(binary.data()), binary.size());
+					if (getColumns()[i].getType() == DataType::Binary && m_backend == Backend::PostgreSQL) {
+						// In PostgreSQL we can't use a BLOB for inserting into a BYTEA column (at leas not via SOCI) as
+						// that'd insert the BLOB's OID instead of its contents into the column.
+						std::string hexString = utils::to_string(currentVal);
+						if (hexString.size() >= 2 && hexString.substr(0, 2) == "0x") {
+							hexString = hexString.substr(2);
+						}
+						values.push_back(std::move(hexString));
+						stmt.exchange(soci::use(values.back()));
+					} else {
+						binaryValues.push_back(soci::blob{ m_sql });
+						// Convert hex representation to binary values
+						std::vector< std::uint8_t > binary =
+							utils::hexToBinary< decltype(binary) >(currentVal.get< std::string >());
+						// Write the binary data into a BLOB object, which can be bound to our statement
+						binaryValues.back().write_from_start(reinterpret_cast< const char * >(binary.data()),
+															 binary.size());
 
-					stmt.exchange(soci::use(binaryValues[binaryValues.size() - 1]));
+						stmt.exchange(soci::use(binaryValues.back()));
+					}
 				} else {
 					values.push_back(utils::to_string(currentVal));
 
