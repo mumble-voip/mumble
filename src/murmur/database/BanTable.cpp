@@ -390,10 +390,20 @@ namespace server {
 					soci::row row;
 
 					std::string startConversion = mdb::utils::dateToEpoch("\"start\"", m_backend);
+					std::string baseConversion;
+					switch (m_backend) {
+						case ::mdb::Backend::SQLite:
+						case ::mdb::Backend::MySQL:
+							baseConversion = "HEX(\"base\")";
+							break;
+						case ::mdb::Backend::PostgreSQL:
+							baseConversion = "ENCODE(\"base\"::bytea, 'hex')";
+							break;
+					}
+					assert(!baseConversion.empty());
 
 					soci::statement selectStmt =
-						(m_sql.prepare << "SELECT \"server_id\", "
-									   << "\"base\""
+						(m_sql.prepare << "SELECT \"server_id\", " << baseConversion
 									   << ", \"mask\", \"name\", \"hash\", \"reason\", " << startConversion
 									   << ", \"duration\" FROM \"bans" << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
 						 soci::into(row));
@@ -411,7 +421,7 @@ namespace server {
 
 					while (selectStmt.fetch()) {
 						int serverID;
-						soci::blob baseAddressBlob(m_sql);
+						std::string baseAddress;
 						int prefixLength;
 						std::string bannedName;
 						soci::indicator nameInd = soci::i_null;
@@ -425,14 +435,14 @@ namespace server {
 						assert(row.size() == 8);
 						assert(row.get_properties(0).get_data_type() == soci::dt_integer);
 						assert(row.get_indicator(0) == soci::i_ok);
-						assert(row.get_properties(1).get_data_type() == soci::dt_blob);
+						assert(row.get_properties(1).get_data_type() == soci::dt_string);
 						assert(row.get_indicator(1) == soci::i_ok);
 						assert(row.get_properties(2).get_data_type() == soci::dt_integer);
 						assert(row.get_indicator(2) == soci::i_ok);
 
-						serverID        = row.get< int >(0);
-						baseAddressBlob = row.move_as< soci::blob >(1);
-						prefixLength    = row.get< int >(2);
+						serverID     = row.get< int >(0);
+						baseAddress  = row.get< std::string >(1);
+						prefixLength = row.get< int >(2);
 
 						assert(row.get_properties(3).get_data_type() == soci::dt_string);
 						assert(row.get_properties(4).get_data_type() == soci::dt_string);
@@ -444,20 +454,13 @@ namespace server {
 						assert(row.get_indicator(6) == soci::i_ok);
 						assert(row.get_properties(7).get_data_type() == soci::dt_integer);
 
-						DBBan::ipv6_type ipv6;
-						if (baseAddressBlob.get_len() != ipv6.size()) {
-							throw ::mdb::MigrationException(
-								std::string("Encountered non-IPv6 address while migrating table \"") + NAME + "\"");
+						bool success          = false;
+						DBBan::ipv6_type ipv6 = ::mdb::utils::hexToBinary< DBBan::ipv6_type >(baseAddress, &success);
+						if (!success) {
+							throw ::mdb::MigrationException("Encountered invalid hex representation of IPv6 address '"
+															+ baseAddress + "' while migrating table \"" + NAME + "\"");
 						}
-
-						static_assert(sizeof(decltype(ipv6)::value_type) == sizeof(char),
-									  "IP-type uses larger-than-byte storage");
-						const std::size_t read =
-							baseAddressBlob.read_from_start(reinterpret_cast< char * >(ipv6.data()), ipv6.size());
-						assert(read == ipv6.size());
-						(void) read;
-
-						std::string baseAddress = DBBan::ipv6ToString(ipv6);
+						baseAddress = DBBan::ipv6ToString(ipv6);
 
 						if (row.get_indicator(3) == soci::i_ok) {
 							bannedName = row.get< std::string >(3);
