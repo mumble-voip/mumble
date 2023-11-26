@@ -1367,9 +1367,11 @@ void Server::log(ServerUser *u, const QString &str) const {
 }
 
 void Server::log(const QString &msg) const {
-	// New philosophy is that DB access can't be considered const, but old code requires this function
-	// to be const. Thus, we require a const_cast here.
-	const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
+	if (Meta::mp.iLogDays >= 0) {
+		// New philosophy is that DB access can't be considered const, but old code requires this function
+		// to be const. Thus, we require a const_cast here.
+		const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
+	}
 
 	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
 }
