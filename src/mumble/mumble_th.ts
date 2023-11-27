@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Default server value</source>
-        <translation type="unfinished"></translation>
+        <translation>ค่าเซิฟเวอร์เริ่มต้น</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -188,11 +188,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;บน</translation>
     </message>
     <message>
         <source>Move entry down</source>
-        <translation type="unfinished"></translation>
+        <translation>เลื่อนลง</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
@@ -200,11 +200,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ล่าง</translation>
     </message>
     <message>
         <source>Add new entry</source>
-        <translation type="unfinished"></translation>
+        <translation>เพิ่มใหม่</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
@@ -212,19 +212,19 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;เพิ่ม</translation>
     </message>
     <message>
         <source>Remove entry</source>
-        <translation type="unfinished"></translation>
+        <translation>ลบออก</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>ลบส่วนที่กำลังเลือก</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;เอาออก</translation>
     </message>
     <message>
         <source>Context</source>
@@ -249,7 +249,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"></translation>
+        <translation>เพิ่มกลุ่มใหม่</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
@@ -282,11 +282,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"></translation>
+        <translation>ไม่รวม</translation>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation type="unfinished"></translation>
+        <translation>ไม่รวมสมาชิก</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
@@ -302,7 +302,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>ผู้ใช้/กลุ่ม</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
@@ -310,7 +310,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ไอดีผู้ใช้</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
