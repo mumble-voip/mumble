@@ -7519,7 +7519,7 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Iets wat geen plug-in is gevonden in plug-in-map: &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
@@ -8912,7 +8912,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - Gecomprimeerd met verlies</translation>
     </message>
 </context>
 <context>
