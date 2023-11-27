@@ -100,7 +100,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Strollad</translation>
     </message>
     <message>
         <source>List of groups</source>
@@ -120,7 +120,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"></translation>
+        <translation>Herelezh</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
@@ -140,7 +140,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Members</source>
-        <translation type="unfinished"></translation>
+        <translation>Izili</translation>
     </message>
     <message>
         <source>Add</source>
@@ -249,7 +249,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"></translation>
+        <translation>Add new group</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
@@ -282,7 +282,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezlakaat</translation>
     </message>
     <message>
         <source>Excluded members</source>
@@ -298,7 +298,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aotreoù</translation>
     </message>
     <message>
         <source>User/Group</source>
@@ -310,7 +310,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID an implijer</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -322,7 +322,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Perzhioù</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -404,7 +404,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Perzhioù</translation>
     </message>
     <message>
         <source>Channel password</source>
@@ -557,11 +557,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanneloù</translation>
     </message>
     <message>
         <source>Microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikro</translation>
     </message>
     <message>
         <source>&lt;-</source>
@@ -615,7 +615,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;ozourion</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
@@ -623,7 +623,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>License agreement</source>
@@ -631,7 +631,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Aozerien</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
@@ -718,11 +718,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lazhet</translation>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Enaouet</translation>
     </message>
     <message>
         <source>Preview the audio cues</source>
@@ -770,7 +770,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Compression</source>
-        <translation type="unfinished"></translation>
+        <translation>Koazhañ</translation>
     </message>
     <message>
         <source>&amp;Quality</source>
@@ -882,7 +882,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rakwelet</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -934,7 +934,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>netra</translation>
     </message>
     <message>
         <source>deafen</source>
@@ -946,7 +946,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>goude</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
@@ -962,7 +962,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Enankad aodio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
@@ -998,7 +998,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>An eil hag egile</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1069,11 +1069,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 me</translation>
+        <translation>%1 me</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lazhet</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -1184,7 +1184,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished">Etrefas</translation>
+        <translation>Etrefas</translation>
     </message>
     <message>
         <source>System</source>
@@ -1285,7 +1285,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Tokarnioù</translation>
     </message>
     <message>
         <source>Minimum Distance</source>
@@ -1418,7 +1418,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezkas son</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
@@ -1434,7 +1434,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Gweredekaat</translation>
     </message>
     <message>
         <source>Attenuation</source>
@@ -1461,7 +1461,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Lec&apos;hel</translation>
     </message>
     <message>
         <source>Server</source>
@@ -1473,7 +1473,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 me</translation>
+        <translation>%1 me</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -1485,7 +1485,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Trobarzhell ezkas</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
@@ -1724,7 +1724,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Echu</translation>
     </message>
     <message>
         <source>Enjoy using Mumble</source>
@@ -1936,11 +1936,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Izel</translation>
     </message>
     <message>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Balanced</translation>
     </message>
     <message>
         <source>Notification settings</source>
@@ -1956,7 +1956,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 me</translation>
+        <translation>%1 me</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -1968,7 +1968,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Uhel</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -2064,7 +2064,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Trobarzhell ezkas</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -2103,19 +2103,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Abeg</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Kregiñ</translation>
     </message>
     <message>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibenn</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Implijer</translation>
     </message>
     <message>
         <source>Hash</source>
@@ -2155,7 +2155,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Chomlec&apos;h IP</translation>
     </message>
     <message>
         <source>No IP address</source>
@@ -2167,7 +2167,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Abeg ebet</translation>
     </message>
     <message>
         <source>Ban end date</source>
@@ -2234,7 +2234,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maskl</translation>
     </message>
     <message>
         <source>Start date/time</source>
@@ -2261,11 +2261,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Deiziad termen</translation>
     </message>
     <message>
         <source>(none)</source>
-        <translation type="unfinished"></translation>
+        <translation>(hini ebet)</translation>
     </message>
     <message>
         <source>Self-signed</source>
@@ -2352,11 +2352,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Chomlec&apos;h postel</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoc&apos;h anv</translation>
     </message>
 </context>
 <context>
@@ -2452,7 +2452,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>Digeriñ...</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2572,7 +2572,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Echuiñ</translation>
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
@@ -2608,7 +2608,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Enter</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaskit</translation>
     </message>
     <message>
         <source>Speak</source>
@@ -2712,7 +2712,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Skarzhañ</translation>
     </message>
     <message>
         <source>Register User</source>
@@ -2893,11 +2893,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Dianav</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Implijerien</translation>
     </message>
     <message>
         <source>Failed to fetch server list</source>
@@ -2909,11 +2909,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping</translation>
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Dilemel eus ar sinedoù</translation>
     </message>
     <message>
         <source>Add custom server</source>
@@ -2929,7 +2929,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pegañ</translation>
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
@@ -2961,7 +2961,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
         <source>Filter</source>
@@ -2969,7 +2969,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskouez Holl</translation>
     </message>
     <message>
         <source>Show Populated</source>
@@ -2985,27 +2985,27 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Africa</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Asia</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Amerika an Norzh</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Oseania</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Amerika ar Su</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3037,7 +3037,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Lec&apos;hienn</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -3069,7 +3069,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Chomlec&apos;h IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
@@ -3130,7 +3130,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Label</translation>
     </message>
     <message>
         <source>Add Server</source>
@@ -3163,7 +3163,7 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskouez ar ger-tremen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
@@ -3211,7 +3211,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chomlec&apos;h postel (diret)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
@@ -3305,11 +3305,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Berradenn</translation>
     </message>
     <message>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <source>Add new shortcut</source>
@@ -3345,7 +3345,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Lammat</translation>
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
@@ -3406,7 +3406,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Ouzhpennañ</translation>
+        <translation>Ouzhpennañ</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3414,7 +3414,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Dilemel</translation>
+        <translation>Dilemel</translation>
     </message>
 </context>
 <context>
@@ -3449,18 +3449,18 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Dianav</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Logodenn</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klavier</translation>
     </message>
 </context>
 <context>
@@ -3539,29 +3539,29 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanell</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Logodenn</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klavier</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klavier</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Logodenn</translation>
     </message>
 </context>
 <context>
@@ -3572,18 +3572,18 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereo</translation>
     </message>
 </context>
 <context>
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Digennasket</translation>
     </message>
 </context>
 <context>
@@ -3602,7 +3602,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Anv</translation>
+        <translation>Anv</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3615,15 +3615,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Ment</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Gweredekaet</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Gweloù</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
@@ -3664,11 +3664,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Diwall</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Titouroù</translation>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
@@ -3793,11 +3793,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Aotre nac&apos;het</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished">Mesaj testenn</translation>
+        <translation>Mesaj testenn</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3879,11 +3879,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kemennadennoù</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Kemennadenn</translation>
     </message>
     <message>
         <source>Console</source>
@@ -3891,7 +3891,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>Kemennoù</translation>
     </message>
     <message>
         <source>Text-To-Speech</source>
@@ -3903,7 +3903,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent</translation>
     </message>
     <message>
         <source>Text To Speech</source>
@@ -3959,7 +3959,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Divevenn</translation>
     </message>
     <message>
         <source> Lines</source>
@@ -3967,7 +3967,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Ussked</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
@@ -4017,7 +4017,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevenn</translation>
     </message>
     <message>
         <source>Misc.</source>
@@ -4112,7 +4112,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Hini ebet</translation>
+        <translation>Tra ebet</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -4120,11 +4120,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Pep-tra</translation>
+        <translation>An holl anezho</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Goulenn</translation>
     </message>
     <message>
         <source>Do Nothing</source>
@@ -4132,7 +4132,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished">Fiñval</translation>
+        <translation>Fiñval</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4141,7 +4141,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Etrefas implijer</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -4169,7 +4169,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Yezh</translation>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
@@ -4189,7 +4189,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation>Klasel</translation>
     </message>
     <message>
         <source>Stacked</source>
@@ -4214,7 +4214,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispakañ</translation>
     </message>
     <message>
         <source>When to automatically expand channels</source>
@@ -4246,11 +4246,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Morse</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalc&apos;hmat</translation>
     </message>
     <message>
         <source>In minimal view</source>
@@ -4286,7 +4286,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Arload</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
@@ -4314,7 +4314,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tem</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
@@ -4462,7 +4462,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalc&apos;hmat el laez</translation>
     </message>
     <message>
         <source>Channel dragging</source>
@@ -4510,7 +4510,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Klask</translation>
+        <translation>Klask</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -4565,7 +4565,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>MainWindow</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Root</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -4641,7 +4641,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Bihanaat</translation>
     </message>
     <message>
         <source>Ctrl+M</source>
@@ -4649,7 +4649,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <source>Mute Self</source>
@@ -4693,7 +4693,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Diverkañ</translation>
+        <translation>Naetaat</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4717,7 +4717,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished">Ebarzhiñ an anv-implijer</translation>
+        <translation>Ebarzhiñ an anv-implijer</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -4885,7 +4885,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -5018,7 +5018,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Invalid username</source>
-        <translation type="unfinished"></translation>
+        <translation>Anv arveriad didalvoudek</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -5044,7 +5044,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation type="unfinished"></translation>
+        <translation>Ger-tremen direizh</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
@@ -5060,7 +5060,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skoazell</translation>
     </message>
     <message>
         <source>Log</source>
@@ -5242,7 +5242,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Adderaouekaat</translation>
     </message>
     <message>
         <source>Reset audio preprocessor</source>
@@ -5684,7 +5684,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Servijer</translation>
+        <translation>Servijer</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5781,7 +5781,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Message from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kemennadenn digant %1</translation>
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
@@ -5891,7 +5891,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished">Enrollañ</translation>
+        <translation>Enrollañ</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -5994,7 +5994,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ouzhpennañ...</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
@@ -6002,7 +6002,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">Aozañ...</translation>
+        <translation>&amp;Aozañ...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6074,7 +6074,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskouez</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
@@ -6178,15 +6178,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanell</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevez</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
@@ -6266,7 +6266,7 @@ Valid actions are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Klask</translation>
+        <translation>Klask</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -6424,15 +6424,15 @@ Valid options are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished">Lec&apos;hiadur</translation>
+        <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
@@ -6468,15 +6468,15 @@ Valid options are:
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Identelezh</translation>
     </message>
     <message>
         <source>Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Arventenniñ</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Rannvro</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6484,11 +6484,11 @@ Valid options are:
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Liamm</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Gweredekaat</translation>
     </message>
     <message>
         <source>Display</source>
@@ -6507,7 +6507,7 @@ Valid options are:
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Rouedad</translation>
     </message>
     <message>
         <source>Connection</source>
@@ -6536,11 +6536,11 @@ Valid options are:
     </message>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Proksi</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Doare</translation>
     </message>
     <message>
         <source>Type of proxy to connect through</source>
@@ -6560,7 +6560,7 @@ Valid options are:
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Anv-hostiz</translation>
+        <translation>Anv-hostiz</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
@@ -6604,7 +6604,7 @@ Valid options are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Porzh</translation>
+        <translation>Porzh</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -6616,7 +6616,7 @@ Valid options are:
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Anv-implijer</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -6628,7 +6628,7 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Ger-tremen</translation>
+        <translation>Ger-tremen</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6684,7 +6684,7 @@ Valid options are:
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevezded</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
@@ -6736,7 +6736,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanell</translation>
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
@@ -6747,7 +6747,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">Silañ</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -6775,15 +6775,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Bannoù</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Urzhiañ</translation>
     </message>
     <message>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Lizherennek</translation>
     </message>
     <message>
         <source>Last state change</source>
@@ -6828,7 +6828,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Gwiskad</translation>
     </message>
     <message>
         <source>Choose executable</source>
@@ -6856,7 +6856,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibarzhioù</translation>
     </message>
     <message>
         <source>Enable overlay.</source>
@@ -6949,15 +6949,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Liv</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Dilemel</translation>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Polis</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
@@ -6985,7 +6985,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Ouzhpennañ</translation>
+        <translation>Ouzhpennañ</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7004,7 +7004,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>OverlayEditor</name>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Rannvro</translation>
     </message>
     <message>
         <source>User is not talking</source>
@@ -7040,7 +7040,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoumañ</translation>
     </message>
     <message>
         <source>Zoom Factor</source>
@@ -7056,7 +7056,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <source>User&apos;s name</source>
@@ -7064,7 +7064,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Anv-implijer</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -7072,7 +7072,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanell</translation>
     </message>
     <message>
         <source>Muted or deafened</source>
@@ -7127,23 +7127,23 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Desteudadur</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleiz</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreiz</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Dehoù</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Krec&apos;h</translation>
     </message>
     <message>
         <source>Bottom</source>
@@ -7198,7 +7198,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Askouezhioù</translation>
     </message>
     <message>
         <source>Plugin has no configure function.</source>
@@ -7210,7 +7210,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibarzhioù</translation>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
@@ -7258,15 +7258,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished">&amp;Kefluniañ</translation>
+        <translation>&amp;Kefluniañ</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Anv</translation>
+        <translation>Anv</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Gweredekaat</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7353,7 +7353,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ya</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
@@ -7435,11 +7435,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Diuzañ an holl</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Askouezh</translation>
     </message>
     <message>
         <source>Download-URL</source>
@@ -7485,11 +7485,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
@@ -7517,7 +7517,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Titouroù</translation>
     </message>
     <message>
         <source>Context</source>
@@ -7525,7 +7525,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Identelezh</translation>
     </message>
 </context>
 <context>
@@ -7780,7 +7780,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Italek</translation>
     </message>
     <message>
         <source>Ctrl+I</source>
@@ -7788,7 +7788,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Islinennet</translation>
     </message>
     <message>
         <source>Ctrl+U</source>
@@ -7796,7 +7796,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Liv</translation>
     </message>
     <message>
         <source>Insert Link</source>
@@ -7808,40 +7808,40 @@ You can register them again.</source>
     </message>
     <message>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlakaat ar skeudenn</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouzhpennañ ul liamm</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Testenn</translation>
     </message>
 </context>
 <context>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Hini ebet</translation>
+        <translation>Tra ebet</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Mont</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Klask</translation>
+        <translation>Klask</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -7849,7 +7849,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibarzhioù</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
@@ -7869,7 +7869,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dibarzhioù :</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
@@ -7885,7 +7885,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Klask :</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
@@ -7927,11 +7927,11 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Titour ar servijer</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Titour ar servijer</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
@@ -7991,11 +7991,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Stadegoù</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Mat</translation>
     </message>
     <message>
         <source>Late</source>
@@ -8003,7 +8003,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Kollet</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -8011,11 +8011,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>O vont er-maez</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>O resev</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
@@ -8047,7 +8047,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Dianav</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8059,7 +8059,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya</translation>
     </message>
     <message>
         <source>No</source>
@@ -8070,7 +8070,7 @@ You can register them again.</source>
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Plijet</translation>
     </message>
     <message>
         <source>LAN</source>
@@ -8092,11 +8092,11 @@ You can register them again.</source>
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Enaouet</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lazhet</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8123,11 +8123,11 @@ You can register them again.</source>
     <name>ShortcutTargetDialog</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Root</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Kar</translation>
     </message>
     <message>
         <source>Current</source>
@@ -8150,11 +8150,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Root</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Kar</translation>
     </message>
     <message>
         <source>Current</source>
@@ -8166,12 +8166,12 @@ You can register them again.</source>
     </message>
     <message>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Direizh</translation>
     </message>
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Goullonderiñ</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -8182,7 +8182,7 @@ You can register them again.</source>
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lazhet</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -8190,7 +8190,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Enaouet</translation>
     </message>
 </context>
 <context>
@@ -8209,7 +8209,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Kemennadenn</translation>
     </message>
 </context>
 <context>
@@ -8239,7 +8239,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">Ouzhpenn&amp;añ</translation>
+        <translation>&amp;Ouzhpennañ</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -8247,7 +8247,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">Dilemel</translation>
+        <translation>&amp;Dilemel</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -8258,15 +8258,15 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserEdit</name>
     <message>
         <source>Registered Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Implijerien enrollet</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Dilemel</translation>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Adenvel</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
@@ -8278,15 +8278,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Sizhunvezhioù</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Mizioù</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloavezhioù</translation>
     </message>
     <message>
         <source>Inactive for</source>
@@ -8301,11 +8301,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Klask</translation>
+        <translation>Klask</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Roll an implijerien</translation>
     </message>
 </context>
 <context>
@@ -8320,19 +8320,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Stumm</translation>
+        <translation>Stumm</translation>
     </message>
     <message>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>RK</translation>
     </message>
     <message>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Testeni</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished">Chomlec&apos;h IP</translation>
+        <translation>Chomlec&apos;h IP</translation>
     </message>
     <message>
         <source>Details...</source>
@@ -8364,7 +8364,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Mat</translation>
     </message>
     <message>
         <source>Late</source>
@@ -8372,7 +8372,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Kollet</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -8466,7 +8466,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserListModel</name>
     <message>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesanv</translation>
     </message>
     <message>
         <source>Inactive days</source>
@@ -8482,7 +8482,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Morse</translation>
     </message>
     <message>
         <source>Channel ID: %1</source>
@@ -8617,11 +8617,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Anv</translation>
+        <translation>Anv</translation>
     </message>
     <message>
         <source>Flags</source>
-        <translation type="unfinished"></translation>
+        <translation>Banieloù</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this user?</source>
@@ -8708,7 +8708,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>Aozadur</translation>
     </message>
     <message>
         <source>Subunit</source>
@@ -8720,11 +8720,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Locality</source>
-        <translation type="unfinished"></translation>
+        <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Rannvro</translation>
     </message>
     <message>
         <source>Valid from: %1</source>
@@ -8744,7 +8744,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>RSA</source>
-        <translation type="unfinished"></translation>
+        <translation>RSA</translation>
     </message>
     <message>
         <source>DSA</source>
@@ -8826,7 +8826,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kregiñ</translation>
     </message>
     <message>
         <source>S&amp;top</source>
@@ -8834,7 +8834,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mod</translation>
     </message>
     <message>
         <source>Multichannel</source>
@@ -8842,11 +8842,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Disoc&apos;h</translation>
     </message>
     <message>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>Furmad an ezvont</translation>
     </message>
     <message>
         <source>Target directory</source>
@@ -8854,7 +8854,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Anv restr</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
@@ -8907,7 +8907,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>War baouez</translation>
     </message>
     <message>
         <source>Select target directory</source>
