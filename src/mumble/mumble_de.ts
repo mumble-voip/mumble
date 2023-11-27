@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dies gibt das %1-Recht. Wenn ein Recht sowohl erlaubt als auch verweigert wird, so wird es verweigert.&lt;br /&gt;%2</translation>
+        <translation>Dadurch wird die „%1“ Berechtigung gewährt. Wenn eine Berechtigung sowohl erlaubt als auch verweigert ist, wird diese verweigert.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dies nimmt das %1-Recht. Wenn ein Recht sowohl erlaubt als auch verweigert wird, so wird es verweigert.&lt;br /&gt;%2</translation>
+        <translation>Dadurch wird die „ %1“ Berechtigung widerrufen. Wenn eine Berechtigung sowohl erlaubt als auch verweigert ist, wird diese verweigert.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -255,7 +255,7 @@ Dieser Wert erlaubt es Ihnen, die Reihenfolge der Kanäle innerhalb des Baumes f
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Hinzufügen&lt;/b&gt;&lt;br /&gt;
+        <translation>&lt;b&gt;Hinzufügen&lt;/b&gt;&lt;br/&gt;
 Fügt eine neue Gruppe hinzu.</translation>
     </message>
     <message>
@@ -473,7 +473,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation>Das Abfragen des Namens (&quot;longname&quot;) der Sound-Karte schlug fehl: %1</translation>
+        <translation>Das Abfragen des Namens (longname) der Sound-Karte schlug fehl: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
@@ -766,7 +766,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Dies setzt die Auslösewerte für die Spracherkennung.&lt;/b&gt;&lt;br /&gt;Zusammen mit dem Audiostatistik Fenster können die Auslösewerte für die Spracherkennung manuell eingestellt werden. Eingabewerte unter &quot;Stille bis&quot; zählen immer als Stille, Werte über &quot;Sprache über&quot; immer als Sprache. Werte dazwischen zählen als Sprache wenn schon gesprochen wird, lösen aber keine Erkennung (und damit Übertragung) aus.</translation>
+        <translation>&lt;b&gt;Dies setzt die Auslösewerte für die Spracherkennung.&lt;/b&gt;&lt;br /&gt;Zusammen mit dem Audiostatistik Fenster können die Auslösewerte für die Spracherkennung manuell eingestellt werden. Eingabewerte unter „Stille bis“ zählen immer als Stille, Werte über „Sprache über“ immer als Sprache. Werte dazwischen zählen als Sprache wenn schon gesprochen wird, lösen aber keine Erkennung (und damit Übertragung) aus.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -1596,7 +1596,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Dies zeigt den Spitzenpegel im letzten Paket (20ms) an und zeigt was üblicherweise auch &quot;Eingangspegel&quot; genannt wird. Bitte ignorieren Sie diesen Wert und sehen Sie sich stattdessen &lt;b&gt;Mikrofonpegel&lt;/b&gt; an, was deutlich stabiler ist und Ausreißer verwirft.</translation>
+        <translation>Dies zeigt den Spitzenpegel im letzten Paket (20ms) an und zeigt was üblicherweise auch „Eingangspegel“ genannt wird. Bitte ignorieren Sie diesen Wert und sehen Sie sich stattdessen &lt;b&gt;Mikrofonpegel&lt;/b&gt; an, was deutlich stabiler ist und Ausreißer verwirft.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
@@ -1852,7 +1852,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Öffnen Sie die Audioeinstellungen Ihres Betriebssystems und wechseln Sie zu den Aufnahmeeinstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für die Mikrofonverstärkung gibt, stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
+Öffnen Sie die Audioeinstellungen Ihres Betriebssystems und wechseln Sie zu den Aufnahmeeinstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für die „Mikrofon-Boost“ gibt, stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
 &lt;/p&gt;
 &lt;p&gt;
 Sprechen Sie so laut, als wären Sie wütend oder aufgeregt. Verringern Sie die Mikrofonlautstärke in Ihren Audioeinstellungen so weit, dass der Balken unten so weit oben wie möglich im blauen und grünen, aber &lt;b&gt;nicht&lt;/b&gt; im roten Bereich ist, solange Sie sprechen.
@@ -2037,7 +2037,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
+Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen. Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt. Sofern es eine Option für „Mikrofon-Boost“ gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
 &lt;/p&gt;
 &lt;p&gt;
 Sprechen Sie so laut als wären Sie wütend oder aufgeregt. Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im gestreiften und leeren, aber &lt;b&gt;nicht&lt;/b&gt; im karierten Bereich ist während Sie sprechen.
@@ -2634,7 +2634,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich gegenüber dem Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Ausserdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;&lt;p&gt;Darüber hinaus kann Mumble auch mit Zertifikaten umgehen, die den Besitz der zugehörigen Email-Adresse verifizieren. Diese Zertifikate werden von externen Anbietern ausgestellt. Für weitere Informationen sehen Sie bitte &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;in unserer Zertifikats-Dokumentation&lt;/a&gt; nach.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kann Zertifikate verwenden um sich gegenüber dem Server zu authentifizieren. Die Benutzung von Zertifikaten hat den Vorteil, dass man nicht mit Passwörtern hantieren muss. Außerdem ermöglichen Zertifikate die einfache Registrierung von Benutzern.&lt;/p&gt;&lt;p&gt;Mumble funktioniert auch ohne Zertifikate, jedoch erwartet die Mehrheit der Server, dass Sie über ein Zertifikat verfügen.&lt;/p&gt;&lt;p&gt;Darüber hinaus kann Mumble auch mit Zertifikaten umgehen, die den Besitz der zugehörigen Email-Adresse verifizieren. Diese Zertifikate werden von externen Anbietern ausgestellt. Für weitere Informationen sehen Sie bitte &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;in unserer Zertifikats-Dokumentation&lt;/a&gt; nach.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2903,7 +2903,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation>Dieser Button wird die Standardeinstellungen für diese Seite wiederherstellen. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Standardeinstellungen wiederherzustellen, können Sie den &quot;Standardeinstellungen (Alle)&quot;-Button drücken.</translation>
+        <translation>Dieser Button wird die Standardeinstellungen für diese Seite wiederherstellen. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Standardeinstellungen wiederherzustellen, können Sie den „Standardeinstellungen (Alle)“-Button drücken.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
@@ -3429,7 +3429,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation>&lt;b&gt;Tastaturkürzel in privilegierten Anwendungen aktivieren&lt;/b&gt;,&lt;br /&gt;auch bekannt als &quot;UIAccess&quot;. Dies ermöglicht es Mumble, globale Tastaturkürzel von Programmen mit hohen Berechtigungsstufen zu empfangen, wie z.B. eine Admin Command Prompt oder ältere Spiele, die mit Administratorrechten ausgeführt werden.
+        <translation>&lt;b&gt;Tastaturkürzel in privilegierten Anwendungen aktivieren&lt;/b&gt;,&lt;br /&gt;auch bekannt als „UIAccess“. Dies ermöglicht es Mumble, globale Tastaturkürzel von Programmen mit hohen Berechtigungsstufen zu empfangen, wie z.B. eine Admin Command Prompt oder ältere Spiele, die mit Administratorrechten ausgeführt werden.
 &lt;br /&gt;&lt;br /&gt;
 Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von Mumble in privilegierten Anwendungen nicht. Dies kann inkonsistent erscheinen: Wenn beispielsweise die Push-to-Talk Taste in einem nicht privilegierten Programm gedrückt, aber in einer privilegierten Anwendung losgelassen wird, bemerkt Mumble nicht, dass sie losgelassen wurde, und Sie werden weiter senden, bis Sie die Push-to-Talk Taste erneut drücken.</translation>
     </message>
@@ -3466,7 +3466,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Entfernen</translation>
     </message>
 </context>
 <context>
@@ -4400,7 +4400,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation>&lt;b&gt;Entwickler Modus aktivieren&lt;/b&gt;&lt;br /&gt;Dies aktiviert den &quot;Entwickler&quot; Modus in Mumble. Dieser Modus wird für Entwickler-spezifische Funktionen, wie die Entwickler-Konsole, verwendet.</translation>
+        <translation>&lt;b&gt;Entwickler Modus aktivieren&lt;/b&gt;&lt;br /&gt;Dies aktiviert den „Entwickler“ Modus in Mumble. Dieser Modus wird für Entwickler-spezifische Funktionen, wie die Entwickler-Konsole, verwendet.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
@@ -5394,7 +5394,7 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Dies anklicken um den &quot;Was ist das?&quot;-Modus zu aktivieren. Der Cursor wird sich in ein Fragezeichen ändern. Klickt man damit auf irgendeinen Button, Menüeintrag oder ein Gebiet, wird eine kurze Beschreibung angezeigt.</translation>
+        <translation>Dies anklicken um den „Was ist das?“-Modus zu aktivieren. Der Cursor wird sich in ein Fragezeichen ändern. Klickt man damit auf irgendeinen Button, Menüeintrag oder ein Gebiet, wird eine kurze Beschreibung angezeigt.</translation>
     </message>
     <message>
         <source>Information about Mumble</source>
@@ -5470,11 +5470,11 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>Removes a user from your friends.</source>
-        <translation>Entfernt einen Benutzer aus der Freundesliste.</translation>
+        <translation>Entfernt einen Benutzer aus Deiner Freundesliste.</translation>
     </message>
     <message>
         <source>This will remove a user from your friends list.</source>
-        <translation>Entfernt einen Benutzer aus der Freundesliste.</translation>
+        <translation>Dies entfernt einen Benutzer aus Deiner Freundesliste.</translation>
     </message>
     <message>
         <source>&amp;Update Friend</source>
@@ -5849,11 +5849,11 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation>Du hast den Benutzer Verschiebemodus auf &quot;Nichts Tun&quot; konfiguriert, daher wurde der Benutzer nicht verschoben.</translation>
+        <translation>Du hast den Benutzer Verschiebemodus auf „Nichts Tun“ konfiguriert, daher wurde der Benutzer nicht verschoben.</translation>
     </message>
     <message>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
+        <translation>Die Kanal-Ziehen-Aktion wurde auf „Nichts tun“ gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
     <message>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
@@ -6823,7 +6823,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation>Beim Start mit zuletzt verwendetem Server verbinden</translation>
+        <translation>Verbinde mit zuletzt verwendetem Server wenn Mumble gestartet wird</translation>
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
@@ -7382,7 +7382,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation>Dies liest alle Plugins neu ein. Benutzen Sie dies, falls Sie dem Pluginverzeichnis ein Plugin hinzugefügt, oder ein Plugin geändert haben.</translation>
+        <translation>Dies liest alle Plugins neu ein. Benutzen Sie dies, falls Sie dem Plugin-Verzeichnis ein Plugin hinzugefügt, oder ein Plugin geändert haben.</translation>
     </message>
     <message>
         <source>&amp;Reload plugins</source>
@@ -7450,11 +7450,11 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation>Das Deaktivieren aller angefragter Features schlug fehl: &quot;%1&quot;</translation>
+        <translation>Das Deaktivieren aller angefragter Features schlug fehl: „%1“</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation>Laden des Plugins schlug fehl: &quot;%1&quot;</translation>
+        <translation>Laden des Plugins schlug fehl: „%1“</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
@@ -7509,23 +7509,23 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation>&quot;%1&quot; ist keine gültige Plugin-Datei!</translation>
+        <translation>„%1“ ist keine gültige Plugin-Datei!</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation>Es ist nicht möglich das Plugin &quot;%1&quot; zu laden - Überprüfen Sie das Plugin interface!</translation>
+        <translation>Es ist nicht möglich das Plugin „%1“ zu laden - Überprüfen Sie das Plugin interface!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation>Es ist nicht möglich das alte Plugin unter &quot;%1&quot; zu löschen</translation>
+        <translation>Es ist nicht möglich das alte Plugin unter „%1“ zu löschen</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation>Es ist nicht möglich die Pluginbibliothek von &quot;%1&quot; nach &quot;%2&quot; zu kopieren</translation>
+        <translation>Es ist nicht möglich die Pluginbibliothek von „%1“ nach „%2“ zu kopieren</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation>Es ist nicht möglich die Pluginbibliothek nach &quot;%1&quot; zu verschieben</translation>
+        <translation>Es ist nicht möglich die Pluginbibliothek nach „%1“ zu verschieben</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
@@ -7537,11 +7537,11 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation>Ein Plugin für das aktuelle Betriebssystem (&quot;%1&quot;) und Prozessor-Architektur (&quot;%2&quot;) konnte nicht gefunden werden</translation>
+        <translation>Ein Plugin für das aktuelle Betriebssystem („%1“) und Prozessor-Architektur („%2“) konnte nicht gefunden werden</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation>Das Plugin, welches im Manifest des Bundles referenziert wurde (&quot;%1&quot;), konnte nicht gefunden werden</translation>
+        <translation>Das Plugin, welches im Manifest des Bundles referenziert wurde („%1“), konnte nicht gefunden werden</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
@@ -7549,7 +7549,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation>Das neue Plugin &quot;%1&quot; (%2) wird das bereits installierte Plugin &quot;%3&quot; (%4) überschreiben. Wollen Sie fortfahren?</translation>
+        <translation>Das neue Plugin „%1“ (%2) wird das bereits installierte Plugin „%3“ (%4) überschreiben. Wollen Sie fortfahren?</translation>
     </message>
 </context>
 <context>
@@ -7564,7 +7564,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation>Plugin &quot;%1&quot; erlitt einen permanenten Fehler im Sammeln positioneller Daten</translation>
+        <translation>Plugin „%1“ erlitt einen permanenten Fehler im Sammeln positioneller Daten</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
@@ -7572,7 +7572,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht-Plugin im Plugin-Verzeichnis gefunden: „%1“ (%2)</translation>
     </message>
 </context>
 <context>
@@ -7714,7 +7714,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation>Echounterdrückung ist für die Schnittstellenkombination &quot;%1&quot; (input) und &quot;%2&quot; (output) nicht unterstützt.</translation>
+        <translation>Echounterdrückung ist für die Schnittstellenkombination „%1“ (input) und „%2“ (output) nicht unterstützt.</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -7736,7 +7736,7 @@ Informationen hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wik
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
-        <translation>&quot;%1&quot; konnte nicht permanent gespeichert werden und wird bei einem Neustart verloren gehen, da %2 kein Zertifikat verwendet.</translation>
+        <translation>„%1“ konnte nicht permanent gespeichert werden und wird bei einem Neustart verloren gehen, da %2 kein Zertifikat verwendet.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
@@ -7792,7 +7792,7 @@ Informationen hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wik
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Blockiertes URL-Schema &quot;%1&quot;&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Blockiertes URL-Schema „%1“&lt;/b&gt;</translation>
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
@@ -7800,7 +7800,7 @@ Informationen hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wik
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation>Blockierte URL: &quot;%1&quot;</translation>
+        <translation>Blockierte URL: „%1“</translation>
     </message>
     <message>
         <source>Default Device</source>
@@ -7840,7 +7840,7 @@ Informationen hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wik
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation>Die verwendete URL verwendet ein invalides Versionsformat: &quot;%1&quot;</translation>
+        <translation>Die verwendete URL verwendet ein invalides Versionsformat: „%1“</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
@@ -8937,31 +8937,31 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <name>VoiceRecorder</name>
     <message>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation>Recorder konnte Verzeichnis &apos;%1&apos; nicht erstellen</translation>
+        <translation>Rekorder konnte Verzeichnis „%1“ nicht erstellen</translation>
     </message>
     <message>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation>Datei &apos;%1&apos; konnte für die Aufnahme nicht geöffnet werden</translation>
+        <translation>Rekorder konnte Datei „%1“ nicht öffnen</translation>
     </message>
     <message>
         <source>.wav - Uncompressed</source>
-        <translation>.wav - Unkomprimiert</translation>
+        <translation>.wav – Unkomprimiert</translation>
     </message>
     <message>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation>.ogg (Vorbis) - Komprimiert</translation>
+        <translation>.ogg (Vorbis) – Komprimiert</translation>
     </message>
     <message>
         <source>.au - Uncompressed</source>
-        <translation>.au - Unkomprimiert</translation>
+        <translation>.au – Unkomprimiert</translation>
     </message>
     <message>
         <source>.flac - Lossless compressed</source>
-        <translation>.flac - Verlustfrei komprimiert</translation>
+        <translation>.flac – Verlustfrei komprimiert</translation>
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation>.opus - Verlustbehaftet komprimiert</translation>
+        <translation>.opus – Verlustbehaftet komprimiert</translation>
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
@@ -8972,7 +8972,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <name>VoiceRecorderDialog</name>
     <message>
         <source>Recorder</source>
-        <translation>Aufnahme</translation>
+        <translation>Rekorder</translation>
     </message>
     <message>
         <source>Control</source>
@@ -9040,11 +9040,11 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>Recorder still running</source>
-        <translation>Aufnahme aktiv</translation>
+        <translation>Rekorder läuft noch</translation>
     </message>
     <message>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation>Das Schließen des Aufnahme-Fensters führt dazu, dass die aufgezeichnete Audio-Sequenz nicht gespeichert wird. Möchtest du die Aufnahme wirklich beenden?</translation>
+        <translation>Das Schließen des Rekorders ohne zu speichern wird die aktuelle Audio-Sequenz verwerfen. Möchtest du den Rekorder wirklich schließen?</translation>
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
