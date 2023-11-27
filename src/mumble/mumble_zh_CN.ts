@@ -7578,7 +7578,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>在插件目录发现非插件：“%1”（%2）</translation>
     </message>
 </context>
 <context>
@@ -8970,7 +8970,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - 有损压缩</translation>
     </message>
 </context>
 <context>
