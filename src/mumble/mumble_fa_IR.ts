@@ -120,7 +120,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"></translation>
+        <translation>ارث بردن</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
@@ -180,7 +180,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Move entry up</source>
-        <translation type="unfinished"></translation>
+        <translation>ورودی را به بالا انتقال بده</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
@@ -188,11 +188,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;بالا</translation>
     </message>
     <message>
         <source>Move entry down</source>
-        <translation type="unfinished"></translation>
+        <translation>ورودی را به پایین انتقال بده</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
@@ -200,11 +200,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;پایین</translation>
     </message>
     <message>
         <source>Add new entry</source>
-        <translation type="unfinished"></translation>
+        <translation>افزودن ورودی جدید</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
@@ -216,15 +216,15 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove entry</source>
-        <translation type="unfinished"></translation>
+        <translation>حذف ورودی</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>این ورودی انتخاب شده فعلی را حذف می‌کند.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;حذف</translation>
     </message>
     <message>
         <source>Context</source>
@@ -254,7 +254,8 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;اضافه کردن&lt;/b&gt;&lt;br/&gt;
+یک گروه جدید اضافه کن.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -274,19 +275,19 @@ Add a new group.</source>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"></translation>
+        <translation>نام کاربری را که می‌خواهید به گروه اضافه کنید تایپ کنید و روی اضافه کردن کلیک کنید.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"></translation>
+        <translation>نام کاربری را که می‌خواهید از گروه حذف کنید تایپ کنید و روی اضافه کردن کلیک کنید.</translation>
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"></translation>
+        <translation>محروم کردن</translation>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation type="unfinished"></translation>
+        <translation>اعضای محروم شده</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
@@ -310,7 +311,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"></translation>
+        <translation>شناسه کاربر</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -336,7 +337,8 @@ When checked the channel created will be marked as temporary. This means when th
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;گروه&lt;/b&gt;&lt;br /&gt;
+این‌ها تمام گروه‌هایی هستند که در حال حاضر برای کانال تعریف شده‌اند. برای ایجاد گروه جدید، نام را وارد کنید و Enter را فشار دهید.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -383,7 +385,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>شناسه کانال.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
@@ -391,7 +393,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>حداکثر تعداد کاربران مجاز در کانال</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -408,7 +410,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>رمز عبور کانال</translation>
     </message>
     <message>
         <source>Maximum users</source>
@@ -416,7 +418,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>نام کانال</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -432,7 +434,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>اضافه کردن کاربر به گروه</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
@@ -8785,7 +8787,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.wav - فشرده نشده</translation>
     </message>
     <message>
         <source>.ogg (Vorbis) - Compressed</source>
@@ -8812,7 +8814,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VoiceRecorderDialog</name>
     <message>
         <source>Recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>ضبط کننده</translation>
     </message>
     <message>
         <source>Control</source>
@@ -8840,19 +8842,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>خروجی</translation>
     </message>
     <message>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>فرمت خروجی</translation>
     </message>
     <message>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>مسیر مقصد</translation>
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>نام فایل</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
@@ -8860,7 +8862,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
+        <translation>متغیرهای معتبر عبارتند از:</translation>
     </message>
     <message>
         <source>Inserts the user&apos;s name</source>
@@ -8888,7 +8890,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>شروع ضبط ممکن نیست. اتصال با سرور برقرار نیست.</translation>
     </message>
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
@@ -8901,11 +8903,11 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا یک فرمت ضبط انتخاب کنید.</translation>
     </message>
     <message>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>توقف</translation>
     </message>
     <message>
         <source>Select target directory</source>
@@ -8924,25 +8926,25 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Slider for volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>نوار لغزنده تنظیم حجم صدا</translation>
     </message>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیم حجم صدا</translation>
     </message>
 </context>
 <context>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>دسترسی به میکروفون رد شد. لطفا بررسی کنید که سیستم عامل شما به Mumble اجازه استفاده از میکروفون را داده است.</translation>
     </message>
 </context>
 <context>
     <name>WASAPISystem</name>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>دستگاه پیش‌فرض</translation>
     </message>
 </context>
 <context>
@@ -8953,7 +8955,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>برای مکالمه فشار دهید</translation>
     </message>
 </context>
 </TS>
