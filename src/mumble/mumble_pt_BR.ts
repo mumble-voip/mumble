@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Falhou. Canal inválido</translation>
+        <translation>Falhou: canal inválido</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Insira o nome do canal aqui</translation>
+        <translation>Insira o nome do canal aqui.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -378,7 +378,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Isto controla a qual grupo de usuárias esta entrada é aplicada.&lt;br /&gt;Perceba que o grupo é avaliado no contexto do canal no qual a entrada é usada. Por exemplo, a LCA padrão no canal Raiz fornece permissão de &lt;i&gt;Escrita&lt;/i&gt; para o grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, se herdada por um canal, fornecerá à usuária permissões de escrita se ele pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; naquele canal, mesmo se ele não pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; no canal onde a LCA foi originada.&lt;br /&gt;Se um nome de grupo começa com &apos;!&apos;, sua associação é negada, e se ele inicia com &apos;~&apos;, ele é avaliado no canal onde a LCA foi definida, e não no canal onde a LCA está efetivamente ativa.&lt;br /&gt;Se um nome de grupo começa com &apos;#&apos;, ele é interpretado como uma credencial de acesso. Usuárias devem ter digitado seja o que for que siga o &apos;#&apos; nas suas listas de chaves de acesso, para coincidir com a entrada. Isso pode ser usado para acessos ao canal utilizando senha para usuárias não autenticadas, de maneira muito simples.&lt;br /&gt;Se um nome de grupo começa com &apos;$&apos;, ele só vai coincidir usuárias cujo hash de certificado coincidir o que está depois do &apos;$&apos;.&lt;br /&gt;Alguns grupos predefinidos especiais são:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Todos vão coincidir.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Todas usuárias autenticadas vão coincidir.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuária atualmente em um subcanal com um mínimo &lt;i&gt;a&lt;/i&gt; de pais comuns, e entre &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canais abaixo na cadeia. Veja o site para mais documentação sobre este último.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Usuárias atualmente neste canal vão coincidir (conveniência para &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Usuárias fora deste canal coincidirão (conveniência para &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note que uma entrada aplica para uma usuária ou grupo, mas não ambos.</translation>
+        <translation>Isto controla a qual grupo de usuários esta entrada é aplicada.&lt;br /&gt;Perceba que o grupo é avaliado no contexto do canal no qual a entrada é usada. Por exemplo, a LCA padrão no canal Raiz fornece permissão de &lt;i&gt;Escrita&lt;/i&gt; para o grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, se herdada por um canal, fornecerá ao usuário permissões de escrita se ele pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; naquele canal, mesmo se ele não pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; no canal onde a LCA foi originada.&lt;br /&gt;Se um nome de grupo começa com &apos;!&apos;, sua associação é negada, e se ele inicia com &apos;~&apos;, ele é avaliado no canal onde a LCA foi definida, e não no canal onde a LCA está efetivamente ativa.&lt;br /&gt;Se um nome de grupo começa com &apos;#&apos;, ele é interpretado como uma credencial de acesso. Usuários devem ter digitado seja o que for que siga o &apos;#&apos; nas suas listas de chaves de acesso, para coincidir com a entrada. Isso pode ser usado para acessos ao canal utilizando senha para usuários não autenticadas, de maneira muito simples.&lt;br /&gt;Se um nome de grupo começa com &apos;$&apos;, ele só vai coincidir usuários cujo hash de certificado coincidir o que está depois do &apos;$&apos;.&lt;br /&gt;Alguns grupos predefinidos especiais são:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Todos vão coincidir.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Todos os usuários autenticados vão coincidir.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuário atualmente em um subcanal com um mínimo &lt;i&gt;a&lt;/i&gt; de pais comuns, e entre &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canais abaixo na cadeia. Veja o site para mais documentação sobre este último.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Usuários atualmente neste canal vão coincidir (conveniência para &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Usuários fora deste canal coincidirão (conveniência para &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note que uma entrada aplica para um usuário ou grupo, mas não ambos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -394,17 +394,17 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>Máximo de Usuárias</translation>
+        <translation>Máximo de Usuários</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>Número máximo de usuárias permitidos no canal</translation>
+        <translation>Número máximo de usuários permitidos no canal</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation>&lt;b&gt;Máximo de Usuárias&lt;/b&gt;&lt;br /&gt;
-Este valor permite que você especifique o número máximo de usuárias permitidas no canal. Se o valor for acima de zero, apenas aquele número máximo de usuárias será permitido entrar no canal. Se o valor é zero, o número máximo de usuárias no canal é definido pelo limite padrão do servidor.</translation>
+        <translation>&lt;b&gt;Máximo de Usuários&lt;/b&gt;&lt;br /&gt;
+Este valor permite que você especifique o número máximo de usuários permitidos no canal. Se o valor for acima de zero, apenas aquele número máximo de usuários será permitido entrar no canal. Se o valor é zero, o número máximo de usuários no canal é definido pelo limite padrão do servidor.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
@@ -420,7 +420,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Maximum users</source>
-        <translation>Máximo de Usuárias</translation>
+        <translation>Máximo de usuários</translation>
     </message>
     <message>
         <source>Channel name</source>
@@ -651,7 +651,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Para uma lista de autores, veja &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1030,7 +1030,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sugestão de áudio ao usar...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
@@ -1236,11 +1236,11 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Configura a distância mínima para cálculos de som. O volume da fala das usuárias não irá diminuir antes de, no mínimo, esta distância de você.</translation>
+        <translation>Configura a distância mínima para cálculos de som. O volume da fala dos usuários não irá diminuir antes de, no mínimo, esta distância de você.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outras usuárias não vai diminuir nada a mais.</translation>
+        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outros usuários não vai diminuir nada a mais.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
@@ -1362,11 +1362,11 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>Se marcado o Mumble diminui o volume de outros programas enquanto outras usuárias falam</translation>
+        <translation>Se marcado o Mumble diminui o volume de outros programas enquanto outros usuários falam</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Atenuar aplicativos enquanto outras usuárias falam&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outros programas durante a entrada e saída de fala. Isto faz com que o mumble ative o recurso enquanto outras falam com você.</translation>
+        <translation>&lt;b&gt;Atenuar aplicativos enquanto outros usuários falam&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outros programas durante a entrada e saída de fala. Isto faz com que o Mumble ative o recurso enquanto outros falam com você.</translation>
     </message>
     <message>
         <source>while other users talk</source>
@@ -1398,7 +1398,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Se marcado o Mumble diminui o volume das outras usuárias enquanto você fala se você tiver status de &quot;Falante Prioritária&quot;.</translation>
+        <translation>Se marcado o Mumble diminui o volume das outros usuários enquanto você fala se você tiver status de &quot;Falante Prioritário&quot;.</translation>
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
@@ -1434,11 +1434,11 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Atenuar outras usuárias enquanto fala como Falante Prioritária&lt;/b&gt;&lt;br /&gt;O Mumble suporta reduzir o volume de outras usuárias enquanto você fala como o &lt;i&gt;Falante Priotária&lt;/i&gt; para evitar distúrbio. Marcar essa caixa de seleção ativa esse recurso.</translation>
+        <translation>&lt;b&gt;Atenuar outros usuários enquanto fala como Falante Prioritário&lt;/b&gt;&lt;br /&gt;O Mumble suporta reduzir o volume de outros usuários enquanto você fala como o &lt;i&gt;Falante Priotário&lt;/i&gt; para evitar distúrbio. Marcar essa caixa de seleção ativa esse recurso.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation>Atenuar outras usuárias durante fala como Falante Prioritária</translation>
+        <translation>Atenuar outos usuários enquanto fala como Falante Prioritário</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -1613,7 +1613,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando você não está falando. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte você deve ver algo ao redor de -20 dB. Quando você está falando, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se você está usando anulação de eco, e isto aumenta para mais de -15 dB quando você não está falando, sua configuração não está funcionando, e você vai incomodar outras usuárias com ecos.</translation>
+        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando você não está falando. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte você deve ver algo ao redor de -20 dB. Quando você está falando, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se você está usando anulação de eco, e isto aumenta para mais de -15 dB quando você não está falando, sua configuração não está funcionando, e você vai incomodar outros usuários com ecos.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
@@ -1883,7 +1883,7 @@ Mumble is under continuous development, and the development team wants to focus 
 Parabéns. Você deve estar pronto para aproveitar uma experiência de som mais rica com o Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer se focar nos recursos que beneficiem a maioria das usuárias. Para este fim, o Mumble suporta o envio de estatísticas anônimas sobre a sua configuração para os desenvolvedores. Estas estatísticas são essenciais para o desenvolvimento futuro, e também asseguram que recursos que você use não serão depreciados.
+O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer se focar nos recursos que beneficiem a maioria dos usuários. Para este fim, o Mumble suporta o envio de estatísticas anônimas sobre a sua configuração para os desenvolvedores. Estas estatísticas são essenciais para o desenvolvimento futuro, e também asseguram que recursos que você use não serão depreciados.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1986,7 +1986,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Ativar atenuação de outros aplicativos enquanto usuárias falam com você</translation>
+        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você</translation>
     </message>
     <message>
         <source>Attenuate applications while other users talk</source>
@@ -2006,11 +2006,11 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Ativa a atenuação de outros aplicativos enquanto usuárias falam com você. Isso significa que, assim que alguém começa a falar com você no Mumble, o som de todos os outros programas (como tocadores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
+        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isso significa que, assim que alguém começa a falar com você no Mumble, o som de todos os outros programas (como reprodutores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Aplicar algumas otimizações de alto contraste para usuárias com deficiência visual</translation>
+        <translation>Aplica algumas otimizações de alto contraste para usuários com deficiência visual</translation>
     </message>
     <message>
         <source>Use high contrast graphics</source>
@@ -2080,7 +2080,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Mumble suporta áudio posicional para alguns jogos, e vai posicionar a voz de outras usuárias relativa a posição delas no jogo. Dependendo da posição delas, o volume da voz será alterado nos alto-falantes para simular a direção e distância que a outra usuária está. Tal posicionamento depende da configuração do seu alto-falante estar correta no seu sistema operativo, então um teste é feito aqui. &lt;/p&gt;&lt;p&gt;O gráfico abaixo mostra a posição de &lt;span style=&quot; color:#56b4e9;&quot;&gt;você&lt;/span&gt;, os &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte móvel de áudio&lt;/span&gt; vista de cima. Você deve ouvir o áudio mover-se entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode usar o mouse para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Mumble suporta áudio posicional para alguns jogos, e vai posicionar a voz de outros usuários relativo a posição delos no jogo. Dependendo da posição delas, o volume da voz será alterado nos alto-falantes para simular a direção e distância que o outro usuário está. Tal posicionamento depende da configuração do seu alto-falante estar correta no seu sistema operativo, então um teste é feito aqui. &lt;/p&gt;&lt;p&gt;O gráfico abaixo mostra a posição de &lt;span style=&quot; color:#56b4e9;&quot;&gt;você&lt;/span&gt;, os &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte móvel de áudio&lt;/span&gt; vista de cima. Você deve ouvir o áudio mover-se entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode usar o mouse para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
@@ -2219,11 +2219,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Banned users</source>
-        <translation>Usuárias banidas</translation>
+        <translation>Usuários banidos</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation>Esta é uma lista de usuárias banidas.</translation>
+        <translation>Esta é uma lista de usuários banidos.</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
@@ -2689,7 +2689,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Representa a permissão de falar em um canal. Usuárias sem este privilégio serão suprimidas pelo servidor (vista como muda), e serão incapazes de falar até serem desemudecidas por alguém com os privilégios apropriados.</translation>
+        <translation>Representa a permissão de falar em um canal. Usuários sem este privilégio serão suprimidos pelo servidor (visto como mudo), e serão incapazes de falar até serem desemudecidos por alguém com os privilégios apropriados.</translation>
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
@@ -2697,11 +2697,11 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Representa a permissão de emudecer e ensurdecer outras usuárias. Uma vez emudecida, uma usuária permanecerá assim até ser desemudecida por usuária com privilégios ou, ao reconectar com o servidor.</translation>
+        <translation>Representa a permissão de emudecer e ensurdecer outros usuários. Uma vez emudecido, um usuário permanecerá assim até ser desemudecido por outro usuário com privilégios ou, ao reconectar com o servidor.</translation>
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>Representa a permissão de mover uma usuária para outro canal ou expulsá-la do servidor. Para realmente mover a usuária, ou a usuária deve possuir o privilégio Mover no canal destino, ou a usuária deve ser normalmente permitida de entrar no canal. Usuárias com este privilégio podem mover usuárias para canais onde a usuária normalmente não teria permissão para entrar.</translation>
+        <translation>Representa a permissão de mover um usuário para outro canal ou expulsá-lo do servidor. Para realmente mover o usuário, ou o usuário deve possuir o privilégio Mover no canal destino, ou o usuário deve ser normalmente permitido de entrar no canal. Usuários com este privilégio podem mover usuários para canais onde o usuário normalmente não teria permissão para entrar.</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
@@ -2713,11 +2713,11 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Representa a permissão de vincular canais. Usuárias em canais vinculados podem escutar umas as outras, desde que a usuária falando possua privilégio &lt;i&gt;falar&lt;/i&gt; no canal da ouvinte. Você precisa do privilégio vincular em ambos os canais criar um vínculo, mas apenas em um deles para desfazer.</translation>
+        <translation>Representa a permissão de vincular canais. Usuários em canais vinculados podem escutar uns aos outros, desde que o usuário falando possua privilégio &lt;i&gt;falar&lt;/i&gt; no canal da ouvinte. Você precisa do privilégio vincular em ambos os canais criar um vínculo, mas apenas em um deles para desfazer.</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation>Representa a permissão de escrever mensagens de texto para outras usuárias nesse canal.</translation>
+        <translation>Representa a permissão de escrever mensagens de texto para outros usuários nesse canal.</translation>
     </message>
     <message>
         <source>This represents the permission to forcibly remove users from the server.</source>
@@ -2781,7 +2781,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation>Resetar Conteúdo de Usuárias</translation>
+        <translation>Restaurar Conteúdo de Usuários</translation>
     </message>
 </context>
 <context>
@@ -2938,7 +2938,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Users</source>
-        <translation>Usuárias</translation>
+        <translation>Usuários</translation>
     </message>
     <message>
         <source>Failed to fetch server list</source>
@@ -3054,7 +3054,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Para medir a latência (ping) de servidores públicos e determinar o número de usuárias ativas, seu endereço de IP deve ser transmitido para cada servidor público.&lt;/p&gt;&lt;p&gt;Você consente com a transmissão de seu endereço IP? Se você responder não, a lista de servidores públicos será desativada. No entanto, você poderá reativá-la a qualquer momento nas configurações rede.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Para medir a latência (ping) de servidores públicos e determinar o número de usuários ativos, seu endereço de IP deve ser transmitido para cada servidor público.&lt;/p&gt;&lt;p&gt;Você consente com a transmissão de seu endereço IP? Se você responder não, a lista de servidores públicos será desativada. No entanto, você poderá reativá-la a qualquer momento nas configurações rede.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
@@ -3535,7 +3535,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>List of users</source>
-        <translation>Lista de usuárias</translation>
+        <translation>Lista de usuários</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3690,8 +3690,8 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Decide a largura mínima de uma coluna na Visualização de Usuária.&lt;/p&gt;
-&lt;p&gt;Se muitas pessoas estão falando ao mesmo tempo, a Visualização de usuária se dividirá em colunas. Você pode usar essa opção para escolher um meio-termo entre o número de usuárias mostrados no LCD, e o comprimento dos nomes de usuária.&lt;/p&gt;
+        <translation>&lt;p&gt;Decide a largura mínima de uma coluna na Visualização de Usuário.&lt;/p&gt;
+&lt;p&gt;Se muitas pessoas estão falando ao mesmo tempo, a Visualização de usuário se dividirá em colunas. Você pode usar essa opção para escolher um meio-termo entre o número de usuários mostrados no LCD, e o comprimento dos nomes de usuário.&lt;/p&gt;
 </translation>
     </message>
     <message>
@@ -4416,7 +4416,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>UI de Falantes</translation>
+        <translation>IU de Falantes</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -6220,7 +6220,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation>Canais e usuárias</translation>
+        <translation>Canais e usuários</translation>
     </message>
     <message>
         <source>Activity log</source>
@@ -8410,7 +8410,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>User list</source>
-        <translation>Lista de usuárias</translation>
+        <translation>Lista de usuários</translation>
     </message>
 </context>
 <context>
