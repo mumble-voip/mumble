@@ -3073,7 +3073,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chomlec&apos;h IPv4 {6 ?}</translation>
     </message>
 </context>
 <context>

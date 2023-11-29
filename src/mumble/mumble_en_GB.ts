@@ -3498,7 +3498,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unknown</translation>
     </message>
 </context>
 <context>
@@ -3848,7 +3848,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Text message</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -4150,7 +4150,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4165,7 +4165,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">None</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -4173,7 +4173,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">All</translation>
     </message>
     <message>
         <source>Ask</source>
@@ -4185,7 +4185,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Move</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4254,7 +4254,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Custom</translation>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
@@ -4563,7 +4563,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -4746,7 +4746,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Clear</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4766,11 +4766,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Connecting to %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enter username</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5944,7 +5944,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recording</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -6055,7 +6055,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Edit...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6319,7 +6319,7 @@ Valid actions are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -6657,7 +6657,7 @@ Valid options are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Port</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -6721,7 +6721,7 @@ Valid options are:
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Submit anonymous statistics to the Mumble project</translation>
     </message>
     <message>
         <source>Submit anonymous statistics</source>
@@ -6781,7 +6781,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Whisper</translation>
     </message>
     <message>
         <source>Shout</source>
@@ -6800,7 +6800,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filter</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -7319,7 +7319,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enable</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7624,7 +7624,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Local Mute</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7883,7 +7883,7 @@ You can register them again.</source>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">None</translation>
     </message>
     <message>
         <source>Join</source>
@@ -7894,7 +7894,7 @@ You can register them again.</source>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -8100,7 +8100,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unknown</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8161,7 +8161,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No buttons assigned</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
@@ -8326,7 +8326,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Who are you looking for?</translation>
     </message>
     <message>
         <source>Days</source>
@@ -8357,7 +8357,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>User list</source>
@@ -8376,7 +8376,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Version</translation>
     </message>
     <message>
         <source>OS</source>
@@ -8388,7 +8388,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP Address</translation>
     </message>
     <message>
         <source>Details...</source>
@@ -8497,17 +8497,17 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bandwidth</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bandwidth</translation>
     </message>
     <message>
         <source>Ping deviation</source>

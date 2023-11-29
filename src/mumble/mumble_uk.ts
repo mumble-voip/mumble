@@ -1740,7 +1740,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вибір пристрою</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>

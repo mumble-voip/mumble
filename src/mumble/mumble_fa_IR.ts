@@ -1171,7 +1171,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دسترسی به میکروفون رد شد. لطفا بررسی کنید که سیستم عامل شما به Mumble اجازه استفاده از میکروفون را داده است.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -2133,7 +2133,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;حذف</translation>
     </message>
     <message>
         <source>Ban List</source>
@@ -3334,7 +3334,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;حذف</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7652,7 +7652,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دستگاه پیش‌فرض</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -8248,7 +8248,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;حذف</translation>
     </message>
     <message>
         <source>Tokens</source>
