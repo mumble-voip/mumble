@@ -62,6 +62,17 @@ public:
 	std::vector< AudioReceiver > &getReceivers(bool receivePositionalData);
 
 
+	/**
+	 * If two receivers differ in their volume adjustment factors by this much or more, they will never end up in the
+	 * same receiver range
+	 */
+	constexpr static const float maxFactorDiff = 0.05f;
+	/**
+	 * If two receivers differ in their volume adjustment decibels by this much or more, they will never end up in the
+	 * same receiver range
+	 */
+	constexpr static const int maxDecibelDiff = 5;
+
 	template< typename Iterator > static ReceiverRange< Iterator > getReceiverRange(Iterator begin, Iterator end) {
 		ZoneScoped;
 
@@ -82,8 +93,14 @@ public:
 			return lhs.getContext() == rhs.getContext()
 				   && Mumble::Protocol::protocolVersionsAreCompatible(lhs.getReceiver().m_version,
 																	  rhs.getReceiver().m_version)
-				   // Allow a little variance between volume adjustments
-				   && std::abs(lhs.getVolumeAdjustment().factor - rhs.getVolumeAdjustment().factor) < 0.05f;
+				   // The factor difference caps audible differences for high volume adjustments (where 1dB is already a
+				   // big difference). Thus, this is a cap on the absolute loudness difference.
+				   && std::abs(lhs.getVolumeAdjustment().factor - rhs.getVolumeAdjustment().factor) < maxFactorDiff
+				   // The dB difference caps audible difference for low volume adjustments. E.g. a factor difference of
+				   // 0.05 for an adjustment of -24dB is a difference of more than 5dB and therefore audible. Thus, this
+				   // is a cap on the relative loudness difference.
+				   && std::abs(lhs.getVolumeAdjustment().dbAdjustment - rhs.getVolumeAdjustment().dbAdjustment)
+						  < maxDecibelDiff;
 		});
 
 		return range;
