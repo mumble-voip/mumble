@@ -39,14 +39,14 @@ Version::full_t vOld2 = Version::fromComponents(1, 3, 1);
 Version::full_t vOld3 = Version::fromComponents(1, 4, 0);
 Version::full_t vNew  = Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION;
 
-std::array< ServerUser, 5 > users = { ServerUser(0, vOld1), ServerUser(1, vOld2), ServerUser(2, vOld3),
-									  ServerUser(3, vNew), ServerUser(4, vNew) };
+std::array< ServerUser, 6 > users = { ServerUser(0, vOld1), ServerUser(1, vOld2), ServerUser(2, vOld3),
+									  ServerUser(3, vNew),  ServerUser(4, vNew),  ServerUser(5, vNew) };
 
-ServerUser deafUser(5, vOld1, true);
-ServerUser selfDeafUser(6, vNew, false, true);
-ServerUser contextUser1(7, vNew, false, false, "context1");
-ServerUser contextUser2(8, vNew, false, false, "context2");
-ServerUser contextUser3(9, vNew, false, false, "context1");
+ServerUser deafUser(6, vOld1, true);
+ServerUser selfDeafUser(7, vNew, false, true);
+ServerUser contextUser1(8, vNew, false, false, "context1");
+ServerUser contextUser2(9, vNew, false, false, "context2");
+ServerUser contextUser3(10, vNew, false, false, "context1");
 
 
 struct Range {
@@ -202,6 +202,41 @@ private slots:
 		// Verify that the highest volume adjustment has survived
 		QCOMPARE(volumeReceiver->getVolumeAdjustment().factor, 1.4f);
 	}
+
+	void test_getReceiverRange() {
+		AudioReceiverBuffer buffer;
+
+		ServerUser &sender = contextUser2;
+
+		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromFactor(1.22));
+		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromFactor(1.22 + 0.6 * AudioReceiverBuffer::maxFactorDiff));
+		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromFactor(1.22 + 1.1 * AudioReceiverBuffer::maxFactorDiff));
+		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromDBAdjustment(-60));
+		buffer.addReceiver(sender, users[4], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromDBAdjustment(-60 + AudioReceiverBuffer::maxDecibelDiff - 1));
+		buffer.addReceiver(sender, users[5], Mumble::Protocol::AudioContext::NORMAL, false,
+						   VolumeAdjustment::fromDBAdjustment(-60 + AudioReceiverBuffer::maxDecibelDiff));
+
+		buffer.preprocessBuffer();
+
+		std::vector< AudioReceiver > receivers = buffer.getReceivers(false);
+		auto receiverRange = AudioReceiverBuffer::getReceiverRange(receivers.begin(), receivers.end());
+
+		std::array< int, 4 > expectedGroupSizes = { 2, 1, 2, 1 };
+
+		for (std::size_t i = 0; i < expectedGroupSizes.size(); ++i) {
+			QVERIFY(receiverRange.begin != receiverRange.end);
+			QCOMPARE(std::distance(receiverRange.begin, receiverRange.end), expectedGroupSizes.at(i));
+			receiverRange = AudioReceiverBuffer::getReceiverRange(receiverRange.end, receivers.end());
+		}
+
+		QVERIFY(receiverRange.begin == receiverRange.end);
+	}
+
 
 	void test_encoding() {
 		AudioReceiverBuffer buffer;
