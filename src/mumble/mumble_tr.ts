@@ -7580,7 +7580,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti dizininde eklenti olmayan bir şey bulundu: &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
@@ -8972,7 +8972,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - Kayıplı sıkıştırılmış</translation>
     </message>
 </context>
 <context>

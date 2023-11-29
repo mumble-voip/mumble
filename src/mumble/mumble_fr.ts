@@ -7586,7 +7586,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Un non plug-in a été trouvé dans le répertoire des plug-ins : &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
@@ -8979,7 +8979,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - Compressé avec perte</translation>
     </message>
 </context>
 <context>

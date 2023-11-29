@@ -89,7 +89,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation type="unfinished">&lt;b&gt;Poziția&lt;/b&gt;&lt;br/&gt;
-Această valoare vă permite să schimbați modul în care Mumble aranjează canalele in arbore. Un canal cu &lt;i&gt;poziția&lt;/i&gt; mai mare va fi mereu plasat sub una cu o &lt;i&gt;poziție&lt;/i&gt; mai mică și invers. În cazul în care &lt;i&gt;poziția&lt;/i&gt; celor doua canale este egală, vor fi sortate in mod alfabetic.</translation>
+Această valoare vă permite să schimbați modul în care Mumble aranjează canalele in arbore. Un canal cu &lt;i&gt;poziția&lt;/i&gt; mai mare va fi mereu plasat sub unul cu o &lt;i&gt;poziție&lt;/i&gt; mai mică și invers. În cazul în care &lt;i&gt;poziția&lt;/i&gt; celor doua canale este egală, vor fi sortate in mod alfabetic.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -260,7 +260,7 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membri moșteniți</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
@@ -348,7 +348,7 @@ Aceastea sunt toate grupurile definite în prezent pentru canal. Pentru a crea u
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Moștenire&lt;/b&gt;&lt;br /&gt;Aceasta moștenește toți membrii din grup de la părinte, dacă grupul este marcat ca &lt;i&gt;Moștenibil&lt;/i&gt; în canalul părinte.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
@@ -356,22 +356,25 @@ Aceastea sunt toate grupurile definite în prezent pentru canal. Pentru a crea u
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Moștenit&lt;/b&gt;&lt;br /&gt;Aceasta indică faptul că grupul a fost moștenit din canalul părinte. Nu puteți edita această marcă, ea servește doar ca informație.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Membri&lt;/b&gt;&lt;br /&gt;
+Această listă conține toți membrii care au fost adăugați la grup de către canalul curent. Aveți în vedere că aceasta nu include membrii moșteniți de niveluri superioare ale arborelui canalului. Aceștia pot fi găsiți în lista &lt;i&gt;Membri moșteniți&lt;/i&gt;. Pentru a împiedica această listă să fie moștenită de canalele de nivel inferior, debifați opțiunea &lt;i&gt;Moștenibil&lt;/i&gt; sau adăugați manual membrii în lista &lt;i&gt;Membri excluși&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Membri excluși&lt;/b&gt;&lt;br /&gt;
+Conține o listă de membri al căror apartenență la grup nu va fi moștenită din canalul părinte.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Membri moșteniți&lt;/b&gt;&lt;br /&gt;
+Conține lista de membri moșteniți de canalul curent. Debifați opțiunea &lt;i&gt;Moștenire&lt;/i&gt; pentru a preveni moștenirea din canalele de nivel superior.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
@@ -383,7 +386,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta arată toate înregistrările active pe acest canal. Înregistrările moștenite din canalele părinte vor fi afișate în italic.&lt;br /&gt;Listele ACL sunt evaluate de sus în jos, ceea ce înseamnă că prioritatea crește pe măsură ce vă deplasați în josul listei.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -400,47 +403,48 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Număr Maxim de Utilizatori&lt;/b&gt;&lt;br /&gt;
+Această valoare vă permite să setați numărul maxim de utilizatori permis în canal. Dacă valoarea este mai mare decât zero, doar acel număr de utilizatori va avea voie să intre în canal. Dacă valoarea este zero, numărul maxim de utilizatori în canal este dat de limita implicită a serverului.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta este ordinea de sortare pentru canal.</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Proprietăți</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolă de canal</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Număr maxim de utilizatori</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Numele canalului</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membri de grup moșteniți</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membri de grup străini</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membri de canal moșteniți</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Adaugă membri în grup</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Listă de înregistrări ACL</translation>
     </message>
 </context>
 <context>
@@ -451,7 +455,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Deschiderea intrării ALSA alese a eșuat: %1</translation>
     </message>
 </context>
 <context>
@@ -462,18 +466,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Deschiderea ieșirii ALSA alese a eșuat: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Obținerea numelui (nume complet) al plăcii de sunet a eșuat: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Obținerea numelui plăcii de sunet a eșuat: %1</translation>
     </message>
 </context>
 <context>

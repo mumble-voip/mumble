@@ -3559,7 +3559,7 @@ Om det här alternativet inte är aktiverat fungerar det inte att använda Mumbl
     </message>
     <message>
         <source>Shout to Linked channels</source>
-        <translation>Skrik till länkade kanaler</translation>
+        <translation>Ropa till länkade kanaler</translation>
     </message>
     <message>
         <source>Shout to subchannels</source>
@@ -3587,7 +3587,7 @@ Om det här alternativet inte är aktiverat fungerar det inte att använda Mumbl
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation>Skrik till länkade kanaler</translation>
+        <translation>Ropa till länkade kanaler</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6514,7 +6514,7 @@ för att visa anslutningsfönstret och sätts enligt följande:
 mumble://[&lt;användarnamn&gt;[:&lt;lösenord&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;underkanal&gt;...]][?version=&lt;x.y.z&gt;]
 
 &lt;plugin_list&gt; är en lista över pluginfiler som ska installeras.
-Version query-parametern måste sättas för att starta rätt klientversion.
+Version förfrågningsparametern måste sättas för att starta rätt klientversion.
 I nuläget är 1.2.0 standard.
 
 Giltiga värden för options är:
@@ -6524,7 +6524,7 @@ Giltiga värden för options är:
                 Tillåt flera klientinstanser att startas.
   -c, --config
                 Sätt en alternativ konfigurationsfil.
-                Om du använder detta för att köra flera Mumbleinstanser samtidigt,
+                Om du använder detta för att köra flera Mumble-instanser samtidigt,
                 se till att &apos;database&apos;-värdet i konfigurationen skiljer sig.
   --default-certificate-dir &lt;dir&gt;
                 Sätt en annan förvald certifikatsökväg.
@@ -6543,13 +6543,13 @@ Giltiga värden för options är:
                 Sätt en annan ändelse för fönstertiteln.
   --dump-input-streams
                 Dumpa PCM-strömmar vid diverse delar av input-kedjan.
-                (användbart vid debugging)
+                (användbart vid avlusning)
                 - rå mikrofoninput
                 - högtalardata för ekoreducering
                 - bearbetad mikrofoninput
   --print-echocancel-queue
                 Skriv läget för ekoreduceringkön till stdout
-                (användbart för debugging)
+                (användbart för avlusning)
   --translation-dir &lt;dir&gt;
                 Sätter en till översättningsmapp, &lt;dir&gt;
                 som Mumble kommer leta efter översättningsfiler i
@@ -6561,7 +6561,7 @@ Giltiga värden för options är:
                 översättningsfiler som skriver över de medföljande.
                 (Användbart för översättare som testar sina översättningar)
   --locale &lt;locale&gt;
-                Skriv över locale-inställingen i Mumble med en
+                Skriv över locale-inställningen i Mumble med en
                 locale som matchar den givna strängen.
                 Ett fel kommer uppstå om formatet är ogiltigt,
                 annars kommer localen sparas permanent i
@@ -7578,7 +7578,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Icke-plugin hittades i plugin-katalogen: &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
@@ -8415,7 +8415,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Tokens</source>
-        <translation>Tokens</translation>
+        <translation>Kontrollsträng</translation>
     </message>
 </context>
 <context>
@@ -8971,7 +8971,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - Destruktiv komprimering</translation>
     </message>
 </context>
 <context>
