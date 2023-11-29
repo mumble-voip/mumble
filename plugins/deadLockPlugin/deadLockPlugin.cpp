@@ -5,8 +5,7 @@
 
 // Include the definitions of the plugin functions
 // Not that this will also include ../PluginComponents.h
-#include "../MumbleAPI_v_1_0_x.h"
-#include "../MumblePlugin_v_1_0_x.h"
+#include "../MumblePlugin.h"
 
 #include <condition_variable>
 #include <cstring>
@@ -14,7 +13,7 @@
 #include <mutex>
 #include <thread>
 
-MumbleAPI_v_1_0_x mumAPI;
+MumbleAPI mumAPI;
 mumble_connection_t activeConnection;
 mumble_plugin_id_t ownID;
 std::mutex dummyMutex;

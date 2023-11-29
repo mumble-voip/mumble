@@ -5,8 +5,7 @@
 
 // Include the definitions of the plugin functions
 // Not that this will also include ../PluginComponents.h
-#include "../MumbleAPI_v_1_0_x.h"
-#include "../MumblePlugin_v_1_0_x.h"
+#include "../MumblePlugin.h"
 
 #include <cstring>
 #include <iostream>
