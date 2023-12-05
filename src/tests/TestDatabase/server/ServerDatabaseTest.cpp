@@ -1628,7 +1628,7 @@ void ServerDatabaseTest::database_scheme_migration() {
 
 		db.configureStandardTablesWithoutCreation();
 
-		::mumble::db::test::JSONAssembler::DataPair tableData = dataAssembler.buildTestData(schemeVersion, db);
+		const ::mumble::db::test::JSONAssembler::DataPair tableData = dataAssembler.buildTestData(schemeVersion, db);
 
 		db.resetTables();
 
@@ -1648,16 +1648,22 @@ void ServerDatabaseTest::database_scheme_migration() {
 		// Now check whether the migrated data looks the way we would expect
 		nlohmann::json migratedData = db.exportToJSON();
 
-		mdb::test::utils::alignColumnOrder(migratedData, tableData.migratedData);
-		mdb::test::utils::alignRowOrder(migratedData, tableData.migratedData);
+		mdb::test::utils::alignColumnOrder(tableData.migratedData, migratedData);
+		mdb::test::utils::alignRowOrder(tableData.migratedData, migratedData);
 
 		// First check that we obtained the expected set of tables
 		std::vector< std::string > expectedTables;
 		std::vector< std::string > encounteredTables;
 		for (auto iter : tableData.migratedData.at("tables").items()) {
+			if (iter.key() == ::mdb::MetaTable::NAME) {
+				continue;
+			}
 			expectedTables.push_back(iter.key());
 		}
 		for (auto iter : migratedData.at("tables").items()) {
+			if (iter.key() == ::mdb::MetaTable::NAME) {
+				continue;
+			}
 			encounteredTables.push_back(iter.key());
 		}
 		std::sort(expectedTables.begin(), expectedTables.end());
