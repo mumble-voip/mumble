@@ -202,22 +202,17 @@ public:
 	soci::session &getSQLHandle() { return m_sql; }
 };
 
+// Note: PlainDB and TestDB are to be seen as two different ways to access the same underlying table.
+// Therefore, we don't try to delete the tables in TestDB in its destructor as this would interfere
+// with the setup (e.g. Triggers) of TestDB that PlainDB knows nothing about.
+// And since we don't intend to add any tables to PlainDB that TestDB doesn't know about, there TestDB
+// will take care of deleting all tables.
 class PlainDB : public mdb::Database {
 public:
 	PlainDB(::mdb::Backend backend, unsigned int schemeVersion)
 		: ::mdb::Database(backend), schemeVersion(schemeVersion) {}
 
 	unsigned int getSchemeVersion() const override { return schemeVersion; }
-
-	~PlainDB() override {
-		// Clear up everything that we have created in our test case
-		try {
-			this->destroyTables();
-		} catch (const ::mdb::Exception &e) {
-			std::cerr << "Exception encountered while destroying tables:" << std::endl;
-			print_exception_message(e);
-		}
-	}
 
 	soci::session &getSQLHandle() { return m_sql; }
 
