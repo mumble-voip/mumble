@@ -131,6 +131,29 @@ template< std::size_t size > char *toString(const std::array< std::uint8_t, size
 	return buffer;
 }
 
+// The dummy template parameter serves as a SFINAE filter to rule out all T that don't have operator<<
+template< typename T, typename = decltype(std::declval< std::stringstream >() << std::declval< T >()) >
+char *toString(const std::vector< T > vector) {
+	std::stringstream sstream;
+	sstream << "{ ";
+	for (std::size_t i = 0; i < vector.size(); ++i) {
+		sstream << vector[i];
+
+		if (i + 1 < vector.size()) {
+			sstream << ", ";
+		}
+	}
+	sstream << " }";
+
+	std::string str = sstream.str();
+
+	char *buffer = new char[str.size() + 1];
+	std::strcpy(buffer, str.data());
+
+	return buffer;
+}
+
+
 } // namespace std
 
 
