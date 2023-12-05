@@ -276,7 +276,7 @@ namespace db {
 		// First drop all triggers that are supposed to be dropped before the tables are deleted
 		try {
 			for (const std::unique_ptr< Table > &currentTable : m_tables) {
-				if (!currentTable) {
+				if (!currentTable || !tableExistsInDB(currentTable->getName())) {
 					continue;
 				}
 
