@@ -75,27 +75,28 @@ namespace db {
 			return json["v" + std::to_string(selectedVersion)];
 		}
 
-		void writeTableMetadata(nlohmann::json &targetTableRep, const nlohmann::json &sourceRep,
-								const ::mdb::Table &table, ::mdb::Backend backend) {
-			// The column names can simply be copied as-is
-			targetTableRep["column_names"] = sourceRep.at("column_names");
-			targetTableRep["column_types"] = nlohmann::json::array();
-
-			if (sourceRep.contains("column_types")) {
+		void writeTableMetadata(nlohmann::json &tableRep, const ::mdb::Table &table, ::mdb::Backend backend) {
+			if (tableRep.contains("column_types")) {
 				// Import column types from given data (and apply conversions to match representation of current
 				// backend)
-				for (const nlohmann::json &currentType : sourceRep["column_types"]) {
+				nlohmann::json transformedTypes = nlohmann::json::array_t();
+
+				for (const nlohmann::json &currentType : tableRep["column_types"]) {
 					DataType type = ::mdb::DataType::fromSQLRepresentation(currentType.get< std::string >());
 					if (backend != Backend::MySQL) {
 						// We have to hack in order to allow size-specification for MySQL without
 						// breaking Postgres
 						type.setSize(DataType::Unsized);
 					}
-					targetTableRep["column_types"].push_back(type.sqlRepresentation(backend));
+					transformedTypes.push_back(type.sqlRepresentation(backend));
 				}
+
+				tableRep["column_types"] = std::move(transformedTypes);
 			} else {
 				// Read the column types from the actual table definition
-				for (const nlohmann::json &currentColName : targetTableRep["column_names"]) {
+				tableRep["column_types"] = nlohmann::json::array_t();
+
+				for (const nlohmann::json &currentColName : tableRep["column_names"]) {
 					const ::mdb::Column *column = table.findColumn(currentColName.get< std::string >());
 
 					if (!column) {
@@ -103,7 +104,7 @@ namespace db {
 												 + "\" in table data for \"" + table.getName() + "\"");
 					}
 
-					targetTableRep["column_types"].push_back(column->getType().sqlRepresentation(backend));
+					tableRep["column_types"].push_back(column->getType().sqlRepresentation(backend));
 				}
 			}
 		}
@@ -112,6 +113,10 @@ namespace db {
 		void writeTableRows(nlohmann::json &tableRep, const nlohmann::json tableData, unsigned int schemeVersion,
 							std::string &tableName) {
 			const nlohmann::json &versionedData = selectSchemeVersion(tableData, schemeVersion);
+
+			if (versionedData.contains("table_name")) {
+				tableName = versionedData["table_name"].get< std::string >();
+			}
 
 			if (versionedData.contains("inherit")) {
 				const nlohmann::json &inheritBlock = versionedData.at("inherit");
@@ -149,12 +154,6 @@ namespace db {
 				if (inheritBlock.contains("append")) {
 					const nlohmann::json &appendBlock = inheritBlock.at("append");
 
-					if (appendBlock.contains("rows")) {
-						for (const nlohmann::json &currentRow : appendBlock["rows"]) {
-							tableRep["rows"].push_back(currentRow);
-						}
-					}
-
 					if (appendBlock.contains("columns")) {
 						// Append new column and add default value for all existing rows
 						for (auto iter = appendBlock["columns"].begin(); iter != appendBlock["columns"].end(); ++iter) {
@@ -169,6 +168,12 @@ namespace db {
 							for (nlohmann::json &currentRow : tableRep["rows"]) {
 								currentRow.push_back(columnDefault);
 							}
+						}
+					}
+
+					if (appendBlock.contains("rows")) {
+						for (const nlohmann::json &currentRow : appendBlock["rows"]) {
+							tableRep["rows"].push_back(currentRow);
 						}
 					}
 				}
@@ -217,9 +222,7 @@ namespace db {
 
 				writeTableRows(currentMigratedTable, currentTable.migratedData, fromSchemeVersion, migratedTableName);
 
-				if (migratedTableName.empty()) {
-					migratedTableName = migratedData.at("table_name").get< std::string >();
-				}
+				assert(!migratedTableName.empty());
 
 				const ::mdb::Table *table = serverDB.getTable(migratedTableName);
 
@@ -228,7 +231,7 @@ namespace db {
 											 + "\" does not exist in the most up-to-date scheme definition");
 				}
 
-				writeTableMetadata(currentMigratedTable, migratedData, *table, serverDB.getBackend());
+				writeTableMetadata(currentMigratedTable, *table, serverDB.getBackend());
 
 				migratedTables[migratedTableName] = std::move(currentMigratedTable);
 
@@ -245,7 +248,7 @@ namespace db {
 						inputTableName = inputData.at("table_name").get< std::string >();
 					}
 
-					writeTableMetadata(currentInputTable, inputData, *table, serverDB.getBackend());
+					writeTableMetadata(currentInputTable, *table, serverDB.getBackend());
 
 					inputTables[inputTableName] = std::move(currentInputTable);
 				}
