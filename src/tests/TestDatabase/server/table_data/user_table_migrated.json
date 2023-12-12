@@ -39,5 +39,26 @@
 				0
 			]
 		]
+	},
+	"v8": {
+		"inherit": {
+			"from": "v6",
+			"append": {
+				"rows": [
+					[
+						1,
+						2,
+						"Tiffany",
+						null,
+						null,
+						null,
+						1,
+						null,
+						1039884364,
+						1039884600
+					]
+				]
+			}
+		}
 	}
 }
