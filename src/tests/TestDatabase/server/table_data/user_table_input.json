@@ -47,5 +47,32 @@
 				"2002-12-14 16:46:04"
 			]
 		]
+	},
+	"v8": {
+		"inherit": {
+			"from": "v6",
+			"append": {
+				"columns": {
+					"last_disconnect": {
+						"type": "TIMESTAMP",
+						"default": null
+					}
+				},
+				"rows": [
+					[
+						1,
+						2,
+						"Tiffany",
+						null,
+						null,
+						null,
+						1,
+						null,
+						"2002-12-14 16:46:04",
+						"2002-12-14 16:50:00"
+					]
+				]
+			}
+		}
 	}
 }

@@ -699,7 +699,7 @@ namespace server {
 			try {
 				if (fromSchemeVersion < 8) {
 					// Before v8 there was no last_disconnect column
-					std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
+					const std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
 
 					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
 						  << "\", \"" << column::user_name << "\", \"" << column::password_hash << "\", \""
@@ -712,14 +712,19 @@ namespace server {
 				} else if (fromSchemeVersion < 10) {
 					// In v10, we renamed columns "name" -> "user_name", "pw" -> "password_hash",
 					// "kdfiterations" -> "kdf_iterations" and "lastchannel" -> "last_channel_id"
+					const std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
+					const std::string lastDisconnectConversion =
+						mdb::utils::dateToEpoch("\"last_disconnect\"", m_backend);
+
 					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::user_id
 						  << "\", \"" << column::user_name << "\", \"" << column::password_hash << "\", \""
 						  << column::salt << "\", \"" << column::kdf_iterations << "\", \"" << column::last_channel_id
 						  << "\", \"" << column::texture << "\", \"" << column::last_active << "\", \""
 						  << column::last_disconnect
 						  << "\") SELECT \"server_id\", \"user_id\", \"name\", \"pw\", \"salt\", \"kdfiterations\", "
-							 "\"lastchannel\", "
-							 "\"texture\", \"last_active\", \"last_disconnect\" FROM \"users"
+						  << ::mdb::utils::nonNullOf("\"lastchannel\"").otherwise("0") << ", \"texture\", "
+						  << ::mdb::utils::nonNullOf(lastActiveConversion).otherwise("0") << ", "
+						  << ::mdb::utils::nonNullOf(lastDisconnectConversion).otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
