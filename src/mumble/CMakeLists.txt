@@ -4,7 +4,6 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 set(MUMBLE_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble.rc")
-set(MUMBLE_DLL_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_dll.rc")
 set(MUMBLE_PLIST "${CMAKE_CURRENT_BINARY_DIR}/mumble.plist")
 
 set(MUMBLE_ICON "${CMAKE_SOURCE_DIR}/icons/mumble.ico")
@@ -1140,7 +1139,7 @@ target_include_directories(${TARGET_NAME} INTERFACE
   $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
 
-if(packaging)
+if(packaging AND WIN32)
 	set(overlay ON)
 	set(plugins ON)
 
