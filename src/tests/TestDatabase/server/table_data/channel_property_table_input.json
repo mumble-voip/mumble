@@ -21,5 +21,17 @@
 				"miau"
 			]
 		]
+	},
+	"v10": {
+		"inherit": {
+			"from": "v6",
+			"substitute": {
+				"table_name": "channel_properties",
+				"column_names": {
+					"key": "property_key",
+					"value": "property_value"
+				}
+			}
+		}
 	}
 }

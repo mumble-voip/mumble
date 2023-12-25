@@ -18,5 +18,25 @@
 				0
 			]
 		]
+	},
+	"v10": {
+		"table_name": "channel_links",
+		"column_names": [
+			"server_id",
+			"first_channel_id",
+			"second_channel_id"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				1
+			]
+		]
 	}
 }
