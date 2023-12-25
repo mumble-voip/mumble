@@ -586,7 +586,8 @@ namespace db {
 				case Backend::MySQL: {
 					// Make MySQL as conforming to ANSI standard SQL as possible and disable the "feature" of producing
 					// the next auto-incremented value in an auto_increment column when explicitly inserting zero.
-					m_sql << "SET sql_mode = 'ANSI,NO_AUTO_VALUE_ON_ZERO'";
+					// Also enable strict SQL mode to prevent any Vodoo on invalid values and instead emit an error.
+					m_sql << "SET sql_mode = 'ANSI,NO_AUTO_VALUE_ON_ZERO,STRICT_ALL_TABLES '";
 
 					// Set transaction isolation level
 					m_sql << "SET TRANSACTION ISOLATION LEVEL READ COMMITTED";
