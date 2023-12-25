@@ -116,7 +116,6 @@ def main():
 
 
     className = ""
-    responseTypes = {}
     for currentLine in generatedIceHeader.split("\n"):
         currentLine = currentLine.strip()
 
@@ -125,15 +124,15 @@ def main():
             continue
 
         # find class name
-        match = re.match("^class\s+AMD_(.+)\s+:\s+(?:public\svirtual|virtual\s+public)\s+::Ice(?:::AMDCallback|Util::Shared)", currentLine)
+        match = re.match(r"^class\s+AMD_(.+)\s+:\s+(?:public\svirtual|virtual\s+public)\s+::Ice(?:::AMDCallback|Util::Shared)", currentLine)
         if match:
             className = "AMD_" + match.group(1)
 
-        match = re.match("virtual\s+void\s+ice_response\\((.*)\\)\s+=\s+0;", currentLine)
+        match = re.match(r"virtual\s+void\s+ice_response\\((.*)\\)\s+=\s+0;", currentLine)
         if match:
             if not className:
                 raise RuntimeError("Expected a className to be found at this time")
-        match = re.match("virtual\s+void\s+(.+)_async\(const\s+(.+?)&\s*\w*,(.*)\s+const\s+::Ice::Current&", currentLine)
+        match = re.match(r"virtual\s+void\s+(.+)_async\(const\s+(.+?)&\s*\w*,(.*)\s+const\s+::Ice::Current&", currentLine)
         if match:
             functionName = match.group(1)
             objectName = match.group(2)
