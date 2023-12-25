@@ -1,6 +1,5 @@
 {
-	"v6": {
-	},
+	"v6": {},
 	"v9": {
 		"table_name": "channel_listeners",
 		"column_names": [
@@ -17,6 +16,21 @@
 			"FLOAT",
 			"SMALLINT"
 		],
-		"rows": []
+		"rows": [
+			[
+				1,
+				0,
+				0,
+				1.25,
+				0
+			],
+			[
+				1,
+				2,
+				1,
+				0.75,
+				1
+			]
+		]
 	}
 }
