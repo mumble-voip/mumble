@@ -75,8 +75,10 @@ else()
 	)
 endif()
 
-
 target_link_libraries(mumble_database PUBLIC ${soci_components})
+
+find_pkg("Boost")
+target_link_libraries(mumble_database PRIVATE Boost::boost)
 
 
 if (NOT TARGET nlohmann_json)
