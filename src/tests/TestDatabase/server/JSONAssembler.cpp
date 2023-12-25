@@ -83,7 +83,7 @@ namespace db {
 
 				for (const nlohmann::json &currentType : tableRep["column_types"]) {
 					DataType type = ::mdb::DataType::fromSQLRepresentation(currentType.get< std::string >());
-					if (backend != Backend::MySQL) {
+					if (type == DataType::Binary && backend != Backend::MySQL) {
 						// We have to hack in order to allow size-specification for MySQL without
 						// breaking Postgres
 						type.setSize(DataType::Unsized);
@@ -140,13 +140,19 @@ namespace db {
 
 					if (substituteBlock.contains("column_names")) {
 						// Replace all given column names by their replacement
-						for (auto iter = substituteBlock["column_names"].begin();
-							 iter != substituteBlock["column_names"].end(); ++iter) {
-							std::string replace = iter.key();
-							std::string with    = iter.value().get< std::string >();
+						auto nameBlock = substituteBlock["column_names"];
 
-							std::replace(tableRep["column_names"].begin(), tableRep["column_names"].end(), replace,
-										 with);
+						if (nameBlock.is_object()) {
+							for (auto iter = nameBlock.begin(); iter != nameBlock.end(); ++iter) {
+								std::string replace = iter.key();
+								std::string with    = iter.value().get< std::string >();
+
+								std::replace(tableRep["column_names"].begin(), tableRep["column_names"].end(), replace,
+											 with);
+							}
+						} else {
+							assert(nameBlock.is_array());
+							tableRep["column_names"] = std::move(nameBlock);
 						}
 					}
 				}
