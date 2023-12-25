@@ -19,8 +19,6 @@
 #include <memory>
 #include <unordered_set>
 
-#include <iostream>
-
 #include <nlohmann/json.hpp>
 
 #include <boost/algorithm/string.hpp>
@@ -715,7 +713,6 @@ namespace db {
 
 		for (std::unique_ptr< Table > &currentTable : m_tables) {
 			if (currentTable) {
-				std::cout << "Current table: " << currentTable->getName() << "\n";
 				assert(tablesToBeRemoved.find(currentTable->getName()) == tablesToBeRemoved.end());
 
 				// First make sure the new table is created
