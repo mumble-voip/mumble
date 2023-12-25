@@ -218,10 +218,7 @@ namespace db {
 			nlohmann::json &migratedTables = pair.migratedData["tables"];
 
 			for (const DataPair &currentTable : m_rawData) {
-				const nlohmann::json &inputData    = selectSchemeVersion(currentTable.inputData, fromSchemeVersion);
-				const nlohmann::json &migratedData = selectSchemeVersion(currentTable.migratedData, fromSchemeVersion);
-
-				assert(!migratedData.empty());
+				const nlohmann::json &inputData = selectSchemeVersion(currentTable.inputData, fromSchemeVersion);
 
 				std::string migratedTableName;
 				nlohmann::json currentMigratedTable;
