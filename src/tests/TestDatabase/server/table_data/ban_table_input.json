@@ -33,5 +33,40 @@
 				null
 			]
 		]
+	},
+	"v10": {
+		"table_name": "bans",
+		"column_names": [
+			"server_id",
+			"ipv6_base_address",
+			"prefix_length",
+			"banned_user_name",
+			"banned_user_cert_hash",
+			"reason",
+			"start_date",
+			"duration"
+		],
+		"column_types": [
+			"INTEGER",
+			"VARCHAR(45)",
+			"INTEGER",
+			"VARCHAR(255)",
+			"VARCHAR(255)",
+			"TEXT",
+			"BIGINT",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				"2345:0425:2ca1:0000:0000:0567:5673:23b5",
+				32,
+				"evil user",
+				"cert hash",
+				null,
+				1375617887,
+				0
+			]
+		]
 	}
 }

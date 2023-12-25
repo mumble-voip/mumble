@@ -21,5 +21,28 @@
 				1
 			]
 		]
+	},
+	"v10": {
+		"table_name": "group_members",
+		"column_names": [
+			"server_id",
+			"group_id",
+			"user_id",
+			"add_to_group"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"SMALLINT"
+		],
+		"rows": [
+			[
+				1,
+				2,
+				1,
+				1
+			]
+		]
 	}
 }
