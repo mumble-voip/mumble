@@ -1211,6 +1211,9 @@ mumble_version_t mumble_getPluginFunctionsVersion() {
 			MUMBLE_ECONCAT(MUMBLE_ECONCAT(MumbleAPI_v, MUMBLE_PLUGIN_API_MAJOR_MACRO), MUMBLE_PLUGIN_API_MINOR_MACRO), \
 			x)
 
+#	undef MUMBLE_API_CAST
+#	define MUMBLE_API_CAST(ptr) (*((MUMBLE_API_STRUCT_NAME *) ptr))
+
 // Define some helper macros to make version-specific changes to the API functions
 #	define SELECTED_API_VERSION                                                                  \
 		MUMBLE_PLUGIN_VERSION_CHECK(MUMBLE_PLUGIN_API_MAJOR_MACRO, MUMBLE_PLUGIN_API_MINOR_MACRO, \
@@ -1811,10 +1814,10 @@ struct MUMBLE_API_STRUCT_NAME {
  * Typedef for the Mumble API struct for convenient (unversioned) access
  */
 typedef struct MUMBLE_API_STRUCT_NAME MumbleAPI;
+typedef struct MUMBLE_API_STRUCT_NAME mumble_api_t;
 #	endif
 
 #	undef SELECTED_API_VERSION
-#	undef MUMBLE_API_STRUCT_NAME
 #	undef PARAM_v1_2
 
 #endif // EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
