@@ -18,7 +18,8 @@
  * A collection of properties of a ServerUser object for which it must be possible to have access to it without
  * creating a ServerUser object. Therefore, this can be seen as a data collection used for external processing.
  */
-struct ServerUserInfo : public User {
+class ServerUserInfo : public User {
+public:
 	Version::full_t m_version = Version::UNKNOWN;
 	QString qsRelease;
 	QString qsOS;
