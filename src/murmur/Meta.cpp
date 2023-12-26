@@ -739,7 +739,8 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 																		Meta::mp.iSQLiteWAL > 0);
 
 		return sqliteConnection;
-	} else if (boost::iequals(Meta::mp.qsDBDriver, "qmysql") || boost::iequals(Meta::mp.qsDBDriver, "mysql")) {
+	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qmysql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "mysql")) {
 		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBHostName.isEmpty()) {
@@ -755,8 +756,9 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 		}
 
 		return mysqlConnection;
-	} else if (boost::iequals(Meta::mp.qsDBDriver, "qpsql") || boost::iequals(Meta::mp.qsDBDriver, "psql")
-			   || boost::iequals(Meta::mp.qsDBDriver, "postgresql")) {
+	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qpsql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "psql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "postgresql")) {
 		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBHostName.isEmpty()) {
