@@ -406,10 +406,6 @@ Log::Log(QObject *p) : QObject(p) {
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
-
-	// remove gap above first chat message; the gaps below
-	// each chat message are handled within `Log::log`.
-	Global::get().mw->qteLog->document()->firstBlock().setVisible(false);
 }
 
 // Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
@@ -728,12 +724,29 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll        = (oldscrollvalue == tlog->getLogScrollMaximum());
 
+		// A newline is inserted after each frame, but this spaces out the
+		// log entries too much, so the line height is set to zero to reduce
+		// the space between log entries. This line height is only set for the
+		// blank lines between entries, not for entries themselves.
+		//
+		// NOTE: All further log entries must go in a new text frame.
+		// Otherwise, they will not display correctly as a result of having
+		// line height equal to 0 for the current block.
+		QTextBlockFormat bf = tc.blockFormat();
+		bf.setLineHeight(0, QTextBlockFormat::FixedHeight);
+		bf.setTopMargin(0);
+		bf.setBottomMargin(0);
+
+		// Set the line height of the leading blank line to zero
+		tc.setBlockFormat(bf);
+
 		if (qdDate != dt.date()) {
 			qdDate = dt.date();
-			tc.insertBlock();
+			tc.insertFrame(qttf);
 			tc.insertHtml(
 				tr("[Date changed to %1]\n").arg(QLocale().toString(qdDate, QLocale::ShortFormat).toHtmlEscaped()));
 			tc.movePosition(QTextCursor::End);
+			tc.setBlockFormat(bf);
 		}
 
 		// Convert CRLF to unix-style LF and old mac-style LF (single \r) to unix-style as well
@@ -760,26 +773,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tc.movePosition(QTextCursor::End);
 		Global::get().mw->qteLog->setTextCursor(tc);
 
-		// Qt's document model for [Rich Text Documents][RT] is based on blocks and frames.
-		// You always have a root frame and at least one block per frame:
-		//
-		// [Document]
-		//     +--> [Root frame]
-		//               +--> [Block]
-		//               +--> [Frame]
-		//               +--> [Block]
-		//               +--> [Frame]
-		//               +--> [Block]
-		//
-		// [RT]: https://doc.qt.io/qt-5/richtext-structure.html
-		//
-		// However, the issue is that the blocks between the frames are mandatory. They lead
-		// to additional gaps, especially on Windows, where `QTextCursor::setBlockCharFormat`
-		// cannot be used to decrease the trailing block's size.
-		//
-		// Fortunately, the `tlog`/`LogTextBrowser` is a `QTextBrowser` with a `QDocument*`.
-		// This allows us to hide the last block created by `QTextCursor::insertFrame()`.
-		tlog->document()->lastBlock().setVisible(false);
+		// Set the line height of the trailing blank line to zero
+		tc.setBlockFormat(bf);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();
