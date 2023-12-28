@@ -335,7 +335,7 @@ namespace server {
 		void GroupTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion < toSchemeVersion);
+			assert(fromSchemeVersion <= toSchemeVersion);
 
 			try {
 				if (fromSchemeVersion < 10) {
