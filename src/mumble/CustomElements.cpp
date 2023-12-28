@@ -42,6 +42,12 @@ void LogTextBrowser::setLogScroll(int scroll_pos) {
 }
 
 void LogTextBrowser::scrollLogToBottom() {
+	// Without the call to processEvents, the scrollbar sometimes ends up in an
+	// incorrect position after an image is sent to the chat log.
+	//
+	// See: https://github.com/mumble-voip/mumble/issues/2504
+	QApplication::processEvents();
+
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 }
 
