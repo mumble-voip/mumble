@@ -192,7 +192,7 @@ Build redacted (outdated) plugins as well
 ### rnnoise
 
 Use RNNoise for machine learning noise reduction.
-(Default: ON)
+(Default: OFF)
 
 ### server
 
