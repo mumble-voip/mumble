@@ -6,6 +6,8 @@
 include(GNUInstallDirs)
 include(pkg-utils)
 
+option(use-pkgconf-install-paths OFF)
+
 # Turns a path into an absolute path if it isn't absolute already
 function(make_absolute out_path in_path)
 	get_filename_component(abs_path "${in_path}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
@@ -38,21 +40,14 @@ function(pkgconf_install_path outputVariable module variable default)
 	if(NOT PKGCONF_PATH)
 		set(${outputVariable} "${default}" PARENT_SCOPE)
 		message(WARNING "Using fallback install path for ${outputVariable}: '${default}'")
-	elseif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		set(${outputVariable} "${PKGCONF_PATH}" PARENT_SCOPE)
 	else()
-		# The paths returned by pkgconf are always absolute, which breaks cmake's system using
-		# CMAKE_INSTALL_PREFIX to determine where file should be installed to.
-		# Therefore, we have to make the path relative instead.
-		if("${PKGCONF_PATH}" MATCHES "^/usr/local/.*")
-			string(REGEX REPLACE "^/usr/local/" "" REL_PATH "${PKGCONF_PATH}")
-		elseif("${PKGCONF_PATH}" MATCHES "^/usr/.*")
-			string(REGEX REPLACE "^/usr/" "" REL_PATH "${PKGCONF_PATH}")
-		else()
-			string(REGEX REPLACE "^/" "" REL_PATH "${PKGCONF_PATH}")
+		if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+			# The paths returned by pkgconf are always absolute, which breaks cmake's system using
+			# CMAKE_INSTALL_PREFIX to determine where file should be installed to.
+			message(WARNING "Install paths determined by pkgconf are unaffected by CMAKE_INSTALL_PREFIX - current path: ${PKGCONF_PATH}")
 		endif()
 
-		set(${outputVariable} "${REL_PATH}" PARENT_SCOPE)
+		set(${outputVariable} "${PKGCONF_PATH}" PARENT_SCOPE)
 	endif()
 endfunction()
 
@@ -65,9 +60,15 @@ if(UNIX)
 		set(TMPFILESDIR_DEFAULT "./tmpfiles/")
 	else()
 		set(EXECUTABLEDIR_DEFAULT "${CMAKE_INSTALL_BINDIR}")
-		pkgconf_install_path(SERVICEFILEDIR_DEFAULT systemd systemd_system_unit_dir "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/")
-		pkgconf_install_path(SYSUSERSDIR_DEFAULT systemd sysusers_dir "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
-		pkgconf_install_path(TMPFILESDIR_DEFAULT systemd tmpfiles_dir "${CMAKE_INSTALL_SYSCONFDIR}/tmpfiles.d")
+		if (use-pkgconf-install-paths)
+			pkgconf_install_path(SERVICEFILEDIR_DEFAULT systemd systemd_system_unit_dir "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/")
+			pkgconf_install_path(SYSUSERSDIR_DEFAULT systemd sysusers_dir "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
+			pkgconf_install_path(TMPFILESDIR_DEFAULT systemd tmpfiles_dir "${CMAKE_INSTALL_SYSCONFDIR}/tmpfiles.d")
+		else()
+			set(SERVICEFILEDIR_DEFAULT "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/")
+			set(SYSUSERSDIR_DEFAULT "${CMAKE_INSTALL_SYSCONFDIR}/sysusers.d")
+			set(TMPFILESDIR_DEFAULT "${CMAKE_INSTALL_SYSCONFDIR}/tmpfiles.d")
+		endif()
 	endif()
 
 	set(LIBDIR_DEFAULT "${CMAKE_INSTALL_LIBDIR}/mumble")
