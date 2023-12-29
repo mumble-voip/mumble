@@ -3,4 +3,4 @@
 # special user used to execute the Mumble server when started via systemd
 
 # Type # Path                        # Mode # User # Group
-z      /etc/mumble/mumble-server.ini 0640   root   _mumble-server
+z      @MUMBLE_INSTALL_ABS_SYSCONFDIR@/mumble-server.ini 0640   root   _mumble-server

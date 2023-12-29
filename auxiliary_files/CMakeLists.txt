@@ -68,6 +68,7 @@ if(server)
 			TARGET mumble-server
 			FILES
 				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.service.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service"
+				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.tmpfiles.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.tmpfiles"
 				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-server-user-wrapper.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper"
 			PASSTHROUGH_VARIABLES
 				MUMBLE_BUILD_YEAR
@@ -82,7 +83,7 @@ if(server)
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
 		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${MUMBLE_INSTALL_SYSUSERSDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
-		install(FILES "config_files/mumble-server.tmpfiles" DESTINATION "${MUMBLE_INSTALL_TMPFILESDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.tmpfiles" DESTINATION "${MUMBLE_INSTALL_TMPFILESDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 
 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${MUMBLE_INSTALL_SERVICEFILEDIR}" COMPONENT mumble_server)
 		install(
