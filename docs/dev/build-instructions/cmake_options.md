@@ -74,6 +74,11 @@ Include support for reporting crashes to the Mumble developers.
 Prints extended information during the search for the needed dependencies
 (Default: OFF)
 
+### display-install-paths
+
+Print out base install paths during project configuration
+(Default: OFF)
+
 ### elevation
 
 Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate.
@@ -233,6 +238,11 @@ Include languages other than English.
 
 Check for updates by default.
 (Default: ON)
+
+### use-pkgconf-install-paths
+
+Try to query install paths from pkgconf - this is incompatible to using CMAKE_INSTALL_PREFIX
+(Default: OFF)
 
 ### warnings-as-errors
 

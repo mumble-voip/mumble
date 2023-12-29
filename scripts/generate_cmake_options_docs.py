@@ -49,7 +49,7 @@ def main():
     for currentFile in cmakeFiles:
         content = open(currentFile, "r").read()
 
-        pattern = re.compile("option\(([a-zA-Z_\-0-9]+)\s+\"(.*?)\"\s+(.*?)\)")
+        pattern = re.compile(r"option\(([a-zA-Z_\-0-9]+)\s+\"(.*?)\"\s+(.*?)\)")
         pos = 0
         match = pattern.search(content, pos)
 

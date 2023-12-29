@@ -6,7 +6,7 @@
 include(GNUInstallDirs)
 include(pkg-utils)
 
-option(use-pkgconf-install-paths OFF)
+option(use-pkgconf-install-paths "Try to query install paths from pkgconf - this is incompatible to using CMAKE_INSTALL_PREFIX" OFF)
 
 # Turns a path into an absolute path if it isn't absolute already
 function(make_absolute out_path in_path)
@@ -163,7 +163,7 @@ make_absolute(MUMBLE_INSTALL_ABS_TMPFILESDIR "${MUMBLE_INSTALL_TMPFILESDIR}")
 make_absolute(MUMBLE_INSTALL_ABS_CLIENT_SHAREDIR "${MUMBLE_INSTALL_CLIENT_SHAREDIR}")
 make_absolute(MUMBLE_INSTALL_ABS_SERVER_SHAREDIR "${MUMBLE_INSTALL_SERVER_SHAREDIR}")
 
-option(display-install-paths OFF)
+option(display-install-paths "Print out base install paths during project configuration" OFF)
 
 if(display-install-paths)
 	message(STATUS "")
