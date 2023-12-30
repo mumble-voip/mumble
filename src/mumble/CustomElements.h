@@ -16,7 +16,6 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogTextBrowser)
 protected:
-	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 	bool event(QEvent *e) Q_DECL_OVERRIDE;
 
 public:
