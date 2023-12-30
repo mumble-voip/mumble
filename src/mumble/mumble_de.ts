@@ -6562,6 +6562,193 @@ Gültige Optionen sind:
                 Wenn das Format ungültig ist, wird Mumble einen Fehler melden.
 </translation>
     </message>
+    <message>
+        <source>Connect to a server</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the server connection dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnect from server</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished">Verbindung zum Server trennen</translation>
+    </message>
+    <message>
+        <source>This will disconnect you from the server</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open server information</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will show information about the server connection</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open server tokens</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the server tokens dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open server user list</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the server user list dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open server ban list</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the server ban list dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle priority speaker</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will enable/disable the priority speaker</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open recording dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the recording dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change comment</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the change comment dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change avatar</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open your file explorer to change your avatar image on this server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove avatar</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will reset your avatar on the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register on the server</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will register you on the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio statistics</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the audio statistics dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open settings</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the settings dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start audio wizard</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the audio wizard dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start certificate wizard</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the certificate wizard dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle text to speech</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will enable/disable the text to speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open about dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the about dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open about Qt dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the about Qt dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for update</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will check if mumble is up to date</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
