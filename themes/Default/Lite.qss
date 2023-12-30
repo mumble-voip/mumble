@@ -49,7 +49,7 @@ QObject::handle,
 QObject::tab-bar,
 QObject::tab,
 QObject::section {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
   font-size: 10pt;
   margin: 0;
   padding: 0;
@@ -1066,15 +1066,15 @@ TalkingUI > * {
   background-color: #FFF;
 }
 
-TalkingUI [selected="false"] {
+TalkingUI [selected=false] {
   background-color: #FFF;
 }
 
-TalkingUI [selected="false"]:hover {
+TalkingUI [selected=false]:hover {
   background-color: #eee;
 }
 
-TalkingUI [selected="true"] {
+TalkingUI [selected=true] {
   background-color: #dcedf5;
   border: 1px solid #97b5c6;
 }
