@@ -195,6 +195,7 @@ endif()
 add_subdirectory(auxiliary_files)
 
 if(packaging)
+	include(mumble-packaging)
 	file(COPY 
 		${CMAKE_SOURCE_DIR}/installer/gpl.txt
 		${CMAKE_SOURCE_DIR}/installer/lgpl.txt
