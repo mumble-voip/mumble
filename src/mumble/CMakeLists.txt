@@ -21,7 +21,7 @@ option(translations "Include languages other than English." ON)
 option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
 
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
-option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
+option(rnnoise "Use RNNoise for machine learning noise reduction." OFF)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
 option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 
@@ -726,6 +726,7 @@ else()
 endif()
 
 if(rnnoise)
+	message(WARNING "Using RNNoise is discouraged and can lead to unforeseen behavior, including crashes at runtime due to the RNNoise library exposing Opus/CELT symbols")
 	target_compile_definitions(mumble_client_object_lib PRIVATE "USE_RNNOISE")
 
 	if(bundled-rnnoise)
@@ -1162,6 +1163,12 @@ if(packaging AND WIN32)
 	if(g15)
 		list(APPEND installer_vars
 			"--g15"
+		)
+	endif()
+
+	if(rnnoise)
+		list(APPEND installer_vars
+			"--rnnoise"
 		)
 	endif()
 
