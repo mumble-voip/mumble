@@ -5,6 +5,7 @@
 
 #include "VolumeSliderWidgetAction.h"
 #include "VolumeAdjustment.h"
+#include "widgets/EventFilters.h"
 
 #include <QSlider>
 #include <QToolTip>
@@ -16,10 +17,29 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QObject *parent)
 	m_volumeSlider->setAccessibleName(tr("Slider for volume adjustment"));
 	m_volumeSlider->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
+	KeyEventObserver *keyEventFilter = new KeyEventObserver(this, QEvent::KeyRelease, false,
+															{ Qt::Key_Left, Qt::Key_Right, Qt::Key_Up, Qt::Key_Down });
+	m_volumeSlider->installEventFilter(keyEventFilter);
+
+	// The list of wheel events observed seems odd at first. We have to check for multiple
+	// Qt::ScrollPhase types, because Qt has a weird/non-deterministic behavior regarding
+	// scroll phases. There seems to be at least 3 different states the application can
+	// be in at each start-up, which all produce different scroll phases using the same
+	// inputs. This might very well be a Qt bug that is fixed in future versions and this
+	// list could possibly be updated to reflect that. According to official Qt docs, observing
+	// Qt::ScrollUpdate should be enough. But as of Qt 5.15.8 it is not.
+	MouseWheelEventObserver *wheelEventFilter =
+		new MouseWheelEventObserver(this, { Qt::ScrollMomentum, Qt::ScrollUpdate, Qt::ScrollEnd }, false);
+	m_volumeSlider->installEventFilter(wheelEventFilter);
+
 	connect(m_volumeSlider.get(), &QSlider::valueChanged, this,
 			&VolumeSliderWidgetAction::on_VolumeSlider_valueChanged);
 	connect(m_volumeSlider.get(), &QSlider::sliderReleased, this,
-			&VolumeSliderWidgetAction::on_VolumeSlider_sliderReleased);
+			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
+	connect(keyEventFilter, &KeyEventObserver::keyEventObserved, this,
+			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
+	connect(wheelEventFilter, &MouseWheelEventObserver::wheelEventObserved, this,
+			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 
 	setDefaultWidget(m_volumeSlider.get());
 

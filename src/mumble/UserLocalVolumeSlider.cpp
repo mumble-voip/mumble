@@ -35,7 +35,7 @@ void UserLocalVolumeSlider::on_VolumeSlider_valueChanged(int value) {
 	}
 }
 
-void UserLocalVolumeSlider::on_VolumeSlider_sliderReleased() {
+void UserLocalVolumeSlider::on_VolumeSlider_changeCompleted() {
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
 		if (!user->qsHash.isEmpty()) {

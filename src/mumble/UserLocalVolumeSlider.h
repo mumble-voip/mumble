@@ -13,7 +13,7 @@ class ClientUser;
 class UserLocalVolumeSlider : public VolumeSliderWidgetAction {
 	Q_OBJECT
 
-	/// The session ID for the user that the dialog is changing the volume for.
+	/// The session ID for the user that the widget is changing the volume for.
 	unsigned int m_clientSession;
 
 public:
@@ -24,7 +24,7 @@ public:
 
 private slots:
 	void on_VolumeSlider_valueChanged(int value);
-	void on_VolumeSlider_sliderReleased();
+	void on_VolumeSlider_changeCompleted();
 };
 
 #endif
