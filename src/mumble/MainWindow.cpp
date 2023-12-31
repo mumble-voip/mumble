@@ -317,6 +317,101 @@ void MainWindow::createActions() {
 	gsToggleSearch->qsWhatsThis =
 		tr("This will open or close the search dialog depending on whether it is currently opened already");
 
+	gsServerConnect =
+		new GlobalShortcut(this, GlobalShortcutType::ServerConnect, tr("Connect to a server", "Global Shortcut"));
+	gsServerConnect->setObjectName(QLatin1String("gsServerConnect"));
+	gsServerConnect->qsWhatsThis = tr("This will open the server connection dialog", "Global Shortcut");
+
+	gsServerDisconnect =
+		new GlobalShortcut(this, GlobalShortcutType::ServerDisconnect, tr("Disconnect from server", "Global Shortcut"));
+	gsServerDisconnect->setObjectName(QLatin1String("gsServerDisconnect"));
+	gsServerDisconnect->qsWhatsThis = tr("This will disconnect you from the server", "Global Shortcut");
+
+	gsServerInformation = new GlobalShortcut(this, GlobalShortcutType::ServerInformation,
+											 tr("Open server information", "Global Shortcut"));
+	gsServerInformation->setObjectName(QLatin1String("gsServerInformation"));
+	gsServerInformation->qsWhatsThis = tr("This will show information about the server connection", "Global Shortcut");
+
+	gsServerTokens =
+		new GlobalShortcut(this, GlobalShortcutType::ServerTokens, tr("Open server tokens", "Global Shortcut"));
+	gsServerTokens->setObjectName(QLatin1String("gsServerTokens"));
+	gsServerTokens->qsWhatsThis = tr("This will open the server tokens dialog", "Global Shortcut");
+
+	gsServerUserList =
+		new GlobalShortcut(this, GlobalShortcutType::ServerUserList, tr("Open server user list", "Global Shortcut"));
+	gsServerUserList->setObjectName(QLatin1String("gsServerUserList"));
+	gsServerUserList->qsWhatsThis = tr("This will open the server user list dialog", "Global Shortcut");
+
+	gsServerBanList =
+		new GlobalShortcut(this, GlobalShortcutType::ServerBanList, tr("Open server ban list", "Global Shortcut"));
+	gsServerBanList->setObjectName(QLatin1String("gsServerBanList"));
+	gsServerBanList->qsWhatsThis = tr("This will open the server ban list dialog", "Global Shortcut");
+
+	gsSelfPrioritySpeaker = new GlobalShortcut(this, GlobalShortcutType::SelfPrioritySpeaker,
+											   tr("Toggle priority speaker", "Global Shortcut"));
+	gsSelfPrioritySpeaker->setObjectName(QLatin1String("gsSelfPrioritySpeaker"));
+	gsSelfPrioritySpeaker->qsWhatsThis = tr("This will enable/disable the priority speaker", "Global Shortcut");
+
+	gsRecording =
+		new GlobalShortcut(this, GlobalShortcutType::Recording, tr("Open recording dialog", "Global Shortcut"));
+	gsRecording->setObjectName(QLatin1String("gsRecording"));
+	gsRecording->qsWhatsThis = tr("This will open the recording dialog");
+
+	gsSelfComment = new GlobalShortcut(this, GlobalShortcutType::SelfComment, tr("Change comment", "Global Shortcut"));
+	gsSelfComment->setObjectName(QLatin1String("gsSelfComment"));
+	gsSelfComment->qsWhatsThis = tr("This will open the change comment dialog");
+
+	gsServerTexture =
+		new GlobalShortcut(this, GlobalShortcutType::ServerTexture, tr("Change avatar", "Global Shortcut"));
+	gsServerTexture->setObjectName(QLatin1String("gsServerTexture"));
+	gsServerTexture->qsWhatsThis = tr("This will open your file explorer to change your avatar image on this server");
+
+	gsServerTextureRemove =
+		new GlobalShortcut(this, GlobalShortcutType::ServerTextureRemove, tr("Remove avatar", "Global Shortcut"));
+	gsServerTextureRemove->setObjectName(QLatin1String("gsServerTextureRemove"));
+	gsServerTextureRemove->qsWhatsThis = tr("This will reset your avatar on the server");
+
+	gsSelfRegister =
+		new GlobalShortcut(this, GlobalShortcutType::SelfRegister, tr("Register on the server", "Global Shortcut"));
+	gsSelfRegister->setObjectName(QLatin1String("gsSelfRegister"));
+	gsSelfRegister->qsWhatsThis = tr("This will register you on the server");
+
+	gsAudioStats = new GlobalShortcut(this, GlobalShortcutType::AudioStats, tr("Audio statistics", "Global Shortcut"));
+	gsAudioStats->setObjectName(QLatin1String("gsAudioStats"));
+	gsAudioStats->qsWhatsThis = tr("This will open the audio statistics dialog");
+
+	gsConfigDialog = new GlobalShortcut(this, GlobalShortcutType::ConfigDialog, tr("Open settings", "Global Shortcut"));
+	gsConfigDialog->setObjectName(QLatin1String("gsConfigDialog"));
+	gsConfigDialog->qsWhatsThis = tr("This will open the settings dialog");
+
+	gsAudioWizard =
+		new GlobalShortcut(this, GlobalShortcutType::AudioWizard, tr("Start audio wizard", "Global Shortcut"));
+	gsAudioWizard->setObjectName(QLatin1String("gsAudioWizard"));
+	gsAudioWizard->qsWhatsThis = tr("This will open the audio wizard dialog");
+
+	gsConfigCert =
+		new GlobalShortcut(this, GlobalShortcutType::ConfigCert, tr("Start certificate wizard", "Global Shortcut"));
+	gsConfigCert->setObjectName(QLatin1String("gsConfigCert"));
+	gsConfigCert->qsWhatsThis = tr("This will open the certificate wizard dialog");
+
+	gsAudioTTS = new GlobalShortcut(this, GlobalShortcutType::AudioTTS, tr("Toggle text to speech", "Global Shortcut"));
+	gsAudioTTS->setObjectName(QLatin1String("gsAudioTTS"));
+	gsAudioTTS->qsWhatsThis = tr("This will enable/disable the text to speech");
+
+	gsHelpAbout = new GlobalShortcut(this, GlobalShortcutType::HelpAbout, tr("Open about dialog", "Global Shortcut"));
+	gsHelpAbout->setObjectName(QLatin1String("gsHelpAbout"));
+	gsHelpAbout->qsWhatsThis = tr("This will open the about dialog");
+
+	gsHelpAboutQt =
+		new GlobalShortcut(this, GlobalShortcutType::HelpAboutQt, tr("Open about Qt dialog", "Global Shortcut"));
+	gsHelpAboutQt->setObjectName(QLatin1String("gsHelpAboutQt"));
+	gsHelpAboutQt->qsWhatsThis = tr("This will open the about Qt dialog");
+
+	gsHelpVersionCheck =
+		new GlobalShortcut(this, GlobalShortcutType::HelpVersionCheck, tr("Check for update", "Global Shortcut"));
+	gsHelpVersionCheck->setObjectName(QLatin1String("gsHelpVersionCheck"));
+	gsHelpVersionCheck->qsWhatsThis = tr("This will check if mumble is up to date");
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -1440,25 +1535,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 }
 
 void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
-	ConnectDialog *cd = new ConnectDialog(this, autoconnect);
-	int res           = cd->exec();
-
-	if (cd->qsServer.isEmpty() || (cd->usPort == 0) || cd->qsUsername.isEmpty())
-		res = QDialog::Rejected;
-
-	if (res == QDialog::Accepted) {
-		recreateServerHandler();
-		qsDesiredChannel = QString();
-		rtLast           = MumbleProto::Reject_RejectType_None;
-		bRetryServer     = true;
-		qaServerDisconnect->setEnabled(true);
-		Global::get().l->log(
-			Log::Information,
-			tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer.toHtmlEscaped(), Log::Server)));
-		Global::get().sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
-		Global::get().sh->start(QThread::TimeCriticalPriority);
-	}
-	delete cd;
+	openServerConnectDialog(autoconnect);
 }
 
 void MainWindow::on_Reconnect_timeout() {
@@ -1488,59 +1565,11 @@ void MainWindow::on_qmSelf_aboutToShow() {
 }
 
 void MainWindow::on_qaSelfComment_triggered() {
-	ClientUser *p = ClientUser::get(Global::get().uiSession);
-	if (!p)
-		return;
-
-	if (!p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash));
-		if (p->qsComment.isEmpty()) {
-			pmModel->uiSessionComment = ~(p->uiSession);
-			MumbleProto::RequestBlob mprb;
-			mprb.add_session_comment(p->uiSession);
-			Global::get().sh->sendMessage(mprb);
-			return;
-		}
-	}
-
-	unsigned int session = p->uiSession;
-
-	::TextMessage *texm = new ::TextMessage(this, tr("Change your comment"));
-
-	texm->rteMessage->setText(p->qsComment);
-	int res = texm->exec();
-
-	p = ClientUser::get(session);
-
-	if (p && (res == QDialog::Accepted)) {
-		const QString &msg = texm->message();
-		MumbleProto::UserState mpus;
-		mpus.set_session(session);
-		mpus.set_comment(u8(msg));
-		Global::get().sh->sendMessage(mpus);
-
-		if (!msg.isEmpty())
-			Global::get().db->setBlob(sha1(msg), msg.toUtf8());
-	}
-	delete texm;
+	openSelfCommentDialog();
 }
 
 void MainWindow::on_qaSelfRegister_triggered() {
-	ClientUser *p = ClientUser::get(Global::get().uiSession);
-	if (!p)
-		return;
-
-	QMessageBox::StandardButton result;
-	result =
-		QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName),
-							  tr("<p>You are about to register yourself on this server. This action cannot be undone, "
-								 "and your username cannot be changed once this is done. You will forever be known as "
-								 "'%1' on this server.</p><p>Are you sure you want to register yourself?</p>")
-								  .arg(p->qsName.toHtmlEscaped()),
-							  QMessageBox::Yes | QMessageBox::No);
-
-	if (result == QMessageBox::Yes)
-		Global::get().sh->registerUser(p->uiSession);
+	selfRegister();
 }
 
 void MainWindow::qcbTransmitMode_activated(int index) {
@@ -1589,63 +1618,31 @@ void MainWindow::on_qmServer_aboutToShow() {
 }
 
 void MainWindow::on_qaServerDisconnect_triggered() {
-	if (qtReconnect->isActive()) {
-		qtReconnect->stop();
-		qaServerDisconnect->setEnabled(false);
-	}
-	if (Global::get().sh && Global::get().sh->isRunning())
-		Global::get().sh->disconnect();
+	disconnectFromServer();
 }
 
 void MainWindow::on_qaServerBanList_triggered() {
-	Global::get().sh->requestBanList();
-
-	if (banEdit) {
-		banEdit->reject();
-		delete banEdit;
-		banEdit = nullptr;
-	}
+	openServerBanListDialog();
 }
 
 void MainWindow::on_qaServerUserList_triggered() {
-	Global::get().sh->requestUserList();
-
-	if (userEdit) {
-		userEdit->reject();
-		delete userEdit;
-		userEdit = nullptr;
-	}
+	openServerUserListDialog();
 }
 
 void MainWindow::on_qaServerInformation_triggered() {
-	ServerInformation *infoDialog = new ServerInformation(this);
-	infoDialog->show();
+	openServerInformationDialog();
 }
 
 void MainWindow::on_qaServerTexture_triggered() {
-	QPair< QByteArray, QImage > choice = openImageFile();
-	if (choice.first.isEmpty())
-		return;
-
-	const QImage &img = choice.second;
-
-	if ((img.height() <= 1024) && (img.width() <= 1024))
-		Global::get().sh->setUserTexture(Global::get().uiSession, choice.first);
+	changeServerTexture();
 }
 
 void MainWindow::on_qaServerTextureRemove_triggered() {
-	Global::get().sh->setUserTexture(Global::get().uiSession, QByteArray());
+	removeServerTexture();
 }
 
 void MainWindow::on_qaServerTokens_triggered() {
-	if (tokenEdit) {
-		tokenEdit->reject();
-		delete tokenEdit;
-		tokenEdit = nullptr;
-	}
-
-	tokenEdit = new Tokens(this);
-	tokenEdit->show();
+	openServerTokensDialog();
 }
 
 void MainWindow::voiceRecorderDialog_finished(int) {
@@ -1892,14 +1889,7 @@ void MainWindow::on_qaUserDeaf_triggered() {
 }
 
 void MainWindow::on_qaSelfPrioritySpeaker_triggered() {
-	ClientUser *p = ClientUser::get(Global::get().uiSession);
-	if (!p)
-		return;
-
-	MumbleProto::UserState mpus;
-	mpus.set_session(p->uiSession);
-	mpus.set_priority_speaker(!p->bPrioritySpeaker);
-	Global::get().sh->sendMessage(mpus);
+	toggleSelfPrioritySpeaker();
 }
 
 void MainWindow::on_qaUserPrioritySpeaker_triggered() {
@@ -2736,25 +2726,15 @@ void MainWindow::setAudioDeaf(bool deaf) {
 }
 
 void MainWindow::on_qaRecording_triggered() {
-	if (voiceRecorderDialog) {
-		voiceRecorderDialog->show();
-		voiceRecorderDialog->raise();
-		voiceRecorderDialog->activateWindow();
-	} else {
-		voiceRecorderDialog = new VoiceRecorderDialog(this);
-		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
-		QObject::connect(Global::get().sh.get(), &ServerHandler::disconnected, voiceRecorderDialog, &QDialog::reject);
-		voiceRecorderDialog->show();
-	}
+	recording();
 }
 
 void MainWindow::on_qaAudioTTS_triggered() {
-	Global::get().s.bTTS = qaAudioTTS->isChecked();
+	toggleAudioTTS(qaAudioTTS->isChecked());
 }
 
 void MainWindow::on_qaAudioStats_triggered() {
-	AudioStats *as = new AudioStats(this);
-	as->show();
+	openAudioStatsDialog();
 }
 
 void MainWindow::on_qaAudioUnlink_triggered() {
@@ -2762,32 +2742,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	ConfigDialog *dlg = new ConfigDialog(this);
-
-	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
-
-	if (dlg->exec() == QDialog::Accepted) {
-		setupView(false);
-		updateTransmitModeComboBox(Global::get().s.atTransmit);
-		updateTrayIcon();
-		updateUserModel();
-
-		if (Global::get().s.requireRestartToApply) {
-			if (Global::get().s.requireRestartToApply
-				&& QMessageBox::question(
-					   this, tr("Restart Mumble?"),
-					   tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
-					   QMessageBox::Yes | QMessageBox::No)
-					   == QMessageBox::Yes) {
-				forceQuit     = true;
-				restartOnQuit = true;
-
-				close();
-			}
-		}
-	}
-
-	delete dlg;
+	openConfigDialog();
 }
 
 void MainWindow::on_qaConfigMinimal_triggered() {
@@ -2802,15 +2757,11 @@ void MainWindow::on_qaConfigHideFrame_triggered() {
 }
 
 void MainWindow::on_qaConfigCert_triggered() {
-	CertWizard *cw = new CertWizard(this);
-	cw->exec();
-	delete cw;
+	openCertWizardDialog();
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
-	AudioWizard *aw = new AudioWizard(this);
-	aw->exec();
-	delete aw;
+	openAudioWizardDialog();
 }
 
 void MainWindow::on_qaDeveloperConsole_triggered() {
@@ -2832,16 +2783,15 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 }
 
 void MainWindow::on_qaHelpAbout_triggered() {
-	AboutDialog adAbout(this);
-	adAbout.exec();
+	openAboutDialog();
 }
 
 void MainWindow::on_qaHelpAboutQt_triggered() {
-	QMessageBox::aboutQt(this, tr("About Qt"));
+	openAboutQtDialog();
 }
 
 void MainWindow::on_qaHelpVersionCheck_triggered() {
-	new VersionCheck(false, this);
+	versionCheck();
 }
 
 void MainWindow::on_gsMuteSelf_down(QVariant v) {
@@ -3239,6 +3189,167 @@ void MainWindow::on_gsToggleSearch_triggered(bool down, QVariant) {
 
 	toggleSearchDialogVisibility();
 }
+
+void MainWindow::on_gsServerConnect_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openServerConnectDialog();
+}
+
+void MainWindow::on_gsServerDisconnect_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	disconnectFromServer();
+}
+
+void MainWindow::on_gsServerInformation_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openServerInformationDialog();
+}
+
+void MainWindow::on_gsServerTokens_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openServerTokensDialog();
+}
+
+void MainWindow::on_gsServerUserList_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openServerUserListDialog();
+}
+
+void MainWindow::on_gsServerBanList_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openServerBanListDialog();
+}
+
+void MainWindow::on_gsSelfPrioritySpeaker_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	toggleSelfPrioritySpeaker();
+}
+
+void MainWindow::on_gsRecording_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	recording();
+}
+
+void MainWindow::on_gsSelfComment_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openSelfCommentDialog();
+}
+
+void MainWindow::on_gsServerTexture_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	changeServerTexture();
+}
+
+void MainWindow::on_gsServerTextureRemove_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	removeServerTexture();
+}
+
+void MainWindow::on_gsSelfRegister_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	selfRegister();
+}
+
+void MainWindow::on_gsAudioStats_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openAudioStatsDialog();
+}
+
+void MainWindow::on_gsConfigDialog_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openConfigDialog();
+}
+
+void MainWindow::on_gsAudioWizard_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openAudioWizardDialog();
+}
+
+void MainWindow::on_gsConfigCert_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openCertWizardDialog();
+}
+
+void MainWindow::on_gsAudioTTS_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	toggleAudioTTS(!Global::get().s.bTTS);
+}
+
+void MainWindow::on_gsHelpAbout_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openAboutDialog();
+}
+
+void MainWindow::on_gsHelpAboutQt_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	openAboutQtDialog();
+}
+
+void MainWindow::on_gsHelpVersionCheck_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	versionCheck();
+}
+
 
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
@@ -3810,4 +3921,229 @@ void MainWindow::destroyUserInformation() {
 			return;
 		}
 	}
+}
+
+void MainWindow::openServerConnectDialog(bool autoconnect) {
+	ConnectDialog *cd = new ConnectDialog(this, autoconnect);
+	int res           = cd->exec();
+
+	if (cd->qsServer.isEmpty() || (cd->usPort == 0) || cd->qsUsername.isEmpty())
+		res = QDialog::Rejected;
+
+	if (res == QDialog::Accepted) {
+		recreateServerHandler();
+		qsDesiredChannel = QString();
+		rtLast           = MumbleProto::Reject_RejectType_None;
+		bRetryServer     = true;
+		qaServerDisconnect->setEnabled(true);
+		Global::get().l->log(
+			Log::Information,
+			tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer.toHtmlEscaped(), Log::Server)));
+		Global::get().sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
+		Global::get().sh->start(QThread::TimeCriticalPriority);
+	}
+	delete cd;
+}
+
+void MainWindow::disconnectFromServer() {
+	if (qtReconnect->isActive()) {
+		qtReconnect->stop();
+		qaServerDisconnect->setEnabled(false);
+	}
+	if (Global::get().sh && Global::get().sh->isRunning())
+		Global::get().sh->disconnect();
+}
+
+void MainWindow::openServerInformationDialog() {
+	ServerInformation *infoDialog = new ServerInformation(this);
+	infoDialog->show();
+}
+
+void MainWindow::openServerTokensDialog() {
+	if (tokenEdit) {
+		tokenEdit->reject();
+		delete tokenEdit;
+		tokenEdit = nullptr;
+	}
+
+	tokenEdit = new Tokens(this);
+	tokenEdit->show();
+}
+
+void MainWindow::openServerUserListDialog() {
+	Global::get().sh->requestUserList();
+
+	if (userEdit) {
+		userEdit->reject();
+		delete userEdit;
+		userEdit = nullptr;
+	}
+}
+
+void MainWindow::openServerBanListDialog() {
+	Global::get().sh->requestBanList();
+
+	if (banEdit) {
+		banEdit->reject();
+		delete banEdit;
+		banEdit = nullptr;
+	}
+}
+
+void MainWindow::toggleSelfPrioritySpeaker() {
+	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	if (!p)
+		return;
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(p->uiSession);
+	mpus.set_priority_speaker(!p->bPrioritySpeaker);
+	Global::get().sh->sendMessage(mpus);
+}
+
+void MainWindow::recording() {
+	if (voiceRecorderDialog) {
+		voiceRecorderDialog->show();
+		voiceRecorderDialog->raise();
+		voiceRecorderDialog->activateWindow();
+	} else {
+		voiceRecorderDialog = new VoiceRecorderDialog(this);
+		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
+		QObject::connect(Global::get().sh.get(), &ServerHandler::disconnected, voiceRecorderDialog, &QDialog::reject);
+		voiceRecorderDialog->show();
+	}
+}
+
+void MainWindow::openSelfCommentDialog() {
+	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	if (!p)
+		return;
+
+	if (!p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
+		p->qsComment = QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash));
+		if (p->qsComment.isEmpty()) {
+			pmModel->uiSessionComment = ~(p->uiSession);
+			MumbleProto::RequestBlob mprb;
+			mprb.add_session_comment(p->uiSession);
+			Global::get().sh->sendMessage(mprb);
+			return;
+		}
+	}
+
+	unsigned int session = p->uiSession;
+
+	::TextMessage *texm = new ::TextMessage(this, tr("Change your comment"));
+
+	texm->rteMessage->setText(p->qsComment);
+	int res = texm->exec();
+
+	p = ClientUser::get(session);
+
+	if (p && (res == QDialog::Accepted)) {
+		const QString &msg = texm->message();
+		MumbleProto::UserState mpus;
+		mpus.set_session(session);
+		mpus.set_comment(u8(msg));
+		Global::get().sh->sendMessage(mpus);
+
+		if (!msg.isEmpty())
+			Global::get().db->setBlob(sha1(msg), msg.toUtf8());
+	}
+	delete texm;
+}
+
+void MainWindow::changeServerTexture() {
+	QPair< QByteArray, QImage > choice = openImageFile();
+	if (choice.first.isEmpty())
+		return;
+
+	const QImage &img = choice.second;
+
+	if ((img.height() <= 1024) && (img.width() <= 1024))
+		Global::get().sh->setUserTexture(Global::get().uiSession, choice.first);
+}
+
+void MainWindow::removeServerTexture() {
+	Global::get().sh->setUserTexture(Global::get().uiSession, QByteArray());
+}
+
+void MainWindow::selfRegister() {
+	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	if (!p)
+		return;
+
+	QMessageBox::StandardButton result;
+	result =
+		QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName),
+							  tr("<p>You are about to register yourself on this server. This action cannot be undone, "
+								 "and your username cannot be changed once this is done. You will forever be known as "
+								 "'%1' on this server.</p><p>Are you sure you want to register yourself?</p>")
+								  .arg(p->qsName.toHtmlEscaped()),
+							  QMessageBox::Yes | QMessageBox::No);
+
+	if (result == QMessageBox::Yes)
+		Global::get().sh->registerUser(p->uiSession);
+}
+
+void MainWindow::openAudioStatsDialog() {
+	AudioStats *as = new AudioStats(this);
+	as->show();
+}
+
+void MainWindow::openConfigDialog() {
+	ConfigDialog *dlg = new ConfigDialog(this);
+
+	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
+
+	if (dlg->exec() == QDialog::Accepted) {
+		setupView(false);
+		updateTransmitModeComboBox(Global::get().s.atTransmit);
+		updateTrayIcon();
+		updateUserModel();
+
+		if (Global::get().s.requireRestartToApply) {
+			if (Global::get().s.requireRestartToApply
+				&& QMessageBox::question(
+					   this, tr("Restart Mumble?"),
+					   tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
+					   QMessageBox::Yes | QMessageBox::No)
+					   == QMessageBox::Yes) {
+				forceQuit     = true;
+				restartOnQuit = true;
+
+				close();
+			}
+		}
+	}
+
+	delete dlg;
+}
+
+void MainWindow::openAudioWizardDialog() {
+	AudioWizard *aw = new AudioWizard(this);
+	aw->exec();
+	delete aw;
+}
+
+void MainWindow::openCertWizardDialog() {
+	CertWizard *cw = new CertWizard(this);
+	cw->exec();
+	delete cw;
+}
+
+void MainWindow::toggleAudioTTS(const bool &newState) {
+	Global::get().s.bTTS = newState;
+}
+
+void MainWindow::openAboutDialog() {
+	AboutDialog adAbout(this);
+	adAbout.exec();
+}
+
+void MainWindow::openAboutQtDialog() {
+	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::versionCheck() {
+	new VersionCheck(false, this);
 }

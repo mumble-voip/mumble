@@ -99,6 +99,15 @@ public:
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 	GlobalShortcut *gsToggleTalkingUI;
 	GlobalShortcut *gsToggleSearch;
+	GlobalShortcut *gsServerConnect, *gsServerDisconnect, *gsServerInformation, *gsServerTokens;
+	GlobalShortcut *gsServerUserList, *gsServerBanList;
+	GlobalShortcut *gsSelfPrioritySpeaker;
+	GlobalShortcut *gsRecording;
+	GlobalShortcut *gsSelfComment, *gsServerTexture, *gsServerTextureRemove;
+	GlobalShortcut *gsSelfRegister, *gsAudioStats;
+	GlobalShortcut *gsConfigDialog, *gsAudioWizard, *gsConfigCert;
+	GlobalShortcut *gsAudioTTS;
+	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -307,6 +316,27 @@ public slots:
 	void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
 	void on_gsToggleTalkingUI_triggered(bool, QVariant);
 	void on_gsToggleSearch_triggered(bool, QVariant);
+	void on_gsServerConnect_triggered(bool, QVariant);
+	void on_gsServerDisconnect_triggered(bool, QVariant);
+	void on_gsServerInformation_triggered(bool, QVariant);
+	void on_gsServerTokens_triggered(bool, QVariant);
+	void on_gsServerUserList_triggered(bool, QVariant);
+	void on_gsServerBanList_triggered(bool, QVariant);
+	void on_gsSelfPrioritySpeaker_triggered(bool, QVariant);
+	void on_gsRecording_triggered(bool, QVariant);
+	void on_gsSelfComment_triggered(bool, QVariant);
+	void on_gsServerTexture_triggered(bool, QVariant);
+	void on_gsServerTextureRemove_triggered(bool, QVariant);
+	void on_gsSelfRegister_triggered(bool, QVariant);
+	void on_gsAudioStats_triggered(bool, QVariant);
+	void on_gsConfigDialog_triggered(bool, QVariant);
+	void on_gsAudioWizard_triggered(bool, QVariant);
+	void on_gsConfigCert_triggered(bool, QVariant);
+	void on_gsAudioTTS_triggered(bool, QVariant);
+	void on_gsHelpAbout_triggered(bool, QVariant);
+	void on_gsHelpAboutQt_triggered(bool, QVariant);
+	void on_gsHelpVersionCheck_triggered(bool, QVariant);
+
 	void on_Reconnect_timeout();
 	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 	void on_qaTalkingUIToggle_triggered();
@@ -379,6 +409,27 @@ public:
 	/// @param actionName  The name of the action that has been executed.
 	/// @param p  The user on which the action was performed.
 	void logChangeNotPermanent(const QString &actionName, ClientUser *const p) const;
+
+	void openServerConnectDialog(bool autoconnect = false);
+	void disconnectFromServer();
+	void openServerInformationDialog();
+	void openServerTokensDialog();
+	void openServerUserListDialog();
+	void openServerBanListDialog();
+	void toggleSelfPrioritySpeaker();
+	void recording();
+	void openSelfCommentDialog();
+	void changeServerTexture();
+	void removeServerTexture();
+	void selfRegister();
+	void openAudioStatsDialog();
+	void openConfigDialog();
+	void openAudioWizardDialog();
+	void openCertWizardDialog();
+	void toggleAudioTTS(const bool &newState);
+	void openAboutDialog();
+	void openAboutQtDialog();
+	void versionCheck();
 };
 
 #endif
