@@ -18,7 +18,7 @@
 	url = https://github.com/wolfpld/tracy.git
 [submodule "3rdparty/nlohmann_json"]
 	path = 3rdparty/nlohmann_json
-	url = https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+	url = https://github.com/nlohmann/json.git
 [submodule "3rdparty/gsl"]
 	path = 3rdparty/gsl
 	url = https://github.com/microsoft/GSL.git
