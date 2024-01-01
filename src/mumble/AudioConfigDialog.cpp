@@ -129,6 +129,8 @@ void AudioInputDialog::load(const Settings &r) {
 	qlePushClickPathOn->setText(r.qsTxAudioCueOn);
 	qlePushClickPathOff->setText(r.qsTxAudioCueOff);
 	qleMuteCuePath->setText(r.qsTxMuteCue);
+	s.muteCueShown = r.muteCueShown;
+
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
@@ -439,6 +441,7 @@ void AudioInputDialog::on_qcbMuteCue_clicked(bool b) {
 	qleMuteCuePath->setEnabled(b);
 	qpbMuteCueBrowse->setEnabled(b);
 	qpbMuteCuePreview->setEnabled(b);
+	s.muteCueShown = true;
 }
 
 void AudioInputDialog::on_qpbMuteCueBrowse_clicked() {

@@ -30,6 +30,7 @@
 	PROCESS(audio, TRANSMIT_CUE_STOP_KEY, qsTxAudioCueOff)                                  \
 	PROCESS(audio, PLAY_MUTE_CUE_KEY, bTxMuteCue)                                           \
 	PROCESS(audio, MUTE_CUE_KEY, qsTxMuteCue)                                               \
+	PROCESS(audio, MUTE_CUE_POPUP_SHOWN, muteCueShown)                                      \
 	PROCESS(audio, AUDIO_QUALITY_KEY, iQuality)                                             \
 	PROCESS(audio, LOUDNESS_KEY, iMinLoudness)                                              \
 	PROCESS(audio, VOLUME_KEY, fVolume)                                                     \
