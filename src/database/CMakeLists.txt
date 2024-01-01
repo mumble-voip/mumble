@@ -79,8 +79,10 @@ target_link_libraries(mumble_database PUBLIC ${soci_components})
 
 # Note that it is SOCI that requires the public Boost dependency, but unfortunately seems to fail to properly
 # declare so and thus linking against SOCI does not reveal this Boost dependency to upstream dependends.
+# Same happens for an indirect depenency on OpenSSL through (at least) the MySQL backend
 find_pkg("Boost" REQUIRED)
-target_link_libraries(mumble_database PUBLIC Boost::boost)
+find_pkg("OpenSSL" COMPONENTS SSL REQUIRED)
+target_link_libraries(mumble_database PUBLIC Boost::boost OpenSSL::SSL)
 
 
 if (NOT TARGET nlohmann_json)
