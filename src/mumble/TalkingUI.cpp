@@ -397,7 +397,10 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
 		userEntry->setLifeTime(Global::get().s.iTalkingUI_SilentUserLifeTime * 1000);
 
-		userEntry->restrictLifetime(!isSelf || !Global::get().s.bTalkingUI_LocalUserStaysVisible);
+		bool isLocalUserAndLocalUserAlwaysVisible = isSelf && Global::get().s.bTalkingUI_LocalUserStaysVisible;
+		bool usersAlwaysVisible                   = Global::get().s.talkingUI_UsersAlwaysVisible;
+		bool isUserAlwaysVisible                  = usersAlwaysVisible || isLocalUserAndLocalUserAlwaysVisible;
+		userEntry->restrictLifetime(!isUserAlwaysVisible);
 
 		userEntry->setPriority(isSelf ? EntryPriority::HIGH : EntryPriority::DEFAULT);
 
@@ -678,6 +681,14 @@ void TalkingUI::on_serverSynchronized() {
 		findOrAddUser(self);
 	}
 
+	// According to the settings the all users should always be visible and as we
+	// can't count on users to change their talking state right after our user has connected
+	// to a server, we have to add them manually.
+	if (Global::get().s.talkingUI_UsersAlwaysVisible) {
+		for (auto &user : ClientUser::c_qmUsers) {
+			findOrAddUser(user);
+		}
+	}
 	// The client may have received add listener messages for the user before the
 	// sync was complete. So we do this to ensure that they appear in the
 	// TalkingUI. Removing all listeners is probably not necessary but could
@@ -761,6 +772,8 @@ void TalkingUI::on_settingsChanged() {
 		}
 	}
 
+	int silentUserLifeTime  = Global::get().s.iTalkingUI_SilentUserLifeTime;
+	bool usersAlwaysVisible = Global::get().s.talkingUI_UsersAlwaysVisible;
 	// If the font has changed, we have to update the icon size as well
 	for (auto &currentContainer : m_containers) {
 		for (auto &currentEntry : currentContainer->getEntries()) {
@@ -771,8 +784,18 @@ void TalkingUI::on_settingsChanged() {
 
 				// The time that a silent user may stick around might have changed as well
 				// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-				userEntry->setLifeTime(Global::get().s.iTalkingUI_SilentUserLifeTime * 1000);
+				userEntry->setLifeTime(silentUserLifeTime * 1000);
+				userEntry->restrictLifetime(!usersAlwaysVisible);
 			}
+		}
+	}
+
+	// According to the settings the all users should always be visible and as we
+	// can't count on users to change their talking state right after settings where changed
+	// we have to add them manually.
+	if (usersAlwaysVisible) {
+		for (auto &user : ClientUser::c_qmUsers) {
+			findOrAddUser(user);
 		}
 	}
 
@@ -782,9 +805,10 @@ void TalkingUI::on_settingsChanged() {
 	// so we'll have to update that as well.
 	TalkingUIUser *localUserEntry = findUser(Global::get().uiSession);
 	if (localUserEntry) {
-		localUserEntry->restrictLifetime(!Global::get().s.bTalkingUI_LocalUserStaysVisible);
+		bool localUserAlwaysVisible = usersAlwaysVisible || Global::get().s.bTalkingUI_LocalUserStaysVisible;
+		localUserEntry->restrictLifetime(!localUserAlwaysVisible);
 	} else {
-		if (self && Global::get().s.bTalkingUI_LocalUserStaysVisible) {
+		if (self && (Global::get().s.bTalkingUI_LocalUserStaysVisible || usersAlwaysVisible)) {
 			// Add the local user as it is requested to be displayed
 			findOrAddUser(self);
 		}

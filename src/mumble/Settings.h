@@ -369,6 +369,7 @@ struct Settings {
 
 	QPoint qpTalkingUI_Position              = UNSPECIFIED_POSITION;
 	bool bShowTalkingUI                      = false;
+	bool talkingUI_UsersAlwaysVisible        = false;
 	bool bTalkingUI_LocalUserStaysVisible    = false;
 	bool bTalkingUI_AbbreviateChannelNames   = true;
 	bool bTalkingUI_AbbreviateCurrentChannel = false;

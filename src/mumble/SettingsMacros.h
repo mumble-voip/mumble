@@ -192,6 +192,7 @@
 #define TALKINGUI_SETTINGS                                                                            \
 	PROCESS(talkingui, TALKINGUI_POSITION_KEY, qpTalkingUI_Position)                                  \
 	PROCESS(talkingui, SHOW_TALKINGUI_KEY, bShowTalkingUI)                                            \
+	PROCESS(talkingui, TALKINGUI_USERS_ALWAYS_VISIBLE_KEY, talkingUI_UsersAlwaysVisible)              \
 	PROCESS(talkingui, TALKINGUI_LOCAL_USER_STAYS_VISIBLE_KEY, bTalkingUI_LocalUserStaysVisible)      \
 	PROCESS(talkingui, TALKINGUI_ABBREVIATE_CHANNEL_NAMES_KEY, bTalkingUI_AbbreviateChannelNames)     \
 	PROCESS(talkingui, TALKINGUI_ABBREVIATE_CURRENT_CHANNEL_KEY, bTalkingUI_AbbreviateCurrentChannel) \

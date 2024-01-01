@@ -270,7 +270,7 @@ void TalkingUIUser::restrictLifetime(bool restrict) {
 	if (restrict && !m_timer.isActive()) {
 		// Start timer
 		m_timer.start();
-	} else if (!restrict && !m_timer.isActive()) {
+	} else if (!restrict && m_timer.isActive()) {
 		// Stop timer
 		m_timer.stop();
 	}
