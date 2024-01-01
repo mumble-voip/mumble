@@ -46,6 +46,6 @@ mkdir -p $MUMBLE_ENVIRONMENT_STORE
 
 "$currentDir"/.ci/azure-pipelines/extractWithProgress.bash "$environmentArchive" $MUMBLE_ENVIRONMENT_STORE
 
-chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx/tools/Ice/slice2cpp"
+chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/$MUMBLE_ENVIRONMENT_TRIPLET/tools/Ice/slice2cpp"
 
 ls -l $MUMBLE_ENVIRONMENT_STORE
