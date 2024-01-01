@@ -1,0 +1,6 @@
+# When this file is processed by systemd-tmpfiles, it will change the group-ownership
+# of the installed Mumble server ini file to _mumble-server to make it readable for the
+# special user used to execute the Mumble server when started via systemd
+
+# Type # Path                        # Mode # User # Group
+z      @MUMBLE_INSTALL_ABS_SYSCONFDIR@/mumble-server.ini 0640   root   _mumble-server

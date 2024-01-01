@@ -52,8 +52,8 @@ if(client AND UNIX AND NOT APPLE)
 		@ONLY
 	)
 
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
-	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.appdata.xml" DESTINATION "${MUMBLE_INSTALL_METADATADIR}")
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/info.mumble.Mumble.desktop" DESTINATION "${MUMBLE_INSTALL_APPLICATIONSDIR}")
 
 	# Install Mumble client man files
 	install(FILES "man_files/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
@@ -61,37 +61,14 @@ endif()
 
 if(server)
 	file(COPY "mumble-server.ini" DESTINATION ${CMAKE_BINARY_DIR})
-	file(COPY "config_files/mumble-server.conf" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 	# systemd related files
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-		get_pkgconf_variable(
-			OUTPUT_VARIABLE SYSUSERS_DIR
-			MODULE systemd
-			VARIABLE_NAME sysusersdir
-			QUIET
-		)
-		if(NOT SYSUSERS_DIR)
-			# Fallback value, in case it could not be fetched via pkg-config
-			set(SYSUSERS_DIR "${CMAKE_INSTALL_SYSCONFDIR}/sysconfig.d")
-		endif()
-		get_pkgconf_variable(
-			OUTPUT_VARIABLE SYSTEMD_SERVICE_DIR
-			MODULE systemd
-			VARIABLE_NAME systemd_system_unit_dir
-			QUIET
-		)
-		if(NOT SYSTEMD_SERVICE_DIR)
-			# Default to /etc/systemd/system - This is not where packages ought to install their service files (rather
-			# it's where an admin is supposed to add their system files), but this seems to be the most consistent
-			# path across different platforms, so we use it anyway.
-			set(SYSTEMD_SERVICE_DIR "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system")
-		endif()
-
 		delayed_configure_files(
 			TARGET mumble-server
 			FILES
 				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.service.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service"
+				"${CMAKE_CURRENT_SOURCE_DIR}/config_files/mumble-server.tmpfiles.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server.tmpfiles"
 				"${CMAKE_CURRENT_SOURCE_DIR}/run_scripts/mumble-server-user-wrapper.in=${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper"
 			PASSTHROUGH_VARIABLES
 				MUMBLE_BUILD_YEAR
@@ -105,20 +82,25 @@ if(server)
 
 		install(FILES "man_files/mumble-server-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
-		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${SYSUSERS_DIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "config_files/mumble-server.sysusers" DESTINATION "${MUMBLE_INSTALL_SYSUSERSDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.tmpfiles" DESTINATION "${MUMBLE_INSTALL_TMPFILESDIR}" COMPONENT mumble_server RENAME "mumble-server.conf")
 
-		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${SYSTEMD_SERVICE_DIR}" COMPONENT mumble_server)
-		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
-		install(FILES "config_files/mumble-server.conf" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/dbus-1/system.d" COMPONENT mumble_server)
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server.service" DESTINATION "${MUMBLE_INSTALL_SERVICEFILEDIR}" COMPONENT mumble_server)
+		install(
+			FILES "${CMAKE_CURRENT_BINARY_DIR}/mumble-server-user-wrapper" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server
+			PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 	endif()
 
 	if(UNIX AND NOT APPLE)
 		install(FILES "man_files/mumble-server.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 
-		install(FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+		install(
+			FILES "mumble-server.ini" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server
+			PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ
+		)
 
 		if(ice)
-			install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/MumbleServer.ice" DESTINATION "${MUMBLE_INSTALL_SYSCONFDIR}" COMPONENT mumble_server)
+			install(FILES "${CMAKE_SOURCE_DIR}/src/murmur/MumbleServer.ice" DESTINATION "${MUMBLE_INSTALL_SERVER_SHAREDIR}" COMPONENT mumble_server)
 		endif()
 	endif()
 endif()
