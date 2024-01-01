@@ -267,7 +267,7 @@ bool processMarkdownInlineCode(QString &str, int &offset) {
 bool processMarkdownCodeBlock(QString &str, int &offset) {
 	// Code blocks are marked as ```code```
 	// Also consume a potential following newline as the <pre> tag will cause a linebreak anyways
-	static const QRegularExpression s_regex(QLatin1String("```.*\\n([^]*?)```(\\r\\n|\\n|\\r)?"));
+	static const QRegularExpression s_regex(QLatin1String("```.*\\n((?:[^`]|``?[^`]?)*)```(\\r\\n|\\n|\\r)?"));
 
 	QRegularExpressionMatch match =
 		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
