@@ -936,6 +936,47 @@
    <header>widgets/MUComboBox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>qrbLClassic</tabstop>
+  <tabstop>qrbLStacked</tabstop>
+  <tabstop>qrbLHybrid</tabstop>
+  <tabstop>qrbLCustom</tabstop>
+  <tabstop>qcbTheme</tabstop>
+  <tabstop>qcbLanguage</tabstop>
+  <tabstop>qcbHighContrast</tabstop>
+  <tabstop>qcbShowTransmitModeComboBox</tabstop>
+  <tabstop>qcbAlwaysOnTop</tabstop>
+  <tabstop>qcbShowContextMenuInMenuBar</tabstop>
+  <tabstop>qcbQuitBehavior</tabstop>
+  <tabstop>qcbEnableDeveloperMenu</tabstop>
+  <tabstop>qcbLockLayout</tabstop>
+  <tabstop>qcbHideTray</tabstop>
+  <tabstop>qcbStateInTray</tabstop>
+  <tabstop>qcbSearchUserAction</tabstop>
+  <tabstop>qcbSearchChannelAction</tabstop>
+  <tabstop>qcbChannelDrag</tabstop>
+  <tabstop>qcbUserDrag</tabstop>
+  <tabstop>qcbExpand</tabstop>
+  <tabstop>qcbUsersTop</tabstop>
+  <tabstop>qcbShowUserCount</tabstop>
+  <tabstop>qcbShowVolumeAdjustments</tabstop>
+  <tabstop>qcbShowNicknamesOnly</tabstop>
+  <tabstop>qcbChatBarUseSelection</tabstop>
+  <tabstop>qcbFilterHidesEmptyChannels</tabstop>
+  <tabstop>qcbUsersAlwaysVisible</tabstop>
+  <tabstop>qcbLocalUserVisible</tabstop>
+  <tabstop>qcbAbbreviateChannelNames</tabstop>
+  <tabstop>qcbAbbreviateCurrentChannel</tabstop>
+  <tabstop>qcbShowLocalListeners</tabstop>
+  <tabstop>qsbRelFontSize</tabstop>
+  <tabstop>qsbSilentUserLifetime</tabstop>
+  <tabstop>qsbChannelHierarchyDepth</tabstop>
+  <tabstop>qsbMaxNameLength</tabstop>
+  <tabstop>qsbPrefixCharCount</tabstop>
+  <tabstop>qsbPostfixCharCount</tabstop>
+  <tabstop>qleAbbreviationReplacement</tabstop>
+  <tabstop>qleChannelSeparator</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

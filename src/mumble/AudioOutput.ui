@@ -721,11 +721,26 @@
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
+  <tabstop>qcbExclusive</tabstop>
   <tabstop>qsJitter</tabstop>
   <tabstop>qsVolume</tabstop>
   <tabstop>qsDelay</tabstop>
+  <tabstop>qsOtherVolume</tabstop>
+  <tabstop>qcbAttenuateOthers</tabstop>
+  <tabstop>qcbAttenuateOthersOnTalk</tabstop>
+  <tabstop>qcbAttenuateUsersOnPrioritySpeak</tabstop>
+  <tabstop>qcbOnlyAttenuateSameOutput</tabstop>
+  <tabstop>qcbAttenuateLoopbacks</tabstop>
+  <tabstop>qcbPositional</tabstop>
+  <tabstop>qcbHeadphones</tabstop>
   <tabstop>qsMinDistance</tabstop>
+  <tabstop>qsbMinimumDistance</tabstop>
+  <tabstop>qsMaxDistance</tabstop>
+  <tabstop>qsbMaximumDistance</tabstop>
+  <tabstop>qsMinimumVolume</tabstop>
+  <tabstop>qsbMinimumVolume</tabstop>
   <tabstop>qsBloom</tabstop>
+  <tabstop>qsbBloom</tabstop>
   <tabstop>qcbLoopback</tabstop>
   <tabstop>qsPacketDelay</tabstop>
   <tabstop>qsPacketLoss</tabstop>
