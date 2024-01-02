@@ -226,6 +226,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
         </property>
+        <property name="accessibleName">
+         <string>Current speech detection chance</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="2">
@@ -264,6 +267,9 @@
         <property name="whatsThis">
          <string>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you're trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</string>
         </property>
+        <property name="accessibleName">
+         <string>Power spectrum of input signal and noise estimate</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -294,6 +300,9 @@
         </property>
         <property name="whatsThis">
          <string>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won't see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Weights of the echo canceller</string>
         </property>
        </widget>
       </item>

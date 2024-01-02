@@ -87,6 +87,9 @@
         <property name="toolTip">
          <string>Zoom Factor</string>
         </property>
+        <property name="accessibleName">
+         <string>Zoom level</string>
+        </property>
         <property name="minimum">
          <number>1</number>
         </property>

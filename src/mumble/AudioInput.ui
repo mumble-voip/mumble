@@ -44,6 +44,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</string>
         </property>
+        <property name="accessibleName">
+         <string>Audio system</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -69,6 +72,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</string>
+        </property>
+        <property name="accessibleName">
+         <string>Input device</string>
         </property>
         <property name="sizeAdjustPolicy">
          <enum>QComboBox::AdjustToContents</enum>
@@ -165,6 +171,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</string>
         </property>
+        <property name="accessibleName">
+         <string>Transmission mode</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="0" colspan="3">
@@ -234,6 +243,9 @@
             <property name="whatsThis">
              <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</string>
             </property>
+            <property name="accessibleName">
+             <string>PTT lock threshold</string>
+            </property>
             <property name="maximum">
              <number>1000</number>
             </property>
@@ -269,6 +281,9 @@
            <widget class="SemanticSlider" name="qsPTTHold">
             <property name="toolTip">
              <string>Time the microphone stays open after the PTT key is released</string>
+            </property>
+            <property name="accessibleName">
+             <string>PTT hold threshold</string>
             </property>
             <property name="maximum">
              <number>5000</number>
@@ -316,6 +331,9 @@
             <property name="whatsThis">
              <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
             </property>
+            <property name="accessibleName">
+             <string>Silence below</string>
+            </property>
             <property name="minimum">
              <number>20</number>
             </property>
@@ -340,6 +358,9 @@
             </property>
             <property name="whatsThis">
              <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
+            </property>
+            <property name="accessibleName">
+             <string>Current speech detection chance</string>
             </property>
            </widget>
           </item>
@@ -401,6 +422,9 @@
             <property name="whatsThis">
              <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
             </property>
+            <property name="accessibleName">
+             <string>Silence below</string>
+            </property>
             <property name="minimum">
              <number>1</number>
             </property>
@@ -425,6 +449,9 @@
             </property>
             <property name="whatsThis">
              <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
+            </property>
+            <property name="accessibleName">
+             <string>Speech above</string>
             </property>
             <property name="minimum">
              <number>1</number>
@@ -475,6 +502,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</string>
         </property>
+        <property name="accessibleName">
+         <string>Audio per packet in milliseconds</string>
+        </property>
         <property name="minimum">
          <number>1</number>
         </property>
@@ -522,6 +552,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Audio compression quality in kilobit per second</string>
         </property>
         <property name="minimum">
          <number>8000</number>
@@ -604,6 +637,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you're speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</string>
         </property>
+        <property name="accessibleName">
+         <string>Maximum amplification</string>
+        </property>
         <property name="maximum">
          <number>19500</number>
         </property>
@@ -656,6 +692,9 @@
       </item>
       <item row="4" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox">
+        <property name="accessibleName">
+         <string>Noise suppression</string>
+        </property>
         <property name="title">
          <string>Noise suppression</string>
         </property>
@@ -666,6 +705,9 @@
             <widget class="QRadioButton" name="qrbNoiseSupDeactivated">
              <property name="toolTip">
               <string>Don't use noise suppression.</string>
+             </property>
+             <property name="accessibleName">
+              <string>Noise suppression disabled</string>
              </property>
              <property name="text">
               <string>Disabled</string>
@@ -727,6 +769,9 @@
              <property name="whatsThis">
               <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
              </property>
+             <property name="accessibleName">
+              <string>Noise suppression</string>
+             </property>
              <property name="minimum">
               <number>15</number>
              </property>
@@ -776,6 +821,9 @@
         <property name="whatsThis">
          <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
         </property>
+        <property name="accessibleName">
+         <string>Echo cancellation mode</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -792,12 +840,18 @@
         <property name="toolTip">
          <string>Gets played when stopping to transmit</string>
         </property>
+        <property name="accessibleDescription">
+         <string>Path to audio cue file when stopping to speak</string>
+        </property>
        </widget>
       </item>
       <item row="4" column="4">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QSpinBox" name="qsbIdle">
+          <property name="accessibleName">
+           <string>Initiate idle action after (in minutes)</string>
+          </property>
           <property name="minimum">
            <number>1</number>
           </property>
@@ -824,6 +878,12 @@
         </item>
         <item>
          <widget class="MUComboBox" name="qcbIdleAction">
+          <property name="accessibleName">
+           <string>Idle action</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>Select what to do when being idle for a configurable amount of time. Default: nothing</string>
+          </property>
           <item>
            <property name="text">
             <string>nothing</string>
@@ -857,10 +917,20 @@
        </layout>
       </item>
       <item row="3" column="4">
-       <widget class="QLineEdit" name="qleMuteCuePath"/>
+       <widget class="QLineEdit" name="qleMuteCuePath">
+        <property name="toolTip">
+         <string>Gets played when you are trying to speak while being muted</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>Path to mute cue file</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="5">
        <widget class="QPushButton" name="qpbMuteCueBrowse">
+        <property name="toolTip">
+         <string>Browse for mute cue audio file</string>
+        </property>
         <property name="text">
          <string>Br&amp;owse...</string>
         </property>
@@ -870,6 +940,9 @@
        <widget class="QLineEdit" name="qlePushClickPathOn">
         <property name="toolTip">
          <string>Gets played when starting to transmit</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>Path to audio cue file when starting to speak</string>
         </property>
        </widget>
       </item>
@@ -915,6 +988,9 @@
       </item>
       <item row="3" column="6">
        <widget class="QPushButton" name="qpbMuteCuePreview">
+        <property name="toolTip">
+         <string>Preview the mute cue</string>
+        </property>
         <property name="text">
          <string>Pre&amp;view</string>
         </property>
@@ -942,6 +1018,9 @@
       </item>
       <item row="3" column="0">
        <widget class="QCheckBox" name="qcbMuteCue">
+        <property name="accessibleDescription">
+         <string>The mute cue is an audio sample which plays when you are trying to speak while being muted</string>
+        </property>
         <property name="text">
          <string>Mute cue</string>
         </property>
@@ -960,7 +1039,7 @@
       <item row="1" column="6">
        <widget class="QPushButton" name="qpbPushClickPreview">
         <property name="toolTip">
-         <string>Preview the audio cues</string>
+         <string>Preview both audio cues</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>

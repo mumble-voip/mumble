@@ -128,6 +128,9 @@
           <property name="toolTip">
            <string>List of configured shortcuts</string>
           </property>
+          <property name="accessibleName">
+           <string>Configured shortcuts</string>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::AllEditTriggers</set>
           </property>

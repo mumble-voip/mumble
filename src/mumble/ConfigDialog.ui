@@ -25,6 +25,9 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="accessibleName">
+      <string>Configuration categories</string>
+     </property>
      <property name="iconSize">
       <size>
        <width>24</width>
@@ -76,7 +79,7 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="1" rowspan="1">
+   <item row="0" column="1">
     <widget class="QStackedWidget" name="qswPages">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

@@ -44,6 +44,9 @@
         <property name="whatsThis">
          <string>This chooses what device to query. You still need to actually query the device and select which channels to use.</string>
         </property>
+        <property name="accessibleName">
+         <string>Device to use for microphone</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -180,6 +183,9 @@
             <width>120</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="accessibleName">
+           <string>List of microphones</string>
           </property>
          </widget>
         </item>
@@ -352,6 +358,9 @@
             <width>120</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="accessibleName">
+           <string>List of speakers</string>
           </property>
          </widget>
         </item>

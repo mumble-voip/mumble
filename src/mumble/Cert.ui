@@ -45,6 +45,9 @@
       <property name="whatsThis">
        <string>This is the certificate Mumble currently uses.</string>
       </property>
+      <property name="accessibleName">
+       <string>Current certificate</string>
+      </property>
       <property name="title">
        <string>Current Certificate</string>
       </property>
@@ -183,6 +186,9 @@
       <property name="whatsThis">
        <string>This is the filename you wish to import a certificate from.</string>
       </property>
+      <property name="accessibleName">
+       <string>Certificate file to import</string>
+      </property>
      </widget>
     </item>
     <item row="1" column="2">
@@ -220,6 +226,9 @@
       <property name="whatsThis">
        <string>This is the password for the PKCS#12 file containing your certificate.</string>
       </property>
+      <property name="accessibleName">
+       <string>Certificate password</string>
+      </property>
       <property name="echoMode">
        <enum>QLineEdit::Password</enum>
       </property>
@@ -250,6 +259,9 @@
       </property>
       <property name="whatsThis">
        <string>This is the certificate you are importing.</string>
+      </property>
+      <property name="accessibleName">
+       <string>Certificate to import</string>
       </property>
       <property name="title">
        <string>Certificate Details</string>
@@ -304,6 +316,9 @@ Are you sure you wish to replace your certificate?
       <property name="whatsThis">
        <string>This is the certificate Mumble currently uses. It will be replaced.</string>
       </property>
+      <property name="accessibleName">
+       <string>Current certificate</string>
+      </property>
       <property name="title">
        <string>Current Certificate</string>
       </property>
@@ -322,6 +337,9 @@ Are you sure you wish to replace your certificate?
       </property>
       <property name="whatsThis">
        <string>This is the new certificate that will replace the old one.</string>
+      </property>
+      <property name="accessibleName">
+       <string>New certificate</string>
       </property>
       <property name="title">
        <string>New Certificate</string>
@@ -370,6 +388,9 @@ Are you sure you wish to replace your certificate?
       <property name="whatsThis">
        <string>This is the filename you wish to export a certificate to.</string>
       </property>
+      <property name="accessibleName">
+       <string>File to export certificate to</string>
+      </property>
      </widget>
     </item>
     <item row="1" column="2">
@@ -390,6 +411,9 @@ Are you sure you wish to replace your certificate?
       </property>
       <property name="whatsThis">
        <string>This is the certificate Mumble currently uses. It will be exported.</string>
+      </property>
+      <property name="accessibleName">
+       <string>Current certificate</string>
       </property>
       <property name="title">
        <string>Certificate Details</string>
@@ -446,6 +470,9 @@ Are you sure you wish to replace your certificate?
       </property>
       <property name="whatsThis">
        <string>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</string>
+      </property>
+      <property name="accessibleName">
+       <string>Email address</string>
       </property>
      </widget>
     </item>

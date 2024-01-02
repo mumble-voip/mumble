@@ -26,20 +26,6 @@ static ConfigRegistrar registrar(1100, LookConfigNew);
 
 LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qsbSilentUserLifetime->setAccessibleName(tr("Silent user lifetime"));
-	qsbPrefixCharCount->setAccessibleName(tr("Prefix character count"));
-	qsbChannelHierarchyDepth->setAccessibleName(tr("Channel hierarchy depth"));
-	qleChannelSeparator->setAccessibleName(tr("Channel separator"));
-	qsbPostfixCharCount->setAccessibleName(tr("Postfix character count"));
-	qleAbbreviationReplacement->setAccessibleName(tr("Abbreviation replacement"));
-	qsbMaxNameLength->setAccessibleName(tr("Maximum name length"));
-	qsbRelFontSize->setAccessibleName(tr("Relative font size"));
-	qcbLanguage->setAccessibleName(tr("Language"));
-	qcbTheme->setAccessibleName(tr("Theme"));
-	qcbAlwaysOnTop->setAccessibleName(tr("Always on top"));
-	qcbChannelDrag->setAccessibleName(tr("Channel dragging"));
-	qcbExpand->setAccessibleName(tr("Automatically expand channels when"));
-	qcbUserDrag->setAccessibleName(tr("User dragging behavior"));
 
 #ifndef Q_OS_MAC
 	if (!QSystemTrayIcon::isSystemTrayAvailable())
