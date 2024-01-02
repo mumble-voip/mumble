@@ -19,9 +19,6 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p) : QDialog(p), qtTimer(new Q
 	qtTimer->setObjectName(QLatin1String("qtTimer"));
 	qtTimer->setInterval(200);
 	setupUi(this);
-	qcbFormat->setAccessibleName(tr("Output format"));
-	qleTargetDirectory->setAccessibleName(tr("Target directory"));
-	qleFilename->setAccessibleName(tr("Filename"));
 
 	qleTargetDirectory->setText(Global::get().s.qsRecordingPath);
 	qleFilename->setText(Global::get().s.qsRecordingFile);

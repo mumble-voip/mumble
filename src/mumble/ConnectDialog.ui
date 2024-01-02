@@ -26,6 +26,9 @@
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
+     <property name="accessibleName">
+      <string>Server list</string>
+     </property>
      <property name="dragEnabled">
       <bool>true</bool>
      </property>

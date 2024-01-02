@@ -17,10 +17,6 @@
 UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *p)
 	: QDialog(p), m_model(new UserListModel(userList, this)), m_filter(new UserListFilterProxyModel(this)) {
 	setupUi(this);
-	qlSearch->setAccessibleName(tr("Search"));
-	qcbInactive->setAccessibleName(tr("Inactive for"));
-	qsbInactive->setAccessibleName(tr("Inactive for"));
-	qtvUserList->setAccessibleName(tr("User list"));
 
 	const int userCount = userList.users_size();
 	setWindowTitle(tr("Registered users: %n account(s)", "", userCount));

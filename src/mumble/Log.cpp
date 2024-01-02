@@ -41,16 +41,6 @@ static ConfigRegistrar registrarLog(4000, LogConfigDialogNew);
 
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qtwMessages->setAccessibleName(tr("Log messages"));
-	qsTTSVolume->setAccessibleName(tr("TTS engine volume"));
-	qsNotificationVolume->setAccessibleName(tr("Notification sound volume adjustment"));
-	qsbNotificationVolume->setAccessibleName(tr("Notification sound volume adjustment"));
-	qsCueVolume->setAccessibleName(tr("Audio cue volume adjustment"));
-	qsbCueVolume->setAccessibleName(tr("Audio cue volume adjustment"));
-	qsbThreshold->setAccessibleName(tr("Length threshold"));
-	qsbMessageLimitUsers->setAccessibleName(tr("User limit for message limiting"));
-	qsbMaxBlocks->setAccessibleName(tr("Maximum chat length"));
-	qsbChatMessageMargins->setAccessibleName(tr("Chat message margins"));
 
 #ifdef USE_NO_TTS
 	qgbTTS->setDisabled(true);

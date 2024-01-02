@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string notr="true">Form</string>
   </property>
+  <property name="accessibleName">
+   <string>Username</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="qgbConnection">
@@ -127,6 +130,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
         </property>
+        <property name="accessibleName">
+         <string>Type</string>
+        </property>
         <item>
          <property name="text">
           <string>Direct connection</string>
@@ -170,6 +176,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Hostname</string>
         </property>
         <property name="text">
          <string/>
@@ -224,6 +233,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</string>
         </property>
+        <property name="accessibleName">
+         <string>Port</string>
+        </property>
         <property name="inputMask">
          <string/>
         </property>
@@ -272,6 +284,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Password</string>
         </property>
         <property name="inputMask">
          <string/>

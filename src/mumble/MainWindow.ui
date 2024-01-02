@@ -118,6 +118,9 @@
     <property name="whatsThis">
      <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</string>
     </property>
+    <property name="accessibleName">
+     <string>Activity log</string>
+    </property>
     <property name="openLinks">
      <bool>false</bool>
     </property>
@@ -157,6 +160,9 @@
       <width>16777215</width>
       <height>16777215</height>
      </size>
+    </property>
+    <property name="accessibleName">
+     <string>Chat message</string>
     </property>
     <property name="acceptRichText">
      <bool>false</bool>
@@ -802,6 +808,10 @@ the channel's context menu.</string>
    </property>
   </action>
   <action name="qaUserFriendAdd">
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:emblems/emblem-favorite.svg</normaloff>skin:emblems/emblem-favorite.svg</iconset>
+   </property>
    <property name="text">
     <string>Add &amp;Friend</string>
    </property>
@@ -810,10 +820,6 @@ the channel's context menu.</string>
    </property>
    <property name="whatsThis">
     <string>This will add the user as a friend, so you can recognize him on this and other servers.</string>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>skin:emblems/emblem-favorite.svg</normaloff>skin:emblems/emblem-favorite.svg</iconset>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -922,15 +928,15 @@ the channel's context menu.</string>
    </property>
   </action>
   <action name="qaUserInformation">
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Information...</string>
    </property>
    <property name="toolTip">
     <string>Query server for connection information for user</string>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
