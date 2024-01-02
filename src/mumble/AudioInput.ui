@@ -1033,15 +1033,41 @@
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
+  <tabstop>qcbExclusive</tabstop>
   <tabstop>qcbTransmit</tabstop>
-  <tabstop>qsDoublePush</tabstop>
+  <tabstop>qrbAmplitude</tabstop>
   <tabstop>qrbSNR</tabstop>
   <tabstop>qsTransmitHold</tabstop>
   <tabstop>qsTransmitMin</tabstop>
   <tabstop>qsTransmitMax</tabstop>
   <tabstop>qsQuality</tabstop>
+  <tabstop>qsDoublePush</tabstop>
+  <tabstop>qsPTTHold</tabstop>
+  <tabstop>qcbPushWindow</tabstop>
   <tabstop>qsFrames</tabstop>
+  <tabstop>qcbAllowLowDelay</tabstop>
   <tabstop>qsAmp</tabstop>
+  <tabstop>qcbEcho</tabstop>
+  <tabstop>qrbNoiseSupDeactivated</tabstop>
+  <tabstop>qrbNoiseSupSpeex</tabstop>
+  <tabstop>qrbNoiseSupRNNoise</tabstop>
+  <tabstop>qrbNoiseSupBoth</tabstop>
+  <tabstop>qsSpeexNoiseSupStrength</tabstop>
+  <tabstop>qcbEnableCuePTT</tabstop>
+  <tabstop>qcbEnableCueVAD</tabstop>
+  <tabstop>qlePushClickPathOn</tabstop>
+  <tabstop>qpbPushClickBrowseOn</tabstop>
+  <tabstop>qpbPushClickPreview</tabstop>
+  <tabstop>qlePushClickPathOff</tabstop>
+  <tabstop>qpbPushClickBrowseOff</tabstop>
+  <tabstop>qpbPushClickReset</tabstop>
+  <tabstop>qcbMuteCue</tabstop>
+  <tabstop>qleMuteCuePath</tabstop>
+  <tabstop>qpbMuteCueBrowse</tabstop>
+  <tabstop>qpbMuteCuePreview</tabstop>
+  <tabstop>qcbIdleAction</tabstop>
+  <tabstop>qsbIdle</tabstop>
+  <tabstop>qcbUndoIdleAction</tabstop>
  </tabstops>
  <resources/>
  <connections/>
