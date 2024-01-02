@@ -126,17 +126,6 @@ void CertView::setCert(const QList< QSslCertificate > &cert) {
 CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	setupUi(this);
 
-	cvWelcome->setAccessibleName(tr("Current certificate"));
-	qleImportFile->setAccessibleName(tr("Certificate file to import"));
-	qlePassword->setAccessibleName(tr("Certificate password"));
-	cvImport->setAccessibleName(tr("Certificate to import"));
-	cvCurrent->setAccessibleName(tr("Current certificate"));
-	cvNew->setAccessibleName(tr("New certificate"));
-	qleExportFile->setAccessibleName(tr("File to export certificate to"));
-	cvExport->setAccessibleName(tr("Current certificate"));
-	qleEmail->setAccessibleName(tr("Email address"));
-	qleName->setAccessibleName(tr("Your name"));
-
 	Mumble::Accessibility::fixWizardButtonLabels(this);
 
 	setOption(QWizard::NoCancelButton, false);

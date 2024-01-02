@@ -25,8 +25,6 @@ QHash< QString, ConfigWidget * > ConfigDialog::s_existingWidgets;
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	qlwIcons->setAccessibleName(tr("Configuration categories"));
-
 	{
 		QMutexLocker lock(&s_existingWidgetsMutex);
 		s_existingWidgets.clear();

@@ -14,7 +14,11 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="RichTextEditor" name="rteMessage" native="true"/>
+      <widget class="RichTextEditor" name="rteMessage" native="true">
+       <property name="accessibleName">
+        <string>Message</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

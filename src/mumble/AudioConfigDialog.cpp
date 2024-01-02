@@ -51,24 +51,6 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	setupUi(this);
 
-	qcbSystem->setAccessibleName(tr("Audio system"));
-	qcbDevice->setAccessibleName(tr("Input device"));
-	qcbEcho->setAccessibleName(tr("Echo cancellation mode"));
-	qcbTransmit->setAccessibleName(tr("Transmission mode"));
-	qsDoublePush->setAccessibleName(tr("PTT lock threshold"));
-	qsPTTHold->setAccessibleName(tr("PTT hold threshold"));
-	qsTransmitHold->setAccessibleName(tr("Silence below"));
-	abSpeech->setAccessibleName(tr("Current speech detection chance"));
-	qsTransmitMin->setAccessibleName(tr("Speech above"));
-	qsTransmitMax->setAccessibleName(tr("Speech below"));
-	qsFrames->setAccessibleName(tr("Audio per packet"));
-	qsQuality->setAccessibleName(tr("Quality of compression (peak bandwidth)"));
-	qsSpeexNoiseSupStrength->setAccessibleName(tr("Noise suppression"));
-	qsAmp->setAccessibleName(tr("Maximum amplification"));
-	qlePushClickPathOn->setAccessibleName(tr("Transmission started sound"));
-	qlePushClickPathOff->setAccessibleName(tr("Transmission stopped sound"));
-	qsbIdle->setAccessibleName(tr("Initiate idle action after (in minutes)"));
-	qcbIdleAction->setAccessibleName(tr("Idle action"));
 	qlInputHelp->setVisible(false);
 
 	if (AudioInputRegistrar::qmNew) {
@@ -416,6 +398,9 @@ void AudioInputDialog::updateBitrate() {
 	qlBitrate->setText(v);
 
 	qsQuality->setMinimum(8000);
+
+	qsQuality->setAccessibleDescription(v);
+	qsFrames->setAccessibleDescription(v);
 }
 
 void AudioInputDialog::on_qcbEnableCuePTT_clicked() {
@@ -647,20 +632,6 @@ void AudioOutputDialog::enablePulseAudioAttenuationOptionsFor(const QString &out
 
 AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-
-	qcbSystem->setAccessibleName(tr("Output system"));
-	qcbDevice->setAccessibleName(tr("Output device"));
-	qsJitter->setAccessibleName(tr("Default jitter buffer"));
-	qsVolume->setAccessibleName(tr("Volume of incoming speech"));
-	qsDelay->setAccessibleName(tr("Output delay"));
-	qsOtherVolume->setAccessibleName(tr("Attenuation of other applications during speech"));
-	qsMinDistance->setAccessibleName(tr("Minimum distance"));
-	qsMaxDistance->setAccessibleName(tr("Maximum distance"));
-	qsMinimumVolume->setAccessibleName(tr("Minimum volume"));
-	qsBloom->setAccessibleName(tr("Bloom"));
-	qsPacketDelay->setAccessibleName(tr("Delay variance"));
-	qsPacketLoss->setAccessibleName(tr("Packet loss"));
-	qcbLoopback->setAccessibleName(tr("Loopback"));
 
 	if (AudioOutputRegistrar::qmNew) {
 		QList< QString > keys = AudioOutputRegistrar::qmNew->keys();
