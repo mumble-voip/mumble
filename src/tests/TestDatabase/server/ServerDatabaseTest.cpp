@@ -572,6 +572,8 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 	QVERIFY(!table.isPropertySet(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description));
 
 	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, "Random description");
+	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers, std::to_string(42));
+	// Immediately update the property
 	table.setProperty(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers, std::to_string(5));
 
 	QCOMPARE(
@@ -854,6 +856,8 @@ void ServerDatabaseTest::userPropertyTable_general() {
 	QVERIFY(table.findUsersWithProperty(existingServerID, ::msdb::UserProperty::Email, "pete@random.com").empty());
 
 	table.setProperty(user, ::msdb::UserProperty::Email, "pete@random.com");
+	table.setProperty(user, ::msdb::UserProperty::kdfIterations, std::to_string(42));
+	// Immediately update value
 	table.setProperty(user, ::msdb::UserProperty::kdfIterations, std::to_string(5));
 
 	QVERIFY(table.findUsersWithProperty(existingServerID, ::msdb::UserProperty::Email, "pete@random.com").size() == 1);

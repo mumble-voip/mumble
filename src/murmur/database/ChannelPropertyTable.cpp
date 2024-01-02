@@ -119,7 +119,7 @@ namespace server {
 				int intProp = static_cast< int >(property);
 
 				if (propertyAlreadySet) {
-					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::value << "\" = :value WHERE "
+					m_sql << "UPDATE \"" << NAME << "\" SET \"" << column::value << "\" = :value WHERE \""
 						  << column::server_id << "\" = :serverID AND \"" << column::channel_id
 						  << "\" = :channelID AND \"" << column::key << "\" = :key",
 						soci::use(value), soci::use(serverID), soci::use(channelID), soci::use(intProp);
