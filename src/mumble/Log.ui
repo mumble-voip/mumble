@@ -497,6 +497,25 @@ The setting only applies for new messages, the already shown ones will retain th
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qtwMessages</tabstop>
+  <tabstop>qcbEnableTTS</tabstop>
+  <tabstop>qcbNoScope</tabstop>
+  <tabstop>qcbNoAuthor</tabstop>
+  <tabstop>qsbThreshold</tabstop>
+  <tabstop>qcbReadBackOwn</tabstop>
+  <tabstop>qsTTSVolume</tabstop>
+  <tabstop>qsbTTSVolume</tabstop>
+  <tabstop>qsNotificationVolume</tabstop>
+  <tabstop>qsbNotificationVolume</tabstop>
+  <tabstop>qsCueVolume</tabstop>
+  <tabstop>qsbCueVolume</tabstop>
+  <tabstop>qsbMaxBlocks</tabstop>
+  <tabstop>qcb24HourClock</tabstop>
+  <tabstop>qsbChatMessageMargins</tabstop>
+  <tabstop>qcbWhisperFriends</tabstop>
+  <tabstop>qsbMessageLimitUsers</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
