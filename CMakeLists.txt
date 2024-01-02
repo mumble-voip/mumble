@@ -162,6 +162,7 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ${lto})
 
 if(client OR server)
+	add_subdirectory(${3RDPARTY_DIR}/CLI11)
 	add_subdirectory(src)
 endif()
 
