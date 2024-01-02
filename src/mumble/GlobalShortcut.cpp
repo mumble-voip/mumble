@@ -540,7 +540,6 @@ bool ShortcutDelegate::helpEvent(QHelpEvent *event, QAbstractItemView *, const Q
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qtwShortcuts->setAccessibleName(tr("Configured shortcuts"));
 	installEventFilter(this);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();

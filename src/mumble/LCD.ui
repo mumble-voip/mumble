@@ -42,6 +42,9 @@ This field describes the size of an LCD device. The size is given either in pixe
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="accessibleName">
+         <string>Devices</string>
+        </property>
         <property name="itemsExpandable">
          <bool>false</bool>
         </property>
@@ -94,6 +97,9 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </string>
         </property>
+        <property name="accessibleName">
+         <string>Minimum column width</string>
+        </property>
         <property name="minimum">
          <number>40</number>
         </property>
@@ -132,6 +138,9 @@ This field describes the size of an LCD device. The size is given either in pixe
        <widget class="QSlider" name="qsSplitterWidth">
         <property name="whatsThis">
          <string>This setting decides the width of column splitter.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Splitter width</string>
         </property>
         <property name="minimum">
          <number>0</number>

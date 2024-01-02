@@ -35,6 +35,9 @@
         <property name="whatsThis">
          <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
         </property>
+        <property name="accessibleName">
+         <string>Automatically expand channels when</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -44,6 +47,9 @@
         </property>
         <property name="whatsThis">
          <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
+        </property>
+        <property name="accessibleName">
+         <string>User dragging behavior</string>
         </property>
        </widget>
       </item>
@@ -101,6 +107,9 @@
         </property>
         <property name="whatsThis">
          <string>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Channel dragging</string>
         </property>
        </widget>
       </item>
@@ -427,6 +436,9 @@
         <property name="whatsThis">
          <string>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</string>
         </property>
+        <property name="accessibleName">
+         <string>Always on top</string>
+        </property>
         <item>
          <property name="text">
           <string>Never</string>
@@ -557,6 +569,9 @@
         <property name="toolTip">
          <string>String to separate a channel name from its parent's.</string>
         </property>
+        <property name="accessibleName">
+         <string>Channel separator</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -601,6 +616,9 @@
         <property name="toolTip">
          <string>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</string>
         </property>
+        <property name="accessibleName">
+         <string>Maximum name length</string>
+        </property>
        </widget>
       </item>
       <item row="14" column="1">
@@ -614,6 +632,9 @@
         <property name="toolTip">
          <string>String that gets used instead of the cut-out part of an abbreviated name.</string>
         </property>
+        <property name="accessibleName">
+         <string>Abbreviation replacement</string>
+        </property>
        </widget>
       </item>
       <item row="12" column="1">
@@ -621,12 +642,18 @@
         <property name="toolTip">
          <string>How many characters from the original name to display at the end of an abbreviated name.</string>
         </property>
+        <property name="accessibleName">
+         <string>Postfix character count</string>
+        </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QSpinBox" name="qsbRelFontSize">
         <property name="toolTip">
          <string>Relative font size to use in the Talking UI in percent.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Relative font size</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -659,6 +686,9 @@
         </property>
         <property name="toolTip">
          <string>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Silent user lifetime</string>
         </property>
         <property name="suffix">
          <string> seconds</string>
@@ -712,6 +742,9 @@
         <property name="toolTip">
          <string>The names of how many parent channels should be included in the channel's name when displaying it in the TalkingUI?</string>
         </property>
+        <property name="accessibleName">
+         <string>Channel hierarchy depth</string>
+        </property>
        </widget>
       </item>
       <item row="4" column="0" colspan="2">
@@ -764,6 +797,9 @@
        <widget class="QSpinBox" name="qsbPrefixCharCount">
         <property name="toolTip">
          <string>How many characters from the original name to display at the beginning of an abbreviated name.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Prefix character count</string>
         </property>
        </widget>
       </item>
@@ -820,6 +856,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
         </property>
+        <property name="accessibleName">
+         <string>Language</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -845,6 +884,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Theme</string>
         </property>
        </widget>
       </item>

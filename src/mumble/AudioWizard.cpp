@@ -30,14 +30,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	setupUi(this);
 
-	qcbInput->setAccessibleName(tr("Input system"));
-	qcbInputDevice->setAccessibleName(tr("Input device"));
-	qcbOutput->setAccessibleName(tr("Output system"));
-	qcbOutputDevice->setAccessibleName(tr("Output device"));
-	qsOutputDelay->setAccessibleName(tr("Output delay"));
-	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
-	qsVAD->setAccessibleName(tr("Voice activity detection level"));
-
 	Mumble::Accessibility::fixWizardButtonLabels(this);
 
 	Mumble::Accessibility::setDescriptionFromLabel(qgbInput, qliInputText);
