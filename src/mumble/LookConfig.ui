@@ -52,12 +52,18 @@
         <property name="text">
          <string>User Dragging</string>
         </property>
+        <property name="buddy">
+         <cstring>qcbUserDrag</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="qliChannelDrag">
         <property name="text">
          <string>Channel Dragging</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbChannelDrag</cstring>
         </property>
        </widget>
       </item>
@@ -72,6 +78,9 @@
        <widget class="QLabel" name="qliExpand">
         <property name="text">
          <string>Expand</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbExpand</cstring>
         </property>
        </widget>
       </item>
@@ -405,6 +414,9 @@
         <property name="text">
          <string>Always On Top</string>
         </property>
+        <property name="buddy">
+         <cstring>qcbAlwaysOnTop</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -451,6 +463,9 @@
        <widget class="QLabel" name="qliQuitBehavior">
         <property name="text">
          <string>Quit Behavior</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbQuitBehavior</cstring>
         </property>
        </widget>
       </item>
@@ -526,6 +541,9 @@
         <property name="text">
          <string>Channel separator</string>
         </property>
+        <property name="buddy">
+         <cstring>qleChannelSeparator</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -572,6 +590,9 @@
         </property>
         <property name="text">
          <string>Abbreviated postfix characters</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbPostfixCharCount</cstring>
         </property>
        </widget>
       </item>
@@ -623,6 +644,9 @@
         <property name="text">
          <string>Max. channel name length</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbMaxNameLength</cstring>
+        </property>
        </widget>
       </item>
       <item row="6" column="1">
@@ -668,6 +692,9 @@
         <property name="text">
          <string>Remove silent user after</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbSilentUserLifetime</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="0" colspan="2">
@@ -705,6 +732,9 @@
         <property name="text">
          <string>Abbreviation replacement</string>
         </property>
+        <property name="buddy">
+         <cstring>qleAbbreviationReplacement</cstring>
+        </property>
        </widget>
       </item>
       <item row="11" column="0">
@@ -714,6 +744,9 @@
         </property>
         <property name="text">
          <string>Abbreviated prefix characters</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbPrefixCharCount</cstring>
         </property>
        </widget>
       </item>
@@ -742,6 +775,9 @@
         <property name="text">
          <string>Rel. font size (%)</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbRelFontSize</cstring>
+        </property>
        </widget>
       </item>
       <item row="8" column="0">
@@ -751,6 +787,9 @@
         </property>
         <property name="text">
          <string>Channel hierarchy depth</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbChannelHierarchyDepth</cstring>
         </property>
        </widget>
       </item>
@@ -787,6 +826,9 @@
        <widget class="QLabel" name="qliTheme">
         <property name="text">
          <string>Theme</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbTheme</cstring>
         </property>
        </widget>
       </item>
@@ -886,6 +928,9 @@
         <property name="text">
          <string>Action (User):</string>
         </property>
+        <property name="buddy">
+         <cstring>qcbSearchUserAction</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -908,6 +953,9 @@
         </property>
         <property name="text">
          <string>Action (Channel):</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbSearchChannelAction</cstring>
         </property>
        </widget>
       </item>

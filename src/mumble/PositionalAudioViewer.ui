@@ -25,6 +25,9 @@
         <property name="text">
          <string>X</string>
         </property>
+        <property name="buddy">
+         <cstring>cameraDirX</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -57,6 +60,9 @@
         <property name="text">
          <string>Y</string>
         </property>
+        <property name="buddy">
+         <cstring>cameraDirY</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -88,6 +94,9 @@
        <widget class="QLabel" name="cameraDirLabelZ">
         <property name="text">
          <string>Z</string>
+        </property>
+        <property name="buddy">
+         <cstring>cameraDirZ</cstring>
         </property>
        </widget>
       </item>
@@ -155,6 +164,9 @@
         <property name="text">
          <string>X</string>
         </property>
+        <property name="buddy">
+         <cstring>playerPosX</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -186,6 +198,9 @@
        <widget class="QLabel" name="playerPosLabelY">
         <property name="text">
          <string>Y</string>
+        </property>
+        <property name="buddy">
+         <cstring>playerPosY</cstring>
         </property>
        </widget>
       </item>
@@ -219,6 +234,9 @@
         <property name="text">
          <string>Z</string>
         </property>
+        <property name="buddy">
+         <cstring>playerPosZ</cstring>
+        </property>
        </widget>
       </item>
      </layout>
@@ -234,6 +252,9 @@
        <widget class="QLabel" name="playerAxisLabelX">
         <property name="text">
          <string>X</string>
+        </property>
+        <property name="buddy">
+         <cstring>playerAxisX</cstring>
         </property>
        </widget>
       </item>
@@ -267,6 +288,9 @@
         <property name="text">
          <string>Y</string>
         </property>
+        <property name="buddy">
+         <cstring>playerAxisY</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -298,6 +322,9 @@
        <widget class="QLabel" name="playerAxisLabelZ">
         <property name="text">
          <string>Z</string>
+        </property>
+        <property name="buddy">
+         <cstring>playerAxisZ</cstring>
         </property>
        </widget>
       </item>
@@ -340,6 +367,9 @@
         <property name="text">
          <string>X</string>
         </property>
+        <property name="buddy">
+         <cstring>playerDirX</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -372,6 +402,9 @@
         <property name="text">
          <string>Y</string>
         </property>
+        <property name="buddy">
+         <cstring>playerDirY</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -403,6 +436,9 @@
        <widget class="QLabel" name="playerDirLabelZ">
         <property name="text">
          <string>Z</string>
+        </property>
+        <property name="buddy">
+         <cstring>playerDirZ</cstring>
         </property>
        </widget>
       </item>
@@ -444,6 +480,9 @@
        <widget class="QLabel" name="cameraAxisLabelX">
         <property name="text">
          <string>X</string>
+        </property>
+        <property name="buddy">
+         <cstring>cameraAxisX</cstring>
         </property>
        </widget>
       </item>
@@ -527,12 +566,18 @@
         <property name="text">
          <string>Y</string>
         </property>
+        <property name="buddy">
+         <cstring>cameraAxisY</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="cameraAxisLabelZ">
         <property name="text">
          <string>Z</string>
+        </property>
+        <property name="buddy">
+         <cstring>cameraAxisZ</cstring>
         </property>
        </widget>
       </item>
@@ -549,6 +594,9 @@
        <widget class="QLabel" name="cameraPosLabelX">
         <property name="text">
          <string>X</string>
+        </property>
+        <property name="buddy">
+         <cstring>cameraPosX</cstring>
         </property>
        </widget>
       </item>
@@ -582,6 +630,9 @@
         <property name="text">
          <string>Y</string>
         </property>
+        <property name="buddy">
+         <cstring>cameraPosY</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -613,6 +664,9 @@
        <widget class="QLabel" name="cameraPosLabelZ">
         <property name="text">
          <string>Z</string>
+        </property>
+        <property name="buddy">
+         <cstring>cameraPosZ</cstring>
         </property>
        </widget>
       </item>
@@ -655,6 +709,9 @@
         <property name="text">
          <string>Context</string>
         </property>
+        <property name="buddy">
+         <cstring>context</cstring>
+        </property>
        </widget>
       </item>
       <item>
@@ -668,6 +725,9 @@
        <widget class="QLabel" name="identityLabel">
         <property name="text">
          <string>Identity</string>
+        </property>
+        <property name="buddy">
+         <cstring>identity</cstring>
         </property>
        </widget>
       </item>
