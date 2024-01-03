@@ -536,7 +536,7 @@
          <string>Bloom</string>
         </property>
         <property name="buddy">
-         <cstring>qsMinimumVolume</cstring>
+         <cstring>qsBloom</cstring>
         </property>
        </widget>
       </item>
@@ -556,7 +556,7 @@
          <string>Minimum Volume</string>
         </property>
         <property name="buddy">
-         <cstring>qsMaxDistance</cstring>
+         <cstring>qsMinimumVolume</cstring>
         </property>
        </widget>
       </item>

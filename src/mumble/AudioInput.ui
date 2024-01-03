@@ -253,6 +253,9 @@
             <property name="text">
              <string>Hold Time</string>
             </property>
+            <property name="buddy">
+             <cstring>qsPTTHold</cstring>
+            </property>
            </widget>
           </item>
           <item row="1" column="3">
@@ -299,6 +302,9 @@
            <widget class="QLabel" name="qliTransmitMin">
             <property name="text">
              <string>Silence Below</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsTransmitMin</cstring>
             </property>
            </widget>
           </item>
@@ -381,6 +387,9 @@
            <widget class="QLabel" name="qliTransmitMax">
             <property name="text">
              <string>Speech Above</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsTransmitMax</cstring>
             </property>
            </widget>
           </item>
@@ -640,6 +649,9 @@
         <property name="text">
          <string>Echo Cancellation</string>
         </property>
+        <property name="buddy">
+         <cstring>qcbEcho</cstring>
+        </property>
        </widget>
       </item>
       <item row="4" column="0" colspan="3">
@@ -701,6 +713,9 @@
              </property>
              <property name="text">
               <string>Speex suppression strength</string>
+             </property>
+             <property name="buddy">
+              <cstring>qsSpeexNoiseSupStrength</cstring>
              </property>
             </widget>
            </item>
@@ -873,6 +888,9 @@
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
+        <property name="buddy">
+         <cstring>qlePushClickPathOff</cstring>
+        </property>
        </widget>
       </item>
       <item row="4" column="3">
@@ -959,6 +977,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>qlePushClickPathOn</cstring>
         </property>
        </widget>
       </item>

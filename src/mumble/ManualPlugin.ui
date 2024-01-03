@@ -80,6 +80,9 @@
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
+            <property name="buddy">
+             <cstring>qdsbY</cstring>
+            </property>
            </widget>
           </item>
           <item row="2" column="2">
@@ -107,6 +110,9 @@
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
+            <property name="buddy">
+             <cstring>qdsbZ</cstring>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
@@ -116,6 +122,9 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>qdsbX</cstring>
             </property>
            </widget>
           </item>
@@ -146,6 +155,9 @@
             </property>
             <property name="text">
              <string>Silent user displaytime:</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsbSilentUserDisplaytime</cstring>
             </property>
            </widget>
           </item>
@@ -200,6 +212,9 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>qsbAzimuth</cstring>
             </property>
            </widget>
           </item>
@@ -258,6 +273,9 @@
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
+            <property name="buddy">
+             <cstring>qsbElevation</cstring>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
@@ -312,12 +330,18 @@
             <property name="text">
              <string>Context</string>
             </property>
+            <property name="buddy">
+             <cstring>qleContext</cstring>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="qlIdentity">
             <property name="text">
              <string>Identity</string>
+            </property>
+            <property name="buddy">
+             <cstring>qleIdentity</cstring>
             </property>
            </widget>
           </item>

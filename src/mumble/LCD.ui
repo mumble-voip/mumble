@@ -82,6 +82,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <property name="text">
          <string>Minimum Column Width</string>
         </property>
+        <property name="buddy">
+         <cstring>qsMinColWidth</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -119,6 +122,9 @@ This field describes the size of an LCD device. The size is given either in pixe
        <widget class="QLabel" name="qliSplitterWidth">
         <property name="text">
          <string>Splitter Width</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsSplitterWidth</cstring>
         </property>
        </widget>
       </item>

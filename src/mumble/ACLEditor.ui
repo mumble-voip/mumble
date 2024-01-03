@@ -32,6 +32,9 @@
          <property name="text">
           <string>Password</string>
          </property>
+         <property name="buddy">
+          <cstring>qleChannelPassword</cstring>
+         </property>
         </widget>
        </item>
        <item row="6" column="1">
@@ -48,6 +51,9 @@
         <widget class="QLabel" name="qlChannelPosition">
          <property name="text">
           <string>Position</string>
+         </property>
+         <property name="buddy">
+          <cstring>qsbChannelPosition</cstring>
          </property>
         </widget>
        </item>
@@ -75,6 +81,9 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <widget class="QLabel" name="qlChannelMaxUsers">
          <property name="text">
           <string>Maximum Users</string>
+         </property>
+         <property name="buddy">
+          <cstring>qsbChannelMaxUsers</cstring>
          </property>
         </widget>
        </item>
@@ -138,6 +147,9 @@ When checked the channel created will be marked as temporary. This means when th
          <property name="text">
           <string>Name</string>
          </property>
+         <property name="buddy">
+          <cstring>qleChannelName</cstring>
+         </property>
         </widget>
        </item>
        <item row="4" column="1">
@@ -154,6 +166,9 @@ When checked the channel created will be marked as temporary. This means when th
         <widget class="QLabel" name="qlChannelDescription">
          <property name="text">
           <string>Description</string>
+         </property>
+         <property name="buddy">
+          <cstring>rteChannelDescription</cstring>
          </property>
         </widget>
        </item>
