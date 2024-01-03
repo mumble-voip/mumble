@@ -165,6 +165,9 @@
         <property name="text">
          <string>Inactive for</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbInactive</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="0" colspan="6">
@@ -191,6 +194,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -226,11 +236,4 @@
    </hints>
   </connection>
  </connections>
- <customwidgets>
-  <customwidget>
-   <class>MUComboBox</class>
-   <extends>QComboBox</extends>
-   <header>widgets/MUComboBox.h</header>
-  </customwidget>
- </customwidgets>
 </ui>

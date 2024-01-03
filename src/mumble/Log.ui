@@ -337,7 +337,7 @@
            <number>0</number>
           </property>
           <property name="buddy">
-           <cstring>qsNotificationVolume</cstring>
+           <cstring>qsCueVolume</cstring>
           </property>
          </widget>
         </item>
@@ -398,6 +398,9 @@ The setting only applies for new messages, the already shown ones will retain th
         <property name="text">
          <string>Maximum chat length</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbMaxBlocks</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="2">
@@ -420,6 +423,9 @@ The setting only applies for new messages, the already shown ones will retain th
         </property>
         <property name="text">
          <string>Message margins</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbChatMessageMargins</cstring>
         </property>
        </widget>
       </item>
@@ -459,6 +465,9 @@ The setting only applies for new messages, the already shown ones will retain th
           <property name="text">
            <string>Limit notifications when there are more than</string>
           </property>
+          <property name="buddy">
+           <cstring>qsbMessageLimitUsers</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -484,9 +493,6 @@ The setting only applies for new messages, the already shown ones will retain th
          <widget class="QLabel" name="label">
           <property name="text">
            <string>users on the server.</string>
-          </property>
-          <property name="buddy">
-           <cstring>qsbMessageLimitUsers</cstring>
           </property>
          </widget>
         </item>
