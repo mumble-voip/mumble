@@ -24,7 +24,7 @@
 	url = https://github.com/microsoft/GSL.git
 [submodule "3rdparty/SPSCQueue"]
 	path = 3rdparty/SPSCQueue
-	url = https://github.com/rigtorp/SPSCQueue.git
+	url = https://github.com/mumble-voip/SPSCQueue.git
 [submodule "3rdparty/cmake-compiler-flags"]
 	path = 3rdparty/cmake-compiler-flags
 	url = https://github.com/Krzmbrzl/cmake-compiler-flags.git
