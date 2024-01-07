@@ -51,11 +51,14 @@ public:
  *
  * @see GlobalShortcutEngine
  */
-class ShortcutActionWidget : public MUComboBox {
+class ShortcutActionWidget : public QWidget {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(ShortcutActionWidget)
 	Q_PROPERTY(unsigned int index READ index WRITE setIndex USER true)
+
+	MUComboBox *m_comboBox;
+
 public:
 	ShortcutActionWidget(QWidget *p = nullptr);
 	unsigned int index() const;
@@ -82,6 +85,20 @@ public:
 
 	ChannelTarget currentChannel() const;
 	void setCurrentChannel(const ChannelTarget &);
+};
+
+class TextEditWidget : public QWidget {
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(TextEditWidget)
+	Q_PROPERTY(QString currentString READ currentString WRITE setCurrentString USER true)
+
+	QLineEdit *m_lineEdit;
+
+public:
+	TextEditWidget(QWidget *p = nullptr);
+	QString currentString() const;
+	void setCurrentString(const QString &);
 };
 
 /**
