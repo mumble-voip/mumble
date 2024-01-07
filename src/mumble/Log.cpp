@@ -55,6 +55,20 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setSectionResizeMode(ColMessageLimit, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
 
+	qtwMessages->headerItem()->setData(ColMessage, Qt::AccessibleTextRole, tr("Message type"));
+	qtwMessages->headerItem()->setData(ColConsole, Qt::AccessibleTextRole, tr("Log message to console checkbox"));
+	qtwMessages->headerItem()->setData(ColNotification, Qt::AccessibleTextRole,
+									   tr("Display pop-up notification for message checkbox"));
+	qtwMessages->headerItem()->setData(ColHighlight, Qt::AccessibleTextRole,
+									   tr("Highlight window for message checkbox"));
+	qtwMessages->headerItem()->setData(ColTTS, Qt::AccessibleTextRole,
+									   tr("Read message using text to speech checkbox"));
+	qtwMessages->headerItem()->setData(ColMessageLimit, Qt::AccessibleTextRole,
+									   tr("Limit message notification if user count is high checkbox"));
+	qtwMessages->headerItem()->setData(ColStaticSound, Qt::AccessibleTextRole,
+									   tr("Play sound file for message checkbox"));
+	qtwMessages->headerItem()->setData(ColStaticSoundPath, Qt::AccessibleTextRole, tr("Path to sound file"));
+
 	// Add a "All messages" entry
 	allMessagesItem = new QTreeWidgetItem(qtwMessages);
 	allMessagesItem->setText(ColMessage, QObject::tr("All messages"));
@@ -331,6 +345,11 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
 				item->setCheckState(column, allMessagesItem->checkState(column));
 			}
 		}
+	}
+
+	if (column != ColMessage && column != ColStaticSoundPath) {
+		i->setData(column, Qt::AccessibleDescriptionRole,
+				   i->checkState(column) == Qt::Checked ? tr("checked") : tr("unchecked"));
 	}
 }
 
