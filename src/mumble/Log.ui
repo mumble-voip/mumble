@@ -15,9 +15,12 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QTreeWidget" name="qtwMessages">
+    <widget class="MultiColumnTreeWidget" name="qtwMessages">
      <property name="accessibleName">
       <string>Log message types and actions</string>
+     </property>
+     <property name="accessibleDescription">
+      <string>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</string>
      </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
@@ -538,6 +541,11 @@ The setting only applies for new messages, the already shown ones will retain th
    <class>SemanticSlider</class>
    <extends>QSlider</extends>
    <header>widgets/SemanticSlider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MultiColumnTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>widgets/MultiColumnTreeWidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
