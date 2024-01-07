@@ -11,7 +11,7 @@
 
 class OverlayPositionableItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT
-	Q_DISABLE_COPY(OverlayPositionableItem);
+	Q_DISABLE_COPY(OverlayPositionableItem)
 
 public:
 	OverlayPositionableItem(QRectF *posPtr, const bool isPositionable = false);

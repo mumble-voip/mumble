@@ -91,13 +91,13 @@ static std::string iceBase64(const std::string &s) {
 	return std::string(ba64.data(), static_cast< size_t >(ba64.size()));
 }
 
-static void logToLog(const ServerDB::LogRecord &r, ::MumbleServer::LogEntry &le) {
-	le.timestamp = r.first;
-	le.txt       = iceString(r.second);
+static void logToLog(const ServerDB::LogRecord &r, ::MumbleServer::LogEntry &entry) {
+	entry.timestamp = static_cast< int >(r.first);
+	entry.txt       = iceString(r.second);
 }
 
 static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
-	mp.session         = p->uiSession;
+	mp.session         = static_cast< int >(p->uiSession);
 	mp.userid          = p->iId;
 	mp.name            = iceString(p->qsName);
 	mp.mute            = p->bMute;
@@ -107,14 +107,14 @@ static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
 	mp.prioritySpeaker = p->bPrioritySpeaker;
 	mp.selfMute        = p->bSelfMute;
 	mp.selfDeaf        = p->bSelfDeaf;
-	mp.channel         = p->cChannel->iId;
+	mp.channel         = static_cast< int >(p->cChannel->iId);
 	mp.comment         = iceString(p->qsComment);
 
 	const ServerUser *u = static_cast< const ServerUser * >(p);
 	mp.onlinesecs       = u->bwr.onlineSeconds();
 	mp.bytespersec      = u->bwr.bandwidth();
-	mp.version2         = u->m_version;
-	mp.version          = Version::toLegacyVersion(u->m_version);
+	mp.version2         = static_cast< long >(u->m_version);
+	mp.version          = static_cast< int >(Version::toLegacyVersion(u->m_version));
 	mp.release          = iceString(u->qsRelease);
 	mp.os               = iceString(u->qsOS);
 	mp.osversion        = iceString(u->qsOSVersion);
@@ -132,22 +132,22 @@ static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
 #endif
 
 	::MumbleServer::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = u->haAddress.qip6;
-	for (int i = 0; i < 16; ++i)
-		addr[i] = a[i];
+	for (unsigned int i = 0; i < 16; ++i) {
+		addr[i] = u->haAddress.getByteRepresentation()[i];
+	}
 
 	mp.address = addr;
 }
 
 static void channelToChannel(const ::Channel *c, ::MumbleServer::Channel &mc) {
-	mc.id          = c->iId;
+	mc.id          = static_cast< int >(c->iId);
 	mc.name        = iceString(c->qsName);
-	mc.parent      = c->cParent ? c->cParent->iId : -1;
+	mc.parent      = c->cParent ? static_cast< int >(c->cParent->iId) : -1;
 	mc.description = iceString(c->qsDesc);
 	mc.position    = c->iPosition;
 	mc.links.clear();
 	foreach (::Channel *chn, c->qsPermLinks)
-		mc.links.push_back(chn->iId);
+		mc.links.push_back(static_cast< int >(chn->iId));
 	mc.temporary = c->bTemporary;
 }
 
@@ -157,8 +157,8 @@ static void ACLtoACL(const ::ChanACL *acl, ::MumbleServer::ACL &ma) {
 	ma.inherited = false;
 	ma.userid    = acl->iUserId;
 	ma.group     = iceString(acl->qsGroup);
-	ma.allow     = acl->pAllow;
-	ma.deny      = acl->pDeny;
+	ma.allow     = static_cast< int >(acl->pAllow);
+	ma.deny      = static_cast< int >(acl->pDeny);
 }
 
 static void groupToGroup(const ::Group *g, ::MumbleServer::Group &mg) {
@@ -172,32 +172,33 @@ static void groupToGroup(const ::Group *g, ::MumbleServer::Group &mg) {
 
 static void banToBan(const ::Ban &b, ::MumbleServer::Ban &mb) {
 	::MumbleServer::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = b.haAddress.qip6;
-	for (int i = 0; i < 16; ++i)
-		addr[i] = a[i];
+	for (unsigned int i = 0; i < 16; ++i) {
+		addr[i] = b.haAddress.getByteRepresentation()[i];
+	}
 
 	mb.address  = addr;
 	mb.bits     = b.iMask;
 	mb.name     = iceString(b.qsUsername);
 	mb.hash     = iceString(b.qsHash);
 	mb.reason   = iceString(b.qsReason);
-	mb.start    = b.qdtStart.toLocalTime().toTime_t();
-	mb.duration = b.iDuration;
+	mb.start    = static_cast< int >(b.qdtStart.toLocalTime().toTime_t());
+	mb.duration = static_cast< int >(b.iDuration);
 }
 
 static void banToBan(const ::MumbleServer::Ban &mb, ::Ban &b) {
-	if (mb.address.size() != 16)
-		for (int i = 0; i < 16; ++i)
-			b.haAddress.qip6[i] = 0;
-	else
-		for (int i = 0; i < 16; ++i)
-			b.haAddress.qip6[i] = mb.address[i];
+	if (mb.address.size() != 16) {
+		b.haAddress.reset();
+	} else {
+		for (unsigned int i = 0; i < 16; ++i) {
+			b.haAddress.setByte(i, mb.address[i]);
+		}
+	}
 	b.iMask      = mb.bits;
 	b.qsUsername = u8(mb.name);
 	b.qsHash     = u8(mb.hash);
 	b.qsReason   = u8(mb.reason);
 	b.qdtStart   = QDateTime::fromTime_t(static_cast< quint32 >(mb.start)).toUTC();
-	b.iDuration  = mb.duration;
+	b.iDuration  = static_cast< unsigned int >(mb.duration);
 }
 
 static void infoToInfo(const QMap< int, QString > &info, ::MumbleServer::UserInfoMap &im) {
@@ -216,13 +217,13 @@ static void textmessageToTextmessage(const ::TextMessage &tm, ::MumbleServer::Te
 	tmdst.text = iceString(tm.qsText);
 
 	foreach (unsigned int i, tm.qlSessions)
-		tmdst.sessions.push_back(i);
+		tmdst.sessions.push_back(static_cast< int >(i));
 
 	foreach (unsigned int i, tm.qlChannels)
-		tmdst.channels.push_back(i);
+		tmdst.channels.push_back(static_cast< int >(i));
 
 	foreach (unsigned int i, tm.qlTrees)
-		tmdst.trees.push_back(i);
+		tmdst.trees.push_back(static_cast< int >(i));
 }
 
 class ServerLocator : public virtual Ice::ServantLocator {
@@ -497,7 +498,7 @@ void MumbleServerIce::userConnected(const ::User *p) {
 void MumbleServerIce::userDisconnected(const ::User *p) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	qmServerContextCallbacks[s->iServerNum].remove(p->uiSession);
+	qmServerContextCallbacks[s->iServerNum].remove(static_cast< int >(p->uiSession));
 
 	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
@@ -628,10 +629,10 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 		return;
 
 	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer = qmAll[s->iServerNum];
-	if (!qmServer.contains(pSrc->uiSession))
+	if (!qmServer.contains(static_cast< int >(pSrc->uiSession)))
 		return;
 
-	QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qmUser = qmServer[pSrc->uiSession];
+	QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qmUser = qmServer[static_cast< int >(pSrc->uiSession)];
 	if (!qmUser.contains(action))
 		return;
 
@@ -641,13 +642,13 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 	userToUser(pSrc, mp);
 
 	try {
-		prx->contextAction(iceString(action), mp, session, iChannel);
+		prx->contextAction(iceString(action), mp, static_cast< int >(session), iChannel);
 	} catch (...) {
 		s->log(QString("Ice ServerContextCallback %1 for session %2, action %3 failed")
 				   .arg(QString::fromStdString(communicator->proxyToString(prx)))
 				   .arg(pSrc->uiSession)
 				   .arg(action));
-		removeServerContextCallback(s, pSrc->uiSession, action);
+		removeServerContextCallback(s, static_cast< int >(pSrc->uiSession), action);
 
 		// Remove clientside entry
 		MumbleProto::ContextActionModify mpcam;
@@ -679,7 +680,7 @@ void MumbleServerIce::idToTextureSlot(QByteArray &qba, int id) {
 		qba.resize(static_cast< int >(tex.size()));
 		char *ptr = qba.data();
 		for (unsigned int i = 0; i < tex.size(); ++i)
-			ptr[i] = tex[i];
+			ptr[i] = static_cast< char >(tex[i]);
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -706,15 +707,15 @@ void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 	::MumbleServer::GroupNameList groups;
 	::MumbleServer::CertificateList certs;
 
-	certs.resize(certlist.size());
+	certs.resize(static_cast< std::size_t >(certlist.size()));
 	for (int i = 0; i < certlist.size(); ++i) {
 		::MumbleServer::CertificateDer der;
 		QByteArray qba = certlist.at(i).toDer();
-		der.resize(qba.size());
+		der.resize(static_cast< std::size_t >(qba.size()));
 		const char *ptr = qba.constData();
 		for (int j = 0; j < qba.size(); ++j)
-			der[j] = ptr[j];
-		certs[i] = der;
+			der[static_cast< std::size_t >(j)] = static_cast< unsigned char >(ptr[j]);
+		certs[static_cast< std::size_t >(i)] = der;
 	}
 
 	try {
@@ -827,10 +828,10 @@ void MumbleServerIce::setTextureSlot(int &res, int id, const QByteArray &texture
 		return;
 
 	::MumbleServer::Texture tex;
-	tex.resize(texture.size());
+	tex.resize(static_cast< std::size_t >(texture.size()));
 	const char *ptr = texture.constData();
-	for (int i = 0; i < texture.size(); ++i)
-		tex[i] = ptr[i];
+	for (unsigned int i = 0; i < static_cast< unsigned int >(texture.size()); ++i)
+		tex[i] = static_cast< unsigned char >(ptr[i]);
 
 	try {
 		res = prx->setTexture(id, tex);
@@ -859,15 +860,15 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 		return;                                     \
 	}
 
-#define NEED_PLAYER                                                   \
-	ServerUser *user = server->qhUsers.value(session);                \
-	if (!user) {                                                      \
-		cb->ice_exception(::MumbleServer::InvalidSessionException()); \
-		return;                                                       \
+#define NEED_PLAYER                                                                 \
+	ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(session)); \
+	if (!user) {                                                                    \
+		cb->ice_exception(::MumbleServer::InvalidSessionException());               \
+		return;                                                                     \
 	}
 
 #define NEED_CHANNEL_VAR(x, y)                                        \
-	x = server->qhChannels.value(y);                                  \
+	x = server->qhChannels.value(static_cast< unsigned int >(y));     \
 	if (!x) {                                                         \
 		cb->ice_exception(::MumbleServer::InvalidChannelException()); \
 		return;                                                       \
@@ -1031,11 +1032,12 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 
 	::MumbleServer::LogList ll;
 
-	QList< ServerDB::LogRecord > dblog = ServerDB::getLog(server_id, min, max);
+	QList< ServerDB::LogRecord > dblog =
+		ServerDB::getLog(server_id, static_cast< unsigned int >(min), static_cast< unsigned int >(max));
 	foreach (const ServerDB::LogRecord &e, dblog) {
-		::MumbleServer::LogEntry le;
-		logToLog(e, le);
-		ll.push_back(le);
+		::MumbleServer::LogEntry entry;
+		logToLog(e, entry);
+		ll.push_back(std::move(entry));
 	}
 	cb->ice_response(ll);
 }
@@ -1056,7 +1058,7 @@ static void impl_Server_getUsers(const ::MumbleServer::AMD_Server_getUsersPtr cb
 		::MumbleServer::User mp;
 		if (static_cast< const ServerUser * >(p)->sState == ::ServerUser::Authenticated) {
 			userToUser(p, mp);
-			pm[p->uiSession] = mp;
+			pm[static_cast< int >(p->uiSession)] = mp;
 		}
 	}
 	cb->ice_response(pm);
@@ -1069,7 +1071,7 @@ static void impl_Server_getChannels(const ::MumbleServer::AMD_Server_getChannels
 	foreach (const ::Channel *c, server->qhChannels) {
 		::MumbleServer::Channel mc;
 		channelToChannel(c, mc);
-		cm[c->iId] = mc;
+		cm[static_cast< int >(c->iId)] = mc;
 	}
 	cb->ice_response(cm);
 }
@@ -1118,15 +1120,15 @@ static void impl_Server_getCertificateList(const ::MumbleServer::AMD_Server_getC
 
 	const QList< QSslCertificate > &certlist = user->peerCertificateChain();
 
-	certs.resize(certlist.size());
+	certs.resize(static_cast< std::size_t >(certlist.size()));
 	for (int i = 0; i < certlist.size(); ++i) {
 		::MumbleServer::CertificateDer der;
 		QByteArray qba = certlist.at(i).toDer();
-		der.resize(qba.size());
+		der.resize(static_cast< std::size_t >(qba.size()));
 		const char *ptr = qba.constData();
-		for (int j = 0; j < qba.size(); ++j)
-			der[j] = ptr[j];
-		certs[i] = der;
+		for (unsigned int j = 0; j < static_cast< unsigned int >(qba.size()); ++j)
+			der[j] = static_cast< unsigned char >(ptr[j]);
+		certs[static_cast< std::size_t >(i)] = der;
 	}
 	cb->ice_response(certs);
 }
@@ -1167,7 +1169,7 @@ static void impl_Server_kickUser(const ::MumbleServer::AMD_Server_kickUserPtr cb
 	NEED_PLAYER;
 
 	MumbleProto::UserRemove mpur;
-	mpur.set_session(session);
+	mpur.set_session(static_cast< unsigned int >(session));
 	mpur.set_reason(reason);
 	server->sendAll(mpur);
 	user->disconnectSocket();
@@ -1198,7 +1200,7 @@ static void impl_Server_effectivePermissions(const ::MumbleServer::AMD_Server_ef
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
-	cb->ice_response(server->effectivePermissions(user, channel));
+	cb->ice_response(static_cast< int >(server->effectivePermissions(user, channel)));
 }
 
 static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addContextCallbackPtr cb, int server_id,
@@ -1238,7 +1240,7 @@ static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addCon
 	MumbleProto::ContextActionModify mpcam;
 	mpcam.set_action(action);
 	mpcam.set_text(text);
-	mpcam.set_context(ctx);
+	mpcam.set_context(static_cast< unsigned int >(ctx));
 	mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Add);
 	server->sendMessage(user, mpcam);
 }
@@ -1255,7 +1257,7 @@ static void impl_Server_removeContextCallback(const MumbleServer::AMD_Server_rem
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
 		foreach (int session, qmPrx.keys()) {
-			ServerUser *user                                                    = server->qhUsers.value(session);
+			ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(session));
 			const QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qm = qmPrx[session];
 			foreach (const QString &act, qm.keys(oneway)) {
 				mi->removeServerContextCallback(server, session, act);
@@ -1378,15 +1380,15 @@ static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPt
 	nc = server->addChannel(p, qsName);
 	server->updateChannel(nc);
 
-	int newid = nc->iId;
+	unsigned int newid = nc->iId;
 
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(newid);
-	mpcs.set_parent(parent);
+	mpcs.set_parent(static_cast< unsigned int >(parent));
 	mpcs.set_name(name);
 	server->sendAll(mpcs);
 
-	cb->ice_response(newid);
+	cb->ice_response(static_cast< int >(newid));
 }
 
 #define ACCESS_Server_getACL_READ
@@ -1644,10 +1646,10 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 	const QByteArray &qba = server->getUserTexture(userid);
 
 	::MumbleServer::Texture tex;
-	tex.resize(qba.size());
+	tex.resize(static_cast< std::size_t >(qba.size()));
 	const char *ptr = qba.constData();
-	for (int i = 0; i < qba.size(); ++i)
-		tex[i] = ptr[i];
+	for (unsigned int i = 0; i < static_cast< unsigned int >(qba.size()); ++i)
+		tex[i] = static_cast< unsigned char >(ptr[i]);
 
 	cb->ice_response(tex);
 }
@@ -1664,12 +1666,12 @@ static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePt
 	QByteArray qba(static_cast< int >(tex.size()), 0);
 	char *ptr = qba.data();
 	for (unsigned int i = 0; i < tex.size(); ++i)
-		ptr[i] = tex[i];
+		ptr[i] = static_cast< char >(tex[i]);
 
 	if (!server->setTexture(userid, qba)) {
 		cb->ice_exception(InvalidTextureException());
 	} else {
-		ServerUser *user = server->qhUsers.value(userid);
+		ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(userid));
 		if (user) {
 			MumbleProto::UserState mpus;
 			mpus.set_session(user->uiSession);
@@ -1777,8 +1779,8 @@ static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_ge
 	NEED_PLAYER;
 
 	::MumbleServer::IntList channelIDs;
-	foreach (int currentChannelID, server->m_channelListenerManager.getListenedChannelsForUser(user->uiSession)) {
-		channelIDs.push_back(currentChannelID);
+	for (unsigned int currentChannelID : server->m_channelListenerManager.getListenedChannelsForUser(user->uiSession)) {
+		channelIDs.push_back(static_cast< int >(currentChannelID));
 	}
 
 	cb->ice_response(channelIDs);
@@ -1791,7 +1793,7 @@ static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getLi
 
 	::MumbleServer::IntList userSessions;
 	foreach (unsigned int currentSession, server->m_channelListenerManager.getListenersForChannel(channel->iId)) {
-		userSessions.push_back(currentSession);
+		userSessions.push_back(static_cast< int >(currentSession));
 	}
 
 	cb->ice_response(userSessions);
@@ -1801,7 +1803,7 @@ static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_send
 										   ::MumbleServer::IdList receiverUserIDs) {
 	NEED_SERVER;
 
-	for (unsigned int session : receiverUserIDs) {
+	for (int session : receiverUserIDs) {
 		NEED_PLAYER;
 
 		server->sendWelcomeMessageTo(user);

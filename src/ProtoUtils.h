@@ -17,6 +17,6 @@ void setVersion(MumbleProto::Version &msg, const ::Version::full_t version);
 ::Version::full_t getSuggestedVersion(const MumbleProto::SuggestConfig &msg);
 void setSuggestedVersion(MumbleProto::SuggestConfig &msg, const ::Version::full_t version);
 
-}; // namespace MumbleProto
+} // namespace MumbleProto
 
 #endif // MUMBLE_PROTOUTILS_H_

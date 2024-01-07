@@ -9,7 +9,7 @@
 #include <boost/signals.hpp>
 
 class Slotter : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	Slotter(QObject *p = nullptr) : QObject(p){};
@@ -18,7 +18,7 @@ public Q_SLOTS:
 };
 
 class Emitter : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	Slotter *s;

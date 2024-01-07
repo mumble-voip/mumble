@@ -183,7 +183,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		os->osSort = OverlaySettings::LastStateChange;
 		updateUsers();
 	} else {
-		for (int i = 1; i <= 5; ++i) {
+		for (unsigned int i = 1; i <= 5; ++i) {
 			if (act == qaColumns[i]) {
 				os->uiColumns = i;
 				updateLayout();
@@ -245,7 +245,7 @@ void OverlayUserGroup::updateLayout() {
 void OverlayUserGroup::updateUsers() {
 	const QRectF &sr = scene()->sceneRect();
 
-	unsigned int uiHeight = iroundf(sr.height() + 0.5f);
+	unsigned int uiHeight = static_cast< unsigned int >(sr.height() + 0.5f);
 
 	QList< QGraphicsItem * > items;
 	foreach (QGraphicsItem *qgi, childItems())
@@ -338,15 +338,15 @@ void OverlayUserGroup::updateUsers() {
 
 	QRectF childrenBounds = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
-	int pad    = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
-	int width  = iroundf(childrenBounds.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
-	int height = iroundf(childrenBounds.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int pad    = os->bBox ? static_cast< int >(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
+	int width  = static_cast< int >(childrenBounds.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int height = static_cast< int >(childrenBounds.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
 
-	int xOffset = -iroundf(childrenBounds.left() * uiHeight * os->fZoom + 0.5f) + pad;
-	int yOffset = -iroundf(childrenBounds.top() * uiHeight * os->fZoom + 0.5f) + pad;
+	int xOffset = -static_cast< int >(childrenBounds.left() * uiHeight * os->fZoom + 0.5f) + pad;
+	int yOffset = -static_cast< int >(childrenBounds.top() * uiHeight * os->fZoom + 0.5f) + pad;
 
-	unsigned int yPos = 0;
-	unsigned int xPos = 0;
+	int yPos = 0;
+	int xPos = 0;
 
 	foreach (OverlayUser *ou, users) {
 		if (!ou->parentItem())
@@ -356,7 +356,7 @@ void OverlayUserGroup::updateUsers() {
 		ou->updateUser();
 		ou->show();
 
-		if (xPos >= (os->uiColumns - 1)) {
+		if (static_cast< unsigned int >(xPos) >= (os->uiColumns - 1)) {
 			xPos = 0;
 			++yPos;
 		} else {
@@ -366,8 +366,10 @@ void OverlayUserGroup::updateUsers() {
 
 	QRectF br = boundingRect< OverlayUser >();
 
-	int basex = qBound< int >(0, iroundf(sr.width() * os->fX + 0.5f), iroundf(sr.width() - br.width() + 0.5f));
-	int basey = qBound< int >(0, iroundf(sr.height() * os->fY + 0.5f), iroundf(sr.height() - br.height() + 0.5f));
+	int basex = qBound< int >(0, static_cast< int >(sr.width() * os->fX + 0.5f),
+							  static_cast< int >(sr.width() - br.width() + 0.5f));
+	int basey = qBound< int >(0, static_cast< int >(sr.height() * os->fY + 0.5f),
+							  static_cast< int >(sr.height() - br.height() + 0.5f));
 
 	setPos(basex, basey);
 }

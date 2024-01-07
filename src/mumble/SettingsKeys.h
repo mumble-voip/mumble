@@ -343,6 +343,6 @@ const SettingsKey SETTINGS_VERSION_KEY     = { "settings_version" };
 const SettingsKey CERTIFICATE_KEY          = { "certificate" };
 const SettingsKey MUMBLE_QUIT_NORMALLY_KEY = { "mumble_has_quit_normally" };
 
-}; // namespace SettingsKeys
+} // namespace SettingsKeys
 
 #endif // MUMBLE_MUMBLE_SETTINGSKEYS_H_

@@ -14,6 +14,9 @@
 #include "User.h"
 #include "Global.h"
 
+#include <memory>
+#include <vector>
+
 #define NBLOCKS 8
 
 class OSSEnumerator {
@@ -175,6 +178,22 @@ OSSInput::~OSSInput() {
 	wait();
 }
 
+class FileDescriptor {
+public:
+	FileDescriptor(int fd = -1) : m_fd(fd) {}
+	~FileDescriptor() {
+		if (m_fd != -1) {
+			close(m_fd);
+			m_fd = -1;
+		}
+	}
+
+	operator int() const { return m_fd; }
+
+private:
+	int m_fd = -1;
+};
+
 void OSSInput::run() {
 	QByteArray device = cards->qhDevices.value(Global::get().s.qsOSSInput).toLatin1();
 	if (device.isEmpty()) {
@@ -182,7 +201,7 @@ void OSSInput::run() {
 		device = cards->qhDevices.value(QString()).toLatin1();
 	}
 
-	int fd = open(device.constData(), O_RDONLY, 0);
+	FileDescriptor fd(open(device.constData(), O_RDONLY, 0));
 	if (fd == -1) {
 		qWarning("OSSInput: Failed to open %s", device.constData());
 		return;
@@ -193,45 +212,42 @@ void OSSInput::run() {
 	ival = AFMT_S16_NE;
 	if ((ioctl(fd, SNDCTL_DSP_SETFMT, &ival) == -1) || (ival != AFMT_S16_NE)) {
 		qWarning("OSSInput: Failed to set sound format");
-		goto out;
+		return;
 	}
 
 	ival = 1;
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1)) {
 		qWarning("OSSInput: Failed to set mono mode");
-		goto out;
+		return;
 	}
-	iMicChannels = ival;
+	iMicChannels = static_cast< unsigned int >(ival);
 
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSInput: Failed to set speed");
-		goto out;
+		return;
 	}
-	iMicFreq = ival;
+	iMicFreq = static_cast< unsigned int >(ival);
 
 	qWarning("OSSInput: Starting audio capture from %s", device.constData());
 
 	eMicFormat = SampleShort;
 	initializeMixer();
 
+	std::vector< short > buffer;
+	buffer.resize(iMicLength);
 	while (bRunning) {
-		short buffer[iMicLength];
-
-		int len   = static_cast< int >(iMicLength * iMicChannels * sizeof(short));
-		ssize_t l = read(fd, buffer, len);
-		if (l != len) {
+		std::size_t len = iMicLength * iMicChannels * sizeof(short);
+		ssize_t l       = read(fd, buffer.data(), len);
+		if (l != static_cast< ssize_t >(len)) {
 			qWarning("OSSInput: Read %zd", l);
 			break;
 		}
-		addMic(buffer, iMicLength);
+		addMic(buffer.data(), iMicLength);
 	}
 
 	qWarning("OSSInput: Releasing.");
 	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
-
-out:
-	close(fd);
 }
 
 OSSOutput::OSSOutput() {
@@ -280,19 +296,19 @@ void OSSOutput::run() {
 
 	iChannels = 2;
 
-	ival = iChannels;
+	ival = static_cast< int >(iChannels);
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == static_cast< int >(iChannels))) {
 		qWarning("OSSOutput: Failed to set channels");
 		return;
 	}
-	iChannels = ival;
+	iChannels = static_cast< unsigned int >(ival);
 
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set speed");
 		return;
 	}
-	iMixerFreq = ival;
+	iMixerFreq = static_cast< unsigned int >(ival);
 
 	const unsigned int chanmasks[32] = { SPEAKER_FRONT_LEFT,    SPEAKER_FRONT_RIGHT, SPEAKER_FRONT_CENTER,
 										 SPEAKER_LOW_FREQUENCY, SPEAKER_BACK_LEFT,   SPEAKER_BACK_RIGHT,
@@ -302,26 +318,27 @@ void OSSOutput::run() {
 
 	initializeMixer(chanmasks);
 
-	int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
+	unsigned int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
 
 	qWarning("OSSOutput: Starting audio playback to %s", device.constData());
 
-	ssize_t blocklen = iOutputBlock * iChannels * sizeof(short);
-	short mbuffer[iOutputBlock * iChannels];
+	std::size_t blocklen = iOutputBlock * iChannels * sizeof(short);
+	static std::vector< short > mbuffer;
+	mbuffer.resize(iOutputBlock * iChannels);
 
 	while (bRunning) {
-		bool stillRun = mix(mbuffer, iOutputBlock);
+		bool stillRun = mix(mbuffer.data(), iOutputBlock);
 		if (stillRun) {
-			ssize_t l = write(fd, mbuffer, blocklen);
-			if (l != blocklen) {
+			ssize_t l = write(fd, mbuffer.data(), blocklen);
+			if (l != static_cast< ssize_t >(blocklen)) {
 				qWarning("OSSOutput: Write %zd != %zd", l, blocklen);
 				break;
 			}
 		} else {
-			while (!mix(mbuffer, iOutputBlock) && bRunning)
+			while (!mix(mbuffer.data(), iOutputBlock) && bRunning)
 				this->msleep(20);
-			ssize_t l = write(fd, mbuffer, blocklen);
-			if (l != blocklen) {
+			ssize_t l = write(fd, mbuffer.data(), blocklen);
+			if (l != static_cast< ssize_t >(blocklen)) {
 				qWarning("OSSOutput: Write %zd != %zd", l, blocklen);
 				break;
 			}

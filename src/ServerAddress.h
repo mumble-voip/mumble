@@ -14,13 +14,13 @@
 /// address consisting of a HostAddress
 /// and a port.
 struct ServerAddress {
-	HostAddress host;
-	unsigned short port;
+	HostAddress host    = {};
+	unsigned short port = 0;
 
 	/// Construct a default ServerAddress.
 	/// The default ServerAddress value is considered
 	/// invalid per the |isValid| method.
-	ServerAddress();
+	ServerAddress() = default;
 
 	/// Construct a ServerAddress pointing to |host_| and |port_|.
 	ServerAddress(HostAddress host_, unsigned short port_);

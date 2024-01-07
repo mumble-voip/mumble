@@ -41,9 +41,9 @@ namespace QtUtils {
 			const QString elidedPostfix = "...";
 			QFontMetrics metric(doc.defaultFont());
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
-			uint32_t postfixWidth = metric.horizontalAdvance(elidedPostfix);
+			uint32_t postfixWidth = static_cast< std::uint32_t >(metric.horizontalAdvance(elidedPostfix));
 #else
-			uint32_t postfixWidth = metric.width(elidedPostfix);
+			uint32_t postfixWidth = static_cast< std::uint32_t >(metric.width(elidedPostfix));
 #endif
 
 			while (doc.size().width() > std::max(width - postfixWidth, static_cast< uint32_t >(0))) {
@@ -55,5 +55,5 @@ namespace QtUtils {
 		}
 	}
 
-}; // namespace QtUtils
-}; // namespace Mumble
+} // namespace QtUtils
+} // namespace Mumble

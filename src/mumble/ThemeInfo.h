@@ -83,7 +83,7 @@ public:
 	QString defaultStyle;
 };
 
-Q_DECLARE_METATYPE(ThemeInfo);
-Q_DECLARE_METATYPE(ThemeInfo::StyleInfo);
+Q_DECLARE_METATYPE(ThemeInfo)
+Q_DECLARE_METATYPE(ThemeInfo::StyleInfo)
 
 #endif // MUMBLE_MUMBLE_THEMEINFO_H_

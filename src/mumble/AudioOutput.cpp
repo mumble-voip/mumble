@@ -19,6 +19,7 @@
 #include "VoiceRecorder.h"
 #include "Global.h"
 
+#include <cassert>
 #include <cmath>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
@@ -402,14 +403,15 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 				fSpeakers[3 * i + 2] /= d;
 			}
 			float *spf = &fStereoPanningFactor[2 * i];
-			spf[0]     = (1.0 - fSpeakers[i * 3 + 0]) / 2.0;
-			spf[1]     = (1.0 + fSpeakers[i * 3 + 0]) / 2.0;
+			spf[0]     = (1.0f - fSpeakers[i * 3 + 0]) / 2.0f;
+			spf[1]     = (1.0f + fSpeakers[i * 3 + 0]) / 2.0f;
 		}
 	} else if (iChannels == 1) {
 		fStereoPanningFactor[0] = 0.5;
 		fStereoPanningFactor[1] = 0.5;
 	}
-	iSampleSize = static_cast< int >(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
+	iSampleSize =
+		static_cast< unsigned int >(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 
 	if (Global::get().s.bPositionalAudio && iChannels == 1) {
@@ -467,14 +469,17 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 	// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output.
 	// Otherwise we'll have to use an intermediate buffer which we will convert to an array of shorts later
-	STACKVAR(float, fOutput, iChannels *frameCount);
-	float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast< float * >(outbuff) : fOutput;
+	static std::vector< float > fOutput;
+	fOutput.resize(iChannels * frameCount);
+	float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast< float * >(outbuff) : fOutput.data();
 	memset(output, 0, sizeof(float) * frameCount * iChannels);
 
 	if (!qlMix.isEmpty()) {
 		// There are audio sources available -> mix those sources together and feed them into the audio backend
-		STACKVAR(float, speaker, iChannels * 3);
-		STACKVAR(float, svol, iChannels);
+		static std::vector< float > speaker;
+		speaker.resize(iChannels * 3);
+		static std::vector< float > svol;
+		svol.resize(iChannels);
 
 		bool validListener = false;
 
@@ -601,7 +606,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			// As the events may cause the output PCM to change, the connection has to be direct in any case
 			const int channels = (speech && speech->bStereo) ? 2 : 1;
 			// If user != nullptr, then the current audio is considered speech
-			emit audioSourceFetched(pfBuffer, frameCount, channels, SAMPLE_RATE, static_cast< bool >(user), user);
+			assert(channels >= 0);
+			emit audioSourceFetched(pfBuffer, frameCount, static_cast< unsigned int >(channels), SAMPLE_RATE,
+									static_cast< bool >(user), user);
 
 			// If recording is enabled add the current audio source to the recording buffer
 			if (recorder) {
@@ -610,7 +617,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 						// Mix down stereo to mono. TODO: stereo record support
 						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
 						for (unsigned int i = 0; i < frameCount; ++i) {
-							recbuff[i] += (pfBuffer[2 * i] / 2.0 + pfBuffer[2 * i + 1] / 2.0) * volumeAdjustment;
+							recbuff[i] += (pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
 						}
 					} else {
 						for (unsigned int i = 0; i < frameCount; ++i) {
@@ -619,7 +626,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					}
 
 					if (!recorder->isInMixDownMode()) {
-						recorder->addBuffer(speech->p, recbuff, frameCount);
+						recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
 						recbuff = boost::shared_array< float >(new float[frameCount]);
 						memset(recbuff.get(), 0, sizeof(float) * frameCount);
 					}
@@ -634,10 +641,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			if (validListener
 				&& ((buffer->fPos[0] != 0.0f) || (buffer->fPos[1] != 0.0f) || (buffer->fPos[2] != 0.0f))) {
 				// Add position to position map
-				AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(buffer);
 #ifdef USE_MANUAL_PLUGIN
-				if (speech) {
-					const ClientUser *user = speech->p;
+				if (user) {
 					// The coordinates in the plane are actually given by x and z instead of x and y (y is up)
 					positions.insert(user->uiSession, { buffer->fPos[0], buffer->fPos[2] });
 				}
@@ -708,24 +713,25 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					// newly calculated offset for this chunk. This prevents clicking / buzzing when the
 					// audio source or camera is moving, because abruptly changing offsets (and thus
 					// abruptly changing the playback position) will create a clicking noise.
-					const int offset =
-						INTERAURAL_DELAY * (1.0 + dot) / 2.0; // Normalize dot to range [0,1] instead [-1,1]
-					const int oldOffset   = buffer->piOffset[s];
-					const float incOffset = (offset - oldOffset) / static_cast< float >(frameCount);
-					buffer->piOffset[s]   = offset;
+					// Normalize dot to range [0,1] instead [-1,1]
+					const int offset      = static_cast< int >(INTERAURAL_DELAY * (1.0f + dot) / 2.0f);
+					const int oldOffset   = static_cast< int >(buffer->piOffset[s]);
+					const float incOffset = static_cast< float >(offset - oldOffset) / static_cast< float >(frameCount);
+					buffer->piOffset[s]   = static_cast< unsigned int >(offset);
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f ChannelVol %f", s, speaker[s*3+0],
 					   speaker[s*3+1], speaker[s*3+2], dot, len, channelVol);
 					*/
 					if ((old >= 0.00000001f) || (channelVol >= 0.00000001f)) {
 						for (unsigned int i = 0; i < frameCount; ++i) {
-							unsigned int currentOffset = oldOffset + incOffset * i;
+							unsigned int currentOffset = static_cast< unsigned int >(
+								static_cast< float >(oldOffset) + incOffset * static_cast< float >(i));
 							if (speech && speech->bStereo) {
 								// Mix stereo user's stream into mono
 								// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-								o[i * nchan] +=
-									(pfBuffer[2 * i + currentOffset] / 2.0 + pfBuffer[2 * i + currentOffset + 1] / 2.0)
-									* (old + inc * static_cast< float >(i));
+								o[i * nchan] += (pfBuffer[2 * i + currentOffset] / 2.0f
+												 + pfBuffer[2 * i + currentOffset + 1] / 2.0f)
+												* (old + inc * static_cast< float >(i));
 							} else {
 								o[i * nchan] += pfBuffer[i + currentOffset] * (old + inc * static_cast< float >(i));
 							}
@@ -755,7 +761,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		}
 
 		if (recorder && recorder->isInMixDownMode()) {
-			recorder->addBuffer(nullptr, recbuff, frameCount);
+			recorder->addBuffer(nullptr, recbuff, static_cast< int >(frameCount));
 		}
 	}
 

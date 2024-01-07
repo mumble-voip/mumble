@@ -60,14 +60,14 @@ void TestCryptographicRandom::uint32() {
 
 	for (int i = 0; i < 10; i++) {
 		unsigned char *buf = reinterpret_cast< unsigned char * >(calloc(buflen, 1));
-		int niter          = buflen / sizeof(uint32_t);
-		for (int j = 0; j < niter; j++) {
-			int off      = j * sizeof(uint32_t);
-			uint32_t val = CryptographicRandom::uint32();
-			buf[off]     = val & 0xff;
-			buf[off + 1] = (val >> 8) & 0xff;
-			buf[off + 2] = (val >> 16) & 0xff;
-			buf[off + 3] = (val >> 24) & 0xff;
+		unsigned int niter = buflen / sizeof(uint32_t);
+		for (unsigned int j = 0; j < niter; j++) {
+			unsigned int off = static_cast< unsigned int >(j * sizeof(uint32_t));
+			uint32_t val     = CryptographicRandom::uint32();
+			buf[off]         = static_cast< unsigned char >(val & 0xff);
+			buf[off + 1]     = static_cast< unsigned char >((val >> 8) & 0xff);
+			buf[off + 2]     = static_cast< unsigned char >((val >> 16) & 0xff);
+			buf[off + 3]     = static_cast< unsigned char >((val >> 24) & 0xff);
 		}
 		QVERIFY(verifyEntropy(buf, buflen));
 		free(buf);

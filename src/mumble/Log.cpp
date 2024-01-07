@@ -280,7 +280,7 @@ void LogConfig::save() const {
 		}
 		if (i->checkState(ColStaticSound) == Qt::Checked)
 			v |= Settings::LogSoundfile;
-		s.qmMessages[mt]      = v;
+		s.qmMessages[mt]      = static_cast< unsigned int >(v);
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 	s.iMaxLogBlocks       = qsbMaxBlocks->value();
@@ -667,7 +667,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 		}
 	}
 
-	int messageSize = s.width() * s.height();
+	int messageSize = static_cast< int >(s.width() * s.height());
 	int allowedSize = 2048 * 2048;
 
 	if (messageSize > allowedSize) {

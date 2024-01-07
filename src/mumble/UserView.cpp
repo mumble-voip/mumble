@@ -75,7 +75,8 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	QRect textRect   = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
 	QString itemText = o.fontMetrics.elidedText(o.text, o.textElideMode, textRect.width());
 	painter->setFont(o.font);
-	style->drawItemText(painter, textRect, o.displayAlignment, o.palette, true, itemText, colorRole);
+	style->drawItemText(painter, textRect, static_cast< int >(o.displayAlignment), o.palette, true, itemText,
+						colorRole);
 
 	// draw icons to original rect
 	QRect ps = QRect(option.rect.right() - (ql.size() * m_iconTotalDimension), option.rect.y(),

@@ -144,7 +144,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	abVAD->qcInside = Qt::yellow;
 	abVAD->qcAbove  = Qt::green;
 
-	qsVAD->setValue(iroundf(Global::get().s.fVADmax * 32767.f + 0.5f));
+	qsVAD->setValue(static_cast< int >(Global::get().s.fVADmax * 32767.f + 0.5f));
 
 	// Positional
 	qcbHeadphone->setChecked(Global::get().s.bPositionalHeadphone);
@@ -423,7 +423,7 @@ void AudioWizard::accept() {
 		Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
 
 		for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-			if (Global::get().s.qmMessages[i] & mlReplace)
+			if (Global::get().s.qmMessages[i] & static_cast< unsigned int >(mlReplace))
 				Global::get().s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
 		}
 
@@ -468,13 +468,13 @@ void AudioWizard::on_Ticker_timeout() {
 	abAmplify->iPeak  = iMaxPeak;
 	abAmplify->update();
 
-	abVAD->iBelow = iroundf(Global::get().s.fVADmin * 32767.0f + 0.5f);
-	abVAD->iAbove = iroundf(Global::get().s.fVADmax * 32767.0f + 0.5f);
+	abVAD->iBelow = static_cast< int >(Global::get().s.fVADmin * 32767.0f + 0.5f);
+	abVAD->iAbove = static_cast< int >(Global::get().s.fVADmax * 32767.0f + 0.5f);
 
 	if (Global::get().s.vsVAD == Settings::Amplitude) {
-		abVAD->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
+		abVAD->iValue = static_cast< int >((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
-		abVAD->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
+		abVAD->iValue = static_cast< int >(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
 	abVAD->update();
 
@@ -513,7 +513,7 @@ void AudioWizard::on_Ticker_timeout() {
 			// qgsScene->addLine(QLineF(0,-1,0,1), pen);
 			// qgsScene->addLine(QLineF(-1,0,1,0), pen);
 
-			const float speakerScale  = 0.9;
+			const float speakerScale  = 0.9f;
 			const float speakerRadius = baseRadius * speakerScale;
 
 			// nspeaker is in format [x1,y1,z1, x2,y2,z2, ...]
@@ -540,7 +540,7 @@ void AudioWizard::on_Ticker_timeout() {
 				}
 			}
 
-			const float sourceScale  = 0.9;
+			const float sourceScale  = 0.9f;
 			const float sourceRadius = baseRadius * sourceScale;
 
 			qgiSource = qgsScene->addEllipse(QRectF(-sourceRadius, -sourceRadius, 2 * sourceRadius, 2 * sourceRadius),

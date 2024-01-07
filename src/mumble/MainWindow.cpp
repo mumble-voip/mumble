@@ -943,7 +943,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 			// plain integers in the host field as IP addresses
 			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
 			QString id                 = url.host().split(".").value(1, "-1");
-			cuContextUser              = ClientUser::get(id.toInt(&ok, 10));
+			cuContextUser              = ClientUser::get(id.toUInt(&ok, 10));
 			ServerHandlerPtr sh        = Global::get().sh;
 			ok                         = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		}
@@ -965,7 +965,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
 		QString id                 = url.host().split(".").value(1, "-1");
-		cContextChannel            = Channel::get(id.toInt(&ok, 10));
+		cContextChannel            = Channel::get(id.toUInt(&ok, 10));
 		ServerHandlerPtr sh        = Global::get().sh;
 		ok                         = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		if (ok) {
@@ -1227,7 +1227,7 @@ void MainWindow::openUrl(const QUrl &url) {
 			std::swap(newSettings, Global::get().s);
 
 			Global::get().l->log(Log::Warning, tr("Settings merged from file."));
-		} catch (const std::exception &e) {
+		} catch (const std::exception &) {
 			Global::get().l->log(Log::Warning, tr("Invalid settings file encountered."));
 		}
 
@@ -2393,7 +2393,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 	if (!c)
 		return;
 
-	int id = c->iId;
+	unsigned int id = c->iId;
 
 	ret = QMessageBox::question(
 		this, QLatin1String("Mumble"),
@@ -2413,7 +2413,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = getContextMenuChannel();
 	if (!c)
 		c = Channel::get(Channel::ROOT_ID);
-	int id = c->iId;
+	unsigned int id = c->iId;
 
 	if (!c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
 		c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
@@ -2467,7 +2467,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 	if (!c)
 		return;
 
-	int id = c->iId;
+	unsigned int id = c->iId;
 
 	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to channel %1").arg(c->qsName), true);
 	int res             = texm->exec();
@@ -2879,7 +2879,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 				break;
 		}
 	} else {
-		c = Channel::get(idx);
+		c = Channel::get(static_cast< unsigned int >(idx));
 	}
 	return c;
 }
@@ -2903,7 +2903,7 @@ void MainWindow::updateTarget() {
 				Channel *c = pmModel->getSelectedChannel();
 				if (c) {
 					nt.bUsers    = false;
-					nt.iChannel  = c->iId;
+					nt.iChannel  = static_cast< int >(c->iId);
 					nt.bLinks    = st.bLinks;
 					nt.bChildren = st.bChildren;
 
@@ -2931,7 +2931,7 @@ void MainWindow::updateTarget() {
 				if (c) {
 					nt.bLinks    = st.bLinks;
 					nt.bChildren = st.bChildren;
-					nt.iChannel  = c->iId;
+					nt.iChannel  = static_cast< int >(c->iId);
 					nt.qsGroup   = st.qsGroup;
 					ql << nt;
 				}
@@ -2964,7 +2964,7 @@ void MainWindow::updateTarget() {
 				// Sets up a VoiceTarget (which is identified by the targetID idx) on the server for the given set
 				// of ShortcutTargets
 				MumbleProto::VoiceTarget mpvt;
-				mpvt.set_id(idx);
+				mpvt.set_id(static_cast< unsigned int >(idx));
 
 				foreach (const ShortcutTarget &st, ql) {
 					MumbleProto::VoiceTarget_Target *t = mpvt.add_targets();
@@ -2974,7 +2974,7 @@ void MainWindow::updateTarget() {
 						foreach (unsigned int uisession, st.qlSessions)
 							t->add_session(uisession);
 					} else {
-						t->set_channel_id(st.iChannel);
+						t->set_channel_id(static_cast< unsigned int >(st.iChannel));
 						if (st.bChildren)
 							t->set_children(true);
 						if (st.bLinks)
@@ -3007,7 +3007,7 @@ void MainWindow::updateTarget() {
 							qmTargets.erase(mi);
 
 							mpvt.Clear();
-							mpvt.set_id(oldidx);
+							mpvt.set_id(static_cast< unsigned int >(oldidx));
 							Global::get().sh->sendMessage(mpvt);
 
 							break;

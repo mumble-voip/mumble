@@ -18,8 +18,8 @@ class QModelIndex;
  * rich text support to the *View and *Widget objects (e.g. TreeWidget).
  */
 class RichTextItemDelegate : public QStyledItemDelegate {
-	Q_OBJECT;
-	Q_DISABLE_COPY(RichTextItemDelegate);
+	Q_OBJECT
+	Q_DISABLE_COPY(RichTextItemDelegate)
 
 public:
 	// inherit constructors

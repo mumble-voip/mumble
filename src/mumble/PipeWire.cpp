@@ -72,7 +72,7 @@ const QList< audioDevice > PipeWireInputRegistrar::getDeviceChoices() {
 }
 
 void PipeWireInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &settings) {
-	settings.pipeWireInput = choice.toUInt();
+	settings.pipeWireInput = static_cast< std::uint8_t >(choice.toUInt());
 }
 
 bool PipeWireInputRegistrar::canEcho(EchoCancelOptionID, const QString &) const {
@@ -101,7 +101,7 @@ const QList< audioDevice > PipeWireOutputRegistrar::getDeviceChoices() {
 }
 
 void PipeWireOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &settings) {
-	settings.pipeWireOutput = choice.toUInt();
+	settings.pipeWireOutput = static_cast< std::uint8_t >(choice.toUInt());
 }
 
 bool PipeWireOutputRegistrar::usesOutputDelay() const {
@@ -321,7 +321,7 @@ PipeWireInput::PipeWireInput() {
 		SPEAKER_FRONT_RIGHT,
 	};
 
-	if (!m_engine->connect(PW_DIRECTION_INPUT, CHANNELS, iMicChannels)) {
+	if (!m_engine->connect(PW_DIRECTION_INPUT, CHANNELS, static_cast< std::uint8_t >(iMicChannels))) {
 		return;
 	}
 
@@ -349,7 +349,7 @@ void PipeWireInput::processCallback(void *param) {
 		return;
 	}
 
-	pwi->addMic(data.data, data.chunk->size / sizeof(float));
+	pwi->addMic(data.data, static_cast< unsigned int >(data.chunk->size / sizeof(float)));
 
 	pwi->m_engine->queueBuffer(buffer);
 }
@@ -378,7 +378,7 @@ PipeWireOutput::PipeWireOutput() {
 	constexpr uint32_t CHANNELS[]{ SPEAKER_FRONT_LEFT, SPEAKER_FRONT_RIGHT, SPEAKER_LOW_FREQUENCY, SPEAKER_FRONT_CENTER,
 								   SPEAKER_BACK_LEFT,  SPEAKER_BACK_RIGHT,  SPEAKER_SIDE_LEFT,     SPEAKER_SIDE_RIGHT };
 
-	if (!m_engine->connect(PW_DIRECTION_OUTPUT, CHANNELS, iChannels)) {
+	if (!m_engine->connect(PW_DIRECTION_OUTPUT, CHANNELS, static_cast< std::uint8_t >(iChannels))) {
 		return;
 	}
 
@@ -412,11 +412,11 @@ void PipeWireOutput::processCallback(void *param) {
 	}
 
 	chunk->offset = 0;
-	chunk->stride = sizeof(float) * pwo->iChannels;
+	chunk->stride = static_cast< int >(sizeof(float) * pwo->iChannels);
 
-	const uint32_t frames = std::min(data.maxsize / chunk->stride, pwo->iFrameSize);
+	const uint32_t frames = std::min(data.maxsize / static_cast< std::uint32_t >(chunk->stride), pwo->iFrameSize);
 
-	chunk->size = frames * chunk->stride;
+	chunk->size = frames * static_cast< unsigned int >(chunk->stride);
 	if (!pwo->mix(data.data, frames)) {
 		// When the mixer has no data available to write, we still need to push silence.
 		// This is to avoid an infinite loop when destroying the stream.

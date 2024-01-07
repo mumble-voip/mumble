@@ -113,7 +113,7 @@ template<> inline QString from_string< QString >(const std::string &str) {
 	return QString::fromStdString(str);
 }
 
-}; // namespace details
+} // namespace details
 
 
 

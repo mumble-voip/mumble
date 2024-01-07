@@ -7,6 +7,7 @@
 
 #if defined(Q_OS_WIN)
 #	include "win.h"
+#	include "versionhelpers.h"
 #endif
 
 #include "OSInfo.h"
@@ -130,7 +131,7 @@ QString OSInfo::getArchitecture(const bool build) {
 
 QString OSInfo::getMacHash(const QList< QHostAddress > &qlBind) {
 	QString first, second, third;
-	foreach (const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
+	for (const QNetworkInterface &qni : QNetworkInterface::allInterfaces()) {
 		if (!qni.isValid())
 			continue;
 		if (qni.flags() & QNetworkInterface::IsLoopBack)
@@ -150,7 +151,7 @@ QString OSInfo::getMacHash(const QList< QHostAddress > &qlBind) {
 		if (second.isEmpty() || second > hash)
 			second = hash;
 
-		foreach (const QNetworkAddressEntry &qnae, qni.addressEntries()) {
+		for (const QNetworkAddressEntry &qnae : qni.addressEntries()) {
 			const QHostAddress &qha = qnae.ip();
 			if (qlBind.isEmpty() || qlBind.contains(qha)) {
 				if (first.isEmpty() || first > hash)
@@ -193,134 +194,45 @@ QString OSInfo::getOSDisplayableVersion(const bool appendArch) {
 #if defined(Q_OS_WIN)
 	QString os = win10DisplayableVersion();
 	if (os.isEmpty()) {
-		OSVERSIONINFOEXW ovi;
-		memset(&ovi, 0, sizeof(ovi));
-		ovi.dwOSVersionInfoSize = sizeof(ovi);
-		if (!GetVersionEx(reinterpret_cast< OSVERSIONINFOW * >(&ovi))) {
-			return QString();
-		}
-
-		if (ovi.dwMajorVersion == 10) {
-			if (ovi.wProductType == VER_NT_WORKSTATION) {
+		if (IsWindows10OrGreater()) {
+			if (!IsWindowsServer()) {
 				os = QLatin1String("Windows 10");
 			} else {
 				os = QLatin1String("Windows 10 Server");
 			}
-		} else if (ovi.dwMajorVersion == 6) {
-			if (ovi.dwMinorVersion == 0) {
-				if (ovi.wProductType == VER_NT_WORKSTATION) {
-					os = QLatin1String("Windows Vista");
-				} else {
-					os = QLatin1String("Windows Server 2008");
-				}
-			} else if (ovi.dwMinorVersion == 1) {
-				if (ovi.wProductType == VER_NT_WORKSTATION) {
-					os = QLatin1String("Windows 7");
-				} else {
-					os = QLatin1String("Windows Server 2008 R2");
-				}
-			} else if (ovi.dwMinorVersion == 2) {
-				if (ovi.wProductType == VER_NT_WORKSTATION) {
-					os = QLatin1String("Windows 8");
-				} else {
-					os = QLatin1String("Windows Server 2012");
-				}
-			} else if (ovi.dwMinorVersion == 3) {
-				if (ovi.wProductType == VER_NT_WORKSTATION) {
-					os = QLatin1String("Windows 8.1");
-				} else {
-					os = QLatin1String("Windows Server 2012 R2");
-				}
-			} else if (ovi.dwMinorVersion == 4) {
-				if (ovi.wProductType == VER_NT_WORKSTATION) {
-					os = QLatin1String("Windows 10");
-				} else {
-					os = QLatin1String("Windows 10 Server");
-				}
+		} else if (IsWindows8Point1OrGreater()) {
+			if (!IsWindowsServer()) {
+				os = QLatin1String("Windows 8.1");
+			} else {
+				os = QLatin1String("Windows 8.1 Server");
 			}
+		} else if (IsWindows8OrGreater()) {
+			if (!IsWindowsServer()) {
+				os = QLatin1String("Windows 8");
+			} else {
+				os = QLatin1String("Windows 8 Server");
+			}
+		} else if (IsWindows7OrGreater()) {
+			if (!IsWindowsServer()) {
+				os = QLatin1String("Windows 7");
+			} else {
+				os = QLatin1String("Windows 7 Server");
+			}
+		} else if (IsWindowsVistaOrGreater()) {
+			if (!IsWindowsServer()) {
+				os = QLatin1String("Windows Vista");
+			} else {
+				os = QLatin1String("Windows Vista Server");
+			}
+		} else if (IsWindowsXPOrGreater()) {
+			if (!IsWindowsServer()) {
+				os = QLatin1String("Windows XP");
+			} else {
+				os = QLatin1String("Windows XP Server");
+			}
+		} else {
+			os = QLatin1String("Ancient Windows version");
 		}
-
-		typedef BOOL(WINAPI * PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
-		PGPI pGetProductInfo = (PGPI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetProductInfo");
-		if (!pGetProductInfo) {
-			return QString();
-		}
-
-		DWORD dwType = 0;
-		if (!pGetProductInfo(ovi.dwMajorVersion, ovi.dwMinorVersion, 0, 0, &dwType)) {
-			return QString();
-		}
-
-		switch (dwType) {
-			case PRODUCT_ULTIMATE:
-				os.append(QLatin1String(" Ultimate Edition"));
-				break;
-			case PRODUCT_PROFESSIONAL:
-				os.append(QLatin1String(" Professional"));
-				break;
-			case PRODUCT_HOME_PREMIUM:
-				os.append(QLatin1String(" Home Premium Edition"));
-				break;
-			case PRODUCT_HOME_BASIC:
-				os.append(QLatin1String(" Home Basic Edition"));
-				break;
-			case PRODUCT_ENTERPRISE:
-				os.append(QLatin1String(" Enterprise Edition"));
-				break;
-			case PRODUCT_BUSINESS:
-				os.append(QLatin1String(" Business Edition"));
-				break;
-			case PRODUCT_STARTER:
-				os.append(QLatin1String(" Starter Edition"));
-				break;
-			case PRODUCT_CLUSTER_SERVER:
-				os.append(QLatin1String(" Cluster Server Edition"));
-				break;
-			case PRODUCT_DATACENTER_SERVER:
-				os.append(QLatin1String(" Datacenter Edition"));
-				break;
-			case PRODUCT_DATACENTER_SERVER_CORE:
-				os.append(QLatin1String(" Datacenter Edition (core installation)"));
-				break;
-			case PRODUCT_ENTERPRISE_SERVER:
-				os.append(QLatin1String(" Enterprise Edition"));
-				break;
-			case PRODUCT_ENTERPRISE_SERVER_CORE:
-				os.append(QLatin1String(" Enterprise Edition (core installation)"));
-				break;
-			case PRODUCT_ENTERPRISE_SERVER_IA64:
-				os.append(QLatin1String(" Enterprise Edition for Itanium-based Systems"));
-				break;
-			case PRODUCT_SMALLBUSINESS_SERVER:
-				os.append(QLatin1String(" Small Business Server"));
-				break;
-			case PRODUCT_SMALLBUSINESS_SERVER_PREMIUM:
-				os.append(QLatin1String(" Small Business Server Premium Edition"));
-				break;
-			case PRODUCT_STANDARD_SERVER:
-				os.append(QLatin1String(" Standard Edition"));
-				break;
-			case PRODUCT_STANDARD_SERVER_CORE:
-				os.append(QLatin1String(" Standard Edition (core installation)"));
-				break;
-			case PRODUCT_WEB_SERVER:
-				os.append(QLatin1String(" Web Server Edition"));
-				break;
-		}
-
-		// Service Packs (may be empty)
-		static_assert(sizeof(TCHAR) == sizeof(wchar_t), "Expected Unicode TCHAR.");
-		auto tmp = QString::fromWCharArray(ovi.szCSDVersion);
-		if (!tmp.isEmpty()) {
-			os.append(QLatin1String(" "));
-			os.append(tmp);
-		}
-
-		tmp = QString::asprintf(" - %lu.%lu.%lu", static_cast< unsigned long >(ovi.dwMajorVersion),
-								static_cast< unsigned long >(ovi.dwMinorVersion),
-								static_cast< unsigned long >(ovi.dwBuildNumber));
-
-		os.append(tmp);
 
 		return os;
 	}
@@ -337,20 +249,7 @@ QString OSInfo::getOSDisplayableVersion(const bool appendArch) {
 }
 
 QString OSInfo::getOSVersion() {
-#if defined(Q_OS_WIN)
-	OSVERSIONINFOEXW ovi;
-	memset(&ovi, 0, sizeof(ovi));
-
-	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	if (!GetVersionEx(reinterpret_cast< OSVERSIONINFOW * >(&ovi))) {
-		return QString();
-	}
-
-	return QString::asprintf("%lu.%lu.%lu.%lu", static_cast< unsigned long >(ovi.dwMajorVersion),
-							 static_cast< unsigned long >(ovi.dwMinorVersion),
-							 static_cast< unsigned long >(ovi.dwBuildNumber),
-							 (ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
-#elif defined(Q_OS_MACOS)
+#if defined(Q_OS_MACOS)
 	SInt32 major, minor, bugfix;
 	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
 	if (err == noErr)

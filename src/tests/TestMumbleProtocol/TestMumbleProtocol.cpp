@@ -77,8 +77,8 @@ namespace Protocol {
 		using UDPAudioEncoder< role >::getPreEncodedVolumeAdjustment;
 	};
 
-}; // namespace Protocol
-}; // namespace Mumble
+} // namespace Protocol
+} // namespace Mumble
 
 template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole > void do_test_ping() {
 	Mumble::Protocol::UDPPingEncoder< encoderRole > encoder;
@@ -103,7 +103,16 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 		QCOMPARE(decoder.getPingData(), data);
 
 		// Extended ping (request)
+#ifdef _MSVC_LANG
+#	pragma warning(push)
+		// Disable warning about this if condition being constant
+		// TODO: Use if constexpr as soon as we have moved to C++17 (or higher)
+#	pragma warning(disable : 4127)
+#endif
 		if (decoderRole == Mumble::Protocol::Role::Server) {
+#ifdef _MSVC_LANG
+#	pragma warning(pop)
+#endif
 			QVERIFY(encoderRole == Mumble::Protocol::Role::Client);
 
 			data.requestAdditionalInformation = true;
@@ -169,7 +178,16 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 			data.volumeAdjustment = VolumeAdjustment::fromFactor(1.4f);
 		}
 
+#ifdef _MSVC_LANG
+#	pragma warning(push)
+		// Disable warning about this if condition being constant
+		// TODO: Use if constexpr as soon as we have moved to C++17 (or higher)
+#	pragma warning(disable : 4127)
+#endif
 		if (decoderRole == Mumble::Protocol::Role::Client) {
+#ifdef _MSVC_LANG
+#	pragma warning(pop)
+#endif
 			QVERIFY(encoder.getRole() == Mumble::Protocol::Role::Server);
 
 			data.targetOrContext = Mumble::Protocol::AudioContext::SHOUT;
@@ -223,7 +241,7 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 }
 
 class TestMumbleProtocol : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 private slots:
 	void test_ping_client_to_server() {
 		do_test_ping< Mumble::Protocol::Role::Client, Mumble::Protocol::Role::Server >();
@@ -287,16 +305,16 @@ private slots:
 
 			QVERIFY2(!snippet.empty(), "Unable to find pre-encoded snippet for volume adjustment");
 
-			msg.ParseFromArray(snippet.data(), snippet.size());
+			msg.ParseFromArray(snippet.data(), static_cast< int >(snippet.size()));
 
 			// This will perform a fuzzy-compare
-			QCOMPARE(msg.volume_adjustment(), std::pow(2.0f, currentAdjustment / 6.0f));
+			QCOMPARE(msg.volume_adjustment(), std::pow(2.0f, static_cast< float >(currentAdjustment) / 6.0f));
 		}
 
 		// Ensure that an unknown/unexpected volume adjustment yields an empty span
 		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment::fromDBAdjustment(MIN - 1)).empty());
 		// We only expect pre-encoded values for integer dB adjustments
-		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment(std::pow(2.0f, (MAX + 0.5) / 6.0f))).empty());
+		QVERIFY(encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment(std::pow(2.0f, (MAX + 0.5f) / 6.0f))).empty());
 	}
 };
 

@@ -600,17 +600,17 @@ void JackAudioSystem::ringbufferWriteAdvance(jack_ringbuffer_t *buffer, const si
 }
 
 int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
+	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
-	const bool input  = (jai && jai->isReady());
-	const bool output = (jao && jao->isReady());
+	const bool canInput  = (input && input->isReady());
+	const bool canOutput = (output && output->isReady());
 
-	if (input && !jai->process(frames)) {
+	if (canInput && !input->process(frames)) {
 		return 1;
 	}
 
-	if (output && !jao->process(frames)) {
+	if (canOutput && !output->process(frames)) {
 		return 1;
 	}
 
@@ -618,29 +618,29 @@ int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
 }
 
 int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
+	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
-	if (jai) {
-		jai->activate();
+	if (input) {
+		input->activate();
 	}
 
-	if (jao) {
-		jao->activate();
+	if (output) {
+		output->activate();
 	}
 
 	return 0;
 }
 
 int JackAudioSystem::bufferSizeCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
+	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
-	if (jai && !jai->allocBuffer(frames)) {
+	if (input && !input->allocBuffer(frames)) {
 		return 1;
 	}
 
-	if (jao && !jao->allocBuffer(frames)) {
+	if (output && !output->allocBuffer(frames)) {
 		return 1;
 	}
 
@@ -837,7 +837,7 @@ void JackAudioInput::run() {
 
 		while (const auto bytes = qMin(jas->ringbufferReadSpace(buffer), bufferSize)) {
 			jas->ringbufferRead(buffer, bytes, sampleBuffer.get());
-			addMic(sampleBuffer.get(), bytes / sizeof(jack_default_audio_sample_t));
+			addMic(sampleBuffer.get(), static_cast< unsigned int >(bytes / sizeof(jack_default_audio_sample_t)));
 		}
 
 		qmWait.unlock();
@@ -1015,18 +1015,19 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	qsSleep.release(1);
 
 	for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-		auto outputBuffer = jas->getPortBuffer(ports[currentChannel], frames);
+		auto outputBuffer = jas->getPortBuffer(ports[static_cast< int >(currentChannel)], frames);
 		if (!outputBuffer) {
 			return false;
 		}
 
-		outputBuffers.replace(currentChannel, reinterpret_cast< jack_default_audio_sample_t * >(outputBuffer));
+		outputBuffers.replace(static_cast< int >(currentChannel),
+							  reinterpret_cast< jack_default_audio_sample_t * >(outputBuffer));
 	}
 
 	const auto avail = jas->ringbufferReadSpace(buffer);
 	if (avail == 0) {
 		for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-			memset(outputBuffers[currentChannel], 0, frames * sizeof(jack_default_audio_sample_t));
+			memset(outputBuffers[static_cast< int >(currentChannel)], 0, frames * sizeof(jack_default_audio_sample_t));
 		}
 
 		return true;
@@ -1037,7 +1038,7 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	if (iChannels == 1) {
 		jas->ringbufferRead(buffer, avail, reinterpret_cast< char * >(outputBuffers[0]));
 		if (avail < needed) {
-			memset(reinterpret_cast< char * >(&(outputBuffers[avail])), 0, needed - avail);
+			memset(reinterpret_cast< char * >(&(outputBuffers[static_cast< int >(avail)])), 0, needed - avail);
 		}
 
 		return true;
@@ -1047,12 +1048,14 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	for (auto currentSample = decltype(samples){ 0 }; currentSample < samples; ++currentSample) {
 		jas->ringbufferRead(
 			buffer, sizeof(jack_default_audio_sample_t),
-			reinterpret_cast< char * >(&outputBuffers[currentSample % iChannels][currentSample / iChannels]));
+			reinterpret_cast< char * >(
+				&outputBuffers[static_cast< int >(currentSample % iChannels)][currentSample / iChannels]));
 	}
 
 	if ((samples / iChannels) < frames) {
 		for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-			memset(&outputBuffers[currentChannel][avail / samples], 0, (needed - avail) / iChannels);
+			memset(&outputBuffers[static_cast< int >(currentChannel)][avail / samples], 0,
+				   (needed - avail) / iChannels);
 		}
 	}
 
@@ -1088,7 +1091,8 @@ void JackAudioOutput::run() {
 
 		auto bOk             = true;
 		size_t writtenFrames = 0;
-		auto wanted          = qMin(writeVector->len / iSampleSize, static_cast< size_t >(iFrameSize));
+		unsigned int wanted =
+			qMin(static_cast< unsigned int >(writeVector->len) / iSampleSize, static_cast< unsigned int >(iFrameSize));
 		if (wanted > 0) {
 			bOk = mix(writeVector->buf, wanted);
 			writtenFrames += bOk ? wanted : 0;

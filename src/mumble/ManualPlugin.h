@@ -25,7 +25,7 @@ struct Position2D {
 // We need this typedef in order to be able to pass this hash as an argument
 // to QMetaObject::invokeMethod
 using PositionMap = QHash< unsigned int, Position2D >;
-Q_DECLARE_METATYPE(PositionMap);
+Q_DECLARE_METATYPE(PositionMap)
 
 
 /// A struct holding information about a stale entry in the

@@ -138,11 +138,6 @@ Global::Global(const QString &qsConfigPath) {
 
 	channelListenerManager = std::make_unique< ChannelListenerManager >();
 
-#if defined(Q_OS_WIN)
-	QString appdata;
-	wchar_t appData[MAX_PATH];
-#endif
-
 	if (qsConfigPath.isEmpty()) {
 		qdBasePath.setPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 

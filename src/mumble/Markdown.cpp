@@ -404,4 +404,4 @@ QString markdownToHTML(const QString &markdownInput) {
 
 	return htmlString;
 }
-}; // namespace Markdown
+} // namespace Markdown

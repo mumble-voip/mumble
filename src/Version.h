@@ -92,7 +92,9 @@ constexpr void getComponents(Version::component_t &major, Version::component_t &
 //
 
 constexpr Version::full_t fromLegacyVersion(std::uint32_t version) {
-	return fromComponents((version & 0xFFFF0000) >> 16, (version & 0xFF00) >> 8, version & 0xFF);
+	return fromComponents(static_cast< component_t >((version & 0xFFFF0000) >> 16),
+						  static_cast< component_t >((version & 0xFF00) >> 8),
+						  static_cast< component_t >(version & 0xFF));
 }
 
 constexpr std::uint32_t toLegacyVersion(Version::full_t version) {
@@ -108,6 +110,6 @@ constexpr std::uint32_t toLegacyVersion(Version::full_t version) {
 					   static_cast< std::uint32_t >(std::numeric_limits< std::uint8_t >::max())));
 }
 
-}; // namespace Version
+} // namespace Version
 
 #endif

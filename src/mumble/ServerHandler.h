@@ -155,10 +155,10 @@ public:
 	void requestUserStats(unsigned int uiSession, bool statsOnly);
 	void joinChannel(unsigned int uiSession, unsigned int channel);
 	void joinChannel(unsigned int uiSession, unsigned int channel, const QStringList &temporaryAccessTokens);
-	void startListeningToChannel(int channel);
-	void startListeningToChannels(const QList< int > &channelIDs);
-	void stopListeningToChannel(int channel);
-	void stopListeningToChannels(const QList< int > &channelIDs);
+	void startListeningToChannel(unsigned int channel);
+	void startListeningToChannels(const QList< unsigned int > &channelIDs);
+	void stopListeningToChannel(unsigned int channel);
+	void stopListeningToChannels(const QList< unsigned int > &channelIDs);
 	void createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position,
 					   bool temporary, unsigned int maxUsers);
 	void requestBanList();

@@ -12,7 +12,7 @@
 
 std::size_t qHash(const ChannelListener &listener) {
 	return std::hash< ChannelListener >()(listener);
-};
+}
 
 bool operator==(const ChannelListener &lhs, const ChannelListener &rhs) {
 	return lhs.channelID == rhs.channelID && lhs.userSession == rhs.userSession;
@@ -23,21 +23,21 @@ ChannelListenerManager::ChannelListenerManager()
 	  m_listenerVolumeAdjustments() {
 }
 
-void ChannelListenerManager::addListener(unsigned int userSession, int channelID) {
+void ChannelListenerManager::addListener(unsigned int userSession, unsigned int channelID) {
 	QWriteLocker lock(&m_listenerLock);
 
 	m_listeningUsers[userSession] << channelID;
 	m_listenedChannels[channelID] << userSession;
 }
 
-void ChannelListenerManager::removeListener(unsigned int userSession, int channelID) {
+void ChannelListenerManager::removeListener(unsigned int userSession, unsigned int channelID) {
 	QWriteLocker lock(&m_listenerLock);
 
 	m_listeningUsers[userSession].remove(channelID);
 	m_listenedChannels[channelID].remove(userSession);
 }
 
-bool ChannelListenerManager::isListening(unsigned int userSession, int channelID) const {
+bool ChannelListenerManager::isListening(unsigned int userSession, unsigned int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listenedChannels[channelID].contains(userSession);
@@ -49,25 +49,25 @@ bool ChannelListenerManager::isListeningToAny(unsigned int userSession) const {
 	return !m_listeningUsers[userSession].isEmpty();
 }
 
-bool ChannelListenerManager::isListenedByAny(int channelID) const {
+bool ChannelListenerManager::isListenedByAny(unsigned int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return !m_listenedChannels[channelID].isEmpty();
 }
 
-const QSet< unsigned int > ChannelListenerManager::getListenersForChannel(int channelID) const {
+const QSet< unsigned int > ChannelListenerManager::getListenersForChannel(unsigned int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listenedChannels[channelID];
 }
 
-const QSet< int > ChannelListenerManager::getListenedChannelsForUser(unsigned int userSession) const {
+const QSet< unsigned int > ChannelListenerManager::getListenedChannelsForUser(unsigned int userSession) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listeningUsers[userSession];
 }
 
-int ChannelListenerManager::getListenerCountForChannel(int channelID) const {
+int ChannelListenerManager::getListenerCountForChannel(unsigned int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listenedChannels[channelID].size();
@@ -79,7 +79,7 @@ int ChannelListenerManager::getListenedChannelCountForUser(unsigned int userSess
 	return m_listeningUsers[userSession].size();
 }
 
-void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSession, int channelID,
+void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID,
 														 const VolumeAdjustment &volumeAdjustment) {
 	float oldValue = 1.0f;
 	{
@@ -103,7 +103,7 @@ void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSessio
 }
 
 const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
-																			int channelID) const {
+																			unsigned int channelID) const {
 	static VolumeAdjustment fallbackObj = VolumeAdjustment::fromFactor(1.0f);
 
 	QReadLocker lock(&m_volumeLock);
@@ -121,14 +121,14 @@ const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsi
 	}
 }
 
-std::unordered_map< int, VolumeAdjustment >
+std::unordered_map< unsigned int, VolumeAdjustment >
 	ChannelListenerManager::getAllListenerVolumeAdjustments(unsigned int userSession) const {
 	QReadLocker lock1(&m_volumeLock);
 	QReadLocker lock2(&m_listenerLock);
 
-	std::unordered_map< int, VolumeAdjustment > adjustments;
+	std::unordered_map< unsigned int, VolumeAdjustment > adjustments;
 
-	for (int channelID : m_listeningUsers.value(userSession)) {
+	for (unsigned int channelID : m_listeningUsers.value(userSession)) {
 		ChannelListener listener = {};
 		listener.channelID       = channelID;
 		listener.userSession     = userSession;

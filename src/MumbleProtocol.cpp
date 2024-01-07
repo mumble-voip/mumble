@@ -39,7 +39,7 @@ namespace Protocol {
 		if (!useCachedSize) {
 			serializedSize = getProtobufSize(message);
 		} else {
-			serializedSize = message.GetCachedSize();
+			serializedSize = static_cast< std::size_t >(message.GetCachedSize());
 		}
 
 		assert(serializedSize + offset <= maxAllowedSize);
@@ -54,7 +54,7 @@ namespace Protocol {
 
 		buffer.resize(serializedSize + offset);
 
-		message.SerializePartialToArray(buffer.data() + offset, serializedSize);
+		message.SerializePartialToArray(buffer.data() + offset, static_cast< int >(serializedSize));
 
 		return serializedSize;
 	}
@@ -135,11 +135,11 @@ namespace Protocol {
 		}
 		// The audio format (aka: package type) has to be written to the 3 most significant bits of the header byte
 		assert(type < (1 << 3));
-		type = type << 5;
+		type = static_cast< decltype(type) >(type << 5);
 
 		m_byteBuffer[0] = type;
 
-		PacketDataStream stream(m_byteBuffer.data() + 1, m_byteBuffer.size() - 1);
+		PacketDataStream stream(m_byteBuffer.data() + 1, static_cast< unsigned int >(m_byteBuffer.size() - 1));
 
 		if (this->getRole() == Role::Server) {
 			stream << data.senderSession;
@@ -155,14 +155,16 @@ namespace Protocol {
 				stream << static_cast< int >(data.isLastFrame ? data.payload.size() | (1 << 13) : data.payload.size());
 
 				// After the size has been encoded, we write the actual Opus frame to the message
-				stream.append(reinterpret_cast< const char * >(data.payload.data()), data.payload.size());
+				stream.append(reinterpret_cast< const char * >(data.payload.data()),
+							  static_cast< unsigned int >(data.payload.size()));
 				break;
 			}
 			case AudioCodec::CELT_Alpha:
 			case AudioCodec::CELT_Beta:
 			case AudioCodec::Speex: {
 				// Simply append the provided payload
-				stream.append(reinterpret_cast< const char * >(data.payload.data()), data.payload.size());
+				stream.append(reinterpret_cast< const char * >(data.payload.data()),
+							  static_cast< unsigned int >(data.payload.size()));
 				break;
 			}
 		}
@@ -199,7 +201,9 @@ namespace Protocol {
 
 	template< Role role > void UDPAudioEncoder< role >::addPositionalData_legacy(const AudioData &data) {
 		if (data.containsPositionalData) {
-			PacketDataStream stream(m_byteBuffer.data() + m_staticPartSize, m_byteBuffer.size() - m_staticPartSize);
+			assert(m_byteBuffer.size() >= m_staticPartSize);
+			PacketDataStream stream(m_byteBuffer.data() + m_staticPartSize,
+									static_cast< unsigned int >(m_byteBuffer.size() - m_staticPartSize));
 
 			// Positional data simply gets attached to the stream after the audio payload
 			assert(data.position.size() == 3);
@@ -295,7 +299,7 @@ namespace Protocol {
 					}
 				}
 
-				gsl::span< const byte > buffer = getPreEncodedContext(data.targetOrContext);
+				gsl::span< const byte > buffer = getPreEncodedContext(static_cast< byte >(data.targetOrContext));
 				if (!buffer.empty()) {
 					// Use pre-encoded snippet
 					offset += writeSnippet(buffer, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE);
@@ -320,7 +324,7 @@ namespace Protocol {
 		if (data.containsPositionalData) {
 			m_audioMessage.Clear();
 
-			for (int i = 0; i < 3; ++i) {
+			for (unsigned int i = 0; i < 3; ++i) {
 				m_audioMessage.add_positional_data(data.position[i]);
 			}
 
@@ -363,9 +367,10 @@ namespace Protocol {
 			// Store the pre-encoded packet
 			// The max-size is the size of the used field (float) plus 1 byte overhead for encoding the field type and
 			// number
-			bool successful =
-				encodeProtobuf(m_audioMessage, m_preEncodedVolumeAdjustment[dbAdjustment - preEncodedDBAdjustmentBegin],
-							   0, sizeof(float) + 1, false);
+			bool successful = encodeProtobuf(
+				m_audioMessage,
+				m_preEncodedVolumeAdjustment[static_cast< std::size_t >(dbAdjustment - preEncodedDBAdjustmentBegin)], 0,
+				sizeof(float) + 1, false);
 			(void) successful;
 			assert(successful);
 		}
@@ -385,7 +390,7 @@ namespace Protocol {
 	template< Role role >
 	gsl::span< const byte >
 		UDPAudioEncoder< role >::getPreEncodedVolumeAdjustment(const VolumeAdjustment &adjustment) const {
-		int index = (adjustment.dbAdjustment - preEncodedDBAdjustmentBegin);
+		int index = static_cast< int >(adjustment.dbAdjustment - preEncodedDBAdjustmentBegin);
 
 		if (adjustment.dbAdjustment == VolumeAdjustment::INVALID_DB_ADJUSTMENT || index < 0
 			|| static_cast< std::size_t >(index) >= m_preEncodedVolumeAdjustment.size()) {
@@ -393,7 +398,7 @@ namespace Protocol {
 			return {};
 		}
 
-		const std::vector< byte > &data = m_preEncodedVolumeAdjustment[index];
+		const std::vector< byte > &data = m_preEncodedVolumeAdjustment[static_cast< std::size_t >(index)];
 
 		return gsl::span< const byte >(data.data(), data.size());
 	}
@@ -605,7 +610,7 @@ namespace Protocol {
 			return false;
 		}
 
-		PacketDataStream stream(data.data(), data.size());
+		PacketDataStream stream(data.data(), static_cast< unsigned int >(data.size()));
 
 		if (data.size() <= sizeof(std::uint64_t) + 1) {
 			// Regular connectivity ping (contains a single varint which may be up to a full 64bit number plus
@@ -677,7 +682,7 @@ namespace Protocol {
 			return false;
 		}
 
-		if (!m_pingMessage.ParseFromArray(data.data(), data.size())) {
+		if (!m_pingMessage.ParseFromArray(data.data(), static_cast< int >(data.size()))) {
 			// Invalid format
 			return false;
 		}
@@ -715,7 +720,7 @@ namespace Protocol {
 		m_audioData.targetOrContext = data[0] & 0x1f;
 		m_audioData.usedCodec       = codec;
 
-		PacketDataStream stream(data.data() + 1, data.size() - 1);
+		PacketDataStream stream(data.data() + 1, static_cast< unsigned int >(data.size() - 1));
 
 		if (this->getRole() == Role::Client) {
 			// When the client receives audio packets from the server, there will be an extra field containing the
@@ -767,7 +772,7 @@ namespace Protocol {
 				// We don't include the size/header-field in the actual payload
 				payloadBegin = stream.dataPtr();
 
-				stream.skip(payloadSize);
+				stream.skip(static_cast< unsigned int >(payloadSize));
 				break;
 		}
 
@@ -782,7 +787,7 @@ namespace Protocol {
 			// If there are further bytes after the audio payload, this means that there is positional data attached to
 			// the packet.
 			m_audioData.containsPositionalData = true;
-			for (int i = 0; i < 3; ++i) {
+			for (unsigned int i = 0; i < 3; ++i) {
 				stream >> m_audioData.position[i];
 			}
 		} else if (stream.left() > 0) {
@@ -799,7 +804,7 @@ namespace Protocol {
 		m_messageType = UDPMessageType::Audio;
 		m_audioData   = {};
 
-		if (!m_audioMessage.ParseFromArray(data.data(), data.size())) {
+		if (!m_audioMessage.ParseFromArray(data.data(), static_cast< int >(data.size()))) {
 			// Invalid format
 			return false;
 		}
@@ -825,8 +830,8 @@ namespace Protocol {
 				// We always expect a 3D position, if positional data is present
 				return false;
 			}
-			for (int i = 0; i < 3; ++i) {
-				m_audioData.position[i] = m_audioMessage.positional_data(i);
+			for (unsigned int i = 0; i < 3; ++i) {
+				m_audioData.position[i] = m_audioMessage.positional_data(static_cast< int >(i));
 			}
 
 			m_audioData.containsPositionalData = true;
@@ -883,4 +888,4 @@ namespace Protocol {
 #undef PROCESS_CLASS
 
 } // namespace Protocol
-}; // namespace Mumble
+} // namespace Mumble

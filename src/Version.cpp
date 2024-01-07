@@ -72,13 +72,13 @@ bool getComponents(Version::component_t &major, Version::component_t &minor, Ver
 	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
 
 	if (rx.exactMatch(version)) {
-		major = rx.cap(1).toInt();
-		minor = rx.cap(2).toInt();
-		patch = rx.cap(3).toInt();
+		major = static_cast< Version::component_t >(rx.cap(1).toInt());
+		minor = static_cast< Version::component_t >(rx.cap(2).toInt());
+		patch = static_cast< Version::component_t >(rx.cap(3).toInt());
 
 		return true;
 	}
 	return false;
 }
 
-}; // namespace Version
+} // namespace Version

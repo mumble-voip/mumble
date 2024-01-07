@@ -24,5 +24,5 @@ namespace QtUtils {
 	}
 
 
-}; // namespace QtUtils
-}; // namespace Mumble
+} // namespace QtUtils
+} // namespace Mumble

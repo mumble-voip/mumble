@@ -381,7 +381,7 @@ void MurmurDBus::getPlayerState(unsigned int session, const QDBusMessage &msg, P
 
 void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) {
 	PLAYER_SETUP_VAR(npi.session);
-	CHANNEL_SETUP_VAR(npi.channel);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(npi.channel));
 	PlayerInfo pi(pUser);
 
 	server->setUserState(pUser, cChannel, npi.mute, npi.deaf, pUser->bPrioritySpeaker, npi.suppressed);
@@ -394,13 +394,13 @@ void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QD
 }
 
 void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &msg) {
-	CHANNEL_SETUP_VAR(id);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(id));
 
 	server->sendTextMessage(cChannel, nullptr, tree, text);
 }
 
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
-	CHANNEL_SETUP_VAR(chanparent);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(chanparent));
 
 	Channel *nc;
 
@@ -410,7 +410,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 	}
 
 	server->updateChannel(nc);
-	newid = nc->iId;
+	newid = static_cast< int >(nc->iId);
 
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(nc->iId);
@@ -420,7 +420,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 }
 
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
-	CHANNEL_SETUP_VAR(id);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(id));
 	if (!cChannel->cParent) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
@@ -431,17 +431,17 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 }
 
 void MurmurDBus::getChannelState(int id, const QDBusMessage &msg, ChannelInfo &state) {
-	CHANNEL_SETUP_VAR(id);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(id));
 	state = ChannelInfo(cChannel);
 }
 
 void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
-	CHANNEL_SETUP_VAR(nci.id);
-	CHANNEL_SETUP_VAR2(cParent, nci.parent);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(nci.id));
+	CHANNEL_SETUP_VAR2(cParent, static_cast< unsigned int >(nci.parent));
 
 	QSet< Channel * > newset;
 	foreach (int id, nci.links) {
-		CHANNEL_SETUP_VAR2(cLink, id);
+		CHANNEL_SETUP_VAR2(cLink, static_cast< unsigned int >(id));
 		newset << cLink;
 	}
 
@@ -453,7 +453,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 
 void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList< ACLInfo > &acls, QList< GroupInfo > &groups,
 						bool &inherit) {
-	CHANNEL_SETUP_VAR(id);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(id));
 
 	QStack< Channel * > chans;
 	Channel *p;
@@ -510,7 +510,7 @@ void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList< ACLInfo > &acls,
 
 void MurmurDBus::setACL(int id, const QList< ACLInfo > &acls, const QList< GroupInfo > &groups, bool inherit,
 						const QDBusMessage &msg) {
-	CHANNEL_SETUP_VAR(id);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(id));
 
 	Group *g;
 	ChanACL *a;
@@ -716,7 +716,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 }
 
 void MurmurDBus::setTemporaryGroups(int channel, int userid, const QStringList &groups, const QDBusMessage &msg) {
-	CHANNEL_SETUP_VAR(channel);
+	CHANNEL_SETUP_VAR(static_cast< unsigned int >(channel));
 
 	server->setTempGroups(userid, 0, cChannel, groups);
 }
@@ -728,7 +728,7 @@ PlayerInfo::PlayerInfo(const User *p) {
 	suppressed = p->bSuppress;
 	selfMute   = p->bSelfMute;
 	selfDeaf   = p->bSelfDeaf;
-	channel    = p->cChannel->iId;
+	channel    = static_cast< int >(p->cChannel->iId);
 }
 
 PlayerInfoExtended::PlayerInfoExtended(const User *p) : PlayerInfo(p) {
@@ -741,11 +741,11 @@ PlayerInfoExtended::PlayerInfoExtended(const User *p) : PlayerInfo(p) {
 }
 
 ChannelInfo::ChannelInfo(const Channel *c) {
-	id     = c->iId;
+	id     = static_cast< int >(c->iId);
 	name   = c->qsName;
-	parent = c->cParent ? c->cParent->iId : -1;
+	parent = c->cParent ? static_cast< int >(c->cParent->iId) : -1;
 	foreach (Channel *chn, c->qsPermLinks)
-		links << chn->iId;
+		links << static_cast< int >(chn->iId);
 }
 
 ACLInfo::ACLInfo(const ChanACL *acl) {
@@ -766,7 +766,7 @@ GroupInfo::GroupInfo(const Group *g) : inherited(false) {
 }
 
 BanInfo::BanInfo(const Ban &b) {
-	address = ntohl(b.haAddress.hash[3]);
+	address = ntohl(b.haAddress.toIPv4());
 	bits    = b.iMask;
 }
 
@@ -913,7 +913,8 @@ void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBus
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		entries.clear();
-		QList< ServerDB::LogRecord > dblog = ServerDB::getLog(server_id, min_offset, max_offset);
+		QList< ServerDB::LogRecord > dblog = ServerDB::getLog(server_id, static_cast< unsigned int >(min_offset),
+															  static_cast< unsigned int >(max_offset));
 		foreach (const ServerDB::LogRecord &e, dblog) { entries << LogEntry(e); }
 	}
 }

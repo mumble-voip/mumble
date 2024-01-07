@@ -74,11 +74,11 @@ public:
 	Timer tDoublePush;
 	quint64 uiDoublePush;
 	/// Holds the current VoiceTarget ID to send audio to
-	int iTarget;
+	std::int32_t iTarget;
 	/// Holds the value of iTarget before its last change until the current
 	/// audio-stream ends (and it has a value > 0). See the comment in
 	/// AudioInput::flushCheck for further details on this.
-	int iPrevTarget;
+	std::int32_t iPrevTarget;
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bPosTest;

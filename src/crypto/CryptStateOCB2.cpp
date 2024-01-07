@@ -209,8 +209,18 @@ bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, un
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
 
 	uiGood++;
-	uiLate += late;
-	uiLost += lost;
+	// uiLate += late, but we have to make sure we don't cause wrap-arounds on the unsigned lhs
+	if (late > 0) {
+		uiLate += static_cast< unsigned int >(late);
+	} else if (static_cast< int >(uiLate) > std::abs(late)) {
+		uiLate -= static_cast< unsigned int >(std::abs(late));
+	}
+	// uiLost += lost, but we have to make sure we don't cause wrap-arounds on the unsigned lhs
+	if (lost > 0) {
+		uiLost += static_cast< unsigned int >(lost);
+	} else if (static_cast< int >(uiLost) > std::abs(lost)) {
+		uiLost -= static_cast< unsigned int >(std::abs(lost));
+	}
 
 	tLastGood.restart();
 	return true;

@@ -213,7 +213,8 @@ bool AudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 	return false;
 }
 
-AudioInput::AudioInput() : opusBuffer(Global::get().s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
+AudioInput::AudioInput()
+	: opusBuffer(static_cast< std::size_t >(Global::get().s.iFramesPerPacket * (SAMPLE_RATE / 100))) {
 	bDebugDumpInput         = Global::get().bDebugDumpInput;
 	resync.bDebugPrintQueue = Global::get().bDebugPrintQueue;
 	if (bDebugDumpInput) {
@@ -319,7 +320,7 @@ AudioInput::~AudioInput() {
 
 bool AudioInput::isTransmitting() const {
 	return bPreviousVoice;
-};
+}
 
 #define IN_MIXER_FLOAT(channels)                                                                             \
 	static void inMixerFloat##channels(float *RESTRICT buffer, const void *RESTRICT ipt, unsigned int nsamp, \
@@ -356,7 +357,8 @@ static void inMixerFloatMask(float *RESTRICT buffer, const void *RESTRICT ipt, u
 	const float *RESTRICT input = reinterpret_cast< const float * >(ipt);
 
 	unsigned int chancount = 0;
-	STACKVAR(unsigned int, chanindex, N);
+	static std::vector< unsigned int > chanindex;
+	chanindex.resize(N);
 	for (unsigned int j = 0; j < N; ++j) {
 		if ((mask & (1ULL << j)) == 0) {
 			continue;
@@ -380,7 +382,8 @@ static void inMixerShortMask(float *RESTRICT buffer, const void *RESTRICT ipt, u
 	const short *RESTRICT input = reinterpret_cast< const short * >(ipt);
 
 	unsigned int chancount = 0;
-	STACKVAR(unsigned int, chanindex, N);
+	static std::vector< unsigned int > chanindex;
+	chanindex.resize(N);
 	for (unsigned int j = 0; j < N; ++j) {
 		if ((mask & (1ULL << j)) == 0) {
 			continue;
@@ -536,9 +539,10 @@ void AudioInput::initializeMixer() {
 	imfMic  = chooseMixer(iMicChannels, eMicFormat, uiMicChannelMask);
 	imfEcho = chooseMixer(iEchoChannels, eEchoFormat, uiEchoChannelMask);
 
-	iMicSampleSize = static_cast< int >(iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
+	iMicSampleSize =
+		static_cast< unsigned int >(iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	iEchoSampleSize =
-		static_cast< int >(iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
+		static_cast< unsigned int >(iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 
 	bResetProcessor = true;
 
@@ -653,7 +657,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 			// float -> 16bit PCM
 			const float mul = 32768.f;
-			for (int j = 0; j < iEchoFrameSize; ++j) {
+			for (unsigned int j = 0; j < iEchoFrameSize; ++j) {
 				outbuff[j] = static_cast< short >(qBound(-32768.f, (ptr[j] * mul), 32767.f));
 			}
 
@@ -762,7 +766,7 @@ void AudioInput::resetAudioProcessor() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
 
 	float v = 30000.0f / static_cast< float >(Global::get().s.iMinLoudness);
-	iArg    = iroundf(floorf(20.0f * log10f(v)));
+	iArg    = static_cast< int >(floorf(20.0f * log10f(v)));
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
 	iArg = -60;
@@ -775,8 +779,9 @@ void AudioInput::resetAudioProcessor() {
 
 	if (iEchoChannels > 0) {
 		int filterSize = iFrameSize * (10 + resync.getNominalLag());
-		sesEcho        = speex_echo_state_init_mc(iFrameSize, filterSize, 1, bEchoMulti ? iEchoChannels : 1);
-		iArg           = iSampleRate;
+		sesEcho =
+			speex_echo_state_init_mc(iFrameSize, filterSize, 1, bEchoMulti ? static_cast< int >(iEchoChannels) : 1);
+		iArg = iSampleRate;
 		speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
 
@@ -859,7 +864,6 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &b
 
 void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	int iArg;
-	int i;
 	float sum;
 	short max;
 
@@ -872,14 +876,14 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	// if the value of Global::get().iTarget changes during the execution of this function,
 	// it won't cause any inconsistencies and the change is reflected once this
 	// function is called again.
-	int voiceTargetID = Global::get().iTarget;
+	std::int32_t voiceTargetID = Global::get().iTarget;
 
 	if (!bRunning)
 		return;
 
 	sum = 1.0f;
 	max = 1;
-	for (i = 0; i < iFrameSize; i++) {
+	for (unsigned int i = 0; i < iFrameSize; i++) {
 		sum += static_cast< float >(chunk.mic[i] * chunk.mic[i]);
 		max = std::max(static_cast< short >(abs(chunk.mic[i])), max);
 	}
@@ -888,7 +892,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	if (chunk.speaker && (iEchoChannels > 0)) {
 		sum = 1.0f;
-		for (i = 0; i < iEchoFrameSize; ++i) {
+		for (unsigned int i = 0; i < iEchoFrameSize; ++i) {
 			sum += static_cast< float >(chunk.speaker[i] * chunk.speaker[i]);
 		}
 		dPeakSpeaker = qMax(20.0f * log10f(sqrtf(sum / static_cast< float >(iFrameSize)) / 32768.0f), -96.0f);
@@ -918,13 +922,13 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 		float denoiseFrames[480];
-		for (int i = 0; i < 480; i++) {
+		for (unsigned int i = 0; i < 480; i++) {
 			denoiseFrames[i] = psSource[i];
 		}
 
 		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
 
-		for (int i = 0; i < 480; i++) {
+		for (unsigned int i = 0; i < 480; i++) {
 			psSource[i] = clampFloatSample(denoiseFrames[i]);
 		}
 	}
@@ -933,7 +937,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	speex_preprocess_run(sppPreprocess, psSource);
 
 	sum = 1.0f;
-	for (i = 0; i < iFrameSize; i++)
+	for (unsigned int i = 0; i < iFrameSize; i++)
 		sum += static_cast< float >(psSource[i] * psSource[i]);
 	float micLevel = sqrtf(sum / static_cast< float >(iFrameSize));
 	dPeakSignal    = qMax(20.0f * log10f(micLevel / 32768.0f), -96.0f);
@@ -941,9 +945,11 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (bDebugDumpInput) {
 		outMic.write(reinterpret_cast< const char * >(chunk.mic), iFrameSize * sizeof(short));
 		if (chunk.speaker) {
-			outSpeaker.write(reinterpret_cast< const char * >(chunk.speaker), iEchoFrameSize * sizeof(short));
+			outSpeaker.write(reinterpret_cast< const char * >(chunk.speaker),
+							 static_cast< std::streamsize >(iEchoFrameSize * sizeof(short)));
 		}
-		outProcessed.write(reinterpret_cast< const char * >(psSource), iFrameSize * sizeof(short));
+		outProcessed.write(reinterpret_cast< const char * >(psSource),
+						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
 	}
 
 	spx_int32_t prob = 0;
@@ -1013,7 +1019,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (p) {
 		if (!bIsSpeech)
 			p->setTalking(Settings::Passive);
-		else if (voiceTargetID == 0)
+		else if (voiceTargetID == Mumble::Protocol::ReservedTargetIDs::REGULAR_SPEECH)
 			p->setTalking(Settings::Talking);
 		else
 			p->setTalking(Settings::Shouting);
@@ -1118,7 +1124,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			// a codec configuration switch by suddenly using a wildly different
 			// framecount per packet.
 			const int missingFrames = iAudioFrames - iBufferedFrames;
-			opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);
+			opusBuffer.insert(opusBuffer.end(), static_cast< std::size_t >(iFrameSize * missingFrames), 0);
 			iBufferedFrames += missingFrames;
 			iFrameCounter += missingFrames;
 		}
@@ -1150,18 +1156,18 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 static void sendAudioFrame(gsl::span< const Mumble::Protocol::byte > encodedPacket) {
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh) {
-		sh->sendMessage(encodedPacket.data(), encodedPacket.size());
+		sh->sendMessage(encodedPacket.data(), static_cast< int >(encodedPacket.size()));
 	}
 }
 
-void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceTargetID) {
+void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32_t voiceTargetID) {
 	qlFrames << frame;
 
 	if (!terminator && iBufferedFrames < iAudioFrames)
 		return;
 
 	Mumble::Protocol::AudioData audioData;
-	audioData.targetOrContext = voiceTargetID;
+	audioData.targetOrContext = static_cast< std::uint32_t >(voiceTargetID);
 	audioData.isLastFrame     = terminator;
 
 	if (terminator && Global::get().iPrevTarget > 0) {
@@ -1171,7 +1177,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 		// is reset to 0 by now. In order to send the last whisper frame correctly, we have to use
 		// Global::get().iPrevTarget which is set to whatever Global::get().iTarget has been before its last change.
 
-		audioData.targetOrContext = Global::get().iPrevTarget;
+		audioData.targetOrContext = static_cast< std::uint32_t >(Global::get().iPrevTarget);
 
 		// We reset Global::get().iPrevTarget as it has fulfilled its purpose for this whisper-action. It'll be set
 		// accordingly once the client whispers for the next time.
@@ -1186,7 +1192,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 	int frames      = iBufferedFrames;
 	iBufferedFrames = 0;
 
-	audioData.frameNumber = iFrameCounter - frames;
+	audioData.frameNumber = static_cast< std::size_t >(iFrameCounter - frames);
 
 	if (Global::get().s.bTransmitPosition && Global::get().pluginManager && !Global::get().bCenterPosition
 		&& Global::get().pluginManager->fetchPositionalData()) {
@@ -1204,7 +1210,8 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 	assert(qlFrames.size() == 1);
 
 	audioData.payload = gsl::span< const Mumble::Protocol::byte >(
-		reinterpret_cast< const Mumble::Protocol::byte * >(qlFrames[0].constData()), qlFrames[0].size());
+		reinterpret_cast< const Mumble::Protocol::byte * >(qlFrames[0].constData()),
+		static_cast< std::size_t >(qlFrames[0].size()));
 
 	{
 		ServerHandlerPtr sh = Global::get().sh;

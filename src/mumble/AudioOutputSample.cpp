@@ -150,7 +150,8 @@ AudioOutputSample::AudioOutputSample(SoundFile *psndfile, float volume, bool loo
 
 	// If the frequencies don't match initialize the resampler
 	if (sfHandle->samplerate() != static_cast< int >(freq)) {
-		srs = speex_resampler_init(bStereo ? 2 : 1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
+		srs = speex_resampler_init(bStereo ? 2 : 1, static_cast< unsigned int >(sfHandle->samplerate()), iOutSampleRate,
+								   3, &err);
 		if (err != RESAMPLER_ERR_SUCCESS) {
 			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
 			srs      = nullptr;
@@ -233,15 +234,17 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 
 	// Check if we can satisfy request with current buffer
 	// Maximum interaural delay is accounted for to prevent audio glitches
-	if (iBufferFilled >= sampleCount + INTERAURAL_DELAY)
+	if (static_cast< float >(iBufferFilled) >= static_cast< float >(sampleCount) + INTERAURAL_DELAY)
 		return true;
 
 	// Calculate the required buffersize to hold the results
 	unsigned int iInputFrames = static_cast< unsigned int >(
-		ceilf(static_cast< float >(frameCount * sfHandle->samplerate()) / static_cast< float >(iOutSampleRate)));
+		ceilf(static_cast< float >(frameCount * static_cast< unsigned int >(sfHandle->samplerate()))
+			  / static_cast< float >(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * channels;
 
-	STACKVAR(float, fOut, iInputSamples);
+	static std::vector< float > fOut;
+	fOut.resize(iInputSamples);
 
 	bool eof = false;
 	sf_count_t read;
@@ -249,13 +252,13 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 		resizeBuffer(iBufferFilled + sampleCount + INTERAURAL_DELAY);
 
 		// If we need to resample, write to the buffer on stack
-		float *pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
+		float *pOut = (srs) ? fOut.data() : pfBuffer + iBufferFilled;
 
 		// Try to read all samples needed to satisfy this request
 		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {
 			if (sfHandle->error() != SF_ERR_NO_ERROR || !bLoop) {
 				// We reached the eof or encountered an error, stuff with zeroes
-				memset(pOut, 0, sizeof(float) * (iInputSamples - read));
+				memset(pOut, 0, sizeof(float) * static_cast< std::size_t >(iInputSamples - read));
 				read = iInputSamples;
 				eof  = true;
 			} else {

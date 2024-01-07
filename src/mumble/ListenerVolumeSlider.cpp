@@ -54,7 +54,7 @@ void ListenerVolumeSlider::on_VolumeSlider_changeCompleted() {
 
 		// Timer values: 0, 50, 150, 350, 750, 1000 (ms)
 		m_resetTimer.stop();
-		m_sendTimer.start(m_currentSendDelay);
+		m_sendTimer.start(static_cast< int >(m_currentSendDelay));
 		m_currentSendDelay = std::min(1000u, (m_currentSendDelay + 25) * 2);
 
 	} else {

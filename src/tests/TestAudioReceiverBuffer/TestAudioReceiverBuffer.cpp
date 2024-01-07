@@ -89,7 +89,7 @@ protected:
 };
 
 class TestAudioReceiverBuffer : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 private slots:
 	void test_preconditions() {
 		// Preconditions for these test to make any sense
@@ -209,11 +209,11 @@ private slots:
 		ServerUser &sender = contextUser2;
 
 		buffer.addReceiver(sender, users[0], Mumble::Protocol::AudioContext::NORMAL, false,
-						   VolumeAdjustment::fromFactor(1.22));
+						   VolumeAdjustment::fromFactor(1.22f));
 		buffer.addReceiver(sender, users[1], Mumble::Protocol::AudioContext::NORMAL, false,
-						   VolumeAdjustment::fromFactor(1.22 + 0.6 * AudioReceiverBuffer::maxFactorDiff));
+						   VolumeAdjustment::fromFactor(1.22f + 0.6f * AudioReceiverBuffer::maxFactorDiff));
 		buffer.addReceiver(sender, users[2], Mumble::Protocol::AudioContext::NORMAL, false,
-						   VolumeAdjustment::fromFactor(1.22 + 1.1 * AudioReceiverBuffer::maxFactorDiff));
+						   VolumeAdjustment::fromFactor(1.22f + 1.1f * AudioReceiverBuffer::maxFactorDiff));
 		buffer.addReceiver(sender, users[3], Mumble::Protocol::AudioContext::NORMAL, false,
 						   VolumeAdjustment::fromDBAdjustment(-60));
 		buffer.addReceiver(sender, users[4], Mumble::Protocol::AudioContext::NORMAL, false,

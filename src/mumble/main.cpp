@@ -467,7 +467,8 @@ int main(int argc, char **argv) {
 		if (_wgetenv_s(&reqSize, nullptr, 0, L"PATH") != 0) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
 		} else if (reqSize > 0) {
-			STACKVAR(wchar_t, buff, reqSize + 1);
+			std::vector< wchar_t > buff;
+			buff.resize(reqSize + 1);
 			if (_wgetenv_s(&reqSize, buff, reqSize, L"PATH") != 0) {
 				qWarning()
 					<< "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
@@ -476,7 +477,9 @@ int main(int argc, char **argv) {
 					QString::fromLatin1("%1;%2")
 						.arg(QDir::toNativeSeparators(MumbleApplication::instance()->applicationVersionRootPath()))
 						.arg(QString::fromWCharArray(buff));
-				STACKVAR(wchar_t, buffout, path.length() + 1);
+				static std::vector< wchar_t > outBuffer;
+				outBuffer.resize(path.length() + 1);
+				wchar_t *buffout = outBuffer.data();
 				path.toWCharArray(buffout);
 				if (_wputenv_s(L"PATH", buffout) != 0) {
 					qWarning() << "Failed to set PATH. DBus bindings may not work.";

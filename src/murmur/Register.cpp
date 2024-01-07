@@ -23,10 +23,10 @@ void Server::initRegister() {
 		if (!qsRegName.isEmpty() && !qsRegPassword.isEmpty() && qurlRegWeb.isValid() && qsPassword.isEmpty()
 			&& bAllowPing)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-			qtTick.start((60 + (QRandomGenerator::global()->generate() % 120)) * 1000);
+			qtTick.start((60 + (static_cast< int >(QRandomGenerator::global()->generate()) % 120)) * 1000);
 #else
 			// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-			qtTick.start((60 + (qrand() % 120)) * 1000);
+			qtTick.start((60 + (static_cast< int >(qrand()) % 120)) * 1000);
 #endif
 		else
 			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty "
@@ -45,10 +45,10 @@ void Server::update() {
 		qnamNetwork = new QNetworkAccessManager(this);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-	qtTick.start(1000 * (60 * 60 + (QRandomGenerator::global()->generate() % 300)));
+	qtTick.start(1000 * (60 * 60 + (static_cast< int >(QRandomGenerator::global()->generate()) % 300)));
 #else
 	// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-	qtTick.start(1000 * (60 * 60 + (qrand() % 300)));
+	qtTick.start(1000 * (60 * 60 + (static_cast< int >(qrand()) % 300)));
 #endif
 
 	QDomDocument doc;

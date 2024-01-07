@@ -22,11 +22,13 @@
 
 #include "Global.h"
 
+#include <cassert>
+
 ACLGroup::ACLGroup(const QString &name) : Group(nullptr, name) {
 	bInherited = false;
 }
 
-ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
+ACLEditor::ACLEditor(unsigned int channelparentid, QWidget *p) : QDialog(p) {
 	// Simple constructor for add channel menu
 	bAddChannelMode = true;
 	iChannel        = channelparentid;
@@ -76,7 +78,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	adjustSize();
 }
 
-ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
+ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	QLabel *l;
 
 	bAddChannelMode = false;
@@ -111,8 +113,8 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	qcbChannelTemporary->hide();
 
-	iId = mea.channel_id();
-	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
+	iId = static_cast< int >(mea.channel_id());
+	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(static_cast< unsigned int >(iId))->qsName));
 
 	qlChannelID->setText(tr("ID: %1").arg(iId));
 
@@ -127,7 +129,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	if (Global::get().sh->m_version >= Version::fromComponents(1, 3, 0)) {
 		qsbChannelMaxUsers->setRange(0, INT_MAX);
-		qsbChannelMaxUsers->setValue(pChannel->uiMaxUsers);
+		qsbChannelMaxUsers->setValue(static_cast< int >(pChannel->uiMaxUsers));
 		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
 	} else {
 		qlChannelMaxUsers->hide();
@@ -219,7 +221,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		acl->bInherited = as.inherited();
 		acl->iUserId    = -1;
 		if (as.has_user_id())
-			acl->iUserId = as.user_id();
+			acl->iUserId = static_cast< int >(as.user_id());
 		else
 			acl->qsGroup = u8(as.group());
 		acl->pAllow = static_cast< ChanACL::Permissions >(as.grant());
@@ -236,11 +238,11 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		gp->bInherited   = gs.inherited();
 		gp->bInheritable = gs.inheritable();
 		for (int j = 0; j < gs.add_size(); ++j)
-			gp->qsAdd.insert(gs.add(j));
+			gp->qsAdd.insert(static_cast< int >(gs.add(j)));
 		for (int j = 0; j < gs.remove_size(); ++j)
-			gp->qsRemove.insert(gs.remove(j));
+			gp->qsRemove.insert(static_cast< int >(gs.remove(j)));
 		for (int j = 0; j < gs.inherited_members_size(); ++j)
-			gp->qsTemporary.insert(gs.inherited_members(j));
+			gp->qsTemporary.insert(static_cast< int >(gs.inherited_members(j)));
 
 		qlGroups << gp;
 	}
@@ -301,8 +303,9 @@ void ACLEditor::accept() {
 	// Update channel state
 	if (bAddChannelMode) {
 		Global::get().sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(),
-										qsbChannelPosition->value(), qcbChannelTemporary->isChecked(),
-										qsbChannelMaxUsers->value());
+										static_cast< unsigned int >(qsbChannelPosition->value()),
+										qcbChannelTemporary->isChecked(),
+										static_cast< unsigned int >(qsbChannelMaxUsers->value()));
 	} else {
 		bool needs_update = false;
 
@@ -325,7 +328,8 @@ void ACLEditor::accept() {
 			needs_update = true;
 		}
 		if (pChannel->uiMaxUsers != static_cast< unsigned int >(qsbChannelMaxUsers->value())) {
-			mpcs.set_max_users(qsbChannelMaxUsers->value());
+			assert(qsbChannelMaxUsers->value() >= 0);
+			mpcs.set_max_users(static_cast< unsigned int >(qsbChannelMaxUsers->value()));
 			needs_update = true;
 		}
 		if (needs_update)
@@ -342,8 +346,8 @@ void ACLEditor::accept() {
 			MumbleProto::ACL_ChanACL *mpa = msg.add_acls();
 			mpa->set_apply_here(acl->bApplyHere);
 			mpa->set_apply_subs(acl->bApplySubs);
-			if (acl->iUserId != -1)
-				mpa->set_user_id(acl->iUserId);
+			if (acl->iUserId >= 0)
+				mpa->set_user_id(static_cast< unsigned int >(acl->iUserId));
 			else
 				mpa->set_group(u8(acl->qsGroup));
 			mpa->set_grant(acl->pAllow);
@@ -360,10 +364,10 @@ void ACLEditor::accept() {
 			mpg->set_inheritable(gp->bInheritable);
 			foreach (int pid, gp->qsAdd)
 				if (pid >= 0)
-					mpg->add_add(pid);
+					mpg->add_add(static_cast< unsigned int >(pid));
 			foreach (int pid, gp->qsRemove)
 				if (pid >= 0)
-					mpg->add_remove(pid);
+					mpg->add_remove(static_cast< unsigned int >(pid));
 		}
 		Global::get().sh->sendMessage(msg);
 	}
@@ -401,7 +405,7 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 		return;
 
 	for (int i = 0; i < mqu.names_size(); ++i) {
-		int pid       = mqu.ids(i);
+		int pid       = static_cast< int >(mqu.ids(i));
 		QString name  = u8(mqu.names(i));
 		QString lname = name.toLower();
 		qhIDCache.insert(lname, pid);

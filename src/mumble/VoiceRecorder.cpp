@@ -157,7 +157,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 int VoiceRecorder::indexForUser(const ClientUser *clientUser) const {
 	Q_ASSERT(!m_config.mixDownMode || !clientUser);
 
-	return (m_config.mixDownMode) ? 0 : clientUser->uiSession;
+	return (m_config.mixDownMode) ? 0 : static_cast< int >(clientUser->uiSession);
 }
 
 SF_INFO VoiceRecorder::createSoundFileInfo() const {
@@ -339,7 +339,8 @@ void VoiceRecorder::run() {
 				return;
 			}
 
-			const qint64 missingSamples = rb->absoluteStartSample - ri->lastWrittenAbsoluteSample;
+			const qint64 missingSamples =
+				static_cast< qint64 >(rb->absoluteStartSample) - static_cast< qint64 >(ri->lastWrittenAbsoluteSample);
 
 			static const qint64 heuristicSilenceThreshold = m_config.sampleRate / 10; // 100ms
 			if (missingSamples > heuristicSilenceThreshold) {
@@ -359,7 +360,7 @@ void VoiceRecorder::run() {
 				if (rest > 0)
 					sf_write_float(ri->soundFile, buffer, rest);
 
-				ri->lastWrittenAbsoluteSample += silenceToWrite;
+				ri->lastWrittenAbsoluteSample += static_cast< quint64 >(silenceToWrite);
 
 				if (requeue) {
 					// Requeue the writing for this buffer to keep thread responsive
@@ -371,7 +372,7 @@ void VoiceRecorder::run() {
 
 			// Write the audio buffer and update the timestamp in |ri|.
 			sf_write_float(ri->soundFile, rb->buffer.get(), rb->samples);
-			ri->lastWrittenAbsoluteSample += rb->samples;
+			ri->lastWrittenAbsoluteSample += static_cast< quint64 >(rb->samples);
 		}
 
 		m_sleepLock.unlock();
@@ -398,7 +399,7 @@ void VoiceRecorder::stop(bool force) {
 
 void VoiceRecorder::prepareBufferAdds() {
 	// Should be ms accurat
-	m_absoluteSampleEstimation = (m_timestamp->elapsed() / 1000) * (m_config.sampleRate / 1000);
+	m_absoluteSampleEstimation = (m_timestamp->elapsed() / 1000) * (static_cast< quint64 >(m_config.sampleRate) / 1000);
 }
 
 void VoiceRecorder::addBuffer(const ClientUser *clientUser, boost::shared_array< float > buffer, int samples) {

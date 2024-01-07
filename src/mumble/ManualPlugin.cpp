@@ -263,7 +263,7 @@ void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > position
 	while (remainingIt.hasNext()) {
 		remainingIt.next();
 
-		const float speakerRadius  = 1.2;
+		const float speakerRadius  = 1.2f;
 		QGraphicsItem *speakerItem = m_qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius,
 															2 * speakerRadius, QPen(), QBrush(Qt::red));
 

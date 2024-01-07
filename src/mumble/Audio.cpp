@@ -43,16 +43,16 @@ void LoopUser::addFrame(const Mumble::Protocol::AudioData &audioData) {
 		QMutexLocker l(&qmLock);
 		bool restart = (qetLastFetch.elapsed() > 100);
 
-		double time = qetTicker.elapsed();
+		long time = qetTicker.elapsed();
 
-		double r;
+		float r;
 		if (restart)
-			r = 0.0;
+			r = 0;
 		else
-			r = DOUBLE_RAND * Global::get().s.dMaxPacketDelay;
+			r = static_cast< float >(DOUBLE_RAND * Global::get().s.dMaxPacketDelay);
 
 
-		float virtualArrivalTime = time + r;
+		float virtualArrivalTime = static_cast< float >(time) + r;
 		// Insert default-constructed AudioPacket object and only then fill its data in-place. This is necessary to
 		// avoid any moving around of the payload vector which would mess up our pointers in the AudioData object.
 		m_packets[virtualArrivalTime] = AudioPacket{};
@@ -87,7 +87,7 @@ void LoopUser::fetchFrames() {
 		return;
 	}
 
-	double cmp = qetTicker.elapsed();
+	float cmp = static_cast< float >(qetTicker.elapsed());
 
 	auto it = m_packets.begin();
 	while (it != m_packets.end()) {

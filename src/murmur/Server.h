@@ -65,7 +65,7 @@ struct TextMessage {
 
 class SslServer : public QTcpServer {
 private:
-	Q_OBJECT;
+	Q_OBJECT
 	Q_DISABLE_COPY(SslServer)
 protected:
 	QList< QSslSocket * > qlSockets;
@@ -79,7 +79,7 @@ public:
 #define EXEC_QEVENT (QEvent::User + 959)
 
 class ExecEvent : public QEvent {
-	Q_DISABLE_COPY(ExecEvent);
+	Q_DISABLE_COPY(ExecEvent)
 
 protected:
 	boost::function< void() > func;
@@ -91,8 +91,8 @@ public:
 
 class Server : public QThread {
 private:
-	Q_OBJECT;
-	Q_DISABLE_COPY(Server);
+	Q_OBJECT
+	Q_DISABLE_COPY(Server)
 
 protected:
 	bool bRunning;
@@ -112,9 +112,9 @@ public:
 	unsigned short usPort;
 	int iTimeout;
 	int iMaxBandwidth;
-	int iMaxUsers;
-	int iMaxUsersPerChannel;
-	int iDefaultChan;
+	unsigned int iMaxUsers;
+	unsigned int iMaxUsersPerChannel;
+	unsigned int iDefaultChan;
 	bool bRememberChan;
 	int iRememberChanDuration;
 	int iMaxTextMessageLength;
@@ -242,7 +242,7 @@ signals:
 
 public:
 	int iServerNum;
-	QQueue< int > qqIds;
+	QQueue< unsigned int > qqIds;
 	QList< SslServer * > qlServer;
 	QTimer *qtTimeout;
 
@@ -367,7 +367,7 @@ public:
 	void log(const QString &) const;
 	void log(ServerUser *u, const QString &) const;
 
-	void removeChannel(int id);
+	void removeChannel(unsigned int id);
 	void removeChannel(Channel *c, Channel *dest = nullptr);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);

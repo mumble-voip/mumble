@@ -40,8 +40,8 @@ struct UpdateEntry {
 /// a Dialog that can be used to prompt the user whether certain updates should be updated.
 class PluginUpdater : public QDialog, public Ui::PluginUpdater {
 private:
-	Q_OBJECT;
-	Q_DISABLE_COPY(PluginUpdater);
+	Q_OBJECT
+	Q_DISABLE_COPY(PluginUpdater)
 
 protected:
 	/// An atomic flag indicating whether the plugin update has been interrupted. It is used

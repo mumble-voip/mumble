@@ -34,6 +34,8 @@ if(WIN32)
 		"-DWIN32_LEAN_AND_MEAN"
 		# Prevent Windows headers from defining the macros "min" and "max" that mess up e.g. std::min usage
 		"-DNOMINMAX"
+		# Prevent warnings such as "use strcpy_s instead of strcpy"
+		"-D_CRT_SECURE_NO_WARNINGS"
 	)
 else()
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")

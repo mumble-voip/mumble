@@ -42,7 +42,7 @@ std::size_t AudioOutputSpeech::storeAudioOutputCache(const Mumble::Protocol::Aud
 		// Write audio data to that free (currently unused) chunk
 		it->loadFrom(audioData);
 
-		return std::distance(s_audioCaches.begin(), it);
+		return static_cast< std::size_t >(std::distance(s_audioCaches.begin(), it));
 	} else {
 		// The list of audio chunks is full -> extend it
 		AudioOutputCache chunk;
@@ -81,7 +81,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 	// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
 	// https://tools.ietf.org/html/rfc6716#section-2.1.2
 	bStereo   = true;
-	opusState = opus_decoder_create(iSampleRate, bStereo ? 2 : 1, nullptr);
+	opusState = opus_decoder_create(static_cast< int >(iSampleRate), bStereo ? 2 : 1, nullptr);
 	opus_decoder_ctl(opusState,
 					 OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 
@@ -130,8 +130,8 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 
 	m_audioContext = Mumble::Protocol::AudioContext::INVALID;
 
-	jbJitter   = jitter_buffer_init(iFrameSize);
-	int margin = Global::get().s.iJitterBufferSize * iFrameSize;
+	jbJitter   = jitter_buffer_init(static_cast< int >(iFrameSize));
+	int margin = Global::get().s.iJitterBufferSize * static_cast< int >(iFrameSize);
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
 	// We are configuring our Jitter buffer to use a custom deleter function. This prevents the buffer from
@@ -183,12 +183,13 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
 	assert(audioData.usedCodec == m_codec);
 
-	samples = opus_decoder_get_nb_samples(opusState, audioData.payload.data(),
-										  audioData.payload.size()); // this function return samples per channel
-	samples *= 2;                                                    // since we assume all input stream is stereo.
+	samples = opus_decoder_get_nb_samples(
+		opusState, audioData.payload.data(),
+		static_cast< int >(audioData.payload.size())); // this function return samples per channel
+	samples *= 2;                                      // since we assume all input stream is stereo.
 
 	// We can't handle frames which are not a multiple of our configured framesize.
-	if (samples % iFrameSize != 0) {
+	if (static_cast< unsigned int >(samples) % iFrameSize != 0) {
 		qWarning("AudioOutputSpeech: Dropping Opus audio packet, because its sample count (%d) is not a "
 				 "multiple of our frame size (%d)",
 				 samples, iFrameSize);
@@ -210,8 +211,8 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	JitterBufferPacket jbp;
 	jbp.data      = reinterpret_cast< char * >(storageIndex) + 1;
 	jbp.len       = 0;
-	jbp.span      = samples;
-	jbp.timestamp = iFrameSize * audioData.frameNumber;
+	jbp.span      = static_cast< unsigned int >(samples);
+	jbp.timestamp = static_cast< unsigned int >(iFrameSize * audioData.frameNumber);
 
 	jitter_buffer_put(jbJitter, &jbp);
 }
@@ -240,7 +241,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 	bool nextalive = bLastAlive;
 
 	while (iBufferFilled < sampleCount + INTERAURAL_DELAY) {
-		int decodedSamples = iFrameSize;
+		int decodedSamples = static_cast< int >(iFrameSize);
 		resizeBuffer(iBufferFilled + iOutputSize + INTERAURAL_DELAY);
 		// TODO: allocating memory in the audio callback will crash mumble in some cases.
 		//       we need to initialize the buffer with an appropriate size when initializing
@@ -260,7 +261,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 			jitter_buffer_ctl(jbJitter, JITTER_BUFFER_GET_AVAILABLE_COUNT, &avail);
 
 			if (p && (ts == 0)) {
-				int want = iroundf(p->fAverageAvailable);
+				int want = static_cast< int >(p->fAverageAvailable);
 				if (avail < want) {
 					++iMissCount;
 					if (iMissCount < 20) {
@@ -276,7 +277,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				JitterBufferPacket jbp;
 
 				spx_int32_t startofs = 0;
-				if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
+				if (jitter_buffer_get(jbJitter, &jbp, static_cast< int >(iFrameSize), &startofs) == JITTER_BUFFER_OK) {
 					std::lock_guard< std::mutex > audioChunkLock(s_audioCachesMutex);
 
 					iMissCount = 0;
@@ -295,13 +296,13 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 					// Copy audio data into qlFrames
 					qlFrames << QByteArray(reinterpret_cast< const char * >(cache.getAudioData().data()),
-										   cache.getAudioData().size());
+										   static_cast< int >(cache.getAudioData().size()));
 
 					if (cache.containsPositionalInformation()) {
 						assert(cache.getPositionalInformation().size() == 3);
 						assert(fPos.size() == 3);
 
-						for (int i = 0; i < 3; ++i) {
+						for (unsigned int i = 0; i < 3; ++i) {
 							fPos[i] = cache.getPositionalInformation()[i];
 						}
 					} else {
@@ -313,7 +314,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 					if (p) {
 						float a = static_cast< float >(avail);
-						if (avail >= p->fAverageAvailable)
+						if (static_cast< float >(avail) >= p->fAverageAvailable)
 							p->fAverageAvailable = a;
 						else
 							p->fAverageAvailable *= 0.99f;
@@ -345,7 +346,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					// packet normally in order to be able to play it.
 					decodedSamples = opus_decode_float(
 						opusState, qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-						qba.size(), pOut, iAudioBufferSize, 0);
+						qba.size(), pOut, static_cast< int >(iAudioBufferSize), 0);
 				} else {
 					// If the packet is non-empty, but the associated user is locally muted,
 					// we don't have to decode the packet. Instead it is enough to know how many
@@ -356,10 +357,10 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 
 				// The returned sample count we get from the Opus functions refer to samples per channel.
 				// Thus in order to get the total amount, we have to multiply by the channel count.
-				decodedSamples *= channels;
+				decodedSamples *= static_cast< int >(channels);
 
 				if (decodedSamples < 0) {
-					decodedSamples = iFrameSize;
+					decodedSamples = static_cast< int >(iFrameSize);
 					memset(pOut, 0, iFrameSize * sizeof(float));
 				}
 
@@ -397,11 +398,11 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				}
 			} else {
 				assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
-				decodedSamples = opus_decode_float(opusState, nullptr, 0, pOut, iFrameSize, 0);
-				decodedSamples *= channels;
+				decodedSamples = opus_decode_float(opusState, nullptr, 0, pOut, static_cast< int >(iFrameSize), 0);
+				decodedSamples *= static_cast< int >(channels);
 
 				if (decodedSamples < 0) {
-					decodedSamples = iFrameSize;
+					decodedSamples = static_cast< int >(iFrameSize);
 					memset(pOut, 0, iFrameSize * sizeof(float));
 				}
 			}
@@ -418,7 +419,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				}
 			}
 
-			for (int i = decodedSamples / iFrameSize; i > 0; --i) {
+			for (unsigned int i = static_cast< unsigned int >(decodedSamples) / iFrameSize; i > 0; --i) {
 				jitter_buffer_tick(jbJitter);
 			}
 		}
@@ -428,12 +429,13 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 			// NOTE: If Opus is used, then in this case no samples have actually been decoded and thus
 			// we don't discard previously done work (in form of decoding the audio stream) by overwriting
 			// it with zeros.
-			memset(pOut, 0, decodedSamples * sizeof(float));
+			memset(pOut, 0, static_cast< unsigned int >(decodedSamples) * sizeof(float));
 		}
 
-		spx_uint32_t inlen  = decodedSamples / channels; // per channel
+		spx_uint32_t inlen  = static_cast< unsigned int >(decodedSamples) / channels; // per channel
 		spx_uint32_t outlen = static_cast< unsigned int >(
-			ceilf(static_cast< float >(decodedSamples / channels * iMixerFreq) / static_cast< float >(iSampleRate)));
+			ceilf(static_cast< float >(static_cast< unsigned int >(decodedSamples) / channels * iMixerFreq)
+				  / static_cast< float >(iSampleRate)));
 		if (srs && bLastAlive) {
 			if (channels == 1) {
 				speex_resampler_process_float(srs, 0, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);

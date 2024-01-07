@@ -32,6 +32,7 @@
 #include <QtCore/QStringList>
 
 #include <chrono>
+#include <cstdint>
 #include <cstring>
 #include <string>
 
@@ -141,7 +142,7 @@ MumbleAPI::MumbleAPI() {
 	REGISTER_METATYPE(mumble_transmission_mode_t);
 	REGISTER_METATYPE(mumble_userid_t);
 	REGISTER_METATYPE(mumble_userid_t);
-	REGISTER_METATYPE(size_t);
+	REGISTER_METATYPE(std::size_t);
 	REGISTER_METATYPE(uint8_t);
 
 	// Define additional types that can't be defined using macro REGISTER_METATYPE
@@ -300,7 +301,7 @@ void MumbleAPI::getUserName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 
 	if (user) {
 		// +1 for NULL terminator
-		size_t size = user->qsName.toUtf8().size() + 1;
+		std::size_t size = static_cast< std::size_t >(user->qsName.toUtf8().size() + 1);
 
 		char *nameArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -340,11 +341,11 @@ void MumbleAPI::getChannelName_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 	VERIFY_CONNECTION(connection);
 	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
-	const Channel *channel = Channel::get(channelID);
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
 
 	if (channel) {
 		// +1 for NULL terminator
-		size_t size = channel->qsName.toUtf8().size() + 1;
+		std::size_t size = static_cast< std::size_t >(channel->qsName.toUtf8().size() + 1);
 
 		char *nameArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -362,13 +363,13 @@ void MumbleAPI::getChannelName_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 }
 
 void MumbleAPI::getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-									mumble_userid_t **users, size_t *userCount,
+									mumble_userid_t **users, std::size_t *userCount,
 									std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getAllUsers_v_1_0_x", Qt::QueuedConnection,
 								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
-								  Q_ARG(mumble_userid_t **, users), Q_ARG(size_t *, userCount),
+								  Q_ARG(mumble_userid_t **, users), Q_ARG(std::size_t *, userCount),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 
 		return;
@@ -386,7 +387,7 @@ void MumbleAPI::getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 
 	QReadLocker userLock(&ClientUser::c_qrwlUsers);
 
-	size_t amount = ClientUser::c_qmUsers.size();
+	std::size_t amount = static_cast< std::size_t >(ClientUser::c_qmUsers.size());
 
 	auto it = ClientUser::c_qmUsers.constBegin();
 
@@ -409,13 +410,13 @@ void MumbleAPI::getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 }
 
 void MumbleAPI::getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-									   mumble_channelid_t **channels, size_t *channelCount,
+									   mumble_channelid_t **channels, std::size_t *channelCount,
 									   std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getAllChannels_v_1_0_x", Qt::QueuedConnection,
 								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
-								  Q_ARG(mumble_channelid_t **, channels), Q_ARG(size_t *, channelCount),
+								  Q_ARG(mumble_channelid_t **, channels), Q_ARG(std::size_t *, channelCount),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 
 		return;
@@ -433,7 +434,7 @@ void MumbleAPI::getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 	QReadLocker channelLock(&Channel::c_qrwlChannels);
 
-	size_t amount = Channel::c_qhChannels.size();
+	std::size_t amount = static_cast< std::size_t >(Channel::c_qhChannels.size());
 
 	auto it = Channel::c_qhChannels.constBegin();
 
@@ -442,7 +443,7 @@ void MumbleAPI::getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 
 	unsigned int index = 0;
 	while (it != Channel::c_qhChannels.constEnd()) {
-		channelIDs[index] = it.key();
+		channelIDs[index] = static_cast< mumble_channelid_t >(it.key());
 
 		it++;
 		index++;
@@ -486,7 +487,7 @@ void MumbleAPI::getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_con
 	}
 
 	if (user->cChannel) {
-		*channelID = user->cChannel->iId;
+		*channelID = static_cast< mumble_channelid_t >(user->cChannel->iId);
 
 		EXIT_WITH(MUMBLE_STATUS_OK);
 	} else {
@@ -495,14 +496,14 @@ void MumbleAPI::getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_con
 }
 
 void MumbleAPI::getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-										  mumble_channelid_t channelID, mumble_userid_t **users, size_t *userCount,
+										  mumble_channelid_t channelID, mumble_userid_t **users, std::size_t *userCount,
 										  std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getUsersInChannel_v_1_0_x", Qt::QueuedConnection,
 								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
 								  Q_ARG(mumble_channelid_t, channelID), Q_ARG(mumble_userid_t **, users),
-								  Q_ARG(size_t *, userCount), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+								  Q_ARG(std::size_t *, userCount), Q_ARG(std::shared_ptr< api_promise_t >, promise));
 
 		return;
 	}
@@ -517,13 +518,13 @@ void MumbleAPI::getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 	VERIFY_CONNECTION(connection);
 	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
-	const Channel *channel = Channel::get(channelID);
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
 
 	if (!channel) {
 		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
 	}
 
-	size_t amount = channel->qlUsers.size();
+	std::size_t amount = static_cast< std::size_t >(channel->qlUsers.size());
 
 	mumble_userid_t *userIDs = reinterpret_cast< mumble_userid_t * >(malloc(sizeof(mumble_userid_t) * amount));
 
@@ -687,7 +688,7 @@ void MumbleAPI::getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connecti
 
 	// The user's hash is already in hexadecimal representation, so we don't have to worry about null-bytes in it
 	// +1 for NULL terminator
-	size_t size = user->qsHash.toUtf8().size() + 1;
+	std::size_t size = static_cast< std::size_t >(user->qsHash.toUtf8().size() + 1);
 
 	char *hashArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -726,7 +727,7 @@ void MumbleAPI::getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connec
 	QString strHash    = QString::fromLatin1(hashHex);
 
 	// +1 for NULL terminator
-	size_t size = strHash.toUtf8().size() + 1;
+	std::size_t size = static_cast< std::size_t >(strHash.toUtf8().size() + 1);
 
 	char *hashArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -758,7 +759,7 @@ void MumbleAPI::requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t call
 
 	VERIFY_PLUGIN_ID(callerID);
 
-	Settings::AudioTransmit mode;
+	Settings::AudioTransmit mode    = Settings::PushToTalk;
 	bool identifiedTransmissionMode = false;
 
 	switch (transmissionMode) {
@@ -828,7 +829,7 @@ void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 	}
 
 	// +1 for NULL terminator
-	size_t size = user->qsComment.toUtf8().size() + 1;
+	std::size_t size = static_cast< std::size_t >(user->qsComment.toUtf8().size() + 1);
 
 	char *nameArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -864,7 +865,7 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	VERIFY_CONNECTION(connection);
 	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
-	Channel *channel = Channel::get(channelID);
+	Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
 
 	if (!channel) {
 		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
@@ -880,7 +881,7 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	}
 
 	// +1 for NULL terminator
-	size_t size = channel->qsDesc.toUtf8().size() + 1;
+	std::size_t size = static_cast< std::size_t >(channel->qsDesc.toUtf8().size() + 1);
 
 	char *nameArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -922,7 +923,7 @@ void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_conn
 		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
-	const Channel *channel = Channel::get(channelID);
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
 
 	if (!channel) {
 		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
@@ -935,7 +936,7 @@ void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_conn
 			passwordList << QString::fromUtf8(password);
 		}
 
-		Global::get().sh->joinChannel(user->uiSession, channel->iId, passwordList);
+		Global::get().sh->joinChannel(user->uiSession, static_cast< unsigned int >(channel->iId), passwordList);
 	}
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
@@ -1163,7 +1164,7 @@ void MumbleAPI::findChannelByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 	auto it = Channel::c_qhChannels.constBegin();
 	while (it != Channel::c_qhChannels.constEnd()) {
 		if (it.value()->qsName == qsChannelName) {
-			*channelID = it.key();
+			*channelID = static_cast< mumble_channelid_t >(it.key());
 
 			EXIT_WITH(MUMBLE_STATUS_OK);
 		}
@@ -1349,7 +1350,7 @@ void MumbleAPI::getMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mum
 	const QString stringValue = value.toString();
 
 	// +1 for NULL terminator
-	size_t size = stringValue.toUtf8().size() + 1;
+	std::size_t size = static_cast< std::size_t >(stringValue.toUtf8().size() + 1);
 
 	char *valueArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
@@ -1519,14 +1520,15 @@ void MumbleAPI::setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mum
 #undef IS_NOT_TYPE
 
 void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-								 const mumble_userid_t *users, size_t userCount, const uint8_t *data, size_t dataLength,
-								 const char *dataID, std::shared_ptr< api_promise_t > promise) {
+								 const mumble_userid_t *users, std::size_t userCount, const uint8_t *data,
+								 std::size_t dataLength, const char *dataID, std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "sendData_v_1_0_x", Qt::QueuedConnection, Q_ARG(mumble_plugin_id_t, callerID),
 								  Q_ARG(mumble_connection_t, connection), Q_ARG(const mumble_userid_t *, users),
-								  Q_ARG(size_t, userCount), Q_ARG(const uint8_t *, data), Q_ARG(size_t, dataLength),
-								  Q_ARG(const char *, dataID), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+								  Q_ARG(std::size_t, userCount), Q_ARG(const uint8_t *, data),
+								  Q_ARG(std::size_t, dataLength), Q_ARG(const char *, dataID),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 
 		return;
 	}
@@ -1551,7 +1553,7 @@ void MumbleAPI::sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_
 	MumbleProto::PluginDataTransmission mpdt;
 	mpdt.set_sendersession(Global::get().uiSession);
 
-	for (size_t i = 0; i < userCount; i++) {
+	for (std::size_t i = 0; i < userCount; i++) {
 		const ClientUser *user = ClientUser::get(users[i]);
 
 		if (user) {
@@ -2156,7 +2158,7 @@ PluginData &PluginData::get() {
 
 	return *instance;
 }
-}; // namespace API
+} // namespace API
 
 #undef EXIT_WITH
 #undef VERIFY_PLUGIN_ID

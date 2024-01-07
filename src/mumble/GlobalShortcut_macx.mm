@@ -54,8 +54,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			if (Global::get().ocIntercept) {
 				int64_t dx = CGEventGetIntegerValueField(event, kCGMouseEventDeltaX);
 				int64_t dy = CGEventGetIntegerValueField(event, kCGMouseEventDeltaY);
-				Global::get().ocIntercept->iMouseX = qBound<int>(0, Global::get().ocIntercept->iMouseX + static_cast<int>(dx), Global::get().ocIntercept->uiWidth - 1);
-				Global::get().ocIntercept->iMouseY = qBound<int>(0, Global::get().ocIntercept->iMouseY + static_cast<int>(dy), Global::get().ocIntercept->uiHeight - 1);
+				Global::get().ocIntercept->iMouseX = qBound<int>(0, Global::get().ocIntercept->iMouseX + static_cast<int>(dx), Global::get().ocIntercept->iWidth - 1);
+				Global::get().ocIntercept->iMouseY = qBound<int>(0, Global::get().ocIntercept->iMouseY + static_cast<int>(dy), Global::get().ocIntercept->iHeight - 1);
 				QMetaObject::invokeMethod(Global::get().ocIntercept, "updateMouse", Qt::QueuedConnection);
 				forward = true;
 			}
@@ -292,7 +292,7 @@ void GlobalShortcutMac::forwardEvent(void *evt) {
 
 	if (sel) {
 		NSPoint p; p.x = (CGFloat) Global::get().ocIntercept->iMouseX;
-		p.y = (CGFloat) (Global::get().ocIntercept->uiHeight - Global::get().ocIntercept->iMouseY);
+		p.y = (CGFloat) (Global::get().ocIntercept->iHeight - Global::get().ocIntercept->iMouseY);
 		NSEvent *mouseEvent = [NSEvent mouseEventWithType:[event type] location:p modifierFlags:[event modifierFlags] timestamp:[event timestamp]
 		                               windowNumber:0 context:nil eventNumber:[event eventNumber] clickCount:[event clickCount]
 		                               pressure:[event pressure]];
@@ -392,7 +392,8 @@ QString GlobalShortcutMac::translateModifierKey(const unsigned int keycode) cons
 QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 	UInt32 junk = 0;
 	UniCharCount len = 64;
-	UniChar unicodeString[len];
+	std::vector<UniChar> unicodeString;
+	unicodeString.resize(static_cast<std::size_t>(len));
 
 	if (! kbdLayout)
 		return QString();
@@ -400,7 +401,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 	OSStatus err = UCKeyTranslate(kbdLayout, static_cast<UInt16>(keycode),
 	                              kUCKeyActionDisplay, 0, LMGetKbdType(),
 	                              kUCKeyTranslateNoDeadKeysBit, &junk,
-	                              len, &len, unicodeString);
+	                              len, &len, unicodeString.data());
 	if (err != noErr)
 		return QString();
 
@@ -412,7 +413,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 				return QLatin1String("Enter");
 			case '\b':
 				return QLatin1String("Backspace");
-			case '\e':
+			case 27:
 				return QLatin1String("Escape");
 			case ' ':
 				return QLatin1String("Space");
@@ -432,7 +433,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 		}
 	}
 
-	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
+	return QString(reinterpret_cast<const QChar *>(unicodeString.data()), static_cast<int>(len)).toUpper();
 }
 
 GlobalShortcutMac::ButtonInfo GlobalShortcutMac::buttonInfo(const QVariant &v) {

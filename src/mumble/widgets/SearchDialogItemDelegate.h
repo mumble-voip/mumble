@@ -15,8 +15,8 @@ class QModelIndex;
 class QObject;
 
 class SearchDialogItemDelegate : public QStyledItemDelegate {
-	Q_OBJECT;
-	Q_DISABLE_COPY(SearchDialogItemDelegate);
+	Q_OBJECT
+	Q_DISABLE_COPY(SearchDialogItemDelegate)
 
 public:
 	constexpr static int CHANNEL_TREE_ROLE            = Qt::UserRole + 1;

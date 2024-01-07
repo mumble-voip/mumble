@@ -51,7 +51,7 @@ void AudioOutputCache::loadFrom(const Mumble::Protocol::AudioData &audioData) {
 	// Then copy remaining fields (that we care about)
 	m_isLastFrame      = audioData.isLastFrame;
 	m_volumeAdjustment = audioData.volumeAdjustment.factor;
-	m_audioContext     = audioData.targetOrContext;
+	m_audioContext     = static_cast< Mumble::Protocol::audio_context_t >(audioData.targetOrContext);
 
 	// And finally copy positional data, if available
 	if (audioData.containsPositionalData) {
@@ -60,7 +60,7 @@ void AudioOutputCache::loadFrom(const Mumble::Protocol::AudioData &audioData) {
 		assert(m_position.size() == 3);
 		assert(audioData.position.size() == 3);
 
-		for (int i = 0; i < 3; ++i) {
+		for (unsigned int i = 0; i < 3; ++i) {
 			m_position[i] = audioData.position[i];
 		}
 	} else {

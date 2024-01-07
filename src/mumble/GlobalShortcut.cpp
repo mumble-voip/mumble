@@ -74,7 +74,7 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : MUComboBox(p) {
 	model()->sort(0);
 }
 
-void ShortcutActionWidget::setIndex(int idx) {
+void ShortcutActionWidget::setIndex(unsigned int idx) {
 	setCurrentIndex(findData(idx));
 }
 
@@ -128,14 +128,14 @@ void ChannelSelectWidget::setCurrentChannel(const ChannelTarget &target) {
 }
 
 ChannelTarget ChannelSelectWidget::currentChannel() const {
-	return itemData(currentIndex()).toInt();
+	return itemData(currentIndex()).toUInt();
 }
 
 void iterateChannelChildren(QTreeWidgetItem *root, Channel *chan, QMap< int, QTreeWidgetItem * > &map) {
 	foreach (Channel *c, chan->qlChannels) {
 		QTreeWidgetItem *sub = new QTreeWidgetItem(root, QStringList(c->qsName));
 		sub->setData(0, Qt::UserRole, c->iId);
-		map.insert(c->iId, sub);
+		map.insert(static_cast< int >(c->iId), sub);
 		iterateChannelChildren(sub, c, map);
 	}
 }
@@ -254,7 +254,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 
 	QTreeWidgetItem *qtwi;
 	if (Global::get().uiSession) {
-		qtwi = qmTree.value(ClientUser::get(Global::get().uiSession)->cChannel->iId);
+		qtwi = qmTree.value(static_cast< int >(ClientUser::get(Global::get().uiSession)->cChannel->iId));
 		if (qtwi)
 			qtwChannels->scrollToItem(qtwi);
 	}
@@ -408,7 +408,7 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 						return tr("Subchannel #%1").arg(SHORTCUT_TARGET_CURRENT - st.iChannel);
 			}
 		} else {
-			Channel *c = Channel::get(st.iChannel);
+			Channel *c = Channel::get(static_cast< unsigned int >(st.iChannel));
 			if (c)
 				return c->qsName;
 			else
@@ -457,9 +457,9 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	factory->registerEditor(QVariant::List, new QStandardItemEditorCreator< GlobalShortcutButtons >());
 	factory->registerEditor(QVariant::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
 	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
-	factory->registerEditor(static_cast< QVariant::Type >(QVariant::fromValue(ShortcutTarget()).userType()),
+	factory->registerEditor(static_cast< int >(QVariant::fromValue(ShortcutTarget()).userType()),
 							new QStandardItemEditorCreator< ShortcutTargetWidget >());
-	factory->registerEditor(static_cast< QVariant::Type >(QVariant::fromValue(ChannelTarget()).userType()),
+	factory->registerEditor(static_cast< int >(QVariant::fromValue(ChannelTarget()).userType()),
 							new QStandardItemEditorCreator< ChannelSelectWidget >());
 	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< QLineEdit >());
 	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator< QWidget >());

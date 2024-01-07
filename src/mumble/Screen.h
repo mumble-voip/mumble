@@ -18,8 +18,8 @@ namespace Screen {
 	QWindow *windowFromWidget(const QWidget &widget);
 	QScreen *screenFromWidget(const QWidget &widget);
 	QScreen *screenAt(const QPoint &point);
-}; // namespace Screen
+} // namespace Screen
 
-}; // namespace Mumble
+} // namespace Mumble
 
 #endif

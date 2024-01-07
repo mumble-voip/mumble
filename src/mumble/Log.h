@@ -192,6 +192,6 @@ public:
 	LogDocumentResourceAddedEvent();
 };
 
-Q_DECLARE_METATYPE(Log::MsgType);
+Q_DECLARE_METATYPE(Log::MsgType)
 
 #endif

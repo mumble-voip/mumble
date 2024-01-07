@@ -30,7 +30,7 @@ struct PlayerInfo {
 		: session(0), mute(false), deaf(false), suppressed(false), selfMute(false), selfDeaf(false), channel(-1){};
 	PlayerInfo(const User *);
 };
-Q_DECLARE_METATYPE(PlayerInfo);
+Q_DECLARE_METATYPE(PlayerInfo)
 
 struct PlayerInfoExtended : public PlayerInfo {
 	int id;
@@ -40,8 +40,8 @@ struct PlayerInfoExtended : public PlayerInfo {
 	PlayerInfoExtended() : id(-1), onlinesecs(-1), bytespersec(-1){};
 	PlayerInfoExtended(const User *);
 };
-Q_DECLARE_METATYPE(PlayerInfoExtended);
-Q_DECLARE_METATYPE(QList< PlayerInfoExtended >);
+Q_DECLARE_METATYPE(PlayerInfoExtended)
+Q_DECLARE_METATYPE(QList< PlayerInfoExtended >)
 
 struct ChannelInfo {
 	int id;
@@ -51,8 +51,8 @@ struct ChannelInfo {
 	ChannelInfo() : id(-1), parent(-1){};
 	ChannelInfo(const Channel *c);
 };
-Q_DECLARE_METATYPE(ChannelInfo);
-Q_DECLARE_METATYPE(QList< ChannelInfo >);
+Q_DECLARE_METATYPE(ChannelInfo)
+Q_DECLARE_METATYPE(QList< ChannelInfo >)
 
 struct GroupInfo {
 	QString name;
@@ -61,8 +61,8 @@ struct GroupInfo {
 	GroupInfo() : inherited(false), inherit(false), inheritable(false){};
 	GroupInfo(const Group *g);
 };
-Q_DECLARE_METATYPE(GroupInfo);
-Q_DECLARE_METATYPE(QList< GroupInfo >);
+Q_DECLARE_METATYPE(GroupInfo)
+Q_DECLARE_METATYPE(QList< GroupInfo >)
 
 struct ACLInfo {
 	bool applyHere, applySubs, inherited;
@@ -72,8 +72,8 @@ struct ACLInfo {
 	ACLInfo() : applyHere(false), applySubs(false), inherited(false), playerid(-1), allow(0), deny(0){};
 	ACLInfo(const ChanACL *acl);
 };
-Q_DECLARE_METATYPE(ACLInfo);
-Q_DECLARE_METATYPE(QList< ACLInfo >);
+Q_DECLARE_METATYPE(ACLInfo)
+Q_DECLARE_METATYPE(QList< ACLInfo >)
 
 struct BanInfo {
 	unsigned int address;
@@ -81,8 +81,8 @@ struct BanInfo {
 	BanInfo() : address(0), bits(0){};
 	BanInfo(const Ban &);
 };
-Q_DECLARE_METATYPE(BanInfo);
-Q_DECLARE_METATYPE(QList< BanInfo >);
+Q_DECLARE_METATYPE(BanInfo)
+Q_DECLARE_METATYPE(QList< BanInfo >)
 
 struct RegisteredPlayer {
 	int id;
@@ -91,8 +91,8 @@ struct RegisteredPlayer {
 	QString pw;
 	RegisteredPlayer();
 };
-Q_DECLARE_METATYPE(RegisteredPlayer);
-Q_DECLARE_METATYPE(QList< RegisteredPlayer >);
+Q_DECLARE_METATYPE(RegisteredPlayer)
+Q_DECLARE_METATYPE(QList< RegisteredPlayer >)
 
 struct LogEntry {
 	unsigned int timestamp;
@@ -100,8 +100,8 @@ struct LogEntry {
 	LogEntry();
 	LogEntry(const ServerDB::LogRecord &);
 };
-Q_DECLARE_METATYPE(LogEntry);
-Q_DECLARE_METATYPE(QList< LogEntry >);
+Q_DECLARE_METATYPE(LogEntry)
+Q_DECLARE_METATYPE(QList< LogEntry >)
 
 class MurmurDBus : public QDBusAbstractAdaptor {
 private:
@@ -200,7 +200,7 @@ signals:
 };
 
 typedef QMap< QString, QString > ConfigMap;
-Q_DECLARE_METATYPE(ConfigMap);
+Q_DECLARE_METATYPE(ConfigMap)
 
 class MetaDBus : public QDBusAbstractAdaptor {
 private:

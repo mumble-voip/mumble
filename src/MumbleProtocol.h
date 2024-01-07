@@ -91,7 +91,7 @@ namespace Protocol {
 	namespace ReservedTargetIDs {
 		constexpr unsigned int REGULAR_SPEECH  = 0;
 		constexpr unsigned int SERVER_LOOPBACK = 31;
-	}; // namespace ReservedTargetIDs
+	} // namespace ReservedTargetIDs
 
 	using audio_context_t = byte;
 	namespace AudioContext {
@@ -103,7 +103,7 @@ namespace Protocol {
 
 		constexpr audio_context_t BEGIN = NORMAL;
 		constexpr audio_context_t END   = LISTEN + 1;
-	}; // namespace AudioContext
+	} // namespace AudioContext
 
 	enum class Role { Server, Client };
 
@@ -273,8 +273,8 @@ namespace Protocol {
 		bool decodeAudio_protobuf(const gsl::span< const byte > data);
 	};
 
-}; // namespace Protocol
-}; // namespace Mumble
+} // namespace Protocol
+} // namespace Mumble
 
 /**
  * This is merely a dummy-function (never used) that is required as a scope for dummy-switch statements on our message

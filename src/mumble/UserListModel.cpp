@@ -191,7 +191,7 @@ void UserListModel::removeRowsInSelection(const QItemSelection &selection) {
 	QModelIndexList indices = selection.indexes();
 
 	std::vector< int > rows;
-	rows.reserve(indices.size());
+	rows.reserve(static_cast< std::size_t >(indices.size()));
 
 	foreach (const QModelIndex &idx, indices) {
 		if (idx.column() != COL_NICK)
@@ -270,7 +270,7 @@ QVariant UserListModel::lastSeenToTodayDayCount(const std::string &lastSeenDate)
 	return count;
 }
 
-QString UserListModel::pathForChannelId(const int channelId) const {
+QString UserListModel::pathForChannelId(const unsigned int channelId) const {
 	QString path = m_channelIdToPathMap.value(channelId);
 	if (path.isNull()) {
 		path = QLatin1String("-");

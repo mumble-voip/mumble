@@ -157,7 +157,8 @@ bool PluginManager::eventFilter(QObject *target, QEvent *event) {
 		// them. However we want to process each event only once.
 		if (!kEvent->isAutoRepeat() && !processedEvents.contains(kEvent)) {
 			// Fire event
-			emit keyEvent(kEvent->key(), kEvent->modifiers(), kEvent->type() == QEvent::KeyPress);
+			emit keyEvent(static_cast< unsigned int >(kEvent->key()), kEvent->modifiers(),
+						  kEvent->type() == QEvent::KeyPress);
 
 			processedEvents << kEvent;
 
@@ -655,8 +656,9 @@ void PluginManager::on_channelEntered(const Channel *newChannel, const Channel *
 
 	foreachPlugin([user, newChannel, prevChannel, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onChannelEntered(connectionID, user->uiSession, prevChannel ? prevChannel->iId : -1,
-									newChannel->iId);
+			plugin.onChannelEntered(connectionID, user->uiSession,
+									prevChannel ? static_cast< int >(prevChannel->iId) : -1,
+									static_cast< int >(newChannel->iId));
 		}
 	});
 }
@@ -670,7 +672,7 @@ void PluginManager::on_channelExited(const Channel *channel, const User *user) c
 
 	foreachPlugin([user, channel, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onChannelExited(connectionID, user->uiSession, channel->iId);
+			plugin.onChannelExited(connectionID, user->uiSession, static_cast< int >(channel->iId));
 		}
 	});
 }
@@ -750,7 +752,8 @@ void PluginManager::on_audioInput(short *inputPCM, unsigned int sampleCount, uns
 
 	foreachPlugin([inputPCM, sampleCount, channelCount, sampleRate, isSpeech](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onAudioInput(inputPCM, sampleCount, channelCount, sampleRate, isSpeech);
+			plugin.onAudioInput(inputPCM, sampleCount, static_cast< std::uint16_t >(channelCount), sampleRate,
+								isSpeech);
 		}
 	});
 }
@@ -767,8 +770,8 @@ void PluginManager::on_audioSourceFetched(float *outputPCM, unsigned int sampleC
 
 	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, isSpeech, user](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onAudioSourceFetched(outputPCM, sampleCount, channelCount, sampleRate, isSpeech,
-										user ? user->uiSession : -1);
+			plugin.onAudioSourceFetched(outputPCM, sampleCount, static_cast< std::uint16_t >(channelCount), sampleRate,
+										isSpeech, user ? user->uiSession : static_cast< unsigned int >(-1));
 		}
 	});
 }
@@ -781,7 +784,8 @@ void PluginManager::on_audioOutputAboutToPlay(float *outputPCM, unsigned int sam
 #endif
 	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, modifiedAudio](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			if (plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, channelCount, sampleRate)) {
+			if (plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, static_cast< std::uint16_t >(channelCount),
+												sampleRate)) {
 				*modifiedAudio = true;
 			}
 		}
@@ -929,7 +933,8 @@ void PluginManager::on_syncPositionalData() {
 
 				if (m_sentData.context != m_positionalData.m_context) {
 					m_sentData.context = m_positionalData.m_context;
-					mpus.set_plugin_context(m_sentData.context.toUtf8().constData(), m_sentData.context.size());
+					mpus.set_plugin_context(m_sentData.context.toUtf8().constData(),
+											static_cast< std::size_t >(m_sentData.context.size()));
 				}
 				if (m_sentData.identity != m_positionalData.m_identity) {
 					m_sentData.identity = m_positionalData.m_identity;

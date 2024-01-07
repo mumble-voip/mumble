@@ -15,6 +15,8 @@
 
 #include <QSignalBlocker>
 
+#include <cstdint>
+
 const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
 const QString AudioInputDialog::name  = QLatin1String("AudioInputWidget");
 
@@ -134,10 +136,10 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
-	loadSlider(qsTransmitMin, iroundf(r.fVADmin * 32767.0f + 0.5f));
-	loadSlider(qsTransmitMax, iroundf(r.fVADmax * 32767.0f + 0.5f));
+	loadSlider(qsTransmitMin, static_cast< int >(r.fVADmin * 32767.0f + 0.5f));
+	loadSlider(qsTransmitMax, static_cast< int >(r.fVADmax * 32767.0f + 0.5f));
 	loadSlider(qsFrames, (r.iFramesPerPacket == 1) ? 1 : (r.iFramesPerPacket / 2 + 1));
-	loadSlider(qsDoublePush, iroundf(static_cast< float >(r.uiDoublePush) / 1000.f + 0.5f));
+	loadSlider(qsDoublePush, static_cast< int >(static_cast< float >(r.uiDoublePush) / 1000.f + 0.5f));
 	loadSlider(qsPTTHold, static_cast< int >(r.pttHold));
 
 	if (r.vsVAD == Settings::Amplitude)
@@ -206,7 +208,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 
 	// Idle auto actions
-	qsbIdle->setValue(r.iIdleTime / 60);
+	qsbIdle->setValue(static_cast< int >(r.iIdleTime) / 60);
 	loadComboBox(qcbIdleAction, r.iaeIdleAction);
 	loadCheckBox(qcbUndoIdleAction, r.bUndoIdleActionUponActivity);
 
@@ -261,12 +263,12 @@ void AudioInputDialog::save() const {
 	s.vsVAD            = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
 	s.iFramesPerPacket = qsFrames->value();
 	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket - 1) * 2);
-	s.uiDoublePush     = qsDoublePush->value() * 1000;
-	s.pttHold          = qsPTTHold->value();
+	s.uiDoublePush     = static_cast< unsigned int >(qsDoublePush->value() * 1000);
+	s.pttHold          = static_cast< quint64 >(qsPTTHold->value());
 	s.atTransmit       = static_cast< Settings::AudioTransmit >(qcbTransmit->currentIndex());
 
 	// Idle auto actions
-	s.iIdleTime                   = qsbIdle->value() * 60;
+	s.iIdleTime                   = static_cast< unsigned int >(qsbIdle->value() * 60);
 	s.iaeIdleAction               = static_cast< Settings::IdleAction >(qcbIdleAction->currentIndex());
 	s.bUndoIdleActionUponActivity = qcbUndoIdleAction->isChecked();
 
@@ -537,14 +539,14 @@ void AudioInputDialog::updateEchoEnableState() {
 	qcbEcho->setItemData(0, tr("Disable echo cancellation."), Qt::ToolTipRole);
 
 	int i = 0;
-	for (EchoCancelOptionID ecoid : air->echoOptions) {
-		if (air->canEcho(ecoid, outputInterface)) {
+	for (EchoCancelOptionID echoid : air->echoOptions) {
+		if (air->canEcho(echoid, outputInterface)) {
 			++i;
 			hasUsableEchoOption                = true;
-			const EchoCancelOption &echoOption = EchoCancelOption::getOptions()[static_cast< int >(ecoid)];
-			qcbEcho->insertItem(i, echoOption.description, static_cast< int >(ecoid));
+			const EchoCancelOption &echoOption = EchoCancelOption::getOptions()[static_cast< std::size_t >(echoid)];
+			qcbEcho->insertItem(i, echoOption.description, static_cast< int >(echoid));
 			qcbEcho->setItemData(i, echoOption.explanation, Qt::ToolTipRole);
-			if (s.echoOption == ecoid) {
+			if (s.echoOption == echoid) {
 				qcbEcho->setCurrentIndex(i);
 			}
 		}
@@ -578,9 +580,9 @@ void AudioInputDialog::on_Tick_timeout() {
 	abSpeech->iAbove = qsTransmitMax->value();
 
 	if (qrbAmplitude->isChecked()) {
-		abSpeech->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
+		abSpeech->iValue = static_cast< int >((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
-		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
+		abSpeech->iValue = static_cast< int >(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
 	abSpeech->update();
 }
@@ -713,8 +715,8 @@ void AudioOutputDialog::load(const Settings &r) {
 
 	loadCheckBox(qcbExclusive, r.bExclusiveOutput);
 	loadSlider(qsDelay, r.iOutputDelay);
-	loadSlider(qsVolume, iroundf(r.fVolume * 100.0f + 0.5f));
-	loadSlider(qsOtherVolume, iroundf((1.0f - r.fOtherVolume) * 100.0f + 0.5f));
+	loadSlider(qsVolume, static_cast< int >(r.fVolume * 100.0f + 0.5f));
+	loadSlider(qsOtherVolume, static_cast< int >((1.0f - r.fOtherVolume) * 100.0f + 0.5f));
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadCheckBox(qcbAttenuateUsersOnPrioritySpeak, r.bAttenuateUsersOnPrioritySpeak);
@@ -730,11 +732,11 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast< int >(r.dMaxPacketDelay));
-	loadSlider(qsPacketLoss, iroundf(r.dPacketLoss * 100.0f + 0.5f));
+	loadSlider(qsPacketLoss, static_cast< int >(r.dPacketLoss * 100.0f + 0.5f));
 	qsbMinimumDistance->setValue(r.fAudioMinDistance);
 	qsbMaximumDistance->setValue(r.fAudioMaxDistance);
-	qsbMinimumVolume->setValue(r.fAudioMaxDistVolume * 100);
-	qsbBloom->setValue(r.fAudioBloom * 100);
+	qsbMinimumVolume->setValue(static_cast< int >(r.fAudioMaxDistVolume * 100));
+	qsbBloom->setValue(static_cast< int >(r.fAudioBloom * 100));
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
 
@@ -858,7 +860,7 @@ void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 
 void AudioOutputDialog::on_qsMinDistance_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMinimumDistance);
-	qsbMinimumDistance->setValue(value / 10.0f);
+	qsbMinimumDistance->setValue(value / 10.0);
 
 	// Ensure that max distance is always a least 1m larger than min distance
 	qsbMaximumDistance->setValue(std::max(qsbMaximumDistance->value(), (value / 10.0) + 1));
@@ -866,7 +868,7 @@ void AudioOutputDialog::on_qsMinDistance_valueChanged(int value) {
 
 void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMinDistance);
-	qsMinDistance->setValue(value * 10);
+	qsMinDistance->setValue(static_cast< int >(value * 10));
 
 	// Ensure that max distance is always a least 1m larger than min distance
 	qsMaxDistance->setValue(std::max(qsMaxDistance->value(), static_cast< int >(value * 10) + 10));
@@ -874,14 +876,14 @@ void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
 
 void AudioOutputDialog::on_qsMaxDistance_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMaximumDistance);
-	qsbMaximumDistance->setValue(value / 10.0f);
+	qsbMaximumDistance->setValue(value / 10.0);
 
 	// Ensure that min distance is always a least 1m less than max distance
 	qsbMinimumDistance->setValue(std::min(qsbMinimumDistance->value(), (value / 10.0) - 1));
 }
 void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMaxDistance);
-	qsMaxDistance->setValue(value * 10);
+	qsMaxDistance->setValue(static_cast< int >(value * 10));
 
 	// Ensure that min distance is always a least 1m less than max distance
 	qsMinDistance->setValue(std::min(qsMinDistance->value(), static_cast< int >(value * 10) - 10));

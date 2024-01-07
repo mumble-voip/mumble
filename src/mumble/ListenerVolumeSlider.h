@@ -29,7 +29,7 @@ private:
 	QTimer m_sendTimer;
 	QTimer m_resetTimer;
 	unsigned int m_currentSendDelay;
-	int m_cachedChannelID;
+	unsigned int m_cachedChannelID;
 	VolumeAdjustment m_cachedAdjustment;
 
 	void sendToServer();

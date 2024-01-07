@@ -55,7 +55,7 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 		return false;
 
 	int nsum = iSum - a_iBW[iRecNum] + size;
-	int bw   = static_cast< int >((nsum * 1000000LL) / elapsed);
+	int bw   = static_cast< int >((static_cast< quint64 >(nsum) * 1000000ULL) / elapsed);
 
 	if (bw > maxpersec)
 		return false;
@@ -114,7 +114,7 @@ int BandwidthRecord::bandwidth() const {
 	if (elapsed < 250000ULL)
 		return 0;
 
-	return static_cast< int >((sum * 1000000ULL) / elapsed);
+	return static_cast< int >((static_cast< quint64 >(sum) * 1000000ULL) / elapsed);
 }
 
 LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens)

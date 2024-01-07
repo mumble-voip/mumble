@@ -36,7 +36,10 @@ uint32_t CryptographicRandom::uint32() {
 	unsigned char buf[4];
 	CryptographicRandom::fillBuffer(buf, sizeof(buf));
 
-	ret = (buf[0]) | (buf[1] << 8) | (buf[2] << 16) | (buf[3] << 24);
+	ret = buf[0];
+	ret |= static_cast< decltype(ret) >(buf[1] << 8);
+	ret |= static_cast< decltype(ret) >(buf[2] << 16);
+	ret |= static_cast< decltype(ret) >(buf[3] << 24);
 	return ret;
 }
 

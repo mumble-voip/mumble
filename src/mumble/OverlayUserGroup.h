@@ -13,7 +13,7 @@ class OverlayUser;
 class OverlayUserGroup : public QObject, public OverlayGroup {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(OverlayUserGroup);
+	Q_DISABLE_COPY(OverlayUserGroup)
 
 public:
 	enum { Type = UserType + 3 };

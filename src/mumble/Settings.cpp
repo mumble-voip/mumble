@@ -98,7 +98,7 @@ quint32 qHash(const ShortcutTarget &t) {
 		foreach (unsigned int u, t.qlSessions)
 			h ^= u;
 	} else {
-		h ^= t.iChannel;
+		h ^= static_cast< unsigned int >(t.iChannel);
 		if (t.bLinks)
 			h ^= 0x80000000;
 		if (t.bChildren)
@@ -110,7 +110,7 @@ quint32 qHash(const ShortcutTarget &t) {
 }
 
 quint32 qHash(const QList< ShortcutTarget > &l) {
-	quint32 h = l.count();
+	quint32 h = static_cast< quint32 >(l.count());
 	foreach (const ShortcutTarget &st, l)
 		h ^= qHash(st);
 	return h;
@@ -219,7 +219,7 @@ void Settings::save() const {
 void Settings::load(const QString &path) {
 	if (path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
 		// Trim away the backup extension
-		settingsLocation = path.left(path.size() - std::strlen(BACKUP_FILE_EXTENSION));
+		settingsLocation = path.left(path.size() - static_cast< int >(std::strlen(BACKUP_FILE_EXTENSION)));
 	} else {
 		settingsLocation = path;
 	}
@@ -268,7 +268,7 @@ void Settings::load(const QString &path) {
 						"If you experience repeated crashes with these settings, you might have to manually delete the "
 						"settings files at <pre>%1</pre> and <pre>%2</pre> in order to reset all settings to their "
 						"default value.")
-						.arg(path.left(path.size() - std::strlen(BACKUP_FILE_EXTENSION)))
+						.arg(path.left(path.size() - static_cast< int >(std::strlen(BACKUP_FILE_EXTENSION))))
 						.arg(path));
 				msgBox.setIcon(QMessageBox::Warning);
 				msgBox.exec();
@@ -351,9 +351,9 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 			buf[i] = 0;
 		}
 
-		int read = device->peek(buf, sizeof(buf));
+		qint64 read = device->peek(buf, sizeof(buf));
 
-		for (int i = 0; i < read; i++) {
+		for (unsigned int i = 0; i < read; i++) {
 			if (buf[i] >= 31) {
 				if (buf[i] == 'v') {
 					qds >> versionString;
@@ -713,8 +713,8 @@ void OverlaySettings::legacyLoad(QSettings *settings_ptr) {
 	LOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i = 0; i < 4; ++i) {
-		settings_ptr->setArrayIndex(i);
+	for (unsigned int i = 0; i < 4; ++i) {
+		settings_ptr->setArrayIndex(static_cast< int >(i));
 		LOAD(qcUserName[i], "color");
 		LOAD(fUser[i], "opacity");
 	}
@@ -1150,8 +1150,9 @@ void Settings::legacyLoad(const QString &path) {
 			if (iIdleTime == 5 * 60) { // New default
 				iaeIdleAction = Settings::Nothing;
 			} else {
-				iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
-				iaeIdleAction = Settings::Deafen;                             // Old behavior
+				iIdleTime =
+					static_cast< unsigned int >(60 * qRound(Global::get().s.iIdleTime / 60.)); // Round to minutes
+				iaeIdleAction = Settings::Deafen;                                              // Old behavior
 			}
 			// Fallthrough
 #ifdef Q_OS_WIN

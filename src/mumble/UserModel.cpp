@@ -135,9 +135,9 @@ int ModelItem::rowOf(Channel *c) const {
 	return -1;
 }
 
-int ModelItem::rowOf(ClientUser *p, const bool isListener) const {
+int ModelItem::rowOf(ClientUser *p, const bool lookForListener) const {
 	for (int i = 0; i < qlChildren.count(); i++)
-		if (qlChildren.at(i)->isListener == isListener && qlChildren.at(i)->pUser == p)
+		if (qlChildren.at(i)->isListener == lookForListener && qlChildren.at(i)->pUser == p)
 			return i;
 	return -1;
 }
@@ -176,7 +176,7 @@ int ModelItem::insertIndex(Channel *c) const {
 	return qlpc.indexOf(c) + (bUsersTop ? ocount : 0);
 }
 
-int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
+int ModelItem::insertIndex(ClientUser *p, bool userIsListener) const {
 	QList< ClientUser * > qlclientuser;
 	ModelItem *item;
 
@@ -187,7 +187,7 @@ int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
 		if (item->pUser) {
 			if (item->pUser != p) {
 				// Make sure listeners and non-listeners are all grouped together and not mixed
-				if ((isListener && item->isListener) || (!isListener && !item->isListener)) {
+				if ((userIsListener && item->isListener) || (!userIsListener && !item->isListener)) {
 					qlclientuser << item->pUser;
 				}
 			}
@@ -206,7 +206,7 @@ int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
 	// Make sure that the a user is always added to other users either all above or all below
 	// sub-channels) and also make sure that listeners are grouped together and directly above
 	// normal users.
-	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount) + (isListener ? 0 : listenerCount);
+	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount) + (userIsListener ? 0 : listenerCount);
 }
 
 QString ModelItem::hash() const {
@@ -679,7 +679,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							if (c->qsDesc.isEmpty()) {
 								c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
 								if (c->qsDesc.isEmpty()) {
-									const_cast< UserModel * >(this)->iChannelDescription = c->iId;
+									const_cast< UserModel * >(this)->iChannelDescription = static_cast< int >(c->iId);
 
 									MumbleProto::RequestBlob mprb;
 									mprb.add_channel_description(c->iId);
@@ -1245,7 +1245,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		if (!comment.isEmpty()) {
 			Global::get().db->setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
 
-			if (c->iId == iChannelDescription) {
+			if (c->iId == static_cast< unsigned int >(iChannelDescription)) {
 				iChannelDescription = -1;
 				item->bCommentSeen  = false;
 				if (bClicked) {
@@ -1339,7 +1339,7 @@ void UserModel::repositionChannel(Channel *c, const int position) {
 	}
 }
 
-Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
+Channel *UserModel::addChannel(unsigned int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name);
 
 	if (!c)
@@ -1430,7 +1430,7 @@ bool UserModel::isChannelListener(const QModelIndex &idx) const {
 	return item->isListener;
 }
 
-void UserModel::setSelectedChannelListener(unsigned int userSession, int channelID) {
+void UserModel::setSelectedChannelListener(unsigned int userSession, unsigned int channelID) {
 	QModelIndex idx = channelListenerIndex(ClientUser::get(userSession), Channel::get(channelID));
 
 	if (!idx.isValid()) {
@@ -1667,7 +1667,7 @@ Channel *UserModel::getSelectedChannel() const {
 	return nullptr;
 }
 
-void UserModel::setSelectedChannel(int id) {
+void UserModel::setSelectedChannel(unsigned int id) {
 	QModelIndex idx = index(Channel::get(id));
 
 	if (!idx.isValid()) {
@@ -1707,7 +1707,7 @@ void UserModel::userStateChanged() {
 	updateOverlay();
 }
 
-void UserModel::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float oldValue, float newValue) {
+void UserModel::on_channelListenerLocalVolumeAdjustmentChanged(unsigned int channelID, float oldValue, float newValue) {
 	Q_UNUSED(oldValue);
 	Q_UNUSED(newValue);
 
@@ -1813,7 +1813,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		mpus.set_session(uiSession);
 		mpus.set_channel_id(c->iId);
 		Global::get().sh->sendMessage(mpus);
-	} else if (c->iId != iId) {
+	} else if (c->iId != static_cast< unsigned int >(iId)) {
 		// Channel dropped somewhere (not on itself)
 		int ret;
 		switch (Global::get().s.ceChannelDrag) {
@@ -1841,7 +1841,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		}
 
 		long long inewpos = 0;
-		Channel *dropped  = Channel::c_qhChannels.value(iId);
+		Channel *dropped  = Channel::c_qhChannels.value(static_cast< unsigned int >(iId));
 
 		if (!dropped)
 			return false;
@@ -1952,7 +1952,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		}
 
 		MumbleProto::ChannelState mpcs;
-		mpcs.set_channel_id(iId);
+		mpcs.set_channel_id(static_cast< unsigned int >(iId));
 		if (dropped->parent() != c)
 			mpcs.set_parent(c->iId);
 		mpcs.set_position(static_cast< int >(inewpos));

@@ -15,6 +15,6 @@ namespace Markdown {
 /// @param markdownInput A reference to the input string
 /// @returns The processed HTML string
 QString markdownToHTML(const QString &markdownInput);
-}; // namespace Markdown
+} // namespace Markdown
 
 #endif // MUMBLE_MUMBLE_MARKDOWN_H_

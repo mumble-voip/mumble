@@ -55,10 +55,10 @@ struct Shortcut {
 };
 
 struct ChannelTarget {
-	int channelID = Channel::ROOT_ID;
+	unsigned int channelID = Channel::ROOT_ID;
 
 	ChannelTarget() = default;
-	ChannelTarget(int id) : channelID(id) {}
+	ChannelTarget(unsigned int id) : channelID(id) {}
 
 	friend bool operator==(const ChannelTarget &lhs, const ChannelTarget &rhs);
 	friend bool operator<(const ChannelTarget &lhs, const ChannelTarget &rhs);

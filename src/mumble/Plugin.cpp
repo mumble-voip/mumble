@@ -57,7 +57,7 @@ Plugin::~Plugin() {
 }
 
 QString Plugin::extractWrappedString(MumbleStringWrapper wrapper) const {
-	QString wrappedString = QString::fromUtf8(wrapper.data, wrapper.size);
+	QString wrappedString = QString::fromUtf8(wrapper.data, static_cast< int >(wrapper.size));
 
 	if (wrapper.needsReleasing) {
 		releaseResource(static_cast< const void * >(wrapper.data));
@@ -694,7 +694,7 @@ void Plugin::onKeyEvent(mumble_keycode_t keyCode, bool wasPress) const {
 	}
 
 	if (m_pluginFnc.onKeyEvent) {
-		m_pluginFnc.onKeyEvent(keyCode, wasPress);
+		m_pluginFnc.onKeyEvent(static_cast< std::uint32_t >(keyCode), wasPress);
 	}
 }
 

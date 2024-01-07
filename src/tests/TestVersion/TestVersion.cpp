@@ -11,7 +11,7 @@
 #include <limits>
 
 class TestVersion : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 private slots:
 
 	void legacy_encode() {
