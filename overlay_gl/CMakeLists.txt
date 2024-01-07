@@ -13,7 +13,13 @@ if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR ${CMAKE_SYSTEM_PROCESSOR} STRE
 	endif()
 endif()
 
-add_library(overlay_gl SHARED "overlay.c")
+set(OVERLAY_SOURCES
+	"${CMAKE_SOURCE_DIR}/overlay/ipc_utils.c"
+	"overlay.c"
+)
+add_library(overlay_gl SHARED ${OVERLAY_SOURCES})
+
+# target_link_libraries(overlay_gl PRIVATE cwalk)
 
 set_target_properties(overlay_gl
 	PROPERTIES
@@ -31,10 +37,9 @@ if(NOT APPLE)
 			"-Wl,-z,lazy"
 	)
 
-	set_target_properties(overlay_gl
-		PROPERTIES
-			COMPILE_DEFINITIONS
-				"TARGET_UNIX"
+	target_compile_definitions(overlay_gl
+		PRIVATE
+			"TARGET_UNIX"
 	)
 
 	if(overlay-xcompile)
@@ -47,13 +52,13 @@ if(NOT APPLE)
 		else()
 			message(STATUS "\nIf the 32 bit overlay library fails to compile, make sure the requirements are installed (\"g++-multilib\" package on Debian-based distributions).\n")
 		endif()
-
 		set_target_properties(overlay_gl
 			PROPERTIES
 				OUTPUT_NAME "mumbleoverlay.x86_64"
 		)
 
-		add_library(overlay_gl_x86 SHARED "overlay.c")
+		add_library(overlay_gl_x86 SHARED ${OVERLAY_SOURCES})
+		# target_link_libraries(overlay_gl_x86 PRIVATE cwalk)
 
 		target_compile_definitions(overlay_gl_x86
 			PRIVATE

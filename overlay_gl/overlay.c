@@ -11,7 +11,6 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <math.h>
-#include <pwd.h>
 #include <semaphore.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -53,6 +52,7 @@ typedef unsigned char bool;
 #	include "avail_mac.h"
 #endif
 
+#include "../overlay/ipc_utils.h"
 #include "../overlay/overlay.h"
 
 static bool bDebug       = false;
@@ -147,25 +147,10 @@ static void newContext(Context *ctx) {
 	ctx->timeT             = clock();
 	ctx->frameCount        = 0;
 
-	char *home = getenv("HOME");
-	if (home == NULL) {
-		struct passwd *pwent = getpwuid(getuid());
-		if (pwent && pwent->pw_dir && pwent->pw_dir[0]) {
-			home = pwent->pw_dir;
-		}
-	}
-
-	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
-
-	if (xdgRuntimeDir != NULL) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
-		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
-	} else if (home) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, home);
-		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
-	}
+	char *path = getAndCreateOverlayPipePath__();
+	strcpy(ctx->saName.sun_path, path);
+	free(path);
+	ctx->saName.sun_family = PF_UNIX;
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
 		glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));

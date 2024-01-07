@@ -154,6 +154,10 @@ set(MUMBLE_SOURCES
 	"GlobalShortcutButtons.ui"
 	"GlobalShortcutTarget.ui"
 	"GlobalShortcutTypes.h"
+	"IPCUtils.cpp"
+	"IPCUtils.h"
+	"${CMAKE_SOURCE_DIR}/overlay/ipc_utils.c"
+	"${CMAKE_SOURCE_DIR}/overlay/ipc_utils.h"
 	"JSONSerialization.cpp"
 	"JSONSerialization.h"
 	"LCD.cpp"
@@ -497,6 +501,7 @@ else()
 	find_pkg("nlohmann_json" REQUIRED)
 endif()
 
+# target_link_libraries(mumble_client_object_lib PUBLIC cwalk)
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
 find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)

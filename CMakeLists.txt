@@ -98,6 +98,8 @@ endif()
 
 option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
 
+# option(bundled-cwalk "Build the included version of CWalk instead of looking for one on the system." ON)
+
 include(compiler)
 include(os)
 
@@ -164,6 +166,29 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ${lto})
 if(client OR server)
 	add_subdirectory(src)
 endif()
+
+# if(client OR overlay)
+# 	if(bundled-cwalk)
+# 		add_subdirectory("${3RDPARTY_DIR}/cwalk" "${CMAKE_CURRENT_BINARY_DIR}/cwalk" EXCLUDE_FROM_ALL)
+# 		if(overlay-xcompile)
+# 			# Just check for this header file while using a 32bit target as a really small and incomplete check whether g++-multilib seems to be
+# 			# installed. If we don't find it, we can assume it's not there but if we do find it, we still don't know. Thus we still print the
+# 			# message about the 32bit target potentially failing due to missing g++-multilib.
+# 			CHECK_INCLUDE_FILE("sys/cdefs.h" FOUND_CDEFS "-m32")
+# 			if(NOT FOUND_CDEFS)
+# 				message(FATAL_ERROR "Can't find the 32bit version of sys/cdefs.h - did you install g++-multilib?")
+# 			else()
+# 				message(STATUS "\nIf the 32 bit overlay library fails to compile, make sure the requirements are installed (\"g++-multilib\" package on Debian-based distributions).\n")
+# 			endif()
+
+
+# 			add_subdirectory("${3RDPARTY_DIR}/cwalk" "${CMAKE_CURRENT_BINARY_DIR}/cwalk_x86" EXCLUDE_FROM_ALL)
+# 			set_target_properties(cwalk PROPERTIES COMPILE_OPTIONS "-m32" LINK_OPTIONS "-m32")
+# 		endif()
+# 	else()
+# 		find_pkg(Cwalk REQUIRED)
+# 	endif()
+# endif()
 
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
