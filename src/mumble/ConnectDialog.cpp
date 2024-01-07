@@ -1467,7 +1467,8 @@ void ConnectDialog::fillList() {
 
 	while (!ql.isEmpty()) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(QRandomGenerator::global()->generate() % ql.count()));
+		ServerItem *si = static_cast< ServerItem * >(
+			ql.takeAt(static_cast< int >(QRandomGenerator::global()->generate()) % ql.count()));
 #else
 		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
 		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(qrand() % ql.count()));
@@ -1790,11 +1791,11 @@ bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port, Ver
 	gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
 	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol) {
-		qusSocket4->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()), encodedPacket.size(), host,
-								  port);
+		qusSocket4->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()),
+								  static_cast< qint64 >(encodedPacket.size()), host, port);
 	} else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol) {
-		qusSocket6->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()), encodedPacket.size(), host,
-								  port);
+		qusSocket6->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()),
+								  static_cast< qint64 >(encodedPacket.size()), host, port);
 	} else {
 		return false;
 	}
@@ -1811,7 +1812,8 @@ void ConnectDialog::udpReply() {
 
 		gsl::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
 
-		std::size_t len = sock->readDatagram(reinterpret_cast< char * >(buffer.data()), buffer.size(), &host, &port);
+		std::size_t len = static_cast< std::size_t >(sock->readDatagram(
+			reinterpret_cast< char * >(buffer.data()), static_cast< int >(buffer.size()), &host, &port));
 
 		// Pings are special in that they can be decoded in the new or the old format, if the protocol version is set to
 		// the old format (which UNKNOWN does). Thus by setting the version to UNKNOWN, we effectively enable to decode

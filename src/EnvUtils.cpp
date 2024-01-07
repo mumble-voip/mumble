@@ -61,4 +61,4 @@ bool waylandIsUsed() {
 	return getenv(QStringLiteral("WAYLAND_DISPLAY")) != "";
 }
 
-}; // namespace EnvUtils
+} // namespace EnvUtils

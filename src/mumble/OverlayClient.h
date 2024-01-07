@@ -73,7 +73,7 @@ protected slots:
 
 public:
 	QGraphicsView qgv;
-	unsigned int uiWidth, uiHeight;
+	int iWidth, iHeight;
 	int iMouseX, iMouseY;
 
 	OverlayClient(QLocalSocket *, QObject *);

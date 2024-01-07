@@ -13,6 +13,7 @@
 #include <boost/array.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include <cstdint>
 #include <fstream>
 #include <list>
 #include <memory>
@@ -208,7 +209,7 @@ protected:
 	unsigned int iMicFreq, iEchoFreq;
 	unsigned int iMicLength, iEchoLength;
 	unsigned int iMicSampleSize, iEchoSampleSize;
-	int iEchoMCLength, iEchoFrameSize;
+	unsigned int iEchoMCLength, iEchoFrameSize;
 	quint64 uiMicChannelMask, uiEchoChannelMask;
 
 	bool bEchoMulti;
@@ -258,7 +259,7 @@ protected:
 	int iBufferedFrames;
 
 	QList< QByteArray > qlFrames;
-	void flushCheck(const QByteArray &, bool terminator, int voiceTargetID);
+	void flushCheck(const QByteArray &, bool terminator, std::int32_t voiceTargetID);
 
 	void initializeMixer();
 

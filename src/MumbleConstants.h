@@ -13,8 +13,8 @@ namespace Plugins {
 		constexpr int MAX_DATA_LENGTH    = 1000;
 		constexpr int MAX_DATA_ID_LENGTH = 100;
 
-	}; // namespace PluginMessage
-};     // namespace Plugins
-};     // namespace Mumble
+	} // namespace PluginMessage
+} // namespace Plugins
+} // namespace Mumble
 
 #endif // MUMBLE_MUMBLECONSTANTS_H_

@@ -34,9 +34,9 @@ static QString decodeMimeString(const QByteArray &src) {
 	if (src.isEmpty())
 		return QString();
 
-	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
+	if ((src.length() >= 4) && ((static_cast< std::size_t >(src.length()) % sizeof(ushort)) == 0)) {
 		const ushort *ptr = reinterpret_cast< const ushort * >(src.constData());
-		int len           = static_cast< int >(src.length() / sizeof(ushort));
+		int len           = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(ushort));
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -44,16 +44,25 @@ static QString decodeMimeString(const QByteArray &src) {
 		}
 	}
 
+#ifdef _MSVC_LANG
+#	pragma warning(push)
+	// Disable warning about this if condition being constant
+	// TODO: Use if constexpr as soon as we have moved to C++17 (or higher)
+#	pragma warning(disable : 4127)
+#endif
 	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= static_cast< int >(sizeof(wchar_t)))
-		&& ((src.length() % sizeof(wchar_t)) == 0)) {
+		&& ((static_cast< std::size_t >(src.length()) % sizeof(wchar_t)) == 0)) {
 		const wchar_t *ptr = reinterpret_cast< const wchar_t * >(src.constData());
-		int len            = static_cast< int >(src.length() / sizeof(wchar_t));
+		int len            = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(wchar_t));
 		if (*ptr < 0x7f) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
 			return QString::fromWCharArray(ptr, len);
 		}
 	}
+#ifdef _MSVC_LANG
+#	pragma warning(pop)
+#endif
 	const char *ptr = src.constData();
 	int len         = src.length();
 	while (len && (ptr[len - 1] == 0))
@@ -283,7 +292,7 @@ void RichTextEditor::on_qteRichText_textChanged() {
 
 	bool over = true;
 
-	unsigned int imagelength = plainText.length();
+	unsigned int imagelength = static_cast< unsigned int >(plainText.length());
 
 
 	if (Global::get().uiMessageLength && imagelength <= Global::get().uiMessageLength) {

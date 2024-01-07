@@ -59,7 +59,7 @@ private:
 public:
 	ShortcutActionWidget(QWidget *p = nullptr);
 	unsigned int index() const;
-	void setIndex(int);
+	void setIndex(unsigned int);
 };
 
 class ShortcutToggleWidget : public MUComboBox {

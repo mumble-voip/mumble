@@ -140,5 +140,5 @@ namespace Translations {
 
 		return guard;
 	}
-}; // namespace Translations
-}; // namespace Mumble
+} // namespace Translations
+} // namespace Mumble

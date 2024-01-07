@@ -198,8 +198,8 @@ void GlobalShortcutX::run() {
 				}
 			}
 			for (int i = 8; i <= 12; ++i) {
-				bool oldstate = (mask[idx] & (1 << i)) != 0;
-				bool newstate = (mask[next] & (1 << i)) != 0;
+				bool oldstate = (mask[idx] & static_cast< unsigned int >(1 << i)) != 0;
+				bool newstate = (mask[next] & static_cast< unsigned int >(1 << i)) != 0;
 				if (oldstate != newstate) {
 					handleButton(0x110 + i, newstate);
 				}

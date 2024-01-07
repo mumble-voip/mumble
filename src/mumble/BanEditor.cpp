@@ -11,6 +11,8 @@
 #include "ServerHandler.h"
 #include "Global.h"
 
+#include <cassert>
+
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), maskDefaultValue(32) {
 	setupUi(this);
 
@@ -31,7 +33,7 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 		const MumbleProto::BanList_BanEntry &be = msg.bans(i);
 		Ban b;
 		b.haAddress  = be.address();
-		b.iMask      = be.mask();
+		b.iMask      = static_cast< int >(be.mask());
 		b.qsUsername = u8(be.name());
 		b.qsHash     = u8(be.hash());
 		b.qsReason   = u8(be.reason());
@@ -53,7 +55,8 @@ void BanEditor::accept() {
 	foreach (const Ban &b, qlBans) {
 		MumbleProto::BanList_BanEntry *be = msg.add_bans();
 		be->set_address(b.haAddress.toStdString());
-		be->set_mask(b.iMask);
+		assert(b.iMask >= 0);
+		be->set_mask(static_cast< unsigned int >(b.iMask));
 		be->set_name(u8(b.qsUsername));
 		be->set_hash(u8(b.qsHash));
 		be->set_reason(u8(b.qsReason));

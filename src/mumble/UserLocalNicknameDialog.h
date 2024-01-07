@@ -18,7 +18,7 @@ class UserLocalNicknameDialog;
 
 class UserLocalNicknameDialog : public QDialog, private Ui::UserLocalNicknameDialog {
 	Q_OBJECT
-	Q_DISABLE_COPY(UserLocalNicknameDialog);
+	Q_DISABLE_COPY(UserLocalNicknameDialog)
 
 	/// The session ID for the user that the dialog is changing the nickname for.
 	unsigned int m_clientSession;

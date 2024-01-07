@@ -31,11 +31,11 @@ QList< QVariant > GlobalShortcutButtons::buttons() {
 
 	QList< QVariant > buttons;
 
-	const auto rootItem = m_ui->buttonTree->invisibleRootItem();
-	for (auto i = 0; i < rootItem->childCount(); ++i) {
-		const auto buttonItem = rootItem->child(i);
-		for (auto i = 0; i < buttonItem->childCount(); ++i) {
-			buttons.append(buttonItem->child(i)->data(0, Qt::UserRole));
+	const QTreeWidgetItem *rootItem = m_ui->buttonTree->invisibleRootItem();
+	for (int i = 0; i < rootItem->childCount(); ++i) {
+		const QTreeWidgetItem *buttonItem = rootItem->child(i);
+		for (int k = 0; k < buttonItem->childCount(); ++k) {
+			buttons.append(buttonItem->child(k)->data(0, Qt::UserRole));
 		}
 	}
 

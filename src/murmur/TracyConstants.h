@@ -20,6 +20,6 @@ static constexpr const char *AUDIO_ENCODE               = "audio_encode";
 static constexpr const char *AUDIO_UPDATE               = "audio_update";
 static constexpr const char *AUDIO_WHISPER_CACHE_STORE  = "audio_whisper_cache_restore";
 static constexpr const char *AUDIO_WHISPER_CACHE_CREATE = "audio_whisper_cache_create";
-}; // namespace TracyConstants
+} // namespace TracyConstants
 
 #endif // MUMBLE_MURMUR_TRACYCONSTANTS_H_

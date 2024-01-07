@@ -163,7 +163,7 @@ void TestCrypt::testvectors() {
 
 	unsigned char source[40];
 	unsigned char crypt[40];
-	for (int i = 0; i < 40; i++)
+	for (unsigned char i = 0; i < 40; i++)
 		source[i] = i;
 	QVERIFY(cs.ocb_encrypt(source, crypt, 40, rawkey, tag));
 	const unsigned char longtag[AES_BLOCK_SIZE] = { 0x9D, 0xB0, 0xCD, 0xF8, 0x80, 0xF7, 0x3E, 0x3E,
@@ -181,7 +181,7 @@ void TestCrypt::testvectors() {
 }
 
 void TestCrypt::authcrypt() {
-	for (int len = 0; len < 128; len++) {
+	for (unsigned int len = 0; len < 128; len++) {
 		const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 													   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 		const unsigned char nonce[AES_BLOCK_SIZE]  = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88,
@@ -191,22 +191,25 @@ void TestCrypt::authcrypt() {
 		CryptStateOCB2 cs;
 		cs.setKey(rawkey_str, nonce_str, nonce_str);
 
-		STACKVAR(unsigned char, src, len);
-		for (int i = 0; i < len; i++)
-			src[i] = (i + 1);
+		std::vector< unsigned char > src;
+		src.resize(len);
+		for (unsigned char i = 0; i < len; i++)
+			src[i] = static_cast< unsigned char >(i + 1);
 
 		unsigned char enctag[AES_BLOCK_SIZE];
 		unsigned char dectag[AES_BLOCK_SIZE];
-		STACKVAR(unsigned char, encrypted, len);
-		STACKVAR(unsigned char, decrypted, len);
+		std::vector< unsigned char > encrypted;
+		encrypted.resize(len);
+		std::vector< unsigned char > decrypted;
+		decrypted.resize(len);
 
-		QVERIFY(cs.ocb_encrypt(src, encrypted, len, nonce, enctag));
-		QVERIFY(cs.ocb_decrypt(encrypted, decrypted, len, nonce, dectag));
+		QVERIFY(cs.ocb_encrypt(src.data(), encrypted.data(), len, nonce, enctag));
+		QVERIFY(cs.ocb_decrypt(encrypted.data(), decrypted.data(), len, nonce, dectag));
 
 		for (int i = 0; i < AES_BLOCK_SIZE; i++)
 			QCOMPARE(enctag[i], dectag[i]);
 
-		for (int i = 0; i < len; i++)
+		for (unsigned int i = 0; i < len; i++)
 			QCOMPARE(src[i], decrypted[i]);
 	}
 }
@@ -222,26 +225,28 @@ void TestCrypt::xexstarAttack() {
 	CryptStateOCB2 cs;
 	cs.setKey(rawkey_str, nonce_str, nonce_str);
 
-	STACKVAR(unsigned char, src, 2 * AES_BLOCK_SIZE);
+	std::vector< unsigned char > src;
+	src.resize(2 * AES_BLOCK_SIZE);
 	// Set first block to `len(secondBlock)`
-	memset(src, 0, AES_BLOCK_SIZE);
 	src[AES_BLOCK_SIZE - 1] = AES_BLOCK_SIZE * 8;
 	// Set second block to arbitrary value
-	memset(src + AES_BLOCK_SIZE, 42, AES_BLOCK_SIZE);
+	memset(src.data() + AES_BLOCK_SIZE, 42, AES_BLOCK_SIZE);
 
 	unsigned char enctag[AES_BLOCK_SIZE];
 	unsigned char dectag[AES_BLOCK_SIZE];
-	STACKVAR(unsigned char, encrypted, 2 * AES_BLOCK_SIZE);
-	STACKVAR(unsigned char, decrypted, 2 * AES_BLOCK_SIZE);
+	std::vector< unsigned char > encrypted;
+	encrypted.resize(2 * AES_BLOCK_SIZE);
+	std::vector< unsigned char > decrypted;
+	decrypted.resize(2 * AES_BLOCK_SIZE);
 
-	const bool failed_encrypt = !cs.ocb_encrypt(src, encrypted, 2 * AES_BLOCK_SIZE, nonce, enctag, false);
+	const bool failed_encrypt = !cs.ocb_encrypt(src.data(), encrypted.data(), 2 * AES_BLOCK_SIZE, nonce, enctag, false);
 
 	// Perform the attack
 	encrypted[AES_BLOCK_SIZE - 1] ^= AES_BLOCK_SIZE * 8;
-	for (int i = 0; i < AES_BLOCK_SIZE; ++i)
+	for (unsigned int i = 0; i < AES_BLOCK_SIZE; ++i)
 		enctag[i] = src[AES_BLOCK_SIZE + i] ^ encrypted[AES_BLOCK_SIZE + i];
 
-	const bool failed_decrypt = !cs.ocb_decrypt(encrypted, decrypted, 1 * AES_BLOCK_SIZE, nonce, dectag);
+	const bool failed_decrypt = !cs.ocb_decrypt(encrypted.data(), decrypted.data(), 1 * AES_BLOCK_SIZE, nonce, dectag);
 
 	// Verify forged tag (should match if attack is properly implemented)
 	for (int i = 0; i < AES_BLOCK_SIZE; ++i) {
@@ -256,8 +261,8 @@ void TestCrypt::xexstarAttack() {
 	// since digital silence appears to produce them in mass.
 	// So instead we now modify the packet in a way which should not affect the audio but will
 	// prevent the attack.
-	QVERIFY(cs.ocb_encrypt(src, encrypted, 2 * AES_BLOCK_SIZE, nonce, enctag));
-	QVERIFY(cs.ocb_decrypt(encrypted, decrypted, 2 * AES_BLOCK_SIZE, nonce, dectag));
+	QVERIFY(cs.ocb_encrypt(src.data(), encrypted.data(), 2 * AES_BLOCK_SIZE, nonce, enctag));
+	QVERIFY(cs.ocb_decrypt(encrypted.data(), decrypted.data(), 2 * AES_BLOCK_SIZE, nonce, dectag));
 
 	// Tags should match
 	for (int i = 0; i < AES_BLOCK_SIZE; ++i) {
@@ -280,18 +285,20 @@ void TestCrypt::tamper() {
 	cs.setKey(rawkey_str, nonce_str, nonce_str);
 
 	const unsigned char msg[] = "It was a funky funky town!";
-	int len                   = sizeof(msg);
+	unsigned int len          = sizeof(msg);
 
-	STACKVAR(unsigned char, encrypted, len + 4);
-	STACKVAR(unsigned char, decrypted, len);
-	cs.encrypt(msg, encrypted, len);
+	std::vector< unsigned char > encrypted;
+	encrypted.resize(len + 4);
+	std::vector< unsigned char > decrypted;
+	decrypted.resize(len);
+	cs.encrypt(msg, encrypted.data(), len);
 
-	for (int i = 0; i < len * 8; i++) {
-		encrypted[i / 8] ^= 1 << (i % 8);
-		QVERIFY(!cs.decrypt(encrypted, decrypted, len + 4));
-		encrypted[i / 8] ^= 1 << (i % 8);
+	for (unsigned int i = 0; i < len * 8; i++) {
+		encrypted[i / 8] ^= static_cast< unsigned char >(1 << (i % 8));
+		QVERIFY(!cs.decrypt(encrypted.data(), decrypted.data(), len + 4));
+		encrypted[i / 8] ^= static_cast< unsigned char >(1 << (i % 8));
 	}
-	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4));
+	QVERIFY(cs.decrypt(encrypted.data(), decrypted.data(), len + 4));
 }
 
 QTEST_MAIN(TestCrypt)

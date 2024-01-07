@@ -18,7 +18,7 @@ class QSqlDatabase;
 class QSqlQuery;
 
 class ServerDB : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	/// A version number that allows us to keep track of changes we make to the DB architecture

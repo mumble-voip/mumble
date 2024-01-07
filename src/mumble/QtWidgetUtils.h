@@ -28,7 +28,7 @@ namespace QtUtils {
 
 	void elideText(QTextDocument &doc, uint32_t width);
 
-}; // namespace QtUtils
-}; // namespace Mumble
+} // namespace QtUtils
+} // namespace Mumble
 
 #endif // MUMBLE_MUMBLE_QTWIDGETUTILS_H_

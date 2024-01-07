@@ -136,8 +136,9 @@ MetaParams::~MetaParams() {
  *	@param settings The QSettings object to read from. If null, the Meta's qsSettings will be used.
  *	@return Setting if valid, default if not or setting not set.
  */
-template< class T >
-T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue, QSettings *settings) {
+template< class ValueType, class ReturnType >
+ReturnType MetaParams::typeCheckedFromSettings(const QString &name, const ValueType &defaultValue,
+											   QSettings *settings) {
 	// Use qsSettings unless a specific QSettings instance
 	// is requested.
 	if (!settings) {
@@ -146,16 +147,15 @@ T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue
 
 	QVariant cfgVariable = settings->value(name, defaultValue);
 
-	if (!cfgVariable.convert(
-			QVariant(defaultValue)
-				.type())) { // Bit convoluted as canConvert<T>() only does a static check without considering whether
-							// say a string like "blub" is actually a valid double (which convert does).
+	// Bit convoluted as canConvert<T>() only does a static check without considering whether
+	// say a string like "blub" is actually a valid double (which convert does).
+	if (!cfgVariable.convert(static_cast< int >(QVariant(defaultValue).type()))) {
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of"
 					<< defaultValue << ".";
-		return defaultValue;
+		return static_cast< ReturnType >(defaultValue);
 	}
 
-	return cfgVariable.value< T >();
+	return cfgVariable.value< ReturnType >();
 }
 
 void MetaParams::read(QString fname) {
@@ -370,11 +370,11 @@ void MetaParams::read(QString fname) {
 	qrUserName    = QRegExp(typeCheckedFromSettings("username", qrUserName.pattern()));
 	qrChannelName = QRegExp(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
 
-	iMessageLimit = typeCheckedFromSettings("messagelimit", 1);
-	iMessageBurst = typeCheckedFromSettings("messageburst", 5);
+	iMessageLimit = typeCheckedFromSettings< unsigned int >("messagelimit", 1);
+	iMessageBurst = typeCheckedFromSettings< unsigned int >("messageburst", 5);
 
-	iPluginMessageLimit = typeCheckedFromSettings("pluginmessagelimit", 4);
-	iPluginMessageBurst = typeCheckedFromSettings("pluginmessageburst", 15);
+	iPluginMessageLimit = typeCheckedFromSettings< unsigned int >("pluginmessagelimit", 4);
+	iPluginMessageBurst = typeCheckedFromSettings< unsigned int >("pluginmessageburst", 15);
 
 	broadcastListenerVolumeAdjustments = typeCheckedFromSettings("broadcastlistenervolumeadjustments", false);
 
@@ -382,10 +382,10 @@ void MetaParams::read(QString fname) {
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-		iObfuscate = QRandomGenerator::global()->generate();
+		iObfuscate = static_cast< int >(QRandomGenerator::global()->generate());
 #else
 		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		iObfuscate = qrand();
+		iObfuscate = static_cast< int >(qrand());
 #endif
 	}
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
@@ -713,8 +713,8 @@ bool Meta::boot(int srvnum) {
 #ifdef Q_OS_UNIX
 	unsigned int sockets = 19; // Base
 	foreach (s, qhServers) {
-		sockets += 11;           // Listen sockets, signal pipes etc.
-		sockets += s->iMaxUsers; // One per user
+		sockets += 11;                                        // Listen sockets, signal pipes etc.
+		sockets += static_cast< unsigned int >(s->iMaxUsers); // One per user
 	}
 
 	struct rlimit r;
@@ -778,7 +778,7 @@ bool Meta::banCheck(const QHostAddress &addr) {
 
 	if (qhBans.contains(addr)) {
 		Timer t = qhBans.value(addr);
-		if (t.elapsed() < (1000000ULL * mp.iBanTime))
+		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp.iBanTime)))
 			return true;
 		qhBans.remove(addr);
 	}
@@ -786,7 +786,7 @@ bool Meta::banCheck(const QHostAddress &addr) {
 	QList< Timer > &ql = qhAttempts[addr];
 
 	ql.append(Timer());
-	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * mp.iBanTimeframe)))
+	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp.iBanTimeframe))))
 		ql.removeFirst();
 
 	if (ql.count() > mp.iBanTries) {

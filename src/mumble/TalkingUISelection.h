@@ -64,10 +64,10 @@ public:
 /// A class representing the selection of a channel in the TalkingUI
 class ChannelSelection : public TalkingUISelection {
 protected:
-	const int m_channelID;
+	const unsigned int m_channelID;
 
 public:
-	explicit ChannelSelection(QWidget *widget, int channelID);
+	explicit ChannelSelection(QWidget *widget, unsigned int channelID);
 	explicit ChannelSelection(const ChannelSelection &) = default;
 
 	virtual void syncToMainWindow() const override;
@@ -78,10 +78,10 @@ public:
 class ListenerSelection : public TalkingUISelection {
 protected:
 	unsigned int m_userSession;
-	const int m_channelID;
+	const unsigned int m_channelID;
 
 public:
-	explicit ListenerSelection(QWidget *widget, unsigned int userSession, int channelID);
+	explicit ListenerSelection(QWidget *widget, unsigned int userSession, unsigned int channelID);
 	explicit ListenerSelection(const ListenerSelection &) = default;
 
 	virtual void syncToMainWindow() const override;

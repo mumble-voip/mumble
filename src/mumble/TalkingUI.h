@@ -36,7 +36,7 @@ class TalkingUI : public QWidget {
 
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(TalkingUI);
+	Q_DISABLE_COPY(TalkingUI)
 
 	std::vector< std::unique_ptr< TalkingUIContainer > > m_containers;
 	/// The Entry corresponding to the currently selected user
@@ -56,8 +56,8 @@ private:
 	void removeUser(unsigned int userSession);
 
 	void addListener(const ClientUser *user, const Channel *channel);
-	TalkingUIChannelListener *findListener(unsigned int userSession, int channelID);
-	void removeListener(unsigned int userSession, int channelID);
+	TalkingUIChannelListener *findListener(unsigned int userSession, unsigned int channelID);
+	void removeListener(unsigned int userSession, unsigned int channelID);
 	void removeAllListeners();
 
 	/// Sets up the UI components
@@ -70,7 +70,6 @@ private:
 	///
 	/// @param channel A pointer to the channel that shall be added
 	void addChannel(const Channel *channel);
-	;
 	/// Adds an UI entry for the given User, if none exists yet.
 	///
 	/// @param channel A pointer to the user that shall be added
@@ -81,7 +80,7 @@ private:
 	///
 	/// @paam userSession The session ID of the user
 	/// @param channelID The channel ID of the channel
-	void moveUserToChannel(unsigned int userSession, int channelID);
+	void moveUserToChannel(unsigned int userSession, unsigned int channelID);
 
 	/// Update (resize) the UI to its content
 	void updateUI();
@@ -125,7 +124,8 @@ public slots:
 	void on_userLocalVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 	void on_channelListenerAdded(const ClientUser *user, const Channel *channel);
 	void on_channelListenerRemoved(const ClientUser *user, const Channel *channel);
-	void on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float newAdjustment, float oldAdjustment);
+	void on_channelListenerLocalVolumeAdjustmentChanged(unsigned int channelID, float newAdjustment,
+														float oldAdjustment);
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_

@@ -72,7 +72,7 @@ QString GetDeviceStringProperty(AudioObjectID device_id, AudioObjectPropertySele
 		device_id, &property_address, 0,
 		nullptr, &size, &property_value);
 	if (result != noErr) {
-		throw CoreAudioException(QString("Unable to get string property %1 of %2.").arg(property_selector, device_id));
+		throw CoreAudioException(QString("Unable to get string property %1 of %2.").arg(property_selector).arg(static_cast<int>(device_id)));
 	}
 
 	char buf[4096];
@@ -89,7 +89,7 @@ UInt32 GetDeviceUint32Property(AudioObjectID device_id, AudioObjectPropertySelec
     UInt32 size = sizeof(property_value);
     OSStatus result = AudioObjectGetPropertyData(device_id, &property_address, 0, nullptr, &size, &property_value);
     if (result != noErr) {
-	    throw CoreAudioException(QString("Unable to get uint32 property %1 of %2.").arg(property_selector, device_id));
+	    throw CoreAudioException(QString("Unable to get uint32 property %1 of %2.").arg(property_selector).arg(static_cast<int>(device_id)));
     }
 
     return property_value;
@@ -103,7 +103,7 @@ UInt32 GetDevicePropertySize(AudioObjectID device_id, AudioObjectPropertySelecto
     UInt32 size = 0;
     OSStatus result = AudioObjectGetPropertyDataSize(device_id, &property_address, 0, nullptr, &size);
     if (result != noErr) {
-	    throw CoreAudioException(QString("Unable to get property size of %1 of %2.").arg(property_selector, device_id));
+	    throw CoreAudioException(QString("Unable to get property size of %1 of %2.").arg(property_selector).arg(static_cast<int>(device_id)));
     }
     return size;
 }
@@ -710,7 +710,7 @@ bool CoreAudioInput::initializeInputAU(AudioUnit au, AudioStreamBasicDescription
 
 	qWarning("CoreAudioInput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 
-	actualBufferLength        = iMicLength;
+	actualBufferLength        = static_cast<int>(iMicLength);
 	val                       = iMicLength;
 	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSize;
 	err                       = AudioObjectSetPropertyData(inputDevId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
@@ -836,7 +836,7 @@ void CoreAudioInput::run() {
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b         = buflist.mBuffers;
 	b->mNumberChannels     = iMicChannels;
-	b->mDataByteSize       = iMicSampleSize * actualBufferLength;
+	b->mDataByteSize       = iMicSampleSize * static_cast<unsigned int>(actualBufferLength);
 	b->mData               = calloc(1, b->mDataByteSize);
 
 	// Start!
@@ -1003,7 +1003,7 @@ void CoreAudioOutput::run() {
 #endif
 
 	iMixerFreq = static_cast< unsigned int >(fmt.mSampleRate);
-	iChannels  = static_cast< int >(fmt.mChannelsPerFrame);
+	iChannels  = static_cast< unsigned int >(fmt.mChannelsPerFrame);
 
 	if (fmt.mFormatFlags & kAudioFormatFlagIsFloat) {
 		eSampleFormat = SampleFloat;
@@ -1064,7 +1064,7 @@ void CoreAudioOutput::run() {
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to query for allowed buffer size ranges.");
 	} else {
-		setBufferSize(range.mMaximum);
+		setBufferSize(static_cast<unsigned int>(range.mMaximum));
 		qWarning("CoreAudioOutput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 	}
 

@@ -34,8 +34,8 @@ namespace QtUtils {
 	 */
 	QString decode_first_utf8_qssl_string(const QStringList &list);
 
-}; // namespace QtUtils
-}; // namespace Mumble
+} // namespace QtUtils
+} // namespace Mumble
 
 template< typename T > using qt_unique_ptr = std::unique_ptr< T, decltype(&Mumble::QtUtils::deleteQObject) >;
 
@@ -57,7 +57,7 @@ inline QString u8(const ::std::wstring &str) {
 
 inline ::std::string u8(const QString &str) {
 	const QByteArray &qba = str.toUtf8();
-	return ::std::string(qba.constData(), qba.length());
+	return ::std::string(qba.constData(), static_cast< std::size_t >(qba.length()));
 }
 
 inline QByteArray blob(const ::std::string &str) {
@@ -65,7 +65,7 @@ inline QByteArray blob(const ::std::string &str) {
 }
 
 inline ::std::string blob(const QByteArray &str) {
-	return ::std::string(str.constData(), str.length());
+	return ::std::string(str.constData(), static_cast< std::size_t >(str.length()));
 }
 
 inline QByteArray sha1(const QByteArray &blob) {

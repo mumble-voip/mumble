@@ -210,7 +210,7 @@ void LCD::initBuffers() {
 	foreach (LCDDevice *d, devmgr.qlDevices) {
 		QSize size = d->size();
 		if (!qhImageBuffers.contains(size)) {
-			size_t buflen        = (size.width() * size.height()) / 8;
+			size_t buflen        = static_cast< std::size_t >(size.width() * size.height()) / 8;
 			qhImageBuffers[size] = new unsigned char[buflen];
 			qhImages[size] = new QImage(qhImageBuffers[size], size.width(), size.height(), QImage::Format_MonoLSB);
 		}
@@ -429,5 +429,5 @@ LCDDevice::~LCDDevice() {
 /* --- */
 
 uint qHash(const QSize &size) {
-	return ((size.width() & 0xffff) << 16) | (size.height() & 0xffff);
+	return static_cast< uint >((size.width() & 0xffff) << 16) | (size.height() & 0xffff);
 }

@@ -21,7 +21,7 @@ void PluginManifest::parse(std::istream &input) {
 	Poco::AutoPtr< Poco::XML::Document > doc;
 	try {
 		doc = parser.parse(&source);
-	} catch (const Poco::XML::SAXParseException &e) {
+	} catch (const Poco::XML::SAXParseException &) {
 		throw PluginManifestException("Plugin manifest uses malformed XML");
 	}
 
@@ -70,7 +70,8 @@ void PluginManifest::parse_v1_0_0(Poco::AutoPtr< Poco::XML::Document > document)
 	Poco::AutoPtr< Poco::XML::NodeList > pluginNodes = assets->getElementsByTagName("plugin");
 
 	for (std::size_t i = 0; i < pluginNodes->length(); ++i) {
-		Poco::XML::Element *current = dynamic_cast< Poco::XML::Element * >(pluginNodes->item(i));
+		Poco::XML::Element *current =
+			dynamic_cast< Poco::XML::Element * >(pluginNodes->item(static_cast< unsigned long >(i)));
 		if (!current) {
 			throw PluginManifestException("Plugin manifest uses \"plugin\" node of unexpected type");
 		}

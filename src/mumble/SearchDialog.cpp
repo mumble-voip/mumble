@@ -51,7 +51,7 @@ QString SearchDialog::toString(ChannelAction action) {
 }
 
 class SearchResultItem : public QTreeWidgetItem {
-	Q_DISABLE_COPY(SearchResultItem);
+	Q_DISABLE_COPY(SearchResultItem)
 
 public:
 	template< typename parent_t >
@@ -88,7 +88,7 @@ private:
 };
 
 class ChannelItem : public QTreeWidgetItem {
-	Q_DISABLE_COPY(ChannelItem);
+	Q_DISABLE_COPY(ChannelItem)
 
 public:
 	template< typename parent_t >
@@ -101,10 +101,10 @@ public:
 		setTextAlignment(NAME_COLUMN, Qt::AlignLeft | Qt::AlignVCenter);
 	}
 
-	int getChannelID() const { return m_chanID; }
+	unsigned int getChannelID() const { return m_chanID; }
 
 private:
-	int m_chanID;
+	unsigned int m_chanID;
 };
 
 SearchDialog::SearchDialog(QWidget *parent) : QWidget(parent), m_itemDelegate(new SearchDialogItemDelegate()) {
@@ -140,7 +140,7 @@ SearchDialog::SearchDialog(QWidget *parent) : QWidget(parent), m_itemDelegate(ne
 	searchResultTree->header()->hide();
 
 	QFontMetrics metric(searchResultTree->font());
-	searchResultTree->header()->resizeSection(0, metric.height() * 1.2);
+	searchResultTree->header()->resizeSection(0, static_cast< int >(metric.height() * 1.2));
 	searchResultTree->setIconSize(QSize(metric.ascent(), metric.ascent()));
 
 	if (Global::get().mw) {
@@ -228,7 +228,7 @@ void SearchDialog::on_searchResultTree_currentItemChanged(QTreeWidgetItem *c, QT
 			Global::get().mw->pmModel->setSelectedUser(user->uiSession);
 		}
 	} else {
-		const Channel *channel = Channel::get(static_cast< int >(item.getID()));
+		const Channel *channel = Channel::get(item.getID());
 
 		if (channel) {
 			// Only try to select the channel if it still exists
@@ -377,7 +377,7 @@ void SearchDialog::search(const QString &searchTerm) {
 	if (searchChannels) {
 		QReadLocker userLock(&Channel::c_qrwlChannels);
 
-		QHash< int, Channel * >::const_iterator it = Channel::c_qhChannels.constBegin();
+		QHash< unsigned int, Channel * >::const_iterator it = Channel::c_qhChannels.constBegin();
 		while (it != Channel::c_qhChannels.constEnd()) {
 			const Channel *currentChannel = it.value();
 
@@ -419,7 +419,7 @@ void SearchDialog::on_clientDisconnected(unsigned int userSession) {
 	removeSearchResult(userSession, true);
 }
 
-void SearchDialog::on_channelRemoved(int channelID) {
+void SearchDialog::on_channelRemoved(unsigned int channelID) {
 	removeSearchResult(channelID, false);
 }
 
@@ -505,7 +505,7 @@ void SearchDialog::keyPressEvent(QKeyEvent *event) {
 		|| event->key() == Qt::Key_PageDown) {
 		QKeyEvent *copy = new QKeyEvent(event->type(), event->key(), event->modifiers(), event->nativeScanCode(),
 										event->nativeVirtualKey(), event->nativeScanCode(), event->text(),
-										event->isAutoRepeat(), event->count());
+										event->isAutoRepeat(), static_cast< ushort >(event->count()));
 
 		m_relayedKeyEvents.insert(copy);
 
@@ -597,4 +597,4 @@ bool SearchDialog::removeSearchResult(unsigned int id, bool isUser) {
 	return false;
 }
 
-}; // namespace Search
+} // namespace Search

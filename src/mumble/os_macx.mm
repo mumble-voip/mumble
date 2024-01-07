@@ -139,7 +139,9 @@ void os_init() {
 
 	if (home) {
 		size_t len = strlen(home) + strlen(logpath) + 1;
-		STACKVAR(char, buff, len);
+		static std::vector<char> buffer;
+		buffer.resize(len);
+		char *buff = buffer.data();
 		memset(buff, 0, len);
 		strcat(buff, home);
 		strcat(buff, logpath);

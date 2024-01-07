@@ -271,7 +271,7 @@ static bool isInstallerNewer(QString path, NSUInteger curVer) {
 			goto out;
 		}
 
-		QXmlStreamReader reader(QByteArray::fromRawData(data, size));
+		QXmlStreamReader reader(QByteArray::fromRawData(data, static_cast<int>(size)));
 		while (! reader.atEnd()) {
 			QXmlStreamReader::TokenType tok = reader.readNext();
 			if (tok == QXmlStreamReader::StartElement) {

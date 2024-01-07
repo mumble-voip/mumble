@@ -41,7 +41,7 @@ class PTTButtonWidget;
 
 namespace Search {
 class SearchDialog;
-};
+}
 
 class MenuLabel;
 class ListenerVolumeSlider;

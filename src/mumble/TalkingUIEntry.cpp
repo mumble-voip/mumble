@@ -211,7 +211,7 @@ int TalkingUIUser::compare(const TalkingUIEntry &other) const {
 	if (res == 0) {
 		// Make sure that we only consider users the same, if they have the same ID and
 		// not simply because they happen to have the same name
-		res = otherUser.getAssociatedUserSession() - getAssociatedUserSession();
+		res = static_cast< int >(otherUser.getAssociatedUserSession()) - static_cast< int >(getAssociatedUserSession());
 	}
 
 	return res;
@@ -263,7 +263,7 @@ void TalkingUIUser::setDisplayString(const QString &displayString) {
 }
 
 void TalkingUIUser::setLifeTime(unsigned int time) {
-	m_timer.setInterval(time);
+	m_timer.setInterval(static_cast< int >(time));
 }
 
 void TalkingUIUser::restrictLifetime(bool restrict) {
@@ -316,8 +316,8 @@ void TalkingUIUser::setStatus(UserStatus status) {
 
 		// Draw the icons to the Pixmap
 		QPainter painter(&pixmap);
-		for (int i = 0; i < static_cast< int >(icons.size()); i++) {
-			painter.drawPixmap(i * m_iconSize, 0,
+		for (unsigned int i = 0; i < icons.size(); i++) {
+			painter.drawPixmap(static_cast< int >(i) * m_iconSize, 0,
 							   icons[i].get().pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
 		}
 
@@ -397,5 +397,5 @@ void TalkingUIChannelListener::setDisplayString(const QString &displayString) {
 }
 
 int TalkingUIChannelListener::getAssociatedChannelID() const {
-	return m_channelID;
+	return static_cast< int >(m_channelID);
 }

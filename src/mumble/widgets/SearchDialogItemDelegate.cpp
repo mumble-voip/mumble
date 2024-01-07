@@ -33,10 +33,12 @@ void setupDocuments(QTextDocument &resultDoc, QTextDocument &channelTreeDoc, con
 	// Render the channel tree with a smaller font
 	QFont channelTreeFont(option.font);
 	if (channelTreeFont.pointSize() >= 0) {
-		channelTreeFont.setPointSize(std::max(channelTreeFont.pointSize() * 0.8f, 1.0f));
+		channelTreeFont.setPointSize(
+			static_cast< int >(std::max(static_cast< float >(channelTreeFont.pointSize()) * 0.8f, 1.0f)));
 	} else {
 		// Font size is specified in pixels
-		channelTreeFont.setPixelSize(std::max(channelTreeFont.pixelSize() * 0.8f, 1.0f));
+		channelTreeFont.setPixelSize(
+			static_cast< int >(std::max(static_cast< float >(channelTreeFont.pixelSize()) * 0.8f, 1.0f)));
 	}
 
 	resultDoc.setDefaultTextOption(resultTextOption);
@@ -79,12 +81,13 @@ void SearchDialogItemDelegate::paint(QPainter *painter, const QStyleOptionViewIt
 	const QRect textRect = style->subElementRect(QStyle::SE_ItemViewItemText, &option);
 
 	if (resultDoc.size().width() > textRect.width()) {
-		Mumble::QtUtils::elideText(resultDoc, textRect.width());
+		Mumble::QtUtils::elideText(resultDoc, static_cast< unsigned int >(textRect.width()));
 	}
 
 	// Figure out where to render the text in order to follow the requested alignment
-	QSize contentSize(std::max(resultDoc.size().width(), channelTreeDoc.size().width() + CHANNEL_TREE_LEFT_INDENT),
-					  resultDoc.size().height() + channelTreeDoc.size().height() + BOTTOM_MARGIN);
+	QSize contentSize(static_cast< int >(
+						  std::max(resultDoc.size().width(), channelTreeDoc.size().width() + CHANNEL_TREE_LEFT_INDENT)),
+					  static_cast< int >(resultDoc.size().height() + channelTreeDoc.size().height() + BOTTOM_MARGIN));
 
 	QRect contentLayoutRect =
 		QStyle::alignedRect(Qt::LayoutDirectionAuto, option.displayAlignment, contentSize, textRect);
@@ -137,7 +140,8 @@ QSize SearchDialogItemDelegate::sizeHint(const QStyleOptionViewItem &inOption, c
 		std::max(static_cast< int >(
 					 std::max(resultDoc.size().width(), channelTreeDoc.size().width() + CHANNEL_TREE_LEFT_INDENT)),
 				 size.width());
-	const int hintHeight = resultDoc.size().height() + channelTreeDoc.size().height() + BOTTOM_MARGIN;
+	const int hintHeight =
+		static_cast< int >(resultDoc.size().height() + channelTreeDoc.size().height() + BOTTOM_MARGIN);
 
 	return { hintWidth, hintHeight };
 }

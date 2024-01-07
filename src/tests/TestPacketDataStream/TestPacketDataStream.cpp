@@ -26,7 +26,7 @@ private slots:
 void TestPacketDataStream::floating_data() {
 	QTest::addColumn< double >("value");
 	for (int i = 1; i < 256; i++) {
-		double v = 1.0L / (1.0L * i);
+		double v = 1.0 / (1.0 * i);
 		QTest::newRow("Positive") << v;
 		QTest::newRow("Negative") << -v;
 	}

@@ -29,7 +29,7 @@ struct TextMessage;
 
 class MumbleServerIce : public QObject {
 	friend class MurmurLocker;
-	Q_OBJECT;
+	Q_OBJECT
 
 protected:
 	int count;

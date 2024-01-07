@@ -82,8 +82,8 @@ static const QString currentCodec() {
 
 void ServerInformation::updateAudioBandwidth() {
 	// The bandwidths are in bit/s, so we divide by 1000 to get kBit/s
-	const float maxBandwidthAllowed = Global::get().iMaxBandwidth / 1000.0f;
-	const float currentBandwidth    = Global::get().iAudioBandwidth / 1000.0f;
+	const float maxBandwidthAllowed = static_cast< float >(Global::get().iMaxBandwidth) / 1000.0f;
+	const float currentBandwidth    = static_cast< float >(Global::get().iAudioBandwidth) / 1000.0f;
 
 	audio_current->setText(QString::fromLatin1("%1 kBit/s").arg(currentBandwidth, 0, 'f', 1));
 	audio_allowed->setText(QString::fromLatin1("%1 kBit/s").arg(maxBandwidthAllowed, 0, 'f', 1));
@@ -117,8 +117,9 @@ void ServerInformation::updateConnectionDetails() {
 		connection_udp_statisticsGroup->show();
 
 		// Actually fill in data
-		const float latency   = boost::accumulators::mean(Global::get().sh->accUDP);
-		const float deviation = std::sqrt(boost::accumulators::variance(Global::get().sh->accUDP));
+		const float latency = static_cast< float >(boost::accumulators::mean(Global::get().sh->accUDP));
+		const float deviation =
+			static_cast< float >(std::sqrt(boost::accumulators::variance(Global::get().sh->accUDP)));
 
 		connection_udp_encryption->setText("128 bit OCB-AES128");
 		connection_udp_latency->setText(latencyString.arg(latency, 0, 'f', 1).arg(deviation, 0, 'f', 1));
@@ -128,8 +129,8 @@ void ServerInformation::updateConnectionDetails() {
 
 
 	// TCP
-	const float latency   = boost::accumulators::mean(Global::get().sh->accTCP);
-	const float deviation = std::sqrt(boost::accumulators::variance(Global::get().sh->accTCP));
+	const float latency   = static_cast< float >(boost::accumulators::mean(Global::get().sh->accTCP));
+	const float deviation = static_cast< float >(std::sqrt(boost::accumulators::variance(Global::get().sh->accTCP)));
 
 	QSslCipher cipher = Global::get().sh->qscCipher;
 

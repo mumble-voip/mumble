@@ -17,11 +17,11 @@
 #	include "Database.h"
 #	include "ServerHandler.h"
 
-QHash< int, Channel * > Channel::c_qhChannels;
+QHash< unsigned int, Channel * > Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
 #endif
 
-Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
+Channel::Channel(unsigned int id, const QString &name, QObject *p) : QObject(p) {
 	iId         = id;
 	iPosition   = 0;
 	qsName      = name;
@@ -59,12 +59,12 @@ Channel::~Channel() {
 }
 
 #ifdef MUMBLE
-Channel *Channel::get(int id) {
+Channel *Channel::get(unsigned int id) {
 	QReadLocker lock(&c_qrwlChannels);
 	return c_qhChannels.value(id);
 }
 
-Channel *Channel::add(int id, const QString &name) {
+Channel *Channel::add(unsigned int id, const QString &name) {
 	QWriteLocker lock(&c_qrwlChannels);
 
 	if (c_qhChannels.contains(id))
@@ -272,7 +272,7 @@ void Channel::removeUser(User *p) {
 
 Channel::operator QString() const {
 	return QString::fromLatin1("%1[%2:%3%4]")
-		.arg(qsName, QString::number(iId), QString::number(cParent ? cParent->iId : -1),
+		.arg(qsName, QString::number(iId), QString::number(cParent ? static_cast< int >(cParent->iId) : -1),
 			 bTemporary ? QLatin1String("*") : QLatin1String(""));
 }
 

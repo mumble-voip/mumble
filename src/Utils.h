@@ -11,18 +11,13 @@
 
 #include <QtCore/QtGlobal>
 
-#define iroundf(x) (static_cast< int >(x))
-
-#ifdef Q_OS_WIN
-#	define STACKVAR(type, varname, count) type *varname = reinterpret_cast< type * >(_alloca(sizeof(type) * (count)))
-#else
+#ifndef Q_OS_WIN
 #	ifdef WId
 typedef WId HWND;
 #	endif
 #	define __cdecl
 #	define INVALID_SOCKET -1
 #	define SOCKET_ERROR -1
-#	define STACKVAR(type, varname, count) type varname[count]
 #	define CopyMemory(dst, ptr, len) memcpy(dst, ptr, len)
 #	define ZeroMemory(ptr, len) memset(ptr, 0, len)
 #endif

@@ -47,9 +47,9 @@ unsigned long id_callback() {
 }
 
 void SSLLocks::initialize() {
-	int nlocks = CRYPTO_num_locks();
+	unsigned int nlocks = CRYPTO_num_locks();
 
-	locks = reinterpret_cast< QMutex ** >(calloc(nlocks, sizeof(QMutex *)));
+	locks = reinterpret_cast< QMutex ** >(calloc(nlocks, sizeof(void *)));
 	if (!locks) {
 		qFatal("SSLLocks: unable to allocate locks array");
 
@@ -60,7 +60,7 @@ void SSLLocks::initialize() {
 		exit(1);
 	}
 
-	for (int i = 0; i < nlocks; i++) {
+	for (unsigned int i = 0; i < nlocks; i++) {
 		locks[i] = new QMutex;
 	}
 

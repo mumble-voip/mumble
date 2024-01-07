@@ -14,7 +14,7 @@
 class DeveloperConsole : public QObject {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(DeveloperConsole);
+	Q_DISABLE_COPY(DeveloperConsole)
 
 protected:
 	QPointer< QMainWindow > m_window;

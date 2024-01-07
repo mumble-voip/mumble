@@ -352,15 +352,16 @@ static IMMDevice *openNamedOrDefaultDevice(const QString &name, EDataFlow dataFl
 	IMMDevice *pDevice = nullptr;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
-		STACKVAR(wchar_t, devname, name.length() + 1);
-		int len      = name.toWCharArray(devname);
+		static std::vector< wchar_t > devname;
+		devname.resize(name.length() + 1);
+		int len      = name.toWCharArray(devname.data());
 		devname[len] = 0;
-		hr           = pEnumerator->GetDevice(devname, &pDevice);
+		hr           = pEnumerator->GetDevice(devname.data(), &pDevice);
 		if (FAILED(hr)) {
 			qWarning("WASAPI: Failed to open selected device %s %ls (df=%d, e=%d, hr=0x%08lx), falling back to default",
-					 qPrintable(name), devname, dataFlow, role, hr);
+					 qPrintable(name), devname.data(), dataFlow, role, hr);
 		} else {
-			WASAPINotificationClient::get().enlistDeviceAsUsed(devname);
+			WASAPINotificationClient::get().enlistDeviceAsUsed(devname.data());
 		}
 	}
 
@@ -901,7 +902,6 @@ void WASAPIOutput::run() {
 	HANDLE hMmThread;
 	int ns = 0;
 	unsigned int chanmasks[32];
-	QMap< DWORD, float > qmVolumes;
 	bool lastspoke = false;
 	REFERENCE_TIME bufferDuration =
 		(Global::get().s.iOutputDelay > 1) ? (Global::get().s.iOutputDelay + 1) * 100000 : 0;

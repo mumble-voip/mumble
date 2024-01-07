@@ -214,7 +214,7 @@ void Zeroconf::helperBrowserRecordsChanged(const QList< BonjourRecord > &records
 }
 
 void Zeroconf::helperResolverRecordResolved(const BonjourRecord record, const QString hostname, const int port) {
-	emit recordResolved(record, hostname, port);
+	emit recordResolved(record, hostname, static_cast< std::uint16_t >(port));
 }
 
 void Zeroconf::helperBrowserError(const DNSServiceErrorType error) const {

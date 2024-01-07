@@ -317,11 +317,13 @@ set(MUMBLE_SOURCES
 	"${SHARED_SOURCE_DIR}/User.cpp"
 	"${SHARED_SOURCE_DIR}/User.h"
 
-	"${3RDPARTY_DIR}/smallft/smallft.cpp"
-
 	"mumble.qrc"
 	"${CMAKE_SOURCE_DIR}/themes/DefaultTheme.qrc"
 )
+
+add_library(smallft STATIC "${3RDPARTY_DIR}/smallft/smallft.cpp")
+target_include_directories(smallft PUBLIC "${3RDPARTY_DIR}/smallft")
+target_disable_warnings(smallft)
 
 add_custom_command(
 	OUTPUT "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
@@ -332,6 +334,7 @@ add_custom_command(
 list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
+target_link_libraries(mumble_client_object_lib PUBLIC smallft)
 
 if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 	# We don't want the console to appear in release builds.
@@ -416,7 +419,6 @@ target_include_directories(mumble_client_object_lib
 		${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
 		"widgets"
 		${SHARED_SOURCE_DIR}
-		"${3RDPARTY_DIR}/smallft"
 		"${PLUGINS_DIR}"
 )
 

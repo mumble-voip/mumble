@@ -46,7 +46,7 @@ void RichTextItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 	doc.adjustSize();
 
 	if (doc.size().width() > option.rect.width()) {
-		Mumble::QtUtils::elideText(doc, option.rect.width());
+		Mumble::QtUtils::elideText(doc, static_cast< std::uint32_t >(option.rect.width()));
 	}
 
 	// Painting item without text (this takes care of painting e.g. the highlighted for selected
@@ -56,7 +56,8 @@ void RichTextItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 
 	// Figure out where to render the text in order to follow the requested alignment
 	QRect textRect = style->subElementRect(QStyle::SE_ItemViewItemText, &option);
-	QSize documentSize(doc.size().width(), doc.size().height()); // Convert QSizeF to QSize
+	QSize documentSize(static_cast< int >(doc.size().width()),
+					   static_cast< int >(doc.size().height())); // Convert QSizeF to QSize
 	QRect layoutRect = QStyle::alignedRect(Qt::LayoutDirectionAuto, option.displayAlignment, documentSize, textRect);
 
 	painter->save();
@@ -84,5 +85,5 @@ QSize RichTextItemDelegate::sizeHint(const QStyleOptionViewItem &inOption, const
 	doc.setDefaultFont(option.font);
 	doc.setDocumentMargin(1);
 
-	return QSize(doc.idealWidth(), doc.size().height());
+	return QSize(static_cast< int >(doc.idealWidth()), static_cast< int >(doc.size().height()));
 }

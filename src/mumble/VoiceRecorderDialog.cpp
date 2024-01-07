@@ -162,7 +162,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	// Create the recorder
 	VoiceRecorder::Config config;
-	config.sampleRate      = ao->getMixerFreq();
+	config.sampleRate      = static_cast< int >(ao->getMixerFreq());
 	config.fileName        = dir.absoluteFilePath(basename + QLatin1Char('.') + suffix);
 	config.mixDownMode     = qrbDownmix->isChecked();
 	config.recordingFormat = static_cast< VoiceRecorderFormat::Format >(ifm);

@@ -16,7 +16,7 @@ class QAction;
 class Tray : public QObject {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(Tray);
+	Q_DISABLE_COPY(Tray)
 
 protected:
 	QSystemTrayIcon *qsti;

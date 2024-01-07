@@ -34,11 +34,11 @@ public:
 	unsigned short usPort;
 	int iTimeout;
 	int iMaxBandwidth;
-	int iMaxUsers;
-	int iMaxUsersPerChannel;
+	unsigned int iMaxUsers;
+	unsigned int iMaxUsersPerChannel;
 	int iMaxListenersPerChannel;
 	int iMaxListenerProxiesPerUser;
-	int iDefaultChan;
+	unsigned int iDefaultChan;
 	bool bRememberChan;
 	int iRememberChanDuration;
 	int iMaxTextMessageLength;
@@ -168,14 +168,14 @@ public:
 	bool loadSSLSettings();
 
 private:
-	template< class T >
-	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = nullptr);
+	template< class ValueType, class ReturnType = ValueType >
+	ReturnType typeCheckedFromSettings(const QString &name, const ValueType &variable, QSettings *settings = nullptr);
 };
 
 class Meta : public QObject {
 private:
-	Q_OBJECT;
-	Q_DISABLE_COPY(Meta);
+	Q_OBJECT
+	Q_DISABLE_COPY(Meta)
 
 public:
 	static MetaParams mp;

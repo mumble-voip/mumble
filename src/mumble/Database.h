@@ -55,8 +55,9 @@ public:
 	QString getUserLocalNickname(const QString &hash);
 	void setUserLocalNickname(const QString &hash, const QString &nickname);
 
-	ChannelFilterMode getChannelFilterMode(const QByteArray &server_cert_digest, int channel_id);
-	void setChannelFilterMode(const QByteArray &server_cert_digest, int channel_id, ChannelFilterMode filterMode);
+	ChannelFilterMode getChannelFilterMode(const QByteArray &server_cert_digest, unsigned int channel_id);
+	void setChannelFilterMode(const QByteArray &server_cert_digest, unsigned int channel_id,
+							  ChannelFilterMode filterMode);
 
 	QMap< UnresolvedServerAddress, unsigned int > getPingCache();
 	void setPingCache(const QMap< UnresolvedServerAddress, unsigned int > &cache);

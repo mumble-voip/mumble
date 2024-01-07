@@ -28,19 +28,19 @@ void PositionalAudioViewer::update() {
 
 	pluginManager->fetchPositionalData();
 
-	const PositionalData &data = pluginManager->getPositionalData();
+	const PositionalData &posData = pluginManager->getPositionalData();
 
-	updatePlayer(data);
-	updateCamera(data);
+	updatePlayer(posData);
+	updateCamera(posData);
 
-	m_ui->context->setPlainText(data.getContext());
-	m_ui->identity->setPlainText(data.getPlayerIdentity());
+	m_ui->context->setPlainText(posData.getContext());
+	m_ui->identity->setPlainText(posData.getPlayerIdentity());
 }
 
-void PositionalAudioViewer::updatePlayer(const PositionalData &data) {
-	const Position3D pos = data.getPlayerPos();
-	const Vector3D dir   = data.getPlayerDir();
-	const Vector3D axis  = data.getPlayerAxis();
+void PositionalAudioViewer::updatePlayer(const PositionalData &posData) {
+	const Position3D pos = posData.getPlayerPos();
+	const Vector3D dir   = posData.getPlayerDir();
+	const Vector3D axis  = posData.getPlayerAxis();
 
 	m_ui->playerPosX->setValue(pos.x);
 	m_ui->playerPosY->setValue(pos.y);
@@ -55,10 +55,10 @@ void PositionalAudioViewer::updatePlayer(const PositionalData &data) {
 	m_ui->playerAxisZ->setValue(axis.z);
 }
 
-void PositionalAudioViewer::updateCamera(const PositionalData &data) {
-	const Position3D pos = data.getCameraPos();
-	const Vector3D dir   = data.getCameraDir();
-	const Vector3D axis  = data.getCameraAxis();
+void PositionalAudioViewer::updateCamera(const PositionalData &posData) {
+	const Position3D pos = posData.getCameraPos();
+	const Vector3D dir   = posData.getCameraDir();
+	const Vector3D axis  = posData.getCameraAxis();
 
 	m_ui->cameraPosX->setValue(pos.x);
 	m_ui->cameraPosY->setValue(pos.y);

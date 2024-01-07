@@ -62,7 +62,7 @@ void stringToEnum(const std::string &str, OverlaySettings::OverlayShow &e);
 void stringToEnum(const std::string &str, OverlaySettings::OverlaySort &e);
 void stringToEnum(const std::string &str, OverlaySettings::OverlayExclusionMode &e);
 
-}; // namespace details
+} // namespace details
 
 template< typename T > T stringToEnum(const std::string &str) {
 	static_assert(std::is_enum< T >::value, "Only enums can be converted to strings with this function");

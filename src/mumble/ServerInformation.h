@@ -13,8 +13,8 @@
 class Connection;
 
 class ServerInformation : public QDialog, private Ui::ServerInformation {
-	Q_OBJECT;
-	Q_DISABLE_COPY(ServerInformation);
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerInformation)
 
 public:
 	ServerInformation(QWidget *parent = nullptr);

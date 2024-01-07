@@ -37,4 +37,4 @@ void setSuggestedVersion(MumbleProto::SuggestConfig &msg, const ::Version::full_
 	msg.set_version_v1(::Version::toLegacyVersion(version));
 }
 
-}; // namespace MumbleProto
+} // namespace MumbleProto

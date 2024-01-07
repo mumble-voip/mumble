@@ -42,7 +42,7 @@ namespace Translations {
 	 */
 	LifetimeGuard installTranslators(const QLocale &locale, QApplication &app, const QStringList &extraDirectories);
 
-}; // namespace Translations
-}; // namespace Mumble
+} // namespace Translations
+} // namespace Mumble
 
 #endif // MUMBLE_MUMBLE_TRANSLATIONS_H_

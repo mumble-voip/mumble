@@ -67,8 +67,8 @@ struct MumbleAPICurator {
 /// This class is a singleton as a way to be able to write C function wrappers for the member functions
 /// that are needed for passing to the plugins.
 class MumbleAPI : public QObject {
-	Q_OBJECT;
-	Q_DISABLE_COPY(MumbleAPI);
+	Q_OBJECT
+	Q_DISABLE_COPY(MumbleAPI)
 
 public:
 	static MumbleAPI &get();
@@ -197,15 +197,15 @@ public:
 	/// @returns A reference to the PluginData singleton
 	static PluginData &get();
 }; // class PluginData
-}; // namespace API
+} // namespace API
 
 
 // Declare the meta-types that we require in order for the API to work
-Q_DECLARE_METATYPE(mumble_settings_key_t);
-Q_DECLARE_METATYPE(mumble_settings_key_t *);
-Q_DECLARE_METATYPE(mumble_transmission_mode_t);
-Q_DECLARE_METATYPE(mumble_transmission_mode_t *);
-Q_DECLARE_METATYPE(std::shared_ptr< API::api_promise_t >);
+Q_DECLARE_METATYPE(mumble_settings_key_t)
+Q_DECLARE_METATYPE(mumble_settings_key_t *)
+Q_DECLARE_METATYPE(mumble_transmission_mode_t)
+Q_DECLARE_METATYPE(mumble_transmission_mode_t *)
+Q_DECLARE_METATYPE(std::shared_ptr< API::api_promise_t >)
 
 //////////////////////////////////////////////////////////////
 ///////////// SYNCHRONIZATION STRATEGY ///////////////////////

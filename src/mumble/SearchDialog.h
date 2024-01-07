@@ -86,8 +86,8 @@ using SearchResultMap = std::map< SearchResult, unsigned int, SearchResultSortCo
  * The search result class is the one that pops up when triggering the search functionality
  */
 class SearchDialog : public QWidget, private Ui::SearchDialog {
-	Q_OBJECT;
-	Q_DISABLE_COPY(SearchDialog);
+	Q_OBJECT
+	Q_DISABLE_COPY(SearchDialog)
 
 public:
 	SearchDialog(QWidget *parent = nullptr);
@@ -123,7 +123,7 @@ public slots:
 	void on_serverConnectionSynchronized();
 	void on_serverDisconnected();
 	void on_clientDisconnected(unsigned int userSession);
-	void on_channelRemoved(int channelID);
+	void on_channelRemoved(unsigned int channelID);
 
 private:
 	MultiStyleWidgetWrapper m_searchFieldStyleWrapper;
@@ -139,9 +139,9 @@ private:
 	bool removeSearchResult(unsigned int id, bool isUser);
 };
 
-}; // namespace Search
+} // namespace Search
 
-Q_DECLARE_METATYPE(Search::SearchDialog::UserAction);
-Q_DECLARE_METATYPE(Search::SearchDialog::ChannelAction);
+Q_DECLARE_METATYPE(Search::SearchDialog::UserAction)
+Q_DECLARE_METATYPE(Search::SearchDialog::ChannelAction)
 
 #endif // MUMBLE_MUMBLE_SEARCHDIALOG_H_

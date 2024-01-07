@@ -399,7 +399,7 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	execQueryAndLogFailure(query);
 }
 
-ChannelFilterMode Database::getChannelFilterMode(const QByteArray &server_cert_digest, const int channel_id) {
+ChannelFilterMode Database::getChannelFilterMode(const QByteArray &server_cert_digest, const unsigned int channel_id) {
 	QSqlQuery query(db);
 
 	query.prepare(QLatin1String(
@@ -415,7 +415,7 @@ ChannelFilterMode Database::getChannelFilterMode(const QByteArray &server_cert_d
 	return ChannelFilterMode::NORMAL;
 }
 
-void Database::setChannelFilterMode(const QByteArray &server_cert_digest, const int channel_id,
+void Database::setChannelFilterMode(const QByteArray &server_cert_digest, const unsigned int channel_id,
 									const ChannelFilterMode filterMode) {
 	QSqlQuery query(db);
 

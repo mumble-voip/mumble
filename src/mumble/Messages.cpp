@@ -149,7 +149,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	}
 	iTargetCounter = 100;
 
-	AudioInput::setMaxBandwidth(msg.max_bandwidth());
+	AudioInput::setMaxBandwidth(static_cast< int >(msg.max_bandwidth()));
 
 	findDesiredChannel();
 
@@ -200,7 +200,7 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		}
 	}
 	if (msg.has_max_bandwidth())
-		AudioInput::setMaxBandwidth(msg.max_bandwidth());
+		AudioInput::setMaxBandwidth(static_cast< int >(msg.max_bandwidth()));
 	if (msg.has_allow_html())
 		Global::get().bAllowHTML = msg.allow_html();
 	if (msg.has_message_length())
@@ -264,7 +264,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				Global::get().s.bTTS  = true;
 				quint32 oflags        = Global::get().s.qmMessages.value(Log::PermissionDenied);
 				Global::get().s.qmMessages[Log::PermissionDenied] =
-					(oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
+					(oflags | Settings::LogTTS) & static_cast< unsigned int >(~Settings::LogSoundfile);
 				Global::get().l->log(Log::PermissionDenied, QString::fromUtf8(Global::get().ccHappyEaster + 39)
 																.arg(Global::get().s.qsUsername.toHtmlEscaped()));
 				Global::get().s.qmMessages[Log::PermissionDenied] = oflags;
@@ -376,7 +376,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id()) {
-		pmModel->setUserId(pDst, msg.user_id());
+		pmModel->setUserId(pDst, static_cast< int >(msg.user_id()));
 	}
 
 	if (channel) {
@@ -501,14 +501,14 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 	for (int i = 0; i < msg.listening_volume_adjustment_size(); i++) {
-		int channelID    = msg.listening_volume_adjustment(i).listening_channel();
-		float adjustment = msg.listening_volume_adjustment(i).volume_adjustment();
+		unsigned int channelID = msg.listening_volume_adjustment(i).listening_channel();
+		float adjustment       = msg.listening_volume_adjustment(i).volume_adjustment();
 
-		const Channel *channel = Channel::get(channelID);
-		if (channel && pSelf && pSelf->uiSession == pDst->uiSession) {
-			Global::get().channelListenerManager->setListenerVolumeAdjustment(pDst->uiSession, channel->iId,
+		const Channel *listenedChannel = Channel::get(channelID);
+		if (listenedChannel && pSelf && pSelf->uiSession == pDst->uiSession) {
+			Global::get().channelListenerManager->setListenerVolumeAdjustment(pDst->uiSession, listenedChannel->iId,
 																			  VolumeAdjustment::fromFactor(adjustment));
-		} else if (!channel) {
+		} else if (!listenedChannel) {
 			qWarning("msgUserState(): Invalid channel ID encountered in volume adjustment");
 		}
 	}
@@ -982,7 +982,7 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 
 		if (Global::get().mw->m_searchDialog) {
 			QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_channelRemoved", Qt::QueuedConnection,
-									  Q_ARG(int, c->iId));
+									  Q_ARG(unsigned int, c->iId));
 		}
 
 		if (!pmModel->removeChannel(c, true)) {
@@ -1200,7 +1200,7 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 			c->uiPermissions = 0;
 
 		// We always need the permissions of the current focus channel
-		if (current && current->iId != static_cast< int >(msg.channel_id())) {
+		if (current && current->iId != msg.channel_id()) {
 			Global::get().sh->requestChannelPermissions(current->iId);
 
 			current->uiPermissions = ChanACL::All;
@@ -1293,14 +1293,14 @@ void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmis
 		return;
 	}
 
-	const ClientUser *sender = ClientUser::get(msg.sendersession());
-	const std::string &data  = msg.data();
+	const ClientUser *sender   = ClientUser::get(msg.sendersession());
+	const std::string &msgData = msg.data();
 
 	if (sender) {
 		static_assert(sizeof(unsigned char) == sizeof(uint8_t), "Unsigned char does not have expected 8bit size");
 		// As long as above assertion is true, we are only casting away the sign, which is fine
-		Global::get().pluginManager->on_receiveData(sender, reinterpret_cast< const uint8_t * >(data.c_str()),
-													data.size(), msg.dataid().c_str());
+		Global::get().pluginManager->on_receiveData(sender, reinterpret_cast< const uint8_t * >(msgData.c_str()),
+													msgData.size(), msg.dataid().c_str());
 	}
 }
 

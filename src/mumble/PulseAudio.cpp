@@ -10,6 +10,9 @@
 #include "User.h"
 #include "Global.h"
 
+#include <cstdint>
+#include <vector>
+
 #ifdef Q_CC_GNU
 #	define RESOLVE(var)                                                          \
 		{                                                                         \
@@ -250,10 +253,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasOutput);
 			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
 			const unsigned int iBlockLen = pao->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
-			buff.tlength                 = iBlockLen * (Global::get().s.iOutputDelay + 1);
+			buff.tlength                 = iBlockLen * static_cast< unsigned int >(Global::get().s.iOutputDelay + 1);
 			buff.minreq                  = iBlockLen;
-			buff.maxlength               = -1;
-			buff.prebuf                  = -1;
+			buff.maxlength               = static_cast< decltype(buff.maxlength) >(-1);
+			buff.prebuf                  = static_cast< decltype(buff.prebuf) >(-1);
 			buff.fragsize                = iBlockLen;
 
 			iDelayCache   = Global::get().s.iOutputDelay;
@@ -309,14 +312,15 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting input %s", qPrintable(idev));
 			pa_buffer_attr buff;
-			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasInput);
-			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
-			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
-			buff.tlength                 = iBlockLen;
-			buff.minreq                  = iBlockLen;
-			buff.maxlength               = -1;
-			buff.prebuf                  = -1;
-			buff.fragsize                = iBlockLen;
+			const pa_sample_spec *pss = m_pulseAudio.stream_get_sample_spec(pasInput);
+			const size_t sampleSize   = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
+			const unsigned int iBlockLen =
+				static_cast< unsigned int >(static_cast< unsigned int >(pai->iFrameSize) * pss->channels * sampleSize);
+			buff.tlength   = iBlockLen;
+			buff.minreq    = iBlockLen;
+			buff.maxlength = static_cast< decltype(buff.maxlength) >(-1);
+			buff.prebuf    = static_cast< decltype(buff.prebuf) >(-1);
+			buff.fragsize  = iBlockLen;
 
 			qsInputCache = idev;
 
@@ -374,14 +378,15 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting echo: %s", qPrintable(edev));
 			pa_buffer_attr buff;
-			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasSpeaker);
-			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
-			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
-			buff.tlength                 = iBlockLen;
-			buff.minreq                  = iBlockLen;
-			buff.maxlength               = -1;
-			buff.prebuf                  = -1;
-			buff.fragsize                = iBlockLen;
+			const pa_sample_spec *pss = m_pulseAudio.stream_get_sample_spec(pasSpeaker);
+			const size_t sampleSize   = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
+			const unsigned int iBlockLen =
+				static_cast< unsigned int >(static_cast< unsigned int >(pai->iFrameSize) * pss->channels * sampleSize);
+			buff.tlength   = iBlockLen;
+			buff.minreq    = iBlockLen;
+			buff.maxlength = static_cast< decltype(buff.maxlength) >(-1);
+			buff.prebuf    = static_cast< decltype(buff.prebuf) >(-1);
+			buff.fragsize  = iBlockLen;
 
 			bEchoMultiCache = (Global::get().s.echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
 			qsEchoCache     = edev;
@@ -464,7 +469,7 @@ void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, i
 		return;
 	}
 
-	pas->iSinkId = i->index;
+	pas->iSinkId = static_cast< int >(i->index);
 }
 
 void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
@@ -578,9 +583,10 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		// effectively removing the audio output completely until Mumble is restarted.
 		// See: https://github.com/mumble-voip/mumble/issues/4883
 		// See: https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1132
-		unsigned char buffer[bytes];
-		memset(buffer, 0, sizeof(buffer));
-		pa.stream_write(s, buffer, sizeof(buffer), nullptr, 0, PA_SEEK_RELATIVE);
+		static std::vector< std::uint8_t > m_silenceBuffer;
+		m_silenceBuffer.resize(bytes);
+
+		pa.stream_write(s, m_silenceBuffer.data(), bytes, nullptr, 0, PA_SEEK_RELATIVE);
 		return;
 	}
 
@@ -595,7 +601,8 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 			pao->eSampleFormat = PulseAudioOutput::SampleShort;
 		pao->iMixerFreq = pss->rate;
 		pao->iChannels  = pss->channels;
-		unsigned int chanmasks[pss->channels];
+		static std::vector< unsigned int > chanmasks;
+		chanmasks.resize(pss->channels);
 		for (int i = 0; i < pss->channels; ++i) {
 			unsigned int cm = 0;
 			switch (pcm->map[i]) {
@@ -636,24 +643,23 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 					cm = 0;
 					break;
 			}
-			chanmasks[i] = cm;
+			chanmasks[static_cast< std::size_t >(i)] = cm;
 		}
-		pao->initializeMixer(chanmasks);
+		pao->initializeMixer(chanmasks.data());
 	}
 
 	const unsigned int iSampleSize = pao->iSampleSize;
 	const unsigned int samples     = static_cast< unsigned int >(bytes) / iSampleSize;
 	bool oldAttenuation            = pas->bAttenuating;
 
-	unsigned char buffer[bytes];
+	static std::vector< unsigned char > buffer;
+	buffer.resize(bytes);
 	// do we have some mixed output?
-	if (pao->mix(buffer, samples)) {
+	if (pao->mix(buffer.data(), samples)) {
 		// attenuate if instructed to or it's in settings
 		pas->bAttenuating = (Global::get().bAttenuateOthers || Global::get().s.bAttenuateOthers);
 
 	} else {
-		memset(buffer, 0, bytes);
-
 		// attenuate if intructed to (self-activated)
 		pas->bAttenuating = Global::get().bAttenuateOthers;
 	}
@@ -663,7 +669,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pas->setVolumes();
 	}
 
-	pa.stream_write(s, buffer, iSampleSize * samples, nullptr, 0, PA_SEEK_RELATIVE);
+	pa.stream_write(s, buffer.data(), iSampleSize * samples, nullptr, 0, PA_SEEK_RELATIVE);
 }
 
 void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol,

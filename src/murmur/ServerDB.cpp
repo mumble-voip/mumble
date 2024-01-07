@@ -1823,9 +1823,9 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int
 	SQLPREP("SELECT MAX(`channel_id`)+1 AS id FROM `%1channels` WHERE `server_id`=?");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
-	int id = 0;
+	unsigned int id = 0;
 	if (query.next())
-		id = query.value(0).toInt();
+		id = query.value(0).toUInt();
 
 	// Temporary channels might "complicate" this somewhat.
 	while (qhChannels.contains(id))
@@ -2045,7 +2045,7 @@ void Server::updateChannel(const Channel *c) {
 void Server::readChannelPrivs(Channel *c) {
 	TransactionHolder th;
 
-	int cid = c->iId;
+	unsigned int cid = c->iId;
 
 	QSqlQuery &query = *th.qsqQuery;
 
@@ -2114,8 +2114,8 @@ void Server::readChannels(Channel *p) {
 	int parentid = -1;
 
 	if (p) {
-		parentid = p->iId;
-		readChannelPrivs(qhChannels.value(parentid));
+		parentid = static_cast< int >(p->iId);
+		readChannelPrivs(qhChannels.value(p->iId));
 	}
 
 	{
@@ -2133,7 +2133,7 @@ void Server::readChannels(Channel *p) {
 		SQLEXEC();
 
 		while (query.next()) {
-			c = new Channel(query.value(0).toInt(), query.value(1).toString(), p);
+			c = new Channel(query.value(0).toUInt(), query.value(1).toString(), p);
 			if (!p)
 				c->setParent(this);
 			qhChannels.insert(c->iId, c);
@@ -2157,8 +2157,8 @@ void Server::readLinks() {
 	SQLEXEC();
 
 	while (query.next()) {
-		int cid = query.value(0).toInt();
-		int lid = query.value(1).toInt();
+		unsigned int cid = query.value(0).toUInt();
+		unsigned int lid = query.value(1).toUInt();
 
 		Channel *c = qhChannels.value(cid);
 		Channel *l = qhChannels.value(lid);
@@ -2207,7 +2207,7 @@ int Server::readLastChannel(int id) {
 	SQLEXEC();
 
 	if (query.next()) {
-		int cid = query.value(0).toInt();
+		unsigned int cid = query.value(0).toUInt();
 
 		if (!qhChannels.contains(cid)) {
 			return -1;
@@ -2216,7 +2216,7 @@ int Server::readLastChannel(int id) {
 		int duration = Meta::mp.iRememberChanDuration;
 
 		if (duration <= 0) {
-			return cid;
+			return static_cast< int >(cid);
 		}
 
 		if (query.value(1).isNull()) {
@@ -2244,7 +2244,7 @@ int Server::readLastChannel(int id) {
 		}
 
 		if (last_disconnect.secsTo(QDateTime::currentDateTime()) <= duration) {
-			return cid;
+			return static_cast< int >(cid);
 		}
 	}
 	return -1;
@@ -2317,7 +2317,7 @@ void Server::getBans() {
 		ban.qsReason   = query.value(4).toString();
 		ban.qdtStart   = query.value(5).toDateTime();
 		ban.qdtStart.setTimeSpec(Qt::UTC);
-		ban.iDuration = query.value(6).toInt();
+		ban.iDuration = query.value(6).toUInt();
 
 		if (ban.isValid())
 			qlBans << ban;
@@ -2430,9 +2430,9 @@ void Server::loadChannelListenersOf(const ServerUser &user) {
 	SQLEXEC();
 
 	while (query.next()) {
-		int channelID = query.value(0).toInt();
-		float volume  = query.value(1).toFloat();
-		bool enabled  = query.value(2).toUInt() == 1;
+		unsigned int channelID = query.value(0).toUInt();
+		float volume           = query.value(1).toFloat();
+		bool enabled           = query.value(2).toUInt() == 1;
 
 		if (enabled) {
 			m_channelListenerManager.addListener(user.uiSession, channelID);

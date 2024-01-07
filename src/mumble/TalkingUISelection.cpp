@@ -64,7 +64,7 @@ std::unique_ptr< TalkingUISelection > UserSelection::cloneToHeap() const {
 
 
 
-ChannelSelection::ChannelSelection(QWidget *widget, int channelID)
+ChannelSelection::ChannelSelection(QWidget *widget, unsigned int channelID)
 	: TalkingUISelection(widget), m_channelID(channelID) {
 }
 
@@ -80,7 +80,7 @@ std::unique_ptr< TalkingUISelection > ChannelSelection::cloneToHeap() const {
 
 
 
-ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, int channelID)
+ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, unsigned int channelID)
 	: TalkingUISelection(widget), m_userSession(userSession), m_channelID(channelID) {
 }
 

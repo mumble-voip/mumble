@@ -8,7 +8,7 @@
 #include <cassert>
 #include <cmath>
 
-constexpr float DB_THRESHOLD = 0.1;
+constexpr float DB_THRESHOLD = 0.1f;
 
 VolumeAdjustment::VolumeAdjustment(float factor, int dbAdjustment) : factor(factor), dbAdjustment(dbAdjustment) {
 	assert(dbAdjustment == INVALID_DB_ADJUSTMENT
@@ -20,7 +20,7 @@ VolumeAdjustment::VolumeAdjustment(float factor, int dbAdjustment) : factor(fact
 		   // If dB is the dB-representation of a loudness change factor f, we have
 		   // dB = log2(f) * 6    <=>    f = 2^{dB/6}
 		   // (+6dB equals a doubling in loudness)
-		   || DB_THRESHOLD >= std::abs(dbAdjustment - VolumeAdjustment::toDBAdjustment(factor)));
+		   || DB_THRESHOLD >= std::abs(static_cast< float >(dbAdjustment) - VolumeAdjustment::toDBAdjustment(factor)));
 }
 
 // Decibel formula: +6db = *2
@@ -40,9 +40,9 @@ VolumeAdjustment VolumeAdjustment::fromFactor(float factor) {
 	if (factor > 0) {
 		float dB = VolumeAdjustment::toDBAdjustment(factor);
 
-		if (std::abs(dB - static_cast< int >(dB)) < DB_THRESHOLD) {
+		if (std::abs(dB - static_cast< float >(static_cast< int >(dB))) < DB_THRESHOLD) {
 			// Close-enough
-			return VolumeAdjustment(factor, std::round(dB));
+			return VolumeAdjustment(factor, static_cast< int >(std::round(dB)));
 		} else {
 			return VolumeAdjustment(factor, INVALID_DB_ADJUSTMENT);
 		}

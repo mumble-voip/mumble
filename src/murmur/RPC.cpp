@@ -249,9 +249,11 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 		}
 	}
 
-	User *p = qhUsers.value(userid);
-	if (p)
-		clearACLCache(p);
+	if (userid >= 0) {
+		User *p = qhUsers.value(static_cast< unsigned int >(userid));
+		if (p)
+			clearACLCache(p);
+	}
 }
 
 /**

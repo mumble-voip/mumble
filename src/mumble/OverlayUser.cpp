@@ -58,16 +58,21 @@ void OverlayUser::setup() {
 	qgpiBox->hide();
 }
 
-#undef SCALESIZE
-#define SCALESIZE(var)                                         \
-	iroundf(uiSize * os->fZoom * os->qrf##var.width() + 0.5f), \
-		iroundf(uiSize * os->fZoom * os->qrf##var.height() + 0.5f)
+template< typename T > int roundToInt(T value) {
+	return static_cast< int >(value + 0.5f);
+}
+
+template< typename T > unsigned int roundToUInt(T value) {
+	return static_cast< unsigned int >(value + 0.5f);
+}
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
 
+	const double scaleFactor = uiSize * os->fZoom;
+
 	if (scene())
-		uiSize = iroundf(scene()->sceneRect().height() + 0.5);
+		uiSize = static_cast< unsigned int >(scene()->sceneRect().height() + 0.5);
 
 	prepareGeometryChange();
 
@@ -80,7 +85,8 @@ void OverlayUser::updateLayout() {
 	{
 		QImageReader qir(QLatin1String("skin:muted_self.svg"));
 		QSize sz = qir.size();
-		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
+		sz.scale(roundToInt(os->qrfMutedDeafened.width() * scaleFactor),
+				 roundToInt(os->qrfMutedDeafened.height() * scaleFactor), Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
 		qgpiMuted->setPixmap(QPixmap::fromImage(qir.read()));
 	}
@@ -88,7 +94,8 @@ void OverlayUser::updateLayout() {
 	{
 		QImageReader qir(QLatin1String("skin:deafened_self.svg"));
 		QSize sz = qir.size();
-		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
+		sz.scale(roundToInt(os->qrfMutedDeafened.width() * scaleFactor),
+				 roundToInt(os->qrfMutedDeafened.height() * scaleFactor), Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
 		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
 	}
@@ -155,13 +162,16 @@ void OverlayUser::updateLayout() {
 }
 
 void OverlayUser::updateUser() {
+	const double scaleFactor = uiSize * os->fZoom;
+
 	if (os->bUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
 		if (cuUser)
 			qsName = cuUser->qsName;
 
 		OverlayTextLine tl(qsName, os->qfUserName);
-		for (int i = 0; i < 4; ++i) {
-			const QPixmap &pm = tl.createPixmap(SCALESIZE(UserName), os->qcUserName[i]);
+		for (unsigned int i = 0; i < 4; ++i) {
+			const QPixmap &pm = tl.createPixmap(roundToUInt(os->qrfUserName.width() * scaleFactor),
+												roundToUInt(os->qrfUserName.height() * scaleFactor), os->qcUserName[i]);
 			qgpiName[i]->setPixmap(pm);
 
 			if (i == 0)
@@ -176,8 +186,9 @@ void OverlayUser::updateUser() {
 		if (cuUser)
 			qsChannelName = cuUser->cChannel->qsName;
 
-		const QPixmap &pm =
-			OverlayTextLine(qsChannelName, os->qfChannel).createPixmap(SCALESIZE(Channel), os->qcChannel);
+		const QPixmap &pm = OverlayTextLine(qsChannelName, os->qfChannel)
+								.createPixmap(roundToUInt(os->qrfChannel.width() * scaleFactor),
+											  roundToUInt(os->qrfChannel.height() * scaleFactor), os->qcChannel);
 		qgpiChannel->setPixmap(pm);
 		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(),
 											os->qaChannel));
@@ -194,7 +205,8 @@ void OverlayUser::updateUser() {
 		} else if (qbaAvatar.isNull()) {
 			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
 			QSize sz = qir.size();
-			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
+			sz.scale(roundToInt(os->qrfAvatar.width() * scaleFactor), roundToInt(os->qrfAvatar.height() * scaleFactor),
+					 Qt::KeepAspectRatio);
 			qir.setScaledSize(sz);
 			img = qir.read();
 		} else {
@@ -203,7 +215,8 @@ void OverlayUser::updateUser() {
 
 			QImageReader qir(&qb, cuUser->qbaTextureFormat);
 			QSize sz = qir.size();
-			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
+			sz.scale(roundToInt(os->qrfAvatar.width() * scaleFactor), roundToInt(os->qrfAvatar.height() * scaleFactor),
+					 Qt::KeepAspectRatio);
 			qir.setScaledSize(sz);
 			img = qir.read();
 		}
@@ -283,7 +296,5 @@ QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::
 	else if (a & Qt::AlignVCenter)
 		yofs += hdiff * 0.5f;
 
-	return QPointF(iroundf(xofs + 0.5f), iroundf(yofs + 0.5f));
+	return QPointF(static_cast< int >(xofs + 0.5f), static_cast< int >(yofs + 0.5f));
 }
-
-#undef SCALESIZE

@@ -15,7 +15,7 @@
 
 namespace Ui {
 class PositionalAudioViewer;
-};
+}
 
 class PositionalAudioViewer : public QDialog {
 public:
@@ -31,7 +31,7 @@ protected:
 	std::unique_ptr< Ui::PositionalAudioViewer > m_ui;
 
 private:
-	Q_OBJECT;
+	Q_OBJECT
 };
 
 #endif

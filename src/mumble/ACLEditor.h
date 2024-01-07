@@ -46,7 +46,7 @@ protected:
 	ChanACL *pcaPassword;
 
 	int numInheritACL;
-	int iChannel;
+	unsigned int iChannel;
 	bool bAddChannelMode;
 
 	const QString userName(int id);
@@ -62,8 +62,8 @@ protected:
 	void fillWidgetFromSet(QListWidget *, const QSet< int > &);
 
 public:
-	ACLEditor(int parentchannelid, QWidget *p = nullptr);
-	ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p = nullptr);
+	ACLEditor(unsigned int parentchannelid, QWidget *p = nullptr);
+	ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidget *p = nullptr);
 	~ACLEditor();
 	void returnQuery(const MumbleProto::QueryUsers &mqu);
 public slots:

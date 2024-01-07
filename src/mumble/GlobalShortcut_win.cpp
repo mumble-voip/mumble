@@ -6,6 +6,14 @@
 // For detailed info about RAWKEYBOARD handling:
 // https://blog.molecular-matters.com/2011/09/05/properly-handling-keyboard-input
 
+#ifdef _MSVC_LANG
+#	pragma warning(push)
+// SPSCQueue does some funky alignment tricks which trigger the C4316
+// warning about potential misalignment on the heap.
+// We just have to trust the SPSCQueue implementation here.
+#	pragma warning(disable : 4316)
+#endif
+
 #include "GlobalShortcut_win.h"
 
 #include "Global.h"
@@ -489,7 +497,7 @@ void GlobalShortcutWin::processMsgHid(MsgHid &msg) {
 #endif
 	auto data = reinterpret_cast< PHIDP_PREPARSED_DATA >(&device.data[0]);
 
-	ULONG nUsages = device.buttons.size();
+	ULONG nUsages = static_cast< ULONG >(device.buttons.size());
 	std::vector< USAGE > usages(nUsages);
 	if (HidP_GetUsages(HidP_Input, HID_USAGE_PAGE_BUTTON, 0, &usages[0], &nUsages, data, &msg.reports[0],
 					   msg.reportSize)
@@ -623,12 +631,12 @@ GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE
 
 				std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
 
-				if (HidD_GetManufacturerString(handle, &name[0], sizeof(wchar_t) * name.size())) {
+				if (HidD_GetManufacturerString(handle, &name[0], static_cast< ULONG >(sizeof(wchar_t) * name.size()))) {
 					nameStream << ' ' << conv.to_bytes(name);
 					name.clear();
 				}
 
-				if (HidD_GetProductString(handle, &name[0], sizeof(wchar_t) * name.size())) {
+				if (HidD_GetProductString(handle, &name[0], static_cast< ULONG >(sizeof(wchar_t) * name.size()))) {
 					nameStream << ' ' << conv.to_bytes(name);
 				}
 
@@ -881,3 +889,7 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &butt
 
 	return info;
 }
+
+#ifdef _MSVC_LANG
+#	pragma warning(pop)
+#endif

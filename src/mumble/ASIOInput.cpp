@@ -158,7 +158,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 		DWORD idx        = 0;
 		DWORD keynamelen = keynamebufsize;
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
-			QString name = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
+			QString deviceName = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
 			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
@@ -172,7 +172,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 						QString::fromUtf16(reinterpret_cast< ushort * >(wclsid), datasize / 2).toLower().trimmed();
 					CLSID clsid;
 					if (!blacklist.contains(qsCls) && !FAILED(CLSIDFromString(wclsid, &clsid))) {
-						ASIODev ad(name, qsCls);
+						ASIODev ad(std::move(deviceName), qsCls);
 						qlDevs << ad;
 					}
 				}
@@ -507,7 +507,7 @@ ASIOInput::ASIOInput() {
 
 			iEchoChannels = iNumSpeaker;
 			iMicChannels  = iNumMic;
-			iEchoFreq = iMicFreq = iroundf(srate);
+			iEchoFreq = iMicFreq = static_cast< int >(srate);
 
 			initializeMixer();
 
@@ -596,15 +596,16 @@ void ASIOInput::addBuffer(ASIOSampleType sampType, int interleave, void *src, fl
 }
 
 void ASIOInput::bufferReady(long buffindex) {
-	STACKVAR(float, buffer, lBufSize *qMax(iNumMic, iNumSpeaker));
+	static std::vector< float > buffer;
+	buffer.resize(lBufSize * qMax(iNumMic, iNumSpeaker));
 
 	for (int c = 0; c < iNumSpeaker; ++c)
-		addBuffer(aciInfo[iNumMic + c].type, iNumSpeaker, abiInfo[iNumMic + c].buffers[buffindex], buffer + c);
-	addEcho(buffer, lBufSize);
+		addBuffer(aciInfo[iNumMic + c].type, iNumSpeaker, abiInfo[iNumMic + c].buffers[buffindex], buffer.data() + c);
+	addEcho(buffer.data(), lBufSize);
 
 	for (int c = 0; c < iNumMic; ++c)
-		addBuffer(aciInfo[c].type, iNumMic, abiInfo[c].buffers[buffindex], buffer + c);
-	addMic(buffer, lBufSize);
+		addBuffer(aciInfo[c].type, iNumMic, abiInfo[c].buffers[buffindex], buffer.data() + c);
+	addMic(buffer.data(), lBufSize);
 }
 
 void ASIOInput::bufferSwitch(long index, ASIOBool processNow) {

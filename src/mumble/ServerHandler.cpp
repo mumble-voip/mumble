@@ -290,7 +290,8 @@ void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioDa
 }
 
 void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) {
-	STACKVAR(unsigned char, crypto, len + 4);
+	static std::vector< unsigned char > crypto;
+	crypto.resize(static_cast< std::size_t >(len + 4));
 
 	QMutexLocker qml(&qmUdp);
 
@@ -309,15 +310,16 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 		*reinterpret_cast< quint16 * >(&uc[0]) =
 			qToBigEndian(static_cast< quint16 >(Mumble::Protocol::TCPMessageType::UDPTunnel));
 		*reinterpret_cast< quint32 * >(&uc[2]) = qToBigEndian(static_cast< quint32 >(len));
-		memcpy(uc + 6, data, len);
+		memcpy(uc + 6, data, static_cast< std::size_t >(len));
 
 		QApplication::postEvent(this,
 								new ServerHandlerMessageEvent(qba, Mumble::Protocol::TCPMessageType::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto, len)) {
+		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto.data(),
+										  static_cast< unsigned int >(len))) {
 			return;
 		}
-		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto), len + 4, qhaRemote, usResolvedPort);
+		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto.data()), len + 4, qhaRemote, usResolvedPort);
 	}
 }
 
@@ -588,7 +590,7 @@ void ServerHandler::sendPingInternal() {
 		m_udpPingEncoder.setProtocolVersion(m_version);
 		gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
-		sendMessage(encodedPacket.data(), encodedPacket.size(), true);
+		sendMessage(encodedPacket.data(), static_cast< int >(encodedPacket.size()), true);
 	}
 
 	MumbleProto::Ping mpp;
@@ -604,13 +606,13 @@ void ServerHandler::sendPingInternal() {
 		mpp.set_udp_ping_avg(static_cast< float >(boost::accumulators::mean(accUDP)));
 		mpp.set_udp_ping_var(static_cast< float >(boost::accumulators::variance(accUDP)));
 	}
-	mpp.set_udp_packets(static_cast< int >(boost::accumulators::count(accUDP)));
+	mpp.set_udp_packets(static_cast< unsigned int >(boost::accumulators::count(accUDP)));
 
 	if (boost::accumulators::count(accTCP)) {
 		mpp.set_tcp_ping_avg(static_cast< float >(boost::accumulators::mean(accTCP)));
 		mpp.set_tcp_ping_var(static_cast< float >(boost::accumulators::variance(accTCP)));
 	}
-	mpp.set_tcp_packets(static_cast< int >(boost::accumulators::count(accTCP)));
+	mpp.set_tcp_packets(static_cast< unsigned int >(boost::accumulators::count(accTCP)));
 
 	sendMessage(mpp);
 
@@ -910,11 +912,11 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel,
 	sendMessage(mpus);
 }
 
-void ServerHandler::startListeningToChannel(int channel) {
+void ServerHandler::startListeningToChannel(unsigned int channel) {
 	startListeningToChannels({ channel });
 }
 
-void ServerHandler::startListeningToChannels(const QList< int > &channelIDs) {
+void ServerHandler::startListeningToChannels(const QList< unsigned int > &channelIDs) {
 	if (channelIDs.isEmpty()) {
 		return;
 	}
@@ -922,7 +924,7 @@ void ServerHandler::startListeningToChannels(const QList< int > &channelIDs) {
 	MumbleProto::UserState mpus;
 	mpus.set_session(Global::get().uiSession);
 
-	foreach (int currentChannel, channelIDs) {
+	for (unsigned int currentChannel : channelIDs) {
 		// The naming of the function is a bit unfortunate but what this does is to add
 		// the channel ID to the message field listening_channel_add
 		mpus.add_listening_channel_add(currentChannel);
@@ -931,11 +933,11 @@ void ServerHandler::startListeningToChannels(const QList< int > &channelIDs) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::stopListeningToChannel(int channel) {
+void ServerHandler::stopListeningToChannel(unsigned int channel) {
 	stopListeningToChannels({ channel });
 }
 
-void ServerHandler::stopListeningToChannels(const QList< int > &channelIDs) {
+void ServerHandler::stopListeningToChannels(const QList< unsigned int > &channelIDs) {
 	if (channelIDs.isEmpty()) {
 		return;
 	}
@@ -943,7 +945,7 @@ void ServerHandler::stopListeningToChannels(const QList< int > &channelIDs) {
 	MumbleProto::UserState mpus;
 	mpus.set_session(Global::get().uiSession);
 
-	foreach (int currentChannel, channelIDs) {
+	for (unsigned int currentChannel : channelIDs) {
 		// The naming of the function is a bit unfortunate but what this does is to add
 		// the channel ID to the message field listening_channel_remove
 		mpus.add_listening_channel_remove(currentChannel);
@@ -958,7 +960,7 @@ void ServerHandler::createChannel(unsigned int parent_id, const QString &name, c
 	mpcs.set_parent(parent_id);
 	mpcs.set_name(u8(name));
 	mpcs.set_description(u8(description));
-	mpcs.set_position(position);
+	mpcs.set_position(static_cast< int >(position));
 	mpcs.set_temporary(temporary);
 	mpcs.set_max_users(maxUsers);
 	sendMessage(mpcs);

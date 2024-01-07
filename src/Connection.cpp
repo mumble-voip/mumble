@@ -121,7 +121,7 @@ void Connection::socketRead() {
 
 			qtsSocket->read(reinterpret_cast< char * >(a_ucBuffer), 6);
 			m_type        = static_cast< Mumble::Protocol::TCPMessageType >(qFromBigEndian< quint16 >(&a_ucBuffer[0]));
-			iPacketLength = qFromBigEndian< quint32 >(&a_ucBuffer[2]);
+			iPacketLength = qFromBigEndian< int >(&a_ucBuffer[2]);
 			iAvailable -= 6;
 		}
 
@@ -161,19 +161,19 @@ void Connection::socketDisconnected() {
 void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								  QByteArray &cache) {
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
-	int len = msg.ByteSizeLong();
+	std::size_t len = msg.ByteSizeLong();
 #else
 	// ByteSize() has been deprecated as of protobuf v3.4
-	int len = msg.ByteSize();
+	std::size_t len = msg.ByteSize();
 #endif
 	if (len > 0x7fffff)
 		return;
-	cache.resize(len + 6);
+	cache.resize(static_cast< int >(len + 6));
 	unsigned char *uc = reinterpret_cast< unsigned char * >(cache.data());
 	qToBigEndian< quint16 >(static_cast< quint16 >(msgType), &uc[0]);
-	qToBigEndian< quint32 >(len, &uc[2]);
+	qToBigEndian< quint32 >(static_cast< unsigned int >(len), &uc[2]);
 
-	msg.SerializeToArray(uc + 6, len);
+	msg.SerializeToArray(uc + 6, static_cast< int >(len));
 }
 
 void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,

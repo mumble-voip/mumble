@@ -33,8 +33,8 @@ public:
 /// directory on the FileSystem.
 class PluginInstaller : public QDialog, public Ui::PluginInstaller {
 private:
-	Q_OBJECT;
-	Q_DISABLE_COPY(PluginInstaller);
+	Q_OBJECT
+	Q_DISABLE_COPY(PluginInstaller)
 
 protected:
 	/// The file the installer has been invoked on

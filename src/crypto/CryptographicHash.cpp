@@ -78,7 +78,7 @@ void CryptographicHashPrivate::addData(const QByteArray &buf) {
 		return;
 	}
 
-	int err = EVP_DigestUpdate(m_mdctx, buf.constData(), buf.size());
+	int err = EVP_DigestUpdate(m_mdctx, buf.constData(), static_cast< std::size_t >(buf.size()));
 	if (err != 1) {
 		cleanupMdctx();
 	}

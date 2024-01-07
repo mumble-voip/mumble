@@ -63,5 +63,5 @@ namespace Screen {
 #endif
 	}
 
-}; // namespace Screen
-}; // namespace Mumble
+} // namespace Screen
+} // namespace Mumble

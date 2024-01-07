@@ -43,7 +43,7 @@ private:
 
 class OverlayGroup : public QGraphicsItem {
 private:
-	Q_DISABLE_COPY(OverlayGroup);
+	Q_DISABLE_COPY(OverlayGroup)
 
 public:
 	enum { Type = UserType + 5 };

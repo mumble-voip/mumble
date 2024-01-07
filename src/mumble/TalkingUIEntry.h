@@ -128,7 +128,7 @@ protected:
 	QLabel *m_icon      = nullptr;
 	QLabel *m_nameLabel = nullptr;
 
-	int m_channelID;
+	unsigned int m_channelID;
 	QString m_name;
 
 public:

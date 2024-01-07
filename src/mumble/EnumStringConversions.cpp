@@ -247,7 +247,7 @@ namespace details {
 
 PROCESS_ALL_ENUMS
 
-};
+}
 
 #undef PROCESS
 #undef AFTER_CODE

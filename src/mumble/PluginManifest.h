@@ -16,8 +16,8 @@
 namespace Poco {
 namespace XML {
 	class Document;
-}; // namespace XML
-}; // namespace Poco
+} // namespace XML
+} // namespace Poco
 
 struct PluginManifestException : std::runtime_error {
 	PluginManifestException(const std::string &msg = "") : std::runtime_error(msg) {}
@@ -39,7 +39,7 @@ template<> struct hash< PluginRuntimeSpec > {
 		return std::hash< std::string >()(spec.os) ^ (std::hash< std::string >()(spec.architecture) << 1);
 	}
 };
-}; // namespace std
+} // namespace std
 
 class PluginManifest {
 public:

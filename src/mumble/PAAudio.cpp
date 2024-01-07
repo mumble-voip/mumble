@@ -332,29 +332,30 @@ bool PortAudioSystem::stopStream(PaStream *stream) {
 	return true;
 }
 
-int PortAudioSystem::streamCallback(const void *input, void *output, unsigned long frames,
+int PortAudioSystem::streamCallback(const void *inBuffer, void *outBuffer, unsigned long frames,
 									const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *isInput) {
 	if (isInput) {
-		auto const pai = dynamic_cast< PortAudioInput * >(Global::get().ai.get());
-		if (!pai) {
+		auto const input = dynamic_cast< PortAudioInput * >(Global::get().ai.get());
+		if (!input) {
 			return paAbort;
 		}
 
-		pai->process(frames, input);
+		input->process(static_cast< unsigned int >(frames), inBuffer);
 	} else {
-		auto const pao = dynamic_cast< PortAudioOutput * >(Global::get().ao.get());
-		if (!pao) {
+		auto const output = dynamic_cast< PortAudioOutput * >(Global::get().ao.get());
+		if (!output) {
 			return paAbort;
 		}
 
-		pao->process(frames, output);
+		output->process(static_cast< unsigned int >(frames), outBuffer);
 	}
 
 	return paContinue;
 }
 
 PortAudioInput::PortAudioInput() : stream(nullptr) {
-	iMicChannels = pas->openStream(&stream, Global::get().s.iPortAudioInput, iFrameSize, true);
+	iMicChannels =
+		static_cast< unsigned int >(pas->openStream(&stream, Global::get().s.iPortAudioInput, iFrameSize, true));
 	if (!iMicChannels) {
 		qWarning("PortAudioInput: failed to open stream");
 		return;
@@ -405,7 +406,8 @@ void PortAudioInput::run() {
 }
 
 PortAudioOutput::PortAudioOutput() : stream(nullptr) {
-	iChannels = pas->openStream(&stream, Global::get().s.iPortAudioOutput, iFrameSize, false);
+	iChannels =
+		static_cast< unsigned int >(pas->openStream(&stream, Global::get().s.iPortAudioOutput, iFrameSize, false));
 	if (!iChannels) {
 		qWarning("PortAudioOutput: failed to open stream");
 		return;

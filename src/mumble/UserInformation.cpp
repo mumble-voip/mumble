@@ -56,14 +56,14 @@ void UserInformation::on_qpbCertificate_clicked() {
 QString UserInformation::secsToString(unsigned int secs) {
 	QStringList qsl;
 
-	int weeks   = secs / (60 * 60 * 24 * 7);
-	secs        = secs % (60 * 60 * 24 * 7);
-	int days    = secs / (60 * 60 * 24);
-	secs        = secs % (60 * 60 * 24);
-	int hours   = secs / (60 * 60);
-	secs        = secs % (60 * 60);
-	int minutes = secs / 60;
-	int seconds = secs % 60;
+	unsigned int weeks = secs / (60 * 60 * 24 * 7);
+	secs -= weeks * (60 * 60 * 24 * 7);
+	unsigned int days = secs / (60 * 60 * 24);
+	secs -= days * (60 * 60 * 24);
+	unsigned int hours = secs / (60 * 60);
+	secs -= hours * (60 * 60);
+	unsigned int minutes = secs / 60;
+	unsigned int seconds = secs - minutes * 60;
 
 	if (weeks)
 		qsl << tr("%1w").arg(weeks);
