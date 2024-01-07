@@ -15,6 +15,13 @@ set_target_properties(mach-override PROPERTIES UNITY_BUILD FALSE)
 
 target_include_directories(mach-override PUBLIC SYSTEM ${SRC_DIR})
 
+# We assume a standard-compliant C compiler + stdlib
+target_compile_definitions(mach-override
+	PRIVATE
+		HAVE_ASSERT_H
+		HAVE_STRING_H
+)
+
 target_sources(mach-override
 	PUBLIC
 		"${SRC_DIR}/mach_override.h"
