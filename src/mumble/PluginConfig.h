@@ -62,6 +62,9 @@ public slots:
 	/// @param current The currently selected item
 	/// @param old The previously selected item (if applicable - otherwise NULL/nullptr)
 	void on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *old);
+	/// @param item The changed item
+	/// @param column The column that has changed
+	void on_qtwPlugins_itemChanged(QTreeWidgetItem *item, int column);
 };
 
 #endif
