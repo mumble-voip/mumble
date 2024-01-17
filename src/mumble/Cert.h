@@ -14,12 +14,13 @@
 #include <QtNetwork/QSslCertificate>
 
 #include "Settings.h"
+#include "widgets/AccessibleQGroupBox.h"
 #include "widgets/EventFilters.h"
 
 class QLabel;
 class QWidget;
 
-class CertView : public QGroupBox {
+class CertView : public AccessibleQGroupBox {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CertView)
