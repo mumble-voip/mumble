@@ -19,6 +19,7 @@ private:
 	Q_DISABLE_COPY(ConfigDialog)
 
 	void updateTabOrder();
+
 protected:
 	static QMutex s_existingWidgetsMutex;
 	static QHash< QString, ConfigWidget * > s_existingWidgets;

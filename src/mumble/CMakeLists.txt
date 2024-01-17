@@ -305,6 +305,8 @@ set(MUMBLE_SOURCES
 	"widgets/SearchDialogItemDelegate.h"
 	"widgets/SearchDialogTree.cpp"
 	"widgets/SearchDialogTree.h"
+	"widgets/SemanticSlider.cpp"
+	"widgets/SemanticSlider.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"

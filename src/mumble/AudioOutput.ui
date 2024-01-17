@@ -133,7 +133,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="qsDelay">
+       <widget class="SemanticSlider" name="qsDelay">
         <property name="toolTip">
          <string>Amount of data to buffer</string>
         </property>
@@ -178,7 +178,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="qsVolume">
+       <widget class="SemanticSlider" name="qsVolume">
         <property name="toolTip">
          <string>Volume of incoming speech</string>
         </property>
@@ -217,7 +217,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="qsJitter">
+       <widget class="SemanticSlider" name="qsJitter">
         <property name="toolTip">
          <string>Safety margin for jitter buffer</string>
         </property>
@@ -378,7 +378,7 @@
        </layout>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="qsOtherVolume">
+       <widget class="SemanticSlider" name="qsOtherVolume">
         <property name="toolTip">
          <string>Attenuation of other applications during speech</string>
         </property>
@@ -445,7 +445,7 @@
        </widget>
       </item>
       <item row="7" column="2">
-       <widget class="QSlider" name="qsMinimumVolume">
+       <widget class="SemanticSlider" name="qsMinimumVolume">
         <property name="toolTip">
          <string/>
         </property>
@@ -458,7 +458,7 @@
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QSlider" name="qsMinDistance">
+       <widget class="SemanticSlider" name="qsMinDistance">
         <property name="toolTip">
          <string/>
         </property>
@@ -474,7 +474,7 @@
        </widget>
       </item>
       <item row="6" column="2">
-       <widget class="QSlider" name="qsMaxDistance">
+       <widget class="SemanticSlider" name="qsMaxDistance">
         <property name="toolTip">
          <string/>
         </property>
@@ -518,7 +518,7 @@
        </widget>
       </item>
       <item row="8" column="2">
-       <widget class="QSlider" name="qsBloom">
+       <widget class="SemanticSlider" name="qsBloom">
         <property name="toolTip">
          <string>Factor for sound volume increase</string>
         </property>
@@ -600,7 +600,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="qsPacketDelay">
+       <widget class="SemanticSlider" name="qsPacketDelay">
         <property name="toolTip">
          <string>Variance in packet latency</string>
         </property>
@@ -639,7 +639,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="qsPacketLoss">
+       <widget class="SemanticSlider" name="qsPacketLoss">
         <property name="toolTip">
          <string>Packet loss for loopback mode</string>
         </property>
@@ -716,6 +716,11 @@
    <class>MUComboBox</class>
    <extends>QComboBox</extends>
    <header>widgets/MUComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
