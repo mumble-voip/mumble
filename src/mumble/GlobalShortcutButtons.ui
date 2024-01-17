@@ -22,6 +22,9 @@
      <layout class="QVBoxLayout" name="groupBoxLayout">
       <item>
        <widget class="QTreeWidget" name="buttonTree">
+        <property name="accessibleName">
+         <string>List of shortcuts</string>
+        </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
