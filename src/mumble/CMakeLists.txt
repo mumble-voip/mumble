@@ -289,6 +289,8 @@ set(MUMBLE_SOURCES
 	"XMLTools.cpp"
 	"XMLTools.h"
 
+	"widgets/AccessibleQGroupBox.cpp"
+	"widgets/AccessibleQGroupBox.h"
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"
 	"widgets/EventFilters.cpp"
