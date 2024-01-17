@@ -44,6 +44,9 @@
      <layout class="QVBoxLayout">
       <item>
        <widget class="QTreeWidget" name="qtwPlugins">
+        <property name="accessibleName">
+         <string>List of plugins</string>
+        </property>
         <property name="rootIsDecorated">
          <bool>false</bool>
         </property>
