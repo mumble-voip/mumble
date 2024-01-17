@@ -18,6 +18,7 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include <QTimer>
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QFileDialog>
@@ -29,7 +30,7 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
-CertView::CertView(QWidget *p) : QGroupBox(p) {
+CertView::CertView(QWidget *p) : AccessibleQGroupBox(p) {
 	QGridLayout *grid = new QGridLayout(this);
 	QLabel *l;
 
@@ -65,6 +66,8 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(qlExpiry, 3, 1, 1, 1);
 
 	grid->setColumnStretch(1, 1);
+
+	updateAccessibleText();
 }
 
 void CertView::setCert(const QList< QSslCertificate > &cert) {
@@ -116,6 +119,8 @@ void CertView::setCert(const QList< QSslCertificate > &cert) {
 
 		qlIssuerName->setText((issuerName == name) ? tr("Self-signed") : issuerName);
 	}
+
+	updateAccessibleText();
 }
 
 CertWizard::CertWizard(QWidget *p) : QWizard(p) {
@@ -144,6 +149,8 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	installEventFilter(m_overrideFilter);
 
 	connect(this, &CertWizard::currentIdChanged, this, &CertWizard::showPage);
+
+	QTimer::singleShot(0, [this] { this->showPage(0); });
 }
 
 int CertWizard::nextId() const {
