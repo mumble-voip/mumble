@@ -5,6 +5,7 @@
 
 #include "Log.h"
 
+#include "Accessibility.h"
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
 #include "AudioOutputToken.h"
@@ -371,14 +372,18 @@ void LogConfig::browseForAudioFile() {
 
 void LogConfig::on_qsNotificationVolume_valueChanged(int value) {
 	qsbNotificationVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsNotificationVolume,
+												  QString("%1 %2").arg(value).arg(tr("decibels")));
 }
 
 void LogConfig::on_qsCueVolume_valueChanged(int value) {
 	qsbCueVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsCueVolume, QString("%1 %2").arg(value).arg(tr("decibels")));
 }
 
 void LogConfig::on_qsTTSVolume_valueChanged(int value) {
 	qsbTTSVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsTTSVolume, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void LogConfig::on_qsbNotificationVolume_valueChanged(int value) {

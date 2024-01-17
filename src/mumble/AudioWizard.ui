@@ -260,7 +260,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QSlider" name="qsOutputDelay">
+     <widget class="SemanticSlider" name="qsOutputDelay">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>1</horstretch>
@@ -404,7 +404,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      </widget>
     </item>
     <item>
-     <widget class="QSlider" name="qsMaxAmp">
+     <widget class="SemanticSlider" name="qsMaxAmp">
       <property name="maximum">
        <number>32767</number>
       </property>
@@ -547,7 +547,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </widget>
        </item>
        <item>
-        <widget class="QSlider" name="qsVAD">
+        <widget class="SemanticSlider" name="qsVAD">
          <property name="minimum">
           <number>1</number>
          </property>
@@ -932,7 +932,39 @@ Mumble is under continuous development, and the development team wants to focus 
    <extends>QComboBox</extends>
    <header>widgets/MUComboBox.h</header>
   </customwidget>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>qcbInput</tabstop>
+  <tabstop>qcbInputDevice</tabstop>
+  <tabstop>qcbEcho</tabstop>
+  <tabstop>qcbOutput</tabstop>
+  <tabstop>qcbOutputDevice</tabstop>
+  <tabstop>qcbPositional</tabstop>
+  <tabstop>qcbAttenuateOthers</tabstop>
+  <tabstop>qsOutputDelay</tabstop>
+  <tabstop>qsMaxAmp</tabstop>
+  <tabstop>qcbHighContrast</tabstop>
+  <tabstop>qrPTT</tabstop>
+  <tabstop>qpbPTT</tabstop>
+  <tabstop>qrAmplitude</tabstop>
+  <tabstop>qrSNR</tabstop>
+  <tabstop>qsVAD</tabstop>
+  <tabstop>qrbQualityLow</tabstop>
+  <tabstop>qrbQualityBalanced</tabstop>
+  <tabstop>qrbQualityUltra</tabstop>
+  <tabstop>qrbQualityCustom</tabstop>
+  <tabstop>qrbNotificationTTS</tabstop>
+  <tabstop>qrbNotificationSounds</tabstop>
+  <tabstop>qrbNotificationCustom</tabstop>
+  <tabstop>qcbHeadphone</tabstop>
+  <tabstop>qgvView</tabstop>
+  <tabstop>qcbUsage</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

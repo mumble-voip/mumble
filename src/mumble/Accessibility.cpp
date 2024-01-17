@@ -8,7 +8,10 @@
 #include "Global.h"
 
 #include <QAbstractButton>
+#include <QAccessible>
+#include <QAccessibleEvent>
 #include <QObject>
+#include <QWidget>
 
 #include <queue>
 
@@ -137,6 +140,37 @@ namespace Accessibility {
 		}
 
 		return description;
+	}
+
+	void setSliderSemanticValue(SemanticSlider *slider, QString value) {
+		slider->m_semanticValue = value;
+
+		QAccessibleEvent nameEvent(slider, QAccessible::NameChanged);
+		QAccessible::updateAccessibility(&nameEvent);
+	}
+
+	void setSliderSemanticValue(SemanticSlider *slider, SliderMode mode, QString suffix) {
+		QString description = QString("%1 %2");
+
+		switch (mode) {
+			case SliderMode::NONE:
+				description = description.arg("");
+				break;
+			case SliderMode::READ_RELATIVE:
+				description = description.arg(
+					QString::number(slider->value() / static_cast< double >(slider->maximum()), 'f', 2));
+				break;
+			case SliderMode::READ_PERCENT:
+				description = description.arg(
+					static_cast< int32_t >((slider->value() / static_cast< double >(slider->maximum())) * 100));
+				break;
+			case SliderMode::READ_ABSOLUTE:
+				description = description.arg(slider->value());
+				break;
+		}
+		description = description.arg(suffix);
+
+		setSliderSemanticValue(slider, description);
 	}
 
 	QWidget *getFirstFocusableChild(QObject *object) {

@@ -66,6 +66,7 @@
 #	include "AppNap.h"
 #endif
 
+#include <QAccessible>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
@@ -79,6 +80,8 @@
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
+
+#include "widgets/SemanticSlider.h"
 
 #ifdef Q_OS_WIN
 #	include <dbt.h>
@@ -197,6 +200,8 @@ MainWindow::MainWindow(QWidget *p)
 
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
+
+	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
 
 void MainWindow::createActions() {

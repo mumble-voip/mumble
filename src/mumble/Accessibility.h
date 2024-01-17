@@ -8,14 +8,18 @@
 
 #include "Channel.h"
 #include "ClientUser.h"
+#include "widgets/SemanticSlider.h"
 
 #include <QLabel>
+#include <QSlider>
 #include <QString>
 #include <QWidget>
 #include <QWizard>
 
 namespace Mumble {
 namespace Accessibility {
+
+	enum class SliderMode { NONE, READ_RELATIVE, READ_PERCENT, READ_ABSOLUTE };
 
 	QString removeHTMLTags(QString value);
 
@@ -26,6 +30,9 @@ namespace Accessibility {
 	QString userToDescription(const ClientUser *user);
 	QString channelToText(const Channel *channel);
 	QString channelToDescription(const Channel *channel);
+
+	void setSliderSemanticValue(SemanticSlider *slider, QString value);
+	void setSliderSemanticValue(SemanticSlider *slider, SliderMode mode, QString suffix = "");
 
 	QWidget *getFirstFocusableChild(QObject *object);
 

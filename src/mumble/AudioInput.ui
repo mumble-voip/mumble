@@ -227,7 +227,7 @@
            </spacer>
           </item>
           <item row="0" column="1" colspan="2">
-           <widget class="QSlider" name="qsDoublePush">
+           <widget class="SemanticSlider" name="qsDoublePush">
             <property name="toolTip">
              <string>If you press the PTT key twice in this time it will get locked.</string>
             </property>
@@ -263,7 +263,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSlider" name="qsPTTHold">
+           <widget class="SemanticSlider" name="qsPTTHold">
             <property name="toolTip">
              <string>Time the microphone stays open after the PTT key is released</string>
             </property>
@@ -303,7 +303,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSlider" name="qsTransmitHold">
+           <widget class="SemanticSlider" name="qsTransmitHold">
             <property name="toolTip">
              <string>How long to keep transmitting after silence</string>
             </property>
@@ -385,7 +385,7 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSlider" name="qsTransmitMin">
+           <widget class="SemanticSlider" name="qsTransmitMin">
             <property name="toolTip">
              <string>Signal values below this count as silence</string>
             </property>
@@ -410,7 +410,7 @@
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QSlider" name="qsTransmitMax">
+           <widget class="SemanticSlider" name="qsTransmitMax">
             <property name="toolTip">
              <string>Signal values above this count as voice</string>
             </property>
@@ -459,7 +459,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="qsFrames">
+       <widget class="SemanticSlider" name="qsFrames">
         <property name="toolTip">
          <string>How many audio frames to send per packet</string>
         </property>
@@ -507,7 +507,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="qsQuality">
+       <widget class="SemanticSlider" name="qsQuality">
         <property name="toolTip">
          <string>Quality of compression (peak bandwidth)</string>
         </property>
@@ -588,7 +588,7 @@
      </property>
      <layout class="QGridLayout">
       <item row="2" column="1">
-       <widget class="QSlider" name="qsAmp">
+       <widget class="SemanticSlider" name="qsAmp">
         <property name="toolTip">
          <string>Maximum amplification of input sound</string>
         </property>
@@ -705,7 +705,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="qsSpeexNoiseSupStrength">
+            <widget class="SemanticSlider" name="qsSpeexNoiseSupStrength">
              <property name="toolTip">
               <string>This controls the amount by which Speex will suppress noise.</string>
              </property>
@@ -1028,6 +1028,11 @@
    <class>MUComboBox</class>
    <extends>QComboBox</extends>
    <header>widgets/MUComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
