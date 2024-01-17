@@ -5,6 +5,7 @@
 
 #include "AudioConfigDialog.h"
 
+#include "Accessibility.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
@@ -295,33 +296,47 @@ void AudioInputDialog::save() const {
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
-	qlFrames->setText(tr("%1 ms").arg((v == 1) ? 10 : (v - 1) * 20));
+	int val = (v == 1) ? 10 : (v - 1) * 20;
+	qlFrames->setText(tr("%1 ms").arg(val));
 	updateBitrate();
+
+	Mumble::Accessibility::setSliderSemanticValue(qsFrames, QString("%1 %2").arg(val).arg(tr("milliseconds")));
 }
 
 void AudioInputDialog::on_qsDoublePush_valueChanged(int v) {
-	if (v == 0)
+	if (v == 0) {
 		qlDoublePush->setText(tr("Off"));
-	else
+		Mumble::Accessibility::setSliderSemanticValue(qsDoublePush, tr("Off"));
+	} else {
 		qlDoublePush->setText(tr("%1 ms").arg(v));
+		Mumble::Accessibility::setSliderSemanticValue(qsDoublePush, QString("%1 %2").arg(v).arg(tr("milliseconds")));
+	}
 }
 
 void AudioInputDialog::on_qsPTTHold_valueChanged(int v) {
-	if (v == 0)
+	if (v == 0) {
 		qlPTTHold->setText(tr("Off"));
-	else
+		Mumble::Accessibility::setSliderSemanticValue(qsPTTHold, tr("Off"));
+	} else {
 		qlPTTHold->setText(tr("%1 ms").arg(v));
+		Mumble::Accessibility::setSliderSemanticValue(qsPTTHold, QString("%1 %2").arg(v).arg(tr("milliseconds")));
+	}
 }
 
 void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
 	float val = static_cast< float >(v * 10);
 	val       = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
+	Mumble::Accessibility::setSliderSemanticValue(qsTransmitHold,
+												  QString("%1 %2").arg(val, 0, 'f', 2).arg(tr("seconds")));
 }
 
 void AudioInputDialog::on_qsQuality_valueChanged(int v) {
 	qlQuality->setText(tr("%1 kb/s").arg(static_cast< float >(v) / 1000.0f, 0, 'f', 1));
 	updateBitrate();
+
+	Mumble::Accessibility::setSliderSemanticValue(
+		qsQuality, QString("%1 %2").arg(static_cast< float >(v) / 1000.0f, 0, 'f', 1).arg(tr("kilobits per second")));
 }
 
 void AudioInputDialog::on_qsSpeexNoiseSupStrength_valueChanged(int v) {
@@ -330,8 +345,11 @@ void AudioInputDialog::on_qsSpeexNoiseSupStrength_valueChanged(int v) {
 	if (v < 15) {
 		qlSpeexNoiseSupStrength->setText(tr("Off"));
 		pal.setColor(qlSpeexNoiseSupStrength->foregroundRole(), Qt::red);
+		Mumble::Accessibility::setSliderSemanticValue(qsSpeexNoiseSupStrength, tr("Off"));
 	} else {
 		qlSpeexNoiseSupStrength->setText(tr("-%1 dB").arg(v));
+		Mumble::Accessibility::setSliderSemanticValue(qsSpeexNoiseSupStrength,
+													  QString("-%1 %2").arg(v).arg(tr("decibels")));
 	}
 	qlSpeexNoiseSupStrength->setPalette(pal);
 }
@@ -340,6 +358,16 @@ void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 	v       = 18000 - v + 2000;
 	float d = 20000.0f / static_cast< float >(v);
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
+
+	Mumble::Accessibility::setSliderSemanticValue(qsAmp, QString("%1").arg(d, 0, 'f', 2));
+}
+
+void AudioInputDialog::on_qsTransmitMin_valueChanged() {
+	Mumble::Accessibility::setSliderSemanticValue(qsTransmitMin, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
+}
+
+void AudioInputDialog::on_qsTransmitMax_valueChanged() {
+	Mumble::Accessibility::setSliderSemanticValue(qsTransmitMax, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioInputDialog::updateBitrate() {
@@ -818,6 +846,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 
 void AudioOutputDialog::on_qsJitter_valueChanged(int v) {
 	qlJitter->setText(tr("%1 ms").arg(v * 10));
+	Mumble::Accessibility::setSliderSemanticValue(qsJitter, QString("%1 %2").arg(v * 10).arg(tr("milliseconds")));
 }
 
 void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
@@ -829,22 +858,27 @@ void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
 	qlVolume->setPalette(pal);
 
 	qlVolume->setText(tr("%1 %").arg(v));
+	Mumble::Accessibility::setSliderSemanticValue(qsVolume, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioOutputDialog::on_qsOtherVolume_valueChanged(int v) {
 	qlOtherVolume->setText(tr("%1 %").arg(v));
+	Mumble::Accessibility::setSliderSemanticValue(qsOtherVolume, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {
 	qlPacketDelay->setText(tr("%1 ms").arg(v));
+	Mumble::Accessibility::setSliderSemanticValue(qsPacketDelay, QString("%1 %2").arg(v).arg(tr("milliseconds")));
 }
 
 void AudioOutputDialog::on_qsPacketLoss_valueChanged(int v) {
 	qlPacketLoss->setText(tr("%1 %").arg(v));
+	Mumble::Accessibility::setSliderSemanticValue(qsPacketLoss, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioOutputDialog::on_qsDelay_valueChanged(int v) {
 	qlDelay->setText(tr("%1 ms").arg(v * 10));
+	Mumble::Accessibility::setSliderSemanticValue(qsDelay, QString("%1 %2").arg(v * 10).arg(tr("milliseconds")));
 }
 
 void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
@@ -869,6 +903,7 @@ void AudioOutputDialog::on_qsMinDistance_valueChanged(int value) {
 void AudioOutputDialog::on_qsbMinimumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMinDistance);
 	qsMinDistance->setValue(static_cast< int >(value * 10));
+	Mumble::Accessibility::setSliderSemanticValue(qsMinDistance, QString("%1 %2").arg(value * 10).arg(tr("meters")));
 
 	// Ensure that max distance is always a least 1m larger than min distance
 	qsMaxDistance->setValue(std::max(qsMaxDistance->value(), static_cast< int >(value * 10) + 10));
@@ -884,6 +919,7 @@ void AudioOutputDialog::on_qsMaxDistance_valueChanged(int value) {
 void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
 	QSignalBlocker blocker(qsMaxDistance);
 	qsMaxDistance->setValue(static_cast< int >(value * 10));
+	Mumble::Accessibility::setSliderSemanticValue(qsMaxDistance, QString("%1 %2").arg(value * 10).arg(tr("meters")));
 
 	// Ensure that min distance is always a least 1m less than max distance
 	qsMinDistance->setValue(std::min(qsMinDistance->value(), static_cast< int >(value * 10) - 10));
@@ -892,6 +928,8 @@ void AudioOutputDialog::on_qsbMaximumDistance_valueChanged(double value) {
 void AudioOutputDialog::on_qsMinimumVolume_valueChanged(int value) {
 	QSignalBlocker blocker(qsbMinimumVolume);
 	qsbMinimumVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsMinimumVolume, Mumble::Accessibility::SliderMode::READ_PERCENT,
+												  "%");
 }
 
 void AudioOutputDialog::on_qsbMinimumVolume_valueChanged(int value) {
@@ -902,6 +940,7 @@ void AudioOutputDialog::on_qsbMinimumVolume_valueChanged(int value) {
 void AudioOutputDialog::on_qsBloom_valueChanged(int value) {
 	QSignalBlocker blocker(qsbBloom);
 	qsbBloom->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsBloom, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioOutputDialog::on_qsbBloom_valueChanged(int value) {
