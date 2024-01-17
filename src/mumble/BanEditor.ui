@@ -44,7 +44,7 @@
          <string>This is the search field. Use it to find bans that have this username set in the username field.</string>
         </property>
         <property name="accessibleName">
-         <string>Search</string>
+         <string>Search for banned user</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -72,7 +72,7 @@
          </font>
         </property>
         <property name="accessibleName">
-         <string>User</string>
+         <string>Username to ban</string>
         </property>
         <property name="placeholderText">
          <string>No nickname</string>
@@ -112,7 +112,7 @@
          <string>IP address</string>
         </property>
         <property name="accessibleName">
-         <string>IP Address</string>
+         <string>IP address to ban</string>
         </property>
         <property name="text">
          <string/>
@@ -170,7 +170,7 @@
          <string>Reason for the ban</string>
         </property>
         <property name="accessibleName">
-         <string>Reason</string>
+         <string>Ban reason</string>
         </property>
         <property name="placeholderText">
          <string>No reason</string>
@@ -193,7 +193,7 @@
          <bool>false</bool>
         </property>
         <property name="accessibleName">
-         <string>Start date/time</string>
+         <string>Ban start date/time</string>
         </property>
         <property name="readOnly">
          <bool>false</bool>
@@ -228,7 +228,7 @@
          <string>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</string>
         </property>
         <property name="accessibleName">
-         <string>End date/time</string>
+         <string>Ban end date/time</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
@@ -251,7 +251,7 @@
          <string>Certificate hash</string>
         </property>
         <property name="accessibleName">
-         <string>Certificate hash</string>
+         <string>Certificate hash to ban</string>
         </property>
         <property name="inputMethodHints">
          <set>Qt::ImhLowercaseOnly|Qt::ImhNoAutoUppercase</set>
@@ -270,7 +270,7 @@
          <string>This is a list with banned users.</string>
         </property>
         <property name="accessibleName">
-         <string>Banned users</string>
+         <string>List of banned users</string>
         </property>
         <property name="alternatingRowColors">
          <bool>true</bool>

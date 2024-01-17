@@ -30,6 +30,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
         <item>
          <widget class="QGraphicsView" name="qgvPosition">
+          <property name="accessibleName">
+           <string>Graphical positional audio simulation view</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This visually represents the positional audio configuration that is currently being used</string>
+          </property>
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
@@ -87,6 +93,9 @@
           </item>
           <item row="2" column="2">
            <widget class="QDoubleSpinBox" name="qdsbZ">
+            <property name="accessibleName">
+             <string>Listener Z coordinate</string>
+            </property>
             <property name="suffix">
              <string>m</string>
             </property>
@@ -94,6 +103,9 @@
           </item>
           <item row="2" column="0">
            <widget class="QDoubleSpinBox" name="qdsbX">
+            <property name="accessibleName">
+             <string>Listener X coordinate</string>
+            </property>
             <property name="prefix">
              <string/>
             </property>
@@ -130,6 +142,9 @@
           </item>
           <item row="2" column="1">
            <widget class="QDoubleSpinBox" name="qdsbY">
+            <property name="accessibleName">
+             <string>Listener Y coordinate</string>
+            </property>
             <property name="suffix">
              <string>m</string>
             </property>
@@ -172,6 +187,9 @@
             <property name="toolTip">
              <string>How long silent user's positions should stay marked after they have stopped talking (in seconds).</string>
             </property>
+            <property name="accessibleName">
+             <string>Silent user display time (in seconds)</string>
+            </property>
            </widget>
           </item>
          </layout>
@@ -191,6 +209,9 @@
          <layout class="QGridLayout" name="gridLayout">
           <item row="2" column="0">
            <widget class="QSpinBox" name="qsbAzimuth">
+            <property name="accessibleName">
+             <string>Listener azimuth (in degrees)</string>
+            </property>
             <property name="suffix">
              <string>°</string>
             </property>
@@ -220,6 +241,9 @@
           </item>
           <item row="1" column="1">
            <widget class="QDial" name="qdElevation">
+            <property name="accessibleName">
+             <string>Listener elevation (in degrees)</string>
+            </property>
             <property name="minimum">
              <number>-180</number>
             </property>
@@ -248,6 +272,9 @@
           </item>
           <item row="2" column="1">
            <widget class="QSpinBox" name="qsbElevation">
+            <property name="accessibleName">
+             <string>Listener elevation (in degrees)</string>
+            </property>
             <property name="suffix">
              <string>°</string>
             </property>
@@ -280,6 +307,9 @@
           </item>
           <item row="1" column="0">
            <widget class="QDial" name="qdAzimuth">
+            <property name="accessibleName">
+             <string>Listener azimuth (in degrees)</string>
+            </property>
             <property name="minimum">
              <number>0</number>
             </property>
@@ -323,7 +353,14 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="1">
-           <widget class="QLineEdit" name="qleContext"/>
+           <widget class="QLineEdit" name="qleContext">
+            <property name="accessibleName">
+             <string>Context string</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>Use the &quot;set&quot; button to apply the context string</string>
+            </property>
+           </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="qlContext">
@@ -347,6 +384,9 @@
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="qpbContext">
+            <property name="accessibleName">
+             <string>Apply the context string</string>
+            </property>
             <property name="text">
              <string>Set</string>
             </property>
@@ -354,13 +394,23 @@
           </item>
           <item row="1" column="2">
            <widget class="QPushButton" name="qpbIdentity">
+            <property name="accessibleName">
+             <string>Apply the identity string</string>
+            </property>
             <property name="text">
              <string>Set</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="qleIdentity"/>
+           <widget class="QLineEdit" name="qleIdentity">
+            <property name="accessibleName">
+             <string>Identity string</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>Use the &quot;set&quot; button to apply the identity string</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

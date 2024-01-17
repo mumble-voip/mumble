@@ -162,7 +162,7 @@
      </size>
     </property>
     <property name="accessibleName">
-     <string>Chat message</string>
+     <string>Enter chat message</string>
     </property>
     <property name="acceptRichText">
      <bool>false</bool>
