@@ -201,7 +201,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSlider" name="qsCueVolume">
+         <widget class="SemanticSlider" name="qsCueVolume">
           <property name="toolTip">
            <string>Volume adjustment for audio cues</string>
           </property>
@@ -267,7 +267,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="qsNotificationVolume">
+         <widget class="SemanticSlider" name="qsNotificationVolume">
           <property name="toolTip">
            <string>Volume adjustment for notification sounds</string>
           </property>
@@ -301,7 +301,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="qsTTSVolume">
+         <widget class="SemanticSlider" name="qsTTSVolume">
           <property name="toolTip">
            <string>Volume of Text-To-Speech Engine</string>
           </property>
@@ -497,6 +497,13 @@ The setting only applies for new messages, the already shown ones will retain th
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>qtwMessages</tabstop>
   <tabstop>qcbEnableTTS</tabstop>

@@ -36,9 +36,12 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qcbOutputDevice->setAccessibleName(tr("Output device"));
 	qsOutputDelay->setAccessibleName(tr("Output delay"));
 	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
-	qsVAD->setAccessibleName(tr("VAD level"));
+	qsVAD->setAccessibleName(tr("Voice activity detection level"));
 
 	Mumble::Accessibility::fixWizardButtonLabels(this);
+
+	Mumble::Accessibility::setDescriptionFromLabel(qgbInput, qliInputText);
+	Mumble::Accessibility::setDescriptionFromLabel(qgbOutput, qliOutputText);
 
 	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityLow, qlQualityLow);
 	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityBalanced, qlQualityBalanced);
@@ -301,10 +304,14 @@ void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1 ms").arg(v * 10));
 	Global::get().s.iOutputDelay = v;
 	restartAudio(true);
+
+	Mumble::Accessibility::setSliderSemanticValue(qsOutputDelay, QString("%1 %2").arg(v * 10).arg("milliseconds"));
 }
 
 void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
 	Global::get().s.iMinLoudness = qMin(v, 30000);
+
+	Mumble::Accessibility::setSliderSemanticValue(qsMaxAmp, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioWizard::showPage(int pageid) {
@@ -602,6 +609,10 @@ void AudioWizard::on_qsVAD_valueChanged(int v) {
 		Global::get().s.fVADmax = static_cast< float >(v) / 32767.0f;
 		Global::get().s.fVADmin = Global::get().s.fVADmax * 0.9f;
 	}
+
+	Mumble::Accessibility::setSliderSemanticValue(qsVAD, QString("%2 - %3")
+															 .arg(QString::number(Global::get().s.fVADmin, 'f', 2))
+															 .arg(QString::number(Global::get().s.fVADmax, 'f', 2)));
 }
 
 void AudioWizard::on_qrSNR_clicked(bool on) {
