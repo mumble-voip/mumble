@@ -25,6 +25,12 @@
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </string>
      </property>
+     <property name="accessibleName">
+      <string>Token List</string>
+     </property>
+     <property name="accessibleDescription">
+      <string>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</string>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
      </property>

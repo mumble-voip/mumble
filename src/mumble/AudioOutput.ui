@@ -45,7 +45,7 @@
          <string>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="accessibleName">
-         <string>Output system</string>
+         <string>Audio output system</string>
         </property>
        </widget>
       </item>
@@ -90,7 +90,7 @@
          <string>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="accessibleName">
-         <string>Output device</string>
+         <string>Audio output device</string>
         </property>
         <property name="sizeAdjustPolicy">
          <enum>QComboBox::AdjustToContents</enum>
@@ -147,7 +147,7 @@
          <string>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
         </property>
         <property name="accessibleName">
-         <string>Output delay</string>
+         <string>Output delay of incoming speech</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -237,7 +237,7 @@
          <string>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
         </property>
         <property name="accessibleName">
-         <string>Default jitter buffer</string>
+         <string>Jitter buffer time</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -401,7 +401,10 @@
          <string>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</string>
         </property>
         <property name="accessibleName">
-         <string>Attenuation of other applications during speech</string>
+         <string>Attenuation percentage</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>During speech, the volume of other applications will be reduced by this amount</string>
         </property>
         <property name="minimum">
          <number>0</number>
@@ -638,7 +641,7 @@
          <string>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</string>
         </property>
         <property name="accessibleName">
-         <string>Delay variance</string>
+         <string>Loopback artificial delay</string>
         </property>
         <property name="maximum">
          <number>100</number>
@@ -680,7 +683,7 @@
          <string>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there's something wrong with your network connection, this will be 0%</string>
         </property>
         <property name="accessibleName">
-         <string>Packet loss</string>
+         <string>Loopback artificial packet loss</string>
         </property>
         <property name="maximum">
          <number>50</number>
@@ -728,7 +731,10 @@
          <string>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</string>
         </property>
         <property name="accessibleName">
-         <string>Loopback</string>
+         <string>Loopback test mode</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</string>
         </property>
        </widget>
       </item>

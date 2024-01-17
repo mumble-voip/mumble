@@ -17,7 +17,7 @@
    <item>
     <widget class="QTreeWidget" name="qtwMessages">
      <property name="accessibleName">
-      <string>Log messages</string>
+      <string>Log message types and actions</string>
      </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
@@ -124,7 +124,7 @@
          <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
         </property>
         <property name="accessibleName">
-         <string>Length threshold</string>
+         <string>Set length threshold</string>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::PlusMinus</enum>
@@ -327,7 +327,7 @@
            <string>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</string>
           </property>
           <property name="accessibleName">
-           <string>TTS engine volume</string>
+           <string>Text to speech volume</string>
           </property>
           <property name="maximum">
            <number>100</number>
@@ -398,7 +398,7 @@ The setting only applies for new messages, the already shown ones will retain th
       <item row="0" column="1">
        <widget class="QSpinBox" name="qsbMaxBlocks">
         <property name="accessibleName">
-         <string>Maximum chat length</string>
+         <string>Maximum chat log length</string>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::PlusMinus</enum>
@@ -512,7 +512,7 @@ The setting only applies for new messages, the already shown ones will retain th
            <string>Number of users that will trigger message limiting functionality.</string>
           </property>
           <property name="accessibleName">
-           <string>User limit for message limiting</string>
+           <string>User limit for notifications</string>
           </property>
           <property name="frame">
            <bool>true</bool>

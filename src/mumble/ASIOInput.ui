@@ -45,7 +45,7 @@
          <string>This chooses what device to query. You still need to actually query the device and select which channels to use.</string>
         </property>
         <property name="accessibleName">
-         <string>Device to use for microphone</string>
+         <string>Device list</string>
         </property>
        </widget>
       </item>
@@ -214,6 +214,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="accessibleName">
+           <string>Move from unused to microphone list</string>
+          </property>
           <property name="text">
            <string>&lt;-</string>
           </property>
@@ -226,6 +229,9 @@
             <width>30</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="accessibleName">
+           <string>Move from microphone to unused list</string>
           </property>
           <property name="text">
            <string>-&gt;</string>
@@ -273,6 +279,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="accessibleName">
+           <string>List of unused devices</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -300,6 +309,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="accessibleName">
+           <string>Move from unused to speakers list</string>
+          </property>
           <property name="text">
            <string>-&gt;</string>
           </property>
@@ -312,6 +324,9 @@
             <width>30</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="accessibleName">
+           <string>Move from speakers to unused list</string>
           </property>
           <property name="text">
            <string>&lt;-</string>

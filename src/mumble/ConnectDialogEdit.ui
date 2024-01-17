@@ -123,6 +123,9 @@
       <string>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</string>
      </property>
+     <property name="accessibleName">
+      <string>Server IP address</string>
+     </property>
      <property name="placeholderText">
       <string>127.0.0.1</string>
      </property>
@@ -146,6 +149,9 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
      <property name="whatsThis">
       <string>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</string>
+     </property>
+     <property name="accessibleName">
+      <string>Server port</string>
      </property>
      <property name="placeholderText">
       <string>64738</string>
@@ -181,6 +187,9 @@ Port on which the server is listening. If the server is identified by a Bonjour 
       <string>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</string>
      </property>
+     <property name="accessibleName">
+      <string>Username</string>
+     </property>
      <property name="placeholderText">
       <string>Your username</string>
      </property>
@@ -201,6 +210,9 @@ Username to send to the server. Be aware that the server can impose restrictions
      <property name="whatsThis">
       <string>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</string>
+     </property>
+     <property name="accessibleName">
+      <string>Password</string>
      </property>
      <property name="placeholderText">
       <string>Your password</string>
@@ -235,6 +247,9 @@ Password to be sent to the server on connect. This password is needed when conne
      <property name="whatsThis">
       <string>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</string>
+     </property>
+     <property name="accessibleName">
+      <string>Label for server</string>
      </property>
      <property name="placeholderText">
       <string>Local server label</string>

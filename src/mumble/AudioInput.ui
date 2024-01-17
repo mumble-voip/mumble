@@ -39,13 +39,13 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Input method for audio</string>
+         <string>Input backend for audio</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="accessibleName">
-         <string>Audio system</string>
+         <string>Audio input system</string>
         </property>
        </widget>
       </item>
@@ -74,7 +74,7 @@
          <string>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="accessibleName">
-         <string>Input device</string>
+         <string>Audio input device</string>
         </property>
         <property name="sizeAdjustPolicy">
          <enum>QComboBox::AdjustToContents</enum>
@@ -244,7 +244,10 @@
              <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</string>
             </property>
             <property name="accessibleName">
-             <string>PTT lock threshold</string>
+             <string>Push to talk lock threshold</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>Switch between push to talk and continuous mode by double tapping in this time frame</string>
             </property>
             <property name="maximum">
              <number>1000</number>
@@ -282,8 +285,14 @@
             <property name="toolTip">
              <string>Time the microphone stays open after the PTT key is released</string>
             </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</string>
+            </property>
             <property name="accessibleName">
-             <string>PTT hold threshold</string>
+             <string>Push to talk hold threshold</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>Extend push to talk send time after the key is released by this amount of time</string>
             </property>
             <property name="maximum">
              <number>5000</number>
@@ -332,7 +341,7 @@
              <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
             </property>
             <property name="accessibleName">
-             <string>Silence below</string>
+             <string>Voice hold time</string>
             </property>
             <property name="minimum">
              <number>20</number>
@@ -423,7 +432,10 @@
              <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
             </property>
             <property name="accessibleName">
-             <string>Silence below</string>
+             <string>Silence below threshold</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>This sets the threshold when Mumble will definitively consider a signal silence</string>
             </property>
             <property name="minimum">
              <number>1</number>
@@ -451,7 +463,10 @@
              <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
             </property>
             <property name="accessibleName">
-             <string>Speech above</string>
+             <string>Speech above threshold</string>
+            </property>
+            <property name="accessibleDescription">
+             <string>This sets the threshold when Mumble will definitively consider a signal speech</string>
             </property>
             <property name="minimum">
              <number>1</number>
@@ -503,7 +518,10 @@
          <string>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</string>
         </property>
         <property name="accessibleName">
-         <string>Audio per packet in milliseconds</string>
+         <string>Audio per packet</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>This sets how much speech is packed into a single network package</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -554,7 +572,10 @@
          <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
         </property>
         <property name="accessibleName">
-         <string>Audio compression quality in kilobit per second</string>
+         <string>Audio compression quality</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>This sets the target compression bitrate</string>
         </property>
         <property name="minimum">
          <number>8000</number>
@@ -640,6 +661,9 @@
         <property name="accessibleName">
          <string>Maximum amplification</string>
         </property>
+        <property name="accessibleDescription">
+         <string>Speech is dynamically amplified by at most this amount</string>
+        </property>
         <property name="maximum">
          <number>19500</number>
         </property>
@@ -707,7 +731,7 @@
               <string>Don't use noise suppression.</string>
              </property>
              <property name="accessibleName">
-              <string>Noise suppression disabled</string>
+              <string/>
              </property>
              <property name="text">
               <string>Disabled</string>
@@ -770,7 +794,7 @@
               <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
              </property>
              <property name="accessibleName">
-              <string>Noise suppression</string>
+              <string>Noise suppression strength</string>
              </property>
              <property name="minimum">
               <number>15</number>
@@ -840,8 +864,11 @@
         <property name="toolTip">
          <string>Gets played when stopping to transmit</string>
         </property>
+        <property name="accessibleName">
+         <string>Path to audio file</string>
+        </property>
         <property name="accessibleDescription">
-         <string>Path to audio cue file when stopping to speak</string>
+         <string>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</string>
         </property>
        </widget>
       </item>
@@ -850,7 +877,7 @@
         <item>
          <widget class="QSpinBox" name="qsbIdle">
           <property name="accessibleName">
-           <string>Initiate idle action after (in minutes)</string>
+           <string>Idle action time threshold (in minutes)</string>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -921,8 +948,11 @@
         <property name="toolTip">
          <string>Gets played when you are trying to speak while being muted</string>
         </property>
+        <property name="accessibleName">
+         <string>Path to audio file</string>
+        </property>
         <property name="accessibleDescription">
-         <string>Path to mute cue file</string>
+         <string>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</string>
         </property>
        </widget>
       </item>
@@ -941,8 +971,11 @@
         <property name="toolTip">
          <string>Gets played when starting to transmit</string>
         </property>
+        <property name="accessibleName">
+         <string>Path to audio file</string>
+        </property>
         <property name="accessibleDescription">
-         <string>Path to audio cue file when starting to speak</string>
+         <string>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</string>
         </property>
        </widget>
       </item>
