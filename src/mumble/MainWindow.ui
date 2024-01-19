@@ -305,7 +305,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Ban list...</string>
+    <string>&amp;Ban List</string>
    </property>
    <property name="toolTip">
     <string>Edit ban list on server</string>
@@ -323,7 +323,7 @@
      <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Information...</string>
+    <string>&amp;Information</string>
    </property>
    <property name="toolTip">
     <string>Show information about the server connection</string>
@@ -390,7 +390,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Ignore Messages</string>
+    <string>Ig&amp;nore Messages</string>
    </property>
    <property name="toolTip">
     <string>Locally ignore user's text chat messages.</string>
@@ -415,7 +415,7 @@
   </action>
   <action name="qaUserTextMessage">
    <property name="text">
-    <string>Send &amp;Message...</string>
+    <string>&amp;Send Message...</string>
    </property>
    <property name="toolTip">
     <string>Send a Text Message</string>
@@ -426,7 +426,7 @@
   </action>
   <action name="qaUserLocalNickname">
    <property name="text">
-    <string>&amp;Set Nickname...</string>
+    <string>Set Ni&amp;ckname...</string>
    </property>
    <property name="toolTip">
     <string>Set a local nickname</string>
@@ -470,7 +470,7 @@
   </action>
   <action name="qaChannelLink">
    <property name="text">
-    <string>&amp;Link</string>
+    <string>L&amp;ink</string>
    </property>
    <property name="toolTip">
     <string>Link your channel to another channel</string>
@@ -492,7 +492,7 @@
   </action>
   <action name="qaChannelUnlinkAll">
    <property name="text">
-    <string>&amp;Unlink All</string>
+    <string>U&amp;nlink All</string>
    </property>
    <property name="toolTip">
     <string>Unlinks your channel from all linked channels.</string>
@@ -523,7 +523,7 @@
      <activeon>skin:actions/audio-input-microphone-muted.svg</activeon>skin:actions/audio-input-microphone.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Mute Self</string>
+    <string>M&amp;ute Self</string>
    </property>
    <property name="whatsThis">
     <string>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</string>
@@ -543,7 +543,7 @@
      <activeon>skin:deafened_self.svg</activeon>skin:self_undeafened.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Deafen Self</string>
+    <string>D&amp;eafen Self</string>
    </property>
    <property name="whatsThis">
     <string>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</string>
@@ -568,7 +568,7 @@
   </action>
   <action name="qaAudioStats">
    <property name="text">
-    <string>Audio S&amp;tatistics...</string>
+    <string>Audio &amp;Statistics</string>
    </property>
    <property name="toolTip">
     <string>Display audio statistics</string>
@@ -594,7 +594,7 @@
      <normaloff>skin:config_basic.png</normaloff>skin:config_basic.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Settings...</string>
+    <string>&amp;Settings</string>
    </property>
    <property name="toolTip">
     <string>Configure Mumble</string>
@@ -651,7 +651,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaDeveloperConsole">
    <property name="text">
-    <string>Developer &amp;Console...</string>
+    <string>Developer &amp;Console</string>
    </property>
    <property name="toolTip">
     <string>Show the Developer Console</string>
@@ -662,7 +662,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaPositionalAudioViewer">
    <property name="text">
-    <string>Positional &amp;Audio Viewer...</string>
+    <string>Positional &amp;Audio Viewer</string>
    </property>
    <property name="toolTip">
     <string>Show the Positional Audio Viewer</string>
@@ -684,7 +684,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaHelpAbout">
    <property name="text">
-    <string>&amp;About...</string>
+    <string>&amp;About</string>
    </property>
    <property name="toolTip">
     <string>Information about Mumble</string>
@@ -712,7 +712,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaHelpAboutQt">
    <property name="text">
-    <string>About &amp;Qt...</string>
+    <string>About &amp;Qt</string>
    </property>
    <property name="toolTip">
     <string>Information about Qt</string>
@@ -737,7 +737,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaChannelSendMessage">
    <property name="text">
-    <string>Send &amp;Message...</string>
+    <string>&amp;Send Message...</string>
    </property>
    <property name="toolTip">
     <string>Send a Text Message</string>
@@ -798,7 +798,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaUserRegister">
    <property name="text">
-    <string>&amp;Register...</string>
+    <string>Re&amp;gister...</string>
    </property>
    <property name="toolTip">
     <string>Register user on server</string>
@@ -849,7 +849,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaServerUserList">
    <property name="text">
-    <string>Registered &amp;Users...</string>
+    <string>Registered &amp;Users</string>
    </property>
    <property name="toolTip">
     <string>Edit registered users list</string>
@@ -868,7 +868,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaServerTokens">
    <property name="text">
-    <string>&amp;Access Tokens...</string>
+    <string>&amp;Access Tokens</string>
    </property>
    <property name="toolTip">
     <string>Add or remove text-based access tokens</string>
@@ -876,7 +876,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaServerTextureRemove">
    <property name="text">
-    <string>&amp;Remove Avatar</string>
+    <string>Remo&amp;ve Avatar</string>
    </property>
    <property name="toolTip">
     <string>Remove currently defined avatar image.</string>
@@ -884,7 +884,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaUserCommentReset">
    <property name="text">
-    <string>Reset &amp;Comment...</string>
+    <string>Reset Commen&amp;t...</string>
    </property>
    <property name="toolTip">
     <string>Reset the comment of the selected user.</string>
@@ -892,15 +892,15 @@ the channel's context menu.</string>
   </action>
   <action name="qaUserTextureReset">
    <property name="text">
-    <string>Reset &amp;Avatar...</string>
+    <string>Remo&amp;ve Avatar...</string>
    </property>
    <property name="toolTip">
-    <string>Reset the avatar of the selected user.</string>
+    <string>Remove the avatar of the selected user.</string>
    </property>
   </action>
   <action name="qaChannelJoin">
    <property name="text">
-    <string>&amp;Join Channel</string>
+    <string>&amp;Join</string>
    </property>
   </action>
   <action name="qaChannelHide">
@@ -908,7 +908,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Hide Channel when Filtering</string>
+    <string>&amp;Hide When Filtering</string>
    </property>
   </action>
   <action name="qaChannelPin">
@@ -916,12 +916,12 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Pin Channel when Filtering</string>
+    <string>&amp;Pin When Filtering</string>
    </property>
   </action>
   <action name="qaUserCommentView">
    <property name="text">
-    <string>View Comment...</string>
+    <string>Vie&amp;w Comment</string>
    </property>
    <property name="toolTip">
     <string>View comment in editor</string>
@@ -933,7 +933,7 @@ the channel's context menu.</string>
      <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Information...</string>
+    <string>&amp;Information</string>
    </property>
    <property name="toolTip">
     <string>Query server for connection information for user</string>
@@ -959,7 +959,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaSelfRegister">
    <property name="text">
-    <string>R&amp;egister...</string>
+    <string>Re&amp;gister...</string>
    </property>
    <property name="toolTip">
     <string>Register yourself on the server</string>
@@ -970,7 +970,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Priority Speaker</string>
+    <string>&amp;Priority Speaker</string>
    </property>
   </action>
   <action name="qaSelfPrioritySpeaker">
@@ -978,7 +978,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Priority Speaker</string>
+    <string>&amp;Priority Speaker</string>
    </property>
   </action>
   <action name="qaRecording">
@@ -990,7 +990,7 @@ the channel's context menu.</string>
      <normaloff>skin:actions/media-record.svg</normaloff>skin:actions/media-record.svg</iconset>
    </property>
    <property name="text">
-    <string>Recording</string>
+    <string>&amp;Record...</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -1009,7 +1009,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Listen to channel</string>
+    <string>&amp;Listen To Channel</string>
    </property>
    <property name="toolTip">
     <string>Listen to this channel without joining it</string>
@@ -1020,7 +1020,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Talking UI</string>
+    <string>Talking &amp;UI</string>
    </property>
    <property name="toolTip">
     <string>Toggles the visibility of the TalkingUI.</string>
@@ -1028,7 +1028,7 @@ the channel's context menu.</string>
   </action>
   <action name="qaUserJoin">
    <property name="text">
-    <string>Join user's channel</string>
+    <string>&amp;Join User's Channel</string>
    </property>
    <property name="toolTip">
     <string>Joins the channel of this user.</string>
@@ -1039,7 +1039,7 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Disable Text-To-Speech</string>
+    <string>Disable Te&amp;xt-To-Speech</string>
    </property>
    <property name="toolTip">
     <string>Locally disable Text-To-Speech for this user's text chat messages.</string>
@@ -1054,7 +1054,7 @@ the channel's context menu.</string>
      <normaloff>skin:magnifier.svg</normaloff>skin:magnifier.svg</iconset>
    </property>
    <property name="text">
-    <string>Search</string>
+    <string>&amp;Search...</string>
    </property>
    <property name="toolTip">
     <string>Search for a user or channel (Ctrl+F)</string>

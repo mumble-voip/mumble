@@ -2240,8 +2240,6 @@ void MainWindow::qmChannel_aboutToShow() {
 
 	if (c && c->iId != ClientUser::get(Global::get().uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
-
-		qmChannel->addSeparator();
 	}
 
 	if (c && Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 4, 0)) {

@@ -645,14 +645,14 @@
      <item>
       <widget class="QPushButton" name="viewCertButton">
        <property name="text">
-        <string>&amp;View certificate</string>
+        <string>&amp;View Certificate</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="okButton">
        <property name="text">
-        <string>&amp;Ok</string>
+        <string>&amp;OK</string>
        </property>
       </widget>
      </item>
