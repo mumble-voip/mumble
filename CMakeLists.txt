@@ -37,16 +37,18 @@ project(mumble
 set(3RDPARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
 set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
-
 list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake"
 	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
 	"${3RDPARTY_DIR}/FindPythonInterpreter"
 	"${3RDPARTY_DIR}/cmake-compiler-flags"
 )
+
+if(NOT DEFINED CMAKE_CXX_STANDARD)
+	set(CMAKE_CXX_STANDARD 14)
+endif()
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
 
 include(pkg-utils)
