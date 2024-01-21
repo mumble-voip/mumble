@@ -41,9 +41,7 @@
 #	include <shlobj.h>
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-#	include <QRandomGenerator>
-#endif
+#include <QRandomGenerator>
 
 #include <algorithm>
 
@@ -1466,13 +1464,7 @@ void ConnectDialog::fillList() {
 	}
 
 	while (!ql.isEmpty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-		ServerItem *si = static_cast< ServerItem * >(
-			ql.takeAt(static_cast< int >(QRandomGenerator::global()->generate()) % ql.count()));
-#else
-		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(qrand() % ql.count()));
-#endif
+		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(QRandomGenerator::global()->bounded(0, ql.count())));
 		qlNew << si;
 		qlItems << si;
 	}
