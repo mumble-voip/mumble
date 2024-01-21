@@ -12,7 +12,7 @@ freebsd_task:
   fetch_submodules_script: git submodule --quiet update --init --recursive
   build_script:
   - mkdir build && cd build
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -Dtests=ON -Dsymbols=ON ..
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -Dtests=ON -Dsymbols=ON -DCMAKE_CXX_STANDARD=17 ..
   - cmake --build .
   test_script:
   - cd build
