@@ -135,6 +135,7 @@ open the element in Qt Designer, check the button's name and search for that in 
 implicit signal-connecting which is based on a special naming scheme of slots in a given UI class (e.g. `on_xy_actived` where `xy` is the name of the
 corresponding UI element).
 
+When creating or changing existing UI elements, always consider the [accessibility checklist](/docs/dev/Accessibility.md).
 
 ### Server
 
