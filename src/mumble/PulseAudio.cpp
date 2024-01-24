@@ -660,6 +660,8 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pas->bAttenuating = (Global::get().bAttenuateOthers || Global::get().s.bAttenuateOthers);
 
 	} else {
+		std::fill(buffer.begin(), buffer.end(), 0);
+
 		// attenuate if intructed to (self-activated)
 		pas->bAttenuating = Global::get().bAttenuateOthers;
 	}
