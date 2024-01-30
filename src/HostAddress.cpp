@@ -160,7 +160,7 @@ void HostAddress::toSockaddr(sockaddr_storage *dst) const {
 
 std::uint32_t HostAddress::toIPv4() const {
 	// The IPv4 address is stored in the last four bytes (in network byte order)
-	return *(reinterpret_cast< const std::uint32_t * >(m_byteRepresentation[12]));
+	return *(reinterpret_cast< const std::uint32_t * >(&m_byteRepresentation[12]));
 }
 
 const std::array< std::uint8_t, 16 > &HostAddress::getByteRepresentation() const {
