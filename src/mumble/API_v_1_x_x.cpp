@@ -1714,14 +1714,15 @@ C_WRAPPER(getChannelName_v_1_0_x)
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users, size_t *userCount
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users, std::size_t *userCount
 #define ARG_NAMES callerID, connection, users, userCount
 C_WRAPPER(getAllUsers_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t **channels, size_t *channelCount
+#define TYPED_ARGS                                                                              \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t **channels, \
+		std::size_t *channelCount
 #define ARG_NAMES callerID, connection, channels, channelCount
 C_WRAPPER(getAllChannels_v_1_0_x)
 #undef TYPED_ARGS
@@ -1736,7 +1737,7 @@ C_WRAPPER(getChannelOfUser_v_1_0_x)
 
 #define TYPED_ARGS                                                                             \
 	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
-		mumble_userid_t **userList, size_t *userCount
+		mumble_userid_t **userList, std::size_t *userCount
 #define ARG_NAMES callerID, connection, channelID, userList, userCount
 C_WRAPPER(getUsersInChannel_v_1_0_x)
 #undef TYPED_ARGS
@@ -1899,9 +1900,9 @@ C_WRAPPER(setMumbleSetting_string_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS                                                                                               \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users, size_t userCount, \
-		const uint8_t *data, size_t dataLength, const char *dataID
+#define TYPED_ARGS                                                                                                    \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users, std::size_t userCount, \
+		const uint8_t *data, std::size_t dataLength, const char *dataID
 #define ARG_NAMES callerID, connection, users, userCount, data, dataLength, dataID
 C_WRAPPER(sendData_v_1_0_x)
 #undef TYPED_ARGS
