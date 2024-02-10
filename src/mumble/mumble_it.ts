@@ -7596,11 +7596,11 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation>Scarica il plugin attualmente selezionato. Questo lo rimuoverà dalla lista dei plugin per la sessione corrente.</translation>
+        <translation>Rimuovi il plugin attualmente selezionato. Questo lo rimuoverà dalla lista dei plugin per la sessione corrente.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation>Scarica</translation>
+        <translation>Rimuovi</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
