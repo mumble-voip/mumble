@@ -1030,31 +1030,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Звуковой сигнал при использовании...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Звуковой сигнал при запуске или остановке передачи с помощью функции «Нажми и говори»</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Это позволяет передавать звуковые сигналы при использовании функции «Нажми и говори».&lt;/b&gt;&lt;br /&gt;Если вы установите этот параметр, ,будет спользоваться короткий звуковой сигнал при запуске и прекращении передачи.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Активация по кнопке</translation>
+        <translation>Нажмите что бы говорить</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Звуковой сигнал при запуске или остановке передачи с помощью голосовой активности.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Это позволяет передавать звуковые сигналы при использовании голосовой активности.&lt;/b&gt;&lt;br /&gt;Если вы установите этот параметр, будет издаваться короткий звуковой сигнал при запуске и прекращении передачи.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Активация по голосу</translation>
+        <translation>Голосовая активность</translation>
     </message>
 </context>
 <context>
@@ -6452,11 +6452,11 @@ Valid actions are:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал &amp;Фильтр</translation>
     </message>
     <message>
         <source>&amp;Pin Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Закрепить канал при фильтрации</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6520,7 +6520,67 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Использование: mumble [опции] [&lt;ссылка&gt; | &lt;список_плагинов&gt;]
+
+&lt;url&gt; указывает URL-адрес для подключения после запуска вместо отображения
+окна подключения и имеет следующий вид:
+mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;подканал&gt;...]][?версия=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; — список файлов плагинов, которые необходимо установить.
+Параметр запроса версии должен быть установлен для вызова
+правильная версия клиента. В настоящее время по умолчанию используется версия 1.2.0.
+
+Допустимые варианты:
+  -h, --help Показать текст справки и выйти.
+  --version Распечатать информацию о версии и выйти
+  -m, --multiple
+                Разрешить запуск нескольких экземпляров клиента.
+  -с, --config
+                Указание альтернативного файла конфигурации.
+                Если вы используете это для одновременного запуска нескольких экземпляров Mumble,
+                обязательно установите альтернативное значение «баз данных» в конфигурации.
+  --default-certificate-dir &lt;каталог&gt;
+                Укажите альтернативный путь сертификата по умолчанию.
+                Этот путь используется только в том случае, если сертификат не загружен.
+                из настроек.
+  -n, --noidentity
+                Подавить загрузку идентификационных файлов (т. е. сертификатов).
+  -jn, --jackname &lt;аргумент&gt;
+                Указание собственного имени клиента Jack.
+  --license
+                Показать лицензию Mumble.
+  --authors
+                Показать авторов Mumble.
+   --third-party-licenses
+                Показать лицензии на стороннее программное обеспечение, используемое Mumble.
+  --window-title-ext &lt;аргумент&gt;
+                Установка расширения заголовка окна.
+  --dump-input-streams
+                Дамп потоков PCM в различных частях входной цепочки
+                (полезно для целей отладки)
+                - необработанный микрофонный вход
+                - считывание динамика для эхоподавления
+                - обработанный микрофонный вход
+  --print-echocancel-queue
+                Вывести на стандартный вывод состояние очереди эхоподавления.
+                (полезно для целей отладки)
+  --translation-dir &lt;директория&gt;
+                Указывает дополнительный каталог перевода &lt;dir&gt;
+                в котором Mumble будет искать файлы перевода, которые
+                перезаписать связанные
+                Каталоги, добавленные таким образом, имеют более высокий приоритет, чем
+                в противном случае используются местоположения по умолчанию
+  --print-translation-dirs
+                Распечать пути, по которым Mumble будет искать
+                файлы перевода, которые перезаписывают файлы идущие в комплекте.
+                (Полезно для переводчиков, тестирующих свои переводы)
+  --locale &lt;путь&gt;
+                Перезапишите путь в настройках Mumble с помощью
+                пути, который соответствует данной строке расположения.
+                Если формат недействителен, Mumble выдаст ошибку.
+                В противном случае путь будет навсегда сохранен в
+                Настройки Мамбла.
+</translation>
     </message>
     <message>
         <source>Connect to a server</source>
@@ -7731,7 +7791,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>В каталоге плагинов обнаружен неплагин: «%1» (%2)</translation>
     </message>
 </context>
 <context>
@@ -8971,7 +9031,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал будет закреплен, если фильтрация включена.</translation>
     </message>
 </context>
 <context>
@@ -9125,7 +9185,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 – Сжатие с потерями</translation>
     </message>
 </context>
 <context>
@@ -9270,11 +9330,11 @@ Please contact your server administrator for further information.</source>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>Mumble</translation>
+        <translation>Mumble PPT</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Говорить</translation>
+        <translation>Нажмите что бы говорить</translation>
     </message>
 </context>
 </TS>
