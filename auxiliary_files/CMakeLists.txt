@@ -8,7 +8,7 @@ include(pkg-utils)
 
 if(NOT BUILD_RELEASE_DATE)
 	# If BUILD_RELEASE_DATE has not been set, default to time of build
-	string(TIMESTAMP BUILD_RELEASE_DATE "%Y-%m-%d")
+	string(TIMESTAMP BUILD_RELEASE_DATE "%Y-%m-%d" UTC)
 endif()
 
 if(overlay)
