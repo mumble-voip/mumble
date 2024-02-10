@@ -4624,15 +4624,15 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> secondes</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Si cette case est cochée, les utilisateurs seront toujours visibles dans le mode Tribune (indépendamment de l&apos;état de parole).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujoers garder les utilisateurs visibles</translation>
     </message>
 </context>
 <context>
@@ -6591,201 +6591,201 @@ Les options valides sont :
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Connexion à un serveur</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue de connexion à un serveur</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Déconnexion du serveur</translation>
+        <translation>Déconnexion du serveur</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci vous déconnectera du serveur</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir les informations sur le serveur</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cela affichera les informations au sujet de la connexion au serveur</translation>
     </message>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir les jetons du serveur</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue des jetons du serveur</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir la liste des utilisateurs du serveur</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue de la liste des utilisateurs du serveur</translation>
     </message>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir la liste des bannissements du serveur</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue de la liste des bannissements du serveur</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Basculer l&apos;état de parole prioritaire</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cela activera/désactivera la parole prioritaire</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le dialogue d&apos;enregistrement</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue d&apos;enregistrement</translation>
     </message>
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le commentaire</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue de modification des commentaires</translation>
     </message>
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modifier l&apos;avatar</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira votre explorateur de fichiers afin de modifier votre image d&apos;avatar sur ce serveur</translation>
     </message>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Enlever l&apos;avatar</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci remettra à zéro votre avatar sur le serveur</translation>
     </message>
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrement sur le serveur</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci vous enregistrera sur le serveur</translation>
     </message>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Statistiques audio</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue des statistiques audio</translation>
     </message>
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrire les réglages</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue des réglages</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Démarrer l&apos;assistant audio</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira le dialogue de l&apos;assistant audio</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Démarrer l&apos;assistant des certificats</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira le dialogue de l&apos;assistant des certificats</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Basculer l&apos;état de la synthèse vocale</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela activera/désactivera la synthèse vocale</translation>
     </message>
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le dialogue à propos</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ouvrira le dialogue à propos</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le dialogue à propos de Qt</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira le dialogue à propos de Qt</translation>
     </message>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier les mises à jour</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci vérifiera si mumble est à jour</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce son était l&apos;indicateur de l&apos;état muet. Il s&apos;active lorsque vous parlez alors que vous êtes muet. Souhaitez-vous le garder activé ?</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Oui</translation>
+        <translation>Oui</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Non</translation>
+        <translation>Non</translation>
     </message>
 </context>
 <context>
