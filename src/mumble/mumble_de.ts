@@ -4624,15 +4624,15 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> Sekunden</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn diese Option aktiviert ist, sind die Benutzer immer in der TalkingUI sichtbar (unabhängig vom Gesprächszustand).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer immer sichtbar halten</translation>
     </message>
 </context>
 <context>
@@ -6577,62 +6577,62 @@ Gültige Optionen sind:
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mit einem Server verbinden</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies wird das Server-Verbindungsfenster öffnen</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Verbindung zum Server trennen</translation>
+        <translation>Verbindung zum Server trennen</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies wird Ihre Verbindung zum Server trennen</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Öffne Serverinformation</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies wird Informationen über die Serververbindung anzeigen</translation>
     </message>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Server-Tokens öffnen</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Server-Token Dialog</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Server-Benutzerliste öffnen</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Server-Benutzerlisten-Dialog</translation>
     </message>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Server-Sperrliste öffnen</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Dialog für die Sperrliste des Servers</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
@@ -6647,38 +6647,38 @@ Gültige Optionen sind:
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahmedialog öffnen</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Aufnahmedialog</translation>
     </message>
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar ändern</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Dialog zum Ändern von Kommentaren</translation>
     </message>
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Avatar ändern</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet Ihren Datei-Explorer, um Ihr Avatar-Bild auf diesem Server zu ändern</translation>
     </message>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Avatar entfernen</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dadurch wird Ihr Avatar auf dem Server zurückgesetzt</translation>
     </message>
     <message>
         <source>Register on the server</source>
@@ -6687,43 +6687,43 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dadurch werden Sie auf dem Server registriert</translation>
     </message>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Audio-Statistiken</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Audiostatistik-Dialog</translation>
     </message>
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen öffnen</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Einstellungsdialog</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Audio-Assistent starten</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Audio-Assistenten-Dialog</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikatsassistent starten</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Zertifikatsassistenten-Dialog</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
@@ -6737,29 +6737,29 @@ Gültige Optionen sind:
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Über-Dialog öffnen</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den Über-Dialog</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Über Qt-Dialog öffnen</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies öffnet den über Qt Dialog</translation>
     </message>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Auf Aktualisierung prüfen</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies prüft, ob mumble auf dem neuesten Stand ist</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
@@ -6767,11 +6767,11 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nein</translation>
+        <translation>Nein</translation>
     </message>
 </context>
 <context>
@@ -9176,7 +9176,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 – Verlustbehaftet komprimiert</translation>
     </message>
 </context>
 <context>
