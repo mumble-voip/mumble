@@ -1006,7 +1006,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambaŭ</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1442,7 +1442,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebligi</translation>
     </message>
     <message>
         <source>Attenuation</source>
@@ -2352,7 +2352,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished">Nova atestilo</translation>
+        <translation>Nova atestilo</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2520,7 +2520,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>Nova atestilo</translation>
+        <translation>Nova Atestilo</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
@@ -2740,7 +2740,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aŭskulti</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
@@ -2764,7 +2764,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekapabla sendi bildon: tro granda.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
@@ -2901,7 +2901,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekonata</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2961,15 +2961,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servilo listo</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Serĉi</translation>
+        <translation>Serĉi</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Loko</translation>
     </message>
     <message>
         <source>Filter</source>
@@ -2977,7 +2977,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Montri Ĉiujn</translation>
     </message>
     <message>
         <source>Show Populated</source>
@@ -2993,27 +2993,27 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afriko</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Azio</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Eŭropo</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Nordameriko</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Oceanio</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Sudameriko</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3375,7 +3375,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ebligi GKey</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
@@ -3383,7 +3383,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ebligi XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
@@ -3537,7 +3537,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuna elekto</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
@@ -3633,7 +3633,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vidoj</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
@@ -3768,7 +3768,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ludant-ligilo</translation>
     </message>
     <message>
         <source>channel link</source>
@@ -3780,11 +3780,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servilo konektita</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servilo malkonektita</translation>
     </message>
     <message>
         <source>User joined server</source>
@@ -4309,7 +4309,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arbo de Kanaloj</translation>
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
@@ -4623,7 +4623,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eniri Kanalon</translation>
     </message>
     <message>
         <source>Toggle Overlay</source>
@@ -4712,7 +4712,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;center&gt;Ne ligite&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -4936,7 +4936,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vidi Atestilon</translation>
     </message>
     <message>
         <source>Enter reason</source>
@@ -5171,7 +5171,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Edit Groups and ACL for channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit Grupoj kaj ACL por kanalo</translation>
     </message>
     <message>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
@@ -5345,7 +5345,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kio estas tio?</translation>
     </message>
     <message>
         <source>Enter What&apos;s This? mode</source>
@@ -5723,11 +5723,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>La servilo petas Parolado dum premo esti ebligita.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>La servilo petas Parolado dum premo esti neebligita.</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
@@ -5973,7 +5973,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaŝi Mumble</translation>
     </message>
     <message>
         <source>Hides the main Mumble window.</source>
@@ -6013,7 +6013,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Send &amp;Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendu &amp;Mesaĝon...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
@@ -6049,11 +6049,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>About &amp;Speex...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pri &amp;Speex...</translation>
     </message>
     <message>
         <source>About &amp;Qt...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pri &amp;Qt...</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
