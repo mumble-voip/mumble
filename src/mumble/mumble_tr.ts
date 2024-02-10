@@ -4623,15 +4623,15 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> saniye</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Şayet bu şık seçiliyse, kullanıcılar Konuşmq Arayüzü&apos;nde daime görünür olacaklardır (konuşma durumlarından bağımsız bir şekilde).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcıları daima görünür yap</translation>
     </message>
 </context>
 <context>
@@ -6585,201 +6585,201 @@ Geçerli seçenekler şunlardır:
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bir sunucuya bağlan</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucuya bağlantı diyaloğunu açar</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Sunucuyla bağlantıyı kes</translation>
+        <translation>Sunucuyla bağlantıyı kes</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucuyla olan bağlantınızı keser</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu bilgilerini aç</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucu bağlantısına dair bilgi gösterecektir</translation>
     </message>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu jetonlarını aç</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucu jetonları diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu kullanıcı listesini aç</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucu kullanıcı listesi diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu yasaklama listesini aç</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucu yasaklama listesi diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Öncelikli konuşmacı durumunu değiştir</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu, öncelikli konuşmacı durumunu etkinleştirir/devre dışı bırakır</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kayıt diyaloğunu aç</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, kayıt diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yorum değiştir</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, yorum değiştirme diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Havari değiştir</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, bu sunucudaki havari resminizi değiştirmek için dosya tarayıcınızı açacaktır</translation>
     </message>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Havari kaldır</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucudaki havarinizi sıfırlayacaktır</translation>
     </message>
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sunucuya kaydol</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sizi sunucuya kaydedecektir</translation>
     </message>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ses istatistikleri</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, ses istatistikleri diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ayarları aç</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, ayarlar diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ses sihirbazını başlat</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, ses sihirbazı diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika sihirbazını başlat</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sertifika sihirbazı diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Konuşma sentezi durumunu değiştir</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, konuşma sentezini etkinleştirecek/devre dışı bırakacaktır</translation>
     </message>
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hakkında diyaloğunu aç</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, hakkında diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Qt hakkında diyaloğunu aç</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, Qt hakkında diyaloğunu açacaktır</translation>
     </message>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Güncellemeleri kontrol et</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, mumble&apos;ın güncel olup olmadığını kontrol edecektir</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ses, susturulduğunuzun işaretiydi. Susturulduğunuzda konuşursanız etkinleşir. Bunu faal olarak muhafaza etmek ister misiniz?</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Evet</translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Hayır</translation>
+        <translation>Hayır</translation>
     </message>
 </context>
 <context>
