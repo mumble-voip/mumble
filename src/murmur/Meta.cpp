@@ -734,6 +734,9 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 		if (Meta::mp.iSQLiteWAL == 1) {
 			qFatal("SQLite WAL = 1 option no longer supported. Either enable fully (WAL = 2) or disable (WAL = 0)");
 		}
+#ifdef MUMBLE_DISABLE_SQLITE
+		qFatal("Your version of the Mumble server has been compiled without support for SQLite - choose a different DB backend");
+#endif
 
 		static ::mumble::db::SQLiteConnectionParameter sqliteConnection(Meta::mp.qsDatabase.toStdString(),
 																		Meta::mp.iSQLiteWAL > 0);
@@ -741,6 +744,9 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 		return sqliteConnection;
 	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qmysql")
 			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "mysql")) {
+#ifdef MUMBLE_DISABLE_MYSQL
+		qFatal("Your version of the Mumble server has been compiled without support for MySQL - choose a different DB backend");
+#endif
 		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBHostName.isEmpty()) {
@@ -759,6 +765,9 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qpsql")
 			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "psql")
 			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "postgresql")) {
+#ifdef MUMBLE_DISABLE_POSTGRESQL
+		qFatal("Your version of the Mumble server has been compiled without support for PostgreSQL - choose a different DB backend");
+#endif
 		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBHostName.isEmpty()) {
