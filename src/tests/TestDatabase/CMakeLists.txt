@@ -6,6 +6,16 @@
 option(database-sqlite-tests "Whether to include the SQLite database tests" ON)
 option(database-mysql-tests "Whether to include the MySQL database tests (requires special setup)" OFF)
 option(database-postgresql-tests "Whether to include the PostgreSQL database tests (requires special setup)" OFF)
+
+if (NOT enable-sqlite)
+	set(database-sqlite-tests OFF CACHE INTERNAL "" FORCE)
+endif()
+if (NOT enable-mysql)
+	set(database-mysql-tests OFF CACHE INTERNAL "" FORCE)
+endif()
+if (NOT enable-postgresql)
+	set(database-postgresql-tests OFF CACHE INTERNAL "" FORCE)
+endif()
  
 add_executable(TestDatabase
 	DatabaseTest.cpp

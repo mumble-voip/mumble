@@ -24,9 +24,15 @@
 #include <boost/algorithm/string.hpp>
 
 // These functions are defined by the respective SOCI backend libraries
+#ifndef MUMBLE_DISABLE_SQLITE
 extern "C" void register_factory_sqlite3();
+#endif
+#ifndef MUMBLE_DISABLE_MYSQL
 extern "C" void register_factory_mysql();
+#endif
+#ifndef MUMBLE_DISABLE_POSTGRESQL
 extern "C" void register_factory_postgresql();
+#endif
 
 namespace mumble {
 namespace db {
@@ -400,6 +406,9 @@ namespace db {
 		std::string connectionString;
 		switch (m_backend) {
 			case Backend::SQLite: {
+#ifdef MUMBLE_DISABLE_SQLITE
+				throw InitException("Tried to connect to SQLite database, but SQLite support is disabled");
+#else
 				static bool registered = false;
 				if (!registered) {
 					register_factory_sqlite3();
@@ -407,12 +416,15 @@ namespace db {
 				}
 
 				const auto &sqliteParameter = static_cast< const SQLiteConnectionParameter & >(parameter);
-
-				connectionString = "sqlite3://dbname=" + sqliteParameter.dbPath;
+				connectionString            = "sqlite3://dbname=" + sqliteParameter.dbPath;
+#endif
 				break;
 			}
 			case Backend::MySQL: {
-				static bool registered = false;
+#ifdef MUMBLE_DISABLE_MYSQL
+				throw InitException("Tried to connect to MySQL database, but MySQL support is disabled");
+#else
+				static bool registered      = false;
 				if (!registered) {
 					register_factory_mysql();
 					registered = true;
@@ -434,9 +446,13 @@ namespace db {
 				if (!mysqlParameter.port.empty()) {
 					connectionString += " port='" + mysqlParameter.port + "'";
 				}
+#endif
 				break;
 			}
 			case Backend::PostgreSQL: {
+#ifdef MUMBLE_DISABLE_POSTGRESQL
+				throw InitException("Tried to connect to PostgreSQL database, but PostgreSQL support is disabled");
+#else
 				static bool registered = false;
 				if (!registered) {
 					register_factory_postgresql();
@@ -459,6 +475,7 @@ namespace db {
 				if (!postgresqlParameter.port.empty()) {
 					connectionString += " port='" + postgresqlParameter.port + "'";
 				}
+#endif
 				break;
 			}
 		}
