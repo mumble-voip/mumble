@@ -1647,6 +1647,74 @@ void MumbleAPI::playSample_v_1_2_x(mumble_plugin_id_t callerID, const char *samp
 	}
 }
 
+void MumbleAPI::requestChannelLink_v_1_3_x(mumble_plugin_id_t callerID, mumble_channelid_t channelID,
+										   mumble_channelid_t linkID, std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestChannelLink_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_channelid_t, channelID),
+								  Q_ARG(mumble_channelid_t, linkID), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
+
+	if (!channel) {
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
+	}
+
+	const Channel *link = Channel::get(static_cast< unsigned int >(linkID));
+	if (!link) {
+		EXIT_WITH(MUMBLE_EC_LINK_CHANNEL_NOT_FOUND);
+	}
+
+	Global::get().sh->addChannelLink(channel->iId, link->iId);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestChannelUnlink_v_1_3_x(mumble_plugin_id_t callerID, mumble_channelid_t channelID,
+											 mumble_channelid_t unlinkID, std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestChannelUnlink_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_channelid_t, channelID),
+								  Q_ARG(mumble_channelid_t, unlinkID),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
+
+	if (!channel) {
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
+	}
+
+	const Channel *unlink = Channel::get(static_cast< unsigned int >(unlinkID));
+	if (!unlink) {
+		EXIT_WITH(MUMBLE_EC_LINK_CHANNEL_NOT_FOUND);
+	}
+
+	Global::get().sh->removeChannelLink(channel->iId, unlink->iId);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////// C FUNCTION WRAPPERS FOR USE IN API STRUCT ///////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1714,14 +1782,15 @@ C_WRAPPER(getChannelName_v_1_0_x)
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users, size_t *userCount
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users, std::size_t *userCount
 #define ARG_NAMES callerID, connection, users, userCount
 C_WRAPPER(getAllUsers_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t **channels, size_t *channelCount
+#define TYPED_ARGS                                                                              \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t **channels, \
+		std::size_t *channelCount
 #define ARG_NAMES callerID, connection, channels, channelCount
 C_WRAPPER(getAllChannels_v_1_0_x)
 #undef TYPED_ARGS
@@ -1736,7 +1805,7 @@ C_WRAPPER(getChannelOfUser_v_1_0_x)
 
 #define TYPED_ARGS                                                                             \
 	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
-		mumble_userid_t **userList, size_t *userCount
+		mumble_userid_t **userList, std::size_t *userCount
 #define ARG_NAMES callerID, connection, channelID, userList, userCount
 C_WRAPPER(getUsersInChannel_v_1_0_x)
 #undef TYPED_ARGS
@@ -1899,9 +1968,9 @@ C_WRAPPER(setMumbleSetting_string_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS                                                                                               \
-	mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users, size_t userCount, \
-		const uint8_t *data, size_t dataLength, const char *dataID
+#define TYPED_ARGS                                                                                                    \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users, std::size_t userCount, \
+		const uint8_t *data, std::size_t dataLength, const char *dataID
 #define ARG_NAMES callerID, connection, users, userCount, data, dataLength, dataID
 C_WRAPPER(sendData_v_1_0_x)
 #undef TYPED_ARGS
@@ -1925,6 +1994,17 @@ C_WRAPPER(playSample_v_1_2_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_channelid_t channelID, mumble_channelid_t linkID
+#define ARG_NAMES callerID, channelID, linkID
+C_WRAPPER(requestChannelLink_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_channelid_t channelID, mumble_channelid_t unlinkID
+#define ARG_NAMES callerID, channelID, unlinkID
+C_WRAPPER(requestChannelUnlink_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
 
 #undef C_WRAPPER
 
@@ -2013,6 +2093,49 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 sendData_v_1_0_x,
 			 log_v_1_0_x,
 			 playSample_v_1_2_x };
+}
+
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x() {
+	return { freeMemory_v_1_0_x,
+			 getActiveServerConnection_v_1_0_x,
+			 isConnectionSynchronized_v_1_0_x,
+			 getLocalUserID_v_1_0_x,
+			 getUserName_v_1_0_x,
+			 getChannelName_v_1_0_x,
+			 getAllUsers_v_1_0_x,
+			 getAllChannels_v_1_0_x,
+			 getChannelOfUser_v_1_0_x,
+			 getUsersInChannel_v_1_0_x,
+			 getLocalUserTransmissionMode_v_1_0_x,
+			 isUserLocallyMuted_v_1_0_x,
+			 isLocalUserMuted_v_1_0_x,
+			 isLocalUserDeafened_v_1_0_x,
+			 getUserHash_v_1_0_x,
+			 getServerHash_v_1_0_x,
+			 getUserComment_v_1_0_x,
+			 getChannelDescription_v_1_0_x,
+			 requestLocalUserTransmissionMode_v_1_0_x,
+			 requestUserMove_v_1_0_x,
+			 requestMicrophoneActivationOverwrite_v_1_0_x,
+			 requestLocalMute_v_1_0_x,
+			 requestLocalUserMute_v_1_0_x,
+			 requestLocalUserDeaf_v_1_0_x,
+			 requestSetLocalUserComment_v_1_0_x,
+			 findUserByName_v_1_0_x,
+			 findChannelByName_v_1_0_x,
+			 getMumbleSetting_bool_v_1_0_x,
+			 getMumbleSetting_int_v_1_0_x,
+			 getMumbleSetting_double_v_1_0_x,
+			 getMumbleSetting_string_v_1_0_x,
+			 setMumbleSetting_bool_v_1_0_x,
+			 setMumbleSetting_int_v_1_0_x,
+			 setMumbleSetting_double_v_1_0_x,
+			 setMumbleSetting_string_v_1_0_x,
+			 sendData_v_1_0_x,
+			 log_v_1_0_x,
+			 playSample_v_1_2_x,
+			 requestChannelLink_v_1_3_x,
+			 requestChannelUnlink_v_1_3_x };
 }
 
 #define MAP(qtName, apiName) \

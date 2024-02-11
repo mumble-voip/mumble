@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -233,6 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
+	MUMBLE_EC_LINK_CHANNEL_NOT_FOUND,
 };
 
 /**
@@ -1807,7 +1808,38 @@ struct MUMBLE_API_STRUCT_NAME {
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID,
 																 const char *samplePath PARAM_v1_2(float volume));
+
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+
+	/**
+	 *
+	 * Requests Mumble to link the given channel to the given linkID.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param channelID The ID of the channel to link
+	 * @param linkID The ID of the base channel to link to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestChannelLink)(mumble_plugin_id_t callerID,
+																		 mumble_channelid_t channelID,
+																		 mumble_channelid_t linkID);
+
+	/**
+	 *
+	 * Requests Mumble to unlink the given channel to the given unlinkID.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param channelID The ID of the channel to unlink
+	 * @param unlinkID The ID of the base channel to unlink to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestChannelUnlink)(mumble_plugin_id_t callerID,
+																		   mumble_channelid_t channelID,
+																		   mumble_channelid_t unlinkID);
+#	endif
 };
+
+
 
 #	ifdef MUMBLE_PLUGIN_CREATE_MUMBLE_API_TYPEDEF
 /**
