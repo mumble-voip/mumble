@@ -5,6 +5,10 @@
 
 option(bundled-soci "Build the included version of SOCI instead of looking for one on the system" ON)
 
+option(enable-sqlite "Whether or not to enable the SQLite database backend" ON)
+option(enable-mysql "Whether or not to enable the MySQL database backend" ON)
+option(enable-postgresql "Whether or not to enable the PostgreSQL database backend" ON)
+
 add_library(mumble_database STATIC
 	"Backend.cpp"
 	"Column.cpp"
@@ -28,6 +32,16 @@ add_library(mumble_database STATIC
 
 target_include_directories(mumble_database PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
+if (NOT enable-sqlite)
+	target_compile_definitions(mumble_database PUBLIC MUMBLE_DISABLE_SQLITE)
+endif()
+if (NOT enable-mysql)
+	target_compile_definitions(mumble_database PUBLIC MUMBLE_DISABLE_MYSQL)
+endif()
+if (NOT enable-postgresql)
+	target_compile_definitions(mumble_database PUBLIC MUMBLE_DISABLE_POSTGRESQL)
+endif()
+
 if (bundled-soci)
 	# Include SOCI, but hard-code a few options
 	set(SOCI_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/soci)
@@ -41,9 +55,9 @@ if (bundled-soci)
 	set(SOCI_ODBC OFF CACHE BOOL "" FORCE)
 	set(SOCI_ORACLE OFF CACHE BOOL "" FORCE)
 	set(SOCI_EMPTY OFF CACHE BOOL "" FORCE)
-	set(SOCI_MYSQL ON CACHE BOOL "" FORCE)
-	set(SOCI_POSTGRESQL ON CACHE BOOL "" FORCE)
-	set(SOCI_SQLITE3 ON CACHE BOOL "" FORCE)
+	set(SOCI_MYSQL ${enable-mysql} CACHE BOOL "" FORCE)
+	set(SOCI_POSTGRESQL ${enable-postgresql} CACHE BOOL "" FORCE)
+	set(SOCI_SQLITE3 ${enable-sqlite} CACHE BOOL "" FORCE)
 
 	add_subdirectory("${3RDPARTY_DIR}/soci" "${SOCI_BINARY_DIR}" EXCLUDE_FROM_ALL)
 
@@ -56,23 +70,45 @@ if (bundled-soci)
 			${SOCI_BINARY_DIR}/include
 	)
 
-	set(soci_components
-		"soci_mysql_static"
-		"soci_postgresql_static"
-		"soci_sqlite3_static"
-		"soci_core_static"
-	)
+	set(soci_components "")
+	if (enable-sqlite)
+		list(APPEND soci_components "soci_sqlite3_static")
+	endif()
+	if (enable-mysql)
+		list(APPEND soci_components "soci_mysql_static")
+	endif()
+	if (enable-postgresql)
+		list(APPEND soci_components "soci_postgresql_static")
+	endif()
+	# The core lib must be listed last
+	list(APPEND soci_components "soci_core_static")
 else()
 	# Only Soci 4.1 introduces the general BLOB operations that we require
-	find_pkg("Soci" 4.1.0 COMPONENTS mysql postgresql sqlite3 core REQUIRED)
+	set(components "")
+	if (enable-sqlite)
+		list(APPEND components "sqlite3")
+	endif()
+	if (enable-mysql)
+		list(APPEND components "mysql")
+	endif()
+	if (enable-postgresql)
+		list(APPEND components "postgresql")
+	endif()
 
-	set(soci_static "")
-	set(soci_components
-		"${Soci_mysql_PLUGIN}"
-		"${Soci_postgresql_PLUGIN}"
-		"${Soci_sqlite3_PLUGIN}"
-		"${Soci_LIBRARY}"
-	)
+	find_pkg("Soci" 4.1.0 COMPONENTS ${components} core REQUIRED)
+
+	set(soci_components "")
+	if (enable-sqlite)
+		list(APPEND soci_components "${Soci_sqlite3_PLUGIN}")
+	endif()
+	if (enable-mysql)
+		list(APPEND soci_components "${Soci_mysql_PLUGIN}")
+	endif()
+	if (enable-postgresql)
+		list(APPEND soci_components "${Soci_postgresql_PLUGIN}")
+	endif()
+	# The core lib must be listed last
+	list(APPEND soci_components "${Soci_LIBRARY}")
 endif()
 
 target_link_libraries(mumble_database PUBLIC ${soci_components})
