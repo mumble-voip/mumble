@@ -91,14 +91,14 @@ public slots:
 								mumble_channelid_t channelID, const char **name,
 								std::shared_ptr< api_promise_t > promise);
 	void getAllUsers_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t **users,
-							 size_t *userCount, std::shared_ptr< api_promise_t > promise);
+							 std::size_t *userCount, std::shared_ptr< api_promise_t > promise);
 	void getAllChannels_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-								mumble_channelid_t **channels, size_t *channelCount,
+								mumble_channelid_t **channels, std::size_t *channelCount,
 								std::shared_ptr< api_promise_t > promise);
 	void getChannelOfUser_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 								  mumble_channelid_t *channelID, std::shared_ptr< api_promise_t > promise);
 	void getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
-								   mumble_channelid_t channelID, mumble_userid_t **users, size_t *userCount,
+								   mumble_channelid_t channelID, mumble_userid_t **users, std::size_t *userCount,
 								   std::shared_ptr< api_promise_t > promise);
 	void getLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID, mumble_transmission_mode_t *transmissionMode,
 											  std::shared_ptr< api_promise_t > promise);
@@ -153,7 +153,7 @@ public slots:
 	void setMumbleSetting_string_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, const char *value,
 										 std::shared_ptr< api_promise_t > promise);
 	void sendData_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users,
-						  size_t userCount, const uint8_t *data, size_t dataLength, const char *dataID,
+						  std::size_t userCount, const uint8_t *data, std::size_t dataLength, const char *dataID,
 						  std::shared_ptr< api_promise_t > promise);
 	void log_v_1_0_x(mumble_plugin_id_t callerID, const char *message, std::shared_ptr< api_promise_t > promise);
 	void playSample_v_1_0_x(mumble_plugin_id_t callerID, const char *samplePath,
