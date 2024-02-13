@@ -427,7 +427,7 @@ public:
 	void openConfigDialog();
 	void openAudioWizardDialog();
 	void openCertWizardDialog();
-	void toggleAudioTTS(const bool &newState);
+	void enableAudioTTS(bool enable);
 	void openAboutDialog();
 	void openAboutQtDialog();
 	void versionCheck();
