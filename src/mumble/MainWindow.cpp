@@ -2730,7 +2730,7 @@ void MainWindow::on_qaRecording_triggered() {
 }
 
 void MainWindow::on_qaAudioTTS_triggered() {
-	toggleAudioTTS(qaAudioTTS->isChecked());
+	enableAudioTTS(qaAudioTTS->isChecked());
 }
 
 void MainWindow::on_qaAudioStats_triggered() {
@@ -3323,7 +3323,7 @@ void MainWindow::on_gsAudioTTS_triggered(bool down, QVariant) {
 		return;
 	}
 
-	toggleAudioTTS(!Global::get().s.bTTS);
+	enableAudioTTS(!Global::get().s.bTTS);
 }
 
 void MainWindow::on_gsHelpAbout_triggered(bool down, QVariant) {
@@ -4135,8 +4135,8 @@ void MainWindow::openCertWizardDialog() {
 	delete cw;
 }
 
-void MainWindow::toggleAudioTTS(const bool &newState) {
-	Global::get().s.bTTS = newState;
+void MainWindow::enableAudioTTS(bool enable) {
+	Global::get().s.bTTS = enable;
 }
 
 void MainWindow::openAboutDialog() {
