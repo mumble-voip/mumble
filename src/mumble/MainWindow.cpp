@@ -1662,10 +1662,9 @@ void MainWindow::qmUser_aboutToShow() {
 
 	qmUser->clear();
 
-	if (self && p && !isSelf) {
+	if (self && p && !isSelf && self->cChannel != p->cChannel) {
 		qmUser->addAction(qaUserJoin);
-		qaUserJoin->setEnabled(self->cChannel != p->cChannel);
-
+		qmUser->addAction(qaUserMove);
 		qmUser->addSeparator();
 	}
 
@@ -2340,6 +2339,18 @@ void MainWindow::on_qaUserJoin_triggered() {
 
 		if (channel) {
 			Global::get().sh->joinChannel(Global::get().uiSession, channel->iId);
+		}
+	}
+}
+
+void MainWindow::on_qaUserMove_triggered() {
+	const ClientUser *user = getContextMenuUser();
+
+	if (user) {
+		const Channel *channel = ClientUser::get(Global::get().uiSession)->cChannel;
+
+		if (channel) {
+			Global::get().sh->joinChannel(user->uiSession, channel->iId);
 		}
 	}
 }

@@ -1034,6 +1034,14 @@ the channel's context menu.</string>
     <string>Joins the channel of this user.</string>
    </property>
   </action>
+  <action name="qaUserMove">
+   <property name="text">
+    <string>M&amp;ove To Own Channel</string>
+   </property>
+   <property name="toolTip">
+    <string>Moves this user to your current channel.</string>
+   </property>
+  </action>
   <action name="qaUserLocalIgnoreTTS">
    <property name="checkable">
     <bool>true</bool>
