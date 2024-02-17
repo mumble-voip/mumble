@@ -15,16 +15,13 @@ class LogTextBrowser : public QTextBrowser {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogTextBrowser)
-protected:
-	bool event(QEvent *e) Q_DECL_OVERRIDE;
 
 public:
 	LogTextBrowser(QWidget *p = nullptr);
 
 	int getLogScroll();
-	int getLogScrollMaximum();
 	void setLogScroll(int scroll_pos);
-	void scrollLogToBottom();
+	bool isScrolledToBottom();
 };
 
 class ChatbarTextEdit : public QTextEdit {
