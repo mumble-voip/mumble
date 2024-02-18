@@ -22,33 +22,17 @@
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
 }
 
-bool LogTextBrowser::event(QEvent *e) {
-	if (e->type() == LogDocumentResourceAddedEvent::Type) {
-		scrollLogToBottom();
-	}
-	return QTextBrowser::event(e);
-}
-
 int LogTextBrowser::getLogScroll() {
 	return verticalScrollBar()->value();
-}
-
-int LogTextBrowser::getLogScrollMaximum() {
-	return verticalScrollBar()->maximum();
 }
 
 void LogTextBrowser::setLogScroll(int scroll_pos) {
 	verticalScrollBar()->setValue(scroll_pos);
 }
 
-void LogTextBrowser::scrollLogToBottom() {
-	// Without the call to processEvents, the scrollbar sometimes ends up in an
-	// incorrect position after an image is sent to the chat log.
-	//
-	// See: https://github.com/mumble-voip/mumble/issues/2504
-	QApplication::processEvents();
-
-	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+bool LogTextBrowser::isScrolledToBottom() {
+	const QScrollBar *scrollBar = verticalScrollBar();
+	return scrollBar->value() == scrollBar->maximum();
 }
 
 
