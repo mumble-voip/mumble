@@ -3459,7 +3459,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nekonata</translation>
     </message>
 </context>
 <context>
@@ -7489,7 +7489,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ebligi</translation>
     </message>
     <message>
         <source>PA</source>
@@ -8270,7 +8270,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nekonata</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8398,7 +8398,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nuna elekto</translation>
     </message>
 </context>
 <context>

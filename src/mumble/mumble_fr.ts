@@ -6777,7 +6777,7 @@ Les options valides sont :
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
-        <translation>Ce son était l&apos;indicateur de l&apos;état muet. Il s&apos;active lorsque vous parlez alors que vous êtes muet. Souhaitez-vous le garder activé ?</translation>
+        <translation>Ce son était l&apos;indicateur de l&apos;état muet. Il s&apos;active lorsque vous parlez alors que vous êtes muet. Souhaitez-vous le garder activé&#x202f;?</translation>
     </message>
     <message>
         <source>Yes</source>
