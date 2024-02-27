@@ -190,6 +190,7 @@ void LogConfig::updateSelectAllButtons() {
 		}
 	}
 
+	const QSignalBlocker blocker(qtwMessages);
 	allMessagesItem->setCheckState(ColConsole, allConsoleChecked ? Qt::Checked : Qt::Unchecked);
 	allMessagesItem->setCheckState(ColNotification, allNotificationChecked ? Qt::Checked : Qt::Unchecked);
 	allMessagesItem->setCheckState(ColHighlight, allHighlightChecked ? Qt::Checked : Qt::Unchecked);
