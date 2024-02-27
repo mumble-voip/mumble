@@ -115,7 +115,7 @@ const std::string &Game::identity(const AmongUsClient_Fields &fields, const Play
 	std::ostringstream stream;
 
 	stream << "ID: " << std::to_string(infoFields.playerId) << '\n';
-	stream << "Name: " << string(outfitFields.playerName) << '\n';
+	stream << "Name: " << string(outfitFields.preCensorName) << '\n';
 	stream << "Level: " << std::to_string(infoFields.playerLevel + 1) << '\n';
 	stream << "Color ID: " << std::to_string(outfitFields.colorId) << '\n';
 	stream << "Skin: " << string(outfitFields.skinId) << '\n';
