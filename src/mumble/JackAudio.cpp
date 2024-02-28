@@ -4,6 +4,9 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "JackAudio.h"
+#include "AudioOutputBuffer.h"
+#include "ServerHandler.h"
+#include "VoiceRecorder.h"
 
 #include "Utils.h"
 #include "Global.h"
@@ -232,6 +235,7 @@ JackAudioSystem::JackAudioSystem() : bAvailable(false), users(0), client(nullptr
 	RESOLVE(jack_port_by_name)
 	RESOLVE(jack_port_flags)
 	RESOLVE(jack_port_get_buffer)
+	RESOLVE(jack_port_rename)
 	RESOLVE(jack_ringbuffer_create)
 	RESOLVE(jack_ringbuffer_free)
 	RESOLVE(jack_ringbuffer_mlock)
@@ -519,6 +523,22 @@ bool JackAudioSystem::disconnectPort(jack_port_t *port) {
 	const auto ret = jack_port_disconnect(client, port);
 	if (ret != 0) {
 		qWarning("JackAudioSystem: unable to disconnect port - jack_port_disconnect() returned %i", ret);
+		return false;
+	}
+
+	return true;
+}
+
+bool JackAudioSystem::renamePort(jack_port_t *port, const char *name) {
+	QMutexLocker lock(&qmWait);
+
+	if (!client || !port) {
+		return false;
+	}
+
+	const int ret = jack_port_rename(client, port, name);
+	if (ret != 0) {
+		qWarning("JackAudioSystem: unable to rename port - jack_port_rename() returned %i", ret);
 		return false;
 	}
 
@@ -960,8 +980,30 @@ bool JackAudioOutput::unregisterPorts() {
 		}
 	}
 
+	for (const std::pair< const QString, jack_port_t * > &port : userPorts) {
+		if (!port.second) {
+			continue;
+		}
+
+		if (!jas->unregisterPort(port.second)) {
+			qWarning("JackAudioOutput: unable to unregister port named \"%s\"", port.first.toStdString().c_str());
+			ret = false;
+		}
+	}
+
+	for (const std::pair< const QString, jack_ringbuffer_t * > &ringBuffer : userBuffers) {
+		if (!ringBuffer.second) {
+			continue;
+		}
+
+		jas->ringbufferFree(ringBuffer.second);
+	}
+
 	outputBuffers.clear();
+	userBuffers.clear();
+
 	ports.clear();
+	userPorts.clear();
 
 	return ret;
 }
@@ -1014,6 +1056,30 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	// This is in spite of the fact that on most POSIX systems, QMutex is actually implemented using semaphores.
 	qsSleep.release(1);
 
+	for (const std::pair< const QString, jack_ringbuffer_t * > &userBufferPair : userBuffers) {
+		const QString &name           = userBufferPair.first;
+		jack_ringbuffer_t *ringBuffer = userBufferPair.second;
+
+		jack_port_t *port = userPorts[name];
+		if (!port) {
+			continue;
+		}
+
+		char *portBuffer = static_cast< char * >(jas->getPortBuffer(port, frames));
+		if (!portBuffer) {
+			continue;
+		}
+
+		std::size_t bytesRead;
+		if (ringBuffer) {
+			bytesRead = jas->ringbufferRead(ringBuffer, frames * sizeof(jack_default_audio_sample_t), portBuffer);
+		} else {
+			bytesRead = 0;
+		}
+
+		memset(&portBuffer[bytesRead], 0, frames * sizeof(jack_default_audio_sample_t) - bytesRead);
+	}
+
 	for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
 		auto outputBuffer = jas->getPortBuffer(ports[static_cast< int >(currentChannel)], frames);
 		if (!outputBuffer) {
@@ -1024,7 +1090,7 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 							  reinterpret_cast< jack_default_audio_sample_t * >(outputBuffer));
 	}
 
-	const auto avail = jas->ringbufferReadSpace(buffer);
+	const std::size_t avail = jas->ringbufferReadSpace(buffer);
 	if (avail == 0) {
 		for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
 			memset(outputBuffers[static_cast< int >(currentChannel)], 0, frames * sizeof(jack_default_audio_sample_t));
@@ -1033,7 +1099,7 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 		return true;
 	}
 
-	const size_t needed = frames * iSampleSize;
+	const std::size_t needed = frames * static_cast< std::size_t >(iSampleSize);
 
 	if (iChannels == 1) {
 		jas->ringbufferRead(buffer, avail, reinterpret_cast< char * >(outputBuffers[0]));
@@ -1044,7 +1110,7 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 		return true;
 	}
 
-	auto samples = qMin(jas->ringbufferReadSpace(buffer), needed) / sizeof(jack_default_audio_sample_t);
+	std::size_t samples = std::min(jas->ringbufferReadSpace(buffer), needed) / sizeof(jack_default_audio_sample_t);
 	for (auto currentSample = decltype(samples){ 0 }; currentSample < samples; ++currentSample) {
 		jas->ringbufferRead(
 			buffer, sizeof(jack_default_audio_sample_t),
@@ -1060,6 +1126,84 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	}
 
 	return true;
+}
+
+void JackAudioOutput::prepareOutputBuffers(unsigned int frameCount, QList< AudioOutputBuffer * > &qlMix,
+										   QList< AudioOutputBuffer * > &qlDel) {
+	ServerHandlerPtr sh = Global::get().sh;
+	VoiceRecorderPtr recorder;
+	if (sh) {
+		recorder = Global::get().sh->recorder;
+	}
+
+	// Shortcut to base class code when our special case is not needed.
+	if (!recorder || (recorder && !recorder->isTransportEnabled())) {
+		AudioOutput::prepareOutputBuffers(frameCount, qlMix, qlDel);
+		return;
+	}
+
+	// Register user ports based on who is currently present in qmOutputs and route their audio to JACK.
+	// Don't care if users get removed for now. TODO: maybe at some point we do.
+	for (auto it = qmOutputs.constBegin(); it != qmOutputs.constEnd(); ++it) {
+		const ClientUser *user   = it.key();
+		AudioOutputBuffer *audio = it.value();
+
+		if (!user) {
+			if (audio->prepareSampleBuffer(frameCount)) {
+				qlMix.append(audio);
+			} else {
+				qlDel.append(audio);
+			}
+			continue;
+		}
+
+		QString qsPortName = user->qsName;
+		qsPortName         = qsPortName.prepend("user_");
+		if (userPorts.find(qsPortName) == userPorts.end()) {
+			jack_port_t *port = jas->registerPort(qsPortName.toStdString().c_str(), JackPortIsOutput);
+			if (!port) {
+				qWarning("JackAudioOutput: unable to register user port \"%s\"", qsPortName.toStdString().c_str());
+			} else {
+				userPorts[qsPortName] = port;
+			}
+		}
+
+		if (userBuffers.find(qsPortName) == userBuffers.end()) {
+			jack_ringbuffer_t *ringBuffer =
+				jas->ringbufferCreate(static_cast< size_t >(iFrameSize) * iSampleSize * JACK_BUFFER_PERIODS);
+			if (!ringBuffer) {
+				qWarning("JackAudioOutput: unable to create user buffer for port \"%s\"",
+						 qsPortName.toStdString().c_str());
+			} else {
+				jas->ringbufferMlock(ringBuffer);
+				userBuffers[qsPortName] = ringBuffer;
+			}
+		}
+
+		downMixBuffer.resize(frameCount);
+		if (audio->prepareSampleBuffer(frameCount)) {
+			qlMix.append(audio);
+
+			if (audio->bStereo) {
+				for (unsigned int i = 0; i < frameCount; i++) {
+					// Down-mix to mono
+					downMixBuffer[i] = (audio->pfBuffer[i * 2] / 2.0f + audio->pfBuffer[i * 2 + 1] / 2.0f);
+				}
+			} else {
+				memcpy(downMixBuffer.data(), audio->pfBuffer, sizeof(float) * frameCount);
+			}
+		} else {
+			qlDel.append(audio);
+
+			std::fill(downMixBuffer.begin(), downMixBuffer.end(), 0.0f);
+		}
+
+		const auto userBuffer = userBuffers.find(qsPortName);
+		if (userBuffer != userBuffers.end()) {
+			jack_ringbuffer_t *ringBuffer = userBuffer->second;
+			jas->ringbufferWrite(ringBuffer, frameCount * sizeof(jack_default_audio_sample_t), downMixBuffer.data());
+		}
+	}
 }
 
 void JackAudioOutput::run() {
@@ -1133,6 +1277,10 @@ void JackAudioOutput::run() {
 		qmWait.unlock();
 		qsSleep.acquire(1);
 	} while (bReady);
+}
+
+bool JackAudioOutput::supportsTransportRecording() const {
+	return true;
 }
 
 #undef RESOLVE

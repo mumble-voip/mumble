@@ -419,6 +419,21 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	}
 }
 
+void AudioOutput::prepareOutputBuffers(unsigned int frameCount, QList< AudioOutputBuffer * > &qlMix,
+									   QList< AudioOutputBuffer * > &qlDel) {
+	// Get the users that are currently talking (and are thus serving as an audio source)
+	auto it = qmOutputs.constBegin();
+	for (int i = 0; i < qmOutputs.count(); i++) {
+		AudioOutputBuffer *buffer = it.value();
+		if (!buffer->prepareSampleBuffer(frameCount)) {
+			qlDel.append(buffer);
+		} else {
+			qlMix.append(buffer);
+		}
+		++it;
+	}
+}
+
 bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 #ifdef USE_MANUAL_PLUGIN
 	positions.clear();
@@ -446,22 +461,17 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 	bool prioritySpeakerActive = false;
 
-	// Get the users that are currently talking (and are thus serving as an audio source)
+	// Detect whether priority speaker is active.
 	QMultiHash< const ClientUser *, AudioOutputBuffer * >::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
-		AudioOutputBuffer *buffer = it.value();
-		if (!buffer->prepareSampleBuffer(frameCount)) {
-			qlDel.append(buffer);
-		} else {
-			qlMix.append(buffer);
-
-			const ClientUser *user = it.key();
-			if (user && user->bPrioritySpeaker) {
-				prioritySpeakerActive = true;
-			}
+		const ClientUser *user = it.key();
+		if (user && user->bPrioritySpeaker) {
+			prioritySpeakerActive = true;
 		}
 		++it;
 	}
+
+	prepareOutputBuffers(frameCount, qlMix, qlDel);
 
 	if (Global::get().prioritySpeakerActiveOverride) {
 		prioritySpeakerActive = true;
@@ -805,4 +815,8 @@ unsigned int AudioOutput::getMixerFreq() const {
 
 void AudioOutput::setBufferSize(unsigned int bufferSize) {
 	iBufferSize = bufferSize;
+}
+
+bool AudioOutput::supportsTransportRecording() const {
+	return false;
 }

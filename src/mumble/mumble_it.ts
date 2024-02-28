@@ -9238,6 +9238,14 @@ Per favore contatta l&apos;amministratore del server per maggiori informazioni.<
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Impossibile avviare la registrazione - errore nella configuazione dell&apos;uscita audio (0Hz frequenza di campionamento)</translation>
     </message>
+    <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>

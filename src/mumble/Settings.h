@@ -207,7 +207,12 @@ struct Settings {
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
 	enum AlwaysOnTopBehaviour { OnTopNever, OnTopAlways, OnTopInMinimal, OnTopInNormal };
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
-	enum RecordingMode { RecordingMixdown, RecordingMultichannel };
+	enum RecordingMode {
+		RecordingMixdown,
+		RecordingMultichannel,
+		RecordingMultichannelAndTransport,
+		RecordingTransportStandalone
+	};
 
 	typedef QPair< QList< QSslCertificate >, QSslKey > KeyPair;
 

@@ -9299,6 +9299,14 @@ Por favor, contacte con el administrador de su servidor para más información.<
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Imposible empezar a grabar - la salida de audio está mal configurada (frecuencia de muestreo de 0Hz)</translation>
     </message>
+    <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>

@@ -9087,6 +9087,14 @@ Please contact your server administrator for further information.</source>
         <source>Select target directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>

@@ -9236,6 +9236,14 @@ Please contact your server administrator for further information.</source>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>녹음을 시작할 수 없음 - 오디오 출력이 잘못 구성됨 (0Hz 샘플 속도)</translation>
     </message>
+    <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
