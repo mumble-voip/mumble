@@ -137,7 +137,11 @@ bool HostAddress::isValid() const {
 }
 
 QHostAddress HostAddress::toAddress() const {
-	return QHostAddress(m_byteRepresentation.data());
+	QHostAddress address = QHostAddress(m_byteRepresentation.data());
+	if (!isV6()) {
+		address.setAddress(address.toIPv4Address());
+	}
+	return address;
 }
 
 QByteArray HostAddress::toByteArray() const {
