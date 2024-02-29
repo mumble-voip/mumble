@@ -412,6 +412,11 @@ void MainWindow::createActions() {
 	gsHelpVersionCheck->setObjectName(QLatin1String("gsHelpVersionCheck"));
 	gsHelpVersionCheck->qsWhatsThis = tr("This will check if mumble is up to date");
 
+	gsTogglePositionalAudio = new GlobalShortcut(this, GlobalShortcutType::TogglePositionalAudio,
+												 tr("Toggle positional audio", "Global Shortcut"));
+	gsTogglePositionalAudio->setObjectName(QLatin1String("gsTogglePositionalAudio"));
+	gsTogglePositionalAudio->qsWhatsThis = tr("This will turn on/off positional audio");
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -3350,6 +3355,14 @@ void MainWindow::on_gsHelpVersionCheck_triggered(bool down, QVariant) {
 	versionCheck();
 }
 
+void MainWindow::on_gsTogglePositionalAudio_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	togglePositionalAudio(!Global::get().s.bPositionalAudio);
+}
+
 
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
@@ -4150,6 +4163,10 @@ void MainWindow::openAboutQtDialog() {
 
 void MainWindow::versionCheck() {
 	new VersionCheck(false, this);
+}
+
+void MainWindow::togglePositionalAudio(const bool &newState) {
+	Global::get().s.bPositionalAudio = newState;
 }
 
 void MainWindow::on_muteCuePopup_triggered() {

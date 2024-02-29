@@ -6719,6 +6719,15 @@ Valid options are:
         <source>No</source>
         <translation type="unfinished">아니요</translation>
     </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will turn on/off positional audio</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
