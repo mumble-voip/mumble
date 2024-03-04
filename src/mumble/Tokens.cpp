@@ -11,7 +11,6 @@
 
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);
-	qlwTokens->setAccessibleName(tr("Tokens"));
 
 	qbaDigest          = Global::get().sh->qbaDigest;
 	QStringList tokens = Global::get().db->getTokens(qbaDigest);

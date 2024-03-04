@@ -78,6 +78,9 @@
           <italic>true</italic>
          </font>
         </property>
+        <property name="accessibleName">
+         <string>Search for user</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -96,6 +99,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="accessibleName">
+         <string>Set inactivity filter mode</string>
         </property>
         <item>
          <property name="text">
@@ -146,6 +152,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="accessibleName">
+         <string>Filter for inactivity</string>
+        </property>
         <property name="frame">
          <bool>true</bool>
         </property>
@@ -165,10 +174,16 @@
         <property name="text">
          <string>Inactive for</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbInactive</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="0" colspan="6">
        <widget class="QTreeView" name="qtvUserList">
+        <property name="accessibleName">
+         <string>User list</string>
+        </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
@@ -191,6 +206,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -226,11 +248,4 @@
    </hints>
   </connection>
  </connections>
- <customwidgets>
-  <customwidget>
-   <class>MUComboBox</class>
-   <extends>QComboBox</extends>
-   <header>widgets/MUComboBox.h</header>
-  </customwidget>
- </customwidgets>
 </ui>

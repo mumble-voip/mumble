@@ -43,7 +43,16 @@
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QTreeWidget" name="qtwPlugins">
+       <widget class="MultiColumnTreeWidget" name="qtwPlugins">
+        <property name="accessibleName">
+         <string>List of plugins</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</string>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>false</bool>
+        </property>
         <property name="rootIsDecorated">
          <bool>false</bool>
         </property>
@@ -156,6 +165,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MultiColumnTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>widgets/MultiColumnTreeWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

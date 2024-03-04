@@ -31,6 +31,15 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 	resize(sizeHint());
 
 	qfCertificateFont = qlCertificate->font();
+
+	// Labels are not initialized properly here. We need to wait a tiny bit
+	// to make sure its contents are actually read.
+	QTimer::singleShot(0, [this]() {
+		qgbConnection->updateAccessibleText();
+		qgbPing->updateAccessibleText();
+		qgbUDP->updateAccessibleText();
+		qgbBandwidth->updateAccessibleText();
+	});
 }
 
 unsigned int UserInformation::session() const {
@@ -197,4 +206,9 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qliBandwidth->setVisible(false);
 		qlBandwidth->setText(QString());
 	}
+
+	qgbConnection->updateAccessibleText();
+	qgbPing->updateAccessibleText();
+	qgbUDP->updateAccessibleText();
+	qgbBandwidth->updateAccessibleText();
 }

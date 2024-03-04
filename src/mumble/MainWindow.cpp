@@ -66,6 +66,7 @@
 #	include "AppNap.h"
 #endif
 
+#include <QAccessible>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
@@ -79,6 +80,8 @@
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
+
+#include "widgets/SemanticSlider.h"
 
 #ifdef Q_OS_WIN
 #	include <dbt.h>
@@ -163,9 +166,6 @@ MainWindow::MainWindow(QWidget *p)
 	createActions();
 	setupUi(this);
 	setupGui();
-	qtvUsers->setAccessibleName(tr("Channels and users"));
-	qteLog->setAccessibleName(tr("Activity log"));
-	qteChat->setAccessibleName(tr("Chat message"));
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qmListener, SIGNAL(aboutToShow()), this, SLOT(qmListener_aboutToShow()));
@@ -198,6 +198,8 @@ MainWindow::MainWindow(QWidget *p)
 
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
+
+	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
 
 void MainWindow::createActions() {
@@ -472,6 +474,7 @@ void MainWindow::setupGui() {
 	qaAudioTTS->setChecked(Global::get().s.bTTS);
 #endif
 	qaFilterToggle->setChecked(Global::get().s.bFilterActive);
+	on_qaFilterToggle_triggered();
 
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
@@ -1592,6 +1595,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addSeparator();
 	qmServer->addAction(qaServerDisconnect);
 	qmServer->addAction(qaServerInformation);
+	qmServer->addAction(qaSearch);
 	qmServer->addAction(qaServerTokens);
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerBanList);
@@ -1658,10 +1662,9 @@ void MainWindow::qmUser_aboutToShow() {
 
 	qmUser->clear();
 
-	if (self && p && !isSelf) {
+	if (self && p && !isSelf && self->cChannel != p->cChannel) {
 		qmUser->addAction(qaUserJoin);
-		qaUserJoin->setEnabled(self->cChannel != p->cChannel);
-
+		qmUser->addAction(qaUserMove);
 		qmUser->addSeparator();
 	}
 
@@ -2170,14 +2173,6 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 	}
 }
 
-/**
- * Controls tab username completion for the chatbar.
- * @see ChatbarLineEdit::completeAtCursor()
- */
-void MainWindow::on_qteChat_tabPressed() {
-	qteChat->completeAtCursor();
-}
-
 /// Handles Backtab/Shift-Tab for qteChat, which allows
 /// users to move focus to the previous widget in
 /// MainWindow.
@@ -2185,14 +2180,34 @@ void MainWindow::on_qteChat_backtabPressed() {
 	focusPreviousChild();
 }
 
-/**
- * Controls ctrl space username completion and selection for the chatbar.
- * @see ChatbarLineEdit::completeAtCursor()
- */
 void MainWindow::on_qteChat_ctrlSpacePressed() {
-	unsigned int res = qteChat->completeAtCursor();
-	if (res == 0)
+	autocompleteUsername();
+}
+
+void MainWindow::on_qteChat_tabPressed() {
+	// Only autocomplete the username, if the user entered text starts with a "@".
+	// Otherwise TAB should be reserved for accessible keyboard navigation.
+	QString currentText = qteChat->toPlainText();
+	if (currentText.startsWith("@")) {
+		currentText.remove(0, 1);
+
+		qteChat->clear();
+		QTextCursor tc = qteChat->textCursor();
+		tc.insertText(currentText);
+		qteChat->setTextCursor(tc);
+
+		autocompleteUsername();
 		return;
+	}
+
+	focusNextMainWidget();
+}
+
+void MainWindow::autocompleteUsername() {
+	unsigned int res = qteChat->completeAtCursor();
+	if (res == 0) {
+		return;
+	}
 	qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(res)));
 }
 
@@ -2224,8 +2239,6 @@ void MainWindow::qmChannel_aboutToShow() {
 
 	if (c && c->iId != ClientUser::get(Global::get().uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
-
-		qmChannel->addSeparator();
 	}
 
 	if (c && Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 4, 0)) {
@@ -2326,6 +2339,18 @@ void MainWindow::on_qaUserJoin_triggered() {
 
 		if (channel) {
 			Global::get().sh->joinChannel(Global::get().uiSession, channel->iId);
+		}
+	}
+}
+
+void MainWindow::on_qaUserMove_triggered() {
+	const ClientUser *user = getContextMenuUser();
+
+	if (user) {
+		const Channel *channel = ClientUser::get(Global::get().uiSession)->cChannel;
+
+		if (channel) {
+			Global::get().sh->joinChannel(user->uiSession, channel->iId);
 		}
 	}
 }
@@ -2641,6 +2666,11 @@ void MainWindow::on_qaAudioReset_triggered() {
 
 void MainWindow::on_qaFilterToggle_triggered() {
 	Global::get().s.bFilterActive = qaFilterToggle->isChecked();
+	if (!Global::get().s.bFilterActive) {
+		qtvUsers->setAccessibleName(tr("Channels and users"));
+	} else {
+		qtvUsers->setAccessibleName(tr("Filtered channels and users"));
+	}
 	updateUserModel();
 }
 

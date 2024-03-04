@@ -43,6 +43,9 @@
         <property name="whatsThis">
          <string>This is the search field. Use it to find bans that have this username set in the username field.</string>
         </property>
+        <property name="accessibleName">
+         <string>Search for banned user</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -56,6 +59,9 @@
         <property name="text">
          <string>User</string>
         </property>
+        <property name="buddy">
+         <cstring>qleUser</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="1" colspan="5">
@@ -64,6 +70,9 @@
          <font>
           <italic>false</italic>
          </font>
+        </property>
+        <property name="accessibleName">
+         <string>Username to ban</string>
         </property>
         <property name="placeholderText">
          <string>No nickname</string>
@@ -102,6 +111,9 @@
         <property name="toolTip">
          <string>IP address</string>
         </property>
+        <property name="accessibleName">
+         <string>IP address to ban</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -128,6 +140,9 @@
       </item>
       <item row="3" column="5">
        <widget class="QSpinBox" name="qsbMask">
+        <property name="accessibleName">
+         <string>Mask</string>
+        </property>
         <property name="minimum">
          <number>8</number>
         </property>
@@ -144,12 +159,18 @@
         <property name="text">
          <string>Reason</string>
         </property>
+        <property name="buddy">
+         <cstring>qleReason</cstring>
+        </property>
        </widget>
       </item>
       <item row="4" column="1" colspan="5">
        <widget class="QLineEdit" name="qleReason">
         <property name="toolTip">
          <string>Reason for the ban</string>
+        </property>
+        <property name="accessibleName">
+         <string>Ban reason</string>
         </property>
         <property name="placeholderText">
          <string>No reason</string>
@@ -161,12 +182,18 @@
         <property name="text">
          <string>Start</string>
         </property>
+        <property name="buddy">
+         <cstring>qdteStart</cstring>
+        </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QDateTimeEdit" name="qdteStart">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="accessibleName">
+         <string>Ban start date/time</string>
         </property>
         <property name="readOnly">
          <bool>false</bool>
@@ -187,6 +214,9 @@
         <property name="text">
          <string>End</string>
         </property>
+        <property name="buddy">
+         <cstring>qdteEnd</cstring>
+        </property>
        </widget>
       </item>
       <item row="5" column="3" colspan="3">
@@ -196,6 +226,9 @@
         </property>
         <property name="whatsThis">
          <string>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</string>
+        </property>
+        <property name="accessibleName">
+         <string>Ban end date/time</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
@@ -207,12 +240,18 @@
         <property name="text">
          <string>Hash</string>
         </property>
+        <property name="buddy">
+         <cstring>qleHash</cstring>
+        </property>
        </widget>
       </item>
       <item row="6" column="1" colspan="5">
        <widget class="QLineEdit" name="qleHash">
         <property name="toolTip">
          <string>Certificate hash</string>
+        </property>
+        <property name="accessibleName">
+         <string>Certificate hash to ban</string>
         </property>
         <property name="inputMethodHints">
          <set>Qt::ImhLowercaseOnly|Qt::ImhNoAutoUppercase</set>
@@ -229,6 +268,9 @@
         </property>
         <property name="whatsThis">
          <string>This is a list with banned users.</string>
+        </property>
+        <property name="accessibleName">
+         <string>List of banned users</string>
         </property>
         <property name="alternatingRowColors">
          <bool>true</bool>

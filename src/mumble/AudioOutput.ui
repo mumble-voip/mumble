@@ -44,6 +44,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</string>
         </property>
+        <property name="accessibleName">
+         <string>Audio output system</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="2">
@@ -85,6 +88,9 @@
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</string>
+        </property>
+        <property name="accessibleName">
+         <string>Audio output device</string>
         </property>
         <property name="sizeAdjustPolicy">
          <enum>QComboBox::AdjustToContents</enum>
@@ -133,12 +139,15 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="qsDelay">
+       <widget class="SemanticSlider" name="qsDelay">
         <property name="toolTip">
          <string>Amount of data to buffer</string>
         </property>
         <property name="whatsThis">
          <string>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Output delay of incoming speech</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -178,12 +187,15 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="qsVolume">
+       <widget class="SemanticSlider" name="qsVolume">
         <property name="toolTip">
          <string>Volume of incoming speech</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Volume of incoming speech</string>
         </property>
         <property name="minimum">
          <number>0</number>
@@ -217,12 +229,15 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="qsJitter">
+       <widget class="SemanticSlider" name="qsJitter">
         <property name="toolTip">
          <string>Safety margin for jitter buffer</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Jitter buffer time</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -378,12 +393,18 @@
        </layout>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="qsOtherVolume">
+       <widget class="SemanticSlider" name="qsOtherVolume">
         <property name="toolTip">
          <string>Attenuation of other applications during speech</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Attenuation percentage</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>During speech, the volume of other applications will be reduced by this amount</string>
         </property>
         <property name="minimum">
          <number>0</number>
@@ -445,12 +466,15 @@
        </widget>
       </item>
       <item row="7" column="2">
-       <widget class="QSlider" name="qsMinimumVolume">
+       <widget class="SemanticSlider" name="qsMinimumVolume">
         <property name="toolTip">
          <string/>
         </property>
         <property name="whatsThis">
          <string>What should the volume be at the maximum distance?</string>
+        </property>
+        <property name="accessibleName">
+         <string>Minimum volume</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -458,7 +482,7 @@
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QSlider" name="qsMinDistance">
+       <widget class="SemanticSlider" name="qsMinDistance">
         <property name="toolTip">
          <string/>
         </property>
@@ -468,18 +492,24 @@
         <property name="whatsThis">
          <string>This sets the minimum distance for sound calculations. The volume of other users' speech will not decrease until they are at least this far away from you.</string>
         </property>
+        <property name="accessibleName">
+         <string>Minimum distance</string>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
       <item row="6" column="2">
-       <widget class="QSlider" name="qsMaxDistance">
+       <widget class="SemanticSlider" name="qsMaxDistance">
         <property name="toolTip">
          <string/>
         </property>
         <property name="whatsThis">
          <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Maximum distance</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -518,12 +548,15 @@
        </widget>
       </item>
       <item row="8" column="2">
-       <widget class="QSlider" name="qsBloom">
+       <widget class="SemanticSlider" name="qsBloom">
         <property name="toolTip">
          <string>Factor for sound volume increase</string>
         </property>
         <property name="whatsThis">
          <string>How much should sound volume increase for sources that are really close?</string>
+        </property>
+        <property name="accessibleName">
+         <string>Bloom</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -536,7 +569,7 @@
          <string>Bloom</string>
         </property>
         <property name="buddy">
-         <cstring>qsMinimumVolume</cstring>
+         <cstring>qsBloom</cstring>
         </property>
        </widget>
       </item>
@@ -556,7 +589,7 @@
          <string>Minimum Volume</string>
         </property>
         <property name="buddy">
-         <cstring>qsMaxDistance</cstring>
+         <cstring>qsMinimumVolume</cstring>
         </property>
        </widget>
       </item>
@@ -600,12 +633,15 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="qsPacketDelay">
+       <widget class="SemanticSlider" name="qsPacketDelay">
         <property name="toolTip">
          <string>Variance in packet latency</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Loopback artificial delay</string>
         </property>
         <property name="maximum">
          <number>100</number>
@@ -639,12 +675,15 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="qsPacketLoss">
+       <widget class="SemanticSlider" name="qsPacketLoss">
         <property name="toolTip">
          <string>Packet loss for loopback mode</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there's something wrong with your network connection, this will be 0%</string>
+        </property>
+        <property name="accessibleName">
+         <string>Loopback artificial packet loss</string>
         </property>
         <property name="maximum">
          <number>50</number>
@@ -691,6 +730,12 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</string>
         </property>
+        <property name="accessibleName">
+         <string>Loopback test mode</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -717,15 +762,35 @@
    <extends>QComboBox</extends>
    <header>widgets/MUComboBox.h</header>
   </customwidget>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
+  <tabstop>qcbExclusive</tabstop>
   <tabstop>qsJitter</tabstop>
   <tabstop>qsVolume</tabstop>
   <tabstop>qsDelay</tabstop>
+  <tabstop>qsOtherVolume</tabstop>
+  <tabstop>qcbAttenuateOthers</tabstop>
+  <tabstop>qcbAttenuateOthersOnTalk</tabstop>
+  <tabstop>qcbAttenuateUsersOnPrioritySpeak</tabstop>
+  <tabstop>qcbOnlyAttenuateSameOutput</tabstop>
+  <tabstop>qcbAttenuateLoopbacks</tabstop>
+  <tabstop>qcbPositional</tabstop>
+  <tabstop>qcbHeadphones</tabstop>
   <tabstop>qsMinDistance</tabstop>
+  <tabstop>qsbMinimumDistance</tabstop>
+  <tabstop>qsMaxDistance</tabstop>
+  <tabstop>qsbMaximumDistance</tabstop>
+  <tabstop>qsMinimumVolume</tabstop>
+  <tabstop>qsbMinimumVolume</tabstop>
   <tabstop>qsBloom</tabstop>
+  <tabstop>qsbBloom</tabstop>
   <tabstop>qcbLoopback</tabstop>
   <tabstop>qsPacketDelay</tabstop>
   <tabstop>qsPacketLoss</tabstop>

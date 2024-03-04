@@ -35,22 +35,6 @@ ACLEditor::ACLEditor(unsigned int channelparentid, QWidget *p) : QDialog(p) {
 
 	setupUi(this);
 
-	qwChannel->setAccessibleName(tr("Properties"));
-	rteChannelDescription->setAccessibleName(tr("Description"));
-	qleChannelPassword->setAccessibleName(tr("Channel password"));
-	qsbChannelPosition->setAccessibleName(tr("Position"));
-	qsbChannelMaxUsers->setAccessibleName(tr("Maximum users"));
-	qleChannelName->setAccessibleName(tr("Channel name"));
-	qcbGroupList->setAccessibleName(tr("List of groups"));
-	qlwGroupAdd->setAccessibleName(tr("Inherited group members"));
-	qlwGroupRemove->setAccessibleName(tr("Foreign group members"));
-	qlwGroupInherit->setAccessibleName(tr("Inherited channel members"));
-	qcbGroupAdd->setAccessibleName(tr("Add members to group"));
-	qcbGroupRemove->setAccessibleName(tr("Remove member from group"));
-	qlwACLs->setAccessibleName(tr("List of ACL entries"));
-	qcbACLGroup->setAccessibleName(tr("Group this entry applies to"));
-	qcbACLUser->setAccessibleName(tr("User this entry applies to"));
-
 	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
 
 	setWindowTitle(tr("Mumble - Add channel"));
@@ -94,22 +78,6 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 	msg = mea;
 
 	setupUi(this);
-
-	qwChannel->setAccessibleName(tr("Properties"));
-	rteChannelDescription->setAccessibleName(tr("Description"));
-	qleChannelPassword->setAccessibleName(tr("Channel password"));
-	qsbChannelPosition->setAccessibleName(tr("Position"));
-	qsbChannelMaxUsers->setAccessibleName(tr("Maximum users"));
-	qleChannelName->setAccessibleName(tr("Channel name"));
-	qcbGroupList->setAccessibleName(tr("List of groups"));
-	qlwGroupAdd->setAccessibleName(tr("Inherited group members"));
-	qlwGroupRemove->setAccessibleName(tr("Foreign group members"));
-	qlwGroupInherit->setAccessibleName(tr("Inherited channel members"));
-	qcbGroupAdd->setAccessibleName(tr("Add members to group"));
-	qcbGroupRemove->setAccessibleName(tr("Remove member from group"));
-	qlwACLs->setAccessibleName(tr("List of ACL entries"));
-	qcbACLGroup->setAccessibleName(tr("Group this entry applies to"));
-	qcbACLUser->setAccessibleName(tr("User this entry applies to"));
 
 	qcbChannelTemporary->hide();
 

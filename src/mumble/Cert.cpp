@@ -13,10 +13,12 @@
 
 #include "Cert.h"
 
+#include "Accessibility.h"
 #include "SelfSignedCertificate.h"
 #include "Utils.h"
 #include "Global.h"
 
+#include <QTimer>
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QFileDialog>
@@ -28,7 +30,7 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
-CertView::CertView(QWidget *p) : QGroupBox(p) {
+CertView::CertView(QWidget *p) : AccessibleQGroupBox(p) {
 	QGridLayout *grid = new QGridLayout(this);
 	QLabel *l;
 
@@ -64,6 +66,8 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(qlExpiry, 3, 1, 1, 1);
 
 	grid->setColumnStretch(1, 1);
+
+	updateAccessibleText();
 }
 
 void CertView::setCert(const QList< QSslCertificate > &cert) {
@@ -115,27 +119,27 @@ void CertView::setCert(const QList< QSslCertificate > &cert) {
 
 		qlIssuerName->setText((issuerName == name) ? tr("Self-signed") : issuerName);
 	}
+
+	updateAccessibleText();
 }
 
 CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	setupUi(this);
 
-	cvWelcome->setAccessibleName(tr("Current certificate"));
-	qleImportFile->setAccessibleName(tr("Certificate file to import"));
-	qlePassword->setAccessibleName(tr("Certificate password"));
-	cvImport->setAccessibleName(tr("Certificate to import"));
-	cvCurrent->setAccessibleName(tr("Current certificate"));
-	cvNew->setAccessibleName(tr("New certificate"));
-	qleExportFile->setAccessibleName(tr("File to export certificate to"));
-	cvExport->setAccessibleName(tr("Current certificate"));
-	qleEmail->setAccessibleName(tr("Email address"));
-	qleName->setAccessibleName(tr("Your name"));
+	Mumble::Accessibility::fixWizardButtonLabels(this);
 
 	setOption(QWizard::NoCancelButton, false);
 
 	qwpExport->setCommitPage(true);
 	qwpExport->setComplete(false);
 	qlPasswordNotice->setVisible(false);
+
+	m_overrideFilter = new OverrideTabOrderFilter(this, this);
+	installEventFilter(m_overrideFilter);
+
+	connect(this, &CertWizard::currentIdChanged, this, &CertWizard::showPage);
+
+	QTimer::singleShot(0, [this] { this->showPage(0); });
 }
 
 int CertWizard::nextId() const {
@@ -174,6 +178,22 @@ int CertWizard::nextId() const {
 				return 3;
 	}
 	return -1;
+}
+
+void CertWizard::showPage(int pageid) {
+	if (pageid == -1) {
+		return;
+	}
+
+	setFocus(Qt::ActiveWindowFocusReason);
+
+	QWidget *selectedWidget = Mumble::Accessibility::getFirstFocusableChild(currentPage());
+
+	if (selectedWidget) {
+		m_overrideFilter->focusTarget = selectedWidget;
+	} else {
+		m_overrideFilter->focusTarget = button(QWizard::NextButton);
+	}
 }
 
 void CertWizard::initializePage(int id) {

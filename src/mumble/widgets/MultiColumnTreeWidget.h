@@ -1,25 +1,22 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright 2024 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_WIDGETS_SEARCHDIALOGTREE_H_
-#define MUMBLE_MUMBLE_WIDGETS_SEARCHDIALOGTREE_H_
+#ifndef MUMBLE_MUMBLE_WIDGETS_MULTICOLUMNTREEWIDGET_H_
+#define MUMBLE_MUMBLE_WIDGETS_MULTICOLUMNTREEWIDGET_H_
 
 #include <QAbstractItemView>
 #include <QModelIndex>
 #include <QTreeWidget>
 
-class QResizeEvent;
+class MultiColumnTreeWidget : public QTreeWidget {
+	Q_OBJECT
 
-class SearchDialogTree : public QTreeWidget {
 public:
-	using QTreeWidget::QTreeWidget;
+	MultiColumnTreeWidget(QWidget *parent = nullptr);
 
 	QModelIndex moveCursor(QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers modifiers) override;
-
-protected:
-	void resizeEvent(QResizeEvent *event) override;
 };
 
-#endif // MUMBLE_MUMBLE_WIDGETS_SEARCHDIALOGTREE_H_
+#endif

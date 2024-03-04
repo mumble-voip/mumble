@@ -124,9 +124,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QTreeWidget" name="qtwShortcuts">
+         <widget class="MultiColumnTreeWidget" name="qtwShortcuts">
           <property name="toolTip">
            <string>List of configured shortcuts</string>
+          </property>
+          <property name="accessibleName">
+           <string>Configured shortcuts</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</string>
           </property>
           <property name="editTriggers">
            <set>QAbstractItemView::AllEditTriggers</set>
@@ -183,6 +189,12 @@
           <property name="whatsThis">
            <string>This will add a new global shortcut</string>
           </property>
+          <property name="accessibleName">
+           <string>Add unassigned shortcut</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</string>
+          </property>
           <property name="text">
            <string>&amp;Add</string>
           </property>
@@ -198,6 +210,12 @@
           </property>
           <property name="whatsThis">
            <string>This will permanently remove a selected shortcut.</string>
+          </property>
+          <property name="accessibleName">
+           <string>Remove selected shortcut</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</string>
           </property>
           <property name="text">
            <string>&amp;Remove</string>
@@ -268,6 +286,13 @@ Without this option enabled, using Mumble's global shortcuts in privileged appli
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MultiColumnTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>widgets/MultiColumnTreeWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

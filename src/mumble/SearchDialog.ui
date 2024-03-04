@@ -22,6 +22,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLineEdit" name="searchField">
+     <property name="accessibleName">
+      <string>Search string</string>
+     </property>
      <property name="inputMask">
       <string/>
      </property>
@@ -55,6 +58,12 @@
    </item>
    <item row="2" column="0" colspan="2">
     <widget class="SearchDialogTree" name="searchResultTree">
+     <property name="accessibleName">
+      <string>Search results</string>
+     </property>
+     <property name="accessibleDescription">
+      <string>Use up and down keys to navigate through the search results.</string>
+     </property>
      <column>
       <property name="text">
        <string/>

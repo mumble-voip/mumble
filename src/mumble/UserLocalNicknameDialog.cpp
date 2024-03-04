@@ -20,8 +20,6 @@ UserLocalNicknameDialog::UserLocalNicknameDialog(
 
 	qleUserLocalNickname->setFocus();
 
-	qleUserLocalNickname->setAccessibleName(tr("User nickname"));
-
 	ClientUser *user = ClientUser::get(sessionId);
 	if (!user) {
 		UserLocalNicknameDialog::close();

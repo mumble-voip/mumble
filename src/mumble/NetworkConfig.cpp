@@ -28,12 +28,6 @@ static ConfigRegistrar registrarNetworkConfig(1300, NetworkConfigNew);
 
 NetworkConfig::NetworkConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-
-	qcbType->setAccessibleName(tr("Type"));
-	qleHostname->setAccessibleName(tr("Hostname"));
-	qlePort->setAccessibleName(tr("Port"));
-	qleUsername->setAccessibleName(tr("Username"));
-	qlePassword->setAccessibleName(tr("Password"));
 }
 
 QString NetworkConfig::title() const {

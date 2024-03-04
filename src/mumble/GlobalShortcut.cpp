@@ -12,6 +12,7 @@
 #include "EnvUtils.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
+#include "widgets/EventFilters.h"
 #include "Global.h"
 #include "GlobalShortcutButtons.h"
 
@@ -43,43 +44,70 @@ static ConfigRegistrar registrarGlobalShortcut(1200, GlobalShortcutConfigDialogN
 
 static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
 
-ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : MUComboBox(p) {
+ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QWidget(p) {
 	int idx = 0;
 
-	insertItem(idx, tr("Unassigned"));
-	setItemData(idx, -1);
+	m_comboBox = new MUComboBox();
+	m_comboBox->insertItem(idx, tr("Unassigned"));
+	m_comboBox->setItemData(idx, -1);
 #ifndef Q_OS_MAC
-	setSizeAdjustPolicy(AdjustToContents);
+	m_comboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 #endif
 
 	idx++;
 
+	QFontMetrics fontMetrics = m_comboBox->fontMetrics();
+	int maxWidth             = m_comboBox->minimumWidth();
+
 	foreach (GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		insertItem(idx, gs->name);
-		setItemData(idx, gs->idx);
-		if (!gs->qsToolTip.isEmpty())
-			setItemData(idx, gs->qsToolTip, Qt::ToolTipRole);
-		if (!gs->qsWhatsThis.isEmpty())
-			setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
+		m_comboBox->insertItem(idx, gs->name);
+		m_comboBox->setItemData(idx, gs->idx);
+		if (!gs->qsToolTip.isEmpty()) {
+			m_comboBox->setItemData(idx, gs->qsToolTip, Qt::ToolTipRole);
+		}
+		if (!gs->qsWhatsThis.isEmpty()) {
+			m_comboBox->setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
+		}
 		idx++;
+
+		maxWidth = std::max(maxWidth, fontMetrics.horizontalAdvance(gs->name));
 	}
 
 	// Sort the ShortcutActionWidget items
 	QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
-	proxy->setSourceModel(model());
+	proxy->setSourceModel(m_comboBox->model());
 
-	model()->setParent(proxy);
-	setModel(proxy);
+	m_comboBox->model()->setParent(proxy);
+	m_comboBox->setModel(proxy);
 
-	model()->sort(0);
+	m_comboBox->model()->sort(0);
+
+	m_comboBox->setFocusPolicy(Qt::NoFocus);
+
+	setMinimumWidth(maxWidth);
+	m_comboBox->view()->setMinimumWidth(maxWidth);
+	m_comboBox->adjustSize();
+
+	m_comboBox->setParent(this);
+
+	adjustSize();
+
+	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
+	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [=]() { m_comboBox->showPopup(); });
+	installEventFilter(eventFilter);
+
+	QTreeWidget *treeWidget = qobject_cast< QTreeWidget * >(p->parentWidget());
+	if (treeWidget) {
+		treeWidget->resizeColumnToContents(0);
+	}
 }
 
 void ShortcutActionWidget::setIndex(unsigned int idx) {
-	setCurrentIndex(findData(idx));
+	m_comboBox->setCurrentIndex(m_comboBox->findData(idx));
 }
 
 unsigned int ShortcutActionWidget::index() const {
-	return itemData(currentIndex()).toUInt();
+	return m_comboBox->itemData(m_comboBox->currentIndex()).toUInt();
 }
 
 ShortcutToggleWidget::ShortcutToggleWidget(QWidget *p) : MUComboBox(p) {
@@ -344,6 +372,7 @@ void ShortcutTargetDialog::on_qpbRemove_clicked() {
 ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	qleTarget = new QLineEdit();
 	qleTarget->setReadOnly(true);
+	qleTarget->setFocusPolicy(Qt::NoFocus);
 
 	qtbEdit = new QToolButton();
 	qtbEdit->setText(tr("..."));
@@ -355,7 +384,36 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	l->addWidget(qleTarget, 1);
 	l->addWidget(qtbEdit);
 
+	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
+	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [=]() { qtbEdit->click(); });
+	installEventFilter(eventFilter);
+
 	QMetaObject::connectSlotsByName(this);
+}
+
+TextEditWidget::TextEditWidget(QWidget *p) : QWidget(p) {
+	m_lineEdit = new QLineEdit();
+	m_lineEdit->setFocusPolicy(Qt::ClickFocus);
+
+	QHBoxLayout *l = new QHBoxLayout(this);
+	l->setContentsMargins(0, 0, 0, 0);
+	l->setSpacing(0);
+	l->addWidget(m_lineEdit);
+
+	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
+	connect(eventFilter, &KeyEventObserver::keyEventObserved, this,
+			[=]() { m_lineEdit->setFocus(Qt::MouseFocusReason); });
+	installEventFilter(eventFilter);
+
+	QMetaObject::connectSlotsByName(this);
+}
+
+QString TextEditWidget::currentString() const {
+	return m_lineEdit->text();
+}
+
+void TextEditWidget::setCurrentString(const QString &str) {
+	m_lineEdit->setText(str);
 }
 
 /**
@@ -461,7 +519,7 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 							new QStandardItemEditorCreator< ShortcutTargetWidget >());
 	factory->registerEditor(static_cast< int >(QVariant::fromValue(ChannelTarget()).userType()),
 							new QStandardItemEditorCreator< ChannelSelectWidget >());
-	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< QLineEdit >());
+	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< TextEditWidget >());
 	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator< QWidget >());
 	setItemEditorFactory(factory);
 }
@@ -540,7 +598,6 @@ bool ShortcutDelegate::helpEvent(QHelpEvent *event, QAbstractItemView *, const Q
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qtwShortcuts->setAccessibleName(tr("Configured shortcuts"));
 	installEventFilter(this);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
@@ -557,11 +614,16 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
 
+	qtwShortcuts->headerItem()->setData(0, Qt::AccessibleTextRole, tr("Shortcut action"));
+	qtwShortcuts->headerItem()->setData(1, Qt::AccessibleTextRole, tr("Shortcut data"));
+	qtwShortcuts->headerItem()->setData(2, Qt::AccessibleTextRole, tr("Shortcut input combinations"));
+
 	qtwShortcuts->header()->setSectionResizeMode(0, QHeaderView::Fixed);
 	qtwShortcuts->header()->resizeSection(0, 150);
 	qtwShortcuts->header()->setSectionResizeMode(2, QHeaderView::Stretch);
-	if (canSuppress)
+	if (canSuppress) {
 		qtwShortcuts->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+	}
 
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 
@@ -671,6 +733,7 @@ void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
 	sc.bSuppress = false;
 	qlShortcuts << sc;
 	reload();
+	qtwShortcuts->setFocus(Qt::TabFocusReason);
 }
 
 void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
@@ -706,6 +769,17 @@ void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, in
 	if (gs && sc.qvData.userType() != gs->qvDefault.userType()) {
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
 	}
+
+	if (gs) {
+		item->setData(0, Qt::AccessibleTextRole, gs->name);
+	} else {
+		item->setData(0, Qt::AccessibleTextRole, tr("Unassigned"));
+	}
+	item->setData(1, Qt::AccessibleTextRole, sc.qvData);
+	item->setData(3, Qt::AccessibleDescriptionRole,
+				  item->checkState(3) == Qt::Checked ? tr("checked") : tr("unchecked"));
+
+	qtwShortcuts->resizeColumnToContents(0);
 }
 
 QString GlobalShortcutConfig::title() const {
@@ -812,6 +886,7 @@ void GlobalShortcutConfig::reload() {
 	foreach (const Shortcut &sc, qlShortcuts) {
 		QTreeWidgetItem *item = itemForShortcut(sc);
 		qtwShortcuts->addTopLevelItem(item);
+		on_qtwShortcuts_itemChanged(item, 0);
 	}
 #ifdef Q_OS_MAC
 	if (!Global::get().s.bSuppressMacEventTapWarning) {

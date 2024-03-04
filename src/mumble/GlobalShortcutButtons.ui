@@ -22,6 +22,9 @@
      <layout class="QVBoxLayout" name="groupBoxLayout">
       <item>
        <widget class="QTreeWidget" name="buttonTree">
+        <property name="accessibleName">
+         <string>List of shortcuts</string>
+        </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
@@ -45,6 +48,9 @@
           <property name="whatsThis">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
+          <property name="accessibleDescription">
+           <string>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</string>
+          </property>
           <property name="text">
            <string>Add</string>
           </property>
@@ -57,6 +63,9 @@
          <widget class="QPushButton" name="removeButton">
           <property name="toolTip">
            <string>Remove the currently selected items</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</string>
           </property>
           <property name="text">
            <string>Remove</string>
