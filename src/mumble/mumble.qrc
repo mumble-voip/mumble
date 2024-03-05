@@ -4,8 +4,10 @@
         <file alias="mumble.svg">../../icons/mumble.svg</file>
         <file alias="mumble.icns">../../icons/mumble.icns</file>
         <file alias="wb_male.oga">../../samples/wb_male.oga</file>
-        <file alias="on.ogg">../../samples/on.ogg</file>
-        <file alias="off.ogg">../../samples/off.ogg</file>
+        <file alias="on_noise.ogg">../../samples/on_noise.ogg</file>
+        <file alias="off_noise.ogg">../../samples/off_noise.ogg</file>
+        <file alias="on_sweep.ogg">../../samples/on_sweep.ogg</file>
+        <file alias="off_sweep.ogg">../../samples/off_sweep.ogg</file>
         <file alias="Critical.ogg">../../samples/Critical.ogg</file>
         <file alias="PermissionDenied.ogg">../../samples/PermissionDenied.ogg</file>
         <file alias="SelfMutedDeafened.ogg">../../samples/SelfMutedDeafened.ogg</file>
