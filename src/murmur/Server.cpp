@@ -1928,9 +1928,14 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 
 	emit channelRemoved(chan);
 
-	if (chan->cParent) {
+	{
 		QWriteLocker wl(&qrwlVoiceThread);
-		chan->cParent->removeChannel(chan);
+
+		if (chan->cParent) {
+			chan->cParent->removeChannel(chan);
+		}
+
+		qhChannels.remove(chan->iId);
 	}
 
 	delete chan;
