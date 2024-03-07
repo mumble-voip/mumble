@@ -117,7 +117,7 @@ template<> char *toString(const std::unordered_set< std::string > &set) {
 	return buffer;
 }
 
-}; // namespace QTest
+} // namespace QTest
 
 
 class TestDatabase : public Database {
