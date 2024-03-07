@@ -88,8 +88,8 @@ namespace server {
 		void BanTable::addBan(const DBBan &ban) {
 			try {
 				std::string baseAddress = DBBan::ipv6ToString(ban.baseAddress);
-				auto startEpoch = static_cast< unsigned int >(toEpochSeconds(ban.startDate));
-				auto duration   = static_cast< unsigned int >(ban.duration.count());
+				auto startEpoch         = static_cast< unsigned int >(toEpochSeconds(ban.startDate));
+				auto duration           = static_cast< unsigned int >(ban.duration.count());
 				std::string userName;
 				std::string userCert;
 				std::string reason;
@@ -327,8 +327,8 @@ namespace server {
 					assert(currentBan.serverID == serverID);
 
 					std::string baseAddress = DBBan::ipv6ToString(currentBan.baseAddress);
-					auto startEpoch = static_cast< unsigned int >(toEpochSeconds(currentBan.startDate));
-					auto duration   = static_cast< unsigned int >(currentBan.duration.count());
+					auto startEpoch         = static_cast< unsigned int >(toEpochSeconds(currentBan.startDate));
+					auto duration           = static_cast< unsigned int >(currentBan.duration.count());
 					std::string userName;
 					std::string userCert;
 					std::string reason;

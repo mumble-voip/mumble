@@ -38,8 +38,8 @@ namespace db {
 		std::string DefaultTable::select(const std::string &key) {
 			try {
 				std::string value;
-				m_sql << "SELECT \"DefaultColValue\" FROM \"" + getName() + "\" WHERE \"DefaultColKey\" = :key", soci::use(key),
-					soci::into(value);
+				m_sql << "SELECT \"DefaultColValue\" FROM \"" + getName() + "\" WHERE \"DefaultColKey\" = :key",
+					soci::use(key), soci::into(value);
 
 				::mumble::db::utils::verifyQueryResultedInData(m_sql);
 

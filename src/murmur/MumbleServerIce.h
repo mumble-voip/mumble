@@ -41,7 +41,8 @@ protected:
 	void badAuthenticator(::Server *);
 	QList<::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
 	QMap< unsigned int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
-	QMap< unsigned int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
+	QMap< unsigned int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > >
+		qmServerContextCallbacks;
 	QMap< unsigned int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
 	QMap< unsigned int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
 
