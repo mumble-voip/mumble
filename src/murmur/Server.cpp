@@ -1655,7 +1655,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
 	if (u->iId >= 0) {
-		m_dbWrapper.updateLastDisconnect(iServerNum, u->iId);
+		m_dbWrapper.updateLastDisconnect(iServerNum, static_cast<unsigned int >(u->iId));
 	}
 
 	if (u->sState == ServerUser::Authenticated) {
@@ -2540,7 +2540,8 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 		if (usedReservedName) {
 			// There exists a registered user with the given name
-			::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, knownUserID);
+			::mumble::server::db::DBUserData userData =
+				m_dbWrapper.getRegisteredUserData(iServerNum, static_cast< unsigned int >(knownUserID));
 
 			if (!userData.password.passwordHash.empty()) {
 				// User has password-based authentication enabled
@@ -2571,7 +2572,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 				} else {
 					// User uses modern PBKDF2 verification
 					if (PBKDF2::getHash(QString::fromStdString(userData.password.salt), password,
-										userData.password.kdfIterations)
+										static_cast< int >(userData.password.kdfIterations))
 							.toStdString()
 						== userData.password.passwordHash) {
 						// Password matched
@@ -2587,7 +2588,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 								qWarning("Failed to downgrade user account to legacy hash -> rejecting login");
 								return AUTHENTICATION_FAILED;
 							}
-						} else if (userData.password.kdfIterations != Meta::mp.kdfIterations) {
+						} else if (static_cast< int >(userData.password.kdfIterations) != Meta::mp.kdfIterations) {
 							// User's kdfIterations doesn't match the global setting -> update it
 							QMap< int, QString > properties;
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
@@ -2629,7 +2630,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 				m_dbWrapper.findRegisteredUserByCert(iServerNum, certhash.toStdString());
 			if (potentialID) {
 				// A user with the given certHash has been found
-				userID = potentialID.get();
+				userID = static_cast< int >(potentialID.get());
 			} else if (certificatePassedVerification) {
 				// The certificate match did not yield a match in our DB. However, the user provided us with a strong
 				// certificate (that means that the certificate has passed all verification - that means that this has
@@ -2646,7 +2647,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 					potentialID = m_dbWrapper.findRegisteredUserByEmail(iServerNum, currentMail.toStdString());
 					if (potentialID) {
-						userID = potentialID.get();
+						userID = static_cast< int >(potentialID.get());
 						break;
 					}
 				}
@@ -2658,20 +2659,21 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 
 		// Ensure that the user will use the name exactly as we have stored it in our DB. For password
-		::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, userID);
+		::mumble::server::db::DBUserData userData = m_dbWrapper.getRegisteredUserData(iServerNum, static_cast< unsigned int >(userID));
 
 		// Make sure the user name uses the same casing that is stored in the DB
 		name = QString::fromStdString(userData.name);
 
 
 		// If provided, store this user's certificate hash
-		if (userID != Mumble::SUPERUSER_ID && !certhash.isEmpty()) {
-			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::CertificateHash,
+		const bool isSuperUser = static_cast< unsigned int >(userID) == Mumble::SUPERUSER_ID;
+		if (!isSuperUser && !certhash.isEmpty()) {
+			m_dbWrapper.storeUserProperty(iServerNum, static_cast< unsigned int >(userID), ::mumble::server::db::UserProperty::CertificateHash,
 										  certhash.toStdString());
 		}
 		// If provided, store this user's email
-		if (userID != Mumble::SUPERUSER_ID && !emails.isEmpty()) {
-			m_dbWrapper.storeUserProperty(iServerNum, userID, ::mumble::server::db::UserProperty::Email,
+		if (!isSuperUser && !emails.isEmpty()) {
+			m_dbWrapper.storeUserProperty(iServerNum, static_cast< unsigned int >(userID), ::mumble::server::db::UserProperty::Email,
 										  emails[0].toStdString());
 		}
 	}
@@ -2742,7 +2744,7 @@ QByteArray Server::getTexture(int userID) {
 	if (!texture.isNull()) {
 		return texture;
 	} else {
-		return m_dbWrapper.getUserTexture(iServerNum, userID);
+		return m_dbWrapper.getUserTexture(iServerNum, static_cast< unsigned int >(userID));
 	}
 }
 
@@ -2764,7 +2766,7 @@ bool Server::setComment(ServerUser &user, const QString &comment) {
 		return (res > 0);
 	}
 
-	m_dbWrapper.storeUserProperty(iServerNum, user.iId, ::mumble::server::db::UserProperty::Comment,
+	m_dbWrapper.storeUserProperty(iServerNum, static_cast< unsigned int >(user.iId), ::mumble::server::db::UserProperty::Comment,
 								  info[static_cast< int >(::mumble::server::db::UserProperty::Comment)].toStdString());
 
 	return true;
@@ -2792,7 +2794,7 @@ void Server::loadComment(ServerUser &user) {
 		comment = std::move(info[static_cast< int >(::mumble::server::db::UserProperty::Comment)]);
 	} else {
 		comment = QString::fromStdString(
-			m_dbWrapper.getUserProperty(iServerNum, user.iId, ::mumble::server::db::UserProperty::Comment));
+			m_dbWrapper.getUserProperty(iServerNum, static_cast< unsigned int >(user.iId), ::mumble::server::db::UserProperty::Comment));
 	}
 
 	hashAssign(user.qsComment, user.qbaCommentHash, comment);
@@ -2804,13 +2806,13 @@ void Server::addChannelListener(const ServerUser &user, const Channel &channel) 
 	}
 
 	if (user.iId >= 0 && !channel.bTemporary) {
-		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, user.iId, channel.iId);
+		m_dbWrapper.addChannelListenerIfNotExists(iServerNum, static_cast< unsigned int >(user.iId), channel.iId);
 
 		// If the listener existed already, there might have been a volume adjustment for it stored, which
 		// we want to make sure to load
 		m_channelListenerManager.setListenerVolumeAdjustment(
 			user.uiSession, channel.iId,
-			VolumeAdjustment::fromFactor(m_dbWrapper.getChannelListenerVolume(iServerNum, user.iId, channel.iId)));
+			VolumeAdjustment::fromFactor(m_dbWrapper.getChannelListenerVolume(iServerNum, static_cast< unsigned int >(user.iId), channel.iId)));
 	}
 
 	m_channelListenerManager.addListener(user.uiSession, channel.iId);
@@ -2821,9 +2823,9 @@ void Server::setChannelListenerVolume(const ServerUser &user, const Channel &cha
 	// we expect this check to return true for most cases in which this function is called.
 	// However, sometimes the DB really is the only entity knowing about a given listener.
 	if (m_channelListenerManager.isListening(user.uiSession, channel.iId)
-		|| m_dbWrapper.channelListenerExists(iServerNum, user.iId, channel.iId)) {
+		|| (user.iId >= 0 && m_dbWrapper.channelListenerExists(iServerNum, static_cast< unsigned int >(user.iId), channel.iId))) {
 		if (user.iId >= 0 && !channel.bTemporary) {
-			m_dbWrapper.storeChannelListenerVolume(iServerNum, user.iId, channel.iId, volume);
+			m_dbWrapper.storeChannelListenerVolume(iServerNum, static_cast< unsigned int >(user.iId), channel.iId, volume);
 		}
 
 		m_channelListenerManager.setListenerVolumeAdjustment(user.uiSession, channel.iId,
@@ -2842,7 +2844,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 	}
 
 	if (user.iId >= 0 && !channel.bTemporary) {
-		m_dbWrapper.disableChannelListenerIfExists(iServerNum, user.iId, channel.iId);
+		m_dbWrapper.disableChannelListenerIfExists(iServerNum, static_cast< unsigned int >(user.iId), channel.iId);
 	}
 
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
@@ -2850,7 +2852,7 @@ void Server::disableChannelListener(const ServerUser &user, const Channel &chann
 
 void Server::deleteChannelListener(const ServerUser &user, const Channel &channel) {
 	if (user.iId >= 0 && !channel.bTemporary) {
-		m_dbWrapper.deleteChannelListener(iServerNum, user.iId, channel.iId);
+		m_dbWrapper.deleteChannelListener(iServerNum, static_cast< unsigned int >(user.iId), channel.iId);
 	}
 
 	m_channelListenerManager.removeListener(user.uiSession, channel.iId);
@@ -2866,7 +2868,7 @@ bool Server::channelListenerExists(const ServerUser &user, const Channel &channe
 	}
 	// For registered users we might have listeners stored in the DB but which are currently inactive and thus the
 	// manager doesn't know about them
-	return m_dbWrapper.channelListenerExists(iServerNum, user.iId, channel.iId);
+	return m_dbWrapper.channelListenerExists(iServerNum, static_cast< unsigned int >(user.iId), channel.iId);
 }
 
 QString Server::getRegisteredUserName(int userID) {
@@ -2969,7 +2971,9 @@ int Server::registerUser(const ServerUserInfo &userInfo) {
 	}
 	if (id < 0) {
 		// Get available user ID via internal method
-		id = m_dbWrapper.getNextAvailableUserID(iServerNum);
+		unsigned int nextID = m_dbWrapper.getNextAvailableUserID(iServerNum);
+		assert(nextID < static_cast< unsigned int >(std::numeric_limits<int>::max()));
+		id = static_cast< int >(nextID);
 	}
 
 	// Insert new user information into our database
@@ -3020,8 +3024,8 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 		const QString password = properties.value(static_cast< int >(::mumble::server::db::UserProperty::Password));
 
 		m_dbWrapper.storeRegisteredUserPassword(
-			iServerNum, userID, password,
-			properties.value(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations)).toInt());
+			iServerNum, static_cast< unsigned int >(userID), password,
+			properties.value(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations)).toUInt());
 
 		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::Password));
 		properties.remove(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations));
@@ -3041,7 +3045,7 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 	if (!properties.isEmpty()) {
 		// Store remaining properties
 		std::vector< std::pair< unsigned int, std::string > > convertedProperties;
-		convertedProperties.reserve(properties.size());
+		convertedProperties.reserve(static_cast< std::size_t >(properties.size()));
 
 		for (auto it = properties.begin(); it != properties.end(); ++it) {
 			convertedProperties.push_back({ static_cast< unsigned int >(it.key()), it.value().toStdString() });
@@ -3068,7 +3072,7 @@ QMap< int, QString > Server::getUserProperties(int userID) {
 	}
 
 	for (const std::pair< unsigned int, std::string > &currentProp :
-		 m_dbWrapper.getUserProperties(iServerNum, userID)) {
+		 m_dbWrapper.getUserProperties(iServerNum, static_cast< unsigned int >(userID))) {
 		properties.insert(static_cast< int >(currentProp.first), QString::fromStdString(currentProp.second));
 	}
 
@@ -3077,11 +3081,11 @@ QMap< int, QString > Server::getUserProperties(int userID) {
 
 Channel *Server::createNewChannel(Channel *parent, const QString &name, bool temporary, int position,
 								  unsigned int maxUsers) {
-	int id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
+	unsigned int id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
 
 	if (temporary) {
 		// Make sure temporary channel IDs will not collide with regular channel IDs
-		id += iChannelCountLimit > 0 ? iChannelCountLimit * 2 : 1e5;
+		id += iChannelCountLimit > 0 ? static_cast< unsigned int >(iChannelCountLimit) * 2 : 1'000'000u;
 	}
 
 	Channel *c    = new Channel(id, name, parent);

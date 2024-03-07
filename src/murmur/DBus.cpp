@@ -145,14 +145,16 @@ const QDBusArgument &operator>>(const QDBusArgument &a, RegisteredPlayer &s) {
 
 QDBusArgument &operator<<(QDBusArgument &a, const LogEntry &s) {
 	a.beginStructure();
-	a << s.timestamp << s.txt;
+	a << static_cast<quint64>(s.timestamp) << s.txt;
 	a.endStructure();
 	return a;
 }
 
 const QDBusArgument &operator>>(const QDBusArgument &a, LogEntry &s) {
 	a.beginStructure();
-	a >> s.timestamp >> s.txt;
+	quint64 tmp;
+	a >> tmp >> s.txt;
+	s.timestamp = tmp;
 	a.endStructure();
 	return a;
 }
@@ -659,7 +661,7 @@ void MurmurDBus::updateRegistration(const RegisteredPlayer &user, const QDBusMes
 }
 
 void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture) {
-	if (!server->m_dbWrapper.registeredUserExists(server->iServerNum, id)) {
+	if (id < 0 || !server->m_dbWrapper.registeredUserExists(server->iServerNum, static_cast< unsigned int >(id))) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
@@ -668,7 +670,7 @@ void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture
 }
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
-	if (!server->m_dbWrapper.registeredUserExists(server->iServerNum, id)) {
+	if (id < 0 || !server->m_dbWrapper.registeredUserExists(server->iServerNum, static_cast< unsigned int >(id))) {
 		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
@@ -847,42 +849,46 @@ void MetaDBus::started(Server *s) {
 	if (MurmurDBus::qdbc->isConnected())
 		MurmurDBus::qdbc->registerObject(QString::fromLatin1("/%1").arg(s->iServerNum), s);
 
-	emit started(s->iServerNum);
+	emit started(static_cast< int >(s->iServerNum));
 }
 
 void MetaDBus::stopped(Server *s) {
-	emit stopped(s->iServerNum);
+	emit stopped(static_cast< int >(s->iServerNum));
 }
 
 void MetaDBus::start(int server_id, const QDBusMessage &msg) {
-	if (meta->qhServers.contains(server_id)) {
-		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
-	} else if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
-	} else if (!meta->boot(Meta::getConnectionParameter(), server_id)) {
+	} else if (meta->qhServers.contains(static_cast< unsigned int >(server_id))) {
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
+	} else if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else if (!meta->boot(Meta::getConnectionParameter(), static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.bootfail", "Booting server failed"));
 	}
 }
 
 void MetaDBus::stop(int server_id, const QDBusMessage &msg) {
-	if (!meta->qhServers.contains(server_id)) {
+	if (server_id < 0 || !meta->qhServers.contains(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server not booted"));
 	} else {
-		meta->kill(server_id);
+		meta->kill(static_cast< unsigned int >(server_id));
 	}
 }
 
 void MetaDBus::newServer(int &server_id) {
-	server_id = meta->dbWrapper.addServer();
+	server_id = static_cast< int >(meta->dbWrapper.addServer());
 }
 
 void MetaDBus::deleteServer(int server_id, const QDBusMessage &msg) {
-	if (meta->qhServers.contains(server_id)) {
+	if (server_id < 0) {
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else if (meta->qhServers.contains(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server is running"));
-	} else if (!meta->dbWrapper.serverExists(server_id)) {
+	} else if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		meta->dbWrapper.removeServer(server_id);
+		meta->dbWrapper.removeServer(static_cast< unsigned int >(server_id));
 	}
 }
 
@@ -893,63 +899,65 @@ void MetaDBus::getBootedServers(QList< unsigned int > &server_list) {
 void MetaDBus::getAllServers(QList< int > &server_list) {
 	server_list.clear();
 	for (unsigned int id : meta->dbWrapper.getAllServers()) {
-		server_list.push_back(static_cast< unsigned int >(id));
+		server_list.push_back(static_cast< int >(id));
 	}
 }
 
 void MetaDBus::isBooted(int server_id, bool &booted) {
-	booted = meta->qhServers.contains(server_id);
+	booted = server_id >= 0 && meta->qhServers.contains(static_cast< unsigned int >(server_id));
 }
 
 void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &msg, QString &value) {
-	if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		if (key == "key" || key == "passphrase")
 			MurmurDBus::qdbc->send(
 				msg.createErrorReply("net.sourceforge.mumble.Error.writeonly", "Requested read of write-only field."));
 		else
-			meta->dbWrapper.getConfigurationTo(server_id, key.toStdString(), value);
+			meta->dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key.toStdString(), value);
 	}
 }
 
 void MetaDBus::setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &msg) {
-	if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		meta->dbWrapper.setConfiguration(server_id, key.toStdString(), value.toStdString());
-		Server *s = meta->qhServers.value(server_id);
+		meta->dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key.toStdString(), value.toStdString());
+		Server *s = meta->qhServers.value(static_cast< unsigned int >(server_id));
 		if (s)
 			s->setLiveConf(key, value);
 	}
 }
 
 void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &values) {
-	if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
-	} else {
-		values.clear();
+		return;
+	}
 
-		for (const std::pair< std::string, std::string > &currentConfig :
-			 meta->dbWrapper.getAllConfigurations(server_id)) {
-			if (currentConfig.first == "key" || currentConfig.second == "passphrase") {
-				continue;
-			}
+	values.clear();
 
-			values.insert(QString::fromStdString(currentConfig.first), QString::fromStdString(currentConfig.second));
+	for (const std::pair< std::string, std::string > &currentConfig :
+		 meta->dbWrapper.getAllConfigurations(static_cast< unsigned int >(server_id))) {
+		if (currentConfig.first == "key" || currentConfig.second == "passphrase") {
+			continue;
 		}
+
+		values.insert(QString::fromStdString(currentConfig.first), QString::fromStdString(currentConfig.second));
 	}
 }
 
 void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBusMessage &msg,
 					  QList< LogEntry > &entries) {
-	if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		entries.clear();
 		assert(max_offset >= min_offset);
-		std::vector<::mumble::server::db::DBLogEntry > logs = meta->dbWrapper.getLogs(
-			server_id, static_cast< unsigned int >(min_offset), static_cast< unsigned int >(max_offset - min_offset));
+		std::vector<::mumble::server::db::DBLogEntry > logs =
+			meta->dbWrapper.getLogs(static_cast< unsigned int >(server_id), static_cast< unsigned int >(min_offset),
+									static_cast< int >(max_offset - min_offset));
 		for (const ::mumble::server::db::DBLogEntry &currentEntry : logs) {
 			entries.push_back(LogEntry(currentEntry));
 		}
@@ -964,10 +972,10 @@ void MetaDBus::getDefaultConf(ConfigMap &values) {
 }
 
 void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
-	if (!meta->dbWrapper.serverExists(server_id)) {
+	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		meta->dbWrapper.setSuperUserPassword(server_id, pw.toStdString());
+		meta->dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw.toStdString());
 	}
 }
 

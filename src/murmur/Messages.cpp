@@ -91,6 +91,10 @@
 		sendMessage(uSource, mppd);                                               \
 	}
 
+auto get_elapsed_seconds(const Timer &timer) {
+	return timer.elapsed() / static_cast< decltype(timer.elapsed()) >(1e6);
+}
+
 /// A helper class for managing temporary access tokens.
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
 /// turning the tokens into a scope-based property.
@@ -299,11 +303,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	Channel *lc = nullptr;
 	if (uSource->iId >= 0) {
-		int lastChannelID =
-			m_dbWrapper.getLastChannelID(iServerNum, uSource->iId, iRememberChanDuration, tUptime.elapsed() / 1e6);
-		if (lastChannelID >= 0) {
-			lc = qhChannels.value(static_cast< unsigned int >(lastChannelID));
-		}
+		unsigned int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, static_cast< unsigned int >(uSource->iId),
+														 static_cast< unsigned int >(iRememberChanDuration),
+														 get_elapsed_seconds(tUptime));
+		lc = qhChannels.value(lastChannelID);
 	}
 
 	if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
@@ -1118,7 +1121,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// For the channels that are listened to and for which no explicit volume adjustment is part of the message yet,
 	// but which had a volume adjustment != 1 (restored from the DB), we ensure that this adjustment is broadcast
 	// as if it was part of the message all along.
-	for (int channelID : additionalVolumeAdjustedChannels) {
+	for (unsigned int channelID : additionalVolumeAdjustedChannels) {
 		const Channel *channel = qhChannels.value(channelID);
 
 		if (channel) {
@@ -1148,7 +1151,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	if (msg.has_user_id()) {
 		// Handle user (Self-)Registration
 		if (registerUser(*pDstServerUser)) {
-			msg.set_user_id(pDstServerUser->iId);
+			assert(pDstServerUser->iId >= 0);
+			msg.set_user_id(static_cast< unsigned int >(pDstServerUser->iId));
 			bDstAclChanged = true;
 		} else {
 			// Registration failed
@@ -1867,7 +1871,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		MumbleProto::QueryUsers mpqu;
 		foreach (unsigned int id, qsId) {
-			QString uname = getRegisteredUserName(id);
+			QString uname = getRegisteredUserName(static_cast< int >(id));
 			if (!uname.isEmpty()) {
 				mpqu.add_ids(id);
 				mpqu.add_names(u8(uname));
@@ -2000,12 +2004,10 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 
 	for (int i = 0; i < msg.ids_size(); ++i) {
 		unsigned int id = msg.ids(i);
-		if (id >= 0) {
-			const QString &name = getRegisteredUserName(static_cast< int >(id));
-			if (!name.isEmpty()) {
-				reply.add_ids(id);
-				reply.add_names(u8(name));
-			}
+		const QString &name = getRegisteredUserName(static_cast< int >(id));
+		if (!name.isEmpty()) {
+			reply.add_ids(id);
+			reply.add_names(u8(name));
 		}
 	}
 
@@ -2145,12 +2147,12 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		std::vector< UserInfo > users = getAllRegisteredUserProperties();
 		for (const UserInfo &info : users) {
 			// Skip the SuperUser
-			if (info.user_id > 0) {
+			if (info.user_id > 0 && static_cast< unsigned int >(info.user_id) != Mumble::SUPERUSER_ID) {
 				::MumbleProto::UserList_User *user = msg.add_users();
 				user->set_user_id(static_cast< unsigned int >(info.user_id));
 				user->set_name(u8(info.name));
 				if (info.last_channel) {
-					user->set_last_channel(*info.last_channel);
+					user->set_last_channel(static_cast< unsigned int >(info.last_channel.get()));
 				}
 				user->set_last_seen(u8(info.last_active.toString(Qt::ISODate)));
 			}
@@ -2175,7 +2177,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 
 					QMap< int, QString > info;
 					info.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), name);
-					setUserProperties(id, info);
+					setUserProperties(static_cast< int >(id), info);
 
 					MumbleProto::UserState mpus;
 					foreach (ServerUser *serverUser, qhUsers) {

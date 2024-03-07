@@ -30,8 +30,8 @@ namespace db {
 	void insert##name(const std::string &key, const std::string &value); \
 	std::string select##name(const std::string &key);
 
-			DEFINE_TABLE(NotNull);
-			DEFINE_TABLE(Unique);
+			DEFINE_TABLE(NotNull)
+			DEFINE_TABLE(Unique)
 #undef DEFINE_TABLE
 			void insertNullInNotNullCol();
 

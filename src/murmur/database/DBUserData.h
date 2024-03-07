@@ -17,12 +17,12 @@ namespace server {
 
 		struct DBUserData {
 			struct PasswordData {
-				std::string passwordHash = {};
-				std::string salt         = {};
-				int kdfIterations        = 0;
+				std::string passwordHash   = {};
+				std::string salt           = {};
+				unsigned int kdfIterations = 0;
 
 				PasswordData() = default;
-				explicit PasswordData(std::string hash, std::string salt = {}, int kdfIterations = 0)
+				explicit PasswordData(std::string hash, std::string salt = {}, unsigned int kdfIterations = 0)
 					: passwordHash(std::move(hash)), salt(std::move(salt)), kdfIterations(kdfIterations) {}
 
 				friend bool operator==(const PasswordData &lhs, const PasswordData &rhs);

@@ -148,7 +148,8 @@ namespace db {
 			for (std::size_t i = 1; i <= byteSize; ++i) {
 				std::size_t processedChars = 0;
 				try {
-					container[byteSize - i] = std::stoi(hex.substr(hex.size() - 2 * i, 2), &processedChars, 16);
+					container[byteSize - i] = static_cast< typename Container::value_type >(
+						std::stoi(hex.substr(hex.size() - 2 * i, 2), &processedChars, 16));
 				} catch (std::exception &) {
 					FAIL_CONVERSION
 				}

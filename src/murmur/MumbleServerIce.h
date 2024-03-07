@@ -40,10 +40,10 @@ protected:
 	void badServerProxy(const ::MumbleServer::ServerCallbackPrx &prx, const ::Server *server);
 	void badAuthenticator(::Server *);
 	QList<::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
-	QMap< int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
-	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
-	QMap< int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
-	QMap< int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
+	QMap< unsigned int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
+	QMap< unsigned int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
+	QMap< unsigned int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
+	QMap< unsigned int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
 
 public:
 	Ice::CommunicatorPtr communicator;

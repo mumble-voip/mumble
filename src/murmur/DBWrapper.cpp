@@ -253,7 +253,7 @@ boost::optional< unsigned int > DBWrapper::loadPBKDF2IterationCount() {
 	}
 
 	try {
-		return std::stoi(strIterations.get());
+		return static_cast< unsigned int >(std::stoi(strIterations.get()));
 	} catch (const std::invalid_argument &) {
 		// Conversion to number failed
 		return boost::none;
@@ -323,9 +323,9 @@ std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 
 		Ban ban;
 
-		ban.iDuration = currentBan.duration.count();
+		ban.iDuration = static_cast< unsigned int >(currentBan.duration.count());
 		ban.iMask     = currentBan.prefixLength;
-		ban.qdtStart  = QDateTime::fromSecsSinceEpoch(::msdb::toEpochSeconds(currentBan.startDate));
+		ban.qdtStart  = QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(currentBan.startDate)));
 		ban.haAddress = HostAddress(currentBan.baseAddress);
 		if (currentBan.reason) {
 			ban.qsReason = QString::fromStdString(currentBan.reason.get());
@@ -358,7 +358,7 @@ void DBWrapper::saveBans(unsigned int serverID, const std::vector< Ban > &bans) 
 
 		dbBan.serverID     = serverID;
 		dbBan.duration     = std::chrono::seconds(currentBan.iDuration);
-		dbBan.prefixLength = currentBan.iMask;
+		dbBan.prefixLength = static_cast< decltype(dbBan.prefixLength) >(currentBan.iMask);
 		dbBan.startDate =
 			std::chrono::system_clock::time_point(std::chrono::seconds(currentBan.qdtStart.toSecsSinceEpoch()));
 		dbBan.baseAddress = currentBan.haAddress.getByteRepresentation();
@@ -442,9 +442,9 @@ void DBWrapper::initializeChannelDetails(Server &server) {
 			for (const ::msdb::DBGroupMember &currrentMember :
 				 m_serverDB.getGroupMemberTable().getEntries(server.iServerNum, currentGroup.groupID)) {
 				if (currrentMember.addToGroup) {
-					group->qsAdd << currrentMember.userID;
+					group->qsAdd << static_cast< int >(currrentMember.userID);
 				} else {
-					group->qsRemove << currrentMember.userID;
+					group->qsRemove << static_cast< int >(currrentMember.userID);
 				}
 			}
 		}
@@ -549,7 +549,8 @@ void DBWrapper::createChannel(unsigned int serverID, const Channel &channel) {
 	assertValidID(channel.iId);
 	assert(!channel.bTemporary);
 
-	createChannel(channelToDB(serverID, channel), channel.iPosition, channel.uiMaxUsers, channel.qsDesc.toStdString());
+	createChannel(channelToDB(serverID, channel), static_cast< unsigned int >(channel.iPosition), channel.uiMaxUsers,
+				  channel.qsDesc.toStdString());
 }
 
 void DBWrapper::createChannel(const ::mumble::server::db::DBChannel &channel, unsigned int position,
@@ -643,11 +644,13 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 
 		for (int addedGroupMemberID : currentGroup->qsAdd) {
 			assert(addedGroupMemberID >= 0);
-			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID, addedGroupMemberID, true);
+			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID,
+													  static_cast< unsigned int >(addedGroupMemberID), true);
 		}
 		for (int removeddGroupMemberID : currentGroup->qsRemove) {
 			assert(removeddGroupMemberID >= 0);
-			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID, removeddGroupMemberID, false);
+			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID,
+													  static_cast< unsigned int >(removeddGroupMemberID), false);
 		}
 	}
 
@@ -777,7 +780,14 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 	if (!property.empty()) {
 		try {
-			outVar = std::stoul(property);
+			unsigned long value = std::stoul(property);
+
+			if (value > std::numeric_limits< unsigned short >::max()) {
+				throw ::mdb::FormatException("Fetched property for key \"" + configKey
+											 + "\" holds a value too big for the requested output type");
+			}
+
+			outVar = static_cast< unsigned short >(value);
 		} catch (const std::invalid_argument &) {
 			std::throw_with_nested(
 				::mdb::FormatException("Fetched property for key \"" + configKey + "\" can't be parsed as a number"));
@@ -833,7 +843,14 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 
 	if (!property.empty()) {
 		try {
-			outVar = std::stoul(property);
+			unsigned long value = std::stoul(property);
+
+			if (value > std::numeric_limits< unsigned int >::max()) {
+				throw ::mdb::FormatException("Fetched property for key \"" + configKey
+											 + "\" holds a value too big for the requested output type");
+			}
+
+			outVar = static_cast< unsigned int >(value);
 		} catch (const std::invalid_argument &) {
 			std::throw_with_nested(
 				::mdb::FormatException("Fetched property for key \"" + configKey + "\" can't be parsed as a number"));
@@ -909,8 +926,8 @@ std::vector<::msdb::DBLogEntry > DBWrapper::getLogs(unsigned int serverID, unsig
 
 	assertValidID(serverID);
 
-	return m_serverDB.getLogTable().getLogs(serverID, amount >= 0 ? amount : std::numeric_limits< int >::max(),
-											startOffset);
+	return m_serverDB.getLogTable().getLogs(
+		serverID, static_cast< unsigned int >(amount >= 0 ? amount : std::numeric_limits< int >::max()), startOffset);
 
 	WRAPPER_END
 }
@@ -1004,7 +1021,7 @@ void DBWrapper::loadChannelListenersOf(unsigned int serverID, const ServerUserIn
 	assertValidID(userInfo.iId);
 
 	for (const ::msdb::DBChannelListener &currentListener :
-		 m_serverDB.getChannelListenerTable().getListenersForUser(serverID, userInfo.iId)) {
+		 m_serverDB.getChannelListenerTable().getListenersForUser(serverID, static_cast< unsigned int >(userInfo.iId))) {
 		if (currentListener.enabled) {
 			manager.addListener(userInfo.uiSession, currentListener.channelID);
 			manager.setListenerVolumeAdjustment(userInfo.uiSession, currentListener.channelID,
@@ -1069,7 +1086,8 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 
 	::mdb::TransactionHolder transaction = m_serverDB.ensureTransaction();
 
-	unsigned int userID = userInfo.iId < 0 ? m_serverDB.getUserTable().getFreeUserID(serverID) : userInfo.iId;
+	unsigned int userID = userInfo.iId < 0 ? m_serverDB.getUserTable().getFreeUserID(serverID)
+										   : static_cast< unsigned int >(userInfo.iId);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1079,12 +1097,12 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 	data.name          = userInfo.qsName.toStdString();
 	data.lastChannelID = userInfo.cChannel ? userInfo.cChannel->iId : Mumble::ROOT_CHANNEL_ID;
 	if (!userInfo.qbaTexture.isEmpty()) {
-		data.texture.resize(userInfo.qbaTexture.size());
+		data.texture.resize(static_cast< std::size_t >(userInfo.qbaTexture.size()));
 
 		static_assert(sizeof(decltype(data.texture)::value_type) == sizeof(decltype(userInfo.qbaTexture)::value_type),
 					  "Data types are not compatible");
 		std::memcpy(data.texture.data(), reinterpret_cast< const std::uint8_t * >(userInfo.qbaTexture.data()),
-					userInfo.qbaTexture.size());
+					static_cast< std::size_t >(userInfo.qbaTexture.size()));
 	}
 
 	setUserData(serverID, userID, data);
@@ -1177,7 +1195,8 @@ QMap< int, QString > DBWrapper::getRegisteredUserDetails(unsigned int serverID, 
 
 	details.insert({ static_cast< int >(::msdb::UserProperty::Name) }, QString::fromStdString(userData.name));
 	details.insert({ static_cast< int >(::msdb::UserProperty::LastActive) },
-				   QDateTime::fromSecsSinceEpoch(::msdb::toEpochSeconds(userData.lastActive)).toString(Qt::ISODate));
+				   QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(userData.lastActive)))
+					   .toString(Qt::ISODate));
 
 	for (const std::pair< unsigned int, std::string > &currentProps : getUserProperties(serverID, userID)) {
 		details.insert(static_cast< int >(currentProps.first), QString::fromStdString(currentProps.second));
@@ -1200,8 +1219,8 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 
 		UserInfo info;
 		info.name         = QString::fromStdString(userData.name);
-		info.user_id      = currentUser.registeredUserID;
-		info.last_active  = QDateTime::fromSecsSinceEpoch(::msdb::toEpochSeconds(userData.lastActive));
+		info.user_id      = static_cast< int >(currentUser.registeredUserID);
+		info.last_active  = QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(userData.lastActive)));
 		info.last_channel = userData.lastChannelID;
 
 		userInfo.push_back(std::move(info));
@@ -1266,10 +1285,11 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 		if (Meta::mp.legacyPasswordHash) {
 			pwData.passwordHash = getLegacyPasswordHash(password).toStdString();
 		} else {
-			pwData.kdfIterations = kdfIterations > 0 ? kdfIterations : Meta::mp.kdfIterations;
+			assert(Meta::mp.kdfIterations >= 0);
+			pwData.kdfIterations = kdfIterations > 0 ? kdfIterations : static_cast< unsigned int >(Meta::mp.kdfIterations);
 			pwData.salt          = PBKDF2::getSalt().toStdString();
 			pwData.passwordHash = PBKDF2::getHash(QString::fromStdString(pwData.salt), QString::fromStdString(password),
-												  pwData.kdfIterations)
+												  static_cast< int >(pwData.kdfIterations))
 									  .toStdString();
 		}
 	}
@@ -1305,7 +1325,7 @@ void DBWrapper::setLastChannel(unsigned int serverID, const ServerUserInfo &user
 	assert(userInfo.cChannel);
 	assertValidID(userInfo.cChannel->iId);
 
-	setLastChannel(serverID, userInfo.iId, userInfo.cChannel->iId);
+	setLastChannel(serverID, static_cast< unsigned int >(userInfo.iId), userInfo.cChannel->iId);
 }
 
 void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsigned int channelID) {
@@ -1322,8 +1342,8 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 	WRAPPER_END
 }
 
-int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration,
-								unsigned int serverUptimeSecs) {
+unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration,
+								std::size_t serverUptimeSecs) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
@@ -1366,7 +1386,7 @@ QByteArray DBWrapper::getUserTexture(unsigned int serverID, unsigned int userID)
 
 	QByteArray texture;
 	if (!data.texture.empty()) {
-		texture.resize(data.texture.size());
+		texture.resize(static_cast< int >(data.texture.size()));
 
 		std::memcpy(reinterpret_cast< std::uint8_t * >(texture.data()), data.texture.data(), data.texture.size());
 	}
@@ -1386,14 +1406,15 @@ void DBWrapper::storeUserTexture(unsigned int serverID, const ServerUserInfo &us
 	assertValidID(serverID);
 	assertValidID(userInfo.iId);
 
-	::msdb::DBUser user(serverID, userInfo.iId);
+	::msdb::DBUser user(serverID, static_cast< unsigned int >(userInfo.iId));
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
 
 	QByteArray texture =
 		userInfo.qbaTexture.size() == 600 * 60 * 4 ? qCompress(userInfo.qbaTexture) : userInfo.qbaTexture;
 
-	data.texture.resize(texture.size());
-	std::memcpy(data.texture.data(), reinterpret_cast< const std::uint8_t * >(texture.data()), texture.size());
+	data.texture.resize(static_cast< std::size_t >(texture.size()));
+	std::memcpy(data.texture.data(), reinterpret_cast< const std::uint8_t * >(texture.data()),
+				static_cast< std::size_t >(texture.size()));
 
 	m_serverDB.getUserTable().updateData(user, data);
 
@@ -1480,10 +1501,11 @@ std::vector< std::pair< unsigned int, std::string > > DBWrapper::getUserProperti
 	::msdb::DBUserData userData = m_serverDB.getUserTable().getData(user);
 
 	properties.push_back({ static_cast< unsigned int >(::msdb::UserProperty::Name), userData.name });
-	properties.push_back({ static_cast< unsigned int >(::msdb::UserProperty::LastActive),
-						   QDateTime::fromSecsSinceEpoch(::msdb::toEpochSeconds(userData.lastActive))
-							   .toString(Qt::ISODate)
-							   .toStdString() });
+	properties.push_back(
+		{ static_cast< unsigned int >(::msdb::UserProperty::LastActive),
+		  QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(userData.lastActive)))
+			  .toString(Qt::ISODate)
+			  .toStdString() });
 	// Note: we explicitly don't insert the password and kdfIterations property - those are secret and not handed out!
 
 	// Fetch remaining properties (but only those that we know of)

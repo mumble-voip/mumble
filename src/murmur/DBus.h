@@ -96,7 +96,7 @@ Q_DECLARE_METATYPE(RegisteredPlayer)
 Q_DECLARE_METATYPE(QList< RegisteredPlayer >)
 
 struct LogEntry {
-	unsigned int timestamp;
+	std::size_t timestamp;
 	QString txt;
 	LogEntry();
 	LogEntry(const ::mumble::server::db::DBLogEntry &entry);

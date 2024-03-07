@@ -453,7 +453,7 @@ void MumbleServerIce::removeServerUpdatingAuthenticator(const ::Server *server) 
 	}
 }
 
-static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
+static ServerPrx idToProxy(unsigned int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
 	ident.name     = iceString(QString::number(id));
@@ -647,12 +647,10 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > &qmAll =
-		qmServerContextCallbacks;
-	if (!qmAll.contains(s->iServerNum))
+	if (!qmServerContextCallbacks.contains(s->iServerNum))
 		return;
 
-	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer = qmAll[s->iServerNum];
+	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer = qmServerContextCallbacks[s->iServerNum];
 	if (!qmServer.contains(static_cast< int >(pSrc->uiSession)))
 		return;
 
@@ -868,11 +866,11 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	return iopServer;
 }
 
-#define FIND_SERVER ::Server *server = meta->qhServers.value(server_id);
+#define FIND_SERVER ::Server *server = meta->qhServers.value(static_cast< unsigned int >(server_id));
 
 #define NEED_SERVER_EXISTS                                                     \
 	FIND_SERVER                                                                \
-	if (!server && !meta->dbWrapper.serverExists(server_id)) {                 \
+	if (!server && !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {                 \
 		cb->ice_exception(::Ice::ObjectNotExistException(__FILE__, __LINE__)); \
 		return;                                                                \
 	}
@@ -911,7 +909,7 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
 	int server_id = u8(current.id.name).toInt();
-	if (!meta->dbWrapper.serverExists(server_id))
+	if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id)))
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
 
@@ -925,7 +923,7 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 	NEED_SERVER_EXISTS;
 	if (server)
 		cb->ice_exception(ServerBootedException());
-	else if (!meta->boot(::Meta::getConnectionParameter(), server_id))
+	else if (!meta->boot(::Meta::getConnectionParameter(), static_cast< unsigned int >(server_id)))
 		cb->ice_exception(ServerFailureException());
 	else
 		cb->ice_response();
@@ -933,7 +931,7 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 
 static void impl_Server_stop(const ::MumbleServer::AMD_Server_stopPtr cb, int server_id) {
 	NEED_SERVER;
-	meta->kill(server_id);
+	meta->kill(static_cast< unsigned int >(server_id));
 	cb->ice_response();
 }
 
@@ -943,7 +941,7 @@ static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, in
 		cb->ice_exception(ServerBootedException());
 		return;
 	}
-	meta->dbWrapper.removeServer(server_id);
+	meta->dbWrapper.removeServer(static_cast< unsigned int >(server_id));
 	cb->ice_response();
 }
 
@@ -1017,7 +1015,7 @@ static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, 
 		cb->ice_exception(WriteOnlyException());
 	} else {
 		std::string conf;
-		server->m_dbWrapper.getConfigurationTo(server_id, key, conf);
+		server->m_dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key, conf);
 		cb->ice_response(iceString(conf));
 	}
 }
@@ -1043,7 +1041,7 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, int server_id, const ::std::string &key,
 								const ::std::string &value) {
 	NEED_SERVER_EXISTS;
-	server->m_dbWrapper.setConfiguration(server_id, key, value);
+	server->m_dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key, value);
 
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
@@ -1056,7 +1054,7 @@ static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, 
 static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_setSuperuserPasswordPtr cb, int server_id,
 											 const ::std::string &pw) {
 	NEED_SERVER_EXISTS;
-	server->m_dbWrapper.setSuperUserPassword(server_id, pw);
+	server->m_dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw);
 	cb->ice_response();
 }
 
@@ -1081,8 +1079,8 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 static void impl_Server_getLogLen(const ::MumbleServer::AMD_Server_getLogLenPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
 
-	unsigned int len = server->m_dbWrapper.getLogSize(server_id);
-	cb->ice_response(len);
+	std::size_t len = server->m_dbWrapper.getLogSize(static_cast< unsigned int >(server_id));
+	cb->ice_response(static_cast< Ice::Int >(len));
 }
 
 #define ACCESS_Server_getUsers_READ
@@ -1962,10 +1960,10 @@ static void impl_Meta_getSliceChecksums(const ::MumbleServer::AMD_Meta_getSliceC
 #define ACCESS_Meta_getServer_READ
 static void impl_Meta_getServer(const ::MumbleServer::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter,
 								::Ice::Int id) {
-	if (!meta->dbWrapper.serverExists(id)) {
+	if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(id))) {
 		cb->ice_response(nullptr);
 	} else {
-		cb->ice_response(idToProxy(id, adapter));
+		cb->ice_response(idToProxy(static_cast< unsigned int >(id), adapter));
 	}
 }
 
@@ -2001,7 +1999,7 @@ static void impl_Meta_getBootedServers(const ::MumbleServer::AMD_Meta_getBootedS
 									   const Ice::ObjectAdapterPtr adapter) {
 	::MumbleServer::ServerList sl;
 
-	foreach (int id, meta->qhServers.keys())
+	foreach (unsigned int id, meta->qhServers.keys())
 		sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }

@@ -124,7 +124,7 @@ namespace db {
 				assert(base.size() > 1);
 				// Remove leading "v"
 				base.erase(base.begin());
-				unsigned int baseVersion = std::stoi(base);
+				unsigned int baseVersion = static_cast< unsigned int >(std::stoi(base));
 
 				// Import inherited data
 				writeTableRows(tableRep, tableData, baseVersion, tableName);

@@ -95,7 +95,7 @@ template<> struct StringConverter< unsigned long > {
 
 template<> struct StringConverter< unsigned int > : StringConverter< unsigned long > {
 	static unsigned int convert(const std::string &str, bool *success = nullptr) {
-		return StringConverter< unsigned long >::convert(str, success);
+		return static_cast< unsigned int >(StringConverter< unsigned long >::convert(str, success));
 	}
 };
 

@@ -126,8 +126,8 @@ public:
 
 	void setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo);
 	void setLastChannel(unsigned int serverID, unsigned int userID, unsigned int channelID);
-	int getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration = 0,
-						 unsigned int serverUptimeSecs = 0);
+	unsigned int getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration = 0,
+								  std::size_t serverUptimeSecs = 0);
 
 
 	QByteArray getUserTexture(unsigned int serverID, unsigned int userID);
