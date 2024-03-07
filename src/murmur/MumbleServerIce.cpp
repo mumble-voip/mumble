@@ -650,7 +650,8 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 	if (!qmServerContextCallbacks.contains(s->iServerNum))
 		return;
 
-	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer = qmServerContextCallbacks[s->iServerNum];
+	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer =
+		qmServerContextCallbacks[s->iServerNum];
 	if (!qmServer.contains(static_cast< int >(pSrc->uiSession)))
 		return;
 
@@ -868,11 +869,11 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 
 #define FIND_SERVER ::Server *server = meta->qhServers.value(static_cast< unsigned int >(server_id));
 
-#define NEED_SERVER_EXISTS                                                     \
-	FIND_SERVER                                                                \
-	if (!server && !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {                 \
-		cb->ice_exception(::Ice::ObjectNotExistException(__FILE__, __LINE__)); \
-		return;                                                                \
+#define NEED_SERVER_EXISTS                                                                  \
+	FIND_SERVER                                                                             \
+	if (!server && !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) { \
+		cb->ice_exception(::Ice::ObjectNotExistException(__FILE__, __LINE__));              \
+		return;                                                                             \
 	}
 
 #define NEED_SERVER                                 \

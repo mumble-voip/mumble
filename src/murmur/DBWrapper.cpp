@@ -325,7 +325,8 @@ std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 
 		ban.iDuration = static_cast< unsigned int >(currentBan.duration.count());
 		ban.iMask     = currentBan.prefixLength;
-		ban.qdtStart  = QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(currentBan.startDate)));
+		ban.qdtStart =
+			QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(currentBan.startDate)));
 		ban.haAddress = HostAddress(currentBan.baseAddress);
 		if (currentBan.reason) {
 			ban.qsReason = QString::fromStdString(currentBan.reason.get());
@@ -1020,8 +1021,8 @@ void DBWrapper::loadChannelListenersOf(unsigned int serverID, const ServerUserIn
 	assertValidID(serverID);
 	assertValidID(userInfo.iId);
 
-	for (const ::msdb::DBChannelListener &currentListener :
-		 m_serverDB.getChannelListenerTable().getListenersForUser(serverID, static_cast< unsigned int >(userInfo.iId))) {
+	for (const ::msdb::DBChannelListener &currentListener : m_serverDB.getChannelListenerTable().getListenersForUser(
+			 serverID, static_cast< unsigned int >(userInfo.iId))) {
 		if (currentListener.enabled) {
 			manager.addListener(userInfo.uiSession, currentListener.channelID);
 			manager.setListenerVolumeAdjustment(userInfo.uiSession, currentListener.channelID,
@@ -1218,9 +1219,10 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 		::msdb::DBUserData userData = m_serverDB.getUserTable().getData(currentUser);
 
 		UserInfo info;
-		info.name         = QString::fromStdString(userData.name);
-		info.user_id      = static_cast< int >(currentUser.registeredUserID);
-		info.last_active  = QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(userData.lastActive)));
+		info.name    = QString::fromStdString(userData.name);
+		info.user_id = static_cast< int >(currentUser.registeredUserID);
+		info.last_active =
+			QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(userData.lastActive)));
 		info.last_channel = userData.lastChannelID;
 
 		userInfo.push_back(std::move(info));
@@ -1286,8 +1288,9 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 			pwData.passwordHash = getLegacyPasswordHash(password).toStdString();
 		} else {
 			assert(Meta::mp.kdfIterations >= 0);
-			pwData.kdfIterations = kdfIterations > 0 ? kdfIterations : static_cast< unsigned int >(Meta::mp.kdfIterations);
-			pwData.salt          = PBKDF2::getSalt().toStdString();
+			pwData.kdfIterations =
+				kdfIterations > 0 ? kdfIterations : static_cast< unsigned int >(Meta::mp.kdfIterations);
+			pwData.salt         = PBKDF2::getSalt().toStdString();
 			pwData.passwordHash = PBKDF2::getHash(QString::fromStdString(pwData.salt), QString::fromStdString(password),
 												  static_cast< int >(pwData.kdfIterations))
 									  .toStdString();
@@ -1343,7 +1346,7 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 }
 
 unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration,
-								std::size_t serverUptimeSecs) {
+										 std::size_t serverUptimeSecs) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);

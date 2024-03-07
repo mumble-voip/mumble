@@ -6,8 +6,8 @@
 #ifndef MUMBLE_SERVER_DATABASE_CHRONOUTILS_H_
 #define MUMBLE_SERVER_DATABASE_CHRONOUTILS_H_
 
-#include <chrono>
 #include <cassert>
+#include <chrono>
 
 namespace mumble {
 namespace server {

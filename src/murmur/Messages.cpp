@@ -304,9 +304,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	Channel *lc = nullptr;
 	if (uSource->iId >= 0) {
 		unsigned int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, static_cast< unsigned int >(uSource->iId),
-														 static_cast< unsigned int >(iRememberChanDuration),
-														 get_elapsed_seconds(tUptime));
-		lc = qhChannels.value(lastChannelID);
+																  static_cast< unsigned int >(iRememberChanDuration),
+																  get_elapsed_seconds(tUptime));
+		lc                         = qhChannels.value(lastChannelID);
 	}
 
 	if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
@@ -2003,7 +2003,7 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 	MumbleProto::QueryUsers reply;
 
 	for (int i = 0; i < msg.ids_size(); ++i) {
-		unsigned int id = msg.ids(i);
+		unsigned int id     = msg.ids(i);
 		const QString &name = getRegisteredUserName(static_cast< int >(id));
 		if (!name.isEmpty()) {
 			reply.add_ids(id);
