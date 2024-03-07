@@ -145,7 +145,7 @@ const QDBusArgument &operator>>(const QDBusArgument &a, RegisteredPlayer &s) {
 
 QDBusArgument &operator<<(QDBusArgument &a, const LogEntry &s) {
 	a.beginStructure();
-	a << static_cast<quint64>(s.timestamp) << s.txt;
+	a << static_cast< quint64 >(s.timestamp) << s.txt;
 	a.endStructure();
 	return a;
 }
@@ -923,7 +923,8 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 	if (server_id < 0 || !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) {
 		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		meta->dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key.toStdString(), value.toStdString());
+		meta->dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key.toStdString(),
+										 value.toStdString());
 		Server *s = meta->qhServers.value(static_cast< unsigned int >(server_id));
 		if (s)
 			s->setLiveConf(key, value);

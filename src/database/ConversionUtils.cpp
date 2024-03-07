@@ -73,13 +73,14 @@ namespace db {
 				case soci::dt_unsigned_long_long:
 					return row.get< unsigned long long >(columnIndex);
 				case soci::dt_blob: {
-					soci::blob blob = row.move_as<soci::blob>(columnIndex);
+					soci::blob blob            = row.move_as< soci::blob >(columnIndex);
 					const std::size_t dataSize = blob.get_len();
 
 					std::vector< std::uint8_t > dataContainer;
 					dataContainer.resize(dataSize);
 
-					const std::size_t bytesRead = blob.read_from_start(reinterpret_cast<char *>(dataContainer.data()), dataSize);
+					const std::size_t bytesRead =
+						blob.read_from_start(reinterpret_cast< char * >(dataContainer.data()), dataSize);
 					assert(bytesRead == dataSize);
 					(void) bytesRead;
 

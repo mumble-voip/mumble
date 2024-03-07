@@ -173,7 +173,8 @@ void print_exception_message(const std::exception &e) {
  * Helper function to convert a std::chrono::timepoint to seconds since epoch
  */
 template< typename TimePoint > std::size_t toSeconds(const TimePoint &tp) {
-	return static_cast< std::size_t >(std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count());
+	return static_cast< std::size_t >(
+		std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count());
 }
 
 
@@ -368,8 +369,8 @@ void ServerDatabaseTest::logTable_general() {
 
 	for (std::size_t maxEntries = 0; maxEntries < entries.size() + 2; ++maxEntries) {
 		for (std::size_t offset = 0; offset < entries.size() + 2; ++offset) {
-			std::vector<::msdb::DBLogEntry > fetchedEntries =
-				db.getLogTable().getLogs(existingServerID, static_cast< unsigned int >(maxEntries), static_cast< unsigned int >(offset));
+			std::vector<::msdb::DBLogEntry > fetchedEntries = db.getLogTable().getLogs(
+				existingServerID, static_cast< unsigned int >(maxEntries), static_cast< unsigned int >(offset));
 
 			const int totalEntryCount = static_cast< int >(entries.size());
 			int maxPossibleEntries    = totalEntryCount - std::min(static_cast< int >(offset), totalEntryCount);
