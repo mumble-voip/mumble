@@ -100,7 +100,7 @@ namespace server {
 			// byte address. Thus, the subnet mask that has to be applied to these last 4 bytes also needs to ignore the
 			// leading 12 bytes = 96 bits.
 			assert(mask <= 32);
-			return mask + 96;
+			return static_cast< std::uint8_t >(mask + 96);
 		}
 
 		bool operator==(const DBBan &lhs, const DBBan &rhs) {

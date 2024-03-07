@@ -108,7 +108,7 @@ template<> char *toString(const ::msdb::DBUserData &data) {
 	return buffer;
 }
 
-}; // namespace QTest
+} // namespace QTest
 
 namespace std {
 template< std::size_t size > char *toString(const std::array< std::uint8_t, size > array) {
@@ -1481,7 +1481,7 @@ void ServerDatabaseTest::banTable_general() {
 	// Since we re-used the server ID, base address and prefix length, adding this should error
 	QVERIFY_EXCEPTION_THROWN(table.addBan(ban2), ::mdb::AccessException);
 
-	ban2.prefixLength += 1;
+	ban2.prefixLength++;
 	QVERIFY(!table.banExists(ban2));
 	table.addBan(ban2);
 	QVERIFY(table.banExists(ban2));
