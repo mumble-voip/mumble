@@ -197,7 +197,7 @@ namespace server {
 					assert(row.size() == 1);
 					assert(row.get_properties(0).get_data_type() == soci::dt_integer);
 
-					matchingIDs.push_back(row.get< int >(0));
+					matchingIDs.push_back(static_cast< unsigned int >(row.get< int >(0)));
 				}
 
 				transaction.commit();

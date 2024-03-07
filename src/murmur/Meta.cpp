@@ -818,7 +818,7 @@ void Meta::initPBKDF2IterationCount() {
 		boost::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
 
 		if (storedIterationCount) {
-			Meta::mp.kdfIterations = storedIterationCount.get();
+			Meta::mp.kdfIterations = static_cast< int >(storedIterationCount.get());
 		} else {
 			// No stored value -> initialize from scratch
 			Meta::mp.kdfIterations = PBKDF2::benchmark();
@@ -826,7 +826,8 @@ void Meta::initPBKDF2IterationCount() {
 			qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations
 					   << "iterations as default";
 
-			dbWrapper.storePBKDF2IterationCount(Meta::mp.kdfIterations);
+			assert(Meta::mp.kdfIterations >= 0);
+			dbWrapper.storePBKDF2IterationCount(static_cast< unsigned int >(Meta::mp.kdfIterations));
 		}
 	}
 

@@ -7,6 +7,7 @@
 #define MUMBLE_SERVER_DATABASE_CHRONOUTILS_H_
 
 #include <chrono>
+#include <cassert>
 
 namespace mumble {
 namespace server {
@@ -14,7 +15,9 @@ namespace server {
 
 		template< typename Clock, typename Duration >
 		std::size_t toEpochSeconds(const std::chrono::time_point< Clock, Duration > &tp) {
-			return std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count();
+			auto duration = std::chrono::duration_cast< std::chrono::seconds >(tp.time_since_epoch()).count();
+			assert(duration > 0 || duration + 1 >= 1);
+			return static_cast< std::size_t >(duration);
 		}
 
 	} // namespace db

@@ -36,7 +36,7 @@ namespace db {
 	unsigned int MetaTable::getSchemeVersion() {
 		boost::optional< std::string > strVersion = queryKey("scheme_version");
 
-		return strVersion ? std::stoi(strVersion.get()) : 0;
+		return strVersion ? static_cast< unsigned int >(std::stoi(strVersion.get())) : 0;
 	}
 
 	void MetaTable::setSchemeVersion(unsigned int version) { setKey("scheme_version", std::to_string(version)); }

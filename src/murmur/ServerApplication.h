@@ -20,7 +20,7 @@ class ServerApplication : public QApplication {
 #else
 class ServerApplication : public QCoreApplication {
 #endif
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	using QCoreApplication::QCoreApplication;

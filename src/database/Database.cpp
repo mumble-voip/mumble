@@ -104,7 +104,7 @@ namespace db {
 		m_tables.push_back(std::move(table));
 
 		// The "table ID" is just the index of the table in the used vector
-		return m_tables.size() - 1;
+		return static_cast< table_id >(m_tables.size() - 1);
 	}
 
 	const Table *Database::getTable(const std::string &name) const {
