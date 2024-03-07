@@ -161,7 +161,7 @@ namespace server {
 				transaction.commit();
 
 				listener.enabled          = enabled;
-				listener.volumeAdjustment = volAdj;
+				listener.volumeAdjustment = static_cast< float >(volAdj);
 
 				return listener;
 			} catch (const soci::soci_error &) {

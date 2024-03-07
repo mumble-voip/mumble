@@ -146,7 +146,7 @@ public:
 };
 
 class DatabaseTest : public QObject {
-	Q_OBJECT;
+	Q_OBJECT
 private slots:
 	void hexConversions();
 	void connect();
