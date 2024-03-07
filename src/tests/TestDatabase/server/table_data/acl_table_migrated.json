@@ -1,0 +1,77 @@
+{
+	"v6": {
+		"table_name": "access_control_lists",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"priority",
+			"affected_user_id",
+			"affected_group_id",
+			"affected_meta_group_id",
+			"access_token",
+			"group_modifiers",
+			"apply_in_current_channel",
+			"apply_in_sub_channels",
+			"granted_privilege_flags",
+			"revoked_privilege_flags"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				3,
+				null,
+				1,
+				null,
+				null,
+				null,
+				1,
+				0,
+				1,
+				0
+			],
+			[
+				1,
+				0,
+				4,
+				1,
+				null,
+				null,
+				null,
+				null,
+				1,
+				0,
+				0,
+				5
+			],
+			[
+				1,
+				1,
+				1,
+				null,
+				null,
+				6,
+				null,
+				"!;,3,2",
+				1,
+				0,
+				0,
+				5
+			],
+			[
+				1,
+				1,
+				2,
+				null,
+				null,
+				null,
+				"letmein",
+				null,
+				1,
+				0,
+				0,
+				5
+			]
+		]
+	}
+}

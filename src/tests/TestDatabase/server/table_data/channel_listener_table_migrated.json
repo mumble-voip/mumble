@@ -1,0 +1,43 @@
+{
+	"v6": {
+		"table_name": "channel_listeners",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"channel_id",
+			"volume_adjustment",
+			"enabled"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"FLOAT",
+			"SMALLINT"
+		],
+		"rows": []
+	},
+	"v9": {
+		"inherit": {
+			"from": "v6",
+			"append": {
+				"rows": [
+					[
+						1,
+						0,
+						0,
+						1.25,
+						0
+					],
+					[
+						1,
+						2,
+						1,
+						0.75,
+						1
+					]
+				]
+			}
+		}
+	}
+}

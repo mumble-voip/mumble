@@ -1,0 +1,143 @@
+{
+	"v6": {
+		"table_name": "users",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"name",
+			"pw",
+			"salt",
+			"kdfiterations",
+			"lastchannel",
+			"texture",
+			"last_active"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"INTEGER",
+			"INTEGER",
+			"BLOB",
+			"TIMESTAMP"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				"Hugo",
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+			],
+			[
+				1,
+				1,
+				"Jasmine",
+				"secret",
+				"salty",
+				42,
+				1,
+				"0xff1a77b4",
+				"2002-12-14 16:46:04"
+			]
+		]
+	},
+	"v8": {
+		"inherit": {
+			"from": "v6",
+			"append": {
+				"columns": {
+					"last_disconnect": {
+						"type": "TIMESTAMP",
+						"default": null
+					}
+				},
+				"rows": [
+					[
+						1,
+						2,
+						"Tiffany",
+						null,
+						null,
+						null,
+						1,
+						null,
+						"2002-12-14 16:46:04",
+						"2002-12-14 16:50:00"
+					]
+				]
+			}
+		}
+	},
+	"v10": {
+		"table_name": "users",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"user_name",
+			"password_hash",
+			"salt",
+			"kdf_iterations",
+			"last_channel_id",
+			"texture",
+			"last_active",
+			"last_disconnect"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"VARCHAR(255)",
+			"VARCHAR(255)",
+			"VARCHAR(128)",
+			"INTEGER",
+			"INTEGER",
+			"BLOB",
+			"BIGINT",
+			"BIGINT"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				"Hugo",
+				null,
+				null,
+				null,
+				0,
+				null,
+				0,
+				0
+			],
+			[
+				1,
+				1,
+				"Jasmine",
+				"secret",
+				"salty",
+				42,
+				1,
+				"0xff1a77b4",
+				1039884364,
+				0
+			],
+			[
+				1,
+				2,
+				"Tiffany",
+				null,
+				null,
+				null,
+				1,
+				null,
+				1039884364,
+				1039884600
+			]
+		]
+	}
+}

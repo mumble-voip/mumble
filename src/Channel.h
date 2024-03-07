@@ -32,8 +32,6 @@ private:
 	QSet< Channel * > qsUnseen;
 
 public:
-	static constexpr int ROOT_ID = 0;
-
 	unsigned int iId;
 	int iPosition;
 	bool bTemporary;

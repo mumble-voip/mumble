@@ -1,0 +1,76 @@
+{
+	"v6": {
+		"table_name": "groups",
+		"column_names": [
+			"server_id",
+			"group_id",
+			"name",
+			"channel_id",
+			"inherit",
+			"inheritable"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"TEXT",
+			"INTEGER",
+			"INTEGER",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				1,
+				"admin",
+				0,
+				null,
+				null
+			],
+			[
+				1,
+				2,
+				"vip",
+				1,
+				1,
+				0
+			]
+		]
+	},
+	"v10": {
+		"table_name": "groups",
+		"column_names": [
+			"server_id",
+			"group_id",
+			"group_name",
+			"channel_id",
+			"inherit",
+			"is_inheritable"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"VARCHAR(255)",
+			"INTEGER",
+			"SMALLINT",
+			"SMALLINT"
+		],
+		"rows": [
+			[
+				1,
+				1,
+				"admin",
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				2,
+				"vip",
+				1,
+				1,
+				0
+			]
+		]
+	}
+}

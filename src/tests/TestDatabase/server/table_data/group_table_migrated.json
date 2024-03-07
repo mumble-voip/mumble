@@ -1,0 +1,31 @@
+{
+	"v6": {
+		"table_name": "groups",
+		"column_names": [
+			"server_id",
+			"group_id",
+			"group_name",
+			"channel_id",
+			"inherit",
+			"is_inheritable"
+		],
+		"rows": [
+			[
+				1,
+				1,
+				"admin",
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				2,
+				"vip",
+				1,
+				1,
+				0
+			]
+		]
+	}
+}

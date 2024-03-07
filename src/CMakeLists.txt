@@ -15,6 +15,7 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
+option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 
 
 find_pkg(Qt5
@@ -244,6 +245,8 @@ if(client)
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble_256x256.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/256x256/apps" RENAME "mumble.png")
 	endif()
 endif()
+
+add_subdirectory(database)
 
 if(server)
 	add_subdirectory(murmur)

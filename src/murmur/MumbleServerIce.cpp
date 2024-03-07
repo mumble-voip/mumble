@@ -13,10 +13,13 @@
 #include "MumbleServer.h"
 #include "QtUtils.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "ServerUser.h"
+#include "ServerUserInfo.h"
 #include "User.h"
 #include "Utils.h"
+
+#include "murmur/database/ChronoUtils.h"
+#include "murmur/database/UserProperty.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
@@ -70,6 +73,9 @@ static std::string iceRemoveNul(std::string s) {
 /// What happens under the hood is that the string
 /// is converted to UTF-8, and all NUL bytes are
 /// removed.
+static std::string iceString(const std::string &s) {
+	return iceRemoveNul(s);
+}
 static std::string iceString(const QString &s) {
 	return iceRemoveNul(u8(s));
 }
@@ -91,9 +97,9 @@ static std::string iceBase64(const std::string &s) {
 	return std::string(ba64.data(), static_cast< size_t >(ba64.size()));
 }
 
-static void logToLog(const ServerDB::LogRecord &r, ::MumbleServer::LogEntry &entry) {
-	entry.timestamp = static_cast< int >(r.first);
-	entry.txt       = iceString(r.second);
+static void logToLog(const ::mumble::server::db::DBLogEntry &entry, ::MumbleServer::LogEntry &le) {
+	le.timestamp = static_cast< Ice::Int >(mumble::server::db::toEpochSeconds(entry.timestamp));
+	le.txt       = iceString(entry.message);
 }
 
 static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
@@ -199,6 +205,24 @@ static void banToBan(const ::MumbleServer::Ban &mb, ::Ban &b) {
 	b.qsReason   = u8(mb.reason);
 	b.qdtStart   = QDateTime::fromTime_t(static_cast< quint32 >(mb.start)).toUTC();
 	b.iDuration  = static_cast< unsigned int >(mb.duration);
+}
+
+static void infoToInfo(const ::MumbleServer::UserInfoMap &map, ::ServerUserInfo &info) {
+	if (map.find(::MumbleServer::UserInfo::UserName) != map.end()) {
+		info.qsName = QString::fromStdString(map.at(::MumbleServer::UserInfo::UserName));
+	}
+	if (map.find(::MumbleServer::UserInfo::UserEmail) != map.end()) {
+		info.qslEmail << QString::fromStdString(map.at(::MumbleServer::UserInfo::UserEmail));
+	}
+	if (map.find(::MumbleServer::UserInfo::UserComment) != map.end()) {
+		info.qsComment = QString::fromStdString(map.at(::MumbleServer::UserInfo::UserComment));
+	}
+	if (map.find(::MumbleServer::UserInfo::UserHash) != map.end()) {
+		info.qsHash = QString::fromStdString(map.at(::MumbleServer::UserInfo::UserHash));
+	}
+	// ::MumbleServer::UserInfo::UserPassword not supported
+	// ::MumbleServer::UserInfo::UserLastActive not supported
+	// ::MumbleServer::UserInfo::UserKDFIterations not supported
 }
 
 static void infoToInfo(const QMap< int, QString > &info, ::MumbleServer::UserInfoMap &im) {
@@ -429,7 +453,7 @@ void MumbleServerIce::removeServerUpdatingAuthenticator(const ::Server *server) 
 	}
 }
 
-static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
+static ServerPrx idToProxy(unsigned int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
 	ident.name     = iceString(QString::number(id));
@@ -623,12 +647,11 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > &qmAll =
-		qmServerContextCallbacks;
-	if (!qmAll.contains(s->iServerNum))
+	if (!qmServerContextCallbacks.contains(s->iServerNum))
 		return;
 
-	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer = qmAll[s->iServerNum];
+	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer =
+		qmServerContextCallbacks[s->iServerNum];
 	if (!qmServer.contains(static_cast< int >(pSrc->uiSession)))
 		return;
 
@@ -844,13 +867,13 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	return iopServer;
 }
 
-#define FIND_SERVER ::Server *server = meta->qhServers.value(server_id);
+#define FIND_SERVER ::Server *server = meta->qhServers.value(static_cast< unsigned int >(server_id));
 
-#define NEED_SERVER_EXISTS                                                     \
-	FIND_SERVER                                                                \
-	if (!server && !ServerDB::serverExists(server_id)) {                       \
-		cb->ice_exception(::Ice::ObjectNotExistException(__FILE__, __LINE__)); \
-		return;                                                                \
+#define NEED_SERVER_EXISTS                                                                  \
+	FIND_SERVER                                                                             \
+	if (!server && !meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id))) { \
+		cb->ice_exception(::Ice::ObjectNotExistException(__FILE__, __LINE__));              \
+		return;                                                                             \
 	}
 
 #define NEED_SERVER                                 \
@@ -878,10 +901,16 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	::Channel *channel; \
 	NEED_CHANNEL_VAR(channel, channelid);
 
+#define REQUIRE_EXISTING_LISTENER(user, channel)                       \
+	if (!server->channelListenerExists(*user, *channel)) {             \
+		cb->ice_exception(::MumbleServer::InvalidListenerException()); \
+		return;                                                        \
+	}
+
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
 	int server_id = u8(current.id.name).toInt();
-	if (!ServerDB::serverExists(server_id))
+	if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(server_id)))
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
 
@@ -895,7 +924,7 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 	NEED_SERVER_EXISTS;
 	if (server)
 		cb->ice_exception(ServerBootedException());
-	else if (!meta->boot(server_id))
+	else if (!meta->boot(::Meta::getConnectionParameter(), static_cast< unsigned int >(server_id)))
 		cb->ice_exception(ServerFailureException());
 	else
 		cb->ice_response();
@@ -903,7 +932,7 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 
 static void impl_Server_stop(const ::MumbleServer::AMD_Server_stopPtr cb, int server_id) {
 	NEED_SERVER;
-	meta->kill(server_id);
+	meta->kill(static_cast< unsigned int >(server_id));
 	cb->ice_response();
 }
 
@@ -913,7 +942,7 @@ static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, in
 		cb->ice_exception(ServerBootedException());
 		return;
 	}
-	ServerDB::deleteServer(server_id);
+	meta->dbWrapper.removeServer(static_cast< unsigned int >(server_id));
 	cb->ice_response();
 }
 
@@ -983,10 +1012,13 @@ static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server
 static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, int server_id,
 								const ::std::string &key) {
 	NEED_SERVER_EXISTS;
-	if (key == "key" || key == "passphrase")
+	if (key == "key" || key == "passphrase") {
 		cb->ice_exception(WriteOnlyException());
-	else
-		cb->ice_response(iceString(ServerDB::getConf(server_id, u8(key)).toString()));
+	} else {
+		std::string conf;
+		server->m_dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key, conf);
+		cb->ice_response(iceString(conf));
+	}
 }
 
 #define ACCESS_Server_getAllConf_READ
@@ -995,12 +1027,14 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 
 	::MumbleServer::ConfigMap cm;
 
-	QMap< QString, QString > values = ServerDB::getAllConf(server_id);
-	QMap< QString, QString >::const_iterator i;
-	for (i = values.constBegin(); i != values.constEnd(); ++i) {
-		if (i.key() == "key" || i.key() == "passphrase")
+	std::vector< std::pair< std::string, std::string > > configs =
+		server->m_dbWrapper.getAllConfigurations(static_cast< unsigned int >(server_id));
+	for (const std::pair< std::string, std::string > &currentConf : configs) {
+		if (currentConf.first == "key" || currentConf.first == "passphrase") {
 			continue;
-		cm[iceString(i.key())] = iceString(i.value());
+		}
+
+		cm[iceString(currentConf.first)] = iceString(currentConf.second);
 	}
 	cb->ice_response(cm);
 }
@@ -1008,20 +1042,20 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, int server_id, const ::std::string &key,
 								const ::std::string &value) {
 	NEED_SERVER_EXISTS;
-	QString k = u8(key);
-	QString v = u8(value);
-	ServerDB::setConf(server_id, k, v);
-	if (server) {
+	server->m_dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key, value);
+
+	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
-		server->setLiveConf(k, v);
+		server->setLiveConf(u8(key), u8(value));
 	}
+
 	cb->ice_response();
 }
 
 static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_setSuperuserPasswordPtr cb, int server_id,
 											 const ::std::string &pw) {
 	NEED_SERVER_EXISTS;
-	ServerDB::setSUPW(server_id, u8(pw));
+	server->m_dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw);
 	cb->ice_response();
 }
 
@@ -1032,12 +1066,12 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 
 	::MumbleServer::LogList ll;
 
-	QList< ServerDB::LogRecord > dblog =
-		ServerDB::getLog(server_id, static_cast< unsigned int >(min), static_cast< unsigned int >(max));
-	foreach (const ServerDB::LogRecord &e, dblog) {
-		::MumbleServer::LogEntry entry;
-		logToLog(e, entry);
-		ll.push_back(std::move(entry));
+	std::vector< mumble::server::db::DBLogEntry > dblog = server->m_dbWrapper.getLogs(
+		static_cast< unsigned int >(server_id), static_cast< unsigned int >(min), max - min);
+	for (const mumble::server::db::DBLogEntry &entry : dblog) {
+		::MumbleServer::LogEntry le;
+		logToLog(entry, le);
+		ll.push_back(le);
 	}
 	cb->ice_response(ll);
 }
@@ -1046,8 +1080,8 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 static void impl_Server_getLogLen(const ::MumbleServer::AMD_Server_getLogLenPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
 
-	int len = ServerDB::getLogLen(server_id);
-	cb->ice_response(len);
+	std::size_t len = server->m_dbWrapper.getLogSize(static_cast< unsigned int >(server_id));
+	cb->ice_response(static_cast< Ice::Int >(len));
 }
 
 #define ACCESS_Server_getUsers_READ
@@ -1137,7 +1171,7 @@ static void impl_Server_getCertificateList(const ::MumbleServer::AMD_Server_getC
 static void impl_Server_getBans(const ::MumbleServer::AMD_Server_getBansPtr cb, int server_id) {
 	NEED_SERVER;
 	::MumbleServer::BanList bl;
-	foreach (const ::Ban &ban, server->qlBans) {
+	for (const ::Ban &ban : server->m_bans) {
 		::MumbleServer::Ban mb;
 		banToBan(ban, mb);
 		bl.push_back(mb);
@@ -1150,15 +1184,15 @@ static void impl_Server_setBans(const ::MumbleServer::AMD_Server_setBansPtr cb, 
 	NEED_SERVER;
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
-		server->qlBans.clear();
+		server->m_bans.clear();
 		foreach (const ::MumbleServer::Ban &mb, bans) {
 			::Ban ban;
 			banToBan(mb, ban);
-			server->qlBans << ban;
+			server->m_bans.push_back(std::move(ban));
 		}
 	}
 
-	server->saveBans();
+	server->m_dbWrapper.saveBans(server->iServerNum, server->m_bans);
 
 	cb->ice_response();
 }
@@ -1377,8 +1411,10 @@ static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPt
 
 	QString qsName = u8(name);
 
-	nc = server->addChannel(p, qsName);
-	server->updateChannel(nc);
+	nc = server->createNewChannel(p, qsName);
+	if (!nc->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *nc);
+	}
 
 	unsigned int newid = nc->iId;
 
@@ -1512,7 +1548,9 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	}
 
 	server->clearACLCache();
-	server->updateChannel(channel);
+	if (!channel->bTemporary) {
+		server->m_dbWrapper.updateChannelData(server->iServerNum, *channel);
+	}
 	cb->ice_response();
 }
 
@@ -1521,7 +1559,9 @@ static void impl_Server_getUserNames(const ::MumbleServer::AMD_Server_getUserNam
 									 const ::MumbleServer::IdList &ids) {
 	NEED_SERVER;
 	::MumbleServer::NameMap nm;
-	foreach (int userid, ids) { nm[userid] = iceString(server->getUserName(userid)); }
+	for (int userid : ids) {
+		nm[userid] = iceString(server->getRegisteredUserName(userid));
+	}
 	cb->ice_response(nm);
 }
 
@@ -1532,7 +1572,7 @@ static void impl_Server_getUserIds(const ::MumbleServer::AMD_Server_getUserIdsPt
 	::MumbleServer::IdMap im;
 	foreach (const string &n, names) {
 		QString name = u8(n);
-		im[n]        = server->getUserID(name);
+		im[n]        = server->getRegisteredUserID(name);
 	}
 	cb->ice_response(im);
 }
@@ -1541,7 +1581,7 @@ static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUs
 									 const ::MumbleServer::UserInfoMap &im) {
 	NEED_SERVER;
 
-	QMap< int, QString > info;
+	ServerUserInfo info;
 	infoToInfo(im, info);
 
 	int userid = server->registerUser(info);
@@ -1569,7 +1609,7 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 										   int id, const ::MumbleServer::UserInfoMap &im) {
 	NEED_SERVER;
 
-	if (!server->isUserId(id)) {
+	if (server->getRegisteredUserName(id).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
@@ -1577,16 +1617,16 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 	QMap< int, QString > info;
 	infoToInfo(im, info);
 
-	if (!server->setInfo(id, info)) {
+	if (!server->setUserProperties(id, info)) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
-	if (info.contains(ServerDB::User_Comment)) {
+	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Comment))) {
 		foreach (ServerUser *u, server->qhUsers) {
 			if (u->iId == id)
 				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, u->qsName,
-									 info.value(ServerDB::User_Comment));
+									 info.value(static_cast< int >(::mumble::server::db::UserProperty::Comment)));
 		}
 	}
 
@@ -1598,7 +1638,7 @@ static void impl_Server_getRegistration(const ::MumbleServer::AMD_Server_getRegi
 										::Ice::Int userid) {
 	NEED_SERVER;
 
-	QMap< int, QString > info = server->getRegistration(userid);
+	QMap< int, QString > info = server->getUserProperties(userid);
 
 	if (info.isEmpty()) {
 		cb->ice_exception(InvalidUserException());
@@ -1616,10 +1656,9 @@ static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getR
 	NEED_SERVER;
 	MumbleServer::NameMap rpl;
 
-	const QMap< int, QString > l = server->getRegisteredUsers(u8(filter));
-	QMap< int, QString >::const_iterator i;
-	for (i = l.constBegin(); i != l.constEnd(); ++i) {
-		rpl[i.key()] = u8(i.value());
+	const std::vector<::UserInfo > l = server->getAllRegisteredUserProperties(u8(filter));
+	for (const ::UserInfo &info : l) {
+		rpl[info.user_id] = u8(info.name);
 	}
 
 	cb->ice_response(rpl);
@@ -1638,12 +1677,12 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 								   ::Ice::Int userid) {
 	NEED_SERVER;
 
-	if (!server->isUserId(userid)) {
+	if (!server->getRegisteredUserName(userid).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
-	const QByteArray &qba = server->getUserTexture(userid);
+	const QByteArray &qba = server->getTexture(userid);
 
 	::MumbleServer::Texture tex;
 	tex.resize(static_cast< std::size_t >(qba.size()));
@@ -1658,7 +1697,7 @@ static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePt
 								   const ::MumbleServer::Texture &tex) {
 	NEED_SERVER;
 
-	if (!server->isUserId(userid)) {
+	if (!server->getRegisteredUserName(userid).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
@@ -1668,7 +1707,9 @@ static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePt
 	for (unsigned int i = 0; i < tex.size(); ++i)
 		ptr[i] = static_cast< char >(tex[i]);
 
-	if (!server->setTexture(userid, qba)) {
+	ServerUserInfo info;
+	info.iId = userid;
+	if (!server->storeTexture(info, qba)) {
 		cb->ice_exception(InvalidTextureException());
 	} else {
 		ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(userid));
@@ -1731,9 +1772,9 @@ static void impl_Server_updateCertificate(const ::MumbleServer::AMD_Server_updat
 	// All our sanity checks passed.
 	// The certificate and private key are usable, so
 	// update the server to use them.
-	server->setConf("certificate", u8(certificate));
-	server->setConf("key", u8(privateKey));
-	server->setConf("passphrase", u8(passphrase));
+	server->m_dbWrapper.setConfiguration(server->iServerNum, "certificate", u8(certificate).toStdString());
+	server->m_dbWrapper.setConfiguration(server->iServerNum, "key", u8(privateKey).toStdString());
+	server->m_dbWrapper.setConfiguration(server->iServerNum, "passphrase", u8(passphrase).toStdString());
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
 		server->initializeCert();
@@ -1827,6 +1868,7 @@ static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Se
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
+	REQUIRE_EXISTING_LISTENER(user, channel);
 
 	server->setListenerVolumeAdjustment(user, channel, VolumeAdjustment::fromFactor(volumeAdjustment));
 
@@ -1919,15 +1961,15 @@ static void impl_Meta_getSliceChecksums(const ::MumbleServer::AMD_Meta_getSliceC
 #define ACCESS_Meta_getServer_READ
 static void impl_Meta_getServer(const ::MumbleServer::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter,
 								::Ice::Int id) {
-	QList< int > server_list = ServerDB::getAllServers();
-	if (!server_list.contains(id))
+	if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(id))) {
 		cb->ice_response(nullptr);
-	else
-		cb->ice_response(idToProxy(id, adapter));
+	} else {
+		cb->ice_response(idToProxy(static_cast< unsigned int >(id), adapter));
+	}
 }
 
 static void impl_Meta_newServer(const ::MumbleServer::AMD_Meta_newServerPtr cb, const Ice::ObjectAdapterPtr adapter) {
-	cb->ice_response(idToProxy(ServerDB::addServer(), adapter));
+	cb->ice_response(idToProxy(meta->dbWrapper.addServer(), adapter));
 }
 
 #define ACCESS_Meta_getAllServers_READ
@@ -1935,8 +1977,9 @@ static void impl_Meta_getAllServers(const ::MumbleServer::AMD_Meta_getAllServers
 									const Ice::ObjectAdapterPtr adapter) {
 	::MumbleServer::ServerList sl;
 
-	foreach (int id, ServerDB::getAllServers())
+	for (unsigned int id : meta->dbWrapper.getAllServers()) {
 		sl.push_back(idToProxy(id, adapter));
+	}
 	cb->ice_response(sl);
 }
 
@@ -1957,7 +2000,7 @@ static void impl_Meta_getBootedServers(const ::MumbleServer::AMD_Meta_getBootedS
 									   const Ice::ObjectAdapterPtr adapter) {
 	::MumbleServer::ServerList sl;
 
-	foreach (int id, meta->qhServers.keys())
+	foreach (unsigned int id, meta->qhServers.keys())
 		sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }
