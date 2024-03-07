@@ -23,7 +23,7 @@
 
 namespace soci {
 class session;
-};
+}
 
 class QByteArray;
 

@@ -15,7 +15,7 @@
 
 namespace soci {
 class session;
-};
+}
 
 namespace mumble {
 namespace server {

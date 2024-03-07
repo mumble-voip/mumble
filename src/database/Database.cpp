@@ -45,7 +45,7 @@ namespace db {
 		bool operator()(const std::unique_ptr< Table > &ptr) { return ptr && ptr->getName() == name; }
 	};
 
-	Database::Database(Backend backend) : m_backend(backend){};
+	Database::Database(Backend backend) : m_backend(backend){}
 
 	void Database::init(const ConnectionParameter &parameter) {
 		assert(parameter.applicability() == m_backend);
