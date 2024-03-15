@@ -117,7 +117,7 @@ module MumbleServer
 		IntList links;
 		/** Description of channel. Shown as tooltip for this channel. */
 		string description;
-		/** Channel is temporary, and will be removed when the last user leaves it. */
+		/** Channel is temporary, and will be removed when the last user leaves it. Read-only. */
 		bool temporary;
 		/** Position of the channel which is used in Client for sorting. */
 		int position;
