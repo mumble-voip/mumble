@@ -749,7 +749,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="qrbNoiseSupRNNoise">
+            <widget class="QRadioButton" name="qrbNoiseSupReNameNoise">
              <property name="toolTip">
               <string>Use the noise suppression algorithm provided by RNNoise.</string>
              </property>
