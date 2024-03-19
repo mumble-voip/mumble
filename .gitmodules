@@ -7,9 +7,6 @@
 [submodule "3rdparty/speexdsp"]
 	path = 3rdparty/speexdsp
 	url = https://github.com/xiph/speexdsp.git
-[submodule "3rdparty/rnnoise-src"]
-	path = 3rdparty/rnnoise-src
-	url = https://github.com/mumble-voip/rnnoise.git
 [submodule "3rdparty/FindPythonInterpreter"]
 	path = 3rdparty/FindPythonInterpreter
 	url = https://github.com/Krzmbrzl/FindPythonInterpreter.git
@@ -28,3 +25,6 @@
 [submodule "3rdparty/cmake-compiler-flags"]
 	path = 3rdparty/cmake-compiler-flags
 	url = https://github.com/Krzmbrzl/cmake-compiler-flags.git
+[submodule "3rdparty/renamenoise"]
+	path = 3rdparty/renamenoise
+	url = https://github.com/mumble-voip/ReNameNoise.git

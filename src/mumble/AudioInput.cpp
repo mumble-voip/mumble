@@ -20,9 +20,9 @@
 
 #include <opus.h>
 
-#ifdef USE_RNNOISE
+#ifdef USE_RENAMENOISE
 extern "C" {
-#	include "rnnoise.h"
+#	include "renamenoise.h"
 }
 #endif
 
@@ -30,14 +30,6 @@ extern "C" {
 #include <cassert>
 #include <exception>
 #include <limits>
-
-#ifdef USE_RNNOISE
-/// Clip the given float value to a range that can be safely converted into a short (without causing integer overflow)
-static short clampFloatSample(float v) {
-	return static_cast< short >(std::min(std::max(v, static_cast< float >(std::numeric_limits< short >::min())),
-										 static_cast< float >(std::numeric_limits< short >::max())));
-}
-#endif
 
 void Resynchronizer::addMic(short *mic) {
 	bool drop = false;
@@ -245,8 +237,8 @@ AudioInput::AudioInput()
 
 	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 
-#ifdef USE_RNNOISE
-	denoiseState = rnnoise_create(nullptr);
+#ifdef USE_RENAMENOISE
+	denoiseState = renamenoise_create(nullptr);
 #endif
 
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
@@ -298,9 +290,9 @@ AudioInput::~AudioInput() {
 		opus_encoder_destroy(opusState);
 	}
 
-#ifdef USE_RNNOISE
+#ifdef USE_RENAMENOISE
 	if (denoiseState) {
-		rnnoise_destroy(denoiseState);
+		renamenoise_destroy(denoiseState);
 	}
 #endif
 
@@ -816,13 +808,13 @@ void AudioInput::selectNoiseCancel() {
 	noiseCancel = Global::get().s.noiseCancelMode;
 
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
-#ifdef USE_RNNOISE
+#ifdef USE_RENAMENOISE
 		if (!denoiseState || iFrameSize != 480) {
-			qWarning("AudioInput: Ignoring request to enable RNNoise: internal error");
+			qWarning("AudioInput: Ignoring request to enable ReNameNoise: internal error");
 			noiseCancel = Settings::NoiseCancelSpeex;
 		}
 #else
-		qWarning("AudioInput: Ignoring request to enable RNNoise: Mumble was built without support for it");
+		qWarning("AudioInput: Ignoring request to enable ReNameNoise: Mumble was built without support for it");
 		noiseCancel = Settings::NoiseCancelSpeex;
 #endif
 	}
@@ -837,11 +829,11 @@ void AudioInput::selectNoiseCancel() {
 			iArg = 1;
 			break;
 		case Settings::NoiseCancelRNN:
-			qWarning("AudioInput: Using RNNoise as noise canceller");
+			qWarning("AudioInput: Using ReNameNoise as noise canceller");
 			break;
 		case Settings::NoiseCancelBoth:
 			iArg = 1;
-			qWarning("AudioInput: Using RNNoise and Speex as noise canceller");
+			qWarning("AudioInput: Using ReNameNoise and Speex as noise canceller");
 			break;
 	}
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
@@ -918,19 +910,15 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		psSource = chunk.mic;
 	}
 
-#ifdef USE_RNNOISE
-	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
+#ifdef USE_RENAMENOISE
+	// At the time of writing this code, ReNameNoise only supports a sample rate of 48000 Hz.
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 		float denoiseFrames[480];
 		for (unsigned int i = 0; i < 480; i++) {
 			denoiseFrames[i] = psSource[i];
 		}
 
-		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
-
-		for (unsigned int i = 0; i < 480; i++) {
-			psSource[i] = clampFloatSample(denoiseFrames[i]);
-		}
+		renamenoise_process_frame_clamped(denoiseState, psSource, denoiseFrames);
 	}
 #endif
 
