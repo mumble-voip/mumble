@@ -158,8 +158,11 @@ PipeWireSystem::PipeWireSystem() : m_ok(false), m_users(0) {
 	RESOLVE(pw_thread_loop_destroy);
 	RESOLVE(pw_thread_loop_start);
 	RESOLVE(pw_thread_loop_stop);
+	RESOLVE(pw_thread_loop_lock);
+	RESOLVE(pw_thread_loop_unlock);
 	RESOLVE(pw_properties_new);
 	RESOLVE(pw_stream_new_simple);
+	RESOLVE(pw_stream_set_active);
 	RESOLVE(pw_stream_destroy);
 	RESOLVE(pw_stream_connect);
 	RESOLVE(pw_stream_dequeue_buffer);
@@ -308,6 +311,11 @@ void PipeWireEngine::queueBuffer(pw_buffer *buffer) {
 	}
 }
 
+void PipeWireEngine::setActive(const bool active) {
+	pws->pw_thread_loop_lock(m_thread);
+	pws->pw_stream_set_active(m_stream, active);
+	pws->pw_thread_loop_unlock(m_thread);
+}
 PipeWireInput::PipeWireInput() {
 	m_engine = std::make_unique< PipeWireEngine >("Capture", this, processCallback);
 	if (!m_engine->isOk()) {
@@ -355,6 +363,14 @@ void PipeWireInput::processCallback(void *param) {
 }
 
 void PipeWireInput::run() {
+}
+void PipeWireInput::onUserMutedChanged() {
+	if (bUserIsMuted && Global::get().s.bTxMuteCue) {
+		// Do not disable the stream if mute cue is enabled (otherwise mute cue will not work).
+		return;
+	}
+
+	m_engine->setActive(!bUserIsMuted);
 }
 
 PipeWireOutput::PipeWireOutput() {
