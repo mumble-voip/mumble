@@ -257,6 +257,8 @@ AudioInput::AudioInput()
 	iHoldFrames     = 0;
 	iBufferedFrames = 0;
 
+	bUserIsMuted = false;
+
 	bResetProcessor = true;
 
 	bEchoMulti = false;
@@ -1240,4 +1242,20 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32
 
 bool AudioInput::isAlive() const {
 	return isRunning();
+}
+
+void AudioInput::onUserMuteDeafStateChanged() {
+	const ClientUser *user = qobject_cast< ClientUser * >(QObject::sender());
+	updateUserMuteDeafState(user);
+}
+
+void AudioInput::updateUserMuteDeafState(const ClientUser *user) {
+	bool bMuted = user->bSuppress || user->bSelfMute;
+	if (bUserIsMuted != bMuted) {
+		bUserIsMuted = bMuted;
+		onUserMutedChanged();
+	}
+}
+
+void AudioInput::onUserMutedChanged() {
 }
