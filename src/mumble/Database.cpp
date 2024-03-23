@@ -5,6 +5,7 @@
 
 #include "Database.h"
 
+#include "EnvUtils.h"
 #include "MumbleApplication.h"
 #include "Net.h"
 #include "Utils.h"
@@ -47,7 +48,12 @@ bool Database::findOrCreateDatabase() {
 	datapaths << Global::get().qdBasePath.absolutePath();
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
-	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
+	QString configDirectory = EnvUtils::getenv(QLatin1String("XDG_CONFIG_HOME"));
+	if (configDirectory.isEmpty()) {
+		configDirectory = QDir::homePath() + QLatin1String("/.config");
+	}
+	configDirectory += QLatin1String("/Mumble");
+	datapaths << configDirectory;
 #endif
 	datapaths << QDir::homePath();
 	datapaths << QDir::currentPath();
