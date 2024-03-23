@@ -93,9 +93,9 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	// Hide the slider by default
 	showSpeexNoiseSuppressionSlider(false);
 
-#ifndef USE_RNNOISE
-	// Hide options related to RNNoise
-	qrbNoiseSupRNNoise->setVisible(false);
+#ifndef USE_RENAMENOISE
+	// Hide options related to ReNameNoise
+	qrbNoiseSupReNameNoise->setVisible(false);
 	qrbNoiseSupBoth->setVisible(false);
 #endif
 }
@@ -160,12 +160,12 @@ void AudioInputDialog::load(const Settings &r) {
 		loadSlider(qsSpeexNoiseSupStrength, 14);
 	}
 
-	bool allowRNNoise = SAMPLE_RATE == 48000;
+	bool allowReNameNoise = SAMPLE_RATE == 48000;
 
-	if (!allowRNNoise) {
+	if (!allowReNameNoise) {
 		const QString tooltip = QObject::tr("RNNoise is not available due to a sample rate mismatch.");
-		qrbNoiseSupRNNoise->setEnabled(false);
-		qrbNoiseSupRNNoise->setToolTip(tooltip);
+		qrbNoiseSupReNameNoise->setEnabled(false);
+		qrbNoiseSupReNameNoise->setToolTip(tooltip);
 		qrbNoiseSupBoth->setEnabled(false);
 		qrbNoiseSupBoth->setToolTip(tooltip);
 	}
@@ -178,9 +178,9 @@ void AudioInputDialog::load(const Settings &r) {
 			loadCheckBox(qrbNoiseSupSpeex, true);
 			break;
 		case Settings::NoiseCancelRNN:
-#ifdef USE_RNNOISE
-			if (allowRNNoise) {
-				loadCheckBox(qrbNoiseSupRNNoise, true);
+#ifdef USE_RENAMENOISE
+			if (allowReNameNoise) {
+				loadCheckBox(qrbNoiseSupReNameNoise, true);
 			} else {
 				// We have to switch to speex as a fallback
 				loadCheckBox(qrbNoiseSupSpeex, true);
@@ -191,8 +191,8 @@ void AudioInputDialog::load(const Settings &r) {
 #endif
 			break;
 		case Settings::NoiseCancelBoth:
-#ifdef USE_RNNOISE
-			if (allowRNNoise) {
+#ifdef USE_RENAMENOISE
+			if (allowReNameNoise) {
 				loadCheckBox(qrbNoiseSupBoth, true);
 			} else {
 				// We have to switch to speex as a fallback
@@ -250,7 +250,7 @@ void AudioInputDialog::save() const {
 		s.noiseCancelMode = Settings::NoiseCancelOff;
 	} else if (qrbNoiseSupBoth->isChecked()) {
 		s.noiseCancelMode = Settings::NoiseCancelBoth;
-	} else if (qrbNoiseSupRNNoise->isChecked()) {
+	} else if (qrbNoiseSupReNameNoise->isChecked()) {
 		s.noiseCancelMode = Settings::NoiseCancelRNN;
 	} else {
 		s.noiseCancelMode = Settings::NoiseCancelSpeex;
