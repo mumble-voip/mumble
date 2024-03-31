@@ -4936,15 +4936,15 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> seconden</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Wanneer ingeschakeld, zullen gebruikers altijd zichtbaar zijn in de sprekersweergave (ongeacht of ze spreken of niet).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikers altijd zichtbaar houden</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
@@ -6748,32 +6748,32 @@ Valid options are:
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Met een server verbinden</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dit zal het connectie-venster openen om met een server te verbinden</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Verbreek verbinding met server</translation>
+        <translation>Verbinding met server verbreken</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dit zal je verbinding met de server verbreken</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Server-informatie weergeven</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dit zal informatie tonen over de verbinding met de server</translation>
     </message>
     <message>
         <source>Open server tokens</source>
