@@ -6861,12 +6861,12 @@ Gültige Optionen sind:
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Prioritätslautsprecher umschalten</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Damit wird der Prioritätslautsprecher aktiviert/deaktiviert</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
@@ -6907,7 +6907,7 @@ Gültige Optionen sind:
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Auf dem Server registrieren</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
@@ -6952,11 +6952,11 @@ Gültige Optionen sind:
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Text-in-Sprache umschalten</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Damit wird Text-in-Sprache aktiviert/deaktiviert</translation>
     </message>
     <message>
         <source>Open about dialog</source>
