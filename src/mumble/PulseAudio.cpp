@@ -879,14 +879,14 @@ void PulseAudioSystem::setVolumes() {
 void PulseAudioSystem::contextCallback(pa_context *c) {
 	Q_ASSERT(c == pacContext);
 	switch (m_pulseAudio.context_get_state(c)) {
-		case PA_CONTEXT_READY:
+		case PA_CONTEXT_READY: {
 			bPulseIsGood = true;
-			m_pulseAudio.operation_unref(
-				m_pulseAudio.context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, nullptr, this));
-			m_pulseAudio.operation_unref(
-				m_pulseAudio.context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, nullptr, this));
+			const auto mask =
+				static_cast< pa_subscription_mask_t >(PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SOURCE);
+			m_pulseAudio.operation_unref(m_pulseAudio.context_subscribe(pacContext, mask, nullptr, this));
 			query();
 			break;
+		}
 		case PA_CONTEXT_TERMINATED:
 			qWarning("PulseAudio: Forcibly disconnected from PulseAudio");
 			break;
