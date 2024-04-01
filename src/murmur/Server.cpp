@@ -1230,6 +1230,14 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		} else {
 			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
 
+			const unsigned int uiSession = u->uiSession;
+			qrwlVoiceThread.unlock();
+			qrwlVoiceThread.lockForWrite();
+
+			if (!qhUsers.contains(uiSession)) {
+				return;
+			}
+
 			const WhisperTarget &wt = u->qmTargets.value(static_cast< int >(audioData.targetOrContext));
 			if (!wt.qlChannels.isEmpty()) {
 				QMutexLocker qml(&qmCache);
@@ -1302,13 +1310,9 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 				}
 			}
 
-			unsigned int uiSession = u->uiSession;
-			qrwlVoiceThread.unlock();
-			qrwlVoiceThread.lockForWrite();
+			u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext),
+									{ channel, direct, cachedListeners });
 
-			if (qhUsers.contains(uiSession))
-				u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext),
-										{ channel, direct, cachedListeners });
 			qrwlVoiceThread.unlock();
 			qrwlVoiceThread.lockForRead();
 			if (!qhUsers.contains(uiSession))
