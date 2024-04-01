@@ -352,7 +352,7 @@ static IMMDevice *openNamedOrDefaultDevice(const QString &name, EDataFlow dataFl
 	IMMDevice *pDevice = nullptr;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
-		static std::vector< wchar_t > devname;
+		std::vector< wchar_t > devname;
 		devname.resize(name.length() + 1);
 		int len      = name.toWCharArray(devname.data());
 		devname[len] = 0;
