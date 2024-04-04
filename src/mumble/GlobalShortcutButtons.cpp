@@ -10,6 +10,8 @@
 
 #include "Global.h"
 
+#include <QTimer>
+
 GlobalShortcutButtons::GlobalShortcutButtons(QWidget *parent) : QDialog(parent), m_ui(new Ui::GlobalShortcutButtons) {
 	m_ui->setupUi(this);
 
@@ -50,6 +52,16 @@ void GlobalShortcutButtons::setButtons(const QList< QVariant > &buttons) {
 	}
 
 	adjustSize();
+
+	// Without this the new dialog window will not be focused and the
+	// shortcut edit dialog is closed when TAB is pressed...
+	// Due to Qt action processing weirdness the timer is needed, otherwise
+	// the call has no effect.
+	if (buttons.isEmpty()) {
+		QTimer::singleShot(0, [&]() { m_ui->addButton->setFocus(Qt::TabFocusReason); });
+	} else {
+		QTimer::singleShot(0, [&]() { m_ui->buttonTree->setFocus(Qt::TabFocusReason); });
+	}
 }
 
 void GlobalShortcutButtons::addItem(const QVariant &button) {
@@ -93,10 +105,12 @@ void GlobalShortcutButtons::toggleCapture(const bool enabled) {
 		GlobalShortcutEngine::engine->resetMap();
 		connect(GlobalShortcutEngine::engine, &GlobalShortcutEngine::buttonPressed, this,
 				&GlobalShortcutButtons::updateButtons);
+		m_ui->addButton->setText(QObject::tr("Listening for input"));
 	} else {
 		disconnect(GlobalShortcutEngine::engine, &GlobalShortcutEngine::buttonPressed, this,
 				   &GlobalShortcutButtons::updateButtons);
 		removeEventFilter(this);
+		m_ui->addButton->setText(QObject::tr("Add"));
 	}
 }
 

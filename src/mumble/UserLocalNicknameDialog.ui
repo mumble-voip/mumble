@@ -44,6 +44,9 @@
      <property name="whatsThis">
       <string>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</string>
      </property>
+     <property name="accessibleName">
+      <string>User nickname</string>
+     </property>
     </widget>
    </item>
   </layout>

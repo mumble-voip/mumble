@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Mumble Server Connect</string>
   </property>
+  <property name="accessibleDescription">
+   <string>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="qdbbButtonBox">
@@ -25,6 +28,12 @@
     <widget class="ServerView" name="qtwServers">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="accessibleName">
+      <string>Server list</string>
+     </property>
+     <property name="accessibleDescription">
+      <string>The server list contains your favorites and all publicly listed servers.</string>
      </property>
      <property name="dragEnabled">
       <bool>true</bool>
@@ -72,6 +81,9 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="accessibleDescription">
+      <string>With this search interface you can filter the Mumble servers displayed in the server list.</string>
+     </property>
      <property name="title">
       <string>Search</string>
      </property>
@@ -81,10 +93,16 @@
         <property name="text">
          <string>Servername</string>
         </property>
+        <property name="buddy">
+         <cstring>qleSearchServername</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QLineEdit" name="qleSearchServername">
+        <property name="accessibleName">
+         <string>Search for servername</string>
+        </property>
         <property name="placeholderText">
          <string>Servername</string>
         </property>
@@ -95,15 +113,25 @@
         <property name="text">
          <string>Location</string>
         </property>
+        <property name="buddy">
+         <cstring>qcbSearchLocation</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QComboBox" name="qcbSearchLocation"/>
+       <widget class="QComboBox" name="qcbSearchLocation">
+        <property name="accessibleName">
+         <string>Search for location</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="qlFilter">
         <property name="text">
          <string>Filter</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbFilter</cstring>
         </property>
        </widget>
       </item>
@@ -111,6 +139,9 @@
        <widget class="QComboBox" name="qcbFilter">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="accessibleName">
+         <string>Set filter mode</string>
         </property>
         <item>
          <property name="text">

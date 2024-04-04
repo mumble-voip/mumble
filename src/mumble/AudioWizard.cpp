@@ -5,6 +5,7 @@
 
 #include "AudioWizard.h"
 
+#include "Accessibility.h"
 #include "AudioInput.h"
 #include "AudioOutputToken.h"
 #include "Log.h"
@@ -29,13 +30,15 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	setupUi(this);
 
-	qcbInput->setAccessibleName(tr("Input system"));
-	qcbInputDevice->setAccessibleName(tr("Input device"));
-	qcbOutput->setAccessibleName(tr("Output system"));
-	qcbOutputDevice->setAccessibleName(tr("Output device"));
-	qsOutputDelay->setAccessibleName(tr("Output delay"));
-	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
-	qsVAD->setAccessibleName(tr("VAD level"));
+	Mumble::Accessibility::fixWizardButtonLabels(this);
+
+	Mumble::Accessibility::setDescriptionFromLabel(qgbInput, qliInputText);
+	Mumble::Accessibility::setDescriptionFromLabel(qgbOutput, qliOutputText);
+
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityLow, qlQualityLow);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityBalanced, qlQualityBalanced);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityUltra, qlQualityUltra);
+	Mumble::Accessibility::setDescriptionFromLabel(qrbQualityCustom, qlQualityCustom);
 
 	// Done
 	qcbUsage->setChecked(Global::get().s.bUsage);
@@ -190,6 +193,9 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	ticker->setSingleShot(false);
 	ticker->start(20);
+
+	m_overrideFilter = new OverrideTabOrderFilter(this, this);
+	installEventFilter(m_overrideFilter);
 }
 
 bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
@@ -290,10 +296,14 @@ void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1 ms").arg(v * 10));
 	Global::get().s.iOutputDelay = v;
 	restartAudio(true);
+
+	Mumble::Accessibility::setSliderSemanticValue(qsOutputDelay, QString("%1 %2").arg(v * 10).arg("milliseconds"));
 }
 
 void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
 	Global::get().s.iMinLoudness = qMin(v, 30000);
+
+	Mumble::Accessibility::setSliderSemanticValue(qsMaxAmp, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioWizard::showPage(int pageid) {
@@ -339,6 +349,16 @@ void AudioWizard::showPage(int pageid) {
 			Global::get().s.atTransmit = Settings::VAD;
 	} else {
 		Global::get().s.atTransmit = Settings::Continuous;
+	}
+
+	setFocus(Qt::ActiveWindowFocusReason);
+
+	QWidget *selectedWidget = Mumble::Accessibility::getFirstFocusableChild(currentPage());
+
+	if (selectedWidget) {
+		m_overrideFilter->focusTarget = selectedWidget;
+	} else {
+		m_overrideFilter->focusTarget = button(QWizard::NextButton);
 	}
 }
 
@@ -581,6 +601,10 @@ void AudioWizard::on_qsVAD_valueChanged(int v) {
 		Global::get().s.fVADmax = static_cast< float >(v) / 32767.0f;
 		Global::get().s.fVADmin = Global::get().s.fVADmax * 0.9f;
 	}
+
+	Mumble::Accessibility::setSliderSemanticValue(qsVAD, QString("%2 - %3")
+															 .arg(QString::number(Global::get().s.fVADmin, 'f', 2))
+															 .arg(QString::number(Global::get().s.fVADmax, 'f', 2)));
 }
 
 void AudioWizard::on_qrSNR_clicked(bool on) {

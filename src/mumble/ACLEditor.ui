@@ -16,10 +16,16 @@
   <layout class="QVBoxLayout">
    <item>
     <widget class="QTabWidget" name="qtwTab">
+     <property name="accessibleName">
+      <string>Maximum Users</string>
+     </property>
      <property name="currentIndex">
       <number>1</number>
      </property>
      <widget class="QWidget" name="qwChannel">
+      <property name="accessibleName">
+       <string>Properties</string>
+      </property>
       <attribute name="title">
        <string>&amp;Properties</string>
       </attribute>
@@ -32,6 +38,9 @@
          <property name="text">
           <string>Password</string>
          </property>
+         <property name="buddy">
+          <cstring>qleChannelPassword</cstring>
+         </property>
         </widget>
        </item>
        <item row="6" column="1">
@@ -42,12 +51,18 @@
          <property name="whatsThis">
           <string>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble's access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</string>
          </property>
+         <property name="accessibleName">
+          <string>Channel password</string>
+         </property>
         </widget>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="qlChannelPosition">
          <property name="text">
           <string>Position</string>
+         </property>
+         <property name="buddy">
+          <cstring>qsbChannelPosition</cstring>
          </property>
         </widget>
        </item>
@@ -66,6 +81,9 @@
           <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
          </property>
+         <property name="accessibleName">
+          <string>Channel position</string>
+         </property>
          <property name="maximum">
           <number>99</number>
          </property>
@@ -75,6 +93,9 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <widget class="QLabel" name="qlChannelMaxUsers">
          <property name="text">
           <string>Maximum Users</string>
+         </property>
+         <property name="buddy">
+          <cstring>qsbChannelMaxUsers</cstring>
          </property>
         </widget>
        </item>
@@ -92,6 +113,9 @@ This value enables you to change the way Mumble arranges the channels in the tre
          <property name="whatsThis">
           <string>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server's default limit.</string>
+         </property>
+         <property name="accessibleName">
+          <string>Channel maximum users</string>
          </property>
         </widget>
        </item>
@@ -119,6 +143,9 @@ When checked the channel created will be marked as temporary. This means when th
            <property name="whatsThis">
             <string>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</string>
            </property>
+           <property name="accessibleName">
+            <string>Channel name</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -138,6 +165,9 @@ When checked the channel created will be marked as temporary. This means when th
          <property name="text">
           <string>Name</string>
          </property>
+         <property name="buddy">
+          <cstring>qleChannelName</cstring>
+         </property>
         </widget>
        </item>
        <item row="4" column="1">
@@ -148,12 +178,18 @@ When checked the channel created will be marked as temporary. This means when th
            <verstretch>1</verstretch>
           </sizepolicy>
          </property>
+         <property name="accessibleName">
+          <string>Channel description</string>
+         </property>
         </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="qlChannelDescription">
          <property name="text">
           <string>Description</string>
+         </property>
+         <property name="buddy">
+          <cstring>rteChannelDescription</cstring>
          </property>
         </widget>
        </item>
@@ -196,6 +232,9 @@ When checked the channel created will be marked as temporary. This means when th
             <property name="whatsThis">
              <string>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
+            </property>
+            <property name="accessibleName">
+             <string>List of groups</string>
             </property>
             <property name="editable">
              <bool>true</bool>
@@ -320,6 +359,9 @@ Add a new group.</string>
                 <string>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</string>
                </property>
+               <property name="accessibleName">
+                <string>Inherited group members</string>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -335,6 +377,9 @@ This list contains all members that were added to the group by the current chann
                </property>
                <property name="whatsThis">
                 <string>Type in the name of a user you wish to add to the group and click Add.</string>
+               </property>
+               <property name="accessibleName">
+                <string>Select member to add</string>
                </property>
                <property name="editable">
                 <bool>true</bool>
@@ -398,6 +443,9 @@ This list contains all members that were added to the group by the current chann
                 <string>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</string>
                </property>
+               <property name="accessibleName">
+                <string>Excluded group members</string>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -413,6 +461,9 @@ Contains a list of members whose group membership will not be inherited from the
                </property>
                <property name="whatsThis">
                 <string>Type in the name of a user you wish to remove from the group and click Add.</string>
+               </property>
+               <property name="accessibleName">
+                <string>Select member to remove</string>
                </property>
                <property name="editable">
                 <bool>true</bool>
@@ -486,6 +537,9 @@ Contains a list of members whose group membership will not be inherited from the
                 <string>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</string>
                </property>
+               <property name="accessibleName">
+                <string>Inherited channel members</string>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -519,10 +573,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
             <item row="0" column="0" rowspan="2" colspan="5">
              <widget class="QListWidget" name="qlwACLs">
               <property name="toolTip">
-               <string>List of entries</string>
+               <string>List of ACL entries</string>
               </property>
               <property name="whatsThis">
                <string>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
+              </property>
+              <property name="accessibleName">
+               <string>List of access control list entries</string>
               </property>
              </widget>
             </item>
@@ -683,6 +740,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
               <property name="whatsThis">
                <string>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn't belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with '!', its membership is negated, and if it starts with '~', it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with '#', it is interpreted as an access token. Users must have entered whatever follows the '#' in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with '$', it will only match users whose certificate hash matches what follows the '$'.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for '&lt;i&gt;sub,0,0,0&lt;/i&gt;').&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for '&lt;i&gt;!sub,0,0,0&lt;/i&gt;').&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</string>
               </property>
+              <property name="accessibleName">
+               <string>Select group</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</string>
+              </property>
               <property name="editable">
                <bool>true</bool>
               </property>
@@ -712,6 +775,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
               <property name="whatsThis">
                <string>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</string>
               </property>
+              <property name="accessibleName">
+               <string>Select user</string>
+              </property>
+              <property name="accessibleDescription">
+               <string>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</string>
+              </property>
               <property name="editable">
                <bool>true</bool>
               </property>
@@ -727,6 +796,9 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
        </item>
        <item>
         <widget class="QGroupBox" name="qgbACLpermissions">
+         <property name="accessibleName">
+          <string>List of available permissions</string>
+         </property>
          <property name="title">
           <string>Permissions</string>
          </property>

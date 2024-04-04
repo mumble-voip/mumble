@@ -7,6 +7,7 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "widgets/EventFilters.h"
 #include "Global.h"
 
 #include <QScrollArea>
@@ -23,8 +24,6 @@ QHash< QString, ConfigWidget * > ConfigDialog::s_existingWidgets;
 
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
-
-	qlwIcons->setAccessibleName(tr("Configuration categories"));
 
 	{
 		QMutexLocker lock(&s_existingWidgetsMutex);
@@ -77,6 +76,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	QPushButton *restoreAllButton = pageButtonBox->addButton(tr("Defaults (All)"), QDialogButtonBox::ResetRole);
 	restoreAllButton->setToolTip(tr("Restore all defaults"));
 	restoreAllButton->setWhatsThis(tr("This button will restore the defaults for all settings."));
+	restoreAllButton->installEventFilter(new OverrideTabOrderFilter(restoreAllButton, applyButton));
 
 	if (!Global::get().s.qbaConfigGeometry.isEmpty()) {
 #ifdef USE_OVERLAY
@@ -84,6 +84,9 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 #endif
 			restoreGeometry(Global::get().s.qbaConfigGeometry);
 	}
+
+	updateTabOrder();
+	qlwIcons->setFocus();
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
@@ -109,6 +112,7 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 		qsa->setFrameShape(QFrame::NoFrame);
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
+		qsa->setFocusPolicy(Qt::NoFocus);
 		qhPages.insert(cw, qsa);
 		qswPages->addWidget(qsa);
 	} else {
@@ -196,7 +200,45 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 		QWidget *w = qhPages.value(qmIconWidgets.value(current));
 		if (w)
 			qswPages->setCurrentWidget(w);
+
+		updateTabOrder();
 	}
+}
+
+void ConfigDialog::updateTabOrder() {
+	QPushButton *okButton         = dialogButtonBox->button(QDialogButtonBox::Ok);
+	QPushButton *cancelButton     = dialogButtonBox->button(QDialogButtonBox::Cancel);
+	QPushButton *applyButton      = dialogButtonBox->button(QDialogButtonBox::Apply);
+	QPushButton *resetButton      = pageButtonBox->button(QDialogButtonBox::Reset);
+	QPushButton *restoreButton    = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
+	QPushButton *restoreAllButton = static_cast< QPushButton * >(pageButtonBox->buttons().last());
+
+	QWidget *contentFocusWidget = qswPages;
+
+	ConfigWidget *page;
+	QScrollArea *qsa = qobject_cast< QScrollArea * >(qswPages->currentWidget());
+	if (qsa) {
+		page = qobject_cast< ConfigWidget * >(qsa->widget());
+	} else {
+		page = qobject_cast< ConfigWidget * >(qswPages->currentWidget());
+	}
+
+	if (page) {
+		contentFocusWidget = page;
+	}
+
+	setTabOrder(cancelButton, okButton);
+	setTabOrder(okButton, qlwIcons);
+	setTabOrder(qlwIcons, contentFocusWidget);
+	if (resetButton && restoreButton && restoreAllButton) {
+		setTabOrder(contentFocusWidget, resetButton);
+		setTabOrder(resetButton, restoreButton);
+		setTabOrder(restoreButton, restoreAllButton);
+		setTabOrder(restoreAllButton, applyButton);
+	} else {
+		setTabOrder(contentFocusWidget, applyButton);
+	}
+	setTabOrder(applyButton, cancelButton);
 }
 
 void ConfigDialog::updateListView() {

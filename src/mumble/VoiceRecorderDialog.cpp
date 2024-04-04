@@ -19,9 +19,6 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p) : QDialog(p), qtTimer(new Q
 	qtTimer->setObjectName(QLatin1String("qtTimer"));
 	qtTimer->setInterval(200);
 	setupUi(this);
-	qcbFormat->setAccessibleName(tr("Output format"));
-	qleTargetDirectory->setAccessibleName(tr("Target directory"));
-	qleFilename->setAccessibleName(tr("Filename"));
 
 	qleTargetDirectory->setText(Global::get().s.qsRecordingPath);
 	qleFilename->setText(Global::get().s.qsRecordingFile);
@@ -192,6 +189,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	qpbStart->setDisabled(true);
 	qpbStop->setEnabled(true);
+	qpbStop->setFocus();
 	qgbMode->setDisabled(true);
 	qgbOutput->setDisabled(true);
 }
@@ -257,6 +255,7 @@ void VoiceRecorderDialog::reset(bool resettimer) {
 	}
 
 	qpbStart->setEnabled(true);
+	qpbStart->setFocus();
 	qpbStop->setDisabled(true);
 	qpbStop->setText(tr("S&top"));
 

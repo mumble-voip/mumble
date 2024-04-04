@@ -40,6 +40,7 @@ void ListenerVolumeSlider::on_VolumeSlider_changeCompleted() {
 	}
 
 	VolumeAdjustment adjustment = VolumeAdjustment::fromDBAdjustment(m_volumeSlider->value());
+	updateLabelValue();
 
 	if (handler->m_version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION) {
 		// With the new audio protocol, volume adjustments for listeners are handled on the server and thus we want

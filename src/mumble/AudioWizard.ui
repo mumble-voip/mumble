@@ -94,6 +94,9 @@
          <property name="whatsThis">
           <string>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</string>
          </property>
+         <property name="accessibleName">
+          <string>Audio input system</string>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
@@ -113,6 +116,9 @@
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</string>
+         </property>
+         <property name="accessibleName">
+          <string>Audio input device</string>
          </property>
         </widget>
        </item>
@@ -134,6 +140,9 @@
     </item>
     <item>
      <widget class="QGroupBox" name="qgbOutput">
+      <property name="accessibleName">
+       <string>Select audio output device</string>
+      </property>
       <property name="title">
        <string>Output Device</string>
       </property>
@@ -166,6 +175,9 @@
          <property name="whatsThis">
           <string>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</string>
          </property>
+         <property name="accessibleName">
+          <string>Audio output system</string>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
@@ -186,6 +198,9 @@
          <property name="whatsThis">
           <string>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</string>
          </property>
+         <property name="accessibleName">
+          <string>Audio output device</string>
+         </property>
         </widget>
        </item>
        <item row="3" column="1">
@@ -195,6 +210,9 @@
          </property>
          <property name="whatsThis">
           <string>This allows Mumble to use positional audio to place voices.</string>
+         </property>
+         <property name="accessibleDescription">
+          <string>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</string>
          </property>
          <property name="text">
           <string>Enable positional audio</string>
@@ -260,7 +278,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QSlider" name="qsOutputDelay">
+     <widget class="SemanticSlider" name="qsOutputDelay">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>1</horstretch>
@@ -272,6 +290,9 @@ You should hear a voice sample. Change the slider below to the lowest value whic
       </property>
       <property name="whatsThis">
        <string>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
+      </property>
+      <property name="accessibleName">
+       <string>Output delay for incoming speech</string>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -404,7 +425,16 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      </widget>
     </item>
     <item>
-     <widget class="QSlider" name="qsMaxAmp">
+     <widget class="SemanticSlider" name="qsMaxAmp">
+      <property name="toolTip">
+       <string>Maximum amplification of input sound</string>
+      </property>
+      <property name="accessibleName">
+       <string>Maximum amplification</string>
+      </property>
+      <property name="accessibleDescription">
+       <string>Speech is dynamically amplified by at most this amount</string>
+      </property>
       <property name="maximum">
        <number>32767</number>
       </property>
@@ -547,7 +577,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </widget>
        </item>
        <item>
-        <widget class="QSlider" name="qsVAD">
+        <widget class="SemanticSlider" name="qsVAD">
+         <property name="accessibleName">
+          <string>Voice activity detection level</string>
+         </property>
+         <property name="accessibleDescription">
+          <string>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</string>
+         </property>
          <property name="minimum">
           <number>1</number>
          </property>
@@ -593,6 +629,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="accessibleName">
+           <string>Push to talk</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>Use the &quot;push to talk shortcut&quot; button to assign a key</string>
+          </property>
           <property name="text">
            <string>Push To Talk:</string>
           </property>
@@ -600,8 +642,14 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </item>
         <item>
          <widget class="QPushButton" name="qpbPTT">
+          <property name="toolTip">
+           <string>Set push to talk shortcut</string>
+          </property>
           <property name="accessibleName">
-           <string>PTT shortcut</string>
+           <string>Set push to talk shortcut</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This will open a shortcut edit dialog</string>
           </property>
          </widget>
         </item>
@@ -847,7 +895,14 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      </widget>
     </item>
     <item>
-     <widget class="QGraphicsView" name="qgvView"/>
+     <widget class="QGraphicsView" name="qgvView">
+      <property name="accessibleName">
+       <string>Graphical positional audio simulation view</string>
+      </property>
+      <property name="accessibleDescription">
+       <string>This visually represents the positional audio that is currently being played</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="verticalSpacer_6">
@@ -932,7 +987,39 @@ Mumble is under continuous development, and the development team wants to focus 
    <extends>QComboBox</extends>
    <header>widgets/MUComboBox.h</header>
   </customwidget>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>qcbInput</tabstop>
+  <tabstop>qcbInputDevice</tabstop>
+  <tabstop>qcbEcho</tabstop>
+  <tabstop>qcbOutput</tabstop>
+  <tabstop>qcbOutputDevice</tabstop>
+  <tabstop>qcbPositional</tabstop>
+  <tabstop>qcbAttenuateOthers</tabstop>
+  <tabstop>qsOutputDelay</tabstop>
+  <tabstop>qsMaxAmp</tabstop>
+  <tabstop>qcbHighContrast</tabstop>
+  <tabstop>qrPTT</tabstop>
+  <tabstop>qpbPTT</tabstop>
+  <tabstop>qrAmplitude</tabstop>
+  <tabstop>qrSNR</tabstop>
+  <tabstop>qsVAD</tabstop>
+  <tabstop>qrbQualityLow</tabstop>
+  <tabstop>qrbQualityBalanced</tabstop>
+  <tabstop>qrbQualityUltra</tabstop>
+  <tabstop>qrbQualityCustom</tabstop>
+  <tabstop>qrbNotificationTTS</tabstop>
+  <tabstop>qrbNotificationSounds</tabstop>
+  <tabstop>qrbNotificationCustom</tabstop>
+  <tabstop>qcbHeadphone</tabstop>
+  <tabstop>qgvView</tabstop>
+  <tabstop>qcbUsage</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
