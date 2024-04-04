@@ -164,10 +164,6 @@ Deze waarde laat toe om de manier waarop Mumble kanalen in een boomstructuur org
         <translation>Actieve ACL&apos;s</translation>
     </message>
     <message>
-        <source>List of entries</source>
-        <translation>Regellijst</translation>
-    </message>
-    <message>
         <source>Inherit ACL of parent?</source>
         <translation>ACL overerven?</translation>
     </message>
@@ -419,10 +415,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>Kanaalwachtwoord</translation>
     </message>
     <message>
-        <source>Maximum users</source>
-        <translation>Gebruikersmaximum</translation>
-    </message>
-    <message>
         <source>Channel name</source>
         <translation>Druidnaam</translation>
     </message>
@@ -431,20 +423,60 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>Geërfde groepsleden</translation>
     </message>
     <message>
-        <source>Foreign group members</source>
-        <translation>Niet-lokale groepsleden</translation>
-    </message>
-    <message>
         <source>Inherited channel members</source>
         <translation>Geërfde kanaalleden</translation>
     </message>
     <message>
-        <source>Add members to group</source>
-        <translation>Voeg leden toe aan groep</translation>
-    </message>
-    <message>
         <source>List of ACL entries</source>
         <translation>Gebruikersrechten-regellijst</translation>
+    </message>
+    <message>
+        <source>Channel position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel maximum users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select member to add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Excluded group members</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select member to remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of access control list entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of available permissions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -595,6 +627,30 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <source>List of speakers</source>
         <translation>Luidprekerlijst</translation>
     </message>
+    <message>
+        <source>Device list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move from unused to microphone list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move from microphone to unused list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of unused devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move from unused to speakers list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move from speakers to unused list</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ASIOInput</name>
@@ -665,10 +721,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>Systeem</translation>
     </message>
     <message>
-        <source>Input method for audio</source>
-        <translation>Geluidsinvoermethode</translation>
-    </message>
-    <message>
         <source>Device</source>
         <translation>Apparaat</translation>
     </message>
@@ -731,10 +783,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>On</source>
         <translation>Aan</translation>
-    </message>
-    <message>
-        <source>Preview the audio cues</source>
-        <translation>Voorbeeld beluisteren van geluidshint</translation>
     </message>
     <message>
         <source>Use SNR based speech detection</source>
@@ -1056,6 +1104,134 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <source>Voice Activity</source>
         <translation>Spraakactiviteit</translation>
     </message>
+    <message>
+        <source>Input backend for audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio input system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio input device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transmission mode</source>
+        <translation type="unfinished">Transmissiemodus</translation>
+    </message>
+    <message>
+        <source>Push to talk lock threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push to talk hold threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extend push to talk send time after the key is released by this amount of time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice hold time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silence below threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speech above threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This sets how much speech is packed into a single network package</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio compression quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This sets the target compression bitrate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum amplification</source>
+        <translation type="unfinished">Maximale versterking</translation>
+    </message>
+    <message>
+        <source>Speech is dynamically amplified by at most this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noise suppression strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Echo cancellation mode</source>
+        <translation type="unfinished">Echo-opheffingsmodus</translation>
+    </message>
+    <message>
+        <source>Path to audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle action time threshold (in minutes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gets played when you are trying to speak while being muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for mute cue audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview the mute cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1100,78 +1276,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>%1 kbit/s (Geluid %2, Positie %4, Overhead %3)</translation>
     </message>
     <message>
-        <source>Audio system</source>
-        <translation>Geluidssysteem</translation>
-    </message>
-    <message>
-        <source>Input device</source>
-        <translation>Invoerapparaat</translation>
-    </message>
-    <message>
-        <source>Echo cancellation mode</source>
-        <translation>Echo-opheffingsmodus</translation>
-    </message>
-    <message>
-        <source>Transmission mode</source>
-        <translation>Transmissiemodus</translation>
-    </message>
-    <message>
-        <source>PTT lock threshold</source>
-        <translation>Sluitingsdrempel Druk-om-te-Praten</translation>
-    </message>
-    <message>
-        <source>PTT hold threshold</source>
-        <translation>Uitsluitingsdrempel Druk-om-te-Praten</translation>
-    </message>
-    <message>
-        <source>Silence below</source>
-        <translation>Stilte onder</translation>
-    </message>
-    <message>
-        <source>Current speech detection chance</source>
-        <translation>Huidige kans om spraak te detecteren</translation>
-    </message>
-    <message>
-        <source>Speech above</source>
-        <translation>Spraak boven</translation>
-    </message>
-    <message>
-        <source>Speech below</source>
-        <translation>Spraak onder</translation>
-    </message>
-    <message>
-        <source>Audio per packet</source>
-        <translation>Geluid per pakket</translation>
-    </message>
-    <message>
-        <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kwaliteit van compressie (piek-bandbreedte)</translation>
-    </message>
-    <message>
-        <source>Noise suppression</source>
-        <translation>Ruisonderdrukking</translation>
-    </message>
-    <message>
-        <source>Maximum amplification</source>
-        <translation>Maximumversterking</translation>
-    </message>
-    <message>
-        <source>Transmission started sound</source>
-        <translation>Transmissiegeluid ingezet</translation>
-    </message>
-    <message>
-        <source>Transmission stopped sound</source>
-        <translation>Transmissiegeluid stopgezet</translation>
-    </message>
-    <message>
-        <source>Initiate idle action after (in minutes)</source>
-        <translation>Stilteactie na (minuten) initiëren</translation>
-    </message>
-    <message>
-        <source>Idle action</source>
-        <translation>Actie bij inactiviteit</translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
         <translation>Toegang tot de microfoon werd geweigerd. Laat Mumble a.u.b. de microfoon gebruiken door de instellingen in Systeemvoorkeuren → Beveiligen &amp; Privacy → Privacy → Microfoon.</translation>
     </message>
@@ -1186,6 +1290,22 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>Disable echo cancellation.</source>
         <translation>Schakel echo-opheffing uit.</translation>
+    </message>
+    <message>
+        <source>milliseconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kilobits per second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>decibels</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1460,6 +1580,58 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <source>Positional audio cannot work with mono output devices!</source>
         <translation>Positionele audio werkt niet op apparaten met een mono-uitgang!</translation>
     </message>
+    <message>
+        <source>Audio output system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio output device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output delay of incoming speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jitter buffer time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attenuation percentage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>During speech, the volume of other applications will be reduced by this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum volume</source>
+        <translation type="unfinished">Minimale volume</translation>
+    </message>
+    <message>
+        <source>Minimum distance</source>
+        <translation type="unfinished">Minimale afstand</translation>
+    </message>
+    <message>
+        <source>Maximum distance</source>
+        <translation type="unfinished">Maximale afstand</translation>
+    </message>
+    <message>
+        <source>Loopback artificial delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loopback artificial packet loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loopback test mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
@@ -1488,58 +1660,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>%1 %</translation>
     </message>
     <message>
-        <source>Output system</source>
-        <translation>Systeem voor uitvoer</translation>
-    </message>
-    <message>
-        <source>Output device</source>
-        <translation>Aggregaat voor uitvoer</translation>
-    </message>
-    <message>
-        <source>Default jitter buffer</source>
-        <translation>Standaard Jitter-buffer</translation>
-    </message>
-    <message>
-        <source>Volume of incoming speech</source>
-        <translation>Volume van binnenkomende spraak</translation>
-    </message>
-    <message>
-        <source>Output delay</source>
-        <translation>Vertraging bij uitvoer</translation>
-    </message>
-    <message>
-        <source>Attenuation of other applications during speech</source>
-        <translation>Afzwakking van andere applicaties gedurende het spreken</translation>
-    </message>
-    <message>
-        <source>Minimum distance</source>
-        <translation>Minimale afstand</translation>
-    </message>
-    <message>
-        <source>Maximum distance</source>
-        <translation>Maximale afstand</translation>
-    </message>
-    <message>
-        <source>Minimum volume</source>
-        <translation>Minimale volume</translation>
-    </message>
-    <message>
-        <source>Bloom</source>
-        <translation>Bloei</translation>
-    </message>
-    <message>
-        <source>Delay variance</source>
-        <translation>Variantie van vertraging</translation>
-    </message>
-    <message>
-        <source>Packet loss</source>
-        <translation>Verlies van pakketjes</translation>
-    </message>
-    <message>
-        <source>Loopback</source>
-        <translation>Terugkoppeling</translation>
-    </message>
-    <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
         <translation>Afstand waarop het geluidsvolume van een andere speler begint met verlagen</translation>
     </message>
@@ -1554,6 +1674,14 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
         <translation>Als een geluidsbron dichtbij genoeg is, zal blooming ervoor zorgen dat het geluid op alle luidsprekers afgespeeld wordt, ongeacht hun positie (zij het met een lager volume)</translation>
+    </message>
+    <message>
+        <source>milliseconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>meters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2083,40 +2211,80 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan bij sommige spellen het positioneel geluid inzetten, waardoor de stem van anderen ruimtelijk geplaatst wordt op basis van hun positie (relatief tot jezelf) in het spel. Hun stemvolume zal aangepast worden per luidspreker om plaats en afstand in het spel te simuleren. Gezien deze positionering afhankelijk is van een correcte luidsprekerconfiguratie via de instellingen van je besturingssysteem, wordt er hier een test uitgevoerd. &lt;/p&gt;&lt;p&gt;De onderstaande grafiek toont &lt;span style=&quot; color:#56b4e9;&quot;&gt;jouw&lt;/span&gt; positie, de &lt;span style=&quot; color:#d55e00;&quot;&gt;luidsprekers&lt;/span&gt;, en een &lt;span style=&quot; color:#009e73;&quot;&gt;bewegende geluidsbron&lt;/span&gt; van boven gezien. Je zou het geluid moeten horen verplaatsen tussen de kanalen. &lt;/p&gt;&lt;p&gt;Je kan ook je muis gebruiken om de &lt;span style=&quot; color:#009e73;&quot;&gt;geluidsbron&lt;/span&gt; manueel te positioneren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Input system</source>
-        <translation>Invoersysteem</translation>
-    </message>
-    <message>
-        <source>Input device</source>
-        <translation>Invoerapparaat</translation>
-    </message>
-    <message>
-        <source>Output system</source>
-        <translation>Uitvoersysteem</translation>
-    </message>
-    <message>
-        <source>Output device</source>
-        <translation>Uitvoerapparaat</translation>
-    </message>
-    <message>
-        <source>Output delay</source>
-        <translation>Uitvoervertraging</translation>
-    </message>
-    <message>
         <source>Maximum amplification</source>
         <translation>Maximale versterking</translation>
     </message>
     <message>
-        <source>VAD level</source>
-        <translation>Spraakactiviteitsdetectieniveau</translation>
-    </message>
-    <message>
-        <source>PTT shortcut</source>
-        <translation>DotP-sneltoets</translation>
-    </message>
-    <message>
         <source>No buttons assigned</source>
         <translation>Geen sneltoetsen toegewezen</translation>
+    </message>
+    <message>
+        <source>Audio input system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio input device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select audio output device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio output system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio output device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output delay for incoming speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum amplification of input sound</source>
+        <translation type="unfinished">Maximumversterking invoergeluid</translation>
+    </message>
+    <message>
+        <source>Speech is dynamically amplified by at most this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice activity detection level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push to talk</source>
+        <translation type="unfinished">Push-To-Talk</translation>
+    </message>
+    <message>
+        <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set push to talk shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open a shortcut edit dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Graphical positional audio simulation view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This visually represents the positional audio that is currently being played</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2257,24 +2425,40 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
         </translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation>Zoeken</translation>
-    </message>
-    <message>
-        <source>IP Address</source>
-        <translation>Internetadres</translation>
-    </message>
-    <message>
         <source>Mask</source>
         <translation>Maskering</translation>
     </message>
     <message>
-        <source>Start date/time</source>
-        <translation>Begin-datum/tijd</translation>
+        <source>Search for banned user</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>End date/time</source>
-        <translation>Eind-datum/tijd</translation>
+        <source>Username to ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP address to ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban start date/time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban end date/time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate hash to ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of banned users</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2357,38 +2541,6 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certificaat verloopt:&lt;/b&gt;Je certificaat gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer verbinden met servers waarop je geregistreerd bent.</translation>
-    </message>
-    <message>
-        <source>Current certificate</source>
-        <translation>Huidig certificaat</translation>
-    </message>
-    <message>
-        <source>Certificate file to import</source>
-        <translation>Certificaatbestand om te importeren</translation>
-    </message>
-    <message>
-        <source>Certificate password</source>
-        <translation>Certificaatwachtwoord</translation>
-    </message>
-    <message>
-        <source>Certificate to import</source>
-        <translation>Certificaat om te importeren</translation>
-    </message>
-    <message>
-        <source>New certificate</source>
-        <translation>Nieuw certificaat</translation>
-    </message>
-    <message>
-        <source>File to export certificate to</source>
-        <translation>Bestand om certificaat naar te exporteren</translation>
-    </message>
-    <message>
-        <source>Email address</source>
-        <translation>Mailadres</translation>
-    </message>
-    <message>
-        <source>Your name</source>
-        <translation>Jouw naam</translation>
     </message>
 </context>
 <context>
@@ -2477,10 +2629,6 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     <message>
         <source>Select file to import from</source>
         <translation>Vanuit te importeren bestand selecteren</translation>
-    </message>
-    <message>
-        <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>Opent bestandsselectievenster vanwaaruit certificaatbestand kan worden geïmporteerd.</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -2635,6 +2783,46 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble kan certificaten gebruiken om met servers te authenticeren. Door certificaten te gebruiken vermijd je wachtwoord op te geven aan de externe locatie. Het zorgt ook voor doodsimpele gebruikersregistratie en een client-kant vriendenlijst onafhankelijk van servers.&lt;/p&gt;&lt;p&gt;Hoewel Mumble ook zonder certificaten kan werken, verlangen de meeste servers dat je er een hebt.&lt;/p&gt;&lt;p&gt;Een nieuw certificaat is in de meeste gevallen automatisch geschikt. Maar Mumble ondersteunt ook certificaten die vertrouwen baseren op eigendom van een e-mailadres. Deze certificaten worden uitgegeven door derden. Voor meer informatie zie onze &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;gebruikercertificaatdocumentatie.&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Displays current certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate file to import</source>
+        <translation type="unfinished">Certificaatbestand om te importeren</translation>
+    </message>
+    <message>
+        <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate password</source>
+        <translation type="unfinished">Certificaatwachtwoord</translation>
+    </message>
+    <message>
+        <source>Displays imported certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displays new certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File to export certificate to</source>
+        <translation type="unfinished">Bestand om certificaat naar te exporteren</translation>
+    </message>
+    <message>
+        <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your name. For example: John Doe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your email address. For example: johndoe@mumble.info</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3116,6 +3304,34 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
         <source>IPv6 address</source>
         <translation>IPv6-adres</translation>
     </message>
+    <message>
+        <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The server list contains your favorites and all publicly listed servers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search for servername</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search for location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set filter mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished">Server</translation>
+    </message>
 </context>
 <context>
     <name>ConnectDialogEdit</name>
@@ -3247,6 +3463,22 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     <message>
         <source>&amp;Ignore</source>
         <translation>&amp;Negeren</translation>
+    </message>
+    <message>
+        <source>Server IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Gebruikersnaam</translation>
+    </message>
+    <message>
+        <source>Label for server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3441,6 +3673,26 @@ Als deze optie is uitgeschakeld, werken Mumble&apos;s globale sneltoetsen niet i
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s globaal snelkoppelingssysteem werkt momenteel niet goed onder Wayland. Voor meer informatie, zie &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
+    <message>
+        <source>Configured shortcuts</source>
+        <translation type="unfinished">Geconfigureerde sneltoetsen</translation>
+    </message>
+    <message>
+        <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add unassigned shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3468,6 +3720,18 @@ Als deze optie is uitgeschakeld, werken Mumble&apos;s globale sneltoetsen niet i
         <source>Remove</source>
         <translation>Verwijder</translation>
     </message>
+    <message>
+        <source>List of shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -3493,8 +3757,28 @@ Als deze optie is uitgeschakeld, werken Mumble&apos;s globale sneltoetsen niet i
         <translation>&lt;b&gt;Neemt andere applicatie-indrukken weg.&lt;/b&gt;&lt;br /&gt;Toetsdrukken (of laatste toets van een meerdere-knoppen-combi) van andere applicaties. Niet alle knoppen worden genegeerd.</translation>
     </message>
     <message>
-        <source>Configured shortcuts</source>
-        <translation>Geconfigureerde sneltoetsen</translation>
+        <source>Shortcut action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unassigned</source>
+        <translation type="unfinished">Ontoegewezen</translation>
+    </message>
+    <message>
+        <source>checked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unchecked</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4066,14 +4350,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Berichtmarges</translation>
     </message>
     <message>
-        <source>Log messages</source>
-        <translation>Logberichten</translation>
-    </message>
-    <message>
-        <source>TTS engine volume</source>
-        <translation>Teksten-naar-Spraken volume</translation>
-    </message>
-    <message>
         <source>Chat message margins</source>
         <translation>Bericht-marges</translation>
     </message>
@@ -4096,10 +4372,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Limit notifications when there are more than</source>
         <translation>Limiteer notificaties wanneer er meer dan</translation>
-    </message>
-    <message>
-        <source>User limit for message limiting</source>
-        <translation>Gebruikerslimiet bij het limiteren van berichten</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
@@ -4164,6 +4436,74 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Notification sound volume adjustment</source>
         <translation>Bijstelling volume notificaties</translation>
+    </message>
+    <message>
+        <source>Log message types and actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set length threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text to speech volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum chat log length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User limit for notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log message to console checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display pop-up notification for message checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight window for message checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read message using text to speech checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit message notification if user count is high checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play sound file for message checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path to sound file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>checked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unchecked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>decibels</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4515,34 +4855,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Navoegsel-karakteraantal</translation>
     </message>
     <message>
-        <source>Maximum name length</source>
-        <translation>Naamlengtesmaximum</translation>
-    </message>
-    <message>
-        <source>Relative font size</source>
-        <translation>Relatieve lettertypegrootte</translation>
-    </message>
-    <message>
-        <source>Always on top</source>
-        <translation>Altijd voorop</translation>
-    </message>
-    <message>
-        <source>Channel dragging</source>
-        <translation>Kanalen-sleperij</translation>
-    </message>
-    <message>
-        <source>Automatically expand channels when</source>
-        <translation>Vanzelf kanalen uitklappen als</translation>
-    </message>
-    <message>
-        <source>User dragging behavior</source>
-        <translation>Gebruikers-sleep-gedrag</translation>
-    </message>
-    <message>
-        <source>Silent user lifetime</source>
-        <translation>Gebruiksstilteduur</translation>
-    </message>
-    <message>
         <source>Show the local volume adjustment for each user (if any).</source>
         <translation>Toon het lokaal aangepaste volume voor elke gebruiker (indien van toepassing).</translation>
     </message>
@@ -4632,6 +4944,58 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Always keep users visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel expand mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User dragging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel dragging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always on top mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit behavior mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel separator string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum channel name length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviation replacement characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative font size (in percent)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent user display time (in seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User search action mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel search action mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5231,10 +5595,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Dit opent het dialoogvenster om groepen en ACL&apos;s te beheren voor het kanaal, om hierlangs rechten te beheren.</translation>
     </message>
     <message>
-        <source>&amp;Link</source>
-        <translation>&amp;Koppel</translation>
-    </message>
-    <message>
         <source>Link your channel to another channel</source>
         <translation>Koppel je kanaal aan een ander kanaal</translation>
     </message>
@@ -5329,20 +5689,12 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Dit herstelt geluidsverwerking (ruisonderdrukking, versterking en spraakactiviteitsherkenning). Als iets de geluidsomgeving opeens verslechtert (zoals de microfoon laten vallen), gebruik dit om te voorkomen te wachten totdat de geluidsverwerking zich aanpast.</translation>
     </message>
     <message>
-        <source>&amp;Mute Self</source>
-        <translation>&amp;Jezelf dempen</translation>
-    </message>
-    <message>
         <source>Mute yourself</source>
         <translation>Jezelf dempen</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
         <translation>Jezelf dempen of ondempen. Wanneer je gedempt bent, zal je geen data naar de server versturen. Jezelf ondempen terwijl je doof bent, zal je ook weer laten horen.</translation>
-    </message>
-    <message>
-        <source>&amp;Deafen Self</source>
-        <translation>Maak jezelf &amp;doof</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
@@ -5912,16 +6264,8 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Wisselt of een minimalistisch venster een frame voor verplaatsen en resizen heeft.</translation>
     </message>
     <message>
-        <source>&amp;Unlink All</source>
-        <translation>Alles &amp;ontkoppelen</translation>
-    </message>
-    <message>
         <source>Reset the comment of the selected user.</source>
         <translation>Wis de opmerking van de geselecteerde gebruiker.</translation>
-    </message>
-    <message>
-        <source>&amp;Join Channel</source>
-        <translation>&amp;Toetreden tot kanaal</translation>
     </message>
     <message>
         <source>View comment in editor</source>
@@ -5952,10 +6296,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Wijzig je profielfoto op deze server</translation>
     </message>
     <message>
-        <source>&amp;Remove Avatar</source>
-        <translation>&amp;Verwijder profielfoto</translation>
-    </message>
-    <message>
         <source>Remove currently defined avatar image.</source>
         <translation>Verwijder momenteel ingestelde profielfoto.</translation>
     </message>
@@ -5968,24 +6308,12 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Wijzig je eigen opmerking</translation>
     </message>
     <message>
-        <source>Recording</source>
-        <translation>Geluidsopname</translation>
-    </message>
-    <message>
-        <source>Priority Speaker</source>
-        <translation>Prioriteitsspreker</translation>
-    </message>
-    <message>
         <source>&amp;Copy URL</source>
         <translation>&amp;Kopieer URL</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
         <translation>Kopieert een koppeling naar dit kanaal naar het klembord.</translation>
-    </message>
-    <message>
-        <source>Ignore Messages</source>
-        <translation>Negeer berichten</translation>
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
@@ -6018,14 +6346,6 @@ context-menu van het kanaal.</translation>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <source>&amp;Hide Channel when Filtering</source>
-        <translation>Kanaal &amp;verbergen tijdens filteren</translation>
-    </message>
-    <message>
-        <source>Reset the avatar of the selected user.</source>
-        <translation>Wis de profielfoto van de geselecteerde gebruiker.</translation>
-    </message>
-    <message>
         <source>&amp;Developer</source>
         <translation>&amp;Ontwikkelaar</translation>
     </message>
@@ -6054,24 +6374,12 @@ context-menu van het kanaal.</translation>
         <translation>&amp;Verbind...</translation>
     </message>
     <message>
-        <source>&amp;Ban list...</source>
-        <translation>&amp;Lijst met verbanningen...</translation>
-    </message>
-    <message>
-        <source>&amp;Information...</source>
-        <translation>&amp;Informatie...</translation>
-    </message>
-    <message>
         <source>&amp;Kick...</source>
         <translation>&amp;Schoppen...</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
         <translation>&amp;Verban...</translation>
-    </message>
-    <message>
-        <source>Send &amp;Message...</source>
-        <translation>Verstuur &amp;bericht...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
@@ -6086,72 +6394,24 @@ context-menu van het kanaal.</translation>
         <translation>&amp;Bewerk...</translation>
     </message>
     <message>
-        <source>Audio S&amp;tatistics...</source>
-        <translation>Geluidss&amp;tatistieken...</translation>
-    </message>
-    <message>
-        <source>&amp;Settings...</source>
-        <translation>&amp;Instellingen...</translation>
-    </message>
-    <message>
         <source>&amp;Audio Wizard...</source>
         <translation>&amp;Geluidswizard...</translation>
-    </message>
-    <message>
-        <source>Developer &amp;Console...</source>
-        <translation>Ontwikkelaars &amp;Console...</translation>
-    </message>
-    <message>
-        <source>&amp;About...</source>
-        <translation>&amp;Over...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
         <translation>Over &amp;Speex...</translation>
     </message>
     <message>
-        <source>About &amp;Qt...</source>
-        <translation>Over &amp;Qt...</translation>
-    </message>
-    <message>
         <source>&amp;Certificate Wizard...</source>
         <translation>&amp;Certificaat-wizard...</translation>
-    </message>
-    <message>
-        <source>&amp;Register...</source>
-        <translation>&amp;Registreren...</translation>
-    </message>
-    <message>
-        <source>Registered &amp;Users...</source>
-        <translation>&amp;Geregistreerde gebruikers...</translation>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
         <translation>&amp;Wijzig profielfoto...</translation>
     </message>
     <message>
-        <source>&amp;Access Tokens...</source>
-        <translation>&amp;Toegangssleutels...</translation>
-    </message>
-    <message>
-        <source>Reset &amp;Comment...</source>
-        <translation>Wis &amp;opmerking...</translation>
-    </message>
-    <message>
-        <source>Reset &amp;Avatar...</source>
-        <translation>&amp;Wis profielfoto...</translation>
-    </message>
-    <message>
-        <source>View Comment...</source>
-        <translation>Toon opmerking...</translation>
-    </message>
-    <message>
         <source>&amp;Change Comment...</source>
         <translation>&amp;Wijzig opmerking...</translation>
-    </message>
-    <message>
-        <source>R&amp;egister...</source>
-        <translation>R&amp;egistreer...</translation>
     </message>
     <message>
         <source>Show</source>
@@ -6168,10 +6428,6 @@ context-menu van het kanaal.</translation>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
         <translation>Protocolhapering. Servergestuurde verwijdering met kanaal dat in gebruik is.</translation>
-    </message>
-    <message>
-        <source>Listen to channel</source>
-        <translation>Naar kanaal luisteren</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
@@ -6214,16 +6470,8 @@ context-menu van het kanaal.</translation>
         <translation>%1 luistert niet meer naar je kanaal</translation>
     </message>
     <message>
-        <source>Talking UI</source>
-        <translation>Sprekersweergave</translation>
-    </message>
-    <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <translation>Schakelt de zichtbaarheid van de Sprekersweergave om.</translation>
-    </message>
-    <message>
-        <source>Join user&apos;s channel</source>
-        <translation>Gebruiker&apos;s kanaal binnengaan</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
@@ -6236,14 +6484,6 @@ context-menu van het kanaal.</translation>
     <message>
         <source>Activity log</source>
         <translation>Activiteitslog</translation>
-    </message>
-    <message>
-        <source>Chat message</source>
-        <translation>Chatbericht</translation>
-    </message>
-    <message>
-        <source>Disable Text-To-Speech</source>
-        <translation>Schakel Tekst-naar-Spraak uit</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
@@ -6283,10 +6523,6 @@ context-menu van het kanaal.</translation>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
         <translation>Vers(t)op hoofdvenster</translation>
-    </message>
-    <message>
-        <source>&amp;Set Nickname...</source>
-        <translation>&amp;Stel bijnaam in...</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
@@ -6371,10 +6607,6 @@ Valide acties zijn:
         <translation>Alt+F</translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation>Zoek</translation>
-    </message>
-    <message>
         <source>Search for a user or channel (Ctrl+F)</source>
         <translation>Zoek naar een gebruiker of kanaal (Ctrl+F)</translation>
     </message>
@@ -6394,10 +6626,6 @@ Valide acties zijn:
     <message>
         <source>Undeafen yourself</source>
         <translation>Hef doofheid op</translation>
-    </message>
-    <message>
-        <source>Positional &amp;Audio Viewer...</source>
-        <translation>Details &amp;Positioneel Geluid...</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
@@ -6452,10 +6680,6 @@ Valide acties zijn:
     <message>
         <source>Channel &amp;Filter</source>
         <translation>Kanaal&amp;filter</translation>
-    </message>
-    <message>
-        <source>&amp;Pin Channel when Filtering</source>
-        <translation>Kanaal &amp;vastzetten tijdens filteren</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6720,6 +6944,154 @@ Valid options are:
         <source>No</source>
         <translation type="unfinished">Neen</translation>
     </message>
+    <message>
+        <source>Enter chat message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ban List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ig&amp;nore Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Send Message...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Ni&amp;ckname...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&amp;ink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;nlink All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;ute Self</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;eafen Self</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio &amp;Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Positional &amp;Audio Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation type="unfinished">&amp;Over</translation>
+    </message>
+    <message>
+        <source>About &amp;Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re&amp;gister...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered &amp;Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Access Tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remo&amp;ve Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Commen&amp;t...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remo&amp;ve Avatar...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the avatar of the selected user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Hide When Filtering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pin When Filtering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vie&amp;w Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Priority Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Record...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Listen To Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Talking &amp;UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Join User&apos;s Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;ove To Own Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves this user to your current channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Te&amp;xt-To-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filtered channels and users</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -6806,6 +7178,62 @@ Valid options are:
     <message>
         <source>Silent user displaytime:</source>
         <translation>Gebruikers toonstiltetijd:</translation>
+    </message>
+    <message>
+        <source>Graphical positional audio simulation view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This visually represents the positional audio configuration that is currently being used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener Z coordinate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener X coordinate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener Y coordinate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent user display time (in seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener azimuth (in degrees)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener elevation (in degrees)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Context string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the &quot;set&quot; button to apply the context string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the context string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the identity string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identity string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the &quot;set&quot; button to apply the identity string</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7020,6 +7448,26 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     <message>
         <source>Automatically download and install plugin updates</source>
         <translation>Download en installeer automatisch updates voor plug-ins</translation>
+    </message>
+    <message>
+        <source>Proxy type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy password</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7630,6 +8078,42 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
         <source>Whether this plugin should be enabled</source>
         <translation>Of deze plug-in ingeschakeld moet worden</translation>
     </message>
+    <message>
+        <source>List of plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin enabled checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin positional audio permission checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin keyboard event listen permission checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>checked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unchecked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not available</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginInstaller</name>
@@ -8056,6 +8540,102 @@ Je kunt ze opnieuw registreren.</translation>
         <source>Unknown Version</source>
         <translation>Onbekende versie</translation>
     </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is you</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>friend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>muted and deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>locally muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>priority speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>has a long comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>text messages ignored</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>registered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>accessible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>inaccessible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filtered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening for input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Voeg toe</translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -8204,6 +8784,18 @@ Je kunt ze opnieuw registreren.</translation>
         <source>Whether to search for channels</source>
         <translation>Of er gezocht moet worden naar kanalen</translation>
     </message>
+    <message>
+        <source>Search string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use up and down keys to navigate through the search results.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ServerHandler</name>
@@ -8253,10 +8845,6 @@ Je kunt ze opnieuw registreren.</translation>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Poort:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation>&lt;b&gt;Gebruikers&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8351,14 +8939,6 @@ Je kunt ze opnieuw registreren.</translation>
         <translation>&lt;voorwaartse geheimhouding&gt;</translation>
     </message>
     <message>
-        <source>&amp;View certificate</source>
-        <translation>&amp;Bekijk certificaat</translation>
-    </message>
-    <message>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
@@ -8377,6 +8957,22 @@ Je kunt ze opnieuw registreren.</translation>
     <message>
         <source>No</source>
         <translation>Neen</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Users:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;View Certificate</source>
+        <translation type="unfinished">&amp;Certificaat weergeven</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8566,8 +9162,12 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
         <translation>&amp;Verwijder</translation>
     </message>
     <message>
-        <source>Tokens</source>
-        <translation>Sleutels</translation>
+        <source>Token List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8616,12 +9216,20 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
         </translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation>Doorzoeken</translation>
-    </message>
-    <message>
         <source>User list</source>
         <translation>Gebruikerlijst</translation>
+    </message>
+    <message>
+        <source>Search for user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set inactivity filter mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter for inactivity</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8649,10 +9257,6 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <message>
         <source>IP Address</source>
         <translation>IP-Adres</translation>
-    </message>
-    <message>
-        <source>Details...</source>
-        <translation>Details...</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
@@ -8776,6 +9380,10 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
         <translation>Waarschuwing: Deze server lijkt een afgebroken protocolversie te rapporteren aan deze client. (Zie ook: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8970,6 +9578,14 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
         <translation>Kanaal zal vastgezet worden wanneer er gefilterd wordt</translation>
+    </message>
+    <message>
+        <source>Channel Listener</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This channel listener belongs to %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9238,16 +9854,24 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
         <translation>Kon de opname niet starten - het uitvoerapparaat is verkeerd geconfigureerd (bemonsteringsfrequentie van 0 Hz)</translation>
     </message>
+    <message>
+        <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
     <message>
-        <source>Slider for volume adjustment</source>
-        <translation>Schuifregelaar voor volumeregeling</translation>
-    </message>
-    <message>
         <source>Volume Adjustment</source>
         <translation>Volumeregeling</translation>
+    </message>
+    <message>
+        <source>Local volume adjustment</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
