@@ -17,3 +17,16 @@ void SearchDialogTree::resizeEvent(QResizeEvent *event) {
 
 	scheduleDelayedItemsLayout();
 }
+
+QModelIndex SearchDialogTree::moveCursor(QAbstractItemView::CursorAction cursorAction,
+										 Qt::KeyboardModifiers modifiers) {
+	// Hack to make screen readers read search results...
+
+	QModelIndex mi = QTreeWidget::moveCursor(cursorAction, modifiers);
+
+	if (cursorAction == QAbstractItemView::MoveUp || cursorAction == QAbstractItemView::MoveDown) {
+		mi = model()->index(mi.row(), 1);
+	}
+
+	return mi;
+}

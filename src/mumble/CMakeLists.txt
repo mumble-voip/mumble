@@ -85,6 +85,8 @@ find_pkg(Qt5
 set(MUMBLE_SOURCES
 	"About.cpp"
 	"About.h"
+	"Accessibility.cpp"
+	"Accessibility.h"
 	"ACLEditor.cpp"
 	"ACLEditor.h"
 	"ACLEditor.ui"
@@ -287,6 +289,8 @@ set(MUMBLE_SOURCES
 	"XMLTools.cpp"
 	"XMLTools.h"
 
+	"widgets/AccessibleQGroupBox.cpp"
+	"widgets/AccessibleQGroupBox.h"
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"
 	"widgets/EventFilters.cpp"
@@ -295,12 +299,16 @@ set(MUMBLE_SOURCES
 	"widgets/MUComboBox.h"
 	"widgets/MultiStyleWidgetWrapper.cpp"
 	"widgets/MultiStyleWidgetWrapper.h"
+	"widgets/MultiColumnTreeWidget.cpp"
+	"widgets/MultiColumnTreeWidget.h"
 	"widgets/RichTextItemDelegate.cpp"
 	"widgets/RichTextItemDelegate.h"
 	"widgets/SearchDialogItemDelegate.cpp"
 	"widgets/SearchDialogItemDelegate.h"
 	"widgets/SearchDialogTree.cpp"
 	"widgets/SearchDialogTree.h"
+	"widgets/SemanticSlider.cpp"
+	"widgets/SemanticSlider.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"

@@ -38,6 +38,12 @@ PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	qtwPlugins->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 	qtwPlugins->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
+	qtwPlugins->headerItem()->setData(0, Qt::AccessibleTextRole, tr("Plugin name"));
+	qtwPlugins->headerItem()->setData(1, Qt::AccessibleTextRole, tr("Plugin enabled checkbox"));
+	qtwPlugins->headerItem()->setData(2, Qt::AccessibleTextRole, tr("Plugin positional audio permission checkbox"));
+	qtwPlugins->headerItem()->setData(3, Qt::AccessibleTextRole,
+									  tr("Plugin keyboard event listen permission checkbox"));
+
 	qpbUnload->setEnabled(false);
 
 	refillPluginList();
@@ -230,6 +236,10 @@ void PluginConfig::refillPluginList() {
 		i->setToolTip(0, currentPlugin->getDescription().toHtmlEscaped());
 		i->setToolTip(1, tr("Whether this plugin should be enabled"));
 		i->setData(0, Qt::UserRole, currentPlugin->getID());
+
+		on_qtwPlugins_itemChanged(i, 1);
+		on_qtwPlugins_itemChanged(i, 2);
+		on_qtwPlugins_itemChanged(i, 3);
 	}
 
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
@@ -249,5 +259,29 @@ void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QT
 		qpbAbout->setEnabled(false);
 		qpbConfig->setEnabled(false);
 		qpbUnload->setEnabled(false);
+	}
+}
+
+void PluginConfig::on_qtwPlugins_itemChanged(QTreeWidgetItem *item, int column) {
+	const_plugin_ptr_t plugin = pluginForItem(item);
+
+	if (!plugin) {
+		return;
+	}
+
+	switch (column) {
+		case 1:
+		case 3:
+			item->setData(column, Qt::AccessibleDescriptionRole,
+						  item->checkState(column) == Qt::Checked ? tr("checked") : tr("unchecked"));
+			break;
+		case 2:
+			if (plugin->getFeatures() & MUMBLE_FEATURE_POSITIONAL) {
+				item->setData(column, Qt::AccessibleDescriptionRole,
+							  item->checkState(column) == Qt::Checked ? tr("checked") : tr("unchecked"));
+			} else {
+				item->setData(column, Qt::AccessibleDescriptionRole, tr("Not available"));
+			}
+			break;
 	}
 }

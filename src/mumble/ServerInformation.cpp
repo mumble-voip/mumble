@@ -26,6 +26,14 @@ ServerInformation::ServerInformation(QWidget *parent) : QDialog(parent) {
 	setupUi(this);
 
 	updateFields();
+
+	// Labels are not initialized properly here. We need to wait a tiny bit
+	// to make sure its contents are actually read.
+	QTimer::singleShot(0, [this]() {
+		qgbServerInformation->updateAccessibleText();
+		qgbAudioBandwidth->updateAccessibleText();
+		qgbTCPParameters->updateAccessibleText();
+	});
 }
 
 void ServerInformation::updateFields() {
@@ -73,6 +81,8 @@ void ServerInformation::updateServerInformation() {
 	serverInfo_protocol->setText(Version::toString(Global::get().sh->m_version));
 	serverInfo_release->setText(release);
 	serverInfo_os->setText(os);
+
+	qgbServerInformation->updateAccessibleText();
 }
 
 static const QString currentCodec() {
@@ -88,6 +98,8 @@ void ServerInformation::updateAudioBandwidth() {
 	audio_current->setText(QString::fromLatin1("%1 kBit/s").arg(currentBandwidth, 0, 'f', 1));
 	audio_allowed->setText(QString::fromLatin1("%1 kBit/s").arg(maxBandwidthAllowed, 0, 'f', 1));
 	audio_codec->setText(currentCodec());
+
+	qgbAudioBandwidth->updateAccessibleText();
 }
 
 void ServerInformation::updateConnectionDetails() {
@@ -145,6 +157,8 @@ void ServerInformation::updateConnectionDetails() {
 	// unavailable, the respective boolean flag is never touched and is therefore meaningless.
 	connection_tcp_forwardSecrecy->setText(tr("Unknown"));
 #endif
+
+	qgbTCPParameters->updateAccessibleText();
 }
 
 void ServerInformation::populateUDPStatistics(const Connection &connection) {

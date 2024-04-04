@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="qgbConnection">
+    <widget class="AccessibleQGroupBox" name="qgbConnection">
      <property name="title">
       <string>Connection Information</string>
      </property>
@@ -142,7 +142,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Details...</string>
+         <string>Details</string>
         </property>
        </widget>
       </item>
@@ -183,7 +183,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qgbPing">
+    <widget class="AccessibleQGroupBox" name="qgbPing">
      <property name="title">
       <string>Ping Statistics</string>
      </property>
@@ -314,7 +314,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qgbUDP">
+    <widget class="AccessibleQGroupBox" name="qgbUDP">
      <property name="title">
       <string>UDP Network statistics</string>
      </property>
@@ -541,7 +541,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qgbBandwidth">
+    <widget class="AccessibleQGroupBox" name="qgbBandwidth">
      <property name="title">
       <string comment="GroupBox">Bandwidth</string>
      </property>
@@ -597,6 +597,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AccessibleQGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>AccessibleQGroupBox.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

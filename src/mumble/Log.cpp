@@ -5,6 +5,7 @@
 
 #include "Log.h"
 
+#include "Accessibility.h"
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
 #include "AudioOutputToken.h"
@@ -40,16 +41,6 @@ static ConfigRegistrar registrarLog(4000, LogConfigDialogNew);
 
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qtwMessages->setAccessibleName(tr("Log messages"));
-	qsTTSVolume->setAccessibleName(tr("TTS engine volume"));
-	qsNotificationVolume->setAccessibleName(tr("Notification sound volume adjustment"));
-	qsbNotificationVolume->setAccessibleName(tr("Notification sound volume adjustment"));
-	qsCueVolume->setAccessibleName(tr("Audio cue volume adjustment"));
-	qsbCueVolume->setAccessibleName(tr("Audio cue volume adjustment"));
-	qsbThreshold->setAccessibleName(tr("Length threshold"));
-	qsbMessageLimitUsers->setAccessibleName(tr("User limit for message limiting"));
-	qsbMaxBlocks->setAccessibleName(tr("Maximum chat length"));
-	qsbChatMessageMargins->setAccessibleName(tr("Chat message margins"));
 
 #ifdef USE_NO_TTS
 	qgbTTS->setDisabled(true);
@@ -63,6 +54,20 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColMessageLimit, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
+
+	qtwMessages->headerItem()->setData(ColMessage, Qt::AccessibleTextRole, tr("Message type"));
+	qtwMessages->headerItem()->setData(ColConsole, Qt::AccessibleTextRole, tr("Log message to console checkbox"));
+	qtwMessages->headerItem()->setData(ColNotification, Qt::AccessibleTextRole,
+									   tr("Display pop-up notification for message checkbox"));
+	qtwMessages->headerItem()->setData(ColHighlight, Qt::AccessibleTextRole,
+									   tr("Highlight window for message checkbox"));
+	qtwMessages->headerItem()->setData(ColTTS, Qt::AccessibleTextRole,
+									   tr("Read message using text to speech checkbox"));
+	qtwMessages->headerItem()->setData(ColMessageLimit, Qt::AccessibleTextRole,
+									   tr("Limit message notification if user count is high checkbox"));
+	qtwMessages->headerItem()->setData(ColStaticSound, Qt::AccessibleTextRole,
+									   tr("Play sound file for message checkbox"));
+	qtwMessages->headerItem()->setData(ColStaticSoundPath, Qt::AccessibleTextRole, tr("Path to sound file"));
 
 	// Add a "All messages" entry
 	allMessagesItem = new QTreeWidgetItem(qtwMessages);
@@ -341,6 +346,11 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
 			}
 		}
 	}
+
+	if (column != ColMessage && column != ColStaticSoundPath) {
+		i->setData(column, Qt::AccessibleDescriptionRole,
+				   i->checkState(column) == Qt::Checked ? tr("checked") : tr("unchecked"));
+	}
 }
 
 void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem *item, int column) {
@@ -371,14 +381,18 @@ void LogConfig::browseForAudioFile() {
 
 void LogConfig::on_qsNotificationVolume_valueChanged(int value) {
 	qsbNotificationVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsNotificationVolume,
+												  QString("%1 %2").arg(value).arg(tr("decibels")));
 }
 
 void LogConfig::on_qsCueVolume_valueChanged(int value) {
 	qsbCueVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsCueVolume, QString("%1 %2").arg(value).arg(tr("decibels")));
 }
 
 void LogConfig::on_qsTTSVolume_valueChanged(int value) {
 	qsbTTSVolume->setValue(value);
+	Mumble::Accessibility::setSliderSemanticValue(qsTTSVolume, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void LogConfig::on_qsbNotificationVolume_valueChanged(int value) {

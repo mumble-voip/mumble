@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "SearchDialog.h"
+#include "Accessibility.h"
 #include "Channel.h"
 #include "ClientUser.h"
 #include "MainWindow.h"
@@ -226,6 +227,7 @@ void SearchDialog::on_searchResultTree_currentItemChanged(QTreeWidgetItem *c, QT
 		if (user) {
 			// Only try to select the user if (s)he still exists
 			Global::get().mw->pmModel->setSelectedUser(user->uiSession);
+			item.setData(1, Qt::AccessibleTextRole, Mumble::Accessibility::userToText(user));
 		}
 	} else {
 		const Channel *channel = Channel::get(item.getID());
@@ -233,7 +235,13 @@ void SearchDialog::on_searchResultTree_currentItemChanged(QTreeWidgetItem *c, QT
 		if (channel) {
 			// Only try to select the channel if it still exists
 			Global::get().mw->pmModel->setSelectedChannel(channel->iId);
+			item.setData(1, Qt::AccessibleTextRole, Mumble::Accessibility::channelToText(channel));
 		}
+	}
+
+	// Hack to make screen readers read search results...
+	if (searchResultTree->currentColumn() == 1) {
+		searchResultTree->setCurrentItem(c, 0);
 	}
 }
 

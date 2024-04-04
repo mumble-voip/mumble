@@ -4,21 +4,28 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "VolumeSliderWidgetAction.h"
+
+#include "MumbleApplication.h"
 #include "VolumeAdjustment.h"
 #include "widgets/EventFilters.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QSlider>
 #include <QToolTip>
 
-VolumeSliderWidgetAction::VolumeSliderWidgetAction(QObject *parent)
-	: QWidgetAction(parent), m_volumeSlider(make_qt_unique< QSlider >(Qt::Horizontal)) {
+VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
+	: QWidgetAction(parent), m_widget(make_qt_unique< QWidget >(parent)),
+	  m_volumeSlider(new QSlider(Qt::Horizontal, parent)), m_label(new QLabel("0 db", parent)) {
 	m_volumeSlider->setMinimum(-30);
 	m_volumeSlider->setMaximum(30);
-	m_volumeSlider->setAccessibleName(tr("Slider for volume adjustment"));
-	m_volumeSlider->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	m_volumeSlider->setAccessibleName(tr("Local volume adjustment"));
 
-	KeyEventObserver *keyEventFilter = new KeyEventObserver(this, QEvent::KeyRelease, false,
-															{ Qt::Key_Left, Qt::Key_Right, Qt::Key_Up, Qt::Key_Down });
+	m_label->setStyleSheet("QLabel { margin-left: 0px; padding: 0px; }");
+	m_volumeSlider->setStyleSheet("QSlider { margin-right: 0px; }");
+
+	KeyEventObserver *keyEventFilter =
+		new KeyEventObserver(this, QEvent::KeyRelease, false, { Qt::Key_Left, Qt::Key_Right });
 	m_volumeSlider->installEventFilter(keyEventFilter);
 
 	// The list of wheel events observed seems odd at first. We have to check for multiple
@@ -32,24 +39,65 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QObject *parent)
 		new MouseWheelEventObserver(this, { Qt::ScrollMomentum, Qt::ScrollUpdate, Qt::ScrollEnd }, false);
 	m_volumeSlider->installEventFilter(wheelEventFilter);
 
-	connect(m_volumeSlider.get(), &QSlider::valueChanged, this,
-			&VolumeSliderWidgetAction::on_VolumeSlider_valueChanged);
-	connect(m_volumeSlider.get(), &QSlider::sliderReleased, this,
-			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
+
+	// Since we do not want the inline label to update when we drag the mouse, we
+	// must install a click event observer to update the label when the user just randomly
+	// clicks on the slider bar.
+	MouseClickEventObserver *mouseEventFilter = new MouseClickEventObserver(this, false);
+	m_volumeSlider->installEventFilter(mouseEventFilter);
+	connect(mouseEventFilter, &MouseClickEventObserver::clickEventObserved, this, [=]() {
+		m_volumeSlider->setFocus(Qt::TabFocusReason);
+		updateLabelValue(false);
+	});
+
+	// Also update the label explicitly when the slider body is released.
+	connect(m_volumeSlider, &QSlider::sliderReleased, this, [=]() {
+		m_volumeSlider->setFocus(Qt::TabFocusReason);
+		updateLabelValue(false);
+	});
+
+	connect(m_volumeSlider, &QSlider::valueChanged, this, &VolumeSliderWidgetAction::on_VolumeSlider_valueChanged);
+
+	connect(m_volumeSlider, &QSlider::sliderReleased, this, &VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 	connect(keyEventFilter, &KeyEventObserver::keyEventObserved, this,
 			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 	connect(wheelEventFilter, &MouseWheelEventObserver::wheelEventObserved, this,
 			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 
-	setDefaultWidget(m_volumeSlider.get());
+	UpDownKeyEventFilter *eventFilter = new UpDownKeyEventFilter(this);
+	m_volumeSlider->installEventFilter(eventFilter);
 
+	// Used to display the drag tooltip at the mouse position
 	m_volumeSlider->setProperty("mouseTracking", true);
+
+	QHBoxLayout *layout = new QHBoxLayout();
+	layout->addWidget(m_volumeSlider);
+	layout->addWidget(m_label);
+	layout->setContentsMargins(0, 0, -1, 0);
+	layout->setSpacing(3);
+	m_widget->setLayout(layout);
+
+	m_widget->setFocusProxy(m_volumeSlider);
+	m_widget->setFocusPolicy(Qt::TabFocus);
+
+	setDefaultWidget(m_widget.get());
+}
+
+void VolumeSliderWidgetAction::updateLabelValue(bool checkMouseButtons) {
+	if (checkMouseButtons && MumbleApplication::instance()->mouseButtons() != Qt::NoButton) {
+		// Do not update the label while the user is dragging the slider.
+		// This will otherwise cause a glitchy experience.
+		return;
+	}
+
+	m_label->setText(QString("%01dB").arg(m_volumeSlider->value()));
 }
 
 void VolumeSliderWidgetAction::updateSliderValue(float value) {
 	int dbShift = VolumeAdjustment::toIntegerDBAdjustment(value);
 	m_volumeSlider->setValue(dbShift);
 	updateTooltip(dbShift);
+	updateLabelValue(false);
 }
 
 void VolumeSliderWidgetAction::updateTooltip(int value) {

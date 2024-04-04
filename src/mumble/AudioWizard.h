@@ -13,6 +13,8 @@
 #include "AudioStats.h"
 #include "Settings.h"
 
+#include "widgets/EventFilters.h"
+
 class AudioWizard : public QWizard, public Ui::AudioWizard {
 private:
 	Q_OBJECT
@@ -50,6 +52,8 @@ protected:
 	void playChord();
 
 	bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
+
+	OverrideTabOrderFilter *m_overrideFilter;
 public slots:
 	void on_qcbInput_activated(int);
 	void on_qcbInputDevice_activated(int);

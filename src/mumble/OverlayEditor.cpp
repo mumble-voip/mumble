@@ -22,7 +22,6 @@
 OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr)
 	: QDialog(p), qgiPromote(qgi), oes(Global::get().s.os) {
 	setupUi(this);
-	qsZoom->setAccessibleName(tr("Zoom level"));
 	os = osptr ? osptr : &Global::get().s.os;
 
 	connect(qdbbBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(apply()));

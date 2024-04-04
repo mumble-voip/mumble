@@ -15,7 +15,13 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QTreeWidget" name="qtwMessages">
+    <widget class="MultiColumnTreeWidget" name="qtwMessages">
+     <property name="accessibleName">
+      <string>Log message types and actions</string>
+     </property>
+     <property name="accessibleDescription">
+      <string>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</string>
+     </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -120,6 +126,9 @@
         <property name="whatsThis">
          <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
         </property>
+        <property name="accessibleName">
+         <string>Set length threshold</string>
+        </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::PlusMinus</enum>
         </property>
@@ -179,6 +188,9 @@
           <property name="whatsThis">
            <string>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</string>
           </property>
+          <property name="accessibleName">
+           <string>Audio cue volume adjustment</string>
+          </property>
           <property name="suffix">
            <string> dB</string>
           </property>
@@ -201,12 +213,15 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSlider" name="qsCueVolume">
+         <widget class="SemanticSlider" name="qsCueVolume">
           <property name="toolTip">
            <string>Volume adjustment for audio cues</string>
           </property>
           <property name="whatsThis">
            <string>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</string>
+          </property>
+          <property name="accessibleName">
+           <string>Audio cue volume adjustment</string>
           </property>
           <property name="minimum">
            <number>-60</number>
@@ -255,6 +270,9 @@
           <property name="whatsThis">
            <string>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</string>
           </property>
+          <property name="accessibleName">
+           <string>Notification sound volume adjustment</string>
+          </property>
           <property name="suffix">
            <string> dB</string>
           </property>
@@ -267,12 +285,15 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="qsNotificationVolume">
+         <widget class="SemanticSlider" name="qsNotificationVolume">
           <property name="toolTip">
            <string>Volume adjustment for notification sounds</string>
           </property>
           <property name="whatsThis">
            <string>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</string>
+          </property>
+          <property name="accessibleName">
+           <string>Notification sound volume adjustment</string>
           </property>
           <property name="minimum">
            <number>-60</number>
@@ -301,12 +322,15 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="qsTTSVolume">
+         <widget class="SemanticSlider" name="qsTTSVolume">
           <property name="toolTip">
            <string>Volume of Text-To-Speech Engine</string>
           </property>
           <property name="whatsThis">
            <string>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</string>
+          </property>
+          <property name="accessibleName">
+           <string>Text to speech volume</string>
           </property>
           <property name="maximum">
            <number>100</number>
@@ -337,7 +361,7 @@
            <number>0</number>
           </property>
           <property name="buddy">
-           <cstring>qsNotificationVolume</cstring>
+           <cstring>qsCueVolume</cstring>
           </property>
          </widget>
         </item>
@@ -376,6 +400,9 @@ The setting only applies for new messages, the already shown ones will retain th
       </item>
       <item row="0" column="1">
        <widget class="QSpinBox" name="qsbMaxBlocks">
+        <property name="accessibleName">
+         <string>Maximum chat log length</string>
+        </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::PlusMinus</enum>
         </property>
@@ -397,6 +424,9 @@ The setting only applies for new messages, the already shown ones will retain th
        <widget class="QLabel" name="qlMaxBlocks">
         <property name="text">
          <string>Maximum chat length</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbMaxBlocks</cstring>
         </property>
        </widget>
       </item>
@@ -421,12 +451,18 @@ The setting only applies for new messages, the already shown ones will retain th
         <property name="text">
          <string>Message margins</string>
         </property>
+        <property name="buddy">
+         <cstring>qsbChatMessageMargins</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
        <widget class="QSpinBox" name="qsbChatMessageMargins">
         <property name="toolTip">
          <string>How far individual messages are spaced out from one another.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Chat message margins</string>
         </property>
         <property name="frame">
          <bool>true</bool>
@@ -459,6 +495,9 @@ The setting only applies for new messages, the already shown ones will retain th
           <property name="text">
            <string>Limit notifications when there are more than</string>
           </property>
+          <property name="buddy">
+           <cstring>qsbMessageLimitUsers</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -475,6 +514,9 @@ The setting only applies for new messages, the already shown ones will retain th
           <property name="toolTip">
            <string>Number of users that will trigger message limiting functionality.</string>
           </property>
+          <property name="accessibleName">
+           <string>User limit for notifications</string>
+          </property>
           <property name="frame">
            <bool>true</bool>
           </property>
@@ -485,9 +527,6 @@ The setting only applies for new messages, the already shown ones will retain th
           <property name="text">
            <string>users on the server.</string>
           </property>
-          <property name="buddy">
-           <cstring>qsbMessageLimitUsers</cstring>
-          </property>
          </widget>
         </item>
        </layout>
@@ -497,6 +536,37 @@ The setting only applies for new messages, the already shown ones will retain th
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SemanticSlider</class>
+   <extends>QSlider</extends>
+   <header>widgets/SemanticSlider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MultiColumnTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>widgets/MultiColumnTreeWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>qtwMessages</tabstop>
+  <tabstop>qcbEnableTTS</tabstop>
+  <tabstop>qcbNoScope</tabstop>
+  <tabstop>qcbNoAuthor</tabstop>
+  <tabstop>qsbThreshold</tabstop>
+  <tabstop>qcbReadBackOwn</tabstop>
+  <tabstop>qsTTSVolume</tabstop>
+  <tabstop>qsbTTSVolume</tabstop>
+  <tabstop>qsNotificationVolume</tabstop>
+  <tabstop>qsbNotificationVolume</tabstop>
+  <tabstop>qsCueVolume</tabstop>
+  <tabstop>qsbCueVolume</tabstop>
+  <tabstop>qsbMaxBlocks</tabstop>
+  <tabstop>qcb24HourClock</tabstop>
+  <tabstop>qsbChatMessageMargins</tabstop>
+  <tabstop>qcbWhisperFriends</tabstop>
+  <tabstop>qsbMessageLimitUsers</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
