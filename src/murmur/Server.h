@@ -203,6 +203,8 @@ public:
 	QTimer qtTick;
 	void initRegister();
 
+	WhisperTargetCache createWhisperTargetCacheFor(ServerUser &speaker, const WhisperTarget &target);
+
 private:
 	int iChannelNestingLimit;
 	int iChannelCountLimit;
