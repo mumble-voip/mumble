@@ -2360,14 +2360,14 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 
 	WhisperTargetCache cache;
 
-	if (!target.qlChannels.isEmpty()) {
-		for (const WhisperTarget::Channel &currentTarget : target.qlChannels) {
-			Channel *targetChannel = qhChannels.value(static_cast< unsigned int >(currentTarget.iId));
+	if (!target.channels.empty()) {
+		for (const WhisperTarget::Channel &currentTarget : target.channels) {
+			Channel *targetChannel = qhChannels.value(currentTarget.id);
 
 			if (targetChannel) {
-				bool includeLinks    = currentTarget.bLinks && !targetChannel->qhLinks.isEmpty();
-				bool includeChildren = currentTarget.bChildren && !targetChannel->qlChannels.isEmpty();
-				bool restrictToGroup = !currentTarget.qsGroup.isEmpty();
+				bool includeLinks    = currentTarget.includeLinks && !targetChannel->qhLinks.isEmpty();
+				bool includeChildren = currentTarget.includeChildren && !targetChannel->qlChannels.isEmpty();
+				bool restrictToGroup = !currentTarget.targetGroup.isEmpty();
 
 				if (!includeLinks && !includeChildren && !restrictToGroup) {
 					// Common case
@@ -2404,8 +2404,8 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 
 					// The target group might be changed by a redirect set up via RPC (Ice/gRPC). In that
 					// case the shout is sent to the redirection target instead the originally specified group
-					const QString &redirect    = speaker.qmWhisperRedirect.value(currentTarget.qsGroup);
-					const QString &targetGroup = redirect.isEmpty() ? currentTarget.qsGroup : redirect;
+					const QString &redirect    = speaker.qmWhisperRedirect.value(currentTarget.targetGroup);
+					const QString &targetGroup = redirect.isEmpty() ? currentTarget.targetGroup : redirect;
 
 					for (Channel *subTargetChan : channels) {
 						if (ChanACL::hasPermission(&speaker, subTargetChan, ChanACL::Whisper, &acCache)) {
@@ -2437,7 +2437,7 @@ WhisperTargetCache Server::createWhisperTargetCacheFor(ServerUser &speaker, cons
 		}
 	}
 
-	for (unsigned int id : target.qlSessions) {
+	for (unsigned int id : target.sessions) {
 		ServerUser *pDst = qhUsers.value(id);
 		if (pDst && ChanACL::hasPermission(&speaker, pDst->cChannel, ChanACL::Whisper, &acCache)
 			&& !cache.channelTargets.contains(pDst))
