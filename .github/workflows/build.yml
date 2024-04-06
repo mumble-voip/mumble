@@ -27,7 +27,7 @@ jobs:
     outputs:
       build_number: ${{ steps.fetch.outputs.build_number }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
             fetch-depth: 1
       - id: fetch
@@ -58,7 +58,7 @@ jobs:
       shell: bash
 
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           submodules: 'recursive'
           fetch-depth: 1
@@ -69,7 +69,7 @@ jobs:
       shell: bash
 
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
           path: '${{ env.MUMBLE_BUILD_ENV_PATH }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
