@@ -2192,26 +2192,30 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
 			for (int j = 0; j < t.session_size(); ++j) {
 				unsigned int s = t.session(j);
-				if (qhUsers.contains(s))
-					wt.qlSessions << s;
+				if (qhUsers.contains(s)) {
+					wt.sessions.push_back(s);
+				}
 			}
 			if (t.has_channel_id()) {
 				unsigned int id = t.channel_id();
 				if (qhChannels.contains(id)) {
 					WhisperTarget::Channel wtc;
-					wtc.iId       = static_cast< int >(id);
-					wtc.bChildren = t.children();
-					wtc.bLinks    = t.links();
-					if (t.has_group())
-						wtc.qsGroup = u8(t.group());
-					wt.qlChannels << wtc;
+					wtc.id              = id;
+					wtc.includeChildren = t.children();
+					wtc.includeLinks    = t.links();
+					if (t.has_group()) {
+						wtc.targetGroup = u8(t.group());
+					}
+
+					wt.channels.push_back(wtc);
 				}
 			}
 		}
-		if (wt.qlSessions.isEmpty() && wt.qlChannels.isEmpty())
+		if (wt.sessions.empty() && wt.channels.empty()) {
 			uSource->qmTargets.remove(target);
-		else
-			uSource->qmTargets.insert(target, wt);
+		} else {
+			uSource->qmTargets.insert(target, std::move(wt));
+		}
 	}
 }
 
