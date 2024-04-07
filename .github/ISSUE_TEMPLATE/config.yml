@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Forums
-    url: https://forums.mumble.info/
-    about: The Mumble forums. Here you can discuss stuff or get help and support.
   - name: Public Matrix channel
     url: https://matrix.to/#/#mumble:matrix.org
     about: The public Mumble chatroom.
