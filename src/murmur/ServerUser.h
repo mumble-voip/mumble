@@ -27,6 +27,8 @@
 #	include <sys/socket.h>
 #endif
 
+#include <vector>
+
 // Unfortunately, this needs to be "large enough" to hold
 // enough frames to account for both short-term and
 // long-term "maladjustments".
@@ -52,13 +54,14 @@ struct BandwidthRecord {
 
 struct WhisperTarget {
 	struct Channel {
-		int iId;
-		bool bChildren;
-		bool bLinks;
-		QString qsGroup;
+		unsigned int id;
+		bool includeChildren;
+		bool includeLinks;
+		QString targetGroup;
 	};
-	QList< unsigned int > qlSessions;
-	QList< WhisperTarget::Channel > qlChannels;
+
+	std::vector< unsigned int > sessions;
+	std::vector< WhisperTarget::Channel > channels;
 };
 
 class ServerUser;
