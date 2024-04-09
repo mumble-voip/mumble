@@ -170,6 +170,13 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
+	AudioInputPtr audioIn = Global::get().ai;
+	if (audioIn) {
+		audioIn->updateUserMuteDeafState(user);
+		QObject::connect(user, &ClientUser::muteDeafStateChanged, audioIn.get(),
+						 &AudioInput::onUserMuteDeafStateChanged);
+	}
+
 	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menus

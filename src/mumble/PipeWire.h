@@ -36,6 +36,7 @@ public:
 
 	pw_buffer *dequeueBuffer();
 	void queueBuffer(pw_buffer *buffer);
+	void setActive(bool active);
 
 	PipeWireEngine(const char *category, void *param, const std::function< void(void *param) > callback);
 	~PipeWireEngine();
@@ -78,11 +79,14 @@ protected:
 	void (*pw_thread_loop_destroy)(pw_thread_loop *loop);
 	int (*pw_thread_loop_start)(pw_thread_loop *loop);
 	int (*pw_thread_loop_stop)(pw_thread_loop *loop);
+	void (*pw_thread_loop_lock)(pw_thread_loop *loop);
+	void (*pw_thread_loop_unlock)(pw_thread_loop *loop);
 
 	pw_properties *(*pw_properties_new)(const char *key, ...);
 
 	pw_stream *(*pw_stream_new_simple)(pw_loop *loop, const char *name, pw_properties *props,
 									   const pw_stream_events *events, void *data);
+	int (*pw_stream_set_active)(pw_stream *stream, bool active);
 	void (*pw_stream_destroy)(pw_stream *stream);
 	int (*pw_stream_connect)(pw_stream *stream, uint32_t direction, uint32_t target_id, uint32_t flags,
 							 const spa_pod **params, uint32_t n_params);
@@ -105,6 +109,8 @@ protected:
 	std::unique_ptr< PipeWireEngine > m_engine;
 
 	static void processCallback(void *param);
+
+	void onUserMutedChanged() override;
 
 private:
 	Q_OBJECT
