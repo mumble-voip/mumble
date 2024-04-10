@@ -154,6 +154,25 @@ FIX(client): Crash when loading settings
 MAINT: Add XY to README
 ```
 
+## Pull Requests and Merge Commits
+
+Merge commits shall follow the same commit guidelines and format as "normal" commits.
+They include a pull reqeust reference at the end.
+
+For example:
+
+```
+FEAT(client): Add ReNameNoise as a replacement for RNNoise (#6364)
+```
+
+Pull requests, when accepted, ultimately become merge commits (merging the enclosed commits). Consequently:
+
+**Pull requests should be created with a title and description following the commit guidelines and format.**
+
+A pull request and merge commit encloses one or multiple commits.
+Each commit has their own title and descriptions of changes.
+The pull request and merge commit should title and describe the changeset overall in a summarizing manner.
+
 -----
 
 This guide was inspired by https://github.com/bluejava/git-commit-guide
