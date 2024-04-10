@@ -44,10 +44,10 @@ Use the bundled GSL version instead of looking for one on the system
 Build the included version of nlohmann_json instead of looking for one on the system
 (Default: ON)
 
-### bundled-rnnoise
+### bundled-renamenoise
 
-Build the included version of RNNoise instead of looking for one on the system.
-(Default: ${rnnoise})
+Build the included version of ReNameNoise instead of looking for one on the system.
+(Default: ${renamenoise})
 
 ### bundled-speex
 
@@ -189,14 +189,14 @@ Build support for custom Diffie-Hellman parameters.
 Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations.
 (Default: OFF)
 
+### renamenoise
+
+Use ReNameNoise for machine learning noise reduction.
+(Default: ON)
+
 ### retracted-plugins
 
 Build redacted (outdated) plugins as well
-(Default: OFF)
-
-### rnnoise
-
-Use RNNoise for machine learning noise reduction.
 (Default: OFF)
 
 ### server
