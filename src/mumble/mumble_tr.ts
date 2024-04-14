@@ -432,51 +432,51 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal konumu</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaldaki azami kullanıcı sayısı</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal açıklaması</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklemek için üye seçin</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Hariç tutulan grup üyeleri</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldırmak için üye seçin</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Erişim denetim listesi unsurları listesi</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup seç</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ACL unsurunun uygulanacağı grubu seçer. Aynı anda hem bir grup hem de bir kullanıcı seçilemez.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı seç</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ACL unsurunun uygulanacağı kullanıcıyı seçer. Aynı anda hem bir grup hem de bir kullanıcı seçilemez.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılabilir izinlerin listesi</translation>
     </message>
 </context>
 <context>
@@ -629,27 +629,27 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Aygıt listesi</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılmayanlardan mikrofon listesine taşı</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofondan kullanılmayanlar listesine taşı</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılmayan aygıtların listesi</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılmayanlardan hoparlörler listesine taşı</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoparlörlerden kullanılmayanlar listesine taşı</translation>
     </message>
 </context>
 <context>
@@ -1106,15 +1106,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses için girdi arka ucu</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses girdi sistemi</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses girdi aygıtı</translation>
     </message>
     <message>
         <source>Transmission mode</source>
@@ -1122,23 +1122,23 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Bas ve konuş kilit eşiği</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu zaman diliminde çift dokunarak bas ve konuş ile sürekli mod arasında geçiş yap</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ses aktarım süresi&lt;/b&gt;&lt;br /&gt;Bas ve konuş tuşunu bıraktıktan sonra Mumble seçilen süre boyunca aktarıma devam edecektir.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Bas ve konuş aktarım eşiği</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuş bırakıldıktan sonra bas ve konuş aktarım süresini bu süre kadar uzat</translation>
     </message>
     <message>
         <source>Voice hold time</source>
@@ -1166,11 +1166,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses sıkıştırma kalitesi</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, hedef sıkıştırma bit akış oranını ayarlar</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1190,7 +1190,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses dosyasının yolu</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -1293,19 +1293,19 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milisaniye</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>saniye</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>kilobit/saniye</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>desibel</translation>
     </message>
 </context>
 <context>
@@ -1582,11 +1582,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses çıktı sistemi</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses çıktı aygıtı</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
@@ -1677,11 +1677,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milisaniye</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metre</translation>
     </message>
 </context>
 <context>
@@ -2220,23 +2220,23 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses girdi sistemi</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses girdi aygıtı</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses çıktı aygıtını seç</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses çıktı sistemi</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses çıktı aygıtı</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
@@ -2429,35 +2429,35 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklı kullanıcı ara</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklanacak kullanıcı adı</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklanacak IP adresi</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklama sebebi</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasak başlangıç tarihi/saati</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasak bitiş tarihi/saati</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklanacak sertifika hash değeri</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Yasaklanan kullanıcıların listesi</translation>
     </message>
 </context>
 <context>
@@ -2751,7 +2751,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
-        <translation>İsminiz (mesela Namık Kemal)</translation>
+        <translation>Adınız (mesela Namık Kemal)</translation>
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
@@ -2785,7 +2785,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçerli sertifikayı görüntüler</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2801,15 +2801,15 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>İçe aktarılan sertifikayı görüntüler</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni sertifikayı görüntüler</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Dışa aktarılacak dosya için sertifika</translation>
+        <translation>Sertifikanın dışa aktarılacağı dosya</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
@@ -2817,11 +2817,11 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Adınız. Örneğin: Namık Kemal</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>E-posta adresiniz. Örneğin: namikkemal@mumble.info</translation>
     </message>
 </context>
 <context>
@@ -3317,11 +3317,11 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu adı ara</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Konum ara</translation>
     </message>
     <message>
         <source>Set filter mode</source>
@@ -3465,19 +3465,19 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu IP adresi</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu bağlantı noktası</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Kullanıcı ismi</translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu etiketi</translation>
     </message>
 </context>
 <context>
@@ -3674,7 +3674,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Yapılandırılmış kısayollar</translation>
+        <translation>Yapılandırılan kısayollar</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
@@ -3721,7 +3721,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısayolların listesi</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
@@ -3757,11 +3757,11 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısayol eylemi</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısayol verisi</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
@@ -3769,7 +3769,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Atanmamış</translation>
+        <translation>Atanmadı</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4438,7 +4438,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Günlük mesajı türleri ve eylemleri</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
@@ -4458,11 +4458,11 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirimler için kullanıcı sınırı</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesaj türü</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
@@ -4490,7 +4490,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses dosyasının yolu</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4502,7 +4502,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>desibel</translation>
     </message>
 </context>
 <context>
@@ -4959,19 +4959,19 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Her zaman üstte modu</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessiz davranış modu</translation>
     </message>
     <message>
         <source>Channel separator string</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal ayırıcı dizgesi</translation>
     </message>
     <message>
         <source>Maximum channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Azami kanal adı uzunluğu</translation>
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
@@ -4979,7 +4979,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Göreceli yazı tipi boyutu (yüzde olarak)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
@@ -4987,7 +4987,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble teması</translation>
     </message>
     <message>
         <source>User search action mode</source>
@@ -7067,7 +7067,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Qt Hakkında</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
@@ -7115,7 +7115,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;İmtiyazlı Konuşmacı</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
@@ -7139,7 +7139,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu kullanıcıyı geçerli kanalınıza taşır.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
@@ -7250,15 +7250,15 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinleyici Z koordinatı</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinleyici X koordinatı</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinleyici Y koordinatı</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
@@ -8141,19 +8141,19 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>List of plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti listesi</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklentiler arasında gezinmek için yukarı ve aşağı tuşlarını kullanın. Bir eklentinin izinleri arasında gezinmek için sol ve sağ tuşlarını kullanın.</translation>
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti adı</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti etkin onay kutusu</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
@@ -8173,7 +8173,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılabilir değil</translation>
     </message>
 </context>
 <context>
@@ -8603,27 +8603,27 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Geri</translation>
     </message>
     <message>
         <source>This is you</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu sizsiniz</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>arkadaş</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>kullanıcı</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>durum</translation>
     </message>
     <message>
         <source>muted and deafened</source>
@@ -8663,19 +8663,19 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>kanal</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>kanalınız</translation>
     </message>
     <message>
         <source>accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>erişilebilir</translation>
     </message>
     <message>
         <source>inaccessible</source>
-        <translation type="unfinished"></translation>
+        <translation>erişilemez</translation>
     </message>
     <message>
         <source>public</source>
@@ -8851,11 +8851,11 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama sonuçları</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama sonuçları arasında gezinmek için yukarı ve aşağı tuşlarını kullanın.</translation>
     </message>
 </context>
 <context>
@@ -9021,11 +9021,11 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kullanıcılar:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP Parametreleri</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -9281,7 +9281,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı ara</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
@@ -9443,7 +9443,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayrıntılar</translation>
     </message>
 </context>
 <context>
@@ -9641,7 +9641,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Dinleyici</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>

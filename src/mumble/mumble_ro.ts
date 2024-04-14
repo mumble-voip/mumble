@@ -5,7 +5,7 @@
     <name>ACLEditor</name>
     <message>
         <source>Deny</source>
-        <translation>Refuza</translation>
+        <translation>Refuză</translation>
     </message>
     <message>
         <source>Allow</source>
@@ -374,11 +374,11 @@ Conține lista de membri moșteniți de canalul curent. Debifați opțiunea &lt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta controlează la ce grup de utilizatori se aplică această intrare.&lt;br /&gt;Reține că grupul este evaluat în contextul canalului în care este utilizată intrarea. De exemplu, ACL-ul implicit pe canalul Root acordă permisiunea &lt;i&gt;Write&lt;/i&gt; grupului &lt;i&gt;admin&lt;/i&gt;. Această intrare, dacă este moștenită de un canal, va acorda unui utilizator privilegii de scriere dacă acesta aparține grupului &lt;i&gt;admin&lt;/i&gt; în acel canal, chiar dacă nu aparține grupului &lt;i&gt;admin&lt;/i&gt; în canalul de origine al ACL-ului.&lt;br /&gt;Dacă un nume de grup începe cu &apos;!&apos;, apartenența sa este negată, iar dacă începe cu &apos;~&apos;, este evaluat în canalul în care a fost definit ACL-ul, nu în canalul în care este activ.&lt;br /&gt;Dacă un nume de grup începe cu &apos;#&apos;, este interpretat ca un token de acces. Utilizatorii trebuie să fi introdus ceea ce urmează după &apos;#&apos; în lista lor de token-uri de acces pentru a se potrivi. Acest lucru poate fi folosit pentru accesul foarte simplu cu parolă la canale pentru utilizatorii neautentificați.&lt;br /&gt;Dacă un nume de grup începe cu &apos;$&apos;, se va potrivi doar utilizatorilor ale căror hash-uri de certificat se potrivesc cu ce urmează după &apos;$&apos;.&lt;br /&gt;Câteva grupuri predefinite speciale sunt:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Toți vor fi potriviți.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Toți utilizatorii autentificați se vor potrivi.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utilizatorul se află în prezent într-un sub-canal cu cel puțin &lt;i&gt;a&lt;/i&gt; părinți comuni și între canalele &lt;i&gt;b&lt;/i&gt; și &lt;i&gt;c&lt;/i&gt; în jos pe lanț. Consultă site-ul pentru documentația extinsă despre acesta.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utilizatorii care se află în prezent în canal se vor potrivi (conveniență pentru &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Utilizatorii care nu se află în canal se vor potrivi (conveniență pentru &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Reține că o intrare se aplică fie unui utilizator, fie unui grup, nu ambilor.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>b&gt;Parolă&lt;/b&gt;&lt;br /&gt;Acest câmp îți permite să setezi și să schimbi ușor parola unui canal. Folosește funcționalitatea de token-uri de acces a Mumble în fundal. Folosește ACL-uri și grupuri dacă ai nevoie de un control mai fin și mai puternic al accesului.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
@@ -549,11 +549,11 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acest lucru selectează ce dispozitiv să fie interogat. Totuși, trebuie să selectezi dispozitivul și să selectezi care canale să fie utilizate.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Interoghează dispozitivul selectat</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
@@ -561,7 +561,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Interogare</translation>
     </message>
     <message>
         <source>Configure selected device</source>
@@ -569,7 +569,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta configurează dispozitivul selectat. Fii conștient că multe drivere ASIO sunt extrem de blocate și configurarea lor ar putea provoca un crash al aplicației sau al sistemului.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -589,7 +589,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceasta va configura canalele de intrare pentru ASIO. Asigură-te că selectezi cel puțin un canal ca microfon și difuzor. &lt;i&gt;Microfonul&lt;/i&gt; ar trebui să fie acolo unde este conectat microfonul tău, iar &lt;i&gt;Difuzorul&lt;/i&gt; ar trebui să fie un canal care samplează &apos;&lt;i&gt;Ceea ce auzi&lt;/i&gt;&apos;. De exemplu, pe Audigy 2 ZS, o selecție bună pentru Microfon ar fi &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos;, în timp ce Difuzorul ar trebui să fie &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; și &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
@@ -621,11 +621,11 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Listă cu microfoane</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Listă cu difuzoare</translation>
     </message>
     <message>
         <source>Device list</source>
@@ -656,7 +656,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trebuie să selectezi cel puțin o sursă de microfon și una de difuzor pentru a folosi ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -679,11 +679,11 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;utori</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Licențe terțe</translation>
     </message>
     <message>
         <source>OK</source>
@@ -691,23 +691,23 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Acord de licență</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Autori</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Acorduri de licență ale terților</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Un instrument de chat vocal open-source, cu latenta redusă și calitate audio înaltă&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pentru o listă de autori, te rog să consulți &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -746,7 +746,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta setează când ar trebui să fie transmisă vorbirea.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuu&lt;/i&gt; - Tot timpul&lt;br /&gt;&lt;i&gt;Activitate vocală&lt;/i&gt; - Când vorbești clar.&lt;br /&gt;&lt;i&gt;Apăsă pentru a vorbi&lt;/i&gt; - Când apeși tasta rapidă setată sub &lt;i&gt;Scurtături&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -758,7 +758,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Timpul de dublă apăsare&lt;/b&gt;&lt;br /&gt;Dacă apeși tasta de apăsare pentru a vorbi de două ori în intervalul de timp configurat, aceasta va fi blocată. Mumble va continua să transmită până când apeși din nou tasta o singură dată pentru a debloca PTT din nou.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -766,7 +766,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Resetare&lt;/b&gt;&lt;br/&gt;Resetează căile pentru fișiere la valorile implicite.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
@@ -794,7 +794,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta setează detectarea vorbirii să folosească Amplitudinea.&lt;/b&gt;&lt;br /&gt;În acest mod, puterea brută a semnalului de intrare este folosită pentru a detecta vorbirea.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -814,7 +814,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta setează valorile de declanșare pentru detectarea vocii.&lt;/b&gt;&lt;br /&gt;Folosește acest lucru împreună cu fereastra de Statistici Audio pentru a regla manual valorile de declanșare pentru detectarea vorbirii. Valorile de intrare sub &quot;Tăcere Sub&quot; sunt întotdeauna considerate tăcere. Valorile peste &quot;Vorbire Peste&quot; sunt întotdeauna considerate voce. Valorile între acestea vor fi considerate voce dacă vorbești deja, dar nu vor declanșa o nouă detecție.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -838,7 +838,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta setează calitatea compresiei.&lt;/b&gt;&lt;br /&gt;Aceasta determină cât de multă lățime de bandă este permisă pentru utilizarea audio în ieșire de către Mumble.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -850,11 +850,11 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta selectează câte cadre audio ar trebui să fie puse într-un pachet.&lt;/b&gt;&lt;br /&gt;Creșterea acestui parametru va crește latenta vocii tale, dar va reduce și cerințele de lățime de bandă.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta arată lățimea maximă de bandă utilizată pentru ieșire.&lt;/b&gt;&lt;br /&gt;Aceasta arată cantitatea maximă de bandă trimisă de pe mașina ta. Bitrate-ul audio este bitrate-ul maxim (deoarece folosim VBR) pentru datele audio în sine. Poziția este bitrate-ul folosit pentru informațiile de poziție. Suprasarcina este împachetarea noastră și antetele pachetelor IP (IP și UDP reprezintă 75% din această suprasarcină).</translation>
     </message>
     <message>
         <source>Audio Processing</source>
@@ -866,7 +866,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Aceasta stabilește cantitatea de suprimare a zgomotului de aplicat.&lt;/b&gt;&lt;br /&gt;Cu cât este mai mare această valoare, cu atât zgomotul staționar va fi suprimat mai agresiv.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
