@@ -20,7 +20,7 @@ from commitMessage.CommitMessage import CommitMessage, CommitFormatError
 
 release_branch_pattern = re.compile(r"(\d+)\.(\d+)\.x")
 pr_number_pattern = re.compile(
-    r"PR\s*#(\d+)|Pull\s*Request\s*(#\d+)|\(#(\d+)\)", re.IGNORECASE
+    r"PR\s*#(\d+)|Pull\s*Request\s*#(\d+)|\(#(\d+)\)", re.IGNORECASE
 )
 
 
@@ -165,6 +165,10 @@ def get_merge_commit_introducing(commit: str, branch: str) -> Optional[str]:
 
     merge_commit: str = candidates[0]
 
+    if merge_commit == "":
+        # There is no merge commit
+        return None
+
     # Due to the way we are searching for the merge commits, we have to verify that the found merge commit actually introduces
     # the searched for commit
     return merge_commit if commit in get_commits_in_merge(merge_commit) else None
@@ -233,10 +237,27 @@ def generate_changelog_from(commits: List[str], branch: str, target_format: str)
         if merge_commit_hash:
             merge_subject: str = get_subject(merge_commit_hash)
             mod_merge_subject = merge_subject.replace(":", " ")
+
+            # Fix for some merge commits with do not follow the convention
+            if "  Backport " in mod_merge_subject:
+                mod_merge_subject = mod_merge_subject.split("  Backport ")[1]
+
             match = pr_number_pattern.search(mod_merge_subject)
 
             if match:
-                pr_number = int(match.group(1))
+                # Find the first pr_number across the different regex groups.
+                # Regex groups are enumerated based on the original regex not
+                # on the number of matched parts of the regex...
+                for group in range(pr_number_pattern.groups):
+                    m = match.group(group)
+
+                    if not m:
+                        continue
+                    if not m.isnumeric():
+                        continue
+
+                    pr_number = int(m)
+                    break
             else:
                 print(
                     '[WARNING]: Non-conforming merge commit subject "{}"'.format(
