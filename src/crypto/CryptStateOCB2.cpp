@@ -5,11 +5,9 @@
 
 /*
  * This code implements OCB-AES128.
- * In the US, OCB is covered by patents. The inventor has given a license
- * to all programs distributed under the GPL.
- * Mumble is BSD (revised) licensed, meaning you can use the code in a
- * closed-source program. If you do, you'll have to either replace
- * OCB with something else or get yourself a license.
+ * The algorithm design was dedicated to the public domain.
+ * https://www.cs.ucdavis.edu/~rogaway/ocb/license.htm
+ * https://www.cs.ucdavis.edu/~rogaway/ocb/ocb-faq.htm
  */
 
 #include <QtCore/QtGlobal>
