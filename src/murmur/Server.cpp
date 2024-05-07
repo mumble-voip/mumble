@@ -177,7 +177,13 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 			}
 
 			if (::bind(sock, reinterpret_cast< sockaddr * >(&addr), len) == SOCKET_ERROR) {
-				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
+#ifdef Q_OS_WIN
+				log(QString("Failed to bind UDP Socket to %1: %2")
+						.arg(addressToString(ss->serverAddress(), usPort), WSAGetLastError()));
+#else
+				log(QString("Failed to bind UDP Socket to %1: %2")
+						.arg(addressToString(ss->serverAddress(), usPort), errno));
+#endif
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
