@@ -77,6 +77,14 @@ def create_tar_archive(
     files: List[str], archive_name: str, rel_to: str, compression: Optional[str] = "gz"
 ) -> str:
     """Writes the given set of files into a tar archive (using compression, if desired)"""
+
+    def tar_filter(tarinfo):
+        tarinfo.uid = 0
+        tarinfo.uname = ''
+        tarinfo.gid = 0
+        tarinfo.gname = ''
+        return tarinfo
+
     top_level_dir: str = os.path.basename(archive_name)
     archive_name += ".tar"
     if compression:
@@ -92,6 +100,7 @@ def create_tar_archive(
                     top_level_dir, os.path.relpath(current_file, rel_to)
                 ),
                 recursive=False,
+                filter=tar_filter,
             )
 
     return archive_name
