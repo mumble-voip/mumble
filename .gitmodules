@@ -28,3 +28,6 @@
 [submodule "3rdparty/renamenoise"]
 	path = 3rdparty/renamenoise
 	url = https://github.com/mumble-voip/ReNameNoise.git
+[submodule "3rdparty/flag-icons"]
+	path = 3rdparty/flag-icons
+	url = https://github.com/lipis/flag-icons.git
