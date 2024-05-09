@@ -32,7 +32,7 @@ licenses = [
     ["licenseMinHook", "3rdparty/minhook/LICENSE.txt", "MinHook", "https://github.com/TsudaKageyu/minhook", "Q_OS_WIN64"],
     ["licenseQtTranslations", "src/mumble/qttranslations/LICENSE",
         "Additional Qt translations", "https://www.virtualbox.org/ticket/2018", "USING_BUNDLED_QT_TRANSLATIONS"],
-    ["licenseEmojiOne", "3rdPartyLicenses/cc_by_sa_40_legalcode.txt", "Emoji One artwork", "http://emojione.com/"],
+    ["licenseFlagIcons", "3rdparty/flag-icons/LICENSE", "flag-icons", "https://flagicons.lipis.dev/" ],
     ["licenseXInputCheck", "3rdparty/xinputcheck-src/COPYING.txt", "XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/"],
     ["licenseQQBonjour", "3rdparty/qqbonjour/LICENSE", "QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html"],
     ["licenseSmallFT", "3rdparty/smallft/LICENSE", "smallft", "https://www.xiph.org"],
