@@ -432,35 +432,35 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Положение канала</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>максимальное количество пользователей в канале</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Описание канала</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите участника для добавления</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Исключенные члены группы</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите участника для удаления</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Список записей списка контроля доступа</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите группу</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите пользователя</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -476,7 +476,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Список доступных разрешений</translation>
     </message>
 </context>
 <context>
@@ -629,7 +629,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>список устройств</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
@@ -641,7 +641,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Список неиспользуемых устройств</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
@@ -9933,7 +9933,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>локальная регулировка громкости</translation>
     </message>
 </context>
 <context>
