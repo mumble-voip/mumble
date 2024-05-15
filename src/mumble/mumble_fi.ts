@@ -432,51 +432,51 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan sijainti</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan käyttäjien enimmäismäärä</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan kuvaus</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse lisättävä käyttäjä</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Poisjätetyt ryhmän jäsenet</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse poistettava jäsen</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Luettelo oikeuslistan kohteista</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse ryhmä</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitsee ryhmän jota tämä oikeusmääritys koskee. Ryhmän valitseminen ja käyttäjän valitseminen ovat toisensa poissulkevia.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse käyttäjä</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitsee käyttäjän, jota tämä oikeusmääritys koskee. Ryhmän valitseminen ja käyttäjän valitseminen ovat toisensa poissulkevia.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytettävissä olevat oikeudet</translation>
     </message>
 </context>
 <context>
@@ -629,27 +629,27 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Laiteluettelo</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirry käyttämättömästä mikrofonilistalle</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirrä mikrofonista kättämättömien listalle</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Luettelo käyttämättömistä laitteista</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirry käyttämättömästä puhujaluetteloon</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirrä puhujista käyttämättömään listaan</translation>
     </message>
 </context>
 <context>
@@ -667,7 +667,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <name>AboutDialog</name>
     <message>
         <source>About Mumble</source>
-        <translation>Tietoa Mumblesta</translation>
+        <translation>Tietoja Mumblesta</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -1106,131 +1106,131 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Taustalähde äänen tuloa varten</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen sisääntulojärjestelmä</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen sisääntulolaite</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished">Lähetystila</translation>
+        <translation>Lähetystila</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhepikanäppäimen lukon kynnys</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda puhepikanäppäimen ja jatkuvan puhetilan välillä tuplapainalluksella tässä ruudussa</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Äänen viiveen aika&lt;/b&gt;&lt;br /&gt;Vapautettuasi puhepikanäppäimen Mumble jatkaa lähetystä valitun ajan verran.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhepikanäppäimen kynnys</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished"></translation>
+        <translation>Pidennä aikaa tämän verran kauanko lähetystä jatketaan puhepikanäppäimen vapauttamisen jälkeen</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen kestoaika</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiljaisuus kynnyksen alapuolella</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa kynnyksen, jolloin Mumble katsoo signaalin olevan hiljaisuutta</translation>
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhetta kynnyksen yläpuolella</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa kynnyksen, jonka yläpuolella Mumblen mielestä on puhetta</translation>
     </message>
     <message>
         <source>This sets how much speech is packed into a single network package</source>
-        <translation type="unfinished"></translation>
+        <translation>Näin paljon puhetta sisällytetään yhteen verkkopakettiin</translation>
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen pakkauksen laatu</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Tällä määritetään pakkauksen tavoite bittinopeus</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Suurin vahvistus</translation>
+        <translation>Suurin vahvistus</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhetta vahvistetaan enintään tällä määrällä</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Melunvaimennuksen voimakkuus</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Kaiunpoistotila</translation>
+        <translation>Kaiunpoistotila</translation>
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Polku äänitiedostoon</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Polku äänitiedostoon kun lopetat puhumisen. Käytä &quot;selaa&quot;-nappia avataksesi tiedostovalinnan.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Poissaolon toimenpiteiden kynnysaika (minuuteissa)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse mitä tehdään oltuasi poissa määritellyn ajan. Oletus: ei mitään</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuluu kun yrität puhua ollessasi mykistetty</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Polku mykistyksen äänimerkin tiedostoon. Käytä &quot;selaa&quot;-nappia avataksesi tiedostovalinnan.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse mykistyksen äänimerkin äänitiedosto</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Polku puhumisen alkamisen äänimerkin tiedostoon. Käytä &quot;selaa&quot;-nappia avataksesi tiedostovalinnan.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Esikuuntele mykistyksen äänimerkki</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Mykistyksen äänimerkki on ääni, joka kuuluu kun yrität puhua ollessasi mykistetty</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Esikuuntele molemmat äänimerkit</translation>
     </message>
 </context>
 <context>
@@ -1293,19 +1293,19 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekuntia</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>sekuntia</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>kilobittiä sekunnissa</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>desibeliä</translation>
     </message>
 </context>
 <context>
@@ -1582,55 +1582,55 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen ulostulojärjestelmä</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen ulostulolaite</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisääntulevan äänen ulostulon viive</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Huojuntapuskurin aika</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaimennusprosentti</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Puheen aikana muiden sovellusten äänenvoimakkuutta vaimennetaan tämän verran</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Pienin äänenvoimakkuus</translation>
+        <translation>Pienin äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished">Pienin etäisyys</translation>
+        <translation>Pienin etäisyys</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished">Suurin etäisyys</translation>
+        <translation>Suurin etäisyys</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisinkierrätyksen keinotekoinen viive</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisinkierrätyksen keinotekoinen pakettihäviö</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisinkierrätyksen testitila</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisinkierrätystestillä voit kokeilla ääniasetuksiesi toimivuuden. Kun takaisinkierrätys on käytössä, muut eivät voi kuulla sinua.</translation>
     </message>
 </context>
 <context>
@@ -1677,11 +1677,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekuntia</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metriä</translation>
     </message>
 </context>
 <context>
@@ -2220,71 +2220,71 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen sisääntulojärjestelmä</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen sisääntulolaite</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse äänen ulostulolaite</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen ulostulojärjestelmä</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänen ulostulolaite</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumblen sijainninmukaisen äänen järjestelmällä käyttäjäjien äänet kuuluvat heidän suhteellisesta suunnastaan muissa sovelluksissa, kuten peleissä.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisääntulevan puheen ulostulon viive</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Sisääntulevan äänen enimmäisvahvistus</translation>
+        <translation>Sisääntulevan äänen enimmäisvahvistus</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhetta vahvistetaan dynaamisesti enintään tämän verran</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation type="unfinished"></translation>
+        <translation>Puheaktivoinnin tunnistustaso</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa alueen, jonka Mumble tulkitsee puheeksi. Nosta arvoa määrittääksesi puheaktivoinnin herkemmäksi.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Paina puhuaksesi</translation>
+        <translation>Paina puhuaksesi</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä &quot;puhepikanäppäimen valinta&quot;-nappia määrittääkseni näppäimen</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta puhepikanäppäin</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa pikanäppäimen muokkausvalinnan</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Graafinen sijainninmukaisen äänen simulaation näkymä</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä esittää visuaalisesti sijainninmukaisen äänen joka nyt kuuluu</translation>
     </message>
 </context>
 <context>
@@ -2430,35 +2430,35 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi estetty käyttäjä</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Estettävän käyttäjän käyttäjänimi</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Estettävä IP-osoite</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Eston syy</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Eston alkuaika</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Eston loppuaika</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Estettävän varmenteen tarkistussumma</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Estettyjen käyttäjien lista</translation>
     </message>
 </context>
 <context>
@@ -2786,43 +2786,43 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Näyttää varmenteen</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Tuotava varmennetiedosto</translation>
+        <translation>Tuotava varmennetiedosto</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä &quot;avaa&quot;-nappia valitaksesi tiedoston.</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Varmenteen salasana</translation>
+        <translation>Varmenteen salasana</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Näyttää tuodut varmenteet</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Näyttää uuden varmenteen</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Tiedosto johon varmenne viedään</translation>
+        <translation>Tiedosto johon varmenne viedään</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä &quot;tallenna nimellä&quot;-nappia valitaksesi tiedoston.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinun nimesi. Esimerkiksi: Matti Meikäläinen</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Sähköpostiosoitteesi. Esimerkiksi: mattimeikalainen@mumble.info</translation>
     </message>
 </context>
 <context>
@@ -3306,31 +3306,31 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä on yhdistämisikkuna. Voit yhdistää Mumble-palvelimelle kahdella tavalla. Jos palvelin on julkisesti listattu, voit löytää sen palvelinlistauksesta. Jos tiedät palvelimen IP-osoitteen, voit lisätä sen pysyvästi suosikkeihisi.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelinlistaus sisältää suosikkisi ja kaikki julkisesti listatut palvelimet.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tällä hakutoiminnallisuudella voit suodattaa palvelimia palvelinlistalta.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi palvelinnimeä</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi sijaintia</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta suodatustila</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished">Palvelin</translation>
+        <translation>Palvelin</translation>
     </message>
 </context>
 <context>
@@ -3466,19 +3466,19 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelimen IP-osoite</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelimen portti</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Käyttäjänimi</translation>
+        <translation>Käyttäjänimi</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Merkki palvelimelle</translation>
     </message>
 </context>
 <context>
@@ -3675,23 +3675,23 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Määritetyt pikanäppäimet</translation>
+        <translation>Määritetyt pikanäppäimet</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä ylös- ja alas-näppäimiä liikkuaksesi pikavalinnoissa. Käytä vasen- ja oikea-näppäimiä pikavalinnan toimintojen ja asetusten valintaan. Pikavalintoja voit lisätä ja poistaa alla olevilla napeilla.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää määrittämätön pikavalinta</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä lisää uuden kohdan yläpuolella olevaan &quot;Määritetyt pikavalinnat&quot; listaan. Lista valitaan aktiiviseksi automaattisesti. Määritä näppäin tai toiminto valitsemalla yläpuolella oleva lista.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä poistaa valitun kohteen &quot;Määritellyt pikavalinnat&quot; yläpuolella olevasta listasta</translation>
     </message>
 </context>
 <context>
@@ -3722,15 +3722,15 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista pikavalinnoista</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitsemalla tämän sovellus kuuntelee pikanäppäintä. Kun pikanäppäintä on painettu, sovellus lopettaa pikanäppäimen kuuntelun. Voit asettaa useamman pikanäppäimen tälle toiminnolle. Siirry yllä olevaan pikanäppäinlistaukseen nähdäksesi tälle toiminnolle määritetyt pikanäppäimet.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitsemalla tämän poistetaan valittu pikanäppäin tältä toiminnolta. Huomaa, että sinun tulee valita pikanäppäin luettelosta, ennen kuin nappi toimii.</translation>
     </message>
 </context>
 <context>
@@ -3758,27 +3758,27 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikanäppäimen toiminto</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikanäppäimen tiedot</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikanäppäimien yhdistelmät</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Määrittämätön</translation>
+        <translation>Määrittämätön</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>valittu</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>ei valittu</translation>
     </message>
 </context>
 <context>
@@ -4439,71 +4439,71 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaa viestien tyypit ja tapahtumat</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä ylös- ja alas-näppäimiä valitaksesi viestityyppin. Käytä oikealle- ja vasemmalle-näppäimiä valitaksesi ilmoitustavan tälle viestityypille.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta pituudelle kynnys</translation>
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksti puheeksi -äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
-        <translation type="unfinished"></translation>
+        <translation>Viestihistorian pituuden yläraja</translation>
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjärajoitus ilmoituksille</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Viestin tyyppi</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaa viesti konsoliin valintaruutu</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä viestin ponnahdusilmoitus valintaruutu</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Korosta viestin ikkuna valintaruutu</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Lue viesti käyttäen teksti puheeksi -toimintoa valintaruutu</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Rajoita viestien ilmoituksia jos käyttäjämäärä on suuri valintaruutu</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Soita äänitiedosto viestin saapuessa valintaruutu</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Polku äänitiedostoon</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>valittu</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>ei valittu</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>desibeliä</translation>
     </message>
 </context>
 <context>
@@ -4948,55 +4948,55 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Channel expand mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan laajennettu tila</translation>
     </message>
     <message>
         <source>User dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjän vetämällä siirtämisen tila</translation>
     </message>
     <message>
         <source>Channel dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan vetämällä siirtämisen tila</translation>
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aina päällimmäisenä -tila</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Lopettamisen käyttäytymistila</translation>
     </message>
     <message>
         <source>Channel separator string</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavien jakajan merkkijono</translation>
     </message>
     <message>
         <source>Maximum channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan nimen enimmäispituus</translation>
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyhenteen korvaavat merkit</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suhteellinen fontin koko (prosenteissa)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänettömän käyttäjän näyttöaika (sekunneissa)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumblen teema</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjähaun toiminnon tila</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavahaun toiminnon tila</translation>
     </message>
 </context>
 <context>
@@ -5762,7 +5762,7 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
     </message>
     <message>
         <source>Information about Mumble</source>
-        <translation>Tietoa Mumblesta</translation>
+        <translation>Tietoja Mumblesta</translation>
     </message>
     <message>
         <source>Shows a small dialog with information and license for Mumble.</source>
@@ -7005,151 +7005,151 @@ Hyväksytyt valinnat ovat
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjoita viesti</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Estolista</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>T&amp;iedot</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sivuuta viestit</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähetä vie&amp;sti...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta ni&amp;mimerkki...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;inkitä</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista kaikki li&amp;nkitykset</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;ykistä itsesi</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilj&amp;ennä itsesi</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänitila&amp;stot</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;setukset</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kehittäjäkonsoli</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Sij&amp;ainninmukaisen äänen tiedot</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Tietoa</translation>
+        <translation>Tieto&amp;a</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa &amp;Qt:stä</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;kisteröidy...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Rekisteröidyt kä&amp;yttäjät</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pääsypoletit</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista profiiliku&amp;va</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyhjennä kommen&amp;tti...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista profiiliku&amp;va...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista valittujen käyttäjien profiilikuva.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Liity</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Piilota kun suodatus on käytössä</translation>
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kiinnitä kun suodatus on käytössä</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Näytä kommentti</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Etuoikeutettu &amp;puhuja</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tallenna...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuunte&amp;le kanavaa</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;uhujalista</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Liity käyttä&amp;jän kanavalle</translation>
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirrä &amp;omalle kanavalle</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirtää tämän käyttäjän tämänhetkiselle kanavallesi.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Poista teksti puheeksi -toiminnallisuus käytöstä</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>Et&amp;si...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Suodatetut kanavat ja käyttäjät</translation>
     </message>
 </context>
 <context>
@@ -7240,59 +7240,59 @@ Hyväksytyt valinnat ovat
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Graafinen sijainninmukaisen äänen simulaation näkymä</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä esittää visuaalisesti sijainninmukaisen äänen asetukset, jotka ovat tällä hetkellä käytössä</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelijan Z koordinaatti</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelijan X koordinaatti</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelijan Y koordinaatti</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänettömän käyttäjän näyttöaika (sekunneissa)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelijan atsimuutti (asteina)</translation>
     </message>
     <message>
         <source>Listener elevation (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelijan korkeus (asteina)</translation>
     </message>
     <message>
         <source>Context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontekstin merkkijono</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;Aseta&quot;-napilla otat käyttöön kontekstin merkkijonon</translation>
     </message>
     <message>
         <source>Apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön kontekstin merkkijono</translation>
     </message>
     <message>
         <source>Apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön identiteetin merkkijono</translation>
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Identiteetin merkkijono</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;Aseta&quot;-napilla otat käyttöön identiteetin merkkijonon</translation>
     </message>
 </context>
 <context>
@@ -7510,23 +7510,23 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Välityspalvelimen tyyppi</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Välityspalvelimen isäntänimi</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Välityspalvelimen portti</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Välityspalvelimen käyttäjätunnus</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Välityspalvelimen salasana</translation>
     </message>
 </context>
 <context>
@@ -8139,39 +8139,39 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>List of plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisten luettelo</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä ylös- ja alas-näppäimiä valitaksesi liitännäisen. Käytä vasemmalle- ja oikealle-näppäimiä valitaksesi liitännäisen oikeudet.</translation>
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisen nimi</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäinen käytössä valintaruutu</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisen sijainninmukaisen äänen oikeudet valintaruutu</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitännäisen näppäimistön kuuntelun oikeudet valintaruutu</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>valittu</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>ei valittu</translation>
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei käytettävissä</translation>
     </message>
 </context>
 <context>
@@ -8601,99 +8601,99 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuraava</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message>
         <source>This is you</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä olet sinä</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>ystävä</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>käyttäjä</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>tila</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>mykistetty ja hiljennetty</translation>
     </message>
     <message>
         <source>muted</source>
-        <translation type="unfinished"></translation>
+        <translation>mykistetty</translation>
     </message>
     <message>
         <source>locally muted</source>
-        <translation type="unfinished"></translation>
+        <translation>paikallisesti mykistetty</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>mykistys poistettu</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>tallennus</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>etuoikeutettu puhuja</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished"></translation>
+        <translation>pitkä viesti</translation>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>tekstiviestit jätetty huomiotta</translation>
     </message>
     <message>
         <source>registered</source>
-        <translation type="unfinished"></translation>
+        <translation>rekisteröitynyt</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>kanava</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>sinun kanavasi</translation>
     </message>
     <message>
         <source>accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>käytettävissä</translation>
     </message>
     <message>
         <source>inaccessible</source>
-        <translation type="unfinished"></translation>
+        <translation>ei käytettävissä</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>julkinen</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>suodatettu</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>kiinnitetty</translation>
     </message>
     <message>
         <source>Listening for input</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuuntelee syötettä</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Lisää</translation>
+        <translation>Lisää</translation>
     </message>
 </context>
 <context>
@@ -8845,15 +8845,15 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi merkkijonoa</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Haun tulokset</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä ylös- ja alas-näppäimiä valitaksesi hakutuloksen.</translation>
     </message>
 </context>
 <context>
@@ -9019,19 +9019,19 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Käyttäjät:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP parametrit</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">&amp;Näytä varmenne</translation>
+        <translation>Näytä &amp;varmenne</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -9222,11 +9222,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Pääsypoloettilista</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä nuolinäppäimiä selataksesi pääsypolettilistaa. Pääsypoletit näytetään selkotekstinä.</translation>
     </message>
 </context>
 <context>
@@ -9280,15 +9280,15 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi käyttäjä</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta passiivisuuden suodatuksen tila</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Suodata passiiviset</translation>
     </message>
 </context>
 <context>
@@ -9442,7 +9442,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedot</translation>
     </message>
 </context>
 <context>
@@ -9640,11 +9640,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavan kuuntelija</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kanavan kuuntelija kuuluu %1:lle</translation>
     </message>
 </context>
 <context>
@@ -9915,11 +9915,11 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kenttä sisältää polun, jonne tallennetaan kaikki äänitallenteet. Käytä &quot;selaa&quot;-nappia avataksesi tiedostovalinnan.</translation>
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kenttä sisältää tiedostonimen, jolla kaikki äänitallenteet tallennetaan. Voit käyttää eri muuttujia tiedostonimen lisäksi. Esimerkiksi %time nykyiselle ajalle.</translation>
     </message>
 </context>
 <context>
@@ -9930,7 +9930,7 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Paikallinen äänenvoimakkuuden säätö</translation>
     </message>
 </context>
 <context>
