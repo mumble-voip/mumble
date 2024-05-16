@@ -432,51 +432,51 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Posició del canal</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre màxim d&apos;usuaris del canal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripció del canal</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu els usuaris que voleu afegir</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuaris del grup exclosos</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu els usuaris que voleu suprimir</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista d&apos;entrades de la llista de control d&apos;accés</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu el grup</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu el grup al que s&apos;aplica aquesta entrada del ACL. La selecció d&apos;un grup i la selecció d&apos;un usuari són mútuament exclusius.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;usuari</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu l&apos;usuari al que s&apos;aplica aquesta entrada del ACL. La selecció d&apos;un grup i la selecció d&apos;un usuari són mútuament exclusius.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de permisos disponibles</translation>
     </message>
 </context>
 <context>
@@ -629,27 +629,27 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de dispositius</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou dels no utilitzats a llista de micròfons</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou el micròfon a la llista dels no utilitzats</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de dispositius no utilitzats</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou dels no utilitzats a la llista d&apos;altaveus</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou dels altaveus a la llista dels no utilitzats</translation>
     </message>
 </context>
 <context>
@@ -742,11 +742,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>Quan transmetre la vostra parla</translation>
+        <translation>Quan transmetre la vostra veu</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Això estableix quan s&apos;ha de transmetre la parla.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - Tot el temps&lt;br /&gt;&lt;i&gt;Activitat de veu&lt;/i&gt; - Quan parleu clarament .&lt;br /&gt;&lt;i&gt;Prémer per parlar&lt;/i&gt;: quan manteniu premuda la tecla d&apos;accés ràpid establert a &lt;i&gt;Dreceres&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Això estableix quan s&apos;ha de transmetre la veu.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - Tot el temps&lt;br /&gt;&lt;i&gt;Activitat de veu&lt;/i&gt; - Quan parleu clarament .&lt;br /&gt;&lt;i&gt;Prémer per parlar&lt;/i&gt;: quan manteniu premuda la tecla d&apos;accés ràpid establert a &lt;i&gt;Dreceres&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -770,11 +770,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation>Cerca per reproduir un fitxer d&apos;àudio</translation>
+        <translation>Navega per un fitxer d&apos;àudio</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation>Cerca per aturar un fitxer d&apos;àudio</translation>
+        <translation>Navega per aturar un fitxer d&apos;àudio</translation>
     </message>
     <message>
         <source>Off</source>
@@ -786,7 +786,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation>Utilitza la detecció de la parla basada en SNR</translation>
+        <translation>Utilitza la detecció de la veu basada en SNR</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
@@ -794,7 +794,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Això estableix la detecció de la veu perquè utilitzi l&apos;amplitud.&lt;/b&gt;&lt;br /&gt;En aquest mode, la força bruta del senyal d&apos;entrada s&apos;utilitza per detectar la parla.</translation>
+        <translation>&lt;b&gt;Això estableix la detecció de la veu perquè utilitzi l&apos;amplitud.&lt;/b&gt;&lt;br /&gt;En aquest mode, la força bruta del senyal d&apos;entrada s&apos;utilitza per detectar la veu.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -818,7 +818,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Speech Above</source>
-        <translation>Parla a sobre</translation>
+        <translation>La veu a sobre</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
@@ -874,11 +874,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Màxima amplificació de l&apos;entrada.&lt;/b&gt;&lt;br /&gt;El Mumble normalitza el volum d&apos;entrada abans de comprimir-lo, i això estableix quant es pot amplificar.&lt;br /&gt;El nivell real s&apos;actualitza contínuament en funció del vostre patró de parla actual. , però mai no superarà el nivell especificat aquí.&lt;br /&gt;Si el nivell de &lt;i&gt;sonoritat del micròfon&lt;/i&gt; de les estadístiques d&apos;àudio se situa al voltant del 100%, és probable que vulgueu establir-ho a 2.0 més o menys, però si , com la majoria de la gent, no podeu assolir el 100%, establiu-lo a una cosa molt més alta.&lt;br /&gt;Idealment, configureu-lo de manera que &lt;i&gt;Intensitat del micròfon * Factor d&apos;amplificació &gt;= 100&lt;/i&gt;, fins i tot quan sou parlant molt suau.&lt;br /&gt;&lt;br /&gt;Tingueu en compte que no hi ha cap mal a establir-ho al màxim, però el Mumble començarà a recollir altres converses si deixeu que s&apos;ajusti automàticament a aquest nivell.</translation>
+        <translation>&lt;b&gt;Màxima amplificació de l&apos;entrada.&lt;/b&gt;&lt;br /&gt;El Mumble normalitza el volum d&apos;entrada abans de comprimir-lo, i això estableix quant es pot amplificar.&lt;br /&gt;El nivell real s&apos;actualitza contínuament en funció del vostre patró de veu actual. , però mai no superarà el nivell especificat aquí.&lt;br /&gt;Si el nivell de &lt;i&gt;sonoritat del micròfon&lt;/i&gt; de les estadístiques d&apos;àudio se situa al voltant del 100%, és probable que vulgueu establir-ho a 2.0 més o menys, però si , com la majoria de la gent, no podeu assolir el 100%, establiu-lo a una cosa molt més alta.&lt;br /&gt;Idealment, configureu-lo de manera que &lt;i&gt;Intensitat del micròfon * Factor d&apos;amplificació &gt;= 100&lt;/i&gt;, fins i tot quan sou parlant molt suau.&lt;br /&gt;&lt;br /&gt;Tingueu en compte que no hi ha cap mal a establir-ho al màxim, però el Mumble començarà a recollir altres converses si deixeu que s&apos;ajusti automàticament a aquest nivell.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>Possibilitat actual de detecció de la parla</translation>
+        <translation>Possibilitat actual de detecció de la veu</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
@@ -890,7 +890,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Això estableix que la detecció de veu utilitzi la relació senyal/soroll.&lt;/b&gt;&lt;br /&gt;En aquest mode, l&apos;entrada s&apos;analitza per trobar alguna cosa que s&apos;assembla a un senyal clar i la claredat d&apos;aquest senyal s&apos;utilitza per activar la detecció de la parla.</translation>
+        <translation>&lt;b&gt;Això estableix que la detecció de veu utilitzi la relació senyal/soroll.&lt;/b&gt;&lt;br /&gt;En aquest mode, l&apos;entrada s&apos;analitza per trobar alguna cosa que s&apos;assembla a un senyal clar i la claredat d&apos;aquest senyal s&apos;utilitza per activar la detecció de la veu.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -910,7 +910,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Això selecciona quant de temps ha de continuar després d&apos;una aturada percebuda en la transmissió de la parla.&lt;/b&gt;&lt;br /&gt;Definiu-ho més alt si la vostra veu es trenca quan parleu (que es veu amb una icona de veu que parpelleja ràpidament al costat del vostre nom).</translation>
+        <translation>&lt;b&gt;Això selecciona quant de temps ha de continuar després d&apos;una aturada percebuda en la transmissió de la veu.&lt;/b&gt;&lt;br /&gt;Definiu-ho més alt si la vostra veu es trenca quan parleu (que es veu amb una icona de veu que parpelleja ràpidament al costat del vostre nom).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
@@ -930,7 +930,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Cerca...</translation>
+        <translation>&amp;Navega...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -1106,15 +1106,15 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada de la capa de presentació del àudio</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <source>Transmission mode</source>
@@ -1122,55 +1122,55 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar del bloqueig de prémer per parlar</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Canvia entre els modes prémer per parlar i el continu clicant dos cops en aquest marc de temps</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Temps d&apos;espera de la veu&lt;/b&gt;&lt;br /&gt;Després d&apos;alliberar la tecla Premeu per Parlar, el Mumble seguirà transmetent la quantitat de temps seleccionada.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;espera de Prémer per parlar</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished"></translation>
+        <translation>Estén el temps de prémer per parlar aquest temps, un cop es deixi anar la tecla</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de retenció de veu</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar inferior de silenci</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix el llindar del que el Mumble considera un senyal de silenci</translation>
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar per sobre de la veu</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix el llindar del que Mumble considera definitivament un senyal de la veu</translation>
     </message>
     <message>
         <source>This sets how much speech is packed into a single network package</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la quantitat de veu que s&apos;inclou en un sol paquet de xarxa</translation>
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitat de compressió de l&apos;àudio</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la taxa de bits de compressió de la destinació</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1178,59 +1178,59 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>La veu s&apos;amplifica dinàmicament com a màxim aquesta quantitat</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Força de la supressió del soroll</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Mode de cancel·lació d&apos;eco</translation>
+        <translation>Mode de cancel·lació de l&apos;eco</translation>
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Camí al fitxer d&apos;àudio</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Camí al fitxer de pista de l&apos;àudio quan es deixa de parlar. Utilitzeu el botó &quot;navega&quot; per obrir el diàleg del fitxer.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Llindar de temps d&apos;acció inactiva (en minuts)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu què cal fer quan estigui inactiu per una quantitat configurable de temps. Per omissió: res</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Es reproduïra quan intenteu de parlar mentre esteu silenciat</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Camí al fitxer del senyal de silenci. Utilitzeu el botó &quot;navega&quot; per obrir el diàleg del fitxer.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Explora per silenciar fitxer d&apos;àudio de la veu</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Camí al fitxer de la pista de l&apos;àudio quan es comença a parlar. Utilitzeu el botó &quot;navega&quot; per obrir el diàleg del fitxer.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Previsualitza la pista de silenci</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>El pista de silenci és una mostra d&apos;àudio que reprodueix quan es tracta de parlar mentre es silencia</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra els dos senyals d&apos;àudio</translation>
     </message>
 </context>
 <context>
@@ -1293,19 +1293,19 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>mil·lisegons</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>segons</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>kilobits per segon</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibels</translation>
     </message>
 </context>
 <context>
@@ -1344,23 +1344,23 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>&amp;Jitter Búfer per omissió</translation>
+        <translation>&amp;Búfer de fluctuació per omissió</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
-        <translation>Marge de seguretat per al búfer de jitter</translation>
+        <translation>Marge de seguretat per al búfer de fluctuació</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Això estableix el marge de seguretat mínim per a la memòria intermèdia de fluctuació.&lt;/b&gt;&lt;br /&gt;Tot l&apos;àudio entrant està a la memòria intermèdia i la memòria intermèdia de fluctuació intenta contínuament mantenir la memòria intermèdia al mínim sostenible per a la vostra xarxa, de manera que la latència es pot reduir, tan baixa com sigui possible. Això estableix la mida mínima de memòria intermèdia a utilitzar. Si l&apos;inici de les frases que escolteu és molt inquietant, augmenteu aquest valor.</translation>
+        <translation>&lt;b&gt;Això estableix el marge de seguretat mínim per a la memòria intermèdia de fluctuació.&lt;/b&gt;&lt;br /&gt;Tot l&apos;àudio entrant està a la memòria intermèdia i la memòria intermèdia de fluctuació intenta contínuament mantenir la memòria intermèdia al mínim sostenible per a la vostra xarxa, de manera que la latència es pot reduir, tan baixa com sigui possible. Això estableix la mida mínima de memòria intermèdia a utilitzar. Si l&apos;inici de les frases que escolteu fluctua molt, augmenteu aquest valor.</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Això estableix la distància mínima per als càlculs de so. El volum de la parla dels altres usuaris no disminuirà fins que estiguin almenys tan lluny de tu.</translation>
+        <translation>Això estableix la distància mínima per als càlculs de so. El volum de la veu d&apos;altres usuaris no disminuirà fins que estiguin al menys a aquesta distància.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Això estableix la distància màxima per als càlculs de so. Quan estigui més lluny que això, el volum de veu dels altres usuaris no disminuirà més.</translation>
+        <translation>Això estableix la distància màxima per als càlculs de so. Quan estigui més lluny que això, el volum de la veu dels altres usuaris no disminuirà.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
@@ -1372,7 +1372,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>Volum de la parla entrant</translation>
+        <translation>Volum de la veu entrant</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1409,7 +1409,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una agitació ràpida al so.</translation>
+        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una fluctuació ràpida del so.</translation>
     </message>
     <message>
         <source>Headphones</source>
@@ -1474,11 +1474,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation>Atenuació d&apos;altres aplicacions durant la parla</translation>
+        <translation>Atenuació d&apos;altres aplicacions mentre es parla</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Atenuar el volum d&apos;altres aplicacions durant la parla&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això estableix l&apos;atenuació d&apos;altres aplicacions si la funció està habilitada.</translation>
+        <translation>&lt;b&gt;Atenuar el volum d&apos;altres aplicacions mentre es parla&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions durant la veu entrant i/o sortint. Això estableix l&apos;atenuació d&apos;altres aplicacions si la funció està habilitada.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
@@ -1486,7 +1486,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Atenua les aplicacions mentre altres usuaris parlen&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això fa que el Mumble activi la funció mentre altres usuaris parlen amb tu.</translation>
+        <translation>&lt;b&gt;Atenua les aplicacions mentre altres usuaris parlen&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions mentre es parla entrant i/o sortint. Això fa que el Mumble activi la funció mentre altres usuaris parlen amb tu.</translation>
     </message>
     <message>
         <source>while other users talk</source>
@@ -1498,7 +1498,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Atenua les aplicacions mentre parleu&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions durant la parla entrant i/o sortint. Això fa que s&apos;activi la funció mentre parleu.</translation>
+        <translation>&lt;b&gt;Atenua les aplicacions mentre parleu&lt;/b&gt;&lt;br /&gt;El Mumble admet la disminució del volum d&apos;altres aplicacions mentre es parla entrant i/o sortint. Això fa que s&apos;activi la funció mentre parleu.</translation>
     </message>
     <message>
         <source>while you talk</source>
@@ -1582,27 +1582,27 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de sortida de l&apos;àudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida de l&apos;àudio</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Retard de sortida de la veu entrant</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps del buffer de fluctuació</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Percentatge d&apos;atenuació</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentre es parla, el volum d&apos;altres aplicacions es reduirà aquesta quantitat</translation>
     </message>
     <message>
         <source>Minimum volume</source>
@@ -1618,19 +1618,19 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Retard artificial del bucle de retorn</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Pèrdua artificial dels paquets del bucle de retorn</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de prova del bucle de retorn</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>La prova del bucle de retorn es pot utilitzar per provar la configuració de l&apos;àudio. Si bé la prova del bucle de retorn està activada, els altres no us podran escoltar.</translation>
     </message>
 </context>
 <context>
@@ -1677,11 +1677,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>mil·lisegons</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metres</translation>
     </message>
 </context>
 <context>
@@ -1757,7 +1757,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Això mostra fins a quin punt està el volum d&apos;entrada actual de l&apos;ideal. Per ajustar el nivell del micròfon, obriu qualsevol programa que utilitzeu per ajustar el volum d&apos;enregistrament i mireu el valor aquí mentre parleu.&lt;br /&gt;&lt;b&gt;Parleu en veu alta, com ho faríeu quan us molesteu per haver estat fragmentat per un noob. .&lt;/b&gt;&lt;br /&gt;Ajusteu el volum fins que aquest valor s&apos;aproximi al 100%, però assegureu-vos que no el superi. Si passa per sobre, és probable que obtingueu retalls en parts del vostre discurs, cosa que degradarà la qualitat del so.</translation>
+        <translation>Això mostra fins a quin punt està el volum d&apos;entrada actual de l&apos;ideal. Per ajustar el nivell del micròfon, obriu qualsevol programa que utilitzeu per ajustar el volum d&apos;enregistrament i mireu el valor aquí mentre parleu.&lt;br /&gt;&lt;b&gt;Parleu en veu alta, com ho faríeu quan us molesteu per haver estat fragmentat per un noob. .&lt;/b&gt;&lt;br /&gt;Ajusteu el volum fins que aquest valor s&apos;aproximi al 100%, però assegureu-vos que no el superi. Si passa per sobre, és probable que obtingueu retalls en parts de la vostre veu, cosa que degrada la qualitat del so.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
@@ -1773,15 +1773,15 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation>Probabilitat de la parla</translation>
+        <translation>Probabilitat de la veu</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation>Probabilitat de la parla</translation>
+        <translation>Probabilitat de la veu</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Aquesta és la probabilitat que l&apos;últim fotograma (20 ms) sigui la veu i no el soroll ambiental.&lt;br /&gt;La transmissió de l&apos;activitat de veu depèn que això sigui correcte. El truc amb això és que el mig d&apos;una frase sempre es detecta com a discurs; el problema són les pauses entre les paraules i l&apos;inici del discurs. És difícil distingir un sospir d&apos;una paraula que comença per &apos;h&apos;.&lt;br /&gt;Si està en negreta, vol dir que el Mumble està transmetent actualment (si esteu connectats).</translation>
+        <translation>Aquesta és la probabilitat que l&apos;últim marc (20 ms) sigui la veu i no el soroll ambiental.&lt;br /&gt;La transmissió de l&apos;activitat de veu depèn que això sigui correcte. El truc amb això és que el mig d&apos;una frase sempre es detecta com a veu; el problema són les pauses entre les paraules i l&apos;inici del discurs. És difícil distingir un sospir d&apos;una paraula que comença per &apos;h&apos;.&lt;br /&gt;Si està en negreta, vol dir que el Mumble està transmetent actualment (si esteu connectats).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
@@ -1805,11 +1805,11 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>Speech Detection</source>
-        <translation>Detecció de la parla</translation>
+        <translation>Detecció de la Veu</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>Possibilitat actual de detecció de la parla</translation>
+        <translation>Possibilitat actual de detecció de la veu</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -1837,7 +1837,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Això mostra les mesures del cancel·lador de l&apos;eco, amb el temps augmentant cap avall i la freqüència augmentant cap a la dreta.&lt;br /&gt;Idealment, hauria de ser negre, indicant que no hi ha ressò. Més habitualment, tindreu una o més franges horitzontals de color blavós que representen un eco retardat. Hauríeu de poder veure les mesures actualitzades en temps real.&lt;br /&gt;Tingueu en compte que, mentre no tingueu res a ressò, aquí no veureu gaires dades útils. Poseu música i les coses haurien d&apos;estabilitzar-se. &lt;br /&gt;Podeu escollir veure les parts reals o imaginàries de les mesures del domini freqüencial, o alternativament el mòdul i la fase calculats. El més útil d&apos;aquests probablement serà el mòdul, que és l&apos;amplitud de l&apos;eco, i us mostra quina part del senyal de sortida s&apos;està eliminant en aquest pas de temps. Els els altres modes de visualització són sobretot útils per a les persones que volen ajustar els algorismes de cancel·lació de l&apos;eco.&lt;br /&gt;Tingueu en compte: si tota la imatge fluctua massivament mentre està en el mode mòdul, el cancel·lador de l&apos;eco no troba cap correlació entre les dues fonts d&apos;entrada. (altaveus i micròfon). O teniu un retard molt llarg a l&apos;eco, o bé una de les fonts d&apos;entrada està mal configurada.</translation>
+        <translation>Això mostra les mesures del cancel·lador de l&apos;eco, amb el temps augmentant cap avall i la freqüència augmentant cap a la dreta.&lt;br /&gt;Idealment, hauria de ser negre, indicant que no hi ha ressò. Més habitualment, tindreu una o més franges horitzontals de color blavós que representen un eco retardat. Hauríeu de poder veure les mesures actualitzades en temps real.&lt;br /&gt;Tingueu en compte que, mentre no tingueu res a ressò, aquí no veureu gaires dades útils. Reproduïu música i les coses haurien d&apos;estabilitzar-se. &lt;br /&gt;Podeu escollir veure les parts reals o imaginàries de les mesures del domini freqüencial, o alternativament el mòdul i la fase calculats. El més útil d&apos;aquests probablement serà el mòdul, que és l&apos;amplitud de l&apos;eco, i us mostra quina part del senyal de sortida s&apos;està eliminant en aquest pas de temps. Els els altres modes de visualització són sobretot útils per a les persones que volen ajustar els algorismes de cancel·lació de l&apos;eco.&lt;br /&gt;Tingueu en compte: si tota la imatge fluctua massivament mentre està en el mode mòdul, el cancel·lador de l&apos;eco no troba cap correlació entre les dues fonts d&apos;entrada. (altaveus i micròfon). O teniu un retard molt llarg a l&apos;eco, o bé una de les fonts d&apos;entrada està mal configurada.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -1959,7 +1959,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 Per mantenir la latència al mínim, és important guardar el mínim d&apos;àudio possible a la targeta de so. No obstant això, moltes targetes de so informen que requereixen un búfer molt més petit del que realment pot funcionar, de manera que l&apos;única manera de trobar aquest valor és fent proves.
 &lt;/p&gt;
 &lt;p&gt;
-Hauríeu d&apos;escoltar una mostra de veu. Canvieu el control lliscant de sota al valor més baix que &lt;b&gt;no&lt;/b&gt; produeixi interrupcions ni tremolors al so. Tingueu en compte que l&apos;eco local està desactivat durant aquesta prova.
+Hauríeu d&apos;escoltar una mostra de veu. Canvieu el control lliscant de sota al valor més baix que &lt;b&gt;no&lt;/b&gt; produeixi interrupcions ni fluctuacions al so. Tingueu en compte que l&apos;eco local està desactivat durant aquesta prova.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1969,7 +1969,7 @@ Hauríeu d&apos;escoltar una mostra de veu. Canvieu el control lliscant de sota 
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una agitació ràpida al so.</translation>
+        <translation>Això estableix la quantitat de dades a la memòria intermèdia prèvia a la memòria intermèdia de sortida. Experimenteu amb diferents valors i configureu-lo al més baix, que no provoqui una fluctuació ràpida del so.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2058,7 +2058,7 @@ El Mumble està en desenvolupament continu i l&apos;equip de desenvolupament vol
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>A continuació, heu d&apos;ajustar el control lliscant següent. Els primers enunciats que dieu haurien d&apos;acabar a la zona verda (discurs definitiu). Mentre parleu, hauríeu de quedar-vos dins del groc (potser parla) i quan no parleu, tot hauria d&apos;estar en vermell (definitivament no parla).</translation>
+        <translation>A continuació, heu d&apos;ajustar el control lliscant següent. Els primers enunciats que dieu haurien d&apos;acabar a la zona verda (definitivament és veu). Mentre parleu, hauríeu de quedar-vos dins del groc (potser és veu) i quan no parleu, tot hauria d&apos;estar en vermell (definitivament no és veu).</translation>
     </message>
     <message>
         <source>Device tuning</source>
@@ -2180,7 +2180,7 @@ Parlaeu en veu alta, com quan esteu molest o emocionat. Disminuiu el volum del t
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>A continuació, heu d&apos;ajustar el control lliscant següent. Els primers enunciats que dieu haurien d&apos;acabar a la zona buida (discurs definitiu). Mentre parleu, hauríeu de quedar-vos dins de la zona ratllada (pot ser la parla) i quan no parleu, tot hauria d&apos;estar entrecreuat (definitivament no es parla).</translation>
+        <translation>A continuació, heu d&apos;ajustar el control lliscant següent. Els primers enunciats que dieu haurien d&apos;acabar a la zona buida (definitivament és veu ). Mentre parleu, hauríeu de quedar-vos dins de la zona ratllada (pot ser és veu) i quan no parleu, tot hauria d&apos;estar entrecreuat (definitivament no és veu).</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
@@ -2220,71 +2220,71 @@ Parlaeu en veu alta, com quan esteu molest o emocionat. Disminuiu el volum del t
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema d&apos;entrada de l&apos;àudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;entrada de l&apos;àudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu dispositiu de sortida de l&apos;àudio</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de sortida de l&apos;àudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu de sortida de l&apos;àudio</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>El sistema d’àudio posicional del Mumble permet als usuaris enllaçar la posició relativa de la seva veu a aplicacions de tercers com ara jocs.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Retard de sortida de la veu entrant</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Màxima amplificació del so d&apos;entrada</translation>
+        <translation>Amplificació màxima del so d&apos;entrada</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>La veu s&apos;amplifica dinàmicament com a màxim aquesta quantitat</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivell de detecció d’activitat de veu</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això estableix la gamma en la qual el Mumble considerar un senyal com a veu. Augmenteu el valor per que l&apos;activació de la veu sigui més sensible.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Prémer per parlar</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu el botó de la drecera &quot;Prémer per parlar&quot; per assignar-hi una tecla</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Establiu la drecera Prémer per parlar</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Això obre el diàleg d&apos;edició de la drecera</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista de la simulació de l&apos;àudio posicional</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra l&apos;àudio posicional que s&apos;està reproduïnt</translation>
     </message>
 </context>
 <context>
@@ -2430,35 +2430,35 @@ Parlaeu en veu alta, com quan esteu molest o emocionat. Disminuiu el volum del t
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca l&apos;usuari blocat</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de l&apos;usuari que voleu blocar</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Adreça IP voleu blocar</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Raó del Blocatge</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Data/hora d&apos;inici del blocatge</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Data/hora de finalització del blocatge</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat hash que voleu blocar</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista d&apos;usuaris blocats</translation>
     </message>
 </context>
 <context>
@@ -2744,7 +2744,7 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>La vostra adreça de correu electrònic (p. ex. joan@mumble.info)</translation>
+        <translation>La vostra adreça de correu electrònic (p. ex. joanvalls@mumble.info)</translation>
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
@@ -2786,43 +2786,43 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el certificat actual</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxer del certificat que voleu importar</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu el botó &quot;obre&quot; per triar un fitxer amb un diàleg.</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrasenya del certificat</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el certificat importat</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra un nou certificat</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxer al que voleu exportar el certificat</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu el botó &quot;anomena i desa&quot; per triar un fitxer amb un diàleg.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>El vostre nom. Per exemple: Joan Valls</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>La vostra adreça de correu electrònic. Per exemple: joanvalls@mumble.info</translation>
     </message>
 </context>
 <context>
@@ -3008,7 +3008,7 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation>Altaveu de prioritat</translation>
+        <translation>Orador prioritari</translation>
     </message>
     <message>
         <source>Recording</source>
@@ -3306,27 +3306,27 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest és el diàleg de connexió. Hi ha dues maneres diferents de connectar-se a un servidor Mumble. Si el servidor està llistat públicament, podeu utilitzar la llista de servidors per trobar-lo. Si coneixeu l&apos;adreça IP del servidor, podeu afegir manualment una nova entrada permanent als vostres preferits.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>La llista de servidors conté els vostres preferits i tots els servidors llistats públicament.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Amb aquesta interfície de cerca podeu filtrar els servidors Mumble que es mostren a la llista de servidors.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca el nom del servidor</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca la ubicació</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el mode de filtratge</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3466,19 +3466,19 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adreça d&apos;IP del servidor</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port del servidor</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de l’usuari</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta del servidor</translation>
     </message>
 </context>
 <context>
@@ -3675,23 +3675,23 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Dreceres configurades</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu les tecles amunt i avall per navegar per les dreceres que heu afegit. Utilitzeu les tecles esquerra i dreta per navegar entre accions i opcions per a una sola drecera. Les entrades es poden afegir i esborrar amb els botons de sota.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegeix una drecera no assignada</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això afegeix una nova entrada buida a l&apos;arbre de &quot;Dreceres Configurades&quot; de dalt. L’arbre es centrarà automàticament. Assigneu una tecla o una acció seleccionant l&apos;entrada a l&apos;arbre de dalt.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>Això elimina l&apos;entrada seleccionada de l&apos;arbre de &quot;Dreceres Configurades&quot; de dalt</translation>
     </message>
 </context>
 <context>
@@ -3722,15 +3722,15 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de dreceres</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>En canviar aquest botó l&apos;aplicació escoltarà la drecera. Un cop afegida la drecera, l&apos;aplicació deixa d&apos;escoltar-la. Es poden assignar les dreceres múltiples a l&apos;acció actual. Navegueu per la llista de drecera damunt per revisar les dreceres assignades a l&apos;acció actual.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest botó eliminarà la drecera seleccionada per a l&apos;acció actual. Tingueu en compte que heu de seleccionar una drecera de la llista anterior abans que aquest botó tingui efecte.</translation>
     </message>
 </context>
 <context>
@@ -3758,27 +3758,27 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acció de la drecera</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dada de la drecera</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinacions d&apos;entrada de la drecera</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Sense assignar</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>marcat</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>desmarcat</translation>
     </message>
 </context>
 <context>
@@ -4259,7 +4259,7 @@ Aquest camp descriu la mida d&apos;un dispositiu LCD. La mida es mostra en píxe
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Aquest és el volum utilitzat per a la síntesi de la parla.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Aquest és el volum utilitzat per a la síntesi de veu.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length threshold</source>
@@ -4439,71 +4439,71 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Registra els tipus i accions dels missatges</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu les tecles amunt i avall per navegar pels tipus de missatges. Utilitzeu les tecles esquerra i dreta per navegar entre les possibilitats de notificació d&apos;un sol tipus de missatge.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el llindar de la durada</translation>
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum de la síntesi de veu</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud màxima del registre del xat</translation>
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Límit d&apos;usuari per a les notificacions</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipus de missatge</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Registra el missatge a la caixa de verificació de la consola</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra la notificació emergent per a la caixa de verificació del missatge</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Destaca la finestra de la caixa de verificació del missatge</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Llegeix el missatge amb la caixa de verificació de la síntesi de veu</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Caixa de verificació del límit de missatges de notificació si el nombre d&apos;usuaris és alt</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Reprodueix el fitxer de so de la caixa de verificació del missatge</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Camí cap al fitxer de so</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>marcat</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>desmarcat</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibels</translation>
     </message>
 </context>
 <context>
@@ -4948,55 +4948,55 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     </message>
     <message>
         <source>Channel expand mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode d&apos;expansió dels canals</translation>
     </message>
     <message>
         <source>User dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode d&apos;arrossegament d&apos;usuaris</translation>
     </message>
     <message>
         <source>Channel dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode d&apos;arrossegament de canals</translation>
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode sempre a sobre</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode del comportament de la sortida</translation>
     </message>
     <message>
         <source>Channel separator string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena separadora dels canals</translation>
     </message>
     <message>
         <source>Maximum channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud màxima del nom del canal</translation>
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Caràcters de substitució de les abreviatures</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mida relativa del tipus de la lletra (en percentatge)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de visualització de l&apos;usuari silenciós (en segons)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema del Mumble</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de l&apos;acció de cerca d&apos;usuaris</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de l&apos;acció de cerca de canals</translation>
     </message>
 </context>
 <context>
@@ -5267,7 +5267,7 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     <message>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Això canviarà els estats de la superposició dins del joc.</translation>
+        <translation>Això canvia els estats de la superposició dins del joc.</translation>
     </message>
     <message>
         <source>Link Channel</source>
@@ -6833,7 +6833,7 @@ Les opcions vàlides són:
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation>Això mostrarà informació sobre la connexió del servidor</translation>
+        <translation>Això mostra informació sobre la connexió del servidor</translation>
     </message>
     <message>
         <source>Open server tokens</source>
@@ -6843,7 +6843,7 @@ Les opcions vàlides són:
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Això obrirà el diàleg de claus del servidor</translation>
+        <translation>Això obre el diàleg de claus del servidor</translation>
     </message>
     <message>
         <source>Open server user list</source>
@@ -6863,7 +6863,7 @@ Les opcions vàlides són:
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Això obrirà el diàleg de llista de blocatges del servidor</translation>
+        <translation>Això obre el diàleg de llista de blocatges del servidor</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
@@ -6882,7 +6882,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation>Això obrirà el diàleg d&apos;enregistrament</translation>
+        <translation>Això obre el diàleg d&apos;enregistrament</translation>
     </message>
     <message>
         <source>Change comment</source>
@@ -6891,7 +6891,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation>Això obrirà el diàleg que permet canviar el comentari</translation>
+        <translation>Això obre el diàleg que permet canviar el comentari</translation>
     </message>
     <message>
         <source>Change avatar</source>
@@ -6900,7 +6900,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation>Això obrirà el vostre navegador de fitxers per canviar el vostre avatar d&apos;aquest servidor</translation>
+        <translation>Això obre el vostre navegador de fitxers per canviar el vostre avatar d&apos;aquest servidor</translation>
     </message>
     <message>
         <source>Remove avatar</source>
@@ -6918,7 +6918,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation>Això us registrarà al servidor</translation>
+        <translation>Això us registra al servidor</translation>
     </message>
     <message>
         <source>Audio statistics</source>
@@ -6927,7 +6927,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation>Això obrirà el diàleg de les estadística de l&apos;àudio</translation>
+        <translation>Això obre el diàleg de les estadística de l&apos;àudio</translation>
     </message>
     <message>
         <source>Open settings</source>
@@ -6936,7 +6936,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation>Això obrirà el diàleg dels paràmetres</translation>
+        <translation>Això obre el diàleg dels paràmetres</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
@@ -6945,7 +6945,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation>Això obrirà el diàleg de l&apos;assistent d&apos;àudio</translation>
+        <translation>Això obre el diàleg de l&apos;assistent d&apos;àudio</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
@@ -6954,7 +6954,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation>Això obrirà el diàleg de l&apos;assistent del certificat</translation>
+        <translation>Això obre el diàleg de l&apos;assistent del certificat</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
@@ -6972,7 +6972,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation>Això obrirà el diàleg &quot;Quant al&quot;</translation>
+        <translation>Això obre el diàleg &quot;Quant al&quot;</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
@@ -6981,7 +6981,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation>Això obrirà el diàleg Quant al Qt</translation>
+        <translation>Això obre el diàleg Quant al Qt</translation>
     </message>
     <message>
         <source>Check for update</source>
@@ -6990,7 +6990,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation>Això comprovarà si el mumble està actualitzat</translation>
+        <translation>Això comprova si el mumble està actualitzat</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
@@ -7006,151 +7006,151 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Entreu el missatge del xat</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de &amp;blocats</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Informació</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ig&amp;nora els Missatges</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>Envia un Mi&amp;ssatge...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu un Renom...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>V&amp;incula</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Desvi&amp;ncula-ho Tot</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>Silencie&amp;u-vos</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ensordiu-vos</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadí&amp;stiques de l&apos;àudio</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetre&amp;s</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consola per als Desenvolupadors</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Visor de l&apos;&amp;àudio posicional</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quant a</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Quant a &amp;Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Registre...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuaris registrats</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Claus d&apos;accés</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix l&apos;Avatar</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el Comentari...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix l&apos;Avatar...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix l&apos;avatar de l&apos;usuari seleccionat.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Uniu-vos</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Amaga-ho en Filtrar</translation>
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixa-ho en filtrar</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el Comentari</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Orador Prioritari</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>Grava...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolta el Canal</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfície de la parla</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Uniu-vos al canal de l&apos;usuari</translation>
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou Al Meu Canal</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mou aquest usuari al vostre canal actual.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactiva la Síntesi de veu</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Canals i usuaris filtrats</translation>
     </message>
 </context>
 <context>
@@ -7241,59 +7241,59 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualització de simulació de l&apos;àudio posicional</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation type="unfinished"></translation>
+        <translation>Això mostra la configuració de l&apos;àudio posicional que s&apos;utilitza actualment</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenada Z de l&apos;oient</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenada X de l&apos;oient</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenada Y de l&apos;oient</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de visualització de l&apos;usuari silenciós (en segons)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut de l&apos;oient (en graus)</translation>
     </message>
     <message>
         <source>Listener elevation (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Elevació de l&apos;oient (en graus)</translation>
     </message>
     <message>
         <source>Context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena del context</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu el botó &quot;estableix&quot; per aplicar la cadena del context</translation>
     </message>
     <message>
         <source>Apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica la cadena del context</translation>
     </message>
     <message>
         <source>Apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica la cadena de la identitat</translation>
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de la identitat</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu el botó &quot;estableix&quot; per aplicar la cadena de la identitat</translation>
     </message>
 </context>
 <context>
@@ -7511,23 +7511,23 @@ Evita que el client pugui enviar informació que identifiqui el sistema operatiu
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipus de servidor intermediari</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del proxy</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port del servidor intermediari</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;usuari del proxy</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrasenya del proxy</translation>
     </message>
 </context>
 <context>
@@ -8140,39 +8140,39 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
     </message>
     <message>
         <source>List of plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de connectors</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzar les tecles amunt i avall explorar els connectors. Utilitzeu les tecles esquerra i dreta per explorar els permisos d&apos;un connector.</translation>
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del connector</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadre per activar el connector</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadre del permís d&apos;àudio posicional del connector</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadre del permís de la llista d&apos;esdeveniments del teclat</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>marcat</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>desmarcat</translation>
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>No disponible</translation>
     </message>
 </context>
 <context>
@@ -8560,7 +8560,7 @@ Vegeu &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation>El suport per a aquesta opció és només experimental! Aquesta opció funciona millor quan s&apos;utilitza un micròfon altaveu incorporats.</translation>
+        <translation>El suport per a aquesta opció és només experimental! Aquesta opció funciona millor quan s&apos;utilitza un micròfon i altaveu incorporats.</translation>
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
@@ -8602,99 +8602,99 @@ Podeu registrar-vos de nou.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Següent</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Torna</translation>
     </message>
     <message>
         <source>This is you</source>
-        <translation type="unfinished"></translation>
+        <translation>Sou vós</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>amic</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>usuari</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>estat</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>sord i mut</translation>
     </message>
     <message>
         <source>muted</source>
-        <translation type="unfinished"></translation>
+        <translation>silenciat</translation>
     </message>
     <message>
         <source>locally muted</source>
-        <translation type="unfinished"></translation>
+        <translation>localment silenciat</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>no està mut</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>gravació</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>orador prioritari</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished"></translation>
+        <translation>té un comentari llarg</translation>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>missatges de text ignorats</translation>
     </message>
     <message>
         <source>registered</source>
-        <translation type="unfinished"></translation>
+        <translation>registrat</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>canal</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>el vostre canal</translation>
     </message>
     <message>
         <source>accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>accessible</translation>
     </message>
     <message>
         <source>inaccessible</source>
-        <translation type="unfinished"></translation>
+        <translation>inaccessible</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>públic</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>filtrat</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>fixat</translation>
     </message>
     <message>
         <source>Listening for input</source>
-        <translation type="unfinished"></translation>
+        <translation>Escoltant l&apos;entrada</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Afegir</translation>
+        <translation>Afegeix</translation>
     </message>
 </context>
 <context>
@@ -8846,15 +8846,15 @@ Podeu registrar-vos de nou.</translation>
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de la cerca</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultats de la cerca</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitza les tecles amunt i avall per navegar pels resultats de la cerca.</translation>
     </message>
 </context>
 <context>
@@ -8996,7 +8996,7 @@ Podeu registrar-vos de nou.</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation>&lt;secret endavant&gt;</translation>
+        <translation>&lt;secret cap endavant&gt;</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -9004,7 +9004,7 @@ Podeu registrar-vos de nou.</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation>Si la connexió suporta o no el secret endavant perfecte (PFS).</translation>
+        <translation>Si la connexió suporta o no el secret perfecte cap endavant (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
@@ -9020,11 +9020,11 @@ Podeu registrar-vos de nou.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Usuaris:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres del TCP</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -9223,11 +9223,11 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de claus</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilitzeu les tecles de les fletxes per navegar per aquesta llista de claus d&apos;accés. Les claus es mostren en text pla.</translation>
     </message>
 </context>
 <context>
@@ -9281,15 +9281,15 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca l&apos;usuari</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el mode del filtre d&apos;inactivitat</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtre d&apos;inactivitat</translation>
     </message>
 </context>
 <context>
@@ -9443,7 +9443,7 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalls</translation>
     </message>
 </context>
 <context>
@@ -9641,11 +9641,11 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Oient del Canal</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;oient del canal pertany a %1</translation>
     </message>
 </context>
 <context>
@@ -9916,11 +9916,11 @@ Si us plau, poseu-vos en contacte amb l&apos;administrador del servidor per obte
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest camp conté el camí a la carpeta per emmagatzemar-hi qualssevol gravació de veu. Utilitzeu el botó &quot;navega&quot; per obrir el diàleg del fitxer.</translation>
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest camp conté el nom amb que es desa qualsevol fitxer d&apos;enregistrament de veu. Es poden utilitzar diverses variables per ampliar el nom del fitxer. Per exemple %time per al temps actual.</translation>
     </message>
 </context>
 <context>
@@ -9931,7 +9931,7 @@ Si us plau, poseu-vos en contacte amb l&apos;administrador del servidor per obte
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajust del volum local</translation>
     </message>
 </context>
 <context>
