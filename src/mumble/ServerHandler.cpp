@@ -1172,11 +1172,66 @@ void ServerHandler::addChannelLink(unsigned int channel, unsigned int link, cons
 	sendMessage(mpcs);
 }
 
+void ServerHandler::addChannelLinks(const unsigned int channelCount, const unsigned int *channelSet,
+									const QStringList &temporaryAccessTokens) {
+	if (channelCount < 2) {
+		return;
+	}
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(channelSet[0]);
+	for (unsigned int i = 1; i < channelCount; i++) {
+		mpcs.add_links_add(channelSet[i]);
+	}
+
+	for (const QString &token : temporaryAccessTokens) {
+		mpcs.add_temporary_access_tokens(token.toUtf8().constData());
+	}
+
+	sendMessage(mpcs);
+}
+
 void ServerHandler::removeChannelLink(unsigned int channel, unsigned int link,
 									  const QStringList &temporaryAccessTokens) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel);
 	mpcs.add_links_remove(link);
+
+	for (const QString &token : temporaryAccessTokens) {
+		mpcs.add_temporary_access_tokens(token.toUtf8().constData());
+	}
+
+	sendMessage(mpcs);
+}
+
+void ServerHandler::removeChannelLinks(unsigned int channel, const unsigned int channelCount,
+									   const unsigned int *channelSet, const QStringList &temporaryAccessTokens) {
+	if (channelCount < 1) {
+		return;
+	}
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(channel);
+	for (unsigned int i = 0; i < channelCount; i++) {
+		mpcs.add_links_remove(channelSet[i]);
+	}
+
+	for (const QString &token : temporaryAccessTokens) {
+		mpcs.add_temporary_access_tokens(token.toUtf8().constData());
+	}
+
+	sendMessage(mpcs);
+}
+
+void ServerHandler::removeChannelLinks(const unsigned int channelCount, const unsigned int *channelSet,
+									   const QStringList &temporaryAccessTokens) {
+	if (channelCount < 2) {
+		return;
+	}
+	MumbleProto::ChannelState mpcs;
+	unsigned int link = channelSet[0];
+	for (unsigned int i = 1; i < channelCount; i++) {
+		mpcs.set_channel_id(link);
+		mpcs.add_links_remove(channelSet[i]);
+	}
 
 	for (const QString &token : temporaryAccessTokens) {
 		mpcs.add_temporary_access_tokens(token.toUtf8().constData());

@@ -15,6 +15,17 @@
 // First, include the latest plugin API header file completely
 #include "MumblePlugin.h"
 
+// Now, include all older API structs for backward compatibility
+// Re-include the API definition
+#undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
+// But this time, overwrite the version
+#undef MUMBLE_PLUGIN_API_MAJOR_MACRO
+#define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
+#undef MUMBLE_PLUGIN_API_MINOR_MACRO
+#define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+
+#include "MumblePlugin.h"
+
 
 // Re-include the API definition
 #undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
