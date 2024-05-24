@@ -221,7 +221,7 @@ public:
 
 				// If no errors are encountered during destroyTables, we can exit the loop
 				break;
-			} catch (const ::mdb::Exception &e) {
+			} catch (const ::mdb::Exception &) {
 				// destroyTables iterates through the tables in order. If destroying one of them
 				// raises an exception, we assume that this is due to the respective table being
 				// managed by TestDB and therefore, we simply make PlainDB forget about it.

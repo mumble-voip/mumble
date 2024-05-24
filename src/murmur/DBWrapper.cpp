@@ -52,6 +52,7 @@
 #include <boost/optional.hpp>
 
 #include <algorithm>
+#include <cassert>
 #include <limits>
 #include <stdexcept>
 #include <utility>
@@ -968,8 +969,7 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned in
 	if (!m_serverDB.getChannelListenerTable().listenerExists(listener)) {
 		m_serverDB.getChannelListenerTable().addListener(listener);
 	} else {
-		::msdb::DBChannelListener listener =
-			m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
+		listener = m_serverDB.getChannelListenerTable().getListenerDetails(serverID, userID, channelID);
 
 		if (!listener.enabled) {
 			// Mark this listener as enabled again
@@ -1373,7 +1373,9 @@ unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int use
 		std::chrono::duration_cast< std::chrono::seconds >(std::chrono::system_clock::now() - userData.lastDisconnect)
 			.count();
 
-	return maxRememberDuration >= inactiveSeconds ? userData.lastChannelID : Mumble::ROOT_CHANNEL_ID;
+	assert(inactiveSeconds >= 0);
+
+	return maxRememberDuration >= static_cast< unsigned long >(inactiveSeconds) ? userData.lastChannelID : Mumble::ROOT_CHANNEL_ID;
 
 	WRAPPER_END
 }
