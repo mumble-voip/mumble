@@ -224,8 +224,8 @@ void DatabaseTest::hexConversions() {
 	qInfo() << "Consistency checks";
 
 	for (const std::vector< std::uint8_t > &current :
-		 std::vector< std::vector< std::uint8_t > >{ { 0xaf, 0x12 }, {}, { 0x26, 0xff, 0x78, 0xf9 } }) {
-		bool success = false;
+		std::vector< std::vector< std::uint8_t > >{ { 0xaf, 0x12 }, {}, { 0x26, 0xff, 0x78, 0xf9 } }) {
+		success = false;
 		std::vector< std::uint8_t > produced =
 			utils::hexToBinary< decltype(produced) >(utils::binaryToHex(current), &success);
 
