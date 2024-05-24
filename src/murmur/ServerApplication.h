@@ -6,6 +6,8 @@
 #ifndef MUMBLE_SERVER_SERVERAPPLICATION_H_
 #define MUMBLE_SERVER_SERVERAPPLICATION_H_
 
+#include <QtGlobal>
+
 #ifdef Q_OS_WIN
 #	include <QApplication>
 #else
@@ -23,7 +25,11 @@ class ServerApplication : public QCoreApplication {
 	Q_OBJECT
 
 public:
+#ifdef Q_OS_WIN
+	using QApplication::QApplication;
+#else
 	using QCoreApplication::QCoreApplication;
+#endif
 	~ServerApplication();
 
 	/**
