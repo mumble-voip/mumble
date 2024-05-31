@@ -29,6 +29,7 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(ChatbarTextEdit)
 	void inFocus(bool);
+	void applyPlaceholder();
 	QStringList qslHistory;
 	QString qsHistoryTemp;
 	int iHistoryIndex;
