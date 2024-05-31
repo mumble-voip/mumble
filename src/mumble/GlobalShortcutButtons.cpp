@@ -8,15 +8,42 @@
 
 #include "GlobalShortcut.h"
 
+#include "MainWindow.h"
 #include "Global.h"
 
+#include <QRect>
 #include <QTimer>
 
 GlobalShortcutButtons::GlobalShortcutButtons(QWidget *parent) : QDialog(parent), m_ui(new Ui::GlobalShortcutButtons) {
 	m_ui->setupUi(this);
+	setModal(true);
 
 	connect(m_ui->addButton, &QPushButton::toggled, this, &GlobalShortcutButtons::toggleCapture);
 	connect(m_ui->removeButton, &QPushButton::clicked, this, &GlobalShortcutButtons::removeItem);
+
+	// Due to what appears to be a Qt bug, this dialog will not take
+	// the parent geometry into account when spawning.
+	// Therefore, we search for a different parent or even fallback to the
+	// MainWindow and move this dialog to its center.
+	QWidget *searchWidget = parent;
+	while (searchWidget && !qobject_cast< QDialog * >(searchWidget)) {
+		searchWidget = searchWidget->parentWidget();
+	}
+	QWidget *effectiveParent = qobject_cast< QDialog * >(searchWidget);
+	if (!effectiveParent && Global::get().mw && Global::get().mw->isVisible()) {
+		effectiveParent = Global::get().mw;
+	}
+
+	int32_t posx = geometry().x();
+	int32_t posy = geometry().y();
+
+	if (effectiveParent) {
+		QRect geometry = effectiveParent->geometry();
+		posx           = geometry.center().x() - (width() / 2);
+		posy           = geometry.center().y() - (height() / 2);
+	}
+
+	QTimer::singleShot(0, [this, posx, posy]() { move(posx, posy); });
 }
 
 GlobalShortcutButtons::~GlobalShortcutButtons() {
