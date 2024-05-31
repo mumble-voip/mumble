@@ -854,10 +854,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;אפשרות זו קובעת כמה מסגרות קול יכללו בחבילהאחת.&lt;/b&gt;&lt;br /&gt;הגדלת הערך הז יגדיל את האחזור של הקול שלכם, אך יפחית צריכת רוחב פס.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;אפשרות זו מראה את רוחב הפס שנמצא בשימוש בשיא.&lt;/b&gt;&lt;br /&gt;מראה את תפוסת רוחב הפס של שידור הקול שלכם. קצב סיביות הקול הוא קצב הסיביות המקסימלי (כיוון שאנו משתמשים ב-VBR) של נתוני הקול בלבד. מיקום הוא קצב הסיביות של מידע המיקום. סיכומית היא כמות המסגרות והתחיליות של חבילות ה-IP (IP ו-UDP הם 75% מהסיכומית).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>עיבוד שמע</translation>
     </message>
@@ -1231,6 +1227,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1841,8 +1841,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>ערך זה מראה את משקלו של מבטל ההד האקוסטי, כשציר הזמן החיובי הוא כלפי מטה והשכיחות כלפי צד ימין.&lt;br /&gt;במצב אידאלי, הגרף אמור להיות שחור לחלוטין, מה שמראה שאיןהד כלל. מצב נפוץ יותר הוא שיש פס אופקי אחד או יותר של צבע כחלחל שמראה את ההד המעוכב. אתם אמורים לראות את התונים מתעדכנים בזמן אמת.&lt;br /&gt;שימו לב שאם אין לכם בעיות עם הדים, אתם לא תמצאו כאן מידע שימושי. נגנו קצת מוזיקה והמצב יתייצב.&lt;br /&gt;אתם יכולים לבחור לראות את החלקים האמיתיים או הדמיוניים של ציר השכיחות, או לחלופין את המודולים המחושבים. רוב הסיכויים שהמודולים המחושבים יהיו המידע השימושי יותר, שכן הם למעשה משרעת ההד, ומראים כמה מהקול נמחק בפעימה. שאר התצוגות שימושיות רק למי שרוצה לתקן את אלגוריתם ביטול ההד.&lt;br /&gt;שימו לב: אם התמונה זזה במהירות כשאתם צופים במודולים, זה אומר שמבטל ההד האקוסטי לא מצליח למצוא כל תיאום בין המיקרופון והרמקולים. במצב כזה, כנראה שיש השהייה ארוכה של ההד, או שאחד מההתקנים אינו מוגדר כראוי.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>זהו קצב סיביות הקול של מסגרת הזמן הדחוסה האחרונה (20 מ&quot;ש), ולכן הערך ישתנה במהירות כשה-VBR משנה את האיכות. קצב הסיביות המירבי ניתן לשינוי בחלון ההגדרות.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

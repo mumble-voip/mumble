@@ -849,10 +849,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;Egy csomagba helyezhető hangminták számát választja ki.&lt;/b&gt;&lt;br /&gt;E szám növelése a hang késleltetését fogja növelni, de a sávszélesség követelményeit csökkenteni fogja.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;A kimenő sávszélesség csúcsát mutatja.&lt;/b&gt;&lt;br /&gt;A gépéből küldött adatfolyam sávszélességének csúcsértékét mutatja. A hangbitráta a maximum értéke (ha VBR tömörítést használunk) a hang adatoknak. A pozicionálás bitrátája a pozicionáláshoz küldött adatok mennyiségét jelenti. A többletterhelés a saját keret és az IP csomag fejléceiből ered (az IP és UDP a 75%-t adja ennek a többletnek).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Hangfeldolgozás</translation>
     </message>
@@ -1226,6 +1222,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1836,7 +1836,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Visszhang elnyomás mértékét mutatja, az idő lefelé növekszik és a frekvencia jobbra nő.&lt;br /&gt;Ideális esetben fekete kell legyen, ami azt jelentené, hogy egyáltalán nincs visszhang. Leggyakrabban, egy vagy több vízszintes, kékes csík jelzi az időben eltolt visszhangot. Önnek itt valós időben kell látnia az elnyomás súlyait.&lt;br /&gt;Kérem vegye figyelembe, hogy itt nem fog semmi hasznos adatot látni, amíg nincs elnyomható visszhang. Játsszon le valamilyen zenét és a dolgok stabilizálódni fognak.&lt;br /&gt;Megtekintheti a frekvenciatartományok valós vagy képzett részeit vagy alternatívaként a kiszámított modulus és fázist. Valószínűleg ezek közül a leghasznosabb a modulus, ami a visszhang amplitúdója és megmutatja, hogy abban az időintervallumban a kimeneti jelből mennyit távolít el. A többi megjelenítési mód csak azoknak az embereknek hasznos, akik a visszhangcsökkentő algoritmust akarják hangolni.&lt;br /&gt;Megjegyzés képpen, ha a modulusz módban az egész kép hullámzik, akkor a visszhangcsökkentő nem talál egyezést a két bemeneti forrásban (hangszóró és mikrofon). Ez azt jelenti, hogy vagy nagyon nagy a késleltetés a visszhangban, vagy az egyik bemeneti forrás rosszul van beállítva.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

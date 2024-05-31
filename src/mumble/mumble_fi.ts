@@ -853,10 +853,6 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>&lt;b&gt;Määrittää kuinka paljon ääntä sisällytetään yhteen pakettiin.&lt;/b&gt;&lt;br /&gt;Kasvattamalla äänen määrää lisäät puheesi viivettä, mutta vähennät yhteytesi kaistankäyttöä.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden enimmäisarvon, joka lähetetään tietokoneestasi. Äänen bittivirta on enimmäisbittivirta (käytämme VBR) vain äänitiedoille yksinään. Sijanti on bittivirta jota käytetään sijaintitiedoille. Pakettitiedot ovat paketin kehykselle ja IP-osoitetiedoille tarvittava bittivirta (IP ja UDP ovat 75 % tästä lukuarvosta).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Äänen käsittely</translation>
     </message>
@@ -1231,6 +1227,10 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <message>
         <source>Preview both audio cues</source>
         <translation>Esikuuntele molemmat äänimerkit</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>Näyttää kaiunpoiston painotukset, aika lisääntyy alaspäin ja taajuus kasvaa oikealle.&lt;br /&gt;Ideaalitilanteessa tämän pitäisi olla musta, jolloin kaikua ei ole lainkaan. Useimmiten, kaikua on useamman vaakasuuntaisen viivan verran, jotka edustavat kaiun viivettä. Muutoksien tulisi näkyä reaaliajassa.&lt;br /&gt;Huomioi, että kun kaikua ei ole, tästä ei erityisemmin ilmene mitään. Soita hieman musiikkia, niin tilanne tasaantuu.&lt;br /&gt;Voit valita näytettäväksi joko oikean tai kuvitteelliset osat taajuuksien painotuksesta, tai vaihtoehtoisesti lasketun kertoimen tai näkymän. Näistä hyödyllisin lienee kerroin, joka on kaiun voimakkuus, ja näyttää paljonko uloslähtevästä signaalista leikataan. Muut näkymät ovat hyödyllisiä pääasiassa vain niille, jotka haluavat säätää kaiunpoiston algoritmeja.&lt;br /&gt;Huomioi, jos koko kuva aaltoilee kerrointilassa, kaiunpoisto epäonnistuu löytäämään yhteyttä kahden sisääntulolähteen välillä (kaiuttimien ja mikrofonin). Joko sinulla on pitkäviiveinen kaiku, tai toinen sisääntulolähteistä on konfiguroitu väärin.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Viimeisimmän paketin (20ms) audion bittivirta. Arvo heiluu ylös ja alas aina kun VBR säätää laatua. Huipun bittivirtaa voidaan säätää Asetuksista.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

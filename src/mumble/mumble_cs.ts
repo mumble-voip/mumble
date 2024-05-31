@@ -853,10 +853,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>&lt;b&gt;Vybere kolik zvukových rámců by mělo být dáno do jednoho paketu.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění ve Vašem hlase, ale také sníží využití šířky pásma.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Toto zobrazuje špičku využití odchozí šírky pásma.&lt;/b&gt;&lt;br /&gt; Toto zobrazuje špičku množství šírky pásma odeslané z Vašeho stroje. Bitový tok zvuku je nejvyšší (protože používáme VBR) pro samotná zvuková data. Pozice je bitový tok, používaný pro informace o pozici. Čas zpracování se skládá z našeho rámečkování a hlavičky paketů IP( IP a UDP tvoří 75% z tohoto času).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Zpracování Zvuku</translation>
     </message>
@@ -1230,6 +1226,10 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Toto zobrazuje váhy rušitele ozvěny s časem zvyšujícím se dolů a frekvencí zvyšující se doprava.&lt;br /&gt; Ideálně by toto mělo být černé, což znamená, že neexistuje žádná ozvěna. Běžně budete mít jednu nebo více vodorovných modrých čar, označující časově zpožděnou ozvěnu. Měli byste vidět, jak jsou váhy aktualizovány ve  skutečném čase.&lt;br /&gt;Uvědomte si, prosím, že dokud nebudete mít něco, od čeho ozvěnu odrážet, tak zde moc užitečná data neuvidíte. Přehrajte nějakou hudbu a věci by se měli ustálit. &lt;br /&gt; Můžete si zvolit k zobrazení skutečné nebo domnělé části vah kmitočtového pásma, nebo jinak vypočítaná modulace a fáze. Z těchto bude asi nejužitečnější modulace, což je amplituda ozvěny, a ukazuje kolik výstupního signálu je v onom časovém kroku odstraněno. Ostatní režimy zobrazení jsou většinou užitečné pro lidi, kteří si chtějí vyladit jejich algoritmy vyrušení ozvěny.&lt;br /&gt; Uvědomte si, prosím, že pokud se celý obrázek hodně mění, když je v režimu modulace, rušitel ozvěny nemůže najít žádnou souvztažnost mezi dvěma vstupními zdroji (reproduktory a mikrofon). Buď máte velmi dlouhou prodlevu ozvěny, nebo jeden ze vstupních zdrojů není správně nastaven.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Toto je bitový tok posledního komprimovaného rámce (20ms), a jako takový bude skákat nahoru a dolů jak VBR upravuje kvalitu. Nejvyšší bitový tok může být upraven v dialogovém okně Nastavení.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

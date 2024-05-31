@@ -849,10 +849,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Garso apdorojimas</translation>
     </message>
@@ -1226,6 +1222,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1836,7 +1836,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Tai rodo aido slopintuvo svorius, kai laikas didėja žemyn, o dažnis didėja į dešinę.&lt;br /&gt; Geriausia, jei ši juosta būtų juoda ir rodytų, kad aido iš viso nėra. Dažniau pasitaiko viena ar kelios horizontalios melsvos spalvos juostelės, reiškiančios laiku uždelstą aidą. Turėtumėte matyti realiuoju laiku atnaujinamus svorius.&lt;br /&gt;Atkreipkite dėmesį, kad tol, kol nėra nieko, nuo ko būtų aidas, čia nematysite daug naudingų duomenų. Paleiskite šiek tiek muzikos ir viskas turėtų stabilizuotis.&lt;br /&gt;Galite pasirinkti, ar norite matyti realiąsias, ar įsivaizduojamas dažnių srities svorių dalis, ar pakaitomis apskaičiuotą modulį ir fazę. Naudingiausias iš jų greičiausiai bus modulis, kuris yra aido amplitudė ir parodo, kokia išeinančio signalo dalis pašalinama tuo laiko žingsniu. Kiti peržiūros režimai dažniausiai naudingi žmonėms, norintiems sureguliuoti aido panaikinimo algoritmus.&lt;br /&gt;Atkreipkite dėmesį: jei visas vaizdas masiškai svyruoja veikiant modulio režimui, aido panaikintuvas nesugeba rasti jokios koreliacijos tarp dviejų įvesties šaltinių (garsiakalbių ir mikrofono). Arba turite labai didelį aido uždelsimą, arba vienas iš įvesties šaltinių sukonfigūruotas neteisingai.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

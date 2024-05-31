@@ -853,10 +853,6 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
         <translation>&lt;b&gt;Dies legt fest, wieviele Audioframes in ein Paket gepackt werden sollen.&lt;/b&gt;&lt;br /&gt;Durch Erhöhung steigt die Latenz der Sprache, gleichzeitig sinkt aber der Bandbreitenbedarf.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dies zeigt die Spitze der ausgehenden Bandbreite an.&lt;/b&gt;&lt;br /&gt;Dies zeigt die maximale Bandbreite an, die zum Senden verwendet wurde. Die Audio-Bitrate ist die maximale Bitrate, die für Audiodaten genutzt wird (maximal, da VBR verwendet wird). Position ist die Bitrate für Positionsinformationen. Overhead wird durch das Verpacken der Audiodaten in Netzwerkpakete verursacht (75&#xa0;% dieses Overheads entstehen durch die IP- und UDP-Paketheader).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Audioverarbeitung</translation>
     </message>
@@ -1231,6 +1227,10 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     <message>
         <source>Preview both audio cues</source>
         <translation>Vorschau für beide Audiohinweise</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
         <translation>Dieses Diagramm zeigt die Gewichte des Echounterdrückers mit der Zeit nach unten und der Frequenz nach rechts wachsend.&lt;br /&gt;Idealerweise sollte das Diagramm schwarz sein, also kein Echo existieren. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Sie sollten sehen können, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;Solange keine Echoquelle vorhanden ist werden Sie hier keine nützlichen Daten sehen. Spielen Sie deshalb z.&#xa0;B. Musik ab, um das Diagramm zu stabilisieren.&lt;br /&gt;Sie können zwischen Real- und Imaginäranteilen der Frequenzdomänengewichte, oder alternativ dem berechneten Modulus und der Phase auswählen. Am nützlichsten ist hierbei Modulus, dieser ist die Amplitude des Echos und zeigt an, wie viel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen, die den Algorithmus zur Echounterdrückung feinjustieren wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulusmodus massiv fluktuiert, kann die Echounterdrückung keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder Sie haben eine sehr lange Verzögerung des Echos oder eine der Eingangsquellen ist falsch konfiguriert.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Aus diesem Grund springt sie auf und ab während die VBR die Qualität anpasst. Die Spitzenbandbreite kann in den Einstellungen angepasst werden.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

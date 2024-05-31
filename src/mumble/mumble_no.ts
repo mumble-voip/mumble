@@ -853,10 +853,6 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <translation>&lt;b&gt;Dette angir hvir mange lydrammer som skal puttes i en pakke.&lt;/b&gt;&lt;br /&gt;Å øke dette vil heve forsinkelsen for din stemme, men vil også senke båndbreddekrav.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dette viser toppnivået for brukt utgående båndbredde.&lt;/b&gt;&lt;br /&gt; Dvs, akkurat i det tidspunktet der du sendte ut mest data. Lydbitraten er den maksimale bitraten (siden vi bruker VBR) for lyddataen alene. Posisjon er bitraten brukt for posisjonsbasert info. Overskudd er vår innramming og IP-pakke hodene (IP og UDP er 75% av overskuddsdataen).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Lydbehandling</translation>
     </message>
@@ -1230,6 +1226,10 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1850,8 +1850,8 @@ Når du bruker lydkansellering og du ser at det stiger til mer enn -15dB har du 
         <translation type="unfinished">Dette viser vektingen av ekkokanselleringen, der tiden øker nedover og frekvens økes mot høyre.&lt;br /&gt;Ideelt sett skulle dette være svart, hvilket ville indikert at det overhodet ikke er noe ekko. Du bør være i stand til at se vektingen oppdateres i sanntid.&lt;br /&gt;Legg merke til at så lenge du ikke har noe som kan være ekko, vil du ikke se noe nyttig data her. Spill av noe musikk og tingene skulle vil begynne å stabilisere seg.&lt;br /&gt;Du kan velge å se den rette eller innbilte delen av frekvens-områdets vekt, eller alternativt den beregnede absolutte verdi og fase. Den mest brukbare av disse, vil være den absolutte verdi, som er amplituden av ekkoet, og som viser deg hvor mye av utgangssignalet, som blir fjernet på det tidspunktet. De andre visningstilstandene er mest brukbare for folk som gjerne vil justere ekkokansellerings-algoritmene.&lt;br /&gt;Merk: Hvis hele bildet svinger enormt i modulus-tilstand, vil det misslykkes ekkokanselleringen å finne noen sammenheng overhodet mellem de to inngangskildene (høyttalere og mikrofon). Enten har du en meget lang forsinkelse på ekkoet, eller så er en av inngangskildene satt opp feil.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Bitraten for lyd i siste komprimerte ramme (20 ms), den vil hoppe opp og ned ettersom VBR justerer kvaliteten. Toppnivået for bitrate kan justeres i innstillingsdialogen.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

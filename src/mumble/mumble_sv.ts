@@ -853,10 +853,6 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>&lt;b&gt;Detta ställer in mängden ljud att paketera i ett paket.&lt;/b&gt;&lt;br /&gt;Genom att öka detta kommer latensen för din röst ökas, men också minska bandbreddskravet.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Detta visar höjdpunkten för använd utgående bandbredd.&lt;/b&gt;&lt;br /&gt;Detta visar höjdpunkten för mängden bandbredd utsänd från dig. Ljudbitraten är den högsta bitraten (som vi använder VBR) för själva ljuddatan. Positionen är bitraten som används för platsinformation. Totalt är våran inramning IP-paketet (IP och UDP är 75% av detta totalt).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Ljudbearbetning</translation>
     </message>
@@ -1230,6 +1226,10 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>Detta visar vikterna för ekoavbrytaren, med tiden ökande nedåt och frekvensen ökande till höger.&lt;br /&gt;Helst ska detta vara svart, vilket visar att det inte finns något eko alls. Vanligtvis, har du en eller flera horisontella linjer som representerar tidfördröjda ekon. Du borde se hur vikterna uppdateras i realtid.&lt;br /&gt;Kom ihåg att så länge du har något att ta bort eko ifrån, kommer du inte se någon användbar data här. Spela lite musik så kommer saker att stabiliseras. &lt;br /&gt;Du kan välja mellan att välja riktida eller tänkta delar av frekvensdomänens vikter, eller alternativt beräknade moduler och faser. Det mest användbara av dessa kommer säkerligen vara moduler, som är amplituden för ekot och visar hur mycket av den utgående signalen som tas bort just då. De andra visningslägena fär mest användbara för människor som vill ställa in ekoavbrytnings-algoritmer.&lt;br /&gt;Kom ihåg att om hela bilden fluktuerar massivt i modulläget misslyckas ekoavbrytaren att hitta ett växelförhållande mellan ingångskällorna (högtalare och mikrofon). Antingen har du en hög latens för ekot, eller så är en av ingångskällorna felkonfigurerade.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Detta är ljudbitraten av den senast komprimerade rutan (20 ms) och som kommer att hoppa upp och ner så länge VBR justerar kvaliteten. Den högsta bitraten kan justeras i inställningsdialogen.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
