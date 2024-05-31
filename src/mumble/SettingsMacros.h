@@ -19,6 +19,7 @@
 	PROCESS(misc, CRASH_EMAIL_ADDRESS_KEY, crashReportEmail)
 
 #define AUDIO_SETTINGS                                                                      \
+	PROCESS(audio, UNMUTE_ON_UNDEAF_KEY, unmuteOnUndeaf)                                    \
 	PROCESS(audio, MUTE_KEY, bMute)                                                         \
 	PROCESS(audio, DEAF_KEY, bDeaf)                                                         \
 	PROCESS(audio, TRANSMIT_MODE_KEY, atTransmit)                                           \
