@@ -45,13 +45,13 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 	// clicks on the slider bar.
 	MouseClickEventObserver *mouseEventFilter = new MouseClickEventObserver(this, false);
 	m_volumeSlider->installEventFilter(mouseEventFilter);
-	connect(mouseEventFilter, &MouseClickEventObserver::clickEventObserved, this, [=]() {
+	connect(mouseEventFilter, &MouseClickEventObserver::clickEventObserved, this, [this]() {
 		m_volumeSlider->setFocus(Qt::TabFocusReason);
 		updateLabelValue(false);
 	});
 
 	// Also update the label explicitly when the slider body is released.
-	connect(m_volumeSlider, &QSlider::sliderReleased, this, [=]() {
+	connect(m_volumeSlider, &QSlider::sliderReleased, this, [this]() {
 		m_volumeSlider->setFocus(Qt::TabFocusReason);
 		updateLabelValue(false);
 	});
