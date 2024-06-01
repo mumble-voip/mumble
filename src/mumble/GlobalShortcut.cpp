@@ -93,7 +93,7 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QWidget(p) {
 	adjustSize();
 
 	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
-	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [=]() { m_comboBox->showPopup(); });
+	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [this]() { m_comboBox->showPopup(); });
 	installEventFilter(eventFilter);
 
 	QTreeWidget *treeWidget = qobject_cast< QTreeWidget * >(p->parentWidget());
@@ -385,7 +385,7 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	l->addWidget(qtbEdit);
 
 	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
-	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [=]() { qtbEdit->click(); });
+	connect(eventFilter, &KeyEventObserver::keyEventObserved, this, [this]() { qtbEdit->click(); });
 	installEventFilter(eventFilter);
 
 	QMetaObject::connectSlotsByName(this);
@@ -402,7 +402,7 @@ TextEditWidget::TextEditWidget(QWidget *p) : QWidget(p) {
 
 	KeyEventObserver *eventFilter = new KeyEventObserver(this, QEvent::KeyPress, true, { Qt::Key_Space });
 	connect(eventFilter, &KeyEventObserver::keyEventObserved, this,
-			[=]() { m_lineEdit->setFocus(Qt::MouseFocusReason); });
+			[this]() { m_lineEdit->setFocus(Qt::MouseFocusReason); });
 	installEventFilter(eventFilter);
 
 	QMetaObject::connectSlotsByName(this);

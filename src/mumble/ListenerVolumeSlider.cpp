@@ -11,7 +11,7 @@
 
 ListenerVolumeSlider::ListenerVolumeSlider(QWidget *parent) : VolumeSliderWidgetAction(parent), m_currentSendDelay(0) {
 	connect(&m_sendTimer, &QTimer::timeout, this, &ListenerVolumeSlider::sendToServer);
-	connect(&m_resetTimer, &QTimer::timeout, this, [=]() { m_currentSendDelay = 0; });
+	connect(&m_resetTimer, &QTimer::timeout, this, [this]() { m_currentSendDelay = 0; });
 
 	m_sendTimer.setSingleShot(true);
 	m_resetTimer.setSingleShot(true);
