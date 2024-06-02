@@ -432,35 +432,35 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaalpositie</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximaal aantal kanaal gebruikers</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaalbeschrijving</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer lid om toe te voegen</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitgesloten groepsleden</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer lid om te verwijderen</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst van toegangscontrole invoeringen</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer groep</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer gebruiker</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -629,19 +629,19 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Apparatenlijst</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Verander van ongebruikt naar microfoonlijst</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Verander van Microfoonlijst naar ongebruikt</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst van ongebruikte apparaten</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>

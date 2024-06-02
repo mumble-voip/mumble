@@ -432,51 +432,51 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Posição do canal</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Máximo de usuários no canal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição do canal</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione membro para adicionar</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membros do grupo excluídos</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione membro para remover</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de entradas da lista de controle de acesso</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o grupo</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleciona um grupo ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o usuário</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleciona um usuário ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de permissões disponíveis</translation>
     </message>
 </context>
 <context>
@@ -4359,7 +4359,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Diversos</translation>
+        <translation>Div.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4375,7 +4375,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation>Clique aqui para mudar o limite de mensagens para todos os eventos - Se estiver usando esta opção, certifique-se de mudar o limite de usuários abaixo.</translation>
+        <translation>Clique aqui para alternar o limite de mensagens para todos os eventos - Se estiver usando essa opção, certifique-se de alterar o limite de usuário abaixo.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
@@ -4880,7 +4880,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation>Sequência de hierarquia do canal</translation>
+        <translation>Sequência de Hierarquia dos Canais</translation>
     </message>
     <message>
         <source>Search</source>
@@ -5478,10 +5478,9 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Certificado ou senha errado para usuário registrado. Se
-tem certeza que este usuário é protegido por senha
-por favor tente novamente. Do contrário aborte e verifique
-seu certificado e nome de usuário.</translation>
+        <translation>Certificado ou senha incorretos para usuário registrado. Se você estiver
+certeza de que este usuário está protegido por uma senha, tente novamente.
+Caso contrário, aborte e verifique seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>Wrong password</source>
@@ -6282,7 +6281,7 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>&amp;Self</source>
-        <translation>&amp;Si</translation>
+        <translation>&amp;Perfil</translation>
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
@@ -6597,11 +6596,11 @@ Ações válidas são:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Alterna a visibilidade da UI de Falantes.</translation>
+        <translation>Alterna a visibilidade da IU de Fala.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation>Alternar o filtro do canal (Alt+F)</translation>
+        <translation>Alterna o filtro do canal (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
@@ -6614,11 +6613,11 @@ Ações válidas são:
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alterna o diálogo de pequisa</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto abrirá ou fechará o diálogo de pesquisa dependendo de se ele já está aberto ou não</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
@@ -7444,11 +7443,11 @@ Evita que o cliente envie informações potencialmente capazes de identificaçã
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Confira por atualizações de plugin ao inicializar</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Baixe e instale automaticamente as atualizações de plugin</translation>
     </message>
     <message>
         <source>Proxy type</source>
@@ -8037,15 +8036,15 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Instale um plugin de um arquivo local</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar plugin...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarrega o plugin atualmente selecionado. Isso irá removê-lo da lista de plugins para a sessão atual.</translation>
     </message>
     <message>
         <source>Unload</source>
@@ -8832,19 +8831,19 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation>Informação do servidor</translation>
+        <translation>Informações do servidor</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation>Informação do servidor</translation>
+        <translation>Informações do Servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Endereço de host:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Porta:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8864,11 +8863,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Permitido:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atual:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
@@ -8876,7 +8875,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Connection details</source>
-        <translation>Detalhes de conexão</translation>
+        <translation>Detalhes da conexão</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -8912,15 +8911,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Saída</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pacotes de voz estão sendo enviados via TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -8928,11 +8927,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Versão TLS:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Versão do TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Suíte de cifras:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
@@ -9163,11 +9162,11 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Tokens</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use as teclas de seta para navegar nesta lista de tokens de acesso. Os tokens são exibidos em texto simples.</translation>
     </message>
 </context>
 <context>
@@ -9211,8 +9210,8 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
         <translation>
-            <numerusform>Usuários registrados: %n conta(s)</numerusform>
-            <numerusform>Usuários registrados: %n conta(s)</numerusform>
+            <numerusform>Usuário registrados: %n conta</numerusform>
+            <numerusform>Usuários registrados: %n contas</numerusform>
         </translation>
     </message>
     <message>
@@ -9221,15 +9220,15 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquise por usuário</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir modo de filtro de inatividade</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro por inatividade</translation>
     </message>
 </context>
 <context>
@@ -9828,7 +9827,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
         <translation>O servidor ao qual você está conectado é versão 1.2.2 ou anterior. Por motivos de privacidade, gravar em servidores anteriores à versão 1.2.3 não é possível.
-Por favor contate seu administrador de servidor para mais informações.</translation>
+Favor contatar seu administrador de servidor para mais informações.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
@@ -9836,7 +9835,7 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     </message>
     <message>
         <source>Please select a recording format.</source>
-        <translation>Por favor escolha um formato de gravação.</translation>
+        <translation>Por favor, escolha um formato de gravação.</translation>
     </message>
     <message>
         <source>Stopping</source>

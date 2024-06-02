@@ -7115,7 +7115,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation>%Kanal zuhören</translation>
+        <translation>Kanal &amp;zuhören</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
