@@ -853,10 +853,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;Αυτό καθορίζει πόσα δείγματα ήχου να τοποθετούνται σε κάθε πακέτο&lt;/b&gt;&lt;br /&gt;Η Όσο αυξάνεται αυτό τόσο θα μεγαλώνει και η καθυστέρηση μετάδοσης της φωνής σας, αλλά θα μειώσει τις απαιτήσεις εύρους ζώνης.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Αυτό δείχνει το μέγιστο εύρος ζώνης εξόδου που χρησιμοποιήθηκε.&lt;/b&gt;&lt;br /&gt;Αυτό δείχνει το μέγιστο εύρος ζώνης που αποστέλλεται από το μηχάνημά σας. Το bitrate Ήχου είναι το μέγιστο bitrate (επειδή χρησιμοποιούμε VBR) μόνο για τα δεδομένα ήχου. Η Θέση δείχνει το bitrate που χρησιμοποιείται για πληροφορίες θέσης. Το Overhead είναι τα πλαίσια και οι κεφαλίδες των πακέτων IP (Η IP και το UDP είναι το 75% του overhead).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Επεξεργασία ήχου</translation>
     </message>
@@ -1230,6 +1226,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Αυτό δείχνει το βάρος του ηχού, με το χρόνο αυξάνεται προς τα κάτω και η συχνότητα αυξάνει προς τα δεξιά&lt;br /&gt;Ιδανικά, αυτό θα πρέπει να είναι μαύρο, αναφέροντας πως δεν υπάρχει ήχος. Πιο συχνά, θα μπορείτε να έχετε μία ή περισσότερες οριζόντιες ρίγες του μπλε χρώματος που αντιπροσωπεύουν τη καθυστερημένη ηχώ. Θα πρέπει να είστε σε θέση να δείτε τις ενημερώσεις σε πραγματικό χρόνο.&lt;br /&gt;Παρακαλείστε να σημειώσετε ότι για όσο διάστημα έχετε echo off, δεν θα δείτε πολλά χρήσιμα στοιχεία. Παίξτε κάποια μουσική και τα πράγματα θα πρέπει να σταθεροποιηθούν.&lt;br /&gt;Μπορείτε να επιλέξετε να δείτε τα πραγματικά ή φανταστικά μέρη της συχνότητας, ή εναλλακτικά να υπολογιστεί το μέτρο και η φάση. Οι πιο χρήσιμες από αυτές είναι πιθανό ο συντελεστής, που είναι το εύρος της ηχούς, και δείχνει πόσο το εξερχόμενο σήμα αφαιρείται σε αυτό το χρονικό βήμα. Οι άλλοι τρόποι προβολής είναι κυρίως χρήσιμη για τους ανθρώπους που θέλουν να συντονίσουν την ακύρωση ηχούς αλγορίθμων.&lt;br /&gt;Παρακαλώ σημειώστε: Εάν το σύνολο της εικόνας κυμαίνεται μαζικά, ενώ ο συντελεστής είναι σελειτουργία, το echo canceller αποτυγχάνει να βρεί μία απολύτως συσχέτιση μεταξύ των δύο πηγών εισόδου (ηχεία και μικρόφωνο). Είτε έχετε μια πολύ μεγάλη καθυστέρηση στην ηχώ, ή μία από τις πηγές εισόδου έχει ρυθμιστεί λάθος.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Αυτό είναι το bitrate του τελευταίου συμπιεσμένου κομματιού (20 ms), και ως εκ τούτου θα πηδάει πάνω κάτω όσο το VBR ρυθμίζει την ποιότητα. Το μέγιστο bitrate μπορεί να ρυθμιστεί στο παράθυρο διαλόγου Ρυθμίσεις.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

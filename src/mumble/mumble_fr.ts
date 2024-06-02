@@ -853,10 +853,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>&lt;b&gt;Sélectionne le nombre de trames audio qui devraient être envoyées dans un paquet.&lt;/b&gt;&lt;br /&gt;Augmenter cette valeur augmentera votre latence, mais réduira aussi vos besoins en bande passante.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Montre la bande passante maximale utilisée.&lt;/b&gt;&lt;br /&gt;Montre la bande passante maximale utilisée par votre machine. Le débit binaire audio est le débit binaire maximum (puisqu&apos;un débit binaire variable est utilisé) pour les données seules. La position est le débit binaire utilisé pour les informations de position. L&apos;en-tête contient le système de trames et les en-têtes des paquets IP. (l&apos;IP et l&apos;UDP constituent 75 % de l&apos;en-tête).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Processeur audio</translation>
     </message>
@@ -1231,6 +1227,10 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>Preview both audio cues</source>
         <translation>Prévisualiser les deux signaux audio</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Montre le poids de la suppression de l&apos;écho, avec le temps en ordonnée et la fréquence en abscisse.&lt;br /&gt;Idéalement, celui-ci devrait être noir, indiquant qu&apos;aucun écho n&apos;existe. Plus communément, vous aurez une ou plusieurs bandes bleutées représentant le temps de retard de l&apos;écho. Vous devriez être capable de visualiser les poids mis à jour en temps réel.&lt;br /&gt;Notez que tant que vous n&apos;avez aucun signal où enlever l&apos;écho, vous ne verrez pas beaucoup de données utiles ici. Écoutez de la musique et les choses devraient se stabiliser.&lt;br /&gt;Vous pouvez choisir de voir la partie réelle ou imaginaire dans le domaine fréquentiel, ou alternativement le module et la phase des poids. Le plus utile de ces outils serait probablement le module, qui est l&apos;amplitude de l&apos;écho, qui montre la quantité de signal sortant supprimée à chaque instant. Les autres modes de visualisation sont principalement utiles pour les gens qui veulent régler les algorithmes d&apos;annulation de l&apos;écho.&lt;br /&gt;Remarque&#xa0;: si l&apos;image entière fluctue massivement en mode module, cela signifie que l&apos;algorithme de suppression de l&apos;écho n&apos;a pas réussi à trouver une corrélation entre les deux sources d&apos;entrée (haut-parleurs et microphone). Soit vous avez un retard très long sur l&apos;écho, soit une des sources d&apos;entrée est mal configurée.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Il s&apos;agit du débit binaire de la dernière trame compressée (20 ms). Ceci va varier de haut en bas puisque nous utilisons un bitrate variable pour ajuster la qualité. Pour ajuster le bitrate maximal, ajustez &lt;b&gt;Complexité de la compression&lt;/b&gt; dans les Préférences.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

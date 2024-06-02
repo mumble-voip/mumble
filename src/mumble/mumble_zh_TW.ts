@@ -848,10 +848,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;選擇一個封包裡放多少個音框。&lt;/b&gt;&lt;br /&gt;增加這個數值會增加你的語音延遲，但也會減少頻寬需求。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;顯示發送語音佔用的頻寬。&lt;/b&gt;&lt;br /&gt;顯示從你的機器發送時佔用的頻寬大小。</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>音效處理</translation>
     </message>
@@ -1225,6 +1221,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1835,7 +1835,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

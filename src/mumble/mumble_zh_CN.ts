@@ -853,10 +853,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;选择应将多少个音频帧放入一个数据包中。&lt;/b&gt;&lt;br /&gt;增加此值会增加语音的延迟，但也会降低带宽要求。</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;显示使用的峰值传出带宽。&lt;/b&gt;&lt;br /&gt;显示从您的计算机发出的峰值带宽量。音频比特率是单独音频数据的最大比特率（因为我们使用 VBR）。位置是用于位置信息的比特率。开销是我们的帧数据和 IP 数据包标头（IP 和 UDP 占此开销的 75%）。</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>音频处理</translation>
     </message>
@@ -1231,6 +1227,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Preview both audio cues</source>
         <translation>预览所有音频提示</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>显示回声消除器的权重，时间向下增加，频率向右增加。&lt;br /&gt;理想情况下，图表应该是黑色，表示根本不存在回声。更常见的是，您会看见一个或多个蓝色水平条纹代表延时回声。您应该能够看到实时更新的权重。&lt;br /&gt;请注意，只要您没有任何回声，您就不会在这里看到太多有用的数据。播放一些音乐，它就应该会稳定下来。&lt;br /&gt;您可以选择查看频域权重的实部或虚部，或者经计算的模数和相位。其中最有用的可能是模数，它是回声的幅度，并显示在该时间步内消除了多少输出信号。其他查看模式对于想要调整回声消除算法的人来说非常有用。&lt;br /&gt;请注意：如果整个图像在模数模式下大幅波动，则回声消除器无法在两个输入源（扬声器与麦克风）之间找到任何相关性。您或者在回声上有很长的延迟，或者其中一个输入源配置错误。</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>这是最后一个压缩帧（20 毫秒）的音频比特率，因此当 VBR 调整质量时，它会上下跳转。可以在“设置”对话框中调整峰值比特率。</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

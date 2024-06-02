@@ -853,10 +853,6 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <translation>&lt;b&gt;Seleciona quantos quadros de áudio devem ser colocados em um pacote.&lt;/b&gt;&lt;br /&gt;Aumentar isto também aumentará a latência para sua voz, reduzindo as exigências de banda.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Mostra o pico da banda de transmissão usada.&lt;/b&gt;&lt;br /&gt;Mostra o pico na quantia de banda enviada da sua máquina. A taxa de áudio é a taxa máxima (já que usamos VBR) para os dados de áudio exclusivamente. Posição é a taxa usada para informação posicional. Sobrecarga são nossos quadros e cabeçalhos de pacotes IP (IP e UDP são 75% desta sobrecarga).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Processamento de áudio</translation>
     </message>
@@ -1230,6 +1226,10 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <translation>Mostra os pesos do cancelador de ecos, com o tempo aumentando para baixo e a frequência para a direita.&lt;br /&gt;Idealmente, isto deve ser preto, indicando que nenhum eco existe. Mais comumente, você verá uma ou mais listras horizontais de tom azul representando eco com tempo atrasado. Você deve ser capaz de ver os pesos atualizados em tempo real.&lt;br /&gt;Por favor note que enquanto você não tiver nada para ecoar, você não verá muitos dados úteis aqui. Toque alguma música e as coisas devem estabilizar.&lt;br /&gt;Você pode escolher ver as partes reais ou imaginárias dos pesos no domínio da frequência, ou alternativamente a fase e o módulo calculados. Os mais úteis destes provavelmente serão o módulo, que é a amplitude do eco, e mostra quanto do sinal transmitido está sendo eliminado naquela etapa no tempo. Os outros modos de visão são mais úteis para pessoas que querem melhorar os algoritmos de anulação de echo.&lt;br /&gt;Por favor note: Se a imagem inteira flutua massivamente no modo de módulo, o anulador de eco falha ao encontrar qualquer correlação entre as duas fontes de entrada (alto-falantes e microfone). Ou você possui um atraso muito longo no eco, ou as fontes de entrada estão configuradas errado.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá pular para cima e para baixo conforme o VBR ajusta a qualidade. O pico da taxa de bits pode ser ajustado no diálogo de Configuração.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

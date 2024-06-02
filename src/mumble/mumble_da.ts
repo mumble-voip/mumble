@@ -852,10 +852,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;Dette indstiller hvor mange lyd-frames der skal puttes i én pakke.&lt;/b&gt;&lt;br /&gt;Forøgelse af dette vil øge forsinkelsen af din stemme, men vil også reducere båndbredde-krav.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dette viser den maksimale udgående båndbredde-brug.&lt;/b&gt;&lt;br /&gt;Dette viser den maksimale mængde båndbredde, der bliver sendt fra din maskine. Lyd-bitrate er den maksimale bitrate (eftersom vi bruger VBR) for alene lyddata. &lt;i&gt;Placering&lt;/i&gt; er bitrate&apos;en der bliver brugt til placeringsinformation. &lt;i&gt;Tab&lt;/i&gt; er vores framing og IP-pakke-headers (IP og UDP er 75% af denne overhead).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Lydbehandling</translation>
     </message>
@@ -1229,6 +1225,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1839,8 +1839,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Dette viser vægten af ekkoelimineringen, hvor tiden forøges nedad og svingningstal forøges mod højre.&lt;br /&gt;Ideelt set skulle dette være sort, hvilket indikere at der overhovedet ikke er noget ekko. Du skulle være i stand til at se vægten blive opdateret i real time.&lt;br /&gt;Læg venligst mærke til at så længe du ikke har noget, der kan være ekko, vil du ikke se ret meget brugtbar data hér. Afspil noget musik og tingene skulle gerne stabilisere sig.&lt;br /&gt;Du kan vælge at se den rigtige eller indbildte dele af frekvens-område vægten, eller alternativt den beregnede absolutte værdi og fase. Den mest brugbare af disse, vil være den absolutte værdi, som er amplituden af ekkoet, og som viser dig hvor meget af det udgående signal, der bliver fjernet på dét tidstrin. De andre visningstilstande er mest brugbare for folk, der gerne vil tune ekkoeliminerings-algoritmerne.&lt;br /&gt;Bemærk: Hvis hele billedet svinger enormt ved absolut værdi tilstanden, vil det mislykkedes ekkoelimineringen at finde nogen sammenhæng overhovedet mellem de to indspilningskilder (højtalere og mikrofon). Enten har du en meget lang forsinkel på ekkoet, eller også er en af indspilningskilderne konfigureret forkert.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Dette er lyd-bitrate&apos;en for den seneste komprimerede frame (20 ms) og vil som sådan hoppe op og ned samtidig med, at VBR justerer kvaliteten. Den maksimale bitrate kan blive justeret i dialogboksen &quot;Indstillinger&quot;.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

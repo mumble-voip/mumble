@@ -853,10 +853,6 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
         <translation>&lt;b&gt;Określa, ile ramek dźwięku powinno być umieszczonych w jednym pakiecie.&lt;/b&gt;&lt;br /&gt;Zwiększanie liczby milisekund opóźni przesyłanie twojego głosu, ale dzięki temu zużyjesz mniej pasma.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Wyświetla maksymalne pasmo, jakie może być użyte.&lt;/b&gt;&lt;br /&gt;Wyświetla maksymalne pasmo, jakie może być wykorzystane przy wysyłaniu z twojego komputera. Bitrate dźwięku (użyte jest VBR) jest maksymalnym bitrate dla samego dźwięku. Położenie jest to bitrate zawierający informacje wykorzystywane przy dźwięku pozycyjnym. Obciążenie są to nagłówki pakietów (IP i UDP stanowi 75% obciążenia).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Przetwarzanie dźwięku</translation>
     </message>
@@ -1231,6 +1227,10 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <message>
         <source>Preview both audio cues</source>
         <translation>Odtwórz oba sygnały dźwiękowe</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
         <translation>Wyświetla siłę usuwania echa, gdzie czas to krzywa, która opada w dół oraz częstotliwość to krzywa zwiększająca się ku prawej stronie.&lt;br /&gt;Najlepiej byłoby, gdyby pole to pozostało czarne, co wskazywałoby, że echo nie występuje. Zazwyczaj, będziesz mieć doczynienia z jedną lub kilkoma poziomymi paskami niebieskawego koloru, które reprezentują opóźnienie echa w czasie. Powinieneś widzieć siłę uaktualnianą w czasie rzeczywistym. &lt;br /&gt;Zauważ, że jeżeli nie masz żadnego echa nie zobaczysz tutaj nic, co mogłoby ci się przydać. Posłuchaj muzyki i wszystko powinno się ustabilizować.&lt;br /&gt;Możesz wybrać, co chcesz przeglądać - prawdziwe lub wyimaginowane części dziedziny częstotliwości siły lub obliczone modulacje i fazy. Najużyteczniejszym z tych wszystkich będzie modulacja, która jest amplitudą echa, pokazuje ile wychodzącego sygnału jest usuwane. Pozostałe tryby przeglądania są najużyteczniejsze dla ludzi, którzy chcą podrasować algorytmy usuwania echa. &lt;br /&gt;Zauważ, że: Jeżeli cały obraz fluktuuje po całości, gdy tryb modulacji jest włączona, usuwanie echa nie ma wtedy szans na odnalezienie korelacji pomiędzy dwoma źródłami wyjścia (głośniki i mikrofon). Albo masz zbyt długie opóźnienie na echu albo jedno ze źródeł wejścia jest źle skonfigurowane.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Bitrate dźwięku w ostatniej ramce (20 ms) będzie skakać od góry do dołu, kiedy VBR będzie dostosowywać jakość. Aby zmienić bitrate, wyreguluj &lt;b&gt;kompresję&lt;/b&gt; w Konfiguracji.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

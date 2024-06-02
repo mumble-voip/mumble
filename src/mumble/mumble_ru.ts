@@ -853,10 +853,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;Указывает сколько аудиофрагментов помещать в пакет.&lt;/b&gt;&lt;br /&gt;Увеличение этого параметра увеличит задержку голоса, но также уменьшит требования к пропускной способности вашего соединения.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Показывает пиковое использование пропускной способности исходящего канала.&lt;/b&gt;&lt;br /&gt;Показывает пиковое значение используемой пропускной способности при отправке данных от вашего компьютера. Битрейт аудио - максимальный битрейт (принятое сокращение - VBR) только для аудиоданных. Позиция - битрейт, используемый для информации о позиции. Служебные данные содержат раскадровку и заголовки IP пакетов (IP и UDP составляют 75% этих служебных данных).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Обработка звука</translation>
     </message>
@@ -1230,6 +1226,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Отображает значение подавления эха, со временем растущего вниз и увеличивающим частоту вправо.&lt;br /&gt;В идеале, все должно быть черным, отображая, что эха нет. Вероятнее, у Вас будет 1 или несколько горизонтальных полосок синеватого цвета, отображающих время задержки эха. Вы должны видеть значения в реальном времени.&lt;br /&gt;Заметьте, что если у Вас нет эхо, которое нужно подавить, Вы не увидите здесь полезной информации. Запустите музыку, и все должно нормализоваться. &lt;br /&gt;Вы можете выбрать просмотр реальных или воображаемых частей доменно-частотных значений, или наоборот высчитанные модуль и фазу. Наиболее применимым из них будут, скорее всего модуль, который является амплитудой эха, и показывает, сколько сигнала было вырезано за промежуток времени. Другие режимы просмотра более полезны для людей, желающих настроить алгоритмы глушения эха.&lt;br /&gt;Внимание: если картина в целом обширно варьируется в режиме модулей, подавление эха не может найти соответствия между двумя входными источниками (динамиками и микрофоном). Или у Вас очень долгая задержка эха, или один из входящих источников настроен неправильно.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Битрейт последнего сжатого фрагмента аудио (20 мс), изменяющийся при работе VBR (Variable Bit Rate - переменная скорость передачи). Пиковый битрейт может быть отрегулирован в Настройках.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

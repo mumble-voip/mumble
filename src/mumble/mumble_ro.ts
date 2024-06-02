@@ -853,10 +853,6 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
         <translation>&lt;b&gt;Aceasta selectează câte cadre audio ar trebui să fie puse într-un pachet.&lt;/b&gt;&lt;br /&gt;Creșterea acestui parametru va crește latenta vocii tale, dar va reduce și cerințele de lățime de bandă.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Aceasta arată lățimea maximă de bandă utilizată pentru ieșire.&lt;/b&gt;&lt;br /&gt;Aceasta arată cantitatea maximă de bandă trimisă de pe mașina ta. Bitrate-ul audio este bitrate-ul maxim (deoarece folosim VBR) pentru datele audio în sine. Poziția este bitrate-ul folosit pentru informațiile de poziție. Suprasarcina este împachetarea noastră și antetele pachetelor IP (IP și UDP reprezintă 75% din această suprasarcină).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Procesare audio</translation>
     </message>
@@ -1230,6 +1226,10 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,7 +1840,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

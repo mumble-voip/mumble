@@ -853,10 +853,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;하나의 패킷에 넣어야 하는 오디오 프레임 수를 선택합니다.&lt;/b&gt;&lt;br /&gt;이 값을 늘리면 음성 지연 시간이 늘어나지만 대역폭은 감소됩니다.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;사용 된 최고 송신 대역폭을 보여줍니다.&lt;/b&gt;&lt;br /&gt;컴퓨터에서 보낸 최고 대역폭 양을 보여줍니다. 오디오 비트레이트는 오디오 데이터 전용의 최대 비트레이트입니다 (VBR 사용 시). 위치는 위치 정보에 사용되는 비트레이트입니다. 오버헤드는 프레임과 IP 패킷 헤더입니다 (IP 와 UDP는이 오버헤드의 75%).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>오디오 처리</translation>
     </message>
@@ -1230,6 +1226,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview both audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1840,8 +1840,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>시간이 아래로 증가하고 주파수가 오른쪽으로 증가함에 따라 에코 제거의 가중치가 표시됩니다.&lt;br /&gt;이상적으로, 이것은 검은색이어야 하며, 이는 에코가 전혀 존재하지 않음을 나타냅니다. 일반적으로 시간 지연 에코를 나타내는 파란색의 가로줄 무늬가 하나 이상 있습니다. 실시간으로 변경된 가중치를 볼 수 있어야 합니다.&lt;br /&gt;에코가 없는 한 여기서는 유용한 데이터를 많이 볼 수 없습니다. 음악을 틀면 안정될 것입니다&lt;br /&gt;주파수 영역 가중치의 실제 또는 가상 부분을 보거나, 계산된 계수와 위상을 번갈아 보도록 선택할 수 있습니다. 이 중 가장 유용한 것은 에코의 진폭 계수이며, 해당 단계에서 제거되고 있는 송신 신호의 양을 보여줍니다. 다른보기 모드는 에코 제거 알고리즘을 조절하려는 사람들에게 주로 유용합니다.&lt;br /&gt;참고: 계수 모드에서 전체 이미지가 크게 변동하는 경우 에코 제거가 두 입력 소스 (스피커와 마이크) 간에 상관관계를 찾지 못합니다. 에코에서 지연 시간이 매우 길거나 입력 소스 중 하나가 잘못 구성되었습니다.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>이것은 마지막 압축 프레임의 (20ms) 오디오 비트레이트이며, VBR이 품질을 조절함에 따라 위아래로 움직입니다. 최고 비트레이트는 설정 대화 상자에서 조절할 수 있습니다.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

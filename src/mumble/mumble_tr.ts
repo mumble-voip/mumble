@@ -853,10 +853,6 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>&lt;b&gt;Paket başına konulacak ses veri miktarını belirler.&lt;/b&gt;&lt;br /&gt;Bu değeri arttırmanız konuşmanızın gecikmesini arttıracaktır, ancak aynı zamanda bant genişliği gereksinimlerini azaltacaktır.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dışarıya giden azami bant genişliğini gösterir.&lt;/b&gt;&lt;br /&gt;Bilgisayarınızdan gönderilen azami bant genişliğini gösterir. Ses veri akışı (bitrate) sadece ses verileri için azami veri akışıdır (VBR kullandığımız için). Konum, konumsal veriler için kullanılan veri akışıdır. Yük ise veri bölme ve İP paket başlıklarıdır (İP ve UDP bu yükün %75&apos;ini oluşturur).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Ses İşlenmesi</translation>
     </message>
@@ -1231,6 +1227,10 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <source>Preview both audio cues</source>
         <translation>Her iki ses işaretini önizle</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>Yankı iptalinin ağırlığını gösterir, zaman aşağıya doğru artar ve frekans sağda artar.&lt;br /&gt;İdeal durumda hiçbir yankının olmadığını siyah renk ile gösterir. Genel durumda bir ya da daha fazla mavimtırak yatay çizgiler görürsünüz ki bunlar yankıları gösterir. Ağırlıkların gerçek zamanlı güncellemelerinizi görmeniz gerekir.&lt;br /&gt;Yankı yaratacak hiçbir şey olmadığı sürece burada dikkate değer veri görmeyeceğinizi unutmayınız. Müzik çalarsanız durum açıklaşır ve sabitleşir.&lt;br /&gt;Frekans-alanı ağırlıklarının gerçek ya da sanal kısımlarını, veya hesaplanan modül ve fazı görüntülemeyi seçebilirsiniz. Muhtemelen bunların en yararlısı yankının amplitüdü olan modüldür ve gönderilen sinyalin bu zaman çerçevesinde ne kadarının kaldırıldığını gösterir. Diğer görüntüleme kipleri en çok yankı algoritmaları ayarlamak isteyen kişilerin işine yarar&lt;br /&gt;Lütfen dikkat: Modül kipinde bütün görüntü önemli bir şekilde dalgalanırsa, bu yankı iptalinin iki girdi kaynağı (mikrofon ve hoparlörler) arasında hiçbir korelasyon bulamadığı anlamına gelir. Ya yankı için çok yüksek bir süre bulunduğunu, ya da girdi kaynaklarının yanlış yapılandırılmış olduğunu gösterir bu.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Son sıkıştırılmış çerçevenin (20 ms) ses veri akış oranıdır ve VBR kaliteyi ayarladıkça bu değer düşecek ve artacaktır. Azami veri akış oranı Ayarlar diyaloğunda belirtilebilir.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

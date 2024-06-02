@@ -853,10 +853,6 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
         <translation>&lt;b&gt;Selecciona cuántas tramas de audio deberían insertarse en un paquete.&lt;/b&gt;&lt;br /&gt;Aumentar esto incrementará la latencia de su voz, pero también reducirá los requisitos de ancho de banda.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Esto muestra el ancho de banda saliente máximo utilizado.&lt;/b&gt;&lt;br /&gt;Esto muestra la cantidad máxima de ancho de banda enviado desde su equipo. La tasa de bits de audio es la tasa de bits máxima (ya que usamos VBR) solo para los datos de audio. La posición es la tasa de bits utilizada para la información. Los gastos generales son nuestro marco y los encabezados de los paquetes (IP y UDP representan el 75% de estos gastos generales).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Procesamiento del audio</translation>
     </message>
@@ -1231,6 +1227,10 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     <message>
         <source>Preview both audio cues</source>
         <translation>Vista previa de ambas pistas de audio</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
         <translation>Muestra los pesos del cancelador de eco, con el tiempo incrementándose hacia abajo y la frecuencia incrementándose hacia la derecha.&lt;br /&gt;Idealmente, esto debería ser negro, indicando que no existe eco alguno. Más comúnmente, habrá una o más bandas horizontales de color azulado que representan eco retrasado en el tiempo. Debería poder ver los pesos actualizados en tiempo real.&lt;br /&gt;Fíjese en que mientras no haya nada a lo que cancelar el eco, no verá datos muy útiles aquí. Reproduzca algo de música y las cosas deberían estabilizarse.&lt;br /&gt;Puede elegir ver las partes reales o imaginarias de los pesos en el dominio de la frecuencia, o de forma alternativa el módulo y la fase calculados. Lo más útil de estos probablemente sea el módulo, que es la amplitud del eco, y muestra cuánto de la señal saliente está siendo eliminado en este paso de tiempo. Los otros modos de visionado son útiles en su mayoría a personas que quieren ajustar los algoritmos de cancelación de eco.&lt;br /&gt;Por favor, fíjese en que si la imagen completa fluctúa ampliamente mientras está en el modo módulo, el cancelador de eco no logra encontrar ninguna correlación entre las dos fuentes de entrada (altavoces y micrófono). O tiene un retraso muy largo en el eco, o una de las fuentes de entrada está mal configurada.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Esta es la velocidad de transmisión de la última trama comprimida (20 ms), y como tal, aumentará y disminuirá mientras VBR ajusta la calidad. Puede ajustar la velocidad de transmisión máxima en el cuadro de diálogo Opciones.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3775,11 +3775,11 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">marcado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sin marcar</translation>
     </message>
 </context>
 <context>
@@ -4496,15 +4496,15 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">marcado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sin marcar</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">decibelios</translation>
     </message>
 </context>
 <context>
@@ -7242,7 +7242,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vista gráfica de simulación de audio posicional</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>

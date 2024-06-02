@@ -853,10 +853,6 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <translation>&lt;b&gt;Això selecciona quants fotogrames d&apos;àudio s&apos;han de posar en un paquet.&lt;/b&gt;&lt;br /&gt;Augmentar-ho augmentarà la latència de la vostra veu, però també reduirà els requisits d&apos;amplada de banda.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Això mostra l&apos;amplada de banda màxima de sortida utilitzada.&lt;/b&gt;&lt;br /&gt;Això mostra la quantitat màxima d&apos;amplada de banda enviada des de la vostra màquina. La taxa de bits d&apos;àudio és la taxa de bits màxima (com fem servir VBR) només per a les dades d&apos;àudio. La posició és la taxa de bits utilitzada per a la informació de posició. La sobrecàrrega és el nostre marc i les capçaleres de paquets IP (IP i UDP són el 75% d&apos;aquesta sobrecàrrega).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Processament d&apos;àudio</translation>
     </message>
@@ -1231,6 +1227,10 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>Preview both audio cues</source>
         <translation>Mostra els dos senyals d&apos;àudio</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <translation>Això mostra les mesures del cancel·lador de l&apos;eco, amb el temps augmentant cap avall i la freqüència augmentant cap a la dreta.&lt;br /&gt;Idealment, hauria de ser negre, indicant que no hi ha ressò. Més habitualment, tindreu una o més franges horitzontals de color blavós que representen un eco retardat. Hauríeu de poder veure les mesures actualitzades en temps real.&lt;br /&gt;Tingueu en compte que, mentre no tingueu res a ressò, aquí no veureu gaires dades útils. Reproduïu música i les coses haurien d&apos;estabilitzar-se. &lt;br /&gt;Podeu escollir veure les parts reals o imaginàries de les mesures del domini freqüencial, o alternativament el mòdul i la fase calculats. El més útil d&apos;aquests probablement serà el mòdul, que és l&apos;amplitud de l&apos;eco, i us mostra quina part del senyal de sortida s&apos;està eliminant en aquest pas de temps. Els els altres modes de visualització són sobretot útils per a les persones que volen ajustar els algorismes de cancel·lació de l&apos;eco.&lt;br /&gt;Tingueu en compte: si tota la imatge fluctua massivament mentre està en el mode mòdul, el cancel·lador de l&apos;eco no troba cap correlació entre les dues fonts d&apos;entrada. (altaveus i micròfon). O teniu un retard molt llarg a l&apos;eco, o bé una de les fonts d&apos;entrada està mal configurada.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Aquesta és la taxa de bits d&apos;àudio de l&apos;últim fotograma comprimit (20 ms) i, com a tal, saltarà amunt i avall a mesura que el VBR ajusta la qualitat. La taxa de bits màxima es pot ajustar al diàleg Configuració.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

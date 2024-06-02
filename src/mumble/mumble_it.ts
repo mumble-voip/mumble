@@ -853,10 +853,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>&lt;b&gt;Questo imposta quante parti dell&apos;audio saranno inserite in un pacchetto&lt;/b&gt;&lt;br /&gt;Incrementare questo parametro incrementerà la latenza della tua voce, ma verrà ridotta la banda richiesta.</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Questo mostra il picco della larghezza di banda utilizzata in uscita.&lt;/b&gt;&lt;br /&gt; Questo mostra il picco della larghezza di banda inviata dal tuo computer. Bitrate audio è il massimo bitrate (visto che usiamo VBR) per i dati audio da soli. Posizione è il bitrate utilizzato per le informazioni sulla posizione. Overhead è l&apos;insieme di header ed intestazione dei pacchetti (IP e UDP sono il 75% dell&apos;overhead).</translation>
-    </message>
-    <message>
         <source>Audio Processing</source>
         <translation>Elaborazione Audio</translation>
     </message>
@@ -1231,6 +1227,10 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Preview both audio cues</source>
         <translation>Prova entrambe le notifiche sonore</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1840,8 +1840,8 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Mostra la potenza della cancellazione dell&apos;eco, con il tempo crescente verso il basso e la frequenza crescente a destra.&lt;br /&gt;In teoria, dovrebbe essere nero, cioè che non esiste eco. Più comunemente, otterrai una o più strisce orizzontali di colore bluastro che rappresentano l&apos;eco in ritardo. Si dovrebbe poter vedere i pesi aggiornati in tempo reale.&lt;br /&gt;Notare che finché l&apos;eco è nullo, qui non sarà possibile visualizzare dati molto utili. Riproduci un po&apos; di musica e le cose dovrebbero stabilizzarsi.&lt;br /&gt;Puoi scegliere di visualizzare la parte reale o immaginaria dei pesi nel dominio della frequenza, o alternativamente il modulo e la fase calcolati. Il più utile di questi sarà probabilmente il modulo, che è l&apos;ampiezza dell&apos;eco, e mostra quanta parte del segnale in uscita è stata rimossa in quel momento. Le altre modalità di visualizzazione sono per lo più utili per le persone che vogliono affinare gli algoritmi per la cancellazione dell&apos;eco.&lt;br /&gt;Notare: Se l&apos;intera immagine oscilla molto mentre si è in modalità modulo, il cancellatore di eco non sta fallendo nel trovare una correlazione tra le due sorgenti di ingresso (altoparlanti e microfono). O hai un ritardo di eco veramente lungo, o una delle sorgenti di ingresso è configurata male.</translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Questo indica il bitrate audio dell&apos;ultimo frame compresso (20 ms), e come tale, si muove su e giú mentre il VBR regola la qualità. Puoi regolare il bitrate di picco attraverso la finestra delle Impostazioni.</translation>
+        <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2252,7 +2252,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Il parlato è dinamicamente amplificato di questa quantità</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
@@ -4503,7 +4503,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">decibel</translation>
     </message>
 </context>
 <context>
