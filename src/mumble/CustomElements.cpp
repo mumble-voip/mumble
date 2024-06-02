@@ -8,6 +8,7 @@
 #include "ClientUser.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "QtWidgetUtils.h"
 #include "Utils.h"
 #include "Global.h"
 
@@ -53,16 +54,14 @@ void ChatbarTextEdit::inFocus(bool focus) {
 			f.setItalic(false);
 			setFont(f);
 			setPlainText(QString());
+			setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 			bDefaultVisible = false;
 		}
 	} else {
 		if (toPlainText().trimmed().isEmpty() || bDefaultVisible) {
-			QFont f = font();
-			f.setItalic(true);
-			setFont(f);
-			setHtml(qsDefaultText);
-			bDefaultVisible = true;
+			applyPlaceholder();
 		} else {
+			setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 			bDefaultVisible = false;
 		}
 	}
@@ -131,6 +130,10 @@ QSize ChatbarTextEdit::sizeHint() const {
 void ChatbarTextEdit::resizeEvent(QResizeEvent *e) {
 	QTextEdit::resizeEvent(e);
 	QTimer::singleShot(0, this, SLOT(doScrollbar()));
+
+	if (bDefaultVisible) {
+		QTimer::singleShot(0, [this]() { applyPlaceholder(); });
+	}
 }
 
 void ChatbarTextEdit::doResize() {
@@ -147,12 +150,20 @@ void ChatbarTextEdit::setDefaultText(const QString &new_default, bool force) {
 	qsDefaultText = new_default;
 
 	if (bDefaultVisible || force) {
-		QFont f = font();
-		f.setItalic(true);
-		setFont(f);
-		setHtml(qsDefaultText);
-		bDefaultVisible = true;
+		applyPlaceholder();
 	}
+}
+
+void ChatbarTextEdit::applyPlaceholder() {
+	QFont f = font();
+	f.setItalic(true);
+	setFont(f);
+	setWordWrapMode(QTextOption::NoWrap);
+	setHtml(qsDefaultText);
+
+	Mumble::QtUtils::elideText(*document(), static_cast< uint32_t >(size().width()));
+
+	bDefaultVisible = true;
 }
 
 void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
