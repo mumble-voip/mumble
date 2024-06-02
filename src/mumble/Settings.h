@@ -230,6 +230,7 @@ struct Settings {
 	QString qsTxMuteCue = cqsDefaultMuteCue;
 
 	bool bTransmitPosition         = false;
+	bool unmuteOnUndeaf            = false;
 	bool bMute                     = false;
 	bool bDeaf                     = false;
 	bool bTTS                      = false;
