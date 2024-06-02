@@ -38,7 +38,7 @@ namespace QtUtils {
 			QTextCursor cursor(&doc);
 			cursor.movePosition(QTextCursor::End);
 
-			const QString elidedPostfix = "...";
+			const QString elidedPostfix = "…";
 			QFontMetrics metric(doc.defaultFont());
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 			uint32_t postfixWidth = static_cast< std::uint32_t >(metric.horizontalAdvance(elidedPostfix));
