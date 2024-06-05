@@ -94,4 +94,21 @@ protected:
 	bool eventFilter(QObject *obj, QEvent *event) override;
 };
 
+class FocusEventObserver : public QObject {
+	Q_OBJECT
+
+public:
+	FocusEventObserver(QObject *parent, bool consume);
+
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
+
+signals:
+	void focusInObserved(Qt::FocusReason reason);
+	void focusOutObserved(Qt::FocusReason reason);
+
+private:
+	bool m_consume;
+};
+
 #endif

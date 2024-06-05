@@ -13,6 +13,7 @@
 #include "QtUtils.h"
 #include "ServerHandler.h"
 #include "User.h"
+#include "widgets/EventFilters.h"
 
 #if QT_VERSION >= 0x050000
 #	include <QtWidgets/QMessageBox>
@@ -159,6 +160,14 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 
 	connect(qcbGroupAdd->lineEdit(), SIGNAL(returnPressed()), qpbGroupAddAdd, SLOT(animateClick()));
 	connect(qcbGroupRemove->lineEdit(), SIGNAL(returnPressed()), qpbGroupRemoveAdd, SLOT(animateClick()));
+
+	FocusEventObserver *focusEventObserver = new FocusEventObserver(this, false);
+	qcbACLGroup->installEventFilter(focusEventObserver);
+	connect(focusEventObserver, &FocusEventObserver::focusOutObserved, this, &ACLEditor::qcbACLGroup_focusLost);
+
+	focusEventObserver = new FocusEventObserver(this, false);
+	qcbACLUser->installEventFilter(focusEventObserver);
+	connect(focusEventObserver, &FocusEventObserver::focusOutObserved, this, &ACLEditor::qcbACLUser_focusLost);
 
 	foreach (User *u, ClientUser::c_qmUsers) {
 		if (u->iId >= 0) {
@@ -813,6 +822,43 @@ void ACLEditor::on_qcbACLApplySubs_clicked(bool checked) {
 	as->bApplySubs = checked;
 }
 
+void ACLEditor::qcbACLGroup_focusLost() {
+	ChanACL *as = currentACL();
+
+	if (!as || as->bInherited) {
+		return;
+	}
+
+	if (qcbACLGroup->currentText().isEmpty()) {
+		return;
+	}
+
+	if (as->qsGroup == qcbACLGroup->currentText()) {
+		return;
+	}
+
+	on_qcbACLGroup_activated(qcbACLGroup->currentText());
+}
+
+void ACLEditor::qcbACLUser_focusLost() {
+	ChanACL *as = currentACL();
+
+	if (!as || as->bInherited) {
+		return;
+	}
+
+	if (qcbACLUser->currentText().isEmpty()) {
+		return;
+	}
+
+	int userId = id(qcbACLUser->currentText());
+	if (userId == -1 || as->iUserId == userId) {
+		return;
+	}
+
+	on_qcbACLUser_activated(qcbACLUser->currentText());
+}
+
 void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
@@ -830,9 +876,7 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	refillACL();
 }
 
-void ACLEditor::on_qcbACLUser_activated() {
-	QString text = qcbACLUser->currentText();
-
+void ACLEditor::on_qcbACLUser_activated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
 		return;
