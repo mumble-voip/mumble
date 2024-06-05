@@ -1423,8 +1423,10 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				return;
 			}
 
-			if (!hasPermission(uSource, p, ChanACL::MakeChannel)) {
-				PERM_DENIED(uSource, p, ChanACL::MakeChannel);
+			QFlags< ChanACL::Perm > parentMakePermission =
+				c->bTemporary ? ChanACL::MakeTempChannel : ChanACL::MakeChannel;
+			if (!hasPermission(uSource, p, parentMakePermission)) {
+				PERM_DENIED(uSource, p, parentMakePermission);
 				return;
 			}
 
