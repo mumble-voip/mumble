@@ -652,7 +652,18 @@ void ACLEditor::ACLEnableCheck() {
 
 		if (as->iUserId == -1) {
 			qcbACLUser->clearEditText();
-			qcbACLGroup->addItem(as->qsGroup);
+
+			bool found = false;
+			for (int i = 0; i < qcbACLGroup->count(); i++) {
+				if (qcbACLGroup->itemText(i) == as->qsGroup) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				qcbACLGroup->addItem(as->qsGroup);
+			}
+
 			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
 		} else {
 			qcbACLUser->setEditText(userName(as->iUserId));
