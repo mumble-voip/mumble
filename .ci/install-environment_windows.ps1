@@ -22,6 +22,7 @@
 # Always quit on encountered errors
 $ErrorActionPreference = 'Stop'
 
+
 choco install aria2
 
 # We require a separate function that makes sure the run command's exit code
@@ -128,3 +129,31 @@ Invoke-Command 7z x "WixSharp.7z" "-oC:/WixSharp"
 choco install vswhere
 
 Write-Host "Build environment successfully installed"
+
+
+# Setup MySQL and PostgreSQL databases for the Mumble tests
+Write-Host "Configuring PostgreSQL..."
+
+$env:PATH += ";$env:PGBIN"
+$env:PGPASSWORD="root"
+
+pg_ctl start -D "$env:PGDATA"
+
+Write-Output ("CREATE DATABASE mumble_test_db; " +
+	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; " +
+	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;") | psql --username "postgres"
+
+
+Write-Host "Configuring MySQL..."
+
+Write-Output "[mysqld]`nlog-bin-trust-function-creators = 1" | Add-Content -Path C:/Windows/my.ini
+
+mysqld --initialize-insecure --console
+Start-Process mysqld
+
+# Give the MySQL daemon some time to start up
+Start-Sleep -Seconds 5
+
+Write-Output ("CREATE DATABASE mumble_test_db; " +
+	"CREATE USER 'mumble_test_user'@'localhost' IDENTIFIED BY 'MumbleTestPassword'; " +
+	"GRANT ALL PRIVILEGES ON mumble_test_db.* TO 'mumble_test_user'@'localhost';")  | mysql --user=root
