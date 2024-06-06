@@ -169,6 +169,14 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 	qcbACLUser->installEventFilter(focusEventObserver);
 	connect(focusEventObserver, &FocusEventObserver::focusOutObserved, this, &ACLEditor::qcbACLUser_focusLost);
 
+	KeyEventObserver *keyEventObserver = new KeyEventObserver(this, QEvent::KeyPress, false, { Qt::Key_Space });
+	qcbACLGroup->installEventFilter(keyEventObserver);
+	connect(keyEventObserver, &KeyEventObserver::keyEventObserved, this, &ACLEditor::qcbACLGroup_spacePressed);
+
+	keyEventObserver = new KeyEventObserver(this, QEvent::KeyPress, false, { Qt::Key_Space });
+	qcbACLUser->installEventFilter(keyEventObserver);
+	connect(keyEventObserver, &KeyEventObserver::keyEventObserved, this, &ACLEditor::qcbACLUser_spacePressed);
+
 	foreach (User *u, ClientUser::c_qmUsers) {
 		if (u->iId >= 0) {
 			qhNameCache.insert(u->iId, u->qsName);
@@ -857,6 +865,20 @@ void ACLEditor::qcbACLUser_focusLost() {
 	}
 
 	on_qcbACLUser_activated(qcbACLUser->currentText());
+}
+
+void ACLEditor::qcbACLGroup_spacePressed() {
+	if (!qcbACLGroup->currentText().isEmpty()) {
+		return;
+	}
+	qcbACLGroup->showPopup();
+}
+
+void ACLEditor::qcbACLUser_spacePressed() {
+	if (!qcbACLUser->currentText().isEmpty()) {
+		return;
+	}
+	qcbACLUser->showPopup();
 }
 
 void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
