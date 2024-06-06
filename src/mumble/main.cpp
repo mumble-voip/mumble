@@ -658,6 +658,7 @@ int main(int argc, char **argv) {
 
 	// Initialize database
 	Global::get().db = new Database(QLatin1String("main"));
+	Global::get().db->clearLocalMuted();
 
 #ifdef USE_ZEROCONF
 	// Initialize zeroconf

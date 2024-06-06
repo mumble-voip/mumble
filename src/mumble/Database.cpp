@@ -399,6 +399,12 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	execQueryAndLogFailure(query);
 }
 
+void Database::clearLocalMuted() {
+	QSqlQuery query(db);
+	query.prepare(QLatin1String("DELETE FROM `muted`"));
+	execQueryAndLogFailure(query);
+}
+
 ChannelFilterMode Database::getChannelFilterMode(const QByteArray &server_cert_digest, const unsigned int channel_id) {
 	QSqlQuery query(db);
 
