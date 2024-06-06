@@ -92,6 +92,8 @@ public slots:
 	void ACLPermissions_clicked();
 	void qcbACLGroup_focusLost();
 	void qcbACLUser_focusLost();
+	void qcbACLGroup_spacePressed();
+	void qcbACLUser_spacePressed();
 
 	void on_qcbGroupList_activated(const QString &text);
 	void on_qcbGroupList_editTextChanged(const QString &text);
