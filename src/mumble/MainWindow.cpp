@@ -82,6 +82,7 @@
 #include <QtWidgets/QWhatsThis>
 
 #include "widgets/SemanticSlider.h"
+#include "widgets/TrayIcon.h"
 
 #ifdef Q_OS_WIN
 #	include <dbt.h>
@@ -193,6 +194,9 @@ MainWindow::MainWindow(QWidget *p)
 
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
+
+	// Update tray icon when a server connection is established
+	QObject::connect(this, &MainWindow::serverSynchronized, this, &MainWindow::userStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
@@ -609,7 +613,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	const bool minimizeDueToConnected = sh && sh->isRunning() && quitBehavior == QuitBehavior::MINIMIZE_WHEN_CONNECTED;
 
 	if (!forceQuit && (alwaysAsk || askDueToConnected)) {
-#ifndef Q_OS_MAC
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
 					   tr("Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?"),
 					   QMessageBox::NoButton, this);
@@ -622,7 +625,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		mb.setCheckBox(qcbRemember);
 		mb.exec();
 		if (mb.clickedButton() == qpbMinimize) {
-			showMinimized();
+			setWindowState(windowState() | Qt::WindowMinimized);
 			e->ignore();
 
 			// If checkbox is checked and not connected, always minimize
@@ -643,9 +646,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		if (qcbRemember->isChecked()) {
 			Global::get().s.quitBehavior = QuitBehavior::ALWAYS_QUIT;
 		}
-#endif
 	} else if (!forceQuit && (alwaysMinimize || minimizeDueToConnected)) {
-		showMinimized();
+		setWindowState(windowState() | Qt::WindowMinimized);
 		e->ignore();
 		return;
 	}
@@ -701,6 +703,20 @@ void MainWindow::showEvent(QShowEvent *e) {
 }
 
 void MainWindow::changeEvent(QEvent *e) {
+	// Hide in tray when minimized
+	if (Global::get().s.bHideInTray && e->type() == QEvent::WindowStateChange) {
+		// This code block is not triggered on (X)Wayland due to a Qt bug we can do nothing about (QTBUG-74310)
+		QWindowStateChangeEvent *windowStateEvent = static_cast< QWindowStateChangeEvent * >(e);
+		if (windowStateEvent) {
+			bool wasMinimizedState = (windowStateEvent->oldState() & Qt::WindowMinimized);
+			bool isMinimizedState  = (windowState() & Qt::WindowMinimized);
+			if (!wasMinimizedState && isMinimizedState) {
+				Global::get().trayIcon->on_hideAction_triggered();
+			}
+			return;
+		}
+	}
+
 	QWidget::changeEvent(e);
 }
 
@@ -1431,9 +1447,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qaTransmitMode->setVisible(false);
 		qaTransmitModeSeparator->setVisible(false);
 	}
-
-	show();
-	activateWindow();
 
 	// If activated show the PTT window
 	if (Global::get().s.bShowPTTButtonWindow && Global::get().s.atTransmit == Settings::PushToTalk) {
@@ -2532,6 +2545,8 @@ void MainWindow::updateMenuPermissions() {
 }
 
 void MainWindow::userStateChanged() {
+	Global::get().trayIcon->updateIcon();
+
 	ClientUser *user = ClientUser::get(Global::get().uiSession);
 	if (!user) {
 		Global::get().bAttenuateOthers              = false;
@@ -2602,6 +2617,7 @@ void MainWindow::on_qaAudioMute_triggered() {
 	}
 
 	updateAudioToolTips();
+	Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::setAudioMute(bool mute) {
@@ -2646,6 +2662,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	}
 
 	updateAudioToolTips();
+	Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::setAudioDeaf(bool deaf) {
@@ -2758,6 +2775,7 @@ void MainWindow::pttReleased() {
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	Global::get().bPushToMute = down;
 	updateUserModel();
+	Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
@@ -3038,7 +3056,9 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant) {
 }
 
 void MainWindow::on_gsToggleMainWindowVisibility_triggered(bool down, QVariant) {
-	// FIXME
+	if (down) {
+		Global::get().trayIcon->toggleShowHide();
+	}
 }
 
 void MainWindow::on_gsListenChannel_triggered(bool down, QVariant scdata) {
@@ -3365,6 +3385,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
 	qteChat->setEnabled(false);
+	Global::get().trayIcon->updateIcon();
 
 #ifdef Q_OS_MAC
 	// Remove App Nap suppression now that we're disconnected.
@@ -3572,6 +3593,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	if (Global::get().s.bMinimalView) {
 		qdwMinimalViewNote->show();
 	}
+
+	Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
@@ -3590,13 +3613,13 @@ void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
 }
 
 void MainWindow::showRaiseWindow() {
-	if (isMinimized()) {
-		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-	}
-
-	show();
-	raise();
-	activateWindow();
+	setWindowState(windowState() & ~Qt::WindowMinimized);
+	QTimer::singleShot(0, [this]() {
+		show();
+		raise();
+		activateWindow();
+		setWindowState(windowState() | Qt::WindowActive);
+	});
 }
 
 void MainWindow::on_qaTalkingUIToggle_triggered() {
@@ -3972,8 +3995,10 @@ void MainWindow::openConfigDialog() {
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
+		showRaiseWindow();
 		updateTransmitModeComboBox(Global::get().s.atTransmit);
 		updateUserModel();
+		Global::get().trayIcon->updateIcon();
 
 		if (Global::get().s.requireRestartToApply) {
 			if (Global::get().s.requireRestartToApply

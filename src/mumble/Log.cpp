@@ -809,7 +809,26 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				// FIXME
+				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
+
+				QSystemTrayIcon::MessageIcon msgIcon;
+				switch (mt) {
+					case DebugInfo:
+					case CriticalError:
+						msgIcon = QSystemTrayIcon::Critical;
+						break;
+					case Warning:
+						msgIcon = QSystemTrayIcon::Warning;
+						break;
+					case TextMessage:
+					case PrivateTextMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
+						break;
+					default:
+						msgIcon = QSystemTrayIcon::Information;
+						break;
+				}
+				Global::get().trayIcon->showMessage(msgName(mt), plain, msgIcon);
 			}
 		}
 

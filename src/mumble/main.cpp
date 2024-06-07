@@ -51,6 +51,8 @@
 #include "VersionCheck.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QLocale>
 #include <QScreen>
 #include <QtCore/QProcess>
@@ -684,6 +686,8 @@ int main(int argc, char **argv) {
 	// Main Window
 	Global::get().mw = new MainWindow(nullptr);
 	Global::get().mw->show();
+
+	Global::get().trayIcon = new TrayIcon();
 
 	Global::get().talkingUI = new TalkingUI();
 
