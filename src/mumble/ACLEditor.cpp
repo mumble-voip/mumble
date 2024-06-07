@@ -13,6 +13,7 @@
 #include "QtUtils.h"
 #include "ServerHandler.h"
 #include "User.h"
+#include "widgets/EventFilters.h"
 
 #if QT_VERSION >= 0x050000
 #	include <QtWidgets/QMessageBox>
@@ -159,6 +160,22 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 
 	connect(qcbGroupAdd->lineEdit(), SIGNAL(returnPressed()), qpbGroupAddAdd, SLOT(animateClick()));
 	connect(qcbGroupRemove->lineEdit(), SIGNAL(returnPressed()), qpbGroupRemoveAdd, SLOT(animateClick()));
+
+	FocusEventObserver *focusEventObserver = new FocusEventObserver(this, false);
+	qcbACLGroup->installEventFilter(focusEventObserver);
+	connect(focusEventObserver, &FocusEventObserver::focusOutObserved, this, &ACLEditor::qcbACLGroup_focusLost);
+
+	focusEventObserver = new FocusEventObserver(this, false);
+	qcbACLUser->installEventFilter(focusEventObserver);
+	connect(focusEventObserver, &FocusEventObserver::focusOutObserved, this, &ACLEditor::qcbACLUser_focusLost);
+
+	KeyEventObserver *keyEventObserver = new KeyEventObserver(this, QEvent::KeyPress, false, { Qt::Key_Space });
+	qcbACLGroup->installEventFilter(keyEventObserver);
+	connect(keyEventObserver, &KeyEventObserver::keyEventObserved, this, &ACLEditor::qcbACLGroup_spacePressed);
+
+	keyEventObserver = new KeyEventObserver(this, QEvent::KeyPress, false, { Qt::Key_Space });
+	qcbACLUser->installEventFilter(keyEventObserver);
+	connect(keyEventObserver, &KeyEventObserver::keyEventObserved, this, &ACLEditor::qcbACLUser_spacePressed);
 
 	foreach (User *u, ClientUser::c_qmUsers) {
 		if (u->iId >= 0) {
@@ -635,7 +652,18 @@ void ACLEditor::ACLEnableCheck() {
 
 		if (as->iUserId == -1) {
 			qcbACLUser->clearEditText();
-			qcbACLGroup->addItem(as->qsGroup);
+
+			bool found = false;
+			for (int i = 0; i < qcbACLGroup->count(); i++) {
+				if (qcbACLGroup->itemText(i) == as->qsGroup) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				qcbACLGroup->addItem(as->qsGroup);
+			}
+
 			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
 		} else {
 			qcbACLUser->setEditText(userName(as->iUserId));
@@ -813,6 +841,57 @@ void ACLEditor::on_qcbACLApplySubs_clicked(bool checked) {
 	as->bApplySubs = checked;
 }
 
+void ACLEditor::qcbACLGroup_focusLost() {
+	ChanACL *as = currentACL();
+
+	if (!as || as->bInherited) {
+		return;
+	}
+
+	if (qcbACLGroup->currentText().isEmpty()) {
+		return;
+	}
+
+	if (as->qsGroup == qcbACLGroup->currentText()) {
+		return;
+	}
+
+	on_qcbACLGroup_activated(qcbACLGroup->currentText());
+}
+
+void ACLEditor::qcbACLUser_focusLost() {
+	ChanACL *as = currentACL();
+
+	if (!as || as->bInherited) {
+		return;
+	}
+
+	if (qcbACLUser->currentText().isEmpty()) {
+		return;
+	}
+
+	int userId = id(qcbACLUser->currentText());
+	if (userId == -1 || as->iUserId == userId) {
+		return;
+	}
+
+	on_qcbACLUser_activated(qcbACLUser->currentText());
+}
+
+void ACLEditor::qcbACLGroup_spacePressed() {
+	if (!qcbACLGroup->currentText().isEmpty()) {
+		return;
+	}
+	qcbACLGroup->showPopup();
+}
+
+void ACLEditor::qcbACLUser_spacePressed() {
+	if (!qcbACLUser->currentText().isEmpty()) {
+		return;
+	}
+	qcbACLUser->showPopup();
+}
+
 void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
@@ -830,9 +909,7 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	refillACL();
 }
 
-void ACLEditor::on_qcbACLUser_activated() {
-	QString text = qcbACLUser->currentText();
-
+void ACLEditor::on_qcbACLUser_activated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
 		return;
