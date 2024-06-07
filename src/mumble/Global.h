@@ -34,6 +34,7 @@ class OverlayClient;
 class LogEmitter;
 class DeveloperConsole;
 class TalkingUI;
+class TrayIcon;
 
 class QNetworkAccessManager;
 
@@ -50,6 +51,7 @@ public:
 	static Global &get();
 
 	MainWindow *mw;
+	TrayIcon *trayIcon;
 	Settings s;
 	boost::shared_ptr< ServerHandler > sh;
 	boost::shared_ptr< AudioInput > ai;

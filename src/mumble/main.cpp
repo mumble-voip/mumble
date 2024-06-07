@@ -51,6 +51,8 @@
 #include "VersionCheck.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QLocale>
 #include <QScreen>
 #include <QtCore/QProcess>
@@ -699,6 +701,8 @@ int main(int argc, char **argv) {
 	// point, use Log::logOrDefer()
 	Global::get().l = new Log();
 	Global::get().l->processDeferredLogs();
+
+	Global::get().trayIcon = new TrayIcon();
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
