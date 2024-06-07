@@ -27,11 +27,6 @@ static ConfigRegistrar registrar(1100, LookConfigNew);
 LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-#ifndef Q_OS_MAC
-	if (!QSystemTrayIcon::isSystemTrayAvailable())
-#endif
-		qgbTray->hide();
-
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"), QLatin1String("mumble_*.qm"), QDir::Name, QDir::Files);
 	foreach (const QString &key, d.entryList()) {
