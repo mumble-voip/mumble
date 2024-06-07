@@ -152,3 +152,24 @@ bool SkipFocusEventFilter::eventFilter(QObject *obj, QEvent *event) {
 
 	return QObject::eventFilter(obj, event);
 }
+
+FocusEventObserver::FocusEventObserver(QObject *parent, bool consume) : QObject(parent), m_consume(consume) {
+}
+
+bool FocusEventObserver::eventFilter(QObject *obj, QEvent *event) {
+	QWidget *widget = static_cast< QWidget * >(obj);
+
+	if (widget && event->type() == QEvent::FocusAboutToChange) {
+		QFocusEvent *focusEvent = static_cast< QFocusEvent * >(event);
+
+		if (!widget->hasFocus() && focusEvent->gotFocus()) {
+			emit focusInObserved(focusEvent->reason());
+			return m_consume;
+		} else if (widget->hasFocus() && !focusEvent->gotFocus()) {
+			emit focusOutObserved(focusEvent->reason());
+			return m_consume;
+		}
+	}
+
+	return QObject::eventFilter(obj, event);
+}
