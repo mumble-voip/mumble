@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_LOG_H_
 #define MUMBLE_MUMBLE_LOG_H_
 
+#include <QSystemTrayIcon>
 #include <QtCore/QDate>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
@@ -156,6 +157,10 @@ public slots:
 			 const QString &overrideTTS = QString(), bool ignoreTTS = false);
 	/// Logs LogMessages that have been deferred so far
 	void processDeferredLogs();
+
+signals:
+	/// Signal emitted when there was a message received whose type was configured to spawn a notification
+	void notificationSpawned(QString title, QString body, QSystemTrayIcon::MessageIcon icon);
 };
 
 class LogMessage {

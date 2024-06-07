@@ -818,7 +818,52 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				// FIXME
+				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
+
+				QSystemTrayIcon::MessageIcon msgIcon = QSystemTrayIcon::NoIcon;
+				switch (mt) {
+					case DebugInfo:
+					case CriticalError:
+						msgIcon = QSystemTrayIcon::Critical;
+						break;
+					case Warning:
+						msgIcon = QSystemTrayIcon::Warning;
+						break;
+					case TextMessage:
+					case PrivateTextMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
+						break;
+					case Information:
+					case ServerConnected:
+					case ServerDisconnected:
+					case UserJoin:
+					case UserLeave:
+					case Recording:
+					case YouKicked:
+					case UserKicked:
+					case SelfMute:
+					case OtherSelfMute:
+					case YouMuted:
+					case YouMutedOther:
+					case OtherMutedOther:
+					case ChannelJoin:
+					case ChannelLeave:
+					case PermissionDenied:
+					case SelfUnmute:
+					case SelfDeaf:
+					case SelfUndeaf:
+					case UserRenamed:
+					case SelfChannelJoin:
+					case SelfChannelJoinOther:
+					case ChannelJoinConnect:
+					case ChannelLeaveDisconnect:
+					case ChannelListeningAdd:
+					case ChannelListeningRemove:
+					case PluginMessage:
+						msgIcon = QSystemTrayIcon::Information;
+						break;
+				}
+				emit notificationSpawned(msgName(mt), plain, msgIcon);
 			}
 		}
 

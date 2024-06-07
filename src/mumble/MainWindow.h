@@ -397,6 +397,16 @@ signals:
 	void userRemovedChannelListener(ClientUser *user, Channel *channel);
 	void transmissionModeChanged(Settings::AudioTransmit newMode);
 
+	/// Signal emitted when the local user changes their talking status either actively or passively
+	void talkingStatusChanged();
+	/// Signal emitted when the connection was terminated and all cleanup code has been run
+	void disconnectedFromServer();
+
+	/// Signal emitted when the window manager notifies the Mumble MainWindow that the application was just minimized
+	void windowMinimized();
+	/// Signal emitted when the user requested to toggle the MainWindow visibility
+	void windowVisibilityToggled();
+
 public:
 	MainWindow(QWidget *parent);
 	~MainWindow() Q_DECL_OVERRIDE;
