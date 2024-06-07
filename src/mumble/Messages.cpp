@@ -177,16 +177,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 						 &AudioInput::onUserMuteDeafStateChanged);
 	}
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
-
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
 	qmChannel_aboutToShow();
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
-
-	updateTrayIcon();
 
 
 	Global::get().sh->setServerSynchronized(true);
@@ -702,8 +698,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 								tr("You were unsuppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 					}
 				}
-
-				updateTrayIcon();
 			} else if (pSrc == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					Global::get().l->log(

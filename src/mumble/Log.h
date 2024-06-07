@@ -133,8 +133,6 @@ protected:
 	unsigned int uiLastId;
 	QDate qdDate;
 	static const QStringList allowedSchemes();
-	void postNotification(MsgType mt, const QString &plain);
-	void postQtNotification(MsgType mt, const QString &plain);
 
 public:
 	Log(QObject *p = nullptr);
