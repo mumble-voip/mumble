@@ -390,6 +390,11 @@ signals:
 	void userRemovedChannelListener(ClientUser *user, Channel *channel);
 	void transmissionModeChanged(Settings::AudioTransmit newMode);
 
+	/// Signal emitted when the local user changes their talking status either actively or passively
+	void talkingStatusChanged();
+	/// Signal emitted when the connection was terminated and all cleanup code has been run
+	void disconnectedFromServer();
+
 public:
 	MainWindow(QWidget *parent);
 	~MainWindow() Q_DECL_OVERRIDE;

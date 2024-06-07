@@ -93,6 +93,7 @@ void Global::migrateDataDir(const QDir &toDir) {
 
 Global::Global(const QString &qsConfigPath) {
 	mw              = nullptr;
+	trayIcon        = nullptr;
 	db              = nullptr;
 	pluginManager   = nullptr;
 	nam             = nullptr;
