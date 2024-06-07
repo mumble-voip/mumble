@@ -809,7 +809,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				postNotification(mt, plain.replace("\xEF\xBF\xBC", tr("[embedded content]")));
+				// FIXME
 			}
 		}
 
@@ -898,26 +898,6 @@ void Log::processDeferredLogs() {
 		LogMessage msg = qvDeferredLogs.takeFirst();
 
 		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS, msg.ignoreTTS);
-	}
-}
-
-// Post a notification using the MainWindow's QSystemTrayIcon.
-void Log::postQtNotification(MsgType mt, const QString &plain) {
-	if (Global::get().mw->qstiIcon->isSystemTrayAvailable() && Global::get().mw->qstiIcon->supportsMessages()) {
-		QSystemTrayIcon::MessageIcon msgIcon;
-		switch (mt) {
-			case DebugInfo:
-			case CriticalError:
-				msgIcon = QSystemTrayIcon::Critical;
-				break;
-			case Warning:
-				msgIcon = QSystemTrayIcon::Warning;
-				break;
-			default:
-				msgIcon = QSystemTrayIcon::Information;
-				break;
-		}
-		Global::get().mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
 }
 
