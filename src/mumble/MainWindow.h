@@ -80,6 +80,7 @@ public:
 	QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer,
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon m_iconInformation;
 	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
@@ -387,6 +388,8 @@ public slots:
 	void toggleSearchDialogVisibility();
 	/// Enables or disables the recording feature
 	void enableRecording(bool recordingAllowed);
+	/// Invokes OS native window highlighting
+	void highlightWindow();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
@@ -406,6 +409,8 @@ signals:
 	void windowMinimized();
 	/// Signal emitted when the user requested to toggle the MainWindow visibility
 	void windowVisibilityToggled();
+	/// Signal emitted whenever the Mumble MainWindow regains the active state from the window manager
+	void windowActivated();
 
 public:
 	MainWindow(QWidget *parent);

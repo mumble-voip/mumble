@@ -28,6 +28,13 @@ TrayIcon::TrayIcon() : QSystemTrayIcon(Global::get().mw), m_statusIcon(Global::g
 		Global::get().l, &Log::notificationSpawned, this,
 		[this](QString title, QString body, QSystemTrayIcon::MessageIcon icon) { showMessage(title, body, icon); });
 
+	QObject::connect(Global::get().l, &Log::highlightSpawned, this, &TrayIcon::on_timer_triggered);
+	QObject::connect(Global::get().mw, &MainWindow::windowActivated, this, &TrayIcon::on_tray_unhighlight);
+
+	m_highlightTimer = new QTimer(this);
+	m_highlightTimer->setSingleShot(true);
+	QObject::connect(m_highlightTimer, &QTimer::timeout, this, &TrayIcon::on_timer_triggered);
+
 	QObject::connect(this, &QSystemTrayIcon::activated, this, &TrayIcon::on_icon_clicked);
 
 	// messageClicked is buggy in Qt on some platforms and we can not do anything about this (QTBUG-87329)
@@ -175,4 +182,37 @@ void TrayIcon::on_windowMinimized() {
 	}
 
 	on_hideAction_triggered();
+}
+
+void TrayIcon::on_tray_unhighlight() {
+	if (m_highlightTimer == nullptr || !m_highlightTimer->isActive()) {
+		return;
+	}
+
+	m_highlightTimer->stop();
+	setIcon(m_statusIcon);
+}
+
+void TrayIcon::on_timer_triggered() {
+	// We implement tray icon "highlighting" by blinking the
+	// current status icon every few seconds until the MainWindow
+	// receives focus.
+	// This will only be happening, if the user selects "highlight"
+	// for a specific message in the messages settings table.
+	// Normal window highlighting - which desktops usually implement
+	// by blinking the application in the task bar - is invisible
+	// if the application is hidden to tray.
+
+	switch (m_blinkState) {
+		case BlinkState::RegularIcon:
+			setIcon(Global::get().mw->m_iconInformation);
+			m_highlightTimer->start(500);
+			m_blinkState = BlinkState::BlinkIcon;
+			break;
+		case BlinkState::BlinkIcon:
+			setIcon(m_statusIcon);
+			m_highlightTimer->start(2000);
+			m_blinkState = BlinkState::RegularIcon;
+			break;
+	}
 }

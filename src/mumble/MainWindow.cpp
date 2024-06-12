@@ -110,6 +110,7 @@ MainWindow::MainWindow(QWidget *p)
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingOn, QLatin1String("skin:talking_on.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingShout, QLatin1String("skin:talking_alt.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingWhisper, QLatin1String("skin:talking_whisper.svg"));
+	SvgIcon::addSvgPixmapsToIcon(m_iconInformation, QLatin1String("skin:Information_icon.svg"));
 
 #ifdef Q_OS_MAC
 	if (QFile::exists(QLatin1String("skin:mumble.icns")))
@@ -715,6 +716,14 @@ void MainWindow::changeEvent(QEvent *e) {
 			}
 			return;
 		}
+	}
+
+	// The window has just received focus after being in the background
+	if (e->type() == QEvent::ActivationChange) {
+		if (isActiveWindow()) {
+			emit windowActivated();
+		}
+		return;
 	}
 
 	QWidget::changeEvent(e);
@@ -3630,6 +3639,10 @@ void MainWindow::showRaiseWindow() {
 		activateWindow();
 		setWindowState(windowState() | Qt::WindowActive);
 	});
+}
+
+void MainWindow::highlightWindow() {
+	QApplication::alert(this);
 }
 
 void MainWindow::on_qaTalkingUIToggle_triggered() {

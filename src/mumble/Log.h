@@ -161,6 +161,9 @@ public slots:
 signals:
 	/// Signal emitted when there was a message received whose type was configured to spawn a notification
 	void notificationSpawned(QString title, QString body, QSystemTrayIcon::MessageIcon icon);
+
+	/// Signal emitted when there was a message received whose type was configured to highlight the application
+	void highlightSpawned();
 };
 
 class LogMessage {
