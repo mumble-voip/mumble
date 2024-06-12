@@ -80,6 +80,7 @@ public:
 	QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer,
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon m_iconInformation;
 	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
@@ -140,6 +141,8 @@ public:
 	void updateUserModel();
 	void focusNextMainWidget();
 	QPair< QByteArray, QImage > openImageFile();
+
+	void highlightWindow();
 
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
@@ -394,6 +397,11 @@ signals:
 	void talkingStatusChanged();
 	/// Signal emitted when the connection was terminated and all cleanup code has been run
 	void disconnectedFromServer();
+
+	/// Signal emitted whenever the Mumble MainWindow regains the active state from the window manager
+	void windowActivated();
+	/// Signal emitted when the window manager is adviced to visually highlight the application
+	void windowHighlighted();
 
 public:
 	MainWindow(QWidget *parent);
