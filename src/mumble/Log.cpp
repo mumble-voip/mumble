@@ -421,6 +421,8 @@ Log::Log(QObject *p) : QObject(p) {
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
+
+	QObject::connect(this, &Log::highlightSpawned, Global::get().mw, &MainWindow::highlightWindow);
 }
 
 // Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
@@ -812,7 +814,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if (!(Global::get().mw->isActiveWindow() && Global::get().mw->qdwLog->isVisible())) {
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
-				QApplication::alert(Global::get().mw);
+				emit highlightSpawned();
 			}
 
 			// Message notification with balloon tooltips
