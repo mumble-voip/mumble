@@ -12,9 +12,13 @@
 #include <QApplication>
 
 TrayIcon::TrayIcon() : QSystemTrayIcon(Global::get().mw), m_statusIcon(Global::get().mw->qiIcon) {
-	setIcon(m_statusIcon);
+	applyIcon(m_statusIcon);
 
 	setToolTip("Mumble");
+
+	m_highlightTimer = new QTimer(this);
+	m_highlightTimer->setSingleShot(true);
+	QObject::connect(m_highlightTimer, &QTimer::timeout, this, &TrayIcon::on_timer_triggered);
 
 	QObject::connect(this, &QSystemTrayIcon::activated, this, &TrayIcon::on_icon_clicked);
 
@@ -78,7 +82,7 @@ void TrayIcon::updateIcon() {
 
 	if (&newIcon.get() != &m_statusIcon.get()) {
 		m_statusIcon = newIcon;
-		setIcon(m_statusIcon);
+		applyIcon(m_statusIcon);
 	}
 }
 
@@ -119,6 +123,11 @@ void TrayIcon::updateContextMenu() {
 	m_contextMenu->addAction(Global::get().mw->qaQuit);
 }
 
+void TrayIcon::applyIcon(QIcon &icon) {
+	setIcon(icon);
+	m_currentIcon = &icon;
+}
+
 void TrayIcon::toggleShowHide() {
 	if (Global::get().mw->isVisible() && !Global::get().mw->isMinimized()) {
 		on_hideAction_triggered();
@@ -156,4 +165,36 @@ void TrayIcon::on_hideAction_triggered() {
 #endif
 
 	updateContextMenu();
+}
+
+void TrayIcon::highlight() {
+	on_timer_triggered();
+}
+
+void TrayIcon::unhighlight() {
+	if (m_highlightTimer == nullptr || !m_highlightTimer->isActive()) {
+		return;
+	}
+
+	m_highlightTimer->stop();
+	applyIcon(m_statusIcon);
+}
+
+void TrayIcon::on_timer_triggered() {
+	// We implement tray icon "highlighting" by blinking the
+	// current status icon every few seconds until the MainWindow
+	// receives focus.
+	// This will only be happening, if the user selects "highlight"
+	// for a specific message in the messages settings table.
+	// Normal window highlighting - which desktops usually implement
+	// by blinking the application in the task bar - is invisible
+	// if the application is hidden to tray.
+
+	if (m_currentIcon == &m_statusIcon.get()) {
+		applyIcon(Global::get().mw->m_iconInformation);
+		m_highlightTimer->start(500);
+	} else {
+		applyIcon(m_statusIcon);
+		m_highlightTimer->start(2000);
+	}
 }

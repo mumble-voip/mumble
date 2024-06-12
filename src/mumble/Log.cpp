@@ -22,6 +22,8 @@
 #include "VolumeAdjustment.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QImageWriter>
@@ -804,6 +806,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
 				QApplication::alert(Global::get().mw);
+				Global::get().trayIcon->highlight();
 			}
 
 			// Message notification with balloon tooltips
