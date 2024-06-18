@@ -8,12 +8,15 @@ option(database-mysql-tests "Whether to include the MySQL database tests (requir
 option(database-postgresql-tests "Whether to include the PostgreSQL database tests (requires special setup)" OFF)
 
 if (NOT enable-sqlite)
+	message(STATUS "Disabling SQLite database tests as SQLite is not used")
 	set(database-sqlite-tests OFF CACHE INTERNAL "" FORCE)
 endif()
 if (NOT enable-mysql)
+	message(STATUS "Disabling MySQL database tests as MySQL is not used")
 	set(database-mysql-tests OFF CACHE INTERNAL "" FORCE)
 endif()
 if (NOT enable-postgresql)
+	message(STATUS "Disabling PostgreSQL database tests as PostgreSQL is not used")
 	set(database-postgresql-tests OFF CACHE INTERNAL "" FORCE)
 endif()
  
@@ -34,12 +37,15 @@ add_executable(TestDatabase
 set(MUMBLE_DB_TEST_DEFINES "")
 
 if(database-sqlite-tests)
+	message(STATUS "Enabling SQLite database tests")
 	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_SQLITE")
 endif()
 if(database-mysql-tests)
+	message(STATUS "Enabling MySQL database tests")
 	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_MYSQL")
 endif()
 if(database-postgresql-tests)
+	message(STATUS "Enabling PostgreSQL database tests")
 	list(APPEND MUMBLE_DB_TEST_DEFINES "MUMBLE_TEST_POSTGRESQL")
 endif()
 
