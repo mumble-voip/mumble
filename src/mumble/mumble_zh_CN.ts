@@ -1230,7 +1230,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;这显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;这显示从你机器发出的带宽的最大值。 音频比特率只是音频数据的最大比特率。 位置是用于定位信息的最大比特率。开销是我们的架构和 IP 数据包头（ IP 和 UDP 是此开销的 75%）。</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>这是上个已压缩帧（20 毫秒）的音频比特率。最高比特率可以在“设置”对话框中进行调整。</translation>
     </message>
 </context>
 <context>
