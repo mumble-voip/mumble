@@ -1230,7 +1230,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pokazuje szczytowe wykorzystanie przepustowości wychodzącej.&lt;/b&gt;&lt;br /&gt;Pokazuje szczytową wielkość przepustowości wysyłanej z komputera. Szybkość transmisji audio to maksymalna szybkość transmisji samych danych audio. Pozycja to szybkość transmisji używana dla informacji o położeniu. Narzutem jest ramkowanie i nagłówki pakietów IP (IP i UDP stanowią 75% tego narzutu).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jest to szybkość transmisji dźwięku ostatniej skompresowanej klatki (20 ms). Szczytową przepływność można dostosować w oknie dialogowym Ustawienia.</translation>
     </message>
 </context>
 <context>
