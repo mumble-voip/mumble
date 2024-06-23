@@ -1230,7 +1230,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, kullanılan en yüksek giden bant genişliğini gösterir.&lt;/b&gt;&lt;br /&gt;Bu, makinenizden gönderilen en yüksek bant genişliği miktarını gösterir. Ses bit hızı, yalnızca ses verileri için en yüksek bit hızıdır. Konum, konumsal bilgiler için kullanılan bit hızıdır. Ek yük bizim çerçeveleme ve IP paket başlıklarımızdır (IP ve UDP bu ek yükün %75&apos;idir).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, son sıkıştırılan karenin (20 ms) ses bit hızıdır. En yüksek bit hızı Ayarlar iletişim kutusunda ayarlanabilir.</translation>
     </message>
 </context>
 <context>

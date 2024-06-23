@@ -629,7 +629,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de dispositivos</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>

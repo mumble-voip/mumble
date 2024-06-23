@@ -725,7 +725,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>這是用來輸入語音的裝置</translation>
+        <translation>&lt;b&gt;這是用來輸入語音的裝置。&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -3047,7 +3047,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Undo changes for current page</source>
-        <translation>取消變更。</translation>
+        <translation>撤銷對目前頁面的變更</translation>
     </message>
     <message>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
@@ -4056,7 +4056,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation>[日期變更為 %1]</translation>
+        <translation>[日期變更為 %1]
+</translation>
     </message>
     <message>
         <source>link to %1</source>
@@ -4242,7 +4243,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Characters</source>
-        <translation>字元</translation>
+        <translation> 字符</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -4274,7 +4275,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>行</translation>
+        <translation> 行</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -4372,7 +4373,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished">分貝</translation>
+        <translation> 分貝</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
@@ -5933,7 +5934,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Invalid username: %1.</source>
-        <translation>無效的使用者名稱: %1 </translation>
+        <translation>無效的使用者名稱：%1。</translation>
     </message>
     <message>
         <source>Invalid username.</source>
@@ -6198,7 +6199,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Error: No RPC command specified</source>
-        <translation>錯誤：指定的 PRC 指令不存在。</translation>
+        <translation>錯誤：未指定 RPC 指令</translation>
     </message>
     <message>
         <source>RPC</source>
@@ -6254,7 +6255,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
-        <translation>更改你在此伺服器的頭像。</translation>
+        <translation>變更你在此伺服器上的頭像</translation>
     </message>
     <message>
         <source>Remove currently defined avatar image.</source>
@@ -7705,7 +7706,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>使用者在你的頻道或與此頻道連結的頻道中講話。</translation>
+        <translation>使用者在你的頻道或與此頻道連結的頻道中講話</translation>
     </message>
     <message>
         <source>Talking</source>
@@ -7713,7 +7714,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is whispering to you privately</source>
-        <translation>使用者與你私下悄悄話中。</translation>
+        <translation>使用者正在與你私下悄悄話中</translation>
     </message>
     <message>
         <source>Private Whisper</source>
@@ -7741,7 +7742,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User avatar, chosen by each user</source>
-        <translation>使用者頭像，由使用者自訂。</translation>
+        <translation>使用者頭像，由使用者選擇</translation>
     </message>
     <message>
         <source>Avatar</source>
@@ -9042,7 +9043,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Send recursively to subchannels</source>
-        <translation>發送到所有子頻道。</translation>
+        <translation>遞迴發送至所有子頻道</translation>
     </message>
     <message>
         <source>Message</source>
@@ -9188,7 +9189,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Pings received</source>
-        <translation>接收的 Ping </translation>
+        <translation>收到的 Ping</translation>
     </message>
     <message>
         <source>Average ping</source>
