@@ -10,6 +10,8 @@
 
 #include <openssl/crypto.h>
 
+#include <cassert>
+
 static QMutex **locks = nullptr;
 
 void locking_callback(int mode, int type, const char *, int) {
@@ -47,9 +49,10 @@ unsigned long id_callback() {
 }
 
 void SSLLocks::initialize() {
-	unsigned int nlocks = CRYPTO_num_locks();
+	int nlocks = CRYPTO_num_locks();
+	assert(nlocks >= 0);
 
-	locks = reinterpret_cast< QMutex ** >(calloc(nlocks, sizeof(void *)));
+	locks = reinterpret_cast< QMutex ** >(calloc(static_cast< std::size_t >(nlocks), sizeof(void *)));
 	if (!locks) {
 		qFatal("SSLLocks: unable to allocate locks array");
 
@@ -60,7 +63,7 @@ void SSLLocks::initialize() {
 		exit(1);
 	}
 
-	for (unsigned int i = 0; i < nlocks; i++) {
+	for (unsigned int i = 0; i < static_cast< std::size_t >(nlocks); i++) {
 		locks[i] = new QMutex;
 	}
 
