@@ -5,6 +5,22 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+echo "Configuring PostgreSQL..."
+
+if [[ -f "/usr/local/var/postgres/postmaster.pid" ]]; then
+	# Workaround - see https://stackoverflow.com/a/41804478
+	rm "/usr/local/var/postgres/postmaster.pid"
+fi
+
+brew services restart -vvv postgresql
+
+cat /usr/local/var/log/postgresql@14.log
+
+echo "CREATE DATABASE mumble_test_db; "\
+	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
+	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;" | psql postgres
+
+
 currentDir=$(pwd)
 cd $AGENT_TEMPDIRECTORY
 
@@ -48,4 +64,22 @@ mkdir -p $MUMBLE_ENVIRONMENT_STORE
 
 chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/$MUMBLE_ENVIRONMENT_TRIPLET/tools/Ice/slice2cpp"
 
-ls -l $MUMBLE_ENVIRONMENT_STORE
+
+# Setup PostgreSQL database for the Mumble tests
+# Note: we don't configure MySQL as that's not installed on the GitHub Action runners for macOS
+# by default and installing it via homebrew takes forever.
+
+echo "Configuring PostgreSQL..."
+
+if [[ -f "/usr/local/var/postgres/postmaster.pid" ]]; then
+	# Workaround - see https://stackoverflow.com/a/41804478
+	rm "/usr/local/var/postgres/postmaster.pid"
+fi
+
+sudo brew services restart -vvv postgresql
+
+cat /usr/local/var/log/postgresql@14.log
+
+echo "CREATE DATABASE mumble_test_db; "\
+	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
+	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;" | psql

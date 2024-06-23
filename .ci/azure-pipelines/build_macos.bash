@@ -40,7 +40,9 @@ cmake -G Ninja -DVCPKG_TARGET_TRIPLET=$MUMBLE_ENVIRONMENT_TRIPLET -DCMAKE_TOOLCH
       -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/$MUMBLE_ENVIRONMENT_TRIPLET" \
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=$BUILD_NUMBER \
       -Dtests=ON -Dstatic=ON -Dsymbols=ON \
-	  -Ddatabase-sqlite-tests=ON -Ddatabase-mysql-tests=ON -Ddatabase-postgresql-tests=ON \
+	  # MySQL is not installed on GA runners by default and installing via homebrew takes way too long
+	  -Denable-mysql=OFF \
+	  -Ddatabase-sqlite-tests=ON -Ddatabase-postgresql-tests=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
