@@ -48,6 +48,7 @@ public:
 
 	bool isLocalMuted(const QString &hash);
 	void setLocalMuted(const QString &hash, bool muted);
+	void clearLocalMuted();
 
 	float getUserLocalVolume(const QString &hash);
 	void setUserLocalVolume(const QString &hash, float volume);
