@@ -1188,7 +1188,7 @@
   <tabstop>qcbEcho</tabstop>
   <tabstop>qrbNoiseSupDeactivated</tabstop>
   <tabstop>qrbNoiseSupSpeex</tabstop>
-  <tabstop>qrbNoiseSupRNNoise</tabstop>
+  <tabstop>qrbNoiseSupReNameNoise</tabstop>
   <tabstop>qrbNoiseSupBoth</tabstop>
   <tabstop>qsSpeexNoiseSupStrength</tabstop>
   <tabstop>qcbEnableCuePTT</tabstop>
