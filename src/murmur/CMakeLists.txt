@@ -79,6 +79,7 @@ target_include_directories(mumble-server PRIVATE
 )
 
 target_link_libraries(mumble-server PRIVATE shared Qt5::Sql)
+target_link_libraries(mumble-server PRIVATE shared CLI11::CLI11)
 
 if(static)
 	# MariaDB and MySQL

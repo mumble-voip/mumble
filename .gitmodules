@@ -31,3 +31,6 @@
 [submodule "3rdparty/flag-icons"]
 	path = 3rdparty/flag-icons
 	url = https://github.com/lipis/flag-icons.git
+[submodule "3rdparty/CLI11"]
+	path = 3rdparty/CLI11
+	url = https://github.com/CLIUtils/CLI11.git

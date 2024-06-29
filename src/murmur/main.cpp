@@ -16,6 +16,8 @@
 #include "ServerDB.h"
 #include "Version.h"
 
+#include <boost/optional/optional_io.hpp>
+#include <boost/tuple/tuple_io.hpp>
 #include <csignal>
 #include <iostream>
 
@@ -45,6 +47,8 @@
 #	include <fcntl.h>
 #	include <sys/syslog.h>
 #endif
+
+#include <CLI/CLI.hpp>
 
 QFile *qfLog = nullptr;
 
@@ -200,6 +204,123 @@ void cleanup(int signum) {
 	exit(signum);
 }
 
+class CLIOptions {
+public:
+	bool quit = false;
+	boost::optional< std::string > ini_file;
+	boost::tuple< std::string, boost::optional< int > > supw_srv;
+	boost::optional< int > disable_su_srv;
+	bool verbose_logging = false;
+	bool cli_detach      = detach;
+	bool wipe_ssl        = false;
+	bool wipe_logs       = false;
+	bool log_groups      = false;
+	bool log_acls        = false;
+
+	bool print_authors            = false;
+	bool print_license            = false;
+	bool print_3rd_party_licenses = false;
+
+#ifdef Q_OS_UNIX
+	bool limits = false;
+	boost::optional< int > read_supw_srv;
+#endif
+
+	static constexpr const char *const CLI_ABOUT_SECTION          = "About";
+	static constexpr const char *const CLI_LOGGING_SECTION        = "Logging";
+	static constexpr const char *const CLI_ADMINISTRATION_SECTION = "Administration";
+	static constexpr const char *const CLI_CONFIGURATION_SECTION  = "Configuration";
+	static constexpr const char *const CLI_TESTING_SECTION        = "Testing";
+};
+
+CLIOptions parseCLI(int argc, char **argv) {
+	CLIOptions options;
+
+	CLI::App app;
+	app.set_version_flag("--version", Version::getRelease().toStdString());
+
+	app.add_option_no_stream("-i,--ini", options.ini_file, "Specify ini file to use.")
+		->option_text("<inifile>")
+		->expected(1, 2)
+		->check(CLI::ExistingFile)
+		->group(CLIOptions::CLI_CONFIGURATION_SECTION);
+
+	app.add_option("-w,--supw", options.supw_srv, "Set password for 'SuperUser' account on server srv.")
+		->option_text("<pw> [srv]")
+		->allow_extra_args()
+		->expected(0, 1)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+#ifdef Q_OS_UNIX
+	app.add_option_no_stream("-r,--readsupw", options.read_supw_srv,
+							 "Reads password for server srv from standard input.")
+		->option_text("[srv]")
+		->default_val(1)
+		->expected(0, 1)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+	app.add_flag("-l,--limits", options.limits,
+				 "Tests and shows how many file descriptors and threads can be created.\n"
+				 "The purpose of this option is to test how many clients Mumble server can handle.\n"
+				 "Mumble server will exit after this test.")
+		->group(CLIOptions::CLI_TESTING_SECTION);
+#endif
+
+	app.add_option_no_stream("-d,--disablesu", options.disable_su_srv,
+							 "Disable password for 'SuperUser' account on server srv.")
+		->option_text("[srv]")
+		->expected(0, 1)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+	app.add_flag("-s,--wipessl", options.wipe_ssl, "Remove SSL certificates from database.")
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+	app.add_flag("-v,--verbose", options.verbose_logging, "Use verbose logging (include debug-logs).")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("!-f,!--force-fg", options.cli_detach,
+#ifdef Q_OS_UNIX
+				 "Don't detach from console."
+#else
+				 "Don't write to the log file."
+#endif
+				 )
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+
+	app.add_flag("-p,--wipelogs", options.wipe_logs, "Remove all log entries from database.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("-g,--loggroups", options.log_groups, "Turns on logging for group changes for all servers.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("-a,--logacls", options.log_acls, "Turns on logging for ACL changes for all servers.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+
+
+	app.add_flag("--authors", options.print_authors, "Show Mumble server's authors.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--license", options.print_license, "Show Mumble server's license.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--3rd-party-licenses", options.print_3rd_party_licenses,
+				 "Show licenses for third-party software used by Mumble server.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+
+
+	app.footer("If no inifile is provided, Mumble server will search for one in\ndefault locations.");
+
+	try {
+		(app).parse(argc, argv);
+	} catch (const CLI::ParseError &e) {
+		std::stringstream info_stream, error_stream;
+		app.exit(e, info_stream, error_stream);
+
+		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
+			qFatal("%s", error_stream.str().c_str());
+		} else {
+			qInfo("%s", info_stream.str().c_str());
+		}
+		options.quit = true;
+	}
+
+	return options;
+}
+
 int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
 #ifdef Q_OS_WIN
@@ -266,17 +387,6 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	QString inifile;
-	QString supw;
-	bool disableSu = false;
-	bool wipeSsl   = false;
-	bool wipeLogs  = false;
-	int sunum      = 1;
-#ifdef Q_OS_UNIX
-	bool readPw = false;
-#endif
-	bool logGroups = false;
-	bool logACL    = false;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
 	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
@@ -285,153 +395,86 @@ int main(int argc, char **argv) {
 
 	qInstallMessageHandler(murmurMessageOutputWithContext);
 
+	CLIOptions cli_options = parseCLI(argc, argv);
+
+	if (cli_options.quit)
+		return 0;
+
+	if (cli_options.print_license) {
+#ifdef Q_OS_WIN
+		AboutDialog ad(nullptr, AboutDialogOptionsShowLicense);
+		ad.exec();
+		return 0;
+#else
+		qInfo("%s\n", qPrintable(License::license()));
+		return 0;
+#endif
+	} else if (cli_options.print_authors) {
+#ifdef Q_OS_WIN
+		AboutDialog ad(nullptr, AboutDialogOptionsShowAuthors);
+		ad.exec();
+		return 0;
+#else
+		qInfo("%s\n", "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+		return 0;
+#endif
+	} else if (cli_options.print_3rd_party_licenses) {
+#ifdef Q_OS_WIN
+		AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
+		ad.exec();
+		return 0;
+#else
+		qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+		return 0;
+#endif
+	}
+
+	detach          = cli_options.cli_detach;
+	QString inifile = QString::fromStdString(cli_options.ini_file.get_value_or(""));
+	QString supw;
+	bool disableSu = false;
+	bool wipeSsl   = cli_options.wipe_ssl;
+	bool wipeLogs  = cli_options.wipe_logs;
+	int sunum      = 1;
+#ifdef Q_OS_UNIX
+	bool readPw = false;
+#endif
+	bool logGroups = cli_options.log_groups;
+	bool logACL    = cli_options.log_acls;
+
+	bVerbose = cli_options.verbose_logging;
+
+	if (cli_options.disable_su_srv.has_value()) {
+		detach    = false;
+		disableSu = true;
+		sunum     = cli_options.disable_su_srv.get();
+	}
+
+	if (!cli_options.supw_srv.get< 0 >().empty()) {
+		supw  = QString::fromStdString(cli_options.supw_srv.get< 0 >());
+		sunum = cli_options.supw_srv.get< 1 >().get_value_or(1);
+#ifdef Q_OS_LINUX
+	} else if (cli_options.read_supw_srv.has_value()) {
+		// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
+		// handling the readPw = true part has to be moved up so that it is executed before fork is called on Unix
+		// systems.
+
+		detach = false;
+		readPw = true;
+		sunum  = cli_options.read_supw_srv.get();
+	}
+
+	if (cli_options.limits) {
+		detach = false;
+		Meta::mp.read(inifile);
+		unixhandler.setuid();
+		unixhandler.finalcap();
+		LimitTest::testLimits(a);
+#endif
+	}
 #ifdef Q_OS_WIN
 	Tray tray(nullptr, &le);
 #endif
-
-	QStringList args = a.arguments();
-	for (int i = 1; i < args.size(); i++) {
-		bool bLast  = false;
-		QString arg = args.at(i).toLower();
-		if ((arg == "-supw")) {
-			detach = false;
-			if (i + 1 < args.size()) {
-				i++;
-				supw = args.at(i);
-				if (i + 1 < args.size()) {
-					i++;
-					sunum = args.at(i).toInt();
-				}
-				bLast = true;
-			} else {
-#ifdef Q_OS_UNIX
-				qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
-#else
-				qFatal("-supw expects the password on the command line");
-#endif
-			}
-#ifdef Q_OS_UNIX
-		} else if ((arg == "-readsupw")) {
-			// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
-			// handling the readPw = true part has to be moved up so that it is executed before fork is called on Unix
-			// systems.
-			detach = false;
-			readPw = true;
-			if (i + 1 < args.size()) {
-				i++;
-				sunum = args.at(i).toInt();
-			}
-			bLast = true;
-#endif
-		} else if ((arg == "-disablesu")) {
-			detach    = false;
-			disableSu = true;
-			if (i + 1 < args.size()) {
-				i++;
-				sunum = args.at(i).toInt();
-			}
-			bLast = true;
-		} else if ((arg == "-ini") && (i + 1 < args.size())) {
-			i++;
-			inifile = args.at(i);
-		} else if ((arg == "-wipessl")) {
-			wipeSsl = true;
-		} else if ((arg == "-wipelogs")) {
-			wipeLogs = true;
-		} else if ((arg == "-fg")) {
-			detach = false;
-		} else if ((arg == "-v")) {
-			bVerbose = true;
-		} else if ((arg == "-version") || (arg == "--version")) {
-			// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
-			// using e.g. qWarning
-			std::cout << "Mumble server version " << Version::getRelease().toStdString() << std::endl;
-			return 0;
-		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
-#ifdef Q_OS_WIN
-			AboutDialog ad(nullptr, AboutDialogOptionsShowLicense);
-			ad.exec();
-			return 0;
-#else
-			qInfo("%s\n", qPrintable(License::license()));
-			return 0;
-#endif
-		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
-#ifdef Q_OS_WIN
-			AboutDialog ad(nullptr, AboutDialogOptionsShowAuthors);
-			ad.exec();
-			return 0;
-#else
-			qInfo("%s\n",
-				  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
-			return 0;
-#endif
-		} else if (args.at(i) == QLatin1String("-third-party-licenses")
-				   || args.at(i) == QLatin1String("--third-party-licenses")) {
-#ifdef Q_OS_WIN
-			AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
-			ad.exec();
-			return 0;
-#else
-			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
-			return 0;
-#endif
-		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
-			detach = false;
-			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-				  "  --version              Print version information and exit\n"
-				  "  -ini <inifile>         Specify ini file to use.\n"
-				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
-#ifdef Q_OS_UNIX
-				  "  -readsupw [srv]        Reads password for server srv from standard input.\n"
-#endif
-				  "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
-#ifdef Q_OS_UNIX
-				  "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
-				  "                         The purpose of this option is to test how many clients Murmur can handle.\n"
-				  "                         Murmur will exit after this test.\n"
-#endif
-				  "  -v                     Use verbose logging (include debug-logs).\n"
-#ifdef Q_OS_UNIX
-				  "  -fg                    Don't detach from console.\n"
-#else
-				  "  -fg                    Don't write to the log file.\n"
-#endif
-				  "  -wipessl               Remove SSL certificates from database.\n"
-				  "  -wipelogs              Remove all log entries from database.\n"
-				  "  -loggroups             Turns on logging for group changes for all servers.\n"
-				  "  -logacls               Turns on logging for ACL changes for all servers.\n"
-				  "  -version               Show version information.\n"
-				  "\n"
-				  "  -license               Show Murmur's license.\n"
-				  "  -authors               Show Murmur's authors.\n"
-				  "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
-				  "\n"
-				  "If no inifile is provided, murmur will search for one in \n"
-				  "default locations.",
-				  qPrintable(args.at(0)));
-			return 0;
-#ifdef Q_OS_UNIX
-		} else if (arg == "-limits") {
-			detach = false;
-			Meta::mp.read(inifile);
-			unixhandler.setuid();
-			unixhandler.finalcap();
-			LimitTest::testLimits(a);
-#endif
-		} else if (arg == "-loggroups") {
-			logGroups = true;
-		} else if (arg == "-logacls") {
-			logACL = true;
-		} else {
-			detach = false;
-			qFatal("Unknown argument %s", qPrintable(args.at(i)));
-		}
-		if (bLast && (i + 1 != args.size())) {
-			detach = false;
-			qFatal("Password arguments must be last.");
-		}
-	}
 
 	if (QSslSocket::supportsSsl()) {
 		qInfo("SSL: OpenSSL version is '%s'", SSLeay_version(SSLEAY_VERSION));
