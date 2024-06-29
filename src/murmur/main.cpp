@@ -7,6 +7,7 @@
 #	include "DBus.h"
 #endif
 
+#include "DBWrapper.h"
 #include "EnvUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
@@ -20,6 +21,9 @@
 
 #include <cassert>
 #include <csignal>
+#include <fstream>
+
+#include <nlohmann/json.hpp>
 
 #ifdef Q_OS_WIN
 #	include "About.h"
@@ -265,6 +269,8 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
+	QString dbDumpPath;
+	QString dbImportPath;
 	bool disableSu     = false;
 	bool wipeSsl       = false;
 	bool wipeLogs      = false;
@@ -373,40 +379,49 @@ int main(int argc, char **argv) {
 			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
 			return 0;
 #endif
+		} else if (arg == "--db-json-dump") {
+			++i;
+			dbDumpPath = args.at(i);
+		} else if (arg == "--db-json-import") {
+			++i;
+			dbImportPath = args.at(i);
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
-			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-				  "  --version              Print version information and exit\n"
-				  "  -ini <inifile>         Specify ini file to use.\n"
-				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
+			qInfo(
+				"Usage: %s [-ini <inifile>] [-supw <password>]\n"
+				"  --version               Print version information and exit\n"
+				"  -ini <inifile>          Specify ini file to use.\n"
+				"  -supw <pw> [srv]        Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-				  "  -readsupw [srv]        Reads password for server srv from standard input.\n"
+				"  -readsupw [srv]         Reads password for server srv from standard input.\n"
 #endif
-				  "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
+				"  -disablesu [srv]        Disable password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-				  "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
-				  "                         The purpose of this option is to test how many clients Murmur can handle.\n"
-				  "                         Murmur will exit after this test.\n"
+				"  -limits                 Tests and shows how many file descriptors and threads can be created.\n"
+				"                          The purpose of this option is to test how many clients Murmur can handle.\n"
+				"                          Murmur will exit after this test.\n"
 #endif
-				  "  -v                     Use verbose logging (include debug-logs).\n"
+				"  -v                      Use verbose logging (include debug-logs).\n"
 #ifdef Q_OS_UNIX
-				  "  -fg                    Don't detach from console.\n"
+				"  -fg                     Don't detach from console.\n"
 #else
-				  "  -fg                    Don't write to the log file.\n"
+				"  -fg                     Don't write to the log file.\n"
 #endif
-				  "  -wipessl               Remove SSL certificates from database.\n"
-				  "  -wipelogs              Remove all log entries from database.\n"
-				  "  -loggroups             Turns on logging for group changes for all servers.\n"
-				  "  -logacls               Turns on logging for ACL changes for all servers.\n"
-				  "  -version               Show version information.\n"
-				  "\n"
-				  "  -license               Show Murmur's license.\n"
-				  "  -authors               Show Murmur's authors.\n"
-				  "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
-				  "\n"
-				  "If no inifile is provided, murmur will search for one in \n"
-				  "default locations.",
-				  qPrintable(args.at(0)));
+				"  -wipessl                Remove SSL certificates from database.\n"
+				"  -wipelogs               Remove all log entries from database.\n"
+				"  -loggroups              Turns on logging for group changes for all servers.\n"
+				"  -logacls                Turns on logging for ACL changes for all servers.\n"
+				"  -version                Show version information.\n"
+				"  --db-json-dump [file]   Requests a JSON dump of the database to be written to the given file\n"
+				"  --db-json-import [file] Reads in the provide JSON file and imports its contents into the database\n"
+				"\n"
+				"  -license                Show Murmur's license.\n"
+				"  -authors                Show Murmur's authors.\n"
+				"  -third-party-licenses   Show licenses for third-party software used by Murmur.\n"
+				"\n"
+				"If no inifile is provided, murmur will search for one in \n"
+				"default locations.",
+				qPrintable(args.at(0)));
 			return 0;
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
@@ -441,6 +456,31 @@ int main(int argc, char **argv) {
 #endif
 
 	Meta::mp.read(inifile);
+
+	if (!dbDumpPath.isEmpty()) {
+		DBWrapper wrapper(Meta::getConnectionParameter());
+
+		std::ofstream file(dbDumpPath.toStdString());
+		file << wrapper.exportDBToJSON().dump(2);
+
+		qInfo("Dumped JSON representation of database contents to '%s'", qPrintable(dbDumpPath));
+
+		return 0;
+	}
+
+	if (!dbImportPath.isEmpty()) {
+		qInfo("Importing contents of '%s' into database", qPrintable(dbImportPath));
+		DBWrapper wrapper(Meta::getConnectionParameter());
+
+		std::ifstream file(dbImportPath.toStdString());
+
+		nlohmann::json json;
+		file >> json;
+
+		wrapper.importFromJSON(json, true);
+
+		return 0;
+	}
 
 	// Activating the logging of ACLs and groups via commandLine overwrites whatever is set in the ini file
 	if (logGroups) {
