@@ -19,6 +19,8 @@
 
 #include <boost/optional.hpp>
 
+#include <nlohmann/json_fwd.hpp>
+
 #include <exception>
 #include <string>
 #include <vector>
@@ -146,6 +148,10 @@ public:
 	unsigned int getNextAvailableUserID(unsigned int serverID);
 
 	void setUserData(unsigned int serverID, unsigned int userID, const ::mumble::server::db::DBUserData &data);
+
+	nlohmann::json exportDBToJSON();
+
+	void importFromJSON(const nlohmann::json &json, bool createMissingTables);
 
 protected:
 	::mumble::server::db::ServerDatabase m_serverDB;

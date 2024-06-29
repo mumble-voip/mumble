@@ -51,6 +51,8 @@
 
 #include <boost/optional.hpp>
 
+#include <nlohmann/json.hpp>
+
 #include <algorithm>
 #include <cassert>
 #include <limits>
@@ -1375,7 +1377,8 @@ unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int use
 
 	assert(inactiveSeconds >= 0);
 
-	return maxRememberDuration >= static_cast< unsigned long >(inactiveSeconds) ? userData.lastChannelID : Mumble::ROOT_CHANNEL_ID;
+	return maxRememberDuration >= static_cast< unsigned long >(inactiveSeconds) ? userData.lastChannelID
+																				: Mumble::ROOT_CHANNEL_ID;
 
 	WRAPPER_END
 }
@@ -1572,6 +1575,22 @@ void DBWrapper::setUserData(unsigned int serverID, unsigned int userID, const ::
 	::msdb::DBUser user(serverID, userID);
 
 	m_serverDB.getUserTable().updateData(user, data);
+
+	WRAPPER_END
+}
+
+nlohmann::json DBWrapper::exportDBToJSON() {
+	WRAPPER_BEGIN
+
+	return m_serverDB.exportToJSON();
+
+	WRAPPER_END
+}
+
+void DBWrapper::importFromJSON(const nlohmann::json &json, bool createMissingTables) {
+	WRAPPER_BEGIN
+
+	m_serverDB.importFromJSON(json, createMissingTables);
 
 	WRAPPER_END
 }
