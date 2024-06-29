@@ -7,14 +7,14 @@ jobs:
     runs-on: windows-latest # action can only be run on windows
     steps:
       - name: Publish Mumble client
-        uses: vedantmgoyal2009/winget-releaser@v1
+        uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: Mumble.Mumble.Client
           installers-regex: mumble_client.*.msi$
           token: ${{ secrets.WINGET_TOKEN }}
 
       - name: Publish Mumble server
-        uses: vedantmgoyal2009/winget-releaser@v1
+        uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: Mumble.Mumble.Server
           installers-regex: mumble_server.*.msi$
