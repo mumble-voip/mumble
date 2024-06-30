@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Default server value</source>
-        <translation>Standaardwaarde server</translation>
+        <translation>Standaard server waarde</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -645,11 +645,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>verschuif van ongebruikt naar luidsprekerlijst</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>verschuif van luidsprekerlijst naar ongebruikt</translation>
     </message>
 </context>
 <context>
@@ -1106,7 +1106,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio ingang</translation>
     </message>
     <message>
         <source>Audio input device</source>
