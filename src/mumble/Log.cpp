@@ -806,7 +806,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
 				QApplication::alert(Global::get().mw);
-				Global::get().trayIcon->highlight();
+				emit Global::get().trayIcon->highlightTray();
 			}
 
 			// Message notification with balloon tooltips

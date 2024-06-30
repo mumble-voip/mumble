@@ -19,14 +19,18 @@ class TrayIcon : public QSystemTrayIcon {
 public:
 	TrayIcon();
 
-	void updateIcon();
 	void toggleShowHide();
-	void highlight();
-	void unhighlight();
+
+signals:
+	void updateIcon();
+	void highlightTray();
+	void unighlightTray();
 
 public slots:
-	void on_showAction_triggered();
+	void on_updateIcon_triggered();
+	void on_tray_unhighlight();
 	void on_hideAction_triggered();
+	void on_showAction_triggered();
 
 private:
 	std::reference_wrapper< QIcon > m_statusIcon;

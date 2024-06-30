@@ -16,6 +16,10 @@ TrayIcon::TrayIcon() : QSystemTrayIcon(Global::get().mw), m_statusIcon(Global::g
 
 	setToolTip("Mumble");
 
+	QObject::connect(this, &TrayIcon::updateIcon, this, &TrayIcon::on_updateIcon_triggered);
+	QObject::connect(this, &TrayIcon::highlightTray, this, &TrayIcon::on_timer_triggered);
+	QObject::connect(this, &TrayIcon::unighlightTray, this, &TrayIcon::on_tray_unhighlight);
+
 	m_highlightTimer = new QTimer(this);
 	m_highlightTimer->setSingleShot(true);
 	QObject::connect(m_highlightTimer, &QTimer::timeout, this, &TrayIcon::on_timer_triggered);
@@ -44,7 +48,7 @@ TrayIcon::TrayIcon() : QSystemTrayIcon(Global::get().mw), m_statusIcon(Global::g
 	show();
 }
 
-void TrayIcon::updateIcon() {
+void TrayIcon::on_updateIcon_triggered() {
 	std::reference_wrapper< QIcon > newIcon = Global::get().mw->qiIcon;
 
 	ClientUser *p = ClientUser::get(Global::get().uiSession);
@@ -167,11 +171,7 @@ void TrayIcon::on_hideAction_triggered() {
 	updateContextMenu();
 }
 
-void TrayIcon::highlight() {
-	on_timer_triggered();
-}
-
-void TrayIcon::unhighlight() {
+void TrayIcon::on_tray_unhighlight() {
 	if (m_highlightTimer == nullptr || !m_highlightTimer->isActive()) {
 		return;
 	}

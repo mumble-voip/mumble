@@ -721,7 +721,7 @@ void MainWindow::changeEvent(QEvent *e) {
 	// Unhighlight the tray icon when receiving focus
 	if (e->type() == QEvent::ActivationChange) {
 		if (isActiveWindow() && Global::get().trayIcon != nullptr) {
-			Global::get().trayIcon->unhighlight();
+			emit Global::get().trayIcon->unighlightTray();
 		}
 		return;
 	}
@@ -2554,7 +2554,7 @@ void MainWindow::updateMenuPermissions() {
 }
 
 void MainWindow::userStateChanged() {
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 
 	ClientUser *user = ClientUser::get(Global::get().uiSession);
 	if (!user) {
@@ -2626,7 +2626,7 @@ void MainWindow::on_qaAudioMute_triggered() {
 	}
 
 	updateAudioToolTips();
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::setAudioMute(bool mute) {
@@ -2671,7 +2671,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	}
 
 	updateAudioToolTips();
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::setAudioDeaf(bool deaf) {
@@ -2784,7 +2784,7 @@ void MainWindow::pttReleased() {
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	Global::get().bPushToMute = down;
 	updateUserModel();
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
@@ -3394,7 +3394,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
 	qteChat->setEnabled(false);
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 
 #ifdef Q_OS_MAC
 	// Remove App Nap suppression now that we're disconnected.
@@ -3603,7 +3603,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		qdwMinimalViewNote->show();
 	}
 
-	Global::get().trayIcon->updateIcon();
+	emit Global::get().trayIcon->updateIcon();
 }
 
 void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
@@ -4007,7 +4007,7 @@ void MainWindow::openConfigDialog() {
 		showRaiseWindow();
 		updateTransmitModeComboBox(Global::get().s.atTransmit);
 		updateUserModel();
-		Global::get().trayIcon->updateIcon();
+		emit Global::get().trayIcon->updateIcon();
 
 		if (Global::get().s.requireRestartToApply) {
 			if (Global::get().s.requireRestartToApply
