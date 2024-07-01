@@ -25,6 +25,7 @@ public:
 private slots:
 	void on_VolumeSlider_valueChanged(int value) override;
 	void on_VolumeSlider_changeCompleted() override;
+	void on_VolumeSlider_sliderReleased();
 };
 
 #endif

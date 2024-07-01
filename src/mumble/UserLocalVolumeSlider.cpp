@@ -11,6 +11,7 @@
 #include "Global.h"
 
 UserLocalVolumeSlider::UserLocalVolumeSlider(QWidget *parent) : VolumeSliderWidgetAction(parent) {
+	connect(m_volumeSlider, &QSlider::sliderReleased, this, &UserLocalVolumeSlider::on_VolumeSlider_sliderReleased);
 }
 
 void UserLocalVolumeSlider::setUser(unsigned int sessionId) {
@@ -40,10 +41,15 @@ void UserLocalVolumeSlider::on_VolumeSlider_changeCompleted() {
 	if (user) {
 		if (!user->qsHash.isEmpty()) {
 			Global::get().db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
-		} else {
-			Global::get().mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 		}
 
 		updateLabelValue();
+	}
+}
+
+void UserLocalVolumeSlider::on_VolumeSlider_sliderReleased() {
+	ClientUser *user = ClientUser::get(m_clientSession);
+	if (user && user->qsHash.isEmpty()) {
+		Global::get().mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 	}
 }
