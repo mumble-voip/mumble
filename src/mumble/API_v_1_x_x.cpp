@@ -47,10 +47,20 @@
 		EXIT_WITH(MUMBLE_EC_INVALID_PLUGIN_ID);           \
 	}
 
+#define VERIFY_CHANNEL_ID(id)                               \
+	if (!Channel::get((static_cast< unsigned int >(id)))) { \
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);             \
+	}
+
 // Right now there can only be one connection managed by the current ServerHandler
 #define VERIFY_CONNECTION(connection)                                             \
 	if (!Global::get().sh || Global::get().sh->getConnectionID() != connection) { \
 		EXIT_WITH(MUMBLE_EC_CONNECTION_NOT_FOUND);                                \
+	}
+
+#define VERIFY_USER_ID(id)                   \
+	if (!ClientUser::get(id)) {              \
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND); \
 	}
 
 // Right now whether or not a connection has finished synchronizing is indicated by Global::get().uiSession. If it is
@@ -658,6 +668,42 @@ void MumbleAPI::isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *d
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
+void MumbleAPI::isChannelLinkedTo_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+										  mumble_channelid_t channelID, mumble_channelid_t linkedChannelID,
+										  bool *linked, std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "isChannelLinkedTo_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t, channelID), Q_ARG(mumble_channelid_t, linkedChannelID),
+								  Q_ARG(bool *, linked), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	const Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
+	if (!channel) {
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
+	}
+
+	Channel *linkedChannel = Channel::get(static_cast< unsigned int >(linkedChannelID));
+	if (!linkedChannel) {
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
+	}
+
+	*linked = channel->isLinked(linkedChannel);
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
 void MumbleAPI::getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 									const char **hash, std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
@@ -894,6 +940,52 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
+void MumbleAPI::getLinkedChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+										  mumble_channelid_t channelID, mumble_channelid_t **channels,
+										  std::size_t *channelCount, std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "getLinkedChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t, channelID), Q_ARG(mumble_channelid_t **, channels),
+								  Q_ARG(std::size_t *, channelCount), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	Channel *channel = Channel::get(static_cast< unsigned int >(channelID));
+
+	if (!channel) {
+		EXIT_WITH(MUMBLE_EC_CHANNEL_NOT_FOUND);
+	}
+
+	const QSet< Channel * > linkedChannels = channel->allLinks();
+
+	auto amount      = static_cast< std::size_t >(linkedChannels.size());
+	auto *channelIDs = reinterpret_cast< mumble_channelid_t * >(malloc(sizeof(mumble_channelid_t) * amount));
+
+	std::size_t index = 0;
+	for (const Channel *linkedChannel : linkedChannels) {
+		channelIDs[index++] = static_cast< mumble_channelid_t >(linkedChannel->iId);
+	}
+
+	m_curator.m_entries.insert({ channelIDs, { defaultDeleter, callerID, "getLinkedChannels" } });
+
+	*channels     = channelIDs;
+	*channelCount = amount;
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
 void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 										mumble_userid_t userID, mumble_channelid_t channelID, const char *password,
 										std::shared_ptr< api_promise_t > promise) {
@@ -1089,6 +1181,221 @@ void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, 
 	}
 
 	Global::get().mw->pmModel->setComment(localUser, QString::fromUtf8(comment));
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestLinkChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+											mumble_channelid_t *channelSet, std::size_t channelCount,
+											std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestLinkChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t *, channelSet), Q_ARG(std::size_t, channelCount),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	if (channelCount < 2) {
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+
+	for (std::size_t i = 0; i < channelCount; i++) {
+		VERIFY_CHANNEL_ID(channelSet[i]);
+	}
+
+	Global::get().sh->addChannelLinks((unsigned int) channelCount, (const unsigned int *) channelSet);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestUnlinkChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+											  mumble_channelid_t channelID, mumble_channelid_t *channelSet,
+											  std::size_t channelCount, std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestUnlinkChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t, channelID), Q_ARG(mumble_channelid_t *, channelSet),
+								  Q_ARG(std::size_t, channelCount), Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	if (channelCount < 1) {
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+
+	VERIFY_CHANNEL_ID(channelID);
+
+	for (std::size_t i = 0; i < channelCount; i++) {
+		VERIFY_CHANNEL_ID(channelSet[i]);
+	}
+
+	Global::get().sh->removeChannelLinks((unsigned int) channelID, (unsigned int) channelCount,
+										 (const unsigned int *) channelSet);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestUnlinkGivenChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+												   mumble_channelid_t *channelSet, std::size_t channelCount,
+												   std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestUnlinkGivenChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t *, channelSet), Q_ARG(std::size_t, channelCount),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	if (channelCount < 1) {
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+
+	for (std::size_t i = 0; i < channelCount; i++) {
+		VERIFY_CHANNEL_ID(channelSet[i]);
+	}
+
+	Global::get().sh->removeChannelLinks((unsigned int) channelCount, (const unsigned int *) channelSet);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestStartListeningToChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+														mumble_channelid_t *channelSet, std::size_t channelCount,
+														std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestStartListeningToChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t *, channelSet), Q_ARG(std::size_t, channelCount),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	if (channelCount < 1) {
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+
+	QList< unsigned int > channelList;
+	for (std::size_t i = 0; i < channelCount; i++) {
+		VERIFY_CHANNEL_ID(channelSet[i]);
+		channelList.append((unsigned int) channelSet[i]);
+	}
+
+	Global::get().sh->startListeningToChannels(channelList);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestStopListeningToChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+													   mumble_channelid_t *channelSet, std::size_t channelCount,
+													   std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestStopListeningToChannels_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_channelid_t *, channelSet), Q_ARG(std::size_t, channelCount),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	if (channelCount < 1) {
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+
+	QList< unsigned int > channelList;
+	for (std::size_t i = 0; i < channelCount; i++) {
+		VERIFY_CHANNEL_ID(channelSet[i]);
+		channelList.append((unsigned int) channelSet[i]);
+	}
+
+	Global::get().sh->stopListeningToChannels(channelList);
+
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestSendUserTextMessage_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+												   mumble_userid_t userID, const char *message,
+												   std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "requestSendUserTextMessage_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(mumble_connection_t, connection),
+								  Q_ARG(mumble_userid_t, userID), Q_ARG(const char *, message),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	VERIFY_CONNECTION(connection);
+
+	ENSURE_CONNECTION_SYNCHRONIZED(connection);
+
+	VERIFY_USER_ID(userID);
+
+	const ClientUser *user = ClientUser::get(userID);
+
+	Global::get().sh->sendUserTextMessage(user->uiSession, QString::fromUtf8(message));
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
@@ -1767,6 +2074,14 @@ C_WRAPPER(isLocalUserDeafened_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
+#define TYPED_ARGS                                                                             \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
+		mumble_channelid_t linkedChannelID, bool *linked
+#define ARG_NAMES callerID, connection, channelID, linkedChannelID, linked
+C_WRAPPER(isChannelLinkedTo_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
 #define TYPED_ARGS \
 	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, const char **hash
 #define ARG_NAMES callerID, connection, userID, hash
@@ -1797,6 +2112,14 @@ C_WRAPPER(getUserComment_v_1_0_x)
 	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, const char **description
 #define ARG_NAMES callerID, connection, channelID, description
 C_WRAPPER(getChannelDescription_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                             \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
+		mumble_channelid_t **channels, std::size_t *channelCount
+#define ARG_NAMES callerID, connection, channelID, channels, channelCount
+C_WRAPPER(getLinkedChannels_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
@@ -1835,6 +2158,52 @@ C_WRAPPER(requestLocalUserDeaf_v_1_0_x)
 #define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, const char *comment
 #define ARG_NAMES callerID, connection, comment
 C_WRAPPER(requestSetLocalUserComment_v_1_0_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                                \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t *channelList, \
+		std::size_t channelCount
+#define ARG_NAMES callerID, connection, channelList, channelCount
+C_WRAPPER(requestLinkChannels_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                             \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t channelID, \
+		mumble_channelid_t *unlinkList, std::size_t unlinkCount
+#define ARG_NAMES callerID, connection, channelID, unlinkList, unlinkCount
+C_WRAPPER(requestUnlinkChannels_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t *unlinkList, std::size_t unlinkCount
+#define ARG_NAMES callerID, connection, unlinkList, unlinkCount
+C_WRAPPER(requestUnlinkGivenChannels_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                               \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t *channelSet, \
+		std::size_t channelCount
+#define ARG_NAMES callerID, connection, channelSet, channelCount
+C_WRAPPER(requestStartListeningToChannels_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS                                                                               \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_channelid_t *channelSet, \
+		std::size_t channelCount
+#define ARG_NAMES callerID, connection, channelSet, channelCount
+C_WRAPPER(requestStopListeningToChannels_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, const char *message
+#define ARG_NAMES callerID, connection, userID, message
+C_WRAPPER(requestSendUserTextMessage_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
@@ -2001,6 +2370,55 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 requestLocalUserMute_v_1_0_x,
 			 requestLocalUserDeaf_v_1_0_x,
 			 requestSetLocalUserComment_v_1_0_x,
+			 findUserByName_v_1_0_x,
+			 findChannelByName_v_1_0_x,
+			 getMumbleSetting_bool_v_1_0_x,
+			 getMumbleSetting_int_v_1_0_x,
+			 getMumbleSetting_double_v_1_0_x,
+			 getMumbleSetting_string_v_1_0_x,
+			 setMumbleSetting_bool_v_1_0_x,
+			 setMumbleSetting_int_v_1_0_x,
+			 setMumbleSetting_double_v_1_0_x,
+			 setMumbleSetting_string_v_1_0_x,
+			 sendData_v_1_0_x,
+			 log_v_1_0_x,
+			 playSample_v_1_2_x };
+}
+
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x() {
+	return { freeMemory_v_1_0_x,
+			 getActiveServerConnection_v_1_0_x,
+			 isConnectionSynchronized_v_1_0_x,
+			 getLocalUserID_v_1_0_x,
+			 getUserName_v_1_0_x,
+			 getChannelName_v_1_0_x,
+			 getAllUsers_v_1_0_x,
+			 getAllChannels_v_1_0_x,
+			 getChannelOfUser_v_1_0_x,
+			 getUsersInChannel_v_1_0_x,
+			 getLocalUserTransmissionMode_v_1_0_x,
+			 isUserLocallyMuted_v_1_0_x,
+			 isLocalUserMuted_v_1_0_x,
+			 isLocalUserDeafened_v_1_0_x,
+			 getUserHash_v_1_0_x,
+			 getServerHash_v_1_0_x,
+			 getUserComment_v_1_0_x,
+			 getChannelDescription_v_1_0_x,
+			 isChannelLinkedTo_v_1_3_x,
+			 getLinkedChannels_v_1_3_x,
+			 requestLocalUserTransmissionMode_v_1_0_x,
+			 requestUserMove_v_1_0_x,
+			 requestMicrophoneActivationOverwrite_v_1_0_x,
+			 requestLocalMute_v_1_0_x,
+			 requestLocalUserMute_v_1_0_x,
+			 requestLocalUserDeaf_v_1_0_x,
+			 requestSetLocalUserComment_v_1_0_x,
+			 requestLinkChannels_v_1_3_x,
+			 requestUnlinkChannels_v_1_3_x,
+			 requestUnlinkGivenChannels_v_1_3_x,
+			 requestStartListeningToChannels_v_1_3_x,
+			 requestStopListeningToChannels_v_1_3_x,
+			 requestSendUserTextMessage_v_1_3_x,
 			 findUserByName_v_1_0_x,
 			 findChannelByName_v_1_0_x,
 			 getMumbleSetting_bool_v_1_0_x,

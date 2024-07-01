@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -1515,6 +1515,42 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_channelid_t channelID,
 																			const char **description);
 
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+
+	/**
+	 * Checks whether the linkedChannelID is linked to channelID.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelID The ID of the channel
+	 * @param linkedChannelID The ID of the linked channel
+	 * @param[out] linked A pointer to where the result of the check
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *isChannelLinkedTo)(mumble_plugin_id_t callerID,
+																		mumble_connection_t connection,
+																		mumble_channelid_t channelID,
+																		mumble_channelid_t linkedChannelID,
+																		bool *linked);
+
+	/**
+	 * Gets the channel set the given channel is linked to.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelID The ID of the channel
+	 * @param[out] channels The set of channel IDs linked to the channelID
+	 * @param[out] channelCount The amount of linked channels
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointers
+	 * may be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getLinkedChannels)(mumble_plugin_id_t callerID,
+																		mumble_connection_t connection,
+																		mumble_channelid_t channelID,
+																		mumble_channelid_t **channels,
+																		size_t *channelCount);
+
+#	endif
 
 	// -------- Request functions --------
 
@@ -1608,7 +1644,97 @@ struct MUMBLE_API_STRUCT_NAME {
 																				 mumble_connection_t connection,
 																				 const char *comment);
 
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
 
+	/**
+	 * Requests Mumble to link all channels in the given set to each other.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelSet The set of channel IDs to link
+	 * @param channelCount The number of elements in the channel list
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestLinkChannels)(mumble_plugin_id_t callerID,
+																		  mumble_connection_t connection,
+																		  mumble_channelid_t *channelSet,
+																		  size_t channelCount);
+
+	/**
+	 * Requests Mumble to remove any existing links between the provided channel and channels in the provided set.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelID The ID of the channel to unlink
+	 * @param channelSet The set of channel IDs to remove link from the channelID
+	 * @param channelCount The number of elements in the channel set
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestUnlinkChannels)(mumble_plugin_id_t callerID,
+																			mumble_connection_t connection,
+																			mumble_channelid_t channelID,
+																			mumble_channelid_t *channelSet,
+																			size_t channelCount);
+
+
+	/**
+	 * Requests Mumble to remove all links between the provided channels.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelSet The set of channel IDs to remove link
+	 * @param channelCount The number of elements in the channel set
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestUnlinkGivenChannels)(mumble_plugin_id_t callerID,
+																				 mumble_connection_t connection,
+																				 mumble_channelid_t *channelSet,
+																				 size_t channelCount);
+
+
+	/**
+	 * Starts to listen channel set
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelSet The set of channel IDs to listen
+	 * @param channelCount The number of elements in the channel set
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStartListeningToChannels)(mumble_plugin_id_t callerID,
+																					  mumble_connection_t connection,
+																					  mumble_channelid_t *channelSet,
+																					  size_t channelCount);
+
+	/**
+	 * Stops to listen channel set
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param channelSet The set of channel IDs to stop listen
+	 * @param channelCount The number of elements in the channel set
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopListeningToChannels)(mumble_plugin_id_t callerID,
+																					 mumble_connection_t connection,
+																					 mumble_channelid_t *channelSet,
+																					 size_t channelCount);
+
+	/**
+	 * Send text message to the given user
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection
+	 * @param userID The ID of the user to send the message
+	 * @param message The message to send
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestSendUserTextMessage)(mumble_plugin_id_t callerID,
+																				 mumble_connection_t connection,
+																				 mumble_userid_t userID,
+																				 const char *message);
+
+#	endif
 
 	// -------- Find functions --------
 

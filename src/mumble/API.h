@@ -107,6 +107,9 @@ public slots:
 	void isLocalUserMuted_v_1_0_x(mumble_plugin_id_t callerID, bool *muted, std::shared_ptr< api_promise_t > promise);
 	void isLocalUserDeafened_v_1_0_x(mumble_plugin_id_t callerID, bool *deafened,
 									 std::shared_ptr< api_promise_t > promise);
+	void isChannelLinkedTo_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+								   mumble_channelid_t channelID, mumble_channelid_t linkedChannelID, bool *linked,
+								   std::shared_ptr< api_promise_t > promise);
 	void getUserHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 							 const char **hash, std::shared_ptr< api_promise_t > promise);
 	void getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char **hash,
@@ -119,6 +122,9 @@ public slots:
 	void getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 									   mumble_channelid_t channelID, const char **description,
 									   std::shared_ptr< api_promise_t > promise);
+	void getLinkedChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+								   mumble_channelid_t channelID, mumble_channelid_t **channels,
+								   std::size_t *channelCount, std::shared_ptr< api_promise_t > promise);
 	void requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 								 mumble_channelid_t channelID, const char *password,
 								 std::shared_ptr< api_promise_t > promise);
@@ -132,6 +138,24 @@ public slots:
 									  std::shared_ptr< api_promise_t > promise);
 	void requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 											const char *comment, std::shared_ptr< api_promise_t > promise);
+	void requestLinkChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+									 mumble_channelid_t *channelList, std::size_t channelCount,
+									 std::shared_ptr< api_promise_t > promise);
+	void requestUnlinkChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+									   mumble_channelid_t channelID, mumble_channelid_t *unlinkList,
+									   std::size_t unlinkCount, std::shared_ptr< api_promise_t > promise);
+	void requestUnlinkGivenChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+											mumble_channelid_t *unlinkList, std::size_t unlinkCount,
+											std::shared_ptr< api_promise_t > promise);
+	void requestStartListeningToChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+												 mumble_channelid_t *channelList, std::size_t channelCount,
+												 std::shared_ptr< api_promise_t > promise);
+	void requestStopListeningToChannels_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+												mumble_channelid_t *channelList, std::size_t channelCount,
+												std::shared_ptr< api_promise_t > promise);
+	void requestSendUserTextMessage_v_1_3_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
+											mumble_userid_t userID, const char *message,
+											std::shared_ptr< api_promise_t > promise);
 	void findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *userName,
 								mumble_userid_t *userID, std::shared_ptr< api_promise_t > promise);
 	void findChannelByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *channelName,
@@ -173,6 +197,9 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x();
 
 /// @returns The Mumble API struct (v1.2.x)
 MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x();
+
+/// @returns The Mumble API struct (v1.3.x)
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x();
 
 /// Converts from the Qt key-encoding to the API's key encoding.
 ///
