@@ -5069,10 +5069,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble - %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>窗口(&amp;W)</translation>
     </message>
@@ -5932,10 +5928,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>欢迎消息：%1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble：%1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>您在 %2 的“%1”权限被拒绝。</translation>
     </message>
@@ -6349,18 +6341,6 @@ the channel&apos;s context menu.</source>
         <translation>开发者(&amp;D)</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>隐藏 Mumble (&amp;H)</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>隐藏 Mumble 主窗口。</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>隐藏 Mumble 主窗口。点击系统托盘图标或者再次启动 Mumble 以恢复。</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>显示开发者控制台</translation>
     </message>
@@ -6411,14 +6391,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>修改简介(&amp;C)...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>显示</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>显示 Mumble 主窗口。</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6679,130 +6651,6 @@ Valid actions are:
     <message>
         <source>Channel &amp;Filter</source>
         <translation>频道筛选器(&amp;F)</translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
-
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
-URL 的格式为：
-mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;插件列表&gt; 是需要安装的插件列表
-必须设置 version 请求参数以调用正确的客户端版本，
-当前的默认值为 1.2.0。
-
-可用的选项：
-  -h, --help    显示此帮助信息并退出。
-  --version 显示版本信息并退出
-  -m, --multiple
-                允许启动多个客户端实例。
-  -c, --config
-                指定替代配置文件。
-                如果您使用此参数同时运行多个 Mumble 实例，
-                请确保在配置文件内设置替代“database”选项。
-  --default-certificate-dir &lt;目录&gt;
-                指定替代的默认证书目录。
-                此路径仅在没有从设置中
-                加载证书时生效。
-  -n, --noidentity
-                禁止加载身份认证文件（即证书）。
-  -jn, --jackname &lt;参数&gt;
-                设置自定义 Jack 客户端名称。
-  --license
-                显示 Mumble 许可。
-  --authors
-                显示 Mumble 作者。
-  --third-party-licenses
-                显示 Mumble 使用的第三方软件的许可。
-  --window-title-ext &lt;参数&gt;
-                设置自定义窗口标题后缀名。
-  --dump-input-streams
-                转储输入链上各部分的 PCM 流。
-                （适用于调试目的）
-                - 原始麦克风输入
-                - 扬声器回声消除重读取
-                - 已处理的麦克风输入
-  --print-echocancel-queue
-                向标准输出打印回声消除队列状态。
-                （适用于调试目的）
-  --translation-dir &lt;目录&gt;
-                指定一个额外的目录，
-                Mumble 会在其中搜索翻译文件
-                来覆盖内置的翻译。
-                通过此方式添加的目录比其它情况
-                下的默认位置具有更高的优先级。
-  --print-translation-dirs
-                输出 Mumble 会在哪些目录搜索翻译文件
-                以覆盖内置翻译。
-                （适用于译者测试自己的翻译）
-  --locale &lt;区域语言代码&gt;
-                用指定字符串对应的语言
-                覆盖 Mumble 的语言设置。
-                如果字符串格式无效，Mumble 会出错。
-                否则，指定的语言会
-                永久保存到 Mumble 设置中。
-</translation>
     </message>
     <message>
         <source>Connect to a server</source>
@@ -7150,6 +6998,72 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Filtered channels and users</source>
         <translation>筛选的频道和用户</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

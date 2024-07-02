@@ -309,6 +309,8 @@ set(MUMBLE_SOURCES
 	"widgets/SearchDialogTree.h"
 	"widgets/SemanticSlider.cpp"
 	"widgets/SemanticSlider.h"
+	"widgets/TrayIcon.cpp"
+	"widgets/TrayIcon.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
@@ -571,7 +573,6 @@ if(WIN32)
 	target_sources(mumble_client_object_lib PRIVATE
 		"GlobalShortcut_win.cpp"
 		"GlobalShortcut_win.h"
-		"Log_win.cpp"
 		"SharedMemory_win.cpp"
 		"TaskList.cpp"
 		"UserLockFile_win.cpp"
@@ -656,7 +657,6 @@ else()
 			PRIVATE
 				"GlobalShortcut_unix.cpp"
 				"GlobalShortcut_unix.h"
-				"Log_unix.cpp"
 				"os_unix.cpp"
 		)
 
@@ -680,7 +680,6 @@ else()
 				"AppNap.mm"
 				"GlobalShortcut_macx.h"
 				"GlobalShortcut_macx.mm"
-				"Log_macx.mm"
 				"os_macx.mm"
 		)
 
@@ -1100,7 +1099,6 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 		set_source_files_properties(
 			"AppNap.mm"
 			"GlobalShortcut_macx.mm"
-			"Log_macx.mm"
 			"os_macx.mm"
 			"TextToSpeech_macx.mm"
 			"Overlay_macx.mm"

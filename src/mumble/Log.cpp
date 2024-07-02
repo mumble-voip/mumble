@@ -22,6 +22,8 @@
 #include "VolumeAdjustment.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QImageWriter>
@@ -804,12 +806,32 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
 				QApplication::alert(Global::get().mw);
+				emit Global::get().trayIcon->highlightTray();
 			}
 
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				postNotification(mt, plain.replace("\xEF\xBF\xBC", tr("[embedded content]")));
+				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
+
+				QSystemTrayIcon::MessageIcon msgIcon;
+				switch (mt) {
+					case DebugInfo:
+					case CriticalError:
+						msgIcon = QSystemTrayIcon::Critical;
+						break;
+					case Warning:
+						msgIcon = QSystemTrayIcon::Warning;
+						break;
+					case TextMessage:
+					case PrivateTextMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
+						break;
+					default:
+						msgIcon = QSystemTrayIcon::Information;
+						break;
+				}
+				Global::get().trayIcon->showMessage(msgName(mt), plain, msgIcon);
 			}
 		}
 
@@ -898,26 +920,6 @@ void Log::processDeferredLogs() {
 		LogMessage msg = qvDeferredLogs.takeFirst();
 
 		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS, msg.ignoreTTS);
-	}
-}
-
-// Post a notification using the MainWindow's QSystemTrayIcon.
-void Log::postQtNotification(MsgType mt, const QString &plain) {
-	if (Global::get().mw->qstiIcon->isSystemTrayAvailable() && Global::get().mw->qstiIcon->supportsMessages()) {
-		QSystemTrayIcon::MessageIcon msgIcon;
-		switch (mt) {
-			case DebugInfo:
-			case CriticalError:
-				msgIcon = QSystemTrayIcon::Critical;
-				break;
-			case Warning:
-				msgIcon = QSystemTrayIcon::Warning;
-				break;
-			default:
-				msgIcon = QSystemTrayIcon::Information;
-				break;
-		}
-		Global::get().mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
 }
 

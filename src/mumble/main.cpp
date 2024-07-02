@@ -51,6 +51,8 @@
 #include "VersionCheck.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QLocale>
 #include <QScreen>
 #include <QtCore/QProcess>
@@ -210,6 +212,7 @@ int main(int argc, char **argv) {
 	bool customJackClientName = false;
 	bool bRpcMode             = false;
 	bool printTranslationDirs = false;
+	bool startHiddenInTray    = false;
 	QString rpcCommand;
 	QUrl url;
 	QDir qdCert(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
@@ -286,7 +289,9 @@ int main(int argc, char **argv) {
 								   "                locale that corresponds to the given locale string.\n"
 								   "                If the format is invalid, Mumble will error.\n"
 								   "                Otherwise the locale will be permanently saved to\n"
-								   "                Mumble's settings."
+								   "                Mumble's settings.\n"
+								   "  --hidden\n"
+								   "                Start Mumble hidden in the system tray."
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -413,6 +418,14 @@ int main(int argc, char **argv) {
 					qCritical("Missing argument for --locale!");
 					return 1;
 				}
+			} else if (args.at(i) == "--hidden") {
+#ifndef Q_OS_MAC
+				startHiddenInTray = true;
+				qInfo("Starting hidden in system tray");
+#else
+				// When Qt addresses hide() on macOS to use native hiding, this can be fixed.
+				qWarning("Can not start Mumble hidden in system tray on macOS");
+#endif
 			} else if (args.at(i) == "--version") {
 				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 				// using e.g. qWarning
@@ -683,7 +696,11 @@ int main(int argc, char **argv) {
 
 	// Main Window
 	Global::get().mw = new MainWindow(nullptr);
-	Global::get().mw->show();
+	if (!startHiddenInTray) {
+		Global::get().mw->showRaiseWindow();
+	}
+
+	Global::get().trayIcon = new TrayIcon();
 
 	Global::get().talkingUI = new TalkingUI();
 
@@ -796,7 +813,7 @@ int main(int argc, char **argv) {
 		OpenURLEvent *oue = new OpenURLEvent(a.quLaunchURL);
 		qApp->postEvent(Global::get().mw, oue);
 #endif
-	} else {
+	} else if (!startHiddenInTray || Global::get().s.bAutoConnect) {
 		Global::get().mw->on_qaServerConnect_triggered(true);
 	}
 

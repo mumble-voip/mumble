@@ -10,7 +10,6 @@
 #include <QtCore/QtGlobal>
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QSystemTrayIcon>
 
 #include "CustomElements.h"
 #include "MUComboBox.h"
@@ -74,15 +73,14 @@ private:
 	Q_DISABLE_COPY(MainWindow)
 public:
 	UserModel *pmModel;
-	QSystemTrayIcon *qstiIcon;
 	QMenu *qmUser;
 	QMenu *qmChannel;
 	QMenu *qmListener;
 	QMenu *qmDeveloper;
-	QMenu *qmTray;
 	QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer,
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon m_iconInformation;
 	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
@@ -140,7 +138,6 @@ public:
 	void setOnTop(bool top);
 	void setShowDockTitleBars(bool doShow);
 	void updateAudioToolTips();
-	void updateTrayIcon();
 	void updateUserModel();
 	void focusNextMainWidget();
 	QPair< QByteArray, QImage > openImageFile();
@@ -291,7 +288,6 @@ public slots:
 	void on_qaHelpAboutQt_triggered();
 	void on_qaHelpVersionCheck_triggered();
 	void on_qaQuit_triggered();
-	void on_qaHide_triggered();
 	void on_qteChat_tabPressed();
 	void on_qteChat_backtabPressed();
 	void on_qteChat_ctrlSpacePressed();
@@ -340,7 +336,6 @@ public slots:
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
-	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 	void on_qaTalkingUIToggle_triggered();
 	void voiceRecorderDialog_finished(int);
 	void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
@@ -357,7 +352,6 @@ public slots:
 	/// or priority speaker flag changes for the gui user
 	void userStateChanged();
 	void destroyUserInformation();
-	void trayAboutToShow();
 	void sendChatbarMessage(QString msg);
 	void sendChatbarText(QString msg, bool plainText = false);
 	void pttReleased();
