@@ -1,0 +1,19 @@
+{
+	"v6": {
+		"table_name": "user_properties",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"property_key",
+			"property_value"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				42,
+				"winter is coming"
+			]
+		]
+	}
+}

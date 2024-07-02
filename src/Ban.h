@@ -29,6 +29,14 @@ struct Ban {
 	QString toString() const;
 };
 
+namespace std {
+template<> struct hash< Ban > {
+	std::size_t operator()(const Ban &ban) const {
+		return qHash(ban.qsHash) ^ qHash(ban.haAddress) ^ qHash(ban.qsUsername) ^ qHash(ban.iMask);
+	}
+};
+} // namespace std
+
 quint32 qHash(const Ban &);
 
 #endif

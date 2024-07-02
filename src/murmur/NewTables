@@ -1,0 +1,274 @@
+- virtual_servers
+	- server_id
+		- INTEGER
+	* PRIMARY KEY: (server_id)
+
+- server_logs
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- message
+		- TEXT
+		- NOT NULL
+	- message_date
+		- INTEGER (epoch time)
+		- NOT NULL
+	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
+	* INDEX ON message_date
+
+- config
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- config_name
+		- VARCHAR(255)
+		- NOT NULL
+	- config_value
+		- TEXT
+		- NOT NULL
+	* FOREIGN KEY: server_id REFERENCES virtual_servers(server_id)
+	* PRIMARY KEY: (server_id, config_name)
+
+- channels:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- parent_id
+		- INTEGER
+		- NOT NULL
+	- channel_name
+		- VARCHAR(255)
+		- NOT NULL
+	- inherit_acl
+		- INTEGER
+		- NOT NULL
+	* PRIMARY KEY (server_id, channel_id)
+	* FOREIGN KEY: (server_id, parent_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_properties
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- property_key
+		- INTEGER
+		- NOT NULL
+	- property_value
+		- TEXT
+		- NOT NULL
+	* PRIMARY KEY: (server_id, channel_id, property_key)
+	* FOREIGN KEY: (server_id, channel_id, key) REFERENCES channels(server_id, channel_id)
+
+- users
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- user_name
+		- VARCHAR(255)
+		- NOT NULL
+	- password_hash
+		- VARCHAR(128)
+		* DEFAULT: NULL
+	- salt
+		- VARCHAR(128)
+		* DEFAULT: NULL
+	- kdf_iterations
+		- INTEGER
+		* DEFAULT: NULL
+	- last_channel_id
+		- INTEGER
+		- NOT NULL
+	- texture
+		- BLOB
+		* DEFAULT: NULL
+	- last_active
+		- INTEGER (epoch time)
+		- NOT NULL
+		* DEFAULT: 0
+	- last_disconnect
+		- INTEGER (epoch time)
+		- NOT NULL
+		* DEFAULT: 0
+	* PRIMARY KEY (server_id, user_id)
+	* UNIQUE INDEX (server_id, name)
+	* FOREIGN KEY server_id REFERENCES servers(server_id)
+	* TRIGGER AFTER DELETE ON channels: UPDATE users SET channel_id = 0 WHERE server_id = old.server_id AND last_channel_id = old.channel_id
+
+- user_properties
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- property_key
+		- INTEGER
+		- NOT NULL
+	- property_value
+		- TEXT
+		- NOT NULL
+	* PRIMARY KEY: (server_id, user_id, property_key)
+	* FOREIGN KEY: (server_id, user_id, key) REFERENCES channels(server_id, channel_id)
+
+- groups
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- group_id
+		- INTEGER
+		- NOT NULL
+	- group_name
+		- VARCHAR(255)
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- inherit
+		- INTEGER
+		- NOT NULL
+		* DEFAULT: 1
+	- is_inheritable
+		- INTEGER
+		- NOT NULL
+		* DEFAULT: 1
+	* PRIMARY KEY(server_id, group_id)
+	* FOREIGN KEY (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* UNIQUE INDEX (server_id, channel_id, name)
+
+- group_members
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- group_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- add_to_group
+		- INTEGER
+		- NOT NULL
+		- DEFAULT: 1
+	* PRIMARY KEY(server_id, group_id, user_id)
+	* FOREIGN KEY: (server_id, group_id) REFERENCES groups(server_id, group_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+
+- access_control_lists
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- priority
+		- INTEGER
+		- NOT NULL
+	- affected_user_id
+		- INTEGER
+		- DEFAULT:  NULL
+	- affected_group_id
+		- INTEGER
+		- DEFAULT: NULL
+	- affected_meta_group_id
+		- INTEGER
+		- DEFAULT: NULL
+	- access_token:
+		- VARCHAR(255)
+		- DEFAULT: NULL
+	- group_modifiers
+		- VARCHAR(31)
+		- DEFAULT: NULL
+	- apply_in_current_channel
+		- INTEGER
+		- NOT NULL
+	- apply_in_sub_channels
+		- INTEGER
+		- NOT NULL
+	- granted_privilege_flags
+		- INTEGER
+		- NOT NULL
+		- DEFAULT: 0
+	- revoked_privilege_flags
+		- INTEGER
+		- NOT NULL
+		- DEFAULT: 0
+	* PRIMARY KEY(server_id, channel_id, priority)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY: (server_id, affected_user_id) REFERENCES users(server_id, user_id)
+	* FOREIGN KEY: (server_id, affected_group_id) REFERENCES groups(server_id, group_id)
+
+- channel_links
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- first_channel_id
+		- INTEGER
+		- NOT NULL
+	- second_channel_id
+		- INTEGER
+		- NOT NULL
+	* PRIMARY KEY(server_id, first_channel_id, second_channel_id)
+	* FOREIGN KEY (server_id, first_channel_id) REFERENCES channels(server_id, channel_id)
+	* FOREIGN KEY (server_id, second_channel_id) REFERENCES channels(server_id, channel_id)
+	* CHECK that second_channel_id > first_channel_id (help to avoid duplicates of the form (a,b) and (b,a))
+
+- bans
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- ipv6_base_address
+		- VARCHAR(45)
+		- NOT NULL
+	- prefix_length
+		- INTEGER
+		- NOT NULL
+	- banned_user_name
+		- VARCHAR(255)
+		- DEFAULT: NULL
+	- banned_user_cert_hash
+		- VARCHAR(255)
+		- DEFAULT: NULL
+	- reason
+		- TEXT
+		- DEFAULT: NULL
+	- start_date
+		- INTEGER (epoch time)
+		- NOT NULL
+		- DEFAULT: 0
+	- duration
+		- INTEGER (in seconds)
+		- NOT NULL
+		- DEFAULT: 0
+	* PRIMARY KEY: (server_id, ipv6_base_address, prefix_length)
+	* FOREIGN KEY: server_id REFERENCES servers(server_id)
+
+- channel_listeners:
+	- server_id
+		- INTEGER
+		- NOT NULL
+	- user_id
+		- INTEGER
+		- NOT NULL
+	- channel_id
+		- INTEGER
+		- NOT NULL
+	- volume_adjustment
+		- FLOAT
+		- NOT NULL
+		- DEFAULT 1
+	- enabled
+		- SMALLINT
+		- NOT NULL
+		-DEFAULT: 1
+	* PRIMARY KEY: (server_id, user_id, channel_id)
+	* FOREIGN KEY: (server_id, user_id) REFERENCES users(server_id, user_id)
+	* FOREIGN KEY: (server_id, channel_id) REFERENCES channels(server_id, channel_id)

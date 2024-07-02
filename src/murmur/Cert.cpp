@@ -80,10 +80,10 @@ void Server::initializeCert() {
 	qsdhpDHParams = QSslDiffieHellmanParameters();
 #endif
 
-	crt      = getConf("certificate", QString()).toByteArray();
-	key      = getConf("key", QString()).toByteArray();
-	pass     = getConf("passphrase", QByteArray()).toByteArray();
-	dhparams = getConf("sslDHParams", Meta::mp.qbaDHParams).toByteArray();
+	m_dbWrapper.getConfigurationTo(iServerNum, "certificate", crt);
+	m_dbWrapper.getConfigurationTo(iServerNum, "key", key);
+	m_dbWrapper.getConfigurationTo(iServerNum, "passphrase", pass);
+	m_dbWrapper.getConfigurationTo(iServerNum, "sslDHParams", dhparams);
 
 	QList< QSslCertificate > ql;
 
@@ -182,8 +182,8 @@ void Server::initializeCert() {
 				log("Certificate or key generation failed");
 			}
 
-			setConf("certificate", qscCert.toPem());
-			setConf("key", qskKey.toPem());
+			m_dbWrapper.setConfiguration(iServerNum, "certificate", qscCert.toPem().toStdString());
+			m_dbWrapper.setConfiguration(iServerNum, "key", qskKey.toPem().toStdString());
 		}
 	}
 
