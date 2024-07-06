@@ -24,7 +24,11 @@ jobs:
     needs: pre_run
     if: needs.pre_run.outputs.should_skip != 'true'
 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     permissions:
       security-events: write
@@ -32,20 +36,20 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           submodules: 'recursive'
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
           languages: python, cpp
 
     - uses: ./.github/actions/install-dependencies
       with:
           type: shared
-          os: ubuntu-20.04
+          os: ${{ matrix.os }}
           arch: 64bit
 
     - name: Create build dir
@@ -62,4 +66,4 @@ jobs:
       shell: bash
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3

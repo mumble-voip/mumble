@@ -4,7 +4,11 @@ on: [pull_request]
 
 jobs:
   pr-checks:
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
 
@@ -12,7 +16,7 @@ jobs:
       run: sudo apt install python3
       shell: bash
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           # Assume that there are not >200 new commits that need checking
           fetch-depth: 200
@@ -32,7 +36,7 @@ jobs:
     - uses: ./.github/actions/install-dependencies
       with:
           type: shared
-          os: ubuntu-20.04
+          os: ${{ matrix.os }}
           arch: 64bit
 
     - name: Generate compile-command DB
@@ -40,8 +44,8 @@ jobs:
       shell: bash
 
     - name: Check code formatting
-      uses: jidicula/clang-format-action@v3.5.2
+      uses: jidicula/clang-format-action@v4.13.0
       with:
           clang-format-version: '10'
           check-path: '.'
-          exclude-regex: '(3rdparty/*|build/*)'
+          exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|.*proto$)'

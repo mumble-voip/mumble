@@ -11,7 +11,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/stale@v5
+      - uses: actions/stale@v9
         with:
           days-before-issue-stale: 14
           days-before-issue-close:  7
@@ -31,7 +31,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/stale@v5
+      - uses: actions/stale@v9
         with:
           days-before-issue-stale: 4
           days-before-issue-close: 3
