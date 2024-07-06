@@ -1092,7 +1092,9 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	EncodingOutputBuffer buffer;
 	Q_ASSERT(buffer.size() >= static_cast< size_t >(iAudioQuality / 100 * iAudioFrames / 8));
 
-	emit audioInputEncountered(psSource, iFrameSize, iMicChannels, SAMPLE_RATE, bIsSpeech);
+	assert(iFrameSize % iMicChannels == 0);
+	const unsigned int samplesPerChannel = iFrameSize / iMicChannels;
+	emit audioInputEncountered(psSource, samplesPerChannel, iMicChannels, SAMPLE_RATE, bIsSpeech);
 
 	int len = 0;
 
