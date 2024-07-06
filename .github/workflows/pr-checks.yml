@@ -4,7 +4,11 @@ on: [pull_request]
 
 jobs:
   pr-checks:
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
 
@@ -32,7 +36,7 @@ jobs:
     - uses: ./.github/actions/install-dependencies
       with:
           type: shared
-          os: ubuntu-20.04
+          os: ${{ matrix.os }}
           arch: 64bit
 
     - name: Generate compile-command DB

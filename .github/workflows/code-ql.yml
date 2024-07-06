@@ -24,7 +24,11 @@ jobs:
     needs: pre_run
     if: needs.pre_run.outputs.should_skip != 'true'
 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     permissions:
       security-events: write
@@ -45,7 +49,7 @@ jobs:
     - uses: ./.github/actions/install-dependencies
       with:
           type: shared
-          os: ubuntu-20.04
+          os: ${{ matrix.os }}
           arch: 64bit
 
     - name: Create build dir
