@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: "Dispatch release to mumble-docker repo"
-              uses: peter-evans/repository-dispatch@v2
+              uses: peter-evans/repository-dispatch@v3
               with:
                   token: ${{ secrets.DOCKER_REPO_ACCCESS_TOKEN }}
                   event-type: new_release

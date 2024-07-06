@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Backport Action
-        uses: sqren/backport-github-action@v9.5.1
+        uses: sorenlouv/backport-github-action@v9.5.1
         with:
           github_token: ${{ secrets.BACKPORT_TOKEN }}
           auto_backport_label_prefix: auto-backport-to-
