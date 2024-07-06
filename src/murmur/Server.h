@@ -24,6 +24,7 @@
 #include "User.h"
 #include "Version.h"
 #include "VolumeAdjustment.h"
+#include "QtUtils.h"
 
 #include "database/ConnectionParameter.h"
 
@@ -319,7 +320,7 @@ public:
 	ChanACL::ACLCache acCache;
 
 	QHash< int, QString > qhUserNameCache;
-	QHash< QString, int > qhUserIDCache;
+	QHash< Mumble::QtUtils::CaseInsensitiveQString, int > qhUserIDCache;
 
 	std::vector< Ban > m_bans;
 
