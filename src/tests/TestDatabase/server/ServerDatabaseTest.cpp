@@ -56,18 +56,6 @@
 namespace mdb  = ::mumble::db;
 namespace msdb = ::mumble::server::db;
 
-std::vector< mdb::Backend > backends = {
-#ifdef MUMBLE_TEST_SQLITE
-	mdb::Backend::SQLite,
-#endif
-#ifdef MUMBLE_TEST_MYSQL
-	mdb::Backend::MySQL,
-#endif
-#ifdef MUMBLE_TEST_POSTGRESQL
-	mdb::Backend::PostgreSQL,
-#endif
-};
-
 namespace QTest {
 // Provide an overload of toString for JSON objects so that Qt's macros can properly display
 // these objects to report failing tests
@@ -158,18 +146,6 @@ char *toString(const std::vector< T > vector) {
 
 
 /**
- * Helper function to print exception messages that can also fully unfold nested exceptions
- */
-void print_exception_message(const std::exception &e) {
-	std::cerr << "  " << e.what() << "\n";
-	try {
-		std::rethrow_if_nested(e);
-	} catch (const std::exception &nested) {
-		print_exception_message(nested);
-	}
-}
-
-/**
  * Helper function to convert a std::chrono::timepoint to seconds since epoch
  */
 template< typename TimePoint > std::size_t toSeconds(const TimePoint &tp) {
@@ -196,7 +172,7 @@ public:
 			this->destroyTables();
 		} catch (const ::mdb::Exception &e) {
 			std::cerr << "Exception encountered while destroying tables:" << std::endl;
-			print_exception_message(e);
+			mumble::db::test::utils::print_exception_message(e);
 		}
 	}
 
@@ -259,29 +235,8 @@ private slots:
 
 
 
-#define BEGIN_TEST_CASE_NO_INIT                                                                              \
-	try {                                                                                                    \
-		for (::mdb::Backend currentBackend : backends) {                                                     \
-			qInfo() << "Current backend:" << QString::fromStdString(::mdb::backendToString(currentBackend)); \
-			TestDB db(currentBackend);
-
-#define BEGIN_TEST_CASE     \
-	BEGIN_TEST_CASE_NO_INIT \
-	db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
-
-#define END_TEST_CASE                                  \
-	}                                                  \
-	}                                                  \
-	catch (const std::exception &e) {                  \
-		std::cerr << "Caught unexpected exception:\n"; \
-		print_exception_message(e);                    \
-		QFAIL("Aborting due to thrown exception");     \
-	}
-
-
-
 void ServerDatabaseTest::serverTable_server_management() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	::msdb::ServerTable &table = db.getServerTable();
 
@@ -314,11 +269,11 @@ void ServerDatabaseTest::serverTable_server_management() {
 	// Server IDs have to be unique, so we expect an error when attempting to add a duplicate ID
 	QVERIFY_EXCEPTION_THROWN(table.addServer(1), ::mdb::AccessException);
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::logTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 1;
 	unsigned int nonExistingServerID = 5;
@@ -391,11 +346,11 @@ void ServerDatabaseTest::logTable_general() {
 		}
 	}
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::configTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 1;
 	unsigned int nonExistingServerID = 5;
@@ -449,11 +404,11 @@ void ServerDatabaseTest::configTable_general() {
 	configTable.clearAllConfigs(existingServerID);
 	QVERIFY(configTable.getAllConfigs(existingServerID).empty());
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::channelTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 1;
 	unsigned int otherServerID       = 2;
@@ -543,11 +498,11 @@ void ServerDatabaseTest::channelTable_general() {
 	// On this other server, we expect to start at 0 (there are no channels yet)
 	QCOMPARE(channelTable.getFreeChannelID(otherServerID), static_cast< unsigned int >(0));
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::channelPropertyTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -629,11 +584,11 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 		existingServerID, existingChannelID, ::msdb::ChannelProperty::Description, "My default");
 	QCOMPARE(fetchedStr, std::string("My default"));
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::userTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	const unsigned int existingServerID     = 0;
 	const unsigned int nonExistingServerID  = 5;
@@ -823,11 +778,11 @@ void ServerDatabaseTest::userTable_general() {
 	table.removeUser(testUser);
 	QVERIFY(!table.userExists(testUser));
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::userPropertyTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 0;
 	unsigned int nonExistingServerID = 5;
@@ -911,11 +866,11 @@ void ServerDatabaseTest::userPropertyTable_general() {
 	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::CertificateHash));
 	QVERIFY(!table.isPropertySet(user, ::msdb::UserProperty::kdfIterations));
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::groupTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -1033,11 +988,11 @@ void ServerDatabaseTest::groupTable_general() {
 	table.clearGroups(existingServerID, otherChannel.channelID);
 	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::groupMemberTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -1149,11 +1104,11 @@ void ServerDatabaseTest::groupMemberTable_general() {
 	memberA.userID   = nonExistingUserID;
 	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::aclTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -1286,11 +1241,11 @@ void ServerDatabaseTest::aclTable_general() {
 	expectedACLs = { acl2 };
 	QCOMPARE(table.getAllACLs(acl2.serverID, acl2.channelID), expectedACLs);
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::channelLinkTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -1403,7 +1358,7 @@ void ServerDatabaseTest::channelLinkTable_general() {
 		// Above statement throwing, is exactly what we want
 	}
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::ipAddress_conversions() {
@@ -1441,7 +1396,7 @@ void ServerDatabaseTest::ipAddress_conversions() {
 }
 
 void ServerDatabaseTest::banTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID    = 0;
 	unsigned int nonExistingServerID = 5;
@@ -1513,11 +1468,11 @@ void ServerDatabaseTest::banTable_general() {
 
 	QVERIFY(table.getAllBans(nonExistingServerID).empty());
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::channelListenerTable_general() {
-	BEGIN_TEST_CASE
+	MUMBLE_BEGIN_TEST_CASE
 
 	unsigned int existingServerID     = 0;
 	unsigned int nonExistingServerID  = 5;
@@ -1635,7 +1590,7 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
 
 
-	END_TEST_CASE
+	MUMBLE_END_TEST_CASE
 }
 
 void ServerDatabaseTest::database_scheme_migration() {
@@ -1644,7 +1599,7 @@ void ServerDatabaseTest::database_scheme_migration() {
 	for (unsigned int schemeVersion = 6; schemeVersion <= ::msdb::ServerDatabase::DB_SCHEME_VERSION; ++schemeVersion) {
 		qInfo() << "Current scheme version:" << schemeVersion;
 
-		BEGIN_TEST_CASE_NO_INIT
+		MUMBLE_BEGIN_TEST_CASE_NO_INIT
 
 		db.configureStandardTablesWithoutCreation();
 
@@ -1713,13 +1668,9 @@ void ServerDatabaseTest::database_scheme_migration() {
 		db.destroyTables();
 
 
-		END_TEST_CASE
+		MUMBLE_END_TEST_CASE
 	}
 }
-
-#undef BEGIN_TEST_CASE_NO_INIT
-#undef BEGIN_TEST_CASE
-#undef END_TEST_CASE
 
 QTEST_MAIN(ServerDatabaseTest)
 #include "ServerDatabaseTest.moc"

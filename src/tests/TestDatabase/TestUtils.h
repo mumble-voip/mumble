@@ -10,7 +10,9 @@
 #include "database/ConnectionParameter.h"
 
 #include <algorithm>
+#include <array>
 #include <cassert>
+#include <iostream>
 #include <numeric>
 #include <vector>
 
@@ -19,6 +21,29 @@
 namespace mumble {
 namespace db {
 	namespace test {
+		constexpr std::array< mumble::db::Backend, 0
+#ifdef MUMBLE_TEST_SQLITE
+													   + 1
+#endif
+#ifdef MUMBLE_TEST_MYSQL
+													   + 1
+#endif
+#ifdef MUMBLE_TEST_POSTGRESQL
+													   + 1
+#endif
+							  >
+			backends = {
+#ifdef MUMBLE_TEST_SQLITE
+				mumble::db::Backend::SQLite,
+#endif
+#ifdef MUMBLE_TEST_MYSQL
+				mumble::db::Backend::MySQL,
+#endif
+#ifdef MUMBLE_TEST_POSTGRESQL
+				mumble::db::Backend::PostgreSQL,
+#endif
+			};
+
 		namespace utils {
 
 			// Implementations for find_permutation and apply_permutation taken/inspired from/by
@@ -90,9 +115,43 @@ namespace db {
 
 			const mumble::db::ConnectionParameter &getConnectionParamter(mumble::db::Backend backend);
 
+			/**
+			 * Helper function to print exception messages that can also fully unfold nested exceptions
+			 */
+			inline void print_exception_message(const std::exception &e) {
+				std::cerr << "  " << e.what() << "\n";
+				try {
+					std::rethrow_if_nested(e);
+				} catch (const std::exception &nested) {
+					print_exception_message(nested);
+				}
+			}
+
+
 		} // namespace utils
 	}     // namespace test
 } // namespace db
 } // namespace mumble
+
+
+
+#define MUMBLE_BEGIN_TEST_CASE_NO_INIT                                                                              \
+	try {                                                                                                           \
+		for (::mumble::db::Backend currentBackend : mumble::db::test::backends) {                                   \
+			qInfo() << "Current backend:" << QString::fromStdString(::mumble::db::backendToString(currentBackend)); \
+			TestDB db(currentBackend);
+
+#define MUMBLE_BEGIN_TEST_CASE     \
+	MUMBLE_BEGIN_TEST_CASE_NO_INIT \
+	db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
+
+#define MUMBLE_END_TEST_CASE                                 \
+	}                                                        \
+	}                                                        \
+	catch (const std::exception &e) {                        \
+		std::cerr << "Caught unexpected exception:\n";       \
+		mumble::db::test::utils::print_exception_message(e); \
+		QFAIL("Aborting due to thrown exception");           \
+	}
 
 #endif // MUMBLE_TEST_TESTDATABASE_UTILS_H_
