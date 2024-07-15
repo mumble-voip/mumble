@@ -707,6 +707,15 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 
 void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS,
 			  bool ignoreTTS) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread in order to keep the Qt gods on our side by not calling any UI
+		// functions from a separate thread (can lead to program crashes)
+		QMetaObject::invokeMethod(this, "log", Qt::QueuedConnection, Q_ARG(Log::MsgType, mt),
+								  Q_ARG(const QString &, console), Q_ARG(const QString &, terse),
+								  Q_ARG(bool, ownMessage), Q_ARG(const QString &, overrideTTS), Q_ARG(bool, ignoreTTS));
+		return;
+	}
+
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);

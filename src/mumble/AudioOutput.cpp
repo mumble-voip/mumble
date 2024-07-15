@@ -415,7 +415,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 
 	if (Global::get().s.bPositionalAudio && iChannels == 1) {
-		Global::get().l->logOrDefer(Log::Warning, tr("Positional audio cannot work with mono output devices!"));
+		Log::logOrDefer(Log::Warning, tr("Positional audio cannot work with mono output devices!"));
 	}
 }
 
