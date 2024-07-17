@@ -1756,8 +1756,15 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 	if (!c)
 		return;
 
-	if (!hasPermission(uSource, c, ChanACL::Write)
-		&& !(c->cParent && hasPermission(uSource, c->cParent, ChanACL::Write))) {
+	// For changing channel properties (the 'Write') ACL we allow two things:
+	// 1) As per regular ACL propagating mechanism, we check if the user has been
+	// granted Write in the channel they try to edit
+	// 2) We allow all users who have been granted 'Write' on the root channel
+	// to be able to edit _all_ channels, independent of actual propagated ACLs
+	// This is done to prevent users who have permission to create (temporary)
+	// channels being able to "lock-out" admins by denying them 'Write' in their
+	// channel effectively becoming ungovernable.
+	if (!hasPermission(uSource, c, ChanACL::Write) && !hasPermission(uSource, qhChannels.value(0), ChanACL::Write)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
