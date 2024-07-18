@@ -731,13 +731,29 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 	}
 
 	if (isSQLite) {
-		if (Meta::mp.iSQLiteWAL == 1) {
-			qFatal("SQLite WAL = 1 option no longer supported. Either enable fully (WAL = 2) or disable (WAL = 0)");
-		}
 #ifdef MUMBLE_DISABLE_SQLITE
 		qFatal("Your version of the Mumble server has been compiled without support for SQLite - choose a different DB "
 			   "backend");
 #endif
+
+		if (Meta::mp.iSQLiteWAL == 1) {
+			qFatal("SQLite WAL = 1 option no longer supported. Either enable fully (WAL = 2) or disable (WAL = 0)");
+		}
+		if (Meta::mp.iSQLiteWAL > 2) {
+			qFatal("Invalid value for sqlite_wal option. Allowed values are 0 or 2.");
+		}
+		if (!Meta::mp.qsDBUserName.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a username doesn't make sense");
+		}
+		if (!Meta::mp.qsDBPassword.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a password doesn't make sense");
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a host doesn't make sense");
+		}
+		if (Meta::mp.iDBPort > 0) {
+			qFatal("When using a SQLite database, specifying a port doesn't make sense");
+		}
 
 		static ::mumble::db::SQLiteConnectionParameter sqliteConnection(Meta::mp.qsDatabase.toStdString(),
 																		Meta::mp.iSQLiteWAL > 0);
@@ -749,18 +765,23 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 		qFatal("Your version of the Mumble server has been compiled without support for MySQL - choose a different DB "
 			   "backend");
 #endif
-		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
-
-		if (!Meta::mp.qsDBHostName.isEmpty()) {
-			mysqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		if (Meta::mp.qsDatabase.isEmpty()) {
+			qFatal("When using a MySQL database, a database name must be specified");
 		}
+
+		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBUserName.isEmpty()) {
 			mysqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
 		}
-
 		if (!Meta::mp.qsDBPassword.isEmpty()) {
 			mysqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			mysqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		}
+		if (Meta::mp.iDBPort > 0) {
+			mysqlConnection.port = std::to_string(Meta::mp.iDBPort);
 		}
 
 		return mysqlConnection;
@@ -771,18 +792,23 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 		qFatal("Your version of the Mumble server has been compiled without support for PostgreSQL - choose a "
 			   "different DB backend");
 #endif
-		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
-
-		if (!Meta::mp.qsDBHostName.isEmpty()) {
-			postgresqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		if (Meta::mp.qsDatabase.isEmpty()) {
+			qFatal("When using a PostgreSQL database, a database name must be specified");
 		}
+
+		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
 
 		if (!Meta::mp.qsDBUserName.isEmpty()) {
 			postgresqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
 		}
-
 		if (!Meta::mp.qsDBPassword.isEmpty()) {
 			postgresqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			postgresqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		}
+		if (Meta::mp.iDBPort > 0) {
+			postgresqlConnection.port = std::to_string(Meta::mp.iDBPort);
 		}
 
 		return postgresqlConnection;
