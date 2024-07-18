@@ -216,34 +216,28 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	paint.fillRect(rect(), pal.color(QPalette::Window));
 
 	AudioInputPtr ai = Global::get().ai;
-	if (!ai.get() || !ai->sppPreprocess)
+	if (!ai.get() || !ai->m_preprocessor)
 		return;
 
 	QPolygonF poly;
 
 	ai->qmSpeex.lock();
 
-	spx_int32_t ps_size = 0;
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
-
-	static std::vector< spx_int32_t > noise;
-	noise.resize(static_cast< std::size_t >(ps_size));
-	static std::vector< spx_int32_t > ps;
-	ps.resize(static_cast< std::size_t >(ps_size));
-
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps.data());
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise.data());
+	const AudioPreprocessor::psd_t ps    = ai->m_preprocessor.getPSD();
+	const AudioPreprocessor::psd_t noise = ai->m_preprocessor.getNoisePSD();
 
 	ai->qmSpeex.unlock();
 
+	assert(ps.size() == noise.size());
+
 	qreal sx, sy;
 
-	sx = (static_cast< float >(width()) - 1.0f) / static_cast< float >(ps_size);
+	sx = (static_cast< float >(width()) - 1.0f) / static_cast< float >(ps.size());
 	sy = static_cast< float >(height()) - 1.0f;
 
 	poly << QPointF(0.0f, height() - 1);
 	float fftmul = 1.0 / (32768.0);
-	for (unsigned int i = 0; i < static_cast< unsigned int >(ps_size); i++) {
+	for (unsigned int i = 0; i < static_cast< unsigned int >(noise.size()); i++) {
 		qreal xp, yp;
 		xp = i * sx;
 		yp = sqrtf(sqrtf(static_cast< float >(noise[i]))) - 1.0f;
@@ -262,7 +256,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	poly.clear();
 
-	for (unsigned int i = 0; i < static_cast< unsigned int >(ps_size); i++) {
+	for (unsigned int i = 0; i < static_cast< unsigned int >(ps.size()); i++) {
 		qreal xp, yp;
 		xp = i * sx;
 		yp = sqrtf(sqrtf(static_cast< float >(ps[i]))) - 1.0f;
@@ -316,7 +310,7 @@ AudioStats::~AudioStats() {
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = Global::get().ai;
 
-	if (!ai.get() || !ai->sppPreprocess)
+	if (!ai.get() || !ai->m_preprocessor)
 		return;
 
 	bool nTalking = ai->isTransmitting();
@@ -332,22 +326,16 @@ void AudioStats::on_Tick_timeout() {
 	FORMAT_TO_TXT("%06.2f dB", ai->dPeakSignal);
 	qlSignalLevel->setText(txt);
 
-	spx_int32_t ps_size = 0;
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
+	const AudioPreprocessor::psd_t ps    = ai->m_preprocessor.getPSD();
+	const AudioPreprocessor::psd_t noise = ai->m_preprocessor.getNoisePSD();
 
-	static std::vector< spx_int32_t > noise;
-	noise.resize(static_cast< std::size_t >(ps_size));
-	static std::vector< spx_int32_t > ps;
-	ps.resize(static_cast< std::size_t >(ps_size));
-
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps.data());
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise.data());
+	assert(ps.size() == noise.size());
 
 	float s = 0.0f;
 	float n = 0.0001f;
 
-	unsigned int start = static_cast< unsigned int >(ps_size * 300) / SAMPLE_RATE;
-	unsigned int stop  = static_cast< unsigned int >(ps_size * 2000) / SAMPLE_RATE;
+	unsigned int start = static_cast< unsigned int >(ps.size() * 300) / SAMPLE_RATE;
+	unsigned int stop  = static_cast< unsigned int >(ps.size() * 2000) / SAMPLE_RATE;
 
 	for (unsigned int i = start; i < stop; i++) {
 		s += sqrtf(static_cast< float >(ps[i]));
@@ -357,9 +345,7 @@ void AudioStats::on_Tick_timeout() {
 	FORMAT_TO_TXT("%06.3f", s / n);
 	qlMicSNR->setText(txt);
 
-	spx_int32_t v;
-	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
-	float fv = powf(10.0f, (static_cast< float >(v) / 20.0f));
+	float fv = powf(10.0f, (static_cast< float >(ai->m_preprocessor.getAGCGain()) / 20.0f));
 	FORMAT_TO_TXT("%03.0f%%", 100.0f / fv);
 	qlMicVolume->setText(txt);
 
