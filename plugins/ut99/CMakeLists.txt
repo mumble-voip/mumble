@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(ut99 SHARED "ut99.cpp")
+
+target_link_libraries(ut99 PRIVATE utfcpp)

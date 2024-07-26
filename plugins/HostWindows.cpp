@@ -5,8 +5,6 @@
 
 #include "HostWindows.h"
 
-#include "mumble_positional_audio_utils.h"
-
 #include <windows.h>
 #include <tlhelp32.h>
 
@@ -42,7 +40,7 @@ Modules HostWindows::modules() const {
 	MODULEENTRY32 me;
 	me.dwSize = sizeof(me);
 	for (auto ok = Module32First(snapshotHandle, &me); ok; ok = Module32Next(snapshotHandle, &me)) {
-		const auto name = utf16ToUtf8(reinterpret_cast< char16_t * >(me.szModule));
+		std::string name = utf16To8(me.szModule);
 		if (modules.find(name) != modules.cend()) {
 			continue;
 		}
@@ -76,11 +74,31 @@ Modules HostWindows::modules() const {
 			address += region.size;
 		}
 
-		modules.insert(std::make_pair(name, module));
+		modules.insert({ std::move(name), std::move(module) });
 	}
 
 	CloseHandle(processHandle);
 	CloseHandle(snapshotHandle);
 
 	return modules;
+}
+
+std::string HostWindows::utf16To8(const std::wstring &wstr) {
+	if (wstr.empty()) {
+		return {};
+	}
+
+	const int length =
+		WideCharToMultiByte(CP_UTF8, 0, &wstr[0], static_cast< int >(wstr.length()), nullptr, 0, nullptr, nullptr);
+	if (!length) {
+		return {};
+	}
+
+	std::string str(length, '\0');
+	if (!WideCharToMultiByte(CP_UTF8, 0, &wstr[0], static_cast< int >(wstr.length()), &str[0], length, nullptr,
+							 nullptr)) {
+		return {};
+	}
+
+	return str;
 }

@@ -107,8 +107,6 @@ public:
 	/// Returns 0 if the pattern is not found.
 	procptr_t findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size);
 
-	static procid_t find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids);
-
 	ProcessBase(const procid_t id, const std::string &name);
 	virtual ~ProcessBase();
 };

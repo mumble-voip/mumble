@@ -38,7 +38,8 @@
 #include "mumble_legacy_plugin.h"
 
 #include "mumble_positional_audio_main.h"
-#include "mumble_positional_audio_utils.h"
+
+#include <utf8/cpp11.h>
 
 procptr_t posptr;
 procptr_t frtptr;
@@ -153,9 +154,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	std::ostringstream contextss;
-	contextss << "{"
-			  << "\"servername\":\"" << utf16ToUtf8(servername) << "\""
-			  << "}";
+	contextss << "{";
+	try {
+		contextss << "\"servername\":\"" << utf8::utf16to8(servername) << "\"";
+	} catch (const utf8::invalid_utf16 &) {
+		contextss << "\"servername\":\" null";
+	}
+	contextss << "}";
 
 	context = contextss.str();
 

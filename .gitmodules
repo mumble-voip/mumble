@@ -31,3 +31,6 @@
 [submodule "3rdparty/flag-icons"]
 	path = 3rdparty/flag-icons
 	url = https://github.com/lipis/flag-icons.git
+[submodule "3rdparty/utfcpp"]
+	path = 3rdparty/utfcpp
+	url = https://github.com/mumble-voip/utfcpp.git
