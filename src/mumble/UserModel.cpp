@@ -1271,6 +1271,10 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(),
 									   Global::get().mw->qtvUsers);
 				}
+			} else if (c->iId == static_cast< unsigned int >(~iChannelDescription)) {
+				iChannelDescription               = -1;
+				Global::get().mw->cContextChannel = c;
+				QTimer::singleShot(0, Global::get().mw, &MainWindow::on_qaChannelDescriptionView_triggered);
 			} else {
 				item->bCommentSeen = Global::get().db->seenComment(item->hash(), c->qbaDescHash);
 				newstate           = item->bCommentSeen ? 2 : 1;

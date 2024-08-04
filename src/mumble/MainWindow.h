@@ -271,6 +271,7 @@ public slots:
 	void on_qaChannelHide_triggered();
 	void on_qaChannelPin_triggered();
 	void on_qaChannelCopyURL_triggered();
+	void on_qaChannelDescriptionView_triggered();
 	void on_qaAudioReset_triggered();
 	void on_qaAudioMute_triggered();
 	void on_qaAudioDeaf_triggered();
