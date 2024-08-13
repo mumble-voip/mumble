@@ -1,14 +1,14 @@
-# Copyright 2019-2023 The Mumble Developers. All rights reserved.
+# Copyright 2019-2024 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 freebsd_instance:
-  image: freebsd-13-2-release-amd64
+  image_family: freebsd-14-0
 
 freebsd_task:
   pkg_script:
   - pkg update && pkg upgrade -y
-  - pkg install -y git ninja pkgconf cmake qt5-buildtools qt5-qmake qt5-linguisttools qt5-concurrent qt5-network qt5-xml qt5-sql qt5-svg qt5-testlib boost-libs libsndfile protobuf ice avahi-libdns poco opus
+  - pkg install -y git ninja pkgconf cmake qt5-buildtools qt5-qmake qt5-linguisttools qt5-concurrent qt5-network qt5-xml qt5-sql qt5-svg qt5-testlib boost-libs libsndfile protobuf ice37 avahi-libdns poco opus
   fetch_submodules_script: git submodule --quiet update --init --recursive
   build_script:
   - mkdir build && cd build

@@ -9,15 +9,14 @@
 #include "MumblePlugin.h"
 #undef MUMBLE_PLUGIN_NO_DEFAULT_FUNCTION_DEFINITIONS
 
-#include <codecvt>
 #include <cstdlib>
-#include <locale>
 #include <map>
 #include <string.h>
 #include <wchar.h>
 
 #include <QRegularExpression>
 
+#include <utf8/cpp11.h>
 
 /// A regular expression used to extract the version from the legacy plugin's description
 static const QRegularExpression
@@ -195,11 +194,26 @@ uint8_t LegacyPlugin::initPositionalData(const char *const *programNames, const 
 		std::multimap< std::wstring, unsigned long long int > pidMap;
 
 		for (size_t i = 0; i < programCount; i++) {
-			std::string currentName = programNames[i];
-			std::wstring currentNameWstr =
-				std::wstring_convert< std::codecvt_utf8< wchar_t > >().from_bytes(currentName);
+			const std::string currentName = programNames[i];
 
-			pidMap.insert(std::pair< std::wstring, unsigned long long int >(currentNameWstr, programPIDs[i]));
+			try {
+				switch (sizeof(wchar_t)) {
+					case 2: {
+						const std::u16string str16 = utf8::utf8to16(currentName);
+						pidMap.insert({ { str16.cbegin(), str16.cend() }, programPIDs[i] });
+						break;
+					}
+					case 4: {
+						const std::u32string str32 = utf8::utf8to32(currentName);
+						pidMap.insert({ { str32.cbegin(), str32.cend() }, programPIDs[i] });
+						break;
+					}
+					default:
+						return MUMBLE_PDEC_ERROR_PERM;
+				}
+			} catch (const utf8::invalid_utf8 &) {
+				continue;
+			}
 		}
 
 		retCode = m_mumPlug2->trylock(pidMap);

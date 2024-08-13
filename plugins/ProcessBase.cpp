@@ -113,16 +113,3 @@ procptr_t ProcessBase::findPattern(const std::vector< uint8_t > &pattern, procpt
 
 	return 0;
 }
-
-procid_t ProcessBase::find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids) {
-	if (pids.empty()) {
-		return 0;
-	}
-
-	const auto iter = pids.find(utf8ToUtf16(name));
-	if (iter == pids.cend()) {
-		return 0;
-	}
-
-	return iter->second;
-}

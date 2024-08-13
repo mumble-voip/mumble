@@ -166,6 +166,8 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${lto})
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
+add_subdirectory(${3RDPARTY_DIR}/utfcpp)
+
 if(client OR server)
 	add_subdirectory(src)
 endif()

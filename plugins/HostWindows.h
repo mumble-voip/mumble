@@ -12,6 +12,8 @@ using procid_t = uint64_t;
 
 class HostWindows {
 protected:
+	static std::string utf16To8(const std::wstring &wstr);
+
 	procid_t m_pid;
 	void *m_handle;
 

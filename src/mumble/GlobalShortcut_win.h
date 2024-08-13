@@ -134,6 +134,8 @@ protected:
 	std::unique_ptr< GKeyLibrary > m_gkey;
 #endif
 	DeviceMap::iterator addDevice(const HANDLE deviceHandle);
+
+	static std::string utf16To8(const std::wstring &wstr);
 };
 
 #endif

@@ -195,10 +195,12 @@ static bool tryInit(const std::multimap< std::wstring, unsigned long long int > 
 	};
 
 	for (const auto &name : names) {
-		const auto id = ProcessBase::find(name, pids);
-		if (!id) {
+		const auto iter = pids.find(std::wstring(name.cbegin(), name.cend()));
+		if (iter == pids.cend()) {
 			continue;
 		}
+
+		const auto id = iter->second;
 #ifdef OS_WINDOWS
 		proc.reset(new ProcessWindows(id, name));
 #else

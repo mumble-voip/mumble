@@ -4,16 +4,16 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include <chrono>
-#include <codecvt>
 #include <cstdint>
 #include <cstring>
 #include <iostream>
-#include <locale>
 #include <string>
 
 #include "LinkedMem.h"
 #include "MumblePlugin.h"
 #include "SharedMemory.h"
+
+#include <utf8/cpp11.h>
 
 #define UNUSED(x) (void) x
 
@@ -37,6 +37,29 @@ std::int64_t last_tick_time = 0;
  */
 static std::uint64_t getTimeSinceEpoch() {
 	return std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
+}
+
+static std::string wideToUtf8(const wchar_t *buf) {
+	switch (sizeof(wchar_t)) {
+		case 2: {
+			try {
+				const std::u16string str16(reinterpret_cast< const char16_t * >(buf));
+				return utf8::utf16to8(str16);
+			} catch (const utf8::invalid_utf16 &) {
+				return {};
+			}
+		}
+		case 4: {
+			try {
+				const std::u32string str32(reinterpret_cast< const char32_t * >(buf));
+				return utf8::utf32to8(str32);
+			} catch (const utf8::invalid_code_point &) {
+				return {};
+			}
+		}
+	}
+
+	return {};
 }
 
 mumble_error_t mumble_init(mumble_plugin_id_t id) {
@@ -128,7 +151,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 			if (lm.name[0]) {
 				wcsncpy(buff, lm.name, 256);
 				buff[255]       = 0;
-				applicationName = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
+				applicationName = wideToUtf8(buff);
 
 				// Call the plugin itself "Link (<whatever>)"
 				pluginName += " (" + applicationName + ")";
@@ -137,7 +160,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 			if (lm.description[0]) {
 				wcsncpy(buff, lm.description, 2048);
 				buff[2047]        = 0;
-				pluginDescription = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(buff);
+				pluginDescription = wideToUtf8(buff);
 			}
 
 			return MUMBLE_PDEC_OK;
@@ -192,7 +215,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 		lm.identity[255] = 0;
 
 		pluginContext.assign(reinterpret_cast< const char * >(lm.context), lm.context_len);
-		pluginIdentity = std::wstring_convert< std::codecvt_utf8< wchar_t > >().to_bytes(lm.identity);
+		pluginIdentity = wideToUtf8(lm.identity);
 	} else {
 		for (int i = 0; i < 3; ++i) {
 			cameraPos[i]  = lm.fAvatarPosition[i];

@@ -17,3 +17,5 @@ if(WIN32)
 else()
 	target_sources(amongus PRIVATE "../HostLinux.cpp")
 endif()
+
+target_link_libraries(amongus PRIVATE utfcpp)

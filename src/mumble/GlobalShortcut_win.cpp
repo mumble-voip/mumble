@@ -22,7 +22,8 @@
 #	include "GKey.h"
 #endif
 
-#include <codecvt>
+#include "win.h"
+
 #include <iomanip>
 #include <mutex>
 #include <sstream>
@@ -36,6 +37,8 @@ extern "C" {
 #include <hidpi.h>
 // clang-format on
 }
+
+#include <utf8/cpp11.h>
 
 // From os_win.cpp
 extern HWND mumble_mw_hwnd;
@@ -629,15 +632,13 @@ GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE
 				name.clear();
 				name.resize(127);
 
-				std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
-
 				if (HidD_GetManufacturerString(handle, &name[0], static_cast< ULONG >(sizeof(wchar_t) * name.size()))) {
-					nameStream << ' ' << conv.to_bytes(name);
+					nameStream << ' ' << utf16To8(name);
 					name.clear();
 				}
 
 				if (HidD_GetProductString(handle, &name[0], static_cast< ULONG >(sizeof(wchar_t) * name.size()))) {
-					nameStream << ' ' << conv.to_bytes(name);
+					nameStream << ' ' << utf16To8(name);
 				}
 
 				CloseHandle(handle);
@@ -893,3 +894,17 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &butt
 #ifdef _MSVC_LANG
 #	pragma warning(pop)
 #endif
+
+std::string GlobalShortcutWin::utf16To8(const std::wstring &wstr) {
+	if (wstr.empty()) {
+		return {};
+	}
+
+	const std::u16string str16{ wstr.cbegin(), wstr.cend() };
+
+	try {
+		return utf8::utf16to8(str16);
+	} catch (const utf8::invalid_utf16 &) {
+		return {};
+	}
+}

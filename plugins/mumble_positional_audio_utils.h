@@ -7,9 +7,7 @@
 #define MUMBLE_POSITIONAL_AUDIO_UTILS_H_
 
 #include <cmath>
-#include <codecvt>
 #include <fstream>
-#include <locale>
 #include <sstream>
 #include <vector>
 
@@ -24,38 +22,6 @@ union SingleSplit4Bytes {
 
 	constexpr SingleSplit4Bytes(const uint32_t value) : single(value) {}
 };
-
-/// Converts from UTF-8 to UTF-16.
-static inline std::wstring utf8ToUtf16(const std::string &str) {
-	try {
-		std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
-		return conv.from_bytes(str);
-	} catch (std::range_error &) {
-		return {};
-	}
-}
-
-/// Converts from UTF-16 to UTF-8.
-/// Meant to be used when "wchar_t" is 2 bytes, usually with Windows processes.
-static inline std::string utf16ToUtf8(const std::u16string &str) {
-	try {
-		std::wstring_convert< std::codecvt_utf8_utf16< char16_t >, char16_t > conv;
-		return conv.to_bytes(str);
-	} catch (std::range_error &) {
-		return {};
-	}
-}
-
-/// Converts from UTF-16 to UTF-8.
-/// Meant to be used when "wchar_t" is 4 bytes, usually with Linux processes.
-static inline std::string utf16ToUtf8(const std::u32string &str) {
-	try {
-		std::wstring_convert< std::codecvt_utf8_utf16< char32_t >, char32_t > conv;
-		return conv.to_bytes(str);
-	} catch (std::range_error &) {
-		return {};
-	}
-}
 
 // escape lossily converts the given
 // string to ASCII, replacing any

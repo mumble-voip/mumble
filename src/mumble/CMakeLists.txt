@@ -540,6 +540,7 @@ endif()
 target_link_libraries(mumble_client_object_lib
 	PUBLIC
 		shared
+		utfcpp
 		Qt5::Concurrent
 		Qt5::Sql
 		Qt5::Svg

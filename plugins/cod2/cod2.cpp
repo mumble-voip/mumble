@@ -75,12 +75,12 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 static int tryLock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	const std::string name = "CoD2MP_s.exe";
 
-	const auto id = ProcessBase::find(name, pids);
-	if (!id) {
+	const auto iter = pids.find(std::wstring(name.cbegin(), name.cend()));
+	if (iter == pids.cend()) {
 		return false;
 	}
 
-	process = std::make_unique< ProcessWindows >(id, name);
+	process = std::make_unique< ProcessWindows >(iter->second, name);
 	if (!process->isOk()) {
 		process.reset();
 		return false;
