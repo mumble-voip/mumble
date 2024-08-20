@@ -2888,7 +2888,7 @@ QString Server::getRegisteredUserName(int userID) {
 	QString name;
 	emit idToNameSig(name, userID);
 
-	if (name.isEmpty()) {
+	if (name.isEmpty() && m_dbWrapper.registeredUserExists(iServerNum, static_cast< unsigned int >(userID))) {
 		name = QString::fromStdString(m_dbWrapper.getUserName(iServerNum, static_cast< unsigned int >(userID)));
 
 		assert(!name.isEmpty());
