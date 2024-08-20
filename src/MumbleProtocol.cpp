@@ -781,7 +781,7 @@ namespace Protocol {
 		}
 
 
-		m_audioData.payload = gsl::span< byte >(payloadBegin, payloadSize);
+		m_audioData.payload = gsl::span< byte >(payloadBegin, static_cast< std::size_t >(payloadSize));
 
 		if (stream.left() == 3 * sizeof(float)) {
 			// If there are further bytes after the audio payload, this means that there is positional data attached to

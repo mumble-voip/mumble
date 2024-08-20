@@ -43,7 +43,7 @@ void LoopUser::addFrame(const Mumble::Protocol::AudioData &audioData) {
 		QMutexLocker l(&qmLock);
 		bool restart = (qetLastFetch.elapsed() > 100);
 
-		long time = qetTicker.elapsed();
+		qint64 time = qetTicker.elapsed();
 
 		float r;
 		if (restart)

@@ -616,12 +616,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					if (speech->bStereo) {
 						// Mix down stereo to mono. TODO: stereo record support
 						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-						for (unsigned int i = 0; i < frameCount; ++i) {
-							recbuff[i] += (pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
+						for (std::size_t i = 0; i < frameCount; ++i) {
+							recbuff.get()[i] +=
+								(pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
 						}
 					} else {
-						for (unsigned int i = 0; i < frameCount; ++i) {
-							recbuff[i] += pfBuffer[i] * volumeAdjustment;
+						for (std::size_t i = 0; i < frameCount; ++i) {
+							recbuff.get()[i] += pfBuffer[i] * volumeAdjustment;
 						}
 					}
 

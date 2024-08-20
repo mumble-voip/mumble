@@ -1047,7 +1047,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 			((reinterpret_cast< quint64 >(ebuffer.data()) + 8) & static_cast< quint64 >(~7)) + 4);
 #else
 		std::vector< char > bufVec;
-		bufVec.resize(len + 4);
+		bufVec.resize(static_cast< std::size_t >(len + 4));
 		char *buffer    = bufVec.data();
 #endif
 		{
