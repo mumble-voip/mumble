@@ -12,7 +12,7 @@ env:
 
 jobs:
   skip_test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
@@ -23,7 +23,7 @@ jobs:
           skip_after_successful_duplicate: 'true'
 
   fetch_build_number:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       build_number: ${{ steps.fetch.outputs.build_number }}
     steps:
