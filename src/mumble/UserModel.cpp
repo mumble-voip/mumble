@@ -1430,7 +1430,9 @@ void UserModel::removeChannelListener(const ClientUser *p, const Channel *c) {
 		}
 	} else {
 		// remove all items
-		foreach (ModelItem *currentItem, items) { removeChannelListener(currentItem); }
+		foreach (ModelItem *currentItem, items) {
+			removeChannelListener(currentItem);
+		}
 	}
 }
 

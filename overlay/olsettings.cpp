@@ -120,7 +120,7 @@ static int getModeInternal() {
 	}
 
 	DWORD sz = sizeof(mode);
-	err      = RegQueryValueExA(key, "mode", nullptr, nullptr, reinterpret_cast< BYTE * >(&mode), &sz);
+	err      = RegQueryValueExA(key, "mode", nullptr, nullptr, reinterpret_cast< BYTE      *>(&mode), &sz);
 	if (err != ERROR_SUCCESS) {
 		return -1;
 	}

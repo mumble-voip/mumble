@@ -53,7 +53,9 @@ void LCDDeviceManager::initialize() {
 			LCDEngine *e = engine();
 			qlEngines.append(e);
 
-			foreach (LCDDevice *d, e->devices()) { qlDevices << d; }
+			foreach (LCDDevice *d, e->devices()) {
+				qlDevices << d;
+			}
 		}
 	}
 	if (qlDevices.count() > 0) {
@@ -65,7 +67,9 @@ void LCDDeviceManager::initialize() {
 
 void LCDDeviceManager::destroy() {
 	qlDevices.clear();
-	foreach (LCDEngine *e, qlEngines) { delete e; }
+	foreach (LCDEngine *e, qlEngines) {
+		delete e;
+	}
 	delete crLCD;
 }
 

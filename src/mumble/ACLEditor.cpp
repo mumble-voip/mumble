@@ -260,8 +260,12 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 }
 
 ACLEditor::~ACLEditor() {
-	foreach (ChanACL *acl, qlACLs) { delete acl; }
-	foreach (ACLGroup *gp, qlGroups) { delete gp; }
+	foreach (ChanACL *acl, qlACLs) {
+		delete acl;
+	}
+	foreach (ACLGroup *gp, qlGroups) {
+		delete gp;
+	}
 }
 
 void ACLEditor::showEvent(QShowEvent *evt) {
@@ -489,12 +493,16 @@ void ACLEditor::refillGroupNames() {
 	QString text = qcbGroupList->currentText().toLower();
 	QStringList qsl;
 
-	foreach (ACLGroup *gp, qlGroups) { qsl << gp->qsName; }
+	foreach (ACLGroup *gp, qlGroups) {
+		qsl << gp->qsName;
+	}
 	qsl.sort();
 
 	qcbGroupList->clear();
 
-	foreach (QString name, qsl) { qcbGroupList->addItem(name); }
+	foreach (QString name, qsl) {
+		qcbGroupList->addItem(name);
+	}
 
 	int wantindex = qcbGroupList->findText(text, Qt::MatchFixedString);
 	qcbGroupList->setCurrentIndex(wantindex);
@@ -530,7 +538,9 @@ void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet< int > &qs) {
 	qlw->clear();
 
 	QList< idname > ql;
-	foreach (int pid, qs) { ql << idname(userName(pid), pid); }
+	foreach (int pid, qs) {
+		ql << idname(userName(pid), pid);
+	}
 	std::stable_sort(ql.begin(), ql.end());
 	foreach (idname i, ql) {
 		QListWidgetItem *qlwi = new QListWidgetItem(i.first, qlw);

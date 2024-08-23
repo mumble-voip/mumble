@@ -279,7 +279,9 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 
 	if (ClientUser::c_qmUsers.empty())
 		return id;
-	foreach (ClientUser *usr, ClientUser::c_qmUsers) { qlsUsernames.append(usr->qsName); }
+	foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+		qlsUsernames.append(usr->qsName);
+	}
 	std::sort(qlsUsernames.begin(), qlsUsernames.end());
 
 	QString target = QString();

@@ -2295,7 +2295,9 @@ void Server::dumpChannel(const Channel *c) {
 	}
 	qWarning(" ");
 
-	foreach (c, c->qlChannels) { dumpChannel(c); }
+	foreach (c, c->qlChannels) {
+		dumpChannel(c);
+	}
 }
 
 void Server::getBans() {

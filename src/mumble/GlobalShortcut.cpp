@@ -317,7 +317,9 @@ void ShortcutTargetDialog::accept() {
 
 	if (!stTarget.bCurrentSelection) {
 		QList< QListWidgetItem * > ql = qlwUsers->findItems(QString(), Qt::MatchStartsWith);
-		foreach (QListWidgetItem *itm, ql) { stTarget.qlUsers << itm->data(Qt::UserRole).toString(); }
+		foreach (QListWidgetItem *itm, ql) {
+			stTarget.qlUsers << itm->data(Qt::UserRole).toString();
+		}
 
 		QTreeWidgetItem *qtwi = qtwChannels->currentItem();
 		if (qtwi) {

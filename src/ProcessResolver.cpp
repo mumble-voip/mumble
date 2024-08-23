@@ -239,7 +239,7 @@ void ProcessResolver::doResolve() {
 #	ifdef KVM_NO_FILES
 	kvm_t *kd = kvm_openfiles(NULL, NULL, NULL, KVM_NO_FILES, error);
 #	else
-	kvm_t *kd                     = kvm_openfiles(NULL, _PATH_DEVNULL, NULL, O_RDONLY, error);
+	kvm_t *kd = kvm_openfiles(NULL, _PATH_DEVNULL, NULL, O_RDONLY, error);
 #	endif
 
 	if (!kd) {

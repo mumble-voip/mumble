@@ -28,7 +28,7 @@ Channel::Channel(unsigned int id, const QString &name, QObject *p) : QObject(p) 
 	bInheritACL = true;
 	uiMaxUsers  = 0;
 	bTemporary  = false;
-	cParent     = qobject_cast< Channel * >(p);
+	cParent     = qobject_cast< Channel     *>(p);
 	if (cParent)
 		cParent->addChannel(this);
 #ifdef MUMBLE
@@ -294,7 +294,9 @@ size_t Channel::getDepth() const {
 	}
 
 	size_t result = 0;
-	foreach (Channel *child, qlChannels) { result = qMax(result, child->getDepth() + 1); }
+	foreach (Channel *child, qlChannels) {
+		result = qMax(result, child->getDepth() + 1);
+	}
 
 	return result;
 }

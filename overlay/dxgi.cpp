@@ -159,8 +159,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hDXGI;
-		HookPresentRaw((voidFunc)(raw + dxgi->offsetPresent));
-		HookResizeRaw((voidFunc)(raw + dxgi->offsetResize));
+		HookPresentRaw((voidFunc) (raw + dxgi->offsetPresent));
+		HookResizeRaw((voidFunc) (raw + dxgi->offsetResize));
 
 	} else if (!preonly) {
 		ods("DXGI: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, dxgi->wcFileName);

@@ -254,7 +254,9 @@ void MurmurDBus::getRegisteredUsersSlot(const QString &filter, QMap< int, QStrin
 		remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegisteredPlayers", filter);
 	if (reply.isValid()) {
 		const QList< RegisteredPlayer > &r = reply.value();
-		foreach (const RegisteredPlayer &p, r) { m.insert(p.id, p.name); }
+		foreach (const RegisteredPlayer &p, r) {
+			m.insert(p.id, p.name);
+		}
 	}
 }
 
@@ -572,12 +574,16 @@ void MurmurDBus::setBans(const QList< BanInfo > &, const QDBusMessage &) {
 
 void MurmurDBus::getPlayerNames(const QList< int > &ids, const QDBusMessage &, QStringList &names) {
 	names.clear();
-	foreach (int id, ids) { names << server->getUserName(id); }
+	foreach (int id, ids) {
+		names << server->getUserName(id);
+	}
 }
 
 void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QList< int > &ids) {
 	ids.clear();
-	foreach (QString name, names) { ids << server->getUserID(name); }
+	foreach (QString name, names) {
+		ids << server->getUserID(name);
+	}
 }
 
 void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, int &id) {
@@ -915,7 +921,9 @@ void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBus
 		entries.clear();
 		QList< ServerDB::LogRecord > dblog = ServerDB::getLog(server_id, static_cast< unsigned int >(min_offset),
 															  static_cast< unsigned int >(max_offset));
-		foreach (const ServerDB::LogRecord &e, dblog) { entries << LogEntry(e); }
+		foreach (const ServerDB::LogRecord &e, dblog) {
+			entries << LogEntry(e);
+		}
 	}
 }
 

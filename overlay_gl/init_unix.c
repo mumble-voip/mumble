@@ -105,7 +105,7 @@ __attribute__((visibility("default"))) void glXSwapBuffers(Display *dpy, GLXDraw
 
 #define FGRAB(x)                                \
 	if (strcmp((const char *) (func), #x) == 0) \
-		return (__GLXextFuncPtr)(x);
+		return (__GLXextFuncPtr) (x);
 
 __attribute__((visibility("default"))) void (*glXGetProcAddress(const GLubyte *func))(void) {
 	FGRAB(glXSwapBuffers);
@@ -120,7 +120,7 @@ __attribute__((visibility("default"))) void (*glXGetProcAddress(const GLubyte *f
 	else if (oglXGetProcAddressARB)
 		return oglXGetProcAddressARB(func);
 	else
-		return (__GLXextFuncPtr)(odlsym(RTLD_NEXT, (const char *) (func)));
+		return (__GLXextFuncPtr) (odlsym(RTLD_NEXT, (const char *) (func)));
 }
 
 __attribute__((visibility("default"))) __GLXextFuncPtr glXGetProcAddressARB(const GLubyte *func) {
@@ -208,7 +208,7 @@ static int find_odlsym() {
 #if defined(__GLIBC__)
 		const uintptr_t base = 0;
 #else
-		const uintptr_t base      = (uintptr_t) lm->l_addr;
+		const uintptr_t base = (uintptr_t) lm->l_addr;
 #endif
 		for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
 			switch (dyn->d_tag) {

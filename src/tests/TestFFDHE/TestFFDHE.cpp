@@ -77,7 +77,9 @@ void TestFFDHE::exercise() {
 }
 
 void TestFFDHE::namedGroupsMethod() {
-	foreach (QString name, FFDHE::NamedGroups()) { QCOMPARE(tryFFDHELookupByName(name), true); }
+	foreach (QString name, FFDHE::NamedGroups()) {
+		QCOMPARE(tryFFDHELookupByName(name), true);
+	}
 }
 #endif
 

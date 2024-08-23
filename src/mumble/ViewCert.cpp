@@ -15,12 +15,16 @@
 
 static QStringList processQSslCertificateInfo(QStringList in) {
 	QStringList list;
-	foreach (QString str, in) { list << Mumble::QtUtils::decode_utf8_qssl_string(str); }
+	foreach (QString str, in) {
+		list << Mumble::QtUtils::decode_utf8_qssl_string(str);
+	}
 	return list;
 }
 
 static void addQSslCertificateInfo(QStringList &l, const QString &label, const QStringList &items) {
-	foreach (const QString &item, items) { l << QString(QLatin1String("%1: %2")).arg(label, item); }
+	foreach (const QString &item, items) {
+		l << QString(QLatin1String("%1: %2")).arg(label, item);
+	}
 }
 
 static QString certificateFriendlyName(const QSslCertificate &cert) {

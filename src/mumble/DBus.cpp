@@ -73,7 +73,9 @@ void MumbleDBus::getTalkingUsers(const QDBusMessage &msg) {
 		return;
 	}
 	QStringList names;
-	foreach (ClientUser *cu, ClientUser::getTalking()) { names.append(cu->qsName); }
+	foreach (ClientUser *cu, ClientUser::getTalking()) {
+		names.append(cu->qsName);
+	}
 	QDBusConnection::sessionBus().send(msg.createReply(names));
 }
 

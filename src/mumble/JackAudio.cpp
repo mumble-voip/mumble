@@ -600,7 +600,7 @@ void JackAudioSystem::ringbufferWriteAdvance(jack_ringbuffer_t *buffer, const si
 }
 
 int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
-	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const input  = dynamic_cast< JackAudioInput  *>(Global::get().ai.get());
 	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	const bool canInput  = (input && input->isReady());
@@ -618,7 +618,7 @@ int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
 }
 
 int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
-	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const input  = dynamic_cast< JackAudioInput  *>(Global::get().ai.get());
 	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	if (input) {
@@ -633,7 +633,7 @@ int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
 }
 
 int JackAudioSystem::bufferSizeCallback(jack_nframes_t frames, void *) {
-	auto const input  = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const input  = dynamic_cast< JackAudioInput  *>(Global::get().ai.get());
 	auto const output = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	if (input && !input->allocBuffer(frames)) {

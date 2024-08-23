@@ -9,7 +9,9 @@
 
 namespace Mumble {
 namespace QtUtils {
-	void deleteQObject(QObject *object) { object->deleteLater(); }
+	void deleteQObject(QObject *object) {
+		object->deleteLater();
+	}
 
 	QString decode_utf8_qssl_string(const QString &input) {
 		QString i = input;

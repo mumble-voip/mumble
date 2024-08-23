@@ -158,7 +158,9 @@ ThemeMap ThemeInfo::scanDirectories(const QVector< QDir > &themesDirectories) {
 	ThemeMap themes;
 
 	foreach (const QDir &themesDirectory, themesDirectories) {
-		foreach (const ThemeInfo &theme, scanDirectory(themesDirectory)) { themes.insert(theme.name, theme); }
+		foreach (const ThemeInfo &theme, scanDirectory(themesDirectory)) {
+			themes.insert(theme.name, theme);
+		}
 	}
 
 	return themes;

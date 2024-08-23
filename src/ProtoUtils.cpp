@@ -9,7 +9,7 @@ namespace MumbleProto {
 
 ::Version::full_t getVersion(const MumbleProto::Version &msg) {
 	if (msg.has_version_v2()) {
-		return static_cast<::Version::full_t >(msg.version_v2());
+		return static_cast< ::Version::full_t >(msg.version_v2());
 	} else if (msg.has_version_v1()) {
 		return ::Version::fromLegacyVersion(msg.version_v1());
 	}
@@ -24,7 +24,7 @@ void setVersion(MumbleProto::Version &msg, const ::Version::full_t version) {
 
 ::Version::full_t getSuggestedVersion(const MumbleProto::SuggestConfig &msg) {
 	if (msg.has_version_v2()) {
-		return static_cast<::Version::full_t >(msg.version_v2());
+		return static_cast< ::Version::full_t >(msg.version_v2());
 	} else if (msg.has_version_v1()) {
 		return ::Version::fromLegacyVersion(msg.version_v1());
 	}

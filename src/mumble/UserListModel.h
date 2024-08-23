@@ -69,7 +69,7 @@ private:
 	/// Model backend for user data
 	ModelUserList m_userList;
 
-	typedef QHash<::google::protobuf::uint32, MumbleProto::UserList_User > ModelUserListChangeMap;
+	typedef QHash< ::google::protobuf::uint32, MumbleProto::UserList_User > ModelUserListChangeMap;
 	/// Change map indexed by user id
 	ModelUserListChangeMap m_changes;
 

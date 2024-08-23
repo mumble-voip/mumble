@@ -645,7 +645,7 @@ void hookD3D10(HMODULE hD3D10, bool preonly) {
 
 	if (_wcsicmp(d3d10->wcFileName, modulename) == 0) {
 		unsigned char *raw = (unsigned char *) hD3D10;
-		HookAddRelease((voidFunc)(raw + d3d10->offsetAddRef), (voidFunc)(raw + d3d10->offsetRelease));
+		HookAddRelease((voidFunc) (raw + d3d10->offsetAddRef), (voidFunc) (raw + d3d10->offsetRelease));
 	} else if (!preonly) {
 		ods("D3D10: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d10->wcFileName);
 	} else {
@@ -742,7 +742,7 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 			void *pResize = (*vtbl)[13];
 			offset        = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pResize), dxgi->wcFileName,
-                                         ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D10", "ResizeBuffers");
+												ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D10", "ResizeBuffers");
 			if (offset) {
 				if (initializeDXGIData) {
 					dxgi->offsetResize = *offset;
@@ -763,7 +763,7 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 			void *pAddRef = (*vtbl)[1];
 			offset        = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pAddRef), d3d10->wcFileName,
-                                         ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "AddRef");
+												ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "AddRef");
 			if (offset) {
 				d3d10->offsetAddRef = *offset;
 				ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcFileName, d3d10->offsetAddRef);
@@ -771,7 +771,7 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 			void *pRelease = (*vtbl)[2];
 			offset         = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pRelease), d3d10->wcFileName,
-                                         ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "Release");
+												 ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "Release");
 			if (offset) {
 				d3d10->offsetRelease = *offset;
 				ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcFileName, d3d10->offsetRelease);

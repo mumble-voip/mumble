@@ -472,7 +472,7 @@ void WASAPIInput::run() {
 			wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
 
 			micpwfxe = &wfe;
-			micpwfx  = reinterpret_cast< WAVEFORMATEX * >(&wfe);
+			micpwfx  = reinterpret_cast< WAVEFORMATEX  *>(&wfe);
 
 			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want,
 											 micpwfx, nullptr);

@@ -1018,9 +1018,9 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hD3D;
-		HookCreateRaw((voidFunc)(raw + d3dd->offsetCreate));
+		HookCreateRaw((voidFunc) (raw + d3dd->offsetCreate));
 		if (d3dd->offsetCreateEx) {
-			HookCreateRawEx((voidFunc)(raw + d3dd->offsetCreateEx));
+			HookCreateRawEx((voidFunc) (raw + d3dd->offsetCreateEx));
 		}
 
 	} else if (!preonly) {

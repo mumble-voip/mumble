@@ -157,7 +157,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 	QModelIndex idx = indexAt(clickPosition);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *userModel   = qobject_cast< UserModel * >(model());
+		UserModel *userModel   = qobject_cast< UserModel   *>(model());
 		ClientUser *clientUser = userModel->getUser(idx);
 		Channel *channel       = userModel->getChannel(idx);
 

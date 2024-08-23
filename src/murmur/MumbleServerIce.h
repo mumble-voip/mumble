@@ -39,8 +39,8 @@ protected:
 	void badMetaProxy(const ::MumbleServer::MetaCallbackPrx &prx);
 	void badServerProxy(const ::MumbleServer::ServerCallbackPrx &prx, const ::Server *server);
 	void badAuthenticator(::Server *);
-	QList<::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
-	QMap< int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
+	QList< ::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
+	QMap< int, QList< ::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
 	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
 	QMap< int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
 	QMap< int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;

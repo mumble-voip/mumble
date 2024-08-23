@@ -183,7 +183,9 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 
 	ASIODev ad;
 
-	foreach (ad, qlDevs) { qcbDevice->addItem(ad.first, QVariant(ad.second)); }
+	foreach (ad, qlDevs) {
+		qcbDevice->addItem(ad.first, QVariant(ad.second));
+	}
 
 	if (qlDevs.count() == 0) {
 		qpbQuery->setEnabled(false);

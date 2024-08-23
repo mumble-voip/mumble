@@ -40,7 +40,7 @@ namespace QtUtils {
 template< typename T > using qt_unique_ptr = std::unique_ptr< T, decltype(&Mumble::QtUtils::deleteQObject) >;
 
 /// Creates a new unique_ptr with custom deleter for any given QObject*
-template< typename T, typename... Args > qt_unique_ptr< T > make_qt_unique(Args &&... args) {
+template< typename T, typename... Args > qt_unique_ptr< T > make_qt_unique(Args &&...args) {
 	static_assert(std::is_base_of< QObject, T >::value, "");
 
 	return qt_unique_ptr< T >{ new T(std::forward< Args >(args)...), Mumble::QtUtils::deleteQObject };

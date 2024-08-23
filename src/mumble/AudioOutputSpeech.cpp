@@ -209,7 +209,7 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	// Since a storageIndex of zero will look the same as a null pointer, we always add one to
 	// ensure the library never erroneously confuses this entry with a free slot.
 	JitterBufferPacket jbp;
-	jbp.data      = reinterpret_cast< char * >(storageIndex) + 1;
+	jbp.data      = reinterpret_cast< char      *>(storageIndex) + 1;
 	jbp.len       = 0;
 	jbp.span      = static_cast< unsigned int >(samples);
 	jbp.timestamp = static_cast< unsigned int >(iFrameSize * audioData.frameNumber);

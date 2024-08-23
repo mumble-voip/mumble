@@ -129,7 +129,7 @@
  * MUMBLE_QUOTE
  * Quotes the given value WITHOUT macro expansion
  */
-#	define MUMBLE_QUOTE(arg) #    arg
+#	define MUMBLE_QUOTE(arg) #arg
 /**
  * MUMBLE_EQUOTE
  * Quotes the given value WITH macro expansion

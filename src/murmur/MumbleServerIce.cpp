@@ -204,7 +204,7 @@ static void banToBan(const ::MumbleServer::Ban &mb, ::Ban &b) {
 static void infoToInfo(const QMap< int, QString > &info, ::MumbleServer::UserInfoMap &im) {
 	QMap< int, QString >::const_iterator i;
 	for (i = info.constBegin(); i != info.constEnd(); ++i)
-		im[static_cast<::MumbleServer::UserInfo >(i.key())] = iceString(i.value());
+		im[static_cast< ::MumbleServer::UserInfo >(i.key())] = iceString(i.value());
 }
 
 static void infoToInfo(const ::MumbleServer::UserInfoMap &im, QMap< int, QString > &info) {
@@ -338,7 +338,7 @@ void MumbleServerIce::removeMetaCallback(const ::MumbleServer::MetaCallbackPrx &
 }
 
 void MumbleServerIce::addServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrx &prx) {
-	QList<::MumbleServer::ServerCallbackPrx > &cbList = qmServerCallbacks[server->iServerNum];
+	QList< ::MumbleServer::ServerCallbackPrx > &cbList = qmServerCallbacks[server->iServerNum];
 
 	if (!cbList.contains(prx)) {
 		server->log(
@@ -442,7 +442,7 @@ void MumbleServerIce::started(::Server *s) {
 	connect(s, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this,
 			SLOT(contextAction(const User *, const QString &, unsigned int, int)));
 
-	const QList<::MumbleServer::MetaCallbackPrx > &qlList = qlMetaCallbacks;
+	const QList< ::MumbleServer::MetaCallbackPrx > &qlList = qlMetaCallbacks;
 
 	if (qlList.isEmpty())
 		return;
@@ -461,7 +461,7 @@ void MumbleServerIce::stopped(::Server *s) {
 	removeServerAuthenticator(s);
 	removeServerUpdatingAuthenticator(s);
 
-	const QList<::MumbleServer::MetaCallbackPrx > &qmList = qlMetaCallbacks;
+	const QList< ::MumbleServer::MetaCallbackPrx > &qmList = qlMetaCallbacks;
 
 	if (qmList.isEmpty())
 		return;
@@ -476,9 +476,9 @@ void MumbleServerIce::stopped(::Server *s) {
 }
 
 void MumbleServerIce::userConnected(const ::User *p) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -496,11 +496,11 @@ void MumbleServerIce::userConnected(const ::User *p) {
 }
 
 void MumbleServerIce::userDisconnected(const ::User *p) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
 	qmServerContextCallbacks[s->iServerNum].remove(static_cast< int >(p->uiSession));
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -518,9 +518,9 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 }
 
 void MumbleServerIce::userStateChanged(const ::User *p) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -538,9 +538,9 @@ void MumbleServerIce::userStateChanged(const ::User *p) {
 }
 
 void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -561,9 +561,9 @@ void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &mess
 }
 
 void MumbleServerIce::channelCreated(const ::Channel *c) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -581,9 +581,9 @@ void MumbleServerIce::channelCreated(const ::Channel *c) {
 }
 
 void MumbleServerIce::channelRemoved(const ::Channel *c) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -601,9 +601,9 @@ void MumbleServerIce::channelRemoved(const ::Channel *c) {
 }
 
 void MumbleServerIce::channelStateChanged(const ::Channel *c) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList< ::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -621,7 +621,7 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 }
 
 void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
-	::Server *s = qobject_cast<::Server * >(sender());
+	::Server *s = qobject_cast< ::Server * >(sender());
 
 	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > &qmAll =
 		qmServerContextCallbacks;
@@ -661,7 +661,7 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 }
 
 void MumbleServerIce::idToNameSlot(QString &name, int id) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
@@ -671,7 +671,7 @@ void MumbleServerIce::idToNameSlot(QString &name, int id) {
 	}
 }
 void MumbleServerIce::idToTextureSlot(QByteArray &qba, int id) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
@@ -687,7 +687,7 @@ void MumbleServerIce::idToTextureSlot(QByteArray &qba, int id) {
 }
 
 void MumbleServerIce::nameToIdSlot(int &id, const QString &name) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
@@ -700,7 +700,7 @@ void MumbleServerIce::nameToIdSlot(int &id, const QString &name) {
 void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 									   const QList< QSslCertificate > &certlist, const QString &certhash,
 									   bool certstrong, const QString &pw) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	::std::string newname;
@@ -728,14 +728,16 @@ void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 		if (newname.length() > 0)
 			uname = u8(newname);
 		QStringList qsl;
-		foreach (const ::std::string &str, groups) { qsl << u8(str); }
+		foreach (const ::std::string &str, groups) {
+			qsl << u8(str);
+		}
 		if (!qsl.isEmpty())
 			server->setTempGroups(res, sessionId, nullptr, qsl);
 	}
 }
 
 void MumbleServerIce::registerUserSlot(int &res, const QMap< int, QString > &info) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -752,7 +754,7 @@ void MumbleServerIce::registerUserSlot(int &res, const QMap< int, QString > &inf
 }
 
 void MumbleServerIce::unregisterUserSlot(int &res, int id) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -765,7 +767,7 @@ void MumbleServerIce::unregisterUserSlot(int &res, int id) {
 }
 
 void MumbleServerIce::getRegistrationSlot(int &res, int id, QMap< int, QString > &info) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -784,7 +786,7 @@ void MumbleServerIce::getRegistrationSlot(int &res, int id, QMap< int, QString >
 }
 
 void MumbleServerIce::getRegisteredUsersSlot(const QString &filter, QMap< int, QString > &m) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -804,7 +806,7 @@ void MumbleServerIce::getRegisteredUsersSlot(const QString &filter, QMap< int, Q
 }
 
 void MumbleServerIce::setInfoSlot(int &res, int id, const QMap< int, QString > &info) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -821,7 +823,7 @@ void MumbleServerIce::setInfoSlot(int &res, int id, const QMap< int, QString > &
 }
 
 void MumbleServerIce::setTextureSlot(int &res, int id, const QByteArray &texture) {
-	::Server *server = qobject_cast<::Server * >(sender());
+	::Server *server = qobject_cast< ::Server * >(sender());
 
 	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
@@ -1087,7 +1089,7 @@ static bool channelSort(const ::Channel *a, const ::Channel *b) {
 TreePtr recurseTree(const ::Channel *c) {
 	TreePtr t = new Tree();
 	channelToChannel(c, t->c);
-	QList<::User * > users = c->qlUsers;
+	QList< ::User * > users = c->qlUsers;
 	std::sort(users.begin(), users.end(), userSort);
 
 	foreach (const ::User *p, users) {
@@ -1096,10 +1098,12 @@ TreePtr recurseTree(const ::Channel *c) {
 		t->users.push_back(mp);
 	}
 
-	QList<::Channel * > channels = c->qlChannels;
+	QList< ::Channel * > channels = c->qlChannels;
 	std::sort(channels.begin(), channels.end(), channelSort);
 
-	foreach (const ::Channel *chn, channels) { t->children.push_back(recurseTree(chn)); }
+	foreach (const ::Channel *chn, channels) {
+		t->children.push_back(recurseTree(chn));
+	}
 
 	return t;
 }
@@ -1333,7 +1337,7 @@ static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChan
 
 	QString qsName = u8(state.name);
 
-	QSet<::Channel * > newset;
+	QSet< ::Channel * > newset;
 	foreach (int linkid, state.links) {
 		::Channel *cLink;
 		NEED_CHANNEL_VAR(cLink, linkid);
@@ -1399,7 +1403,7 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 	::MumbleServer::ACLList acls;
 	::MumbleServer::GroupList groups;
 
-	QStack<::Channel * > chans;
+	QStack< ::Channel * > chans;
 	::Channel *p;
 	ChanACL *acl;
 	p = channel;
@@ -1521,7 +1525,9 @@ static void impl_Server_getUserNames(const ::MumbleServer::AMD_Server_getUserNam
 									 const ::MumbleServer::IdList &ids) {
 	NEED_SERVER;
 	::MumbleServer::NameMap nm;
-	foreach (int userid, ids) { nm[userid] = iceString(server->getUserName(userid)); }
+	foreach (int userid, ids) {
+		nm[userid] = iceString(server->getUserName(userid));
+	}
 	cb->ice_response(nm);
 }
 

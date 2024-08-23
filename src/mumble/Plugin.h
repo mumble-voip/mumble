@@ -375,7 +375,7 @@ public:
 	/// @returns A pointer to the allocated plugin
 	///
 	/// @throws PluginError if the plugin could not be loaded
-	template< typename T, typename... Ts > static T *createNew(Ts &&... args) {
+	template< typename T, typename... Ts > static T *createNew(Ts &&...args) {
 		static_assert(std::is_base_of< Plugin, T >::value,
 					  "The Plugin::create() can only be used to instantiate objects of base-type Plugin");
 		static_assert(!std::is_pointer< T >::value,

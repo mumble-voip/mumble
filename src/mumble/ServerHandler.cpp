@@ -151,7 +151,9 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 		QSslConfiguration::setDefaultConfiguration(config);
 
 		QStringList pref;
-		foreach (QSslCipher c, ciphers) { pref << c.name(); }
+		foreach (QSslCipher c, ciphers) {
+			pref << c.name();
+		}
 		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
@@ -354,7 +356,7 @@ void ServerHandler::setServerSynchronized(bool synchronized) {
 }
 
 void ServerHandler::hostnameResolved() {
-	ServerResolver *sr                    = qobject_cast< ServerResolver * >(QObject::sender());
+	ServerResolver *sr                    = qobject_cast< ServerResolver                    *>(QObject::sender());
 	QList< ServerResolverRecord > records = sr->records();
 
 	// Exit the ServerHandler thread's event loop with an
@@ -539,7 +541,9 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 		QByteArray der    = qscCert.first().toDer();
 		DWORD errorStatus = WinVerifySslCert(der);
 		if (errorStatus == CERT_TRUST_NO_ERROR) {
-			foreach (const QSslError &e, errorsToRemove) { newErrors.removeOne(e); }
+			foreach (const QSslError &e, errorsToRemove) {
+				newErrors.removeOne(e);
+			}
 		}
 		if (newErrors.isEmpty()) {
 			connection->proceedAnyway();

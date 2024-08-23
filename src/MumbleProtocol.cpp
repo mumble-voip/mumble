@@ -60,7 +60,8 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	ProtocolHandler< role >::ProtocolHandler(Version::full_t protocolVersion) : m_protocolVersion(protocolVersion) {}
+	ProtocolHandler< role >::ProtocolHandler(Version::full_t protocolVersion) : m_protocolVersion(protocolVersion) {
+	}
 
 	template< Role role > Version::full_t ProtocolHandler< role >::getProtocolVersion() const {
 		return m_protocolVersion;
@@ -588,7 +589,9 @@ namespace Protocol {
 		return decode(data, true);
 	}
 
-	template< Role role > UDPMessageType UDPDecoder< role >::getMessageType() const { return m_messageType; }
+	template< Role role > UDPMessageType UDPDecoder< role >::getMessageType() const {
+		return m_messageType;
+	}
 
 	template< Role role > AudioData UDPDecoder< role >::getAudioData() const {
 		assert(m_messageType == UDPMessageType::Audio);
@@ -636,7 +639,7 @@ namespace Protocol {
 
 					// Virtual array entries 1 and 2 are actually a single uint64. Note that the timestamp is
 					// whatever the client sent to the server and thus it does not require an endian-transformation
-					m_pingData.timestamp           = *reinterpret_cast< const std::uint64_t * >(&dataArray[1]);
+					m_pingData.timestamp           = *reinterpret_cast< const std::uint64_t           *>(&dataArray[1]);
 					m_pingData.userCount           = qFromBigEndian(dataArray[3]);
 					m_pingData.maxUserCount        = qFromBigEndian(dataArray[4]);
 					m_pingData.maxBandwidthPerUser = qFromBigEndian(dataArray[5]);
@@ -860,7 +863,9 @@ namespace Protocol {
 		}
 	}
 
-	bool operator!=(const AudioData &lhs, const AudioData &rhs) { return !(lhs == rhs); }
+	bool operator!=(const AudioData &lhs, const AudioData &rhs) {
+		return !(lhs == rhs);
+	}
 
 	bool operator==(const PingData &lhs, const PingData &rhs) {
 		return lhs.timestamp == rhs.timestamp && lhs.requestAdditionalInformation == rhs.requestAdditionalInformation
@@ -869,7 +874,9 @@ namespace Protocol {
 			   && lhs.maxUserCount == rhs.maxUserCount && lhs.maxBandwidthPerUser == rhs.maxBandwidthPerUser;
 	}
 
-	bool operator!=(const PingData &lhs, const PingData &rhs) { return !(lhs == rhs); }
+	bool operator!=(const PingData &lhs, const PingData &rhs) {
+		return !(lhs == rhs);
+	}
 
 	// Explicit template instantiation of our classes. We require once instantiation for every available Role.
 #define ALL_CLASSES                \

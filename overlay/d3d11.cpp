@@ -651,7 +651,7 @@ void hookD3D11(HMODULE hD3D11, bool preonly) {
 
 	if (_wcsicmp(d3d11->wcFileName, modulename) == 0) {
 		unsigned char *raw = (unsigned char *) hD3D11;
-		HookAddRelease((voidFunc)(raw + d3d11->offsetAddRef), (voidFunc)(raw + d3d11->offsetRelease));
+		HookAddRelease((voidFunc) (raw + d3d11->offsetAddRef), (voidFunc) (raw + d3d11->offsetRelease));
 	} else if (!preonly) {
 		ods("D3D11: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d11->wcFileName);
 	} else {
@@ -752,7 +752,7 @@ void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 				void *pResize = (*vtbl)[13];
 				offset        = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pResize), dxgi->wcFileName,
-                                             ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "ResizeBuffers");
+													ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "ResizeBuffers");
 				if (offset) {
 					if (initializeDXGIData) {
 						dxgi->offsetResize = *offset;
@@ -774,7 +774,7 @@ void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 				void *pAddRef = (*vtbl)[1];
 				offset        = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pAddRef), d3d11->wcFileName,
-                                             ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "AddRef");
+													ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "AddRef");
 				if (offset) {
 					d3d11->offsetAddRef = *offset;
 					ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcFileName, d3d11->offsetAddRef);
@@ -782,7 +782,7 @@ void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 				void *pRelease = (*vtbl)[2];
 				offset         = GetFnOffsetInModule(reinterpret_cast< voidFunc >(pRelease), d3d11->wcFileName,
-                                             ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "Release");
+													 ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "Release");
 				if (offset) {
 					d3d11->offsetRelease = *offset;
 					ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcFileName, d3d11->offsetRelease);

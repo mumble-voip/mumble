@@ -396,7 +396,9 @@ void MetaParams::read(QString fname) {
 	}
 
 	QStringList hosts;
-	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
+	foreach (const QHostAddress &qha, qlBind) {
+		hosts << qha.toString();
+	}
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));
 	qmConfig.insert(QLatin1String("password"), qsPassword);
 	qmConfig.insert(QLatin1String("port"), QString::number(usPort));
@@ -545,7 +547,9 @@ bool MetaParams::loadSSLSettings() {
 			if (pem.isEmpty()) {
 				QStringList names = FFDHE::NamedGroups();
 				QStringList atNames;
-				foreach (QString name, names) { atNames << QLatin1String("@") + name; }
+				foreach (QString name, names) {
+					atNames << QLatin1String("@") + name;
+				}
 				QString supported = atNames.join(QLatin1String(", "));
 				qFatal("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)",
 					   qPrintable(qsSSLDHParams), qPrintable(supported));
@@ -615,7 +619,9 @@ bool MetaParams::loadSSLSettings() {
 #endif
 
 		QStringList pref;
-		foreach (QSslCipher c, tmpCiphers) { pref << c.name(); }
+		foreach (QSslCipher c, tmpCiphers) {
+			pref << c.name();
+		}
 		qWarning("MetaParams: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 

@@ -710,8 +710,12 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 #endif
 		QSet< Ban > removed = previousBans - newBans;
 		QSet< Ban > added   = newBans - previousBans;
-		foreach (const Ban &b, removed) { log(uSource, QString("Removed ban: %1").arg(b.toString())); }
-		foreach (const Ban &b, added) { log(uSource, QString("New ban: %1").arg(b.toString())); }
+		foreach (const Ban &b, removed) {
+			log(uSource, QString("Removed ban: %1").arg(b.toString()));
+		}
+		foreach (const Ban &b, added) {
+			log(uSource, QString("New ban: %1").arg(b.toString()));
+		}
 		saveBans();
 		log(uSource, "Updated banlist");
 	}
@@ -1499,8 +1503,12 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		if (msg.has_position())
 			c->iPosition = msg.position();
 
-		foreach (Channel *l, qlAdd) { addLink(c, l); }
-		foreach (Channel *l, qlRemove) { removeLink(c, l); }
+		foreach (Channel *l, qlAdd) {
+			addLink(c, l);
+		}
+		foreach (Channel *l, qlRemove) {
+			removeLink(c, l);
+		}
 
 		if (msg.has_max_users())
 			c->uiMaxUsers = msg.max_users();
@@ -1611,7 +1619,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 
 		// Users directly in that channel
-		foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
+		foreach (User *p, c->qlUsers) {
+			users.insert(static_cast< ServerUser * >(p));
+		}
 
 		// Users only listening in that channel
 		foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
@@ -1650,9 +1660,13 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	while (!q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			foreach (Channel *sub, c->qlChannels) { q.enqueue(sub); }
+			foreach (Channel *sub, c->qlChannels) {
+				q.enqueue(sub);
+			}
 			// Users directly in that channel
-			foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
+			foreach (User *p, c->qlUsers) {
+				users.insert(static_cast< ServerUser * >(p));
+			}
 			// Users only listening in that channel
 			foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
 				ServerUser *currentUser = qhUsers.value(session);
@@ -1682,7 +1696,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	users.remove(uSource);
 
 	// Actually send the original message to the affected users
-	foreach (ServerUser *u, users) { sendMessage(u, msg); }
+	foreach (ServerUser *u, users) {
+		sendMessage(u, msg);
+	}
 
 	// Emit the signal for RPC consumers
 	emit userTextMessage(uSource, tm);
@@ -1873,7 +1889,9 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			}
 
 			// Clear old ACLs
-			foreach (a, c->qlACL) { delete a; }
+			foreach (a, c->qlACL) {
+				delete a;
+			}
 
 			c->qhGroups.clear();
 			c->qlACL.clear();
@@ -2411,7 +2429,7 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
 	// matter for the client
 	size_t receiverAmount = static_cast< std::size_t >(msg.receiversessions_size());
-	const ::google::protobuf::RepeatedField<::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
+	const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
 
 	msg.clear_receiversessions();
 

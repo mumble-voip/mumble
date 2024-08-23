@@ -65,7 +65,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacement) {
 	fods("HardHook: setupInterface: Replacing %p function #%ld", unkn, funcoffset);
 	void **ptr = reinterpret_cast< void ** >(unkn);
-	ptr        = reinterpret_cast< void ** >(ptr[0]);
+	ptr        = reinterpret_cast< void        **>(ptr[0]);
 	setup(reinterpret_cast< voidFunc >(ptr[funcoffset]), replacement);
 }
 

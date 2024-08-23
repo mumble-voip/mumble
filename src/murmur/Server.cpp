@@ -126,8 +126,8 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		int tcpsock   = static_cast< int >(ss->socketDescriptor());
 		socklen_t len = sizeof(addr);
 #else
-		SOCKET tcpsock        = ss->socketDescriptor();
-		int len               = sizeof(addr);
+		SOCKET tcpsock = ss->socketDescriptor();
+		int len        = sizeof(addr);
 #endif
 		memset(&addr, 0, sizeof(addr));
 		getsockname(tcpsock, reinterpret_cast< struct sockaddr * >(&addr), &len);
@@ -689,7 +689,7 @@ void Server::udpActivated(int socket) {
 	uint8_t controldata[CMSG_SPACE(std::max(sizeof(struct in6_pktinfo), sizeof(struct in_pktinfo)))];
 
 	memset(&msg, 0, sizeof(msg));
-	msg.msg_name       = reinterpret_cast< struct sockaddr * >(&from);
+	msg.msg_name       = reinterpret_cast< struct sockaddr       *>(&from);
 	msg.msg_namelen    = sizeof(from);
 	msg.msg_iov        = iov;
 	msg.msg_iovlen     = 1;
@@ -707,9 +707,9 @@ void Server::udpActivated(int socket) {
 #else
 	int fromlen = static_cast< int >(sizeof(from));
 	SOCKET sock = static_cast< SOCKET >(socket);
-	len         = ::recvfrom(sock, reinterpret_cast< char * >(m_udpDecoder.getBuffer().data()),
-                     static_cast< int >(m_udpDecoder.getBuffer().size()), 0,
-                     reinterpret_cast< struct sockaddr * >(&from), &fromlen);
+	len         = ::recvfrom(sock, reinterpret_cast< char         *>(m_udpDecoder.getBuffer().data()),
+							 static_cast< int >(m_udpDecoder.getBuffer().size()), 0,
+							 reinterpret_cast< struct sockaddr         *>(&from), &fromlen);
 #endif
 
 	gsl::span< Mumble::Protocol::byte > inputData(&m_udpDecoder.getBuffer()[0], static_cast< std::size_t >(len));
@@ -727,13 +727,13 @@ void Server::udpActivated(int socket) {
 			::sendmsg(sock, &msg, 0);
 #else
 #	ifdef Q_OS_WIN
-            using size_type = int;
+			using size_type = int;
 #	else
 			using size_type = std::size_t;
 #	endif
-            ::sendto(sock, reinterpret_cast< const char * >(encodedPing.data()),
-                     static_cast< size_type >(encodedPing.size()), 0, reinterpret_cast< struct sockaddr * >(&from),
-                     fromlen);
+			::sendto(sock, reinterpret_cast< const char * >(encodedPing.data()),
+					 static_cast< size_type >(encodedPing.size()), 0, reinterpret_cast< struct sockaddr * >(&from),
+					 fromlen);
 #endif
 		}
 	}
@@ -844,7 +844,7 @@ void Server::run() {
 				uint8_t controldata[CMSG_SPACE(std::max(sizeof(struct in6_pktinfo), sizeof(struct in_pktinfo)))];
 
 				memset(&msg, 0, sizeof(msg));
-				msg.msg_name       = reinterpret_cast< struct sockaddr * >(&from);
+				msg.msg_name       = reinterpret_cast< struct sockaddr       *>(&from);
 				msg.msg_namelen    = sizeof(from);
 				msg.msg_iov        = iov;
 				msg.msg_iovlen     = 1;
@@ -1048,7 +1048,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 #else
 		std::vector< char > bufVec;
 		bufVec.resize(static_cast< std::size_t >(len + 4));
-		char *buffer    = bufVec.data();
+		char *buffer = bufVec.data();
 #endif
 		{
 			QMutexLocker wl(&u.qmCrypt);
@@ -1079,7 +1079,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 		memset(controldata, 0, sizeof(controldata));
 
 		memset(&msg, 0, sizeof(msg));
-		msg.msg_name    = reinterpret_cast< struct sockaddr * >(&u.saiUdpAddress);
+		msg.msg_name    = reinterpret_cast< struct sockaddr    *>(&u.saiUdpAddress);
 		msg.msg_namelen = static_cast< socklen_t >(
 			(u.saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in));
 		msg.msg_iov        = iov;
@@ -1660,9 +1660,9 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		qhUsers.remove(u->uiSession);
 		qhHostUsers[u->haAddress].remove(u);
 
-		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
-						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
-						   : (reinterpret_cast< sockaddr_in * >(&u->saiUdpAddress)->sin_port);
+		quint16 port                             = (u->saiUdpAddress.ss_family == AF_INET6)
+													   ? (reinterpret_cast< sockaddr_in6                             *>(&u->saiUdpAddress)->sin6_port)
+													   : (reinterpret_cast< sockaddr_in                             *>(&u->saiUdpAddress)->sin_port);
 		const QPair< HostAddress, quint16 > &key = QPair< HostAddress, quint16 >(u->haAddress, port);
 		qhPeerUsers.remove(key);
 
@@ -1855,7 +1855,9 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		chan->unlink(nullptr);
 	}
 
-	foreach (c, chan->qlChannels) { removeChannel(c, dest); }
+	foreach (c, chan->qlChannels) {
+		removeChannel(c, dest);
+	}
 
 	foreach (p, chan->qlUsers) {
 		{
@@ -2136,7 +2138,9 @@ void Server::clearACLCache(User *p) {
 void Server::clearWhisperTargetCache() {
 	QWriteLocker lock(&qrwlVoiceThread);
 
-	foreach (ServerUser *u, qhUsers) { u->qmTargetCache.clear(); }
+	foreach (ServerUser *u, qhUsers) {
+		u->qmTargetCache.clear();
+	}
 }
 
 QString Server::addressToString(const QHostAddress &adr, unsigned short port) {

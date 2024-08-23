@@ -254,7 +254,7 @@ QString Connection::sessionProtocolString() const {
 #if QT_VERSION >= 0x050400
 	return MumbleSSL::protocolToString(sessionProtocol());
 #else
-	return QLatin1String("TLS");  // Cannot determine session cipher. We only know it's some TLS variant
+	return QLatin1String("TLS"); // Cannot determine session cipher. We only know it's some TLS variant
 #endif
 }
 

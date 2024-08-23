@@ -161,7 +161,7 @@ BOOL SetHeapOptions() {
 #	define HeapEnableTerminationOnCorruption (HEAP_INFORMATION_CLASS) 1
 #endif
 
-	BOOL fRet = (pHsi)(nullptr, HeapEnableTerminationOnCorruption, nullptr, 0) ? TRUE : FALSE;
+	BOOL fRet = (pHsi) (nullptr, HeapEnableTerminationOnCorruption, nullptr, 0) ? TRUE : FALSE;
 	if (hLib)
 		FreeLibrary(hLib);
 

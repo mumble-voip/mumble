@@ -172,7 +172,9 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 
 			if (msgBox.exec() == QMessageBox::Yes) {
 				Settings defaultSetting;
-				foreach (ConfigWidget *cw, qmWidgets) { cw->load(defaultSetting); }
+				foreach (ConfigWidget *cw, qmWidgets) {
+					cw->load(defaultSetting);
+				}
 			}
 			break;
 		}

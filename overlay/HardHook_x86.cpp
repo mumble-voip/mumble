@@ -116,7 +116,7 @@ void *HardHook::cloneCode(void **porig) {
 	// end of the chain. Hence these jumps need not be part of the trampoline.
 	while (*o == 0xe9) { // JMP
 		unsigned char *tmp = o;
-		int *iptr          = reinterpret_cast< int * >(o + 1);
+		int *iptr          = reinterpret_cast< int          *>(o + 1);
 		o += *iptr + 5;
 
 		fods("HardHook: CloneCode: Skipping jump from %p to %p", *porig, o);
@@ -205,7 +205,7 @@ void *HardHook::cloneCode(void **porig) {
 
 	// Add a relative jmp back to the original code, to after the copied code
 	n[idx++]              = 0xe9;
-	int *iptr             = reinterpret_cast< int * >(&n[idx]);
+	int *iptr             = reinterpret_cast< int             *>(&n[idx]);
 	const int JMP_OP_SIZE = 5;
 	int offs              = o - n - JMP_OP_SIZE;
 	*iptr                 = offs;
@@ -276,7 +276,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacement) {
 	fods("HardHook: setupInterface: Replacing %p function #%ld", unkn, funcoffset);
 	void **ptr = reinterpret_cast< void ** >(unkn);
-	ptr        = reinterpret_cast< void ** >(ptr[0]);
+	ptr        = reinterpret_cast< void        **>(ptr[0]);
 	setup(reinterpret_cast< voidFunc >(ptr[funcoffset]), replacement);
 }
 

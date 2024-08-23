@@ -78,7 +78,7 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 	}
 #else
 	// For the rest just make sure the string doesn't contain a \0 or any forward-slashes
-	res           = res.replace(QRegExp(QLatin1String("\\x00|/")), QLatin1String("_"));
+	res = res.replace(QRegExp(QLatin1String("\\x00|/")), QLatin1String("_"));
 #endif
 	return res;
 }

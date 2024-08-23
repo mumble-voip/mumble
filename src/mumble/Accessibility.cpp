@@ -18,7 +18,9 @@
 namespace Mumble {
 namespace Accessibility {
 
-	QString removeHTMLTags(QString value) { return value.remove(QRegExp("<[^>]*>")); }
+	QString removeHTMLTags(QString value) {
+		return value.remove(QRegExp("<[^>]*>"));
+	}
 
 	void setDescriptionFromLabel(QWidget *widget, const QLabel *label) {
 		widget->setAccessibleDescription(removeHTMLTags(label->text()));

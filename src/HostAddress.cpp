@@ -126,8 +126,8 @@ std::string HostAddress::toStdString() const {
 }
 
 bool HostAddress::isV6() const {
-	std::uint64_t firstEightBytes      = *(reinterpret_cast< const std::uint64_t * >(m_byteRepresentation.data()));
-	std::uint16_t bytesNineAndTen      = *(reinterpret_cast< const std::uint16_t * >(&m_byteRepresentation[8]));
+	std::uint64_t firstEightBytes      = *(reinterpret_cast< const std::uint64_t      *>(m_byteRepresentation.data()));
+	std::uint16_t bytesNineAndTen      = *(reinterpret_cast< const std::uint16_t      *>(&m_byteRepresentation[8]));
 	std::uint16_t bytesElevenAndTwelve = *(reinterpret_cast< const std::uint16_t * >(&m_byteRepresentation[10]));
 	return firstEightBytes != 0 || bytesNineAndTen != 0 || bytesElevenAndTwelve != 0xFFFF;
 }

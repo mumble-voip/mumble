@@ -209,7 +209,7 @@ void Client::readyRead() {
 			unsigned char b[6];
 			ssl->read(reinterpret_cast< char * >(b), 6);
 
-			ptype    = qFromBigEndian(*reinterpret_cast< quint16 * >(&b[0]));
+			ptype    = qFromBigEndian(*reinterpret_cast< quint16    *>(&b[0]));
 			numbytes = qFromBigEndian(*reinterpret_cast< quint32 * >(&b[2]));
 
 			avail = ssl->bytesAvailable();

@@ -151,10 +151,10 @@ void OverlayClient::updateMouse() {
 			QImage outmask(img.width(), h, QImage::Format_MonoLSB);
 
 			for (int i = 0; i < h; ++i) {
-				const quint32 *srcimg  = reinterpret_cast< const quint32 * >(img.scanLine(i + h));
+				const quint32 *srcimg  = reinterpret_cast< const quint32  *>(img.scanLine(i + h));
 				const quint32 *srcmask = reinterpret_cast< const quint32 * >(img.scanLine(i));
 
-				quint32 *dstimg  = reinterpret_cast< quint32 * >(out.scanLine(i));
+				quint32 *dstimg  = reinterpret_cast< quint32  *>(out.scanLine(i));
 				quint32 *dstmask = reinterpret_cast< quint32 * >(outmask.scanLine(i));
 
 				for (int j = 0; j < w; ++j) {
@@ -579,7 +579,9 @@ void OverlayClient::render() {
 	if (region.isEmpty())
 		return;
 
-	foreach (const QRectF &r, region) { dirtyf |= r; }
+	foreach (const QRectF &r, region) {
+		dirtyf |= r;
+	}
 
 
 	QRect dirty = dirtyf.toAlignedRect();

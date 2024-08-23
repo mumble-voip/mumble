@@ -333,7 +333,9 @@ void Overlay::toggleShow() {
 }
 
 void Overlay::forceSettings() {
-	foreach (OverlayClient *oc, qlClients) { oc->reset(); }
+	foreach (OverlayClient *oc, qlClients) {
+		oc->reset();
+	}
 
 	updateOverlay();
 }

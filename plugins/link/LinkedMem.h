@@ -28,8 +28,8 @@ struct LinkedMem {
 	UINT32 uiVersion = 0;
 	DWORD uiTick     = 0;
 #else
-	uint32_t uiVersion    = 0;
-	uint32_t uiTick       = 0;
+	uint32_t uiVersion = 0;
+	uint32_t uiTick    = 0;
 #endif
 	float fAvatarPosition[3] = { 0 };
 	float fAvatarFront[3]    = { 0 };
@@ -42,7 +42,7 @@ struct LinkedMem {
 #ifdef _WIN32
 	UINT32 context_len = 0;
 #else
-	uint32_t context_len  = 0;
+	uint32_t context_len = 0;
 #endif
 	unsigned char context[256] = { 0 };
 	wchar_t description[2048]  = { 0 };

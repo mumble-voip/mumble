@@ -479,7 +479,7 @@ static bool createSharedDataMap();
 static void checkNoOverlayFile(const std::string &dir) {
 	std::string nooverlay = dir + "\\nooverlay";
 	HANDLE h              = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
-                          FILE_ATTRIBUTE_NORMAL, nullptr);
+									   FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay disable %s found", dir.c_str());
@@ -495,7 +495,7 @@ static void checkDebugOverlayFile(const std::string &dir) {
 	// check for "debugoverlay" file, which would enable overlay debugging
 	std::string debugoverlay = dir + "\\debugoverlay";
 	HANDLE h                 = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
-                          FILE_ATTRIBUTE_NORMAL, nullptr);
+										  FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay debug %s found", debugoverlay.c_str());

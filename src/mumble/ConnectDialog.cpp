@@ -107,7 +107,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN->setExpanded(true);
 	siLAN->setHidden(true);
 #else
-	siLAN         = nullptr;
+	siLAN = nullptr;
 #endif
 
 	if (!Global::get().s.bDisablePublicList) {
@@ -227,7 +227,7 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 		qsHostname = fs.qsHostname;
 	}
 #else
-	qsHostname    = fs.qsHostname;
+	qsHostname = fs.qsHostname;
 #endif
 	init();
 }
@@ -268,7 +268,7 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 		qsHostname = host;
 	}
 #else
-	qsHostname    = host;
+	qsHostname = host;
 #endif
 	init();
 }
@@ -1210,7 +1210,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	else
 		host = si->qsHostname;
 #else
-	host          = si->qsHostname;
+	host = si->qsHostname;
 #endif
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
@@ -1237,7 +1237,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 				si->zeroconfRecord = BonjourRecord();
 			}
 #else
-            si->qsHostname = cde->qsHostname;
+			si->qsHostname = cde->qsHostname;
 #endif
 			startDns(si);
 		}
@@ -1373,7 +1373,9 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 
 	ServerItem *p = static_cast< ServerItem * >(item);
 
-	foreach (ServerItem *si, p->qlChildren) { startDns(si); }
+	foreach (ServerItem *si, p->qlChildren) {
+		startDns(si);
+	}
 }
 
 void ConnectDialog::on_qtwServers_itemCollapsed(QTreeWidgetItem *item) {
@@ -1591,7 +1593,9 @@ void ConnectDialog::timeTick() {
 
 void ConnectDialog::filterPublicServerList() const {
 	if (!Global::get().s.bDisablePublicList) {
-		foreach (ServerItem *const si, qtwServers->siPublic->qlChildren) { filterServer(si); }
+		foreach (ServerItem *const si, qtwServers->siPublic->qlChildren) {
+			filterServer(si);
+		}
 	}
 }
 
@@ -1659,7 +1663,9 @@ void ConnectDialog::startDns(ServerItem *si) {
 		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(!si->qlAddresses.isEmpty());
 
 	if (!si->qlAddresses.isEmpty()) {
-		foreach (const ServerAddress &addr, si->qlAddresses) { qhPings[addr].insert(si); }
+		foreach (const ServerAddress &addr, si->qlAddresses) {
+			qhPings[addr].insert(si);
+		}
 		return;
 	}
 #ifdef USE_ZEROCONF
@@ -1725,12 +1731,16 @@ void ConnectDialog::lookedUp() {
 
 	QSet< ServerAddress > qs;
 	foreach (ServerResolverRecord record, sr->records()) {
-		foreach (const HostAddress &ha, record.addresses()) { qs.insert(ServerAddress(ha, record.port())); }
+		foreach (const HostAddress &ha, record.addresses()) {
+			qs.insert(ServerAddress(ha, record.port()));
+		}
 	}
 
 	QSet< ServerItem * > waiting = qhDNSWait[unresolved];
 	foreach (ServerItem *si, waiting) {
-		foreach (const ServerAddress &addr, qs) { qhPings[addr].insert(si); }
+		foreach (const ServerAddress &addr, qs) {
+			qhPings[addr].insert(si);
+		}
 
 		si->qlAddresses = qs.values();
 	}

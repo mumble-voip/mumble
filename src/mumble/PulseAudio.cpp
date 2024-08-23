@@ -197,7 +197,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	AudioOutputPtr ao     = Global::get().ao;
 	AudioInput *raw_ai    = ai.get();
 	AudioOutput *raw_ao   = ao.get();
-	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput * >(raw_ai);
+	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput  *>(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(raw_ao);
 
 	if (raw_ao) {

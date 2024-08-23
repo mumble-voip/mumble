@@ -30,7 +30,9 @@ namespace QtUtils {
 #endif
 	}
 
-	bool positionIsOnScreen(QPoint point) { return screenAt(point) != nullptr; }
+	bool positionIsOnScreen(QPoint point) {
+		return screenAt(point) != nullptr;
+	}
 
 	void elideText(QTextDocument &doc, uint32_t width) {
 		if (doc.size().width() > width) {
