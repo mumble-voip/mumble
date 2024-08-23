@@ -46,6 +46,6 @@ jobs:
     - name: Check code formatting
       uses: jidicula/clang-format-action@v4.13.0
       with:
-          clang-format-version: '10'
+          clang-format-version: '17'
           check-path: '.'
           exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|.*proto$)'
