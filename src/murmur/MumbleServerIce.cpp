@@ -914,13 +914,34 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
 
+// These macros wrap the body of the impl_* functions in a try...catch
+// block that ensure that any unhandled exceptions that are thrown inside
+// these functions will not prevent the asynchronous method dispatch (AMD)
+// to get hung up mid-operation as this can lead to deadlocks within the
+// Ice code upon an attempted shutdown.
+// These exceptions are re-thrown though as the assumption is that they are
+// handled somewhere further up (outside of the Ice context).
+#define ICE_IMPL_BEGIN try {
+#define ICE_IMPL_END                                 \
+	}                                                \
+	catch (...) {                                    \
+		cb->ice_exception(InternalErrorException()); \
+		throw;                                       \
+	}
+
 #define ACCESS_Server_isRunning_READ
 static void impl_Server_isRunning(const ::MumbleServer::AMD_Server_isRunningPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	cb->ice_response(server != nullptr);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	if (server)
 		cb->ice_exception(ServerBootedException());
@@ -928,15 +949,23 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 		cb->ice_exception(ServerFailureException());
 	else
 		cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_stop(const ::MumbleServer::AMD_Server_stopPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	meta->kill(static_cast< unsigned int >(server_id));
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	if (server) {
 		cb->ice_exception(ServerBootedException());
@@ -944,10 +973,14 @@ static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, in
 	}
 	meta->dbWrapper.removeServer(static_cast< unsigned int >(server_id));
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_addCallback(const MumbleServer::AMD_Server_addCallbackPtr cb, int server_id,
 									const MumbleServer::ServerCallbackPrx &cbptr) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	try {
@@ -958,10 +991,14 @@ static void impl_Server_addCallback(const MumbleServer::AMD_Server_addCallbackPt
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_removeCallback(const MumbleServer::AMD_Server_removeCallbackPtr cb, int server_id,
 									   const MumbleServer::ServerCallbackPrx &cbptr) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	try {
@@ -972,10 +1009,14 @@ static void impl_Server_removeCallback(const MumbleServer::AMD_Server_removeCall
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAuthenticatorPtr &cb, int server_id,
 										 const ::MumbleServer::ServerAuthenticatorPrx &aptr) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	if (mi->getServerAuthenticator(server))
@@ -1000,17 +1041,25 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 		server->connectAuthenticator(mi);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_id_READ
 static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	cb->ice_response(server_id);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getConf_READ
 static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, int server_id,
 								const ::std::string &key) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	if (key == "key" || key == "passphrase") {
 		cb->ice_exception(WriteOnlyException());
@@ -1019,10 +1068,14 @@ static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, 
 		server->m_dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key, conf);
 		cb->ice_response(iceString(conf));
 	}
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getAllConf_READ
 static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 
 	::MumbleServer::ConfigMap cm;
@@ -1037,10 +1090,14 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 		cm[iceString(currentConf.first)] = iceString(currentConf.second);
 	}
 	cb->ice_response(cm);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, int server_id, const ::std::string &key,
 								const ::std::string &value) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	server->m_dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key, value);
 
@@ -1050,18 +1107,26 @@ static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, 
 	}
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_setSuperuserPasswordPtr cb, int server_id,
 											 const ::std::string &pw) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 	server->m_dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw);
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getLog_READ
 static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, int server_id, ::Ice::Int min,
 							   ::Ice::Int max) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 
 	::MumbleServer::LogList ll;
@@ -1074,18 +1139,26 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 		ll.push_back(le);
 	}
 	cb->ice_response(ll);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getLogLen_READ
 static void impl_Server_getLogLen(const ::MumbleServer::AMD_Server_getLogLenPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER_EXISTS;
 
 	std::size_t len = server->m_dbWrapper.getLogSize(static_cast< unsigned int >(server_id));
 	cb->ice_response(static_cast< Ice::Int >(len));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getUsers_READ
 static void impl_Server_getUsers(const ::MumbleServer::AMD_Server_getUsersPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::MumbleServer::UserMap pm;
 	foreach (const ::User *p, server->qhUsers) {
@@ -1096,10 +1169,14 @@ static void impl_Server_getUsers(const ::MumbleServer::AMD_Server_getUsersPtr cb
 		}
 	}
 	cb->ice_response(pm);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getChannels_READ
 static void impl_Server_getChannels(const ::MumbleServer::AMD_Server_getChannelsPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::MumbleServer::ChannelMap cm;
 	foreach (const ::Channel *c, server->qhChannels) {
@@ -1108,6 +1185,8 @@ static void impl_Server_getChannels(const ::MumbleServer::AMD_Server_getChannels
 		cm[static_cast< int >(c->iId)] = mc;
 	}
 	cb->ice_response(cm);
+
+	ICE_IMPL_END
 }
 
 static bool userSort(const ::User *a, const ::User *b) {
@@ -1140,13 +1219,19 @@ TreePtr recurseTree(const ::Channel *c) {
 
 #define ACCESS_Server_getTree_READ
 static void impl_Server_getTree(const ::MumbleServer::AMD_Server_getTreePtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	cb->ice_response(recurseTree(server->qhChannels.value(0)));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getCertificateList_READ
 static void impl_Server_getCertificateList(const ::MumbleServer::AMD_Server_getCertificateListPtr cb, int server_id,
 										   ::Ice::Int session) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -1165,10 +1250,14 @@ static void impl_Server_getCertificateList(const ::MumbleServer::AMD_Server_getC
 		certs[static_cast< std::size_t >(i)] = der;
 	}
 	cb->ice_response(certs);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getBans_READ
 static void impl_Server_getBans(const ::MumbleServer::AMD_Server_getBansPtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::MumbleServer::BanList bl;
 	for (const ::Ban &ban : server->m_bans) {
@@ -1177,10 +1266,14 @@ static void impl_Server_getBans(const ::MumbleServer::AMD_Server_getBansPtr cb, 
 		bl.push_back(mb);
 	}
 	cb->ice_response(bl);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setBans(const ::MumbleServer::AMD_Server_setBansPtr cb, int server_id,
 								const ::MumbleServer::BanList &bans) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
@@ -1195,10 +1288,14 @@ static void impl_Server_setBans(const ::MumbleServer::AMD_Server_setBansPtr cb, 
 	server->m_dbWrapper.saveBans(server->iServerNum, server->m_bans);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_kickUser(const ::MumbleServer::AMD_Server_kickUserPtr cb, int server_id, ::Ice::Int session,
 								 const ::std::string &reason) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -1208,38 +1305,54 @@ static void impl_Server_kickUser(const ::MumbleServer::AMD_Server_kickUserPtr cb
 	server->sendAll(mpur);
 	user->disconnectSocket();
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_sendMessage(const ::MumbleServer::AMD_Server_sendMessagePtr cb, int server_id,
 									::Ice::Int session, const ::std::string &text) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
 	server->sendTextMessage(nullptr, user, false, u8(text));
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_hasPermission_READ
 static void impl_Server_hasPermission(const ::MumbleServer::AMD_Server_hasPermissionPtr cb, int server_id,
 									  ::Ice::Int session, ::Ice::Int channelid, ::Ice::Int perm) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
 	cb->ice_response(server->hasPermission(user, channel, static_cast< ChanACL::Perm >(perm)));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_effectivePermissions_READ
 static void impl_Server_effectivePermissions(const ::MumbleServer::AMD_Server_effectivePermissionsPtr cb, int server_id,
 											 ::Ice::Int session, ::Ice::Int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
 	cb->ice_response(static_cast< int >(server->effectivePermissions(user, channel)));
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addContextCallbackPtr cb, int server_id,
 										   ::Ice::Int session, const ::std::string &action, const ::std::string &text,
 										   const ::MumbleServer::ServerContextCallbackPrx &cbptr, int ctx) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -1277,10 +1390,14 @@ static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addCon
 	mpcam.set_context(static_cast< unsigned int >(ctx));
 	mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Add);
 	server->sendMessage(user, mpcam);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_removeContextCallback(const MumbleServer::AMD_Server_removeContextCallbackPtr cb, int server_id,
 											  const MumbleServer::ServerContextCallbackPrx &cbptr) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmPrx =
@@ -1310,20 +1427,28 @@ static void impl_Server_removeContextCallback(const MumbleServer::AMD_Server_rem
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getState_READ
 static void impl_Server_getState(const ::MumbleServer::AMD_Server_getStatePtr cb, int server_id, ::Ice::Int session) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
 	::MumbleServer::User mp;
 	userToUser(user, mp);
 	cb->ice_response(mp);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setState(const ::MumbleServer::AMD_Server_setStatePtr cb, int server_id,
 								 const ::MumbleServer::User &state) {
+	ICE_IMPL_BEGIN
+
 	int session = state.session;
 	::Channel *channel;
 	NEED_SERVER;
@@ -1333,30 +1458,42 @@ static void impl_Server_setState(const ::MumbleServer::AMD_Server_setStatePtr cb
 	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, state.prioritySpeaker, u8(state.name),
 						 u8(state.comment));
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_sendMessageChannel(const ::MumbleServer::AMD_Server_sendMessageChannelPtr cb, int server_id,
 										   ::Ice::Int channelid, bool tree, const ::std::string &text) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
 	server->sendTextMessage(channel, nullptr, tree, u8(text));
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getChannelState_READ
 static void impl_Server_getChannelState(const ::MumbleServer::AMD_Server_getChannelStatePtr cb, int server_id,
 										::Ice::Int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
 	::MumbleServer::Channel mc;
 	channelToChannel(channel, mc);
 	cb->ice_response(mc);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChannelStatePtr cb, int server_id,
 										const ::MumbleServer::Channel &state) {
+	ICE_IMPL_BEGIN
+
 	int channelid = state.id;
 	NEED_SERVER;
 	NEED_CHANNEL;
@@ -1383,10 +1520,14 @@ static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChan
 		cb->ice_exception(::MumbleServer::InvalidChannelException());
 	else
 		cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_removeChannel(const ::MumbleServer::AMD_Server_removeChannelPtr cb, int server_id,
 									  ::Ice::Int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1396,10 +1537,14 @@ static void impl_Server_removeChannel(const ::MumbleServer::AMD_Server_removeCha
 		server->removeChannel(channel);
 		cb->ice_response();
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPtr cb, int server_id,
 								   const ::std::string &name, ::Ice::Int parent) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
@@ -1425,10 +1570,14 @@ static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPt
 	server->sendAll(mpcs);
 
 	cb->ice_response(static_cast< int >(newid));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getACL_READ
 static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, int server_id, ::Ice::Int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1492,11 +1641,15 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 		groups.push_back(mg);
 	}
 	cb->ice_response(acls, groups, inherit);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, int server_id, ::Ice::Int channelid,
 							   const ::MumbleServer::ACLList &acls, const ::MumbleServer::GroupList &groups,
 							   bool inherit) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1552,22 +1705,30 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 		server->m_dbWrapper.updateChannelData(server->iServerNum, *channel);
 	}
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getUserNames_READ
 static void impl_Server_getUserNames(const ::MumbleServer::AMD_Server_getUserNamesPtr cb, int server_id,
 									 const ::MumbleServer::IdList &ids) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::MumbleServer::NameMap nm;
 	for (int userid : ids) {
 		nm[userid] = iceString(server->getRegisteredUserName(userid));
 	}
 	cb->ice_response(nm);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getUserIds_READ
 static void impl_Server_getUserIds(const ::MumbleServer::AMD_Server_getUserIdsPtr cb, int server_id,
 								   const ::MumbleServer::NameList &names) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	::MumbleServer::IdMap im;
 	foreach (const string &n, names) {
@@ -1575,10 +1736,14 @@ static void impl_Server_getUserIds(const ::MumbleServer::AMD_Server_getUserIdsPt
 		im[n]        = server->getRegisteredUserID(name);
 	}
 	cb->ice_response(im);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUserPtr cb, int server_id,
 									 const ::MumbleServer::UserInfoMap &im) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	ServerUserInfo info;
@@ -1590,10 +1755,14 @@ static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUs
 		cb->ice_exception(InvalidUserException());
 	else
 		cb->ice_response(userid);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_unregisterUser(const ::MumbleServer::AMD_Server_unregisterUserPtr cb, int server_id,
 									   ::Ice::Int userid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	bool success = server->unregisterUser(userid);
@@ -1603,10 +1772,14 @@ static void impl_Server_unregisterUser(const ::MumbleServer::AMD_Server_unregist
 	} else {
 		cb->ice_response();
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_updateRegistrationPtr cb, int server_id,
 										   int id, const ::MumbleServer::UserInfoMap &im) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	if (server->getRegisteredUserName(id).isEmpty()) {
@@ -1631,11 +1804,15 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 	}
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getRegistration_READ
 static void impl_Server_getRegistration(const ::MumbleServer::AMD_Server_getRegistrationPtr cb, int server_id,
 										::Ice::Int userid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	QMap< int, QString > info = server->getUserProperties(userid);
@@ -1648,11 +1825,15 @@ static void impl_Server_getRegistration(const ::MumbleServer::AMD_Server_getRegi
 	MumbleServer::UserInfoMap im;
 	infoToInfo(info, im);
 	cb->ice_response(im);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getRegisteredUsers_READ
 static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getRegisteredUsersPtr cb, int server_id,
 										   const ::std::string &filter) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	MumbleServer::NameMap rpl;
 
@@ -1662,19 +1843,27 @@ static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getR
 	}
 
 	cb->ice_response(rpl);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_verifyPassword_READ
 static void impl_Server_verifyPassword(const ::MumbleServer::AMD_Server_verifyPasswordPtr cb, int server_id,
 									   const ::std::string &name, const ::std::string &pw) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	QString uname = u8(name);
 	cb->ice_response(server->authenticate(uname, u8(pw)));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getTexture_READ
 static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePtr cb, int server_id,
 								   ::Ice::Int userid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	if (!server->getRegisteredUserName(userid).isEmpty()) {
@@ -1691,10 +1880,14 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 		tex[i] = static_cast< unsigned char >(ptr[i]);
 
 	cb->ice_response(tex);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePtr cb, int server_id, ::Ice::Int userid,
 								   const ::MumbleServer::Texture &tex) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	if (!server->getRegisteredUserName(userid).isEmpty()) {
@@ -1728,17 +1921,25 @@ static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePt
 
 		cb->ice_response();
 	}
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Server_getUptime_READ
 static void impl_Server_getUptime(const ::MumbleServer::AMD_Server_getUptimePtr cb, int server_id) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	cb->ice_response(static_cast< int >(server->tUptime.elapsed() / 1000000LL));
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_updateCertificate(const ::MumbleServer::AMD_Server_updateCertificatePtr cb, int server_id,
 										  const ::std::string &certificate, const ::std::string &privateKey,
 										  const ::std::string &passphrase) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	QByteArray certPem(certificate.c_str());
@@ -1781,10 +1982,14 @@ static void impl_Server_updateCertificate(const ::MumbleServer::AMD_Server_updat
 	}
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_startListening(const ::MumbleServer::AMD_Server_startListeningPtr cb, int server_id,
 									   int session, int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1792,10 +1997,14 @@ static void impl_Server_startListening(const ::MumbleServer::AMD_Server_startLis
 	server->startListeningToChannel(user, channel);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_stopListening(const ::MumbleServer::AMD_Server_stopListeningPtr cb, int server_id, int session,
 									  int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1803,19 +2012,27 @@ static void impl_Server_stopListening(const ::MumbleServer::AMD_Server_stopListe
 	server->stopListeningToChannel(user, channel);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_isListening(const ::MumbleServer::AMD_Server_isListeningPtr cb, int server_id, int session,
 									int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
 
 	cb->ice_response(server->m_channelListenerManager.isListening(user->uiSession, channel->iId));
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_getListeningChannelsPtr cb, int server_id,
 											 int session) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -1825,10 +2042,14 @@ static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_ge
 	}
 
 	cb->ice_response(channelIDs);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getListeningUsersPtr cb, int server_id,
 										  int channelid) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1838,10 +2059,14 @@ static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getLi
 	}
 
 	cb->ice_response(userSessions);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_sendWelcomeMessagePtr cb, int server_id,
 										   ::MumbleServer::IdList receiverUserIDs) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 
 	for (int session : receiverUserIDs) {
@@ -1851,20 +2076,28 @@ static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_send
 	}
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_getListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_getListenerVolumeAdjustmentPtr cb,
 													int server_id, int channelid, int session) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
 
 	cb->ice_response(
 		server->m_channelListenerManager.getListenerVolumeAdjustment(user->uiSession, channel->iId).factor);
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_setListenerVolumeAdjustmentPtr cb,
 													int server_id, int channelid, int session, float volumeAdjustment) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1873,10 +2106,14 @@ static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Se
 	server->setListenerVolumeAdjustment(user, channel, VolumeAdjustment::fromFactor(volumeAdjustment));
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_addUserToGroup(const ::MumbleServer::AMD_Server_addUserToGroupPtr cb, int server_id,
 									   ::Ice::Int channelid, ::Ice::Int session, const ::std::string &group) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
@@ -1900,10 +2137,14 @@ static void impl_Server_addUserToGroup(const ::MumbleServer::AMD_Server_addUserT
 	server->clearACLCache(user);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_removeUserFromGroup(const ::MumbleServer::AMD_Server_removeUserFromGroupPtr cb, int server_id,
 											::Ice::Int channelid, ::Ice::Int session, const ::std::string &group) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
@@ -1927,11 +2168,15 @@ static void impl_Server_removeUserFromGroup(const ::MumbleServer::AMD_Server_rem
 	server->clearACLCache(user);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 static void impl_Server_redirectWhisperGroup(const ::MumbleServer::AMD_Server_redirectWhisperGroupPtr cb, int server_id,
 											 ::Ice::Int session, const ::std::string &source,
 											 const ::std::string &target) {
+	ICE_IMPL_BEGIN
+
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -1950,41 +2195,61 @@ static void impl_Server_redirectWhisperGroup(const ::MumbleServer::AMD_Server_re
 	server->clearACLCache(user);
 
 	cb->ice_response();
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getSliceChecksums_ALL
 static void impl_Meta_getSliceChecksums(const ::MumbleServer::AMD_Meta_getSliceChecksumsPtr cb,
 										const Ice::ObjectAdapterPtr) {
+	ICE_IMPL_BEGIN
+
 	cb->ice_response(::Ice::sliceChecksums());
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getServer_READ
 static void impl_Meta_getServer(const ::MumbleServer::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter,
 								::Ice::Int id) {
+	ICE_IMPL_BEGIN
+
 	if (!meta->dbWrapper.serverExists(static_cast< unsigned int >(id))) {
 		cb->ice_response(nullptr);
 	} else {
 		cb->ice_response(idToProxy(static_cast< unsigned int >(id), adapter));
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Meta_newServer(const ::MumbleServer::AMD_Meta_newServerPtr cb, const Ice::ObjectAdapterPtr adapter) {
+	ICE_IMPL_BEGIN
+
 	cb->ice_response(idToProxy(meta->dbWrapper.addServer(), adapter));
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getAllServers_READ
 static void impl_Meta_getAllServers(const ::MumbleServer::AMD_Meta_getAllServersPtr cb,
 									const Ice::ObjectAdapterPtr adapter) {
+	ICE_IMPL_BEGIN
+
 	::MumbleServer::ServerList sl;
 
 	for (unsigned int id : meta->dbWrapper.getAllServers()) {
 		sl.push_back(idToProxy(id, adapter));
 	}
 	cb->ice_response(sl);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getDefaultConf_READ
 static void impl_Meta_getDefaultConf(const ::MumbleServer::AMD_Meta_getDefaultConfPtr cb, const Ice::ObjectAdapterPtr) {
+	ICE_IMPL_BEGIN
+
 	::MumbleServer::ConfigMap cm;
 	QMap< QString, QString >::const_iterator i;
 	for (i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
@@ -1993,28 +2258,40 @@ static void impl_Meta_getDefaultConf(const ::MumbleServer::AMD_Meta_getDefaultCo
 		cm[iceString(i.key())] = iceString(i.value());
 	}
 	cb->ice_response(cm);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getBootedServers_READ
 static void impl_Meta_getBootedServers(const ::MumbleServer::AMD_Meta_getBootedServersPtr cb,
 									   const Ice::ObjectAdapterPtr adapter) {
+	ICE_IMPL_BEGIN
+
 	::MumbleServer::ServerList sl;
 
 	foreach (unsigned int id, meta->qhServers.keys())
 		sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getVersion_ALL
 static void impl_Meta_getVersion(const ::MumbleServer::AMD_Meta_getVersionPtr cb, const Ice::ObjectAdapterPtr) {
+	ICE_IMPL_BEGIN
+
 	Version::component_t major, minor, patch;
 	QString txt;
 	::Meta::getVersion(major, minor, patch, txt);
 	cb->ice_response(major, minor, patch, iceString(txt));
+
+	ICE_IMPL_END
 }
 
 static void impl_Meta_addCallback(const MumbleServer::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr,
 								  const MumbleServer::MetaCallbackPrx &cbptr) {
+	ICE_IMPL_BEGIN
+
 	try {
 		const MumbleServer::MetaCallbackPrx &oneway = MumbleServer::MetaCallbackPrx::checkedCast(
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
@@ -2023,10 +2300,14 @@ static void impl_Meta_addCallback(const MumbleServer::AMD_Meta_addCallbackPtr cb
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+
+	ICE_IMPL_END
 }
 
 static void impl_Meta_removeCallback(const MumbleServer::AMD_Meta_removeCallbackPtr cb, const Ice::ObjectAdapterPtr,
 									 const MumbleServer::MetaCallbackPrx &cbptr) {
+	ICE_IMPL_BEGIN
+
 	try {
 		const MumbleServer::MetaCallbackPrx &oneway = MumbleServer::MetaCallbackPrx::uncheckedCast(
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
@@ -2035,12 +2316,21 @@ static void impl_Meta_removeCallback(const MumbleServer::AMD_Meta_removeCallback
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+
+	ICE_IMPL_END
 }
 
 #define ACCESS_Meta_getUptime_ALL
 static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, const Ice::ObjectAdapterPtr) {
+	ICE_IMPL_BEGIN
+
 	cb->ice_response(static_cast< int >(meta->tUptime.elapsed() / 1000000LL));
+
+	ICE_IMPL_END
 }
+
+#undef ICE_IMPL_BEGIN
+#undef ICE_IMPL_END
 
 #include "MumbleServerIceWrapper.cpp"
 

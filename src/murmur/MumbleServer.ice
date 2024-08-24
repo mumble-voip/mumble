@@ -265,6 +265,8 @@ module MumbleServer
 	};
 
 	exception MurmurException {};
+	/** Thrown if the server encounters an internal error while processing the request */
+	exception InternalErrorException extends MurmurException {};
 	/** This is thrown when you specify an invalid session. This may happen if the user has disconnected since your last call to {@link Server.getUsers}. See {@link User.session} */
 	exception InvalidSessionException extends MurmurException {};
 	/** This is thrown when you specify an invalid channel id. This may happen if the channel was removed by another provess. It can also be thrown if you try to add an invalid channel. */
