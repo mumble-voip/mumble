@@ -20,11 +20,11 @@
 #include "HostAddress.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
+#include "QtUtils.h"
 #include "Timer.h"
 #include "User.h"
 #include "Version.h"
 #include "VolumeAdjustment.h"
-#include "QtUtils.h"
 
 #include "database/ConnectionParameter.h"
 

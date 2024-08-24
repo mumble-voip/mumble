@@ -81,9 +81,7 @@ namespace QtUtils {
 
 	bool operator>(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs) { return lhs.m_str > rhs; }
 
-	bool operator>(const CaseInsensitiveQString &lhs, const QString &rhs) {
-		return rhs <= lhs;
-	}
+	bool operator>(const CaseInsensitiveQString &lhs, const QString &rhs) { return rhs <= lhs; }
 
 	bool operator>=(const QString &lhs, const CaseInsensitiveQString &rhs) {
 		return lhs.compare(rhs.m_str, Qt::CaseInsensitive) >= 0;
