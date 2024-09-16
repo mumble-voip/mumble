@@ -24,18 +24,7 @@ void MumbleSSL::initialize() {
 	SSL_library_init(); // Safe to discard return value, per OpenSSL man pages.
 	SSL_load_error_strings();
 
-	// Determine if a locking callback has not been set.
-	// This should be the case if there are multiple copies
-	// of OpensSSL in the address space. This is mostly due
-	// to Qt dynamically loading OpenSSL when it is not
-	// configured with -openssl-linked.
-	//
-	// If we detect that no locking callback is configured, we
-	// have to set it up ourselves to allow multi-threaded use
-	// of OpenSSL.
-	if (!CRYPTO_get_locking_callback()) {
-		SSLLocks::initialize();
-	}
+	SSLLocks::initialize();
 }
 
 void MumbleSSL::destroy() {
