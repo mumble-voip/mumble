@@ -7,7 +7,7 @@ add_executable(TestAudioReceiverBuffer TestAudioReceiverBuffer.cpp)
 
 set_target_properties(TestAudioReceiverBuffer PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestAudioReceiverBuffer PRIVATE shared Qt5::Test)
+target_link_libraries(TestAudioReceiverBuffer PRIVATE shared Qt6::Test)
 
 target_include_directories(TestAudioReceiverBuffer PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 

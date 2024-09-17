@@ -7,6 +7,6 @@ add_executable(TestPasswordGenerator TestPasswordGenerator.cpp)
 
 set_target_properties(TestPasswordGenerator PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestPasswordGenerator PRIVATE shared Qt5::Test)
+target_link_libraries(TestPasswordGenerator PRIVATE shared Qt6::Test)
 
 add_test(NAME TestPasswordGenerator COMMAND $<TARGET_FILE:TestPasswordGenerator>)

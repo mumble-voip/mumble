@@ -7,6 +7,6 @@ add_executable(TestStdAbs TestStdAbs.cpp)
 
 set_target_properties(TestStdAbs PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestStdAbs PRIVATE shared Qt5::Test)
+target_link_libraries(TestStdAbs PRIVATE shared Qt6::Test)
 
 add_test(NAME TestStdAbs COMMAND $<TARGET_FILE:TestStdAbs>)

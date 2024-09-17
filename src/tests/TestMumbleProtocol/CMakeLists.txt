@@ -7,6 +7,6 @@ add_executable(TestMumbleProtocol TestMumbleProtocol.cpp)
 
 set_target_properties(TestMumbleProtocol PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestMumbleProtocol PRIVATE shared Qt5::Test)
+target_link_libraries(TestMumbleProtocol PRIVATE shared Qt6::Test)
 
 add_test(NAME TestMumbleProtocol COMMAND $<TARGET_FILE:TestMumbleProtocol>)

@@ -28,8 +28,6 @@ struct UpdateWidgetPair {
 /// A helper struct to store a pair of a plugin ID  and an URL corresponding to
 /// the same plugin.
 struct UpdateEntry {
-	UpdateEntry() = default;
-
 	plugin_id_t pluginID = std::numeric_limits< plugin_id_t >::max();
 	QUrl updateURL;
 	QString fileName;

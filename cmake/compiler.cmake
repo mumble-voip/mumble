@@ -66,9 +66,6 @@ if(MSVC)
 			"/ignore:4099"
 		)
 	endif()
-
-	# Workaround for MSVC 17.8 breaking change. (fixed in Qt 5.15.17)
-	add_compile_definitions(_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING)
 elseif(UNIX OR MINGW)
 	add_compile_options(
 		"-fvisibility=hidden"

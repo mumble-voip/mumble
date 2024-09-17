@@ -7,6 +7,6 @@ add_executable(TestServerResolver TestServerResolver.cpp)
 
 set_target_properties(TestServerResolver PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestServerResolver PRIVATE shared Qt5::Test)
+target_link_libraries(TestServerResolver PRIVATE shared Qt6::Test)
 
 add_test(NAME TestServerResolver COMMAND $<TARGET_FILE:TestServerResolver>)

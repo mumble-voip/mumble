@@ -18,6 +18,6 @@ set_target_properties(TestXMLTools PROPERTIES AUTOMOC ON)
 
 target_include_directories(TestXMLTools PRIVATE ${MUMBLE_SOURCE_DIR})
 
-target_link_libraries(TestXMLTools PRIVATE shared Qt5::Test)
+target_link_libraries(TestXMLTools PRIVATE shared Qt6::Test)
 
 add_test(NAME TestXMLTools COMMAND $<TARGET_FILE:TestXMLTools>)

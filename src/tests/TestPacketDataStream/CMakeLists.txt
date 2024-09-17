@@ -7,6 +7,6 @@ add_executable(TestPacketDataStream TestPacketDataStream.cpp)
 
 set_target_properties(TestPacketDataStream PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestPacketDataStream PRIVATE shared Qt5::Test)
+target_link_libraries(TestPacketDataStream PRIVATE shared Qt6::Test)
 
 add_test(NAME TestPacketDataStream COMMAND $<TARGET_FILE:TestPacketDataStream>)

@@ -7,6 +7,6 @@ add_executable(TestServerAddress TestServerAddress.cpp)
 
 set_target_properties(TestServerAddress PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestServerAddress PRIVATE shared Qt5::Test)
+target_link_libraries(TestServerAddress PRIVATE shared Qt6::Test)
 
 add_test(NAME TestServerAddress COMMAND $<TARGET_FILE:TestServerAddress>)

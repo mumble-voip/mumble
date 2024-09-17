@@ -73,7 +73,7 @@ if(MSVC)
 	option(elevation "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate." OFF)
 endif()
 
-find_pkg(Qt5
+find_pkg(Qt6
 	COMPONENTS
 		Concurrent
 		Sql
@@ -541,24 +541,24 @@ target_link_libraries(mumble_client_object_lib
 	PUBLIC
 		shared
 		utfcpp
-		Qt5::Concurrent
-		Qt5::Sql
-		Qt5::Svg
-		Qt5::Widgets
+		Qt6::Concurrent
+		Qt6::Sql
+		Qt6::Svg
+		Qt6::Widgets
 )
 
 if(static)
-	if(TARGET Qt5::QSQLiteDriverPlugin)
+	if(TARGET Qt6::QSQLiteDriverPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSQLiteDriverPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSQLiteDriverPlugin)
 	endif()
-	if(TARGET Qt5::QSvgIconPlugin)
+	if(TARGET Qt6::QSvgIconPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgIconPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSvgIconPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgIconPlugin)
 	endif()
-	if(TARGET Qt5::QSvgPlugin)
+	if(TARGET Qt6::QSvgPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSvgPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgPlugin)
 	endif()
 endif()
 
@@ -596,9 +596,9 @@ if(WIN32)
 		REQUIRED
 	)
 
-	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
+	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QWindowsIntegrationPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
 	add_subdirectory("${3RDPARTY_DIR}/SPSCQueue" "${CMAKE_CURRENT_BINARY_DIR}/SPSCQueue" EXCLUDE_FROM_ALL)
@@ -648,9 +648,9 @@ else()
 			target_compile_definitions(mumble_client_object_lib PUBLIC "NO_XINPUT2")
 		endif()
 
-		if(static AND TARGET Qt5::QXcbIntegrationPlugin)
+		if(static AND TARGET Qt6::QXcbIntegrationPlugin)
 			include_qt_plugin(mumble_client_object_lib PRIVATE QXcbIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QXcbIntegrationPlugin)
+			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QXcbIntegrationPlugin)
 		endif()
 
 		target_sources(mumble_client_object_lib
@@ -685,9 +685,9 @@ else()
 				"os_macx.mm"
 		)
 
-		if(static AND TARGET Qt5::QCocoaIntegrationPlugin)
+		if(static AND TARGET Qt6::QCocoaIntegrationPlugin)
 			include_qt_plugin(mumble_client_object_lib PRIVATE QCocoaIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QCocoaIntegrationPlugin)
+			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QCocoaIntegrationPlugin)
 		endif()
 
 		target_link_libraries(mumble_client_object_lib
@@ -769,9 +769,9 @@ if(renamenoise)
 endif()
 
 if(qtspeech)
-	find_pkg(Qt5 COMPONENTS TextToSpeech REQUIRED)
+	find_pkg(Qt6 COMPONENTS TextToSpeech REQUIRED)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech.cpp")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::TextToSpeech)
+	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::TextToSpeech)
 elseif(WIN32)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_win.cpp")
 	if(MINGW)
@@ -822,7 +822,7 @@ if(NOT update)
 endif()
 
 if(NOT WIN32 AND NOT APPLE)
-	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
+	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble_client_object_lib
 		PRIVATE
@@ -831,7 +831,7 @@ if(NOT WIN32 AND NOT APPLE)
 	)
 	
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::DBus)
+	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::DBus)
 endif()
 
 if(translations)

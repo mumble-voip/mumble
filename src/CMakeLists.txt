@@ -17,7 +17,7 @@ option(tracy "Enable the tracy profiler." OFF)
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 
 
-find_pkg(Qt5
+find_pkg(Qt6
 	COMPONENTS
 		Core
 		Network
@@ -176,9 +176,9 @@ target_link_libraries(shared
 		protobuf::libprotobuf
 		OpenSSL::Crypto
 		OpenSSL::SSL
-		Qt5::Core
-		Qt5::Network
-		Qt5::Xml
+		Qt6::Core
+		Qt6::Network
+		Qt6::Xml
 )
 
 if(WIN32)
