@@ -73,7 +73,6 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QImageReader>
 #include <QtGui/QScreen>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
@@ -426,7 +425,11 @@ void MainWindow::setupGui() {
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
 	menubar->insertMenu(qmHelp->menuAction(), qmWindow);
+#	if QT_VERSION >= 0x060400
+	qmWindow->addAction(tr("Minimize"), QKeySequence(tr("Ctrl+M")), this, &MainWindow::showMinimized);
+#	else
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
+#	endif
 
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -610,7 +613,11 @@ void MainWindow::msgBox(QString msg) {
 }
 
 #ifdef Q_OS_WIN
+#	if QT_VERSION >= 0x060000
+bool MainWindow::nativeEvent(const QByteArray &, void *message, qintptr *) {
+#	else
 bool MainWindow::nativeEvent(const QByteArray &, void *message, long *) {
+#	endif
 	MSG *msg = reinterpret_cast< MSG * >(message);
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;

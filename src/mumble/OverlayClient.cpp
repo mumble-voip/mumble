@@ -138,14 +138,23 @@ void OverlayClient::updateMouse() {
 		extern QPixmap qt_pixmapFromWinHBITMAP(HBITMAP bitmap, int format = 0);
 
 		if (info.hbmColor) {
+#		if QT_VERSION >= 0x060000
+			pm = QBitmap::fromPixmap(qt_pixmapFromWinHBITMAP(info.hbmColor));
+			pm.setMask(QBitmap::fromPixmap(qt_pixmapFromWinHBITMAP(info.hbmMask)));
+#		else
 			pm = qt_pixmapFromWinHBITMAP(info.hbmColor);
 			pm.setMask(QBitmap(qt_pixmapFromWinHBITMAP(info.hbmMask)));
+#		endif
 		} else {
-			QBitmap orig(qt_pixmapFromWinHBITMAP(info.hbmMask));
-			QImage img = orig.toImage();
+#		if QT_VERSION >= 0x060000
+			const auto orig = QBitmap::fromPixmap(qt_pixmapFromWinHBITMAP(info.hbmMask));
+#		else
+			const QBitmap orig(qt_pixmapFromWinHBITMAP(info.hbmMask));
+#		endif
+			const QImage img = orig.toImage();
 
-			int h = img.height() / 2;
-			int w = img.bytesPerLine() / sizeof(quint32);
+			const int h         = img.height() / 2;
+			const std::size_t w = img.bytesPerLine() / sizeof(quint32);
 
 			QImage out(img.width(), h, QImage::Format_MonoLSB);
 			QImage outmask(img.width(), h, QImage::Format_MonoLSB);
@@ -258,7 +267,7 @@ void OverlayClient::showGui() {
 	Global::get().mw->qteChat->setFocus();
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
-	qApp->setActiveWindow(&qgv);
+	qgv.activateWindow();
 	qgv.setFocus();
 
 	ougUsers.bShowExamples = true;

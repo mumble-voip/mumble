@@ -94,7 +94,11 @@ GKeyLibrary::GKeyLibrary() {
 	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, 0, KEY_READ, &key) == ERROR_SUCCESS) {
 		LONG err = RegQueryValueEx(key, L"", nullptr, &type, reinterpret_cast< LPBYTE >(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
-			QString qsLocation = QString::fromUtf16(reinterpret_cast< ushort * >(wcLocation), len / 2);
+#if QT_VERSION >= 0x060000
+			const auto qsLocation = QString::fromUtf16(reinterpret_cast< char16_t * >(wcLocation), len / 2);
+#else
+			const auto qsLocation = QString::fromUtf16(reinterpret_cast< ushort * >(wcLocation), len / 2);
+#endif
 			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation),
 					 static_cast< unsigned long >(len));
 			alternatives << qsLocation;

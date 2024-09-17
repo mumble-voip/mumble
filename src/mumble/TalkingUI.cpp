@@ -508,14 +508,21 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	bool foundTarget = false;
 
 	for (auto &currentContainer : m_containers) {
-		QRect containerArea(currentContainer->getWidget()->mapToGlobal({ 0, 0 }),
-							currentContainer->getWidget()->size());
-
+		const QRect containerArea(currentContainer->getWidget()->mapToGlobal(QPoint(0, 0)),
+								  currentContainer->getWidget()->size());
+#if QT_VERSION >= 0x060000
+		if (containerArea.contains(event->globalPosition().toPoint())) {
+#else
 		if (containerArea.contains(event->globalPos())) {
+#endif
 			for (auto &currentEntry : currentContainer->getEntries()) {
-				QRect entryArea(currentEntry->getWidget()->mapToGlobal({ 0, 0 }), currentEntry->getWidget()->size());
-
+				const QRect entryArea(currentEntry->getWidget()->mapToGlobal(QPoint(0, 0)),
+									  currentEntry->getWidget()->size());
+#if QT_VERSION >= 0x060000
+				if (entryArea.contains(event->globalPosition().toPoint())) {
+#else
 				if (entryArea.contains(event->globalPos())) {
+#endif
 					switch (currentEntry->getType()) {
 						case EntryType::USER:
 							setSelection(
@@ -557,9 +564,14 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 			// currently selected item. This item we have updated to the correct one with the setSelection() call above
 			// resulting in the proper context menu being shown at the position of the mouse which in this case is in
 			// the TalkingUI.
-			QMetaObject::invokeMethod(Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
-									  Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())),
-									  Q_ARG(bool, false));
+			QMetaObject::invokeMethod(
+				Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
+#if QT_VERSION >= 0x060000
+				Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPosition().toPoint())),
+#else
+				Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())),
+#endif
+				Q_ARG(bool, false));
 		}
 	} else {
 		// Clear selection

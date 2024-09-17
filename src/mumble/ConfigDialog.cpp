@@ -13,7 +13,6 @@
 #include <QScrollArea>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 

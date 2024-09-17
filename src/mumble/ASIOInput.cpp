@@ -95,7 +95,11 @@ void ASIOInit::initialize() {
 		DWORD keynamelen = 255;
 		WCHAR keyname[255];
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
+#if QT_VERSION >= 0x060000
+			QString name = QString::fromUtf16(reinterpret_cast< char16_t * >(keyname), keynamelen);
+#else
 			QString name = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
+#endif
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
 				WCHAR wclsid[255];
@@ -105,8 +109,13 @@ void ASIOInit::initialize() {
 					== ERROR_SUCCESS) {
 					if (datasize > 76)
 						datasize = 76;
+#if QT_VERSION >= 0x060000
+					QString qsCls =
+						QString::fromUtf16(reinterpret_cast< char16_t * >(wclsid), datasize / 2).toLower().trimmed();
+#else
 					QString qsCls =
 						QString::fromUtf16(reinterpret_cast< ushort * >(wclsid), datasize / 2).toLower().trimmed();
+#endif
 					if (!blacklist.contains(qsCls.toLower()) && !FAILED(CLSIDFromString(wclsid, &clsid))) {
 						bFound = true;
 					}
@@ -154,7 +163,11 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 		DWORD idx        = 0;
 		DWORD keynamelen = keynamebufsize;
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
+#if QT_VERSION >= 0x060000
+			QString deviceName = QString::fromUtf16(reinterpret_cast< char16_t * >(keyname), keynamelen);
+#else
 			QString deviceName = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
+#endif
 			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
@@ -164,8 +177,13 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 					== ERROR_SUCCESS) {
 					if (datasize > 76)
 						datasize = 76;
+#if QT_VERSION >= 0x060000
+					QString qsCls =
+						QString::fromUtf16(reinterpret_cast< char16_t * >(wclsid), datasize / 2).toLower().trimmed();
+#else
 					QString qsCls =
 						QString::fromUtf16(reinterpret_cast< ushort * >(wclsid), datasize / 2).toLower().trimmed();
+#endif
 					CLSID clsid;
 					if (!blacklist.contains(qsCls) && !FAILED(CLSIDFromString(wclsid, &clsid))) {
 						ASIODev ad(std::move(deviceName), qsCls);

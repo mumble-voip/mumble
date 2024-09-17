@@ -13,6 +13,15 @@ namespace Markdown {
 // Placeholder constant
 const QLatin1String regularLineBreakPlaceholder("%<\\!!linebreak!!//>@");
 
+/// Just a wrapper for QRegularExpression::match().
+static QRegularExpressionMatch regexMatch(const QRegularExpression &regex, const QString &subject, int &offset) {
+#if QT_VERSION >= 0x060000
+	return regex.match(subject, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchorAtOffsetMatchOption);
+#else
+	return regex.match(subject, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+#endif
+}
+
 /// Tries to match and replace an escaped character at exactly the given offset in the string
 ///
 /// @param str A reference to the String to work on
@@ -22,8 +31,7 @@ const QLatin1String regularLineBreakPlaceholder("%<\\!!linebreak!!//>@");
 bool processEscapedChar(QString &str, int &offset) {
 	static const QRegularExpression s_regex(QLatin1String("\\\\(.)"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 
 	if (match.hasMatch()) {
 		QString replacement = QString::fromLatin1("%1").arg(match.captured(1)).toHtmlEscaped();
@@ -49,9 +57,7 @@ bool processMarkdownHeader(QString &str, int &offset) {
 	// not create a huge spacing after the heading
 	static const QRegularExpression s_regex(QLatin1String("^(#+) (.*)"), QRegularExpression::MultilineOption);
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		int sectionLevel    = match.captured(1).size();
 		QString sectionName = match.captured(2).trimmed().toHtmlEscaped();
@@ -90,9 +96,7 @@ bool processMarkdownLink(QString &str, int &offset) {
 	// Link in format [link text](url)
 	static const QRegularExpression s_regex(QLatin1String("\\[([^\\]\\[]+)\\]\\(([^\\)]+)\\)"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString url = match.captured(2);
 
@@ -126,9 +130,7 @@ bool processMarkdownBold(QString &str, int &offset) {
 	// Bold text is marked as **bold**
 	static const QRegularExpression s_regex(QLatin1String("\\*\\*([^*]+)\\*\\*"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString replacement = QString::fromLatin1("<b>%1</b>").arg(match.captured(1).toHtmlEscaped());
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
@@ -151,9 +153,7 @@ bool processMarkdownItalic(QString &str, int &offset) {
 	// Italic text is marked as *italic*
 	static const QRegularExpression s_regex(QLatin1String("\\*([^*]+)\\*"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString replacement = QString::fromLatin1("<i>%1</i>").arg(match.captured(1).toHtmlEscaped());
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
@@ -176,9 +176,7 @@ bool processMarkdownStrikethrough(QString &str, int &offset) {
 	// Strikethrough text is marked as ~~text~~
 	static const QRegularExpression s_regex(QLatin1String("~~([^~]+)~~"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString replacement = QString::fromLatin1("<s>%1</s>").arg(match.captured(1).toHtmlEscaped());
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
@@ -202,9 +200,7 @@ bool processMarkdownBlockQuote(QString &str, int &offset) {
 	static const QRegularExpression s_regex(QLatin1String("^(>|&gt;) (.|\\n(>|&gt;) )+"),
 											QRegularExpression::MultilineOption);
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString quote = match.captured(0).replace(QLatin1String("&gt;"), QLatin1String(">"));
 
@@ -243,9 +239,7 @@ bool processMarkdownInlineCode(QString &str, int &offset) {
 	// Inline code fragments are marked as `code`
 	static const QRegularExpression s_regex(QLatin1String("`([^`\n]+)`"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString replacement = QString::fromLatin1("<code>%1</code>").arg(match.captured(1).toHtmlEscaped());
 		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
@@ -269,9 +263,7 @@ bool processMarkdownCodeBlock(QString &str, int &offset) {
 	// Also consume a potential following newline as the <pre> tag will cause a linebreak anyways
 	static const QRegularExpression s_regex(QLatin1String("```.*\\n((?:[^`]|``?[^`]?)*)```(\\r\\n|\\n|\\r)?"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString code = match.captured(1).toHtmlEscaped();
 
@@ -315,9 +307,7 @@ bool processPlainLink(QString &str, int &offset) {
 	static const QRegularExpression s_regex(
 		QLatin1String("([a-zA-Z]+://|[wW][wW][wW]\\.)([A-Za-z0-9-._~:/?#\\[\\]@!$&'()*+,;=]|%[a-fA-F0-9]{2})+"));
 
-	QRegularExpressionMatch match =
-		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
+	const QRegularExpressionMatch match = regexMatch(s_regex, str, offset);
 	if (match.hasMatch()) {
 		QString url = match.captured(0);
 

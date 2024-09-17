@@ -40,7 +40,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	setsockopt(static_cast< int >(qtsSocket->socketDescriptor()), IPPROTO_TCP, TCP_NODELAY,
 			   reinterpret_cast< char * >(&nodelay), static_cast< socklen_t >(sizeof(nodelay)));
 
-	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this,
+	connect(qtsSocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this,
 			SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(encrypted()), this, SIGNAL(encrypted()));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));

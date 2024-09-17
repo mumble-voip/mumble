@@ -18,6 +18,7 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include <QRegularExpression>
 #include <QTimer>
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
@@ -228,8 +229,9 @@ void CertWizard::initializePage(int id) {
 
 bool CertWizard::validateCurrentPage() {
 	if (currentPage() == qwpNew) {
-		QRegExp ereg(QLatin1String("(^$)|((.+)@(.+))"), Qt::CaseInsensitive, QRegExp::RegExp2);
-		if (!ereg.exactMatch(qleEmail->text())) {
+		const QRegularExpression ereg(QRegularExpression::anchoredPattern(QLatin1String("(^$)|((.+)@(.+))")),
+									  QRegularExpression::CaseInsensitiveOption);
+		if (!ereg.match(qleEmail->text()).hasMatch()) {
 			qlError->setText(tr("Unable to validate email.<br />Enter a valid (or blank) email to continue."));
 			qwpNew->setComplete(false);
 			return false;

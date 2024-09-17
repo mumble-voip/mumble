@@ -29,6 +29,6 @@ struct Ban {
 	QString toString() const;
 };
 
-quint32 qHash(const Ban &);
+std::size_t qHash(const Ban &);
 
 #endif

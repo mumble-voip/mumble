@@ -57,10 +57,6 @@ public:
 		delete qsqQuery;
 		ServerDB::db->commit();
 	}
-	TransactionHolder(const TransactionHolder &other) {
-		ServerDB::db->transaction();
-		qsqQuery = other.qsqQuery ? new QSqlQuery(*other.qsqQuery) : 0;
-	}
 };
 
 QSqlDatabase *ServerDB::db = nullptr;
@@ -113,7 +109,7 @@ ServerDB::ServerDB() {
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
 
-	qsUpgradeSuffix = QString::fromLatin1("_old_%1").arg(QDateTime::currentDateTime().toTime_t());
+	qsUpgradeSuffix = QString::fromLatin1("_old_%1").arg(QDateTime::currentDateTime().toSecsSinceEpoch());
 
 	bool found = false;
 
@@ -2544,7 +2540,7 @@ void ServerDB::wipeLogs() {
 	SQLDO("DELETE FROM %1slog");
 }
 
-QList< QPair< unsigned int, QString > > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {
+QList< ServerDB::LogRecord > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
@@ -2562,11 +2558,11 @@ QList< QPair< unsigned int, QString > > ServerDB::getLog(int server_id, unsigned
 		SQLEXEC();
 	}
 
-	QList< QPair< unsigned int, QString > > ql;
+	QList< LogRecord > ql;
 	while (query.next()) {
 		QDateTime qdt = query.value(0).toDateTime();
 		QString msg   = query.value(1).toString();
-		ql << QPair< unsigned int, QString >(qdt.toLocalTime().toTime_t(), msg);
+		ql << LogRecord(qdt.toLocalTime().toSecsSinceEpoch(), msg);
 	}
 	return ql;
 }

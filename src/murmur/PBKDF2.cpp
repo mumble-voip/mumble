@@ -49,6 +49,7 @@
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QLatin1String>
+#include <QtCore/QString>
 
 #include <openssl/err.h>
 #include <openssl/evp.h>

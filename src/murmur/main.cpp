@@ -30,7 +30,9 @@
 #	include <QtCore/QCoreApplication>
 #endif
 
-#include <QtCore/QTextCodec>
+#if QT_VERSION < 0x060000
+#	include <QtCore/QTextCodec>
+#endif
 
 #ifdef USE_DBUS
 #	include <QtDBus/QDBusError>
@@ -245,9 +247,9 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 	MumbleSSL::initialize();
-
+#if QT_VERSION < 0x060000
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-
+#endif
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
 	// should contain bin\\, and the path to the config is hardcoded as ..\etc

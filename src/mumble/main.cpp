@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 	a.setDesktopFileName("info.mumble.Mumble");
 #endif
 
-#if QT_VERSION >= 0x050100
+#if QT_VERSION >= 0x050100 && QT_VERSION < 0x060000
 	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
@@ -419,7 +419,7 @@ int main(int argc, char **argv) {
 				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
 				return 0;
 			} else {
-				if (PluginInstaller::canBePluginFile(args.at(i))) {
+				if (PluginInstaller::canBePluginFile(QFileInfo(args.at(i)))) {
 					pluginsToBeInstalled << args.at(i);
 				} else {
 					if (!bRpcMode) {

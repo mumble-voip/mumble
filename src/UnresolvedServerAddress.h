@@ -42,6 +42,6 @@ bool operator<(const UnresolvedServerAddress &lhs, const UnresolvedServerAddress
 
 /// Implementation of qHash for UnresolvedServerAddress, such that
 /// UnresolvedServerAddress can be used as a key in QHash, QMap, etc.
-uint qHash(const UnresolvedServerAddress &key);
+std::size_t qHash(const UnresolvedServerAddress &key);
 
 #endif

@@ -18,7 +18,9 @@
 #include "Global.h"
 
 #include <QSettings>
+#include <QShortcut>
 #include <QtCore/QMimeData>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QUrlQuery>
 #include <QtCore/QtEndian>
 #include <QtGui/QClipboard>
@@ -28,7 +30,6 @@
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMessageBox>
-#include <QtWidgets/QShortcut>
 #include <QtXml/QDomDocument>
 
 #include <boost/accumulators/statistics/extended_p_square.hpp>
@@ -107,7 +108,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN->setExpanded(true);
 	siLAN->setHidden(true);
 #else
-	siLAN         = nullptr;
+	siLAN = nullptr;
 #endif
 
 	if (!Global::get().s.bDisablePublicList) {
@@ -129,7 +130,11 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
+#if QT_VERSION >= 0x060000
+QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > &mimeitems) const {
+#else
 QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > mimeitems) const {
+#endif
 	if (mimeitems.isEmpty())
 		return nullptr;
 
@@ -154,11 +159,12 @@ void ServerView::fixupName(ServerItem *si) {
 
 	int tag = 1;
 
-	QRegExp tmatch(QLatin1String("(.+)\\((\\d+)\\)"));
-	tmatch.setMinimal(true);
-	if (tmatch.exactMatch(name)) {
-		name = tmatch.capturedTexts().at(1).trimmed();
-		tag  = tmatch.capturedTexts().at(2).toInt();
+	const QRegularExpression regex(QRegularExpression::anchoredPattern(QLatin1String("(.+)\\((\\d+)\\)")),
+								   QRegularExpression::InvertedGreedinessOption);
+	const QRegularExpressionMatch match = regex.match(name);
+	if (match.hasMatch()) {
+		name = match.capturedTexts().at(1).trimmed();
+		tag  = match.capturedTexts().at(2).toInt();
 	}
 
 	bool found;
@@ -227,7 +233,7 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 		qsHostname = fs.qsHostname;
 	}
 #else
-	qsHostname    = fs.qsHostname;
+	qsHostname = fs.qsHostname;
 #endif
 	init();
 }
@@ -268,7 +274,7 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 		qsHostname = host;
 	}
 #else
-	qsHostname    = host;
+	qsHostname = host;
 #endif
 	init();
 }
@@ -734,7 +740,7 @@ bool ServerItem::operator<(const QTreeWidgetItem &o) const {
 		QString a = qsName.toLower();
 		QString b = other.qsName.toLower();
 
-		QRegExp re(QLatin1String("[^0-9a-z]"));
+		QRegularExpression re(QLatin1String("[^0-9a-z]"));
 		a.remove(re);
 		b.remove(re);
 		return a < b;
@@ -1210,7 +1216,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	else
 		host = si->qsHostname;
 #else
-	host          = si->qsHostname;
+	host = si->qsHostname;
 #endif
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
@@ -1237,7 +1243,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 				si->zeroconfRecord = BonjourRecord();
 			}
 #else
-            si->qsHostname = cde->qsHostname;
+			si->qsHostname = cde->qsHostname;
 #endif
 			startDns(si);
 		}

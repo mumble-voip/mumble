@@ -101,7 +101,11 @@ public:
 	void fixupName(ServerItem *si);
 
 protected:
+#if QT_VERSION >= 0x060000
+	QMimeData *mimeData(const QList< QTreeWidgetItem * > &) const Q_DECL_OVERRIDE;
+#else
 	QMimeData *mimeData(const QList< QTreeWidgetItem * >) const Q_DECL_OVERRIDE;
+#endif
 	QStringList mimeTypes() const Q_DECL_OVERRIDE;
 	Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
 	bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;

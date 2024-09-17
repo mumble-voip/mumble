@@ -162,7 +162,7 @@ void ProcessResolver::doResolve() {
 				QString exe = QString::fromUtf8(cmdline);
 				if (exe.contains(QLatin1String("\\"))) {
 					int lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
-					if (exe.count() > lastBackslash + 1) {
+					if (exe.length() > lastBackslash + 1) {
 						baseName = exe.mid(lastBackslash + 1);
 					}
 				}

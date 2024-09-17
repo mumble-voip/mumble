@@ -438,8 +438,9 @@ void ServerHandler::run() {
 		}
 		bUdp = false;
 
-
-#if QT_VERSION >= 0x050500
+#if QT_VERSION >= 0x060300
+		qtsSock->setProtocol(QSsl::TlsV1_2OrLater);
+#elif QT_VERSION >= 0x050500
 		qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
 #elif QT_VERSION >= 0x050400
 		// In Qt 5.4, QSsl::SecureProtocols is equivalent

@@ -24,12 +24,12 @@
 
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
+#include <QtCore/QRegularExpression>
 #include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextDocumentFragment>
 #include <QtNetwork/QNetworkReply>
-#include <QtWidgets/QDesktopWidget>
 
 const QString LogConfig::name = QLatin1String("LogConfig");
 
@@ -780,7 +780,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		QString fixedNLPlain =
 			plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
 
-		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
+		if (fixedNLPlain.contains(QRegularExpression(QLatin1String("\\n[ \\t]*$")))) {
 			// If the message ends with one or more blank lines (or lines only containing whitespace)
 			// paint a border around the message to make clear that it contains invisible parts.
 			// The beginning of the message is clear anyway (the date and potentially the "To XY" part)
@@ -858,18 +858,19 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"), Qt::CaseInsensitive, QRegExp::RegExp2);
+	const QRegularExpression identifyURL(QRegularExpression::anchoredPattern(QLatin1String("[a-z-]+://[^ <]*")),
+										 QRegularExpression::CaseInsensitiveOption);
 
-	QStringList qslAllowed = allowedSchemes();
+	const QStringList qslAllowed  = allowedSchemes();
+	QRegularExpressionMatch match = identifyURL.match(plain);
+	int pos                       = 0;
 
-	int pos = 0;
-	while ((pos = identifyURL.indexIn(plain, pos)) != -1) {
-		QUrl url(identifyURL.cap(0).toLower());
-		int len = identifyURL.matchedLength();
+	while (match.hasMatch()) {
+		QUrl url(match.captured(0).toLower());
 		if (url.isValid() && qslAllowed.contains(url.scheme())) {
 			// Replace it appropriately
 			QString replacement;
-			QString host = url.host().replace(QRegExp(QLatin1String("^www.")), QString());
+			QString host = url.host().replace(QRegularExpression(QLatin1String("^www.")), QString());
 
 			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
 				replacement = tr("link to %1").arg(host);
@@ -882,10 +883,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			else
 				replacement = tr("%1 link").arg(url.scheme());
 
-			plain.replace(pos, len, replacement);
+			plain.replace(pos, match.capturedLength(), replacement);
 		} else {
-			pos += len;
+			pos += match.capturedLength();
 		}
+
+		match = identifyURL.match(plain, pos);
 	}
 
 #ifndef USE_NO_TTS

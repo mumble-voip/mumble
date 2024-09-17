@@ -37,6 +37,6 @@ QString Ban::toString() const {
 			 iDuration == 0 ? QLatin1String("(permanent)") : QLatin1String("(temporary)"));
 }
 
-quint32 qHash(const Ban &b) {
+std::size_t qHash(const Ban &b) {
 	return qHash(b.qsHash) ^ qHash(b.haAddress) ^ qHash(b.qsUsername) ^ qHash(b.iMask);
 }

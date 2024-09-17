@@ -49,7 +49,7 @@ QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 
 	const QByteArray byteArray = appBundle.readAll();
 	CFDataRef dataCF = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast< const UInt8 * >(byteArray.data()),
-												   byteArray.count(), kCFAllocatorNull);
+												   static_cast< CFIndex >(byteArray.size()), kCFAllocatorNull);
 	if (!dataCF) {
 		return {};
 	}

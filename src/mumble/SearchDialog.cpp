@@ -69,9 +69,8 @@ public:
 
 		setChildIndicatorPolicy(QTreeWidgetItem::DontShowIndicator);
 
-		QString matchText =
-			m_result.fullText.replace(m_result.begin, m_result.length,
-									  "<b>" + m_result.fullText.midRef(m_result.begin, m_result.length) + "</b>");
+		const QString matchText = m_result.fullText.replace(
+			m_result.begin, m_result.length, "<b>" + m_result.fullText.mid(m_result.begin, m_result.length) + "</b>");
 
 		setData(MATCH_COLUMN, Qt::DisplayRole, std::move(matchText));
 		setData(MATCH_COLUMN, SearchDialogItemDelegate::CHANNEL_TREE_ROLE, m_result.channelHierarchy);

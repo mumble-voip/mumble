@@ -8,11 +8,11 @@
 
 #include <QCryptographicHash>
 #include <QString>
+#include <QStringList>
 
 #include <memory>
 
 class QObject;
-class QStringList;
 
 namespace Mumble {
 namespace QtUtils {

@@ -289,7 +289,7 @@ public:
 		return *this;                                                                         \
 	}
 
-
+	INTMAPOPERATOR(qsizetype);
 	INTMAPOPERATOR(int);
 	INTMAPOPERATOR(unsigned int);
 	INTMAPOPERATOR(short);

@@ -97,8 +97,8 @@ MetaParams::MetaParams() {
 	iChannelNestingLimit = 10;
 	iChannelCountLimit   = 1000;
 
-	qrUserName    = QRegExp(QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
-	qrChannelName = QRegExp(QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
+	qrUserName    = QRegularExpression(QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
+	qrChannelName = QRegularExpression(QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 
 	iMessageLimit = 1;
 	iMessageBurst = 5;
@@ -149,7 +149,11 @@ ReturnType MetaParams::typeCheckedFromSettings(const QString &name, const ValueT
 
 	// Bit convoluted as canConvert<T>() only does a static check without considering whether
 	// say a string like "blub" is actually a valid double (which convert does).
+#if QT_VERSION >= 0x060000
+	if (!cfgVariable.convert(QMetaType(QVariant(defaultValue).metaType()))) {
+#else
 	if (!cfgVariable.convert(static_cast< int >(QVariant(defaultValue).type()))) {
+#endif
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of"
 					<< defaultValue << ".";
 		return static_cast< ReturnType >(defaultValue);
@@ -165,7 +169,7 @@ void MetaParams::read(QString fname) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
-		datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+		datapaths << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
 		QDir appdir = QDir(QDir::fromNativeSeparators(EnvUtils::getenv(QLatin1String("APPDATA"))));
 		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
@@ -213,7 +217,9 @@ void MetaParams::read(QString fname) {
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
 	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
+#if QT_VERSION < 0x060000
 	qsSettings->setIniCodec("UTF-8");
+#endif
 
 	qsSettings->sync();
 	switch (qsSettings->status()) {
@@ -238,10 +244,11 @@ void MetaParams::read(QString fname) {
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 #else
 		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
+		foreach (const QString &host,
+				 qsHost.split(QRegularExpression(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
 #endif
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
@@ -367,8 +374,8 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrUserName    = QRegExp(typeCheckedFromSettings("username", qrUserName.pattern()));
-	qrChannelName = QRegExp(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
+	qrUserName    = QRegularExpression(typeCheckedFromSettings("username", qrUserName.pattern()));
+	qrChannelName = QRegularExpression(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
 
 	iMessageLimit = typeCheckedFromSettings< unsigned int >("messagelimit", 1);
 	iMessageBurst = typeCheckedFromSettings< unsigned int >("messageburst", 5);
@@ -441,7 +448,9 @@ void MetaParams::read(QString fname) {
 
 bool MetaParams::loadSSLSettings() {
 	QSettings updatedSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
+#if QT_VERSION < 0x060000
 	updatedSettings.setIniCodec("UTF-8");
+#endif
 
 	QString tmpCiphersStr = typeCheckedFromSettings("sslCiphers", qsCiphers);
 

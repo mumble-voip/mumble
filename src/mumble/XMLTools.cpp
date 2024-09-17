@@ -18,7 +18,7 @@ void XMLTools::recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, 
 		QMap< QString, QString > style;
 		QMap< QString, QString > pstyle = opstyle;
 
-		QStringRef styleref = a.value(QLatin1String("style"));
+		const auto styleref = a.value(QLatin1String("style"));
 		if (!styleref.isNull()) {
 			QString stylestring = styleref.toString();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)

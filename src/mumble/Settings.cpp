@@ -397,7 +397,7 @@ bool operator<(const ChannelTarget &lhs, const ChannelTarget &rhs) {
 	return lhs.channelID < rhs.channelID;
 }
 
-quint32 qHash(const ChannelTarget &target) {
+std::size_t qHash(const ChannelTarget &target) {
 	return qHash(target.channelID);
 }
 
@@ -514,16 +514,16 @@ Settings::Settings() {
 	GlobalShortcutWin::registerMetaTypes();
 #endif
 	qRegisterMetaType< ShortcutTarget >("ShortcutTarget");
-	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaType< ChannelTarget >("ChannelTarget");
-	qRegisterMetaTypeStreamOperators< ChannelTarget >("ChannelTarget");
 	qRegisterMetaType< QVariant >("QVariant");
 	qRegisterMetaType< PluginSetting >("PluginSetting");
-	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
 	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
 	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
-
-
+#if QT_VERSION < 0x060000
+	qRegisterMetaTypeStreamOperators< ChannelTarget >("ChannelTarget");
+	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
+	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
+#endif
 #ifdef Q_OS_MACOS
 	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
 	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
@@ -1278,7 +1278,7 @@ QString Settings::findSettingsLocation(bool legacy, bool *foundExistingFile) con
 	// this path instead of creating a new one (in the location that we currently think is best to use).
 	QStringList paths;
 	paths << QCoreApplication::instance()->applicationDirPath();
-	paths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+	paths << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 	paths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
 	paths << QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 	paths << QFileInfo(QSettings().fileName()).dir().absolutePath();

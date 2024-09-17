@@ -32,6 +32,7 @@
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QSocketNotifier>
 #include <QtCore/QStringList>
 #include <QtCore/QThread>
@@ -137,8 +138,8 @@ public:
 	bool bAllowPing;
 	bool allowRecording;
 
-	QRegExp qrUserName;
-	QRegExp qrChannelName;
+	QRegularExpression qrUserName;
+	QRegularExpression qrChannelName;
 
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;

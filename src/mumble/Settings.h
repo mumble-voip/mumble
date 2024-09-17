@@ -66,7 +66,7 @@ struct ChannelTarget {
 
 Q_DECLARE_METATYPE(ChannelTarget)
 
-quint32 qHash(const ChannelTarget &);
+std::size_t qHash(const ChannelTarget &);
 
 struct ShortcutTarget {
 	bool bCurrentSelection           = false;
@@ -81,7 +81,6 @@ struct ShortcutTarget {
 
 	ShortcutTarget() = default;
 	bool isServerSpecific() const;
-	bool operator<(const ShortcutTarget &) const;
 	bool operator==(const ShortcutTarget &) const;
 };
 
