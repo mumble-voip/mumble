@@ -61,7 +61,7 @@ void ServerInformation::updateServerInformation() {
 
 	Global::get().sh->getConnectionInfo(host, port, userName, password);
 
-	const int userCount             = ModelItem::c_qhUsers.count();
+	const auto userCount            = ModelItem::c_qhUsers.count();
 	const unsigned int maxUserCount = Global::get().uiMaxUsers;
 
 	QString release = Global::get().sh->qsRelease;

@@ -122,7 +122,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 		QString tmp;
 
 		tmp.reserve(str.length() * 2);
-		for (int i = 0; i < str.size(); ++i) {
+		for (decltype(str.size()) i = 0; i < str.size(); ++i) {
 			bool replaced = false;
 			if (str[i] == QLatin1Char('%')) {
 				QHashIterator< const QString, QString > it(vars);

@@ -96,9 +96,10 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 	const QByteArray utf8Password = password.toUtf8();
 	const QByteArray salt         = QByteArray::fromHex(hexSalt.toLatin1());
 
-	if (PKCS5_PBKDF2_HMAC(utf8Password.constData(), utf8Password.size(),
-						  reinterpret_cast< const unsigned char * >(salt.constData()), salt.size(), iterationCount,
-						  EVP_sha384(), DERIVED_KEY_LENGTH, reinterpret_cast< unsigned char * >(hash.data()))
+	if (PKCS5_PBKDF2_HMAC(utf8Password.constData(), static_cast< int >(utf8Password.size()),
+						  reinterpret_cast< const unsigned char * >(salt.constData()), static_cast< int >(salt.size()),
+						  iterationCount, EVP_sha384(), DERIVED_KEY_LENGTH,
+						  reinterpret_cast< unsigned char * >(hash.data()))
 		== 0) {
 		qFatal("PBKDF2: PKCS5_PBKDF2_HMAC failed: %s", ERR_error_string(ERR_get_error(), nullptr));
 		return QString();
@@ -111,7 +112,7 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 QString PBKDF2::getSalt() {
 	QByteArray salt(SALT_LENGTH, 0);
 
-	CryptographicRandom::fillBuffer(salt.data(), salt.size());
+	CryptographicRandom::fillBuffer(salt.data(), static_cast< int >(salt.size()));
 
 	return QString::fromLatin1(salt.toHex());
 }

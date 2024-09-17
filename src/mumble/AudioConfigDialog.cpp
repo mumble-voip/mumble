@@ -96,16 +96,16 @@ QIcon AudioInputDialog::icon() const {
 }
 
 void AudioInputDialog::load(const Settings &r) {
-	int i;
 	QList< QString > keys;
 
 	if (AudioInputRegistrar::qmNew)
 		keys = AudioInputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i = keys.indexOf(AudioInputRegistrar::current);
-	if (i >= 0)
-		loadComboBox(qcbSystem, i);
+
+	const auto index = keys.indexOf(AudioInputRegistrar::current);
+	if (index >= 0)
+		loadComboBox(qcbSystem, static_cast< int >(index));
 
 	verifyMicrophonePermission();
 
@@ -701,16 +701,16 @@ QString AudioOutputDialog::getCurrentlySelectedOutputInterfaceName() const {
 }
 
 void AudioOutputDialog::load(const Settings &r) {
-	int i;
 	QList< QString > keys;
 
 	if (AudioOutputRegistrar::qmNew)
 		keys = AudioOutputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i = keys.indexOf(AudioOutputRegistrar::current);
-	if (i >= 0)
-		loadComboBox(qcbSystem, i);
+
+	const auto index = keys.indexOf(AudioOutputRegistrar::current);
+	if (index >= 0)
+		loadComboBox(qcbSystem, static_cast< int >(index));
 
 	loadCheckBox(qcbExclusive, r.bExclusiveOutput);
 	loadSlider(qsDelay, r.iOutputDelay);

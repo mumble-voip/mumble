@@ -1706,8 +1706,8 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
-		int len = qbaMsg.size();
-		if (len < 2 || static_cast< unsigned int >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
+		const auto len = qbaMsg.size();
+		if (len < 2 || static_cast< std::size_t >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
 			// Drop messages that are too small to be senseful or that are bigger than allowed
 			return;
 		}
@@ -1743,28 +1743,28 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 #ifdef QT_NO_DEBUG
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #else
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				if (type != Mumble::Protocol::TCPMessageType::Ping) {    \
-					printf("== %s:\n", #name);                           \
-					msg.PrintDebugString();                              \
-				}                                                        \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				if (type != Mumble::Protocol::TCPMessageType::Ping) {                        \
+					printf("== %s:\n", #name);                                               \
+					msg.PrintDebugString();                                                  \
+				}                                                                            \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #endif
 
@@ -1792,7 +1792,7 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 	Connection *c = qhUsers.value(id);
 	if (c) {
 		QByteArray qba;
-		int len = a.size();
+		const auto len = a.size();
 
 		qba.resize(len + 6);
 		unsigned char *uc = reinterpret_cast< unsigned char * >(qba.data());
@@ -2319,7 +2319,7 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		}
 		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
 	} else {
-		int length = text.length();
+		auto length = text.length();
 
 		// No limits
 		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))

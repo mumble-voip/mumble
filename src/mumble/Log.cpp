@@ -828,7 +828,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 
 		// Message notification with static sounds
-		int connectedUsers = 0;
+		qsizetype connectedUsers = 0;
 		{
 			QReadLocker lock(&ClientUser::c_qrwlUsers);
 			connectedUsers = ClientUser::c_qmUsers.size();
@@ -863,7 +863,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	const QStringList qslAllowed  = allowedSchemes();
 	QRegularExpressionMatch match = identifyURL.match(plain);
-	int pos                       = 0;
+	qsizetype pos                 = 0;
 
 	while (match.hasMatch()) {
 		QUrl url(match.captured(0).toLower());
@@ -883,12 +883,20 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			else
 				replacement = tr("%1 link").arg(url.scheme());
 
+#if QT_VERSION >= 0x060000
 			plain.replace(pos, match.capturedLength(), replacement);
+#else
+			plain.replace(static_cast< int >(pos), match.capturedLength(), replacement);
+#endif
 		} else {
 			pos += match.capturedLength();
 		}
 
+#if QT_VERSION >= 0x060000
 		match = identifyURL.match(plain, pos);
+#else
+		match = identifyURL.match(plain, static_cast< int >(pos));
+#endif
 	}
 
 #ifndef USE_NO_TTS

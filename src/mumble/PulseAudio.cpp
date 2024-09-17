@@ -828,7 +828,8 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 	} else {
 		// verify missing list is empty
 		if (pas->qhMissingSinks.count() > 0) {
-			qWarning("PulseAudio: Failed to match %d stream(s).", pas->qhMissingSinks.count());
+			qWarning("PulseAudio: Failed to match %lld stream(s).",
+					 static_cast< qsizetype >(pas->qhMissingSinks.count()));
 			pas->qhMissingSinks.clear();
 		}
 

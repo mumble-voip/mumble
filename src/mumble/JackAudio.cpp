@@ -273,7 +273,8 @@ bool JackAudioSystem::initialize() {
 							  Global::get().s.bJackStartServer ? JackNullOption : JackNoStartServer, &status);
 	if (!client) {
 		const auto errors = jackStatusToStringList(status);
-		qWarning("JackAudioSystem: unable to open client due to %i errors:", errors.count());
+		qWarning("JackAudioSystem: unable to open client due to %lld errors:",
+				 static_cast< qsizetype >(errors.count()));
 		for (auto i = 0; i < errors.count(); ++i) {
 			qWarning("JackAudioSystem: %s", qPrintable(errors.at(i)));
 		}

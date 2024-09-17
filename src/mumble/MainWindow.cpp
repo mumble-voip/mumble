@@ -3818,23 +3818,23 @@ void MainWindow::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme = static_cast< ServerHandlerMessageEvent * >(evt);
 
 #ifdef QT_NO_DEBUG
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                \
-		case Mumble::Protocol::TCPMessageType::name: {                             \
-			MumbleProto::name msg;                                                 \
-			if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) \
-				msg##name(msg);                                                    \
-			break;                                                                 \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                                    \
+		case Mumble::Protocol::TCPMessageType::name: {                                                 \
+			MumbleProto::name msg;                                                                     \
+			if (msg.ParseFromArray(shme->qbaMsg.constData(), static_cast< int >(shme->qbaMsg.size()))) \
+				msg##name(msg);                                                                        \
+			break;                                                                                     \
 		}
 #else
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                  \
-		case Mumble::Protocol::TCPMessageType::name: {                               \
-			MumbleProto::name msg;                                                   \
-			if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
-				printf("%s:\n", #name);                                              \
-				msg.PrintDebugString();                                              \
-				msg##name(msg);                                                      \
-			}                                                                        \
-			break;                                                                   \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                                      \
+		case Mumble::Protocol::TCPMessageType::name: {                                                   \
+			MumbleProto::name msg;                                                                       \
+			if (msg.ParseFromArray(shme->qbaMsg.constData(), static_cast< int >(shme->qbaMsg.size()))) { \
+				printf("%s:\n", #name);                                                                  \
+				msg.PrintDebugString();                                                                  \
+				msg##name(msg);                                                                          \
+			}                                                                                            \
+			break;                                                                                       \
 		}
 #endif
 	switch (shme->type) { MUMBLE_ALL_TCP_MESSAGES }

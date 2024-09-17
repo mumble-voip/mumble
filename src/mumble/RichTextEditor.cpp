@@ -69,7 +69,7 @@ static QString decodeMimeString(const QByteArray &src) {
 #	pragma warning(pop)
 #endif
 	const char *ptr = src.constData();
-	int len         = src.length();
+	auto len        = src.length();
 	while (len && (ptr[len - 1] == 0))
 		--len;
 	return QString::fromUtf8(ptr, len);

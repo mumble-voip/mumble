@@ -37,8 +37,8 @@ enum class SearchType { User, Channel };
  * on it.
  */
 struct SearchResult {
-	int32_t begin  = -1;
-	int32_t length = -1;
+	int64_t begin  = -1;
+	int64_t length = -1;
 	SearchType type;
 	QString fullText;
 	QString channelHierarchy;

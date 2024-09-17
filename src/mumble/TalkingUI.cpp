@@ -296,10 +296,10 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 	// We also want to abbreviate names that nominally have the same amount of characters before and
 	// after abbreviation. However as we're typically not using mono-spaced fonts, the abbreviation
 	// indicator might still occupy less space than the original text.
-	const int abbreviableSize = minPrefixChars + minPostfixChars + abbreviationIndicator.size();
+	const auto abbreviableSize = minPrefixChars + minPostfixChars + abbreviationIndicator.size();
 
 	// Iterate over all names and check how many of them could be abbreviated
-	int totalCharCount = reachedRoot ? separator.size() : 0;
+	auto totalCharCount = reachedRoot ? separator.size() : 0;
 	for (int i = 0; i < nameList.size(); i++) {
 		totalCharCount += nameList[i].size();
 
@@ -311,7 +311,7 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 
 	QString groupName = reachedRoot ? separator : QString();
 
-	for (int i = nameList.size() - 1; i >= 0; i--) {
+	for (decltype(nameList.size()) i = nameList.size() - 1; i >= 0; i--) {
 		if (totalCharCount > idealMaxChars && nameList[i].size() >= abbreviableSize
 			&& (abbreviateCurrentChannel || i != 0)) {
 			// Abbreviate the names as much as possible

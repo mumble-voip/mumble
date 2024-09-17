@@ -87,8 +87,8 @@ bool ShortcutTarget::operator==(const ShortcutTarget &o) const {
 		return (iChannel == o.iChannel) && (bLinks == o.bLinks) && (bChildren == o.bChildren) && (qsGroup == o.qsGroup);
 }
 
-quint32 qHash(const ShortcutTarget &t) {
-	quint32 h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
+std::size_t qHash(const ShortcutTarget &t) {
+	std::size_t h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
 
 	if (t.bCurrentSelection) {
 		h ^= 0x20000000;
@@ -109,8 +109,8 @@ quint32 qHash(const ShortcutTarget &t) {
 	return h;
 }
 
-quint32 qHash(const QList< ShortcutTarget > &l) {
-	quint32 h = static_cast< quint32 >(l.count());
+std::size_t qHash(const QList< ShortcutTarget > &l) {
+	auto h = static_cast< std::size_t >(l.count());
 	foreach (const ShortcutTarget &st, l)
 		h ^= qHash(st);
 	return h;
@@ -1112,8 +1112,8 @@ void Settings::legacyLoad(const QString &path) {
 
 		if (pluginKey.contains(QLatin1String("_"))) {
 			// The key contains the filename as well as the hash
-			int index  = pluginKey.lastIndexOf(QLatin1String("_"));
-			pluginHash = pluginKey.right(pluginKey.size() - index - 1);
+			const auto index = pluginKey.lastIndexOf(QLatin1String("_"));
+			pluginHash       = pluginKey.right(pluginKey.size() - index - 1);
 		} else {
 			pluginHash = pluginKey;
 		}

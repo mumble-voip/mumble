@@ -70,13 +70,13 @@ const QSet< unsigned int > ChannelListenerManager::getListenedChannelsForUser(un
 int ChannelListenerManager::getListenerCountForChannel(unsigned int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
-	return m_listenedChannels[channelID].size();
+	return static_cast< int >(m_listenedChannels[channelID].size());
 }
 
 int ChannelListenerManager::getListenedChannelCountForUser(unsigned int userSession) const {
 	QReadLocker lock(&m_listenerLock);
 
-	return m_listeningUsers[userSession].size();
+	return static_cast< int >(m_listeningUsers[userSession].size());
 }
 
 void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID,

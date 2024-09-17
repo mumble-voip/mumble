@@ -635,7 +635,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 		}
 	} else if (type == Mumble::Protocol::TCPMessageType::Ping) {
 		MumbleProto::Ping msg;
-		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
+		if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) {
 			ConnectionPtr connection(cConnection);
 			if (!connection)
 				return;

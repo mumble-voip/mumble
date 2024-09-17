@@ -28,10 +28,10 @@ void XMLTools::recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, 
 			QStringList styles = stylestring.split(QLatin1String(";"), QString::SkipEmptyParts);
 #endif
 			foreach (QString s, styles) {
-				s           = s.simplified();
-				int idx     = s.indexOf(QLatin1Char(':'));
-				QString key = (idx > 0) ? s.left(idx).simplified() : s;
-				QString val = (idx > 0) ? s.mid(idx + 1).simplified() : QString();
+				s                 = s.simplified();
+				const auto idx    = s.indexOf(QLatin1Char(':'));
+				const QString key = (idx > 0) ? s.left(idx).simplified() : s;
+				const QString val = (idx > 0) ? s.mid(idx + 1).simplified() : QString();
 
 				if (!pstyle.contains(key) || (pstyle.value(key) != val)) {
 					style.insert(key, val);

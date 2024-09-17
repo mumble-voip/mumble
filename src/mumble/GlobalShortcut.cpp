@@ -964,7 +964,7 @@ void GlobalShortcutEngine::remap() {
 			sk->gs          = gs;
 
 			foreach (const QVariant &button, sc.qlButtons) {
-				int idx = qlButtonList.indexOf(button);
+				auto idx = qlButtonList.indexOf(button);
 				if (idx == -1) {
 					qlButtonList << button;
 					qlShortcutList << QList< ShortcutKey * >();
@@ -1037,7 +1037,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 		}
 	}
 
-	int idx = qlButtonList.indexOf(button);
+	const auto idx = qlButtonList.indexOf(button);
 	if (idx == -1)
 		return false;
 

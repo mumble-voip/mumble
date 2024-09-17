@@ -351,7 +351,7 @@ void LCD::updateUserView() {
 		const int iHeight         = size.height();
 		const int iUsersPerColumn = iHeight / iFontHeight;
 		const int iSplitterWidth  = Global::get().s.iLCDUserViewSplitterWidth;
-		const int iUserColumns    = (entries.count() + iUsersPerColumn - 1) / iUsersPerColumn;
+		const int iUserColumns    = static_cast< int >((entries.count() + iUsersPerColumn - 1) / iUsersPerColumn);
 
 		int iColumns     = iUserColumns;
 		int iColumnWidth = 1;

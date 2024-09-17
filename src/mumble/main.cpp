@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
 	QString settingsFile;
 	QStringList args = a.arguments();
-	const int index  = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
+	const auto index = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
 	if (index >= 0) {
 		if (index + 1 < args.count()) {
 			QFile inifile(args.at(index + 1));

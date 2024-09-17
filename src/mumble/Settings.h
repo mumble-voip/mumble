@@ -86,8 +86,8 @@ struct ShortcutTarget {
 
 Q_DECLARE_METATYPE(ShortcutTarget)
 
-quint32 qHash(const ShortcutTarget &);
-quint32 qHash(const QList< ShortcutTarget > &);
+std::size_t qHash(const ShortcutTarget &);
+std::size_t qHash(const QList< ShortcutTarget > &);
 
 struct PluginSetting {
 	QString path                 = {};

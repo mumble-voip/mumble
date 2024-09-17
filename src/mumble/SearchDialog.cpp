@@ -69,8 +69,15 @@ public:
 
 		setChildIndicatorPolicy(QTreeWidgetItem::DontShowIndicator);
 
-		const QString matchText = m_result.fullText.replace(
-			m_result.begin, m_result.length, "<b>" + m_result.fullText.mid(m_result.begin, m_result.length) + "</b>");
+#if QT_VERSION >= 0x060000
+		const qsizetype begin  = m_result.begin;
+		const qsizetype length = m_result.length;
+#else
+		const auto begin  = static_cast< int >(m_result.begin);
+		const auto length = static_cast< int >(m_result.length);
+#endif
+		const QString matchText =
+			m_result.fullText.replace(begin, length, "<b>" + m_result.fullText.mid(begin, length) + "</b>");
 
 		setData(MATCH_COLUMN, Qt::DisplayRole, std::move(matchText));
 		setData(MATCH_COLUMN, SearchDialogItemDelegate::CHANNEL_TREE_ROLE, m_result.channelHierarchy);
@@ -261,11 +268,11 @@ void SearchDialog::clearSearchResults() {
 }
 
 SearchResult regularSearch(const QString &source, const QString &searchTerm, SearchType type, bool caseSensitive) {
-	constexpr int FROM = 0;
-	int startIndex     = source.indexOf(searchTerm, FROM, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+	constexpr int FROM    = 0;
+	const auto startIndex = source.indexOf(searchTerm, FROM, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
 	if (startIndex >= 0) {
-		int length = searchTerm.size();
+		const auto length = searchTerm.size();
 
 		return { startIndex, length, type, source, "" };
 	} else {
@@ -279,8 +286,8 @@ SearchResult regexSearch(const QString &source, const QRegularExpression &regex,
 
 	if (match.hasMatch()) {
 		// Found
-		int startIndex = match.capturedStart();
-		int length     = match.capturedEnd() - startIndex;
+		const auto startIndex = match.capturedStart();
+		const auto length     = match.capturedEnd() - startIndex;
 
 		return { startIndex, length, type, source, "" };
 	} else {
