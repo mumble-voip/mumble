@@ -894,6 +894,34 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
+void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
+											   void *positionalData,
+											   std::shared_ptr< api_promise_t > promise) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(this, "getPositionalAudioData_v_1_3_x",
+								  Qt::QueuedConnection, Q_ARG(mumble_plugin_id_t, callerID),
+								  Q_ARG(void*, positionalData),
+								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	auto pluginManager = Global::get().pluginManager;
+	if (!pluginManager || !pluginManager->fetchPositionalData()) {
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+	}
+
+	positionalData = const_cast<PositionalData *>(&pluginManager->getPositionalData());
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
 void MumbleAPI::requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 										mumble_userid_t userID, mumble_channelid_t channelID, const char *password,
 										std::shared_ptr< api_promise_t > promise) {
@@ -1800,6 +1828,13 @@ C_WRAPPER(getChannelDescription_v_1_0_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
+#define TYPED_ARGS \
+	mumble_plugin_id_t callerID, void *positionalData
+#define ARG_NAMES callerID, positionalData
+C_WRAPPER(getPositionalAudioData_v_1_3_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
 #define TYPED_ARGS                                                                                                     \
 	mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID, mumble_channelid_t channelID, \
 		const char *password
@@ -1994,6 +2029,48 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 getServerHash_v_1_0_x,
 			 getUserComment_v_1_0_x,
 			 getChannelDescription_v_1_0_x,
+			 requestLocalUserTransmissionMode_v_1_0_x,
+			 requestUserMove_v_1_0_x,
+			 requestMicrophoneActivationOverwrite_v_1_0_x,
+			 requestLocalMute_v_1_0_x,
+			 requestLocalUserMute_v_1_0_x,
+			 requestLocalUserDeaf_v_1_0_x,
+			 requestSetLocalUserComment_v_1_0_x,
+			 findUserByName_v_1_0_x,
+			 findChannelByName_v_1_0_x,
+			 getMumbleSetting_bool_v_1_0_x,
+			 getMumbleSetting_int_v_1_0_x,
+			 getMumbleSetting_double_v_1_0_x,
+			 getMumbleSetting_string_v_1_0_x,
+			 setMumbleSetting_bool_v_1_0_x,
+			 setMumbleSetting_int_v_1_0_x,
+			 setMumbleSetting_double_v_1_0_x,
+			 setMumbleSetting_string_v_1_0_x,
+			 sendData_v_1_0_x,
+			 log_v_1_0_x,
+			 playSample_v_1_2_x };
+}
+
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x() {
+	return { freeMemory_v_1_0_x,
+			 getActiveServerConnection_v_1_0_x,
+			 isConnectionSynchronized_v_1_0_x,
+			 getLocalUserID_v_1_0_x,
+			 getUserName_v_1_0_x,
+			 getChannelName_v_1_0_x,
+			 getAllUsers_v_1_0_x,
+			 getAllChannels_v_1_0_x,
+			 getChannelOfUser_v_1_0_x,
+			 getUsersInChannel_v_1_0_x,
+			 getLocalUserTransmissionMode_v_1_0_x,
+			 isUserLocallyMuted_v_1_0_x,
+			 isLocalUserMuted_v_1_0_x,
+			 isLocalUserDeafened_v_1_0_x,
+			 getUserHash_v_1_0_x,
+			 getServerHash_v_1_0_x,
+			 getUserComment_v_1_0_x,
+			 getChannelDescription_v_1_0_x,
+			 getPositionalAudioData_v_1_3_x,
 			 requestLocalUserTransmissionMode_v_1_0_x,
 			 requestUserMove_v_1_0_x,
 			 requestMicrophoneActivationOverwrite_v_1_0_x,
