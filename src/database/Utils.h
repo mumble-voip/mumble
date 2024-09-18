@@ -32,8 +32,15 @@ namespace db {
 		 */
 		template< typename Exception = NoDataException > void verifyQueryResultedInData(soci::session &sql) {
 			if (!sql.got_data()) {
-				throw Exception("Query did not result in any data having been fetched from the database: "
-								+ sql.get_last_query());
+				std::string msg =
+					"Query did not result in any data having been fetched from the database: " + sql.get_last_query();
+				std::string context = sql.get_last_query_context();
+				if (!context.empty()) {
+					msg += " with ";
+					msg += context;
+				}
+
+				throw Exception(std::move(msg));
 			}
 		}
 
