@@ -7,27 +7,29 @@
 #	include "DBus.h"
 #endif
 
+#include "DBWrapper.h"
 #include "EnvUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
 #include "Meta.h"
 #include "SSL.h"
 #include "Server.h"
-#include "ServerDB.h"
+#include "ServerApplication.h"
 #include "Version.h"
 
+#include "database/ConnectionParameter.h"
+
+#include <cassert>
 #include <csignal>
-#include <iostream>
+#include <fstream>
+
+#include <nlohmann/json.hpp>
 
 #ifdef Q_OS_WIN
 #	include "About.h"
 #	include "Tray.h"
-
-#	include <QtWidgets/QApplication>
 #else
 #	include "UnixMurmur.h"
-
-#	include <QtCore/QCoreApplication>
 #endif
 
 #include <QtCore/QTextCodec>
@@ -46,7 +48,7 @@
 #	include <sys/syslog.h>
 #endif
 
-QFile *qfLog = nullptr;
+extern QFile *qfLog;
 
 static bool bVerbose = false;
 #ifdef QT_NO_DEBUG
@@ -59,7 +61,7 @@ static bool detach = false;
 static UnixMurmur *unixMurmur = nullptr;
 #endif
 
-Meta *meta = nullptr;
+extern Meta *meta;
 
 static LogEmitter le;
 
@@ -222,8 +224,8 @@ int main(int argc, char **argv) {
 	IceParse(argc, argv);
 #endif
 
+	ServerApplication a(argc, argv);
 #ifdef Q_OS_WIN
-	QApplication a(argc, argv);
 	a.setQuitOnLastWindowClosed(false);
 
 	QIcon icon;
@@ -235,7 +237,6 @@ int main(int argc, char **argv) {
 #	ifndef Q_OS_MAC
 	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #	endif
-	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
 	unixMurmur = &unixhandler;
 	unixhandler.initialcap();
@@ -268,10 +269,12 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
-	bool disableSu = false;
-	bool wipeSsl   = false;
-	bool wipeLogs  = false;
-	int sunum      = 1;
+	QString dbDumpPath;
+	QString dbImportPath;
+	bool disableSu     = false;
+	bool wipeSsl       = false;
+	bool wipeLogs      = false;
+	unsigned int sunum = 0;
 #ifdef Q_OS_UNIX
 	bool readPw = false;
 #endif
@@ -300,7 +303,7 @@ int main(int argc, char **argv) {
 				supw = args.at(i);
 				if (i + 1 < args.size()) {
 					i++;
-					sunum = args.at(i).toInt();
+					sunum = args.at(i).toUInt();
 				}
 				bLast = true;
 			} else {
@@ -319,7 +322,7 @@ int main(int argc, char **argv) {
 			readPw = true;
 			if (i + 1 < args.size()) {
 				i++;
-				sunum = args.at(i).toInt();
+				sunum = args.at(i).toUInt();
 			}
 			bLast = true;
 #endif
@@ -328,7 +331,7 @@ int main(int argc, char **argv) {
 			disableSu = true;
 			if (i + 1 < args.size()) {
 				i++;
-				sunum = args.at(i).toInt();
+				sunum = args.at(i).toUInt();
 			}
 			bLast = true;
 		} else if ((arg == "-ini") && (i + 1 < args.size())) {
@@ -376,40 +379,49 @@ int main(int argc, char **argv) {
 			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
 			return 0;
 #endif
+		} else if (arg == "--db-json-dump") {
+			++i;
+			dbDumpPath = args.at(i);
+		} else if (arg == "--db-json-import") {
+			++i;
+			dbImportPath = args.at(i);
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
-			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-				  "  --version              Print version information and exit\n"
-				  "  -ini <inifile>         Specify ini file to use.\n"
-				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
+			qInfo(
+				"Usage: %s [-ini <inifile>] [-supw <password>]\n"
+				"  --version               Print version information and exit\n"
+				"  -ini <inifile>          Specify ini file to use.\n"
+				"  -supw <pw> [srv]        Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-				  "  -readsupw [srv]        Reads password for server srv from standard input.\n"
+				"  -readsupw [srv]         Reads password for server srv from standard input.\n"
 #endif
-				  "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
+				"  -disablesu [srv]        Disable password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-				  "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
-				  "                         The purpose of this option is to test how many clients Murmur can handle.\n"
-				  "                         Murmur will exit after this test.\n"
+				"  -limits                 Tests and shows how many file descriptors and threads can be created.\n"
+				"                          The purpose of this option is to test how many clients Murmur can handle.\n"
+				"                          Murmur will exit after this test.\n"
 #endif
-				  "  -v                     Use verbose logging (include debug-logs).\n"
+				"  -v                      Use verbose logging (include debug-logs).\n"
 #ifdef Q_OS_UNIX
-				  "  -fg                    Don't detach from console.\n"
+				"  -fg                     Don't detach from console.\n"
 #else
-				  "  -fg                    Don't write to the log file.\n"
+				"  -fg                     Don't write to the log file.\n"
 #endif
-				  "  -wipessl               Remove SSL certificates from database.\n"
-				  "  -wipelogs              Remove all log entries from database.\n"
-				  "  -loggroups             Turns on logging for group changes for all servers.\n"
-				  "  -logacls               Turns on logging for ACL changes for all servers.\n"
-				  "  -version               Show version information.\n"
-				  "\n"
-				  "  -license               Show Murmur's license.\n"
-				  "  -authors               Show Murmur's authors.\n"
-				  "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
-				  "\n"
-				  "If no inifile is provided, murmur will search for one in \n"
-				  "default locations.",
-				  qPrintable(args.at(0)));
+				"  -wipessl                Remove SSL certificates from database.\n"
+				"  -wipelogs               Remove all log entries from database.\n"
+				"  -loggroups              Turns on logging for group changes for all servers.\n"
+				"  -logacls                Turns on logging for ACL changes for all servers.\n"
+				"  -version                Show version information.\n"
+				"  --db-json-dump [file]   Requests a JSON dump of the database to be written to the given file\n"
+				"  --db-json-import [file] Reads in the provide JSON file and imports its contents into the database\n"
+				"\n"
+				"  -license                Show Murmur's license.\n"
+				"  -authors                Show Murmur's authors.\n"
+				"  -third-party-licenses   Show licenses for third-party software used by Murmur.\n"
+				"\n"
+				"If no inifile is provided, murmur will search for one in \n"
+				"default locations.",
+				qPrintable(args.at(0)));
 			return 0;
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
@@ -444,6 +456,31 @@ int main(int argc, char **argv) {
 #endif
 
 	Meta::mp.read(inifile);
+
+	if (!dbDumpPath.isEmpty()) {
+		DBWrapper wrapper(Meta::getConnectionParameter());
+
+		std::ofstream file(dbDumpPath.toStdString());
+		file << wrapper.exportDBToJSON().dump(2);
+
+		qInfo("Dumped JSON representation of database contents to '%s'", qPrintable(dbDumpPath));
+
+		return 0;
+	}
+
+	if (!dbImportPath.isEmpty()) {
+		qInfo("Importing contents of '%s' into database", qPrintable(dbImportPath));
+		DBWrapper wrapper(Meta::getConnectionParameter());
+
+		std::ifstream file(dbImportPath.toStdString());
+
+		nlohmann::json json;
+		file >> json;
+
+		wrapper.importFromJSON(json, true);
+
+		return 0;
+	}
 
 	// Activating the logging of ACLs and groups via commandLine overwrites whatever is set in the ini file
 	if (logGroups) {
@@ -497,10 +534,11 @@ int main(int argc, char **argv) {
 
 #ifdef Q_OS_UNIX
 	// It is really important that these fork calls come before creating the
-	// ServerDB object because sqlite uses POSIX locks on Unix systems (see
+	// Meta object (which in turn creates a database connection) because sqlite
+	// uses POSIX locks on Unix systems (see
 	// https://sqlite.org/lockingv3.html#:~:text=SQLite%20uses%20POSIX%20advisory%20locks,then%20database%20corruption%20can%20result.)
 	// POSIX locks are automatically released if a process calls close() on any of
-	// its open file descriptors for that file. If the ServerDB object, which
+	// its open file descriptors for that file. If the Meta object, which
 	// opens the sqlite database, is created before the fork, then the child will
 	// inherit all open file descriptors and then close them on exit, releasing
 	// all these POSIX locks. If another process (i.e. not murmur) makes any
@@ -548,118 +586,123 @@ int main(int argc, char **argv) {
 	unixhandler.finalcap();
 #endif
 
-	MumbleSSL::addSystemCA();
+	try {
+		MumbleSSL::addSystemCA();
 
-	ServerDB db;
-
-	meta = new Meta();
+		meta = new Meta(Meta::getConnectionParameter());
+		meta->initPBKDF2IterationCount();
 
 #ifdef Q_OS_UNIX
-	// It doesn't matter that this code comes after the forking because detach is
-	// set to false when readPw is set to true.
-	if (readPw) {
-		char password[256];
-		char *p;
+		// It doesn't matter that this code comes after the forking because detach is
+		// set to false when readPw is set to true.
+		if (readPw) {
+			char password[256];
+			char *p;
 
-		printf("Password: ");
-		fflush(nullptr);
-		if (fgets(password, 255, stdin) != password)
-			qFatal("No password provided");
-		p = strchr(password, '\r');
-		if (p)
-			*p = 0;
-		p = strchr(password, '\n');
-		if (p)
-			*p = 0;
+			printf("Password: ");
+			fflush(nullptr);
+			if (fgets(password, 255, stdin) != password)
+				qFatal("No password provided");
+			p = strchr(password, '\r');
+			if (p)
+				*p = 0;
+			p = strchr(password, '\n');
+			if (p)
+				*p = 0;
 
-		supw = QLatin1String(password);
-	}
+			supw = QLatin1String(password);
+		}
 #endif
 
-	if (!supw.isNull()) {
-		if (supw.isEmpty()) {
-			qFatal("Superuser password can not be empty");
+		if (!supw.isNull()) {
+			if (supw.isEmpty()) {
+				qFatal("Superuser password can not be empty");
+			}
+			meta->dbWrapper.setSuperUserPassword(sunum, supw.toStdString());
+			qInfo("Superuser password set on server %u", sunum);
+			return 0;
 		}
-		ServerDB::setSUPW(sunum, supw);
-		qInfo("Superuser password set on server %d", sunum);
-		return 0;
-	}
 
-	if (disableSu) {
-		ServerDB::disableSU(sunum);
-		qInfo("SuperUser password disabled on server %d", sunum);
-		return 0;
-	}
+		if (disableSu) {
+			meta->dbWrapper.disableSuperUser(sunum);
 
-	if (wipeSsl) {
-		qWarning("Removing all per-server SSL certificates from the database.");
-		foreach (int sid, ServerDB::getAllServers()) {
-			ServerDB::setConf(sid, "key");
-			ServerDB::setConf(sid, "certificate");
-			ServerDB::setConf(sid, "passphrase");
-			ServerDB::setConf(sid, "sslDHParams");
+			qInfo("SuperUser password disabled on server %u", sunum);
+			return 0;
 		}
-	}
 
-	if (wipeLogs) {
-		qWarning("Removing all log entries from the database.");
-		ServerDB::wipeLogs();
-	}
+		if (wipeSsl) {
+			qWarning("Removing all per-server SSL certificates from the database.");
+
+			meta->dbWrapper.clearAllPerServerSLLConfigurations();
+		}
+
+		if (wipeLogs) {
+			qWarning("Removing all log entries from the database.");
+
+			meta->dbWrapper.clearAllServerLogs();
+		}
 
 #ifdef USE_DBUS
-	MurmurDBus::registerTypes();
+		MurmurDBus::registerTypes();
 
-	if (!Meta::mp.qsDBus.isEmpty()) {
-		if (Meta::mp.qsDBus == "session")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
-		else if (Meta::mp.qsDBus == "system")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
-		else {
-			// QtDBus is not quite finished yet.
-			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
-			if (!MurmurDBus::qdbc->isConnected()) {
-				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
-				qWarning("%s", qPrintable(qdbs->lastError().name()));
-				qWarning("%d", qdbs->isConnected());
-				qWarning("%s", qPrintable(qdbs->address()));
+		if (!Meta::mp.qsDBus.isEmpty()) {
+			if (Meta::mp.qsDBus == "session")
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
+			else if (Meta::mp.qsDBus == "system")
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
+			else {
+				// QtDBus is not quite finished yet.
+				qWarning("Warning: Peer-to-peer session support is currently nonworking.");
 				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+				if (!MurmurDBus::qdbc->isConnected()) {
+					QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
+					qWarning("%s", qPrintable(qdbs->lastError().name()));
+					qWarning("%d", qdbs->isConnected());
+					qWarning("%s", qPrintable(qdbs->address()));
+					MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+				}
 			}
-		}
-		if (!MurmurDBus::qdbc->isConnected()) {
-			qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
-		} else {
-			new MetaDBus(meta);
-			if (MurmurDBus::qdbc->isConnected()) {
-				if (!MurmurDBus::qdbc->registerObject("/", meta)
-					|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
-					QDBusError e = MurmurDBus::qdbc->lastError();
-					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
-				} else {
-					qWarning("DBus registration succeeded");
+			if (!MurmurDBus::qdbc->isConnected()) {
+				qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
+			} else {
+				new MetaDBus(meta);
+				if (MurmurDBus::qdbc->isConnected()) {
+					if (!MurmurDBus::qdbc->registerObject("/", meta)
+						|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
+						QDBusError e = MurmurDBus::qdbc->lastError();
+						qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
+					} else {
+						qWarning("DBus registration succeeded");
+					}
 				}
 			}
 		}
-	}
 #endif
 
 #ifdef USE_ICE
-	IceStart();
+		IceStart();
 #endif
 
-	meta->getOSInfo();
+		meta->getOSInfo();
 
-	qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
-			 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
+		qWarning("Murmur %s running on %s: %s: Booting servers", qPrintable(Version::toString(Version::get())),
+				 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
-	meta->bootAll();
+		meta->bootAll(Meta::getConnectionParameter(), true);
 
-	signal(SIGTERM, cleanup);
-	signal(SIGINT, cleanup);
+		signal(SIGTERM, cleanup);
+		signal(SIGINT, cleanup);
 
-	res = a.exec();
+		res = a.exec();
 
-	cleanup(0);
+		cleanup(res);
 
-	return res;
+		return res;
+	} catch (const std::exception &e) {
+		std::cerr << "[ERROR]: " << e.what() << std::endl;
+		return 1;
+	} catch (...) {
+		std::cerr << "[ERROR]: Caught unknown error (bug)" << std::endl;
+		return 2;
+	}
 }

@@ -10,11 +10,23 @@
 #include "FFDHE.h"
 #include "Net.h"
 #include "OSInfo.h"
+#include "PBKDF2.h"
 #include "SSL.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "Version.h"
 
+#include "database/MySQLConnectionParameter.h"
+#include "database/PostgreSQLConnectionParameter.h"
+#include "database/SQLiteConnectionParameter.h"
+
+#include <boost/algorithm/string.hpp>
+#include <boost/optional.hpp>
+
+#include <cassert>
+
+#include <QDir>
+#include <QFile>
+#include <QStringList>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
 
@@ -71,7 +83,7 @@ MetaParams::MetaParams() {
 	iSQLiteWAL                 = 0;
 	iDBPort                    = 0;
 	qsDBusService              = "net.sourceforge.mumble.murmur";
-	qsDBDriver                 = "QSQLITE";
+	qsDBDriver                 = "SQLITE";
 	qsLogfile                  = "mumble-server.log";
 
 	iLogDays = 31;
@@ -327,13 +339,12 @@ void MetaParams::read(QString fname) {
 
 	m_suggestVersion = Version::fromConfig(qsSettings->value("suggestVersion"));
 
-	qvSuggestPositional = qsSettings->value("suggestPositional");
-	if (qvSuggestPositional.toString().trimmed().isEmpty())
-		qvSuggestPositional = QVariant();
-
-	qvSuggestPushToTalk = qsSettings->value("suggestPushToTalk");
-	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
-		qvSuggestPushToTalk = QVariant();
+	QString strVal = qsSettings->value("suggestpositional").toString();
+	suggestPositional =
+		strVal.trimmed().isEmpty() ? boost::none : boost::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
+	strVal = qsSettings->value("suggestpushtotalk").toString();
+	suggestPushToTalk =
+		strVal.trimmed().isEmpty() ? boost::none : boost::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
 
 	bLogGroupChanges = typeCheckedFromSettings("loggroupchanges", bLogGroupChanges);
 	bLogACLChanges   = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
@@ -429,9 +440,9 @@ void MetaParams::read(QString fname) {
 					bForceExternalAuth ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("suggestversion"), Version::toConfigString(m_suggestVersion));
 	qmConfig.insert(QLatin1String("suggestpositional"),
-					qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
+					suggestPositional ? QStringLiteral("true") : QStringLiteral("false"));
 	qmConfig.insert(QLatin1String("suggestpushtotalk"),
-					qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
+					suggestPushToTalk ? QStringLiteral("true") : QStringLiteral("false"));
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
 	qmConfig.insert(QLatin1String("channelcountlimit"), QString::number(iChannelCountLimit));
@@ -635,7 +646,7 @@ bool MetaParams::loadSSLSettings() {
 	return true;
 }
 
-Meta::Meta() {
+Meta::Meta(const ::mumble::db::ConnectionParameter &connectParam) : dbWrapper(connectParam) {
 #ifdef Q_OS_WIN
 	QOS_VERSION qvVer;
 	qvVer.MajorVersion = 1;
@@ -665,6 +676,150 @@ Meta::~Meta() {
 #endif
 }
 
+QString locateDatabase() {
+	QStringList datapaths;
+
+	datapaths << Meta::mp.qdBasePath.absolutePath();
+	datapaths << QDir::currentPath();
+	datapaths << QCoreApplication::instance()->applicationDirPath();
+	datapaths << QDir::homePath();
+
+	// We use a lambda, so we can easily "break out" of all levels of nested loops using return
+	QString path = [&]() {
+		for (const QString &currentDir : datapaths) {
+			// Prefer "mumble-server.sqlite", but for legacy reasons also keep looking for "murmur.sqlite"
+			for (const QString &currentFilename :
+				 { QStringLiteral("mumble-server.sqlite"), QStringLiteral("murmur.sqlite") }) {
+				QFile currentFile(currentDir + "/" + currentFilename);
+
+				if (currentFile.exists()) {
+					return currentFile.fileName();
+				}
+			}
+		}
+
+		return QString();
+	}();
+
+	if (path.isEmpty()) {
+		path = Meta::mp.qdBasePath.absoluteFilePath("mumble-server.sqlite");
+	}
+
+	return QDir::toNativeSeparators(path);
+}
+
+const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
+	assert(!Meta::mp.qsDBDriver.isEmpty());
+
+	bool isSQLite = boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qsqlite")
+					|| boost::iequals(Meta::mp.qsDBDriver.toStdString(), "sqlite");
+
+	if (Meta::mp.qsDatabase.isEmpty()) {
+		if (isSQLite) {
+			Meta::mp.qsDatabase = locateDatabase();
+		} else {
+			qFatal("When using non-SQLite databases, the database name has to be provided explicitly (via the INI)");
+		}
+	}
+	assert(!Meta::mp.qsDatabase.isEmpty());
+
+	if (!Meta::mp.qsDBOpts.isEmpty()) {
+		qFatal("dbOpts no longer supported");
+	}
+	if (!Meta::mp.qsDBPrefix.isEmpty()) {
+		qFatal("qsDBPrefix no longer supported");
+	}
+
+	if (isSQLite) {
+#ifdef MUMBLE_DISABLE_SQLITE
+		qFatal("Your version of the Mumble server has been compiled without support for SQLite - choose a different DB "
+			   "backend");
+#endif
+
+		if (Meta::mp.iSQLiteWAL == 1) {
+			qFatal("SQLite WAL = 1 option no longer supported. Either enable fully (WAL = 2) or disable (WAL = 0)");
+		}
+		if (Meta::mp.iSQLiteWAL > 2) {
+			qFatal("Invalid value for sqlite_wal option. Allowed values are 0 or 2.");
+		}
+		if (!Meta::mp.qsDBUserName.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a username doesn't make sense");
+		}
+		if (!Meta::mp.qsDBPassword.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a password doesn't make sense");
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			qFatal("When using a SQLite database, specifying a host doesn't make sense");
+		}
+		if (Meta::mp.iDBPort > 0) {
+			qFatal("When using a SQLite database, specifying a port doesn't make sense");
+		}
+
+		static ::mumble::db::SQLiteConnectionParameter sqliteConnection(Meta::mp.qsDatabase.toStdString(),
+																		Meta::mp.iSQLiteWAL > 0);
+
+		return sqliteConnection;
+	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qmysql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "mysql")) {
+#ifdef MUMBLE_DISABLE_MYSQL
+		qFatal("Your version of the Mumble server has been compiled without support for MySQL - choose a different DB "
+			   "backend");
+#endif
+		if (Meta::mp.qsDatabase.isEmpty()) {
+			qFatal("When using a MySQL database, a database name must be specified");
+		}
+
+		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
+
+		if (!Meta::mp.qsDBUserName.isEmpty()) {
+			mysqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
+		}
+		if (!Meta::mp.qsDBPassword.isEmpty()) {
+			mysqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			mysqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		}
+		if (Meta::mp.iDBPort > 0) {
+			mysqlConnection.port = std::to_string(Meta::mp.iDBPort);
+		}
+
+		return mysqlConnection;
+	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qpsql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "psql")
+			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "postgresql")) {
+#ifdef MUMBLE_DISABLE_POSTGRESQL
+		qFatal("Your version of the Mumble server has been compiled without support for PostgreSQL - choose a "
+			   "different DB backend");
+#endif
+		if (Meta::mp.qsDatabase.isEmpty()) {
+			qFatal("When using a PostgreSQL database, a database name must be specified");
+		}
+
+		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
+
+		if (!Meta::mp.qsDBUserName.isEmpty()) {
+			postgresqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
+		}
+		if (!Meta::mp.qsDBPassword.isEmpty()) {
+			postgresqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		}
+		if (!Meta::mp.qsDBHostName.isEmpty()) {
+			postgresqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		}
+		if (Meta::mp.iDBPort > 0) {
+			postgresqlConnection.port = std::to_string(Meta::mp.iDBPort);
+		}
+
+		return postgresqlConnection;
+	} else {
+		qFatal("Unsupported database driver: %s", Meta::mp.qsDBDriver.toStdString().c_str());
+	}
+
+	assert(false);
+	throw "Reached unreachable code";
+}
+
 bool Meta::reloadSSLSettings() {
 	// Reload SSL settings.
 	if (!Meta::mp.loadSSLSettings()) {
@@ -686,27 +841,69 @@ bool Meta::reloadSSLSettings() {
 	return true;
 }
 
+void Meta::initPBKDF2IterationCount() {
+	if (Meta::mp.kdfIterations <= 0) {
+		// No explicit iteration count given -> load from DB
+		boost::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
+
+		if (storedIterationCount) {
+			Meta::mp.kdfIterations = static_cast< int >(storedIterationCount.get());
+		} else {
+			// No stored value -> initialize from scratch
+			Meta::mp.kdfIterations = PBKDF2::benchmark();
+
+			qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations
+					   << "iterations as default";
+
+			assert(Meta::mp.kdfIterations >= 0);
+			dbWrapper.storePBKDF2IterationCount(static_cast< unsigned int >(Meta::mp.kdfIterations));
+		}
+	}
+
+	assert(Meta::mp.kdfIterations > 0);
+
+	if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
+		qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp.kdfIterations
+				   << "is below minimum recommended value of" << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT
+				   << "and could be insecure.";
+	}
+}
+
 void Meta::getOSInfo() {
 	qsOS        = OSInfo::getOS();
 	qsOSVersion = OSInfo::getOSDisplayableVersion();
 }
 
-void Meta::bootAll() {
-	QList< int > ql = ServerDB::getBootServers();
-	foreach (int snum, ql)
-		boot(snum);
+void Meta::bootAll(const ::mumble::db::ConnectionParameter &connectionParam, bool createDefaultInstance) {
+	std::vector< unsigned int > bootServerIDs = dbWrapper.getBootServers();
+
+	if (bootServerIDs.empty() && createDefaultInstance) {
+		// Create a default server instance
+		bootServerIDs.push_back(dbWrapper.addServer());
+		dbWrapper.setServerBootProperty(bootServerIDs[0], true);
+		qWarning("Created new server default instance");
+	}
+
+	for (unsigned int currentServerID : bootServerIDs) {
+		boot(connectionParam, currentServerID);
+	}
 }
 
-bool Meta::boot(int srvnum) {
-	if (qhServers.contains(srvnum))
+bool Meta::boot(const ::mumble::db::ConnectionParameter &connectionParam, unsigned int srvnum) {
+	if (qhServers.contains(srvnum)) {
 		return false;
-	if (!ServerDB::serverExists(srvnum))
+	}
+
+	if (!dbWrapper.serverExists(srvnum)) {
 		return false;
-	Server *s = new Server(srvnum, this);
+	}
+
+	Server *s = new Server(srvnum, connectionParam, this);
 	if (!s->bValid) {
 		delete s;
 		return false;
 	}
+
 	qhServers.insert(srvnum, s);
 	emit started(s);
 
@@ -743,7 +940,7 @@ bool Meta::boot(int srvnum) {
 	return true;
 }
 
-void Meta::kill(int srvnum) {
+void Meta::kill(unsigned int srvnum) {
 	Server *s = qhServers.take(srvnum);
 	if (!s)
 		return;

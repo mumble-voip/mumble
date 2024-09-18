@@ -1,0 +1,17 @@
+{
+	"v6": {
+		"table_name": "config",
+		"column_names": [
+			"server_id",
+			"config_name",
+			"config_value"
+		],
+		"rows": [
+			[
+				1,
+				"test_key",
+				"test_value"
+			]
+		]
+	}
+}

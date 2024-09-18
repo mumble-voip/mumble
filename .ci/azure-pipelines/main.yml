@@ -5,7 +5,7 @@
 
 variables:
   MUMBLE_ENVIRONMENT_STORE: '$(Agent.ToolsDirectory)/MumbleBuild'
-  MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
+  MUMBLE_ENVIRONMENT_SOURCE: 'https://github.com/mumble-voip/vcpkg/releases/download/2024-05/'
   MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
   MUMBLE_SOURCE_COMMIT: '$(Build.SourceVersion)'
@@ -22,7 +22,7 @@ jobs:
     pool:
       vmImage: 'windows-2022'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md-release.2023-12-31.6a3ce9c65'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md-release.2024-05-19.5eaf0d45f'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md-release'
     steps:
     - template: steps_windows.yml
@@ -43,7 +43,7 @@ jobs:
     pool:
       vmImage: 'macOS-12'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-osx-release.2023-12-31.6a3ce9c65'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-osx-release.2024-05-19.5eaf0d45f'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-osx-release'
     steps:
     - template: steps_macos.yml

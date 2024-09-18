@@ -5,6 +5,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+
 currentDir=$(pwd)
 cd $AGENT_TEMPDIRECTORY
 
@@ -48,4 +49,19 @@ mkdir -p $MUMBLE_ENVIRONMENT_STORE
 
 chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/$MUMBLE_ENVIRONMENT_TRIPLET/tools/Ice/slice2cpp"
 
-ls -l $MUMBLE_ENVIRONMENT_STORE
+
+# Setup PostgreSQL database for the Mumble tests
+# Note: we don't configure MySQL as that's not installed on the Azure runners for macOS
+# by default and installing it via homebrew takes forever.
+
+echo "Configuring PostgreSQL..."
+
+# Using brew service start postgresql for some reason does not work so we have
+# to resort to starting PostgreSQL manually.
+postgres_data_dir="$( brew info postgresql | grep -E '^ *initdb' | awk '{print $NF}' )"
+pg_ctl start -D "$postgres_data_dir"
+
+echo "CREATE DATABASE mumble_test_db; "\
+	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
+	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;" | psql -d postgres
+

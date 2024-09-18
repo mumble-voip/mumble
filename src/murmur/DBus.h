@@ -14,8 +14,9 @@
 #include "Group.h"
 #include "Meta.h"
 #include "Server.h"
-#include "ServerDB.h"
 #include "User.h"
+
+#include "murmur/database/DBLogEntry.h"
 
 struct Ban;
 class QDBusObjectPath;
@@ -95,10 +96,10 @@ Q_DECLARE_METATYPE(RegisteredPlayer)
 Q_DECLARE_METATYPE(QList< RegisteredPlayer >)
 
 struct LogEntry {
-	unsigned int timestamp;
+	std::size_t timestamp;
 	QString txt;
 	LogEntry();
-	LogEntry(const ServerDB::LogRecord &);
+	LogEntry(const ::mumble::server::db::DBLogEntry &entry);
 };
 Q_DECLARE_METATYPE(LogEntry)
 Q_DECLARE_METATYPE(QList< LogEntry >)
@@ -221,7 +222,7 @@ public slots:
 	void stop(int server_id, const QDBusMessage &);
 	void newServer(int &server_id);
 	void deleteServer(int server_id, const QDBusMessage &);
-	void getBootedServers(QList< int > &server_list);
+	void getBootedServers(QList< unsigned int > &server_list);
 	void getAllServers(QList< int > &server_list);
 	void isBooted(int server_id, bool &booted);
 	void getConf(int server_id, const QString &key, const QDBusMessage &, QString &value);

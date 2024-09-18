@@ -11,6 +11,7 @@
 #include "Database.h"
 #include "EnvUtils.h"
 #include "MainWindow.h"
+#include "MumbleConstants.h"
 #include "ServerHandler.h"
 #include "widgets/EventFilters.h"
 #include "Global.h"
@@ -272,7 +273,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 
 	// And if we are connected add the channels on the current server
 	if (Global::get().uiSession) {
-		Channel *c             = Channel::get(Channel::ROOT_ID);
+		Channel *c             = Channel::get(Mumble::ROOT_CHANNEL_ID);
 		QTreeWidgetItem *sroot = new QTreeWidgetItem(qtwChannels, QStringList(c->qsName));
 		qmTree.insert(0, sroot);
 		iterateChannelChildren(sroot, c, qmTree);
