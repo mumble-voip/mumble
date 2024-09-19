@@ -895,13 +895,12 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 }
 
 void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
-											   void *positionalData,
+											   PositionalDataNoQt **positionalData,
 											   std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
-		QMetaObject::invokeMethod(this, "getPositionalAudioData_v_1_3_x",
-								  Qt::QueuedConnection, Q_ARG(mumble_plugin_id_t, callerID),
-								  Q_ARG(void*, positionalData),
+		QMetaObject::invokeMethod(this, "getPositionalAudioData_v_1_3_x", Qt::QueuedConnection,
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(PositionalDataNoQt **, positionalData),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 		return;
 	}
@@ -918,7 +917,31 @@ void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
-	positionalData = const_cast<PositionalData *>(&pluginManager->getPositionalData());
+	const PositionalData &posData = pluginManager->getPositionalData();
+
+	PositionalDataNoQt positionalDataNoQt = PositionalDataNoQt();
+
+	for (int i = 0; i < 3; i++) {
+		Coord coord = static_cast< Coord >(i);
+
+		positionalDataNoQt.m_playerPos[i]  = posData.getPlayerPos()[coord];
+		positionalDataNoQt.m_playerDir[i]  = posData.getPlayerDir()[coord];
+		positionalDataNoQt.m_playerAxis[i] = posData.getPlayerAxis()[coord];
+
+		positionalDataNoQt.m_cameraPos[i]  = posData.getCameraPos()[coord];
+		positionalDataNoQt.m_cameraDir[i]  = posData.getCameraDir()[coord];
+		positionalDataNoQt.m_cameraAxis[i] = posData.getCameraAxis()[coord];
+	}
+
+	char *context = posData.getContext().toUtf8().data();
+	positionalDataNoQt.m_context = (char *) malloc(strlen(context) + 1);
+	std::strcpy(positionalDataNoQt.m_context, context);
+
+	char *identity = posData.getPlayerIdentity().toUtf8().data();
+	positionalDataNoQt.m_identity = (char *) malloc(strlen(identity) + 1);
+	std::strcpy(positionalDataNoQt.m_identity, identity);
+
+	memcpy(*positionalData, &positionalDataNoQt, sizeof(PositionalDataNoQt));
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
@@ -1829,7 +1852,7 @@ C_WRAPPER(getChannelDescription_v_1_0_x)
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-	mumble_plugin_id_t callerID, void *positionalData
+	mumble_plugin_id_t callerID, PositionalDataNoQt **positionalData
 #define ARG_NAMES callerID, positionalData
 C_WRAPPER(getPositionalAudioData_v_1_3_x)
 #undef TYPED_ARGS

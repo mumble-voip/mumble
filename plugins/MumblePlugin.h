@@ -444,6 +444,17 @@ struct MumbleStringWrapper {
 	bool needsReleasing;
 };
 
+struct PositionalDataNoQt {
+	float m_playerPos[3];
+	float m_playerDir[3];
+	float m_playerAxis[3];
+	float m_cameraPos[3];
+	float m_cameraDir[3];
+	float m_cameraAxis[3];
+	char *m_context;
+	char *m_identity;
+};
+
 MUMBLE_EXTERN_C_END
 
 #endif // EXTERNAL_MUMBLE_PLUGIN_TYPES_
@@ -1526,7 +1537,7 @@ struct MUMBLE_API_STRUCT_NAME {
      * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalAudioData)(mumble_plugin_id_t callerID,
-																		void *positionalData);
+																		PositionalDataNoQt **positionalData);
 #endif
 
 

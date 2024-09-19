@@ -119,7 +119,7 @@ public slots:
 	void getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 									   mumble_channelid_t channelID, const char **description,
 									   std::shared_ptr< api_promise_t > promise);
-	void getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID, void* positionalData,
+	void getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID, PositionalDataNoQt **positionalData,
 										std::shared_ptr< api_promise_t > promise);
 	void requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 								 mumble_channelid_t channelID, const char *password,
