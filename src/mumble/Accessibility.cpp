@@ -11,6 +11,7 @@
 #include <QAccessible>
 #include <QAccessibleEvent>
 #include <QObject>
+#include <QRegularExpression>
 #include <QWidget>
 
 #include <queue>
@@ -18,7 +19,7 @@
 namespace Mumble {
 namespace Accessibility {
 
-	QString removeHTMLTags(QString value) { return value.remove(QRegExp("<[^>]*>")); }
+	QString removeHTMLTags(QString value) { return value.remove(QRegularExpression("<[^>]*>")); }
 
 	void setDescriptionFromLabel(QWidget *widget, const QLabel *label) {
 		widget->setAccessibleDescription(removeHTMLTags(label->text()));

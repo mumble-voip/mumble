@@ -121,7 +121,7 @@ void BanEditor::on_qpbAdd_clicked() {
 	if (ok) {
 		qlBans << b;
 		refreshBanList();
-		qlwBans->setCurrentRow(qlBans.indexOf(b));
+		qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
 	}
 
 	qlwBans->setCurrentRow(-1);
@@ -136,7 +136,7 @@ void BanEditor::on_qpbUpdate_clicked() {
 		if (ok) {
 			qlBans.replace(idx, b);
 			refreshBanList();
-			qlwBans->setCurrentRow(qlBans.indexOf(b));
+			qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
 		}
 	}
 }
@@ -174,8 +174,7 @@ void BanEditor::refreshBanList() {
 			qlwBans->addItem(ban.qsUsername);
 	}
 
-	int n = qlBans.count();
-	setWindowTitle(tr("Ban List - %n Ban(s)", "", n));
+	setWindowTitle(tr("Ban List - %n Ban(s)", "", static_cast< int >(qlBans.count())));
 }
 
 void BanEditor::on_qleSearch_textChanged(const QString &match) {

@@ -27,7 +27,7 @@ MumbleApplication::MumbleApplication(int &pargc, char **pargv) : QApplication(pa
 
 QString MumbleApplication::applicationVersionRootPath() {
 	QString versionRoot = EnvUtils::getenv(QLatin1String("MUMBLE_VERSION_ROOT"));
-	if (versionRoot.count() > 0) {
+	if (!versionRoot.isEmpty()) {
 		return versionRoot;
 	}
 	return this->applicationDirPath();
@@ -57,7 +57,11 @@ bool MumbleApplication::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
+#	if QT_VERSION >= 0x060000
+bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, qintptr *) {
+#	else
 bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
+#	endif
 	auto gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 	if (!gsw) {
 		return false;

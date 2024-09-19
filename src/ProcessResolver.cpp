@@ -154,15 +154,15 @@ void ProcessResolver::doResolve() {
 				QByteArray cmdline = f.readAll();
 				f.close();
 
-				int nul = cmdline.indexOf('\0');
+				const auto nul = cmdline.indexOf('\0');
 				if (nul != -1) {
 					cmdline.truncate(nul);
 				}
 
 				QString exe = QString::fromUtf8(cmdline);
 				if (exe.contains(QLatin1String("\\"))) {
-					int lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
-					if (exe.count() > lastBackslash + 1) {
+					const auto lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
+					if (exe.length() > lastBackslash + 1) {
 						baseName = exe.mid(lastBackslash + 1);
 					}
 				}

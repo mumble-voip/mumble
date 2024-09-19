@@ -49,7 +49,11 @@ public:
 
 	bool event(QEvent *e) Q_DECL_OVERRIDE;
 #ifdef Q_OS_WIN
+#	if QT_VERSION >= 0x060000
+	bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) Q_DECL_OVERRIDE;
+#	else
 	bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+#	endif
 #endif
 
 	QUrl quLaunchURL;

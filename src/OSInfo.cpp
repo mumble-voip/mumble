@@ -257,7 +257,7 @@ QString OSInfo::getOSVersion() {
 	if (err == noErr)
 		err = Gestalt(gestaltSystemVersionBugFix, &bugfix);
 	if (err != noErr)
-		return QString::number(QSysInfo::MacintoshVersion, 16);
+		return QSysInfo::productVersion();
 
 	char *buildno = nullptr;
 	char buildno_buf[32];

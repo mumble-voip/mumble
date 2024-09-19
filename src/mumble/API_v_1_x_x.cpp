@@ -1213,8 +1213,13 @@ QVariant getMumbleSettingHelper(mumble_settings_key_t key) {
 
 // IS_TYPE actually only checks if the QVariant can be converted to the needed type since that's all that we really care
 // about at the end of the day.
-#define IS_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) == varType
-#define IS_NOT_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) != varType
+#if QT_VERSION >= 0x060000
+#	define IS_TYPE(var, varType) static_cast< QMetaType::Type >(var.typeId()) == varType
+#	define IS_NOT_TYPE(var, varType) static_cast< QMetaType::Type >(var.typeId()) != varType
+#else
+#	define IS_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) == varType
+#	define IS_NOT_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) != varType
+#endif
 
 void MumbleAPI::getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, bool *outValue,
 											  std::shared_ptr< api_promise_t > promise) {

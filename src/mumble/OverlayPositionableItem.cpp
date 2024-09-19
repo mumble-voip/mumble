@@ -51,8 +51,8 @@ void OverlayPositionableItem::onMove() {
 	const QRectF &sr = scene()->sceneRect();
 	const QPointF &p = m_qgeiHandle->pos();
 
-	m_position->setX(qBound< qreal >(0.0f, p.x() / sr.width(), 1.0f));
-	m_position->setY(qBound< qreal >(0.0f, p.y() / sr.height(), 1.0f));
+	m_position->setX(qBound< qreal >(0.0, p.x() / sr.width(), 1.0f));
+	m_position->setY(qBound< qreal >(0.0, p.y() / sr.height(), 1.0f));
 
 	m_qgeiHandle->setPos(m_position->x() * sr.width(), m_position->y() * sr.height());
 

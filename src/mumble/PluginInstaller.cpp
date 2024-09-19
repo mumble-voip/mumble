@@ -51,6 +51,9 @@ bool PluginInstaller::canBePluginFile(const QFileInfo &fileInfo) noexcept {
 	return QLibrary::isLibrary(fileInfo.fileName());
 }
 
+PluginInstaller::PluginInstaller(const QString &filePath, QWidget *p) : PluginInstaller(QFileInfo(filePath), p) {
+}
+
 PluginInstaller::PluginInstaller(const QFileInfo &fileInfo, QWidget *p)
 	: QDialog(p), m_pluginArchive(fileInfo), m_plugin(nullptr), m_pluginSource(), m_pluginDestination(),
 	  m_copyPlugin(false) {

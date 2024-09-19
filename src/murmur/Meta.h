@@ -16,6 +16,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QList>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QUrl>
 #include <QtCore/QVariant>
 #include <QtNetwork/QHostAddress>
@@ -95,8 +96,8 @@ public:
 	QUrl qurlRegWeb;
 	bool bBonjour;
 
-	QRegExp qrUserName;
-	QRegExp qrChannelName;
+	QRegularExpression qrUserName;
+	QRegularExpression qrChannelName;
 
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;

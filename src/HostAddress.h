@@ -46,7 +46,7 @@ struct HostAddress {
 
 	void setByte(std::size_t idx, std::uint8_t value);
 
-	friend quint32 qHash(const HostAddress &);
+	friend std::size_t qHash(const HostAddress &);
 
 private:
 	// Binary representation of an IPv6 address

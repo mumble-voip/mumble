@@ -11,6 +11,7 @@
 #include <QtGui/QFontMetrics>
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
+#include <QtGui/QTransform>
 
 BasepointPixmap::BasepointPixmap() : qpBasePoint(0, 0), iAscent(-1), iDescent(-1) {
 }
@@ -82,7 +83,7 @@ BasepointPixmap OverlayTextLine::createPixmap(QColor col) {
 			fYCorrection = fEdge - static_cast< float >(qr.top());
 		}
 
-		QMatrix correction;
+		QTransform correction;
 		correction.translate(fXCorrection, fYCorrection);
 		qpp = correction.map(qpp);
 	}
@@ -176,7 +177,7 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 		}
 
 		// translation to "pixmap space":
-		QMatrix correction;
+		QTransform correction;
 		//  * adjust left edge
 		correction.translate(-bb.x() + fEdge, 0.0f);
 		//  * scale overly high text (still on baseline)

@@ -65,6 +65,10 @@ public:
 	/// @returns Whether the provided file could (!) be a plugin source
 	static bool canBePluginFile(const QFileInfo &fileInfo) noexcept;
 
+	/// @param filePath The plugin source to process
+	///
+	/// @throws PluginInstallException If something isn't right or goes wrong
+	PluginInstaller(const QString &filePath, QWidget *p = nullptr);
 	/// @param fileInfo The plugin source to process
 	///
 	/// @throws PluginInstallException If something isn't right or goes wrong

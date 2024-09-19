@@ -181,7 +181,7 @@ static void banToBan(const ::Ban &b, ::MumbleServer::Ban &mb) {
 	mb.name     = iceString(b.qsUsername);
 	mb.hash     = iceString(b.qsHash);
 	mb.reason   = iceString(b.qsReason);
-	mb.start    = static_cast< int >(b.qdtStart.toLocalTime().toTime_t());
+	mb.start    = static_cast< int >(b.qdtStart.toLocalTime().toSecsSinceEpoch());
 	mb.duration = static_cast< int >(b.iDuration);
 }
 
@@ -197,7 +197,7 @@ static void banToBan(const ::MumbleServer::Ban &mb, ::Ban &b) {
 	b.qsUsername = u8(mb.name);
 	b.qsHash     = u8(mb.hash);
 	b.qsReason   = u8(mb.reason);
-	b.qdtStart   = QDateTime::fromTime_t(static_cast< quint32 >(mb.start)).toUTC();
+	b.qdtStart   = QDateTime::fromSecsSinceEpoch(static_cast< quint32 >(mb.start)).toUTC();
 	b.iDuration  = static_cast< unsigned int >(mb.duration);
 }
 

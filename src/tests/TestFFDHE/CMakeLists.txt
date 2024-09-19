@@ -7,6 +7,6 @@ add_executable(TestFFDHE TestFFDHE.cpp)
 
 set_target_properties(TestFFDHE PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestFFDHE PRIVATE shared Qt5::Test)
+target_link_libraries(TestFFDHE PRIVATE shared Qt6::Test)
 
 add_test(NAME TestFFDHE COMMAND $<TARGET_FILE:TestFFDHE>)

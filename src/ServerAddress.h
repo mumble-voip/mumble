@@ -43,6 +43,6 @@ bool operator<(const ServerAddress &lhs, const ServerAddress &rhs);
 
 /// Implementation of qHash for ServerAddress, such that ServerAddress
 /// can be used as a key in QHash, QMap, etc.
-uint qHash(const ServerAddress &key);
+std::size_t qHash(const ServerAddress &key);
 
 #endif

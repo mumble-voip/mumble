@@ -6,9 +6,8 @@
 #ifndef MUMBLE_FFDHE_H_
 #define MUMBLE_FFDHE_H_
 
-class QByteArray;
-class QString;
-class QStringList;
+#include <QByteArray>
+#include <QStringList>
 
 /// FFDHE provides access to the Diffie-Hellman parameters from RFC 7919.
 class FFDHE {

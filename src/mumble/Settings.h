@@ -66,7 +66,7 @@ struct ChannelTarget {
 
 Q_DECLARE_METATYPE(ChannelTarget)
 
-quint32 qHash(const ChannelTarget &);
+std::size_t qHash(const ChannelTarget &);
 
 struct ShortcutTarget {
 	bool bCurrentSelection           = false;
@@ -81,14 +81,13 @@ struct ShortcutTarget {
 
 	ShortcutTarget() = default;
 	bool isServerSpecific() const;
-	bool operator<(const ShortcutTarget &) const;
 	bool operator==(const ShortcutTarget &) const;
 };
 
 Q_DECLARE_METATYPE(ShortcutTarget)
 
-quint32 qHash(const ShortcutTarget &);
-quint32 qHash(const QList< ShortcutTarget > &);
+std::size_t qHash(const ShortcutTarget &);
+std::size_t qHash(const QList< ShortcutTarget > &);
 
 struct PluginSetting {
 	QString path                 = {};

@@ -29,6 +29,7 @@
 #include "Utils.h"
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QSet>
 #include <QtCore/QXmlStreamAttributes>
 #include <QtCore/QtEndian>
@@ -365,9 +366,10 @@ void Server::readParams() {
 	if (!qsHost.isEmpty()) {
 		qlBind.clear();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 #else
-		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
+		// Qt 5.14 introduced the Qt::SplitBehavior flags, deprecating the QString fields.
+		// It also introduced the QString::split() overload that accepts a QRegularExpression.
 		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
 #endif
 			QHostAddress qhaddr;
@@ -450,8 +452,10 @@ void Server::readParams() {
 	iChannelNestingLimit = getConf("channelnestinglimit", iChannelNestingLimit).toInt();
 	iChannelCountLimit   = getConf("channelcountlimit", iChannelCountLimit).toInt();
 
-	qrUserName    = QRegExp(getConf("username", qrUserName.pattern()).toString());
-	qrChannelName = QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
+	qrUserName =
+		decltype(qrUserName)(QRegularExpression::anchoredPattern(getConf("username", qrUserName.pattern()).toString()));
+	qrChannelName = decltype(qrChannelName)(
+		QRegularExpression::anchoredPattern(getConf("channelname", qrChannelName.pattern()).toString()));
 
 	iMessageLimit = getConf("messagelimit", iMessageLimit).toUInt();
 	if (iMessageLimit < 1) { // Prevent disabling messages entirely
@@ -580,9 +584,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "allowrecording")
 		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp.allowRecording;
 	else if (key == "username")
-		qrUserName = !v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
+		qrUserName = !v.isNull() ? QRegularExpression(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")
-		qrChannelName = !v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
+		qrChannelName = !v.isNull() ? QRegularExpression(v) : Meta::mp.qrChannelName;
 	else if (key == "suggestversion")
 		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp.m_suggestVersion;
 	else if (key == "suggestpositional")
@@ -1476,7 +1480,9 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= 0x050500
+#if QT_VERSION >= 0x060300
+		sock->setProtocol(QSsl::TlsV1_2OrLater);
+#elif QT_VERSION >= 0x050500
 		sock->setProtocol(QSsl::TlsV1_0OrLater);
 #elif QT_VERSION >= 0x050400
 		// In Qt 5.4, QSsl::SecureProtocols is equivalent
@@ -1700,8 +1706,8 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
-		int len = qbaMsg.size();
-		if (len < 2 || static_cast< unsigned int >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
+		const auto len = qbaMsg.size();
+		if (len < 2 || static_cast< std::size_t >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
 			// Drop messages that are too small to be senseful or that are bigger than allowed
 			return;
 		}
@@ -1737,28 +1743,28 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 #ifdef QT_NO_DEBUG
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #else
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				if (type != Mumble::Protocol::TCPMessageType::Ping) {    \
-					printf("== %s:\n", #name);                           \
-					msg.PrintDebugString();                              \
-				}                                                        \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				if (type != Mumble::Protocol::TCPMessageType::Ping) {                        \
+					printf("== %s:\n", #name);                                               \
+					msg.PrintDebugString();                                                  \
+				}                                                                            \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #endif
 
@@ -1786,7 +1792,7 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 	Connection *c = qhUsers.value(id);
 	if (c) {
 		QByteArray qba;
-		int len = a.size();
+		const auto len = a.size();
 
 		qba.resize(len + 6);
 		unsigned char *uc = reinterpret_cast< unsigned char * >(qba.data());
@@ -2144,13 +2150,28 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 
 	if ((Meta::mp.iObfuscate != 0)) {
 		QCryptographicHash h(QCryptographicHash::Sha1);
+#if QT_VERSION >= 0x060300
+		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+		h.addData(byteView);
+#else
 		h.addData(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+#endif
 		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
 			quint32 num = adr.toIPv4Address();
+#if QT_VERSION >= 0x060300
+			byteView = { reinterpret_cast< const char * >(&num), sizeof(num) };
+			h.addData(byteView);
+#else
 			h.addData(reinterpret_cast< const char * >(&num), sizeof(num));
+#endif
 		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
 			Q_IPV6ADDR num = adr.toIPv6Address();
+#if QT_VERSION >= 0x060300
+			byteView = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
+			h.addData(byteView);
+#else
 			h.addData(reinterpret_cast< const char * >(num.c), sizeof(num.c));
+#endif
 		}
 		return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
 	}
@@ -2160,11 +2181,19 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 bool Server::validateUserName(const QString &name) {
 	// We expect the name passed to this function to be fully trimmed already. This way we
 	// prevent "empty" names (at least with the default username restriction).
-	return (name.trimmed().length() == name.length() && qrUserName.exactMatch(name) && (name.length() <= 512));
+	if (name.length() > 512 || name.length() != name.trimmed().length()) {
+		return false;
+	}
+
+	return qrUserName.match(name).hasMatch();
 }
 
 bool Server::validateChannelName(const QString &name) {
-	return (qrChannelName.exactMatch(name) && (name.length() <= 512));
+	if (name.length() > 512) {
+		return false;
+	}
+
+	return qrChannelName.match(name).hasMatch();
 }
 
 void Server::recheckCodecVersions(ServerUser *connectingUser) {
@@ -2290,7 +2319,7 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		}
 		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
 	} else {
-		int length = text.length();
+		auto length = text.length();
 
 		// No limits
 		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))

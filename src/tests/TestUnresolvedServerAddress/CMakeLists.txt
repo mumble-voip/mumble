@@ -7,6 +7,6 @@ add_executable(TestUnresolvedServerAddress TestUnresolvedServerAddress.cpp)
 
 set_target_properties(TestUnresolvedServerAddress PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestUnresolvedServerAddress PRIVATE shared Qt5::Test)
+target_link_libraries(TestUnresolvedServerAddress PRIVATE shared Qt6::Test)
 
 add_test(NAME TestUnresolvedServerAddress COMMAND $<TARGET_FILE:TestUnresolvedServerAddress>)

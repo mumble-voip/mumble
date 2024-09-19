@@ -790,7 +790,7 @@ void ACLEditor::on_qpbACLUp_clicked() {
 	if (!as || as->bInherited)
 		return;
 
-	int idx = qlACLs.indexOf(as);
+	const auto idx = qlACLs.indexOf(as);
 	if (idx <= numInheritACL + 1)
 		return;
 
@@ -808,7 +808,7 @@ void ACLEditor::on_qpbACLDown_clicked() {
 	if (!as || as->bInherited)
 		return;
 
-	int idx = qlACLs.indexOf(as) + 1;
+	const auto idx = qlACLs.indexOf(as) + 1;
 	if (idx >= qlACLs.count())
 		return;
 

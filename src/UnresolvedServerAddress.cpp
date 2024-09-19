@@ -38,6 +38,6 @@ bool operator<(const UnresolvedServerAddress &lhs, const UnresolvedServerAddress
 	return false;
 }
 
-uint qHash(const UnresolvedServerAddress &key) {
-	return qHash(key.hostname) ^ uint(key.port);
+std::size_t qHash(const UnresolvedServerAddress &key) {
+	return qHash(key.hostname) ^ static_cast< std::size_t >(key.port);
 }

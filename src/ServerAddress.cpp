@@ -31,6 +31,6 @@ bool operator<(const ServerAddress &lhs, const ServerAddress &rhs) {
 	return false;
 }
 
-uint qHash(const ServerAddress &key) {
-	return qHash(key.host) ^ uint(key.port);
+std::size_t qHash(const ServerAddress &key) {
+	return qHash(key.host) ^ static_cast< std::size_t >(key.port);
 }

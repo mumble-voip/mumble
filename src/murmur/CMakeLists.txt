@@ -16,7 +16,7 @@ include(qt-utils)
 
 option(ice "Build support for Ice RPC." ON)
 
-find_pkg(Qt5 COMPONENTS Sql REQUIRED)
+find_pkg(Qt6 COMPONENTS Sql REQUIRED)
 
 set(MURMUR_SOURCES
 	"main.cpp"
@@ -78,32 +78,32 @@ target_include_directories(mumble-server PRIVATE
 	${SHARED_SOURCE_DIR}
 )
 
-target_link_libraries(mumble-server PRIVATE shared Qt5::Sql)
+target_link_libraries(mumble-server PRIVATE shared Qt6::Sql)
 
 if(static)
 	# MariaDB and MySQL
-	if(TARGET Qt5::QMYSQLDriverPlugin)
+	if(TARGET Qt6::QMYSQLDriverPlugin)
 		include_qt_plugin(mumble-server PRIVATE "QMYSQLDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QMYSQLDriverPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt6::QMYSQLDriverPlugin)
 	endif()
 	# Open DataBase Connectivity
-	if(TARGET Qt5::QODBCDriverPlugin)
+	if(TARGET Qt6::QODBCDriverPlugin)
 		include_qt_plugin(mumble-server PRIVATE "QODBCDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QODBCDriverPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt6::QODBCDriverPlugin)
 		if(WIN32)
 			find_library(LIB_ODBC32 "odbc32")
 			target_link_libraries(mumble-server PRIVATE ${LIB_ODBC32})
 		endif()
 	endif()
 	# PostgreSQL
-	if(TARGET Qt5::QPSQLDriverPlugin)
+	if(TARGET Qt6::QPSQLDriverPlugin)
 		include_qt_plugin(mumble-server PRIVATE "QPSQLDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QPSQLDriverPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt6::QPSQLDriverPlugin)
 	endif()
 	# SQLite
-	if(TARGET Qt5::QSQLiteDriverPlugin)
+	if(TARGET Qt6::QSQLiteDriverPlugin)
 		include_qt_plugin(mumble-server PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble-server PRIVATE Qt5::QSQLiteDriverPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt6::QSQLiteDriverPlugin)
 	endif()
 endif()
 
@@ -125,19 +125,19 @@ if(WIN32)
 			AUTORCC ON
 	)
 
-	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
+	find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
 
 	target_link_libraries(mumble-server 
 		PRIVATE 
-			Qt5::Widgets
+			Qt6::Widgets
 			dbghelp.lib
 			shlwapi.lib
 			rpcrt4.lib
 	)
 
-	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
+	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
 		include_qt_plugin(mumble-server PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble-server PRIVATE Qt5::QWindowsIntegrationPlugin)
+		target_link_libraries(mumble-server PRIVATE Qt6::QWindowsIntegrationPlugin)
 	endif()
 else()
 	target_sources(mumble-server
@@ -184,7 +184,7 @@ if(zeroconf)
 endif()
 
 if(NOT WIN32 AND NOT APPLE)
-	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
+	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble-server
 		PRIVATE
@@ -193,7 +193,7 @@ if(NOT WIN32 AND NOT APPLE)
 	)
 
 	target_compile_definitions(mumble-server PUBLIC "USE_DBUS")
-	target_link_libraries(mumble-server PRIVATE Qt5::DBus)
+	target_link_libraries(mumble-server PRIVATE Qt6::DBus)
 endif()
 
 if(ice)
@@ -265,8 +265,17 @@ if(ice)
 
 	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
+	if(static)
+		# BZip2 is used by Ice, specifically in ConnectionI.cpp.
+		# We link to the library explicitly because CMake is not aware of the dependency.
+		# TODO: Fix or rewrite the official FindIce.cmake.
+		find_pkg(BZip2 REQUIRED)
+	endif()
+
 	target_link_libraries(mumble-server
 		PRIVATE
+			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
+
 			Ice::Ice
 			Ice::IceSSL
 			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>

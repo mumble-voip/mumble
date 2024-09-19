@@ -289,11 +289,11 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 		target = qlsUsernames.first();
 		tc.insertText(target);
 	} else {
-		bool bBaseIsName = false;
-		int iend         = tc.position();
-		int istart       = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
-		QString base     = toPlainText().mid(istart, iend - istart);
-		tc.setPosition(istart);
+		bool bBaseIsName   = false;
+		const int iend     = tc.position();
+		const auto istart  = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
+		const QString base = toPlainText().mid(istart, iend - istart);
+		tc.setPosition(static_cast< int >(istart));
 		tc.setPosition(iend, QTextCursor::KeepAnchor);
 
 		if (qlsUsernames.last() == base) {

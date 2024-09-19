@@ -34,7 +34,7 @@ int UserListModel::rowCount(const QModelIndex &parentIndex) const {
 	if (parentIndex.isValid())
 		return 0;
 
-	return m_userList.size();
+	return static_cast< int >(m_userList.size());
 }
 
 int UserListModel::columnCount(const QModelIndex &parentIndex) const {

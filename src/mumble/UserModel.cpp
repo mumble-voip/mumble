@@ -155,7 +155,7 @@ int ModelItem::rowOfSelf() const {
 }
 
 int ModelItem::rows() const {
-	return qlChildren.count();
+	return static_cast< int >(qlChildren.count());
 }
 
 int ModelItem::insertIndex(Channel *c) const {
@@ -174,7 +174,7 @@ int ModelItem::insertIndex(Channel *c) const {
 	}
 	qlpc << c;
 	std::sort(qlpc.begin(), qlpc.end(), Channel::lessThan);
-	return qlpc.indexOf(c) + (bUsersTop ? ocount : 0);
+	return static_cast< int >(qlpc.indexOf(c) + (bUsersTop ? ocount : 0));
 }
 
 int ModelItem::insertIndex(ClientUser *p, bool userIsListener) const {
@@ -207,7 +207,8 @@ int ModelItem::insertIndex(ClientUser *p, bool userIsListener) const {
 	// Make sure that the a user is always added to other users either all above or all below
 	// sub-channels) and also make sure that listeners are grouped together and directly above
 	// normal users.
-	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount) + (userIsListener ? 0 : listenerCount);
+	return static_cast< int >(qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount)
+							  + (userIsListener ? 0 : listenerCount));
 }
 
 QString ModelItem::hash() const {
@@ -841,7 +842,7 @@ void UserModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelInde
 	if (old->qlChildren.isEmpty())
 		return;
 
-	beginInsertRows(index(item), 0, old->qlChildren.count());
+	beginInsertRows(index(item), 0, static_cast< int >(old->qlChildren.count()));
 
 	for (int i = 0; i < old->qlChildren.count(); ++i) {
 		ModelItem *o  = old->qlChildren.at(i);
@@ -866,7 +867,7 @@ ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Model
 	// Here's the idea. We insert the item, update persistent indexes, THEN remove it.
 
 	// Get the current position of the item under its parent (aka its "row")
-	int oldrow = oldparent->qlChildren.indexOf(oldItem);
+	auto oldrow = static_cast< int >(oldparent->qlChildren.indexOf(oldItem));
 
 	// Get the row of the item at its new position. This depends on whether we're moving a
 	// channel or a user.
@@ -1093,7 +1094,7 @@ void UserModel::removeUser(ClientUser *p) {
 	ModelItem *item  = ModelItem::c_qhUsers.value(p);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
-	int row = citem->qlChildren.indexOf(item);
+	const auto row = static_cast< int >(citem->qlChildren.indexOf(item));
 
 	beginRemoveRows(index(citem), row, row);
 	c->removeUser(p);
@@ -1484,7 +1485,7 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 		return;
 	}
 
-	int row = citem->qlChildren.indexOf(item);
+	const auto row = static_cast< int >(citem->qlChildren.indexOf(item));
 
 	beginRemoveRows(index(citem), row, row);
 	citem->qlChildren.removeAt(row);

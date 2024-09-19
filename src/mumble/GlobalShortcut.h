@@ -218,7 +218,7 @@ public slots:
 
 struct ShortcutKey {
 	Shortcut s;
-	int iNumUp;
+	qsizetype iNumUp;
 	GlobalShortcut *gs;
 };
 

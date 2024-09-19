@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 	a.setDesktopFileName("info.mumble.Mumble");
 #endif
 
-#if QT_VERSION >= 0x050100
+#if QT_VERSION >= 0x050100 && QT_VERSION < 0x060000
 	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
 	QString settingsFile;
 	QStringList args = a.arguments();
-	const int index  = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
+	const auto index = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
 	if (index >= 0) {
 		if (index + 1 < args.count()) {
 			QFile inifile(args.at(index + 1));
@@ -419,7 +419,7 @@ int main(int argc, char **argv) {
 				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
 				return 0;
 			} else {
-				if (PluginInstaller::canBePluginFile(args.at(i))) {
+				if (PluginInstaller::canBePluginFile(QFileInfo(args.at(i)))) {
 					pluginsToBeInstalled << args.at(i);
 				} else {
 					if (!bRpcMode) {

@@ -296,10 +296,10 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 	// We also want to abbreviate names that nominally have the same amount of characters before and
 	// after abbreviation. However as we're typically not using mono-spaced fonts, the abbreviation
 	// indicator might still occupy less space than the original text.
-	const int abbreviableSize = minPrefixChars + minPostfixChars + abbreviationIndicator.size();
+	const auto abbreviableSize = minPrefixChars + minPostfixChars + abbreviationIndicator.size();
 
 	// Iterate over all names and check how many of them could be abbreviated
-	int totalCharCount = reachedRoot ? separator.size() : 0;
+	auto totalCharCount = reachedRoot ? separator.size() : 0;
 	for (int i = 0; i < nameList.size(); i++) {
 		totalCharCount += nameList[i].size();
 
@@ -311,7 +311,7 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 
 	QString groupName = reachedRoot ? separator : QString();
 
-	for (int i = nameList.size() - 1; i >= 0; i--) {
+	for (decltype(nameList.size()) i = nameList.size() - 1; i >= 0; i--) {
 		if (totalCharCount > idealMaxChars && nameList[i].size() >= abbreviableSize
 			&& (abbreviateCurrentChannel || i != 0)) {
 			// Abbreviate the names as much as possible
@@ -508,14 +508,21 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	bool foundTarget = false;
 
 	for (auto &currentContainer : m_containers) {
-		QRect containerArea(currentContainer->getWidget()->mapToGlobal({ 0, 0 }),
-							currentContainer->getWidget()->size());
-
+		const QRect containerArea(currentContainer->getWidget()->mapToGlobal(QPoint(0, 0)),
+								  currentContainer->getWidget()->size());
+#if QT_VERSION >= 0x060000
+		if (containerArea.contains(event->globalPosition().toPoint())) {
+#else
 		if (containerArea.contains(event->globalPos())) {
+#endif
 			for (auto &currentEntry : currentContainer->getEntries()) {
-				QRect entryArea(currentEntry->getWidget()->mapToGlobal({ 0, 0 }), currentEntry->getWidget()->size());
-
+				const QRect entryArea(currentEntry->getWidget()->mapToGlobal(QPoint(0, 0)),
+									  currentEntry->getWidget()->size());
+#if QT_VERSION >= 0x060000
+				if (entryArea.contains(event->globalPosition().toPoint())) {
+#else
 				if (entryArea.contains(event->globalPos())) {
+#endif
 					switch (currentEntry->getType()) {
 						case EntryType::USER:
 							setSelection(
@@ -557,9 +564,14 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 			// currently selected item. This item we have updated to the correct one with the setSelection() call above
 			// resulting in the proper context menu being shown at the position of the mouse which in this case is in
 			// the TalkingUI.
-			QMetaObject::invokeMethod(Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
-									  Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())),
-									  Q_ARG(bool, false));
+			QMetaObject::invokeMethod(
+				Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
+#if QT_VERSION >= 0x060000
+				Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPosition().toPoint())),
+#else
+				Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())),
+#endif
+				Q_ARG(bool, false));
 		}
 	} else {
 		// Clear selection

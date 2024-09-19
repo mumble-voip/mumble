@@ -44,21 +44,11 @@ else()
 	endif()
 
 	find_pkg(OpenSSL QUIET)
-	find_pkg(Qt5 QUIET)
 
 	if(NOT OpenSSL_FOUND)
 		if(APPLE)
 			# Homebrew
 			set(OPENSSL_ROOT_DIR "/usr/local/opt/openssl")
-		endif()
-	endif()
-
-	if(NOT Qt5_FOUND)
-		if(APPLE)
-			# Homebrew
-			set(Qt5_DIR "/usr/local/opt/qt5/lib/cmake/Qt5")
-		elseif(${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
-			set(Qt5_DIR "/usr/local/lib/qt5/cmake/Qt5")
 		endif()
 	endif()
 endif()

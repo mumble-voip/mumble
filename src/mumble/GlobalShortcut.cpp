@@ -512,15 +512,15 @@ void ShortcutTargetWidget::on_qtbEdit_clicked() {
 ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	QItemEditorFactory *factory = new QItemEditorFactory;
 
-	factory->registerEditor(QVariant::List, new QStandardItemEditorCreator< GlobalShortcutButtons >());
-	factory->registerEditor(QVariant::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
-	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
+	factory->registerEditor(QMetaType::QVariantList, new QStandardItemEditorCreator< GlobalShortcutButtons >());
+	factory->registerEditor(QMetaType::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
+	factory->registerEditor(QMetaType::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
 	factory->registerEditor(static_cast< int >(QVariant::fromValue(ShortcutTarget()).userType()),
 							new QStandardItemEditorCreator< ShortcutTargetWidget >());
 	factory->registerEditor(static_cast< int >(QVariant::fromValue(ChannelTarget()).userType()),
 							new QStandardItemEditorCreator< ChannelSelectWidget >());
-	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< TextEditWidget >());
-	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator< QWidget >());
+	factory->registerEditor(QMetaType::QString, new QStandardItemEditorCreator< TextEditWidget >());
+	factory->registerEditor(QMetaType::UnknownType, new QStandardItemEditorCreator< QWidget >());
 	setItemEditorFactory(factory);
 }
 
@@ -545,9 +545,12 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			return tr("< Unknown Channel >");
 		}
 	}
-
-	switch (item.type()) {
-		case QVariant::Int: {
+#if QT_VERSION >= 0x060000
+	switch (item.typeId()) {
+#else
+	switch (static_cast< QMetaType::Type >(item.type())) {
+#endif
+		case QMetaType::Int: {
 			const auto v = item.toInt();
 			if (v > 0) {
 				return tr("On");
@@ -557,11 +560,11 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 
 			return tr("Toggle");
 		}
-		case QVariant::UInt: {
+		case QMetaType::UInt: {
 			const auto shortcut = GlobalShortcutEngine::engine->qmShortcuts.value(item.toInt());
 			return shortcut ? shortcut->name : tr("Unassigned");
 		}
-		case QVariant::List: {
+		case QMetaType::QVariantList: {
 			const auto buttons = item.value< QList< QVariant > >();
 			if (buttons.count() > 0) {
 				QString text;
@@ -580,7 +583,11 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			}
 		}
 		default:
+#if QT_VERSION >= 0x060000
+			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.typeId());
+#else
 			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.type());
+#endif
 	}
 
 	return QStyledItemDelegate::displayText(item, loc);
@@ -849,7 +856,11 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 	::GlobalShortcut *gs  = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 
 	item->setData(0, Qt::DisplayRole, static_cast< unsigned int >(sc.iIndex));
+#if QT_VERSION >= 0x060000
+	if (sc.qvData.isValid() && gs && (sc.qvData.metaType() == gs->qvDefault.metaType()))
+#else
 	if (sc.qvData.isValid() && gs && (sc.qvData.type() == gs->qvDefault.type()))
+#endif
 		item->setData(1, Qt::DisplayRole, sc.qvData);
 	else if (gs)
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
@@ -953,7 +964,7 @@ void GlobalShortcutEngine::remap() {
 			sk->gs          = gs;
 
 			foreach (const QVariant &button, sc.qlButtons) {
-				int idx = qlButtonList.indexOf(button);
+				auto idx = qlButtonList.indexOf(button);
 				if (idx == -1) {
 					qlButtonList << button;
 					qlShortcutList << QList< ShortcutKey * >();
@@ -1026,7 +1037,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 		}
 	}
 
-	int idx = qlButtonList.indexOf(button);
+	const auto idx = qlButtonList.indexOf(button);
 	if (idx == -1)
 		return false;
 

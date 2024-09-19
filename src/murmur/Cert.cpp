@@ -32,12 +32,12 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	EVP_PKEY *pkey = nullptr;
 	BIO *mem       = nullptr;
 
-	mem = BIO_new_mem_buf(qbaKey.data(), qbaKey.size());
+	mem = BIO_new_mem_buf(qbaKey.data(), static_cast< int >(qbaKey.size()));
 	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
 	pkey = d2i_PrivateKey_bio(mem, nullptr);
 	BIO_free(mem);
 
-	mem = BIO_new_mem_buf(qbaCert.data(), qbaCert.size());
+	mem = BIO_new_mem_buf(qbaCert.data(), static_cast< int >(qbaCert.size()));
 	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
 	x509 = d2i_X509_bio(mem, nullptr);
 	BIO_free(mem);

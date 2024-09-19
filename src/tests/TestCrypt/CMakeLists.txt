@@ -9,6 +9,6 @@ set_target_properties(TestCrypt PROPERTIES AUTOMOC ON)
 
 target_include_directories(TestCrypt PRIVATE "${CMAKE_SOURCE_DIR}/src/murmur")
 
-target_link_libraries(TestCrypt PRIVATE shared Qt5::Test)
+target_link_libraries(TestCrypt PRIVATE shared Qt6::Test)
 
 add_test(NAME TestCrypt COMMAND $<TARGET_FILE:TestCrypt>)

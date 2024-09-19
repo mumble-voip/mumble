@@ -438,8 +438,9 @@ void ServerHandler::run() {
 		}
 		bUdp = false;
 
-
-#if QT_VERSION >= 0x050500
+#if QT_VERSION >= 0x060300
+		qtsSock->setProtocol(QSsl::TlsV1_2OrLater);
+#elif QT_VERSION >= 0x050500
 		qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
 #elif QT_VERSION >= 0x050400
 		// In Qt 5.4, QSsl::SecureProtocols is equivalent
@@ -634,7 +635,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 		}
 	} else if (type == Mumble::Protocol::TCPMessageType::Ping) {
 		MumbleProto::Ping msg;
-		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
+		if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) {
 			ConnectionPtr connection(cConnection);
 			if (!connection)
 				return;

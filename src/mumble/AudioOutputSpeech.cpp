@@ -346,7 +346,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					// packet normally in order to be able to play it.
 					decodedSamples = opus_decode_float(
 						opusState, qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-						qba.size(), pOut, static_cast< int >(iAudioBufferSize), 0);
+						static_cast< opus_int32 >(qba.size()), pOut, static_cast< int >(iAudioBufferSize), 0);
 				} else {
 					// If the packet is non-empty, but the associated user is locally muted,
 					// we don't have to decode the packet. Instead it is enough to know how many

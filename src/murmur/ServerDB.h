@@ -40,7 +40,7 @@ public:
 	};
 	ServerDB();
 	~ServerDB();
-	typedef QPair< unsigned int, QString > LogRecord;
+	typedef QPair< std::int64_t, QString > LogRecord;
 	static Timer tLogClean;
 	static QSqlDatabase *db;
 	static QString qsUpgradeSuffix;
@@ -62,10 +62,11 @@ public:
 	static bool query(QSqlQuery &, const QString &, bool fatal = true, bool warn = true);
 	static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal = true, bool warn = true);
 	static bool execBatch(QSqlQuery &, const QString &str = QString(), bool fatal = true);
-	// No copy; private declaration without implementation
-	ServerDB(const ServerDB &);
 
 private:
+	ServerDB(const ServerDB &) = delete;
+	ServerDB &operator=(const ServerDB &) = delete;
+
 	static void loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query);
 	static void writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations);
 };
