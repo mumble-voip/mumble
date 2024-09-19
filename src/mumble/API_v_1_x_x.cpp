@@ -913,8 +913,7 @@ void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
 
 	VERIFY_PLUGIN_ID(callerID);
 
-	auto pluginManager = Global::get().pluginManager;
-	if (!pluginManager || !pluginManager->fetchPositionalData()) {
+	PluginManager *pluginManager = Global::get().pluginManager;
 	if (!pluginManager) {
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
