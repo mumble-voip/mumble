@@ -915,6 +915,7 @@ void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
 
 	auto pluginManager = Global::get().pluginManager;
 	if (!pluginManager || !pluginManager->fetchPositionalData()) {
+	if (!pluginManager) {
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
