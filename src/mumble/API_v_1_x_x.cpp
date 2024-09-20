@@ -934,12 +934,14 @@ void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
 	}
 
 	char *context = posData.getContext().toUtf8().data();
-	positionalDataNoQt.m_context = (char *) malloc(strlen(context) + 1);
-	std::strcpy(positionalDataNoQt.m_context, context);
+	size_t size = strlen(context) + 1;
+	positionalDataNoQt.m_context = static_cast< char * >(malloc(size));
+	std::memcpy(positionalDataNoQt.m_context, context, size);
 
 	char *identity = posData.getPlayerIdentity().toUtf8().data();
-	positionalDataNoQt.m_identity = (char *) malloc(strlen(identity) + 1);
-	std::strcpy(positionalDataNoQt.m_identity, identity);
+	size = strlen(identity) + 1;
+	positionalDataNoQt.m_identity = static_cast< char * >(malloc(size));
+	std::memcpy(positionalDataNoQt.m_identity, identity, size);
 
 	memcpy(*positionalData, &positionalDataNoQt, sizeof(PositionalDataNoQt));
 	EXIT_WITH(MUMBLE_STATUS_OK);
