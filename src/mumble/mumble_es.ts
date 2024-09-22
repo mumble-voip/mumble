@@ -7043,7 +7043,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Silenciate</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
@@ -7051,11 +7051,11 @@ Las opciones válidas son:
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajustes</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consola para los desarrolladores</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
@@ -7063,7 +7063,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Acerca de</translation>
+        <translation>&amp;Acerca de</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -7071,7 +7071,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registro…</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
@@ -7083,15 +7083,15 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitar el avatar</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Restablecer el comentario...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar el avatar...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
@@ -7111,7 +7111,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mostrar el comentario</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
@@ -7135,7 +7135,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mover a Mi Canal</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
@@ -7143,7 +7143,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Desactivar la síntesis de voz</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
@@ -7242,7 +7242,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished">Vista gráfica de simulación de audio posicional</translation>
+        <translation>Gráfico de posicionamiento del sonido en la simulación</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -8149,27 +8149,27 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished">nombre del Plugin</translation>
+        <translation>Nombre del plugin</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished">Caja de verificación habilitada</translation>
+        <translation>Casilla para activar y desactivar el plugin</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished">Casilla de verificación del permiso de audio posicional del plugin</translation>
+        <translation>Casilla de autorización del plugin de la posición del audio</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished">Casilla de verificación del permiso de escucha de eventos de teclado del plugin</translation>
+        <translation>Casilla de verificación del permiso de escucha de eventos de teclado del plugin</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished">marcado</translation>
+        <translation>comprobado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished">sin marcar</translation>
+        <translation>sin comprobar</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -8623,11 +8623,11 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished">estado</translation>
+        <translation>estado</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished">silenciado y ensordecido</translation>
+        <translation>silenciado y muteado</translation>
     </message>
     <message>
         <source>muted</source>
@@ -8639,7 +8639,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished">no silenciado</translation>
+        <translation>sin silenciar</translation>
     </message>
     <message>
         <source>recording</source>
@@ -8647,11 +8647,11 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished">orador prioritario</translation>
+        <translation>Altavoz prioritario</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished">tiene un comentario lago</translation>
+        <translation>tiene un comentario lago</translation>
     </message>
     <message>
         <source>text messages ignored</source>
@@ -9029,7 +9029,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">&amp;Ver certificado</translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <source>&amp;OK</source>
