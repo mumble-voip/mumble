@@ -78,7 +78,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 
 
 Server::Server(int snum, QObject *p) : QThread(p) {
-	tracy::SetThreadName("Main");
+	tracy::SetThreadName("mumble-server");
 
 	bValid     = true;
 	iServerNum = snum;
