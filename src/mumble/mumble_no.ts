@@ -7264,11 +7264,11 @@ Valid options are:
     <message>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Bruk TCP kompabilitetsmodus</translation>
+        <translation>Bruk TCP-kompatibilitetsmodus</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Skru på TCP kompabilitetsmodus&lt;/b&gt;.&lt;br /&gt;Dette får Mumble til å kommunisere bare ved bruk av TCP mot tjeneren. Dette øker overskuddet og forårsaker pakketap som igjen gir merkbare stopp i kommunikasjonen, så de bør bare brukes hvis du ikke kan bruke forvalget (som bruker UDP for tale og TCP for kontrollsignal).</translation>
+        <translation>&lt;b&gt;Skru på TCP-kompatibilitetsmodus&lt;/b&gt;.&lt;br /&gt;Dette får Mumble til å kommunisere bare ved bruk av TCP mot tjeneren. Dette øker overskuddet og forårsaker pakketap som igjen gir merkbare stopp i kommunikasjonen, så de bør bare brukes hvis du ikke kan bruke forvalget (som bruker UDP for tale og TCP for kontrollsignal).</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
@@ -7344,7 +7344,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Typen mellomtjener Mumble kobler til gjennom.&lt;/b&gt;&lt;br /&gt; for alle utgående tilkoblinger. Merk: Mellomtjenertunnelering tvinger Mumble til å bruke TCP kompabilitetsmodus, slik at all taledata blir sendt gjennom kontrollkanalen.</translation>
+        <translation>&lt;b&gt;Typen mellomtjener Mumble kobler til gjennom.&lt;/b&gt;&lt;br /&gt; for alle utgående tilkoblinger. Merk: Mellomtjenertunnelering tvinger Mumble til å bruke TCP-kompatibilitetsmodus, slik at all taledata blir sendt gjennom kontrollkanalen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
