@@ -5,7 +5,7 @@
     <name>ACLEditor</name>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>डायलॉग</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
