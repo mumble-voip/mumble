@@ -1230,7 +1230,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ceci montre le débit sortant maximal utilisé.&lt;/b&gt;&lt;br /&gt;Ceci montre le débit maximal envoyé depuis votre machine. Le débit audio est le débit maximal pour les données audio seules. La position est le débit utilisé pour les informations de position. Les frais généraux correspondent à notre encadrement et aux en-têtes de paquets IP (IP et UDP représentent 75 % de ces frais généraux).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci est le débit audio du dernier cadre compressé (20 ms). Le débit maximal peut être ajusté dans la boîte de dialogue Paramètres.</translation>
     </message>
 </context>
 <context>
@@ -3242,7 +3242,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Pour mesurer la latence (ping) des serveurs publiques et déterminer le nombre d&apos;utilisateurs actifs, votre adresse IP doit être transmise à chacun.&lt;/p&gt;&lt;p&gt;Voulez-vous consentir à l&apos;envoi de votre adresse IP&#xa0;? Si vous répondez non, la liste de serveurs public sera désactivée. Cependant, vous pourrez la réactivée à tout moment dans les paramètres réseau.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Pour mesurer la latence (ping) des serveurs publics et déterminer le nombre d&apos;utilisateurs actifs, votre adresse IP doit être transmise à chacun.&lt;/p&gt;&lt;p&gt;Voulez-vous consentir à l&apos;envoi de votre adresse IP&#x202f;? Si vous répondez non, la liste de serveurs publics sera désactivée. Cependant, vous pourrez la réactiver à tout moment dans les paramètres réseau.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
