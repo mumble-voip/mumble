@@ -56,8 +56,7 @@ The `cmake` directory contains a few cmake scripts that are needed to make the b
 issue (or extend the build system), you can probably ignore this directory.
 
 Obviously you are already aware of the `docs` directory (you are reading this file, which lives in there). It contains mostly development related
-documentation. The more extended user documentation is available on our website or (depending on how far we have gotten to migrate it yet) on our
-wiki. The most relevant documentation for you is probably within the `dev` (development) subdirectory.
+documentation. The more extended user documentation is available on our website. The most relevant documentation for you is probably within the `dev` (development) subdirectory.
 
 `g15helper` and `helper` will generally not concern you. We could probably find a better place for these, but at the moment they are where they are…
 

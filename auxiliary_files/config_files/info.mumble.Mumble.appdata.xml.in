@@ -16,9 +16,9 @@
 	</content_rating>
 	<url type="homepage">@CMAKE_PROJECT_HOMEPAGE_URL@</url>
 	<url type="bugtracker">https://github.com/mumble-voip/mumble/issues</url>
-	<url type="help">https://wiki.mumble.info/wiki/Main_Page</url>
+	<url type="help">https://www.mumble.info/documentation</url>
 	<url type="donation">https://liberapay.com/mumble</url>
-	<url type="translate">https://wiki.mumble.info/wiki/Language_Translation</url>
+	<url type="translate">https://github.com/mumble-voip/mumble/blob/master/README.md#translating</url>
 	<launchable type="desktop-id">info.mumble.Mumble.desktop</launchable>
 	<screenshots>
 		<screenshot type="default">
