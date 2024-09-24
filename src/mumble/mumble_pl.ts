@@ -2782,10 +2782,6 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
 &lt;p&gt;Pamiętaj również, że ten plik nie jest w żaden sposób szyfrowany i jeżeli osoba nieautoryzowana uzyska do niego dostęp, to będzie w stanie podszywać się pod ciebie. Prosimy, dbaj o swoje kopie zapasowe!&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble może wykorzystywać certyfikaty do autoryzacji na serwerach. Używanie certyfikatów pozwala uniknąć haseł, co oznacza, że nie musisz ujawniać hasła do zdalnej witryny. Umożliwia to także bardzo prostą rejestrację użytkowników i niezależną od serwerów listę znajomych po stronie klienta.&lt;/p&gt;&lt;p&gt;Mumble może pracować bez certyfikatów, ale licz się z tym, że większość serwerów będzie ich wymagać.&lt;/p&gt;&lt;p&gt;Utworzenie nowego certyfikatu automatycznie wystarcza w większości przypadków użycia. Ale Mumble obsługuje również certyfikaty reprezentujące zaufanie do własności użytkowników adresu e-mail. Certyfikaty te są wystawiane przez osoby trzecie. Aby uzyskać więcej informacji, zobacz &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;dokumentację certyfikatów użytkowników&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>Wyświetla bieżący certyfikat</translation>
     </message>
@@ -2824,6 +2820,10 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>Twój adres e-mail. Na przykład: jankowalski@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
