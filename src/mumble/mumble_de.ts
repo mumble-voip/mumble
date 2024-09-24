@@ -1230,7 +1230,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies zeigt die maximale ausgehende Bandbreite an.&lt;/b&gt;&lt;br /&gt;Dies zeigt die maximale Bandbreite an, die von deinem Rechner gesendet wird. Audio-Bitrate ist die maximale Bitrate für die Audiodaten allein. Position ist die Bitrate, die für Positionsdaten verwendet wird. Overhead ist unser Framing und die IP-Paket-Header (IP und UDP machen 75% dieses Overheads aus).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist die Audio-Bitrate des letzten komprimierten Frames (20 ms). Die Spitzenbitrate kann im Dialogfeld Einstellungen angepasst werden.</translation>
     </message>
 </context>
 <context>
@@ -4952,11 +4952,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>User dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerzugriffsmodus</translation>
     </message>
     <message>
         <source>Channel dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus zum Ziehen der Kanäle</translation>
     </message>
     <message>
         <source>Always on top mode</source>
@@ -4964,7 +4964,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Beende den Verhaltensmodus</translation>
     </message>
     <message>
         <source>Channel separator string</source>
@@ -7011,7 +7011,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachrichten ig&amp;norieren</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
@@ -7023,11 +7023,11 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;ink</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles e&amp;ntlinken</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
