@@ -2770,10 +2770,6 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
 &lt;p&gt;Vegye figyelembe, hogy ez a fájl nem lesz titkosítva, és ha azt bárki megszerzi, úgy képes lesz Önt megszemélyesíteni, tehát vigyázzon rá.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;A Mumble képes tanúsítványokat használni a kiszolgálóval való hitelesítéshez. Tanúsítványok használatával elkerülheti a jelszavakat, azaz nem kell felfednie semmilyen jelszót sem a távoli helynek. Ez lehetővé teszi továbbá a nagyon egyszerű felhasználói regisztrációt és a kiszolgálóktól független kliensoldali barátlistát.&lt;/p&gt;&lt;p&gt;Habár a Mumble képes tanúsítványok nélkül is működni, a kiszolgálók többsége elvárja hogy legyen Önnek is egy.&lt;/p&gt;&lt;p&gt;Új tanúsítvány létrehozása automatikusan a legtöbb használati esetben elégséges. De a Mumble támogatja továbbá az email cím birtoklását képviselő tanúsítványokat is. Ezeket a tanúsítványokat harmadik felek bocsájtják ki. További információért tekintse meg a &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;felhasználói tanúsítvány dokumentációját&lt;/a&gt;. &lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2811,6 +2807,10 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

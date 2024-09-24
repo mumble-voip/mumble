@@ -2780,10 +2780,6 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
 &lt;p&gt;Bu dosyanın şifrelenmeyeceğini, ve bu dosyayı ele geçiren birinin sizi taklit edebileceğinden ona iyi bakmanız gerektiğini dikkatinize sunarız.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble, sunucularla kimlik doğrulamak için sertifika kullanabilir. Sertifika kullanmak parola kullanımına gerek bırakmaz, yani uzaktaki siteye hiçbir parola ifşa etmeniz gerekmez. Aynı zamanda çok kolay kullanıcı kaydı yapmayı ve sunuculardan bağımsız olarak istemci tarafında arkadaş listelerine imkân verir.&lt;/p&gt;&lt;p&gt;Mumble sertifika olmadan da çalışabilir fakat sunucuların ekseriyeti bir sertifikanız olmasını bekleyecektir.&lt;/p&gt;&lt;p&gt;Çoğu kullanım için otomatik sertifika oluşturmak kafi gelecektir. Ancak Mumble, kullanıcıların e-posta adreslerinin sahipliği konusunda güven temsil eden sertifikaları da destekler. Bu sertifikalar üçüncü taraflar tarafından verilir. Daha fazla bilgi için &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;kullanıcı sertifikaları belgelendirmemize&lt;/a&gt; bakınız.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>Geçerli sertifikayı görüntüler</translation>
     </message>
@@ -2822,6 +2818,10 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>E-posta adresiniz. Örneğin: namikkemal@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
