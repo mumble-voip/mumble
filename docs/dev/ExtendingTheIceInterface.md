@@ -90,8 +90,7 @@ interact with the server. A small amount of configuration is required, namely:
 > any other case.
 
 An existing Python Ice client is [`mice.py`](https://github.com/mumble-voip/mumble-scripts/blob/master/Helpers/mice.py), which simply creates
-necessary Ice objects and then drops you into an interactive Python shell. (Refer to the [Wiki](https://wiki.mumble.info/wiki/Mice) and
-[Natenom](https://blog.natenom.com/2016/02/an-introduction-on-how-to-manage-your-mumble-server-murmur-through-ice-with-mice/) for longer guides.)
+necessary Ice objects and then drops you into an interactive Python shell.
 
 ```python
 # Make sure the Mumble server is running (in a separate terminal)
@@ -144,6 +143,4 @@ In [5]: [(user.session, user.name) for user in s.getUsers().values()]
 Out[5]: [(7L, 'Bob')]
 ```
 
-> :information_source: Refer to [the Wiki for additional 3rd-party applications](https://wiki.mumble.info/wiki/3rd_Party_Applications) which leverage
-> the server's Ice interface.
 

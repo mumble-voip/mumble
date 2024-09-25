@@ -8359,12 +8359,6 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>La cancellazione dell&apos;eco non è supportata per la combinazione di interfacce &quot;%1&quot; (in) e &quot;%2&quot; (out).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se stai utilizzando Linux questo avviene probabilmente perché stai utilizzando una versione della repository di pacchetti che ha i propri cicli di aggiornamenti.&lt;/p&gt;&lt;p&gt;Se vuoi avere sempre la versione più recente di Mumble, dovresti considerare l&apos;utilizzo di un differente metodo di installazione.
-Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la wiki di Mumble&lt;/a&gt; per vedere le alternative disponibili.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Muta localmente</translation>
     </message>
@@ -8635,6 +8629,11 @@ Puoi registrarle di nuovo.</translation>
     <message>
         <source>Add</source>
         <translation type="unfinished">Aggiungi</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

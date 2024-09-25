@@ -8419,12 +8419,6 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
         <translation>La cancel·lació de l&apos;eco no és compatible amb la combinació de l&apos;interfície &quot;%1&quot; (entrada) i &quot;%2&quot; (sortida).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si utilitzeu Linux, això es deu probablement a que utilitzeu una versió del repositori de paquets de la vostra distribució. &lt;/p&gt;&lt;p&gt; Si voleu tenir sempre la versió més recent del Mumble, heu de tenir sempre la versió més recent del Mumble, podeu utilitzar un altre mètode d’instal·lació.
-Vegeu &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;al wiki del Mumble&lt;/a&gt; quines alternatives hi ha.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Silencia el so local</translation>
     </message>
@@ -8695,6 +8689,11 @@ Podeu registrar-vos de nou.</translation>
     <message>
         <source>Add</source>
         <translation>Afegeix</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

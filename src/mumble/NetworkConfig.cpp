@@ -164,7 +164,7 @@ void NetworkConfig::on_qcbAutoUpdate_stateChanged(int state) {
 						"version from your distribution's package repository that have their own update cycles.</p>"
 						"<p>If you want to always have the most recent Mumble version, you should consider using a "
 						"different method of installation.\n"
-						"See <a href=\"https://wiki.mumble.info/wiki/Installing_Mumble\">the Mumble wiki</a> for what "
+						"See <a href=\"https://github.com/mumble-voip/mumble\">the project repository</a> for what "
 						"alternatives there are.</p>"));
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.exec();

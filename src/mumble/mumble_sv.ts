@@ -8418,12 +8418,6 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Ekoavbrott stöds inte för gränssnittskombinationen &quot;%1&quot; (in) och &quot;%2&quot; (ut).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Om du använder Linux beror det troligen på att du använder en version från din distributions paketförråd som har sina egna uppdateringscykler.&lt;/p&gt;&lt;p&gt;Om du alltid vill ha den senaste Mumble-versionen bör du överväga att använda en annan installationsmetod.
-Se &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble-wikin&lt;/a&gt; för vilka alternativ som finns.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Blockerat lokalt ljud</translation>
     </message>
@@ -8694,6 +8688,11 @@ Du kan registrera dem igen.</translation>
     <message>
         <source>Add</source>
         <translation type="unfinished">Lägg till</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

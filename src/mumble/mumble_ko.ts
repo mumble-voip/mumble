@@ -8358,12 +8358,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>&quot;%1&quot; (입력) 및 &quot;%2&quot; (출력) 인터페이스 조합에는 에코 제거가 지원되지 않습니다.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Linux를 사용하는 경우 자체 업데이트 주기가 있는 배포 패키지 저장소의 버전을 사용하고 있기 때문일 수 있습니다.&lt;/p&gt;&lt;p&gt;항상 최신 Mumble 버전을 사용하려면 다른 설치 방법을 사용해야 합니다.
-다른 방법은 &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble 위키&lt;/a&gt;를 참고하세요.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>로컬 마이크 음소거</translation>
     </message>
@@ -8634,6 +8628,11 @@ You can register them again.</source>
     <message>
         <source>Add</source>
         <translation type="unfinished">추가</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

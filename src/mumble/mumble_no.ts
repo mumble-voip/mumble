@@ -8374,12 +8374,6 @@ Trykk på knappen nedefor for å oppgradere.</translation>
         <translation>Ekko-kansellering støttes ikke for grensesnittskombinasjonen «%1» (i) og «%2» (ut).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Hvis du bruker Linux er dette antagelig fordi du bruker en versjon fra din distribusjons pakkebrønn, som har egen oppgraderingssyklus.&lt;/p&gt;&lt;p&gt;Hvis du alltid vil ha nyeste Mumble-versjon bør du overveie å bruke en annen installasjonsmetode.
-Du finner tilgjengelige alternativer i &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble-wiki-en&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Lokal forstumming</translation>
     </message>
@@ -8650,6 +8644,11 @@ Du kan registrere dem igjen.</translation>
     <message>
         <source>Add</source>
         <translation type="unfinished">Legg til</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

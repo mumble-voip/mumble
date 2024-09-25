@@ -2220,7 +2220,7 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Audio ingang</translation>
     </message>
     <message>
         <source>Audio input device</source>
@@ -8359,12 +8359,6 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
         <translation>Echo-opheffing is niet mogelijk met de interfacecombinatie &quot;%1&quot; (in) en &quot;%2&quot; (uit).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Als je Linux gebruikt is dit waarschijnlijkste omdat je een versie gebruikt van je distributie&apos;s pakket-repositoir welke eigen update-cycleringen hebben.&lt;/p&gt;&lt;p&gt;Als je altijd de meest recente Mumble-versie wilt hebben, bedien je een verschillende methode van installatie in acht nemen.
-Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de Mumble wiki&lt;/a&gt; over welke alternatieven er zijn.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Lokaal dempen</translation>
     </message>
@@ -8635,6 +8629,11 @@ Je kunt ze opnieuw registreren.</translation>
     <message>
         <source>Add</source>
         <translation type="unfinished">Voeg toe</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
