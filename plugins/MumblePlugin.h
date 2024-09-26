@@ -444,7 +444,23 @@ struct MumbleStringWrapper {
 	bool needsReleasing;
 };
 
+struct PositionalDataNoQt;
+
+static void freePositionalDataStruct(PositionalDataNoQt *positionalData);
+
 struct PositionalDataNoQt {
+#ifdef __cplusplus
+//    Prevents compilation but generic functions
+//      such as the one below doesn't hinder compilation
+//	~PositionalDataNoQt() {
+//		freePositionalDataStruct(this);
+//	}
+//
+	void freeStruct() {
+		freePositionalDataStruct(this);
+	}
+#endif
+
 	float m_playerPos[3];
 	float m_playerDir[3];
 	float m_playerAxis[3];
@@ -454,6 +470,15 @@ struct PositionalDataNoQt {
 	char *m_context;
 	char *m_identity;
 };
+
+void freePositionalDataStruct(PositionalDataNoQt *positionalData) {
+	if (positionalData) {
+		free(positionalData->m_context);
+		free(positionalData->m_identity);
+	}
+
+	free(positionalData);
+}
 
 MUMBLE_EXTERN_C_END
 
