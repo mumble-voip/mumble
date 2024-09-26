@@ -112,6 +112,8 @@ ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
 	bDefaultVisible = true;
 	setDefaultText(tr("<center>Type chat message here</center>"));
 	setAcceptDrops(true);
+
+	m_justPasted = false;
 }
 
 QSize ChatbarTextEdit::minimumSizeHint() const {
@@ -233,11 +235,12 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			const QString msg = toPlainText();
 			if (!msg.isEmpty()) {
 				addToHistory(msg);
-				if (kev->modifiers() & Qt::ControlModifier) {
+				if ((kev->modifiers() & Qt::ControlModifier) && !m_justPasted) {
 					emit ctrlEnterPressed(msg);
 				} else {
 					emit entered(msg);
 				}
+				m_justPasted = false;
 			}
 			return true;
 		}
@@ -256,12 +259,27 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		} else if (kev->key() == Qt::Key_Down && kev->modifiers() == Qt::ControlModifier) {
 			historyDown();
 			return true;
-		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier)
-				   && (kev->modifiers() & Qt::ShiftModifier)) {
-			pasteAndSend_triggered();
-			return true;
+		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier)) {
+			if (kev->modifiers() & Qt::ShiftModifier) {
+				pasteAndSend_triggered();
+				return true;
+			} else {
+				// Remember that we just pasted into the chat field
+				// and allow CTRL+Enter only when we are sure it was
+				// released for at least one GUI cycle.
+				// See #6568
+				m_justPasted = true;
+			}
 		}
 	}
+
+	if (evt->type() == QEvent::KeyRelease) {
+		QKeyEvent *kev = static_cast< QKeyEvent * >(evt);
+		if (kev->key() == Qt::Key_Control) {
+			m_justPasted = false;
+		}
+	}
+
 	return QTextEdit::event(evt);
 }
 
