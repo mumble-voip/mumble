@@ -1531,13 +1531,13 @@ struct MUMBLE_API_STRUCT_NAME {
      * Gets the positional audio data provided by OTHER plugins
      *
      * @param callerID The ID of the plugin calling this function
-     * @param[out] positionalData A pointer to the memory location the PositionalData object should be written to
+     * @param[out] outPositionalData A pointer to the memory location the PositionalData object should be written to
      * @returns The error code. If everything went well, STATUS_OK will be returned.
      *
      * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalAudioData)(mumble_plugin_id_t callerID,
-																		PositionalDataNoQt **positionalData);
+																		PositionalDataNoQt **outPositionalData);
 #endif
 
 

@@ -895,12 +895,12 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 }
 
 void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
-											   PositionalDataNoQt **positionalData,
+											   PositionalDataNoQt **outPositionalData,
 											   std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getPositionalAudioData_v_1_3_x", Qt::QueuedConnection,
-								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(PositionalDataNoQt **, positionalData),
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(PositionalDataNoQt **, outPositionalData),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 		return;
 	}
@@ -943,7 +943,7 @@ void MumbleAPI::getPositionalAudioData_v_1_3_x(mumble_plugin_id_t callerID,
 	positionalDataNoQt.m_identity = static_cast< char * >(malloc(size));
 	std::memcpy(positionalDataNoQt.m_identity, identity, size);
 
-	memcpy(*positionalData, &positionalDataNoQt, sizeof(PositionalDataNoQt));
+	std::memcpy(*outPositionalData, &positionalDataNoQt, sizeof(PositionalDataNoQt));
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
@@ -1854,8 +1854,8 @@ C_WRAPPER(getChannelDescription_v_1_0_x)
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-	mumble_plugin_id_t callerID, PositionalDataNoQt **positionalData
-#define ARG_NAMES callerID, positionalData
+	mumble_plugin_id_t callerID, PositionalDataNoQt **outPositionalData
+#define ARG_NAMES callerID, outPositionalData
 C_WRAPPER(getPositionalAudioData_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
