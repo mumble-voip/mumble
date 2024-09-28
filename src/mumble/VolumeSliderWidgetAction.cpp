@@ -63,6 +63,8 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 	connect(wheelEventFilter, &MouseWheelEventObserver::wheelEventObserved, this,
 			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
+	connect(mouseEventFilter, &MouseClickEventObserver::clickEventObserved, this,
+			&VolumeSliderWidgetAction::on_VolumeSlider_changeCompleted);
 
 	UpDownKeyEventFilter *eventFilter = new UpDownKeyEventFilter(this);
 	m_volumeSlider->installEventFilter(eventFilter);
