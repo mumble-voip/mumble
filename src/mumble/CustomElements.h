@@ -34,6 +34,7 @@ private:
 	QString qsHistoryTemp;
 	int iHistoryIndex;
 	static const int MAX_HISTORY = 50;
+	bool m_justPasted;
 
 protected:
 	QString qsDefaultText;

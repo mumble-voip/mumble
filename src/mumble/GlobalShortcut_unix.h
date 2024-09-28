@@ -63,6 +63,7 @@ protected:
 // if left defined
 #undef None
 #undef KeyPress
+#undef KeyRelease
 #undef FontChange
 
 #endif
