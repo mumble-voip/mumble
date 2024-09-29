@@ -14,11 +14,12 @@ sudo apt install \
   build-essential \
   cmake \
   pkg-config \
-  qt5-qmake \
-  qtbase5-dev \
-  qttools5-dev \
-  qttools5-dev-tools \
-  libqt5svg5-dev \
+  qt6-base-dev \
+  qt6-tools-dev \
+  qt6-tools-dev-tools \
+  libqt6svg6-dev \
+  qt6-l10n-tools \
+  libgl-dev \
   libboost-dev \
   libssl-dev \
   libprotobuf-dev \
@@ -38,8 +39,6 @@ sudo apt install \
   g++-multilib
 ```
 
-If your version of Ubuntu is giving errors with `qt5-default`, when running the above command, follow the Debian instructions below.
-
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
@@ -57,13 +56,14 @@ sudo apt install \
   build-essential \
   cmake \
   pkg-config \
-  qtbase5-dev \
+  qt6-base-dev \
   qtchooser \
-  qt5-qmake \
-  qtbase5-dev-tools \
-  qttools5-dev \
-  qttools5-dev-tools \
-  libqt5svg5-dev \
+  qt6-base-dev-tools \
+  qt6-tools-dev \
+  qt6-tools-dev-tools \
+  libqt6svg6-dev \
+  qt6-l10n-tools \
+  libgl-dev \
   libboost-dev \
   libssl-dev \
   libprotobuf-dev \
@@ -84,15 +84,13 @@ sudo apt install \
 
 1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
    `cmake -Dbundled-opus=OFF ..`
-2. Debian has dropped `qt5-default`, so individual packages are chosen instead. This also affects Ubuntu, as documented
-   [here](https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg5902890.html).)
-3. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
+2. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
 
 </details>
 
 <details>
-  <summary><b>CentOS 8</b></summary>
- In order to install the needed dependencies on Cent OS 8, you have to run the following command:
+  <summary><b>CentOS 9 Stream</b></summary>
+ In order to install the needed dependencies on Cent OS 9, you have to run the following command:
   
 ```bash
 sudo dnf -y install epel-release
@@ -101,8 +99,9 @@ sudo dnf group install "Development Tools"
 sudo dnf install https://zeroc.com/download/ice/3.7/el8/ice-repo-3.7.el8.noarch.rpm
 sudo dnf install libice-c++-devel libice3.7-c++
 sudo dnf install \
-qt5-devel \
-qt5-qtsvg-devel  \
+cmake \
+qt6-devel \
+qt6-qtsvg-devel  \
 openssl-devel \
 protobuf-devel \
 libsndfile-devel \
@@ -119,7 +118,6 @@ poco-devel \
 gcc-toolset-9-gcc-c++ 
 ```
 
-You will need `cmake` **v3.15 or later**. You can install a recent one from the [linked page](https://cmake.org/download/).
 </details>
 
 <details>
@@ -128,7 +126,7 @@ In order to install the needed dependencies on OpenSUSE Tumbleweed (not Leap),
 you have to run the following commands:
 
 ```bash
-sudo zypper install -t pattern devel_basis devel_qt5
+sudo zypper install -t pattern devel_basis devel_qt6
 sudo zypper install \
   libopenssl-devel \
   protobuf-devel \
