@@ -7,21 +7,21 @@
     <x>0</x>
     <y>0</y>
     <width>735</width>
-    <height>435</height>
+    <height>451</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Mumble</string>
   </property>
   <property name="dockOptions">
-   <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
+   <set>QMainWindow::DockOption::AllowNestedDocks|QMainWindow::DockOption::AnimatedDocks</set>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>
   </property>
   <widget class="UserView" name="qtvUsers">
    <property name="contextMenuPolicy">
-    <enum>Qt::CustomContextMenu</enum>
+    <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
    </property>
    <property name="acceptDrops">
     <bool>true</bool>
@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>735</width>
-     <height>32</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -103,7 +103,7 @@
     </size>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
+    <set>QDockWidget::DockWidgetFeature::DockWidgetClosable|QDockWidget::DockWidgetFeature::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Log</string>
@@ -113,7 +113,7 @@
    </attribute>
    <widget class="LogTextBrowser" name="qteLog">
     <property name="contextMenuPolicy">
-     <enum>Qt::CustomContextMenu</enum>
+     <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
     </property>
     <property name="whatsThis">
      <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</string>
@@ -133,6 +133,12 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="maximumSize">
+    <size>
+     <width>524287</width>
+     <height>300</height>
+    </size>
+   </property>
    <property name="toolTip">
     <string/>
    </property>
@@ -140,7 +146,7 @@
     <string>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</string>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
+    <set>QDockWidget::DockWidgetFeature::DockWidgetClosable|QDockWidget::DockWidgetFeature::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
     <string>Chatbar</string>
@@ -205,10 +211,10 @@
     <bool>false</bool>
    </property>
    <property name="features">
-    <set>QDockWidget::NoDockWidgetFeatures</set>
+    <set>QDockWidget::DockWidgetFeature::NoDockWidgetFeatures</set>
    </property>
    <property name="allowedAreas">
-    <set>Qt::AllDockWidgetAreas</set>
+    <set>Qt::DockWidgetArea::AllDockWidgetAreas</set>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -603,7 +609,7 @@
     <string>Allows you to change most settings for Mumble.</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::PreferencesRole</enum>
+    <enum>QAction::MenuRole::PreferencesRole</enum>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -693,7 +699,7 @@ the channel's context menu.</string>
     <string>Shows a small dialog with information and license for Mumble.</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::AboutRole</enum>
+    <enum>QAction::MenuRole::AboutRole</enum>
    </property>
   </action>
   <action name="qaHelpAboutSpeex">
@@ -707,7 +713,7 @@ the channel's context menu.</string>
     <string>Shows a small dialog with information about Speex.</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
   <action name="qaHelpAboutQt">
@@ -721,7 +727,7 @@ the channel's context menu.</string>
     <string>Shows a small dialog with information about Qt.</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::AboutQtRole</enum>
+    <enum>QAction::MenuRole::AboutQtRole</enum>
    </property>
   </action>
   <action name="qaHelpVersionCheck">
