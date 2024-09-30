@@ -195,8 +195,6 @@ void UnixMurmur::usr1SignalHandler(int) {
 }
 
 
-// Keep these two synchronized with matching actions in DBus.cpp
-
 void UnixMurmur::handleSigHup() {
 	qsnHup->setEnabled(false);
 	char tmp;

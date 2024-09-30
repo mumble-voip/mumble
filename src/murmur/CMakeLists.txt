@@ -183,19 +183,6 @@ if(zeroconf)
 	)
 endif()
 
-if(NOT WIN32 AND NOT APPLE)
-	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
-
-	target_sources(mumble-server
-		PRIVATE
-			"DBus.cpp"
-			"DBus.h"
-	)
-
-	target_compile_definitions(mumble-server PUBLIC "USE_DBUS")
-	target_link_libraries(mumble-server PRIVATE Qt6::DBus)
-endif()
-
 if(ice)
 	find_pkg(Ice
 		COMPONENTS
