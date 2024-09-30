@@ -6,8 +6,17 @@ on:
 
 jobs:
   backport:
-    name: Backport PR
-    if: github.event.pull_request.merged == true && !(contains(github.event.pull_request.labels.*.name, 'backport'))
+  - name: Check labels
+    id: label_check
+    uses: docker://agilepathway/pull-request-label-checker:latest
+    with:
+      prefix_mode: true
+      all_of: auto-backport-to-
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
+      allow_failure: true
+
+  - name: Backport PR
+    if: github.event.pull_request.merged == true && steps.label_check.outputs.label_check == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Backport Action
