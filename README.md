@@ -117,18 +117,10 @@ mumble-server [-supw <password>] [-ini <inifile>] [-fg] [v]
 -v      More verbose logging.
 ```
 
-#### Build and run from Docker
+#### Docker image
 
-On recent Docker versions, you can build images directly from sources on GitHub:
-```bash
-docker build --pull -t mumble-server github.com/mumble-voip/mumble#master
-```
-Example `--pull`s each time to check for updated base image, then downloads and builds `master` branch.
+Our official Docker image along with instructions on how to use it can be found at https://github.com/mumble-voip/mumble-docker
 
-You can also specify the user ID (UID) and group ID (GID) for the *murmur* user in the image. This allows users who use bind mount volumes to use the same UID/GID in the container as in the host:
-```bash
-docker build --pull -t mumble-server --build-arg UID=1234 --build-arg GID=1234 github.com/mumble-voip/mumble#master
-```
 
 ### Server configuration
 
