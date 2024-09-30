@@ -5,9 +5,8 @@ on:
     types: ["labeled", "closed"]
 
 jobs:
-  backport:
-  - name: Check labels
-    id: label_check
+  label_check:
+    name: Check labels
     uses: docker://agilepathway/pull-request-label-checker:latest
     with:
       prefix_mode: true
@@ -15,7 +14,8 @@ jobs:
       repo_token: ${{ secrets.GITHUB_TOKEN }}
       allow_failure: true
 
-  - name: Backport PR
+  backport:
+    name: Backport PR
     if: github.event.pull_request.merged == true && steps.label_check.outputs.label_check == 'success'
     runs-on: ubuntu-latest
     steps:
