@@ -15,7 +15,7 @@ jobs:
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           prefix_mode: true
-          all_of: auto-backport-to-
+          any_of: auto-backport-to-
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           allow_failure: true
 
