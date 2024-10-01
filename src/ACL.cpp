@@ -139,38 +139,80 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 
 	bool traverse = true;
 	bool write    = false;
-	ChanACL *acl;
 
+	// Iterate over all parent channels from root to the channel the user is in (inclusive)
 	while (!chanstack.isEmpty()) {
 		ch = chanstack.pop();
-		if (!ch->bInheritACL)
+		if (!ch->bInheritACL) {
 			granted = def;
+		}
 
-		foreach (acl, ch->qlACL) {
+		for (ChanACL *acl : ch->qlACL) {
 			bool matchUser  = (acl->iUserId != -1) && (acl->iUserId == p->iId);
 			bool matchGroup = Group::appliesToUser(*chan, *ch, acl->qsGroup, *p);
+
+			bool applyFromSelf   = (ch == chan && acl->bApplyHere);
+			bool applyFromParent = (ch != chan && acl->bApplySubs);
+
+			// Not using applyFromAny will ignore the context flags for the current ACL
+			bool applyFromAny = applyFromSelf || applyFromParent;
+
+			// applyFromAny will be true for ACLs set in the reference channel directly (applyHere),
+			// or from a parent channel which hands the ACLs down (applySubs).
+			// However, we have one ACL that needs to be evaluated differently - the Traverse ACL.
+			// Consider this channel layout:
+			// Root
+			// - A (Traverse denied for THIS channel, but not sub channels)
+			//  - B
+			//   - C
+			// If the user tries to enter C, we need to deny Traverse, because the user
+			// should already be blocked from traversing A. But applyFromAny will be false,
+			// as the "normal" ACL inheritence rules do not apply here.
+			// Therefore, we need applyDenyTraverse which will be true, if any channel
+			// from root to the reference channel denies Traverse without necessarily
+			// handing it down.
+			bool applyDenyTraverse = applyFromParent || acl->bApplyHere;
+
 			if (matchUser || matchGroup) {
-				if (acl->pAllow & Traverse)
+				// These do not grant or deny anything. We merely
+				// check, if we are missing traverse AND write in this
+				// channel and therefore abort without any permissions later on.
+				if (applyFromAny && (acl->pAllow & Traverse)) {
 					traverse = true;
-				if (acl->pDeny & Traverse)
-					traverse = false;
-				if (acl->pAllow & Write)
-					write = true;
-				if (acl->pDeny & Write)
-					write = false;
-				if (ch->iId == 0 && chan == ch && acl->bApplyHere) {
-					if (acl->pAllow & Kick)
-						granted |= Kick;
-					if (acl->pAllow & Ban)
-						granted |= Ban;
-					if (acl->pAllow & ResetUserContent)
-						granted |= ResetUserContent;
-					if (acl->pAllow & Register)
-						granted |= Register;
-					if (acl->pAllow & SelfRegister)
-						granted |= SelfRegister;
 				}
-				if ((ch == chan && acl->bApplyHere) || (ch != chan && acl->bApplySubs)) {
+				if (applyDenyTraverse && (acl->pDeny & Traverse)) {
+					traverse = false;
+				}
+				if (applyFromAny && (acl->pAllow & Write)) {
+					write = true;
+				}
+				if (applyFromAny && (acl->pDeny & Write)) {
+					write = false;
+				}
+
+				// These permissions are only grantable from the root channel
+				// as they affect the users globally. For example: You can not
+				// kick a client from a channel without kicking them from the server.
+				if (ch->iId == 0 && applyFromSelf) {
+					if (acl->pAllow & Kick) {
+						granted |= Kick;
+					}
+					if (acl->pAllow & Ban) {
+						granted |= Ban;
+					}
+					if (acl->pAllow & ResetUserContent) {
+						granted |= ResetUserContent;
+					}
+					if (acl->pAllow & Register) {
+						granted |= Register;
+					}
+					if (acl->pAllow & SelfRegister) {
+						granted |= SelfRegister;
+					}
+				}
+
+				// Every other regular ACL is handled here
+				if (applyFromAny) {
 					granted |= (acl->pAllow & ~(Kick | Ban | ResetUserContent | Register | SelfRegister | Cached));
 					granted &= ~acl->pDeny;
 				}
