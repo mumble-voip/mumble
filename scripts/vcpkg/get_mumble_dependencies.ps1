@@ -3,8 +3,19 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-$profiledir = $Env:USERPROFILE 
-$vcpkgdir = $profiledir + "\vcpkg"
+$targetdir = Read-Host "Directory to clone and install vcpkg to (default is your user's home directory)"
+if ([string]::IsNullOrEmpty($targetdir)) {
+	$targetdir = $Env:USERPROFILE
+} elseif (-not (Test-Path -Path $targetdir -PathType container)) {
+	throw "Invalid path provided!"
+}
+$vcpkgdir = $targetdir + "\vcpkg"
+$depthlimit = $null
+$depthlimitstr = Read-Host "Depth limit when cloning vcpkg (default is no depth limit)"
+$isdepthlimit = -not [string]::IsNullOrEmpty($depthlimitstr)
+if ($isdepthlimit -and -not ([int32]::tryparse($depthlimitstr, [ref]$depthlimit) -and $depthlimit -gt 0)) {
+	throw "The provided depth was not a positive integer!"
+}
 
 $mumble_deps = "qt5-base[mysqlplugin]",
                "qt5-base[postgresqlplugin]",
@@ -57,7 +68,12 @@ try {
 
 	Write-Host "Checking for $vcpkgdir..."
 	if (-not (Test-Path $vcpkgdir)) {
-		git clone https://github.com/Microsoft/vcpkg.git $vcpkgdir
+		$githublinkvcpkg = "https://github.com/Microsoft/vcpkg.git"
+		if ($isdepthlimit) {
+			git clone $githublinkvcpkg $vcpkgdir --depth=$depthlimit
+		} else {
+			git clone $githublinkvcpkg $vcpkgdir
+		}
 	}
 
 	if (Test-Path $vcpkgdir) {
