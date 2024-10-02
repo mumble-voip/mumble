@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       state: ${{ steps.check.label_check.success }}
+      state2: ${{ steps.check.success }}
     steps:
       - id: check
         uses: docker://agilepathway/pull-request-label-checker:latest
@@ -18,6 +19,14 @@ jobs:
           any_of: auto-backport-to-
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           allow_failure: true
+
+  print_status:
+    needs: [ label_checker ]
+    runs-on: ubuntu-latest
+    steps:
+      - shell: bash
+        run: echo Output is >${{ needs.label_checker.outputs.state }}< (${{ needs.label_checker.outputs.state2 }})
+
 
   backport:
     needs: [ label_checker ]
