@@ -9,23 +9,18 @@ jobs:
     name: Check labels
     runs-on: ubuntu-latest
     outputs:
-      state: ${{ steps.check.label_check.success }}
-      state2: ${{ steps.check.success }}
+      state: ${{ steps.check.outputs.label_check.success }}
     steps:
       - id: check
-        uses: docker://agilepathway/pull-request-label-checker:latest
+        uses: agilepathway/label-checker@1.6.55
         with:
           prefix_mode: true
           any_of: auto-backport-to-
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           allow_failure: true
-
-  print_status:
-    needs: [ label_checker ]
-    runs-on: ubuntu-latest
-    steps:
-      - shell: bash
-        run: echo Output is >${{ needs.label_checker.outputs.state }}< (${{ needs.label_checker.outputs.state2 }})
+      - name: Print status
+        shell: bash
+        run: 'echo "Label detection status: ${{ label_checker.outputs.state }}"'
 
 
   backport:
