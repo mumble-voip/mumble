@@ -9,7 +9,7 @@ jobs:
     name: Check labels
     runs-on: ubuntu-latest
     outputs:
-      state: ${{ steps.check.outputs.label_check.success }}
+      state: ${{ steps.check.outputs.label_check }}
     steps:
       - id: check
         uses: agilepathway/label-checker@1.6.55
@@ -20,7 +20,7 @@ jobs:
           allow_failure: true
       - name: Print status
         shell: bash
-        run: 'echo "Label detection status: ${{ label_checker.outputs.state }}"'
+        run: 'echo "Label detection status: ${{ check.outputs.label_check }}"'
 
 
   backport:
