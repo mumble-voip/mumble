@@ -883,20 +883,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			else
 				replacement = tr("%1 link").arg(url.scheme());
 
-#if QT_VERSION >= 0x060000
 			plain.replace(pos, match.capturedLength(), replacement);
-#else
-			plain.replace(static_cast< int >(pos), match.capturedLength(), replacement);
-#endif
 		} else {
 			pos += match.capturedLength();
 		}
 
-#if QT_VERSION >= 0x060000
 		match = identifyURL.match(plain, pos);
-#else
-		match = identifyURL.match(plain, static_cast< int >(pos));
-#endif
 	}
 
 #ifndef USE_NO_TTS

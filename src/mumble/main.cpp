@@ -157,13 +157,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-#if QT_VERSION >= 0x050700
 	a.setDesktopFileName("info.mumble.Mumble");
-#endif
-
-#if QT_VERSION >= 0x050100 && QT_VERSION < 0x060000
-	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
 #ifdef Q_OS_WIN
 	a.installNativeEventFilter(&a);
@@ -194,11 +188,6 @@ int main(int argc, char **argv) {
 	} else {
 		Global::g_global_struct = new Global();
 	}
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
-	qsrand(QDateTime::currentDateTime().toTime_t());
-#endif
 
 	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
 	Global::get().c  = new DeveloperConsole();

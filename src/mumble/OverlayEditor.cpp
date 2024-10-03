@@ -52,11 +52,7 @@ OverlayEditor::~OverlayEditor() {
 		qgiPromote->setZValue(-1.0f);
 }
 
-#if QT_VERSION >= 0x060000
 void OverlayEditor::enterEvent(QEnterEvent *e) {
-#else
-void OverlayEditor::enterEvent(QEvent *e) {
-#endif
 	QGraphicsProxyWidget *qgpw = Global::get().mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.9f);

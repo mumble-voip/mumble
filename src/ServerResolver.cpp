@@ -79,13 +79,9 @@ void ServerResolverPrivate::srvResolved() {
 }
 
 void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
-	const int lookupId  = hostInfo.lookupId();
-	const qsizetype idx = m_hostInfoIdToIndexMap[lookupId];
-#if QT_VERSION >= 0x060000
+	const int lookupId       = hostInfo.lookupId();
+	const qsizetype idx      = m_hostInfoIdToIndexMap[lookupId];
 	QDnsServiceRecord record = m_srvQueue.at(idx);
-#else
-	QDnsServiceRecord record = m_srvQueue.at(static_cast< int >(idx));
-#endif
 
 	if (hostInfo.error() == QHostInfo::NoError) {
 		QList< QHostAddress > resolvedAddresses = hostInfo.addresses();

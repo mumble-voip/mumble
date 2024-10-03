@@ -674,12 +674,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		}
 		sendMessage(uSource, msg);
 	} else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 		previousBans = QSet< Ban >(qlBans.begin(), qlBans.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		previousBans = qlBans.toSet();
-#endif
 		qlBans.clear();
 		for (int i = 0; i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
@@ -701,12 +696,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 				qlBans << b;
 			}
 		}
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		newBans = QSet< Ban >(qlBans.begin(), qlBans.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		newBans = qlBans.toSet();
-#endif
+		newBans             = QSet< Ban >(qlBans.begin(), qlBans.end());
 		QSet< Ban > removed = previousBans - newBans;
 		QSet< Ban > added   = newBans - previousBans;
 		foreach (const Ban &b, removed) { log(uSource, QString("Removed ban: %1").arg(b.toString())); }

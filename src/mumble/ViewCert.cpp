@@ -55,11 +55,7 @@ ViewCert::ViewCert(QList< QSslCertificate > cl, QWidget *p) : QDialog(p) {
 	qlwChain->setObjectName(QLatin1String("Chain"));
 
 	// load certs into a set as a hacky fix to #2141
-#if QT_VERSION >= 0x050400
 	QSet< QSslCertificate > qlCertSet;
-#else
-	QList< QSslCertificate > qlCertSet;
-#endif
 	foreach (QSslCertificate c, qlCerts) {
 		if (!qlCertSet.contains(c)) {
 			qlwChain->addItem(certificateFriendlyName(c));

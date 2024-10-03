@@ -69,13 +69,8 @@ public:
 
 		setChildIndicatorPolicy(QTreeWidgetItem::DontShowIndicator);
 
-#if QT_VERSION >= 0x060000
 		const qsizetype begin  = m_result.begin;
 		const qsizetype length = m_result.length;
-#else
-		const auto begin  = static_cast< int >(m_result.begin);
-		const auto length = static_cast< int >(m_result.length);
-#endif
 		const QString matchText =
 			m_result.fullText.replace(begin, length, "<b>" + m_result.fullText.mid(begin, length) + "</b>");
 
@@ -503,13 +498,7 @@ void SearchDialog::keyPressEvent(QKeyEvent *event) {
 		return;
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
 	if (event->matches(QKeySequence::Cancel)) {
-#else
-	// Before Qt 5.6, no standard key for the cancel operation was defined. Thus, in these cases, we hardcode it to be
-	// Escape
-	if (event->key() == Qt::Key_Escape) {
-#endif
 		event->accept();
 		// Mimic behavior of dialogs (close on Esc)
 		close();

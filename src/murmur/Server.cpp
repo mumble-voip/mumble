@@ -365,13 +365,7 @@ void Server::readParams() {
 	QString qsHost = getConf("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
 		qlBind.clear();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
-#else
-		// Qt 5.14 introduced the Qt::SplitBehavior flags, deprecating the QString fields.
-		// It also introduced the QString::split() overload that accepts a QRegularExpression.
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
-#endif
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(qsHost)) {
 				qlBind << qhaddr;
@@ -1038,12 +1032,7 @@ bool Server::checkDecrypt(ServerUser *u, const unsigned char *encrypt, unsigned 
 void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force) {
 	ZoneScoped;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	if ((u.aiUdpFlag.loadRelaxed() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
-#else
-	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
-	if ((u.aiUdpFlag.load() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
-#endif
 #if defined(__LP64__)
 		static std::vector< char > ebuffer;
 		ebuffer.resize(static_cast< std::size_t >(len + 4 + 16));
@@ -1414,10 +1403,7 @@ void Server::newClient() {
 		sock->setLocalCertificate(qscCert);
 
 		QSslConfiguration config;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 		config = sock->sslConfiguration();
-		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in
-		// QSslSocket
 
 		// Treat the leaf certificate as a root.
 		// This shouldn't strictly be necessary,
@@ -1433,25 +1419,6 @@ void Server::newClient() {
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		config.addCaCertificates(qlIntermediates);
-#else
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		sock->addCaCertificate(qscCert);
-
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		sock->addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		sock->addCaCertificates(qlIntermediates);
-
-		// Must not get config from socket before setting CA certificates
-		config = sock->sslConfiguration();
-#endif
 
 		config.setCiphers(Meta::mp.qlCiphers);
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
@@ -1480,16 +1447,10 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= 0x060300
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 		sock->setProtocol(QSsl::TlsV1_2OrLater);
-#elif QT_VERSION >= 0x050500
-		sock->setProtocol(QSsl::TlsV1_0OrLater);
-#elif QT_VERSION >= 0x050400
-		// In Qt 5.4, QSsl::SecureProtocols is equivalent
-		// to "TLSv1.0 or later", which we require.
-		sock->setProtocol(QSsl::SecureProtocols);
 #else
-		sock->setProtocol(QSsl::TlsV1_0);
+		sock->setProtocol(QSsl::TlsV1_0OrLater);
 #endif
 		sock->startServerEncryption();
 
@@ -2150,24 +2111,24 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 
 	if ((Meta::mp.iObfuscate != 0)) {
 		QCryptographicHash h(QCryptographicHash::Sha1);
-#if QT_VERSION >= 0x060300
 		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 		h.addData(byteView);
 #else
 		h.addData(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
 #endif
 		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
 			quint32 num = adr.toIPv4Address();
-#if QT_VERSION >= 0x060300
-			byteView = { reinterpret_cast< const char * >(&num), sizeof(num) };
+			byteView    = { reinterpret_cast< const char * >(&num), sizeof(num) };
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 			h.addData(byteView);
 #else
 			h.addData(reinterpret_cast< const char * >(&num), sizeof(num));
 #endif
 		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
 			Q_IPV6ADDR num = adr.toIPv6Address();
-#if QT_VERSION >= 0x060300
-			byteView = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
+			byteView       = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 			h.addData(byteView);
 #else
 			h.addData(reinterpret_cast< const char * >(num.c), sizeof(num.c));

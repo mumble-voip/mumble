@@ -61,10 +61,8 @@ QSslKey Server::privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass)
 	key = QSslKey(buf, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
 	if (key.isNull())
 		key = QSslKey(buf, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
-#if QT_VERSION >= 0x050500
 	if (key.isNull())
 		key = QSslKey(buf, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, pass);
-#endif
 	return key;
 }
 

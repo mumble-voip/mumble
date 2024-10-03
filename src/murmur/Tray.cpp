@@ -11,11 +11,7 @@
 #include "Server.h"
 #include "Version.h"
 
-#if QT_VERSION >= 0x060000
-#	include <QtGui/QAction>
-#else
-#	include <QtWidgets/QAction>
-#endif
+#include <QtGui/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
