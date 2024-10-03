@@ -8,6 +8,9 @@ order to make it run on systems that don't have the necessary dependencies insta
 
 We are using [vcpkg](https://github.com/Microsoft/vcpkg) in order to manage the dependencies needed for the build. This package manager is available
 on all major platforms (Windows, Linux, macOS, probably more), so the instructions here apply to all of these systems.
+In order to ensure maximum reproducibility, we host our own fork of vcpkg at https://github.com/mumble-voip/vcpkg that contains vcpkg packages at the
+exact state that have been used by us to build Mumble. There are also [pre-built environments](https://github.com/mumble-voip/vcpkg/releases)
+available there.
 
 The entire build environment will require between 30GB and 60GB of space on your hard-drive. If installed via script, it tends to converge towards the
 lower bound whereas a manual installation usually tends towards the higher bound.
@@ -21,42 +24,23 @@ Furthermore you need a C++ compiler. On Linux and MacOS that'd usually be `gcc` 
 
 ### Installing via script
 
-The recommended way to install vcpkg and the dependencies on your system, is to run one of the installation scripts on your system. If you are on
-Windows, that'd be [get_mumble_dependencies.ps1](../../../scripts/vcpkg/get_mumble_dependencies.ps1). If you are on Linux or macOS, you have to use
-[get_mumble_dependencies.sh](../../../scripts/vcpkg/get_mumble_dependencies.sh).
+The recommended way of installing the dependencies on your system is to clone our vcpkg fork and run the installation script located in the
+repository's root.
 
 On Windows you'll have to run the script by opening a PowerShell window, executing `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` and then
 running the mentioned script. On Linux and macOS no such preliminaries are necessary.
 
-The respective script will clone and install vcpkg to your user's home directory by default (note that vcpkg itself will install all dependencies into
-the same directory). If you want to change that, you'll have to adapt the scripts before running.
-
 If you already have vcpkg installed on your system, you should probably prefer using the manual installation of dependencies in order to avoid a
-second vcpkg installation (unless of course you want to edit the respective script accordingly).
+second vcpkg installation.
 
 
 ### Manual installation
 
-If you don't have vcpkg installed on your system, clone the [git repostory](https://github.com/microsoft/vcpkg.git) and follow the instructions in
-their README file.
+Again, we advice to use our vcpkg fork. If you are using upstream vcpkg, you do not have access to a compatible version of ZeroC Ice, so you'll have
+to disable that when building the server.
 
-Once vcpkg is installed on your system, you have to switch into the directory vcpkg is installed in and then install the following packages:
-```
-qt5-base[mysqlplugin]
-qt5-base[postgresqlplugin]
-qt5-svg
-qt5-tools
-qt5-translations
-boost-accumulators
-opus
-poco
-libvorbis
-libogg
-libflac
-libsndfile
-protobuf
-zlib
-```
+The current list of vcpkg packages required to build Mumble can be found at https://github.com/mumble-voip/vcpkg/blob/master/mumble_dependencies.txt.
+
 On Windows, you'll also have to install the `mdnsresponder` package.
 
 The command for installing a package is `vcpkg install <packageName> --triplet <triplet>` where `<packageName>` is to be replaced with the name of the
@@ -68,17 +52,7 @@ package you want to install and `<triplet>` is the desired target triplet. We re
 | Linux | x64-linux |
 | macOS | x64-osx |
 
-Therefore if you are on Windows, you'd install `qt5-base` as `vcpkg install qt5-base --triplet x64-windows-static-md`.
-
-**Important**: If you want to include the [Ice RPC framework](https://zeroc.com/products/ice) support when building the server, you have to also use
-vcpkg to install `zeroc-ice`. At the moment Ice can't be built using cmake though and therefore there does not exists a native vcpkg port (install
-target) for it.
-
-Instead you'll have to copy the entire [zeroc-ice directory](../../../helpers/vcpkg/ports/zeroc-ice-mumble) (not only the contents!) to `<vcpkg dir>/ports/`
-where `<vcpkg dir>` is the directory you installed vcpkg into. This will make our custom ice port available to be installed via vcpkg. Just install
-as a regular vcpkg package named `zeroc-ice-mumble`.
-
-Note: The custom port uses our [own fork](https://github.com/mumble-voip/ice) of Ice that includes support for cmake.
+Therefore if you are on Windows, you'd install `boost` as `vcpkg install boost --triplet x64-windows-static-md`.
 
 
 ### Additional dependencies on Linux
@@ -173,7 +147,7 @@ Important configuration options
 
 | Option | Value | Description |
 | --- | --- | --- |
-| `VCPKG_TARGET_TRIPLET` | `x64-windows-static-md` or `x64-linux` or `x64-osx` | The vcpkg triplet chosen when installing the dependencies via vcpkg |
+| `VCPKG_TARGET_TRIPLET` | `x64-windows-static-md`, `x64-linux`, `x64-osx` or whatever the pre-built environment used | The vcpkg triplet chosen when installing the dependencies via vcpkg |
 | `CMAKE_TOOLCHAIN_FILE` | `<vcpkg_root>/scripts/buildsystems/vcpkg.cmake` | |
 | `Ice_HOME` | `<vcpkg dir>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
 | `static` | `ON` | |
