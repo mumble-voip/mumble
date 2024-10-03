@@ -3618,10 +3618,31 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 		}
 	} else if (err == QAbstractSocket::SslHandshakeFailedError) {
-		QMessageBox::warning(this, tr("SSL Version mismatch"),
-							 tr("This server is using an older encryption standard, and is no longer supported by "
-								"modern versions of Mumble."),
-							 QMessageBox::Ok);
+		QMessageBox msgBox;
+		msgBox.addButton(QMessageBox::Ok);
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setTextFormat(Qt::RichText);
+		msgBox.setWindowTitle(tr("SSL error"));
+		msgBox.setText(tr("Mumble is unable to establish a secure connection to the server. (\"%1\")").arg(reason));
+		// clang-format off
+		msgBox.setInformativeText(
+			tr("This could be caused by one of the following scenarios:"
+			   "<ul>"
+			       "<li>Your client and the server use different encryption standards. This could be because you are using "
+			       "a very old client or the server you are connecting to is very old. In the first case, you should update "
+			       "your client and in the second case you should contact the server administrator so that they can update "
+				   "their server.</li>"
+				   "<li>Either your client or the server is using an old operating system that doesn't provide up-to-date "
+				   "encryption methods. In this case you should consider updating your OS or contacting the server admin "
+				   "so that they can update theirs.</li>"
+				   "<li>The server you are connecting to isn't actually a Mumble server. Please ensure that the used server "
+				   "address really belongs to a Mumble server and not e.g. to a game server.</li>"
+				   "<li>The port you are connecting to does not belong to a Mumble server but instead is bound to a "
+				   "completely unrelated process on the server-side. Please double-check you have used the correct port.</li>"
+				"</ul>"));
+		// clang-format on
+
+		msgBox.exec();
 	} else {
 		bool ok = false;
 
