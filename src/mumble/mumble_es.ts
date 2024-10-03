@@ -7153,6 +7153,15 @@ Las opciones válidas son:
         <source>Filtered channels and users</source>
         <translation>Canales filtrados y usuarias</translation>
     </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
