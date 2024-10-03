@@ -41,7 +41,6 @@ while getopts "sid:p:k" flag; do
   		;;
   esac
 done
-DBUSFILE=$DIR/.dbus.sh
 
 if [ $DO_KILL == 1 ]; then
 	if pkill -U $UID -u $EUID -o -x -f "@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini $DIR/mumble-server.ini"; then
@@ -101,19 +100,6 @@ fi
 if [ "X$PID" != "X" ]; then
   echo "Mumble server is already running."
   exit 1
-fi
-
-DBUS_SESSION_BUS_ADDRESS=invalid:/
-[ -f $DBUSFILE ] && . $DBUSFILE
-
-if ! dbus-send --print-reply --dest=org.freedesktop.DBus --type=method_call / org.freedesktop.DBus.GetId 2> /dev/null > /dev/null; then
-  echo "Launching D-Bus session"
-  dbus-launch --sh-syntax > $DBUSFILE
-  . $DBUSFILE
-  if ! dbus-send --print-reply --dest=org.freedesktop.DBus --type=method_call / org.freedesktop.DBus.GetId 2> /dev/null > /dev/null; then
-    echo "Failed to launch session DBUS, bailing out."
-    exit 2
-  fi
 fi
 
 echo "Starting Mumble server"

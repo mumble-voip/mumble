@@ -3,10 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef USE_DBUS
-#	include "DBus.h"
-#endif
-
 #include "EnvUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
@@ -32,11 +28,6 @@
 
 #if QT_VERSION < 0x060000
 #	include <QtCore/QTextCodec>
-#endif
-
-#ifdef USE_DBUS
-#	include <QtDBus/QDBusError>
-#	include <QtDBus/QDBusServer>
 #endif
 
 #include <openssl/crypto.h>
@@ -177,11 +168,6 @@ void cleanup(int signum) {
 
 	qWarning("Shutting down");
 
-#ifdef USE_DBUS
-	delete MurmurDBus::qdbc;
-	MurmurDBus::qdbc = nullptr;
-#endif
-
 #ifdef USE_ICE
 	IceStop();
 #endif
@@ -249,23 +235,6 @@ int main(int argc, char **argv) {
 	MumbleSSL::initialize();
 #if QT_VERSION < 0x060000
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-#endif
-#ifdef Q_OS_WIN
-	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
-	// should contain bin\\, and the path to the config is hardcoded as ..\etc
-
-	{
-		QString path = EnvUtils::getenv(QLatin1String("PATH"));
-		if (path.isEmpty()) {
-			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
-		} else {
-			QString newPath =
-				QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(path);
-			if (!EnvUtils::setenv(QLatin1String("PATH"), newPath)) {
-				qWarning() << "Failed to set PATH. DBus bindings may not work.";
-			}
-		}
-	}
 #endif
 
 	QString inifile;
@@ -607,43 +576,6 @@ int main(int argc, char **argv) {
 		qWarning("Removing all log entries from the database.");
 		ServerDB::wipeLogs();
 	}
-
-#ifdef USE_DBUS
-	MurmurDBus::registerTypes();
-
-	if (!Meta::mp.qsDBus.isEmpty()) {
-		if (Meta::mp.qsDBus == "session")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
-		else if (Meta::mp.qsDBus == "system")
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
-		else {
-			// QtDBus is not quite finished yet.
-			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
-			if (!MurmurDBus::qdbc->isConnected()) {
-				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
-				qWarning("%s", qPrintable(qdbs->lastError().name()));
-				qWarning("%d", qdbs->isConnected());
-				qWarning("%s", qPrintable(qdbs->address()));
-				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
-			}
-		}
-		if (!MurmurDBus::qdbc->isConnected()) {
-			qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
-		} else {
-			new MetaDBus(meta);
-			if (MurmurDBus::qdbc->isConnected()) {
-				if (!MurmurDBus::qdbc->registerObject("/", meta)
-					|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
-					QDBusError e = MurmurDBus::qdbc->lastError();
-					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
-				} else {
-					qWarning("DBus registration succeeded");
-				}
-			}
-		}
-	}
-#endif
 
 #ifdef USE_ICE
 	IceStart();
