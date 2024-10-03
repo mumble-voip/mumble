@@ -5218,10 +5218,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Τα συγκεκριμένα σφάλματα με αυτό το πιστοποιητικό είναι:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Θέλετε να αποδεχτείτε αυτό το πιστοποιητικό ούτως ή άλλως;&lt;br /&gt;(θα αποθηκευτεί, ώστε να μην σας ζητηθεί ξανά.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>SSL Version mismatch</source>
-        <translation>Δεν υπάρχει αντιστοιχία στις εκδόσεις SSL</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Η σύνδεση διακομιστή απέτυχε.</translation>
     </message>
@@ -5441,10 +5437,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ΠΡΟΕΙΔΟΠΟΙΗΣΗ:&lt;/b&gt; Ο διακομιστής παρουσίασε ένα πιστοποιητικό διαφορετικό από το αποθηκευμένο.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Αυτός ο διακομιστής χρησιμοποιεί παλαιότερο πρότυπο κρυπτογράφησης και δεν υποστηρίζεται πλέον από τις σύγχρονες εκδόσεις του Mumble.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -7159,6 +7151,18 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

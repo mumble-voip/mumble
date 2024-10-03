@@ -5218,10 +5218,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Os erros específicos com esse certificado são:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Você quer aceitar o certificado mesmo assim?&lt;br /&gt;(Ele também sera armazenado então você não será perguntado novamente.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>SSL Version mismatch</source>
-        <translation>Versões TLS não coincidem</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Conexão com o servidor falhou.</translation>
     </message>
@@ -5441,10 +5437,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Este servidor utiliza um padrão criptográfico antigo, e não é mais aceita por versões modernas do Mumble.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -7099,6 +7091,18 @@ Valid options are:
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
