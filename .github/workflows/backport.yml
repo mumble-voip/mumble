@@ -20,7 +20,7 @@ jobs:
           allow_failure: true
       - name: Print status
         shell: bash
-        run: 'echo "Label detection status: ${{ check.outputs.label_check }}"'
+        run: 'echo "Label detection status: ${{ steps.check.outputs.label_check }}"'
 
 
   backport:
