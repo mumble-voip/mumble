@@ -7153,6 +7153,18 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
         <source>Filtered channels and users</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Vie&amp;w Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View description in editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View description of channel %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

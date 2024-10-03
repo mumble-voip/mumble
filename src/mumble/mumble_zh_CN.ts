@@ -7151,6 +7151,18 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>Filtered channels and users</source>
         <translation>筛选的频道和用户</translation>
     </message>
+    <message>
+        <source>Vie&amp;w Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View description in editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View description of channel %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
