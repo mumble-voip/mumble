@@ -107,7 +107,7 @@ ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setMinimumHeight(0);
-	connect(this, SIGNAL(textChanged()), SLOT(doResize()));
+	connect(this, &ChatbarTextEdit::textChanged, this, &ChatbarTextEdit::doResize);
 
 	bDefaultVisible = true;
 	setDefaultText(tr("<center>Type chat message here</center>"));
@@ -121,10 +121,12 @@ QSize ChatbarTextEdit::minimumSizeHint() const {
 }
 
 QSize ChatbarTextEdit::sizeHint() const {
-	QSize sh                 = QTextEdit::sizeHint();
-	const int minHeight      = minimumSizeHint().height();
-	const int documentHeight = static_cast< int >(document()->documentLayout()->documentSize().height());
-	sh.setHeight(std::max(minHeight, documentHeight));
+	QSize sh                    = QTextEdit::sizeHint();
+	const int minHeight         = minimumSizeHint().height();
+	const int documentHeight    = static_cast< int >(document()->documentLayout()->documentSize().height());
+	const int chatBarLineHeight = QFontMetrics(ChatbarTextEdit::font()).height();
+
+	sh.setHeight(std::max(minHeight, std::min(chatBarLineHeight * 10, documentHeight)));
 	const_cast< ChatbarTextEdit * >(this)->setMaximumHeight(sh.height());
 	return sh;
 }
@@ -144,7 +146,8 @@ void ChatbarTextEdit::doResize() {
 }
 
 void ChatbarTextEdit::doScrollbar() {
-	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+	const int documentHeight = static_cast< int >(document()->documentLayout()->documentSize().height());
+	setVerticalScrollBarPolicy(documentHeight > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 	ensureCursorVisible();
 }
 
