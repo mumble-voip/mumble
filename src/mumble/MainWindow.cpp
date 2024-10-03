@@ -430,7 +430,7 @@ void MainWindow::setupGui() {
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
 	menubar->insertMenu(qmHelp->menuAction(), qmWindow);
-#	if QT_VERSION >= 0x060400
+#	if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
 	qmWindow->addAction(tr("Minimize"), QKeySequence(tr("Ctrl+M")), this, &MainWindow::showMinimized);
 #	else
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
@@ -618,11 +618,7 @@ void MainWindow::msgBox(QString msg) {
 }
 
 #ifdef Q_OS_WIN
-#	if QT_VERSION >= 0x060000
 bool MainWindow::nativeEvent(const QByteArray &, void *message, qintptr *) {
-#	else
-bool MainWindow::nativeEvent(const QByteArray &, void *message, long *) {
-#	endif
 	MSG *msg = reinterpret_cast< MSG * >(message);
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
@@ -3546,16 +3542,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	}
 
 	QSet< QAction * > qs;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	qs += QSet< QAction * >(qlServerActions.begin(), qlServerActions.end());
 	qs += QSet< QAction * >(qlChannelActions.begin(), qlChannelActions.end());
 	qs += QSet< QAction * >(qlUserActions.begin(), qlUserActions.end());
-#else
-	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-	qs += qlServerActions.toSet();
-	qs += qlChannelActions.toSet();
-	qs += qlUserActions.toSet();
-#endif
 
 	foreach (QAction *a, qs)
 		delete a;
@@ -3644,15 +3633,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			Global::get().l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-		// Qt 5.15 introduced a default constructor that initializes the flags to be set to no flags
 		Qt::WindowFlags wf;
-#elif defined(Q_OS_MAC)
-		Qt::WindowFlags wf = Qt::Sheet;
-#else
-		// Before Qt 5.15 we have emulate the default constructor by assigning a literal zero
-		Qt::WindowFlags wf = 0;
-#endif
 
 		bool matched = true;
 		switch (rtLast) {

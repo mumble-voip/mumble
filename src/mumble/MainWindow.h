@@ -151,11 +151,7 @@ public:
 	void openUserLocalNicknameDialog(const ClientUser &p);
 
 #ifdef Q_OS_WIN
-#	if QT_VERSION >= 0x060000
 	bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) Q_DECL_OVERRIDE;
-#	else
-	bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
-#	endif
 	unsigned int uiNewHardware;
 #endif
 protected:

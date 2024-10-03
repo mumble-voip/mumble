@@ -307,12 +307,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 AudioStats::~AudioStats() {
 }
 
-#if QT_VERSION >= 0x050500
-#	define FORMAT_TO_TXT(format, arg) txt = QString::asprintf(format, arg)
-#else
-// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
-#	define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
-#endif
+#define FORMAT_TO_TXT(format, arg) txt = QString::asprintf(format, arg)
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = Global::get().ai;
 

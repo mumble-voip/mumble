@@ -545,11 +545,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			return tr("< Unknown Channel >");
 		}
 	}
-#if QT_VERSION >= 0x060000
 	switch (item.typeId()) {
-#else
-	switch (static_cast< QMetaType::Type >(item.type())) {
-#endif
 		case QMetaType::Int: {
 			const auto v = item.toInt();
 			if (v > 0) {
@@ -583,11 +579,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			}
 		}
 		default:
-#if QT_VERSION >= 0x060000
 			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.typeId());
-#else
-			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.type());
-#endif
 	}
 
 	return QStyledItemDelegate::displayText(item, loc);
@@ -644,12 +636,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
-#	else
-	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
-#	endif
 		qpbOpenAccessibilityPrefs->setHidden(true);
 		label->setText(tr("<html><head/><body>"
 						  "<p>"
@@ -686,12 +674,8 @@ bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
 #	if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
-#		if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
-#		else
-	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
-#		endif
 		return !AXIsProcessTrustedWithOptions(nullptr);
 	} else
 #	endif
@@ -856,11 +840,7 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 	::GlobalShortcut *gs  = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 
 	item->setData(0, Qt::DisplayRole, static_cast< unsigned int >(sc.iIndex));
-#if QT_VERSION >= 0x060000
 	if (sc.qvData.isValid() && gs && (sc.qvData.metaType() == gs->qvDefault.metaType()))
-#else
-	if (sc.qvData.isValid() && gs && (sc.qvData.type() == gs->qvDefault.type()))
-#endif
 		item->setData(1, Qt::DisplayRole, sc.qvData);
 	else if (gs)
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
@@ -922,14 +902,7 @@ GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 
 GlobalShortcutEngine::~GlobalShortcutEngine() {
 	QSet< ShortcutKey * > qs;
-	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		qs += QSet< ShortcutKey * >(ql.begin(), ql.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		qs += ql.toSet();
-#endif
-	}
+	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) { qs += QSet< ShortcutKey * >(ql.begin(), ql.end()); }
 
 	foreach (ShortcutKey *sk, qs)
 		delete sk;
@@ -939,14 +912,7 @@ void GlobalShortcutEngine::remap() {
 	bNeedRemap = false;
 
 	QSet< ShortcutKey * > qs;
-	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		qs += QSet< ShortcutKey * >(ql.begin(), ql.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		qs += ql.toSet();
-#endif
-	}
+	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) { qs += QSet< ShortcutKey * >(ql.begin(), ql.end()); }
 
 	foreach (ShortcutKey *sk, qs)
 		delete sk;

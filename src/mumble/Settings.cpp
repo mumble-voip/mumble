@@ -26,14 +26,12 @@
 #include <QFileInfo>
 #include <QImageReader>
 #include <QMessageBox>
+#include <QOperatingSystemVersion>
 #include <QProcessEnvironment>
 #include <QRegularExpression>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QSystemTrayIcon>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
-#	include <QOperatingSystemVersion>
-#endif
 
 #include <boost/typeof/typeof.hpp>
 
@@ -519,11 +517,6 @@ Settings::Settings() {
 	qRegisterMetaType< PluginSetting >("PluginSetting");
 	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
 	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
-#if QT_VERSION < 0x060000
-	qRegisterMetaTypeStreamOperators< ChannelTarget >("ChannelTarget");
-	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
-	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
-#endif
 #ifdef Q_OS_MACOS
 	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
 	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
@@ -532,13 +525,7 @@ Settings::Settings() {
 #endif
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
-	// Since Qt 5.9 QOperatingSystemVersion is preferred over QSysInfo::WinVersion
 	bHideInTray = QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows7;
-#	else
-	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
-	bHideInTray                       = (winVer < QSysInfo::WV_WINDOWS7);
-#	endif
 #else
 	const bool isUnityDesktop =
 		QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");

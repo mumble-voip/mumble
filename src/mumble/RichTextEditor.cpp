@@ -36,12 +36,8 @@ static QString decodeMimeString(const QByteArray &src) {
 		return QString();
 
 	if ((src.length() >= 4) && ((static_cast< std::size_t >(src.length()) % sizeof(char16_t)) == 0)) {
-#if QT_VERSION >= 0x060000
 		const auto *ptr = reinterpret_cast< const char16_t * >(src.constData());
-#else
-		const auto *ptr = reinterpret_cast< const ushort * >(src.constData());
-#endif
-		auto len = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(char16_t));
+		auto len        = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(char16_t));
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;

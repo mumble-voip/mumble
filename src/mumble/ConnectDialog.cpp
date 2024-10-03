@@ -108,7 +108,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN->setExpanded(true);
 	siLAN->setHidden(true);
 #else
-	siLAN = nullptr;
+	siLAN         = nullptr;
 #endif
 
 	if (!Global::get().s.bDisablePublicList) {
@@ -130,11 +130,7 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-#if QT_VERSION >= 0x060000
 QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > &mimeitems) const {
-#else
-QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > mimeitems) const {
-#endif
 	if (mimeitems.isEmpty())
 		return nullptr;
 
@@ -233,7 +229,7 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 		qsHostname = fs.qsHostname;
 	}
 #else
-	qsHostname = fs.qsHostname;
+	qsHostname    = fs.qsHostname;
 #endif
 	init();
 }
@@ -274,7 +270,7 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 		qsHostname = host;
 	}
 #else
-	qsHostname = host;
+	qsHostname    = host;
 #endif
 	init();
 }
@@ -1216,7 +1212,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	else
 		host = si->qsHostname;
 #else
-	host = si->qsHostname;
+	host          = si->qsHostname;
 #endif
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
@@ -1243,7 +1239,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 				si->zeroconfRecord = BonjourRecord();
 			}
 #else
-			si->qsHostname = cde->qsHostname;
+            si->qsHostname = cde->qsHostname;
 #endif
 			startDns(si);
 		}
@@ -1422,13 +1418,8 @@ void ConnectDialog::onResolved(const BonjourRecord record, const QString host, c
 
 void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 	QSet< ServerItem * > items;
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	QSet< ServerItem * > old =
 		QSet< ServerItem * >(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
-#	else
-	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-	QSet< ServerItem * > old = qtwServers->siLAN->qlChildren.toSet();
-#	endif
 
 	foreach (const BonjourRecord &record, list) {
 		bool found = false;
@@ -1767,12 +1758,7 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port, Vers
 	if (qhPingRand.contains(addr)) {
 		uiRand = qhPingRand.value(addr);
 	} else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 		uiRand = QRandomGenerator::global()->generate64() << 32;
-#else
-		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		uiRand = (static_cast< quint64 >(qrand()) << 32) | static_cast< quint64 >(qrand());
-#endif
 		qhPingRand.insert(addr, uiRand);
 	}
 

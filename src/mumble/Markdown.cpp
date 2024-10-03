@@ -15,12 +15,7 @@ const QLatin1String regularLineBreakPlaceholder("%<\\!!linebreak!!//>@");
 
 /// Just a wrapper for QRegularExpression::match().
 static QRegularExpressionMatch regexMatch(const QRegularExpression &regex, const QString &subject, qsizetype &offset) {
-#if QT_VERSION >= 0x060000
 	return regex.match(subject, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchorAtOffsetMatchOption);
-#else
-	return regex.match(subject, static_cast< int >(offset), QRegularExpression::NormalMatch,
-					   QRegularExpression::AnchoredMatchOption);
-#endif
 }
 
 /// Tries to match and replace an escaped character at exactly the given offset in the string
@@ -329,19 +324,11 @@ bool processPlainLink(QString &str, qsizetype &offset) {
 }
 
 void escapeCharacter(QString &str, qsizetype &offset) {
-#if QT_VERSION >= 0x060000
 	QString tmp(str[offset]);
-#else
-	QString tmp(str[static_cast< int >(offset)]);
-#endif
 
 	tmp = tmp.toHtmlEscaped();
 
-#if QT_VERSION >= 0x060000
 	if (tmp.size() == 1 && tmp[0] == str[offset]) {
-#else
-	if (tmp.size() == 1 && tmp[0] == str[static_cast< int >(offset)]) {
-#endif
 		// Nothing to escape
 		return;
 	}
@@ -351,18 +338,10 @@ void escapeCharacter(QString &str, qsizetype &offset) {
 	QString second;
 
 	if (offset > 0) {
-#if QT_VERSION >= 0x060000
 		first = str.left(offset);
-#else
-		first  = str.left(static_cast< int >(offset));
-#endif
 	}
 	if (offset < str.size() - 1) {
-#if QT_VERSION >= 0x060000
 		second = str.right(str.size() - offset - 1);
-#else
-		second = str.right(str.size() - static_cast< int >(offset) - 1);
-#endif
 	}
 
 	str = first + tmp + second;

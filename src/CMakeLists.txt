@@ -18,6 +18,7 @@ option(bundled-gsl "Use the bundled GSL version instead of looking for one on th
 
 
 find_pkg(Qt6
+	VERSION 6.2
 	COMPONENTS
 		Core
 		Network

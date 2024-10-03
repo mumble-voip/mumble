@@ -31,9 +31,7 @@
 #include "Timer.h"
 #include "crypto/CryptState.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-#	include <QRandomGenerator>
-#endif
+#include <QRandomGenerator>
 
 class Client : public QThread {
 	Q_OBJECT
@@ -150,12 +148,7 @@ void Client::ping() {
 
 void Client::sendVoice() {
 	unsigned char buffer[1024];
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 	int len = 32 + (QRandomGenerator::global()->generate() & 0x3f);
-#else
-	// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-	int len = 32 + (qrand() & 0x3f);
-#endif
 
 	// Regular voice, nothing special
 	buffer[0] = 0;

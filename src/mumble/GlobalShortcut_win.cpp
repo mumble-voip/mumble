@@ -196,33 +196,13 @@ void GlobalShortcutWin::registerMetaTypes() {
 		registered = true;
 
 		qRegisterMetaType< InputHid >();
-#if QT_VERSION < 0x060000
-		qRegisterMetaTypeStreamOperators< InputHid >();
-		QMetaType::registerComparators< InputHid >();
-#endif
 		qRegisterMetaType< InputKeyboard >();
-#if QT_VERSION < 0x060000
-		qRegisterMetaTypeStreamOperators< InputKeyboard >();
-		QMetaType::registerComparators< InputKeyboard >();
-#endif
 		qRegisterMetaType< InputMouse >();
-#if QT_VERSION < 0x060000
-		qRegisterMetaTypeStreamOperators< InputMouse >();
-		QMetaType::registerComparators< InputMouse >();
-#endif
 #ifdef USE_XBOXINPUT
 		qRegisterMetaType< InputXinput >();
-#	if QT_VERSION < 0x060000
-		qRegisterMetaTypeStreamOperators< InputXinput >();
-		QMetaType::registerComparators< InputXinput >();
-#	endif
 #endif
 #ifdef USE_GKEY
 		qRegisterMetaType< InputGkey >();
-#	if QT_VERSION < 0x060000
-		qRegisterMetaTypeStreamOperators< InputGkey >();
-		QMetaType::registerComparators< InputGkey >();
-#	endif
 #endif
 	}
 }

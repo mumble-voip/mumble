@@ -124,12 +124,7 @@ static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
 	mp.udpPing          = u->dUDPPingAvg;
 	mp.tcpPing          = u->dTCPPingAvg;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	mp.tcponly = u->aiUdpFlag.loadRelaxed() == 0;
-#else
-	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
-	mp.tcponly = u->aiUdpFlag.load() == 0;
-#endif
 
 	::MumbleServer::NetAddress addr(16, 0);
 	for (unsigned int i = 0; i < 16; ++i) {
@@ -1487,17 +1482,11 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 			g               = new ::Group(channel, name);
 			g->bInherit     = gi.inherit;
 			g->bInheritable = gi.inheritable;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 			QVector< int > addVec(gi.add.begin(), gi.add.end());
 			QVector< int > removeVec(gi.remove.begin(), gi.remove.end());
 
-			g->qsAdd    = QSet< int >(addVec.begin(), addVec.end());
-			g->qsRemove = QSet< int >(removeVec.begin(), removeVec.end());
-#else
-			// Qt 5.14 prefers to use the new range-based constructor for vectors and sets
-			g->qsAdd    = QVector< int >::fromStdVector(gi.add).toList().toSet();
-			g->qsRemove = QVector< int >::fromStdVector(gi.remove).toList().toSet();
-#endif
+			g->qsAdd       = QSet< int >(addVec.begin(), addVec.end());
+			g->qsRemove    = QSet< int >(removeVec.begin(), removeVec.end());
 			g->qsTemporary = hOldTemp.value(name);
 		}
 		foreach (const ::MumbleServer::ACL &ai, acls) {

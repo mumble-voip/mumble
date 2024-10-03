@@ -118,11 +118,7 @@ namespace Translations {
 		// existing Qt translations. If not, we try to load the qt-translations installed on the host-machine and if
 		// that fails as well, we try to load translations bundled in Mumble. Note: Resource starting with :/ are
 		// bundled resources specified in a .qrc file
-#if QT_VERSION >= 0x060000
 		const QString translationsPath = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
-#else
-		const QString translationsPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-#endif
 		if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qt_")) {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qtbase_")) {

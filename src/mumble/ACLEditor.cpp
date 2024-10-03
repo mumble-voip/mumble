@@ -15,11 +15,7 @@
 #include "User.h"
 #include "widgets/EventFilters.h"
 
-#if QT_VERSION >= 0x050000
-#	include <QtWidgets/QMessageBox>
-#else
-#	include <QtGui/QMessageBox>
-#endif
+#include <QtWidgets/QMessageBox>
 
 #include "Global.h"
 
@@ -794,11 +790,7 @@ void ACLEditor::on_qpbACLUp_clicked() {
 	if (idx <= numInheritACL + 1)
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
 	qlACLs.swapItemsAt(idx - 1, idx);
-#else
-	qlACLs.swap(idx - 1, idx);
-#endif
 	qlwACLs->setCurrentRow(qlwACLs->currentRow() - 1);
 	refillACL();
 }
@@ -812,11 +804,7 @@ void ACLEditor::on_qpbACLDown_clicked() {
 	if (idx >= qlACLs.count())
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
 	qlACLs.swapItemsAt(idx - 1, idx);
-#else
-	qlACLs.swap(idx - 1, idx);
-#endif
 	qlwACLs->setCurrentRow(qlwACLs->currentRow() + 1);
 	refillACL();
 }

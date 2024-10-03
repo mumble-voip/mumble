@@ -438,16 +438,10 @@ void ServerHandler::run() {
 		}
 		bUdp = false;
 
-#if QT_VERSION >= 0x060300
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 		qtsSock->setProtocol(QSsl::TlsV1_2OrLater);
-#elif QT_VERSION >= 0x050500
-		qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
-#elif QT_VERSION >= 0x050400
-		// In Qt 5.4, QSsl::SecureProtocols is equivalent
-		// to "TLSv1.0 or later", which we require.
-		qtsSock->setProtocol(QSsl::SecureProtocols);
 #else
-		qtsSock->setProtocol(QSsl::TlsV1_0);
+		qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
 #endif
 
 		qtsSock->connectToHost(saTargetServer.host.toAddress(), saTargetServer.port);
@@ -752,11 +746,9 @@ void ServerHandler::serverConnectionConnected() {
 	if (!connection)
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
 	// The ephemeralServerKey property is only a non-null key, if forward secrecy is used.
 	// See also https://doc.qt.io/qt-5/qsslconfiguration.html#ephemeralServerKey
 	connectionUsesPerfectForwardSecrecy = !qtsSock->sslConfiguration().ephemeralServerKey().isNull();
-#endif
 
 	iInFlightTCPPings = 0;
 

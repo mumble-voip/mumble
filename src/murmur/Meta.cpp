@@ -35,9 +35,7 @@
 #	include <sys/resource.h>
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-#	include <QRandomGenerator>
-#endif
+#include <QRandomGenerator>
 
 MetaParams Meta::mp;
 
@@ -148,11 +146,7 @@ ReturnType MetaParams::typeCheckedFromSettings(const QString &name, const ValueT
 
 	// Bit convoluted as canConvert<T>() only does a static check without considering whether
 	// say a string like "blub" is actually a valid double (which convert does).
-#if QT_VERSION >= 0x060000
 	if (!cfgVariable.convert(QMetaType(QVariant(defaultValue).metaType()))) {
-#else
-	if (!cfgVariable.convert(static_cast< int >(QVariant(defaultValue).type()))) {
-#endif
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of"
 					<< defaultValue << ".";
 		return static_cast< ReturnType >(defaultValue);
@@ -216,9 +210,6 @@ void MetaParams::read(QString fname) {
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
 	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-#if QT_VERSION < 0x060000
-	qsSettings->setIniCodec("UTF-8");
-#endif
 
 	qsSettings->sync();
 	switch (qsSettings->status()) {
@@ -242,13 +233,7 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
-#else
-		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
-		foreach (const QString &host,
-				 qsHost.split(QRegularExpression(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
-#endif
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
 				qlBind << qhaddr;
@@ -385,12 +370,7 @@ void MetaParams::read(QString fname) {
 	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 		iObfuscate = static_cast< int >(QRandomGenerator::global()->generate());
-#else
-		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		iObfuscate = static_cast< int >(qrand());
-#endif
 	}
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing   = typeCheckedFromSettings("allowping", bAllowPing);
@@ -445,9 +425,6 @@ void MetaParams::read(QString fname) {
 
 bool MetaParams::loadSSLSettings() {
 	QSettings updatedSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-#if QT_VERSION < 0x060000
-	updatedSettings.setIniCodec("UTF-8");
-#endif
 
 	QString tmpCiphersStr = typeCheckedFromSettings("sslCiphers", qsCiphers);
 
