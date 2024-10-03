@@ -108,6 +108,7 @@ public:
 	GlobalShortcut *gsConfigDialog, *gsAudioWizard, *gsConfigCert;
 	GlobalShortcut *gsAudioTTS;
 	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
+	GlobalShortcut *gsTogglePositionalAudio;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -342,6 +343,7 @@ public slots:
 	void on_gsHelpAbout_triggered(bool, QVariant);
 	void on_gsHelpAboutQt_triggered(bool, QVariant);
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
+	void on_gsTogglePositionalAudio_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
@@ -437,6 +439,7 @@ public:
 	void openAboutDialog();
 	void openAboutQtDialog();
 	void versionCheck();
+	void enablePositionalAudio(bool enable);
 };
 
 #endif
