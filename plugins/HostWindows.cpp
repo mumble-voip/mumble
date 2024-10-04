@@ -32,6 +32,7 @@ Modules HostWindows::modules() const {
 
 	const auto snapshotHandle = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, m_pid);
 	if (snapshotHandle == INVALID_HANDLE_VALUE) {
+		CloseHandle(processHandle);
 		return {};
 	}
 
@@ -49,7 +50,11 @@ Modules HostWindows::modules() const {
 		MEMORY_BASIC_INFORMATION64 mbi;
 		auto address = reinterpret_cast< procptr_t >(me.modBaseAddr);
 		while (VirtualQueryEx(processHandle, reinterpret_cast< LPCVOID >(address),
-							  reinterpret_cast< PMEMORY_BASIC_INFORMATION >(&mbi), sizeof(mbi))) {
+							  reinterpret_cast< PMEMORY_BASIC_INFORMATION >(&mbi), sizeof(mbi))
+			   /* Only enumerate pages that belong to the allocation for this module.
+				* This stops if it sees a page for a different allocation, belonging
+				* to another module or dynamic memory, or gap between pages. */
+			   && (mbi.AllocationBase == reinterpret_cast< procptr_t >(me.modBaseAddr))) {
 			MemoryRegion region{};
 			region.address = address;
 			region.size    = mbi.RegionSize;
