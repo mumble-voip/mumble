@@ -201,6 +201,13 @@ MainWindow::MainWindow(QWidget *p)
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
 
+// Loading a state that was stored by a different version of Qt can lead to a crash.
+// This function calculates the state version based on Qt's version and MainWindow.ui's hash (provided through CMake).
+// That way we also avoid potentially causing bugs/glitches when there are changes to MainWindow's widgets.
+constexpr int MainWindow::stateVersion() {
+	return MUMBLE_MAINWINDOW_UI_HASH ^ QT_VERSION;
+}
+
 void MainWindow::createActions() {
 	gsPushTalk = new GlobalShortcut(this, GlobalShortcutType::PushToTalk, tr("Push-to-Talk", "Global Shortcut"));
 	gsPushTalk->setObjectName(QLatin1String("PushToTalk"));
@@ -536,15 +543,7 @@ void MainWindow::setupGui() {
 	setupView(false);
 #endif
 
-	if (Global::get().s.bMinimalView && !Global::get().s.qbaMinimalViewGeometry.isNull())
-		restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
-	else if (!Global::get().s.bMinimalView && !Global::get().s.qbaMainWindowGeometry.isNull())
-		restoreGeometry(Global::get().s.qbaMainWindowGeometry);
-
-	if (Global::get().s.bMinimalView && !Global::get().s.qbaMinimalViewState.isNull())
-		restoreState(Global::get().s.qbaMinimalViewState);
-	else if (!Global::get().s.bMinimalView && !Global::get().s.qbaMainWindowState.isNull())
-		restoreState(Global::get().s.qbaMainWindowState);
+	loadState(Global::get().s.bMinimalView);
 
 	setupView(false);
 
@@ -671,14 +670,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 	sh.reset();
 
-	if (Global::get().s.bMinimalView) {
-		Global::get().s.qbaMinimalViewGeometry = saveGeometry();
-		Global::get().s.qbaMinimalViewState    = saveState();
-	} else {
-		Global::get().s.qbaMainWindowGeometry = saveGeometry();
-		Global::get().s.qbaMainWindowState    = saveState();
-		Global::get().s.qbaHeaderState        = qtvUsers->header()->saveState();
-	}
+	storeState(Global::get().s.bMinimalView);
 
 	if (Global::get().talkingUI && Global::get().talkingUI->isVisible()) {
 		// Save the TalkingUI's position if it is visible
@@ -1372,6 +1364,35 @@ void MainWindow::setOnTop(bool top) {
 	}
 }
 
+void MainWindow::loadState(const bool minimalView) {
+	if (minimalView) {
+		if (!Global::get().s.qbaMinimalViewGeometry.isNull()) {
+			restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
+		}
+		if (!Global::get().s.qbaMinimalViewState.isNull()) {
+			restoreState(Global::get().s.qbaMinimalViewState, stateVersion());
+		}
+	} else {
+		if (!Global::get().s.qbaMainWindowGeometry.isNull()) {
+			restoreGeometry(Global::get().s.qbaMainWindowGeometry);
+		}
+		if (!Global::get().s.qbaMainWindowState.isNull()) {
+			restoreState(Global::get().s.qbaMainWindowState, stateVersion());
+		}
+	}
+}
+
+void MainWindow::storeState(const bool minimalView) {
+	if (minimalView) {
+		Global::get().s.qbaMinimalViewGeometry = saveGeometry();
+		Global::get().s.qbaMinimalViewState    = saveState(stateVersion());
+	} else {
+		Global::get().s.qbaMainWindowGeometry = saveGeometry();
+		Global::get().s.qbaMainWindowState    = saveState(stateVersion());
+		Global::get().s.qbaHeaderState        = qtvUsers->header()->saveState();
+	}
+}
+
 void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = !Global::get().s.bMinimalView;
 
@@ -1409,14 +1430,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	QRect geom = frameGeometry();
 
 	if (toggle_minimize) {
-		if (!showit) {
-			Global::get().s.qbaMainWindowGeometry = saveGeometry();
-			Global::get().s.qbaMainWindowState    = saveState();
-			Global::get().s.qbaHeaderState        = qtvUsers->header()->saveState();
-		} else {
-			Global::get().s.qbaMinimalViewGeometry = saveGeometry();
-			Global::get().s.qbaMinimalViewState    = saveState();
-		}
+		storeState(showit);
 	}
 
 	Qt::WindowFlags f = Qt::Window;
@@ -1470,17 +1484,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	}
 
 	if (toggle_minimize) {
-		if (!showit) {
-			if (!Global::get().s.qbaMinimalViewGeometry.isNull())
-				restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
-			if (!Global::get().s.qbaMinimalViewState.isNull())
-				restoreState(Global::get().s.qbaMinimalViewState);
-		} else {
-			if (!Global::get().s.qbaMainWindowGeometry.isNull())
-				restoreGeometry(Global::get().s.qbaMainWindowGeometry);
-			if (!Global::get().s.qbaMainWindowState.isNull())
-				restoreState(Global::get().s.qbaMainWindowState);
-		}
+		loadState(!showit);
 	} else {
 		QRect newgeom = frameGeometry();
 		resize(geometry().width() - newgeom.width() + geom.width(),
