@@ -146,6 +146,9 @@ public:
 	void focusNextMainWidget();
 	QPair< QByteArray, QImage > openImageFile();
 
+	void loadState(bool minimalView);
+	void storeState(bool minimalView);
+
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
@@ -193,6 +196,8 @@ protected:
 	qt_unique_ptr< MenuLabel > m_localVolumeLabel;
 	qt_unique_ptr< UserLocalVolumeSlider > m_userLocalVolumeSlider;
 	qt_unique_ptr< ListenerVolumeSlider > m_listenerVolumeSlider;
+
+	static constexpr int stateVersion();
 
 	void createActions();
 	void setupGui();

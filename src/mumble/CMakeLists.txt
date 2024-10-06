@@ -416,9 +416,15 @@ else()
 	endif()
 endif()
 
+# This is used to invalidate the saved widget state if a change in the source is detected.
+get_numerical_file_hash("${CMAKE_CURRENT_SOURCE_DIR}/MainWindow.ui" MAINWINDOW_UI_HASH)
+
+message(STATUS "MAINWINDOW_UI_HASH: ${MAINWINDOW_UI_HASH}")
+
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
 		"MUMBLE"
+		"MUMBLE_MAINWINDOW_UI_HASH=${MAINWINDOW_UI_HASH}"
 		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
