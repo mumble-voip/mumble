@@ -834,6 +834,7 @@ int main(int argc, char **argv) {
 	delete srpc;
 
 	delete Global::get().talkingUI;
+	delete Global::get().pluginManager;
 	// Delete the MainWindow before the ServerHandler gets reset in order to allow all callbacks
 	// trggered by this deletion to still access the ServerHandler (atm all these callbacks are in PluginManager.cpp)
 	delete Global::get().mw;
@@ -851,8 +852,6 @@ int main(int argc, char **argv) {
 	delete Global::get().db;
 	delete Global::get().l;
 	Global::get().l = nullptr; // Make it clear to any destruction code that Log no longer exists
-
-	delete Global::get().pluginManager;
 
 #ifdef USE_ZEROCONF
 	delete Global::get().zeroconf;

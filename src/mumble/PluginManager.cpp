@@ -176,7 +176,7 @@ bool PluginManager::eventFilter(QObject *target, QEvent *event) {
 	return QObject::eventFilter(target, event);
 }
 
-void PluginManager::unloadPlugins() const {
+void PluginManager::unloadPlugins() {
 	QReadLocker lock(&m_pluginCollectionLock);
 
 	auto it = m_pluginHashMap.begin();
@@ -538,7 +538,7 @@ bool PluginManager::loadPlugin(plugin_id_t pluginID) const {
 	return false;
 }
 
-void PluginManager::unloadPlugin(plugin_id_t pluginID) const {
+void PluginManager::unloadPlugin(plugin_id_t pluginID) {
 	plugin_ptr_t plugin;
 	{
 		QReadLocker lock(&m_pluginCollectionLock);
@@ -551,9 +551,20 @@ void PluginManager::unloadPlugin(plugin_id_t pluginID) const {
 	}
 }
 
-void PluginManager::unloadPlugin(Plugin &plugin) const {
+void PluginManager::unloadPlugin(Plugin &plugin) {
 	if (plugin.isLoaded()) {
 		// Only shut down loaded plugins
+
+		{
+			QWriteLocker activePluginLock(&m_activePosDataPluginLock);
+
+			if (&plugin == m_activePositionalDataPlugin.get()) {
+				m_positionalData.reset();
+				m_activePositionalDataPlugin = nullptr;
+				emit pluginLostLink(plugin.getID());
+			}
+		}
+
 		plugin.shutdown();
 	}
 }
