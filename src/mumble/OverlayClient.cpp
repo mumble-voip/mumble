@@ -206,14 +206,7 @@ void OverlayClient::showGui() {
 	bWasVisible = !Global::get().mw->isHidden();
 
 	if (bWasVisible) {
-		if (Global::get().s.bMinimalView) {
-			Global::get().s.qbaMinimalViewGeometry = Global::get().mw->saveGeometry();
-			Global::get().s.qbaMinimalViewState    = Global::get().mw->saveState();
-		} else {
-			Global::get().s.qbaMainWindowGeometry = Global::get().mw->saveGeometry();
-			Global::get().s.qbaMainWindowState    = Global::get().mw->saveState();
-			Global::get().s.qbaHeaderState        = Global::get().mw->qtvUsers->header()->saveState();
-		}
+		Global::get().mw->storeState(Global::get().s.bMinimalView);
 	}
 
 	{
@@ -315,13 +308,7 @@ void OverlayClient::hideGui() {
 	}
 
 	if (bWasVisible) {
-		if (Global::get().s.bMinimalView && !Global::get().s.qbaMinimalViewGeometry.isNull()) {
-			Global::get().mw->restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
-			Global::get().mw->restoreState(Global::get().s.qbaMinimalViewState);
-		} else if (!Global::get().s.bMinimalView && !Global::get().s.qbaMainWindowGeometry.isNull()) {
-			Global::get().mw->restoreGeometry(Global::get().s.qbaMainWindowGeometry);
-			Global::get().mw->restoreState(Global::get().s.qbaMainWindowState);
-		}
+		Global::get().mw->loadState(Global::get().s.bMinimalView);
 	}
 
 #ifdef Q_OS_MAC
