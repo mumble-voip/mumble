@@ -1397,7 +1397,6 @@ void MainWindow::storeState(const bool minimalView) {
 	} else {
 		Global::get().s.qbaMainWindowGeometry = saveGeometry();
 		Global::get().s.qbaMainWindowState    = saveState(stateVersion());
-		Global::get().s.qbaHeaderState        = qtvUsers->header()->saveState();
 	}
 }
 
