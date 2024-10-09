@@ -1336,7 +1336,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>位置音频</translation>
+        <translation>定位音频</translation>
     </message>
     <message>
         <source>Audio Output</source>
@@ -1578,7 +1578,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>位置音频无法在单声道输出设备上使用！</translation>
+        <translation>定位音频无法在单声道输出设备上使用！</translation>
     </message>
     <message>
         <source>Audio output system</source>
@@ -1928,7 +1928,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation>启用位置音频</translation>
+        <translation>启用定位音频</translation>
     </message>
     <message>
         <source>Allows positioning of sound</source>
@@ -1945,7 +1945,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>允许 Mumble 根据位置的不同播放位置音频。</translation>
+        <translation>允许 Mumble 使用定位音频放置声音。</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1989,11 +1989,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>位置音频</translation>
+        <translation>定位音频</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>调整位置音频的衰减。</translation>
+        <translation>调整定位音频的衰减。</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
@@ -2208,7 +2208,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 支持在一些游戏中使用位置音频功能，能够根据玩家在游戏中的相对位置来将用户的语音方位化。根据他们的位置，用户之间语音的音量会随着距离和方向而模拟变化。这需要您在操作系统中正确配置扬声器的立体声，此测试就是为了保证这一点。&lt;/p&gt;&lt;p&gt;下方的图像显示了&lt;span style=&quot; color:#56b4e9;&quot;&gt;您&lt;/span&gt;、&lt;span style=&quot; color:#d55e00;&quot;&gt;扬声器&lt;/span&gt;和&lt;span style=&quot; color:#009e73;&quot;&gt;移动的音源&lt;/span&gt;的俯视图。您应该能够听到音频在声道中的移动。&lt;/p&gt;&lt;p&gt;您也可以使用鼠标手动移动&lt;span style=&quot; color:#009e73;&quot;&gt;音源&lt;/span&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 支持在一些游戏中使用定位音频功能，能够根据玩家在游戏中的相对位置来将用户的语音方位化。根据他们的位置，用户之间语音的音量会随着距离和方向而模拟变化。这需要您在操作系统中正确配置扬声器的立体声，此测试就是为了保证这一点。&lt;/p&gt;&lt;p&gt;下方的图像显示了&lt;span style=&quot; color:#56b4e9;&quot;&gt;您&lt;/span&gt;、&lt;span style=&quot; color:#d55e00;&quot;&gt;扬声器&lt;/span&gt;和&lt;span style=&quot; color:#009e73;&quot;&gt;移动的音源&lt;/span&gt;的俯视图。您应该能够听到音频在声道中的移动。&lt;/p&gt;&lt;p&gt;您也可以使用鼠标手动移动&lt;span style=&quot; color:#009e73;&quot;&gt;音源&lt;/span&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2240,7 +2240,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation>Mumble 位置音频系统使用户能够将其语音的相对位置链接到游戏等第三方应用程序。</translation>
+        <translation>Mumble 定位音频系统使用户能够将其语音的相对位置链接到游戏等第三方应用程序。</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
@@ -2280,11 +2280,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>图形化位置音频模拟视图</translation>
+        <translation>图形化定位音频模拟视图</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation>可视化展示当前播放的位置音频</translation>
+        <translation>可视化展示当前播放的定位音频</translation>
     </message>
 </context>
 <context>
@@ -3834,11 +3834,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>使用密语快捷键时不发送位置音频信息。</translation>
+        <translation>使用密语快捷键时不发送定位音频信息。</translation>
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation>忽略位置语音</translation>
+        <translation>忽略定位音频</translation>
     </message>
     <message>
         <source>Shout to Linked channels</source>
@@ -6111,11 +6111,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>The server requests positional audio be enabled.</source>
-        <translation>服务器要求启用位置音频。</translation>
+        <translation>服务器要求启用定位音频。</translation>
     </message>
     <message>
         <source>The server requests positional audio be disabled.</source>
-        <translation>服务器要求禁用位置音频。</translation>
+        <translation>服务器要求禁用定位音频。</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
@@ -6620,11 +6620,11 @@ Valid actions are:
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation>显示位置音频查看器</translation>
+        <translation>显示定位音频查看器</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation>显示位置音频查看器。可以在其中检查位置音频的当前信息，包括上下文和标识符。</translation>
+        <translation>显示定位音频查看器。可以在其中检查定位音频的当前信息，包括上下文和标识符。</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -7049,7 +7049,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation>位置音频查看器(&amp;A)</translation>
+        <translation>定位音频查看器(&amp;A)</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -7146,30 +7146,30 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>开关定位音频</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>这会打开/关闭定位音频</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL 错误</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble 无法建立到服务器的安全连接（&quot;%1&quot;）</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>这可能由下列情形中的一个导致的：:&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太老或者要连接到的服务器太老。如果是第一种情况，你应当更新浓密的客户端。第二种情况下 ，你应当联系服务器管理员以便更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的是未提供最新加密方法的操作系统。如果是这样，你应当考虑更新操作系统或联系服务器管理员以更新服务器上的操作系统。&lt;/li&gt;&lt;li&gt;你正在连接的服务器不是 Mumble 服务器。 请确保所用的服务器地址的确属于 Mumble 服务器而不是游戏服务器。&lt;/li&gt;&lt;li&gt;你正在连接的端口不属于 Mumble 服务器而是绑定到服务器端一个完全不相关的进程。请复核确保你使用了正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
     <name>Manual</name>
     <message>
         <source>Manual Mumble Positional Audio</source>
-        <translation>手动 Mumble 位置音频</translation>
+        <translation>手动 Mumble 定位音频</translation>
     </message>
     <message>
         <source>Position</source>
@@ -7253,11 +7253,11 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>图形化位置音频模拟视图</translation>
+        <translation>图形化定位音频模拟视图</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation>可视化展示当前使用的位置音频配置</translation>
+        <translation>可视化展示当前使用的定位音频配置</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
@@ -8136,11 +8136,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation>是否应该启用此插件的位置音频功能</translation>
+        <translation>是否应该启用此插件的定位音频功能</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation>此插件未提供位置音频支持</translation>
+        <translation>此插件未提供定位音频支持</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
@@ -8168,7 +8168,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation>插件位置音频权限选项</translation>
+        <translation>定位音频插件权限选项</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
@@ -8343,7 +8343,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation>位置音频查看器</translation>
+        <translation>定位音频查看器</translation>
     </message>
     <message>
         <source>Camera direction</source>

@@ -7148,23 +7148,23 @@ Prawidłowe opcje to:
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Przełącz dźwięk pozycyjny</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Spowoduje to włączenie/wyłączenie dźwięku pozycyjnego</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd SSL</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble nie może nawiązać bezpiecznego połączenia z serwerem. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Może to być spowodowane jednym z następujących scenariuszy:&lt;ul&gt;&lt;li&gt;Twój klient i serwer używają różnych standardów szyfrowania. Może to być spowodowane tym, że używasz bardzo starego klienta lub serwer, z którym się łączysz, jest bardzo stary. W pierwszym przypadku należy zaktualizować swojego klienta, a w drugim przypadku należy skontaktować się z administratorem serwera, aby mógł zaktualizować swój serwer.&lt;/li&gt;&lt;li&gt;Twój klient lub serwer używa starego systemu operacyjnego, który nie zapewnia aktualnych metod szyfrowania. W takim przypadku należy rozważyć aktualizację swojego systemu operacyjnego lub skontaktować się z administratorem serwera, aby mógł zaktualizować swój.&lt;/li&gt;&lt;li&gt;Serwer, z którym się łączysz, nie jest w rzeczywistości serwerem Mumble. Upewnij się, że używany adres serwera rzeczywiście należy do serwera Mumble, a nie np. do serwera gier.&lt;/li&gt;&lt;li&gt;Port, z którym się łączysz, nie należy do serwera Mumble, ale jest powiązany z zupełnie niezwiązanym procesem po stronie serwera. Sprawdź dokładnie, czy używasz prawidłowego portu.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
