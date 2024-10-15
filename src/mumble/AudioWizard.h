@@ -20,6 +20,8 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioWizard)
 
+	void updateEchoCheckbox(AudioInputRegistrar *air);
+
 	/// Which echo cancellation is usable depends on the audio backend and the device combination.
 	/// This function will iterate through the list of available echo cancellation in the audio backend and check with
 	/// the backend whether this echo cancellation option works for current device combination.
