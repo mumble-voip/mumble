@@ -402,7 +402,6 @@ struct Settings {
 	QByteArray qbaMainWindowState        = {};
 	QByteArray qbaMinimalViewGeometry    = {};
 	QByteArray qbaMinimalViewState       = {};
-	QByteArray qbaHeaderState            = {};
 	QByteArray qbaConfigGeometry         = {};
 	WindowLayout wlWindowLayout          = LayoutClassic;
 	ChannelExpand ceExpand               = ChannelsWithUsers;
