@@ -222,7 +222,7 @@ struct Settings {
 	bool audioCueEnabledPTT = true;
 	bool audioCueEnabledVAD = false;
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
-	QString qsTxAudioCueOff = cqsDefaultPushClickOn;
+	QString qsTxAudioCueOff = cqsDefaultPushClickOff;
 
 	bool bTxMuteCue     = true;
 	bool muteCueShown   = false;
