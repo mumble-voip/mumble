@@ -1230,7 +1230,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Això mostra el pic de l&apos;ample de banda de sortida utilitzat.&lt;/b&gt;&lt;br /&gt; Mostra el màxim ample de banda enviat des de la vostra màquina. La taxa de bits d&apos;àudio és la taxa de bits màxima només per a les dades d&apos;àudio. La posició és la taxa de bits utilitzada per a la informació posicional. El superior és el nostre enquadrament i les capçaleres de paquets IP (IP i UDP és 75% d&apos;aquesta sobrecàrrega).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquesta és la taxa de bits d&apos;àudio de l&apos;últim marc comprimit (20 ms). La taxa de bits màxima es pot ajustar al diàleg Configuració.</translation>
     </message>
 </context>
 <context>
@@ -2822,7 +2822,7 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;El Mumble pot utilitzar certificats per autenticar amb els servidors. L&apos;ús de certificats evita les contrasenyes, el que significa que no cal revelar cap contrasenya al lloc remot. També permet un registre d&apos;usuaris molt fàcil i una llista d&apos;amics del client independent dels servidors. &lt;/p&gt;&lt;p&gt; Mentre que el Mumble pot funcionar sense certificats, la majoria dels servidors esperen que en tingueu un.&lt;/p&gt;&lt;p&gt;Crear un nou certificat automàticament és suficient a la majoria dels casos. El Mumble també permet certificats que representin la confiança en la propietat d&apos;una adreça de correu electrònic dels usuaris. Aquests certificats els emeten tercers. Per a més informació consulteu a la nostra &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt; documentació del certificat d&apos;usuari&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7147,23 +7147,23 @@ Les opcions vàlides són:
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Commuta el àudio posicional</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Això activa o no l&apos;àudio posicional</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de SSL</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble no pot establir una connexió segura al servidor. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>La causa pot ser una de les següents:&lt;ul&gt;&lt;li&gt;El vostre client i el servidor fan servir estàndards d&apos;encriptació diferents. Potser el vostre client o el servidor són molt antics. En el primer cas, hauríeu d&apos;actualitzar el vostre client i en el segon cas hauríeu de contactar l&apos;administrador del servidor per que l&apos;actualitzi.&lt;/li&gt;&lt;li&gt;O bé el vostre client o el servidor estan utilitzant un sistema operatiu antic que no proporciona mètodes d&apos;encriptació actuals. En aquest cas hauríeu de considerar actualitzar el vostre sistema o contactar l&apos;administrador del servidor per que actualitzi el seu.&lt;/li&gt;&lt;li&gt;El servidor al que esteu connectat a no és de fet un Mumble servidor. Si us plau assegureu-vos que l&apos;adreça del servidor que utilitzeu correspon realment a un servidor Mumble, i no, per exemple, a un servidor de joc.&lt;/li&gt;&lt;li&gt;El port al que esteu connectat no pertany a un servidor Mumble servidor si no que està lligat a un procés sense cap relació amb el servidor lateral. Comproveu si us plau que utilitzeu el port correcte.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
@@ -8706,7 +8706,8 @@ Podeu registrar-vos de nou.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si utilitzeu Linux, probablement es degut a que utilitzeu una versió del repositori de paquets de la vostra distribució. &lt;/p&gt;&lt;p&gt; Si voleu tenir sempre la versió més recent del Mumble, considereu un altre mètode d’instal·lació.
+Veure &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;el repositori del projecte&lt;/a&gt; per a quines alternatives hi ha.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
