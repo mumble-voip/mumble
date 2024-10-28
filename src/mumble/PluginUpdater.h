@@ -84,10 +84,17 @@ public:
 public slots:
 	/// Clears the UI from the widgets created for the individual plugins.
 	void clearUI();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	/// Slot triggered if the user changes the state of the selectAll CheckBox.
+	void on_selectAll(Qt::CheckState checkState);
+	/// Slot triggered if the user toggles the CheckBox for any individual plugin.
+	void on_singleSelectionChanged(Qt::CheckState checkState);
+#else
 	/// Slot triggered if the user changes the state of the selectAll CheckBox.
 	void on_selectAll(int checkState);
 	/// Slot triggered if the user toggles the CheckBox for any individual plugin.
 	void on_singleSelectionChanged(int checkState);
+#endif
 	/// Slot triggered when the dialog is being closed.
 	void on_finished(int result);
 	/// Slot that can be triggered to ask for the update process to be interrupted.
