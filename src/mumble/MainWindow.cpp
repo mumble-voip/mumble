@@ -86,6 +86,16 @@
 #	include <dbt.h>
 #endif
 
+
+#include <QFile>
+#include <QGuiApplication>
+#include <QPalette>
+#include <QSettings>
+#include <QStyleHints>
+#include <QTextStream>
+
+
+
 #include <algorithm>
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
@@ -117,7 +127,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -198,7 +210,80 @@ MainWindow::MainWindow(QWidget *p)
 					 &PluginManager::on_serverSynchronized);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	// Theme application
+	applyTheme(); // Apply the light or dark theme during initialization
 }
+
+void MainWindow::applyTheme() {
+	boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(Global::get().s);
+
+	QString lightThemePath = ":/themes/Default/Lite.qss"; // Default light theme path
+	QString darkThemePath  = ":/themes/Default/Dark.qss"; // Default dark theme path
+
+	if (configuredStyle) {
+		if (configuredStyle->name == "Auto") {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+			auto colorScheme = QGuiApplication::styleHints()->colorScheme();
+			if (colorScheme == Qt::ColorScheme::Dark) {
+				setStyleSheet(loadStyleSheet(darkThemePath)); // Apply dark theme
+			} else {
+				setStyleSheet(loadStyleSheet(lightThemePath)); // Apply light theme
+			}
+#else
+			bool isDarkTheme = detectSystemTheme();
+			if (isDarkTheme) {
+				setStyleSheet(loadStyleSheet(darkThemePath)); // Apply dark theme
+			} else {
+				setStyleSheet(loadStyleSheet(lightThemePath)); // Apply light theme
+			}
+#endif
+		} else if (configuredStyle->themeName == "none") {
+			setStyleSheet(""); // Clear the stylesheet if "None" is selected
+		} else {
+			QString themePath =
+				QString(":/themes/%1/%2.qss").arg(configuredStyle->themeName).arg(configuredStyle->name);
+			setStyleSheet(loadStyleSheet(themePath)); // Apply the selected theme and style
+		}
+	} else {
+		// Handle the case where no theme is configured (fallback to default behavior)
+		setStyleSheet(loadStyleSheet(lightThemePath)); // Default to light theme
+	}
+}
+
+bool MainWindow::detectSystemTheme() {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	return false; // This should not be called for Qt 6.5 and above
+#else
+// Custom method to detect dark theme for Qt 6.2 and below
+#	ifdef Q_OS_WIN
+	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+					   QSettings::NativeFormat);
+	return settings.value("AppsUseLightTheme", 1).toInt() == 0; // 0 means dark mode
+#	else
+	// Fallback for other OSes
+	QByteArray platform = qgetenv("QT_QPA_PLATFORM");
+	if (platform.contains("darkmode=2")) {
+		return true;
+	} else if (platform.contains("darkmode=1")) {
+		QPalette defaultPalette;
+		return defaultPalette.color(QPalette::WindowText).lightness()
+			   > defaultPalette.color(QPalette::Window).lightness();
+	}
+	return false;
+#	endif
+#endif
+}
+
+QString MainWindow::loadStyleSheet(const QString &path) {
+	QFile file(path);
+	if (file.open(QFile::ReadOnly | QFile::Text)) {
+		QTextStream stream(&file);
+		return stream.readAll(); // Return the stylesheet content
+	}
+	return QString(); // Return empty if the file cannot be loaded
+}
+
 
 void MainWindow::createActions() {
 	gsPushTalk = new GlobalShortcut(this, GlobalShortcutType::PushToTalk, tr("Push-to-Talk", "Global Shortcut"));
@@ -756,6 +841,10 @@ void MainWindow::changeEvent(QEvent *e) {
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
 #endif
+
+	if (e->type() == QEvent::ThemeChange) {
+		applyTheme();
+	}
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
