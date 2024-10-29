@@ -127,9 +127,7 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{
-		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
-	}
+	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -211,8 +209,7 @@ MainWindow::MainWindow(QWidget *p)
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 
-	// Theme application
-	applyTheme(); // Apply the light or dark theme during initialization
+	applyTheme();
 }
 
 void MainWindow::applyTheme() {
@@ -225,6 +222,7 @@ void MainWindow::applyTheme() {
 		if (configuredStyle->name == "Auto") {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 			auto colorScheme = QGuiApplication::styleHints()->colorScheme();
+
 			if (colorScheme == Qt::ColorScheme::Dark) {
 				setStyleSheet(loadStyleSheet(darkThemePath)); // Apply dark theme
 			} else {
@@ -283,7 +281,6 @@ QString MainWindow::loadStyleSheet(const QString &path) {
 	}
 	return QString(); // Return empty if the file cannot be loaded
 }
-
 
 void MainWindow::createActions() {
 	gsPushTalk = new GlobalShortcut(this, GlobalShortcutType::PushToTalk, tr("Push-to-Talk", "Global Shortcut"));
@@ -841,7 +838,6 @@ void MainWindow::changeEvent(QEvent *e) {
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
 #endif
-
 	if (e->type() == QEvent::ThemeChange) {
 		applyTheme();
 	}
