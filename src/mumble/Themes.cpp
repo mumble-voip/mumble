@@ -8,6 +8,14 @@
 #include "MumbleApplication.h"
 #include "Global.h"
 
+#include <QFile>
+#include <QGuiApplication>
+#include <QPalette>
+#include <QSettings>
+#include <QStyleHints>
+#include <QTextStream>
+
+
 boost::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
 	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {
 		return boost::none;
@@ -55,25 +63,59 @@ void Themes::applyFallback() {
 }
 
 bool Themes::applyConfigured() {
+	static QString currentThemePath;
+
+
 	boost::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(Global::get().s);
 	if (!style) {
 		return false;
 	}
 
-	const QFileInfo qssFile(style->getPlatformQss());
+	QString themePath;
+	if (style->themeName == "Auto" || style->name == "Auto") {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+		auto colorScheme = QGuiApplication::styleHints()->colorScheme();
+		if (colorScheme == Qt::ColorScheme::Dark) {
+			themePath = ":/themes/Default/Dark.qss";
+		} else {
+			themePath = ":/themes/Default/Lite.qss";
+		}
+#else
+		bool isDarkTheme = detectSystemTheme();
+		if (isDarkTheme) {
+			themePath = ":/themes/Default/Dark.qss";
+		} else {
+			themePath = ":/themes/Default/Lite.qss";
+		}
+#endif
+	} else {
+		if (style->name == "Dark") {
+			themePath = ":/themes/Default/Dark.qss";
+		} else {
+			themePath = ":/themes/Default/Lite.qss";
+		}
+	}
+
+	// Early exit if the theme path is the same as the current one
+	if (themePath == currentThemePath) {
+		qWarning() << "Themes::applyConfigured(): Skipping redundant theme application for path:" << themePath;
+		return true;
+	}
+
+	currentThemePath = themePath; // Update the current theme path
 
 	qWarning() << "Theme:" << style->themeName;
 	qWarning() << "Style:" << style->name;
-	qWarning() << "--> qss:" << qssFile.absoluteFilePath();
+	qWarning() << "--> qss:" << themePath;
 
-	QFile file(qssFile.absoluteFilePath());
+	QFile file(themePath);
 	if (!file.open(QFile::ReadOnly)) {
 		qWarning() << "Failed to open theme stylesheet:" << file.errorString();
 		return false;
 	}
 
 	QStringList skinPaths;
-	skinPaths << qssFile.path();
+	skinPaths << QFileInfo(themePath).path();
 	skinPaths << QLatin1String(":/themes/Default"); // Some skins might want to fall-back on our built-in resources
 
 	QString themeQss = QString::fromUtf8(file.readAll());
@@ -103,6 +145,30 @@ bool Themes::apply() {
 		Global::get().mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 	}
 	return result;
+}
+
+bool Themes::detectSystemTheme() {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	return false; // This should not be called for Qt 6.5 and above
+#else
+// Custom method to detect dark theme for Qt 6.2 and below
+#	ifdef Q_OS_WIN
+	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+					   QSettings::NativeFormat);
+	return settings.value("AppsUseLightTheme", 1).toInt() == 0; // 0 means dark mode
+#	else
+	// Fallback for other OSes
+	QByteArray platform = qgetenv("QT_QPA_PLATFORM");
+	if (platform.contains("darkmode=2")) {
+		return true;
+	} else if (platform.contains("darkmode=1")) {
+		QPalette defaultPalette;
+		return defaultPalette.color(QPalette::WindowText).lightness()
+			   > defaultPalette.color(QPalette::Window).lightness();
+	}
+	return false;
+#	endif
+#endif
 }
 
 ThemeMap Themes::getThemes() {

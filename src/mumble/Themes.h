@@ -31,6 +31,9 @@ public:
 	/// @note Can only apply a theme before MainWindow etc. is opened
 	static bool apply();
 
+	/// Detects current OS theme
+	static bool detectSystemTheme();
+
 	/// Return a theme name to theme map
 	static ThemeMap getThemes();
 

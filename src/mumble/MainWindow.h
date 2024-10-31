@@ -220,9 +220,6 @@ protected:
 	ContextMenuTarget getContextMenuTargets();
 
 	void autocompleteUsername();
-	void applyTheme();
-	bool detectSystemTheme();
-	QString loadStyleSheet(const QString &path);
 
 public slots:
 	void on_qmServer_aboutToShow();
