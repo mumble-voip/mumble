@@ -66,6 +66,9 @@ private:
 	/// If a the file is is available, the function returns true.
 	/// If no file is available, it returns false.
 	static bool readStylesheet(const QString &stylesheetFn, QString &stylesheetContent);
+
+	/// Member variable to store the current theme path
+	static QString currentThemePath;
 };
 
 #endif // MUMBLE_MUMBLE_THEMES_H_

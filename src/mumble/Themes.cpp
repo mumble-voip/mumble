@@ -13,8 +13,8 @@
 #include <QPalette>
 #include <QSettings>
 #include <QStyleHints>
-#include <QTextStream>
 
+QString Themes::currentThemePath;
 
 boost::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
 	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {
@@ -63,37 +63,23 @@ void Themes::applyFallback() {
 }
 
 bool Themes::applyConfigured() {
-	static QString currentThemePath;
-
+	
 
 	boost::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(Global::get().s);
 	if (!style) {
 		return false;
 	}
 
-	QString themePath;
+	QString themePath = style->getPlatformQss().absoluteFilePath();
 	if (style->themeName == "Auto" || style->name == "Auto") {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-		auto colorScheme = QGuiApplication::styleHints()->colorScheme();
-		if (colorScheme == Qt::ColorScheme::Dark) {
-			themePath = ":/themes/Default/Dark.qss";
-		} else {
-			themePath = ":/themes/Default/Lite.qss";
-		}
-#else
+
 		bool isDarkTheme = detectSystemTheme();
 		if (isDarkTheme) {
 			themePath = ":/themes/Default/Dark.qss";
 		} else {
 			themePath = ":/themes/Default/Lite.qss";
 		}
-#endif
-	} else {
-		if (style->name == "Dark") {
-			themePath = ":/themes/Default/Dark.qss";
-		} else {
-			themePath = ":/themes/Default/Lite.qss";
-		}
+
 	}
 
 	// Early exit if the theme path is the same as the current one
@@ -149,9 +135,8 @@ bool Themes::apply() {
 
 bool Themes::detectSystemTheme() {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	return false; // This should not be called for Qt 6.5 and above
+	return QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
 #else
-// Custom method to detect dark theme for Qt 6.2 and below
 #	ifdef Q_OS_WIN
 	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
 					   QSettings::NativeFormat);
