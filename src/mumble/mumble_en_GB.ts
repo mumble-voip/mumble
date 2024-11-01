@@ -1170,51 +1170,51 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Maximum amplification</translation>
+        <translation>Maximum amplification</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Speech is dynamically amplified by at most this amount</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Noise suppression strength</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Echo cancellation mode</translation>
+        <translation>Echo cancellation mode</translation>
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to audio file</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialogue.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Idle action time threshold (in minutes)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Select what to do when being idle for a configurable amount of time. Default: nothing</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Gets played when you are trying to speak while being muted</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialogue.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Browse for mute cue audio file</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialogue.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
