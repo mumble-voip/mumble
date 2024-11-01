@@ -2252,7 +2252,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Il parlato è dinamicamente amplificato di questa quantità</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
@@ -4503,7 +4503,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibel</translation>
     </message>
 </context>
 <context>

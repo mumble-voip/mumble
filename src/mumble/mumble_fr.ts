@@ -3242,7 +3242,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Pour mesurer la latence (ping) des serveurs publiques et déterminer le nombre d&apos;utilisateurs actifs, votre adresse IP doit être transmise à chacun.&lt;/p&gt;&lt;p&gt;Voulez-vous consentir à l&apos;envoi de votre adresse IP&#xa0;? Si vous répondez non, la liste de serveurs public sera désactivée. Cependant, vous pourrez la réactivée à tout moment dans les paramètres réseau.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Pour mesurer la latence (ping) des serveurs publics et déterminer le nombre d&apos;utilisateurs actifs, votre adresse IP doit être transmise à chacun.&lt;/p&gt;&lt;p&gt;Voulez-vous consentir à l&apos;envoi de votre adresse IP&#x202f;? Si vous répondez non, la liste de serveurs publics sera désactivée. Cependant, vous pourrez la réactiver à tout moment dans les paramètres réseau.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>

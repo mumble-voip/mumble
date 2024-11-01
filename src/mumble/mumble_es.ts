@@ -1186,7 +1186,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Modo de cancelación de eco</translation>
+        <translation>Modo de cancelación del eco</translation>
     </message>
     <message>
         <source>Path to audio file</source>
@@ -2264,7 +2264,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Presionar-para-Hablar (PTT)</translation>
+        <translation>Pulsar para hablar</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2786,7 +2786,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Fichero de certificado a importar</translation>
+        <translation>Archivo del certificado a importar</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
@@ -2822,7 +2822,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble puede usar certificados para autenticarse con servidores. El uso de certificados evita contraseñas, lo que significa que no necesita revelar ninguna contraseña al sitio remoto. También permite un registro de usuario muy fácil y una lista de amigos del lado cliente independiente de los servidores. &lt;/p&gt;&lt;p&gt;Mientras que Mumble puede funcionar sin certificados, la mayoría de los servidores esperan que tengas uno. &lt;/p&gt;&lt;p&gt;Crear un nuevo certificado automáticamente es suficiente para la mayoría de los casos de uso. Pero Mumble también admite certificados que representan la confianza en la propiedad de los usuarios de una dirección de correo electrónico. Estos certificados son emitidos por terceros. Para más información, consulte nuestra &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;documentación de certificados de usuario&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3478,7 +3478,7 @@ Etiqueta de este servidor. Así es como se llamará el servidor en su lista de s
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta para servidor</translation>
     </message>
 </context>
 <context>
@@ -3676,23 +3676,23 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Métodos abreviados configurados</translation>
+        <translation>Atajos configurados</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice las teclas arriba y abajo para navegar a traves de los accesos directos agregados. Utilice las teclas izquierda y derecha para navegar entre acciones y opciones para un unico accesso directo. Las entradas se pueden agregar y eliminar con los botones a continuaction.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar acceso directo no asignado</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto agrega una nueva entrada vacía al árbol &quot;Atajos configurados&quot; de arriba. El árbol se enfocará automáticamente. Asigne una clave o una acción seleccionando la entrada en el árbol de arriba.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto elimina la entrada seleccionada del árbol &quot;Acceso directo configurado&quot; arriba</translation>
     </message>
 </context>
 <context>
@@ -3723,15 +3723,15 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de atajos</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Al alternar este botón, la aplicación buscará una acceso directo. Una vez que se ingresa el acceso directo, la aplicación deja de escuchar el acceso directo. Se pueden asignar varios atajos a la acción actual. Navegue a la lista de atajos de arriba para revisar los atajos actualmente asignados a la acción actual.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este botón eliminará el acceso directo seleccionado para la acción actual. Tenga en cuenta que primero deberá seleccionar un acceso directo de la lista anterior antes de que este botón tenga algún efecto.</translation>
     </message>
 </context>
 <context>
@@ -3759,15 +3759,15 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acción de atajo</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato de acceso directo</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinaciones de entradas de accesos directos</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -3775,11 +3775,11 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>verificado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>sin verificar</translation>
     </message>
 </context>
 <context>
@@ -4440,71 +4440,71 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrar tipos de mensajes y acciones</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice las teclas arriba y abajo para navegar por los tipos de mensajes. Utilice las teclas izquierda y derecha para navegar entre las posibilidades de notificación para un solo tipo de mensaje.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer umbral de longitud</translation>
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volumen de texto a voz</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud máxima del registro de chat</translation>
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de usuarios para notificaciones</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de mensaje</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Casilla de verificación Registrar mensaje en la consola</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar notificación emergente para la casilla de verificación del mensaje</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar ventana para casilla de verificación de mensaje</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Leer mensaje usando la casilla de texto a voz</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Casilla Limitar la notificación de mensajes si el número de usarios es alto</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Casilla de verificación reproducir archivo de sonido para mensaje</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta al archivo de sonido</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>verificado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>sin verificar</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibelios</translation>
     </message>
 </context>
 <context>
@@ -4949,55 +4949,55 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     </message>
     <message>
         <source>Channel expand mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de expansión de canal</translation>
     </message>
     <message>
         <source>User dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de arrastre del usuario</translation>
     </message>
     <message>
         <source>Channel dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de arrastre de canal</translation>
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo siempre visible</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir del modo de comportamiento</translation>
     </message>
     <message>
         <source>Channel separator string</source>
-        <translation type="unfinished"></translation>
+        <translation>Separador de canales</translation>
     </message>
     <message>
         <source>Maximum channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud máxima del nombre del canal</translation>
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Sustitución de abreviaturas</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño relativo de la fuente (en porcentaje)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de visualización del usuario silencioso (en segundos)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>tema de murmullo</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de acción de búsqueda de usuarios</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de acción de búsqueda de canales</translation>
     </message>
 </context>
 <context>
@@ -7007,59 +7007,59 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingresar mensaje de chat</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lista de prohibiciones</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Información</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ig&amp;nore mensajes</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Enviar mensaje...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer Ni&amp;ckname...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;nlace</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;esvincular todo</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>yo mudo</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Silenciate</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio y estadísticas</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajustes</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consola para los desarrolladores</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Visor posicional y de audio</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -7067,91 +7067,91 @@ Las opciones válidas son:
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de &amp;Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registro…</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Registradas y usuarias</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fichas de acceso</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitar el avatar</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Restablecer el comentario...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar el avatar...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el avatar de la usuaria seleccionada.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Unirse</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ocultar al filtrar</translation>
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fijar al filtrar</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mostrar el comentario</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Oradora prioritaria</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registro...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Escuchar canal</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Hablando &amp;UI</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Unirse al canal del usuario</translation>
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mover a Mi Canal</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mueve a esta usuario a tu canal actual.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Desactivar la síntesis de voz</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Buscar...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales filtrados y usuarias</translation>
     </message>
 </context>
 <context>
@@ -7242,59 +7242,59 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Gráfico de posicionamiento del sonido en la simulación</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto representa visualmente la configuración de audio posicional que se está utilizando actualmente</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenada Z del oyente</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Oyente x coordenada</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenada Y del oyente</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de visualización del usuario silencioso (en segundos)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut del oyente (en grados)</translation>
     </message>
     <message>
         <source>Listener elevation (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Elevación del oyente (en grados)</translation>
     </message>
     <message>
         <source>Context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de contexto</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice el botón &quot;establecer&quot; para aplicar la cadena de contexto</translation>
     </message>
     <message>
         <source>Apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar la cadena de contexto</translation>
     </message>
     <message>
         <source>Apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar la cadena de identidad</translation>
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de identidad</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilice el botón &quot;establecer&quot; para aplicar la cadena de identidad</translation>
     </message>
 </context>
 <context>
@@ -7512,11 +7512,11 @@ Impide que el cliente envíe información potencialmente identificable sobre el 
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de proxy</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de host proxy</translation>
     </message>
     <message>
         <source>Proxy port</source>
@@ -8149,15 +8149,15 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Plugin name</source>
-        <translation>nombre del Plugin</translation>
+        <translation>Nombre del plugin</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation>Caja de verificación habilitada</translation>
+        <translation>Casilla para activar y desactivar el plugin</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation>Casilla de verificación del permiso de audio posicional del plugin</translation>
+        <translation>Casilla de autorización del plugin de la posición del audio</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
@@ -8165,11 +8165,11 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>checked</source>
-        <translation>marcado</translation>
+        <translation>comprobado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation>sin marcar</translation>
+        <translation>sin comprobar</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -8621,7 +8621,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation>silenciado y ensordecido</translation>
+        <translation>silenciado y muteado</translation>
     </message>
     <message>
         <source>muted</source>
@@ -8633,15 +8633,15 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation>no silenciado</translation>
+        <translation>sin silenciar</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>grabación</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation>orador prioritario</translation>
+        <translation>Altavoz prioritario</translation>
     </message>
     <message>
         <source>has a long comment</source>
@@ -8685,7 +8685,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>Listening for input</source>
-        <translation type="unfinished"></translation>
+        <translation>Escuchando entradas</translation>
     </message>
     <message>
         <source>Add</source>
@@ -8694,7 +8694,8 @@ Puedes registrarlos otra vez.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si está utilizando Linux, lo más probable es que esto se deba a que está utilizando una versión del repositorio de paquetes de su distribución que tiene sus propios ciclos de actualización.&lt;/p&gt;&lt;p&gt;Si desea tener siempre la versión más reciente de Mumble, debe considerar usar un método de instalación diferente.
+Consulte &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt; el repositorio del proyecto&lt;/a&gt; para ver qué alternativas existen.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -8846,7 +8847,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de búsqueda</translation>
     </message>
     <message>
         <source>Search results</source>
@@ -9032,7 +9033,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;DE ACUERDO</translation>
     </message>
 </context>
 <context>
@@ -9289,7 +9290,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar por inactividad</translation>
     </message>
 </context>
 <context>
@@ -9641,11 +9642,11 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Oyente del canal</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>El oyente de este canal pertenece a %1</translation>
     </message>
 </context>
 <context>
@@ -9920,7 +9921,7 @@ Por favor, contacte con el administrador de su servidor para más información.<
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este campo contiene el nombre de archivo con el que se guarda cualquier grabación de voz. Se pueden utilizar varias variables para aumentar el nombre del archivo. Por ejemplo %time para la hora actual.</translation>
     </message>
 </context>
 <context>
@@ -9931,7 +9932,7 @@ Por favor, contacte con el administrador de su servidor para más información.<
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de volumen local</translation>
     </message>
 </context>
 <context>

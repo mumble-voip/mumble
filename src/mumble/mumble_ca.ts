@@ -2822,7 +2822,7 @@ Esteu segur que vols substituir el vostre certificat?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;El Mumble pot utilitzar certificats per autenticar amb els servidors. L&apos;ús de certificats evita les contrasenyes, el que significa que no cal revelar cap contrasenya al lloc remot. També permet un registre d&apos;usuaris molt fàcil i una llista d&apos;amics del client independent dels servidors. &lt;/p&gt;&lt;p&gt; Mentre que el Mumble pot funcionar sense certificats, la majoria dels servidors esperen que en tingueu un.&lt;/p&gt;&lt;p&gt;Crear un nou certificat automàticament és suficient a la majoria dels casos. El Mumble també permet certificats que representin la confiança en la propietat d&apos;una adreça de correu electrònic dels usuaris. Aquests certificats els emeten tercers. Per a més informació consulteu a la nostra &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt; documentació del certificat d&apos;usuari&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -8693,7 +8693,8 @@ Podeu registrar-vos de nou.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si utilitzeu Linux, probablement es degut a que utilitzeu una versió del repositori de paquets de la vostra distribució. &lt;/p&gt;&lt;p&gt; Si voleu tenir sempre la versió més recent del Mumble, considereu un altre mètode d’instal·lació.
+Veure &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;el repositori del projecte&lt;/a&gt; per a quines alternatives hi ha.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

@@ -431,23 +431,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>頻道使用者上限</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>頻道註釋</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇要加入的成員</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>排除的群組成員</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇要移除的成員</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
@@ -455,7 +455,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇群組</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -463,7 +463,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇使用者</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -471,7 +471,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>可用的權限列表</translation>
     </message>
 </context>
 <context>
@@ -504,7 +504,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>取得音效卡名稱失敗: %1</translation>
     </message>
 </context>
 <context>
@@ -616,15 +616,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>麥克風列表</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>音效輸出裝置列表</translation>
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置列表</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
@@ -632,11 +632,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>移動麥克風到未使用列表</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>未使用裝置列表</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
@@ -651,7 +651,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>你至少需要一個麥克風和一個音效輸出裝置來使用 ASIO。</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -678,7 +678,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;第三方憑證</translation>
     </message>
     <message>
         <source>OK</source>
@@ -686,15 +686,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>憑證協議</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>作者</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>第三方憑證協議</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -702,7 +702,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>如遇瞭解作者名單，請查看&lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -725,7 +725,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>這是用來輸入語音的裝置</translation>
+        <translation>&lt;b&gt;這是用來輸入語音的裝置。&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -3047,7 +3047,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Undo changes for current page</source>
-        <translation>取消變更。</translation>
+        <translation>撤銷對目前頁面的變更</translation>
     </message>
     <message>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
@@ -4056,7 +4056,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation>[日期變更為 %1]</translation>
+        <translation>[日期變更為 %1]
+</translation>
     </message>
     <message>
         <source>link to %1</source>
@@ -4242,7 +4243,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Characters</source>
-        <translation>字元</translation>
+        <translation> 字符</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -4274,7 +4275,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>行</translation>
+        <translation> 行</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -4372,7 +4373,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished">分貝</translation>
+        <translation> 分貝</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
@@ -5933,7 +5934,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Invalid username: %1.</source>
-        <translation>無效的使用者名稱: %1 </translation>
+        <translation>無效的使用者名稱：%1。</translation>
     </message>
     <message>
         <source>Invalid username.</source>
@@ -6198,7 +6199,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Error: No RPC command specified</source>
-        <translation>錯誤：指定的 PRC 指令不存在。</translation>
+        <translation>錯誤：未指定 RPC 指令</translation>
     </message>
     <message>
         <source>RPC</source>
@@ -6254,7 +6255,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
-        <translation>更改你在此伺服器的頭像。</translation>
+        <translation>變更你在此伺服器上的頭像</translation>
     </message>
     <message>
         <source>Remove currently defined avatar image.</source>
@@ -7705,7 +7706,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>使用者在你的頻道或與此頻道連結的頻道中講話。</translation>
+        <translation>使用者在你的頻道或與此頻道連結的頻道中講話</translation>
     </message>
     <message>
         <source>Talking</source>
@@ -7713,7 +7714,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is whispering to you privately</source>
-        <translation>使用者與你私下悄悄話中。</translation>
+        <translation>使用者正在與你私下悄悄話中</translation>
     </message>
     <message>
         <source>Private Whisper</source>
@@ -7741,7 +7742,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User avatar, chosen by each user</source>
-        <translation>使用者頭像，由使用者自訂。</translation>
+        <translation>使用者頭像，由使用者選擇</translation>
     </message>
     <message>
         <source>Avatar</source>
@@ -9042,7 +9043,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Send recursively to subchannels</source>
-        <translation>發送到所有子頻道。</translation>
+        <translation>遞迴發送至所有子頻道</translation>
     </message>
     <message>
         <source>Message</source>
@@ -9188,7 +9189,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Pings received</source>
-        <translation>接收的 Ping </translation>
+        <translation>收到的 Ping</translation>
     </message>
     <message>
         <source>Average ping</source>
@@ -9659,11 +9660,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - 有損壓縮</translation>
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - 有損壓縮</translation>
     </message>
 </context>
 <context>
