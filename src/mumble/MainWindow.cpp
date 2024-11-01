@@ -86,16 +86,6 @@
 #	include <dbt.h>
 #endif
 
-
-#include <QFile>
-#include <QGuiApplication>
-#include <QPalette>
-#include <QSettings>
-#include <QStyleHints>
-#include <QTextStream>
-
-
-
 #include <algorithm>
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
@@ -208,7 +198,6 @@ MainWindow::MainWindow(QWidget *p)
 					 &PluginManager::on_serverSynchronized);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
-
 }
 
 void MainWindow::createActions() {
