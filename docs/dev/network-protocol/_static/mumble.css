@@ -1,0 +1,19 @@
+.logo {
+	width: 150px;
+}
+
+th {
+	background-color: #adadad;
+}
+
+table.bits8 {
+	text-align: center;
+	table-layout: fixed;
+	width: 300px;
+}
+
+table.bits16 {
+	text-align: center;
+	table-layout: fixed;
+}
+
