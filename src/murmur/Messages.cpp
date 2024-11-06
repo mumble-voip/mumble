@@ -20,11 +20,12 @@
 #include "Version.h"
 #include "crypto/CryptState.h"
 
-#include <QtCore/QStack>
-#include <QtCore/QtEndian>
-
 #include <cassert>
 #include <unordered_map>
+
+#include <QtCore/QStack>
+#include <QtCore/QTimeZone>
+#include <QtCore/QtEndian>
 
 #include <tracy/Tracy.hpp>
 
@@ -687,7 +688,11 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			b.qsReason   = u8(be.reason());
 			if (be.has_start()) {
 				b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+				b.qdtStart.setTimeZone(QTimeZone::UTC);
+#else
 				b.qdtStart.setTimeSpec(Qt::UTC);
+#endif
 			} else {
 				b.qdtStart = QDateTime::currentDateTime().toUTC();
 			}

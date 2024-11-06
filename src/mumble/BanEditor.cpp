@@ -13,6 +13,8 @@
 
 #include <cassert>
 
+#include <QtCore/QTimeZone>
+
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), maskDefaultValue(32) {
 	setupUi(this);
 
@@ -28,7 +30,11 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 		b.qsHash     = u8(be.hash());
 		b.qsReason   = u8(be.reason());
 		b.qdtStart   = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+		b.qdtStart.setTimeZone(QTimeZone::UTC);
+#else
 		b.qdtStart.setTimeSpec(Qt::UTC);
+#endif
 		if (!b.qdtStart.isValid())
 			b.qdtStart = QDateTime::currentDateTime();
 		b.iDuration = be.duration();

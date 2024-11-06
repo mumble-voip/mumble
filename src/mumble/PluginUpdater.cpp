@@ -70,7 +70,13 @@ void PluginUpdater::promptAndUpdate() {
 
 	setWindowIcon(QIcon(QLatin1String("skin:mumble.svg")));
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged was introduced in Qt 6.7
+	QObject::connect(qcbSelectAll, &QCheckBox::checkStateChanged, this, &PluginUpdater::on_selectAll);
+#else
 	QObject::connect(qcbSelectAll, &QCheckBox::stateChanged, this, &PluginUpdater::on_selectAll);
+#endif
+
 	QObject::connect(this, &QDialog::finished, this, &PluginUpdater::on_finished);
 
 	if (exec() == QDialog::Accepted) {
@@ -117,7 +123,12 @@ void PluginUpdater::populateUI() {
 		UpdateWidgetPair pair = { checkBox, urlLabel };
 		m_pluginUpdateWidgets << pair;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+		// checkStateChanged was introduced in Qt 6.7
+		QObject::connect(checkBox, &QCheckBox::checkStateChanged, this, &PluginUpdater::on_singleSelectionChanged);
+#else
 		QObject::connect(checkBox, &QCheckBox::stateChanged, this, &PluginUpdater::on_singleSelectionChanged);
+#endif
 	}
 
 	// sort the plugins alphabetically
@@ -147,7 +158,11 @@ void PluginUpdater::clearUI() {
 	}
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+void PluginUpdater::on_selectAll(Qt::CheckState checkState) {
+#else
 void PluginUpdater::on_selectAll(int checkState) {
+#endif
 	// failsafe for partially selected state (shouldn't happen though)
 	if (checkState == Qt::PartiallyChecked) {
 		checkState = Qt::Unchecked;
@@ -161,7 +176,11 @@ void PluginUpdater::on_selectAll(int checkState) {
 	}
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+void PluginUpdater::on_singleSelectionChanged(Qt::CheckState checkState) {
+#else
 void PluginUpdater::on_singleSelectionChanged(int checkState) {
+#endif
 	bool isChecked = checkState == Qt::Checked;
 
 	// Block signals for the selectAll checkBox in order to not trigger its
