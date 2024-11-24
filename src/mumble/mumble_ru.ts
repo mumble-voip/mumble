@@ -1062,7 +1062,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Mute cue</source>
-        <translation>Отключить реплику</translation>
+        <translation>Сигнал при заглушении</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1202,15 +1202,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished">Проигрывается, когда вы пытаетесь говорить, пока микрофон выключен</translation>
+        <translation type="unfinished">Проигрывается, когда вы пытаетесь говорить при заглушенном микрофоне</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished">Путь к файлу сигнала отключения звука. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
+        <translation type="unfinished">Путь к файлу сигнала о заглушенном микрофоне. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished">Выберете аудиофайл сигнала отключения звука</translation>
+        <translation type="unfinished">Выберете аудиофайл сигнала о заглушенном микрофоне</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -1218,11 +1218,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предпросмотр сигнала о заглушенном микрофоне</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Этот сигнал проигрывается, когда вы пытаетесь говорить при заглушенном микрофоне</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
