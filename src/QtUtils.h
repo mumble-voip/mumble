@@ -9,6 +9,8 @@
 #include <QCryptographicHash>
 #include <QString>
 
+#include <boost/filesystem.hpp>
+
 #include <memory>
 
 class QObject;
@@ -33,6 +35,11 @@ namespace QtUtils {
 	 * given list. If the list is empty an empty String is returned.
 	 */
 	QString decode_first_utf8_qssl_string(const QStringList &list);
+
+	/**
+	 * Creates a platform agnostic path from a QString
+	 */
+	boost::filesystem::path qstring_to_path(const QString &input);
 
 } // namespace QtUtils
 } // namespace Mumble
