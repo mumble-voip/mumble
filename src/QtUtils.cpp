@@ -7,6 +7,8 @@
 #include <QStringList>
 #include <QUrl>
 
+#include <boost/filesystem.hpp>
+
 namespace Mumble {
 namespace QtUtils {
 	void deleteQObject(QObject *object) { object->deleteLater(); }
@@ -23,6 +25,17 @@ namespace QtUtils {
 		return QString();
 	}
 
+	boost::filesystem::path qstring_to_path(const QString &input) {
+		// Path handling uses wide character encoding on Windows.
+		// When converting from QStrings, we need to take that
+		// into account, otherwise raw file operations will fail when
+		// the path contains Unicode characters.
+#ifdef Q_OS_WIN
+		return boost::filesystem::path(input.toStdWString());
+#else
+		return boost::filesystem::path(input.toUtf8());
+#endif
+	}
 
 } // namespace QtUtils
 } // namespace Mumble

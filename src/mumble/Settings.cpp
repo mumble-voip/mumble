@@ -10,6 +10,7 @@
 #include "EnvUtils.h"
 #include "JSONSerialization.h"
 #include "Log.h"
+#include "QtUtils.h"
 #include "SSL.h"
 #include "SettingsKeys.h"
 #include "SettingsMacros.h"
@@ -33,12 +34,12 @@
 #include <QStandardPaths>
 #include <QSystemTrayIcon>
 
+#include <boost/filesystem/fstream.hpp>
 #include <boost/typeof/typeof.hpp>
 
 #include <algorithm>
 #include <cassert>
 #include <cstring>
-#include <fstream>
 #include <limits>
 #include <memory>
 
@@ -155,11 +156,12 @@ void Settings::save(const QString &path) const {
 	QFile tmpFile(QString::fromLatin1("%1/mumble_settings.json.tmp")
 					  .arg(QStandardPaths::writableLocation(QStandardPaths::TempLocation)));
 
-	{
-		// The separate scope makes sure, the stream is closed again after the write has finished
-		std::ofstream stream(tmpFile.fileName().toUtf8());
+	boost::filesystem::ofstream stream(Mumble::QtUtils::qstring_to_path(tmpFile.fileName()));
+	stream << settingsJSON.dump(4) << std::endl;
+	stream.close();
 
-		stream << settingsJSON.dump(4) << std::endl;
+	if (stream.fail()) {
+		qWarning("Failed at writing temporary settings file: %s", qUtf8Printable(tmpFile.fileName()));
 	}
 
 	QFile targetFile(path);
@@ -222,7 +224,7 @@ void Settings::load(const QString &path) {
 		settingsLocation = path;
 	}
 
-	std::ifstream stream(path.toUtf8());
+	boost::filesystem::ifstream stream(Mumble::QtUtils::qstring_to_path(path));
 
 	nlohmann::json settingsJSON;
 	try {
@@ -611,13 +613,13 @@ void OverlaySettings::savePresets(const QString &filename) {
 	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_KEY);
 	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_EXCLUDE_KEY);
 
-	std::ofstream stream(filename.toUtf8());
+	boost::filesystem::ofstream stream(Mumble::QtUtils::qstring_to_path(filename));
 
 	stream << settingsJSON.dump(4) << std::endl;
 }
 
 void OverlaySettings::load(const QString &filename) {
-	std::ifstream stream(filename.toUtf8());
+	boost::filesystem::ifstream stream(Mumble::QtUtils::qstring_to_path(filename));
 
 	nlohmann::json settingsJSON;
 	try {
