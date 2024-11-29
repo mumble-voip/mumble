@@ -168,10 +168,6 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
 add_subdirectory(${3RDPARTY_DIR}/utfcpp)
 
-if(client OR server)
-	add_subdirectory(src)
-endif()
-
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
@@ -197,6 +193,10 @@ endif()
 
 if(plugins AND client)
 	add_subdirectory(plugins)
+endif()
+
+if(client OR server)
+	add_subdirectory(src)
 endif()
 
 add_subdirectory(auxiliary_files)
