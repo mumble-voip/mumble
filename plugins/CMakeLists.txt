@@ -9,6 +9,7 @@ if(retracted-plugins)
 	message(STATUS "Including retracted plugins")
 endif()
 
+add_custom_target(plugins ALL)
 
 set(AVAILABLE_PLUGINS "")
 
@@ -123,5 +124,5 @@ foreach(CURRENT_PLUGIN IN LISTS AVAILABLE_PLUGINS)
 		install(TARGETS ${CURRENT_PLUGIN} LIBRARY DESTINATION "${MUMBLE_INSTALL_PLUGINDIR}" COMPONENT mumble_client)
 	endif()
 
-	add_dependencies(mumble ${CURRENT_PLUGIN})
+	add_dependencies(plugins ${CURRENT_PLUGIN})
 endforeach()

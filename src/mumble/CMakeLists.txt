@@ -887,15 +887,23 @@ if(overlay)
 				"Overlay_win.cpp"
 				"Overlay_win.h"
 		)
+
+		add_dependencies(mumble overlay)
 	else()
 		if(APPLE)
 			target_sources(mumble_client_object_lib PRIVATE "Overlay_macx.mm")
 		else()
 			target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
 		endif()
+
+		add_dependencies(mumble overlay_gl)
 	endif()
 
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_OVERLAY")
+endif()
+
+if(plugins)
+	add_dependencies(mumble plugins)
 endif()
 
 if(xboxinput)
@@ -926,6 +934,7 @@ if(g15)
 				"G15LCDEngine_helper.h"
 		)
 	target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
+	add_dependencies(mumble g15-helper)
 	else()
 		find_library(LIB_G15DAEMON_CLIENT "g15daemon_client")
 		if(LIB_G15DAEMON_CLIENT-NOTFOUND)
