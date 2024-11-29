@@ -166,10 +166,6 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${lto})
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
-if(client OR server)
-	add_subdirectory(src)
-endif()
-
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
@@ -195,6 +191,10 @@ endif()
 
 if(plugins AND client)
 	add_subdirectory(plugins)
+endif()
+
+if(client OR server)
+	add_subdirectory(src)
 endif()
 
 add_subdirectory(auxiliary_files)

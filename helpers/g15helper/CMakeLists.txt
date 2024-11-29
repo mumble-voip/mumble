@@ -12,8 +12,6 @@ set(G15HELPER_PLIST "${CMAKE_BINARY_DIR}/g15helper.plist")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/g15helper.plist.in" "${G15HELPER_PLIST}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/g15helper.rc.in" "${G15HELPER_RC}")
 
-get_target_property(MUMBLE_SOURCE_DIR mumble SOURCE_DIR)
-
 add_executable(g15-helper WIN32
 	"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 	"${G15HELPER_RC}"
