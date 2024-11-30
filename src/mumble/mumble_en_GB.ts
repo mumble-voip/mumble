@@ -1218,19 +1218,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview the mute cue</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>The mute cue is an audio sample which plays when you are trying to speak while being muted</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview both audio cues</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This shows the peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP are 75% of this overhead).</translation>
     </message>
 </context>
 <context>
@@ -1293,19 +1293,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milliseconds</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>seconds</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>kilobits per second</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibels</translation>
     </message>
 </context>
 <context>
@@ -1372,7 +1372,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">Volume of incoming speech</translation>
+        <translation>Volume of incoming speech</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1393,7 +1393,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished">Bloom</translation>
+        <translation>Bloom</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
@@ -1474,7 +1474,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished">Attenuation of other applications during speech</translation>
+        <translation>Attenuation of other applications during speech</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
@@ -1510,11 +1510,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished">&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</translation>
+        <translation>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished">Exclusive</translation>
+        <translation>Exclusive</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
@@ -1582,11 +1582,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio output system</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio output device</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
