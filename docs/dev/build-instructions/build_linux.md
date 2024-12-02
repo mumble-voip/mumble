@@ -13,7 +13,7 @@ In order to install the needed dependencies on Ubuntu, you have to run the follo
 sudo apt install \
   build-essential \
   cmake \
-  pkg-config \
+  pkgconf \
   qt6-base-dev \
   qt6-tools-dev \
   qt6-tools-dev-tools \
