@@ -1,5 +1,6 @@
 [Unit]
 Description=Mumble server
+Documentation=man:mumble-server(1)
 After=network.target
 Wants=network-online.target
 
