@@ -61,6 +61,7 @@ sudo apt install \
   libboost-dev \
   libcap-dev \
   libgl-dev \
+  libmsgsl-dev \
   libogg-dev \
   libpoco-dev \
   libprotobuf-dev \
@@ -68,10 +69,12 @@ sudo apt install \
   libqt6svg6-dev \
   libsndfile1-dev \
   libspeechd-dev \
+  libspeexdsp-dev \
   libssl-dev \
   libxcb-xinerama0 \
   libxi-dev \
   libzeroc-ice-dev \
+  nlohmann-json3-dev \
   pkgconf \
   protobuf-compiler \
   qt6-base-dev \
