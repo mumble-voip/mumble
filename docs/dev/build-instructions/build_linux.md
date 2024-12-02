@@ -72,7 +72,7 @@ sudo apt install \
   libxcb-xinerama0 \
   libxi-dev \
   libzeroc-ice-dev \
-  pkg-config \
+  pkgconf \
   protobuf-compiler \
   qt6-base-dev \
   qt6-base-dev-tools \
