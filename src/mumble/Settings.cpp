@@ -34,12 +34,12 @@
 #include <QStandardPaths>
 #include <QSystemTrayIcon>
 
-#include <boost/filesystem/fstream.hpp>
 #include <boost/typeof/typeof.hpp>
 
 #include <algorithm>
 #include <cassert>
 #include <cstring>
+#include <fstream>
 #include <limits>
 #include <memory>
 
@@ -156,7 +156,7 @@ void Settings::save(const QString &path) const {
 	QFile tmpFile(QString::fromLatin1("%1/mumble_settings.json.tmp")
 					  .arg(QStandardPaths::writableLocation(QStandardPaths::TempLocation)));
 
-	boost::filesystem::ofstream stream(Mumble::QtUtils::qstring_to_path(tmpFile.fileName()));
+	std::ofstream stream(Mumble::QtUtils::qstring_to_path(tmpFile.fileName()));
 	stream << settingsJSON.dump(4) << std::endl;
 	stream.close();
 
@@ -224,7 +224,7 @@ void Settings::load(const QString &path) {
 		settingsLocation = path;
 	}
 
-	boost::filesystem::ifstream stream(Mumble::QtUtils::qstring_to_path(path));
+	std::ifstream stream(Mumble::QtUtils::qstring_to_path(path));
 
 	nlohmann::json settingsJSON;
 	try {
@@ -613,13 +613,13 @@ void OverlaySettings::savePresets(const QString &filename) {
 	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_KEY);
 	settingsJSON.erase(SettingsKeys::OVERLAY_LAUNCHERS_EXCLUDE_KEY);
 
-	boost::filesystem::ofstream stream(Mumble::QtUtils::qstring_to_path(filename));
+	std::ofstream stream(Mumble::QtUtils::qstring_to_path(filename));
 
 	stream << settingsJSON.dump(4) << std::endl;
 }
 
 void OverlaySettings::load(const QString &filename) {
-	boost::filesystem::ifstream stream(Mumble::QtUtils::qstring_to_path(filename));
+	std::ifstream stream(Mumble::QtUtils::qstring_to_path(filename));
 
 	nlohmann::json settingsJSON;
 	try {

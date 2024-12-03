@@ -10,7 +10,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #include <memory>
 
@@ -39,7 +39,7 @@ namespace QtUtils {
 	/**
 	 * Creates a platform agnostic path from a QString
 	 */
-	boost::filesystem::path qstring_to_path(const QString &input);
+	std::filesystem::path qstring_to_path(const QString &input);
 
 } // namespace QtUtils
 } // namespace Mumble
