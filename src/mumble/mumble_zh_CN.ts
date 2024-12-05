@@ -1230,7 +1230,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;这显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;这显示从你机器发出的带宽的最大值。 音频比特率只是音频数据的最大比特率。 位置是用于定位信息的最大比特率。开销是我们的架构和 IP 数据包头（ IP 和 UDP 是此开销的 75%）。</translation>
+        <translation>&lt;b&gt;显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;显示从您机器发出的带宽的最大值。音频比特率是音频数据本身的最大比特率。位置是定位信息所用的比特率。开销是我们的帧结构和 IP 数据包头（IP 和 UDP 是开销的 75%）。</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>这是上个已压缩帧（20 毫秒）的音频比特率。最高比特率可以在“设置”对话框中进行调整。</translation>
+        <translation>这是上一个已压缩帧（20 毫秒）的音频比特率。最高比特率可以在“设置”对话框中调整。</translation>
     </message>
 </context>
 <context>
@@ -2821,7 +2821,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着你无需向远程站点披露任何密码。证书还允许非常简单的用户注册和与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期待你有一个证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。Mumble 还支持表示对电子邮件地址用户所有权信任的证书。 这些证书由第三方发行。更多信息，请见我们的 &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着您无需向远程站点披露任何密码。证书还支持非常简单的用户注册流程，以及与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期望您有一份证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。但 Mumble 还支持以证书表示信任用户对电子邮件地址的所有权。此类证书由第三方签发。更多信息，请查看我们的&lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7162,7 +7162,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>这可能由下列情形中的一个导致的：:&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太老或者要连接到的服务器太老。如果是第一种情况，你应当更新浓密的客户端。第二种情况下 ，你应当联系服务器管理员以便更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的是未提供最新加密方法的操作系统。如果是这样，你应当考虑更新操作系统或联系服务器管理员以更新服务器上的操作系统。&lt;/li&gt;&lt;li&gt;你正在连接的服务器不是 Mumble 服务器。 请确保所用的服务器地址的确属于 Mumble 服务器而不是游戏服务器。&lt;/li&gt;&lt;li&gt;你正在连接的端口不属于 Mumble 服务器而是绑定到服务器端一个完全不相关的进程。请复核确保你使用了正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
+        <translation>这可能由下列情形之一导致：&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太旧或者要连接到的服务器版本太旧。如果是第一种情况，则应该更新客户端。如果是第二种情况，则应该联系服务器管理员更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的旧版操作系统未提供足够新的加密方法。在这种情况下，您应该考虑更新操作系统，或联系服务器管理员更新服务器的操作系统。&lt;/li&gt;&lt;li&gt;您正在连接的服务器不是 Mumble 服务器。请确保所用的服务器地址确实属于 Mumble 服务器而不是游戏服务器等。&lt;/li&gt;&lt;li&gt;您正在连接的端口不属于 Mumble 服务器，而是绑定到服务端一个完全无关的进程。请再次确认您使用的是正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
@@ -8168,7 +8168,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation>定位音频插件权限选项</translation>
+        <translation>插件的定位音频权限选项</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
@@ -8705,8 +8705,8 @@ You can register them again.</source>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;如果你在使用 Linux，那么可能性最大的情况是你在使用一个来自有自己更新周期的发行版包仓库的版本。&lt;/p&gt;&lt;p&gt;如果你想使用拥有最新版的 Mumble 版本，你应该考虑使用不同的安装方式。
-参见 &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt; 了解有哪些其他方式。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;如果您使用 Linux，那么您很可能正在使用来自发行版包仓库的版本，并且该仓库拥有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您想始终使用最新 Mumble 版本，则应该考虑使用不同的安装方式。
+请看&lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt;了解有哪些其他方式。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

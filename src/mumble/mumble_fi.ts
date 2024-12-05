@@ -1230,7 +1230,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished">&lt;b&gt; Tämä osoittaa yleisimmin käytettyä kaistanleveyttä.&lt;/b&gt; Tämä osoittaa, kuinka paljon kaistanleveyttä lähetetään pois koneesta. Audio bitrate on suurin biraatti vain äänidatalle. Sijainti on biraatti, jota käytetään positiaalitietoihin. Yläpuolella on kehys ja IP-pakkausotsikot (IP ja UDP ovat 75 % tästä).</translation>
+        <translation>&lt;b&gt;Tämä osoittaa yleisimmin käytettyä kaistanleveyttä.&lt;/b&gt; &lt;br /&gt;Tämä osoittaa, kuinka paljon kaistanleveyttä lähetetään pois koneesta. Audio bitrate on suurin biraatti vain äänidatalle. Sijainti on biraatti, jota käytetään positiaalitietoihin. Yläpuolella on kehys ja IP-pakkausotsikot (IP ja UDP ovat 75 % tästä).</translation>
     </message>
 </context>
 <context>
@@ -1841,7 +1841,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Tämä on viimeisen kompressio freimin(20 ms) ääni bittinopeus. Huippu bittinopeus voidaan säätää sestuksista.</translation>
+        <translation>Tämä on viimeisen pakatun kehyksen äänen bittinopeus (20 ms). Huippubittinopeutta voidaan säätää Asetukset-valintaikkunassa.</translation>
     </message>
 </context>
 <context>
@@ -2822,7 +2822,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimien todentamiseen. Varmenteiden käyttäminen välttää salasanoja, mikä tarkoittaa, että sinun ei tarvitse paljastaa salasanaa etäsivustolle. Se mahdollistaa myös erittäin helpon käyttäjien rekisteröinnin ja palvelimista riippumattoman asiakaspuolen ystäväluettelon.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman varmenteita, suurin osa palvelimista odottaa, että sinulla on sellainen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen automaattisesti riittää useimmissa käyttötapauksissa. Mutta Mumble tukee myös varmenteita, jotka edustavat luottamusta siihen, että käyttäjä omistaa sähköpostiosoitteen. Nämä todistukset ovat kolmansien osapuolien myöntämiä. Lisätietoja on &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;käyttäjävarmenteen dokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7162,7 +7162,7 @@ Hyväksytyt valinnat ovat
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä voi johtua jostakin seuraavista tilanteista:&lt;ul&gt;&lt;li&gt;Asiakkaasi ja palvelin käyttävät erilaisia salausstandardeja. Tämä voi johtua siitä, että käytät erittäin vanhaa asiakasta tai palvelin, johon muodostat yhteyden, on hyvin vanha. Ensimmäisessä tapauksessa sinun tulee päivittää asiakasohjelmasi ja toisessa tapauksessa ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta hän voi päivittää palvelimensa.&lt;/li&gt;&lt;li&gt;Joko asiakkaasi tai palvelin käyttää vanhaa käyttöjärjestelmää, joka ei tarjoa ajan tasalla olevia salausmenetelmiä. Tässä tapauksessa sinun kannattaa harkita käyttöjärjestelmän päivittämistä tai ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta he voivat päivittää omansa.&lt;/li&gt;&lt;li&gt;Palvelin, johon muodostat yhteyden, ei ole itse asiassa Mumble-palvelin. Varmista, että käytetty palvelinosoite todella kuuluu Mumble-palvelimelle eikä esim. pelipalvelimelle.&lt;/li&gt;&lt;li&gt;Portti, johon muodostat yhteyden, ei kuulu Mumble-palvelimelle, vaan se on sidottu täysin asiaankuulumattomaan palvelinpuolen prosessiin. Tarkista, että olet käyttänyt oikeaa porttia.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
@@ -8705,7 +8705,8 @@ Voit rekisteröidä ne uudelleen.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytät versiota jakelusi pakettivarastosta, jolla on omat päivitysjaksonsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina uusimman Mumble-version , sinun tulee harkita toisen asennustavan käyttöä.
+Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin tietovarastoista&lt;/a&gt;, mitä vaihtoehtoja on olemassa.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9234,7 +9235,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Token List</source>
-        <translation>Pääsypoloettilista</translation>
+        <translation>Pääsypolettilista</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
