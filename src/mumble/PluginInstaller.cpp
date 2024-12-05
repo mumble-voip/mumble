@@ -6,6 +6,7 @@
 #include "PluginInstaller.h"
 #include "PluginManager.h"
 #include "PluginManifest.h"
+#include "QtUtils.h"
 #include "Global.h"
 
 #include <QMessageBox>
@@ -127,7 +128,7 @@ void PluginInstaller::init() {
 
 			zipInput.clear();
 			Poco::Zip::ZipInputStream zipin(zipInput, pluginIt->second);
-			std::ofstream out(tmpPluginPath.toStdString(), std::ios::out | std::ios::binary);
+			std::ofstream out(Mumble::QtUtils::qstring_to_path(tmpPluginPath), std::ios::out | std::ios::binary);
 			Poco::StreamCopier::copyStream(zipin, out);
 
 			m_pluginSource = QFileInfo(tmpPluginPath);
