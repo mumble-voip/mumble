@@ -55,31 +55,34 @@ run the following command.
 sudo apt install \
   build-essential \
   cmake \
-  pkg-config \
-  qt6-base-dev \
-  qtchooser \
-  qt6-base-dev-tools \
-  qt6-tools-dev \
-  qt6-tools-dev-tools \
-  libqt6svg6-dev \
-  qt6-l10n-tools \
-  libgl-dev \
-  libboost-dev \
-  libssl-dev \
-  libprotobuf-dev \
-  protobuf-compiler \
-  libprotoc-dev \
-  libcap-dev \
-  libxi-dev \
+  g++-multilib \
   libasound2-dev \
+  libavahi-compat-libdnssd-dev \
+  libboost-dev \
+  libcap-dev \
+  libgl-dev \
+  libmsgsl-dev \
   libogg-dev \
+  libpoco-dev \
+  libprotobuf-dev \
+  libprotoc-dev \
+  libqt6svg6-dev \
   libsndfile1-dev \
   libspeechd-dev \
-  libavahi-compat-libdnssd-dev \
+  libspeexdsp-dev \
+  libssl-dev \
   libxcb-xinerama0 \
+  libxi-dev \
   libzeroc-ice-dev \
-  libpoco-dev \
-  g++-multilib
+  nlohmann-json3-dev \
+  pkgconf \
+  protobuf-compiler \
+  qt6-base-dev \
+  qt6-base-dev-tools \
+  qt6-l10n-tools \
+  qt6-tools-dev \
+  qt6-tools-dev-tools \
+  qtchooser
 ```
 
 1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
