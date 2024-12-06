@@ -25,6 +25,10 @@ environment:
     - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md-release'
       MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md-release.2023-12-31.6a3ce9c65'
 
+init:
+  # https://github.com/appveyor/ci/issues/3937
+  - cmd: del /s /q "%ProgramFiles(x86)%\Windows Kits\10\bin\d3dcompiler_47.dll"
+
 install:
   - ps: .ci/install-environment_windows.ps1
 
