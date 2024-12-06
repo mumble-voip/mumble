@@ -2821,7 +2821,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着你无需向远程站点披露任何密码。证书还允许非常简单的用户注册和与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期待你有一个证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。Mumble 还支持表示对电子邮件地址用户所有权信任的证书。 这些证书由第三方发行。更多信息，请见我们的 &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着您无需向远程站点披露任何密码。证书还支持非常简单的用户注册流程，以及与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期望您有一份证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。但 Mumble 还支持以证书表示信任用户对电子邮件地址的所有权。此类证书由第三方签发。更多信息，请查看我们的&lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -8155,7 +8155,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation>定位音频插件权限选项</translation>
+        <translation>插件的定位音频权限选项</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
@@ -8692,8 +8692,8 @@ You can register them again.</source>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;如果你在使用 Linux，那么可能性最大的情况是你在使用一个来自有自己更新周期的发行版包仓库的版本。&lt;/p&gt;&lt;p&gt;如果你想使用拥有最新版的 Mumble 版本，你应该考虑使用不同的安装方式。
-参见 &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt; 了解有哪些其他方式。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;如果您使用 Linux，那么您很可能正在使用来自发行版包仓库的版本，并且该仓库拥有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您想始终使用最新 Mumble 版本，则应该考虑使用不同的安装方式。
+请看&lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt;了解有哪些其他方式。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

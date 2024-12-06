@@ -2822,7 +2822,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimien todentamiseen. Varmenteiden käyttäminen välttää salasanoja, mikä tarkoittaa, että sinun ei tarvitse paljastaa salasanaa etäsivustolle. Se mahdollistaa myös erittäin helpon käyttäjien rekisteröinnin ja palvelimista riippumattoman asiakaspuolen ystäväluettelon.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman varmenteita, suurin osa palvelimista odottaa, että sinulla on sellainen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen automaattisesti riittää useimmissa käyttötapauksissa. Mutta Mumble tukee myös varmenteita, jotka edustavat luottamusta siihen, että käyttäjä omistaa sähköpostiosoitteen. Nämä todistukset ovat kolmansien osapuolien myöntämiä. Lisätietoja on &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;käyttäjävarmenteen dokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -8692,7 +8692,8 @@ Voit rekisteröidä ne uudelleen.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytät versiota jakelusi pakettivarastosta, jolla on omat päivitysjaksonsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina uusimman Mumble-version , sinun tulee harkita toisen asennustavan käyttöä.
+Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin tietovarastoista&lt;/a&gt;, mitä vaihtoehtoja on olemassa.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9221,7 +9222,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Token List</source>
-        <translation>Pääsypoloettilista</translation>
+        <translation>Pääsypolettilista</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>

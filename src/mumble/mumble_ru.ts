@@ -1066,7 +1066,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Mute cue</source>
-        <translation>Отключить реплику</translation>
+        <translation>Сигнал при заглушении</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1210,11 +1210,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation>Путь к файлу сигнала отключения звука. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
+        <translation>Путь к файлу сигнала о заглушенном микрофоне. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation>Выберете аудиофайл сигнала отключения звука</translation>
+        <translation>Выберите аудиофайл сигнала о заглушенном микрофоне</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -1222,11 +1222,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Предпросмотр сигнала о заглушенном микрофоне</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот сигнал проигрывается, когда вы пытаетесь говорить при заглушенном микрофоне</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
@@ -6995,7 +6995,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
-        <translation type="unfinished"></translation>
+        <translation>Сейчас прозвучал сигнал заглушения. Это происходит, когда вы говорите при заглушенном микрофоне. Хотите оставить его включенным?</translation>
     </message>
     <message>
         <source>Yes</source>

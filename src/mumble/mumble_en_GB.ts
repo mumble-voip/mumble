@@ -1222,15 +1222,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview the mute cue</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>The mute cue is an audio sample which plays when you are trying to speak while being muted</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview both audio cues</translation>
     </message>
 </context>
 <context>
@@ -1293,19 +1293,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milliseconds</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>seconds</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>kilobits per second</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibels</translation>
     </message>
 </context>
 <context>
@@ -1582,11 +1582,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio output system</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio output device</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
