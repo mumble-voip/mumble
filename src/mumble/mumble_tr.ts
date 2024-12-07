@@ -711,6 +711,13 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
 </context>
 <context>
+    <name>AnimationTextObject</name>
+    <message>
+        <source>%1 / %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -2993,6 +3000,10 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     <message>
         <source>This server does not allow sending images.</source>
         <translation>Bu sunucu görüntü göndermeye izin vermiyor.</translation>
+    </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5482,10 +5493,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Kaydedilmemiş kullanıcı oturumu için yanlış sunucu parolası, tekrar deneyiniz.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Resimler (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>&amp;Yapılandır</translation>
     </message>
@@ -7165,6 +7172,14 @@ Geçerli seçenekler şunlardır:
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>Bunun nedeni şu durumlardan biri olabilir:&lt;ul&gt;&lt;li&gt;İstemciniz ve sunucunuz farklı şifreleme standartları kullanmaktadır. Bunun nedeni çok eski bir istemci kullanıyor olmanız veya bağlandığınız sunucunun çok eski olması olabilir. İlk durumda, istemcinizi güncellemelisiniz ve ikinci durumda sunucularını güncelleyebilmeleri için sunucu yöneticisiyle iletişime geçmelisiniz.&lt;/li&gt;&lt;li&gt;Ya istemciniz ya da sunucunuz güncel şifreleme yöntemleri sağlamayan eski bir işletim sistemi kullanıyordur. Bu durumda işletim sisteminizi güncellemeyi düşünmeli ya da sunucu yöneticisiyle iletişime geçerek kendi işletim sistemlerini güncellemelerini sağlamalısınız.&lt;/li&gt;&lt;li&gt;Bağlandığınız sunucu aslında bir Mumble sunucusu değil. Lütfen kullanılan sunucu adresinin gerçekten bir Mumble sunucusuna ait olduğundan ve örneğin bir oyun sunucusuna ait olmadığından emin olun.&lt;/li&gt;&lt;li&gt;Bağlandığınız bağlantı noktası bir Mumble sunucusuna ait değil, bunun yerine sunucu tarafında tamamen ilgisiz bir işleme bağlı. Lütfen doğru bağlantı noktasını kullandığınızı iki kez gözden geçirin.&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
