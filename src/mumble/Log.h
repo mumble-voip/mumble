@@ -118,6 +118,8 @@ public:
 	// versions.
 	static const MsgType msgOrder[];
 
+	enum TextObjectType { Animation = QTextFormat::UserObject };
+
 protected:
 	/// Mutex for qvDeferredLogs
 	static QMutex qmDeferredLogs;
@@ -135,6 +137,7 @@ protected:
 	static const QStringList allowedSchemes();
 	void postNotification(MsgType mt, const QString &plain);
 	void postQtNotification(MsgType mt, const QString &plain);
+	static bool htmlWithAnimations(const QString &html, QTextCursor *tc);
 
 public:
 	Log(QObject *p = nullptr);

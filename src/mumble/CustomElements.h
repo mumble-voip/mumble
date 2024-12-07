@@ -7,20 +7,38 @@
 #define MUMBLE_MUMBLE_CUSTOMELEMENTS_H_
 
 #include <QtCore/QObject>
+#include <QtGui/QMovie>
+#include <QtGui/QTextObjectInterface>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
+
+Q_DECLARE_METATYPE(QMovie *)
 
 class LogTextBrowser : public QTextBrowser {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogTextBrowser)
 
+protected:
+	QString queuedNumericInput;
+	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+
 public:
+	int lastCustomInteractiveItemIndex  = -1;
+	int customInteractiveItemFocusIndex = -1;
 	LogTextBrowser(QWidget *p = nullptr);
 
-	int getLogScroll();
-	void setLogScroll(int scroll_pos);
+	void update();
+	int getScrollX();
+	int getScrollY();
+	void setScrollX(int scroll_pos);
+	void setScrollY(int scroll_pos);
+	void changeScrollX(int change);
+	void changeScrollY(int change);
+	void scrollItemIntoView(QRect rect);
 	bool isScrolledToBottom();
 };
 
@@ -51,7 +69,7 @@ protected:
 	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 	void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	bool sendImagesFromMimeData(const QMimeData *source);
-	bool emitPastedImage(QImage image);
+	bool emitPastedImage(QImage image, QString filePath = "");
 
 public:
 	void setDefaultText(const QString &, bool = false);
@@ -73,6 +91,71 @@ public slots:
 
 public:
 	ChatbarTextEdit(QWidget *p = nullptr);
+};
+
+class AnimationTextObject : public QObject, public QTextObjectInterface {
+	Q_OBJECT
+	Q_INTERFACES(QTextObjectInterface)
+
+protected:
+	static const int videoBarHeight        = 4;
+	static const int underVideoBarHeight   = 20;
+	static const int cacheOffsetX          = -170;
+	static const int loopModeOffsetX       = -130;
+	static const int frameTraversalOffsetX = -90;
+	static const int speedOffsetX          = -30;
+	QSizeF intrinsicSize(QTextDocument *doc, int posInDoc, const QTextFormat &fmt) Q_DECL_OVERRIDE;
+	void drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int posInDoc,
+					const QTextFormat &fmt) Q_DECL_OVERRIDE;
+
+public:
+	static bool areVideoControlsOn;
+	AnimationTextObject();
+	static void mousePress(QAbstractTextDocumentLayout *docLayout, QPoint mouseDocPos, Qt::MouseButton button);
+	static void keyPress(LogTextBrowser *log, bool isItemSelectionChanged, Qt::Key key);
+
+	enum VideoController {
+		VideoBar,
+		View,
+		PlayPause,
+		CacheSwitch,
+		LoopSwitch,
+		PreviousFrame,
+		NextFrame,
+		ResetSpeed,
+		DecreaseSpeed,
+		IncreaseSpeed,
+		None
+	};
+	enum LoopMode { Unchanged, Loop, NoLoop };
+	static QString loopModeToString(LoopMode mode);
+
+	static void updateVideoControls(QObject *propertyHolder);
+	static int getTotalTime(QObject *propertyHolder);
+	static int getCurrentTime(QObject *propertyHolder, int frameIndex);
+	static void setFrame(QMovie *animation, int frameIndex);
+	static void setFrameByTime(QMovie *animation, int milliseconds);
+	static void setFrameByProportion(QMovie *animation, double proportion);
+	static void togglePause(QMovie *animation);
+	static void toggleCache(QMovie *animation);
+	static void stopPlayback(QMovie *animation);
+	static void resetPlayback(QMovie *animation);
+	static void setSpeed(QMovie *animation, int percentage);
+	static void changeLoopMode(QMovie *animation, int steps);
+	static void changeFrame(QMovie *animation, int amount);
+	static void changeFrameByTime(QMovie *animation, int milliseconds);
+	static void changeSpeed(QMovie *animation, int percentageStep);
+
+	static bool isInBoundsOnAxis(QPoint pos, bool yInsteadOfX, int start, int length);
+	static bool isInBounds(QPoint pos, QRect bounds);
+	static int getOffset(int offset, int start, int length);
+	static void setRectAndVideoControlPositioning(QObject *propertyHolder, QRect rect);
+	static VideoController mousePressVideoControls(QObject *propertyHolder, QPoint mouseDocPos);
+	static void drawVideoControls(QPainter *painter, QObject *propertyHolder, QPixmap frame, bool wasPaused,
+								  bool wasCached, int frameIndex, int speedPercentage);
+
+	static void updatePropertyRect(QObject *propertyHolder, QRect rect);
+	static void drawCenteredPlayIcon(QPainter *painter, QRect rect);
 };
 
 class DockTitleBar : public QLabel {
