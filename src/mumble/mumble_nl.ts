@@ -711,6 +711,13 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
 </context>
 <context>
+    <name>AnimationTextObject</name>
+    <message>
+        <source>%1 / %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -2994,6 +3001,10 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
     <message>
         <source>This server does not allow sending images.</source>
         <translation>Deze server laat het versturen van afbeeldingen niet toe.</translation>
+    </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5483,10 +5494,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
         <translation>Verkeerd server-wachtwoord voor ongeregistreerde account, gelieve opnieuw te proberen.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Afbeeldingen (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>C&amp;onfigureer</translation>
     </message>
@@ -7103,6 +7110,14 @@ Valid options are:
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

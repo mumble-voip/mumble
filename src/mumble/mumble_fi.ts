@@ -711,6 +711,13 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
 </context>
 <context>
+    <name>AnimationTextObject</name>
+    <message>
+        <source>%1 / %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -2994,6 +3001,10 @@ Haluatko varmasti korvata varmenteen?
     <message>
         <source>This server does not allow sending images.</source>
         <translation>Tämä palvelin ei salli kuvien lähettämistä.</translation>
+    </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5483,10 +5494,6 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
         <translation>Väärä palvelin salasana rekisteröimättömällä käyttäjätilillä, ole hyvä ja yritä uudelleen.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Kuvat (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>K&amp;onfiguroi</translation>
     </message>
@@ -7163,6 +7170,14 @@ Hyväksytyt valinnat ovat
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>Tämä voi johtua jostakin seuraavista tilanteista:&lt;ul&gt;&lt;li&gt;Asiakkaasi ja palvelin käyttävät erilaisia salausstandardeja. Tämä voi johtua siitä, että käytät erittäin vanhaa asiakasta tai palvelin, johon muodostat yhteyden, on hyvin vanha. Ensimmäisessä tapauksessa sinun tulee päivittää asiakasohjelmasi ja toisessa tapauksessa ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta hän voi päivittää palvelimensa.&lt;/li&gt;&lt;li&gt;Joko asiakkaasi tai palvelin käyttää vanhaa käyttöjärjestelmää, joka ei tarjoa ajan tasalla olevia salausmenetelmiä. Tässä tapauksessa sinun kannattaa harkita käyttöjärjestelmän päivittämistä tai ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta he voivat päivittää omansa.&lt;/li&gt;&lt;li&gt;Palvelin, johon muodostat yhteyden, ei ole itse asiassa Mumble-palvelin. Varmista, että käytetty palvelinosoite todella kuuluu Mumble-palvelimelle eikä esim. pelipalvelimelle.&lt;/li&gt;&lt;li&gt;Portti, johon muodostat yhteyden, ei kuulu Mumble-palvelimelle, vaan se on sidottu täysin asiaankuulumattomaan palvelinpuolen prosessiin. Tarkista, että olet käyttänyt oikeaa porttia.&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
