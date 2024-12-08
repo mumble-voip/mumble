@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
 #include "UserModel.h"
+#include "VolumeAdjustment.h"
 #include "widgets/MultiStyleWidgetWrapper.h"
 #include "Global.h"
 
@@ -24,6 +25,7 @@
 #include <QScreen>
 #include <QTextDocumentFragment>
 #include <QVBoxLayout>
+#include <QWheelEvent>
 #include <QtCore/QDateTime>
 #include <QtCore/QStringList>
 #include <QtCore/QTimer>
@@ -567,6 +569,41 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	}
 
 	updateUI();
+}
+
+void TalkingUI::wheelEvent(QWheelEvent *event) {
+	if (!event->modifiers().testFlag(Qt::ControlModifier)) {
+		return QWidget::wheelEvent(event);
+	}
+
+	if (!Global::get().s.talkingUI_CtrlScrollLocalVolAdj) {
+		return;
+	}
+
+	ClientUser *user = Global::get().mw->pmModel->getSelectedUser();
+	if (!user) {
+		return;
+	}
+
+	int volAdjustment = VolumeAdjustment::toIntegerDBAdjustment(user->getLocalVolumeAdjustments());
+
+	if (event->angleDelta().y() > 0) {
+		if (volAdjustment >= 30) {
+			// 30 dB is the upper limit defined for the volume slider (VolumeSliderWidgetAction.cpp).
+			return;
+		}
+
+		volAdjustment += 1;
+	} else {
+		if (volAdjustment <= -30) {
+			// -30 dB is the lower limit defined for the volume slider (VolumeSliderWidgetAction.cpp).
+			return;
+		}
+
+		volAdjustment -= 1;
+	}
+
+	user->setLocalVolumeAdjustment(VolumeAdjustment::toFactor(volAdjustment));
 }
 
 void TalkingUI::setVisible(bool visible) {

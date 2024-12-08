@@ -223,20 +223,21 @@ const SettingsKey CRASH_EMAIL_ADDRESS_KEY                = { "crash_report_email
 
 
 // TalkingUI
-const SettingsKey TALKINGUI_POSITION_KEY                   = { "talkingui_position" };
-const SettingsKey SHOW_TALKINGUI_KEY                       = { "display_talkingui" };
-const SettingsKey TALKINGUI_USERS_ALWAYS_VISIBLE_KEY       = { "users_always_visible" };
-const SettingsKey TALKINGUI_LOCAL_USER_STAYS_VISIBLE_KEY   = { "local_user_stays_visible" };
-const SettingsKey TALKINGUI_ABBREVIATE_CHANNEL_NAMES_KEY   = { "abbreviate_channel_names" };
-const SettingsKey TALKINGUI_ABBREVIATE_CURRENT_CHANNEL_KEY = { "abbreviate_current_channel_name" };
-const SettingsKey TALKINGUI_DISPLAY_LOCAL_LISTENERS_KEY    = { "display_local_listeners" };
-const SettingsKey TALKINGUI_RELATIVE_FONT_SIZE_KEY         = { "relative_font_size" };
-const SettingsKey TALKINGUI_SILENT_USER_LIFETIME_KEY       = { "silent_user_lifetime" };
-const SettingsKey TALKINGUI_CHANNEL_HIERARCHY_DEPTH_KEY    = { "channel_hierarchy_depth" };
-const SettingsKey TALKINGUI_MAX_CHANNEL_NAME_LENGTH_KEY    = { "max_channel_name_length" };
-const SettingsKey TALKINGUI_NAME_PREFIX_COUNT_KEY          = { "name_prefix_count" };
-const SettingsKey TALKINGUI_NAME_POSTFIX_COUNT_KEY         = { "name_postfix_count" };
-const SettingsKey TALKINGUI_ABBREVIATION_REPLACEMENT_KEY   = { "abbreviation_replacement" };
+const SettingsKey TALKINGUI_POSITION_KEY                            = { "talkingui_position" };
+const SettingsKey SHOW_TALKINGUI_KEY                                = { "display_talkingui" };
+const SettingsKey TALKINGUI_USERS_ALWAYS_VISIBLE_KEY                = { "users_always_visible" };
+const SettingsKey TALKINGUI_LOCAL_USER_STAYS_VISIBLE_KEY            = { "local_user_stays_visible" };
+const SettingsKey TALKINGUI_ABBREVIATE_CHANNEL_NAMES_KEY            = { "abbreviate_channel_names" };
+const SettingsKey TALKINGUI_ABBREVIATE_CURRENT_CHANNEL_KEY          = { "abbreviate_current_channel_name" };
+const SettingsKey TALKINGUI_DISPLAY_LOCAL_LISTENERS_KEY             = { "display_local_listeners" };
+const SettingsKey TALKINGUI_RELATIVE_FONT_SIZE_KEY                  = { "relative_font_size" };
+const SettingsKey TALKINGUI_SILENT_USER_LIFETIME_KEY                = { "silent_user_lifetime" };
+const SettingsKey TALKINGUI_CHANNEL_HIERARCHY_DEPTH_KEY             = { "channel_hierarchy_depth" };
+const SettingsKey TALKINGUI_MAX_CHANNEL_NAME_LENGTH_KEY             = { "max_channel_name_length" };
+const SettingsKey TALKINGUI_NAME_PREFIX_COUNT_KEY                   = { "name_prefix_count" };
+const SettingsKey TALKINGUI_NAME_POSTFIX_COUNT_KEY                  = { "name_postfix_count" };
+const SettingsKey TALKINGUI_ABBREVIATION_REPLACEMENT_KEY            = { "abbreviation_replacement" };
+const SettingsKey TALKINGUI_CTRL_SCROLL_LOCAL_VOLUME_ADJUSTMENT_KEY = { "ctrl_scroll_local_volume_adjustment" };
 
 // Channel hierarchy
 const SettingsKey CHANNEL_NAME_SEPARATOR_KEY = { "channel_name_separator" };
