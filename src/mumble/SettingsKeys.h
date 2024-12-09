@@ -35,6 +35,7 @@ namespace SettingsKeys {
  */
 
 // Audio settings
+const SettingsKey UNMUTE_ON_UNDEAF_KEY                        = { "unmute_on_undeaf" };
 const SettingsKey MUTE_KEY                                    = { "mute" };
 const SettingsKey DEAF_KEY                                    = { "deaf" };
 const SettingsKey TRANSMIT_MODE_KEY                           = { "transmit_mode" };

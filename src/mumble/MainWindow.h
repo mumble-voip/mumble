@@ -125,7 +125,6 @@ public:
 	bool forceQuit;
 	/// Restart the client after shutdown
 	bool restartOnQuit;
-	bool bAutoUnmute;
 
 	/// Contains the cursor whose position is immediately before the image to
 	/// save when activating the "Save Image As..." context menu item.

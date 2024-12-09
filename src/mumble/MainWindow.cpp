@@ -136,7 +136,6 @@ MainWindow::MainWindow(QWidget *p)
 #endif
 	forceQuit     = false;
 	restartOnQuit = false;
-	bAutoUnmute   = false;
 
 	Channel::add(Channel::ROOT_ID, tr("Root"));
 
@@ -2716,7 +2715,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		return;
 	}
 
-	if (!qaAudioDeaf->isChecked() && bAutoUnmute) {
+	if (!qaAudioDeaf->isChecked() && Global::get().s.unmuteOnUndeaf) {
 		qaAudioDeaf->setChecked(true);
 		qaAudioMute->setChecked(false);
 		on_qaAudioMute_triggered();
@@ -2730,13 +2729,13 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	Global::get().s.bDeaf = qaAudioDeaf->isChecked();
 
 	if (Global::get().s.bDeaf && !Global::get().s.bMute) {
-		bAutoUnmute           = true;
-		Global::get().s.bMute = true;
+		Global::get().s.unmuteOnUndeaf = true;
+		Global::get().s.bMute          = true;
 		qaAudioMute->setChecked(true);
 		Global::get().l->log(Log::SelfDeaf, tr("Muted and deafened."));
 	} else if (Global::get().s.bDeaf) {
 		Global::get().l->log(Log::SelfDeaf, tr("Deafened."));
-		bAutoUnmute = false;
+		Global::get().s.unmuteOnUndeaf = false;
 	} else {
 		Global::get().l->log(Log::SelfUndeaf, tr("Undeafened."));
 	}

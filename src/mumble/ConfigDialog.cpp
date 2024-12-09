@@ -200,8 +200,9 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 		QWidget *w = qhPages.value(qmIconWidgets.value(current));
 		if (w)
 			qswPages->setCurrentWidget(w);
-
-		updateTabOrder();
+		if (previous) {
+			updateTabOrder();
+		}
 	}
 }
 
