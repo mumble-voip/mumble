@@ -67,6 +67,7 @@
 #endif
 
 #include <QAccessible>
+#include <QtCore/QSaveFile>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
@@ -1064,38 +1065,80 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		cursor.movePosition(QTextCursor::NextCharacter);
 		fmt = cursor.charFormat();
 	}
-	if (cursor.charFormat().isImageFormat()) {
+	bool isAnimation = fmt.objectType() == Log::Animation;
+	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, SLOT(saveImageAs(void)));
 
 		qtcSaveImageCursor = cursor;
 	}
+	if (isAnimation) {
+		bool areVideoControlsOn = AnimationTextObject::areVideoControlsOn;
+		QString actionFirstWord = areVideoControlsOn ? "Hide" : "Show";
+		menu->addAction(tr("%1 Video Controls").arg(actionFirstWord), this, SLOT(toggleVideoControls(void)));
+	}
 
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
+	menu->addAction(tr("Clear"), this, SLOT(clearDocument(void)));
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
 }
 
+void MainWindow::clearDocument() {
+	QList< QTextFormat > fmts = qteLog->document()->allFormats();
+	for (auto fmt : fmts) {
+		if (fmt.objectType() == Log::Animation) {
+			QMovie *animation = qvariant_cast< QMovie * >(fmt.property(1));
+			AnimationTextObject::stopPlayback(animation);
+			animation->deleteLater();
+		}
+	}
+	qteLog->clear();
+}
+
+void MainWindow::toggleVideoControls() {
+	AnimationTextObject::areVideoControlsOn = !AnimationTextObject::areVideoControlsOn;
+}
+
 void MainWindow::saveImageAs() {
-	QDateTime now = QDateTime::currentDateTime();
-	QString defaultFname =
-		QString::fromLatin1("Mumble-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
+	QTextCharFormat fmt   = qtcSaveImageCursor.charFormat();
+	bool isAnimation      = fmt.objectType() == Log::Animation;
+	QString fileExtension = isAnimation ? "gif" : "jpg";
+	QDateTime now         = QDateTime::currentDateTime();
+	QString defaultFname  = QString::fromLatin1("Mumble-%1.%2")
+							   .arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")))
+							   .arg(fileExtension);
 
 	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), getImagePath(defaultFname),
-												 tr("Images (*.png *.jpg *.jpeg)"));
+												 tr("Images (*.png *.jpg *.jpeg *.gif)"));
 	if (fname.isNull()) {
 		return;
 	}
 
-	QString resName = qtcSaveImageCursor.charFormat().toImageFormat().name();
-	QVariant res    = qteLog->document()->resource(QTextDocument::ImageResource, resName);
-	QImage img      = res.value< QImage >();
-	bool ok         = img.save(fname);
-	if (!ok) {
-		// In case fname did not contain a file extension, try saving with an
-		// explicit format.
-		ok = img.save(fname, "PNG");
+	bool ok = false;
+	if (isAnimation) {
+		QMovie *animation  = qvariant_cast< QMovie * >(fmt.property(1));
+		QIODevice *device  = animation->device();
+		qint64 previousPos = device->pos();
+		if (device->reset()) {
+			QByteArray fileData = device->readAll();
+			QSaveFile saveFile(fname);
+			if (saveFile.open(QIODevice::WriteOnly)) {
+				saveFile.write(fileData);
+				ok = saveFile.commit();
+			}
+		}
+		device->seek(previousPos);
+	} else {
+		QString resName = fmt.toImageFormat().name();
+		QVariant res    = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+		QImage img      = res.value< QImage >();
+		ok              = img.save(fname);
+		if (!ok) {
+			// In case fname did not contain a file extension, try saving with an
+			// explicit format.
+			ok = img.save(fname, "PNG");
+		}
 	}
 
 	updateImagePath(fname);
@@ -3913,8 +3956,8 @@ void MainWindow::context_triggered() {
 QPair< QByteArray, QImage > MainWindow::openImageFile() {
 	QPair< QByteArray, QImage > retval;
 
-	QString fname =
-		QFileDialog::getOpenFileName(this, tr("Choose image file"), getImagePath(), tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), getImagePath(),
+												 tr("Images (*.png *.jpg *.jpeg *.gif)"));
 
 	if (fname.isNull())
 		return retval;
