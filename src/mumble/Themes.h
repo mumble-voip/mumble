@@ -31,6 +31,9 @@ public:
 	/// @note Can only apply a theme before MainWindow etc. is opened
 	static bool apply();
 
+	/// Detects current OS theme
+	static bool detectSystemTheme();
+
 	/// Return a theme name to theme map
 	static ThemeMap getThemes();
 
@@ -63,6 +66,9 @@ private:
 	/// If a the file is is available, the function returns true.
 	/// If no file is available, it returns false.
 	static bool readStylesheet(const QString &stylesheetFn, QString &stylesheetContent);
+
+	/// Member variable to store the current theme path
+	static QString currentThemePath;
 };
 
 #endif // MUMBLE_MUMBLE_THEMES_H_
