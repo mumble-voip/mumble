@@ -264,6 +264,9 @@ module MumbleServer
 		UserList users;
 	};
 
+	/** Different states of the underlying database */
+	enum DBState { Normal, ReadOnly };
+
 	exception ServerException {};
 	/** Thrown if the server encounters an internal error while processing the request */
 	exception InternalErrorException extends ServerException {};
@@ -293,6 +296,8 @@ module MumbleServer
 	exception InvalidInputDataException extends ServerException {};
 	/** This is thrown when the referenced channel listener does not actually exist */
 	exception InvalidListenerException extends ServerException {};
+	/** This is thrown when the server has its database in read-only mode and whatever you requested is incompatible with that. */
+	exception ReadOnlyModeException extends ServerException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
@@ -472,16 +477,16 @@ module MumbleServer
 		idempotent bool isRunning() throws InvalidSecretException;
 
 		/** Start server. */
-		void start() throws ServerBootedException, ServerFailureException, InvalidSecretException;
+		void start() throws ServerBootedException, ServerFailureException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Stop server.
 		 * Note: Server will be restarted on application restart unless explicitly disabled
 		 *       with setConf("boot", false)
 		 */
-		void stop() throws ServerBootedException, InvalidSecretException;
+		void stop() throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Delete server and all it's configuration. */
-		void delete() throws ServerBootedException, InvalidSecretException;
+		void delete() throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch the server id.
 		 *
@@ -508,41 +513,41 @@ module MumbleServer
 		 *
 		 * @param auth Authenticator object to perform subsequent authentications.
 		 */
-		void setAuthenticator(ServerAuthenticator *auth) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;
+		void setAuthenticator(ServerAuthenticator *auth) throws ServerBootedException, InvalidCallbackException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Retrieve configuration item.
 		 * @param key Configuration key.
 		 * @return Configuration value. If this is empty, see {@link Meta.getDefaultConf}
 		 */
-		idempotent string getConf(string key) throws InvalidSecretException, WriteOnlyException;
+		idempotent string getConf(string key) throws InvalidSecretException, WriteOnlyException, ReadOnlyModeException;
 
 		/** Retrieve all configuration items.
 		 * @return All configured values. If a value isn't set here, the value from {@link Meta.getDefaultConf} is used.
 		 */
-		idempotent ConfigMap getAllConf() throws InvalidSecretException;
+		idempotent ConfigMap getAllConf() throws InvalidSecretException, ReadOnlyModeException;
 
 		/** Set a configuration item.
 		 * @param key Configuration key.
 		 * @param value Configuration value.
 		 */
-		idempotent void setConf(string key, string value) throws InvalidSecretException;
+		idempotent void setConf(string key, string value) throws InvalidSecretException, ReadOnlyModeException;
 
 		/** Set superuser password. This is just a convenience for using {@link updateRegistration} on user id 0.
 		 * @param pw Password.
 		 */
-		idempotent void setSuperuserPassword(string pw) throws InvalidSecretException;
+		idempotent void setSuperuserPassword(string pw) throws InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch log entries.
 		 * @param first Lowest numbered entry to fetch. 0 is the most recent item.
 		 * @param last Last entry to fetch.
 		 * @return List of log entries.
 		 */
-		idempotent LogList getLog(int first, int last) throws InvalidSecretException;
+		idempotent LogList getLog(int first, int last) throws InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch length of log
 		 * @return Number of entries in log
 		 */
-		idempotent int getLogLen() throws InvalidSecretException;
+		idempotent int getLogLen() throws InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch all users. This returns all currently connected users on the server.
 		 * @return List of connected users.
@@ -577,7 +582,7 @@ module MumbleServer
 		 *  append to the returned list before calling this method.
 		 * @param bans List of bans.
 		 */
-		idempotent void setBans(BanList bans) throws ServerBootedException, InvalidSecretException;
+		idempotent void setBans(BanList bans) throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Kick a user. The user is not banned, and is free to rejoin the server.
 		 * @param session Connection ID of user. See {@link User.session}.
@@ -651,19 +656,19 @@ module MumbleServer
 		 * @param state Channel state to set.
 		 * @see getChannelState
 		 */
-		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
+		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException, ReadOnlyModeException;
 
 		/** Remove a channel and all its subchannels.
 		 * @param channelid ID of Channel. See {@link Channel.id}.
 		 */
-		void removeChannel(int channelid) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		void removeChannel(int channelid) throws ServerBootedException, InvalidChannelException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Add a new channel.
 		 * @param name Name of new channel.
 		 * @param parent Channel ID of parent channel. See {@link Channel.id}.
 		 * @return ID of newly created channel.
 		 */
-		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
+		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException, ReadOnlyModeException;
 
 		/** Send text message to channel or a tree of channels.
 		 * @param channelid Channel ID of channel to send to. See {@link Channel.id}.
@@ -687,7 +692,7 @@ module MumbleServer
 		 * @param groups List of groups on the channel.
 		 * @param inherit Should this channel inherit ACLs from the parent channel?
 		 */
-		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Temporarily add a user to a group on a channel. This state is not saved, and is intended for temporary memberships.
 		 * @param channelid Channel ID of channel to add to. See {@link Channel.id}.
@@ -727,37 +732,37 @@ module MumbleServer
 		 * @param info Information about new user. Must include at least "name".
 		 * @return The ID of the user. See {@link RegisteredUser.userid}.
 		 */
-		int registerUser(UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException;
+		int registerUser(UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Remove a user registration.
 		 * @param userid ID of registered user. See {@link RegisteredUser.userid}.
 		 */
-		void unregisterUser(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;
+		void unregisterUser(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Update the registration for a user. You can use this to set the email or password of a user,
 		 * and can also use it to change the user's name.
 		 * @param registration Updated registration record.
 		 */
-		idempotent void updateRegistration(int userid, UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException;
+		idempotent void updateRegistration(int userid, UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch registration for a single user.
 		 * @param userid ID of registered user. See {@link RegisteredUser.userid}.
 		 * @return Registration record.
 		 */
-		idempotent UserInfoMap getRegistration(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;
+		idempotent UserInfoMap getRegistration(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch a group of registered users.
 		 * @param filter Substring of user name. If blank, will retrieve all registered users.
 		 * @return List of registration records.
 		 */
-		idempotent NameMap getRegisteredUsers(string filter) throws ServerBootedException, InvalidSecretException;
+		idempotent NameMap getRegisteredUsers(string filter) throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Verify the password of a user. You can use this to verify a user's credentials.
 		 * @param name User name. See {@link RegisteredUser.name}.
 		 * @param pw User password.
 		 * @return User ID of registered user (See {@link RegisteredUser.userid}), -1 for failed authentication or -2 for unknown usernames.
 		 */
-		idempotent int verifyPassword(string name, string pw) throws ServerBootedException, InvalidSecretException;
+		idempotent int verifyPassword(string name, string pw) throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Fetch user texture. Textures are stored as zlib compress()ed 600x60 32-bit BGRA data.
 		 * @param userid ID of registered user. See {@link RegisteredUser.userid}.
@@ -769,7 +774,7 @@ module MumbleServer
 		 * @param userid ID of registered user. See {@link RegisteredUser.userid}.
 		 * @param tex Texture (as a Byte-Array) to set for the user, or an empty texture to remove the existing texture.
 		 */
-		idempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException, InvalidSecretException;
+		idempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Get virtual server uptime.
 		 * @return Uptime of the virtual server in seconds
@@ -795,21 +800,21 @@ module MumbleServer
 		 *  - The certificate and/or private key do not contain RSA keys.
 		 *  - The certificate is not usable with the given private key.
 		 */
-		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;
+		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException, ReadOnlyModeException;
 
 		 /**
 		  * Makes the given user start listening to the given channel.
 		  * @param userid The ID of the user
 		  * @param channelid The ID of the channel
 		  */
-		 idempotent void startListening(int userid, int channelid) throws ServerBootedException, InvalidUserException;
+		 idempotent void startListening(int userid, int channelid) throws ServerBootedException, InvalidUserException, ReadOnlyModeException;
 
 		 /**
 		  * Makes the given user stop listening to the given channel.
 		  * @param userid The ID of the user
 		  * @param channelid The ID of the channel
 		  */
-		 idempotent void stopListening(int userid, int channelid) throws ServerBootedException, InvalidUserException;
+		 idempotent void stopListening(int userid, int channelid) throws ServerBootedException, InvalidUserException, ReadOnlyModeException;
 
 		 /**
 		  * @param userid The ID of the user
@@ -842,7 +847,7 @@ module MumbleServer
 		  * @param channelid The ID of the channel
 		  * @param userid The ID of the user
 		  */
-		 idempotent void setListenerVolumeAdjustment(int channelid, int userid, float volumeAdjustment) throws ServerBootedException, InvalidSecretException, InvalidChannelException, InvalidUserException;
+		 idempotent void setListenerVolumeAdjustment(int channelid, int userid, float volumeAdjustment) throws ServerBootedException, InvalidSecretException, InvalidChannelException, InvalidUserException, ReadOnlyModeException;
 
 		 /**
 		  * @param receiverUserIDs list of IDs of the users the message shall be sent to
@@ -941,5 +946,15 @@ module MumbleServer
 		 * @return Checksum dict
 		 */
 		idempotent Ice::SliceChecksumDict getSliceChecksums();
+
+		 /**
+		  * @returns The state the underlying database is currently assumed to be in
+		  */
+		 idempotent DBState getAssumedDatabaseState() throws InvalidSecretException;
+
+		 /**
+		  * Sets the assumed state of the underlying database
+		  */
+		 idempotent void setAssumedDatabaseState(DBState state) throws InvalidSecretException, ReadOnlyModeException;
 	};
 };

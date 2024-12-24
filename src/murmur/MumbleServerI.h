@@ -199,6 +199,13 @@ public:
 	virtual void getUptime_async(const ::MumbleServer::AMD_Meta_getUptimePtr &, const Ice::Current &);
 
 	virtual void getSlice_async(const ::MumbleServer::AMD_Meta_getSlicePtr &, const Ice::Current &);
+
+	virtual void getAssumedDatabaseState_async(const ::MumbleServer::AMD_Meta_getAssumedDatabaseStatePtr &,
+											   const ::Ice::Current &);
+
+	virtual void setAssumedDatabaseState_async(const ::MumbleServer::AMD_Meta_setAssumedDatabaseStatePtr &,
+											   ::MumbleServer::DBState state,
+											   const ::Ice::Current & = ::Ice::Current());
 };
 
 } // namespace MumbleServer

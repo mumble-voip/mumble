@@ -96,6 +96,8 @@ message Reject {
 		// The user did not provide a certificate but one is required.
 		NoCertificate = 7;
 		AuthenticatorFail = 8;
+		// The server is currently not accepting new connections
+		NoNewConnections = 9;
 	}
 	// Rejection type.
 	optional RejectType type = 1;
