@@ -802,52 +802,52 @@ module MumbleServer
 		  * @param userid The ID of the user
 		  * @param channelid The ID of the channel
 		  */
-		 idempotent void startListening(int userid, int channelid);
+		 idempotent void startListening(int userid, int channelid) throws ServerBootedException, InvalidUserException;
 
 		 /**
 		  * Makes the given user stop listening to the given channel.
 		  * @param userid The ID of the user
 		  * @param channelid The ID of the channel
 		  */
-		 idempotent void stopListening(int userid, int channelid);
+		 idempotent void stopListening(int userid, int channelid) throws ServerBootedException, InvalidUserException;
 
 		 /**
 		  * @param userid The ID of the user
 		  * @param channelid The ID of the channel
 		  * @returns Whether the given user is currently listening to the given channel
 		  */
-		 idempotent bool isListening(int userid, int channelid);
+		 idempotent bool isListening(int userid, int channelid) throws ServerBootedException, InvalidUserException, InvalidSecretException;
 
 		 /**
 		  * @param userid The ID of the user
 		  * @returns An ID-list of channels the given user is listening to
 		  */
-		 idempotent IntList getListeningChannels(int userid);
+		 idempotent IntList getListeningChannels(int userid) throws ServerBootedException, InvalidSecretException, InvalidUserException;
 
 		 /**
 		  * @param channelid The ID of the channel
 		  * @returns An ID-list of users listening to the given channel
 		  */
-		 idempotent IntList getListeningUsers(int channelid);
+		 idempotent IntList getListeningUsers(int channelid) throws ServerBootedException, InvalidSecretException, InvalidChannelException;
 
 		 /**
 		  * @param channelid The ID of the channel
 		  * @param userid The ID of the user
 		  * @returns The volume adjustment set for a listener of the given user in the given channel
 		  */
-		 idempotent float getListenerVolumeAdjustment(int channelid, int userid);
+		 idempotent float getListenerVolumeAdjustment(int channelid, int userid) throws ServerBootedException, InvalidUserException, InvalidChannelException;
 
 		 /**
 		  * Sets the volume adjustment set for a listener of the given user in the given channel
 		  * @param channelid The ID of the channel
 		  * @param userid The ID of the user
 		  */
-		 idempotent void setListenerVolumeAdjustment(int channelid, int userid, float volumeAdjustment);
+		 idempotent void setListenerVolumeAdjustment(int channelid, int userid, float volumeAdjustment) throws ServerBootedException, InvalidSecretException, InvalidChannelException, InvalidUserException;
 
 		 /**
 		  * @param receiverUserIDs list of IDs of the users the message shall be sent to
 		  */
-		 idempotent void sendWelcomeMessage(IdList receiverUserIDs);
+		 idempotent void sendWelcomeMessage(IdList receiverUserIDs) throws ServerBootedException, InvalidSecretException, InvalidUserException;
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications
