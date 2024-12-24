@@ -849,7 +849,7 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	}
 
 #define NEED_SERVER                                 \
-	NEED_SERVER_EXISTS                              \
+	FIND_SERVER                                     \
 	if (!server) {                                  \
 		cb->ice_exception(ServerBootedException()); \
 		return;                                     \
