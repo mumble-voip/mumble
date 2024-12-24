@@ -929,7 +929,7 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 static void impl_Server_isRunning(const ::MumbleServer::AMD_Server_isRunningPtr cb, int server_id) {
 	ICE_IMPL_BEGIN
 
-	NEED_SERVER_EXISTS;
+	FIND_SERVER;
 	cb->ice_response(server != nullptr);
 
 	ICE_IMPL_END
