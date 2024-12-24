@@ -2006,6 +2006,7 @@ static void impl_Server_stopListening(const ::MumbleServer::AMD_Server_stopListe
 	ICE_IMPL_END
 }
 
+#define ACCESS_Server_isListening_READ
 static void impl_Server_isListening(const ::MumbleServer::AMD_Server_isListeningPtr cb, int server_id, int session,
 									int channelid) {
 	ICE_IMPL_BEGIN
@@ -2019,6 +2020,7 @@ static void impl_Server_isListening(const ::MumbleServer::AMD_Server_isListening
 	ICE_IMPL_END
 }
 
+#define ACCESS_Server_getListeningChannels_READ
 static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_getListeningChannelsPtr cb, int server_id,
 											 int session) {
 	ICE_IMPL_BEGIN
@@ -2036,6 +2038,7 @@ static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_ge
 	ICE_IMPL_END
 }
 
+#define ACCESS_Server_getListeningUsers_READ
 static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getListeningUsersPtr cb, int server_id,
 										  int channelid) {
 	ICE_IMPL_BEGIN
@@ -2070,6 +2073,7 @@ static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_send
 	ICE_IMPL_END
 }
 
+#define ACCESS_Server_getListenerVolumeAdjustment_READ
 static void impl_Server_getListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_getListenerVolumeAdjustmentPtr cb,
 													int server_id, int channelid, int session) {
 	ICE_IMPL_BEGIN
@@ -2353,6 +2357,10 @@ static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, 
 #undef ACCESS_Server_verifyPassword_READ
 #undef ACCESS_Server_getTexture_READ
 #undef ACCESS_Server_getUptime_READ
+#undef ACCESS_Server_isListening_READ
+#undef ACCESS_Server_getListeningChannels_READ
+#undef ACCESS_Server_getListeningUsers_READ
+#undef ACCESS_Server_getListenerVolumeAdjustment_READ
 #undef ACCESS_Meta_getSliceChecksums_ALL
 #undef ACCESS_Meta_getServer_READ
 #undef ACCESS_Meta_getAllServers_READ
