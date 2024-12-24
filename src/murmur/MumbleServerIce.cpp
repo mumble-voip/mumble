@@ -34,6 +34,7 @@
 
 #include <cassert>
 #include <limits>
+#include <sstream>
 
 using namespace std;
 using namespace MumbleServer;
@@ -328,11 +329,9 @@ MumbleServerIce::MumbleServerIce() {
 
 		meta->connectListener(this);
 	} catch (Ice::Exception &e) {
-#if ICE_INT_VERSION >= 30700
-		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(e.ice_id())));
-#else
-		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(e.ice_name())));
-#endif
+		std::stringstream stream;
+		e.ice_print(stream);
+		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(stream.str())));
 	}
 }
 
