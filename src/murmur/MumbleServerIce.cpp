@@ -1045,7 +1045,6 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server_id) {
 	ICE_IMPL_BEGIN
 
-	NEED_SERVER_EXISTS;
 	cb->ice_response(server_id);
 
 	ICE_IMPL_END
