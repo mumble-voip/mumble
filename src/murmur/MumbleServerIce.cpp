@@ -970,7 +970,6 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 
 #define ACCESS_Server_id_READ
 static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server_id) {
-	NEED_SERVER_EXISTS;
 	cb->ice_response(server_id);
 }
 
