@@ -882,7 +882,7 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 
 #define ACCESS_Server_isRunning_READ
 static void impl_Server_isRunning(const ::MumbleServer::AMD_Server_isRunningPtr cb, int server_id) {
-	NEED_SERVER_EXISTS;
+	FIND_SERVER;
 	cb->ice_response(server != nullptr);
 }
 
