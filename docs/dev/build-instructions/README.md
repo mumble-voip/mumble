@@ -1,5 +1,8 @@
 ﻿# Build Mumble
 
+This documentation is version-specific. The current ``master`` branch contains the unstable code for a future release of Mumble.
+If you want to build an already released stable version of Mumble, use the respective branch.
+
 A fundamental dependency for building Mumble is [git](https://git-scm.com/), so make sure you have it installed. If you are new to git, make sure to
 checkout [this guide](https://guides.github.com/introduction/git-handbook/) on git's basics in order to be able to follow the given instructions.
 

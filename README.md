@@ -43,6 +43,10 @@ information on how this works and how these have to be created in the [plugin do
 
 For information on how to build Mumble, check out [the dedicated documentation](docs/dev/build-instructions/README.md).
 
+Make sure to switch to the appropriate branch in this repository to get the correct build documentation. The current ``master`` branch contains
+the unstable code for a future release of Mumble. If you want to build an already released stable version of Mumble, e.g. ``1.5.735``, select the
+corresponding branch, e.g. ``1.5.x``, in the dropdown menu above. Alternatively, use the documentation in the respective release tarball.
+
 
 ## Reporting issues
 
