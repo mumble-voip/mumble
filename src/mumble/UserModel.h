@@ -12,6 +12,8 @@
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
 
+#include <optional>
+
 class User;
 class ClientUser;
 class Channel;
@@ -218,6 +220,12 @@ signals:
 	///
 	/// @param userSessionID The ID of that user's session
 	void userAdded(unsigned int userSessionID);
+	/// A signal emitted whenever a user has moved to a given channel
+	///
+	/// @param userSessionID The session ID of the moved user
+	/// @param prevChannelID The ID of the channel the user is moving from (if any)
+	/// @param newChannelID The ID of the channel the user has moved into
+	void userMoved(unsigned int userSessionID, std::optional< unsigned int > prevChannelID, unsigned int newChannelID);
 	/// A signal emitted whenever a user is removed from the model.
 	///
 	/// @param userSessionID The ID of that user's session

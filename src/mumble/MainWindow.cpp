@@ -88,6 +88,7 @@
 #endif
 
 #include <algorithm>
+#include <optional>
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
 	msg = m;
@@ -423,6 +424,10 @@ void MainWindow::createActions() {
 												 tr("Toggle positional audio", "Global Shortcut"));
 	gsTogglePositionalAudio->setObjectName("gsTogglePositionalAudio");
 	gsTogglePositionalAudio->qsWhatsThis = tr("This will toggle positional audio on/off");
+
+	gsMoveBack = new GlobalShortcut(this, GlobalShortcutType::MoveBack, tr("Move back", "Global shortcut"));
+	gsMoveBack->setObjectName("gsMoveBack");
+	gsMoveBack->qsWhatsThis = tr("This will move you back into your previous channel");
 }
 
 void MainWindow::setupGui() {
@@ -462,6 +467,7 @@ void MainWindow::setupGui() {
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
 	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
 					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
+	QObject::connect(pmModel, &UserModel::userMoved, this, &MainWindow::on_user_moved);
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -1117,6 +1123,57 @@ void MainWindow::enableRecording(bool recordingAllowed) {
 	if (!recordingAllowed && voiceRecorderDialog) {
 		voiceRecorderDialog->reject();
 	}
+}
+
+void MainWindow::on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
+							   unsigned int newChannelID) {
+	if (sessionID == Global::get().uiSession && prevChannelID.has_value()) {
+		if (prevChannelID != m_movedBackFromChannel) {
+			// Add to stack of previous channels
+			m_previousChannels.push(prevChannelID.value());
+			qaMoveBack->setEnabled(true);
+		} else {
+			m_movedBackFromChannel.reset();
+		}
+	}
+
+	(void) newChannelID;
+}
+
+void MainWindow::on_qaMoveBack_triggered() {
+	if (m_previousChannels.empty()) {
+		return;
+	}
+
+	Channel *prevChannel = Channel::get(m_previousChannels.top());
+	m_previousChannels.pop();
+
+	if (!prevChannel) {
+		Global::get().l->log(Log::Warning,
+							 tr("The channel you have been in previously no longer exists on this server."));
+		qaMoveBack->setEnabled(false);
+		return;
+	}
+
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+	if (!self) {
+		qaMoveBack->setEnabled(false);
+		return;
+	}
+
+	ServerHandlerPtr handler = Global::get().sh;
+	if (!handler) {
+		qaMoveBack->setEnabled(false);
+		return;
+	}
+
+	// Setting this prevents the user's current channel to be added to the stack
+	// of last visited channels. If it was added, the user could only ever cycle
+	// between the last channel and the current one.
+	m_movedBackFromChannel = self->cChannel->iId;
+	handler->joinChannel(Global::get().uiSession, prevChannel->iId);
+
+	qaMoveBack->setEnabled(!m_previousChannels.empty());
 }
 
 static void recreateServerHandler() {
@@ -3319,6 +3376,14 @@ void MainWindow::on_gsTogglePositionalAudio_triggered(bool down, QVariant) {
 	enablePositionalAudio(!Global::get().s.bPositionalAudio);
 }
 
+void MainWindow::on_gsMoveBack_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	on_qaMoveBack_triggered();
+}
+
 
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
@@ -3403,6 +3468,11 @@ void MainWindow::serverConnected() {
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
 	// clear ChannelListener
 	Global::get().channelListenerManager->clear();
+
+	// Reset move-back history
+	qaMoveBack->setEnabled(false);
+	m_previousChannels = {};
+	m_movedBackFromChannel.reset();
 
 	Global::get().uiSession        = 0;
 	Global::get().pPermissions     = ChanACL::None;
