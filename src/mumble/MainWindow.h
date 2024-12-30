@@ -20,6 +20,9 @@
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
 
+#include <optional>
+#include <stack>
+
 #include "ui_MainWindow.h"
 
 #define MB_QEVENT (QEvent::User + 939)
@@ -109,6 +112,7 @@ public:
 	GlobalShortcut *gsAudioTTS;
 	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
 	GlobalShortcut *gsTogglePositionalAudio;
+	GlobalShortcut *gsMoveBack;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -196,6 +200,9 @@ protected:
 	qt_unique_ptr< MenuLabel > m_localVolumeLabel;
 	qt_unique_ptr< UserLocalVolumeSlider > m_userLocalVolumeSlider;
 	qt_unique_ptr< ListenerVolumeSlider > m_listenerVolumeSlider;
+
+	std::stack< unsigned int > m_previousChannels;
+	std::optional< unsigned int > m_movedBackFromChannel;
 
 	static constexpr int stateVersion();
 
@@ -345,6 +352,7 @@ public slots:
 	void on_gsHelpAboutQt_triggered(bool, QVariant);
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
 	void on_gsTogglePositionalAudio_triggered(bool, QVariant);
+	void on_gsMoveBack_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
@@ -394,6 +402,9 @@ public slots:
 	void toggleSearchDialogVisibility();
 	/// Enables or disables the recording feature
 	void enableRecording(bool recordingAllowed);
+	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
+					   unsigned int newChannelID);
+	void on_qaMoveBack_triggered();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
