@@ -7165,6 +7165,27 @@ Les opcions vàlides són:
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>La causa pot ser una de les següents:&lt;ul&gt;&lt;li&gt;El vostre client i el servidor fan servir estàndards d&apos;encriptació diferents. Potser el vostre client o el servidor són molt antics. En el primer cas, hauríeu d&apos;actualitzar el vostre client i en el segon cas hauríeu de contactar l&apos;administrador del servidor per que l&apos;actualitzi.&lt;/li&gt;&lt;li&gt;O bé el vostre client o el servidor estan utilitzant un sistema operatiu antic que no proporciona mètodes d&apos;encriptació actuals. En aquest cas hauríeu de considerar actualitzar el vostre sistema o contactar l&apos;administrador del servidor per que actualitzi el seu.&lt;/li&gt;&lt;li&gt;El servidor al que esteu connectat a no és de fet un Mumble servidor. Si us plau assegureu-vos que l&apos;adreça del servidor que utilitzeu correspon realment a un servidor Mumble, i no, per exemple, a un servidor de joc.&lt;/li&gt;&lt;li&gt;El port al que esteu connectat no pertany a un servidor Mumble servidor si no que està lligat a un procés sense cap relació amb el servidor lateral. Comproveu si us plau que utilitzeu el port correcte.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
+    <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
