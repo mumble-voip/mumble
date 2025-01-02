@@ -2564,20 +2564,6 @@ void MainWindow::updateMenuPermissions() {
 		target.channel->uiPermissions = p;
 	}
 
-	Channel *cparent = target.channel ? target.channel->cParent : nullptr;
-	ChanACL::Permissions pparent =
-		cparent ? static_cast< ChanACL::Permissions >(cparent->uiPermissions) : ChanACL::None;
-
-	if (cparent && !pparent) {
-		Global::get().sh->requestChannelPermissions(cparent->iId);
-		if (cparent->iId == 0)
-			pparent = Global::get().pPermissions;
-		else
-			pparent = ChanACL::All;
-
-		cparent->uiPermissions = pparent;
-	}
-
 	ClientUser *user           = Global::get().uiSession ? ClientUser::get(Global::get().uiSession) : nullptr;
 	Channel *homec             = user ? user->cChannel : nullptr;
 	ChanACL::Permissions homep = homec ? static_cast< ChanACL::Permissions >(homec->uiPermissions) : ChanACL::None;
@@ -2613,7 +2599,7 @@ void MainWindow::updateMenuPermissions() {
 
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
-	qaChannelACL->setEnabled((p & ChanACL::Write) || (pparent & ChanACL::Write));
+	qaChannelACL->setEnabled((p & ChanACL::Write) || (Global::get().pPermissions & ChanACL::Write));
 
 	qaChannelLink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel))
 							  && (homep & (ChanACL::Write | ChanACL::LinkChannel)));
