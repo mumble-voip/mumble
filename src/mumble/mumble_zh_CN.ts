@@ -711,6 +711,13 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
 </context>
 <context>
+    <name>AnimationTextObject</name>
+    <message>
+        <source>%1 / %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -2993,6 +3000,10 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>This server does not allow sending images.</source>
         <translation>当前服务器不允许发送图片。</translation>
+    </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5482,10 +5493,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>未注册用户输入的密码错误，请重试。</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>图片文件 (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>配置(&amp;O)</translation>
     </message>
@@ -7163,6 +7170,14 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>这可能由下列情形之一导致：&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太旧或者要连接到的服务器版本太旧。如果是第一种情况，则应该更新客户端。如果是第二种情况，则应该联系服务器管理员更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的旧版操作系统未提供足够新的加密方法。在这种情况下，您应该考虑更新操作系统，或联系服务器管理员更新服务器的操作系统。&lt;/li&gt;&lt;li&gt;您正在连接的服务器不是 Mumble 服务器。请确保所用的服务器地址确实属于 Mumble 服务器而不是游戏服务器等。&lt;/li&gt;&lt;li&gt;您正在连接的端口不属于 Mumble 服务器，而是绑定到服务端一个完全无关的进程。请再次确认您使用的是正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

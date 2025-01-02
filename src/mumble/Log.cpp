@@ -415,6 +415,9 @@ QVector< LogMessage > Log::qvDeferredLogs;
 Log::Log(QObject *p) : QObject(p) {
 	qRegisterMetaType< Log::MsgType >();
 
+	QAbstractTextDocumentLayout *docLayout = Global::get().mw->qteLog->document()->documentLayout();
+	docLayout->registerHandler(Animation, new AnimationTextObject());
+
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
 	tts->setVolume(Global::get().s.iTTSVolume);
@@ -634,6 +637,206 @@ QString Log::imageToImg(QImage img, int maxSize) {
 	return QString();
 }
 
+bool Log::htmlWithAnimations(const QString &html, QTextCursor *tc) {
+	bool isAnyAnimation = false;
+
+	qsizetype htmlEndIndex = html.length() - 1;
+	auto searchForAnimationHeader =
+		[html, htmlEndIndex](qsizetype previousImgEndIndex) -> std::tuple< bool, qsizetype, qsizetype > {
+		bool isCompatibleHeader;
+		qsizetype imgStartIndex = -1;
+		qsizetype base64StartIndex;
+		do {
+			imgStartIndex    = html.indexOf("<img", (imgStartIndex == -1 ? previousImgEndIndex : imgStartIndex) + 1);
+			base64StartIndex = html.indexOf(',', imgStartIndex) + 1;
+			// Get the relevant part of the header through decoding the first 4
+			// characters where each character is 6 bits in base64 encoding
+			// and each decoded character is 1 byte, with 3 bytes consisting of 24 bits:
+			QString imageFirstThreeBytes =
+				base64StartIndex > 0 && htmlEndIndex > base64StartIndex + 2 ? qvariant_cast< QString >(
+					QByteArray::fromBase64(qvariant_cast< QByteArray >(html.sliced(base64StartIndex, 4))))
+																			: "";
+			isCompatibleHeader = imageFirstThreeBytes == "GIF";
+		} while (!isCompatibleHeader && imgStartIndex != -1);
+		return std::make_tuple(isCompatibleHeader, imgStartIndex, base64StartIndex);
+	};
+	auto getIndexOfDoubleOrSingleQuote = [html](qsizetype startIndex) -> qsizetype {
+		qsizetype index = html.indexOf('\"', startIndex);
+		if (index == -1) {
+			index = html.indexOf('\'', startIndex);
+		}
+		return index;
+	};
+
+	// Track if there are more animations to insert after the current one:
+	bool isAnotherAnimation;
+	// Track the end of the previous animation and thereby where to move forward the start of the search to
+	// as well as what HTML precedes the currently processed animation but succeeds the previous animation:
+	qsizetype previousImgEndIndex = -1;
+	do {
+		qsizetype imgStartIndex;
+		qsizetype base64StartIndex;
+		std::tie(isAnotherAnimation, imgStartIndex, base64StartIndex) = searchForAnimationHeader(previousImgEndIndex);
+		qsizetype base64EndIndex = getIndexOfDoubleOrSingleQuote(base64StartIndex) - 1;
+		qsizetype imgEndIndex    = html.indexOf('>', base64EndIndex);
+		bool isImgEndIndex       = imgEndIndex != -1;
+		if (!isAnotherAnimation || base64EndIndex == -2 || !isImgEndIndex) {
+			previousImgEndIndex = isImgEndIndex ? imgEndIndex : -2;
+			continue;
+		}
+		qsizetype base64Size    = base64EndIndex - base64StartIndex + 1;
+		QString animationBase64 = html.sliced(base64StartIndex, base64Size);
+		QByteArray animationBa  = QByteArray::fromBase64(qvariant_cast< QByteArray >(animationBase64));
+
+		QMovie *animation = new QMovie();
+		QBuffer *buffer   = new QBuffer(animation);
+		buffer->setData(animationBa);
+		buffer->open(QIODevice::ReadOnly);
+		animation->setDevice(buffer);
+		if (!animation->isValid()) {
+			delete animation;
+			previousImgEndIndex = imgEndIndex;
+			continue;
+		}
+		animation->setProperty("LoopMode", QVariant::fromValue(AnimationTextObject::Unchanged));
+		// Track when the animation is playing in reverse instead of using the in-built play-controls which do not
+		// support it:
+		animation->setProperty("isPlayingInReverse", false);
+		// Block further signals during sequential traversal until reaching the preceding frame:
+		animation->setProperty("isTraversingFrames", false);
+		// Load and start the animation but stop or pause it after this when it should not play by default:
+		animation->start();
+
+		int frameCount     = animation->frameCount();
+		int frameCountTest = 0;
+		int totalMs        = 0;
+		QList< QVariant > frameDelays;
+		// Test how many frames there are by index in case the animation format does not support `frameCount`.
+		// Also determine the total play time used for the video controls by gathering the time from each frame.
+		// The current time is determined by a list of the time between frames since each delay until the next
+		// frame may vary:
+		while (animation->jumpToFrame(++frameCountTest)) {
+			int delay = animation->nextFrameDelay();
+			frameDelays.append(QVariant(delay));
+			totalMs += delay;
+		}
+		if (frameCount == 0) {
+			frameCount = frameCountTest;
+		}
+		int lastFrameIndex = frameCount - 1;
+		animation->setProperty("lastFrameIndex", QVariant(lastFrameIndex));
+		animation->setProperty("totalMs", QVariant(totalMs));
+		animation->setProperty("frameDelays", frameDelays);
+		animation->jumpToFrame(0);
+		animation->stop();
+
+		LogTextBrowser *log                    = Global::get().mw->qteLog;
+		QAbstractTextDocumentLayout *docLayout = log->document()->documentLayout();
+		animation->setProperty("customInteractiveItemIndex", ++log->lastCustomInteractiveItemIndex);
+
+		qsizetype frameDelayAmount = frameDelays.length();
+		auto refresh               = [animation, docLayout]() {
+            QRect rect = animation->property("posAndSize").toRect();
+            emit docLayout->update(rect);
+		};
+		auto getLoopMode = [animation]() {
+			return qvariant_cast< AnimationTextObject::LoopMode >(animation->property("LoopMode"));
+		};
+		// Refresh the image on change:
+		connect(animation, &QMovie::updated, refresh);
+		// Refresh the image once more when the animation is paused or stopped:
+		connect(animation, &QMovie::stateChanged, [refresh](QMovie::MovieState currentState) {
+			if (currentState != QMovie::Running) {
+				refresh();
+			}
+		});
+		// Start the animation again when it finishes if the loop mode is `Loop`:
+		connect(animation, &QMovie::finished, [animation, getLoopMode]() {
+			if (getLoopMode() == AnimationTextObject::Loop) {
+				animation->start();
+			}
+		});
+		// Stop the animation at the end of the last frame if the loop mode is `NoLoop` and
+		// play the animation in reverse if the property for it is `true`:
+		connect(
+			animation, &QMovie::frameChanged,
+			[animation, getLoopMode, frameDelays, frameDelayAmount, lastFrameIndex](int frameIndex) {
+				auto getFrameDelay = [animation, frameDelays, frameDelayAmount](int targetFrameIndex) -> int {
+					double speed                 = abs(animation->speed() / (double) 100);
+					bool isIndexInBoundsForDelay = targetFrameIndex >= 0 && targetFrameIndex < frameDelayAmount;
+					return (int) round(
+						frameDelays[isIndexInBoundsForDelay ? targetFrameIndex : frameDelayAmount - 1].toInt() / speed);
+				};
+				auto isAtFrameAndRunning = [animation](int targetFrameIndex) -> bool {
+					int currentFrameIndex = animation->currentFrameNumber();
+					bool wasRunning =
+						animation->state() == QMovie::Running || animation->property("isPlayingInReverse").toBool();
+					return currentFrameIndex == targetFrameIndex && wasRunning;
+				};
+				auto isAtFrameAndRunningWithNoLoop = [getLoopMode, isAtFrameAndRunning](int targetFrameIndex) {
+					return isAtFrameAndRunning(targetFrameIndex) && getLoopMode() == AnimationTextObject::NoLoop;
+				};
+				auto stopAtEndOfCurrentFrame = [animation, isAtFrameAndRunningWithNoLoop, getFrameDelay, frameIndex]() {
+					int delay = getFrameDelay(frameIndex);
+					QTimer::singleShot(delay, Qt::PreciseTimer, animation,
+									   [animation, isAtFrameAndRunningWithNoLoop, frameIndex]() {
+										   if (!isAtFrameAndRunningWithNoLoop(frameIndex)) {
+											   return;
+										   }
+										   AnimationTextObject::setFrame(animation, frameIndex);
+										   AnimationTextObject::stopPlayback(animation);
+									   });
+				};
+
+				if (animation->property("isPlayingInReverse").toBool()) {
+					if (animation->property("isTraversingFrames").toBool()) {
+						return;
+					}
+					if (isAtFrameAndRunningWithNoLoop(0)) {
+						stopAtEndOfCurrentFrame();
+						return;
+					}
+					int precedingFrameIndex = frameIndex <= 0 ? lastFrameIndex : frameIndex - 1;
+					int precedingFrameDelay = getFrameDelay(precedingFrameIndex);
+					QTimer::singleShot(precedingFrameDelay, Qt::PreciseTimer, animation,
+									   [animation, isAtFrameAndRunning, frameIndex, precedingFrameIndex]() {
+										   if (!isAtFrameAndRunning(frameIndex)) {
+											   return;
+										   }
+										   bool wasCached = animation->cacheMode() == QMovie::CacheAll;
+										   if (!wasCached) {
+											   animation->setProperty("isTraversingFrames", true);
+										   }
+										   AnimationTextObject::setFrame(animation, precedingFrameIndex);
+										   if (!wasCached) {
+											   animation->setProperty("isTraversingFrames", false);
+											   emit animation->frameChanged(precedingFrameIndex);
+										   }
+									   });
+				} else if (isAtFrameAndRunningWithNoLoop(lastFrameIndex)) {
+					stopAtEndOfCurrentFrame();
+				}
+			});
+
+		QTextCharFormat fmt = Global::get().mw->qteLog->currentCharFormat();
+		fmt.setObjectType(Animation);
+		fmt.setProperty(1, QVariant::fromValue(animation));
+
+		isAnotherAnimation            = std::get< 0 >(searchForAnimationHeader(imgEndIndex));
+		qsizetype htmlBeforeImgLength = imgStartIndex - 1 - previousImgEndIndex;
+		QString htmlBeforeImg =
+			imgStartIndex - 1 > previousImgEndIndex ? html.sliced(previousImgEndIndex + 1, htmlBeforeImgLength) : "";
+		QString htmlAfterImg = !isAnotherAnimation && imgEndIndex < htmlEndIndex ? html.sliced(imgEndIndex + 1) : "";
+		tc->insertHtml(htmlBeforeImg);
+		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
+		tc->insertHtml(htmlAfterImg);
+
+		previousImgEndIndex = imgEndIndex;
+		isAnyAnimation      = true;
+	} while (isAnotherAnimation);
+	return isAnyAnimation;
+}
+
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
@@ -648,7 +851,11 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	// allowing our validation checks for things such as
 	// data URL images to run.
 	(void) qtd.documentLayout();
-	qtd.setHtml(html);
+	// Parse and insert animated image files along with the rest of the HTML
+	// if a tag, a header and valid data for any is detected, otherwise log the HTML as usual:
+	if (!tc || !htmlWithAnimations(html, tc)) {
+		qtd.setHtml(html);
+	}
 
 	QStringList qslAllowed = allowedSchemes();
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
@@ -745,7 +952,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		qttf.setBottomMargin(msgMargin);
 
 		LogTextBrowser *tlog     = Global::get().mw->qteLog;
-		const int oldscrollvalue = tlog->getLogScroll();
+		const int oldscrollvalue = tlog->getScrollY();
 		// Restore the previous scroll position after inserting a new message
 		// if the message was not sent by the user AND the chat log is not
 		// scrolled all the way down.
@@ -804,7 +1011,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tc.setBlockFormat(bf);
 
 		if (restoreScroll) {
-			tlog->setLogScroll(oldscrollvalue);
+			tlog->setScrollY(oldscrollvalue);
 		}
 	}
 
