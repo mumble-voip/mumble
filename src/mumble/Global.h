@@ -51,6 +51,7 @@ public:
 
 	MainWindow *mw;
 	Settings s;
+	Profiles profiles;
 	boost::shared_ptr< ServerHandler > sh;
 	boost::shared_ptr< AudioInput > ai;
 	boost::shared_ptr< AudioOutput > ao;
