@@ -13,11 +13,11 @@
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>पासवर्ड</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"></translation>
+        <translation>यहाँ चैनल पासवर्ड दर्ज करें।</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">स्थिति</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
@@ -38,11 +38,11 @@ This value enables you to change the way Mumble arranges the channels in the tre
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>अधिकतम उपयोगकर्ता</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>चैनल में अनुमत उपयोगकर्ताओं की अधिकतम संख्या</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -51,7 +51,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>एक अस्थायी चैनल बनाने के लिए जाँच करें।</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
@@ -60,11 +60,11 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>Temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>अस्थायी</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"></translation>
+        <translation>चैनल का नाम यहाँ दर्ज करें।</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -72,15 +72,15 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>चैनल की ID</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>नाम</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>वर्णन</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
