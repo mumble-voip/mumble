@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -443,6 +443,42 @@ struct MumbleStringWrapper {
 	 */
 	bool needsReleasing;
 };
+
+struct PositionalDataNoQt;
+
+static void freePositionalDataStruct(PositionalDataNoQt *positionalData);
+
+struct PositionalDataNoQt {
+#ifdef __cplusplus
+//    Prevents compilation but generic functions
+//      such as the one below doesn't hinder compilation
+//	~PositionalDataNoQt() {
+//		freePositionalDataStruct(this);
+//	}
+//
+	void freeStruct() {
+		freePositionalDataStruct(this);
+	}
+#endif
+
+	float m_playerPos[3];
+	float m_playerDir[3];
+	float m_playerAxis[3];
+	float m_cameraPos[3];
+	float m_cameraDir[3];
+	float m_cameraAxis[3];
+	char *m_context;
+	char *m_identity;
+};
+
+void freePositionalDataStruct(PositionalDataNoQt *positionalData) {
+	if (positionalData) {
+		free(positionalData->m_context);
+		free(positionalData->m_identity);
+	}
+
+	free(positionalData);
+}
 
 MUMBLE_EXTERN_C_END
 
@@ -1514,6 +1550,21 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_connection_t connection,
 																			mumble_channelid_t channelID,
 																			const char **description);
+
+#if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+	/**
+     * Gets the positional audio data provided by OTHER plugins
+     *
+     * @param callerID The ID of the plugin calling this function
+     * @param[out] outPositionalData A pointer to the memory location the PositionalData object should be written to
+     * @returns The error code. If everything went well, STATUS_OK will be returned.
+     *
+     * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalAudioData)(mumble_plugin_id_t callerID,
+																		PositionalDataNoQt **outPositionalData);
+#endif
+
 
 
 	// -------- Request functions --------
