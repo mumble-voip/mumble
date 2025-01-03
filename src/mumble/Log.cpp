@@ -421,6 +421,8 @@ Log::Log(QObject *p) : QObject(p) {
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
+
+	QObject::connect(this, &Log::highlightSpawned, Global::get().mw, &MainWindow::highlightWindow);
 }
 
 // Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
@@ -812,13 +814,58 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if (!(Global::get().mw->isActiveWindow() && Global::get().mw->qdwLog->isVisible())) {
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
-				QApplication::alert(Global::get().mw);
+				emit highlightSpawned();
 			}
 
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				postNotification(mt, plain.replace("\xEF\xBF\xBC", tr("[embedded content]")));
+				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
+
+				QSystemTrayIcon::MessageIcon msgIcon = QSystemTrayIcon::NoIcon;
+				switch (mt) {
+					case DebugInfo:
+					case CriticalError:
+						msgIcon = QSystemTrayIcon::Critical;
+						break;
+					case Warning:
+						msgIcon = QSystemTrayIcon::Warning;
+						break;
+					case TextMessage:
+					case PrivateTextMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
+						break;
+					case Information:
+					case ServerConnected:
+					case ServerDisconnected:
+					case UserJoin:
+					case UserLeave:
+					case Recording:
+					case YouKicked:
+					case UserKicked:
+					case SelfMute:
+					case OtherSelfMute:
+					case YouMuted:
+					case YouMutedOther:
+					case OtherMutedOther:
+					case ChannelJoin:
+					case ChannelLeave:
+					case PermissionDenied:
+					case SelfUnmute:
+					case SelfDeaf:
+					case SelfUndeaf:
+					case UserRenamed:
+					case SelfChannelJoin:
+					case SelfChannelJoinOther:
+					case ChannelJoinConnect:
+					case ChannelLeaveDisconnect:
+					case ChannelListeningAdd:
+					case ChannelListeningRemove:
+					case PluginMessage:
+						msgIcon = QSystemTrayIcon::Information;
+						break;
+				}
+				emit notificationSpawned(msgName(mt), plain, msgIcon);
 			}
 		}
 
@@ -910,26 +957,6 @@ void Log::processDeferredLogs() {
 		LogMessage msg = qvDeferredLogs.takeFirst();
 
 		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS, msg.ignoreTTS);
-	}
-}
-
-// Post a notification using the MainWindow's QSystemTrayIcon.
-void Log::postQtNotification(MsgType mt, const QString &plain) {
-	if (Global::get().mw->qstiIcon->isSystemTrayAvailable() && Global::get().mw->qstiIcon->supportsMessages()) {
-		QSystemTrayIcon::MessageIcon msgIcon;
-		switch (mt) {
-			case DebugInfo:
-			case CriticalError:
-				msgIcon = QSystemTrayIcon::Critical;
-				break;
-			case Warning:
-				msgIcon = QSystemTrayIcon::Warning;
-				break;
-			default:
-				msgIcon = QSystemTrayIcon::Information;
-				break;
-		}
-		Global::get().mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
 }
 

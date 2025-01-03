@@ -110,6 +110,7 @@ MainWindow::MainWindow(QWidget *p)
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingOn, QLatin1String("skin:talking_on.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingShout, QLatin1String("skin:talking_alt.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiTalkingWhisper, QLatin1String("skin:talking_whisper.svg"));
+	SvgIcon::addSvgPixmapsToIcon(m_iconInformation, QLatin1String("skin:Information_icon.svg"));
 
 #ifdef Q_OS_MAC
 	if (QFile::exists(QLatin1String("skin:mumble.icns")))
@@ -171,10 +172,6 @@ MainWindow::MainWindow(QWidget *p)
 	connect(qteChat, &ChatbarTextEdit::ctrlEnterPressed, [this](const QString &msg) { sendChatbarText(msg, true); });
 	connect(qteChat, SIGNAL(pastedImage(QString)), this, SLOT(sendChatbarMessage(QString)));
 
-	// Tray
-	connect(qstiIcon, SIGNAL(messageClicked()), this, SLOT(showRaiseWindow()));
-	connect(qaShow, SIGNAL(triggered()), this, SLOT(showRaiseWindow()));
-
 	QObject::connect(this, &MainWindow::transmissionModeChanged, this, &MainWindow::updateTransmitModeComboBox);
 
 	// Explicitly add actions to mainwindow so their shortcuts are available
@@ -196,6 +193,10 @@ MainWindow::MainWindow(QWidget *p)
 
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
+
+	// Set up initial client side talking state without the need for the user to do anything.
+	// This will, for example, make sure the correct status tray icon is used on connect.
+	QObject::connect(this, &MainWindow::serverSynchronized, this, &MainWindow::userStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
@@ -270,10 +271,6 @@ void MainWindow::createActions() {
 	gsVolumeDown =
 		new GlobalShortcut(this, GlobalShortcutType::VolumeDown, tr("Volume Down (-10%)", "Global Shortcut"));
 	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
-
-	qstiIcon = new QSystemTrayIcon(qiIcon, this);
-	qstiIcon->setToolTip(tr("Mumble -- %1").arg(Version::getRelease()));
-	qstiIcon->setObjectName(QLatin1String("Icon"));
 
 	gsWhisper = new GlobalShortcut(this, GlobalShortcutType::Whisper_Shout, tr("Whisper/Shout"),
 								   QVariant::fromValue(ShortcutTarget()));
@@ -423,10 +420,6 @@ void MainWindow::createActions() {
 												 tr("Toggle positional audio", "Global Shortcut"));
 	gsTogglePositionalAudio->setObjectName("gsTogglePositionalAudio");
 	gsTogglePositionalAudio->qsWhatsThis = tr("This will toggle positional audio on/off");
-
-#ifndef Q_OS_MAC
-	qstiIcon->show();
-#endif
 }
 
 void MainWindow::setupGui() {
@@ -555,13 +548,6 @@ void MainWindow::setupGui() {
 
 	setupView(false);
 
-	qmTray = new QMenu(this);
-	connect(qmTray, SIGNAL(aboutToShow()), this, SLOT(trayAboutToShow()));
-	trayAboutToShow();
-	qstiIcon->setContextMenu(qmTray);
-
-	updateTrayIcon();
-
 #ifdef Q_OS_MAC
 	setWindowOpacity(1.0f);
 #endif
@@ -635,7 +621,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	const bool minimizeDueToConnected = sh && sh->isRunning() && quitBehavior == QuitBehavior::MINIMIZE_WHEN_CONNECTED;
 
 	if (!forceQuit && (alwaysAsk || askDueToConnected)) {
-#ifndef Q_OS_MAC
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
 					   tr("Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?"),
 					   QMessageBox::NoButton, this);
@@ -648,7 +633,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		mb.setCheckBox(qcbRemember);
 		mb.exec();
 		if (mb.clickedButton() == qpbMinimize) {
-			showMinimized();
+			setWindowState(windowState() | Qt::WindowMinimized);
 			e->ignore();
 
 			// If checkbox is checked and not connected, always minimize
@@ -669,9 +654,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		if (qcbRemember->isChecked()) {
 			Global::get().s.quitBehavior = QuitBehavior::ALWAYS_QUIT;
 		}
-#endif
 	} else if (!forceQuit && (alwaysMinimize || minimizeDueToConnected)) {
-		showMinimized();
+		setWindowState(windowState() | Qt::WindowMinimized);
 		e->ignore();
 		return;
 	}
@@ -712,42 +696,37 @@ void MainWindow::hideEvent(QHideEvent *e) {
 		return;
 	}
 #endif
-#ifndef Q_OS_MAC
-#	ifdef Q_OS_UNIX
-	if (!qApp->activeModalWidget() && !qApp->activePopupWidget())
-#	endif
-		if (Global::get().s.bHideInTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
-			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
-#endif
 	QMainWindow::hideEvent(e);
 }
 
 void MainWindow::showEvent(QShowEvent *e) {
-#ifndef Q_OS_MAC
-#	ifdef Q_OS_UNIX
-	if (!qApp->activeModalWidget() && !qApp->activePopupWidget())
-#	endif
-		if (Global::get().s.bHideInTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
-			QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
-#endif
 	QMainWindow::showEvent(e);
 }
 
 void MainWindow::changeEvent(QEvent *e) {
-	QWidget::changeEvent(e);
-
-#ifdef Q_OS_MAC
-	// On modern macOS/Qt combinations, the code below causes Mumble's
-	// MainWindow to not be interactive after returning from being minimized.
-	// (See issue mumble-voip/mumble#2171)
-	// So, let's not do it on macOS.
-
-#else
-	if (isMinimized() && qstiIcon->isSystemTrayAvailable() && Global::get().s.bHideInTray) {
-		// Workaround https://forum.qt.io/topic/4327/minimizing-application-to-tray/24
-		QTimer::singleShot(0, this, SLOT(hide()));
+	// Parse minimize event
+	if (e->type() == QEvent::WindowStateChange) {
+		// This code block is not triggered on (X)Wayland due to a Qt bug we can do nothing about (QTBUG-74310)
+		QWindowStateChangeEvent *windowStateEvent = static_cast< QWindowStateChangeEvent * >(e);
+		if (windowStateEvent) {
+			bool wasMinimizedState = (windowStateEvent->oldState() & Qt::WindowMinimized);
+			bool isMinimizedState  = (windowState() & Qt::WindowMinimized);
+			if (!wasMinimizedState && isMinimizedState) {
+				emit windowMinimized();
+			}
+			return;
+		}
 	}
-#endif
+
+	// The window has just received focus after being in the background
+	if (e->type() == QEvent::ActivationChange) {
+		if (isActiveWindow()) {
+			emit windowActivated();
+		}
+		return;
+	}
+
+	QWidget::changeEvent(e);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
@@ -807,43 +786,6 @@ void MainWindow::updateAudioToolTips() {
 		qaAudioDeaf->setToolTip(tr("Undeafen yourself"));
 	else
 		qaAudioDeaf->setToolTip(tr("Deafen yourself"));
-}
-
-void MainWindow::updateTrayIcon() {
-	ClientUser *p = ClientUser::get(Global::get().uiSession);
-
-	if (Global::get().s.bDeaf) {
-		qstiIcon->setIcon(qiIconDeafSelf);
-	} else if (p && p->bDeaf) {
-		qstiIcon->setIcon(qiIconDeafServer);
-	} else if (Global::get().s.bMute) {
-		qstiIcon->setIcon(qiIconMuteSelf);
-	} else if (p && p->bMute) {
-		qstiIcon->setIcon(qiIconMuteServer);
-	} else if (p && p->bSuppress) {
-		qstiIcon->setIcon(qiIconMuteSuppressed);
-	} else if (Global::get().s.bStateInTray && Global::get().bPushToMute) {
-		qstiIcon->setIcon(qiIconMutePushToMute);
-	} else if (p && Global::get().s.bStateInTray) {
-		switch (p->tsState) {
-			case Settings::Talking:
-			case Settings::MutedTalking:
-				qstiIcon->setIcon(qiTalkingOn);
-				break;
-			case Settings::Whispering:
-				qstiIcon->setIcon(qiTalkingWhisper);
-				break;
-			case Settings::Shouting:
-				qstiIcon->setIcon(qiTalkingShout);
-				break;
-			case Settings::Passive:
-			default:
-				qstiIcon->setIcon(qiTalkingOff);
-				break;
-		}
-	} else {
-		qstiIcon->setIcon(qiIcon);
-	}
 }
 
 void MainWindow::updateUserModel() {
@@ -1526,9 +1468,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qaTransmitModeSeparator->setVisible(false);
 	}
 
-	show();
-	activateWindow();
-
 	// If activated show the PTT window
 	if (Global::get().s.bShowPTTButtonWindow && Global::get().s.atTransmit == Settings::PushToTalk) {
 		if (qwPTTButtonWidget) {
@@ -1610,13 +1549,6 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerBanList);
 	qmServer->addSeparator();
-#if !defined(Q_OS_MAC)
-	// Don't add qaHide on macOS.
-	// There is no way to bring the window back (no 'tray' for Mumble on macOS),
-	// and the system has built-in hide functionality via Cmd-H.
-	if (qstiIcon->isSystemTrayAvailable())
-		qmServer->addAction(qaHide);
-#endif
 	qmServer->addAction(qaQuit);
 
 	qaServerBanList->setEnabled(Global::get().pPermissions & (ChanACL::Ban | ChanACL::Write));
@@ -2129,10 +2061,6 @@ void MainWindow::on_qaUserInformation_triggered() {
 	Global::get().sh->requestUserStats(p->uiSession, false);
 }
 
-void MainWindow::on_qaHide_triggered() {
-	hide();
-}
-
 void MainWindow::on_qaQuit_triggered() {
 	forceQuit = true;
 	this->close();
@@ -2623,9 +2551,7 @@ void MainWindow::updateMenuPermissions() {
 }
 
 void MainWindow::userStateChanged() {
-	if (Global::get().s.bStateInTray) {
-		updateTrayIcon();
-	}
+	emit talkingStatusChanged();
 
 	ClientUser *user = ClientUser::get(Global::get().uiSession);
 	if (!user) {
@@ -2697,7 +2623,7 @@ void MainWindow::on_qaAudioMute_triggered() {
 	}
 
 	updateAudioToolTips();
-	updateTrayIcon();
+	emit talkingStatusChanged();
 }
 
 void MainWindow::setAudioMute(bool mute) {
@@ -2742,7 +2668,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	}
 
 	updateAudioToolTips();
-	updateTrayIcon();
+	emit talkingStatusChanged();
 }
 
 void MainWindow::setAudioDeaf(bool deaf) {
@@ -2854,8 +2780,8 @@ void MainWindow::pttReleased() {
 
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	Global::get().bPushToMute = down;
-	updateTrayIcon();
 	updateUserModel();
+	emit talkingStatusChanged();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
@@ -3137,11 +3063,7 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant) {
 
 void MainWindow::on_gsToggleMainWindowVisibility_triggered(bool down, QVariant) {
 	if (down) {
-		if (Global::get().mw->isVisible()) {
-			Global::get().mw->hide();
-		} else {
-			Global::get().mw->show();
-		}
+		emit windowVisibilityToggled();
 	}
 }
 
@@ -3477,7 +3399,6 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
 	qteChat->setEnabled(false);
-	updateTrayIcon();
 
 #ifdef Q_OS_MAC
 	// Remove App Nap suppression now that we're disconnected.
@@ -3686,12 +3607,13 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 		}
 	}
-	qstiIcon->setToolTip(tr("Mumble -- %1").arg(Version::getRelease()));
 	AudioInput::setMaxBandwidth(-1);
 
 	if (Global::get().s.bMinimalView) {
 		qdwMinimalViewNote->show();
 	}
+
+	emit disconnectedFromServer();
 }
 
 void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
@@ -3709,61 +3631,18 @@ void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
 	}
 }
 
-void MainWindow::trayAboutToShow() {
-	bool top = false;
-
-	QPoint p = qstiIcon->geometry().center();
-	if (p.isNull()) {
-		p = QCursor::pos();
-	}
-
-	QScreen *screen = Mumble::Screen::screenAt(p);
-	if (screen) {
-		QRect qr = screen->geometry();
-
-		if (p.y() < (qr.height() / 2))
-			top = true;
-
-		qmTray->clear();
-		if (top) {
-			qmTray->addAction(qaQuit);
-			qmTray->addAction(qaShow);
-			qmTray->addSeparator();
-			qmTray->addAction(qaAudioDeaf);
-			qmTray->addAction(qaAudioMute);
-		} else {
-			qmTray->addAction(qaAudioMute);
-			qmTray->addAction(qaAudioDeaf);
-			qmTray->addSeparator();
-			qmTray->addAction(qaShow);
-			qmTray->addAction(qaQuit);
-		}
-	}
-}
-
 void MainWindow::showRaiseWindow() {
-	if (isMinimized()) {
-		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-	}
-
-	show();
-	raise();
-	activateWindow();
+	setWindowState(windowState() & ~Qt::WindowMinimized);
+	QTimer::singleShot(0, [this]() {
+		show();
+		raise();
+		activateWindow();
+		setWindowState(windowState() | Qt::WindowActive);
+	});
 }
 
-void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
-	switch (reason) {
-		case QSystemTrayIcon::Trigger:
-		case QSystemTrayIcon::DoubleClick:
-		case QSystemTrayIcon::MiddleClick:
-			if (isMinimized()) {
-				showRaiseWindow();
-			} else {
-				showMinimized();
-			}
-		default:
-			break;
-	}
+void MainWindow::highlightWindow() {
+	QApplication::alert(this);
 }
 
 void MainWindow::on_qaTalkingUIToggle_triggered() {
@@ -4139,9 +4018,10 @@ void MainWindow::openConfigDialog() {
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
+		showRaiseWindow();
 		updateTransmitModeComboBox(Global::get().s.atTransmit);
-		updateTrayIcon();
 		updateUserModel();
+		emit talkingStatusChanged();
 
 		if (Global::get().s.requireRestartToApply) {
 			if (Global::get().s.requireRestartToApply
