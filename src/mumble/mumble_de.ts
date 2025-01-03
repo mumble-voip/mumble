@@ -4992,11 +4992,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionsmodus Benutzersuche</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionsmodus Kanalsuche</translation>
     </message>
 </context>
 <context>
@@ -7071,7 +7071,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommen&amp;tar zurücksetzen...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
@@ -7140,15 +7140,15 @@ Gültige Optionen sind:
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Positionsbezogenes Audio umschalten</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies schaltet positionsbezogenes Audio ein/aus</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL-Fehler</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
