@@ -255,8 +255,7 @@ AudioInput::AudioInput()
 
 	bEchoMulti = false;
 
-	sppPreprocess = nullptr;
-	sesEcho       = nullptr;
+	sesEcho = nullptr;
 	srsMic = srsEcho = nullptr;
 
 	iEchoChannels = iMicChannels = 0;
@@ -298,8 +297,6 @@ AudioInput::~AudioInput() {
 	}
 #endif
 
-	if (sppPreprocess)
-		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
 
@@ -740,44 +737,34 @@ void AudioInput::resetAudioProcessor() {
 	if (!bResetProcessor)
 		return;
 
-	int iArg;
-
-	if (sppPreprocess)
-		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
 
-	sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
+	m_preprocessor.init(iSampleRate, iFrameSize);
 	resync.reset();
 	selectNoiseCancel();
 
-	iArg = 1;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
+	m_preprocessor.toggleVAD(true);
+	m_preprocessor.toggleAGC(true);
+	m_preprocessor.toggleDereverb(true);
 
-	iArg = 30000;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
+	m_preprocessor.setAGCTarget(30000);
 
-	float v = 30000.0f / static_cast< float >(Global::get().s.iMinLoudness);
-	iArg    = static_cast< int >(floorf(20.0f * log10f(v)));
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
-
-	iArg = -60;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
+	const float v = 30000.0f / static_cast< float >(Global::get().s.iMinLoudness);
+	m_preprocessor.setAGCMaxGain(static_cast< std::int32_t >(floorf(20.0f * log10f(v))));
+	m_preprocessor.setAGCDecrement(-60);
 
 	if (noiseCancel == Settings::NoiseCancelSpeex) {
-		iArg = Global::get().s.iSpeexNoiseCancelStrength;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+		m_preprocessor.setNoiseSuppress(Global::get().s.iSpeexNoiseCancelStrength);
 	}
 
 	if (iEchoChannels > 0) {
 		int filterSize = iFrameSize * (10 + resync.getNominalLag());
 		sesEcho =
 			speex_echo_state_init_mc(iFrameSize, filterSize, 1, bEchoMulti ? static_cast< int >(iEchoChannels) : 1);
-		iArg = iSampleRate;
+		int iArg = iSampleRate;
 		speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
+		m_preprocessor.setEchoState(sesEcho);
 
 		qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 	} else {
@@ -821,24 +808,24 @@ void AudioInput::selectNoiseCancel() {
 #endif
 	}
 
-	int iArg = 0;
+	bool preprocessorDenoise = false;
 	switch (noiseCancel) {
 		case Settings::NoiseCancelOff:
 			qWarning("AudioInput: Noise canceller disabled");
 			break;
 		case Settings::NoiseCancelSpeex:
 			qWarning("AudioInput: Using Speex as noise canceller");
-			iArg = 1;
+			preprocessorDenoise = true;
 			break;
 		case Settings::NoiseCancelRNN:
 			qWarning("AudioInput: Using ReNameNoise as noise canceller");
 			break;
 		case Settings::NoiseCancelBoth:
-			iArg = 1;
+			preprocessorDenoise = true;
 			qWarning("AudioInput: Using ReNameNoise and Speex as noise canceller");
 			break;
 	}
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+	m_preprocessor.toggleDenoise(preprocessorDenoise);
 }
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
@@ -857,7 +844,6 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &b
 }
 
 void AudioInput::encodeAudioFrame(AudioChunk chunk) {
-	int iArg;
 	float sum;
 	short max;
 
@@ -897,11 +883,10 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	QMutexLocker l(&qmSpeex);
 	resetAudioProcessor();
 
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
-	float gainValue = static_cast< float >(iArg);
+	const std::int32_t gainValue = m_preprocessor.getAGCGain();
+
 	if (noiseCancel == Settings::NoiseCancelSpeex || noiseCancel == Settings::NoiseCancelBoth) {
-		iArg = Global::get().s.iSpeexNoiseCancelStrength - iArg;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+		m_preprocessor.setNoiseSuppress(Global::get().s.iSpeexNoiseCancelStrength - gainValue);
 	}
 
 	short psClean[iFrameSize];
@@ -924,7 +909,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	}
 #endif
 
-	speex_preprocess_run(sppPreprocess, psSource);
+	m_preprocessor.run(*psSource);
 
 	sum = 1.0f;
 	for (unsigned int i = 0; i < iFrameSize; i++)
@@ -942,12 +927,10 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
 	}
 
-	spx_int32_t prob = 0;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
-	fSpeechProb = static_cast< float >(prob) / 100.0f;
+	fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
 
 	// clean microphone level: peak of filtered signal attenuated by AGC gain
-	dPeakCleanMic = qMax(dPeakSignal - gainValue, -96.0f);
+	dPeakCleanMic = qMax(dPeakSignal - static_cast< float >(gainValue), -96.0f);
 	float level   = (Global::get().s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakCleanMic / 96.0f);
 
 	bool bIsSpeech = false;
@@ -1075,12 +1058,10 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			}
 		}
 
-		spx_int32_t increment = 0;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
+		m_preprocessor.setAGCIncrement(0);
 		return;
 	} else {
-		spx_int32_t increment = 12;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
+		m_preprocessor.setAGCIncrement(12);
 	}
 
 	if (bIsSpeech && !bPreviousVoice) {
