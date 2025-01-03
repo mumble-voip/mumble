@@ -375,6 +375,7 @@ struct Settings {
 	bool bTalkingUI_AbbreviateChannelNames   = true;
 	bool bTalkingUI_AbbreviateCurrentChannel = false;
 	bool bTalkingUI_ShowLocalListeners       = false;
+	bool talkingUI_CtrlScrollLocalVolAdj     = false;
 	/// relative font size in %
 	int iTalkingUI_RelativeFontSize             = 100;
 	int iTalkingUI_SilentUserLifeTime           = 10;
