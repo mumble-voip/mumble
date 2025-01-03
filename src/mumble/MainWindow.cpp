@@ -748,6 +748,9 @@ void MainWindow::changeEvent(QEvent *e) {
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
 #endif
+	if (e->type() == QEvent::ThemeChange) {
+		Themes::apply();
+	}
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
