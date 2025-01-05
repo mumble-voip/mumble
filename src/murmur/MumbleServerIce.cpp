@@ -8,6 +8,7 @@
 #include "Ban.h"
 #include "Channel.h"
 #include "ChannelListenerManager.h"
+#include "DBState.h"
 #include "Group.h"
 #include "Meta.h"
 #include "MumbleServer.h"
@@ -28,7 +29,9 @@
 #include <Ice/SliceChecksums.h>
 #include <IceUtil/IceUtil.h>
 
+#include <cassert>
 #include <limits>
+#include <sstream>
 
 using namespace std;
 using namespace MumbleServer;
@@ -221,6 +224,30 @@ static void textmessageToTextmessage(const ::TextMessage &tm, ::MumbleServer::Te
 		tmdst.trees.push_back(static_cast< int >(i));
 }
 
+::MumbleServer::DBState dbstateToDBState(::DBState state) {
+	switch (state) {
+		case ::DBState::Normal:
+			return ::MumbleServer::DBState::Normal;
+		case ::DBState::ReadOnly:
+			return ::MumbleServer::DBState::ReadOnly;
+	}
+
+	assert(false);
+	return ::MumbleServer::DBState::Normal;
+}
+
+::DBState dbstateToDBState(::MumbleServer::DBState state) {
+	switch (state) {
+		case ::MumbleServer::DBState::Normal:
+			return ::DBState::Normal;
+		case ::MumbleServer::DBState::ReadOnly:
+			return ::DBState::ReadOnly;
+	}
+
+	assert(false);
+	return ::DBState::Normal;
+}
+
 class ServerLocator : public virtual Ice::ServantLocator {
 public:
 	virtual Ice::ObjectPtr locate(const Ice::Current &, Ice::LocalObjectPtr &);
@@ -277,11 +304,9 @@ MumbleServerIce::MumbleServerIce() {
 
 		meta->connectListener(this);
 	} catch (Ice::Exception &e) {
-#if ICE_INT_VERSION >= 30700
-		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(e.ice_id())));
-#else
-		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(e.ice_name())));
-#endif
+		std::stringstream stream;
+		e.ice_print(stream);
+		qCritical("MumbleServerIce: Initialization failed: %s", qPrintable(u8(stream.str())));
 	}
 }
 
@@ -849,7 +874,7 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	}
 
 #define NEED_SERVER                                 \
-	NEED_SERVER_EXISTS                              \
+	FIND_SERVER                                     \
 	if (!server) {                                  \
 		cb->ice_exception(ServerBootedException()); \
 		return;                                     \
@@ -873,6 +898,12 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	::Channel *channel; \
 	NEED_CHANNEL_VAR(channel, channelid);
 
+#define VERIFY_DB_NOT_IN_READONLY                      \
+	if (meta->assumedDBState == ::DBState::ReadOnly) { \
+		cb->ice_exception(ReadOnlyModeException());    \
+		return;                                        \
+	}
+
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
 	int server_id = u8(current.id.name).toInt();
@@ -882,11 +913,12 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 
 #define ACCESS_Server_isRunning_READ
 static void impl_Server_isRunning(const ::MumbleServer::AMD_Server_isRunningPtr cb, int server_id) {
-	NEED_SERVER_EXISTS;
+	FIND_SERVER;
 	cb->ice_response(server != nullptr);
 }
 
 static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int server_id) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 	if (server)
 		cb->ice_exception(ServerBootedException());
@@ -897,12 +929,14 @@ static void impl_Server_start(const ::MumbleServer::AMD_Server_startPtr cb, int 
 }
 
 static void impl_Server_stop(const ::MumbleServer::AMD_Server_stopPtr cb, int server_id) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	meta->kill(server_id);
 	cb->ice_response();
 }
 
 static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, int server_id) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 	if (server) {
 		cb->ice_exception(ServerBootedException());
@@ -942,6 +976,7 @@ static void impl_Server_removeCallback(const MumbleServer::AMD_Server_removeCall
 
 static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAuthenticatorPtr &cb, int server_id,
 										 const ::MumbleServer::ServerAuthenticatorPrx &aptr) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	if (mi->getServerAuthenticator(server))
@@ -970,13 +1005,13 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 
 #define ACCESS_Server_id_READ
 static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server_id) {
-	NEED_SERVER_EXISTS;
 	cb->ice_response(server_id);
 }
 
 #define ACCESS_Server_getConf_READ
 static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, int server_id,
 								const ::std::string &key) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 	if (key == "key" || key == "passphrase")
 		cb->ice_exception(WriteOnlyException());
@@ -986,6 +1021,7 @@ static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, 
 
 #define ACCESS_Server_getAllConf_READ
 static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPtr cb, int server_id) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 
 	::MumbleServer::ConfigMap cm;
@@ -1002,6 +1038,7 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 
 static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, int server_id, const ::std::string &key,
 								const ::std::string &value) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 	QString k = u8(key);
 	QString v = u8(value);
@@ -1015,6 +1052,7 @@ static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, 
 
 static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_setSuperuserPasswordPtr cb, int server_id,
 											 const ::std::string &pw) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 	ServerDB::setSUPW(server_id, u8(pw));
 	cb->ice_response();
@@ -1023,6 +1061,7 @@ static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_se
 #define ACCESS_Server_getLog_READ
 static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, int server_id, ::Ice::Int min,
 							   ::Ice::Int max) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 
 	::MumbleServer::LogList ll;
@@ -1039,6 +1078,7 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 
 #define ACCESS_Server_getLogLen_READ
 static void impl_Server_getLogLen(const ::MumbleServer::AMD_Server_getLogLenPtr cb, int server_id) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 
 	int len = ServerDB::getLogLen(server_id);
@@ -1142,6 +1182,7 @@ static void impl_Server_getBans(const ::MumbleServer::AMD_Server_getBansPtr cb, 
 
 static void impl_Server_setBans(const ::MumbleServer::AMD_Server_setBansPtr cb, int server_id,
 								const ::MumbleServer::BanList &bans) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
@@ -1318,6 +1359,8 @@ static void impl_Server_getChannelState(const ::MumbleServer::AMD_Server_getChan
 
 static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChannelStatePtr cb, int server_id,
 										const ::MumbleServer::Channel &state) {
+	VERIFY_DB_NOT_IN_READONLY;
+
 	int channelid = state.id;
 	NEED_SERVER;
 	NEED_CHANNEL;
@@ -1348,6 +1391,7 @@ static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChan
 
 static void impl_Server_removeChannel(const ::MumbleServer::AMD_Server_removeChannelPtr cb, int server_id,
 									  ::Ice::Int channelid) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1361,6 +1405,7 @@ static void impl_Server_removeChannel(const ::MumbleServer::AMD_Server_removeCha
 
 static void impl_Server_addChannel(const ::MumbleServer::AMD_Server_addChannelPtr cb, int server_id,
 								   const ::std::string &name, ::Ice::Int parent) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
@@ -1456,6 +1501,7 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, int server_id, ::Ice::Int channelid,
 							   const ::MumbleServer::ACLList &acls, const ::MumbleServer::GroupList &groups,
 							   bool inherit) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	NEED_CHANNEL;
 
@@ -1528,6 +1574,7 @@ static void impl_Server_getUserIds(const ::MumbleServer::AMD_Server_getUserIdsPt
 
 static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUserPtr cb, int server_id,
 									 const ::MumbleServer::UserInfoMap &im) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	QMap< int, QString > info;
@@ -1543,6 +1590,7 @@ static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUs
 
 static void impl_Server_unregisterUser(const ::MumbleServer::AMD_Server_unregisterUserPtr cb, int server_id,
 									   ::Ice::Int userid) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	bool success = server->unregisterUser(userid);
@@ -1556,6 +1604,7 @@ static void impl_Server_unregisterUser(const ::MumbleServer::AMD_Server_unregist
 
 static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_updateRegistrationPtr cb, int server_id,
 										   int id, const ::MumbleServer::UserInfoMap &im) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	if (!server->isUserId(id)) {
@@ -1585,6 +1634,7 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 #define ACCESS_Server_getRegistration_READ
 static void impl_Server_getRegistration(const ::MumbleServer::AMD_Server_getRegistrationPtr cb, int server_id,
 										::Ice::Int userid) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	QMap< int, QString > info = server->getRegistration(userid);
@@ -1602,6 +1652,7 @@ static void impl_Server_getRegistration(const ::MumbleServer::AMD_Server_getRegi
 #define ACCESS_Server_getRegisteredUsers_READ
 static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getRegisteredUsersPtr cb, int server_id,
 										   const ::std::string &filter) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	MumbleServer::NameMap rpl;
 
@@ -1617,6 +1668,7 @@ static void impl_Server_getRegisteredUsers(const ::MumbleServer::AMD_Server_getR
 #define ACCESS_Server_verifyPassword_READ
 static void impl_Server_verifyPassword(const ::MumbleServer::AMD_Server_verifyPasswordPtr cb, int server_id,
 									   const ::std::string &name, const ::std::string &pw) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	QString uname = u8(name);
 	cb->ice_response(server->authenticate(uname, u8(pw)));
@@ -1645,6 +1697,7 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 
 static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePtr cb, int server_id, ::Ice::Int userid,
 								   const ::MumbleServer::Texture &tex) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	if (!server->isUserId(userid)) {
@@ -1687,6 +1740,7 @@ static void impl_Server_getUptime(const ::MumbleServer::AMD_Server_getUptimePtr 
 static void impl_Server_updateCertificate(const ::MumbleServer::AMD_Server_updateCertificatePtr cb, int server_id,
 										  const ::std::string &certificate, const ::std::string &privateKey,
 										  const ::std::string &passphrase) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
 	QByteArray certPem(certificate.c_str());
@@ -1733,6 +1787,7 @@ static void impl_Server_updateCertificate(const ::MumbleServer::AMD_Server_updat
 
 static void impl_Server_startListening(const ::MumbleServer::AMD_Server_startListeningPtr cb, int server_id,
 									   int session, int channelid) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1744,6 +1799,7 @@ static void impl_Server_startListening(const ::MumbleServer::AMD_Server_startLis
 
 static void impl_Server_stopListening(const ::MumbleServer::AMD_Server_stopListeningPtr cb, int server_id, int session,
 									  int channelid) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1753,6 +1809,7 @@ static void impl_Server_stopListening(const ::MumbleServer::AMD_Server_stopListe
 	cb->ice_response();
 }
 
+#define ACCESS_Server_isListening_READ
 static void impl_Server_isListening(const ::MumbleServer::AMD_Server_isListeningPtr cb, int server_id, int session,
 									int channelid) {
 	NEED_SERVER;
@@ -1762,6 +1819,7 @@ static void impl_Server_isListening(const ::MumbleServer::AMD_Server_isListening
 	cb->ice_response(server->m_channelListenerManager.isListening(user->uiSession, channel->iId));
 }
 
+#define ACCESS_Server_getListeningChannels_READ
 static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_getListeningChannelsPtr cb, int server_id,
 											 int session) {
 	NEED_SERVER;
@@ -1775,6 +1833,7 @@ static void impl_Server_getListeningChannels(const ::MumbleServer::AMD_Server_ge
 	cb->ice_response(channelIDs);
 }
 
+#define ACCESS_Server_getListeningUsers_READ
 static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getListeningUsersPtr cb, int server_id,
 										  int channelid) {
 	NEED_SERVER;
@@ -1801,6 +1860,7 @@ static void impl_Server_sendWelcomeMessage(const ::MumbleServer::AMD_Server_send
 	cb->ice_response();
 }
 
+#define ACCESS_Server_getListenerVolumeAdjustment_READ
 static void impl_Server_getListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_getListenerVolumeAdjustmentPtr cb,
 													int server_id, int channelid, int session) {
 	NEED_SERVER;
@@ -1813,6 +1873,7 @@ static void impl_Server_getListenerVolumeAdjustment(const ::MumbleServer::AMD_Se
 
 static void impl_Server_setListenerVolumeAdjustment(const ::MumbleServer::AMD_Server_setListenerVolumeAdjustmentPtr cb,
 													int server_id, int channelid, int session, float volumeAdjustment) {
+	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 	NEED_CHANNEL;
 	NEED_PLAYER;
@@ -1988,6 +2049,20 @@ static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, 
 	cb->ice_response(static_cast< int >(meta->tUptime.elapsed() / 1000000LL));
 }
 
+#define ACCESS_Meta_getAssumedDatabaseState_READ
+static void impl_Meta_getAssumedDatabaseState(const ::MumbleServer::AMD_Meta_getAssumedDatabaseStatePtr cb,
+											  const Ice::ObjectAdapterPtr) {
+	cb->ice_response(dbstateToDBState(meta->assumedDBState));
+}
+
+static void impl_Meta_setAssumedDatabaseState(const ::MumbleServer::AMD_Meta_setAssumedDatabaseStatePtr cb,
+											  const Ice::ObjectAdapterPtr, ::MumbleServer::DBState state) {
+	meta->assumedDBState = dbstateToDBState(state);
+
+	cb->ice_response();
+}
+
+
 #include "MumbleServerIceWrapper.cpp"
 
 #undef FIND_SERVER
@@ -1996,6 +2071,7 @@ static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, 
 #undef NEED_PLAYER
 #undef NEED_CHANNEL_VAR
 #undef NEED_CHANNEL
+#undef VERIFY_DB_NOT_IN_READONLY
 #undef ACCESS_Server_isRunning_READ
 #undef ACCESS_Server_id_READ
 #undef ACCESS_Server_getConf_READ
@@ -2019,6 +2095,10 @@ static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, 
 #undef ACCESS_Server_verifyPassword_READ
 #undef ACCESS_Server_getTexture_READ
 #undef ACCESS_Server_getUptime_READ
+#undef ACCESS_Server_isListening_READ
+#undef ACCESS_Server_getListeningChannels_READ
+#undef ACCESS_Server_getListeningUsers_READ
+#undef ACCESS_Server_getListenerVolumeAdjustment_READ
 #undef ACCESS_Meta_getSliceChecksums_ALL
 #undef ACCESS_Meta_getServer_READ
 #undef ACCESS_Meta_getAllServers_READ
@@ -2026,3 +2106,4 @@ static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, 
 #undef ACCESS_Meta_getBootedServers_READ
 #undef ACCESS_Meta_getVersion_ALL
 #undef ACCESS_Meta_getUptime_ALL
+#undef ACCESS_Meta_getAssumedDatabaseState_READ
