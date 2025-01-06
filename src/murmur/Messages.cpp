@@ -2286,6 +2286,33 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 		mpusss->set_late(pDstServerUser->csCrypt->m_statsRemote.late);
 		mpusss->set_lost(pDstServerUser->csCrypt->m_statsRemote.lost);
 		mpusss->set_resync(pDstServerUser->csCrypt->m_statsRemote.resync);
+
+		bool outsideInitialWindow =
+			static_cast< unsigned int >(bwr.onlineSeconds()) > pDstServerUser->csCrypt->m_rollingWindow.count();
+
+		MumbleProto::UserStats_RollingStats *mpussrs = msg.mutable_rolling_stats();
+
+		mpusss = mpussrs->mutable_from_client();
+		if (outsideInitialWindow) {
+			mpusss->set_good(pDstServerUser->csCrypt->m_statsLocalRolling.good);
+			mpusss->set_late(pDstServerUser->csCrypt->m_statsLocalRolling.late);
+			mpusss->set_lost(pDstServerUser->csCrypt->m_statsLocalRolling.lost);
+			mpusss->set_resync(pDstServerUser->csCrypt->m_statsLocalRolling.resync);
+		} else {
+			mpusss->CopyFrom(*msg.mutable_from_client());
+		}
+
+		mpusss = mpussrs->mutable_from_server();
+		if (outsideInitialWindow) {
+			mpusss->set_good(pDstServerUser->csCrypt->m_statsRemoteRolling.good);
+			mpusss->set_late(pDstServerUser->csCrypt->m_statsRemoteRolling.late);
+			mpusss->set_lost(pDstServerUser->csCrypt->m_statsRemoteRolling.lost);
+			mpusss->set_resync(pDstServerUser->csCrypt->m_statsRemoteRolling.resync);
+		} else {
+			mpusss->CopyFrom(*msg.mutable_from_server());
+		}
+
+		mpussrs->set_time_window(pDstServerUser->csCrypt->m_rollingWindow.count());
 	}
 
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);

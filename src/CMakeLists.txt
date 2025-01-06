@@ -85,6 +85,7 @@ set(SHARED_SOURCES
 
 	"crypto/CryptographicHash.cpp"
 	"crypto/CryptographicRandom.cpp"
+	"crypto/CryptState.cpp"
 	"crypto/CryptStateOCB2.cpp"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"

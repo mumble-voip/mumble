@@ -7,6 +7,8 @@
 #define MUMBLE_CRYPTSTATE_H_
 
 #include "Timer.h"
+#include <chrono>
+#include <queue>
 #include <string>
 
 struct PacketStats {
@@ -16,12 +18,32 @@ struct PacketStats {
 	unsigned int resync = 0;
 };
 
+struct PacketStatsSnapshot {
+	PacketStats stats;
+	std::chrono::time_point< std::chrono::steady_clock > timestamp;
+};
+
 class CryptState {
 private:
 	Q_DISABLE_COPY(CryptState)
+
+	const std::chrono::seconds m_rollingScanInterval                             = std::chrono::seconds(5);
+	std::chrono::time_point< std::chrono::steady_clock > m_rollingLastSampleTime = {};
+
+	std::queue< PacketStatsSnapshot > m_statsLocalReference;
+	std::queue< PacketStatsSnapshot > m_statsRemoteReference;
+
+protected:
+	void updateRollingStats();
+
 public:
-	PacketStats m_statsLocal  = {};
-	PacketStats m_statsRemote = {};
+	PacketStats m_statsLocal         = {};
+	PacketStats m_statsRemote        = {};
+	PacketStats m_statsLocalRolling  = {};
+	PacketStats m_statsRemoteRolling = {};
+
+	/// This is the packet statistics sliding time window size in seconds
+	std::chrono::duration< unsigned int, std::ratio< 1 > > m_rollingWindow = std::chrono::minutes(5);
 
 	Timer tLastGood;
 	Timer tLastRequest;

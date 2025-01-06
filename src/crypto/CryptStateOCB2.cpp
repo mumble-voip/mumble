@@ -220,6 +220,7 @@ bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, un
 		m_statsLocal.lost -= static_cast< unsigned int >(std::abs(lost));
 	}
 
+	updateRollingStats();
 	tLastGood.restart();
 	return true;
 }
