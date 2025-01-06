@@ -9,19 +9,19 @@
 #include "Timer.h"
 #include <string>
 
+struct PacketStats {
+	unsigned int good   = 0;
+	unsigned int late   = 0;
+	unsigned int lost   = 0;
+	unsigned int resync = 0;
+};
+
 class CryptState {
 private:
 	Q_DISABLE_COPY(CryptState)
 public:
-	unsigned int uiGood   = 0;
-	unsigned int uiLate   = 0;
-	unsigned int uiLost   = 0;
-	unsigned int uiResync = 0;
-
-	unsigned int uiRemoteGood   = 0;
-	unsigned int uiRemoteLate   = 0;
-	unsigned int uiRemoteLost   = 0;
-	unsigned int uiRemoteResync = 0;
+	PacketStats m_statsLocal  = {};
+	PacketStats m_statsRemote = {};
 
 	Timer tLastGood;
 	Timer tLastRequest;

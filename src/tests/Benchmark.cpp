@@ -233,7 +233,7 @@ void Client::readyRead() {
 					} else if (msg.has_server_nonce()) {
 						const std::string &server_nonce = msg.server_nonce();
 						if (server_nonce.size() == AES_BLOCK_SIZE) {
-							crypt.uiResync++;
+							crypt.m_statsLocal.resync++;
 							crypt.setDecryptIV(server_nonce);
 						}
 					} else {
