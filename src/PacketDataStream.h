@@ -11,6 +11,7 @@
 #include <QString>
 
 #include <cstring>
+#include <type_traits>
 
 /*
  * GCC doesn't yet do inter-object-file inlining, so unfortunately, this all has to be defined here.
@@ -280,22 +281,18 @@ public:
 		return *this;
 	}
 
-#define INTMAPOPERATOR(type)                                                                  \
-	PacketDataStream &operator<<(const type v) { return *this << static_cast< quint64 >(v); } \
-	PacketDataStream &operator>>(type &v) {                                                   \
-		quint64 vv;                                                                           \
-		*this >> vv;                                                                          \
-		v = static_cast< type >(vv);                                                          \
-		return *this;                                                                         \
+	template< typename Integer, typename = std::enable_if_t< std::is_integral_v< Integer > > >
+	PacketDataStream &operator<<(const Integer v) {
+		return *this << static_cast< quint64 >(v);
 	}
 
-	INTMAPOPERATOR(qsizetype);
-	INTMAPOPERATOR(int);
-	INTMAPOPERATOR(unsigned int);
-	INTMAPOPERATOR(short);
-	INTMAPOPERATOR(unsigned short);
-	INTMAPOPERATOR(char);
-	INTMAPOPERATOR(unsigned char);
+	template< typename Integer, typename = std::enable_if_t< std::is_integral_v< Integer > > >
+	PacketDataStream &operator>>(Integer &v) {
+		quint64 vv;
+		*this >> vv;
+		v = static_cast< Integer >(vv);
+		return *this;
+	}
 
 	union double64u {
 		quint64 ui;
