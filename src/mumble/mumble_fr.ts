@@ -1230,7 +1230,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Ceci montre le débit sortant maximal utilisé.&lt;/b&gt;&lt;br /&gt;Ceci montre le débit maximal envoyé depuis votre machine. Le débit audio est le débit maximal pour les données audio seules. La position est le débit utilisé pour les informations de position. Les frais généraux correspondent à notre encadrement et aux en-têtes de paquets IP (IP et UDP représentent 75 % de ces frais généraux).</translation>
+        <translation>&lt;b&gt;Ceci montre le débit sortant maximal utilisé.&lt;/b&gt;&lt;br /&gt;Ceci montre le débit maximal envoyé depuis votre machine. Le débit audio est le débit maximal pour les données audio seules. La position est le débit utilisé pour les informations de position. La surcharge correspond à la trame et aux en-têtes de paquets IP (IP et UDP représentent 75 % de cette surcharge).</translation>
     </message>
 </context>
 <context>
@@ -2822,7 +2822,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble peut utiliser des certificats d&apos;authentification vis à vis des serveurs. L&apos;utilisation de tels certificats évite l&apos;emploi d&apos;un mot de passe, ce qui signifie que vous n&apos;avez pas à l&apos;envoyer au site distant. Il permet aussi très aisément l&apos;enregistrement d&apos;un utilisateur et d&apos;une liste d&apos;amis coté client indépendante des serveurs.&lt;/p&gt;&lt;p&gt;Bien que Mumble puisse fonctionner sans certificat, la plupart des serveurs en espèrent un de votre part.&lt;/p&gt;&lt;p&gt;La création automatique d&apos;un certificat est suffisante dans la plupart des cas. Mais Mumble permet aussi l&apos;usage de certificats garantissant la confiance dans la possession d&apos;une adresse courriel par les utilisateurs. Ces certificats sont générés par des parties tiers. Pour plus d&apos;information, se référer à &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7154,23 +7154,23 @@ Les options valides sont :
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Basculer l&apos;audition positionnelle</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci bascule l&apos;audition positionnelle d&apos;actif à inactif et vice-versa</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur SSL</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble est dans l&apos;impossibilité d&apos;établir une connexion sécurisée avec le serveur. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci est la conséquence d&apos;un des scénarios suivants&#xa0;:&lt;ul&gt;&lt;li&gt; Votre client et le serveur utilisent des méthodes de chiffrement différents. Peut-être parce que vous utilisez un client trop vieux ou que le serveur auquel vous vous connectez est trop vieux. Dans le premier cas, vous devriez mettre votre client à jour et, dans le second cas, contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Soit votre client, soit le serveur utilisent un système d&apos;exploitation trop vieux qui ne propose pas des méthodes de chiffrement à jour. Dans ce cas, vous devriez mettre votre système à jour ou contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Le serveur que vous contactez n&apos;est pas un serveur Mumble. Assurez vous que l&apos;adresse de serveur que vous utilisez est bien celle d&apos;une serveur Mumble et pas, par exemple, celle d&apos;un serveur de jeu.&lt;/li&gt;&lt;li&gt;Le port que vous utilisez n&apos;appartient pas à un serveur Mumble mais est lié à un processus absolument sans rapport coté serveur. Vérifiez deux fois que vous utilisez le port correct.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
@@ -8713,7 +8713,8 @@ Vous pouvez les enregistrer à nouveau.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si vous utilisez GNU/Linux, c&apos;est le plus probablement parce que vous employez une version du dépôt de paquet de votre distribution qui gère différemment son cycle de mises à jour.&lt;/p&gt;&lt;p&gt;Si vous désirez toujours utiliser la version la plus récente de Mumble, il conviendrait que vous employez une méthode d&apos;installation différente.
+Référez vous à &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; pour les alternatives possibles.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

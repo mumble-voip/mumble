@@ -252,7 +252,7 @@ This value enables you to change the way mumble arranges the channels in the tre
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;Додати&lt;/b&gt;&lt;br/&gt;
-Додати нову групу.</translation>
+Додайте нову групу.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -329,14 +329,14 @@ Add a new group.</source>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Тимчасовий&lt;/b&gt;&lt;br /&gt;
-При відмітці, створений канал буде позначено як тимчасовий. Це означає, що коли останній користувач його покине, канал буде автоматично видалено сервером.</translation>
+        <translation>&lt;b&gt;Тимчасово&lt;/b&gt;&lt;br /&gt;
+Якщо позначено, створений канал буде позначено як тимчасовий. Це означає, що коли останній гравець залишає канал, сервер автоматично видаляє його.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Група&lt;/b&gt;&lt;br /&gt;
-Це всі групи, визначені для цього каналу. Щоб створити нову групу, просто впишіть її назву та натисніть enter.</translation>
+Це всі групи, визначені на даний момент для каналу. Щоб створити нову групу, просто введіть назву та натисніть enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -432,51 +432,51 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиція каналу</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна кількість користувачів каналу</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Опис каналу</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть учасника для додавання</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Виключені учасники групи</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть учасника для видалення</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Список записів списку контролю доступу</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть групу</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибирає групу, до якої застосовується цей запис ACL. Вибір групи та вибір користувача є взаємовиключними.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть користувача</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибирає користувача, до якого застосовується цей запис ACL. Вибір групи та вибір користувача є взаємовиключними.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Список доступних дозволів</translation>
     </message>
 </context>
 <context>
@@ -498,18 +498,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити вибраний вихід ALSA: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося отримати назву (довгу назву) звукової карти: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося отримати назву звукової карти: %1</translation>
     </message>
 </context>
 <context>
@@ -521,15 +521,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 -&gt; %2 буфер зразків із роздільною здатністю %3 (бажано %4) при %5 Гц</translation>
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка ініціалізації ASIO: %1</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося створити екземпляр драйвера ASIO</translation>
     </message>
     <message>
         <source>ASIO</source>
@@ -545,35 +545,35 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій для використання в якості мікрофона</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це вибирає пристрій для запиту. Вам все ще потрібно фактично запитати пристрій і вибрати, які канали використовувати.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Запит на вибраний пристрій</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибраний пристрій запитує канали. Майте на увазі, що багато драйверів ASIO є надзвичайно помилковими, і їхнє запитування може призвести до збою програми або системи.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Запит</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштувати вибраний пристрій</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це налаштує вибраний пристрій. Майте на увазі, що багато драйверів ASIO є надзвичайно помилковими, і їхнє запитування може призвести до збою програми або системи.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Налаштувати</translation>
     </message>
     <message>
         <source>Capabilities</source>
@@ -589,11 +589,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволить налаштувати вхідні канали для ASIO. Переконайтеся, що ви вибрали принаймні один канал як мікрофон і динамік. &lt;i&gt;Мікрофон&lt;/i&gt; має бути там, де підключено мікрофон, а &lt;i&gt;Динамік&lt;/i&gt; має бути каналом, який відтворює «&lt;i&gt;Те, що ви чуєте&lt;/i&gt;».&lt;br /&gt;Наприклад , на Audigy 2 ZS гарним вибором для мікрофона буде «&lt;i&gt;Mic L&lt;/i&gt;», а для динаміка — «&lt;i&gt;Mix L&lt;/i&gt;» і «&lt;i&gt;Mix R&lt;/i &gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштувати вхідні канали</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -629,27 +629,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Список пристроїв</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти зі списку невикористаних у список мікрофонів</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти з мікрофона до списку невикористаних</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Список невикористаних пристроїв</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти з невикористаного до списку спікерів</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти від спікерів до списку невикористаних</translation>
     </message>
 </context>
 <context>
@@ -660,7 +660,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити вибраний пристрій ASIO. Введення не буде зроблено.</translation>
     </message>
 </context>
 <context>
@@ -679,11 +679,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;автори</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ліцензії третіх осіб</translation>
     </message>
     <message>
         <source>OK</source>
@@ -691,7 +691,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліцензійний договір</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -699,15 +699,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліцензійні угоди третіх сторін</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;бурмотіти (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Високоякісна утиліта голосового чату з відкритим кодом, низькою затримкою&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Щоб переглянути список авторів, перегляньте &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -726,11 +726,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій введення звуку</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це пристрій введення для аудіо.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -746,35 +746,35 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює, коли мова має передаватися.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Безперервно&lt;/i&gt; - весь час&lt;br /&gt;&lt;i&gt;Голосова активність&lt;/i&gt; - коли ви говорите чітко.&lt;br /&gt;&lt;i&gt;Натискай і говори&lt;/i&gt; - коли ви утримуєте натиснутою гарячу клавішу, встановлену в &lt;i&gt;Ярлики&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час DoublePush</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ви натиснете клавішу PTT двічі за цей час, вона буде заблокована.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Час DoublePush&lt;/b&gt;&lt;br /&gt;Якщо ви натиснете клавішу «Натисни і говори» двічі протягом налаштованого інтервалу часу, вона буде заблокована. Mumble продовжуватиме передачу, доки ви знову не натиснете клавішу знову розблокувати НІГ.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути аудіосигнал до стандартних значень</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Скинути&lt;/b&gt;&lt;br/&gt;Скинути шляхи до файлів до стандартних.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляньте аудіофайл</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляньте вимкнений аудіофайл</translation>
     </message>
     <message>
         <source>Off</source>
@@ -786,15 +786,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте виявлення мовлення на основі SNR</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Сигнал до шуму</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює виявлення мовлення на використання амплітуди.&lt;/b&gt;&lt;br /&gt;У цьому режимі необроблена сила вхідного сигналу використовується для виявлення мовлення.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -806,7 +806,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Як довго продовжувати передачу після тиші</translation>
     </message>
     <message>
         <source>Silence Below</source>
@@ -814,7 +814,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює значення тригера для виявлення голосу.&lt;/b&gt;&lt;br /&gt;Використовуйте це разом із вікном аудіостатистики, щоб вручну налаштувати значення тригера для виявлення мовлення. Вхідні значення нижче &quot;Silence Below&quot; завжди вважаються тишею. Значення вище &quot;Speech Above&quot; завжди зараховуються як голос. Значення між ними вважатимуться голосом, якщо ви вже говорите, але не запускатимуть нове виявлення.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -822,7 +822,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення сигналу вище цього зараховуються як голос</translation>
     </message>
     <message>
         <source>Compression</source>
@@ -838,19 +838,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює якість стиснення.&lt;/b&gt;&lt;br /&gt;Це визначає, яку пропускну здатність Mumble може використовувати для вихідного аудіо.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо на пакет</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Скільки звукових кадрів надсилати в пакеті</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це визначає, скільки аудіокадрів слід помістити в один пакет.&lt;/b&gt;&lt;br /&gt;Збільшення цього значення збільшить затримку вашого голосу, але також зменшить вимоги до пропускної здатності.</translation>
     </message>
     <message>
         <source>Audio Processing</source>
@@ -862,7 +862,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює ступінь придушення шуму, який буде застосовано.&lt;/b&gt;&lt;br /&gt;Що вище це значення, то агресивніше буде придушено стаціонарний шум.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -870,15 +870,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Максимальне посилення вхідного сигналу.&lt;/b&gt;&lt;br /&gt;Mumble нормалізує гучність вхідного сигналу перед стисканням, і це встановлює, наскільки дозволено посилюватися.&lt;br /&gt;Фактичний рівень постійно оновлюється на основі вашої поточної моделі мовлення , але він ніколи не перевищуватиме вказаний тут рівень.&lt;br /&gt;Якщо рівень &lt;i&gt;гучності мікрофона&lt;/i&gt; у статистиці аудіо коливається біля 100%, можливо, ви захочете встановити це значення 2,0 або близько того, але якщо, як і більшість людей, ви не можете досягти 100%, встановіть значення набагато вище.&lt;br /&gt;В ідеалі встановіть так &lt;i&gt;Гучність мікрофона * Коефіцієнт посилення &gt;= 100&lt;/i&gt;, навіть коли ви говорите дуже тихо.&lt;br /&gt;&lt;br /&gt;Зауважте, що немає шкоди встановлювати це значення на максимум, але Mumble почне підхоплювати інші розмови, якщо ви залишите це автоматично налаштувати на цей рівень.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Поточний шанс виявлення мовлення</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнути цю функцію, відлуння динаміків буде скасовано. Змішаний має низький вплив на процесор, але добре працює, лише якщо ваші динаміки однаково гучні та однаково віддалені від мікрофона. Багатоканальне придушення луни забезпечує набагато краще придушення луни, але при вищій вартості ЦП.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -886,67 +886,67 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює виявлення мовлення на використання співвідношення сигнал/шум.&lt;/b&gt;&lt;br /&gt;У цьому режимі вхід аналізується на щось схоже на чіткий сигнал, і чіткість цього сигналу використовується для запуску виявлення мовлення.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це показує поточні параметри виявлення мовлення.&lt;/b&gt;&lt;br /&gt;Ви можете змінити параметри в діалоговому вікні «Параметри» або в «Майстрі звуку».</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення сигналу нижче цього вважаються тишею</translation>
     </message>
     <message>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна пропускна здатність, яка використовується для надсилання аудіо</translation>
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте розпізнавання мовлення на основі амплітуди</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це визначає, через який час після передбачуваної зупинки має тривати передача мовлення.&lt;/b&gt;&lt;br /&gt;Установіть більше значення, якщо ваш голос уривається під час розмови (це видно швидко блимаючим значком голосу біля вашого імені).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ексклюзивний режим</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це відкриє пристрій у ексклюзивному режимі.&lt;/b&gt;&lt;br /&gt;Жодна інша програма не зможе використовувати пристрій.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ексклюзив</translation>
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;кинути</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;переглядати...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation>B&amp;огляд...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередній перегляд</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Попередній перегляд&lt;/b&gt;&lt;br/&gt;Відтворює поточний звук &lt;i&gt;увімкнено&lt;/i&gt;, а потім поточний звук &lt;i&gt;вимкнено&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображає завжди зверху вікно з кнопкою «Натисни і говори»</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображення вікна «Натисни і говори»</translation>
     </message>
     <message>
         <source>Misc</source>
@@ -954,334 +954,334 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтворюється, коли починається передача</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтворюється під час зупинки передавання</translation>
     </message>
     <message>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час утримання</translation>
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Час, протягом якого мікрофон залишається відкритим після відпускання клавіші РТТ</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна пропускна здатність мережі сервера становить лише %1 кбіт/с. Якість аудіо автоматично регулюється до %2 кбіт/с (%3 мс)</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Макс. Ампліфікація</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Холоста дія</translation>
     </message>
     <message>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>хвилин робити</translation>
     </message>
     <message>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>нічого</translation>
     </message>
     <message>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>глухнути</translation>
     </message>
     <message>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>німий</translation>
     </message>
     <message>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>після</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ехоподавлення</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія бездіяльності буде змінена після натискання будь-якої клавіші або кнопки миші</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасувати дію бездіяльності після активності</translation>
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо вхід</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це метод введення для аудіо.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть режим низької затримки Opus, якщо встановлено якість &lt;b&gt;64 кбіт/с&lt;/b&gt; або вище. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, Mumble увімкне режим низької затримки Opus, якщо якість встановлено на &lt;b&gt;64 кбіт/с&lt;/b&gt; або вище. Режим низької затримки зменшує затримку на &lt;b&gt;~15 мілісекунд&lt;/b&gt; у зворотному напрямку. У цьому режимі може знадобитися вищий бітрейт для збереження тієї самої якості порівняно з режимами музики та VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволити режим низької затримки</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не використовуйте шумозаглушення.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте алгоритм придушення шуму, наданий Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте алгоритм придушення шуму, наданий RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте комбінацію Speex і RNNoise для придушення шуму.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Обидва</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це контролює ступінь, на який Speex придушуватиме шум.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Сила придушення мовлення</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути сигнал</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Пере&amp;глянути...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній&amp;перегляд</translation>
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Звукова підказка під час використання...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Звукова підказка під час початку або зупинки передачі за допомогою Push To Talk</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це вмикає аудіосигнали передачі під час використання «Натисни і говори».&lt;/b&gt;&lt;br /&gt;Налаштування дасть короткий звуковий сигнал, коли ви починаєте та припиняєте передачу.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисни і говори</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Звукова підказка під час запуску або зупинки передачі за допомогою голосової активності</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це вмикає аудіосигнали передачі під час використання голосової активності.&lt;/b&gt;&lt;br /&gt;Налаштування дасть вам короткий звуковий сигнал, коли ви починаєте та припиняєте передачу.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосова діяльність</translation>
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер введення для аудіо</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Система аудіовходу</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій введення аудіо</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим передачі</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Поріг блокування «Натисни і говори»</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикайтеся між режимом «Натисни і говори» та безперервним режимом подвійним натисканням у цей проміжок часу</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Час утримання голосу&lt;/b&gt;&lt;br /&gt;Після того, як ви відпустите клавішу «Натисни і говори», Mumble продовжуватиме передачу протягом вибраного періоду часу.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Поріг утримання «Натисни і говори»</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished"></translation>
+        <translation>Подовжте час надсилання «Натисни і говори» після відпускання клавіші на цей проміжок часу</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час утримання голосу</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Тиша за порогом</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює поріг, коли Mumble остаточно розгляне мовчання сигналу</translation>
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова над порогом</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює поріг, коли Mumble остаточно розгляне сигнальне мовлення</translation>
     </message>
     <message>
         <source>This sets how much speech is packed into a single network package</source>
-        <translation type="unfinished"></translation>
+        <translation>Це визначає, скільки мовлення упаковується в один мережевий пакет</translation>
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Якість стиснення звуку</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює цільовий бітрейт стиснення</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальне посилення</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова динамічно посилюється щонайбільше на цю кількість</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Міцність придушення шуму</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим ехоподавлення</translation>
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до аудіофайлу</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до файлу звукової підказки під час зупинки, щоб говорити. Скористайтеся кнопкою «Огляд», щоб відкрити діалогове вікно файлу.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Поріг часу простою (у хвилинах)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, що робити під час бездіяльності протягом заданого часу. За замовчуванням: нічого</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтворюється, коли ви намагаєтесь говорити, коли звук вимкнено</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до файлу сигналу відключення звуку. Скористайтеся кнопкою «Огляд», щоб відкрити діалогове вікно файлу.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляньте аудіофайл для вимкнення звуку</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до файлу аудіопідказки під час початку розмови. Скористайтеся кнопкою «Огляд», щоб відкрити діалогове вікно файлу.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд сигналу вимкнення звуку</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Сигнал вимкнення звуку — це аудіосигнал, який відтворюється, коли ви намагаєтеся говорити, коли звук вимкнено</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд обох звукових сигналів</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це показує максимальну вихідну пропускну здатність, що використовується.&lt;/b&gt;&lt;br /&gt;Це показує максимальну пропускну здатність, надіслану з вашого комп’ютера. Бітрейт аудіо – це максимальний бітрейт лише для аудіоданих. Позиція – це бітрейт, який використовується для позиційної інформації. Накладні витрати — це наше кадрування та заголовки IP-пакетів (IP і UDP становлять 75% цих накладних витрат).</translation>
     </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Безперервний</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосова діяльність</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисни і говори</translation>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо Вхід</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 мс</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished">Вимкнено</translation>
+        <translation>вимкнено</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 с</translation>
     </message>
     <message>
         <source>%1 kb/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 кбіт/с</translation>
     </message>
     <message>
         <source>-%1 dB</source>
-        <translation type="unfinished"></translation>
+        <translation>-%1 дБ</translation>
     </message>
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 кбіт/с (аудіо %2, позиція %4, заголовок %3)</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>У доступі до мікрофона було відмовлено. Будь ласка, дозвольте Mumble використовувати мікрофон, змінивши параметри в системних налаштуваннях -&gt; Безпека та конфіденційність -&gt; Конфіденційність -&gt; Мікрофон.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>У доступі до мікрофона було відмовлено. Будь ласка, переконайтеся, що налаштування мікрофона вашої операційної системи дозволяють Mumble використовувати мікрофон.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -1289,23 +1289,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути луну.</translation>
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>мілісекунд</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>секунд</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>кілобіт на секунду</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>децибел</translation>
     </message>
 </context>
 <context>
@@ -1320,7 +1320,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод виведення аудіо</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1328,375 +1328,375 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій виведення звуку</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це вихідний пристрій для аудіо.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиційне аудіо</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіовихід</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Буфер джиттера за замовчуванням</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Запас безпеки для буфера джиттера</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює мінімальний запас безпеки для буфера тремтіння.&lt;/b&gt;&lt;br /&gt;Увесь вхідний звук буферизується, а буфер тремтіння постійно намагається підштовхнути буфер до мінімуму, який підтримує ваша мережа, тому затримка може бути якомога нижче. Це встановлює мінімальний розмір буфера для використання. Якщо початок речень дуже тремтливий, збільште це значення.</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює мінімальну відстань для звукових розрахунків. Гучність мови інших користувачів не зменшиться, доки вони не будуть від вас принаймні так далеко.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює максимальну відстань для звукових обчислень. На більшій відстані гучність мовлення інших користувачів не зменшуватиметься.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це вмикає один із режимів перевірки петлі.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Жодного&lt;/i&gt; - петлю вимкнено&lt;br /&gt;&lt;i&gt;Локальний&lt;/i&gt; - Емуляція локального сервера.&lt;br /&gt;&lt;i&gt;Сервер&lt;/i&gt; - Запит на петлю від сервера.&lt;br /&gt;Зауважте, що коли петлю ввімкнено, інші користувачі не почують ваш голос. Це налаштування не зберігається під час виходу з програми.</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Обсяг</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність вхідної мови</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це регулює гучність вхідного мовлення.&lt;/b&gt;&lt;br /&gt;Зауважте, що якщо ви збільшите це понад 100%, звук буде спотворено.</translation>
     </message>
     <message>
         <source>Output Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідна затримка</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Обсяг даних для буферизації</translation>
     </message>
     <message>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Підключені «динаміки» насправді є навушниками</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>цвітіння</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation>Фактор збільшення гучності звуку</translation>
     </message>
     <message>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation>Наскільки має збільшуватися гучність звуку для джерел, які знаходяться дуже близько?</translation>
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation>Позначка цього пункту означає, що у вас не під’єднано динаміки, лише навушники. Це важливо, оскільки динаміки зазвичай знаходяться перед вами, а навушники — прямо зліва/праворуч.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює кількість даних для попереднього буферизації у вихідному буфері. Експериментуйте з різними значеннями та встановіть найнижче, яке не спричиняє швидкого тремтіння звуку.</translation>
     </message>
     <message>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Навушники</translation>
     </message>
     <message>
         <source>Minimum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальна відстань</translation>
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна відстань</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальний обсяг</translation>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"></translation>
+        <translation>Яка повинна бути гучність на максимальній відстані?</translation>
     </message>
     <message>
         <source>Loopback Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Тест петлі</translation>
     </message>
     <message>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисперсія затримки</translation>
     </message>
     <message>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>Різниця в затримці пакетів</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює дисперсію затримки пакетів для перевірки петлі.&lt;/b&gt;&lt;br /&gt;Більшість звукових шляхів містять деяку змінну затримку. Це дозволяє встановити цю дисперсію для тестування в режимі петлі. Наприклад, якщо ви встановите значення 15 мс, це буде емулювати мережу із затримкою ping 20–35 мс або мережу із затримкою 80–95 мс. Більшість внутрішніх мережевих з’єднань мають дисперсію близько 5 мс.</translation>
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Втрата пакетів</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Втрата пакетів для режиму loopback</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює втрату пакетів для режиму петлі.&lt;/b&gt;&lt;br /&gt;Це буде співвідношення втрачених пакетів. Якщо вихідна пропускна здатність не досягла піку або щось не так з вашим мережевим з’єднанням, це буде 0%</translation>
     </message>
     <message>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Петля</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Бажаний режим петлі</translation>
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменште додатки за...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Послаблення інших додатків під час мови</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Зменшити гучність інших програм під час мовлення&lt;/b&gt;&lt;br /&gt;Mumble підтримує зменшення гучності інших програм під час вхідної та/або вихідної мови. Це встановлює затухання інших програм, якщо цю функцію ввімкнено.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, Mumble зменшує гучність інших програм, поки інші користувачі розмовляють</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Зменшення гучності програм, поки інші користувачі розмовляють&lt;/b&gt;&lt;br /&gt;Mumble підтримує зменшення гучності інших програм під час вхідної та/або вихідної мови. Це змушує бурмотіти активувати функцію, поки інші користувачі розмовляють з вами.</translation>
     </message>
     <message>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>поки інші користувачі говорять</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, Mumble зменшує гучність інших програм під час вашої розмови</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Зменшення гучності програм під час розмови&lt;/b&gt;&lt;br /&gt;Mumble підтримує зменшення гучності інших програм під час вхідної та/або вихідної мови. Це дозволяє бурмотіти активувати функцію під час вашої розмови.</translation>
     </message>
     <message>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>поки ви говорите</translation>
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ексклюзивний режим, не рекомендується.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це відкриє пристрій у ексклюзивному режимі.&lt;/b&gt;&lt;br /&gt;Жодна інша програма не зможе використовувати пристрій.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ексклюзив</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, Mumble зменшує гучність інших користувачів під час вашої розмови, якщо у вас статус «Пріоритетний спікер».</translation>
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, Mumble пом’якшуватиме лише програми, які використовують те саме джерело виводу, що й Mumble</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Атенюювати лише програми, що використовують той самий вихід, що й Mumble&lt;/b&gt;&lt;br /&gt;Якщо позначено, програми, які використовують вихід, відмінний від Mumble, не будуть послаблені.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Послаблюйте лише програми, які використовують той самий вихідний пристрій</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, модулі зворотного зв’язку PulseAudio будуть послаблені</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Послаблення модулів зворотного зв’язку PulseAudio&lt;/b&gt;&lt;br /&gt;Якщо модулі зворотного зв’язку підключено до вихідного пристрою/приймача Mumble, вони також будуть послаблені.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Модулі шлейфу PulseAudio послаблюють</translation>
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо вихід</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це метод виведення звуку.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Приглушуйте голос інших користувачів під час розмови як пріоритетний спікер&lt;/b&gt;&lt;br /&gt;Mumble підтримує зменшення гучності інших користувачів, коли ви говорите як &lt;i&gt;пріоритетний спікер&lt;/i&gt;, щоб вас не турбували. Поставте цей прапорець, щоб увімкнути цю функцію.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Пом&apos;якшуйте інших користувачів під час розмови як пріоритетний спікер</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути</translation>
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Затухання</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> м</translation>
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиційне аудіо не може працювати з пристроями моновиходу!</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Система аудіовиведення</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>пристрій виведення звуку</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Затримка виведення вхідної мови</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час буфера джиттера</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсоток загасання</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Під час розмови гучність інших програм буде зменшена на цю величину</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>мінімальний обсяг</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>мінімальна відстань</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>максимальна відстань</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Петлева штучна затримка</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Петлева штучна втрата пакетів</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Тестовий режим петлі</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Петлевий тест можна використовувати для перевірки конфігурації аудіо. Поки шлейфовий тест увімкнено, інші не зможуть вас почути.</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Жодного</translation>
     </message>
     <message>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцевий</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіовихід</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 мс</translation>
     </message>
     <message>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань, на якій починає зменшуватися гучність звуку іншого програвача</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань, на якій гучність звуку гравця досягла мінімального значення</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальна гучність звуку гравця буде зникати зі збільшенням відстані. Встановіть значення 0%, щоб він перейшов у повну тишу для реалістичної максимальної відстані чуття.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо джерело аудіо досить близько, розквіт призведе до того, що аудіо відтворюватиметься на всіх динаміках більш-менш незалежно від їхнього положення (хоча з меншою гучністю)</translation>
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>мілісекунд</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>метрів</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputSample</name>
     <message>
         <source>Choose sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть звуковий файл</translation>
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Недійсний звуковий файл</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; не може бути використаний Mumble. Виберіть файл із сумісним форматом і кодуванням.</translation>
     </message>
 </context>
 <context>
@@ -1704,179 +1704,179 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&gt;1000 мс</translation>
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо статистика</translation>
     </message>
     <message>
         <source>Input Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівні введення</translation>
     </message>
     <message>
         <source>Peak microphone level</source>
-        <translation type="unfinished"></translation>
+        <translation>Піковий рівень мікрофона</translation>
     </message>
     <message>
         <source>Peak power in last frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Пікова потужність в останньому кадрі</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує пікову потужність в останньому кадрі (20 мс) і є тим самим вимірюванням, яке зазвичай відображається як «вхідна потужність». Будь ласка, не звертайте уваги на це та натомість дивіться на &lt;b&gt;потужність мікрофона&lt;/b&gt;, яка є набагато більш стабільною та не враховує викиди.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
-        <translation type="unfinished"></translation>
+        <translation>Піковий рівень динаміка</translation>
     </message>
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Це показує пікову потужність динаміків в останньому кадрі (20 мс). Якщо ви не використовуєте багатоканальний метод вибірки (наприклад, ASIO) із налаштованими каналами гучномовців, це буде 0. Якщо у вас налаштовано таке налаштування, і воно все ще показує 0 під час відтворення аудіо з інших програм, ваші налаштування не працює.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальний рівень очищення</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує пікову потужність в останньому кадрі (20 мс) після всієї обробки. В ідеалі це має бути -96 дБ, коли ви не розмовляєте. Насправді звукова студія має бачити -60 дБ, а ви, сподіваюся, побачите десь близько -20 дБ. Коли ви розмовляєте, рівень має підвищуватися до -5–10 дБ.&lt;br /&gt;Якщо ви використовуєте функцію придушення луни, а коли ви не розмовляєте, він зростає до -15 дБ, ваші налаштування не працюють , і ви будете дратувати інших користувачів луною.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Аналіз сигналів</translation>
     </message>
     <message>
         <source>Microphone power</source>
-        <translation type="unfinished"></translation>
+        <translation>Потужність мікрофона</translation>
     </message>
     <message>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"></translation>
+        <translation>Наскільки поточний вхідний рівень близький до ідеального</translation>
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує, наскільки ваша поточна вхідна гучність близька до ідеальної. Щоб відрегулювати рівень мікрофона, відкрийте будь-яку програму, яку ви використовуєте для регулювання гучності запису, і подивіться на значення тут під час розмови.&lt;br /&gt;&lt;b&gt;Говоріть голосно, як ви робите, коли вас засмучує те, що вас обдурив нуб. .&lt;/b&gt;&lt;br /&gt;Налаштуйте гучність, доки це значення не наблизиться до 100%, але переконайтеся, що воно не перевищує. Якщо він буде вище, ви, швидше за все, отримаєте фрагменти вашої мови, що погіршить якість звуку.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Співвідношення сигнал/шум</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Співвідношення сигнал/шум від мікрофона</translation>
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це співвідношення сигнал/шум (SNR) мікрофона в останньому кадрі (20 мс). Він показує, наскільки чіткішим є голос порівняно з шумом.&lt;br /&gt;Якщо це значення менше 1,0, у сигналі більше шуму, ніж голосу, тому якість погіршується.&lt;br /&gt;Верхньої межі для цього немає. вартість, але не очікуйте побачити набагато вище 40-50 без звукової студії.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation type="unfinished"></translation>
+        <translation>Ймовірність мовлення</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation type="unfinished"></translation>
+        <translation>ймовірність мовлення</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ймовірність того, що останній кадр (20 мс) був мовою, а не шумом навколишнього середовища.&lt;br /&gt;Передача голосової активності залежить від правильності цього. Хитрість полягає в тому, що середина речення завжди визначається як мова; проблема полягає в паузах між словами і початком мови. Важко відрізнити зітхання від слова, що починається на «h».&lt;br /&gt;Якщо це виділено жирним шрифтом, це означає, що Mumble зараз передає (якщо ви підключені).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Відгук про налаштування</translation>
     </message>
     <message>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Поточний бітрейт аудіо</translation>
     </message>
     <message>
         <source>Bitrate of last frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Бітрейт останнього кадру</translation>
     </message>
     <message>
         <source>DoublePush interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтервал DoublePush</translation>
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"></translation>
+        <translation>Час між останніми двома натисканнями Push-To-Talk</translation>
     </message>
     <message>
         <source>Speech Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Виявлення мовлення</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Поточний шанс виявлення мовлення</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це показує поточні параметри виявлення мовлення.&lt;/b&gt;&lt;br /&gt;Ви можете змінити параметри в діалоговому вікні «Параметри» або в «Майстрі звуку»..</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"></translation>
+        <translation>Спектр потужності сигналу та шуму</translation>
     </message>
     <message>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"></translation>
+        <translation>Оцінка спектру потужності вхідного сигналу та шуму</translation>
     </message>
     <message>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує спектр потужності поточного вхідного сигналу (червона лінія) і поточну оцінку шуму (заповнено синім).&lt;br /&gt;Усі амплітуди помножено на 30, щоб показати цікаві частини (скільки більше сигналу, ніж шуму в кожній смуги хвиль).&lt;br /&gt;Це, ймовірно, буде цікаво, лише якщо ви намагаєтеся точно налаштувати умови шуму на мікрофоні. За сприятливих умов внизу має бути лише крихітний синій колір. Якщо синій колір знаходиться більше ніж на половині графіка, у вас дуже шумне середовище.</translation>
     </message>
     <message>
         <source>Echo Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Ехо-аналіз</translation>
     </message>
     <message>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваги ехокомпенсатора</translation>
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує ваги ехокомпенсатора зі збільшенням часу вниз і частотою праворуч.&lt;br /&gt;В ідеалі це має бути чорним, що вказує на те, що відлуння взагалі немає. Частіше у вас буде одна або кілька горизонтальних смуг синюватого кольору, що представляють відлуння із затримкою. Ви повинні мати змогу бачити ваги, оновлені в режимі реального часу.&lt;br /&gt;Зауважте, що доки у вас немає нічого для відтворення, ви не побачите тут багато корисних даних. Увімкніть музику, і ситуація стабілізується. &lt;br /&gt;Ви можете вибрати перегляд реальних чи уявних частин ваг частотної області або по черзі обчислений модуль і фазу. Найкориснішим із них, імовірно, буде модуль, який є амплітудою відлуння, і показує вам, скільки вихідного сигналу видаляється на цьому етапі часу. Інші режими перегляду здебільшого корисні для людей, які хочуть налаштувати алгоритми придушення луни.&lt;br /&gt;Зверніть увагу: якщо все зображення сильно коливається в модульному режимі, придушувачу луни не вдається знайти жодної кореляції між двома джерелами вхідного сигналу. (колонки та мікрофон). Або у вас дуже велика затримка луни, або одне з джерел вхідного сигналу налаштовано неправильно.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це бітрейт аудіо останнього стисненого кадру (20 мс). Піковий бітрейт можна налаштувати в діалоговому вікні налаштувань.</translation>
     </message>
 </context>
 <context>
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Майстер налаштування звуку</translation>
     </message>
     <message>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>вступ</translation>
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Ласкаво просимо до майстра Mumble Audio</translation>
     </message>
     <message>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Насолоджуйтесь Mumble</translation>
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished">Вибір пристрою</translation>
+        <translation>Вибір пристрою</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір пристрою введення та виведення для використання з Mumble.</translation>
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це пристрій, до якого підключено ваш мікрофон.</translation>
     </message>
     <message>
         <source>System</source>
@@ -1884,7 +1884,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод введення аудіо</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1892,60 +1892,60 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій введення для використання</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Вибирає, яку звукову карту використовувати для аудіовходу.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Cancel echo from headset or speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасувати відлуння з гарнітури або динаміків</translation>
     </message>
     <message>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте ехоподавлення</translation>
     </message>
     <message>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволяє придушити відлуння вихідного звуку, що допомагає як на динаміках, так і на гарнітурах.</translation>
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це пристрій, до якого підключено ваші колонки або навушники.</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод виведення аудіо</translation>
     </message>
     <message>
         <source>Output device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій виведення для використання</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Вибирає, яку звукову карту використовувати для аудіовиведення.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути позиційний звук</translation>
     </message>
     <message>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє позиціонувати звук</translation>
     </message>
     <message>
         <source>Input Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій введення</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідний пристрій</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволяє Mumble використовувати позиційне аудіо для розміщення голосів.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1955,15 +1955,21 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; 
+Щоб звести затримку до абсолютного мінімуму, важливо буферизувати якомога менше звуку на звуковій карті. Однак багато звукових карт повідомляють, що їм потрібен набагато менший буфер, ніж той, з яким вони насправді можуть працювати, тому єдиний спосіб встановити це значення — спробувати й зазнати невдачі. 
+&lt;/p&gt; 
+&lt;p&gt; 
+Ви повинні почути зразок голосу. Змініть повзунок нижче на найнижче значення, при якому &lt;b&gt;без&lt;/b&gt; переривань або тремтіння звуку. Зверніть увагу, що під час цього тесту локальне відлуння вимкнено. 
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Обсяг даних для буферизації</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює кількість даних для попереднього буферизації у вихідному буфері. Поекспериментуйте з різними значеннями та встановіть найнижче, яке не спричиняє швидкого тремтіння звуку.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1973,19 +1979,25 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; 
+Відкрийте панель керування звуком і перейдіть до налаштувань запису. Переконайтеся, що мікрофон вибрано як активний вхід із максимальною гучністю запису. Якщо є опція ввімкнути «Посилення мікрофона», переконайтеся, що вона позначена. 
+&lt;/p&gt; 
+&lt;p&gt; 
+Говоріть голосно, як коли ви роздратовані або схвильовані. Зменшуйте гучність на панелі керування звуком, доки смужка внизу не буде якомога вище в синій і зеленій зоні, але &lt;b&gt;не&lt;/b&gt; в червоній зоні, поки ви говорите. 
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиційне аудіо</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання затухання позиційного звуку.</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте навушники замість колонок</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1995,140 +2007,146 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; 
+Вітаю. Тепер ви повинні бути готові насолоджуватися багатшим звуком із Mumble. 
+&lt;/p&gt; 
+&lt;p&gt; 
+Mumble постійно розвивається, і команда розробників хоче зосередитися на функціях, які принесуть користь найбільше користувачам. З цією метою Mumble підтримує надсилання анонімної статистики про вашу конфігурацію розробникам. Ця статистика є важливою для майбутнього розвитку, а також гарантує, що функції, які ви використовуєте, не застаріли. 
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Use headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте навушники</translation>
     </message>
     <message>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ігнорує конфігурацію динаміка ОС і замість цього налаштовує позиціонування для навушників.</translation>
     </message>
     <message>
         <source>Volume tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання гучності</translation>
     </message>
     <message>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оптимальне налаштування гучності мікрофона.</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Тепер розмовляйте тихо, як ви робите, коли розмовляєте пізно ввечері, і ви не хочете нікого заважати. Відрегулюйте повзунок нижче так, щоб смуга ставала зеленою, коли ви говорите, але залишалася синьою, поки ви говорите мовчазний.</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Виявлення голосової активності</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозвольте Мамблу визначити, коли ви говорите, а коли мовчите.</translation>
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це допоможе Мамблу зрозуміти, коли ви говорите. Першим кроком є вибір значення даних для використання.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"></translation>
+        <translation>Необроблена амплітуда з вхідних даних</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Співвідношення сигнал/шум</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Далі потрібно налаштувати наступний повзунок. Перші кілька сказаних вами висловлювань повинні закінчитися зеленою зоною (виразне мовлення). Під час розмови ви повинні залишатися всередині жовтого кольору (може бути мова), а коли ви не розмовляєте, все має бути червоним (безумовно, не мова).</translation>
     </message>
     <message>
         <source>Device tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування пристрою</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміна затримок апаратного виведення на мінімальне значення.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Надішліть анонімну статистику в проект Mumble</translation>
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисни і говори:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Якість і сповіщення</translation>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштуйте параметри якості та сповіщень.</translation>
     </message>
     <message>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування якості</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Низький</translation>
     </message>
     <message>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Збалансований</translation>
     </message>
     <message>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування сповіщень</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте синтез мовлення, щоб читати вам сповіщення та повідомлення.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкніть синтез мовлення та використовуйте замість нього звуки.</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 мс</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає ослаблення інших програм, поки користувачі спілкуються з вами</translation>
     </message>
     <message>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Послаблюйте програми, поки інші користувачі говорять</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Високий</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Кастом</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви вже встановили індивідуальну конфігурацію якості в Mumble. Виберіть це налаштування, щоб зберегти його.</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає ослаблення інших програм, поки користувачі спілкуються з вами. Це означає, що як тільки хтось почне говорити з вами в Mumble, звук усіх інших програм (наприклад, аудіопрогравачів) буде приглушено, щоб ви могли їх чути чіткіше.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосуйте оптимізацію високої контрастності для користувачів із вадами зору</translation>
     </message>
     <message>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте висококонтрастну графіку</translation>
     </message>
     <message>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберігайте спеціальні налаштування синтезу мовлення.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2146,296 +2164,302 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; 
+Відкрийте панель керування звуком і перейдіть до налаштувань запису. Переконайтеся, що мікрофон вибрано як активний вхід із максимальною гучністю запису. Якщо є опція ввімкнути «Посилення мікрофона», переконайтеся, що вона позначена. 
+&lt;/p&gt; 
+&lt;p&gt; 
+Говоріть голосно, як коли ви роздратовані або схвильовані. Зменшуйте гучність на панелі керування звуком, доки смуга внизу не буде якомога вище в смугастій і порожній, але &lt;b&gt;не&lt;/b&gt; перехрещеній зоні, поки ви говорите. 
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Тепер розмовляйте тихо, як ви робите, коли розмовляєте пізно ввечері, і ви не хочете нікого заважати. Відрегулюйте повзунок унизу так, щоб смужка переміщувалася в порожню зону, коли ви говорите, але залишалася в смугастій, поки ви мовчите.</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Далі потрібно відрегулювати наступний повзунок. Перші кілька висловлювань, які ви говорите, повинні закінчуватися в порожньому місці (дефінітивна мова). Під час розмови ви повинні залишатися всередині смугастого (може бути мова), а коли ви не розмовляєте, все має бути перехрещеним (безумовно не мова).</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>У цій конфігурації Mumble використовуватиме &lt;b&gt;низьку пропускну здатність&lt;/b&gt;. Це неминуче призведе до високої затримки та низької якості. Виберіть це, лише якщо ваше з’єднання не підтримує інші налаштування. (16 кбіт/с, 60 мс на пакет)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Це &lt;b&gt;рекомендована конфігурація за умовчанням&lt;/b&gt;. Він забезпечує хороший баланс між якістю, затримкою та використанням пропускної здатності. (40 Кбіт/с, 20 мс на пакет)</translation>
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Цю конфігурацію рекомендується використовувати лише в налаштуваннях, де пропускна здатність не є проблемою, як-от локальна мережа. Він забезпечує найнижчу затримку, яку підтримує Mumble, і &lt;b&gt;високу якість&lt;/b&gt;. (72 Кбіт/с, 10 мс на пакет)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це метод введення для аудіо.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це метод виведення для аудіо.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Це майстер налаштування звуку для Mumble. Це допоможе вам правильно встановити вхідні рівні вашої звукової карти, а також задати правильні параметри обробки звуку в Mumble. &lt;/p&gt;&lt;p&gt;Зауважте, що поки цей майстер активний, аудіо зациклюватиметься локально, щоб ви могли його прослухати, а аудіо не надсилатиметься на сервер. &lt;/p&gt;&lt;p&gt;Зверніть увагу, що ви можете будь-коли скасувати цей майстер, не вплинувши на поточну аудіосистему. Налаштування застосовуються лише після завершення роботи майстра.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble підтримує позиційне аудіо для деяких ігор і позиціонує голос інших користувачів відносно їхньої позиції в грі. Залежно від їхнього положення, гучність голосу буде змінюватися між динаміками, щоб імітувати напрямок і відстань, на якій знаходиться інший користувач. Таке розташування залежить від правильності конфігурації динаміків у вашій операційній системі, тому тут виконується перевірка. &lt;/p&gt;&lt;p&gt;На графіку нижче показано позицію &lt;span style=&quot; color:#56b4e9;&quot;&gt;вас&lt;/span&gt;, &lt;span style=&quot; color:#d55e00;&quot;&gt;доповідачів&lt;/span&gt; і &lt;span style=&quot; color:#009e73;&quot;&gt;джерело звуку, що рухається&lt;/span&gt;, наче його бачать зверху. Ви повинні почути переміщення звуку між каналами. &lt;/p&gt;&lt;p&gt;Ви також можете скористатися мишею, щоб розташувати &lt;span style=&quot; color:#009e73;&quot;&gt;джерело звуку&lt;/span&gt; вручну.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; is</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальне посилення</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Кнопки не призначено</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Система аудіовходу</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій введення аудіо</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть пристрій аудіовиведення</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Система аудіовиведення</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрій Виведення звуку</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиційна аудіосистема Mumble дозволяє користувачам пов’язувати відносну позицію свого голосу зі сторонніми додатками, такими як ігри.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Затримка виведення для вхідної мови</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Максимальне підсилення вхідного звуку</translation>
+        <translation>Максимальне посилення вхідного звуку</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова динамічно посилюється щонайбільше на цю кількість</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень виявлення голосової активності</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановить діапазон, у якому Mumble розглядатиме сигнальне мовлення. Збільште значення, щоб зробити голосову активацію більш чутливою.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Натисніть щоб говорити</translation>
+        <translation>натисни і говори</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished"></translation>
+        <translation>Щоб призначити клавішу, використовуйте кнопку швидкого доступу «Натисни і говори»</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть ярлик «Натисни і говори»</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно редагування ярлика</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Графічний вид симуляції позиційного звуку</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished"></translation>
+        <translation>Це візуально представляє позиційне аудіо, яке зараз відтворюється</translation>
     </message>
 </context>
 <context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Редагувати заборони</translation>
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Адреса</translation>
     </message>
     <message>
         <source>&amp;Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Маска</translation>
     </message>
     <message>
         <source>Reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Причина</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>старт</translation>
     </message>
     <message>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Кінець</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач</translation>
     </message>
     <message>
         <source>Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Хеш</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">Додати</translation>
+        <translation>&amp;додати</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;оновлення</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;видалити</translation>
     </message>
     <message>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Список заборонених</translation>
     </message>
     <message>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Поле пошуку</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це поле пошуку. Використовуйте його, щоб знайти заборони, які мають це ім’я користувача в полі імені користувача.</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Кого ти шукаєш?</translation>
     </message>
     <message>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Без прізвиська</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP адреса</translation>
     </message>
     <message>
         <source>No IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Немає IP-адреси</translation>
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Причина заборони</translation>
     </message>
     <message>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Без причини</translation>
     </message>
     <message>
         <source>Ban end date</source>
-        <translation type="unfinished"></translation>
+        <translation>Кінцева дата заборони</translation>
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата закінчення заборони. Якщо ви встановите ту саму дату початку та кінця, заборона буде постійною (термін дії не закінчиться).</translation>
     </message>
     <message>
         <source>Certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Хеш сертифіката</translation>
     </message>
     <message>
         <source>No certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Немає хешу сертифіката</translation>
     </message>
     <message>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Забанені користувачі</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це список забанених користувачів.</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скористайтеся цією кнопкою, якщо ви хочете додати нову заборону.</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте цю кнопку, якщо ви хочете оновити інформацію про заборону.</translation>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте цю кнопку, якщо ви хочете видалити користувача зі списку заборонених.</translation>
     </message>
     <message>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити всі поля</translation>
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка очищає всі поля. Використовуйте його, якщо хочете додати нову заборону.</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>ясно</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Список заборонених - %n заборонених</numerusform>
+            <numerusform>Список заборон - %n заборон</numerusform>
+            <numerusform>Список заборон - %n заборон</numerusform>
         </translation>
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Маска</translation>
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук забанених користувачів</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача для заборони</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-адреса для заборони</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Причина Заборони</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата/час початку заборони</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Заборонити дату/час завершення</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Хеш сертифіката для заборони</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Список забанених користувачів</translation>
     </message>
 </context>
 <context>
@@ -2446,170 +2470,170 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Електронна пошта</translation>
     </message>
     <message>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Емітент</translation>
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Термін придатності</translation>
     </message>
     <message>
         <source>(none)</source>
-        <translation type="unfinished"></translation>
+        <translation>(немає)</translation>
     </message>
     <message>
         <source>Self-signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Самопідписаний</translation>
     </message>
 </context>
 <context>
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося підтвердити електронну адресу.&lt;br /&gt;Введіть дійсну (або пусту) електронну адресу, щоб продовжити.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Під час створення сертифіката сталася помилка.&lt;br /&gt;Спробуйте ще раз.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш сертифікат і ключ не вдалося експортувати у формат PKCS#12. У вашому сертифікаті може бути помилка.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити файл для запису. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося встановити дозволи для файлу. Сертифікат і ключ не написані. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося записати файл. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити файл для читання. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл порожній або його не вдалося прочитати. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не містив дійсного сертифіката та ключа. Будь ласка, використовуйте інший файл.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл для експорту сертифіката</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл, з якого потрібно імпортувати сертифікат</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося імпортувати. Відсутній пароль або несумісний тип файлу.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Термін дії сертифіката:&lt;/b&gt; термін дії вашого сертифіката закінчується. Вам потрібно поновити його, інакше ви більше не зможете підключитися до серверів, на яких ви зареєстровані.</translation>
     </message>
 </context>
 <context>
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Керування сертифікатами</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Автентифікація сертифіката</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"></translation>
+        <translation>Аутентифікація на серверах без використання паролів</translation>
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Діючий сертифікат</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це сертифікат, який зараз використовує Mumble.</translation>
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Діючий Сертифікат</translation>
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Створіть новий сертифікат</translation>
     </message>
     <message>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це створить новий сертифікат.</translation>
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт сертифіката з файлу</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це імпортує сертифікат із файлу.</translation>
     </message>
     <message>
         <source>Import a certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати сертифікат</translation>
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортний сертифікат</translation>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це експортує сертифікат у файл.</translation>
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт поточного сертифіката</translation>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортний сертифікат</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт сертифіката PKCS #12</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble може імпортувати сертифікати, збережені у форматі PKCS #12. Це формат, який використовується під час експорту ключа з Mumble, а також під час експорту ключів із Firefox, Internet Explorer, Opera тощо.&lt;/p&gt;&lt;p&gt;Якщо файл захищено паролем, вам знадобиться пароль для імпорту сертифіката. &lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати з</translation>
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва файлу для імпорту</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ім’я файлу, з якого ви хочете імпортувати сертифікат.</translation>
     </message>
     <message>
         <source>Select file to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл для імпорту</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>ВІДЧИНЕНО...</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2617,31 +2641,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль для файлу PKCS#12</translation>
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це пароль для файлу PKCS#12, який містить ваш сертифікат.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертифікат на імпорт</translation>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це сертифікат, який ви імпортуєте.</translation>
     </message>
     <message>
         <source>Certificate Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Деталі сертифіката</translation>
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити сертифікат</translation>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити наявний сертифікат на новий?</translation>
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
@@ -2653,55 +2677,63 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;У вас уже є сертифікат, збережений у Mumble, і ви збираєтеся його замінити.&lt;/p&gt; 
+&lt;p&gt;Якщо ви оновлюєте сертифікат, виданий вам довіреним центром сертифікації, і адреси електронної пошти збігаються з вашим поточним сертифікатом, це абсолютно безпечно, і сервери, до яких ви підключаєтеся, автоматично розпізнають надійний сертифікат для вашої електронної адреси. 
+&lt;/p&gt; 
+&lt;p&gt;Якщо це не так, вас більше не розпізнаватиме жоден сервер, на якому ви раніше проходили автентифікацію. Якщо ви ще не зареєстровані на жодному сервері, не варто хвилюватися. 
+&lt;/p&gt; 
+&lt;p&gt; 
+Ви впевнені, що бажаєте замінити свій сертифікат? 
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це сертифікат, який зараз використовує Mumble. Він буде замінений.</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий сертифікат</translation>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це новий сертифікат, який замінить старий.</translation>
     </message>
     <message>
         <source>New Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий Сертифікат</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробіть резервну копію свого сертифіката</translation>
     </message>
     <message>
         <source>Export to</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати в</translation>
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я файлу для експорту</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ім’я файлу, до якого ви хочете експортувати сертифікат.</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти як...</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це сертифікат, який зараз використовує Mumble. Він буде експортований.</translation>
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Створіть новий сертифікат для надійної автентифікації</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Тепер Mumble створить надійний сертифікат для автентифікації на серверах.&lt;/p&gt;&lt;p&gt;Якщо ви бажаєте, ви можете надати деяку додаткову інформацію, яка буде зберігатися в сертифікаті, який буде надано серверам під час підключення. Якщо ви вкажете дійсну адресу електронної пошти, ви можете пізніше оновити сертифікат електронної пошти, виданий ЦС, який забезпечує надійну ідентифікацію.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2709,235 +2741,236 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Електронна пошта</translation>
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваша електронна адреса (наприклад, johndoe@mumble.info)</translation>
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ваша електронна адреса. Настійно рекомендуємо вказати дійсну адресу електронної пошти, оскільки це дозволить вам оновити сертифікат до надійного без проблем із автентифікацією.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваше ім&apos;я (наприклад, Джон Доу)</translation>
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ваше ім&apos;я, яке буде заповнено в сертифікаті. Це поле є необов’язковим.</translation>
     </message>
     <message>
         <source>Finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Закінчити</translation>
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
-        <translation type="unfinished"></translation>
+        <translation>Аутентифікація на основі сертифіката готова до використання</translation>
     </message>
     <message>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation type="unfinished"></translation>
+        <translation>Насолоджуйтесь використанням Mumble із надійною автентифікацією.</translation>
     </message>
     <message>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматичне створення сертифіката</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Якщо ви коли-небудь втратите свій поточний сертифікат, що станеться, якщо ваш комп’ютер зазнає збою апаратного забезпечення або ви перевстановите свій комп’ютер, ви більше не зможете автентифікуватися на будь-якому сервері, на якому ви зареєстровані. Тому &lt;b&gt;обов&apos;язково&lt;/b&gt; зробити резервну копію свого сертифіката. Ми наполегливо рекомендуємо зберігати цю резервну копію на знімному носії, наприклад на флеш-пам’яті USB.&lt;/p&gt; 
+&lt;p&gt;Зауважте, що цей файл не буде зашифровано, і якщо хтось отримає до нього доступ, він зможе видати себе за вас, тому бережіть його.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображає поточний сертифікат</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сертифіката для імпорту</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте кнопку «відкрити», щоб вибрати файл за допомогою діалогового вікна.</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль сертифіката</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображає імпортований сертифікат</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображає новий сертифікат</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл для експорту сертифіката</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте кнопку «зберегти як», щоб вибрати файл за допомогою діалогового вікна.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваше ім&apos;я Наприклад: John Doe</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваша електронна адреса. Наприклад: johndoe@mumble.info</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble може використовувати сертифікати для автентифікації на серверах. Використання сертифікатів дозволяє уникнути паролів, тобто вам не потрібно повідомляти пароль віддаленому сайту. Це також забезпечує дуже легку реєстрацію користувача та список друзів на стороні клієнта, незалежний від серверів.&lt;/p&gt;&lt;p&gt;Хоча Mumble може працювати без сертифікатів, більшість серверів очікують, що він у вас є.&lt;/p&gt;&lt;p&gt;Створення Новий сертифікат автоматично є достатнім для більшості випадків використання. Але Mumble також підтримує сертифікати, що вказують на довіру до власності користувачів на адресу електронної пошти. Ці сертифікати видаються третіми особами. Для отримання додаткової інформації перегляньте нашу &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;документацію щодо сертифіката користувача&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>ChanACL</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Жодного</translation>
     </message>
     <message>
         <source>Traverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Траверс</translation>
     </message>
     <message>
         <source>Enter</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть</translation>
     </message>
     <message>
         <source>Speak</source>
-        <translation type="unfinished"></translation>
+        <translation>говорити</translation>
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути/глухнути</translation>
     </message>
     <message>
         <source>Make channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити канал</translation>
     </message>
     <message>
         <source>Make temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити тимчасово</translation>
     </message>
     <message>
         <source>Link channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал посилання</translation>
     </message>
     <message>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це не означає жодних привілеїв.</translation>
     </message>
     <message>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає повний доступ до каналу, включаючи можливість змінювати групу та інформацію про список доступу. Цей привілей передбачає всі інші привілеї.</translation>
     </message>
     <message>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл проходити канал. Якщо користувачу буде відмовлено в цьому привілеї, він не зможе отримати доступ до цього каналу та будь-яких підканалів будь-яким способом, незалежно від інших дозволів у підканалах.</translation>
     </message>
     <message>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл приєднатися до каналу. Якщо у вас є ієрархічна структура каналу, ви можете надати всім Traverse, але обмежте Enter у корені вашої ієрархії.</translation>
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл говорити в каналі. Користувачі без цього привілею будуть придушені сервером (вважатимуться вимкненими) і не зможуть говорити, доки їх не ввімкне хтось із відповідними привілеями.</translation>
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл шепотіти цьому каналу ззовні. Це працює так само, як привілей &lt;i&gt;говорити&lt;/i&gt;, але застосовується до пакетів, які озвучуються з утримуванням клавіші Whisper. Це можна використовувати для трансляції на ієрархію каналів без зв’язування.</translation>
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл вимкнути й оглушити інших користувачів. Після вимкнення звук користувача залишатиметься вимкненим, доки його не ввімкне інший привілейований користувач або повторно не підключиться до сервера.</translation>
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл перемістити користувача на інший канал або вигнати його з сервера. Щоб фактично перемістити користувача, користувач, який переміщується, повинен мати привілеї на переміщення в цільовому каналі, або користувачеві зазвичай має бути дозволено ввійти в канал. Користувачі з цим привілеєм можуть переміщувати користувачів у канали, до яких цільовий користувач зазвичай не має дозволу входити.</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на створення підканалів. Користувача, який створює підканал, буде додано до групи адміністраторів підканалу.</translation>
     </message>
     <message>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на створення тимчасового підканалу. Користувача, який створює підканал, буде додано до групи адміністраторів підканалу. Тимчасові канали не зберігаються і зникають, коли залишає останній користувач.</translation>
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на зв’язування каналів. Користувачі пов’язаних каналів чують один одного, якщо користувач, що говорить, має право &lt;i&gt;говорити&lt;/i&gt; в каналі слухача. Вам потрібен привілей посилання в обох каналах, щоб створити посилання, але лише в будь-якому каналі, щоб видалити його.</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл писати текстові повідомлення іншим користувачам цього каналу.</translation>
     </message>
     <message>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на примусове видалення користувачів із сервера.</translation>
     </message>
     <message>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на остаточне видалення користувачів із сервера.</translation>
     </message>
     <message>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл реєструвати та скасовувати реєстрацію користувачів на сервері.</translation>
     </message>
     <message>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл зареєструватися на сервері.</translation>
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>рухатися</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстове повідомлення</translation>
     </message>
     <message>
         <source>Kick</source>
-        <translation type="unfinished"></translation>
+        <translation>удар ногою</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Забанити</translation>
     </message>
     <message>
         <source>Register User</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструвати користувача</translation>
     </message>
     <message>
         <source>Register Self</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструватися самостійно</translation>
     </message>
     <message>
         <source>Write ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>Напишіть ACL</translation>
     </message>
     <message>
         <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл на використання функції прослуховування, яка дозволяє слухати канал, не перебуваючи в ньому.</translation>
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>Слухай</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це означає дозвіл скинути коментар або аватар користувача.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути вміст користувача</translation>
     </message>
 </context>
 <context>
@@ -2945,176 +2978,176 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Вставити та &amp;надіслати</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Введіть тут повідомлення чату&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо надіслати зображення: завелике.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо надіслати зображення %1: завелике.</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей сервер не дозволяє надсилати зображення.</translation>
     </message>
 </context>
 <context>
     <name>ClientUser</name>
     <message>
         <source>Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Друг</translation>
     </message>
     <message>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>Автентифіковано</translation>
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Пріоритетний спікер</translation>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Запис</translation>
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (сервер)</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушений (сервер)</translation>
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальне ігнорування (текстові повідомлення)</translation>
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальний звук</translation>
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (само)</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушений (сам)</translation>
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальне ігнорування (синтез мовлення)</translation>
     </message>
 </context>
 <context>
     <name>ConfigDialog</name>
     <message>
         <source>Accept changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Прийняти зміни</translation>
     </message>
     <message>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка прийме поточні налаштування та повернеться до програми.&lt;br /&gt;Параметри будуть збережені на диску, коли ви закриєте програму.</translation>
     </message>
     <message>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Відхилити зміни</translation>
     </message>
     <message>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка відхилить усі зміни та повернеться до програми.&lt;br /&gt;Налаштування будуть скинуті на попередні позиції.</translation>
     </message>
     <message>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати зміни</translation>
     </message>
     <message>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка негайно застосує всі зміни.</translation>
     </message>
     <message>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасувати зміни для поточної сторінки</translation>
     </message>
     <message>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка поверне будь-які зміни, внесені на поточній сторінці, до останніх застосованих налаштувань.</translation>
     </message>
     <message>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Відновити налаштування за замовчуванням для поточної сторінки</translation>
     </message>
     <message>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфігурація Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Категорії конфігурації</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка відновить стандартні параметри на поточній сторінці. Інші сторінки не будуть змінені.&lt;br /&gt;Щоб відновити всі параметри до стандартних, ви можете натиснути кнопку «За замовчуванням (усі)».</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Відновити всі параметри за замовчуванням</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка відновить стандартні налаштування для всіх параметрів.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>За замовчуванням (усі)</translation>
     </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення до %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я сервера</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідомий</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувачі</translation>
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося отримати список серверів</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення сервера Mumble</translation>
     </message>
     <message>
         <source>Ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Пінг</translation>
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити з вибраного</translation>
     </message>
     <message>
         <source>Add custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати спеціальний сервер</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -3122,15 +3155,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопіюйте улюблене посилання в буфер обміну</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вставити</translation>
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити улюблене з буфера обміну</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -3138,95 +3171,95 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Додати новий...</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати до &amp;Вибраного</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте &amp;веб-сторінку</translation>
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Список серверів</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Розташування</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>фільтр</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати все</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати заповнені</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати доступний</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>все</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Африка</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Азії</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Європа</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Північна Америка</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Океанія</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Південна Америка</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>Згода на передачу особистих даних</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Щоб виміряти затримку (ping) загальнодоступних серверів і визначити кількість активних користувачів, ваша IP-адреса має бути передана кожному загальнодоступному серверу.&lt;/p&gt;&lt;p&gt;Чи згодні ви на передачу вашої IP-адреси? Якщо ви відповісте «ні», список публічних серверів буде деактивовано. Однак ви можете будь-коли повторно активувати його в налаштуваннях мережі.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Під’єднатися</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Додавання вузла %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я хоста</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва Bonjour</translation>
     </message>
     <message>
         <source>Port</source>
@@ -3238,140 +3271,147 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Втрата Пакетів</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Пінг (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 мс</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Пінг (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропускна здатність</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Кбіт/с</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Версія</translation>
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>адреса IPv4</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>адреса IPv6</translation>
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це діалогове вікно підключення. Існує два різні способи підключення до сервера Mumble. Якщо сервер загальнодоступний, його можна знайти за допомогою списку серверів. Якщо ви знаєте IP-адресу сервера, ви можете вручну додати новий постійний запис до вибраного.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Список серверів містить ваші вибрані та всі загальнодоступні сервери.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>За допомогою цього інтерфейсу пошуку ви можете фільтрувати сервери Mumble, які відображаються у списку серверів.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайдіть назву сервера</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук місцезнаходження</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити режим фільтра</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер</translation>
     </message>
 </context>
 <context>
     <name>ConnectDialogEdit</name>
     <message>
         <source>Edit Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати сервер</translation>
     </message>
     <message>
         <source>Name of the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я Сервера</translation>
     </message>
     <message>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;адреса</translation>
     </message>
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Інтернет-адреса сервера.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Адреса&lt;/b&gt;&lt;br/&gt; 
+Інтернет-адреса сервера. Це може бути звичайне ім’я хоста, адреса IPv4/IPv6 або ідентифікатор служби Bonjour. Ідентифікатори сервісу Bonjour мають мати префікс «@», щоб Mumble розпізнавало їх.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Порт</translation>
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт, на якому прослуховується сервер</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Порт&lt;/b&gt;&lt;br/&gt;
+Порт, на якому прослуховується сервер. Якщо сервер ідентифікується ідентифікатором служби Bonjour, це поле ігноруватиметься.</translation>
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача для надсилання на сервер</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ім&apos;я користувача&lt;/b&gt;&lt;br/&gt;
+Ім&apos;я користувача для надсилання на сервер. Майте на увазі, що сервер може накласти обмеження на те, як може виглядати ім’я користувача. Крім того, ваше ім&apos;я користувача вже може бути використано іншим користувачем.</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітка</translation>
     </message>
     <message>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати сервер</translation>
     </message>
     <message>
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Зараз ви підключені до сервера.
+Ви бажаєте заповнити діалогове вікно даними підключення цього сервера?
+Хост: %1 Порт: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>У вашому буфері обміну є URL-адреса.
+Ви хочете заповнити діалог цими даними?
+Хост: %1 Порт: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3379,121 +3419,123 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль для відправки на сервер</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br/&gt; 
+Пароль, який надсилається на сервер під час підключення. Цей пароль потрібен під час підключення як &lt;i&gt;SuperUser&lt;/i&gt; або до сервера за допомогою автентифікації паролем. Якщо тут не введено, пароль запитуватиметься під час підключення.</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати пароль</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Мітка&lt;/b&gt;&lt;br/&gt;
+Мітка сервера. Це назва сервера у вашому списку серверів, яку можна вибрати вільно.</translation>
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітка локального сервера</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <source>64738</source>
-        <translation type="unfinished"></translation>
+        <translation>64738</translation>
     </message>
     <message>
         <source>Your username</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваше ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Your password</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш пароль</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Заповнити</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ігнорувати</translation>
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-адреса сервера</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт сервера</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітка для сервера</translation>
     </message>
 </context>
 <context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Звіт про збій Mumble</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;b&gt;Нам дуже шкода, але, здається, у Mumble стався збій. Ви бажаєте надіслати звіт про збій розробникам Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Звіт про збій містить часткову копію пам’яті Mumble на момент збою та допоможе розробникам вирішити проблему.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Адреса електронної пошти (необов&apos;язково)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Будь ласка, опишіть коротко англійською мовою, що ви робили під час аварії</translation>
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Надіслати звіт</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>Не надсилати звіт</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Аварійне завантаження успішне</translation>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"></translation>
+        <translation>Дякуємо, що допомагаєте зробити Mumble кращим!</translation>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка завантаження</translation>
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантаження звіту про збій</translation>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Припинити завантаження</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>У CrashReporter.cpp виявлено внутрішню помилку: отримана відповідь мережі не містить коду статусу HTTP. Повідомте розробника про код помилки %1</translation>
     </message>
 </context>
 <context>
@@ -3501,169 +3543,171 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>База даних &quot;%1&quot; доступна лише для читання. Mumble не може зберігати налаштування сервера (тобто сертифікати SSL), доки ви не вирішите цю проблему.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл бази даних &quot;%1&quot;, встановлений у файлі конфігурації, не існує. Ви хочете створити новий файл бази даних у цьому місці?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble не вдалося ініціалізувати базу даних у жодному з можливих місць.</translation>
     </message>
 </context>
 <context>
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Консоль розробника</translation>
     </message>
 </context>
 <context>
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетягніть сюди</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ярлики</translation>
     </message>
     <message>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Список налаштованих ярликів</translation>
     </message>
     <message>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>функція</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Дані</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Ярлик</translation>
     </message>
     <message>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Придушити</translation>
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати новий ярлик</translation>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Це додасть новий глобальний ярлик</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити вибраний ярлик</translation>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це назавжди видалить вибраний ярлик.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;видалити</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Наразі Mumble може використовувати лише кнопки миші та клавіші-модифікатори клавіатури (Alt, Ctrl, Cmd тощо) для глобальних комбінацій клавіш.&lt;/p&gt;&lt;p&gt;Якщо вам потрібна більша гнучкість , ви можете ввімкнути &lt;span style=&quot; font-style:italic;&quot;&gt;Доступ для допоміжних пристроїв&lt;/span&gt; у налаштуваннях доступності системи. Однак зауважте, що ця зміна також потенційно дозволяє зловмисним програмам читати те, що вводиться на вашій клавіатурі.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте параметри доступності</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропустити</translation>
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути глобальні ярлики</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Додаткові механізми швидкого доступу&lt;/b&gt;&lt;br /&gt;Цей розділ дозволяє вам налаштувати використання додаткових механізмів GlobalShortcut.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаткові механізми швидкого доступу</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Увімкнути GKey&lt;/b&gt;.&lt;br /&gt;Це налаштування вмикає підтримку механізму швидкого доступу GKey для клавіш &quot;G&quot;, які є на клавіатурах Logitech.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть GKey</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Увімкнути XInput&lt;/b&gt;&lt;br /&gt;Це налаштування вмикає підтримку механізму швидкого доступу XInput для контролерів, сумісних з Xbox.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Увімкнути ярлики в привілейованих програмах&lt;/b&gt;.&lt;br /&gt;Також відомий як &quot;UIAccess&quot;. Це дозволяє Mumble отримувати події глобального ярлика від програм, які працюють із високими рівнями привілеїв, таких як командний рядок адміністратора або старіші ігри, які запускаються з правами адміністратора. 
+&lt;br /&gt;&lt;br /&gt; 
+Без увімкнення цього параметра використання глобальних ярликів Mumble у привілейованих програмах не працюватиме. Це може здатися суперечливим: наприклад, якщо кнопку «Натискай і розмовляй» натиснуто в непривілейованій програмі, але відпущено в привілейованій програмі, Mumble не помітить, що її було відпущено, і ви продовжуватимете говорити, доки не натиснете знову натисніть кнопку Push-to-Talk.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути ярлики в привілейованих програмах</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Система глобальних ярликів Mumble наразі не працює належним чином у поєднанні з протоколом Wayland. Щоб дізнатися більше, відвідайте &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https:/ /github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштовані ярлики</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте клавіші вгору та вниз для навігації доданими ярликами. Використовуйте ліву та праву клавіші для навігації між діями та параметрами для одного ярлика. Записи можна додавати та видаляти за допомогою кнопок нижче.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати непризначений ярлик</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це додає новий порожній запис до дерева «Налаштований ярлик» вище. Дерево буде автоматично сфокусовано. Призначте клавішу або дію, вибравши запис у дереві вище.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>Це видалить вибраний запис із дерева «Налаштований ярлик» вище</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати ярлик</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Почніть процес захоплення</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Початок процесу захоплення: усі кнопки, які ви натискаєте, буде додано до дерева.&lt;/p&gt;&lt;p&gt;Після відпускання всіх кнопок процес захоплення зупиняється автоматично.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3671,7 +3715,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити вибрані елементи</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3679,104 +3723,104 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Список ярликів</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикання цієї кнопки змусить програму шукати ярлик. Після введення ярлика програма припиняє пошук ярлика. Для поточної дії можна призначити кілька ярликів. Перейдіть до списку ярликів вище, щоб переглянути ярлики, призначені поточній дії.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця кнопка видалить вибраний ярлик для поточної дії. Зауважте, що вам потрібно спочатку вибрати ярлик зі списку вище, перш ніж ця кнопка почне діяти.</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Наразі Mumble може використовувати лише кнопки миші та клавіші-модифікатори клавіатури (Alt, Ctrl, Cmd тощо) для глобальних комбінацій клавіш.&lt;/p&gt;&lt;p&gt;Якщо вам потрібна більша гнучкість , ви можете додати Mumble як надійну програму спеціальних можливостей у розділі «Безпека та конфіденційність» системних налаштувань вашого Mac.&lt;/p&gt;&lt;p&gt;На панелі налаштувань «Безпека та конфіденційність» перейдіть на Вкладка конфіденційності. Потім виберіть Спеціальні можливості (унизу) у списку ліворуч. Нарешті, додайте Mumble до списку надійних програм спеціальних можливостей.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ярлики</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це загальна комбінація клавіш швидкого доступу.&lt;/b&gt;&lt;br /&gt;Натисніть це поле, а потім натисніть потрібну комбінацію клавіш/кнопок, щоб повторно прив’язати. Двічі клацніть, щоб очистити.</translation>
     </message>
     <message>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Придушити ключі з інших програм</translation>
     </message>
     <message>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це приховує натискання кнопок від інших програм.&lt;/b&gt;&lt;br /&gt;Якщо ввімкнути цю кнопку, кнопка (або остання кнопка в комбінації з кількома кнопками) буде прихована від інших програм. Зауважте, що не всі кнопки можна придушити.</translation>
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія швидкого доступу</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Дані ярлика</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
-        <translation type="unfinished"></translation>
+        <translation>Комбінації швидкого введення</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Непризначений</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>перевірено</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>не перевірено</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідомий</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>миша</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Клавіатура</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutTarget</name>
     <message>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт Ціль</translation>
     </message>
     <message>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Цільовий канал</translation>
     </message>
     <message>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмежити групою</translation>
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо вказано, лише учасники цієї групи отримають повідомлення пошепки.</translation>
     </message>
     <message>
         <source>List of users</source>
-        <translation type="unfinished"></translation>
+        <translation>Список користувачів</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3788,47 +3832,47 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation>Модифікатори</translation>
     </message>
     <message>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не надсилайте аудіоінформацію про місцезнаходження під час використання цього ярлика пошепки.</translation>
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ігнорувати позиційний звук</translation>
     </message>
     <message>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Викликайте пов’язані канали</translation>
     </message>
     <message>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Кричати в підканали</translation>
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт також буде передано на зв&apos;язані канали.</translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт також буде надіслано на підканали цільового каналу.</translation>
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кричати/шепотіти:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>поточний вибір</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Під час крику на канал:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Викликайте Пов’язані канали</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -3839,59 +3883,59 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>миша</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Клавіатура</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Клавіатура</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>миша</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Апаратні порти</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Моно</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Стерео</translation>
     </message>
 </context>
 <context>
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Не підключено</translation>
     </message>
 </context>
 <context>
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть цей пристрій</translation>
     </message>
     <message>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Пристрої</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3904,2010 +3948,2022 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Це список доступних РК-пристроїв у вашій системі.  Він містить список пристроїв за назвою, але також містить розмір дисплея. Mumble підтримує виведення на кілька РК-пристроїв одночасно.&lt;/p&gt; 
+&lt;h3&gt;Розмір:&lt;/h3&gt; 
+&lt;p&gt; 
+Це поле описує розмір РК-пристрою. Розмір вказується або в пікселях (для графічних РК-дисплеїв), або в символах (для символьних РК-дисплеїв).&lt;/p&gt; 
+&lt;h3&gt;Увімкнено:&lt;/h3&gt; 
+&lt;p&gt;Це вирішує, чи повинен Mumble відображати певний РК-пристрій.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнено</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляди</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальна ширина стовпця</translation>
     </message>
     <message>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Цей параметр визначає мінімальну ширину стовпця у вікні перегляду користувача.&lt;/p&gt; 
+&lt;p&gt;Якщо одночасно говорить забагато людей, вікно користувача розділиться на стовпці. Ви можете використовувати цей параметр, щоб вибрати компроміс між кількістю користувачів, які відображаються на РК-дисплеї, та шириною імен користувачів.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей параметр визначає ширину розділювача стовпців.</translation>
     </message>
     <message>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина розділювача</translation>
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальна Ширина стовпця</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина розгалужувача</translation>
     </message>
 </context>
 <context>
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Налагодження</translation>
     </message>
     <message>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Критичний</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>УВАГА</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація</translation>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Інші самозаглушені/оглушені</translation>
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Стан запису користувача змінено</translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вигнаний користувач (ви або вами)</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач викинутий</translation>
     </message>
     <message>
         <source>You self-muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви самі вимкнули звук</translation>
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач вимкнено (ви)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач вимкнений (ви)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач вимкнений (інше)</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви самостійно ввімкнули звук</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви самооглушили</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Ти сам себе не оглушив</translation>
     </message>
     <message>
         <source>User renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменовано користувача</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач підключився та ввійшов у канал</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач залишив канал і від’єднався</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Приватне текстове повідомлення</translation>
     </message>
     <message>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation>сервер</translation>
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ Недійсний розмір ]]</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ Текстовий об’єкт завеликий для відображення ]]</translation>
     </message>
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>[Дата змінена на %1]
+</translation>
     </message>
     <message>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>посилання на %1</translation>
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP-посилання на %1</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>посилання на гравця</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>посилання на канал</translation>
     </message>
     <message>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 посилання</translation>
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер підключений</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер відключено</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач приєднався до сервера</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач покинув сервер</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач приєднався до каналу</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач залишив канал</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>У дозволі відмовлено</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстове повідомлення</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви приєдналися до каналу</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви приєдналися до каналу (переїхали)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач почав слухати канал</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач перестав слухати канал</translation>
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення плагіна</translation>
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[вбудований вміст]</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути консоль для подій %1</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути спливаючі сповіщення для подій %1</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути синтез мовлення для подій %1</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть тут, щоб увімкнути звукове сповіщення для подій %1</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути підсвічування вікна (якщо не активне) для подій %1</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до звукового файлу, який використовується для звукових сповіщень у випадку %1 подій&lt;br /&gt;Один клік для відтворення&lt;br /&gt;Двічі клацніть, щоб змінити</translation>
     </message>
     <message>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть тут, щоб увімкнути виведення на консоль для подій %1.&lt;br /&gt;Якщо позначено цей параметр, Mumble виводить усі події %1 у свій журнал повідомлень.</translation>
     </message>
     <message>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть тут, щоб увімкнути спливаючі сповіщення для подій %1.&lt;br /&gt;Якщо позначено, Mumble створюватиме спливаючі сповіщення для кожної події %1.</translation>
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть тут, щоб увімкнути підсвічування вікна для %1 подій.&lt;br /&gt;Якщо позначено, вікно Mumble буде підсвічуватися для кожної %1 події, якщо воно неактивне.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до звукового файлу, який використовується для звукових сповіщень у випадку %1 подій.&lt;br /&gt;Один клік, щоб відтворити&lt;br /&gt;Двічі клацніть, щоб змінити&lt;br /&gt;Переконайтеся, що звукові сповіщення для цих подій увімкнено, інакше це поле буде не мають жодного ефекту.</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть тут, щоб увімкнути синтез мовлення для подій %1.&lt;br /&gt;Якщо позначено, Mumble використовує синтез мовлення, щоб прочитати вам вголос події %1. Синтез мовлення з тексту також може читати вміст події, що не стосується звукових файлів. Синтез мовлення та звукові файли не можна використовувати одночасно.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть тут, щоб увімкнути звукове сповіщення для %1 подій.&lt;br /&gt;Якщо позначено, Mumble використовує попередньо визначений вами звуковий файл для позначення %1 подій. Звукові файли та синтез мовлення не можна використовувати одночасно.</translation>
     </message>
     <message>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>повідомлення</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Консоль</translation>
     </message>
     <message>
         <source>Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>Сповіщення</translation>
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Синтез мовлення</translation>
     </message>
     <message>
         <source>Soundfile</source>
-        <translation type="unfinished"></translation>
+        <translation>Звуковий файл</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>шлях</translation>
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетворення тексту в мову</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність процесора синтезу мовлення</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це гучність, яка використовується для синтезу мовлення.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Поріг довжини</translation>
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Порогове значення довжини повідомлення для системи синтезу мовлення</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це порогове значення довжини, яке використовується для синтезу мовлення з тексту.&lt;/b&gt;&lt;br /&gt;Повідомлення, довші за цей ліміт, не читатимуться вголос повністю.</translation>
     </message>
     <message>
         <source> Characters</source>
-        <translation type="unfinished"></translation>
+        <translation> Персонажі</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, ви чутимете лише шепіт від користувачів, яких ви додали до свого списку друзів.</translation>
     </message>
     <message>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"></translation>
+        <translation>Приймайте лише нашіптування друзів</translation>
     </message>
     <message>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено, текстові повідомлення, які ви надсилаєте, будуть прочитані вам за допомогою TTS</translation>
     </message>
     <message>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Перечитати власні повідомлення</translation>
     </message>
     <message>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал чату</translation>
     </message>
     <message>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна тривалість чату</translation>
     </message>
     <message>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Необмежений</translation>
     </message>
     <message>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> Лінії</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Виділіть</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено, TTS не диктуватиме обсяг повідомлення.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропустити область повідомлення</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено, TTS не диктуватиме автора повідомлення.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропустити автора повідомлення</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, час на початку повідомлення відображатиметься у 24-годинному форматі.
+
+Параметр діє лише для нових повідомлень, для вже показаних збережеться попередній формат часу.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте 24-годинний формат</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Наскільки окремі повідомлення віддалені одне від одного.</translation>
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Поля повідомлення</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Поля повідомлення чату</translation>
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліміт</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Різне.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кількість користувачів, які активуватимуть функцію обмеження повідомлень.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>користувачів на сервері.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмежити сповіщення, коли їх більше ніж</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть тут, щоб увімкнути обмеження повідомлень для всіх подій. Якщо ви використовуєте цей параметр, обов’язково змініть ліміт користувачів нижче.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути поведінку обмеження повідомлень для подій %1 </translation>
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть, щоб увімкнути синтез мовлення</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути синтез мовлення</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть тут, щоб увімкнути обмеження для подій %1.&lt;br /&gt;Якщо позначено, сповіщення для цього типу подій не відтворюватимуться, коли кількість користувачів на сервері перевищує встановлений поріг.</translation>
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність повідомлення</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання гучності звукових сигналів</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це регулювання гучності звукових сигналів.&lt;/b&gt;&lt;br /&gt;Значення 0 дБ означає відсутність змін у зразку звуку.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"></translation>
+        <translation> дБ</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність синтезу мовлення</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання гучності сповіщень</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання гучності звуків сповіщень</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це налаштування гучності для звуків сповіщень.&lt;/b&gt;&lt;br /&gt;Значення 0 дБ означає відсутність змін у зразку звуку.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання Гучності звукових сигналів</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Регулювання гучності звуку сповіщення</translation>
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал типів повідомлень і дій</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте клавіші вгору та вниз для навігації між типами повідомлень. Використовуйте клавіші ліворуч і праворуч, щоб переміщатися між можливостями сповіщень для одного типу повідомлення.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити поріг довжини</translation>
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Гучність тексту в мовлення</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна довжина журналу чату</translation>
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмеження користувачів для сповіщень</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип повідомлення</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець журналу повідомлення на консоль</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець Показувати спливаюче сповіщення для повідомлення</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець «Виділити вікно для повідомлення»</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець Читати повідомлення за допомогою тексту в мовлення</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець «Обмежити сповіщення про повідомлення, якщо кількість користувачів велика»</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтворити звуковий файл для повідомлення</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях до звукового файлу</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>перевірено</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>не перевірено</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>децибел</translation>
     </message>
 </context>
 <context>
     <name>LookConfig</name>
     <message>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Система за умовчанням</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Жодного</translation>
     </message>
     <message>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation>Тільки з користувачами</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>все</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Запитуйте</translation>
     </message>
     <message>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого не робити</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>рухатися</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;%1&quot;&gt;переглядати&lt;/a&gt;</translation>
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтерфейс користувача</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це визначає, які канали автоматично розширювати. &lt;i&gt;Жодного&lt;/i&gt; та &lt;i&gt;Усі&lt;/i&gt; не розгортатимуть усі канали або не розгортатимуть усі канали, а &lt;i&gt;Лише з користувачами&lt;/i&gt; розгортатимуть і згортатимуть канали, коли користувачі приєднуватимуться до них та залишатимуть їх.</translation>
     </message>
     <message>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation>Список користувачів над підканалами (потрібно перезапустити).</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Якщо встановлено, користувачі відображатимуться над підканалами в перегляді каналу.&lt;/b&gt;&lt;br /&gt;Щоб побачити зміни, потрібно перезапустити Mumble.</translation>
     </message>
     <message>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувачі над Каналами</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати кількість користувачів у кожному каналі</translation>
     </message>
     <message>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати кількість користувачів каналу</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова</translation>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова для використання (потрібно перезапустити)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це встановлює, яку мову має використовувати Mumble.&lt;/b&gt;&lt;br /&gt;Ви повинні перезапустити Mumble, щоб використовувати нову мову.</translation>
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Подивіться і відчуйте</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет</translation>
     </message>
     <message>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation>класичний</translation>
     </message>
     <message>
         <source>Stacked</source>
-        <translation type="unfinished"></translation>
+        <translation>складені</translation>
     </message>
     <message>
         <source>Hybrid</source>
-        <translation type="unfinished"></translation>
+        <translation>Гібрид</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Кастом</translation>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це змінює поведінку під час переміщення каналів.</translation>
     </message>
     <message>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює поведінку перетягувань каналу; його можна використовувати для запобігання випадковому перетягуванню. &lt;i&gt;Перемістити&lt;/i&gt; переміщує канал без підказки. &lt;i&gt;Нічого не робити&lt;/i&gt; нічого не робить і друкує повідомлення про помилку. &lt;i&gt;Запитати&lt;/i&gt; використовує вікно повідомлення, щоб підтвердити, чи дійсно ви хочете перемістити канал.</translation>
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Розгорнути</translation>
     </message>
     <message>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Коли автоматично розширювати канали</translation>
     </message>
     <message>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетягування каналу</translation>
     </message>
     <message>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди на висоті</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Якщо встановлено, мінімізація головного вікна Mumble призведе до того, що воно буде приховано та доступне лише з трею. Інакше воно буде згорнуто, як зазвичай вікно.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>Сховати в треї при згортанні</translation>
     </message>
     <message>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховати головне вікно Mumble у треї, коли воно згорнуте.</translation>
     </message>
     <message>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей параметр контролює, коли програма завжди буде зверху.</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Ніколи</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди</translation>
     </message>
     <message>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation>У мінімальному вигляді</translation>
     </message>
     <message>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation>У звичайному вигляді</translation>
     </message>
     <message>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображає статус розмови в системному треї</translation>
     </message>
     <message>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати статус розмови в значку в треї</translation>
     </message>
     <message>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей параметр визначає, у яких ситуаціях програма завжди залишатиметься на першому місці. Якщо вибрати &lt;i&gt;Ніколи&lt;/i&gt;, програма не залишатиметься вгорі. &lt;i&gt;Always&lt;/i&gt; завжди триматиме програму вгорі. &lt;i&gt;У мінімальному перегляді&lt;/i&gt; / &lt;i&gt;У звичайному перегляді&lt;/i&gt; програма завжди залишатиметься зверху лише тоді, коли мінімальний перегляд активовано/дезактивовано.</translation>
     </message>
     <message>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати контекстне меню на панелі меню</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосуйте оптимізацію високої контрастності для користувачів із вадами зору</translation>
     </message>
     <message>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Оптимізація для високої контрастності</translation>
     </message>
     <message>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>застосування</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Додає контекстне меню користувача та каналу в рядок меню</translation>
     </message>
     <message>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Значок у треї</translation>
     </message>
     <message>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Дерево каналів</translation>
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати вибраний елемент як ціль панелі чату</translation>
     </message>
     <message>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Фільтр автоматично приховує порожні канали</translation>
     </message>
     <message>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати спадне меню режиму передачі на панелі інструментів</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема для стилізації інтерфейсу користувача</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Конфігурує, якою темою має бути оформлений інтерфейс користувача Mumble&lt;/b&gt;&lt;br /&gt;Mumble вибиратиме теми з певних каталогів і відображатиме їх у цьому списку. Той, який ви виберете, буде використано для налаштування візуального вигляду Mumble. Це включає кольори, піктограми тощо.</translation>
     </message>
     <message>
         <source>User Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетягування користувачем</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це змінює поведінку під час переміщення користувачів.</translation>
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює поведінку перетягувань користувача; його можна використовувати для запобігання випадковому перетягуванню. &lt;i&gt;Перемістити&lt;/i&gt; переміщує користувача без запиту. &lt;i&gt;Нічого не робити&lt;/i&gt; нічого не робить і друкує повідомлення про помилку. &lt;i&gt;Запитати&lt;/i&gt; використовує вікно повідомлення, щоб підтвердити, чи дійсно ви хочете перемістити користувача.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Увімкнути меню «Розробник»&lt;/b&gt;&lt;br /&gt;Це вмикає меню «Розробник» у Mumble. Це меню використовується для спеціальних функцій розробника, наприклад консолі розробника.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути меню розробника</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation type="unfinished"></translation>
+        <translation>У режимі власного макета вимикає перевпорядкування.</translation>
     </message>
     <message>
         <source>Lock layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет замка</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляючий інтерфейс користувача</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач, який мовчить протягом заданої кількості секунд, буде видалено з інтерфейсу користувача Talkin.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>Видаліть тихого користувача після</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, локальний користувач (ви) завжди буде видно в TalkingUI (незалежно від стану розмови).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди тримайте локального користувача на видноті</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скільки символів з оригінальної назви відображати на початку скороченої назви.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок для відділення назви каналу від батьківського.</translation>
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Роздільник каналів</translation>
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорочені символи-префікси</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation type="unfinished"></translation>
+        <translation>Назви скількох батьківських каналів слід включити в назву каналу під час його відображення в TalkingUI?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скільки символів з оригінальної назви відображати в кінці скороченої назви.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорочені постфіксні символи</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи дозволяти також скорочувати поточний канал користувача (замість лише його батьківських каналів).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Скоротіть назву поточного каналу</translation>
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Глибина ієрархії каналів</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Заміна абревіатури</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи слід скорочувати назву каналу (ієрархії), якщо вона перевищує вказану максимальну довжину.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорочуйте назви каналів</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation type="unfinished"></translation>
+        <translation>Бажана максимальна довжина назви каналу (ієрархії) в інтерфейсі користувача Talking. Зауважте, що це не жорстке обмеження.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Макс. довжина назви каналу</translation>
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відносний розмір шрифту для використання в Talking UI у відсотках.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>відн. розмір шрифту (%)</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок, який використовується замість вирізаної частини скороченої назви.</translation>
     </message>
     <message>
         <source>Prefix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Кількість символів префікса</translation>
     </message>
     <message>
         <source>Postfix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Постфіксна кількість символів</translation>
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати локальне регулювання гучності для кожного користувача (якщо є).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати налаштування гучності</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation type="unfinished"></translation>
+        <translation>Чи показувати всіх слухачів (вуха) локального користувача в TalkingUI (а отже, і канали, на яких вони перебувають). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати слухачів локального користувача (вуха)</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховайте ім’я користувача для кожного користувача, якщо у нього є псевдонім.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Показувати лише псевдоніми</translation>
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок ієрархії каналів</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія, яка виконується, коли користувач активується (подвійним клацанням або введенням) у діалоговому вікні пошуку.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія (Користувач):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія, яка виконується під час активації каналу (за допомогою подвійного клацання або введення) у діалоговому вікні пошуку.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Дія (Канал):</translation>
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Вийти з поведінки</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей параметр керує поведінкою клацання X у верхньому правому куті.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей параметр керує поведінкою під час закриття Mumble. Ви можете вибрати між запитом на підтвердження, згортанням натомість у разі закриття або просто закриттям без додаткових запитів. Необов’язково, перші два параметри можуть бути застосовані лише тоді, коли ви під’єднані до сервера (у такому випадку Mumble завершить роботу без запиту, якщо немає підключення до жодного сервера).</translation>
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди запитуйте</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Запитати при підключенні</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди згортайте</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Згорнути при підключенні</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди виходити</translation>
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> секунд</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, користувачі завжди будуть видимі в TalkingUI (незалежно від стану розмови).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди тримайте користувачів на виду</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим розширення каналу</translation>
     </message>
     <message>
         <source>User dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим перетягування користувача</translation>
     </message>
     <message>
         <source>Channel dragging mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим перетягування каналу</translation>
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди на верхньому режимі</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Вийти з режиму поведінки</translation>
     </message>
     <message>
         <source>Channel separator string</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок розділювача каналів</translation>
     </message>
     <message>
         <source>Maximum channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальна довжина імені каналу</translation>
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Символи заміни абревіатур</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Відносний розмір шрифту (у відсотках)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Час беззвучного відображення користувача (у секундах)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема бурмотіння</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим дії пошуку користувача</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим дії пошуку каналу</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Корінь</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push -to-Talk</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть і утримуйте цю кнопку, щоб надіслати голос.</translation>
     </message>
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це налаштовує кнопку «Натисни і говори», і поки ви утримуєте цю кнопку натиснутою, ви передаватимете голос.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Скинути звуковий процесор</translation>
     </message>
     <message>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Від’єднати плагін</translation>
     </message>
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push -to-Mute</translation>
     </message>
     <message>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Приєднатися до каналу</translation>
     </message>
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути накладання</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемикання стану накладання в грі.</translation>
     </message>
     <message>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути Мінімальний</translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Збільшення гучності (+10%)</translation>
     </message>
     <message>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Зменшення гучності (-10%)</translation>
     </message>
     <message>
         <source>Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>бурмотіти</translation>
     </message>
     <message>
         <source>Mumble -- %1</source>
-        <translation type="unfinished"></translation>
+        <translation>бурмотіти -- %1</translation>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вікно</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Згорнути</translation>
     </message>
     <message>
         <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути звук</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Встановити статус самовимкнення звуку.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це встановить або перемкне ваш статус вимкненого. Якщо ви вимкнете це, ви також вимкнете самооглушення.</translation>
     </message>
     <message>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Оглушити себе</translation>
     </message>
     <message>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Встановити статус самооглушення.</translation>
     </message>
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це встановить або перемкне ваш статус глухого. Якщо ви ввімкнете це, ви також увімкнете самовідключення.</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт/крик</translation>
     </message>
     <message>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Не підключено&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищення</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
-        <translation type="unfinished"></translation>
+        <translation>відкриття URL %1</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не існує</translation>
     </message>
     <message>
         <source>Settings merged from file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування об’єднано з файлу.</translation>
     </message>
     <message>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>URL схема не &quot;бурмотить&quot;</translation>
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення до %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення до сервера %1.</translation>
     </message>
     <message>
         <source>Reconnecting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторне підключення.</translation>
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим передачі встановлено на Безперервний</translation>
     </message>
     <message>
         <source>Register yourself as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструйтеся як %1</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Ви збираєтеся зареєструватися на цьому сервері. Цю дію неможливо скасувати, а ваше ім’я користувача не можна змінити після цього. Ви назавжди будете відомі як «%1» на цьому сервері.&lt;/p&gt;&lt;p&gt;Ви впевнені, що бажаєте зареєструватися?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструйте користувача %1</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Ви збираєтеся зареєструвати %1 на сервері. Цю дію неможливо скасувати, ім’я користувача не можна змінити, і як зареєстрований користувач %1 матиме доступ до сервера, навіть якщо ви зміните пароль сервера.&lt;/p&gt;&lt;p&gt;З цього моменту %1 буде мати доступ до сервера. автентифіковано за допомогою сертифіката, який зараз використовується.&lt;/p&gt;&lt;p&gt;Ви впевнені, що бажаєте зареєструвати %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Вигнання користувача %1</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокування користувача %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Переглянути коментар користувача %1</translation>
     </message>
     <message>
         <source>Message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення на канал %1</translation>
     </message>
     <message>
         <source>Connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключено.</translation>
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Очікуваний дайджест сертифіката (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер надав сертифікат, який не вдалося перевірити.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Конкретні помилки з цим сертифікатом:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Ви бажаєте прийняти це все одно сертифікат?&lt;br /&gt;(Він також буде збережено, щоб вас більше не запитували про це.)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка підключення до сервера.</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Введіть тут повідомлення для каналу &quot;%1&quot;&lt;/center&gt;</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Введіть тут повідомлення для користувача &quot;%1&quot;&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Choose image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл зображення</translation>
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити зображення</translation>
     </message>
     <message>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити файл для читання.</translation>
     </message>
     <message>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат зображення не розпізнано.</translation>
     </message>
     <message>
         <source>&amp;User</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Користувач</translation>
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Канал</translation>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте в поєднанні з Whisper to.</translation>
     </message>
     <message>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це змінить стан ігрового накладення.</translation>
     </message>
     <message>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Канал Посилання</translation>
     </message>
     <message>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Режим циклічної передачі</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Установіть режим передачі на Push-to-Talk</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть режим передачі на Continuous</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть режим передачі на VAD</translation>
     </message>
     <message>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Надіслати текстове повідомлення</translation>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Надіслати текстове повідомлення буфера обміну</translation>
     </message>
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це надішле вміст буфера обміну на канал, на якому ви зараз перебуваєте.</translation>
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Безперервний</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосова діяльність</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push- to-Talk</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <source>Save Image As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти зображення як...</translation>
     </message>
     <message>
         <source>Save Image File</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти файл зображення</translation>
     </message>
     <message>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося зберегти зображення: %1</translation>
     </message>
     <message>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Змініть свій коментар</translation>
     </message>
     <message>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Для режиму передачі встановлено голосову активність</translation>
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим передачі встановлено на Push-to-Talk</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Переглянути сертифікат</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть причину</translation>
     </message>
     <message>
         <source>Sending message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилання повідомлення %1</translation>
     </message>
     <message>
         <source>To %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>До %1: %2</translation>
     </message>
     <message>
         <source>Message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення %1</translation>
     </message>
     <message>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що бажаєте скинути коментар користувача %1?</translation>
     </message>
     <message>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що бажаєте скинути аватар користувача %1?</translation>
     </message>
     <message>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що бажаєте видалити %1 і всі його підканали?</translation>
     </message>
     <message>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилання повідомлення на канал %1</translation>
     </message>
     <message>
         <source>Message to tree %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення до дерева %1</translation>
     </message>
     <message>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>До %1 (дерево): %2</translation>
     </message>
     <message>
         <source>Unmuted and undeafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неоглушений і неоглушений.</translation>
     </message>
     <message>
         <source>Unmuted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено звук.</translation>
     </message>
     <message>
         <source>Muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено.</translation>
     </message>
     <message>
         <source>Muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приглушено й глухо.</translation>
     </message>
     <message>
         <source>Deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушені.</translation>
     </message>
     <message>
         <source>Undeafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неоглушений.</translation>
     </message>
     <message>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезапустити Mumble?</translation>
     </message>
     <message>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Деякі налаштування будуть застосовані лише після перезапуску Mumble. Перезапустити Mumble?</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Про Qt</translation>
     </message>
     <message>
         <source>SSL Verification failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка перевірки SSL: %1</translation>
     </message>
     <message>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Дайджест сертифіката сервера (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ПОПЕРЕДЖЕННЯ:&lt;/b&gt; Сервер представив сертифікат, який відрізняється від збереженого.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка підключення до сервера: %1.</translation>
     </message>
     <message>
         <source>Disconnected from server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відключено від сервера.</translation>
     </message>
     <message>
         <source>Invalid username</source>
-        <translation type="unfinished"></translation>
+        <translation>Недійсне ім&apos;я користувача</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви підключилися з недійсним іменем користувача, спробуйте інше.</translation>
     </message>
     <message>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача використовується</translation>
     </message>
     <message>
         <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ім’я користувача вже використовується, спробуйте інше ім’я користувача.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation>Неправильний сертифікат або пароль</translation>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неправильний сертифікат або пароль для зареєстрованого користувача. Якщо ви є
+впевнений, що цей користувач захищений паролем, повторіть спробу.
+В іншому випадку перервіть і перевірте свій сертифікат і ім’я користувача.</translation>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation type="unfinished"></translation>
+        <translation>Неправильний пароль</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неправильний пароль сервера для незареєстрованого облікового запису користувача, спробуйте ще раз.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;налаштувати</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Довідка</translation>
     </message>
     <message>
         <source>Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал</translation>
     </message>
     <message>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує всі останні дії. Тут відображаються підключення до серверів, помилки та інформаційні повідомлення.&lt;br /&gt;Щоб налаштувати, які саме повідомлення тут відображаються, скористайтеся командою &lt;b&gt;Налаштування&lt;/b&gt; з меню.</translation>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вийти з Mumble</translation>
     </message>
     <message>
         <source>Closes the program</source>
-        <translation type="unfinished"></translation>
+        <translation>Закриває програму</translation>
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихід із програми.</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте діалогове вікно підключення до сервера</translation>
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Відключити</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
-        <translation type="unfinished"></translation>
+        <translation>Відключитися від сервера</translation>
     </message>
     <message>
         <source>Disconnects you from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відключає вас від сервера.</translation>
     </message>
     <message>
         <source>Show information about the server connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати інформацію про підключення до сервера</translation>
     </message>
     <message>
         <source>This will show extended information about the connection to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це покаже розширену інформацію про підключення до сервера.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вимкнути звук</translation>
     </message>
     <message>
         <source>&amp;Deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Оглушити</translation>
     </message>
     <message>
         <source>&amp;Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Локальний звук</translation>
     </message>
     <message>
         <source>Send a Text Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Надіслати Текстове повідомлення</translation>
     </message>
     <message>
         <source>Sends a text message to another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилає текстове повідомлення іншому користувачеві.</translation>
     </message>
     <message>
         <source>Add new channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати новий канал</translation>
     </message>
     <message>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це додає новий підканал до поточного вибраного каналу.</translation>
     </message>
     <message>
         <source>Remove channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити канал</translation>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це видаляє канал і всі підканали.</translation>
     </message>
     <message>
         <source>Edit Groups and ACL for channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати групи та ACL для каналу</translation>
     </message>
     <message>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно групи та списку доступу для каналу для керування дозволами.</translation>
     </message>
     <message>
         <source>Link your channel to another channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Зв’яжіть свій канал з іншим каналом</translation>
     </message>
     <message>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це панель чату.&lt;br /&gt;Якщо ви введете тут текст, а потім натиснете клавішу enter, текст буде надіслано вибраному користувачеві або каналу. Якщо нічого не вибрано, повідомлення буде надіслано на ваш поточний канал.</translation>
     </message>
     <message>
         <source>Chatbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель чату</translation>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує діалогове вікно зареєстрованих серверів, а також дозволяє швидке підключення.</translation>
     </message>
     <message>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибити користувача (з причиною)</translation>
     </message>
     <message>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вигнати вибраного користувача з сервера. Вас попросять вказати причину.</translation>
     </message>
     <message>
         <source>Mute user</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути звук користувача</translation>
     </message>
     <message>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути або ввімкнути звук користувача на сервері. Якщо ввімкнути звук глухого користувача, він також розблокується.</translation>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation>Викинути та забанити користувача (з причиною)</translation>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"></translation>
+        <translation>Викинути та забанити вибраного користувача на сервері. Вас попросять вказати причину.</translation>
     </message>
     <message>
         <source>Deafen user</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушити користувача</translation>
     </message>
     <message>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушити або розблокувати користувача на сервері. Оглушення користувача також вимкне його.</translation>
     </message>
     <message>
         <source>Mute user locally</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути звук користувача локально</translation>
     </message>
     <message>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути або ввімкнути звук користувача локально. Використовуйте це для інших користувачів у тій же кімнаті.</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Це пов’язує ваш поточний канал із вибраним каналом. Якщо користувачі каналу мають дозвіл говорити в іншому каналі, тепер вони можуть чути один одного. Це постійне посилання, яке діятиме, доки не буде від’єднано вручну або перезапущено сервер. Перегляньте ярлики для push-to-link.</translation>
     </message>
     <message>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Від’єднати</translation>
     </message>
     <message>
         <source>Unlink your channel from another channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Від’єднайте свій канал від іншого каналу</translation>
     </message>
     <message>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це від’єднає ваш поточний канал від вибраного.</translation>
     </message>
     <message>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Від’єднує ваш канал від усіх зв’язаних каналів.</translation>
     </message>
     <message>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це від’єднає ваш поточний канал (а не вибраний) від усіх зв’язаних каналів.</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Скинути</translation>
     </message>
     <message>
         <source>Reset audio preprocessor</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути препроцесор аудіо</translation>
     </message>
     <message>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це призведе до скидання препроцесора аудіо, включаючи шумозаглушення, автоматичне підсилення та виявлення голосової активності. Якщо щось раптово погіршує аудіосередовище (наприклад, падіння мікрофона), і це було тимчасово, скористайтеся цим, щоб уникнути необхідності чекати, поки препроцесор переналаштується.</translation>
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкніть звук</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкніть або ввімкніть звук себе. Якщо звук вимкнено, ви не надсилатимете жодних даних на сервер. Увімкнення звуку під час оглушення також призведе до розблокування.</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушіть себе</translation>
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушити чи не оглушити. Оглохнувши, нічого не почуєш. Оглушення також призведе до німого.</translation>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Синтез мовлення</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути Синтез мовлення</translation>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть або вимкніть механізм синтезу мовлення. Озвучуватимуться лише повідомлення, увімкнені для TTS у діалоговому вікні конфігурації.</translation>
     </message>
     <message>
         <source>Display audio statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати статистику звуку</translation>
     </message>
     <message>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриває невелике діалогове вікно з інформацією про ваш поточний аудіовхід.</translation>
     </message>
     <message>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Примусово від’єднати плагін</translation>
     </message>
     <message>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це змушує поточний плагін від’єднати, що зручно, якщо він читає абсолютно неправильні дані.</translation>
     </message>
     <message>
         <source>Configure Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштувати Mumble</translation>
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє змінювати більшість параметрів Mumble.</translation>
     </message>
     <message>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустіть майстер налаштування звуку</translation>
     </message>
     <message>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це проведе вас через процес налаштування звукового обладнання.</translation>
     </message>
     <message>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Що це?</translation>
     </message>
     <message>
         <source>Enter What&apos;s This? mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть Що це? режим</translation>
     </message>
     <message>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть тут, щоб увійти в &quot;Що це?&quot; режим. Ваш курсор перетвориться на знак питання. Натисніть будь-яку кнопку, пункт меню або область, щоб показати опис того, що це таке.</translation>
     </message>
     <message>
         <source>Information about Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про Мамбл</translation>
     </message>
     <message>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує невелике діалогове вікно з інформацією та ліцензією для Mumble.</translation>
     </message>
     <message>
         <source>Information about Speex</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про Speex</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує невелике діалогове вікно з інформацією про Speex.</translation>
     </message>
     <message>
         <source>Information about Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про Qt</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує невелике діалогове вікно з інформацією про Qt.</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте &amp;оновлення</translation>
     </message>
     <message>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте наявність нової версії Mumble</translation>
     </message>
     <message>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключається до веб-сторінки Mumble, щоб перевірити, чи доступна нова версія, і сповіщає вас відповідною URL-адресою для завантаження, якщо це так.</translation>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилає текстове повідомлення всім користувачам каналу.</translation>
     </message>
     <message>
         <source>Configure certificates for strong authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштуйте сертифікати для надійної автентифікації</translation>
     </message>
     <message>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це запускає майстер для створення, імпорту та експорту сертифікатів для автентифікації на серверах.</translation>
     </message>
     <message>
         <source>Register user on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструвати користувача на сервері</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це призведе до постійної реєстрації користувача на сервері.</translation>
     </message>
     <message>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати &amp;друга</translation>
     </message>
     <message>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation>Додає користувача в друзі.</translation>
     </message>
     <message>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це додасть користувача до друзів, тож ви зможете впізнати його на цьому та інших серверах.</translation>
     </message>
     <message>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Видалити друга</translation>
     </message>
     <message>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видаляє користувача з ваших друзів.</translation>
     </message>
     <message>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це видалить користувача зі списку друзів.</translation>
     </message>
     <message>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Оновити друга</translation>
     </message>
     <message>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновіть ім&apos;я свого друга.</translation>
     </message>
     <message>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш друг використовує інше ім’я, ніж те, що є у вашій базі даних. Це оновить назву.</translation>
     </message>
     <message>
         <source>Edit registered users list</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати список зареєстрованих користувачів</translation>
     </message>
     <message>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється редактор для зареєстрованих користувачів, у якому ви зможете змінити їх ім’я або скасувати реєстрацію.</translation>
     </message>
     <message>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Додайте або видаліть текстові маркери доступу</translation>
     </message>
     <message>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Мінімальний вид</translation>
     </message>
     <message>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикання режимів мінімального вікна</translation>
     </message>
     <message>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це перемкне мінімальний режим, де вікно журналу та меню приховані.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви вимкнули й оглушили %1.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви ввімкнули звук і розблокували %1.</translation>
     </message>
     <message>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви неоглушений %1.</translation>
     </message>
     <message>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви приховали %1.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 німий і глухий за %2.</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 увімкнено та не оглушено на %2.</translation>
     </message>
     <message>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не оглушений %2.</translation>
     </message>
     <message>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 пригнічено %2.</translation>
     </message>
     <message>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 переміщено до %2.</translation>
     </message>
     <message>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 переміщено до %2 користувачем %3.</translation>
     </message>
     <message>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 переїхав із %2 на %3.</translation>
     </message>
     <message>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 є тепер німий і глухий.</translation>
     </message>
     <message>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформацію вашого облікового запису зараз неможливо перевірити. Спробуйте пізніше</translation>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Вітальне повідомлення: %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>бурмотіти: %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вам було відмовлено в привілеях %1 у %2.</translation>
     </message>
     <message>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%3 було відмовлено в привілеях %1 у %2.</translation>
     </message>
     <message>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено: неможливо змінити SuperUser.</translation>
     </message>
     <message>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено: недійсна назва каналу.</translation>
     </message>
     <message>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено: текстове повідомлення задовге.</translation>
     </message>
     <message>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено: операція не дозволена в тимчасовому каналі.</translation>
     </message>
     <message>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для виконання цієї операції потрібен сертифікат.</translation>
     </message>
     <message>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не має сертифіката.</translation>
     </message>
     <message>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Недійсне ім&apos;я користувача: %1.</translation>
     </message>
     <message>
         <source>Invalid username.</source>
@@ -5915,35 +5971,35 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал заповнений.</translation>
     </message>
     <message>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Досягнуто ліміту вкладеності каналу.</translation>
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"></translation>
+        <translation>Досягнуто обмеження кількості каналів. Потрібно видалити канали перед створенням нових.</translation>
     </message>
     <message>
         <source>Permission denied.</source>
-        <translation type="unfinished"></translation>
+        <translation>У дозволі відмовлено.</translation>
     </message>
     <message>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 підключився та ввійшов у канал.</translation>
     </message>
     <message>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 підключений.</translation>
     </message>
     <message>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 зараз вимкнено.</translation>
     </message>
     <message>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 тепер не ігнорується.</translation>
     </message>
     <message>
         <source>Recording started</source>
@@ -5955,479 +6011,484 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 почав запис.</translation>
     </message>
     <message>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 зупинено запис.</translation>
     </message>
     <message>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви скасували свій статус пріоритетного доповідача.</translation>
     </message>
     <message>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви отримали статус пріоритетного доповідача.</translation>
     </message>
     <message>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 скасував ваш статус пріоритетного доповідача.</translation>
     </message>
     <message>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 надав вам статус пріоритетного доповідача.</translation>
     </message>
     <message>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви скасували статус пріоритетного доповідача для %1.</translation>
     </message>
     <message>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви надали статус пріоритетного мовця %1.</translation>
     </message>
     <message>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 скасував статус власного пріоритетного доповідача.</translation>
     </message>
     <message>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 прийняв статус пріоритетного спікера.</translation>
     </message>
     <message>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 скасовано статус пріоритетного доповідача для %2.</translation>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 надав статус пріоритетного мовця %2.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 увімкнув звук і розблокував вас.</translation>
     </message>
     <message>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вас вимкнув %1.</translation>
     </message>
     <message>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 вас не оглушив.</translation>
     </message>
     <message>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Вас придушили.</translation>
     </message>
     <message>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вас не пригнічували.</translation>
     </message>
     <message>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви були скасовані %1.</translation>
     </message>
     <message>
         <source>You joined %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви приєдналися до %1.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви перемістили %1 до %2.</translation>
     </message>
     <message>
         <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 записує</translation>
     </message>
     <message>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %3 перейменовано на %2.</translation>
     </message>
     <message>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 відключений.</translation>
     </message>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation>Сервер</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер запитує мінімальну версію клієнта %1</translation>
     </message>
     <message>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер просить увімкнути позиційний звук.</translation>
     </message>
     <message>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер вимагає вимкнення позиційного звуку.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер просить увімкнути Push-to-Talk.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер просить вимкнути Push-to-Talk.</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вас увімкнув %1.</translation>
     </message>
     <message>
         <source>You muted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви вимкнули %1.</translation>
     </message>
     <message>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви розблокували %1.</translation>
     </message>
     <message>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>ви вимкнули %1.</translation>
     </message>
     <message>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 вимкнено %2.</translation>
     </message>
     <message>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не пригнічується %2.</translation>
     </message>
     <message>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 увімкнено %2.</translation>
     </message>
     <message>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Ви були вимкнені та оглушені %1.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вас вигнав із сервера %1: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%3 був викинутий із сервера %1: %2.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 вас вигнав і забанив на сервері.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%3 був викинутий і забанений на сервері %1: %2.</translation>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%2 перемістив вас до %1.</translation>
     </message>
     <message>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 увійшов у канал.</translation>
     </message>
     <message>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення до сервера відхилено: %1.</translation>
     </message>
     <message>
         <source>Denied: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено: %1.</translation>
     </message>
     <message>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 перейменовано на %2.</translation>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 залишив канал і від’єднався.</translation>
     </message>
     <message>
         <source>Message from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення від %1</translation>
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для перетягування користувача встановлено значення «Нічого не робити», тому користувача не було переміщено.</translation>
     </message>
     <message>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для перетягування каналу встановлено значення «Нічого не робити», тому канал не було переміщено.</translation>
     </message>
     <message>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідомий режим перетягування каналу в UserModel::dropMimeData.</translation>
     </message>
     <message>
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Пульт дистанційного керування Mumble:
+
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>виклик</translation>
     </message>
     <message>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка: не вказано команду RPC</translation>
     </message>
     <message>
         <source>RPC</source>
-        <translation type="unfinished"></translation>
+        <translation>RPC</translation>
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ласкаво просимо до Mumble.</translation>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропуск перевірки версії в режимі налагодження.</translation>
     </message>
     <message>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховати рамку</translation>
     </message>
     <message>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути/перемкнути показ рамки в мінімальному вікні</translation>
     </message>
     <message>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволить увімкнути мінімальне вікно рамки для переміщення та зміни розміру.</translation>
     </message>
     <message>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути коментар вибраного користувача.</translation>
     </message>
     <message>
         <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Переглянути коментар у редакторі</translation>
     </message>
     <message>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер запитів щодо інформації про з’єднання для користувача</translation>
     </message>
     <message>
         <source>S&amp;erver</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;ервер</translation>
     </message>
     <message>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;себе</translation>
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Від’єднати плагіни</translation>
     </message>
     <message>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструйтеся на сервері</translation>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Змініть зображення свого аватара на цьому сервері</translation>
     </message>
     <message>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити поточне зображення аватара.</translation>
     </message>
     <message>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель інструментів піктограм</translation>
     </message>
     <message>
         <source>Change your own comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Змініть власний коментар</translation>
     </message>
     <message>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Копіювати URL</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіює посилання на цей канал у буфер обміну.</translation>
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Локально ігнорувати текстові повідомлення користувача в чаті.</translation>
     </message>
     <message>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Безшумно видаляє всі текстові повідомлення від користувача.</translation>
     </message>
     <message>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати список заборон на сервері</translation>
     </message>
     <message>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволяє редагувати список заборонених IP-адрес на стороні сервера.</translation>
     </message>
     <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть або вимкніть фільтрацію вибраних каналів.
+За замовчуванням усі порожні канали будуть відфільтровані.
+Ви можете позначити додаткові канали для фільтрації
+контекстне меню каналу.</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>&amp;Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розробник</translation>
     </message>
     <message>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Сховати Mumble</translation>
     </message>
     <message>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховує головне вікно Mumble.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховує головне вікно Mumble. Відновіть, натиснувши піктограму в треї або знову запустивши Mumble.</translation>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати консоль розробника</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує консоль розробника Mumble, де можна перевірити вихід журналу Mumble.</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Підключитися...</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;удар ногою...</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Забанити...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;додати...</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;видалити...</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Редагувати...</translation>
+        <translation>&amp;Редагувати...</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Майстер аудіо...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
-        <translation type="unfinished"></translation>
+        <translation>Про &amp;Speex...</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Майстер сертифікатів...</translation>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити &amp;аватар...</translation>
     </message>
     <message>
         <source>&amp;Change Comment...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Змінити коментар...</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує головне вікно Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"></translation>
+        <translation>Порушення протоколу синхронізації сервера. Профіль користувача не отримано.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Порушення протоколу. Сервер надіслав повідомлення про видалення для зайнятого каналу.</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
+        <translation>Слухайте цей канал, не приєднуючись до нього</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Слухач</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation>Немає доступних дій...</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо %1 у %2 - додавання відповідного маркера доступу (паролю) може надати вам доступ.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Більше слухачів на цьому каналі заборонено.</translation>
     </message>
     <message>
         <source>You are not allowed to listen to more channels than you currently are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вам заборонено слухати більше каналів, ніж зараз.</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви почали слухати %1</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 почав слухати ваш канал</translation>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви перестали слухати %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 перестав слухати ваш канал</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикає видимість TalkingUI.</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приєднується до каналу цього користувача.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Канали та користувачі</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал діяльності</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Локально вимкнути синтез мовлення для текстових повідомлень чату цього користувача.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Беззвучно вимикає синтез мовлення для всіх текстових повідомлень від користувача.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>дерево</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6435,33 +6496,34 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Приватний</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Файл конфігурації %1 не існує або неможливий для запису.
+</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Сховати/показати головне вікно</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть місцевий псевдонім</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлює локальний псевдонім для іншого користувача.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -6488,105 +6550,129 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Використання: mumble rpc &lt;дія&gt; [параметри] 
+
+Можна дистанційно керувати запущеним екземпляром Mumble за допомогою 
+команда &apos;mumble rpc&apos;. 
+
+Допустимі дії: 
+  німий 
+                Вимкнути звук себе 
+  невдоволення 
+                Увімкнути звук себе 
+  перемикання звуку 
+                Увімкнути статус самовимкнення звуку 
+  глухий 
+                Оглушити себе 
+  неглухий 
+                Неоглушити себе 
+  переключенийглухий 
+                Перемкнути статус самооглушення 
+  почати говорити 
+                Почніть говорити 
+  перестань говорити 
+                Припиніть говорити
+
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог %1 не існує.
+</translation>
     </message>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемикає видимість TalkingUI.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути фільтр каналів (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук користувача або каналу (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути діалогове вікно пошуку</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє або закриє діалогове вікно пошуку залежно від того, чи воно вже відкрито</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть себе</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Не оглушіть себе</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати засіб перегляду позиційного аудіо</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показує засіб перегляду позиційного аудіо. У ньому можна перевірити поточну інформацію, яка використовується для позиційного звуку. Також показано контекст і ідентичність.</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - мінімальний вид</translation>
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виявлено недійсний файл налаштувань.</translation>
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зараз ви перебуваєте в мінімальному режимі перегляду, але не підключені до сервера. Використовуйте контекстне меню, щоб підключитися до сервера або вимкнути мінімальний перегляд.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцеве регулювання гучності:</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця версія Mumble не може обробляти URL-адреси для версії Mumble %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Слухайте канал</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемикає прослуховування даного каналу.</translation>
     </message>
     <message>
         <source>Server instructed us to use an audio codec different from Opus, which is no longer supported. Disconnecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер наказав нам використовувати аудіокодек, відмінний від Opus, який більше не підтримується. Відключення...</translation>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що бажаєте закрити Mumble? Можливо, замість цього ви віддаєте перевагу мінімізувати його?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Запам&apos;ятайте це налаштування</translation>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Фільтр каналів</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6650,422 +6736,482 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Використання: mumble [параметри] [&lt;url&gt; | &lt;список плагінів&gt;] 
+
+&lt;url&gt; визначає URL-адресу для підключення після запуску замість показу 
+вікно підключення і має такий вигляд: 
+mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;підканал&gt;...]][?version=&lt;x.y.z&gt;] 
+
+&lt;plugin_list&gt; — це список файлів плагінів, які потрібно встановити 
+Параметр запиту версії має бути встановлено, щоб викликати 
+правильна версія клієнта. Зараз за замовчуванням 1.2.0. 
+
+Допустимі варіанти: 
+  -h, --help Показати цей текст довідки та вийти. 
+  --version Вивести інформацію про версію та вийти 
+  -m, --множинні 
+                Дозволити запуск кількох екземплярів клієнта. 
+  -c, --config 
+                Вкажіть альтернативний файл конфігурації. 
+                Якщо ви використовуєте це для одночасного запуску кількох екземплярів Mumble, 
+                переконайтеся, що встановлено альтернативне значення «бази даних» у конфігурації. 
+  --default-certificate-dir &lt;каталог&gt; 
+                Укажіть альтернативний шлях сертифіката за замовчуванням. 
+                Цей шлях використовується, лише якщо сертифікат не завантажено 
+                з налаштувань. 
+  -n, --noidentity 
+                Припинити завантаження ідентифікаційних файлів (тобто сертифікатів). 
+  -jn, --jackname &lt;арг&gt; 
+                Встановіть власне ім’я клієнта Jack. 
+  --ліцензія 
+                Покажіть ліцензію Mumble. 
+  --автори 
+                Покажіть авторів Mumble. 
+  --ліцензії третіх сторін 
+                Показати ліцензії на стороннє програмне забезпечення, яке використовує Mumble. 
+  --window-title-ext &lt;арг&gt; 
+                Встановлює спеціальне розширення заголовка вікна. 
+  --dump-вхідні-потоки 
+                Дамп потоків PCM у різних частинах вхідного ланцюжка 
+                (корисно для цілей налагодження) 
+                - необроблений мікрофонний вхід 
+                - зчитування гучномовця для придушення луни 
+                - оброблений мікрофонний вхід 
+  --print-echocancel-queue 
+                Друкувати стан черги на скасування луни на stdout 
+                (корисно для цілей налагодження) 
+  --translation-dir &lt;каталог&gt; 
+                Визначає додатковий каталог перекладу &lt;dir&gt; 
+                у якому Mumble шукатиме файли перекладу, які 
+                перезаписати об’єднані 
+                Каталоги, додані таким чином, мають вищий пріоритет, ніж 
+                розташування за замовчуванням, що використовуються в іншому випадку 
+  --print-translation-dirs 
+                Роздрукуйте шляхи, за якими Mumble шукатиме 
+                файли перекладу, які перезаписують пакетні файли. 
+                (Корисно для перекладачів, які перевіряють свої переклади) 
+  --locale &lt;локаль&gt; 
+                Замініть локаль у налаштуваннях Mumble за допомогою a 
+                локаль, яка відповідає даному рядку локалі. 
+                Якщо формат недійсний, Mumble виведе помилку. 
+                Інакше локаль буде збережено назавжди 
+                Налаштування Mumble.
+</translation>
     </message>
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Підключіться до сервера</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно підключення до сервера</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відключитися від сервера</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це від’єднає вас від сервера</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте інформацію про сервер</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це покаже інформацію про підключення до сервера</translation>
     </message>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити маркери сервера</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно маркерів сервера</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити список користувачів сервера</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно списку користувачів сервера</translation>
     </message>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити список заборонених серверів</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно списку заборонених серверів</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути пріоритетний динамік</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволить увімкнути/вимкнути пріоритетний динамік</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити діалогове вікно запису</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно запису</translation>
     </message>
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Змінити коментар</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно коментаря до зміни</translation>
     </message>
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Змінити аватар</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє ваш файловий провідник, щоб змінити зображення вашого аватара на цьому сервері</translation>
     </message>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Видалити аватар</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Це скине ваш аватар на сервері</translation>
     </message>
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструватися на сервері</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Це зареєструє вас на сервері</translation>
     </message>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо Статистика</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно статистики звуку</translation>
     </message>
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте налаштування</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно налаштувань</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустіть майстер аудіо</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє діалогове вікно майстра звуку</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустіть майстер сертифікатів</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно майстра сертифікатів</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемикати текст на мовлення</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволить увімкнути/вимкнути перетворення тексту на мовлення</translation>
     </message>
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити діалогове вікно про</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє діалогове вікно з інформацією</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити діалогове вікно про Qt</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриється діалогове вікно про Qt</translation>
     </message>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте наявність оновлень</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Це перевірить, чи Mumble оновлено</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей звук був сигналом вимкнення звуку. Він активується, коли ви говорите з вимкненим звуком. Бажаєте залишити його ввімкненим?</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Ні</translation>
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть повідомлення чату</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Список заборонених</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Інформація</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Іг&amp;норувати повідомлення</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Надіслати повідомлення...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити псевдонім...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>Посилання</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Роз’єднати всі</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вимкнути себе</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушити Себе</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо та статистика</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Налаштування</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Консоль розробника</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляд позиційного &amp;аудіо</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;про</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Про &amp;Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєструватися...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зареєстровані користувачі</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Маркери доступу</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви&amp;далити аватар</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути коментарі...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви&amp;далити аватар...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити аватар вибраного користувача.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Приєднуйтесь</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Приховати під час фільтрації</translation>
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Закріпити під час фільтрації</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;переглянути коментар</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пріоритетний спікер</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;запис...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Слухайте канал</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляючи &amp;UI</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Приєднайтеся до каналу користувача</translation>
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Пере&amp;йти до власного каналу</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Переміщує цього користувача на ваш поточний канал.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути синтез&amp;тексту мовлення</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пошук...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Відфільтровані канали та користувачі</translation>
     </message>
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути позиційний звук</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволить увімкнути/вимкнути позиційний звук</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL помилка</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble не може встановити безпечне з&apos;єднання з сервером. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Це може бути спричинено одним із таких сценаріїв:&lt;ul&gt;&lt;li&gt;Ваш клієнт і сервер використовують різні стандарти шифрування. Це може бути тому, що ви використовуєте дуже старий клієнт або сервер, до якого ви підключаєтеся, дуже старий. У першому випадку вам слід оновити свій клієнт, а в другому – зв’язатися з адміністратором сервера, щоб він міг оновити свій сервер.&lt;/li&gt;&lt;li&gt;Ваш клієнт або сервер використовує стару операційну систему, яка не надають сучасні методи шифрування. У цьому випадку вам слід розглянути можливість оновлення вашої ОС або зв’язатися з адміністратором сервера, щоб він міг оновити свою.&lt;/li&gt;&lt;li&gt;Сервер, до якого ви під’єднуєтеся, насправді не є сервером Mumble. Переконайтеся, що використана адреса сервера справді належить серверу Mumble, а не напр. до ігрового сервера.&lt;/li&gt;&lt;li&gt;Порт, до якого ви підключаєтеся, не належить до сервера Mumble, а натомість прив’язаний до абсолютно непов’язаного процесу на стороні сервера. Ще раз перевірте, чи використано правильний порт.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
     <name>Manual</name>
     <message>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ручне бурмотіння позиційного аудіо</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished">Посада</translation>
+        <translation>Позиція</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>М</translation>
     </message>
     <message>
         <source>Heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Заголовок</translation>
     </message>
     <message>
         <source>Azimuth</source>
-        <translation type="unfinished"></translation>
+        <translation>Азимут</translation>
     </message>
     <message>
         <source>Elevation</source>
-        <translation type="unfinished"></translation>
+        <translation>Висота</translation>
     </message>
     <message>
         <source>°</source>
-        <translation type="unfinished"></translation>
+        <translation>°</translation>
     </message>
     <message>
         <source>Meta data</source>
-        <translation type="unfinished"></translation>
+        <translation>Метадані</translation>
     </message>
     <message>
         <source>Context</source>
@@ -7073,195 +7219,195 @@ Valid options are:
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ідентичність</translation>
     </message>
     <message>
         <source>Set</source>
-        <translation type="unfinished"></translation>
+        <translation>встановити</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Держава</translation>
     </message>
     <message>
         <source>Unhinge</source>
-        <translation type="unfinished"></translation>
+        <translation>Відключити</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>посилання</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>активувати</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисплей</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished"></translation>
+        <translation>Як довго мовчазні позиції користувача повинні залишатися позначеними після припинення розмови (у секундах).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"></translation>
+        <translation>Час відображення тихого користувача:</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Графічний вид симуляції позиційного звуку</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation type="unfinished"></translation>
+        <translation>Це візуально представляє позиційну аудіоконфігурацію, яка використовується в даний момент</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата Z слухача</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата X слухача</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата слухача Y</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Час беззвучного відображення користувача (у секундах)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Азимут слухача (в градусах)</translation>
     </message>
     <message>
         <source>Listener elevation (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Висота слухача (у градусах</translation>
     </message>
     <message>
         <source>Context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок контексту</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте кнопку «встановити», щоб застосувати контекстний рядок</translation>
     </message>
     <message>
         <source>Apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосуйте контекстний рядок</translation>
     </message>
     <message>
         <source>Apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосуйте ідентифікаційний рядок</translation>
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядок ідентифікації</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Скористайтеся кнопкою «встановити», щоб застосувати ідентифікаційний рядок</translation>
     </message>
 </context>
 <context>
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Мережа</translation>
     </message>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключення</translation>
     </message>
     <message>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте режим сумісності TCP</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Увімкніть режим сумісності з TCP&lt;/b&gt;.&lt;br /&gt;Це змусить Mumble використовувати лише TCP під час зв’язку із сервером. Це збільшить накладні витрати та призведе до помітних пауз у зв’язку втрачених пакетів, тому це слід використовувати, лише якщо ви не можете використовувати стандартне значення (яке використовує UDP для голосу та TCP для керування).</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторне підключення після відключення</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Повторно підключіться після відключення&lt;/b&gt;.&lt;br /&gt;Це змусить Mumble спробувати автоматично відновити підключення через 10 секунд, якщо з’єднання з сервером не вдасться.</translation>
     </message>
     <message>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторно підключіться автоматично</translation>
     </message>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Проксі</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип проксі для підключення</translation>
     </message>
     <message>
         <source>Direct connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Пряме підключення</translation>
     </message>
     <message>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP(S) проксі</translation>
     </message>
     <message>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>SOCKS5 проксі</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я хоста</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я хоста проксі</translation>
     </message>
     <message>
         <source>Force TCP mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Примусовий режим TCP</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть QoS, щоб визначити пріоритетність пакетів</translation>
     </message>
     <message>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ввімкне QoS, який намагатиметься встановити пріоритет голосових пакетів над іншим трафіком.</translation>
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте якість обслуговування</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"></translation>
+        <translation>Не надсилайте сертифікат на сервер і не зберігайте паролі. (Не збережено).</translation>
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це приховає ідентифікаційну інформацію від клієнта.&lt;/b&gt;&lt;p&gt;Клієнт не ідентифікуватиме себе за допомогою сертифіката, навіть якщо його визначено, і не кешуватиме паролі для з’єднань. Це переважно тестовий варіант, який не зберігається.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокувати зберігання сертифікатів і паролів</translation>
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Тип проксі для підключення.&lt;/b&gt;&lt;br /&gt;Це змушує Mumble підключатися через проксі для всіх вихідних з’єднань. Примітка. Тунелювання проксі-сервера перемикає Mumble у режим сумісності з TCP, у результаті чого всі голосові дані надсилаються через канал керування.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ім’я хоста проксі.&lt;/b&gt;&lt;br /&gt;У цьому полі вказується ім’я хоста проксі, через який ви хочете тунелювати мережевий трафік.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -7269,23 +7415,23 @@ Valid options are:
     </message>
     <message>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Номер порту проксі</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Номер порту проксі-сервера.&lt;/b&gt;&lt;br /&gt;У цьому полі вказується номер порту, через який проксі-сервер очікує підключення.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача для автентифікації проксі</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ім&apos;я користувача для автентифікації проксі.&lt;/b&gt;&lt;br /&gt;Це вказує ім&apos;я користувача, яке ви використовуєте для автентифікації за допомогою проксі. Якщо проксі-сервер не використовує автентифікацію або ви хочете підключитися анонімно, просто залиште це поле порожнім.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7293,127 +7439,128 @@ Valid options are:
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль для аутентифікації проксі</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Пароль для автентифікації проксі.&lt;/b&gt;&lt;br /&gt;Це вказує пароль, який ви використовуєте для автентифікації за допомогою проксі. Якщо проксі-сервер не використовує автентифікацію або ви хочете підключитися анонімно, просто залиште це поле порожнім.</translation>
     </message>
     <message>
         <source>Mumble services</source>
-        <translation type="unfinished"></translation>
+        <translation>Бовтальні послуги</translation>
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично перевіряйте наявність нових випусків Mumble.</translation>
     </message>
     <message>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це перевірятиме наявність нових версій Mumble кожного разу, коли ви запускатимете програму, і повідомлятиме вас, якщо вони доступні.</translation>
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте наявність оновлень програми під час запуску</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично перевіряти наявність нових випусків плагінів.</translation>
     </message>
     <message>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це перевірятиме наявність нових версій плагінів кожного разу, коли ви запускатимете програму, і завантажуватиме їх автоматично.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Надіслати анонімну статистику.&lt;/b&gt;&lt;br /&gt;Mumble має невелику команду розробників, тому її розвиток потрібно зосередити там, де це найбільше потрібно. Подаючи статистичні дані, ви допомагаєте проекту визначити, на чому зосередити розвиток.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Надішліть анонімну статистику в проект Mumble</translation>
     </message>
     <message>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилайте анонімну статистику</translation>
     </message>
     <message>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Підключіться до останнього використовуваного сервера під час запуску Mumble</translation>
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Перепідключіться до останнього сервера під час запуску</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфіденційність</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Запобігання надсиланню інформації про ОС на сервери Mumble і веб-сервери</translation>
     </message>
     <message>
         <source>&lt;b&gt;Don&apos;t send OS information to servers&lt;/b&gt;&lt;br/&gt;
 Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Не надсилайте інформацію про ОС на сервери&lt;/b&gt;&lt;br/&gt;
+Запобігає надсиланню клієнтом потенційно ідентифікаційної інформації про операційну систему на сервер Mumble і веб-сервери.</translation>
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Не надсилайте інформацію про ОС на сервери Mumble і веб-сервери</translation>
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>У разі перемикання це приховує список публічних серверів у діалоговому вікні підключення</translation>
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховати загальнодоступний список серверів</translation>
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте наявність оновлень плагіна під час запуску</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично завантажуйте та встановлюйте оновлення плагінів</translation>
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип проксі</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я Хоста проксі</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт проксі</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача проксі</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль проксі</translation>
     </message>
 </context>
 <context>
     <name>Overlay</name>
     <message>
         <source>Silent</source>
-        <translation type="unfinished"></translation>
+        <translation>Мовчазний</translation>
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляючи</translation>
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт</translation>
     </message>
     <message>
         <source>Shout</source>
-        <translation type="unfinished"></translation>
+        <translation>Кричати</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -7421,30 +7568,30 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося створити зв’язок із накладанням на %2: %1. Накладання не буде доступним.</translation>
     </message>
 </context>
 <context>
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>фільтр</translation>
     </message>
     <message>
         <source>Only talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Тільки розмовляти</translation>
     </message>
     <message>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляю та нещодавно активний</translation>
     </message>
     <message>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Все на поточному каналі</translation>
     </message>
     <message>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Усе у пов’язаних каналах</translation>
     </message>
     <message>
         <source>Always show yourself</source>
@@ -7452,15 +7599,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштувати останній час активності (%1 секунд)...</translation>
     </message>
     <message>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Стовпці</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортувати</translation>
     </message>
     <message>
         <source>Alphabetically</source>
@@ -7468,7 +7615,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Остання зміна стану</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -7476,85 +7623,85 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути масштаб</translation>
     </message>
     <message>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштувати нещодавно активний час</translation>
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кількість секунд, протягом яких користувачі залишаються активними після розмови:</translation>
     </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Щоб перемістити користувачів, перетягніть маленьку червону крапку.</translation>
     </message>
     <message>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Щоб змінити розмір користувачів, наведіть на користувача колесо миші.</translation>
     </message>
     <message>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Щоб отримати додаткові параметри, клацніть правою кнопкою миші користувача.</translation>
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Фільтр запуску</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Накладання</translation>
     </message>
     <message>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть виконуваний файл</translation>
     </message>
     <message>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть програму</translation>
     </message>
     <message>
         <source>Choose path</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть шлях</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити стилі накладання</translation>
     </message>
     <message>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередні налаштування накладання Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти стилі накладання</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Опції</translation>
     </message>
     <message>
         <source>Enable overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути накладання.</translation>
     </message>
     <message>
         <source>Enable Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути накладання</translation>
     </message>
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Це встановлює, увімкнено чи ні накладання. Цей параметр перевіряється лише під час запуску програм, тому перед запуском програми переконайтеся, що Mumble запущено та цей параметр увімкнено.&lt;br /&gt;Зверніть увагу, що якщо ви запускаєте Mumble після запуску програми або вимикаєте накладання під час програма запущена, немає безпечного способу перезапустити накладення без перезапуску програми.</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет</translation>
     </message>
     <message>
         <source>Blacklist</source>
@@ -7566,71 +7713,75 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити Overlay</translation>
     </message>
     <message>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка накладки</translation>
     </message>
     <message>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble виявив, що у вас не встановлено Mumble Overlay.
+
+Натисніть кнопку нижче, щоб установити накладку.</translation>
     </message>
     <message>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть Mumble Overlay</translation>
     </message>
     <message>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновлення накладки</translation>
     </message>
     <message>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble виявив стару версію файлів підтримки накладання, встановлених на вашому комп’ютері.
+
+Щоб оновити ці файли до останніх версій, натисніть кнопку нижче.</translation>
     </message>
     <message>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновіть Mumble Overlay</translation>
     </message>
     <message>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображення лічильника кадрів у накладенні</translation>
     </message>
     <message>
         <source>Show FPS counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати лічильник FPS</translation>
     </message>
     <message>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажте стиль накладання з файлу</translation>
     </message>
     <message>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>навантаження…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Збережіть налаштування накладання у файл</translation>
     </message>
     <message>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>зберегти…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть накладний шрифт.</translation>
     </message>
     <message>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть колір накладного тексту.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>колір</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -7638,31 +7789,31 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS і дисплей годинника</translation>
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"></translation>
+        <translation>Відображати годинник у накладенні, що показує поточний місцевий час (системний час).</translation>
     </message>
     <message>
         <source>Show Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати годинник</translation>
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Винятки для накладання</translation>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим винятків накладання</translation>
     </message>
     <message>
         <source>Allowed launchers</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволені пускові установки</translation>
     </message>
     <message>
         <source>Add</source>
@@ -7670,86 +7821,86 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Allowed programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволені програми</translation>
     </message>
     <message>
         <source>Allowed paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволені шляхи</translation>
     </message>
     <message>
         <source>Blacklisted programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Програми з чорного списку</translation>
     </message>
 </context>
 <context>
     <name>OverlayEditor</name>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Держава</translation>
     </message>
     <message>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач не розмовляє</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>пасивний</translation>
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач говорить у вашому каналі або пов’язаному каналі</translation>
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляючи</translation>
     </message>
     <message>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач шепоче з вами приватно</translation>
     </message>
     <message>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Приватний Шепіт</translation>
     </message>
     <message>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач кричить на ваш канал</translation>
     </message>
     <message>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал Whisper</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Збільшити</translation>
     </message>
     <message>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Коефіцієнт масштабування</translation>
     </message>
     <message>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнені елементи</translation>
     </message>
     <message>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation>Аватар користувача, який вибирає кожен користувач</translation>
     </message>
     <message>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Аватар</translation>
     </message>
     <message>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я Користувача</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва каналу користувача, якщо це не ваш поточний канал</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -7757,70 +7908,70 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Приглушено або глухо</translation>
     </message>
     <message>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнений стан</translation>
     </message>
     <message>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмежувальна рамка, автоматично зменшена до мінімального розміру, щоб містити всі видимі елементи</translation>
     </message>
     <message>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмежувальна рамка</translation>
     </message>
     <message>
         <source>Overlay Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор накладання</translation>
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівень масштабування</translation>
     </message>
 </context>
 <context>
     <name>OverlayEditorScene</name>
     <message>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Попереднє налаштування макета</translation>
     </message>
     <message>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Великий квадратний аватар</translation>
     </message>
     <message>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Аватар і Ім&apos;я</translation>
     </message>
     <message>
         <source>User Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Непрозорість користувача</translation>
     </message>
     <message>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Непрозорість об&apos;єкта</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівнювання</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліворуч</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>центр</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Правочуч</translation>
     </message>
     <message>
         <source>Top</source>
@@ -7840,70 +7991,70 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Обмежувальна рамка</translation>
     </message>
     <message>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина пера</translation>
     </message>
     <message>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкладка</translation>
     </message>
     <message>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір ручки</translation>
     </message>
     <message>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір заливки</translation>
     </message>
     <message>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть колір ручки</translation>
     </message>
     <message>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть колір заливки</translation>
     </message>
     <message>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть колір</translation>
     </message>
     <message>
         <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть шрифт</translation>
     </message>
 </context>
 <context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагіни</translation>
     </message>
     <message>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагін не має функції налаштування.</translation>
     </message>
     <message>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагін не має функції about.</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Опції</translation>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкніть плагіни та передайте позиційну інформацію</translation>
     </message>
     <message>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це дозволяє плагінам для підтримуваних ігор отримувати вашу позицію в грі та передавати її з кожним голосовим пакетом. Це дає змогу іншим користувачам чути ваш голос у грі з точки зору вашого персонажа відносно їх власного.</translation>
     </message>
     <message>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Посилання на позицію гри та передачу</translation>
     </message>
     <message>
         <source>Reloads all plugins</source>
@@ -7911,35 +8062,35 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це повторно сканує та перезавантажує плагіни. Використовуйте це, якщо ви щойно додали або змінили плагін до каталогу плагінів.</translation>
     </message>
     <message>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перезавантажте плагіни</translation>
     </message>
     <message>
         <source>Information about plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про плагін</translation>
     </message>
     <message>
         <source>This shows a small information message about the plugin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує невелике інформаційне повідомлення про плагін.</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;про</translation>
     </message>
     <message>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати сторінку конфігурації плагіна</translation>
     </message>
     <message>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує сторінку конфігурації плагіна, якщо така є.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Налаштувати</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7947,294 +8098,294 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключові події</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановіть плагін з локального файлу</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити плагін...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вивантажити поточний вибраний плагін. Це видалить його зі списку плагінів для поточного сеансу.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Розвантажити</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагін успішно встановлено</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо деактивувати всі потрібні функції для плагіна &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо завантажити плагін &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи слід увімкнути функцію позиційного звуку цього плагіна</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей плагін не підтримує позиційне аудіо</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи має цей плагін дозвіл прослуховувати всі події клавіатури, які відбуваються, коли Mumble має фокус</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи слід увімкнути цей плагін</translation>
     </message>
     <message>
         <source>List of plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Список плагінів</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте клавіші вгору та вниз для навігації плагінами. Використовуйте ліву та праву клавіші для навігації між дозволами одного плагіна.</translation>
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва плагіна</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець увімкнено плагін</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапорець дозволу позиційного звуку плагіна</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Поле дозволу на прослуховування подій клавіатури плагіна</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>перевірено</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>не перевірено</translation>
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Не доступний</translation>
     </message>
 </context>
 <context>
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Інсталятор плагінів</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви збираєтеся інсталювати зазначений нижче плагін. Ви бажаєте продовжити?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ім&apos;я:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Версія:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Автор(и):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;опис:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ні</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Так</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &quot;%1&quot; не є дійсним файлом плагіна!</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити плагін &quot;%1&quot; - перевірте інтерфейс плагіна!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити старий плагін на &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо скопіювати бібліотеку плагінів з &quot;%1&quot; в &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося перемістити бібліотеку плагінів до &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to locate the plugin manifest (manifest.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося знайти маніфест плагіна (manifest.xml)</translation>
     </message>
     <message>
         <source>Error while processing manifest: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка під час обробки маніфесту: %1</translation>
     </message>
     <message>
         <source>Unable to find plugin for the current OS (&quot;%1&quot;) and architecture (&quot;%2&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдається знайти плагін для поточної ОС (&quot;%1&quot;) та архітектури (&quot;%2&quot;)</translation>
     </message>
     <message>
         <source>Unable to locate plugin library specified in manifest (&quot;%1&quot;) in the bundle</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдається знайти бібліотеку плагінів, указану в маніфесті (&quot;%1&quot;) у пакеті</translation>
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезаписати плагін?</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий модуль «%1» (%2) збирається перезаписати вже встановлений модуль «%3» (%4). Ви бажаєте продовжити?</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 втрачене посилання</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 пов&apos;язані</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Додатковий модуль &quot;%1&quot; виявив постійну помилку під час збору позиційних даних</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити плагін вручну: %1</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не плагін знайдено в каталозі плагінів: &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновлення плагіна</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Наступні плагіни можна оновити.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати все</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагін</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити-URL</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Хочете оновити вибрані плагіни?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо завантажити оновлення плагіна для &quot;%1&quot; з &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося оновити плагін &quot;%1&quot; через забагато перенаправлень</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити оновлення плагіна для &quot;%1&quot; з &quot;%2&quot; (статус HTTP</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагін &quot;%1&quot; успішно оновлено</translation>
     </message>
 </context>
 <context>
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>пристрій за замовчуванням</translation>
     </message>
 </context>
 <context>
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перегляд позиційного аудіо</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Напрямок камери</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиція гравця</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Вісь гравця</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Керівництво гравця</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Вісь камери</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Положення камери</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>інформація</translation>
     </message>
     <message>
         <source>Context</source>
@@ -8242,48 +8393,48 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Ідентичність</translation>
     </message>
 </context>
 <context>
     <name>PulseAudioSystem</name>
     <message>
         <source>Default Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Введення за замовчуванням</translation>
     </message>
     <message>
         <source>Default Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихід за замовчуванням</translation>
     </message>
 </context>
 <context>
     <name>QApplication</name>
     <message>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося перезапустити mumble</translation>
     </message>
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble не вдалося перезапустити себе. Перезапустіть його вручну.</translation>
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble зараз підключений до сервера</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмовляючи UI</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасування відлуння не підтримується для комбінації інтерфейсів «%1» (вхід) і «%2» (вихід).</translation>
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальний звук</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -8291,75 +8442,75 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути синтез мовлення</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; не вдалося зберегти назавжди та втрачається під час перезапуску, оскільки %2 не має сертифіката.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцеве регулювання гучності...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Ви використовуєте версію Mumble, у якій &lt;b&gt;явно вимкнено&lt;/b&gt; перевірку оновлень.&lt;/p&gt;&lt;p&gt;Це означає, що сповіщення про оновлення, яке ви можете отримати, використовуючи цю опцію, буде &lt;b&gt;більшість ймовірно, буде безглуздим&lt;/b&gt; для вас.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмова (без звуку)</translation>
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Всі повідомлення</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути консоль для всіх подій</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемкнути спливаючі сповіщення для всіх подій</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути підсвічування вікна (якщо не активне) для всіх подій</translation>
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть тут, щоб увімкнути звукові сповіщення для всіх подій</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути синтез мовлення для всіх подій</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation>RNNoise недоступний через невідповідність частоти дискретизації.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути всі налаштування?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте скинути всі параметри (не лише ті, які зараз видимі) до стандартних значень?</translation>
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцеве коригування псевдоніму...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Заблокована схема URL-адреси &quot;%1&quot;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>URL-адреса використовує схему, яка була заблокована з міркувань безпеки.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>заблоковано URL: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
@@ -8367,11 +8518,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>У доступі до мікрофона було відмовлено. Будь ласка, дозвольте Mumble використовувати мікрофон, змінивши параметри в системних налаштуваннях -&gt; Безпека та конфіденційність -&gt; Конфіденційність -&gt; Мікрофон.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено, це намагається скасувати відлуння з аудіопотоку.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -8379,542 +8530,545 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скасування відлуння вимкнено.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Змішане придушення луни (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змішаний має низький вплив на процесор, але добре працює, лише якщо ваші динаміки однаково гучні та однаково віддалені від мікрофона.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Багатоканальне ехоподавлення (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Багатоканальне придушення луни забезпечує набагато краще придушення луни, але при вищій вартості ЦП. Для багатоканального ехокомпенсації потрібно більше ЦП, тому спочатку слід спробувати змішане.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>У наданій URL-адресі використовується недійсний формат версії: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Каталоги, у яких Mumble шукає додаткові файли перекладу:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>виклик</translation>
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>ЕКСПЕРИМЕНТАЛЬНА ЧАСТИНА: придушення акустичного відлуння (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підтримка цієї опції лише експериментальна! Ця опція найкраще працює при використанні вбудованого мікрофона та динаміка.</translation>
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Перенесення ярликів не завершено</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
 You can register them again.</source>
-        <translation type="unfinished"></translation>
+        <translation>На жаль, %1 ярлик(и) не вдалося перенести.
+Ви можете зареєструвати їх знову.</translation>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Потенційно несправні налаштування</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити налаштування резервного копіювання?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Схоже, що Mumble не виконав нормального завершення роботи. Якщо ви не навмисно закрили програму, це може означати, що використовувані налаштування спричинили збій. Бажаєте замість цього завантажити резервну копію налаштувань?</translation>
     </message>
     <message>
         <source>The backed-up settings also seem to have been saved without Mumble exiting normally (potentially indicating a crash).</source>
-        <translation type="unfinished"></translation>
+        <translation>Схоже, резервні копії налаштувань також було збережено без нормального виходу з Mumble (потенційно вказуючи на збій).</translation>
     </message>
     <message>
         <source>If you experience repeated crashes with these settings, you might have to manually delete the settings files at &lt;pre&gt;%1&lt;/pre&gt; and &lt;pre&gt;%2&lt;/pre&gt; in order to reset all settings to their default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо з цими налаштуваннями виникають повторні збої, можливо, доведеться вручну видалити файли налаштувань &lt;pre&gt;%1&lt;/pre&gt; і &lt;pre&gt;%2&lt;/pre&gt;, щоб скинути всі налаштування до стандартних значення.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>У доступі до мікрофона було відмовлено через системні обмеження. Ви не зможете використовувати мікрофон під час цього сеансу.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідома версія</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Далі</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <source>This is you</source>
-        <translation type="unfinished"></translation>
+        <translation>Це ти</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>друг</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>користувача</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>статус</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>німий і глухий</translation>
     </message>
     <message>
         <source>muted</source>
-        <translation type="unfinished"></translation>
+        <translation>приглушено</translation>
     </message>
     <message>
         <source>locally muted</source>
-        <translation type="unfinished"></translation>
+        <translation>локально приглушено</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>увімкнено звук</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>запис</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>пріоритетний спікер</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished"></translation>
+        <translation>має довгий коментар</translation>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>текстові повідомлення ігноруються</translation>
     </message>
     <message>
         <source>registered</source>
-        <translation type="unfinished"></translation>
+        <translation>зареєстрований</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>канал</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ваш канал</translation>
     </message>
     <message>
         <source>accessible</source>
-        <translation type="unfinished"></translation>
+        <translation>доступний</translation>
     </message>
     <message>
         <source>inaccessible</source>
-        <translation type="unfinished"></translation>
+        <translation>недоступний</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>громадськість</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>фільтрують</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>закріплений</translation>
     </message>
     <message>
         <source>Listening for input</source>
-        <translation type="unfinished"></translation>
+        <translation>Слухання вхідних даних</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Додати</translation>
+        <translation>додати</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Якщо ви використовуєте Linux, це, швидше за все, тому, що ви використовуєте версію зі сховища пакунків вашого дистрибутива, яка має власні цикли оновлення.&lt;/p&gt;&lt;p&gt;Якщо ви хочете завжди мати останню версію Mumble, слід розглянути можливість використання іншого методу встановлення. 
+Перегляньте &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;репозиторій проекту&lt;/a&gt;, щоб дізнатися про альтернативи.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити зображення</translation>
     </message>
     <message>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл зображення завеликий для вставлення в документ. Будь ласка, використовуйте зображення розміром менше %1 Кб.</translation>
     </message>
     <message>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення занадто довге.</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисплей</translation>
     </message>
     <message>
         <source>Source Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідний текст</translation>
     </message>
     <message>
         <source>&amp;Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;жирний</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <source>&amp;Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Курсив</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Курсив</translation>
     </message>
     <message>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслити</translation>
     </message>
     <message>
         <source>Ctrl+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>колір</translation>
     </message>
     <message>
         <source>Insert Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити посилання</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити зображення</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати посилання</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>текст</translation>
     </message>
 </context>
 <context>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Жодного</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Приєднуйтесь</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть рядок пошуку...</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Опції</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи шукати користувачів</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Користувачі</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи потрібно виконувати пошук з урахуванням регістру</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Чутливий до регістру</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Опції:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи слід інтерпретувати рядок пошуку як регулярний вираз</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Reg Ex</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Канали</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи шукати канали</translation>
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошуковий рядок</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Результати пошуку</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для навігації між результатами пошуку використовуйте клавіші вгору та вниз.</translation>
     </message>
 </context>
 <context>
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося розпізнати ім’я хоста</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер не відповідає на запити TCP</translation>
     </message>
     <message>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP-пакети не можуть бути надіслані або отримані від сервера. Перехід в режим TCP.</translation>
     </message>
     <message>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакети UDP не можуть бути надіслані на сервер. Перехід в режим TCP.</translation>
     </message>
     <message>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакети UDP не можуть бути отримані від сервера. Перехід в режим TCP.</translation>
     </message>
     <message>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакети UDP можна надсилати на сервер і отримувати від нього. Повернення до режиму UDP.</translation>
     </message>
     <message>
         <source>Connection timed out</source>
-        <translation type="unfinished"></translation>
+        <translation>Час очікування підключення минув</translation>
     </message>
 </context>
 <context>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про сервер</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>інформація про сервер</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Хост:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Порт:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Протокол:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Звільнення:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудіо</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Дозволено:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;поточний:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Кодек:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Деталі підключення</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP (Голос)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Шифрування:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Середнє затримка:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>добре</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation>Пізно</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Загублений</translation>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторна синхронізація</translation>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідний</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Вхідні</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосові пакети наразі надсилаються через TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP (КОНТРОЛЬ)</translation>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Версія TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Набір шифрів:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;передня секретність&gt;</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідомий</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи підтримує підключення ідеальну пряму секретність (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Ні</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Користувачі:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP Параметри</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Переглянути сертифікат</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>улюблений</translation>
     </message>
     <message>
         <source>LAN</source>
-        <translation type="unfinished"></translation>
+        <translation>LAN</translation>
     </message>
     <message>
         <source>Public Internet</source>
-        <translation type="unfinished"></translation>
+        <translation>Публічний Інтернет</translation>
     </message>
 </context>
 <context>
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Непризначений</translation>
     </message>
 </context>
 <context>
@@ -8929,82 +9083,82 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикач</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Непризначений</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Жодна кнопка не призначена</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть, щоб показати комбінацію кнопок</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt; Невідомий канал &gt;</translation>
     </message>
 </context>
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Корінь</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Батько</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>поточний</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Підканал #%1</translation>
     </message>
 </context>
 <context>
     <name>ShortcutTargetWidget</name>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>Корінь</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Батько</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>поточний</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Підканал #%1</translation>
     </message>
     <message>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Недійсний</translation>
     </message>
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Порожній</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Поточний вибір</translation>
     </message>
 </context>
 <context>
@@ -9015,7 +9169,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемикач</translation>
     </message>
     <message>
         <source>On</source>
@@ -9026,72 +9180,75 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>TextMessage</name>
     <message>
         <source>Enter text</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть текст</translation>
     </message>
     <message>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо позначено, повідомлення рекурсивно надсилається на всі підканали</translation>
     </message>
     <message>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Надсилати рекурсивно на підканали</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>повідомлення</translation>
     </message>
 </context>
 <context>
     <name>Tokens</name>
     <message>
         <source>Empty Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Порожній маркер</translation>
     </message>
     <message>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - маркери доступу</translation>
     </message>
     <message>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"></translation>
+        <translation>Список токенів доступу на поточному сервері</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Це редагований список маркерів доступу на підключеному сервері.&lt;/b&gt; 
+&lt;br /&gt; 
+Маркер доступу — це текстовий рядок, який можна використовувати як пароль для дуже простого керування доступом до каналів. Mumble запам’ятає маркери, які ви використали, і повторно надішле їх на сервер під час наступного підключення, тож вам не доведеться вводити їх щоразу.
+</translation>
     </message>
     <message>
         <source>Add a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Додайте маркер</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">Додати</translation>
+        <translation>&amp;додати</translation>
     </message>
     <message>
         <source>Remove a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити маркер</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;видалити</translation>
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Список маркерів</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте клавіші зі стрілками для навігації цим списком маркерів доступу. Жетони відображаються у вигляді звичайного тексту.</translation>
     </message>
 </context>
 <context>
     <name>UserEdit</name>
     <message>
         <source>Registered Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєстровані користувачі</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -9099,363 +9256,363 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>кого ти шукаєш?</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>днів</translation>
     </message>
     <message>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>тижнів</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Місяці</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>років</translation>
     </message>
     <message>
         <source>Inactive for</source>
-        <translation type="unfinished"></translation>
+        <translation>Неактивний для</translation>
     </message>
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Зареєстровані користувачі: %n акаунт</numerusform>
+            <numerusform>Зареєстровані користувачі: %n акаунтів</numerusform>
+            <numerusform>Зареєстровані користувачі: %n акаунтів</numerusform>
         </translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>список користувачів</translation>
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук користувача</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити режим фільтра неактивності</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Фільтр бездіяльності</translation>
     </message>
 </context>
 <context>
     <name>UserInformation</name>
     <message>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про користувача</translation>
     </message>
     <message>
         <source>Connection Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про підключення</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Версія</translation>
     </message>
     <message>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>OS</translation>
     </message>
     <message>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертифікат</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Адреса</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика пінгу</translation>
     </message>
     <message>
         <source>Pings received</source>
-        <translation type="unfinished"></translation>
+        <translation>Пінг отримано</translation>
     </message>
     <message>
         <source>Average ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Середній пінг</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP (КОНТРОЛЬ)</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP (Голос)</translation>
     </message>
     <message>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP Статистика мережі</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>добре</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation>Пізно</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Загублений</translation>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторна синхронізація</translation>
     </message>
     <message>
         <source>From Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Від клієнта</translation>
     </message>
     <message>
         <source>To Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Клієнту</translation>
     </message>
     <message>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation>Час підключення</translation>
     </message>
     <message>
         <source>%1w</source>
-        <translation type="unfinished"></translation>
+        <translation>%1w</translation>
     </message>
     <message>
         <source>%1d</source>
-        <translation type="unfinished"></translation>
+        <translation>%1d</translation>
     </message>
     <message>
         <source>%1h</source>
-        <translation type="unfinished"></translation>
+        <translation>%1h</translation>
     </message>
     <message>
         <source>%1m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <source>%1s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1s</translation>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Підтримується</translation>
     </message>
     <message>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Не підтримується</translation>
     </message>
     <message>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Не повідомляється</translation>
     </message>
     <message>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 онлайн (%2 неактивний)</translation>
     </message>
     <message>
         <source>%1 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 онлайн</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Кбіт/с</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"></translation>
+        <translation>Пропускна здатність</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"></translation>
+        <translation>Пропускна здатність</translation>
     </message>
     <message>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>Відхилення пінгу</translation>
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередження: сервер, здається, повідомляє про скорочену версію протоколу для цього клієнта. (Див.: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Проблема №5827&lt;/a&gt;)</translation>
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Подробиці</translation>
     </message>
 </context>
 <context>
     <name>UserListModel</name>
     <message>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Нік</translation>
     </message>
     <message>
         <source>Inactive days</source>
-        <translation type="unfinished"></translation>
+        <translation>Неактивні дні</translation>
     </message>
     <message>
         <source>Last channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Останній канал</translation>
     </message>
     <message>
         <source>Last seen: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Востаннє в мережі: %1</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Ніколи</translation>
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал ID: %1</translation>
     </message>
 </context>
 <context>
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальний псевдонім для інших користувачів</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Налаштуйте псевдонім інших користувачів локально&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Псевдонім користувача</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Коригування локального псевдоніму для %1</translation>
     </message>
 </context>
 <context>
     <name>UserModel</name>
     <message>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Це користувач, підключений до сервера. Піктограма ліворуч від користувача вказує, чи він розмовляє:</translation>
     </message>
     <message>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Спілкування з вашим каналом.</translation>
     </message>
     <message>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Кричати прямо на ваш канал.</translation>
     </message>
     <message>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шепіт прямо тобі.</translation>
     </message>
     <message>
         <source>Not talking.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не розмовляє.</translation>
     </message>
     <message>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Це канал на сервері. Значок вказує на стан каналу:</translation>
     </message>
     <message>
         <source>Your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш поточний канал.</translation>
     </message>
     <message>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал, пов’язаний із вашим каналом. Пов’язані канали можуть спілкуватися один з одним.</translation>
     </message>
     <message>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал на сервері, з яким ви не пов’язані.</translation>
     </message>
     <message>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує позначки, які користувач має на сервері, якщо такі є:</translation>
     </message>
     <message>
         <source>On your friend list</source>
-        <translation type="unfinished"></translation>
+        <translation>У вашому списку друзів</translation>
     </message>
     <message>
         <source>Authenticated user</source>
-        <translation type="unfinished"></translation>
+        <translation>Автентифікований користувач</translation>
     </message>
     <message>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (вимкнено вручну самостійно)</translation>
     </message>
     <message>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнуто (вручну вимкнено адміністратором)</translation>
     </message>
     <message>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (не дозволено говорити в поточному каналі)</translation>
     </message>
     <message>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (вимкнено звук лише на вашому комп’ютері)</translation>
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнено (вимкнути звук)</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушений (самотужно)</translation>
     </message>
     <message>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Оглушений (від адміністратора)</translation>
     </message>
     <message>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation>Користувач має новий набір коментарів (клацніть, щоб показати)</translation>
     </message>
     <message>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation>У користувача є набір коментарів, який ви вже бачили. (натисніть, щоб показати)</translation>
     </message>
     <message>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ігнорування текстових повідомлень</translation>
     </message>
     <message>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"></translation>
+        <translation>Це показує прапори, які має канал, якщо такі є:</translation>
     </message>
     <message>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал має новий набір коментарів (натисніть, щоб показати)</translation>
     </message>
     <message>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation>На каналі є набір коментарів, який ви вже бачили. (натисніть, щоб показати)</translation>
     </message>
     <message>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал буде приховано, якщо ввімкнено фільтрацію</translation>
     </message>
     <message>
         <source>Name</source>
@@ -9463,280 +9620,280 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Flags</source>
-        <translation type="unfinished"></translation>
+        <translation>Прапори</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що хочете перетягнути цього користувача?</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви впевнені, що бажаєте перетягнути цей канал?</translation>
     </message>
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо виконати цей рух автоматично, скиньте числові індикатори сортування або налаштуйте їх вручну.</translation>
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмова, коли ваш звук вимкнено</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це слухач каналу. Відповідний користувач чує все, що ви говорите в цьому каналі.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал має обмеження доступу, тому ви не можете на нього зайти</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал має обмеження доступу, але ви все одно можете зайти</translation>
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал буде закріплено, коли фільтрацію ввімкнено</translation>
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Слухач каналу</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей слухач каналу належить %1</translation>
     </message>
 </context>
 <context>
     <name>VersionCheck</name>
     <message>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновити Mumble</translation>
     </message>
     <message>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Було виявлено та автоматично завантажено нову версію Mumble. Рекомендується або оновити цю версію, або повернутися до останньої стабільної версії. Бажаєте запустити інсталятор зараз?</translation>
     </message>
     <message>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося запустити програму встановлення знімків.</translation>
     </message>
     <message>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виявлено пошкоджене завантаження нової версії. Автоматично видалено.</translation>
     </message>
     <message>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантаження нового знімка з %1 до %2</translation>
     </message>
     <message>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося записати нову версію на диск.</translation>
     </message>
     <message>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble не вдалося отримати інформацію про версію з центрального сервера.</translation>
     </message>
 </context>
 <context>
     <name>ViewCert</name>
     <message>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Деталі ланцюжка сертифікатів</translation>
     </message>
     <message>
         <source>Certificate chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Ланцюжок сертифікатів</translation>
     </message>
     <message>
         <source>Certificate details</source>
-        <translation type="unfinished"></translation>
+        <translation>Реквізити сертифіката</translation>
     </message>
     <message>
         <source>Common Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Загальна назва</translation>
     </message>
     <message>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>організація</translation>
     </message>
     <message>
         <source>Subunit</source>
-        <translation type="unfinished"></translation>
+        <translation>Підрозділ</translation>
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Країна</translation>
     </message>
     <message>
         <source>Locality</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцевість</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Держава</translation>
     </message>
     <message>
         <source>Valid from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Діє з: %1</translation>
     </message>
     <message>
         <source>Valid to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Діє до: %1</translation>
     </message>
     <message>
         <source>Serial: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Серійний: %1</translation>
     </message>
     <message>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкритий ключ: %1 біт %2</translation>
     </message>
     <message>
         <source>RSA</source>
-        <translation type="unfinished"></translation>
+        <translation>RSA</translation>
     </message>
     <message>
         <source>DSA</source>
-        <translation type="unfinished"></translation>
+        <translation>DSA</translation>
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Дайджест (SHA-1): %1</translation>
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Дайджест (SHA-256): %1</translation>
     </message>
     <message>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Електронна пошта: %1</translation>
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <source>Issued by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Видано:</translation>
     </message>
     <message>
         <source>Unit Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва підрозділу</translation>
     </message>
 </context>
 <context>
     <name>VoiceRecorder</name>
     <message>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Диктофону не вдалося створити каталог &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Диктофону не вдалося відкрити файл &quot;%1&quot;</translation>
     </message>
     <message>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.wav - Нестиснутий</translation>
     </message>
     <message>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.ogg (Vorbis) - стиснутий</translation>
     </message>
     <message>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.au - Без стиснення</translation>
     </message>
     <message>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.flac - Стиснення без втрат</translation>
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Стиснення з втратами</translation>
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.mp3 - Стиснення з втратами</translation>
     </message>
 </context>
 <context>
     <name>VoiceRecorderDialog</name>
     <message>
         <source>Recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>диктофон</translation>
     </message>
     <message>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>КОНТРОЛЬ</translation>
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;старт</translation>
     </message>
     <message>
         <source>S&amp;top</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <source>Multichannel</source>
-        <translation type="unfinished"></translation>
+        <translation>Багатоканальний</translation>
     </message>
     <message>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихід</translation>
     </message>
     <message>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідний формат</translation>
     </message>
     <message>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Цільовий каталог</translation>
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я файлу</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;переглядати...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Допустимі змінні:</translation>
     </message>
     <message>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставляє ім&apos;я користувача</translation>
     </message>
     <message>
         <source>Inserts the current date</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставляє поточну дату</translation>
     </message>
     <message>
         <source>Inserts the current time</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставляє поточний час</translation>
     </message>
     <message>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставляє ім’я хоста</translation>
     </message>
     <message>
         <source>Recorder still running</source>
-        <translation type="unfinished"></translation>
+        <translation>Реєстратор все ще працює</translation>
     </message>
     <message>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо закрити диктофон, не зупиняючи його, незаписаний звук буде видалено. Ви дійсно хочете закрити диктофон?</translation>
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
@@ -9745,11 +9902,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер, до якого ви зараз підключені, має версію 1.2.2 або старішу. З міркувань конфіденційності запис на серверах версій старших за 1.2.3 неможливий.
+Щоб отримати додаткову інформацію, зверніться до адміністратора свого сервера.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для цього сервера вже є активний записувач.</translation>
     </message>
     <message>
         <source>Please select a recording format.</source>
@@ -9757,45 +9915,45 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>Зупинка</translation>
     </message>
     <message>
         <source>Select target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть цільовий каталог</translation>
     </message>
     <message>
         <source>Downmix</source>
-        <translation type="unfinished"></translation>
+        <translation>Змішування</translation>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо розпочати запис - аудіовихід неправильно налаштований (частота дискретизації 0 Гц)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це поле містить шлях до каталогу для зберігання будь-яких голосових записів. Скористайтеся кнопкою «Огляд», щоб відкрити діалогове вікно файлу.</translation>
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це поле містить назву файлу, під яким зберігається будь-який голосовий запис. Для розширення імені файлу можна використовувати різні змінні. Наприклад, %time для поточного часу.</translation>
     </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>регулювання гучності</translation>
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Місцеве регулювання гучності</translation>
     </message>
 </context>
 <context>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>У доступі до мікрофона було відмовлено. Будь ласка, переконайтеся, що налаштування мікрофона вашої операційної системи дозволяють Mumble використовувати мікрофон.</translation>
     </message>
 </context>
 <context>
@@ -9809,7 +9967,7 @@ Please contact your server administrator for further information.</source>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>бурмотіти PTT</translation>
     </message>
     <message>
         <source>Push to talk</source>
