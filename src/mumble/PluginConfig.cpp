@@ -87,69 +87,69 @@ void PluginConfig::on_qpbInstallPlugin_clicked() {
 }
 
 void PluginConfig::save() const {
-	s.bTransmitPosition = qcbTransmit->isChecked();
-	s.qhPluginSettings.clear();
+    s.bTransmitPosition = qcbTransmit->isChecked();
+    s.qhPluginSettings.clear();
 
-	if (!s.bTransmitPosition) {
-		// Make sure that if posData is currently running, it gets reset
-		// The setting will prevent the system from reactivating
-		Global::get().pluginManager->unlinkPositionalData();
-	}
+    if (!s.bTransmitPosition) {
+        // Make sure positional data is reset if it is currently running
+        Global::get().pluginManager->unlinkPositionalData();
+    }
 
-	constexpr int ENABLE_COL           = 1;
-	constexpr int POSITIONAL_DATA_COL  = 2;
-	constexpr int KEYBOARD_MONITOR_COL = 3;
+    constexpr int ENABLE_COL           = 1;
+    constexpr int POSITIONAL_DATA_COL  = 2;
+    constexpr int KEYBOARD_MONITOR_COL = 3;
 
-	QList< QTreeWidgetItem * > list = qtwPlugins->findItems(QString(), Qt::MatchContains);
-	for (QTreeWidgetItem *i : list) {
-		bool enable                    = (i->checkState(ENABLE_COL) == Qt::Checked);
-		bool positionalDataEnabled     = (i->checkState(POSITIONAL_DATA_COL) == Qt::Checked);
-		bool keyboardMonitoringEnabled = (i->checkState(KEYBOARD_MONITOR_COL) == Qt::Checked);
+    QList<QTreeWidgetItem *> list = qtwPlugins->findItems(QString(), Qt::MatchContains);
+    for (QTreeWidgetItem *i : list) {
+        bool enable                    = (i->checkState(ENABLE_COL) == Qt::Checked);
+        bool positionalDataEnabled     = (i->checkState(POSITIONAL_DATA_COL) == Qt::Checked);
+        bool keyboardMonitoringEnabled = (i->checkState(KEYBOARD_MONITOR_COL) == Qt::Checked);
 
-		const_plugin_ptr_t plugin = pluginForItem(i);
-		if (plugin) {
-			// insert plugin to settings
-			Global::get().pluginManager->enablePositionalDataFor(plugin->getID(), positionalDataEnabled);
-			Global::get().pluginManager->allowKeyboardMonitoringFor(plugin->getID(), keyboardMonitoringEnabled);
+        const_plugin_ptr_t plugin = pluginForItem(i);
+        if (plugin) {
+            Global::get().pluginManager->enablePositionalDataFor(plugin->getID(), positionalDataEnabled);
+            Global::get().pluginManager->allowKeyboardMonitoringFor(plugin->getID(), keyboardMonitoringEnabled);
 
-			if (enable) {
-				if (Global::get().pluginManager->loadPlugin(plugin->getID())) {
-					// potentially deactivate plugin features
-					// A plugin's feature is considered to be enabled by default after loading. Thus we only need to
-					// deactivate the ones we don't want
-					uint32_t featuresToDeactivate = MUMBLE_FEATURE_NONE;
-					const uint32_t pluginFeatures = plugin->getFeatures();
+            if (enable) {
+                // Load plugin safely
+                if (Global::get().pluginManager->loadPlugin(plugin->getID())) {
+                    uint32_t featuresToDeactivate = MUMBLE_FEATURE_NONE;
+                    const uint32_t pluginFeatures = plugin->getFeatures();
 
-					if (!positionalDataEnabled && (pluginFeatures & MUMBLE_FEATURE_POSITIONAL)) {
-						// deactivate this feature only if it is available in the first place
-						featuresToDeactivate |= MUMBLE_FEATURE_POSITIONAL;
-					}
+                    if (!positionalDataEnabled && (pluginFeatures & MUMBLE_FEATURE_POSITIONAL)) {
+                        featuresToDeactivate |= MUMBLE_FEATURE_POSITIONAL;
+                    }
 
-					if (featuresToDeactivate != MUMBLE_FEATURE_NONE) {
-						uint32_t remainingFeatures =
-							Global::get().pluginManager->deactivateFeaturesFor(plugin->getID(), featuresToDeactivate);
+                    if (featuresToDeactivate != MUMBLE_FEATURE_NONE) {
+                        uint32_t remainingFeatures = Global::get().pluginManager->deactivateFeaturesFor(plugin->getID(), featuresToDeactivate);
 
-						if (remainingFeatures != MUMBLE_FEATURE_NONE) {
-							Global::get().l->log(Log::Warning,
-												 tr("Unable to deactivate all requested features for plugin \"%1\"")
-													 .arg(plugin->getName()));
-						}
-					}
-				} else {
-					// loading failed
-					enable = false;
-					Global::get().l->log(Log::Warning, tr("Unable to load plugin \"%1\"").arg(plugin->getName()));
-				}
-			} else {
-				Global::get().pluginManager->unloadPlugin(plugin->getID());
-			}
+                        if (remainingFeatures != MUMBLE_FEATURE_NONE) {
+                            Global::get().l->log(Log::Warning,
+                                                 tr("Unable to deactivate all requested features for plugin \"%1\"")
+                                                     .arg(plugin->getName()));
+                        }
+                    }
+                } else {
+                    enable = false;
+                    Global::get().l->log(Log::Warning, tr("Unable to load plugin \"%1\"").arg(plugin->getName()));
+                }
+            } else {
+                // Safely unload plugin
+                try {
+                    if (!Global::get().pluginManager->unloadPlugin(plugin->getID())) {
+                        Global::get().l->log(Log::Warning, tr("Failed to unload plugin \"%1\"").arg(plugin->getName()));
+                    }
+                } catch (const std::exception &e) {
+                    Global::get().l->log(Log::Error, tr("Exception occurred while unloading plugin: %1").arg(e.what()));
+                }
+            }
 
-			QString pluginKey = QLatin1String(
-				QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
-			s.qhPluginSettings.insert(
-				pluginKey, { plugin->getFilePath(), enable, positionalDataEnabled, keyboardMonitoringEnabled });
-		}
-	}
+            QString pluginKey = QLatin1String(
+                QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
+            s.qhPluginSettings.insert(
+                pluginKey, { plugin->getFilePath(), enable, positionalDataEnabled, keyboardMonitoringEnabled });
+        }
+    }
 }
 
 const_plugin_ptr_t PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
@@ -158,7 +158,12 @@ const_plugin_ptr_t PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 	}
 
 	return nullptr;
+	const_plugin_ptr_t plugin = pluginForItem(item);
+if (!plugin) {
+    qWarning("Invalid plugin ID");
+    return;
 }
+
 
 void PluginConfig::on_qpbConfig_clicked() {
 	const_plugin_ptr_t plugin = pluginForItem(qtwPlugins->currentItem());
@@ -186,64 +191,65 @@ void PluginConfig::on_qpbAbout_clicked() {
 
 void PluginConfig::on_qpbReload_clicked() {
 	Global::get().pluginManager->rescanPlugins();
+	QMutexLocker locker(&Global::get().pluginManager->mutex());
+
 	refillPluginList();
 }
 
 void PluginConfig::on_qpbUnload_clicked() {
-	QTreeWidgetItem *currentItem = qtwPlugins->currentItem();
-	if (!currentItem) {
-		return;
-	}
+    QTreeWidgetItem *currentItem = qtwPlugins->currentItem();
+    if (!currentItem) {
+        qWarning() << "No item selected for unloading.";
+        return;
+    }
 
-	const_plugin_ptr_t plugin = pluginForItem(currentItem);
-	if (!plugin) {
-		return;
-	}
+    const_plugin_ptr_t plugin = pluginForItem(currentItem);
+    if (!plugin) {
+        qWarning() << "Failed to resolve plugin for the selected item.";
+        return;
+    }
 
-	if (Global::get().pluginManager->clearPlugin(plugin->getID())) {
-		// Plugin was successfully cleared
-		currentItem = qtwPlugins->takeTopLevelItem(qtwPlugins->indexOfTopLevelItem(currentItem));
+    try {
+        if (Global::get().pluginManager->clearPlugin(plugin->getID())) {
+            qtwPlugins->takeTopLevelItem(qtwPlugins->indexOfTopLevelItem(currentItem));
+            delete currentItem;  // Ensure safe deletion
+        } else {
+            Global::get().l->log(Log::Warning, tr("Failed to clear plugin \"%1\"").arg(plugin->getName()));
+        }
+    } catch (const std::exception &e) {
+        Global::get().l->log(Log::Error, tr("Exception during plugin clearing: %1").arg(e.what()));
+    }
 
-		delete currentItem;
-	} else {
-		qWarning("PluginConfig.cpp: Failed to delete unloaded plugin entry");
-	}
+    // Ensure no dangling references remain
+    Global::get().pluginManager->clearPluginReferences(plugin->getID());
 }
-
 void PluginConfig::refillPluginList() {
-	qtwPlugins->clear();
+    qtwPlugins->clear();
+    qtwPlugins->blockSignals(true);
 
-	// get plugins already sorted according to their name
-	const QVector< const_plugin_ptr_t > plugins = Global::get().pluginManager->getPlugins(true);
+    const auto plugins = Global::get().pluginManager->getPlugins(true);
+    for (const auto &currentPlugin : plugins) {
+        auto *item = new QTreeWidgetItem(qtwPlugins);
+        item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        item->setCheckState(1, currentPlugin->isLoaded() ? Qt::Checked : Qt::Unchecked);
 
-	foreach (const_plugin_ptr_t currentPlugin, plugins) {
-		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
-		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		i->setCheckState(1, currentPlugin->isLoaded() ? Qt::Checked : Qt::Unchecked);
+        if (currentPlugin->getFeatures() & MUMBLE_FEATURE_POSITIONAL) {
+            item->setCheckState(2, currentPlugin->isPositionalDataEnabled() ? Qt::Checked : Qt::Unchecked);
+            item->setToolTip(2, tr("Whether the positional audio feature of this plugin should be enabled"));
+        } else {
+            item->setToolTip(2, tr("This plugin does not provide support for positional audio"));
+        }
 
-		if (currentPlugin->getFeatures() & MUMBLE_FEATURE_POSITIONAL) {
-			i->setCheckState(2, currentPlugin->isPositionalDataEnabled() ? Qt::Checked : Qt::Unchecked);
-			i->setToolTip(2, tr("Whether the positional audio feature of this plugin should be enabled"));
-		} else {
-			i->setToolTip(2, tr("This plugin does not provide support for positional audio"));
-		}
+        item->setCheckState(3, currentPlugin->isKeyboardMonitoringAllowed() ? Qt::Checked : Qt::Unchecked);
+        item->setToolTip(3, tr("Whether this plugin has the permission to monitor keyboard events"));
 
-		i->setCheckState(3, currentPlugin->isKeyboardMonitoringAllowed() ? Qt::Checked : Qt::Unchecked);
-		i->setToolTip(3, tr("Whether this plugin has the permission to be listening to all keyboard events that occur "
-							"while Mumble has focus"));
+        item->setText(0, currentPlugin->getName());
+        item->setToolTip(0, currentPlugin->getDescription().toHtmlEscaped());
+        item->setToolTip(1, tr("Whether this plugin should be enabled"));
+        item->setData(0, Qt::UserRole, currentPlugin->getID());
+    }
 
-		i->setText(0, currentPlugin->getName());
-		i->setToolTip(0, currentPlugin->getDescription().toHtmlEscaped());
-		i->setToolTip(1, tr("Whether this plugin should be enabled"));
-		i->setData(0, Qt::UserRole, currentPlugin->getID());
-
-		on_qtwPlugins_itemChanged(i, 1);
-		on_qtwPlugins_itemChanged(i, 2);
-		on_qtwPlugins_itemChanged(i, 3);
-	}
-
-	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
-	on_qtwPlugins_currentItemChanged(qtwPlugins->topLevelItem(0), NULL);
+    qtwPlugins->blockSignals(false);
 }
 
 void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *) {
