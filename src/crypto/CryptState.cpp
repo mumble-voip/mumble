@@ -6,6 +6,10 @@
 #include "CryptState.h"
 
 void CryptState::updateRollingStats() {
+	if (!m_rollingStatsEnabled) {
+		return;
+	}
+
 	std::chrono::time_point< std::chrono::steady_clock > now = std::chrono::steady_clock::now();
 
 	// Update no more than every few seconds

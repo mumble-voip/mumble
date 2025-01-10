@@ -137,6 +137,7 @@ public:
 	bool bBonjour;
 	bool bAllowPing;
 	bool allowRecording;
+	unsigned int rollingStatsWindow;
 
 	QRegularExpression qrUserName;
 	QRegularExpression qrChannelName;

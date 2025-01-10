@@ -153,6 +153,9 @@ public:
 	/// A flag indicating whether recording is allowed on this server
 	bool allowRecording;
 
+	/// The number of seconds to keep rolling stats for per client
+	unsigned int rollingStatsWindow;
+
 	/// qsAbsSettingsFilePath is the absolute path to
 	/// the murmur.ini used by this Meta instance.
 	QString qsAbsSettingsFilePath;
