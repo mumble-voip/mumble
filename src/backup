@@ -1,0 +1,187 @@
+// Copyright The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+#ifndef MUMBLE_PACKETDATASTREAM_H_
+#define MUMBLE_PACKETDATASTREAM_H_
+
+#include <QByteArray>
+#include <QPair>
+#include <QString>
+
+#include <cstring>
+#include <cstdint>
+#include <type_traits>
+
+class PacketDataStream {
+private:
+	Q_DISABLE_COPY(PacketDataStream)
+private:
+	unsigned char *data;
+	quint32 maxsize;
+	quint32 offset;
+	quint32 overshoot;
+	bool ok;
+
+public:
+	quint32 size() const;
+
+	quint32 capacity() const;
+
+	bool isValid() const;
+
+	quint32 left() const;
+
+	quint32 undersize() const;
+
+	void append(const quint64 v);
+
+	void append(const char *d, quint32 len);
+
+	void skip(quint32 len);
+
+	quint64 next();
+	quint8 next8();
+	void rewind();
+
+	void truncate();
+
+	const unsigned char *dataPtr() const;
+
+	unsigned char *dataPtr();
+
+	const char *charPtr() const;
+
+	QByteArray dataBlock(quint32 len);
+
+protected:
+	void setup(unsigned char *d, unsigned int msize);
+
+public:
+	PacketDataStream(const unsigned char *d, unsigned int msize);
+
+	PacketDataStream(const char *d, unsigned int msize);
+
+	PacketDataStream(char *d, unsigned int msize);
+
+	PacketDataStream(unsigned char *d, unsigned int msize);
+
+	PacketDataStream(const QByteArray &qba);
+
+	PacketDataStream(QByteArray &qba);
+
+	PacketDataStream &operator<<(const quint64 value);
+
+	PacketDataStream &operator>>(quint64 &i);
+
+	PacketDataStream &operator<<(const QByteArray &a);
+
+	PacketDataStream &operator>>(QByteArray &a);
+
+	PacketDataStream &operator<<(const QString &s);
+
+	// Using the data directly instead of through qbuff avoids a copy.
+	PacketDataStream &operator>>(QString &s);
+
+	PacketDataStream &operator<<(const bool b);
+
+	PacketDataStream &operator>>(bool &b);
+
+	template< typename Integer, typename = std::enable_if_t< std::is_integral_v< Integer > > >
+	PacketDataStream &operator<<(const Integer v);
+	template< typename Integer, typename = std::enable_if_t< std::is_integral_v< Integer > > >
+	PacketDataStream &operator>>(Integer &v);
+
+	PacketDataStream &operator<<(const double v);
+
+	PacketDataStream &operator>>(double &v);
+
+	PacketDataStream &operator<<(const float v);
+
+	PacketDataStream &operator>>(float &v);
+
+	template< typename T > PacketDataStream &operator<<(const QList< T > &l) {
+		*this << l.size();
+		for (int i = 0; i < l.size(); i++)
+			*this << l.at(i);
+		return *this;
+	}
+
+	template< typename T > PacketDataStream &operator>>(QList< T > &l) {
+		l.clear();
+		quint32 len;
+		*this >> len;
+		if (len > left()) {
+			len = left();
+			ok  = false;
+		}
+		for (quint32 i = 0; i < len; i++) {
+			if (left() == 0) {
+				ok = false;
+				break;
+			}
+
+			T t;
+			*this >> t;
+			l.append(t);
+		}
+		return *this;
+	}
+
+
+	template< typename T > PacketDataStream &operator<<(const QSet< T > &s) {
+		*this << s.size();
+		for (typename QSet< T >::const_iterator i = s.constBegin(); i != s.constEnd(); ++i)
+			*this << *i;
+		return *this;
+	}
+
+	template< typename T > PacketDataStream &operator>>(QSet< T > &s) {
+		s.clear();
+		quint32 len;
+		*this >> len;
+		if (len > left()) {
+			len = left();
+			ok  = false;
+		}
+		for (quint32 i = 0; i < len; i++) {
+			if (left() == 0) {
+				ok = false;
+				break;
+			}
+
+			T t;
+			*this >> t;
+			s.insert(t);
+		}
+		return *this;
+	}
+
+	template< typename T, typename U > PacketDataStream &operator<<(const QPair< T, U > &p) {
+		return *this << p.first << p.second;
+	}
+
+	template< typename T, typename U > PacketDataStream &operator>>(QPair< T, U > &p) {
+		return *this >> p.first >> p.second;
+	}
+};
+
+#define INTMAPOPERATOR_DECLARE(type)                                                 \
+	template<> PacketDataStream &PacketDataStream::operator<<< type >(const type v); \
+	template<> PacketDataStream &PacketDataStream::operator>>< type >(type &v);
+
+//INTMAPOPERATOR_DECLARE(qsizetype)
+INTMAPOPERATOR_DECLARE(std::int8_t)
+INTMAPOPERATOR_DECLARE(std::uint8_t)
+INTMAPOPERATOR_DECLARE(std::int16_t)
+INTMAPOPERATOR_DECLARE(std::uint16_t)
+INTMAPOPERATOR_DECLARE(std::int32_t)
+INTMAPOPERATOR_DECLARE(std::uint32_t)
+INTMAPOPERATOR_DECLARE(std::int64_t)
+INTMAPOPERATOR_DECLARE(std::uint64_t)
+
+#undef INTMAPOPERATOR_DECLARE
+
+
+#endif

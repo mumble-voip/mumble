@@ -24,6 +24,8 @@
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslKey>
 
+#include <memory>
+
 class Server;
 class QSettings;
 
@@ -177,7 +179,7 @@ private:
 	Q_DISABLE_COPY(Meta)
 
 public:
-	static MetaParams mp;
+	static std::unique_ptr< MetaParams > mp;
 	QHash< int, Server * > qhServers;
 	QHash< QHostAddress, QList< Timer > > qhAttempts;
 	QHash< QHostAddress, Timer > qhBans;

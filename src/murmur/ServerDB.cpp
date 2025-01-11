@@ -64,30 +64,30 @@ Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
 void ServerDB::loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query) {
-	if (!Meta::mp.legacyPasswordHash) {
-		if (Meta::mp.kdfIterations <= 0) {
+	if (!Meta::mp->legacyPasswordHash) {
+		if (Meta::mp->kdfIterations <= 0) {
 			// Configuration doesn't specify an override, load from db
 
 			SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'pbkdf2_iterations'");
 			if (query.next()) {
-				Meta::mp.kdfIterations = query.value(0).toInt();
+				Meta::mp->kdfIterations = query.value(0).toInt();
 			}
 
-			if (Meta::mp.kdfIterations <= 0) {
+			if (Meta::mp->kdfIterations <= 0) {
 				// Didn't get a valid iteration count from DB, overwrite
-				Meta::mp.kdfIterations = PBKDF2::benchmark();
+				Meta::mp->kdfIterations = PBKDF2::benchmark();
 
-				qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations
+				qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp->kdfIterations
 						   << "iterations as default";
 
 				SQLPREP("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('pbkdf2_iterations',?)");
-				query.addBindValue(Meta::mp.kdfIterations);
+				query.addBindValue(Meta::mp->kdfIterations);
 				SQLEXEC();
 			}
 		}
 
-		if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
-			qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp.kdfIterations
+		if (Meta::mp->kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
+			qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp->kdfIterations
 					   << "is below minimum recommended value of" << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT
 					   << "and could be insecure.";
 		}
@@ -95,32 +95,32 @@ void ServerDB::loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query) {
 }
 
 ServerDB::ServerDB() {
-	if (Meta::mp.qsDBDriver != QLatin1String("QMYSQL") && Meta::mp.qsDBDriver != QLatin1String("QSQLITE")
-		&& Meta::mp.qsDBDriver != QLatin1String("QPSQL")) {
+	if (Meta::mp->qsDBDriver != QLatin1String("QMYSQL") && Meta::mp->qsDBDriver != QLatin1String("QSQLITE")
+		&& Meta::mp->qsDBDriver != QLatin1String("QPSQL")) {
 		qFatal("ServerDB: invalid DB driver specified: '%s'. Murmur only supports QSQLITE, QMYSQL, and QPSQL.",
-			   qPrintable(Meta::mp.qsDBDriver));
+			   qPrintable(Meta::mp->qsDBDriver));
 	}
-	if (!QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
-		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
+	if (!QSqlDatabase::isDriverAvailable(Meta::mp->qsDBDriver)) {
+		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp->qsDBDriver));
 	}
 	if (db) {
 		// Don't hide away our previous instance. Fail hard.
 		qFatal("ServerDB has already been instantiated!");
 	}
-	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
+	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp->qsDBDriver));
 
 	qsUpgradeSuffix = QString::fromLatin1("_old_%1").arg(QDateTime::currentDateTime().toSecsSinceEpoch());
 
 	bool found = false;
 
-	if (Meta::mp.qsDBDriver == "QSQLITE") {
-		if (!Meta::mp.qsDatabase.isEmpty()) {
-			db->setDatabaseName(Meta::mp.qsDatabase);
+	if (Meta::mp->qsDBDriver == "QSQLITE") {
+		if (!Meta::mp->qsDatabase.isEmpty()) {
+			db->setDatabaseName(Meta::mp->qsDatabase);
 			found = db->open();
 		} else {
 			QStringList datapaths;
 
-			datapaths << Meta::mp.qdBasePath.absolutePath();
+			datapaths << Meta::mp->qdBasePath.absolutePath();
 			datapaths << QDir::currentPath();
 			datapaths << QCoreApplication::instance()->applicationDirPath();
 			datapaths << QDir::homePath();
@@ -154,12 +154,12 @@ ServerDB::ServerDB() {
 				qFatal("ServerDB: Database is not writable");
 		}
 	} else {
-		db->setDatabaseName(Meta::mp.qsDatabase);
-		db->setHostName(Meta::mp.qsDBHostName);
-		db->setPort(Meta::mp.iDBPort);
-		db->setUserName(Meta::mp.qsDBUserName);
-		db->setPassword(Meta::mp.qsDBPassword);
-		db->setConnectOptions(Meta::mp.qsDBOpts);
+		db->setDatabaseName(Meta::mp->qsDatabase);
+		db->setHostName(Meta::mp->qsDBHostName);
+		db->setPort(Meta::mp->iDBPort);
+		db->setUserName(Meta::mp->qsDBUserName);
+		db->setPassword(Meta::mp->qsDBPassword);
+		db->setConnectOptions(Meta::mp->qsDBOpts);
 		found = db->open();
 	}
 
@@ -169,10 +169,10 @@ ServerDB::ServerDB() {
 	}
 
 	// Use SQLite in WAL mode if possible.
-	if (Meta::mp.qsDBDriver == "QSQLITE") {
-		if (Meta::mp.iSQLiteWAL == 0) {
+	if (Meta::mp->qsDBDriver == "QSQLITE") {
+		if (Meta::mp->iSQLiteWAL == 0) {
 			qWarning("ServerDB: Using SQLite's default rollback journal.");
-		} else if (Meta::mp.iSQLiteWAL > 0 && Meta::mp.iSQLiteWAL <= 2) {
+		} else if (Meta::mp->iSQLiteWAL > 0 && Meta::mp->iSQLiteWAL <= 2) {
 			QSqlQuery query;
 
 			bool hasversion = false;
@@ -196,10 +196,10 @@ ServerDB::ServerDB() {
 
 			if (okversion) {
 				SQLDO("PRAGMA journal_mode=WAL;");
-				if (Meta::mp.iSQLiteWAL == 1) {
+				if (Meta::mp->iSQLiteWAL == 1) {
 					SQLDO("PRAGMA synchronous=NORMAL;");
 					qWarning("ServerDB: Configured SQLite for journal_mode=WAL, synchronous=NORMAL");
-				} else if (Meta::mp.iSQLiteWAL == 2) {
+				} else if (Meta::mp->iSQLiteWAL == 2) {
 					SQLDO("PRAGMA synchronous=FULL;");
 					qWarning("ServerDB: Configured SQLite for journal_mode=WAL, synchronous=FULL");
 				}
@@ -213,7 +213,7 @@ ServerDB::ServerDB() {
 		} else {
 			qFatal("ServerDB: Invalid value '%i' for sqlite_wal. Please use 0 (no wal), 1 (wal), 2 (wal with "
 				   "synchronous=full)",
-				   Meta::mp.iSQLiteWAL);
+				   Meta::mp->iSQLiteWAL);
 		}
 	}
 
@@ -222,10 +222,10 @@ ServerDB::ServerDB() {
 	QSqlQuery &query = *th.qsqQuery;
 
 	// Ensure that a proper encoding is used for the DB
-	if (Meta::mp.qsDBDriver == "QMYSQL") {
+	if (Meta::mp->qsDBDriver == "QMYSQL") {
 		query.exec(QString::fromLatin1(
 					   "SELECT default_character_set_name FROM information_schema.SCHEMATA WHERE schema_name = '%1'")
-					   .arg(Meta::mp.qsDatabase));
+					   .arg(Meta::mp->qsDatabase));
 
 		if (query.next()) {
 			QString encoding = query.value(0).toString();
@@ -238,7 +238,7 @@ ServerDB::ServerDB() {
 
 				if (!query.exec(
 						QString::fromLatin1("ALTER DATABASE `%1` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci")
-							.arg(Meta::mp.qsDatabase))) {
+							.arg(Meta::mp->qsDatabase))) {
 					qFatal("ServerDB: Failed to set default encoding & collation to UTF-8: %s",
 						   qPrintable(query.lastError().text()));
 				}
@@ -246,7 +246,7 @@ ServerDB::ServerDB() {
 		} else {
 			qFatal("Failed to get character encoding: %s", qPrintable(query.lastError().text()));
 		}
-	} else if (Meta::mp.qsDBDriver == "QSQLITE") {
+	} else if (Meta::mp->qsDBDriver == "QSQLITE") {
 		// Verify that the SQLite database has been initialized with UTF-8 or UTF-16
 		SQLQUERY("PRAGMA ENCODING;");
 
@@ -286,9 +286,9 @@ ServerDB::ServerDB() {
 	// Make sure a table called "meta" is present
 	// We use the meta table to keep track of various meta information such as the
 	// database structure version this database conforms to.
-	if (Meta::mp.qsDBDriver == "QSQLITE")
+	if (Meta::mp->qsDBDriver == "QSQLITE")
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` TEXT PRIMARY KEY, `value` TEXT)");
-	else if (Meta::mp.qsDBDriver == "QPSQL")
+	else if (Meta::mp->qsDBDriver == "QPSQL")
 		SQLQUERY("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` varchar(255) PRIMARY KEY, `value` varchar(255))");
 	else
 		// MySQL
@@ -341,7 +341,7 @@ ServerDB::ServerDB() {
 
 		// Now we generate new tables that conform to the state-of-the-art structure
 		qWarning("Generating new tables...");
-		if (Meta::mp.qsDBDriver == "QSQLITE") {
+		if (Meta::mp->qsDBDriver == "QSQLITE") {
 			if (version > 0) {
 				SQLDO("DROP TRIGGER IF EXISTS `%1log_timestamp`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1log_server_del`");
@@ -475,7 +475,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER `%1channel_listeners_del_user` AFTER DELETE ON `%1users` FOR EACH ROW BEGIN "
 				  "DELETE FROM `%1channel_listeners` WHERE `server_id` = old.`server_id` AND `user_id` = "
 				  "old.`user_id`; END;");
-		} else if (Meta::mp.qsDBDriver == "QPSQL") {
+		} else if (Meta::mp->qsDBDriver == "QPSQL") {
 			if (version > 0) {
 				typedef QPair< QString, QString > qsp;
 				QList< qsp > qlForeignKeys;
@@ -483,13 +483,13 @@ ServerDB::ServerDB() {
 
 				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE "
 						"TABLE_SCHEMA=? AND CONSTRAINT_TYPE='FOREIGN KEY'");
-				query.addBindValue(Meta::mp.qsDatabase);
+				query.addBindValue(Meta::mp->qsDatabase);
 				SQLEXEC();
 				while (query.next())
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach (const qsp &key, qlForeignKeys) {
-					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT FOREIGN KEY `%2`")
 										   .arg(key.first)
@@ -499,13 +499,13 @@ ServerDB::ServerDB() {
 
 				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE "
 						"TABLE_SCHEMA=? AND CONSTRAINT_TYPE='PRIMARY KEY'");
-				query.addBindValue(Meta::mp.qsDatabase);
+				query.addBindValue(Meta::mp->qsDatabase);
 				SQLEXEC();
 				while (query.next())
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach (const qsp &key, qlIndexes) {
-					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT PRIMARY KEY `%2`")
 										   .arg(key.first)
@@ -627,13 +627,13 @@ ServerDB::ServerDB() {
 
 				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE "
 						"TABLE_SCHEMA=? AND CONSTRAINT_TYPE='FOREIGN KEY'");
-				query.addBindValue(Meta::mp.qsDatabase);
+				query.addBindValue(Meta::mp->qsDatabase);
 				SQLEXEC();
 				while (query.next())
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach (const qsp &key, qlForeignKeys) {
-					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`")
 										   .arg(key.first)
@@ -741,7 +741,7 @@ ServerDB::ServerDB() {
 		} else {
 			qWarning("Importing old data...");
 
-			if (Meta::mp.qsDBDriver == "QMYSQL")
+			if (Meta::mp->qsDBDriver == "QMYSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 0;");
 			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers%2`");
 			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM "
@@ -845,7 +845,7 @@ ServerDB::ServerDB() {
 			if (version >= 9) {
 				SQLDO("INSERT INTO `%1channel_listeners` SELECT * FROM `%1channel_listeners%2`");
 			}
-			if (Meta::mp.qsDBDriver == "QMYSQL")
+			if (Meta::mp->qsDBDriver == "QMYSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
 			qWarning("Removing old tables...");
@@ -885,14 +885,14 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 	QString q;
 	if (str.contains(QLatin1String("%1"))) {
 		if (str.contains(QLatin1String("%2")))
-			q = str.arg(Meta::mp.qsDBPrefix, qsUpgradeSuffix);
+			q = str.arg(Meta::mp->qsDBPrefix, qsUpgradeSuffix);
 		else
-			q = str.arg(Meta::mp.qsDBPrefix);
+			q = str.arg(Meta::mp->qsDBPrefix);
 	} else {
 		q = str;
 	}
 
-	if (Meta::mp.qsDBDriver == "QPSQL") {
+	if (Meta::mp->qsDBDriver == "QPSQL") {
 		q.replace("`", "\"");
 	}
 
@@ -928,14 +928,14 @@ bool ServerDB::query(QSqlQuery &query, const QString &str, bool fatal, bool warn
 		QString q;
 		if (str.contains(QLatin1String("%1"))) {
 			if (str.contains(QLatin1String("%2")))
-				q = str.arg(Meta::mp.qsDBPrefix, qsUpgradeSuffix);
+				q = str.arg(Meta::mp->qsDBPrefix, qsUpgradeSuffix);
 			else
-				q = str.arg(Meta::mp.qsDBPrefix);
+				q = str.arg(Meta::mp->qsDBPrefix);
 		} else {
 			q = str;
 		}
 
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			q.replace("`", "\"");
 		}
 
@@ -1126,7 +1126,7 @@ int Server::registerUser(const QMap< int, QString > &info) {
 			id = res;
 		}
 
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (:server_id,:user_id,:name) ON "
 					"CONFLICT (`server_id`, `name`) DO UPDATE SET `user_id` = :u_user_id WHERE `%1users`.`server_id` = "
 					":u_server_id AND `%1users`.`name` = :u_name");
@@ -1317,7 +1317,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			if (lchan < 0)
 				lchan = 0;
 
-			if (Meta::mp.qsDBDriver == "QPSQL") {
+			if (Meta::mp->qsDBDriver == "QPSQL") {
 				SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES "
 						"(:server_id,:user_id,:name,:lastchannel) ON CONFLICT (`server_id`, `user_id`) DO UPDATE SET "
 						"`name` = :u_name, `lastchannel` = :u_lastchannel WHERE `%1users`.`server_id` = :u_server_id "
@@ -1372,11 +1372,11 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 					name = query.value(1).toString();
 					res  = query.value(0).toInt();
 
-					if (!Meta::mp.legacyPasswordHash) {
+					if (!Meta::mp->legacyPasswordHash) {
 						// Unless disabled upgrade the user password hash
 						QMap< int, QString > info;
 						info.insert(ServerDB::User_Password, password);
-						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp->kdfIterations));
 
 						if (!setInfo(userId, info)) {
 							qWarning("ServerDB: Failed to upgrade user account to PBKDF2 hash, rejecting login.");
@@ -1389,7 +1389,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 					name = query.value(1).toString();
 					res  = query.value(0).toInt();
 
-					if (Meta::mp.legacyPasswordHash) {
+					if (Meta::mp->legacyPasswordHash) {
 						// Downgrade the password to the legacy hash
 						QMap< int, QString > info;
 						info.insert(ServerDB::User_Password, password);
@@ -1398,15 +1398,15 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 							qWarning("ServerDB: Failed to downgrade user account to legacy hash, rejecting login.");
 							return -1;
 						}
-					} else if (storedKdfIterations != Meta::mp.kdfIterations) {
+					} else if (storedKdfIterations != Meta::mp->kdfIterations) {
 						// User kdfiterations not equal to the global one. Update it.
 						QMap< int, QString > info;
 						info.insert(ServerDB::User_Password, password);
-						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp->kdfIterations));
 
 						if (!setInfo(userId, info)) {
 							qWarning() << "ServerDB: Failed to update user PBKDF2 to new iteration count"
-									   << Meta::mp.kdfIterations << ", rejecting login.";
+									   << Meta::mp->kdfIterations << ", rejecting login.";
 							return -1;
 						}
 					}
@@ -1458,7 +1458,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 	}
 	if (!certhash.isEmpty() && (res > 0)) {
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, "
 					":key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE "
 					"`%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND "
@@ -1482,7 +1482,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 
 		if (!emails.isEmpty()) {
-			if (Meta::mp.qsDBDriver == "QPSQL") {
+			if (Meta::mp->qsDBDriver == "QPSQL") {
 				query.bindValue(":server_id", iServerNum);
 				query.bindValue(":user_id", res);
 				query.bindValue(":key", ServerDB::User_Email);
@@ -1540,10 +1540,10 @@ bool Server::setInfo(int id, const QMap< int, QString > &setinfo) {
 		QString passwordHash, salt;
 		int kdfIterations = -1;
 
-		if (Meta::mp.legacyPasswordHash) {
+		if (Meta::mp->legacyPasswordHash) {
 			passwordHash = ServerDB::getLegacySHA1Hash(password);
 		} else {
-			kdfIterations = Meta::mp.kdfIterations;
+			kdfIterations = Meta::mp->kdfIterations;
 			if (info.contains(ServerDB::User_KDFIterations)) {
 				const int targetIterations = info.value(ServerDB::User_KDFIterations).toInt();
 				if (targetIterations > 0) {
@@ -1583,7 +1583,7 @@ bool Server::setInfo(int id, const QMap< int, QString > &setinfo) {
 			keys << i.key();
 			values << i.value();
 		}
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, "
 					":key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE "
 					"`%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND "
@@ -1671,14 +1671,14 @@ void ServerDB::writeSUPW(int srvnum, const QString &pwHash, const QString &saltH
 void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	QString pwHash, saltHash;
 
-	if (!Meta::mp.legacyPasswordHash) {
+	if (!Meta::mp->legacyPasswordHash) {
 		saltHash = PBKDF2::getSalt();
-		pwHash   = PBKDF2::getHash(saltHash, pw, Meta::mp.kdfIterations);
+		pwHash   = PBKDF2::getHash(saltHash, pw, Meta::mp->kdfIterations);
 	} else {
 		pwHash = getLegacySHA1Hash(pw);
 	}
 
-	writeSUPW(srvnum, pwHash, saltHash, Meta::mp.kdfIterations);
+	writeSUPW(srvnum, pwHash, saltHash, Meta::mp->kdfIterations);
 }
 
 void ServerDB::disableSU(int srvnum) {
@@ -1900,7 +1900,7 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	// Update channel description information
-	if (Meta::mp.qsDBDriver == "QPSQL") {
+	if (Meta::mp->qsDBDriver == "QPSQL") {
 		SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (:server_id, "
 				":channel_id, :key, :value) ON CONFLICT (`server_id`, `channel_id`, `key`) DO UPDATE SET `value` = "
 				":u_value WHERE `%1channel_info`.`server_id` = :u_server_id AND `%1channel_info`.`channel_id` = "
@@ -1923,7 +1923,7 @@ void Server::updateChannel(const Channel *c) {
 		SQLEXEC();
 	}
 	// Update channel position information
-	if (Meta::mp.qsDBDriver == "QPSQL") {
+	if (Meta::mp->qsDBDriver == "QPSQL") {
 		query.bindValue(":server_id", iServerNum);
 		query.bindValue(":channel_id", c->iId);
 		query.bindValue(":key", ServerDB::Channel_Position);
@@ -1941,7 +1941,7 @@ void Server::updateChannel(const Channel *c) {
 		SQLEXEC();
 	}
 	// Update channel maximum channels
-	if (Meta::mp.qsDBDriver == "QPSQL") {
+	if (Meta::mp->qsDBDriver == "QPSQL") {
 		query.bindValue(":server_id", iServerNum);
 		query.bindValue(":channel_id", c->iId);
 		query.bindValue(":key", ServerDB::Channel_Max_Users);
@@ -1973,7 +1973,7 @@ void Server::updateChannel(const Channel *c) {
 		int id = 0;
 		int pid;
 
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES "
 					"(?,?,?,?,?) RETURNING group_id");
 			query.addBindValue(iServerNum);
@@ -2079,7 +2079,7 @@ void Server::readChannelPrivs(Channel *c) {
 
 		QSqlQuery mem;
 		mem.prepare(QString::fromLatin1("SELECT user_id, addit FROM %1group_members WHERE group_id = ?")
-						.arg(Meta::mp.qsDBPrefix));
+						.arg(Meta::mp->qsDBPrefix));
 		mem.addBindValue(gid);
 		mem.exec();
 		while (mem.next()) {
@@ -2179,7 +2179,7 @@ void Server::setLastChannel(const User *p) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	if (Meta::mp.qsDBDriver == "QSQLITE") {
+	if (Meta::mp->qsDBDriver == "QSQLITE") {
 		SQLPREP("UPDATE `%1users` SET `lastchannel`=? WHERE `server_id` = ? AND `user_id` = ?");
 	} else {
 		SQLPREP("UPDATE `%1users` SET `lastchannel`=?, `last_active` = now() WHERE `server_id` = ? AND `user_id` = ?");
@@ -2194,7 +2194,7 @@ int Server::readLastChannel(int id) {
 	if (id < 0)
 		return -1;
 
-	if (!Meta::mp.bRememberChan)
+	if (!Meta::mp->bRememberChan)
 		return -1;
 
 	TransactionHolder th;
@@ -2213,7 +2213,7 @@ int Server::readLastChannel(int id) {
 			return -1;
 		}
 
-		int duration = Meta::mp.iRememberChanDuration;
+		int duration = Meta::mp->iRememberChanDuration;
 
 		if (duration <= 0) {
 			return static_cast< int >(cid);
@@ -2266,7 +2266,7 @@ void Server::setLastDisconnect(const User *p) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	if (Meta::mp.qsDBDriver == "QSQLITE") {
+	if (Meta::mp->qsDBDriver == "QSQLITE") {
 		SQLPREP("UPDATE `%1users` SET `last_disconnect` = datetime('now') WHERE `server_id` = ? AND `user_id` = ?");
 	} else {
 		// MySQL or PostgreSQL
@@ -2401,19 +2401,19 @@ void Server::dblog(const QString &str) const {
 	QSqlQuery &query = *th.qsqQuery;
 
 	// Is logging disabled?
-	if (Meta::mp.iLogDays < 0)
+	if (Meta::mp->iLogDays < 0)
 		return;
 
 	// Once per hour
-	if (Meta::mp.iLogDays > 0) {
+	if (Meta::mp->iLogDays > 0) {
 		if (ServerDB::tLogClean.isElapsed(3600ULL * 1000000ULL)) {
 			QString qstr;
-			if (Meta::mp.qsDBDriver == "QSQLITE") {
-				qstr = QString::fromLatin1("msgtime < datetime('now','-%1 days')").arg(Meta::mp.iLogDays);
-			} else if (Meta::mp.qsDBDriver == "QPSQL") {
-				qstr = QString::fromLatin1("msgtime < now() - INTERVAL '%1 day'").arg(Meta::mp.iLogDays);
+			if (Meta::mp->qsDBDriver == "QSQLITE") {
+				qstr = QString::fromLatin1("msgtime < datetime('now','-%1 days')").arg(Meta::mp->iLogDays);
+			} else if (Meta::mp->qsDBDriver == "QPSQL") {
+				qstr = QString::fromLatin1("msgtime < now() - INTERVAL '%1 day'").arg(Meta::mp->iLogDays);
 			} else {
-				qstr = QString::fromLatin1("msgtime < now() - INTERVAL %1 day").arg(Meta::mp.iLogDays);
+				qstr = QString::fromLatin1("msgtime < now() - INTERVAL %1 day").arg(Meta::mp->iLogDays);
 			}
 			ServerDB::prepare(query, QString::fromLatin1("DELETE FROM %1slog WHERE ") + qstr);
 			SQLEXEC();
@@ -2560,7 +2560,7 @@ QList< ServerDB::LogRecord > ServerDB::getLog(int server_id, unsigned int offs_m
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	if (Meta::mp.qsDBDriver == "QPSQL") {
+	if (Meta::mp->qsDBDriver == "QPSQL") {
 		SQLPREP("SELECT `msgtime`, `msg` FROM `%1slog` WHERE `server_id` = ? ORDER BY `msgtime` DESC LIMIT ? OFFSET ?");
 		query.addBindValue(server_id);
 		query.addBindValue(offs_max);
@@ -2609,7 +2609,7 @@ void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 		query.addBindValue(server_id);
 		query.addBindValue(key);
 	} else {
-		if (Meta::mp.qsDBDriver == "QPSQL") {
+		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1config` (`server_id`, `key`, `value`) VALUES (:server_id, :key, :value) ON "
 					"CONFLICT (`server_id`, `key`) DO UPDATE SET `value` = :u_value WHERE `%1config`.`server_id` = "
 					":u_server_id AND `%1config`.`key` = :u_key");

@@ -231,16 +231,16 @@ public:
 MumbleServerIce::MumbleServerIce() {
 	count = 0;
 
-	if (meta->mp.qsIceEndpoint.isEmpty())
+	if (::Meta::mp->qsIceEndpoint.isEmpty())
 		return;
 
 	Ice::PropertiesPtr ipp = Ice::createProperties();
 
-	::Meta::mp.qsSettings->beginGroup("Ice");
-	foreach (const QString &v, ::Meta::mp.qsSettings->childKeys()) {
-		ipp->setProperty(iceString(v), iceString(::Meta::mp.qsSettings->value(v).toString()));
+	::Meta::mp->qsSettings->beginGroup("Ice");
+	foreach (const QString &v, ::Meta::mp->qsSettings->childKeys()) {
+		ipp->setProperty(iceString(v), iceString(::Meta::mp->qsSettings->value(v).toString()));
 	}
-	::Meta::mp.qsSettings->endGroup();
+	::Meta::mp->qsSettings->endGroup();
 
 	Ice::PropertyDict props = ippProperties->getPropertiesForPrefix("");
 	Ice::PropertyDict::iterator i;
@@ -254,12 +254,13 @@ MumbleServerIce::MumbleServerIce() {
 
 	try {
 		communicator = Ice::initialize(idd);
-		if (!meta->mp.qsIceSecretWrite.isEmpty()) {
+		if (!::Meta::mp->qsIceSecretWrite.isEmpty()) {
 			::Ice::ImplicitContextPtr impl = communicator->getImplicitContext();
 			if (impl)
-				impl->put("secret", iceString(meta->mp.qsIceSecretWrite));
+				impl->put("secret", iceString(::Meta::mp->qsIceSecretWrite));
 		}
-		adapter   = communicator->createObjectAdapterWithEndpoints("Mumble Server", qPrintable(meta->mp.qsIceEndpoint));
+		adapter =
+			communicator->createObjectAdapterWithEndpoints("Mumble Server", qPrintable(::Meta::mp->qsIceEndpoint));
 		MetaPtr m = new MetaI;
 #if ICE_INT_VERSION >= 30700
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, Ice::stringToIdentity("Meta")));
@@ -1933,7 +1934,7 @@ static void impl_Meta_getAllServers(const ::MumbleServer::AMD_Meta_getAllServers
 static void impl_Meta_getDefaultConf(const ::MumbleServer::AMD_Meta_getDefaultConfPtr cb, const Ice::ObjectAdapterPtr) {
 	::MumbleServer::ConfigMap cm;
 	QMap< QString, QString >::const_iterator i;
-	for (i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
+	for (i = ::Meta::mp->qmConfig.constBegin(); i != ::Meta::mp->qmConfig.constEnd(); ++i) {
 		if (i.key() == "key" || i.key() == "passphrase")
 			continue;
 		cm[iceString(i.key())] = iceString(i.value());
