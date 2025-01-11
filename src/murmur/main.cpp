@@ -176,8 +176,8 @@ void cleanup(int signum) {
 	qInstallMessageHandler(nullptr);
 
 #ifdef Q_OS_UNIX
-	if (!Meta::mp.qsPid.isEmpty()) {
-		QFile pid(Meta::mp.qsPid);
+	if (!Meta::mp->qsPid.isEmpty()) {
+		QFile pid(Meta::mp->qsPid);
 		pid.remove();
 	}
 #endif
@@ -227,6 +227,9 @@ int main(int argc, char **argv) {
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+
+	// Initialize meta parameter
+	Meta::mp = std::make_unique< MetaParams >();
 
 	MumbleSSL::initialize();
 
@@ -374,7 +377,7 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
 			detach = false;
-			Meta::mp.read(inifile);
+			Meta::mp->read(inifile);
 			unixhandler.setuid();
 			unixhandler.finalcap();
 			LimitTest::testLimits(a);
@@ -403,42 +406,42 @@ int main(int argc, char **argv) {
 	inifile = unixhandler.trySystemIniFiles(inifile);
 #endif
 
-	Meta::mp.read(inifile);
+	Meta::mp->read(inifile);
 
 	// Activating the logging of ACLs and groups via commandLine overwrites whatever is set in the ini file
 	if (logGroups) {
-		Meta::mp.bLogGroupChanges = logGroups;
+		Meta::mp->bLogGroupChanges = logGroups;
 	}
 	if (logACL) {
-		Meta::mp.bLogACLChanges = logACL;
+		Meta::mp->bLogACLChanges = logACL;
 	}
 
 	// need to open log file early so log dir can be root owned:
 	// http://article.gmane.org/gmane.comp.security.oss.general/4404
 #ifdef Q_OS_UNIX
-	unixhandler.logToSyslog = Meta::mp.qsLogfile == QLatin1String("syslog");
-	if (detach && !Meta::mp.qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
+	unixhandler.logToSyslog = Meta::mp->qsLogfile == QLatin1String("syslog");
+	if (detach && !Meta::mp->qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
 #else
-	if (detach && !Meta::mp.qsLogfile.isEmpty()) {
+	if (detach && !Meta::mp->qsLogfile.isEmpty()) {
 #endif
-		qfLog = new QFile(Meta::mp.qsLogfile);
+		qfLog = new QFile(Meta::mp->qsLogfile);
 		if (!qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
 			qfLog = nullptr;
 #ifdef Q_OS_UNIX
 			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",
-					qPrintable(Meta::mp.qsLogfile));
+					qPrintable(Meta::mp->qsLogfile));
 #else
-			qWarning("Failed to open logfile %s. No logging will be performed.", qPrintable(Meta::mp.qsLogfile));
+			qWarning("Failed to open logfile %s. No logging will be performed.", qPrintable(Meta::mp->qsLogfile));
 #endif
 		} else {
 			qfLog->setTextModeEnabled(true);
 			QFileInfo qfi(*qfLog);
-			Meta::mp.qsLogfile = qfi.absoluteFilePath();
+			Meta::mp->qsLogfile = qfi.absoluteFilePath();
 #ifdef Q_OS_UNIX
-			if (Meta::mp.uiUid != 0 && fchown(qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid) == -1) {
-				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid,
-					   strerror(errno));
+			if (Meta::mp->uiUid != 0 && fchown(qfLog->handle(), Meta::mp->uiUid, Meta::mp->uiGid) == -1) {
+				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp->uiUid,
+					   Meta::mp->uiGid, strerror(errno));
 			}
 #endif
 		}
@@ -477,11 +480,11 @@ int main(int argc, char **argv) {
 			_exit(0);
 		}
 
-		if (!Meta::mp.qsPid.isEmpty()) {
-			QFile pid(Meta::mp.qsPid);
+		if (!Meta::mp->qsPid.isEmpty()) {
+			QFile pid(Meta::mp->qsPid);
 			if (pid.open(QIODevice::WriteOnly)) {
 				QFileInfo fi(pid);
-				Meta::mp.qsPid = fi.absoluteFilePath();
+				Meta::mp->qsPid = fi.absoluteFilePath();
 
 				QTextStream out(&pid);
 				out << getpid();

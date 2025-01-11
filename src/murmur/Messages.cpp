@@ -610,14 +610,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		sendMessage(uSource, mpsug);
 	}
 
-	if (uSource->m_version < Version::fromComponents(1, 4, 0) && Meta::mp.iMaxListenersPerChannel != 0
-		&& Meta::mp.iMaxListenerProxiesPerUser != 0) {
+	if (uSource->m_version < Version::fromComponents(1, 4, 0) && Meta::mp->iMaxListenersPerChannel != 0
+		&& Meta::mp->iMaxListenerProxiesPerUser != 0) {
 		// The server has the ChannelListener feature enabled but the client that connects doesn't have version 1.4.0 or
 		// newer meaning that this client doesn't know what ChannelListeners are. Thus we'll send that user a
 		// text-message informing about this.
 		MumbleProto::TextMessage mptm;
 
-		if (Meta::mp.bAllowHTML) {
+		if (Meta::mp->bAllowHTML) {
 			mptm.set_message("<b>[WARNING]</b>: This server has the <b>ChannelListener</b> feature enabled but your "
 							 "client version does not support it. "
 							 "This means that users <b>might be listening to what you are saying in your channel "
@@ -797,16 +797,17 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		if (Meta::mp.iMaxListenersPerChannel >= 0
-			&& Meta::mp.iMaxListenersPerChannel - m_channelListenerManager.getListenerCountForChannel(c->iId) - 1 < 0) {
+		if (Meta::mp->iMaxListenersPerChannel >= 0
+			&& Meta::mp->iMaxListenersPerChannel - m_channelListenerManager.getListenerCountForChannel(c->iId) - 1
+				   < 0) {
 			// A limit for the amount of listener proxies per channel is set and it has been reached already
 			PERM_DENIED_FALLBACK(ChannelListenerLimit, Version::fromComponents(1, 4, 0),
 								 QLatin1String("No more listeners allowed in this channel"));
 			continue;
 		}
 
-		if (Meta::mp.iMaxListenerProxiesPerUser >= 0
-			&& Meta::mp.iMaxListenerProxiesPerUser
+		if (Meta::mp->iMaxListenerProxiesPerUser >= 0
+			&& Meta::mp->iMaxListenerProxiesPerUser
 					   - m_channelListenerManager.getListenedChannelCountForUser(uSource->uiSession)
 					   - passedChannelListener - 1
 				   < 0) {
@@ -1856,11 +1857,11 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 			QHash< QString, QSet< int > > hOldTemp;
 
-			if (Meta::mp.bLogGroupChanges || Meta::mp.bLogACLChanges) {
+			if (Meta::mp->bLogGroupChanges || Meta::mp->bLogACLChanges) {
 				log(uSource, QString::fromLatin1("Updating ACL in channel %1").arg(*c));
 			}
 
-			if (Meta::mp.bLogGroupChanges) {
+			if (Meta::mp->bLogGroupChanges) {
 				logGroups(this, c, QLatin1String("These are the groups before applying the change:"));
 			}
 
@@ -1869,7 +1870,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				delete g;
 			}
 
-			if (Meta::mp.bLogACLChanges) {
+			if (Meta::mp->bLogACLChanges) {
 				logACLs(this, c, QLatin1String("These are the ACLs before applying the changed:"));
 			}
 
@@ -1897,7 +1898,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				g->qsTemporary = hOldTemp.value(g->qsName);
 			}
 
-			if (Meta::mp.bLogGroupChanges) {
+			if (Meta::mp->bLogGroupChanges) {
 				logGroups(this, c, QLatin1String("And these are the new groups:"));
 			}
 
@@ -1918,7 +1919,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				a->pAllow = static_cast< ChanACL::Permissions >(mpacl.grant()) & ChanACL::All;
 			}
 
-			if (Meta::mp.bLogACLChanges) {
+			if (Meta::mp->bLogACLChanges) {
 				logACLs(this, c, QLatin1String("And these are the new ACLs:"));
 			}
 		}

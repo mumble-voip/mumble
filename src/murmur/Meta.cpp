@@ -37,7 +37,7 @@
 
 #include <QRandomGenerator>
 
-MetaParams Meta::mp;
+std::unique_ptr< MetaParams > Meta::mp;
 
 #ifdef Q_OS_WIN
 HANDLE Meta::hQoS = nullptr;
@@ -651,7 +651,7 @@ Meta::~Meta() {
 
 bool Meta::reloadSSLSettings() {
 	// Reload SSL settings.
-	if (!Meta::mp.loadSSLSettings()) {
+	if (!Meta::mp->loadSSLSettings()) {
 		return false;
 	}
 
@@ -744,7 +744,7 @@ void Meta::killAll() {
 }
 
 void Meta::successfulConnectionFrom(const QHostAddress &addr) {
-	if (!mp.bBanSuccessful) {
+	if (!mp->bBanSuccessful) {
 		QList< Timer > &ql = qhAttempts[addr];
 		// Seems like this is the most efficient way to clear the list, given:
 		// 1. ql.clear() allocates a new array
@@ -757,12 +757,12 @@ void Meta::successfulConnectionFrom(const QHostAddress &addr) {
 }
 
 bool Meta::banCheck(const QHostAddress &addr) {
-	if ((mp.iBanTries <= 0) || (mp.iBanTimeframe <= 0))
+	if ((mp->iBanTries <= 0) || (mp->iBanTimeframe <= 0))
 		return false;
 
 	if (qhBans.contains(addr)) {
 		Timer t = qhBans.value(addr);
-		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp.iBanTime)))
+		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp->iBanTime)))
 			return true;
 		qhBans.remove(addr);
 	}
@@ -770,10 +770,10 @@ bool Meta::banCheck(const QHostAddress &addr) {
 	QList< Timer > &ql = qhAttempts[addr];
 
 	ql.append(Timer());
-	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp.iBanTimeframe))))
+	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp->iBanTimeframe))))
 		ql.removeFirst();
 
-	if (ql.count() > mp.iBanTries) {
+	if (ql.count() > mp->iBanTries) {
 		qhBans.insert(addr, Timer());
 		return true;
 	}

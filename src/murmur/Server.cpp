@@ -323,44 +323,44 @@ Server::~Server() {
 }
 
 void Server::readParams() {
-	qsPassword                         = Meta::mp.qsPassword;
-	usPort                             = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
-	iTimeout                           = Meta::mp.iTimeout;
-	iMaxBandwidth                      = Meta::mp.iMaxBandwidth;
-	iMaxUsers                          = Meta::mp.iMaxUsers;
-	iMaxUsersPerChannel                = Meta::mp.iMaxUsersPerChannel;
-	iMaxTextMessageLength              = Meta::mp.iMaxTextMessageLength;
-	iMaxImageMessageLength             = Meta::mp.iMaxImageMessageLength;
-	bAllowHTML                         = Meta::mp.bAllowHTML;
-	iDefaultChan                       = Meta::mp.iDefaultChan;
-	bRememberChan                      = Meta::mp.bRememberChan;
-	iRememberChanDuration              = Meta::mp.iRememberChanDuration;
-	qsWelcomeText                      = Meta::mp.qsWelcomeText;
-	qsWelcomeTextFile                  = Meta::mp.qsWelcomeTextFile;
-	qlBind                             = Meta::mp.qlBind;
-	qsRegName                          = Meta::mp.qsRegName;
-	qsRegPassword                      = Meta::mp.qsRegPassword;
-	qsRegHost                          = Meta::mp.qsRegHost;
-	qsRegLocation                      = Meta::mp.qsRegLocation;
-	qurlRegWeb                         = Meta::mp.qurlRegWeb;
-	bBonjour                           = Meta::mp.bBonjour;
-	bAllowPing                         = Meta::mp.bAllowPing;
-	allowRecording                     = Meta::mp.allowRecording;
-	bCertRequired                      = Meta::mp.bCertRequired;
-	bForceExternalAuth                 = Meta::mp.bForceExternalAuth;
-	qrUserName                         = Meta::mp.qrUserName;
-	qrChannelName                      = Meta::mp.qrChannelName;
-	iMessageLimit                      = Meta::mp.iMessageLimit;
-	iMessageBurst                      = Meta::mp.iMessageBurst;
-	iPluginMessageLimit                = Meta::mp.iPluginMessageLimit;
-	iPluginMessageBurst                = Meta::mp.iPluginMessageBurst;
-	broadcastListenerVolumeAdjustments = Meta::mp.broadcastListenerVolumeAdjustments;
-	m_suggestVersion                   = Meta::mp.m_suggestVersion;
-	qvSuggestPositional                = Meta::mp.qvSuggestPositional;
-	qvSuggestPushToTalk                = Meta::mp.qvSuggestPushToTalk;
-	iOpusThreshold                     = Meta::mp.iOpusThreshold;
-	iChannelNestingLimit               = Meta::mp.iChannelNestingLimit;
-	iChannelCountLimit                 = Meta::mp.iChannelCountLimit;
+	qsPassword                         = Meta::mp->qsPassword;
+	usPort                             = static_cast< unsigned short >(Meta::mp->usPort + iServerNum - 1);
+	iTimeout                           = Meta::mp->iTimeout;
+	iMaxBandwidth                      = Meta::mp->iMaxBandwidth;
+	iMaxUsers                          = Meta::mp->iMaxUsers;
+	iMaxUsersPerChannel                = Meta::mp->iMaxUsersPerChannel;
+	iMaxTextMessageLength              = Meta::mp->iMaxTextMessageLength;
+	iMaxImageMessageLength             = Meta::mp->iMaxImageMessageLength;
+	bAllowHTML                         = Meta::mp->bAllowHTML;
+	iDefaultChan                       = Meta::mp->iDefaultChan;
+	bRememberChan                      = Meta::mp->bRememberChan;
+	iRememberChanDuration              = Meta::mp->iRememberChanDuration;
+	qsWelcomeText                      = Meta::mp->qsWelcomeText;
+	qsWelcomeTextFile                  = Meta::mp->qsWelcomeTextFile;
+	qlBind                             = Meta::mp->qlBind;
+	qsRegName                          = Meta::mp->qsRegName;
+	qsRegPassword                      = Meta::mp->qsRegPassword;
+	qsRegHost                          = Meta::mp->qsRegHost;
+	qsRegLocation                      = Meta::mp->qsRegLocation;
+	qurlRegWeb                         = Meta::mp->qurlRegWeb;
+	bBonjour                           = Meta::mp->bBonjour;
+	bAllowPing                         = Meta::mp->bAllowPing;
+	allowRecording                     = Meta::mp->allowRecording;
+	bCertRequired                      = Meta::mp->bCertRequired;
+	bForceExternalAuth                 = Meta::mp->bForceExternalAuth;
+	qrUserName                         = Meta::mp->qrUserName;
+	qrChannelName                      = Meta::mp->qrChannelName;
+	iMessageLimit                      = Meta::mp->iMessageLimit;
+	iMessageBurst                      = Meta::mp->iMessageBurst;
+	iPluginMessageLimit                = Meta::mp->iPluginMessageLimit;
+	iPluginMessageBurst                = Meta::mp->iPluginMessageBurst;
+	broadcastListenerVolumeAdjustments = Meta::mp->broadcastListenerVolumeAdjustments;
+	m_suggestVersion                   = Meta::mp->m_suggestVersion;
+	qvSuggestPositional                = Meta::mp->qvSuggestPositional;
+	qvSuggestPushToTalk                = Meta::mp->qvSuggestPushToTalk;
+	iOpusThreshold                     = Meta::mp->iOpusThreshold;
+	iChannelNestingLimit               = Meta::mp->iChannelNestingLimit;
+	iChannelCountLimit                 = Meta::mp->iChannelCountLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
@@ -387,7 +387,7 @@ void Server::readParams() {
 		foreach (const QHostAddress &qha, qlBind)
 			log(QString("Binding to address %1").arg(qha.toString()));
 		if (qlBind.isEmpty())
-			qlBind = Meta::mp.qlBind;
+			qlBind = Meta::mp->qlBind;
 	}
 
 	qsPassword             = getConf("password", qsPassword).toString();
@@ -476,11 +476,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	QString v = value.trimmed().isEmpty() ? QString() : value;
 	int i     = v.toInt();
 	if ((key == "password") || (key == "serverpassword"))
-		qsPassword = !v.isNull() ? v : Meta::mp.qsPassword;
+		qsPassword = !v.isNull() ? v : Meta::mp->qsPassword;
 	else if (key == "timeout")
-		iTimeout = i ? i : Meta::mp.iTimeout;
+		iTimeout = i ? i : Meta::mp->iTimeout;
 	else if (key == "bandwidth") {
-		int length = i ? i : Meta::mp.iMaxBandwidth;
+		int length = i ? i : Meta::mp->iMaxBandwidth;
 		if (length != iMaxBandwidth) {
 			iMaxBandwidth = length;
 			MumbleProto::ServerConfig mpsc;
@@ -488,7 +488,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "users") {
-		unsigned int newmax = i ? static_cast< unsigned int >(i) : Meta::mp.iMaxUsers;
+		unsigned int newmax = i ? static_cast< unsigned int >(i) : Meta::mp->iMaxUsers;
 		if (iMaxUsers == newmax)
 			return;
 
@@ -502,9 +502,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		mpsc.set_max_users(iMaxUsers);
 		sendAll(mpsc);
 	} else if (key == "usersperchannel")
-		iMaxUsersPerChannel = i ? static_cast< unsigned int >(i) : Meta::mp.iMaxUsersPerChannel;
+		iMaxUsersPerChannel = i ? static_cast< unsigned int >(i) : Meta::mp->iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {
-		int length = i ? i : Meta::mp.iMaxTextMessageLength;
+		int length = i ? i : Meta::mp->iMaxTextMessageLength;
 		if (length != iMaxTextMessageLength) {
 			iMaxTextMessageLength = length;
 			MumbleProto::ServerConfig mpsc;
@@ -512,7 +512,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "imagemessagelength") {
-		int length = i ? i : Meta::mp.iMaxImageMessageLength;
+		int length = i ? i : Meta::mp->iMaxImageMessageLength;
 		if (length != iMaxImageMessageLength) {
 			iMaxImageMessageLength = length;
 			MumbleProto::ServerConfig mpsc;
@@ -520,7 +520,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "allowhtml") {
-		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowHTML;
 		if (allow != bAllowHTML) {
 			bAllowHTML = allow;
 			MumbleProto::ServerConfig mpsc;
@@ -528,21 +528,21 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "defaultchannel")
-		iDefaultChan = i ? static_cast< unsigned int >(i) : Meta::mp.iDefaultChan;
+		iDefaultChan = i ? static_cast< unsigned int >(i) : Meta::mp->iDefaultChan;
 	else if (key == "rememberchannel")
-		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRememberChan;
+		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bRememberChan;
 	else if (key == "rememberchannelduration") {
-		iRememberChanDuration = !v.isNull() ? v.toInt() : Meta::mp.iRememberChanDuration;
+		iRememberChanDuration = !v.isNull() ? v.toInt() : Meta::mp->iRememberChanDuration;
 		if (iRememberChanDuration < 0) {
 			iRememberChanDuration = 0;
 		}
 	} else if (key == "welcometext") {
-		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
+		QString text = !v.isNull() ? v : Meta::mp->qsWelcomeText;
 		if (text != qsWelcomeText) {
 			qsWelcomeText = text;
 		}
 	} else if (key == "registername") {
-		QString text = !v.isNull() ? v : Meta::mp.qsRegName;
+		QString text = !v.isNull() ? v : Meta::mp->qsRegName;
 		if (text != qsRegName) {
 			qsRegName = text;
 			if (!qsRegName.isEmpty()) {
@@ -553,19 +553,19 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			}
 		}
 	} else if (key == "registerpassword")
-		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
+		qsRegPassword = !v.isNull() ? v : Meta::mp->qsRegPassword;
 	else if (key == "registerhostname")
-		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
+		qsRegHost = !v.isNull() ? v : Meta::mp->qsRegHost;
 	else if (key == "registerlocation")
-		qsRegLocation = !v.isNull() ? v : Meta::mp.qsRegLocation;
+		qsRegLocation = !v.isNull() ? v : Meta::mp->qsRegLocation;
 	else if (key == "registerurl")
-		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+		qurlRegWeb = !v.isNull() ? v : Meta::mp->qurlRegWeb;
 	else if (key == "certrequired")
-		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bCertRequired;
+		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bCertRequired;
 	else if (key == "forceExternalAuth")
-		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bForceExternalAuth;
+		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bForceExternalAuth;
 	else if (key == "bonjour") {
-		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
+		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bBonjour;
 #ifdef USE_ZEROCONF
 		if (bBonjour && !zeroconf) {
 			initZeroconf();
@@ -574,38 +574,38 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		}
 #endif
 	} else if (key == "allowping")
-		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
+		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowPing;
 	else if (key == "allowrecording")
-		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp.allowRecording;
+		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowRecording;
 	else if (key == "username")
-		qrUserName = !v.isNull() ? QRegularExpression(v) : Meta::mp.qrUserName;
+		qrUserName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrUserName;
 	else if (key == "channelname")
-		qrChannelName = !v.isNull() ? QRegularExpression(v) : Meta::mp.qrChannelName;
+		qrChannelName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrChannelName;
 	else if (key == "suggestversion")
-		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp.m_suggestVersion;
+		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp->m_suggestVersion;
 	else if (key == "suggestpositional")
-		qvSuggestPositional = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
+		qvSuggestPositional = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp->qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
-		qvSuggestPushToTalk = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
+		qvSuggestPushToTalk = !v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp->qvSuggestPushToTalk;
 	else if (key == "opusthreshold")
-		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
+		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp->iOpusThreshold;
 	else if (key == "channelnestinglimit")
-		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelNestingLimit;
+		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp->iChannelNestingLimit;
 	else if (key == "channelcountlimit")
-		iChannelCountLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelCountLimit;
+		iChannelCountLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp->iChannelCountLimit;
 	else if (key == "messagelimit") {
-		iMessageLimit = (!v.isNull()) ? v.toUInt() : Meta::mp.iMessageLimit;
+		iMessageLimit = (!v.isNull()) ? v.toUInt() : Meta::mp->iMessageLimit;
 		if (iMessageLimit < 1) {
 			iMessageLimit = 1;
 		}
 	} else if (key == "messageburst") {
-		iMessageBurst = (!v.isNull()) ? v.toUInt() : Meta::mp.iMessageBurst;
+		iMessageBurst = (!v.isNull()) ? v.toUInt() : Meta::mp->iMessageBurst;
 		if (iMessageBurst < 1) {
 			iMessageBurst = 1;
 		}
 	} else if (key == "broadcastlistenervolumeadjustments") {
 		broadcastListenerVolumeAdjustments =
-			(!v.isNull() ? QVariant(v).toBool() : Meta::mp.broadcastListenerVolumeAdjustments);
+			(!v.isNull() ? QVariant(v).toBool() : Meta::mp->broadcastListenerVolumeAdjustments);
 	}
 }
 
@@ -1414,13 +1414,13 @@ void Server::newClient() {
 
 		// Add CA certificates specified via
 		// murmur.ini's sslCA option.
-		config.addCaCertificates(Meta::mp.qlCA);
+		config.addCaCertificates(Meta::mp->qlCA);
 
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		config.addCaCertificates(qlIntermediates);
 
-		config.setCiphers(Meta::mp.qlCiphers);
+		config.setCiphers(Meta::mp->qlCiphers);
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		config.setDiffieHellmanParameters(qsdhpDHParams);
 #endif
@@ -1463,7 +1463,7 @@ void Server::encrypted() {
 
 	MumbleProto::Version mpv;
 	MumbleProto::setVersion(mpv, Version::get());
-	if (Meta::mp.bSendVersion) {
+	if (Meta::mp->bSendVersion) {
 		mpv.set_release(u8(Version::getRelease()));
 		mpv.set_os(u8(meta->qsOS));
 		mpv.set_os_version(u8(meta->qsOSVersion));
@@ -2109,13 +2109,13 @@ void Server::clearWhisperTargetCache() {
 QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 	HostAddress ha(adr);
 
-	if ((Meta::mp.iObfuscate != 0)) {
+	if ((Meta::mp->iObfuscate != 0)) {
 		QCryptographicHash h(QCryptographicHash::Sha1);
-		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 		h.addData(byteView);
 #else
-		h.addData(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+		h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
 #endif
 		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
 			quint32 num = adr.toIPv4Address();

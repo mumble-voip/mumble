@@ -105,12 +105,12 @@ void Server::update() {
 	/* Work around bug in QSslConfiguration */
 	QList< QSslCertificate > calist = ssl.caCertificates();
 	calist << QSslConfiguration::defaultConfiguration().caCertificates();
-	calist << Meta::mp.qlCA;
-	calist << Meta::mp.qlIntermediates;
+	calist << Meta::mp->qlCA;
+	calist << Meta::mp->qlIntermediates;
 	calist << qscCert;
 	ssl.setCaCertificates(calist);
 
-	ssl.setCiphers(Meta::mp.qlCiphers);
+	ssl.setCiphers(Meta::mp->qlCiphers);
 
 	qnr.setSslConfiguration(ssl);
 
