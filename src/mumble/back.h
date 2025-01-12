@@ -177,7 +177,13 @@ public:
 	void setTokens(const QStringList &tokens);
 	void removeChannel(unsigned int channel, const QStringList &temporaryAccessTokens = {});
 	void addChannelLink(unsigned int channel, unsigned int link, const QStringList &temporaryAccessTokens = {});
+	void addChannelLinks(const unsigned int channelCount, const unsigned int *channelSet,
+						 const QStringList &temporaryAccessTokens = {});
 	void removeChannelLink(unsigned int channel, unsigned int link, const QStringList &temporaryAccessTokens = {});
+	void removeChannelLinks(const unsigned int channel, const unsigned int channelCount, const unsigned int *channelSet,
+							const QStringList &temporaryAccessTokens = {});
+	void removeChannelLinks(const unsigned int channelCount, const unsigned int *channelSet,
+							const QStringList &temporaryAccessTokens = {});
 	void requestChannelPermissions(unsigned int channel);
 	void setSelfMuteDeafState(bool mute, bool deaf);
 	void announceRecordingState(bool recording);
