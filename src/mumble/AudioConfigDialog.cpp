@@ -586,7 +586,7 @@ void AudioInputDialog::showSpeexNoiseSuppressionSlider(bool show) {
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = Global::get().ai;
 
-	if (!ai.get() || !ai->sppPreprocess)
+	if (!ai.get() || !ai->m_preprocessor)
 		return;
 
 	abSpeech->iBelow = qsTransmitMin->value();
