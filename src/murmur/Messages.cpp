@@ -101,6 +101,10 @@ protected:
 public:
 	TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server)
 		: affectedUser(affectedUser), qslTemporaryTokens(tokens), server(server) {
+		if (tokens.empty()) {
+			return;
+		}
+
 		// Add the temporary tokens
 		QMutableStringListIterator it(this->qslTemporaryTokens);
 
