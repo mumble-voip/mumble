@@ -434,8 +434,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	Settings::KeyPair kp;
 	int ret = 0;
 
-	mem = BIO_new_mem_buf(data.data(), data.size());
-	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
+	mem  = BIO_new_mem_buf(data.data(), data.size());
 	pkcs = d2i_PKCS12_bio(mem, nullptr);
 	if (pkcs) {
 		ret = PKCS12_parse(pkcs, nullptr, &pkey, &x509, &certs);
