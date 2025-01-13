@@ -176,7 +176,7 @@ bool LeakyBucket::ratelimit(int tokens) {
 	if (static_cast< qint64 >(m_currentTokens) < drainTokens) {
 		m_currentTokens = 0;
 	} else {
-		m_currentTokens -= drainTokens;
+		m_currentTokens -= static_cast< decltype(m_currentTokens) >(drainTokens);
 	}
 
 	// Now that the tokens have been updated to reflect the constant drain caused by
@@ -187,7 +187,7 @@ bool LeakyBucket::ratelimit(int tokens) {
 
 	// If the bucket is not overflowed, allow message and add tokens
 	if (!limit) {
-		m_currentTokens += tokens;
+		m_currentTokens += static_cast< decltype(m_currentTokens) >(tokens);
 	}
 
 	return limit;
