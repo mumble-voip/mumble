@@ -1998,10 +1998,10 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	QMutexLocker l(&uSource->qmCrypt);
 
-	uSource->csCrypt->uiRemoteGood   = msg.good();
-	uSource->csCrypt->uiRemoteLate   = msg.late();
-	uSource->csCrypt->uiRemoteLost   = msg.lost();
-	uSource->csCrypt->uiRemoteResync = msg.resync();
+	uSource->csCrypt->m_statsRemote.good   = msg.good();
+	uSource->csCrypt->m_statsRemote.late   = msg.late();
+	uSource->csCrypt->m_statsRemote.lost   = msg.lost();
+	uSource->csCrypt->m_statsRemote.resync = msg.resync();
 
 	uSource->dUDPPingAvg  = msg.udp_ping_avg();
 	uSource->dUDPPingVar  = msg.udp_ping_var();
@@ -2014,10 +2014,10 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	msg.Clear();
 	msg.set_timestamp(ts);
-	msg.set_good(uSource->csCrypt->uiGood);
-	msg.set_late(uSource->csCrypt->uiLate);
-	msg.set_lost(uSource->csCrypt->uiLost);
-	msg.set_resync(uSource->csCrypt->uiResync);
+	msg.set_good(uSource->csCrypt->m_statsLocal.good);
+	msg.set_late(uSource->csCrypt->m_statsLocal.late);
+	msg.set_lost(uSource->csCrypt->m_statsLocal.lost);
+	msg.set_resync(uSource->csCrypt->m_statsLocal.resync);
 
 	sendMessage(uSource, msg);
 }
@@ -2035,7 +2035,7 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 		sendMessage(uSource, msg);
 	} else {
 		const std::string &str = msg.client_nonce();
-		uSource->csCrypt->uiResync++;
+		uSource->csCrypt->m_statsLocal.resync++;
 		if (!uSource->csCrypt->setDecryptIV(str)) {
 			qWarning("Messages: Cipher resync failed: Invalid nonce from the client!");
 		}
@@ -2276,16 +2276,43 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 		QMutexLocker l(&pDstServerUser->qmCrypt);
 
 		mpusss = msg.mutable_from_client();
-		mpusss->set_good(pDstServerUser->csCrypt->uiGood);
-		mpusss->set_late(pDstServerUser->csCrypt->uiLate);
-		mpusss->set_lost(pDstServerUser->csCrypt->uiLost);
-		mpusss->set_resync(pDstServerUser->csCrypt->uiResync);
+		mpusss->set_good(pDstServerUser->csCrypt->m_statsLocal.good);
+		mpusss->set_late(pDstServerUser->csCrypt->m_statsLocal.late);
+		mpusss->set_lost(pDstServerUser->csCrypt->m_statsLocal.lost);
+		mpusss->set_resync(pDstServerUser->csCrypt->m_statsLocal.resync);
 
 		mpusss = msg.mutable_from_server();
-		mpusss->set_good(pDstServerUser->csCrypt->uiRemoteGood);
-		mpusss->set_late(pDstServerUser->csCrypt->uiRemoteLate);
-		mpusss->set_lost(pDstServerUser->csCrypt->uiRemoteLost);
-		mpusss->set_resync(pDstServerUser->csCrypt->uiRemoteResync);
+		mpusss->set_good(pDstServerUser->csCrypt->m_statsRemote.good);
+		mpusss->set_late(pDstServerUser->csCrypt->m_statsRemote.late);
+		mpusss->set_lost(pDstServerUser->csCrypt->m_statsRemote.lost);
+		mpusss->set_resync(pDstServerUser->csCrypt->m_statsRemote.resync);
+
+		bool outsideInitialWindow =
+			static_cast< unsigned int >(bwr.onlineSeconds()) > pDstServerUser->csCrypt->m_rollingWindow.count();
+
+		MumbleProto::UserStats_RollingStats *mpussrs = msg.mutable_rolling_stats();
+
+		mpusss = mpussrs->mutable_from_client();
+		if (outsideInitialWindow) {
+			mpusss->set_good(pDstServerUser->csCrypt->m_statsLocalRolling.good);
+			mpusss->set_late(pDstServerUser->csCrypt->m_statsLocalRolling.late);
+			mpusss->set_lost(pDstServerUser->csCrypt->m_statsLocalRolling.lost);
+			mpusss->set_resync(pDstServerUser->csCrypt->m_statsLocalRolling.resync);
+		} else {
+			mpusss->CopyFrom(*msg.mutable_from_client());
+		}
+
+		mpusss = mpussrs->mutable_from_server();
+		if (outsideInitialWindow) {
+			mpusss->set_good(pDstServerUser->csCrypt->m_statsRemoteRolling.good);
+			mpusss->set_late(pDstServerUser->csCrypt->m_statsRemoteRolling.late);
+			mpusss->set_lost(pDstServerUser->csCrypt->m_statsRemoteRolling.lost);
+			mpusss->set_resync(pDstServerUser->csCrypt->m_statsRemoteRolling.resync);
+		} else {
+			mpusss->CopyFrom(*msg.mutable_from_server());
+		}
+
+		mpussrs->set_time_window(pDstServerUser->csCrypt->m_rollingWindow.count());
 	}
 
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);
