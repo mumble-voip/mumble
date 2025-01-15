@@ -43,7 +43,7 @@ jobs:
     workspace:
       clean: all
     pool:
-      vmImage: 'macOS-12'
+      vmImage: 'macOS-14'
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-osx-release.2024-08-17.9ad0398d8'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-osx-release'
