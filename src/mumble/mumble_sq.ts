@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Jepni këtu fjalëkalimin</translation>
+        <translation>Jepni këtu fjalëkalimin e kanalit.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -62,11 +62,11 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>Temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>Përkohësisht</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni këtu fjalëkalimin e kanalit.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -74,27 +74,27 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>ID e kanalit.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkrim</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupe</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Listë grupesh</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
@@ -103,7 +103,7 @@ These are all the groups currently defined for the channel. To create a new grou
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni grup të ri</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
@@ -112,11 +112,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoje</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe grupin e përzgjedhur</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -124,7 +124,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
@@ -136,7 +136,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"></translation>
+        <translation>Trashëgoje</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
@@ -164,7 +164,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Members</source>
-        <translation type="unfinished"></translation>
+        <translation>Anëtarë</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
@@ -177,7 +177,7 @@ This list contains all members that were added to the group by the current chann
     </message>
     <message>
         <source>Add member to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni anëtar te grupi</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
@@ -194,7 +194,7 @@ Contains a list of members whose group membership will not be inherited from the
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqen anëtarin prej grupi</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
@@ -202,11 +202,11 @@ Contains a list of members whose group membership will not be inherited from the
     </message>
     <message>
         <source>Excluded members</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtigje të përjashtuar</translation>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation type="unfinished"></translation>
+        <translation>Anëtarë</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
@@ -219,7 +219,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"></translation>
+        <translation>Përjashto</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -227,7 +227,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Active ACLs</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
@@ -235,7 +235,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"></translation>
+        <translation>Trashëgoje</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
@@ -243,11 +243,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"></translation>
+        <translation>Trashëgoje</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation type="unfinished"></translation>
+        <translation>Për ngjitje sipër nëpër listë</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
@@ -255,11 +255,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>sipër</translation>
     </message>
     <message>
         <source>Move entry down</source>
-        <translation type="unfinished"></translation>
+        <translation>Për zbritje poshtë nëpër listë</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
@@ -267,11 +267,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>poshtë</translation>
     </message>
     <message>
         <source>Add new entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni zë të ri</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
@@ -279,23 +279,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto</translation>
     </message>
     <message>
         <source>Remove entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe zërin</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’ka të përzgjedhur figurë afisheje</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontekst</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
@@ -307,11 +307,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Në kanalet {{channels}}</translation>
     </message>
     <message>
         <source>Entry should apply to this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjidhni mbi çfarë duhet të aplikohet gjedhja e re:</translation>
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
@@ -319,15 +319,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>të kanalit të vet</translation>
     </message>
     <message>
         <source>User/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Organizoni një &lt;a href=&quot;https://libreplanet.org/wiki/Group_list&quot;&gt;Grup Përdoruesish GNU/Linux&lt;/a&gt; të ri.</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
@@ -335,11 +335,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Përdoruesi</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation type="unfinished"></translation>
+        <translation>%d zë</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
@@ -347,63 +347,63 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Leje</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Veti</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalëkalim kanali</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër kanali</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Anëtarë</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>%d zëra</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Default server value</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlerë parazgjedhje</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapit me ID “%1$s” i mungojnë subjekte të domosdoshëm me kyçet: %2$s</translation>
     </message>
     <message>
         <source>Deny</source>
-        <translation type="unfinished"></translation>
+        <translation>Mohoje</translation>
     </message>
     <message>
         <source>Allow</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejojeni</translation>
     </message>
     <message>
         <source>Deny %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mohoje</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -411,7 +411,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Allow %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejojeni</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -419,7 +419,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation>_Kopjo Emër Kanali</translation>
     </message>
     <message>
         <source>Channel position</source>
@@ -474,7 +474,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Numër karte</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
@@ -485,7 +485,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Numër karte</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
@@ -511,15 +511,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorni pajisjen tuaj të kyçeve të sigurisë</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
@@ -527,7 +527,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Query selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa përfundime për {{query}}</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
@@ -535,11 +535,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Titull Kërkese</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
@@ -547,23 +547,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni</translation>
     </message>
     <message>
         <source>Capabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Aftësi</translation>
     </message>
     <message>
         <source>Driver name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Buffer size</source>
-        <translation type="unfinished"></translation>
+        <translation>S’është ujdisur shtytëz</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Në kanalet {{channels}}</translation>
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
@@ -571,11 +571,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;Firmware&lt;/em&gt; ose përudhës të rëndësishëm janë gjithashtu pronësorë, përgjithësisht. Këta mbulojnë transmetimin në rrjetin telefonik, WiFi-n, bluetooth-in, GPS-në, anën grafike 3D, kamerën, altoparlantin dhe në disa raste edhe mikrofonin. Në disa modele, pak nga këta përudhësa janë të lirë dhe ka disa, pa të cilët s’do t’ju gjente gjë&amp;mdash;por s’mund të bëni dot pa mikrofonin apo rrjetin telefonik.</translation>
     </message>
     <message>
         <source>&lt;-</source>
@@ -587,23 +587,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Unused</source>
-        <translation type="unfinished"></translation>
+        <translation>Formular %i (i papërdorur)</translation>
     </message>
     <message>
         <source>Speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>A është i ngritur volumi te altoparlantët tuaj?</translation>
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Listë</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Folës për GNU-në dhe Software-in e Lirë</translation>
     </message>
     <message>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Version %1:</translation>
     </message>
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
@@ -611,7 +611,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gatitja e listës së dëbimeve dështoi.</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
@@ -657,19 +657,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AboutDialog</name>
     <message>
         <source>About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Rreth</translation>
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Marrëveshje Licence</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Autorë</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Hape në sajt palësh të treta</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -677,11 +677,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Rreth</translation>
     </message>
     <message>
         <source>&amp;License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licencë</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -689,11 +689,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>Hape në sajt palësh të treta</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -704,15 +704,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioInput</name>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje</translation>
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërfaqe</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
@@ -720,11 +720,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Fusha sistemi</translation>
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
@@ -732,7 +732,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>ekskluzive</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
@@ -740,11 +740,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekskluziv</translation>
     </message>
     <message>
         <source>Transmission</source>
-        <translation type="unfinished"></translation>
+        <translation>S’është e mundur të konsumohet më tepër energji se sa prodhohet. Ka një kufizim kyç në shpërndarjen e elektricitetit, me përjashtime të pakta, energjia elektrike s’mund të depozitohet, prandaj duhet prodhuar kur duhet. Prandaj është i domosdoshëm një sistem i sofistikuar kontrolli për të garantuar që prodhimi i energjisë elektrike përputhet në shkallë shumë të madhe me kërkesën. Nëse kërkesa dhe oferta nuk janë në baraspeshë, sistemet e prodhimit dhe pajisjet e transmetimit mund të ndalin funksionimin, gjë që, në rastin më të keq mund të shpjerë në një ndërprerje rajonale të rëndë të energjisë.</translation>
     </message>
     <message>
         <source>&amp;Transmit</source>
@@ -752,7 +752,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Kur një Shoqëri Kërkon të Drejtat Tuaja të Kopjimit</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
@@ -760,7 +760,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohë</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
@@ -780,7 +780,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Pezull</translation>
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
@@ -788,7 +788,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Silence Below</source>
-        <translation type="unfinished"></translation>
+        <translation>nën</translation>
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
@@ -808,7 +808,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Pezull</translation>
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
@@ -832,11 +832,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Signal to Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhurmë</translation>
     </message>
     <message>
         <source>Speech Above</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
@@ -856,7 +856,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketa</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
@@ -880,7 +880,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Cilësi: %s</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
@@ -896,7 +896,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Audio Processing</source>
-        <translation type="unfinished"></translation>
+        <translation>Në përpunim</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -908,23 +908,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Numër maksimum përdorimesh</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>GNU Echo?</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhurmë</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mos përdor CSS-në origjinale të temës.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>I çaktivizuar</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
@@ -940,7 +940,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dyja</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -960,7 +960,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/education/misc/edu-misc.html&quot;&gt;edu-misc.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>On</source>
@@ -972,7 +972,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohë plogështie</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -980,7 +980,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Paraparje:</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
@@ -988,11 +988,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>Minuta</translation>
     </message>
     <message>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ende s’ka gjë nën këtë hashtag.</translation>
     </message>
     <message>
         <source>deafen</source>
@@ -1000,7 +1000,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
@@ -1012,11 +1012,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni figura, një video ose një kartelë audio</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -1024,11 +1024,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>pas</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation>%s u fsheh dhe rikthye te parazgjedhjet</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
@@ -1040,15 +1040,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni figura, një video ose një kartelë audio</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>_Shfletoni...</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1076,7 +1076,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
@@ -1088,7 +1088,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>Input backend for audio</source>
@@ -1104,7 +1104,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mënyra Provim</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
@@ -1172,7 +1172,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>ECHO &lt;text&gt;, Shfaq tekst lokalisht</translation>
     </message>
     <message>
         <source>Path to audio file</source>
@@ -1227,19 +1227,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Maçu Piçu gjendet 2430 metra mbi nivelin e detit, mes një pylli tropikal, në një vend jashtëzakonisht të bukur. Me muret e veta gjigante, tarracat dhe ngritjet, me shumë gjasa qe krijimi më mahnitës urban i Perandorisë Inkase në kulmin e vet, të krijuara sikur të ishin prerë në mënyrë të natyrshme në rrëpira të vazhdueshme shkëmbore. Mjedisi natyror, në anët lindore te Andeve, përfshin pellgun ujëmbledhës të sipërm të Amazonës, me larminë e vet të pasur të florës dhe faunës.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1251,23 +1251,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetës MS (ISA)</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 kb/s</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetëm {size}kb i madh</translation>
     </message>
     <message>
         <source>-%1 dB</source>
-        <translation type="unfinished"></translation>
+        <translation>La♯%1</translation>
     </message>
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
@@ -1275,11 +1275,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>I çaktivizuar</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Çaktivizoje</translation>
     </message>
     <message>
         <source>milliseconds</source>
@@ -1302,19 +1302,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioOutput</name>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërfaqe</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Fusha sistemi</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Metodë</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
@@ -1322,11 +1322,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
@@ -1334,7 +1334,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>ekskluzive</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
@@ -1342,15 +1342,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekskluziv</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>S’është ujdisur shtytëz</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1358,11 +1358,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Output Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalje</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1370,7 +1370,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim shkëmbimesh (24h)</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
@@ -1382,7 +1382,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtytëza e kërkimeve është e zbrazët.</translation>
     </message>
     <message>
         <source>Attenuation</source>
@@ -1402,7 +1402,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikacione</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
@@ -1426,7 +1426,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Të tjerë përdorues me të njëjtën IP</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
@@ -1462,11 +1462,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Minimum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa minimum</translation>
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
@@ -1474,11 +1474,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa minimum</translation>
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa maksimum</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
@@ -1486,7 +1486,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoje</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
@@ -1498,7 +1498,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>A janë të lidhur dhe të ndezur altoparlantët tuaj?</translation>
     </message>
     <message>
         <source>Headphones</source>
@@ -1514,19 +1514,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>Çelje</translation>
     </message>
     <message>
         <source>Loopback Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Provë</translation>
     </message>
     <message>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Vonesë</translation>
     </message>
     <message>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketa</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
@@ -1534,7 +1534,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketa</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
@@ -1550,7 +1550,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjatësi e dëshiruar</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
@@ -1562,7 +1562,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> M</translation>
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
@@ -1594,15 +1594,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa minimum</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa minimum</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa maksimum</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
@@ -1625,27 +1625,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioOutputDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendore</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyes</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetës MS (ISA)</translation>
     </message>
     <message>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>La♯%1</translation>
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
@@ -1676,11 +1676,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioOutputSample</name>
     <message>
         <source>Choose sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartelë tingulli:</translation>
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartelë e pavlefshme</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
@@ -1691,15 +1691,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioStats</name>
     <message>
         <source>Audio Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Input Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;input&lt;/em&gt;</translation>
     </message>
     <message>
         <source>Peak microphone level</source>
-        <translation type="unfinished"></translation>
+        <translation>nivel</translation>
     </message>
     <message>
         <source>Peak power in last frame</source>
@@ -1711,7 +1711,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Peak speaker level</source>
-        <translation type="unfinished"></translation>
+        <translation>nivel</translation>
     </message>
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
@@ -1719,7 +1719,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Peak clean level</source>
-        <translation type="unfinished"></translation>
+        <translation>nivel</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
@@ -1727,11 +1727,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Signal Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Analizë gramatikore</translation>
     </message>
     <message>
         <source>Microphone power</source>
-        <translation type="unfinished"></translation>
+        <translation>Liri apo Pushtet?</translation>
     </message>
     <message>
         <source>How close the current input level is to ideal</source>
@@ -1743,7 +1743,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhurmë</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
@@ -1755,11 +1755,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
@@ -1767,19 +1767,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Configuration feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshtypje</translation>
     </message>
     <message>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Bitrate of last frame</source>
-        <translation type="unfinished"></translation>
+        <translation>e fundit</translation>
     </message>
     <message>
         <source>DoublePush interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval</translation>
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
@@ -1787,7 +1787,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Speech Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -1811,11 +1811,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Echo Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Analizë gramatikore</translation>
     </message>
     <message>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"></translation>
+        <translation>ECHO &lt;text&gt;, Shfaq tekst lokalisht</translation>
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
@@ -1823,7 +1823,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&gt;1000 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetës MS (ISA)</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -1834,15 +1834,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje</translation>
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1850,7 +1850,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikasje pajisjeje</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1858,7 +1858,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Input Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje</translation>
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
@@ -1866,11 +1866,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
@@ -1878,11 +1878,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Pajisje</translation>
     </message>
     <message>
         <source>Input device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorni pajisjen tuaj të kyçeve të sigurisë</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
@@ -1898,19 +1898,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>GNU Echo?</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>A janë të lidhur dhe të ndezur altoparlantët tuaj?</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Metodë</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -1918,7 +1918,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Output device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalje</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
@@ -1926,7 +1926,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Allows positioning of sound</source>
-        <translation type="unfinished"></translation>
+        <translation>tingull</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
@@ -1934,7 +1934,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoni efekte zanore</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -1950,7 +1950,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Device tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
@@ -1968,7 +1968,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>S’është ujdisur shtytëz</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1976,7 +1976,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     </message>
     <message>
         <source>Volume tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Tuning microphone hardware volume to optimal settings.</source>
@@ -2018,11 +2018,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Mastodon (Me shumë kontrast)</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
@@ -2043,7 +2043,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
@@ -2051,23 +2051,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhurmë</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Njoftime</translation>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni rregullimet për njoftime</translation>
     </message>
     <message>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregullime</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>I ulëti</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
@@ -2083,7 +2083,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Më i larti</translation>
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
@@ -2091,7 +2091,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetjak</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
@@ -2099,7 +2099,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni rregullimet për njoftime</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
@@ -2115,7 +2115,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
@@ -2135,15 +2135,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Use headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorim</translation>
     </message>
     <message>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Të përfunduar</translation>
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Duke përdorur Çinstaluesin</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2161,15 +2161,15 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa maksimum</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetës MS (ISA)</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Iu caktua moderator</translation>
     </message>
     <message>
         <source>Audio input system</source>
@@ -2244,15 +2244,15 @@ Mumble is under continuous development, and the development team wants to focus 
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"></translation>
+        <translation>Dëbime</translation>
     </message>
     <message>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Listë Dëbimesh</translation>
     </message>
     <message>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjero fushë kërkimesh</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
@@ -2260,55 +2260,55 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Faqja që po kërkonit, s’gjendet këtu.</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nofkë</translation>
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresë:</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresë IP</translation>
     </message>
     <message>
         <source>No IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresë IP</translation>
     </message>
     <message>
         <source>&amp;Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maskë</translation>
     </message>
     <message>
         <source>Reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Arsye</translation>
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Arsye:</translation>
     </message>
     <message>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Arsyeja</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Nisu</translation>
     </message>
     <message>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Përfundim i aktit</translation>
     </message>
     <message>
         <source>Ban end date</source>
-        <translation type="unfinished"></translation>
+        <translation>Datë mbarimi</translation>
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
@@ -2316,7 +2316,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Për të kontrolluar integritetin e shkarkimeve tuaja mund të merrni hashin origjinal SHA-256 të kartelave duke shtuar “.sha256” në fund të URL-së përkatëse të shkarkimit.</translation>
     </message>
     <message>
         <source>Certificate hash</source>
@@ -2328,11 +2328,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues të Dëbuar</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues të Dëbuar</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
@@ -2340,7 +2340,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
@@ -2348,7 +2348,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Përditësoje</translation>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
@@ -2356,11 +2356,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Spastroji krejt</translation>
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
@@ -2368,17 +2368,17 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Spastroje</translation>
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maskë</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>_Listë Dëbimesh...</numerusform>
+            <numerusform>_Listë Dëbimesh...</numerusform>
         </translation>
     </message>
     <message>
@@ -2418,11 +2418,11 @@ Mumble is under continuous development, and the development team wants to focus 
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <source>Issuer</source>
@@ -2434,11 +2434,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>(none)</source>
-        <translation type="unfinished"></translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>Self-signed</source>
-        <translation type="unfinished"></translation>
+        <translation>I futur si:</translation>
     </message>
 </context>
 <context>
@@ -2481,11 +2481,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u arrit të hapej kartelë për eksport.</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"></translation>
+        <translation>Importoni Fjalorth prej Kartele CSV…</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
@@ -2500,11 +2500,11 @@ Mumble is under continuous development, and the development team wants to focus 
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Administrimi Ngjyrash</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Historik mirëfilltësimesh</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
@@ -2512,7 +2512,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Email-i i tanishëm</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
@@ -2520,47 +2520,47 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Email-i i tanishëm</translation>
     </message>
     <message>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation>I vetvetishëm</translation>
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni të ri</translation>
     </message>
     <message>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni të ri</translation>
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Importoni fjalorth prej kartele CSV…</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importoni fjalorth prej kartele CSV…</translation>
     </message>
     <message>
         <source>Import a certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo</translation>
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>EksportIM</translation>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela e eksportit s’u ruajt dot te shërbyesi.</translation>
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>EksportIM</translation>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
@@ -2572,11 +2572,11 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo nga JSON</translation>
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo model pre JSON-i</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2584,15 +2584,15 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Select file to import from</source>
-        <translation type="unfinished"></translation>
+        <translation>Importoni Fjalorth prej Kartele CSV…</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapni…</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Fjalëkalim</translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2604,19 +2604,19 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo</translation>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Po importohen llogari të bllokuara</translation>
     </message>
     <message>
         <source>Certificate Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollësi</translation>
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zëvendësoje</translation>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
@@ -2640,7 +2640,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>E &amp;re…</translation>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
@@ -2648,11 +2648,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>New Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>E &amp;re…</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkruani postimin tuaj të parë</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
@@ -2661,11 +2661,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Export to</source>
-        <translation type="unfinished"></translation>
+        <translation>EksportIM</translation>
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportim</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
@@ -2673,7 +2673,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruajeni Si...</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
@@ -2689,15 +2689,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni adresën tuaj email.</translation>
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
@@ -2713,7 +2713,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Përfundoje</translation>
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
@@ -2729,7 +2729,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importoni Fjalorth prej Kartele CSV…</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
@@ -2737,7 +2737,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
@@ -2749,7 +2749,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u arrit të hapej kartelë për eksport.</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
@@ -2772,7 +2772,7 @@ Are you sure you wish to replace your certificate?
     <name>ChanACL</name>
     <message>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privilegje të pamjaftueshme.</translation>
     </message>
     <message>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
@@ -2844,15 +2844,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>Write ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkruani…</translation>
     </message>
     <message>
         <source>Traverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistemojini udhëzimet që të përshkohet shtegu i duhur për të mbërritur te peshku.</translation>
     </message>
     <message>
         <source>Enter</source>
@@ -2860,7 +2860,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Speak</source>
-        <translation type="unfinished"></translation>
+        <translation>Thoni ç’mendoni…</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -2868,58 +2868,58 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>lëvizeni</translation>
     </message>
     <message>
         <source>Make channel</source>
-        <translation type="unfinished"></translation>
+        <translation>të kanalit të vet</translation>
     </message>
     <message>
         <source>Make temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>S’krijohet dot drejtori e përkohshme.</translation>
     </message>
     <message>
         <source>Link channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq një mesazh tekst vetjak</translation>
     </message>
     <message>
         <source>Kick</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzëre</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Dëboje</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Riktheje te parazgjedhjet</translation>
     </message>
     <message>
         <source>Register User</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>Register Self</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>Dëgjojeni</translation>
     </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>
     <message>
         <source>Paste and &amp;Send</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ngjite</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
@@ -2942,31 +2942,31 @@ Are you sure you wish to replace your certificate?
     <name>ClientUser</name>
     <message>
         <source>Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Shok ose Familje</translation>
     </message>
     <message>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirëfilltësimi nga llogaria %{kind} u bë me sukses.</translation>
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Trupëzoni lëndë Speaker Deck.</translation>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Në këtë shërbyes</translation>
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Shpërfillni mesazhe nga dikush</translation>
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
@@ -2974,30 +2974,30 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
 </context>
 <context>
     <name>ConfigDialog</name>
     <message>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësim</translation>
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësim</translation>
     </message>
     <message>
         <source>Accept changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Pranoje</translation>
     </message>
     <message>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
@@ -3005,7 +3005,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hidhe tej</translation>
     </message>
     <message>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
@@ -3013,7 +3013,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hedhje në qarkullim arnimesh — ndreqje të meash dhe ndryshime të lehta për t’u aplikuar</translation>
     </message>
     <message>
         <source>This button will immediately apply all changes.</source>
@@ -3021,7 +3021,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhbëni ndryshimet tuaja të fundit.</translation>
     </message>
     <message>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
@@ -3029,7 +3029,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Përfshi vetëm faqen e tanishme</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
@@ -3037,11 +3037,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Parazgjedhje</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Riktheji krejt</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
@@ -3052,7 +3052,7 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialog</name>
     <message>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhu te Shërbyesi</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -3060,71 +3060,71 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Kërko</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendndodhje</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrim</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqi Krejt</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqe për:</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqe për:</translation>
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Të parapëlqyer</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto të Ri</translation>
     </message>
     <message>
         <source>Add custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni ngjyra vetjake</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Të parapëlqyer</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>I hapët</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopjoje</translation>
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopjoje në të papastër</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ngjite</translation>
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
@@ -3132,11 +3132,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Strehë</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Që ta ripohoni, ju lutemi, jepni emrin e përdoruesit të llogarisë së tanishme</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -3144,47 +3144,47 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Portë</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Sajt</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketa</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>dërgoji ping</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetës MS (ISA)</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>dërgoji ping</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurseni në kosto strehimi dhe shpejtësi transmetimi, duke transmetuar video shpejt dhe pa reklama, që nga rrjeti ynë global.</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>“%1$s” dhe “%2$s”</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuk është dhënë kanal (dhomë fjalosjeje) që do të duhej përdorur për hyrje të vetvetishme në të prej këtij rrjeti, shihni dritaren Listë Shërbyesi.</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
@@ -3192,39 +3192,39 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Krejt</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikë</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Azi</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Evropë</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Amerikë e Veriut</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Oqeani</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Amerikë e Jugut</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>I panjohur</translation>
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Po lidhet…</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3236,7 +3236,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u arrit të sillen postimet e vizatuara</translation>
     </message>
     <message>
         <source>IPv4 address</source>
@@ -3244,7 +3244,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni një adresë IPv4 ose IPv6. Duke përdorur sintaksën CIDR, mund të bllokoni intervale të tëra. Hapni sytë mos lini veten jashtë!</translation>
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
@@ -3279,15 +3279,15 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialogEdit</name>
     <message>
         <source>Edit Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbushje</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>_Shpërfille</translation>
     </message>
     <message>
         <source>A&amp;ddress</source>
@@ -3295,7 +3295,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Internet address of the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Internet Explorer</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
@@ -3308,11 +3308,11 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Portë:</translation>
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation>I palidhur. Provoni /server &lt;strehë&gt; [&lt;portë&gt;]</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
@@ -3325,15 +3325,15 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi:</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Fjalëkalim</translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoni te shërbyesi IRC një urdhër të papërpunuar</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
@@ -3342,11 +3342,11 @@ Username to send to the server. Be aware that the server can impose restrictions
     </message>
     <message>
         <source>Your username</source>
-        <translation type="unfinished"></translation>
+        <translation>[%s] Emri juaj i përdoruesit dhe fjalëkalimi</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalëkalim Shërbyesi</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
@@ -3355,19 +3355,19 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Your password</source>
-        <translation type="unfinished"></translation>
+        <translation>Ricaktoni fjalëkalimin tuaj duke klikuar mbi këtë lidhje.</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketë</translation>
     </message>
     <message>
         <source>Name of the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Emri i serverit</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
@@ -3376,11 +3376,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketë</translation>
     </message>
     <message>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni kredencialet tuaja për në shërbyes</translation>
     </message>
     <message>
         <source>You are currently connected to a server.
@@ -3415,7 +3415,7 @@ Host: %1 Port: %2</source>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Kursi Ynë Intensiv</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3423,7 +3423,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresë email</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
@@ -3431,15 +3431,15 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Raportojeni</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>Raportojeni</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Kursi Ynë Intensiv</translation>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
@@ -3447,11 +3447,11 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarkimi dështoi</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Gabim shkarkimi (kod: %1): %2</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
@@ -3459,11 +3459,11 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation>Po ngarkohet…</translation>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërprite</translation>
     </message>
 </context>
 <context>
@@ -3485,14 +3485,14 @@ Host: %1 Port: %2</source>
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhvillues</translation>
     </message>
 </context>
 <context>
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Tërhiqni Këtu Dosje ose Kartela</translation>
     </message>
 </context>
 <context>
@@ -3503,63 +3503,63 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Parapëlqime</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Anashkaloje</translation>
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore tastiere</translation>
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore të përgjithshme</translation>
     </message>
     <message>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore tastiere</translation>
     </message>
     <message>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjo faqe lyp Javascript që të funksionojë.</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore</translation>
     </message>
     <message>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Të mos lejohen mesazhe gabimesh?</translation>
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore</translation>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto të Ri</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiq ndjekësit e përzgjedhur</translation>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqi krejt ndjekësit prej përkatësive të përzgjedhura</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
@@ -3567,7 +3567,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
@@ -3585,7 +3585,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoje</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
@@ -3593,7 +3593,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoje</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3601,7 +3601,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore tastiere</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
@@ -3624,11 +3624,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Nisu</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3636,15 +3636,15 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoje</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju lutemi, hiqni objekte të përsëdytur.</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>List of shortcuts</source>
@@ -3667,7 +3667,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkurtore tastiere</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -3710,25 +3710,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>E panjohur</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastierë</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutTarget</name>
     <message>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektiv</translation>
     </message>
     <message>
         <source>Shout/Whisper to:</source>
@@ -3736,11 +3736,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa përzgjedhje</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqe, kur ndryshon tema e kanalit</translation>
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
@@ -3748,7 +3748,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
@@ -3760,23 +3760,23 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of users</source>
-        <translation type="unfinished"></translation>
+        <translation>Për hapje liste përdoruesish të heshtuar</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoje</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal i Synuar</translation>
     </message>
     <message>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
@@ -3784,7 +3784,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3796,33 +3796,33 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutWin</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastierë</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastierë</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi</translation>
     </message>
 </context>
 <context>
@@ -3837,21 +3837,21 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Xhirojeni Tux Paint-in me mundësinë “no stereo”:</translation>
     </message>
 </context>
 <context>
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur</translation>
     </message>
 </context>
 <context>
     <name>LCDConfig</name>
     <message>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD RGB LED</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3864,27 +3864,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Njëkohësojeni në krejt pajisjet tuaja</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>I aktivizuar</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Parje</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtyllë</translation>
     </message>
     <message>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
@@ -3894,7 +3894,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjerësi</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
@@ -3902,66 +3902,66 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtyllë</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjerësi</translation>
     </message>
     <message>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>PAJISJE</translation>
     </message>
 </context>
 <context>
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagnostikojeni</translation>
     </message>
     <message>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Kritike</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Kujdes</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollësi</translation>
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur te {{server}} {{info}}</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>I shkëputur</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>U bë pjesë</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>Emri i përdoruesit nuk mund të lihet i zbrazët.</translation>
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Përgëzime! U bëtë një përdorues {{state}}.</translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>U përzutë nga {{name}}</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdoruesi u përzu prej {$INTERPOLATION}.</translation>
     </message>
     <message>
         <source>You self-muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
@@ -3969,67 +3969,67 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Heshtuar</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Heshtuar</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuk hytë në ndonjë kanal. Provoni /join #&lt;kanal&gt;</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Emri i përdoruesit nuk mund të lihet i zbrazët.</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Leje e mohuar.</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq një mesazh tekst vetjak</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
     <message>
         <source>User renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Modeli i riemërtua</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuk hytë në ndonjë kanal. Provoni /join #&lt;kanal&gt;</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuk hytë në ndonjë kanal. Provoni /join #&lt;kanal&gt;</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi te WP.com për përdoruesin e lidhur</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdoruesi %s s’u shkëput dot.</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh Vetjak</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
@@ -4041,15 +4041,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>mesazh</translation>
     </message>
     <message>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Këtë shërbyes</translation>
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi:</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
@@ -4058,58 +4058,59 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>%OShpërfillja mbi %C18$1%O ndryshoi.
+</translation>
     </message>
     <message>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhje Te:</translation>
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP (jo i sigurt)</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>Lojtës Podcast-esh</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>Anëtarë Plus janë në gjendje të kërkojnë {$START_LINK}të verifikohen kanalet e tyre{$CLOSE_LINK} dhe të marrin një stemë verifikimi.</translation>
     </message>
     <message>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>Ëhë, mund t’i lexoni përshtypjet tuaja kurdo, duke klikuar mbi lidhjen “%1$s” te menuja e përgjegjësit.</translation>
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>Lëndë e trupëzuar nga %s</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazhe</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Lucida Console</translation>
     </message>
     <message>
         <source>Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>njoftim</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Theksoje</translation>
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Soundfile</source>
@@ -4117,11 +4118,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Shteg</translation>
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -4133,7 +4134,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>PRAG</translation>
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
@@ -4145,7 +4146,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Characters</source>
-        <translation type="unfinished"></translation>
+        <translation> Shenja</translation>
     </message>
     <message>
         <source>If enabled text messages you send will be read back to you with TTS</source>
@@ -4161,7 +4162,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>Fushëveprim</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
@@ -4169,7 +4170,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -4181,7 +4182,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalosje</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
@@ -4191,19 +4192,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdor vula kohore 24-orëshe</translation>
     </message>
     <message>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>E pakufizuar</translation>
     </message>
     <message>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> Vija</translation>
     </message>
     <message>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalosje</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
@@ -4211,15 +4212,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Mënjana:</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh përmes Fjalosjeje</translation>
     </message>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>%1$s. Ka %2$d veprimtari</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
@@ -4271,7 +4272,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/education/misc/edu-misc.html&quot;&gt;edu-misc.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
@@ -4279,11 +4280,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>U lejon përdoruesve të ndryshojnë rregulla shërbyesi</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>S’mund të ndiqni më tepër se %{limit} persona</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
@@ -4295,11 +4296,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoni përmirësimet, me një klikim</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -4307,11 +4308,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum efektesh zanore</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
@@ -4323,11 +4324,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>njoftim</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
@@ -4339,7 +4340,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum efektesh zanore</translation>
     </message>
     <message>
         <source> %</source>
@@ -4422,7 +4423,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>LookConfig</name>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Që të filloni të bisedoni, rilidhuni te {{network}}</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
@@ -4430,7 +4431,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation type="unfinished"></translation>
+        <translation>gnUSENET gnu.*</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
@@ -4442,7 +4443,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndarës</translation>
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
@@ -4466,7 +4467,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parashtesë</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4478,7 +4479,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Max. channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjatësi Maks. Cope</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
@@ -4486,11 +4487,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>_Kopjo Emër Kanali</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>pasi përdoruesi të rrëshqasë nëpër faqe</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
@@ -4498,19 +4499,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>NAMES [channel], Tregon nofkat në kanal</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Shenja</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Varg zëvendësimi</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi shkronjash</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
@@ -4522,7 +4523,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Skemë</translation>
     </message>
     <message>
         <source>Hybrid</source>
@@ -4530,7 +4531,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetjake</translation>
     </message>
     <message>
         <source>Stacked</source>
@@ -4538,15 +4539,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation>Klasike</translation>
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Pamje dhe Ndjesi</translation>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Për këtë gjuhë përdor rregullat parazgjedhje</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
@@ -4554,7 +4555,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Temë</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
@@ -4574,15 +4575,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Mastodon (Me shumë kontrast)</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjuhë</translation>
     </message>
     <message>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Xixëllo _Ikonë Shtyllash</translation>
     </message>
     <message>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
@@ -4594,7 +4595,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndryshoje vetvetiu gjendjen, kur fshihet te paneli.</translation>
     </message>
     <message>
         <source>Displays talking status in system tray</source>
@@ -4606,11 +4607,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikacion</translation>
     </message>
     <message>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Përherë</translation>
     </message>
     <message>
         <source>This setting controls when the application will be always on top.</source>
@@ -4622,19 +4623,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurrë</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Përherë</translation>
     </message>
     <message>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale</translation>
     </message>
     <message>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
@@ -4642,7 +4643,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq menu ndarjeje videoje me të tjerët</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
@@ -4650,7 +4651,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhvillues</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
@@ -4658,11 +4659,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Lock layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Skemë</translation>
     </message>
     <message>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq rreshta me vija te pema e kanalit</translation>
     </message>
     <message>
         <source>Filter automatically hides empty channels</source>
@@ -4670,7 +4671,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjatë daljes, përpilo vetvetiu kartelën MO</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -4686,11 +4687,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>të kanalit të vet</translation>
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
@@ -4698,15 +4699,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjeroje</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq numër përdoruesish</translation>
     </message>
     <message>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq numër përdoruesish në kanale</translation>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
@@ -4726,7 +4727,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
@@ -4734,7 +4735,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
@@ -4742,60 +4743,60 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqua vetëm ndjekësve</translation>
     </message>
     <message>
         <source>Prefix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Parashtesë</translation>
     </message>
     <message>
         <source>Postfix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>%d shenjë</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Parazgjedhje e sistemit tuaj</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation>Mund të marrin pjesë vetëm përdorues të ftuar.</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Krejt</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Pyet</translation>
     </message>
     <message>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Që këto liri të jenë të njëmendta, ato duhet të jenë përhershme dhe të pashfuqizueshme, sa kohë që s’bëni gjë të keqe; nëse zhvilluesi i software-it ka fuqinë ta shfuqizojë licencën, ose të shtojë në kushtet e saj kufizime pas dasme, pa bërë ju diçka që t’i japë shkak, software-i është jo i lirë.</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>lëvizeni</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Shfletoni&lt;/a&gt;</translation>
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërfaqja e përdoruesit</translation>
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>gnUSENET gnu.*</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Kërko</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -4803,7 +4804,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Veprim</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
@@ -4811,11 +4812,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Veprim</translation>
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mbylle</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4827,27 +4828,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Përherë</translation>
     </message>
     <message>
         <source>Ask when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Xhiro urdhra, kur të jetë lidhur</translation>
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizoje</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizoje</translation>
     </message>
     <message>
         <source>Always Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mbylle</translation>
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> sekonda</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -4855,7 +4856,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation type="unfinished"></translation>
+        <translation>I dukshëm vetëm për përdorues të përmendur</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
@@ -4914,7 +4915,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>MainWindow</name>
     <message>
         <source>Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Fjalëkalim&lt;/b&gt;&lt;br /&gt;Kjo fushë ju lejon të caktoni dhe ndryshoni me lehtësi fjalëkalimin e një kanali. Përdor në prapaskenë veçori Mumble-i për token-ë hyrjeje. Përdorni ACL dhe grupe, nëse keni nevojë për kontroll më të imëtë dhe të fuqishëm të hyrjeve.</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -4922,7 +4923,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ndihmë</translation>
     </message>
     <message>
         <source>S&amp;erver</source>
@@ -4930,11 +4931,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/philosophy/self-interest.html&quot;&gt;self-interest.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyni</translation>
     </message>
     <message>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
@@ -4954,27 +4955,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mbylle</translation>
     </message>
     <message>
         <source>Closes the program</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbyllet më</translation>
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikacion</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbylleni: Mbylleni GCompris-in (CTRL+Q)</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhu</translation>
     </message>
     <message>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
@@ -4982,19 +4983,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkëputu</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkëputuni prej shërbyesit IRC</translation>
     </message>
     <message>
         <source>Disconnects you from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>DISCON, Shkëputet prej shërbyesit</translation>
     </message>
     <message>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Rifresko listë dëbimesh</translation>
     </message>
     <message>
         <source>This lets you edit the server-side IP ban list.</source>
@@ -5010,11 +5011,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzëre</translation>
     </message>
     <message>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni arsye përzënie %s:</translation>
     </message>
     <message>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
@@ -5022,11 +5023,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Mute user</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
@@ -5034,11 +5035,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dëboje</translation>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dëbon dhe përzë nga kanali</translation>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
@@ -5050,7 +5051,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Deafen user</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
@@ -5066,11 +5067,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Mute user locally</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
@@ -5078,7 +5079,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Send a Text Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoni një mesazh…</translation>
     </message>
     <message>
         <source>Sends a text message to another user.</source>
@@ -5086,7 +5087,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendore</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
@@ -5094,11 +5095,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto</translation>
     </message>
     <message>
         <source>Add new channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni të ri</translation>
     </message>
     <message>
         <source>This adds a new sub-channel to the currently selected channel.</source>
@@ -5106,11 +5107,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Remove channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
@@ -5118,11 +5119,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>Edit Groups and ACL for channel</source>
-        <translation type="unfinished"></translation>
+        <translation>S’keni leje të përpunoni këtë kanal</translation>
     </message>
     <message>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
@@ -5130,7 +5131,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Link your channel to another channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkruani shkurtimisht kanalin tuaj</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
@@ -5139,7 +5140,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hiqjani lidhjen</translation>
     </message>
     <message>
         <source>Unlink your channel from another channel</source>
@@ -5159,11 +5160,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Riktheje te parazgjedhjet</translation>
     </message>
     <message>
         <source>Reset audio preprocessor</source>
-        <translation type="unfinished"></translation>
+        <translation>Preprocesor</translation>
     </message>
     <message>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
@@ -5171,7 +5172,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
@@ -5179,7 +5180,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Deafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>I vini shenjë vetes si i larguar</translation>
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
@@ -5187,11 +5188,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
@@ -5199,7 +5200,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Display audio statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Pops up a small dialog with information about your current audio input.</source>
@@ -5207,11 +5208,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqjani lidhjen</translation>
     </message>
     <message>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe aliasin</translation>
     </message>
     <message>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
@@ -5219,7 +5220,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Configure Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni</translation>
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
@@ -5234,11 +5235,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F: Kaloni/dilni nga mënyra “Sa krejt ekrani”</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>Start the audio configuration wizard</source>
@@ -5250,7 +5251,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhvillues</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
@@ -5258,11 +5259,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ç’është kjo?</translation>
     </message>
     <message>
         <source>Enter What&apos;s This? mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalo Nën Mënyrën e Çelët</translation>
     </message>
     <message>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
@@ -5270,7 +5271,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Information about Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna rreth përkthyesit</translation>
     </message>
     <message>
         <source>Shows a small dialog with information and license for Mumble.</source>
@@ -5278,11 +5279,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>About &amp;Speex...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rreth</translation>
     </message>
     <message>
         <source>Information about Speex</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna rreth përkthyesit</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Speex.</source>
@@ -5290,7 +5291,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Information about Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna rreth përkthyesit</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Qt.</source>
@@ -5298,11 +5299,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo për Përditësime…</translation>
     </message>
     <message>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo gjendje versioni teme dhe shtojce</translation>
     </message>
     <message>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
@@ -5310,19 +5311,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>WALLCHOP &lt;mesazh&gt;, dërgon mesazhin te tërë operatorët e kanalit në kanalin e atëçastshëm</translation>
     </message>
     <message>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopjoji URL-në</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhja u kopjua në të papastër</translation>
     </message>
     <message>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale</translation>
     </message>
     <message>
         <source>Toggle minimal window modes</source>
@@ -5334,7 +5335,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Fshihe</translation>
     </message>
     <message>
         <source>Toggle showing frame on minimal window</source>
@@ -5346,7 +5347,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>Configure certificates for strong authentication</source>
@@ -5358,7 +5359,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Register user on server</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server.</source>
@@ -5366,11 +5367,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Shok ose Familje</translation>
     </message>
     <message>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation>luani shah me shokun tuaj</translation>
     </message>
     <message>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
@@ -5378,7 +5379,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Removes a user from your friends.</source>
@@ -5390,11 +5391,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"></translation>
+        <translation>Përditësoje</translation>
     </message>
     <message>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation>luani shah me shokun tuaj</translation>
     </message>
     <message>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
@@ -5402,7 +5403,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Edit registered users list</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni listën</translation>
     </message>
     <message>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
@@ -5410,7 +5411,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërroni avatarin</translation>
     </message>
     <message>
         <source>Change your avatar image on this server</source>
@@ -5426,11 +5427,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>%{name} ricaktoi fjalëkalimi për përdoruesin %{target}</translation>
     </message>
     <message>
         <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Shihni mëmën dhe rrjedhën e komenteve për të</translation>
     </message>
     <message>
         <source>Query server for connection information for user</source>
@@ -5438,15 +5439,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Change Comment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndryshoje</translation>
     </message>
     <message>
         <source>Change your own comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapni sajtin tuaj</translation>
     </message>
     <message>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bëni hyrjen, ose Regjistrohuni</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
@@ -5454,11 +5455,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dukshmëri</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>JOIN &lt;kanal&gt;, hyhet te kanali</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
@@ -5477,7 +5478,9 @@ the channel&apos;s context menu.</source>
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollim i Tux Paint-it
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -5508,7 +5511,7 @@ Valid actions are:
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Thirrje:</translation>
     </message>
     <message>
         <source>Error: No RPC command specified</source>
@@ -5516,16 +5519,17 @@ Valid actions are:
     </message>
     <message>
         <source>RPC</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarkoni &lt;a href=&quot;%s&quot;&gt;kartelën tuaj XML-RPC&lt;/a&gt;. Do të duhej të thoshte “Shërbyesi XML-RPC pranon vetëm kërkesa POST.” në një rresht më vete.</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>URL-ja %1 s’ekziston.
+</translation>
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirë se vini</translation>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
@@ -5533,15 +5537,15 @@ Valid actions are:
     </message>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/philosophy/the-root-of-this-problem.html&quot;&gt;the-root-of-this-problem.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>&amp;User</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>@kanalit</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -5549,24 +5553,24 @@ Valid actions are:
     </message>
     <message>
         <source>&amp;Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhvillues</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation>Veprim</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Regjistër Veprimtarie</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -5581,17 +5585,17 @@ Valid actions are:
     <message>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Riktheje te parazgjedhjet</translation>
     </message>
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gjendje njëkohësimi modeli</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
@@ -5601,12 +5605,12 @@ Valid actions are:
     <message>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
     <message>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gjendje njëkohësimi modeli</translation>
     </message>
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
@@ -5616,27 +5620,27 @@ Valid actions are:
     <message>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hiqjani lidhjen</translation>
     </message>
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hyni në Kanal</translation>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Përdoreni</translation>
     </message>
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
@@ -5651,17 +5655,17 @@ Valid actions are:
     <message>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Minimale</translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me numra deri në 10.</translation>
     </message>
     <message>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
@@ -5670,17 +5674,17 @@ Valid actions are:
     <message>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cikël Ylberi</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>_Fshihe Dritaren</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
@@ -5690,22 +5694,22 @@ Valid actions are:
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Filtri jetpack_offline_mode është caktuar si &lt;em&gt;true&lt;/em&gt;.</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Filtri jetpack_offline_mode është caktuar si &lt;em&gt;true&lt;/em&gt;.</translation>
     </message>
     <message>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoni një mesazh…</translation>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoni një mesazh…</translation>
     </message>
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
@@ -5715,24 +5719,24 @@ Valid actions are:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dukshmëri</translation>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation type="unfinished"></translation>
+        <translation>_Dritare</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizoje</translation>
     </message>
     <message>
         <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ctrl;&lt;keycap&gt;M&lt;/keycap&gt;</translation>
     </message>
     <message>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
@@ -5740,35 +5744,35 @@ Valid actions are:
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Maçu Piçu gjendet 2430 metra mbi nivelin e detit, mes një pylli tropikal, në një vend jashtëzakonisht të bukur. Me muret e veta gjigante, tarracat dhe ngritjet, me shumë gjasa qe krijimi më mahnitës urban i Perandorisë Inkase në kulmin e vet, të krijuara sikur të ishin prerë në mënyrë të natyrshme në rrëpira të vazhdueshme shkëmbore. Mjedisi natyror, në anët lindore te Andeve, përfshin pellgun ujëmbledhës të sipërm të Amazonës, me larminë e vet të pasur të florës dhe faunës.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbylle</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anuloje</translation>
     </message>
     <message>
         <source>Save Image As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruajeni figurën për Tux Paint-int</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Spastroje</translation>
     </message>
     <message>
         <source>Save Image File</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruaje listë si një kartelë</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
@@ -5776,11 +5780,11 @@ Valid actions are:
     </message>
     <message>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u ruajtën dot widget-et vijuese: %s.</translation>
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtri jetpack_offline_mode është caktuar si &lt;em&gt;true&lt;/em&gt;.</translation>
     </message>
     <message>
         <source>Transmit Mode set to Voice Activity</source>
@@ -5792,43 +5796,43 @@ Valid actions are:
     </message>
     <message>
         <source>Opening URL %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapje</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela JSON e të dhënave të Koleksionit të Shkronjave s’ekziston.</translation>
     </message>
     <message>
         <source>Settings merged from file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarkoni nga Kartelë Tjetër…</translation>
     </message>
     <message>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Po lidhet…</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Që ta ripohoni, ju lutemi, jepni emrin e përdoruesit të llogarisë së tanishme</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Po lidhet me shërbyesin WordPress…</translation>
     </message>
     <message>
         <source>Reconnecting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rilidhje e Jetpack-ut</translation>
     </message>
     <message>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>{$INTERPOLATION} iu përgjigj komentit tuaj te</translation>
     </message>
     <message>
         <source>Register yourself as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
@@ -5836,7 +5840,7 @@ Valid actions are:
     </message>
     <message>
         <source>Register user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
@@ -5844,31 +5848,31 @@ Valid actions are:
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>përdorues</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni arsye përzënie %s:</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nofka e personit që bëri dëbimin</translation>
     </message>
     <message>
         <source>Sending message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgojeni mesazhin %1 në kodin Morse.</translation>
     </message>
     <message>
         <source>To %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2, 3 dhe 4.</translation>
     </message>
     <message>
         <source>Message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgojeni mesazhin %1 në kodin Morse.</translation>
     </message>
     <message>
         <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdoruesi bën një koment</translation>
     </message>
     <message>
         <source>Are you sure you want to reset the comment of user %1?</source>
@@ -5880,7 +5884,7 @@ Valid actions are:
     </message>
     <message>
         <source>Message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh Kanali</translation>
     </message>
     <message>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
@@ -5888,15 +5892,15 @@ Valid actions are:
     </message>
     <message>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh Kanali</translation>
     </message>
     <message>
         <source>To %1 (Tree): %2</source>
-        <translation type="unfinished"></translation>
+        <translation>pemë</translation>
     </message>
     <message>
         <source>Message to tree %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Shndërrojeni mesazhin %1 në shkronja.</translation>
     </message>
     <message>
         <source>Unmuted and undeafened.</source>
@@ -5908,11 +5912,11 @@ Valid actions are:
     </message>
     <message>
         <source>Muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Deafened.</source>
@@ -5924,7 +5928,7 @@ Valid actions are:
     </message>
     <message>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"></translation>
+        <translation>Rinis dërgimin</translation>
     </message>
     <message>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
@@ -5932,15 +5936,15 @@ Valid actions are:
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazuar në Qt %1 dhe %2</translation>
     </message>
     <message>
         <source>Connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur</translation>
     </message>
     <message>
         <source>SSL Verification failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifikimi i përkatësisë së dërguesit dështoi.</translation>
     </message>
     <message>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
@@ -5964,19 +5968,19 @@ Valid actions are:
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Parje:</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhja e sajtit dështoi!</translation>
     </message>
     <message>
         <source>Disconnected from server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkëputuni prej shërbyesit IRC</translation>
     </message>
     <message>
         <source>Invalid username</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi:</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -5984,7 +5988,7 @@ Valid actions are:
     </message>
     <message>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi:</translation>
     </message>
     <message>
         <source>That username is already in use, please try another username.</source>
@@ -5992,7 +5996,7 @@ Valid actions are:
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër Përdoruesi ose Fjalëkalim i gabuar</translation>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
@@ -6002,7 +6006,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër Përdoruesi ose Fjalëkalim i gabuar</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
@@ -6010,7 +6014,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Server connection failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyesi refuzoi lidhjen</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
@@ -6022,19 +6026,19 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Choose image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni Figurë</translation>
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshpejtoni kohët e ngarkimit të figurave</translation>
     </message>
     <message>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u hap dot kartela e synuar %1</translation>
     </message>
     <message>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela është në një format jo të njohur nga Poedit.</translation>
     </message>
     <message>
         <source>Your account information can not be verified currently. Please try again later</source>
@@ -6042,7 +6046,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyesi refuzoi lidhjen</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6050,7 +6054,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh Mirëseardhjeje</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
@@ -6062,15 +6066,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbritje me 1, 2 dhe 3.</translation>
     </message>
     <message>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’mund të ndryshoni gjendjen e këtyre veçorive.</translation>
     </message>
     <message>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
+        <translation>_Kopjo Emër Kanali</translation>
     </message>
     <message>
         <source>Denied: Text message too long.</source>
@@ -6086,23 +6090,23 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’ka figurë</translation>
     </message>
     <message>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi:</translation>
     </message>
     <message>
         <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi:</translation>
     </message>
     <message>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shndërrojeni kanalin tuaj në një sajt të plotë, me nënpërkatësi ose përkatësi vetjake, prurje lajmesh, stemë, temë, kategori dhe fundfaqe tuajën.</translation>
     </message>
     <message>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>U mbërrit në kufi vëllimi email-sh.</translation>
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
@@ -6110,7 +6114,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’keni leje të fshini këtë kanal</translation>
     </message>
     <message>
         <source>You are not allowed to listen to more channels than you currently are.</source>
@@ -6118,55 +6122,55 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Denied: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje e Mohuar</translation>
     </message>
     <message>
         <source>Permission denied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leje e mohuar.</translation>
     </message>
     <message>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur si %1$s%2$s.</translation>
     </message>
     <message>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur</translation>
     </message>
     <message>
         <source>You joined %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>U bë pjesë</translation>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1$d email-e u kaluan te hedhurinat.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>U shpu te hedhurinat 1 email.</translation>
     </message>
     <message>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>u dha</translation>
     </message>
     <message>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>U kalua te</translation>
     </message>
     <message>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2 dhe 3.</translation>
     </message>
     <message>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbritje me 1, 2, 3 dhe 4.</translation>
     </message>
     <message>
         <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja disa ndihmëza, sa për t’ia filluar</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
@@ -6174,7 +6178,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
@@ -6182,11 +6186,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2 dhe 3.</translation>
     </message>
     <message>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>U riemërtua gjedhe.</translation>
     </message>
     <message>
         <source>%1 is now muted and deafened.</source>
@@ -6194,27 +6198,27 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jo tani</translation>
     </message>
     <message>
         <source>Recording started</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>Recording stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>regjistrim</translation>
     </message>
     <message>
         <source>You revoked your priority speaker status.</source>
@@ -6266,83 +6270,83 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qetë ftuar nga:</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qetë ftuar nga:</translation>
     </message>
     <message>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju hëngri një Gogol.</translation>
     </message>
     <message>
         <source>You were suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Të heshtuara</translation>
     </message>
     <message>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qetë ftuar nga:</translation>
     </message>
     <message>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju hëngri një Gogol.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>S’keni heshtuar ende ndonjë përdorues.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>You muted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Të heshtuara</translation>
     </message>
     <message>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjesëtuesit e %1 janë: %2</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjesëtuesit e %1 janë: %2</translation>
     </message>
     <message>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjesëtuesit e %1 janë: %2</translation>
     </message>
     <message>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjesëtuesit e %1 janë: %2</translation>
     </message>
     <message>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Të heshtuara</translation>
     </message>
     <message>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjesëtuesit e %1 janë: %2</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
@@ -6362,11 +6366,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ju mbetet edhe 1 provë.</translation>
     </message>
     <message>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>I shkëputur</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
@@ -6375,31 +6379,31 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyes</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Pemë</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Private</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2, 3 dhe 4.</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2, 3 dhe 4.</translation>
     </message>
     <message>
         <source>Message from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgojeni mesazhin %1 në kodin Morse.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -6439,7 +6443,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -6448,7 +6452,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq/Fshih etiketë kërkimesh</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
@@ -6456,11 +6460,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>ktheji zërin</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>I vini shenjë vetes si i larguar</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
@@ -6472,11 +6476,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale</translation>
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Format i pavlefshëm kartele Lënde</translation>
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
@@ -6484,7 +6488,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Local Volume Adjustment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
@@ -6493,7 +6497,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Listen to Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dëgjojeni</translation>
     </message>
     <message>
         <source>Toggles listening to the given channel.</source>
@@ -6510,36 +6514,36 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Remember this setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Mba mend kredencialet e mia</translation>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro përdorues në kanal</translation>
     </message>
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lidhu vetëm me shërbyesin e përzgjedhur</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shkëputuni prej shërbyesit IRC</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shkëputuni prej shërbyesit IRC</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna Shërbyesi</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
@@ -6549,17 +6553,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>token-ë</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Për hapje liste përdoruesish të bllokuar</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
@@ -6569,7 +6573,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Rifresko listë dëbimesh</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
@@ -6579,35 +6583,35 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoni ose çaktivizoni (parazgjedhja) zërin.</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ndryshoje</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ndërroni avatarin</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
@@ -6616,92 +6620,92 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe avatarin</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ricaktoni fjalëkalimin tuaj duke klikuar mbi këtë lidhje.</translation>
     </message>
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>regjistrohuni</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Lypset të regjistroheni për VaultPress.</translation>
     </message>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hap Rregullimet</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sa Për Mirëseardhje</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoni ose çaktivizoni (parazgjedhja) zërin.</translation>
     </message>
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hap Dialog</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>hapni dialogun “Hap”</translation>
     </message>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Përditësoje</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo nëse shfletuesi im është i përditësuar!</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
@@ -6709,7 +6713,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Po</translation>
     </message>
     <message>
         <source>No</source>
@@ -6959,27 +6963,27 @@ Valid options are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished">Pozicion</translation>
+        <translation>Pozicion</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>F Y</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>m</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z-A</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqe</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6987,11 +6991,11 @@ Valid options are:
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"></translation>
+        <translation>përdorues</translation>
     </message>
     <message>
         <source>Heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Krye</translation>
     </message>
     <message>
         <source>°</source>
@@ -7007,31 +7011,31 @@ Valid options are:
     </message>
     <message>
         <source>Meta data</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta postimi</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq kontekst</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Që të verifikohet identiteti juaj, jepni fjalëkalimin tuaj të tanishëm</translation>
     </message>
     <message>
         <source>Set</source>
-        <translation type="unfinished"></translation>
+        <translation>s’është ujdisur</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtet</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhje</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoje</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -7098,7 +7102,7 @@ Valid options are:
     <name>NetworkConfig</name>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Lidhje</translation>
     </message>
     <message>
         <source>Use TCP compatibility mode</source>
@@ -7110,7 +7114,7 @@ Valid options are:
     </message>
     <message>
         <source>Force TCP mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Rezervat</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -7122,11 +7126,11 @@ Valid options are:
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Cilësi: %s</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>_Rilidhu</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
@@ -7134,7 +7138,7 @@ Valid options are:
     </message>
     <message>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Rilidhu vetvetiu te shërbyesit pas shkëputjesh</translation>
     </message>
     <message>
         <source>Reconnect to last used server when starting Mumble</source>
@@ -7158,11 +7162,11 @@ Valid options are:
     </message>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërmjetësi traversal dështoi.</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Lloj</translation>
     </message>
     <message>
         <source>Type of proxy to connect through</source>
@@ -7174,7 +7178,7 @@ Valid options are:
     </message>
     <message>
         <source>Direct connection</source>
-        <translation type="unfinished"></translation>
+        <translation>I drejtpërdrejtë</translation>
     </message>
     <message>
         <source>HTTP(S) proxy</source>
@@ -7182,7 +7186,7 @@ Valid options are:
     </message>
     <message>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Socks5</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -7190,7 +7194,7 @@ Valid options are:
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyes Ndërmjetës</translation>
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
@@ -7198,11 +7202,11 @@ Valid options are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Portë</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbyes Ndërmjetës</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
@@ -7210,11 +7214,11 @@ Valid options are:
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirëfilltësim Ndërmjetësi</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -7222,11 +7226,11 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Fjalëkalim</translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirëfilltësim Ndërmjetësi</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -7234,7 +7238,7 @@ Valid options are:
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Privatësi</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
@@ -7251,7 +7255,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Mumble services</source>
-        <translation type="unfinished"></translation>
+        <translation>Shërbime</translation>
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
@@ -7263,7 +7267,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo vetvetiu për përditësime</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
@@ -7275,7 +7279,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo vetvetiu për përditësime</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
@@ -7291,7 +7295,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
@@ -7303,7 +7307,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Rrjet</translation>
     </message>
     <message>
         <source>Proxy type</source>
@@ -7334,11 +7338,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Silent</source>
-        <translation type="unfinished"></translation>
+        <translation>Mënyrë e pavlefshme: %1$s. Pritej “silent” ose “normal”.</translation>
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>%C19*%O$tTani po flisni te %C22$2%O</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -7350,22 +7354,22 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
 </context>
 <context>
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrim</translation>
     </message>
     <message>
         <source>Only talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetëm</translation>
     </message>
     <message>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivë së fundi</translation>
     </message>
     <message>
         <source>All in current channel</source>
@@ -7373,11 +7377,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Always show yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Mediat shfaqi përherë</translation>
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
@@ -7385,31 +7389,32 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtylla</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Renditi</translation>
     </message>
     <message>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pozicioni&lt;/b&gt;&lt;br/&gt;
+Kjo vlerë ju bën të mundur të ndryshoni mënyrën se si Mumble-i sistemon kanalet në pemë. Një kanal me një vlerë më të lartë &lt;i&gt;Pozicioni&lt;/i&gt;, do të vendoset përherë nën një me vlerë më të ulët dhe anasjelltas. Nëse vlera &lt;i&gt;Pozicion&lt;/i&gt; e dy kanaleve është e barabartë, ata do të renditen alfabetikisht sipas emrave.</translation>
     </message>
     <message>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>e fundit</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Riktheje te parazgjedhjet</translation>
     </message>
     <message>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivë së fundi</translation>
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
@@ -7420,11 +7425,11 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayConfig</name>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Mundësi</translation>
     </message>
     <message>
         <source>Enable overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
@@ -7432,31 +7437,31 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Enable Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarkoni nga Kartelë Tjetër…</translation>
     </message>
     <message>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarko</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruajini në mënyrë anonime, në re, rregullimet tuaja</translation>
     </message>
     <message>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruaje</translation>
     </message>
     <message>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa shkronja për çinstalim</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Sahat</translation>
     </message>
     <message>
         <source>Display a frame counter in the overlay</source>
@@ -7464,7 +7469,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Show FPS counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqin në blogun tuaj një numërator vizitash.</translation>
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
@@ -7472,63 +7477,63 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Show Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Sahat</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkronja</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkronja</translation>
     </message>
     <message>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë Teksti</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Skemë</translation>
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Përjashtime</translation>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndodhi një përjashtim i patrajtuar: %s</translation>
     </message>
     <message>
         <source>Allowed launchers</source>
-        <translation type="unfinished"></translation>
+        <translation>Email-e të lejuar</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoje</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Allowed programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejuar për federim</translation>
     </message>
     <message>
         <source>Allowed paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtigje</translation>
     </message>
     <message>
         <source>Blacklisted programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Pse Duhen Ndarë Me të Tjerët Programet</translation>
     </message>
     <message>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
@@ -7538,11 +7543,11 @@ Click the button below to install the overlay.</source>
     </message>
     <message>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Instaloje</translation>
     </message>
     <message>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
@@ -7552,7 +7557,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>To move the users, drag the little red dot.</source>
@@ -7568,7 +7573,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtroji sipas</translation>
     </message>
     <message>
         <source>Whitelist</source>
@@ -7580,23 +7585,23 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni figurë</translation>
     </message>
     <message>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikacion</translation>
     </message>
     <message>
         <source>Choose path</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Paracaktime</translation>
     </message>
     <message>
         <source>Mumble overlay presets (*.mumblelay)</source>
@@ -7604,26 +7609,26 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Paracaktime</translation>
     </message>
 </context>
 <context>
     <name>OverlayEditor</name>
     <message>
         <source>Overlay Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresë Përsipër</translation>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtet</translation>
     </message>
     <message>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Që të vazhdoni të bisedoni me {{user}}, rilidhuni</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Për përshkrimin e personave që s’kufizohen me përdorimin pasiv të veprave, këshillojmë terma të tillë si “individë” dhe “shtetas”, në vend se “konsumatorë”.</translation>
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
@@ -7631,51 +7636,51 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>%C19*%O$tTani po flisni te %C22$2%O</translation>
     </message>
     <message>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation>Po kërkoni Privatisht me DuckDuckGo-në.</translation>
     </message>
     <message>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Privat</translation>
     </message>
     <message>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkruani shkurtimisht kanalin tuaj</translation>
     </message>
     <message>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>të kanalit të vet</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementë</translation>
     </message>
     <message>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation>URL gravatari për figurën e avatarit të përdoruesit.</translation>
     </message>
     <message>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>_Emër përdorues:</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër përdoruesi</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -7683,15 +7688,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
@@ -7699,117 +7704,117 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroll Kutie</translation>
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkallë zoom-i</translation>
     </message>
 </context>
 <context>
     <name>OverlayEditorScene</name>
     <message>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Skemë</translation>
     </message>
     <message>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Klikoni dhe tërhiqeni që në kanavacë të vizatohen “piksela” katrorë të mëdhenj.</translation>
     </message>
     <message>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <source>User Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Patejdukshmëri shtrese përsipër</translation>
     </message>
     <message>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Patejdukshmëri shtrese përsipër</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendosje</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Majtas</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Në qendër</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Djathtas</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Në krye</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Në fund</translation>
     </message>
     <message>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë</translation>
     </message>
     <message>
         <source>Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkronja:</translation>
     </message>
     <message>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroll Kutie</translation>
     </message>
     <message>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation>PEN</translation>
     </message>
     <message>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjo mundësi eliminon mbushje përreth figurës.</translation>
     </message>
     <message>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>PEN</translation>
     </message>
     <message>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbushje</translation>
     </message>
     <message>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>PEN</translation>
     </message>
     <message>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbushje</translation>
     </message>
     <message>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni një Gjedhe</translation>
     </message>
     <message>
         <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkronja:</translation>
     </message>
 </context>
 <context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtojca</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Mundësi</translation>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
@@ -7825,11 +7830,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoje</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7841,7 +7846,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Reloads all plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Ka shtojca për:</translation>
     </message>
     <message>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
@@ -7849,7 +7854,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Ka shtojca për:</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
@@ -7857,11 +7862,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instaloje Shtojcën</translation>
     </message>
     <message>
         <source>Information about plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna rreth përkthyesit</translation>
     </message>
     <message>
         <source>This shows a small information message about the plugin.</source>
@@ -7869,11 +7874,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mbi</translation>
     </message>
     <message>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>U shtua faqe licence te formësimi.</translation>
     </message>
     <message>
         <source>This shows the configuration page of the plugin, if any.</source>
@@ -7881,7 +7886,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>Formësoni</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
@@ -7889,11 +7894,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>_Çngarkoje</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtojca është tashmë e instaluar</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
@@ -7901,15 +7906,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>_Ngarkoni Shtojcë ose Programth...</translation>
     </message>
     <message>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"></translation>
+        <translation>është montuar pa mbulim shtojcash.</translation>
     </message>
     <message>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"></translation>
+        <translation>është montuar pa mbulim shtojcash.</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
@@ -7925,7 +7930,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetë-shndërrimi është i aktivizuar apo jo.</translation>
     </message>
     <message>
         <source>List of plugins</source>
@@ -7996,11 +8001,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Po</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>“%s” s’është kartelë POT e vlefshme.</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
@@ -8008,7 +8013,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>S’arrihet të fshihet %1!</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
@@ -8036,7 +8041,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overwrite plugin?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbishkruaje</translation>
     </message>
     <message>
         <source>The new plugin &quot;%1&quot; (%2) is about to overwrite the already installed plugin &quot;%3&quot; (%4). Do you wish to proceed?</source>
@@ -8047,11 +8052,11 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimerrni kyç licence të humbur</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>i lidhur</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
@@ -8074,23 +8079,23 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Programthit mund t’i jepen këto parametra:</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjidhe Krejt</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtojca</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Për të kontrolluar integritetin e shkarkimeve tuaja mund të merrni hashin origjinal SHA-256 të kartelave duke shtuar “.sha256” në fund të URL-së përkatëse të shkarkimit.</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Doni të përditësohet aplikacioni?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
@@ -8106,91 +8111,91 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Email-i u përditësua me sukses!</translation>
     </message>
 </context>
 <context>
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Pajisje Parazgjedhje</translation>
     </message>
 </context>
 <context>
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Parës ###sketchfab###</translation>
     </message>
     <message>
         <source>Camera direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>F Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z-A</translation>
     </message>
     <message>
         <source>Player position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozicion</translation>
     </message>
     <message>
         <source>Player axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Lojtës Podcast-esh</translation>
     </message>
     <message>
         <source>Player direction</source>
-        <translation type="unfinished"></translation>
+        <translation>drejtim</translation>
     </message>
     <message>
         <source>Camera axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <source>Camera position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollësi</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq kontekst</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"></translation>
+        <translation>Që të verifikohet identiteti juaj, jepni fjalëkalimin tuaj të tanishëm</translation>
     </message>
 </context>
 <context>
     <name>PulseAudioSystem</name>
     <message>
         <source>Default Input</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;input&lt;/em&gt;</translation>
     </message>
     <message>
         <source>Default Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalje</translation>
     </message>
 </context>
 <context>
     <name>QApplication</name>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisht në këtë shërbyes s’ka gjurmë të kësaj përkatësie.</translation>
     </message>
     <message>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Rinis dërgimin</translation>
     </message>
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
@@ -8213,7 +8218,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Rikthe te Parazgjedhjet Krejt Rregullimet</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
@@ -8229,11 +8234,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>1 përpjekje gjurmimi e bllokuar</translation>
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Pajisje Parazgjedhje</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -8241,11 +8246,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>I çaktivizuar</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>ECHO &lt;text&gt;, Shfaq tekst lokalisht</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
@@ -8273,7 +8278,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Krejt mesazhet</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
@@ -8302,7 +8307,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Thirrje:</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -8310,15 +8315,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>heshtoje</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Shpërfillni mesazhe nga dikush</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>E folur</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -8330,23 +8335,23 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Që të filloni të bisedoni, rilidhuni te {{network}}</translation>
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendore</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëllim transaksionesh</translation>
     </message>
     <message>
         <source>Shortcuts migration incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Udhërrëfyes Migrimi</translation>
     </message>
     <message>
         <source>Unfortunately %1 shortcut(s) could not be migrated.
@@ -8355,11 +8360,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Potentially broken settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregullime</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarko Rregullime</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
@@ -8379,7 +8384,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown Version</source>
-        <translation type="unfinished"></translation>
+        <translation>E panjohur</translation>
     </message>
     <message>
         <source>Next</source>
@@ -8487,59 +8492,59 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>RichTextEditor</name>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaqe</translation>
     </message>
     <message>
         <source>Source Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst Burim</translation>
     </message>
     <message>
         <source>&amp;Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Të trasha</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+B: Shfaqni ose Fshihni shtyllën e kontrollit</translation>
     </message>
     <message>
         <source>&amp;Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Të pjerrëta</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Të pjerrëta</translation>
     </message>
     <message>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Të nënvizuara</translation>
     </message>
     <message>
         <source>Ctrl+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë</translation>
     </message>
     <message>
         <source>Insert Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Futni një lidhje për te një postim ose faqe.</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Futni një figurë për të lënë përshtypje.</translation>
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshpejtoni kohët e ngarkimit të figurave</translation>
     </message>
     <message>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
@@ -8547,56 +8552,56 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjo vlerë është shumë e gjatë.</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtoni lidhje</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
 </context>
 <context>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyni</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Kërkoni</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vargjet e kërkimit konsideroji shprehje të rregullta.</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Mundësi</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdorues</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -8604,11 +8609,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Kryeni një kërkim që termin e merr parasysh siç është shkruar.</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mundësi:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
@@ -8616,19 +8621,19 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>_Regex</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanale</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>kërkim</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Në kanalet {{channels}}</translation>
     </message>
     <message>
         <source>Search string</source>
@@ -8647,7 +8652,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Strehëemër</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -8671,18 +8676,18 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Connection timed out</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbaroi koha e lidhjes</translation>
     </message>
 </context>
 <context>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna Shërbyesi</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna Shërbyesi</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
@@ -8706,7 +8711,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8718,15 +8723,15 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kodek:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni hollësi lidhjeje me shërbyesin tuaj WordPress. Poedit-i do të provojë të marrë temat dhe shtojcat e nevojshme prej tij dhe t’ju lërë të përktheni drejt e te shërbyesi.</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
@@ -8734,23 +8739,23 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroll me tastierë:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>I mirë</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation>Është shumë vonë për apelim të këtij paralajmërimi</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>KUJDES: kjo është e pakthyeshme dhe do të humbin krejt token-ët</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -8762,7 +8767,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjo përkatësi do të jetë në gjendje të sjellë të dhëna prej këtij shërbyesi dhe të dhënat ardhëse prej tij do të përpunohen dhe depozitohen</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
@@ -8770,23 +8775,23 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasti Kontroll</translation>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroll me tastierë:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroll me tastierë:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pjerrake përpara</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>I panjohur</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8794,11 +8799,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Po</translation>
     </message>
     <message>
         <source>No</source>
@@ -8825,7 +8830,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>I vini shenjë si të parapëlqyer</translation>
     </message>
     <message>
         <source>LAN</source>
@@ -8833,14 +8838,14 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Public Internet</source>
-        <translation type="unfinished"></translation>
+        <translation>Publik</translation>
     </message>
 </context>
 <context>
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>%{name} rihapi raportimin %{target}</translation>
     </message>
 </context>
 <context>
@@ -8851,46 +8856,46 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>%{name} rihapi raportimin %{target}</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Iu caktua moderator</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq buton ikone</translation>
     </message>
     <message>
         <source>&lt; Unknown Channel &gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>E panjohur</translation>
     </message>
 </context>
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/philosophy/the-root-of-this-problem.html&quot;&gt;the-root-of-this-problem.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Mëmë</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Faqja e tanishme</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
 </context>
 <context>
@@ -8901,7 +8906,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa përzgjedhje</translation>
     </message>
     <message>
         <source>, </source>
@@ -8909,38 +8914,38 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;/philosophy/the-root-of-this-problem.html&quot;&gt;the-root-of-this-problem.html&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Mëmë</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Faqja e tanishme</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>I pavlefshëm</translation>
     </message>
     <message>
         <source>Empty</source>
-        <translation type="unfinished"></translation>
+        <translation>I zbrazët</translation>
     </message>
 </context>
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>shfaqe/fshihe</translation>
     </message>
     <message>
         <source>On</source>
@@ -8955,22 +8960,22 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoje</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazh</translation>
     </message>
     <message>
         <source>Enter text</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni tekst</translation>
     </message>
 </context>
 <context>
     <name>Tokens</name>
     <message>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Fjalëkalim&lt;/b&gt;&lt;br /&gt;Kjo fushë ju lejon të caktoni dhe ndryshoni me lehtësi fjalëkalimin e një kanali. Përdor në prapaskenë veçori Mumble-i për token-ë hyrjeje. Përdorni ACL dhe grupe, nëse keni nevojë për kontroll më të imëtë dhe të fuqishëm të hyrjeve.</translation>
     </message>
     <message>
         <source>List of access tokens on current server</source>
@@ -8985,23 +8990,23 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Add a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasti Space: shtoje te bordura copën e përzgjedhur</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto</translation>
     </message>
     <message>
         <source>Remove a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasti Backspace ose Delete: hiqni prej bordurës copën e fundit</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Empty Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Duhet dhënë një argument me token jo të zbrazët.</translation>
     </message>
     <message>
         <source>Token List</source>
@@ -9016,49 +9021,49 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserEdit</name>
     <message>
         <source>Registered Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Numëroni parje faqesh nga përdorues të regjistruar që janë të futur.</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Riemërtojeni</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiqe</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Faqja që po kërkonit, s’gjendet këtu.</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Ditë</translation>
     </message>
     <message>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Javë</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Muaj</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Vite</translation>
     </message>
     <message>
         <source>Inactive for</source>
-        <translation type="unfinished"></translation>
+        <translation>joaktiv</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Listë përdoruesi</translation>
     </message>
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Mund të marrin pjesë vetëm përdorues të regjistruar</numerusform>
+            <numerusform>Mund të marrin pjesë vetëm përdorues të regjistruar</numerusform>
         </translation>
     </message>
     <message>
@@ -9078,67 +9083,67 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserInformation</name>
     <message>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Të dhëna Përdoruesi</translation>
     </message>
     <message>
         <source>Connection Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollësi.</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>Chrome OS</translation>
     </message>
     <message>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>A më duhet dëshmi SSL?</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresë IP</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Pings received</source>
-        <translation type="unfinished"></translation>
+        <translation>Të marrë</translation>
     </message>
     <message>
         <source>Average ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesatare</translation>
     </message>
     <message>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>dërgoji ping</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasti Kontroll</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni me zë</translation>
     </message>
     <message>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>I mirë</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation>Është shumë vonë për apelim të këtij paralajmërimi</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>KUJDES: kjo është e pakthyeshme dhe do të humbin krejt token-ët</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -9146,29 +9151,29 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>From Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Kyç klienti</translation>
     </message>
     <message>
         <source>To Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Kyç klienti</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kurseni në kosto strehimi dhe shpejtësi transmetimi, duke transmetuar video shpejt dhe pa reklama, që nga rrjeti ynë global.</translation>
     </message>
     <message>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohë</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kurseni në kosto strehimi dhe shpejtësi transmetimi, duke transmetuar video shpejt dhe pa reklama, që nga rrjeti ynë global.</translation>
     </message>
     <message>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Raportuar nga</translation>
     </message>
     <message>
         <source>%1w</source>
@@ -9176,19 +9181,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1d</source>
-        <translation type="unfinished"></translation>
+        <translation>1D</translation>
     </message>
     <message>
         <source>%1h</source>
-        <translation type="unfinished"></translation>
+        <translation>1h</translation>
     </message>
     <message>
         <source>%1m</source>
-        <translation type="unfinished"></translation>
+        <translation>1M</translation>
     </message>
     <message>
         <source>%1s</source>
-        <translation type="unfinished"></translation>
+        <translation>Email-i juaj i Automatizuar %1s tani është i aktivizuar!</translation>
     </message>
     <message>
         <source>, </source>
@@ -9196,15 +9201,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbledhje me 1, 2, 3 dhe 4.</translation>
     </message>
     <message>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Përkrahur nga</translation>
     </message>
     <message>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Përkrahur nga</translation>
     </message>
     <message>
         <source>%1 online (%2 idle)</source>
@@ -9212,11 +9217,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 online</source>
-        <translation type="unfinished"></translation>
+        <translation>I lidhur</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>“%1$s” dhe “%2$s”</translation>
     </message>
     <message>
         <source>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</source>
@@ -9231,34 +9236,34 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserListModel</name>
     <message>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Nofkë</translation>
     </message>
     <message>
         <source>Inactive days</source>
-        <translation type="unfinished"></translation>
+        <translation>joaktiv</translation>
     </message>
     <message>
         <source>Last channel</source>
-        <translation type="unfinished"></translation>
+        <translation>e fundit</translation>
     </message>
     <message>
         <source>Last seen: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Parë Së Fundi</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurrë</translation>
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni ID kanali Youtube:</translation>
     </message>
 </context>
 <context>
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Për përdorues vendorë që kanë bërë hyrjen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
@@ -9266,7 +9271,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nofkë</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
@@ -9281,19 +9286,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkruani shkurtimisht kanalin tuaj</translation>
     </message>
     <message>
         <source>Shouting directly to your channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanali juaj</translation>
     </message>
     <message>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dhuroni drejtpërsëdrejti</translation>
     </message>
     <message>
         <source>Not talking.</source>
-        <translation type="unfinished"></translation>
+        <translation>%C19*%O$tTani po flisni te %C22$2%O</translation>
     </message>
     <message>
         <source>Talking while being muted on your end</source>
@@ -9309,7 +9314,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkruani shkurtimisht kanalin tuaj</translation>
     </message>
     <message>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
@@ -9317,7 +9322,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"></translation>
+        <translation>E keni bllokuar këtë kanal</translation>
     </message>
     <message>
         <source>This shows the flags the user has on the server, if any:</source>
@@ -9325,7 +9330,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>On your friend list</source>
-        <translation type="unfinished"></translation>
+        <translation>Luani shah me shokun tuaj</translation>
     </message>
     <message>
         <source>Authenticated user</source>
@@ -9333,11 +9338,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalë të heshtuara</translation>
     </message>
     <message>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjalë të heshtuara</translation>
     </message>
     <message>
         <source>Muted (not allowed to speak in current channel)</source>
@@ -9349,15 +9354,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa zë</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Interes vetjak</translation>
     </message>
     <message>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Përgjegjës</translation>
     </message>
     <message>
         <source>User has a new comment set (click to show)</source>
@@ -9369,7 +9374,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesazhe</translation>
     </message>
     <message>
         <source>This shows the flags the channel has, if any:</source>
@@ -9397,19 +9402,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër</translation>
     </message>
     <message>
         <source>Flags</source>
-        <translation type="unfinished"></translation>
+        <translation>Flamuj</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeni i sigurt? Doni të dëbohet ky përdorues?</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeni i sigurt se doni të shpajtoheni nga ky kanal?</translation>
     </message>
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
@@ -9432,7 +9437,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VersionCheck</name>
     <message>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Përmirësojeni</translation>
     </message>
     <message>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
@@ -9463,23 +9468,23 @@ An access token is a text string, which can be used as a password for very simpl
     <name>ViewCert</name>
     <message>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"></translation>
+        <translation>“On-chain”</translation>
     </message>
     <message>
         <source>Certificate chain</source>
-        <translation type="unfinished"></translation>
+        <translation>“On-chain”</translation>
     </message>
     <message>
         <source>Certificate details</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollësi</translation>
     </message>
     <message>
         <source>Common Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nga {name}</translation>
     </message>
     <message>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>ID enti</translation>
     </message>
     <message>
         <source>Subunit</source>
@@ -9487,7 +9492,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Vend</translation>
     </message>
     <message>
         <source>Locality</source>
@@ -9495,19 +9500,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtet</translation>
     </message>
     <message>
         <source>Valid from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Numra nga 1 në 1 miliard.</translation>
     </message>
     <message>
         <source>Valid to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjo ftesë s’është e vlefshme</translation>
     </message>
     <message>
         <source>Serial: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <source>Public Key: %1 bits %2</source>
@@ -9515,35 +9520,35 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>RSA</source>
-        <translation type="unfinished"></translation>
+        <translation>RSA</translation>
     </message>
     <message>
         <source>DSA</source>
-        <translation type="unfinished"></translation>
+        <translation>DSA</translation>
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgo email-e përmbledhës</translation>
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgo email-e përmbledhës</translation>
     </message>
     <message>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kupon i prodhuar automatikisht nga MailPoet për email: %1$s: %2$s</translation>
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Përmbys DNS</translation>
     </message>
     <message>
         <source>Issued by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Autorizimi i dhënë është i pavlefshëm, ka skaduar, është shfuqizuar, s’përputhet me URI-n e ridrejtimit të përdorur te kërkesa e autorizimit, ose është emetuar për klient tjetër.</translation>
     </message>
     <message>
         <source>Unit Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Njësi Kohore</translation>
     </message>
 </context>
 <context>
@@ -9554,15 +9559,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>S’u hap dot kartela e synuar %1</translation>
     </message>
     <message>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>MP3</translation>
     </message>
     <message>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>OGG</translation>
     </message>
     <message>
         <source>.au - Uncompressed</source>
@@ -9570,15 +9575,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>FLAC</translation>
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>OPUS</translation>
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>MP3</translation>
     </message>
 </context>
 <context>
@@ -9593,11 +9598,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00 Hyrje</translation>
     </message>
     <message>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Nisu</translation>
     </message>
     <message>
         <source>S&amp;top</source>
@@ -9605,7 +9610,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mënyra e errët</translation>
     </message>
     <message>
         <source>Downmix</source>
@@ -9621,43 +9626,43 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;i&gt;Shënim:&lt;/i&gt; Versione të Tux Paint-it para 0.9.15-s përdornin për shtypjen një tjetër urdhër parazgjedhje, “%s”, ngaqë Tux Paint-it prodhonte format PNG, në vend se PostScript.</translation>
     </message>
     <message>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>DREJTORI</translation>
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Emër kartele</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>_Shfletoni...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndryshore të tjera janë:</translation>
     </message>
     <message>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>%{name} zhgradoi përdoruesin %{target}</translation>
     </message>
     <message>
         <source>Inserts the current date</source>
-        <translation type="unfinished"></translation>
+        <translation>Datë</translation>
     </message>
     <message>
         <source>Inserts the current time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohë</translation>
     </message>
     <message>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Strehëemër:</translation>
     </message>
     <message>
         <source>Recorder still running</source>
-        <translation type="unfinished"></translation>
+        <translation>Pipewire-i nuk po xhiron.</translation>
     </message>
     <message>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
@@ -9674,19 +9679,19 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtojca është vepruese tashmë.</translation>
     </message>
     <message>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjidhni formatin e kartelës së shkarkimit</translation>
     </message>
     <message>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbajini vizitorët tuaj dhe motorët e kërkimit të kënaqur, duke ndalur përmes Akismet-it komente të padëshiruara dhe plotësime të padëshiruara formularësh.</translation>
     </message>
     <message>
         <source>Select target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjidhni drejtori</translation>
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
@@ -9705,7 +9710,7 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshtatje adaptive e tonit</translation>
     </message>
     <message>
         <source>Local volume adjustment</source>
@@ -9723,7 +9728,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPISystem</name>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Pajisje Parazgjedhje</translation>
     </message>
 </context>
 <context>
@@ -9734,7 +9739,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
 </context>
 </TS>
