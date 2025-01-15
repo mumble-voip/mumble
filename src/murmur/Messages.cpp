@@ -101,6 +101,10 @@ protected:
 public:
 	TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server)
 		: affectedUser(affectedUser), qslTemporaryTokens(tokens), server(server) {
+		if (tokens.empty()) {
+			return;
+		}
+
 		// Add the temporary tokens
 		QMutableStringListIterator it(this->qslTemporaryTokens);
 
@@ -655,6 +659,13 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
+
 	QSet< Ban > previousBans, newBans;
 	if (!hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
@@ -1193,6 +1204,13 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
+
 	msg.set_actor(uSource->uiSession);
 
 	bool ban = msg.has_ban() && msg.ban();
@@ -1242,6 +1260,13 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	} else {
 		RATELIMIT(uSource);
 	}
+
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
 
 	// Check if the parent exists
 	if (msg.has_parent()) {
@@ -1517,6 +1542,13 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
+
 	Channel *c = qhChannels.value(msg.channel_id());
 	if (!c)
 		return;
@@ -1535,6 +1567,14 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	ZoneScoped;
 
 	MSG_SETUP(ServerUser::Authenticated);
+
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
+
 	QMutexLocker qml(&qmCache);
 
 	// For signal userTextMessage (RPC consumers)
@@ -1750,6 +1790,13 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 	Channel *c = qhChannels.value(msg.channel_id());
 	if (!c)
 		return;
+
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
 
 	// For changing channel properties (the 'Write') ACL we allow two things:
 	// 1) As per regular ACL propagating mechanism, we check if the user has been
@@ -2102,6 +2149,13 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
+
 	// The register permission is required on the root channel to be allowed to
 	// view the registered users.
 	if (!hasPermission(uSource, qhChannels.value(0), ChanACL::Register)) {
@@ -2247,6 +2301,13 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 	const QList< QSslCertificate > &certs = pDstServerUser->peerCertificateChain();
 
 	bool extend = (uSource == pDstServerUser) || hasPermission(uSource, qhChannels.value(0), ChanACL::Ban);
+
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for (int i = 0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
 
 	if (!extend && !hasPermission(uSource, pDstServerUser->cChannel, ChanACL::Enter)) {
 		PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::Enter);
