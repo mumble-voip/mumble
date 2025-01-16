@@ -170,6 +170,7 @@ set(MUMBLE_SOURCES
 	"Log.cpp"
 	"Log.h"
 	"Log.ui"
+	"Logger.cpp"
 	"LookConfig.cpp"
 	"LookConfig.h"
 	"LookConfig.ui"

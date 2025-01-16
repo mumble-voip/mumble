@@ -3,7 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "LogEmitter.h"
 #include "MainWindow.h"
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
@@ -14,53 +13,12 @@
 #include <CoreFoundation/CoreFoundation.h>
 
 char *os_lang = nullptr;
-static FILE *fConsole = nullptr;
-
-static QSharedPointer<LogEmitter> le;
 
 #define PATH_MAX 1024
 static char crashhandler_fn[PATH_MAX];
 
 static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
-
-static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
-	char c;
-
-	switch (type) {
-		case QtDebugMsg:
-			c='D';
-			break;
-		case QtWarningMsg:
-			c='W';
-			break;
-		case QtFatalMsg:
-			c='F';
-			break;
-		default:
-			c='X';
-	}
-
-	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
-	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
-	fprintf(stderr, "%s\n", qPrintable(fmsg));
-	fprintf(fConsole, "%s\n", qPrintable(fmsg));
-	fflush(fConsole);
-
-	le->addLogEntry(fmsg);
-
-	if (type == QtFatalMsg) {
-		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, nullptr, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), qPrintable(msg));
-		CFUserNotificationDisplayAlert(0, 0, nullptr,  nullptr, nullptr, CFSTR("Mumble has encountered a fatal error"), csMsg, CFSTR("OK"), nullptr, nullptr, nullptr);
-		CFRelease(csMsg);
-		exit(0);
-	}
-}
-
-static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
-	Q_UNUSED(ctx);
-	mumbleMessageOutputQString(type, msg);
-}
 
 void query_language() {
 	CFPropertyListRef cfaLangs;
@@ -128,28 +86,6 @@ static void crashhandler_handle_crash() {
 
 void os_init() {
 	crashhandler_init();
-
-	const char *home = getenv("HOME");
-	const char *logpath = "/Library/Logs/Mumble.log";
-
-	// Make a copy of the global LogEmitter, such that
-	// os_macx.mm doesn't have to consider the deletion
-	// of the Global object and its LogEmitter object.
-	le = Global::get().le;
-
-	if (home) {
-		size_t len = strlen(home) + strlen(logpath) + 1;
-		static std::vector<char> buffer;
-		buffer.resize(len);
-		char *buff = buffer.data();
-		memset(buff, 0, len);
-		strcat(buff, home);
-		strcat(buff, logpath);
-		fConsole = fopen(buff, "a+");
-		if (fConsole) {
-			qInstallMessageHandler(mumbleMessageOutputWithContext);
-		}
-	}
 
 	/* Query for language setting. OS X's LANG environment variable is determined from the region selected
 	 * in SystemPrefs -> International -> Formats -> Region instead of the system language. We override this
