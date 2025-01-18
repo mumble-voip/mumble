@@ -277,9 +277,8 @@ void AudioOutput::removeUser(const ClientUser *user) {
 	invalidateBuffer(buffer);
 }
 
-void AudioOutput::removeToken(AudioOutputToken &token) {
+void AudioOutput::invalidateToken(const AudioOutputToken &token) {
 	invalidateBuffer(token.m_buffer);
-	token = {};
 }
 
 AudioOutputToken AudioOutput::playSample(const QString &filename, float volume, bool loop) {

@@ -127,7 +127,7 @@ public:
 	unsigned int getMixerFreq() const;
 	void setBufferSize(unsigned int bufferSize);
 	void setBufferPosition(const AudioOutputToken &, float x, float y, float z);
-	void removeToken(AudioOutputToken &);
+	void invalidateToken(const AudioOutputToken &);
 	void removeUser(const ClientUser *);
 
 signals:

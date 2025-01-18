@@ -1031,7 +1031,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 			if (stopActiveCue) {
 				// Cancel active cue first, if there is any
-				ao->removeToken(m_activeAudioCue);
+				ao->invalidateToken(m_activeAudioCue);
+				m_activeAudioCue = {};
 			}
 
 			if (playAudioOnCue) {
