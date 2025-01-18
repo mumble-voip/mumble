@@ -82,7 +82,7 @@ private:
 	void invalidateBuffer(const void *);
 
 private slots:
-	void removeBuffer(const void *);
+	void removeBuffer(const void *, bool acquireWriteLock = true);
 	void handlePositionedBuffer(const void *, float x, float y, float z);
 
 protected:

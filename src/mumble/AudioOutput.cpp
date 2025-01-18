@@ -81,7 +81,7 @@ bool AudioOutputRegistrar::canExclusive() const {
 }
 
 AudioOutput::AudioOutput() {
-	QObject::connect(this, &AudioOutput::bufferInvalidated, this, &AudioOutput::removeBuffer);
+	QObject::connect(this, &AudioOutput::bufferInvalidated, this, [this](const void *buffer) { removeBuffer(buffer); });
 	QObject::connect(this, &AudioOutput::bufferPositionChanged, this, &AudioOutput::handlePositionedBuffer);
 }
 
@@ -190,12 +190,6 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 	}
 
 	if (createNew) {
-		if (speech) {
-			// invalidateBuffer doesn't dereference speech, so passing the pointer around without
-			// holding the lock is fine.
-			invalidateBuffer(speech);
-		}
-
 		while ((iMixerFreq == 0) && isAlive()) {
 			QThread::yieldCurrentThread();
 		}
@@ -205,6 +199,9 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 		}
 
 		QWriteLocker lock(&qrwlOutputs);
+		if (speech) {
+			removeBuffer(speech, false);
+		}
 
 		speech = new AudioOutputSpeech(sender, iMixerFreq, audioData.usedCodec, iBufferSize);
 		qmOutputs.replace(sender, speech);
@@ -213,8 +210,18 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 	}
 }
 
-void AudioOutput::removeBuffer(const void *buffer) {
-	QWriteLocker locker(&qrwlOutputs);
+void AudioOutput::removeBuffer(const void *buffer, bool acquireWriteLock) {
+	if (!buffer) {
+		return;
+	}
+
+	// Either this function is asked to obtain a write lock, or
+	// the calling scope already holds a **write** lock (which means
+	// that attempting to lock for read access will fail, whereas it
+	// would work if the calling scope only held a read lock).
+	assert(acquireWriteLock || !qrwlOutputs.tryLockForRead(0));
+	QWriteLocker locker(acquireWriteLock ? &qrwlOutputs : nullptr);
+
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
 			delete iter.value();
