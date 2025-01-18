@@ -272,9 +272,9 @@ void AudioOutput::removeUser(const ClientUser *user) {
 		buffer = qmOutputs.value(user);
 	}
 
-	// We rely on invalidateBuffer not actually dereferencing the passed pointer.
-	// It it did, releasing the lock before calling the function cries for trouble.
-	invalidateBuffer(buffer);
+	// We rely on removeBuffer not actually dereferencing the passed pointer.
+	// If it did, releasing the lock before calling the function cries for trouble.
+	removeBuffer(buffer);
 }
 
 void AudioOutput::invalidateToken(const AudioOutputToken &token) {
