@@ -203,7 +203,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 		if (speech) {
 			// removeBuffer doesn't dereference speech, so passing the pointer around without
 			// holding the lock is fine.
-			removeBuffer(static_cast< AudioOutputBuffer * >(speech));
+			removeBuffer(speech);
 		}
 
 		while ((iMixerFreq == 0) && isAlive()) {
@@ -223,21 +223,24 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 	}
 }
 
-void AudioOutput::handleInvalidatedBuffer(AudioOutputBuffer *buffer) {
+void AudioOutput::handleInvalidatedBuffer(const void *buffer) {
 	QWriteLocker locker(&qrwlOutputs);
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
+			delete iter.value();
 			qmOutputs.erase(iter);
-			delete buffer;
+
 			break;
 		}
 	}
 }
 
-void AudioOutput::handlePositionedBuffer(AudioOutputBuffer *buffer, float x, float y, float z) {
+void AudioOutput::handlePositionedBuffer(const void *bufferPtr, float x, float y, float z) {
 	QWriteLocker locker(&qrwlOutputs);
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
-		if (iter.value() == buffer) {
+		if (iter.value() == bufferPtr) {
+			AudioOutputBuffer *buffer = iter.value();
+
 			buffer->fPos[0] = x;
 			buffer->fPos[1] = y;
 			buffer->fPos[2] = z;
@@ -254,7 +257,7 @@ void AudioOutput::setBufferPosition(const AudioOutputToken &token, float x, floa
 	emit bufferPositionChanged(token.m_buffer, x, y, z);
 }
 
-void AudioOutput::removeBuffer(AudioOutputBuffer *buffer) {
+void AudioOutput::removeBuffer(const void *buffer) {
 	if (!buffer) {
 		return;
 	}
