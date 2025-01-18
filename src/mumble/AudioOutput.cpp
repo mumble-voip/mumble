@@ -149,23 +149,13 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 }
 
 void AudioOutput::wipe() {
-	// We need to remove all buffers from the qmOutputs map.
-	// However, the invalidateBuffer calls a signal-slot mechanism
-	// asynchronously. Doing that while iterating over the map
-	// will cause a concurrent modification
+	QWriteLocker locker(&qrwlOutputs);
 
-	QList< AudioOutputBuffer * > list;
-
-	{
-		QReadLocker locker(&qrwlOutputs);
-		for (AudioOutputBuffer *buffer : qmOutputs) {
-			list.append(buffer);
-		}
+	for (AudioOutputBuffer *buffer : qmOutputs) {
+		delete buffer;
 	}
 
-	for (AudioOutputBuffer *buffer : list) {
-		invalidateBuffer(buffer);
-	}
+	qmOutputs.clear();
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
