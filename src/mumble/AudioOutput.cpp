@@ -150,7 +150,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 void AudioOutput::wipe() {
 	// We need to remove all buffers from the qmOutputs map.
-	// However, the removeBuffer calls a signal-slot mechanism
+	// However, the invalidateBuffer calls a signal-slot mechanism
 	// asynchronously. Doing that while iterating over the map
 	// will cause a concurrent modification
 
@@ -164,7 +164,7 @@ void AudioOutput::wipe() {
 	}
 
 	for (AudioOutputBuffer *buffer : list) {
-		removeBuffer(buffer);
+		invalidateBuffer(buffer);
 	}
 }
 
@@ -201,9 +201,9 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 
 	if (createNew) {
 		if (speech) {
-			// removeBuffer doesn't dereference speech, so passing the pointer around without
+			// invalidateBuffer doesn't dereference speech, so passing the pointer around without
 			// holding the lock is fine.
-			removeBuffer(speech);
+			invalidateBuffer(speech);
 		}
 
 		while ((iMixerFreq == 0) && isAlive()) {
@@ -257,7 +257,7 @@ void AudioOutput::setBufferPosition(const AudioOutputToken &token, float x, floa
 	emit bufferPositionChanged(token.m_buffer, x, y, z);
 }
 
-void AudioOutput::removeBuffer(const void *buffer) {
+void AudioOutput::invalidateBuffer(const void *buffer) {
 	if (!buffer) {
 		return;
 	}
@@ -272,13 +272,13 @@ void AudioOutput::removeUser(const ClientUser *user) {
 		buffer = qmOutputs.value(user);
 	}
 
-	// We rely on removeBuffer not actually dereferencing the passed pointer.
+	// We rely on invalidateBuffer not actually dereferencing the passed pointer.
 	// It it did, releasing the lock before calling the function cries for trouble.
-	removeBuffer(buffer);
+	invalidateBuffer(buffer);
 }
 
 void AudioOutput::removeToken(AudioOutputToken &token) {
-	removeBuffer(token.m_buffer);
+	invalidateBuffer(token.m_buffer);
 	token = {};
 }
 
@@ -816,11 +816,11 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	}
 
 	// Delete all AudioOutputBuffer that no longer provide any new audio
-	// Note: removeBuffer does not dereference the passed pointers, which is
+	// Note: invalidateBuffer does not dereference the passed pointers, which is
 	// why it is safe to pass these pointers around while no longer holding
 	// the qrwlOutputs lock.
 	for (AudioOutputBuffer *buffer : qlDel) {
-		removeBuffer(buffer);
+		invalidateBuffer(buffer);
 	}
 
 #ifdef USE_MANUAL_PLUGIN

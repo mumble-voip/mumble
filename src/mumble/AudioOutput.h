@@ -79,7 +79,7 @@ private:
 	bool *bSpeakerPositional = nullptr;
 	/// Used when panning stereo stream w.r.t. each speaker.
 	float *fStereoPanningFactor = nullptr;
-	void removeBuffer(const void *);
+	void invalidateBuffer(const void *);
 
 private slots:
 	void handleInvalidatedBuffer(const void *);
