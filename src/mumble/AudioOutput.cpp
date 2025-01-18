@@ -81,7 +81,7 @@ bool AudioOutputRegistrar::canExclusive() const {
 }
 
 AudioOutput::AudioOutput() {
-	QObject::connect(this, &AudioOutput::bufferInvalidated, this, &AudioOutput::handleInvalidatedBuffer);
+	QObject::connect(this, &AudioOutput::bufferInvalidated, this, &AudioOutput::removeBuffer);
 	QObject::connect(this, &AudioOutput::bufferPositionChanged, this, &AudioOutput::handlePositionedBuffer);
 }
 
@@ -223,7 +223,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 	}
 }
 
-void AudioOutput::handleInvalidatedBuffer(const void *buffer) {
+void AudioOutput::removeBuffer(const void *buffer) {
 	QWriteLocker locker(&qrwlOutputs);
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
