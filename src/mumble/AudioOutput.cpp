@@ -263,7 +263,15 @@ void AudioOutput::removeBuffer(AudioOutputBuffer *buffer) {
 }
 
 void AudioOutput::removeUser(const ClientUser *user) {
-	removeBuffer(qmOutputs.value(user));
+	AudioOutputBuffer *buffer = nullptr;
+	{
+		QReadLocker lock(&qrwlOutputs);
+		buffer = qmOutputs.value(user);
+	}
+
+	// We rely on removeBuffer not actually dereferencing the passed pointer.
+	// It it did, releasing the lock before calling the function cries for trouble.
+	removeBuffer(buffer);
 }
 
 void AudioOutput::removeToken(AudioOutputToken &token) {
