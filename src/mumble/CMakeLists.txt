@@ -111,6 +111,8 @@ set(MUMBLE_SOURCES
 	"AudioOutputBuffer.cpp"
 	"AudioOutputBuffer.h"
 	"AudioOutputToken.h"
+	"AudioPreprocessor.cpp"
+	"AudioPreprocessor.h"
 	"AudioStats.cpp"
 	"AudioStats.h"
 	"AudioStats.ui"
