@@ -15,7 +15,7 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
-
+option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
 
 find_pkg(Qt6
 	VERSION 6.2
@@ -235,6 +235,13 @@ else()
 
 		target_link_libraries(shared PUBLIC MSGSL::MSGSL)
 	endif()
+endif()
+
+if(bundled-spdlog)
+	target_include_directories(shared SYSTEM PUBLIC "${3RDPARTY_DIR}/spdlog/include")
+else()
+	find_pkg("spdlog")
+	target_link_libraries(shared PUBLIC spdlog::spdlog)
 endif()
 
 if(client)

@@ -49,6 +49,11 @@ Build the included version of nlohmann_json instead of looking for one on the sy
 Build the included version of ReNameNoise instead of looking for one on the system.
 (Default: ${renamenoise})
 
+### bundled-spdlog
+
+Use the bundled spdlog version instead of looking for one on the system
+(Default: ON)
+
 ### bundled-speex
 
 Build the included version of Speex instead of looking for one on the system.
