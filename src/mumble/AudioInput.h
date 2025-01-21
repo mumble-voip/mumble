@@ -21,11 +21,11 @@
 #include <vector>
 
 #include <speex/speex_echo.h>
-#include <speex/speex_preprocess.h>
 #include <speex/speex_resampler.h>
 
 #include "Audio.h"
 #include "AudioOutputToken.h"
+#include "AudioPreprocessor.h"
 #include "EchoCancelOption.h"
 #include "MumbleProtocol.h"
 #include "Settings.h"
@@ -224,7 +224,7 @@ protected:
 	static const int iFrameSize = SAMPLE_RATE / 100;
 
 	QMutex qmSpeex;
-	SpeexPreprocessState *sppPreprocess;
+	AudioPreprocessor m_preprocessor;
 	SpeexEchoState *sesEcho;
 
 	/// bResetEncoder is a flag that notifies
