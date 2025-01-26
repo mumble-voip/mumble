@@ -1,7 +1,6 @@
 .. _voice-data:
 
-Voice data
-==========
+# Voice data
 
 Mumble audio channel is used to transmit the actual audio packets over the
 network. Unlike the TCP control channel, the audio channel uses a custom
@@ -11,8 +10,7 @@ above 8-bits are encoded using the `Variable length integer encoding`_.
 
 .. _packet-format:
 
-Packet format
--------------
+## Packet format
 
 The mumble audio channel packets are variable length packets that begin with an
 8-bit header field which describes the packet type and target. The most
@@ -91,8 +89,7 @@ target
    | ``31``    | Server loopback                                     |
    +-----------+-----------------------------------------------------+
 
-Ping packet
-~~~~~~~~~~~
+### Ping packet
 
 Audio channel ping packets are used as part of the connectivity checks on the
 audio transport layer. These packets contain only varint encoded timestamp as
@@ -120,8 +117,7 @@ Data
   decided by the original sender - the only limitation is that it must fit in a
   64-bit integer for the varint encoding.
 
-Encoded audio data packet
-~~~~~~~~~~~~~~~~~~~~~~~~~
+### Encoded audio data packet
 
 Encoded audio packets contain the actual user audio data for the voice
 communication. Incoming audio data packets contain the common header byte
@@ -196,8 +192,7 @@ Position Info
   ``UserState`` message. The plugins might define different contexts which
   prevent voice communication between users in other contexts.
 
-Speex and CELT audio frames
-"""""""""""""""""""""""""""
+#### Speex and CELT audio frames
 
 Encoded Speex and CELT audio is transported as individual encoded frames. Each
 frame is prefixed with a single byte length and terminator header.
@@ -227,8 +222,7 @@ Data
   Single encoded audio frame. The encoding depends on the codec ``type`` header
   of the whole audio packet
 
-Opus audio frames
-"""""""""""""""""
+#### Opus audio frames
 
 Encoded Opus audio is transported as a single Opus audio frame. The frame is prefixed with a variable byte header.
 
@@ -263,8 +257,7 @@ Header
 Data
   The encoded Opus data.
 
-Codecs
-------
+## Codecs
 
 Mumble supports three distinct codecs; Older Mumble versions use Speex for low
 bitrate audio and CELT for higher quality audio while new Mumble versions
@@ -284,8 +277,7 @@ to force Opus codec for the users. Mumble has had Opus support since 1.2.4
 (June 2013) so it should be safe to assume most clients in use support this
 now.
 
-Whispering
-----------
+## Whispering
 
 Normal talking can be heard by the users of the current channel and all linked
 channels as long as the speaker has Talk permission on these channels. If the
@@ -294,8 +286,7 @@ use whispering. This is achieved by registering a voice target using the
 VoiceTarget message and specifying the target ID as the target in the first
 byte of the UDP packet.
 
-UDP connectivity checks
------------------------
+## UDP connectivity checks
 
 Since UDP is a connectionless protocol, it is heavily affected by network
 topology such as NAT configuration. It should not be used for audio
@@ -316,8 +307,7 @@ communication. The client should still continue sending audio ping packets over
 the UDP transport in case the UDP connection is restored and the communication
 can be switched back to it.
 
-Tunneling audio over TCP
-------------------------
+## Tunneling audio over TCP
 
 If the UDP channel isn't available the voice packets can be transmitted through
 the TCP transport used for the control channel. These messages use the normal
@@ -332,8 +322,7 @@ normally.  If the type matches that of the audio tunnel the rest of the message
 should be processed as an UDP packet without attempting a protocol buffer
 decoding.
 
-Implementation note
-~~~~~~~~~~~~~~~~~~~
+### Implementation note
 
 When implementing the protocol it is easier to ignore the UDP transfer layer at
 first and just tunnel the UDP data through the TCP tunnel. The TCP layer must
@@ -341,8 +330,7 @@ be implemented for authentication in any case. Making sure that the voice
 transmission works before implementing the UDP protocol simplifies debugging
 greatly.
 
-Encryption
-----------
+## Encryption
 
 All the packets are encrypted once during transfer. The actual encryption
 depends on the used transport layer. If the packets are tunneled through TCP
@@ -350,8 +338,7 @@ they are encrypted using the TLS that encrypts the whole control channel
 connection and if they are sent directly using UDP they must be encrypted using
 the OCB-AES128 encryption.
 
-Variable length integer encoding
---------------------------------
+## Variable length integer encoding
 
 The variable length integer encoding (``varint``) is used to encode long,
 64-bit, integers so that short values do not need the full 8 bytes to be

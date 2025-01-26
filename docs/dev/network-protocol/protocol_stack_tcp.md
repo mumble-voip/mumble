@@ -1,5 +1,4 @@
-Protocol stack (TCP)
-====================
+# Protocol stack (TCP)
 
 Mumble has a shallow and easy to understand stack. Basically it
 uses Google's Protocol Buffers [#f1]_ with simple prefixing to

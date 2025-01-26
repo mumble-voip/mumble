@@ -1,5 +1,4 @@
-Overview
-========
+# Overview
 
 Mumble is based on a standard server-client communication model. It
 utilizes two channels of communication, the first one is a TCP connection
