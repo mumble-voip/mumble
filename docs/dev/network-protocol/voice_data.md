@@ -34,23 +34,14 @@ overhead.
   audio packets encoded with different codecs. Different types are listed in
   *Audio packet types* table.
 
-```text
-+------+----------+-------------------------------+
-| Type | Bitfield | Description                   |
-+======+==========+===============================+
-| 0    | 000xxxxx | CELT Alpha encoded voice data |
-+------+----------+-------------------------------+
-| 1    | 001xxxxx | Ping packet                   |
-+------+----------+-------------------------------+
-| 2    | 010xxxxx | Speex encoded voice data      |
-+------+----------+-------------------------------+
-| 3    | 011xxxxx | CELT Beta encoded voice data  |
-+------+----------+-------------------------------+
-| 4    | 100xxxxx | OPUS encoded voice data       |
-+------+----------+-------------------------------+
-| 5-7  |          | Unused                        |
-+------+----------+-------------------------------+
-```
+| Type    | Bitfield   | Description                   |
+| ------- | ---------- | ----------------------------- |
+| `0`     | `000xxxxx` | CELT Alpha encoded voice data |
+| `1`     | `001xxxxx` | Ping packet                   |
+| `2`     | `010xxxxx` | Speex encoded voice data      |
+| `3`     | `011xxxxx` | CELT Beta encoded voice data  |
+| `4`     | `100xxxxx` | OPUS encoded voice data       |
+| `5`-`7` |            | Unused                        |
 
 `target`:
   The target portion defines the recipient for the audio data. The two constant
@@ -88,15 +79,10 @@ audio transport layer. These packets contain only varint encoded timestamp as
 data.  See *UDP connectivity checks* section below for the logic involved in
 the connectivity checks.
 
-```text
-+--------+--------+------------------+
-| Field  | Type   | Description      |
-+========+========+==================+
-| Header | byte   | 00100000b (0x20) |
-+--------+--------+------------------+
-| Data   | varint | Timestamp        |
-+--------+--------+------------------+
-```
+| Field    | Type     | Description          |
+| -------- | -------- | -------------------- |
+| `Header` | `byte`   | `00100000b` (`0x20`) |
+| `Data`   | `varint` | Timestamp            |
 
 `Header`:
   Common audio packet header. For ping packets this should have the value of
@@ -124,37 +110,22 @@ possible positional audio data can be read from the end.
 
 Incoming encoded audio packet:
 
-```text
-+--------------------+------------+-----------------------------------------------------------+
-| Field              | Type       | Description                                               |
-+====================+============+===========================================================+
-| Header             | byte       | Codec type/Audio target                                   |
-+--------------------+------------+-----------------------------------------------------------+
-| Session ID         | varint     | Session ID of the source user.                            |
-+--------------------+------------+-----------------------------------------------------------+
-| Sequence Number    | varint     | Sequence number of the first audio data **segment**.      |
-+--------------------+------------+-----------------------------------------------------------+
-| Payload            | byte[]     | Audio payload                                             |
-+--------------------+------------+-----------------------------------------------------------+
-| Position Info      | float[3]   | Positional audio information                              |
-+--------------------+------------+-----------------------------------------------------------+
-```
+| Field             | Type       | Description                                        |
+| ----------------- | ---------- | -------------------------------------------------- |
+| `Header`          | `byte`     | Codec type/Audio target                            |
+| `Session ID`      | `varint`   | Session ID of the source user.                     |
+| `Sequence Number` | `varint`   | Sequence number of the first audio data *segment*. |
+| `Payload`         | `byte[]`   | Audio payload                                      |
+| `Position Info`   | `float[3]` | Positional audio information                       |
 
 Outgoing encoded audio packet:
 
-```text
-+--------------------+------------+-----------------------------------------------------------+
-| Field              | Type       | Description                                               |
-+====================+============+===========================================================+
-| Header             | byte       | Codec type/Audio target                                   |
-+--------------------+------------+-----------------------------------------------------------+
-| Sequence Number    | varint     | Sequence number of the first audio data **segment**.      |
-+--------------------+------------+-----------------------------------------------------------+
-| Payload            | byte[]     | Audio payload                                             |
-+--------------------+------------+-----------------------------------------------------------+
-| Position Info      | float[3]   | Positional audio information                              |
-+--------------------+------------+-----------------------------------------------------------+
-```
+| Field             | Type       | Description                                        |
+| ----------------- | ---------- | -------------------------------------------------- |
+| `Header`          | `byte`     | Codec type/Audio target                            |
+| `Sequence Number` | `varint`   | Sequence number of the first audio data *segment*. |
+| `Payload`         | `byte[]`   | Audio payload                                      |
+| `Position Info`   | `float[3]` | Positional audio information                       |
 
 `Header`:
   The common audio packet header
@@ -188,15 +159,10 @@ Outgoing encoded audio packet:
 Encoded Speex and CELT audio is transported as individual encoded frames. Each
 frame is prefixed with a single byte length and terminator header.
 
-```text
-+---------+-----------+-----------------------------------------+
-| Field   | Type      | Description                             |
-+=========+===========+=========================================+
-| Header  | byte      | length/continuation header              |
-+---------+-----------+-----------------------------------------+
-| Data    | byte[]    | Encoded voice frame                     |
-+---------+-----------+-----------------------------------------+
-```
+| Field    | Type     | Description                |
+| -------- | -------- | -------------------------- |
+| `Header` | `byte`   | length/continuation header |
+| `Data`   | `byte[]` | Encoded voice frame        |
 
 `Header`:
   The length of the Data field. The most significant bit (`0x80`) acts as the
@@ -215,15 +181,10 @@ frame is prefixed with a single byte length and terminator header.
 
 Encoded Opus audio is transported as a single Opus audio frame. The frame is prefixed with a variable byte header.
 
-```text
-+---------+-------------+-----------------------------------------+
-| Field   | Type        | Description                             |
-+=========+=============+=========================================+
-| Header  | varint      | length/terminator header                |
-+---------+-------------+-----------------------------------------+
-| Data    | byte[]      | Encoded voice frame                     |
-+---------+-------------+-----------------------------------------+
-```
+| Field    | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `Header` | `varint` | length/terminator header |
+| `Data`   | `byte[]` | Encoded voice frame      |
 
 `Header`:
   The length of the Data field. 16-bit variable length integer encoded length
@@ -344,24 +305,13 @@ See the *quint64* shift operators in
 <https://github.com/mumble-voip/mumble/blob/master/src/PacketDataStream.h>
 for a reference implementation.
 
-```text
-+--------------------------+---------------------------------------------+
-| Encoded                  | Decoded                                     |
-+==========================+=============================================+
-| 0xxxxxxx                 | 7-bit positive number                       |
-+--------------------------+---------------------------------------------+
-| 10xxxxxx + 1 byte        | 14-bit positive number                      |
-+--------------------------+---------------------------------------------+
-| 110xxxxx + 2 bytes       | 21-bit positive number                      |
-+--------------------------+---------------------------------------------+
-| 1110xxxx + 3 bytes       | 28-bit positive number                      |
-+--------------------------+---------------------------------------------+
-| 111100__ + int (32-bit)  | 32-bit positive number                      |
-+--------------------------+---------------------------------------------+
-| 111101__ + long (64-bit) | 64-bit number                               |
-+--------------------------+---------------------------------------------+
-| 111110__ + varint        | Negative recursive varint                   |
-+--------------------------+---------------------------------------------+
-| 111111xx                 | Byte-inverted negative two bit number (~xx) |
-+--------------------------+---------------------------------------------+
-```
+| Encoded                      | Decoded                                     |
+| ---------------------------- | ------------------------------------------- |
+| `0xxxxxxx`                   | 7-bit positive number                       |
+| `10xxxxxx` + 1 byte          | 14-bit positive number                      |
+| `110xxxxx` + 2 bytes         | 21-bit positive number                      |
+| `1110xxxx` + 3 bytes         | 28-bit positive number                      |
+| `111100__` + `int` (32-bit)  | 32-bit positive number                      |
+| `111101__` + `long` (64-bit) | 64-bit number                               |
+| `111110__` + `varint`        | Negative recursive varint                   |
+| `111111xx`                   | Byte-inverted negative two bit number (~xx) |
