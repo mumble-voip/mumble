@@ -6,7 +6,7 @@ Mumble audio channel is used to transmit the actual audio packets over the
 network. Unlike the TCP control channel, the audio channel uses a custom
 encoding for the audio packets. The audio channel is transport independent and
 features such as encryption are implemented by the transport layer. Integers
-above 8-bits are encoded using the `Variable length integer encoding`_.
+above 8-bits are encoded using the *Variable length integer encoding*.
 
 .. _packet-format:
 
@@ -36,7 +36,7 @@ type
   The audio packet type. The packets transmitted over the audio channel are
   either ping packets used to diagnose the transport layer connectivity or
   audio packets encoded with different codecs. Different types are listed in
-  `Audio packet types`_ table.
+  *Audio packet types* table.
 
 ```text
 +---------+---------------+--------------------------------------------+
@@ -61,7 +61,7 @@ target
   targets are *Normal talking* (``0``) and *Server Loopback* (``31``). The
   range 1-30 is reserved for whisper targets. These targets are specified
   separately in the control channel using the ``VoiceTarget`` packets. The
-  targets are listed in `Audio targets`_ table.
+  targets are listed in *Audio targets* table.
 
   When a client registers a VoiceTarget on the server, it gives the target an
   ID. This voice target ID can be used as a target in the voice packets to send
@@ -89,7 +89,7 @@ target
 
 Audio channel ping packets are used as part of the connectivity checks on the
 audio transport layer. These packets contain only varint encoded timestamp as
-data.  See `UDP connectivity checks`_ section below for the logic involved in
+data.  See *UDP connectivity checks* section below for the logic involved in
 the connectivity checks.
 
 ```text
@@ -283,7 +283,7 @@ Since UDP is a connectionless protocol, it is heavily affected by network
 topology such as NAT configuration. It should not be used for audio
 transmission before the connectivity has been determined.
 
-The client starts the connectivity checks by sending a `Ping packet`_ to the
+The client starts the connectivity checks by sending a *Ping packet* to the
 server. When the server receives this packet it will respond by echoing it back
 to the address it received it from. Once the client receives the response from
 the server it can start using the UDP transport for audio data. When the server
@@ -292,7 +292,7 @@ audio over to UDP transport as well.
 
 If the client stops receiving replies to the UDP pings at some point, it should
 start tunneling the voice communication through the TCP tunnel as described in
-the `Tunneling audio over TCP`_ below. When the server receives a tunneled
+the *Tunneling audio over TCP* below. When the server receives a tunneled
 packet over the TCP connection it must also stop using the UDP for
 communication. The client should still continue sending audio ping packets over
 the UDP transport in case the UDP connection is restored and the communication
@@ -305,7 +305,7 @@ the TCP transport used for the control channel. These messages use the normal
 TCP prefixing, as shown in [Protocol Stack TCP](protocol_stack_tcp.md): 16-bit message type
 followed by 32-bit message length. However unlike other TCP messages, the audio
 packets are not encoded as protocol buffer messages but instead the raw audio
-packet described in `Packet format`_ should be written to the TCP socket
+packet described in *Packet format* should be written to the TCP socket
 verbatim.
 
 When the packets are received it is safe to parse the type and length fields
