@@ -28,7 +28,7 @@ overhead.
 +-------------------------------+
 ```
 
-type
+`type`:
   The audio packet type. The packets transmitted over the audio channel are
   either ping packets used to diagnose the transport layer connectivity or
   audio packets encoded with different codecs. Different types are listed in
@@ -52,7 +52,7 @@ type
 +------+----------+-------------------------------+
 ```
 
-target
+`target`:
   The target portion defines the recipient for the audio data. The two constant
   targets are *Normal talking* (`0`) and *Server Loopback* (`31`). The
   range 1-30 is reserved for whisper targets. These targets are specified
@@ -98,11 +98,11 @@ the connectivity checks.
 +--------+--------+------------------+
 ```
 
-Header
+`Header`:
   Common audio packet header. For ping packets this should have the value of
   0x20.
 
-Data
+`Data`:
   Timestamp. The packet should be echoed back so the timestamp format can be
   decided by the original sender - the only limitation is that it must fit in a
   64-bit integer for the varint encoding.
@@ -156,13 +156,13 @@ Outgoing encoded audio packet:
 +--------------------+------------+-----------------------------------------------------------+
 ```
 
-Header
+`Header`:
   The common audio packet header
 
-Session ID
+`Session ID`:
   Session ID of the user to whom the audio packet belongs.
 
-Sequence Number
+`Sequence Number`:
   Audio data sequence number. The sequence number is used to maintain the
   packet order when the audio data is transported over unreliable transports
   such as UDP.
@@ -172,12 +172,12 @@ Sequence Number
   allows the packet loss concealment algorithms to figure out how many audio
   frames were lost between two received packets.
 
-Payload
+`Payload`:
   Audio payload. Format depends on the audio codec defined in the Header. The
   payload must be self-delimiting to determine whether the position info exists
   at the end of the packet.
 
-Position Info
+`Position Info`:
   The XYZ coordinates of the audio source. In addition to sending the position
   information, the user must be using a positional plugin defined in the
   `UserState` message. The plugins might define different contexts which
@@ -198,7 +198,7 @@ frame is prefixed with a single byte length and terminator header.
 +---------+-----------+-----------------------------------------+
 ```
 
-Header
+`Header`:
   The length of the Data field. The most significant bit (`0x80`) acts as the
   continuation bit and is set for all but the last frame in the payload. The
   remaining 7 bits of the header contain the actual length of the Data frame.
@@ -207,7 +207,7 @@ Header
   transmission. In this case the audio data is a single zero-byte which can be
   interpreted normally as length of 0 with no continuation bit set.
 
-Data
+`Data`:
   Single encoded audio frame. The encoding depends on the codec `type` header
   of the whole audio packet
 
@@ -225,7 +225,7 @@ Encoded Opus audio is transported as a single Opus audio frame. The frame is pre
 +---------+-------------+-----------------------------------------+
 ```
 
-Header
+`Header`:
   The length of the Data field. 16-bit variable length integer encoded length
   and terminator bit value. The varint encoding is the same as with 64-bit
   values, but only 16-bit unencoded values are allowed.
@@ -241,7 +241,7 @@ Header
   zero-byte CELT packet while in Opus we have a dedicated termination bit in
   the header.
 
-Data
+`Data`:
   The encoded Opus data.
 
 ## Codecs
