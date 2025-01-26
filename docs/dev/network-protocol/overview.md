@@ -6,19 +6,11 @@ which is used to reliably transfer control data between the client and the
 server. The second one is a UDP connection which is used for unreliable,
 low latency transfer of voice data.
 
-.. figure:: resources/mumble_system_overview.png
-   :alt: Mumble system overview
-   :align: center
-
-   Mumble system overview
+![Mumble system overview](resources/mumble_system_overview.png)
 
 Both are protected by strong cryptography, this encryption is mandatory and cannot be disabled. The TCP control channel uses TLSv1 AES256-SHA [#f1]_ while the voice channel is encrypted with OCB-AES128 [#f2]_.
 
-.. figure:: resources/mumble_crypt_types.png
-   :alt: Mumble crypt types
-   :align: center
-
-   Mumble crypto types
+![Mumble crypt types](resources/mumble_crypt_types.png)
 
 While the TCP connection is mandatory the UDP connection can be compensated by tunnelling the UDP packets through the TCP connection as described in the protocol description later.
 

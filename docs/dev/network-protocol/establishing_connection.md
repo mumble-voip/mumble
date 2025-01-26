@@ -16,11 +16,7 @@ This however is not mandatory as you can connect to the server without
 providing a certificate. However the server must provide the client with
 its certificate and it is recommended that the client checks this.
 
-.. figure:: resources/mumble_connection_setup.png
-   :alt: Mumble connection setup
-   :align: center
-
-   Mumble connection setup
+![Mumble connection setup](resources/mumble_connection_setup.png)
 
 ## Version exchange
 
