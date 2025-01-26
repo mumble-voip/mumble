@@ -1,5 +1,3 @@
-.. _voice-data:
-
 # Voice data
 
 Mumble audio channel is used to transmit the actual audio packets over the
@@ -7,8 +5,6 @@ network. Unlike the TCP control channel, the audio channel uses a custom
 encoding for the audio packets. The audio channel is transport independent and
 features such as encryption are implemented by the transport layer. Integers
 above 8-bits are encoded using the *Variable length integer encoding*.
-
-.. _packet-format:
 
 ## Packet format
 
