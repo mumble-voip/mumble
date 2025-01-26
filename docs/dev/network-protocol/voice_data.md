@@ -54,9 +54,9 @@ type
 
 target
   The target portion defines the recipient for the audio data. The two constant
-  targets are *Normal talking* (``0``) and *Server Loopback* (``31``). The
+  targets are *Normal talking* (`0`) and *Server Loopback* (`31`). The
   range 1-30 is reserved for whisper targets. These targets are specified
-  separately in the control channel using the ``VoiceTarget`` packets. The
+  separately in the control channel using the `VoiceTarget` packets. The
   targets are listed in *Audio targets* table.
 
   When a client registers a VoiceTarget on the server, it gives the target an
@@ -180,7 +180,7 @@ Payload
 Position Info
   The XYZ coordinates of the audio source. In addition to sending the position
   information, the user must be using a positional plugin defined in the
-  ``UserState`` message. The plugins might define different contexts which
+  `UserState` message. The plugins might define different contexts which
   prevent voice communication between users in other contexts.
 
 #### Speex and CELT audio frames
@@ -199,7 +199,7 @@ frame is prefixed with a single byte length and terminator header.
 ```
 
 Header
-  The length of the Data field. The most significant bit (``0x80``) acts as the
+  The length of the Data field. The most significant bit (`0x80`) acts as the
   continuation bit and is set for all but the last frame in the payload. The
   remaining 7 bits of the header contain the actual length of the Data frame.
 
@@ -208,7 +208,7 @@ Header
   interpreted normally as length of 0 with no continuation bit set.
 
 Data
-  Single encoded audio frame. The encoding depends on the codec ``type`` header
+  Single encoded audio frame. The encoding depends on the codec `type` header
   of the whole audio packet
 
 #### Opus audio frames
@@ -230,8 +230,8 @@ Header
   and terminator bit value. The varint encoding is the same as with 64-bit
   values, but only 16-bit unencoded values are allowed.
 
-  The maximum voice frame size is 8191 (``0x1FFF``) bytes requiring the 13 least
-  significant bits of the header. The 14th bit (mask: ``0x2000``) is the terminator
+  The maximum voice frame size is 8191 (`0x1FFF`) bytes requiring the 13 least
+  significant bits of the header. The 14th bit (mask: `0x2000`) is the terminator
   bit which signals whether the packet is the last one in the voice
   transmission.
 
@@ -327,15 +327,15 @@ the OCB-AES128 encryption.
 
 ## Variable length integer encoding
 
-The variable length integer encoding (``varint``) is used to encode long,
+The variable length integer encoding (`varint`) is used to encode long,
 64-bit, integers so that short values do not need the full 8 bytes to be
 transferred. The basic idea behind the encoding is prefixing the value with a
 length prefix and then removing the leading zeroes from the value. The positive
 numbers are always right justified. That is to say that the least significant
 bit in the encoded presentation matches the least significant bit in the
 decoded presentation.  The *varint prefixes* table contains the definitions of
-the different length prefixes. The encoded ``x`` bits are part of the decoded
-number while the ``_`` signifies a unused bit. Encoding should be done by
+the different length prefixes. The encoded `x` bits are part of the decoded
+number while the `_` signifies a unused bit. Encoding should be done by
 searching the first decoded description that fits the number that should be
 decoded, truncating it to the required bytes and combining it with the defined
 encoding prefix.
