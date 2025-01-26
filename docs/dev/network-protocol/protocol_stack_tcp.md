@@ -1,7 +1,7 @@
 # Protocol stack (TCP)
 
 Mumble has a shallow and easy to understand stack. Basically it
-uses Google's Protocol Buffers [#f1]_ with simple prefixing to
+uses Google's Protocol Buffers[^1] with simple prefixing to
 distinguish the different kinds of packets sent through an TLSv1
 encrypted connection. This makes the protocol very easily expandable.
 
@@ -72,10 +72,7 @@ If not mentioned otherwise all fields outside the protobuf encoding are big-endi
    | 25      | SuggestConfig          |
    +---------+------------------------+
 
-For raw representation of each packet type see the attached Mumble.proto [#f2]_ file.
+For raw representation of each packet type see the attached Mumble.proto [^2] file.
 
-
-..      rubric:: Footnotes
-
-.. [#f1] https://github.com/google/protobuf
-.. [#f2] https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto
+[^1]: <https://github.com/google/protobuf>
+[^2]: <https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto>

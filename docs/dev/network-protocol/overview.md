@@ -8,13 +8,11 @@ low latency transfer of voice data.
 
 ![Mumble system overview](resources/mumble_system_overview.png)
 
-Both are protected by strong cryptography, this encryption is mandatory and cannot be disabled. The TCP control channel uses TLSv1 AES256-SHA [#f1]_ while the voice channel is encrypted with OCB-AES128 [#f2]_.
+Both are protected by strong cryptography, this encryption is mandatory and cannot be disabled. The TCP control channel uses TLSv1 AES256-SHA[^1] while the voice channel is encrypted with OCB-AES128[^2].
 
 ![Mumble crypt types](resources/mumble_crypt_types.png)
 
 While the TCP connection is mandatory the UDP connection can be compensated by tunnelling the UDP packets through the TCP connection as described in the protocol description later.
 
-.. rubric:: Footnotes
-
-.. [#f1] http://en.wikipedia.org/wiki/Transport_Layer_Security
-.. [#f2] http://www.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm
+[^1]: <http://en.wikipedia.org/wiki/Transport_Layer_Security>
+[^2]: <http://www.cs.ucdavis.edu/~rogaway/ocb/ocb-back.htm>

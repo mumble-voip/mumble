@@ -215,7 +215,7 @@ a ServerSync message containing the session id of the clients session,
 the maximum bandwidth allowed on this server, the servers welcome text
 as well as the permissions the client has in the channel it ended up in.
 
-For more information pease refer to the Mumble.proto file [#f1]_.
+For more information pease refer to the Mumble.proto file[^1].
 
 ## Ping
 
@@ -223,6 +223,4 @@ If the client wishes to maintain the connection to the server it is required
 to ping the server. If the server does not receive a ping for 30 seconds it
 will disconnect the client.
 
-..      rubric:: Footnotes
-
-.. [#f1] https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto
+[^1]: <https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto>
