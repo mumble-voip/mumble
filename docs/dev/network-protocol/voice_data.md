@@ -341,7 +341,7 @@ decoded, truncating it to the required bytes and combining it with the defined
 encoding prefix.
 
 See the *quint64* shift operators in
-https://github.com/mumble-voip/mumble/blob/master/src/PacketDataStream.h
+<https://github.com/mumble-voip/mumble/blob/master/src/PacketDataStream.h>
 for a reference implementation.
 
 ```text
