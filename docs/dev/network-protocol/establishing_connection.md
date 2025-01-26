@@ -23,51 +23,51 @@ its certificate and it is recommended that the client checks this.
 Once the TLS handshake is completed both sides should transmit their version
 information using the Version message. The message structure is described below.
 
-.. table:: Version message
-
-   +--------------------------------------+
-   | Version                              |
-   +===========================+==========+
-   | version                   | uint32   |
-   +---------------------------+----------+
-   | release                   | string   |
-   +---------------------------+----------+
-   | os                        | string   |
-   +---------------------------+----------+
-   | os_version                | string   |
-   +---------------------------+----------+
+```text
++--------------------------------------+
+| Version                              |
++===========================+==========+
+| version                   | uint32   |
++---------------------------+----------+
+| release                   | string   |
++---------------------------+----------+
+| os                        | string   |
++---------------------------+----------+
+| os_version                | string   |
++---------------------------+----------+
+```
 
 The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0)
 so that major number takes two bytes and minor and patch numbers take one byte each.
 The release, os and os\_version
 fields are common strings containing additional information.
 
-.. table:: Version field encoding (uint32)
-
-   +---------------------------+----------+----------+
-   | Major                     | Minor    | Patch    |
-   +===========================+==========+==========+
-   | 2 bytes                   | 1 byte   | 1 byte   |
-   +---------------------------+----------+----------+
+```text
++---------------------------+----------+----------+
+| Major                     | Minor    | Patch    |
++===========================+==========+==========+
+| 2 bytes                   | 1 byte   | 1 byte   |
++---------------------------+----------+----------+
+```
 
 The version information may be used as part of the *SuggestConfig* checks, which usually
 refer to the standard client versions. The major changes between these versions are listed
 in table below. The *release*, *os* and *os_version* information is not interpreted in
 any way at the moment.
 
-.. table:: Mumble version differences
-
-   +---------------+-------------------------------------------+
-   | Version       | Major changes                             |
-   +===============+===========================================+
-   | 1.2.0         | CELT 0.7.0 codec support                  |
-   +---------------+-------------------------------------------+ 
-   | 1.2.2         | CELT 0.7.1 codec support                  |
-   +---------------+-------------------------------------------+
-   | 1.2.3         | CELT 0.11.0 codec                         |
-   +---------------+-------------------------------------------+
-   | 1.2.4         | Opus codec support, SuggestConfig message |
-   +---------------+-------------------------------------------+
+```text
++---------------+-------------------------------------------+
+| Version       | Major changes                             |
++===============+===========================================+
+| 1.2.0         | CELT 0.7.0 codec support                  |
++---------------+-------------------------------------------+ 
+| 1.2.2         | CELT 0.7.1 codec support                  |
++---------------+-------------------------------------------+
+| 1.2.3         | CELT 0.11.0 codec                         |
++---------------+-------------------------------------------+
+| 1.2.4         | Opus codec support, SuggestConfig message |
++---------------+-------------------------------------------+
+```
 
 ## Authenticate
 
@@ -76,17 +76,17 @@ The message structure is described in the figure below. This message may be sent
 after sending the version message. The client does not need to wait for the server version
 message.
 
-.. table:: Authenticate message
-
-   +-----------------------------------------------+
-   | Authenticate                                  |
-   +===========================+===================+
-   | username                  | string            |
-   +---------------------------+-------------------+
-   | password                  | string            |
-   +---------------------------+-------------------+
-   | tokens                    | string            |
-   +---------------------------+-------------------+
+```text
++-----------------------------------------------+
+| Authenticate                                  |
++===========================+===================+
+| username                  | string            |
++---------------------------+-------------------+
+| password                  | string            |
++---------------------------+-------------------+
+| tokens                    | string            |
++---------------------------+-------------------+
+```
 
 The username and password are UTF-8 encoded strings. While the client is free to accept any
 username from the user the server is allowed to impose further restrictions. Furthermore
@@ -109,17 +109,17 @@ the client. It contains the necessary cryptographic information for the OCB-AES1
 encryption used in the UDP Voice channel. The packet is described in figure
 below. The encryption itself is described in a later section.
 
-.. table:: CryptSetup message
-
-   +-----------------------------------------------+
-   | CryptSetup                                    |
-   +===========================+===================+
-   | key                       | bytes             |
-   +---------------------------+-------------------+
-   | client_nonce              | bytes             |
-   +---------------------------+-------------------+
-   | server_nonce              | bytes             |
-   +---------------------------+-------------------+
+```text
++-----------------------------------------------+
+| CryptSetup                                    |
++===========================+===================+
+| key                       | bytes             |
++---------------------------+-------------------+
+| client_nonce              | bytes             |
++---------------------------+-------------------+
+| server_nonce              | bytes             |
++---------------------------+-------------------+
+```
 
 ## Channel states
 
@@ -130,30 +130,29 @@ picture of all the channels. Once the initial ChannelState has been transmitted
 for all channels the server updates the linked channels by sending new packets for
 these. The full structure of these ChannelState messages is shown below:
 
-.. table:: ChannelState message
-
-   +-----------------------------------------------+
-   | ChannelState                                  |
-   +===========================+===================+
-   | channel_id                | uint32            |
-   +---------------------------+-------------------+
-   | parent                    | uint32            |
-   +---------------------------+-------------------+
-   | name                      | string            |
-   +---------------------------+-------------------+
-   | links                     | repeated uint32   |
-   +---------------------------+-------------------+
-   | description               | string            |
-   +---------------------------+-------------------+
-   | links_add                 | repeated uint32   |
-   +---------------------------+-------------------+
-   | links_remove              | repeated uint32   |
-   +---------------------------+-------------------+
-   | temporary                 | optional bool     |
-   +---------------------------+-------------------+
-   | position                  | optional int32    |
-   +---------------------------+-------------------+
-
+```text
++-----------------------------------------------+
+| ChannelState                                  |
++===========================+===================+
+| channel_id                | uint32            |
++---------------------------+-------------------+
+| parent                    | uint32            |
++---------------------------+-------------------+
+| name                      | string            |
++---------------------------+-------------------+
+| links                     | repeated uint32   |
++---------------------------+-------------------+
+| description               | string            |
++---------------------------+-------------------+
+| links_add                 | repeated uint32   |
++---------------------------+-------------------+
+| links_remove              | repeated uint32   |
++---------------------------+-------------------+
+| temporary                 | optional bool     |
++---------------------------+-------------------+
+| position                  | optional int32    |
++---------------------------+-------------------+
+```
 
 *The server must send a ChannelState for the root channel identified with ID 0.*
 
@@ -163,49 +162,49 @@ After the channels have been synchronized the server continues by listing the
 connected users. This is done by sending a UserState message for each user
 currently on the server, including the user that is currently connecting.
 
-.. table:: UserState message
-
-   +-----------------------------------------------+
-   | UserState                                     |
-   +===========================+===================+
-   | session                   | uint32            |
-   +---------------------------+-------------------+
-   | actor                     | uint32            |
-   +---------------------------+-------------------+
-   | name                      | string            |
-   +---------------------------+-------------------+
-   | user_id                   | uint32            |
-   +---------------------------+-------------------+
-   | channel_id                | uint32            |
-   +---------------------------+-------------------+
-   | mute                      | bool              |
-   +---------------------------+-------------------+
-   | deaf                      | bool              |
-   +---------------------------+-------------------+
-   | suppress                  | bool              |
-   +---------------------------+-------------------+
-   | self_mute                 | bool              |
-   +---------------------------+-------------------+
-   | self_deaf                 | bool              |
-   +---------------------------+-------------------+
-   | texture                   | bytes             |
-   +---------------------------+-------------------+
-   | plugin_context            | bytes             |
-   +---------------------------+-------------------+
-   | plugin_identity           | string            |
-   +---------------------------+-------------------+
-   | comment                   | string            |
-   +---------------------------+-------------------+
-   | hash                      | string            |
-   +---------------------------+-------------------+
-   | comment_hash              | bytes             |
-   +---------------------------+-------------------+
-   | texture_hash              | bytes             |
-   +---------------------------+-------------------+
-   | priority_speaker          | bool              |
-   +---------------------------+-------------------+
-   | recording                 | bool              |
-   +---------------------------+-------------------+
+```text
++-----------------------------------------------+
+| UserState                                     |
++===========================+===================+
+| session                   | uint32            |
++---------------------------+-------------------+
+| actor                     | uint32            |
++---------------------------+-------------------+
+| name                      | string            |
++---------------------------+-------------------+
+| user_id                   | uint32            |
++---------------------------+-------------------+
+| channel_id                | uint32            |
++---------------------------+-------------------+
+| mute                      | bool              |
++---------------------------+-------------------+
+| deaf                      | bool              |
++---------------------------+-------------------+
+| suppress                  | bool              |
++---------------------------+-------------------+
+| self_mute                 | bool              |
++---------------------------+-------------------+
+| self_deaf                 | bool              |
++---------------------------+-------------------+
+| texture                   | bytes             |
++---------------------------+-------------------+
+| plugin_context            | bytes             |
++---------------------------+-------------------+
+| plugin_identity           | string            |
++---------------------------+-------------------+
+| comment                   | string            |
++---------------------------+-------------------+
+| hash                      | string            |
++---------------------------+-------------------+
+| comment_hash              | bytes             |
++---------------------------+-------------------+
+| texture_hash              | bytes             |
++---------------------------+-------------------+
+| priority_speaker          | bool              |
++---------------------------+-------------------+
+| recording                 | bool              |
++---------------------------+-------------------+
+```
 
 ## Server sync
 
