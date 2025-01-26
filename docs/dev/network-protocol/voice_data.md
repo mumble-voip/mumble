@@ -302,7 +302,7 @@ can be switched back to it.
 
 If the UDP channel isn't available the voice packets can be transmitted through
 the TCP transport used for the control channel. These messages use the normal
-TCP prefixing, as shown in `Protocol Stack TCP <protocol_stack_tcp.rst>`_: 16-bit message type
+TCP prefixing, as shown in [Protocol Stack TCP](protocol_stack_tcp.md): 16-bit message type
 followed by 32-bit message length. However unlike other TCP messages, the audio
 packets are not encoded as protocol buffer messages but instead the raw audio
 packet described in `Packet format`_ should be written to the TCP socket
