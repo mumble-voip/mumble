@@ -39,7 +39,7 @@ information using the Version message. The message structure is described below.
 
 The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0)
 so that major number takes two bytes and minor and patch numbers take one byte each.
-The release, os and os\_version
+The release, os and os_version
 fields are common strings containing additional information.
 
 ```text
