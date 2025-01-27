@@ -35,18 +35,18 @@ information using the Version message. The message structure is described below.
    +--------------------------------------+
    | Version                              |
    +===========================+==========+
-   | version                   | uint32   |
+   | version                   | uint32   |
    +---------------------------+----------+
-   | release                   | string   |
+   | release                   | string   |
    +---------------------------+----------+
    | os                        | string   |
    +---------------------------+----------+
-   | os_version                | string   |
+   | os_version                | string   |
    +---------------------------+----------+
 
 The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0)
 so that major number takes two bytes and minor and patch numbers take one byte each.
-The structure is shown in figure \ref{fig:versionEncoding}. The release, os and os\_version
+The release, os and os\_version
 fields are common strings containing additional information.
 
 .. table:: Version field encoding (uint32)
@@ -54,7 +54,7 @@ fields are common strings containing additional information.
    +---------------------------+----------+----------+
    | Major                     | Minor    | Patch    |
    +===========================+==========+==========+
-   | 2 bytes                   | 1 byte   | 1 byte   |
+   | 2 bytes                   | 1 byte   | 1 byte   |
    +---------------------------+----------+----------+
 
 The version information may be used as part of the *SuggestConfig* checks, which usually
@@ -71,9 +71,9 @@ any way at the moment.
    +---------------+-------------------------------------------+ 
    | 1.2.2         | CELT 0.7.1 codec support                  |
    +---------------+-------------------------------------------+
-   | 1.2.3         | CELT 0.11.0 codec                         |
+   | 1.2.3         | CELT 0.11.0 codec                         |
    +---------------+-------------------------------------------+
-   | 1.2.4         | Opus codec support, SuggestConfig message |
+   | 1.2.4         | Opus codec support, SuggestConfig message |
    +---------------+-------------------------------------------+
 
 Authenticate
@@ -89,9 +89,9 @@ message.
    +-----------------------------------------------+
    | Authenticate                                  |
    +===========================+===================+
-   | username                  | string            |
+   | username                  | string            |
    +---------------------------+-------------------+
-   | password                  | string            |
+   | password                  | string            |
    +---------------------------+-------------------+
    | tokens                    | string            |
    +---------------------------+-------------------+
@@ -123,9 +123,9 @@ below. The encryption itself is described in a later section.
    +-----------------------------------------------+
    | CryptSetup                                    |
    +===========================+===================+
-   | key                       | bytes             |
+   | key                       | bytes             |
    +---------------------------+-------------------+
-   | client_nonce              | bytes             |
+   | client_nonce              | bytes             |
    +---------------------------+-------------------+
    | server_nonce              | bytes             |
    +---------------------------+-------------------+
@@ -147,7 +147,7 @@ these. The full structure of these ChannelState messages is shown below:
    +===========================+===================+
    | channel_id                | uint32            |
    +---------------------------+-------------------+
-   | parent                    | uint32            |
+   | parent                    | uint32            |
    +---------------------------+-------------------+
    | name                      | string            |
    +---------------------------+-------------------+
@@ -157,7 +157,7 @@ these. The full structure of these ChannelState messages is shown below:
    +---------------------------+-------------------+
    | links_add                 | repeated uint32   |
    +---------------------------+-------------------+
-   | links_remove              | repeated uint32   |
+   | links_remove              | repeated uint32   |
    +---------------------------+-------------------+
    | temporary                 | optional bool     |
    +---------------------------+-------------------+
@@ -181,7 +181,7 @@ currently on the server, including the user that is currently connecting.
    +===========================+===================+
    | session                   | uint32            |
    +---------------------------+-------------------+
-   | actor                     | uint32            |
+   | actor                     | uint32            |
    +---------------------------+-------------------+
    | name                      | string            |
    +---------------------------+-------------------+
@@ -189,31 +189,31 @@ currently on the server, including the user that is currently connecting.
    +---------------------------+-------------------+
    | channel_id                | uint32            |
    +---------------------------+-------------------+
-   | mute                      | bool              |
+   | mute                      | bool              |
    +---------------------------+-------------------+
-   | deaf                      | bool              |
+   | deaf                      | bool              |
    +---------------------------+-------------------+
-   | suppress                  | bool              |
+   | suppress                  | bool              |
    +---------------------------+-------------------+
    | self_mute                 | bool              |
    +---------------------------+-------------------+
-   | self_deaf                 | bool              |
+   | self_deaf                 | bool              |
    +---------------------------+-------------------+
-   | texture                   | bytes             |
+   | texture                   | bytes             |
    +---------------------------+-------------------+
-   | plugin_context            | bytes             |
+   | plugin_context            | bytes             |
    +---------------------------+-------------------+
-   | plugin_identity           | string            |
+   | plugin_identity           | string            |
    +---------------------------+-------------------+
    | comment                   | string            |
    +---------------------------+-------------------+
-   | hash                      | string            |
+   | hash                      | string            |
    +---------------------------+-------------------+
-   | comment_hash              | bytes             |
+   | comment_hash              | bytes             |
    +---------------------------+-------------------+
-   | texture_hash              | bytes             |
+   | texture_hash              | bytes             |
    +---------------------------+-------------------+
-   | priority_speaker          | bool              |
+   | priority_speaker          | bool              |
    +---------------------------+-------------------+
    | recording                 | bool              |
    +---------------------------+-------------------+
