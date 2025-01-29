@@ -31,7 +31,6 @@ class Overlay;
 class LCD;
 class Zeroconf;
 class OverlayClient;
-class LogEmitter;
 class DeveloperConsole;
 class TalkingUI;
 class TrayIcon;
@@ -69,7 +68,6 @@ public:
 	LCD *lcd;
 	Zeroconf *zeroconf;
 	QNetworkAccessManager *nam;
-	QSharedPointer< LogEmitter > le;
 	DeveloperConsole *c;
 	TalkingUI *talkingUI;
 	int iPushToTalk;

@@ -17,7 +17,7 @@
 #endif
 #include "LCD.h"
 #include "Log.h"
-#include "LogEmitter.h"
+#include "Logger.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #ifdef USE_ZEROCONF
@@ -58,6 +58,7 @@
 #include <QtCore/QProcess>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QTextBrowser>
 
 #include <iostream>
 #include <memory>
@@ -78,6 +79,8 @@ void throw_exception(std::exception const &) {
 }
 } // namespace boost
 #endif
+
+using namespace mumble;
 
 extern void os_init();
 extern char *os_lang;
@@ -191,8 +194,9 @@ int main(int argc, char **argv) {
 		Global::g_global_struct = new Global();
 	}
 
-	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
-	Global::get().c  = new DeveloperConsole();
+	auto logBox = new QTextBrowser();
+	log::init(logBox);
+	Global::get().c = new DeveloperConsole(logBox);
 
 	os_init();
 
@@ -842,6 +846,8 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	log::prepareToExit();
+
 	QCoreApplication::processEvents();
 
 	// Only start deleting items once all pending events have been processed (Audio::stop deletes the audio
@@ -880,7 +886,6 @@ int main(int argc, char **argv) {
 #endif
 
 	delete Global::get().c;
-	Global::get().le.clear();
 
 	DeferInit::run_destroyers();
 
