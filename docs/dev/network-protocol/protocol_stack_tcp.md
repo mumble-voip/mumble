@@ -42,7 +42,7 @@ If not mentioned otherwise all fields outside the protobuf encoding are big-endi
 | `24` | ServerConfig        |
 | `25` | SuggestConfig       |
 
-For raw representation of each packet type see the attached Mumble.proto [^2] file.
+For raw representation of each packet type see the [`Mumble.proto`](https://github.com/mumble-voip/mumble/blob/master/src/Mumble.proto)
+and [`MumbleUDP.proto`](https://github.com/mumble-voip/mumble/blob/master/src/MumbleUDP.proto) files.
 
 [^1]: <https://github.com/google/protobuf>
-[^2]: <https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto>
