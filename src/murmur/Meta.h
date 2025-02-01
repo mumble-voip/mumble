@@ -8,6 +8,7 @@
 
 #include "Timer.h"
 
+#include "DBState.h"
 #include "Version.h"
 
 #ifdef Q_OS_WIN
@@ -185,6 +186,8 @@ public:
 	QHash< QHostAddress, Timer > qhBans;
 	QString qsOS, qsOSVersion;
 	Timer tUptime;
+
+	DBState assumedDBState = DBState::Normal;
 
 #ifdef Q_OS_WIN
 	static HANDLE hQoS;
