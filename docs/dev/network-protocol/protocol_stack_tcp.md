@@ -2,7 +2,7 @@
 
 Mumble has a shallow and easy to understand stack. Basically it
 uses Google's Protocol Buffers[^1] with simple prefixing to
-distinguish the different kinds of packets sent through an TLSv1
+distinguish the different kinds of packets sent through a TLSv1
 encrypted connection. This makes the protocol very easily expandable.
 
 ![resources/mumble_packet.png](Mumble packet)
@@ -10,8 +10,8 @@ encrypted connection. This makes the protocol very easily expandable.
 The prefix consists out of the two bytes defining the type of the packet
 in the payload and 4 bytes stating the length of the payload in bytes
 followed by the payload itself. The following packet types are available
-in the current protocol and all but UDPTunnel are simple protobuf messages.
-If not mentioned otherwise all fields outside the protobuf encoding are big-endian.
+in the current protocol and all but `UDPTunnel` are simple protobuf messages.
+If not mentioned otherwise all fields outside the protobuf encoding are *big-endian*.
 
 | Type | Payload             |
 | ---- | ------------------- |
