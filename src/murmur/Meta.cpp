@@ -112,6 +112,8 @@ MetaParams::MetaParams() {
 
 	allowRecording = true;
 
+	rollingStatsWindow = 300;
+
 	qsSettings = nullptr;
 }
 
@@ -328,6 +330,8 @@ void MetaParams::read(QString fname) {
 	bLogACLChanges   = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
 
 	allowRecording = typeCheckedFromSettings("allowRecording", allowRecording);
+
+	rollingStatsWindow = typeCheckedFromSettings("rollingStatsWindow", rollingStatsWindow);
 
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 
