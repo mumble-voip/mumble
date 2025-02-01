@@ -1578,7 +1578,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>Sijainninmukainen ääni ei voi toimia mono-ulostulolla!</translation>
+        <translation>Sijainninmukainen ääni ei voi toimia yhden äänikanavan ulostulolla!</translation>
     </message>
     <message>
         <source>Audio output system</source>
@@ -4387,7 +4387,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation>Käytä tekstistä puheeksi -ominaisuutta</translation>
+        <translation>Kytke teksti-puheeksi -ominaisuus päälle</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -6604,7 +6604,7 @@ Sallitut toiminnot ovat:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation>Kansiota %1 ei ole olemassa.
+        <translation>Hakemistoa %1 ei ole olemassa.
 </translation>
     </message>
     <message>
@@ -6617,7 +6617,7 @@ Sallitut toiminnot ovat:
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Tämä Mumblen versio ei voi käsitellä URL-osoitteita Mumblen versiolle %1</translation>
+        <translation>Kyseinen Mumble versio ei pysty käsittelemään URL-osoitteita Mumblen versiosta %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
@@ -6995,11 +6995,11 @@ Sallitut toiminnot ovat:
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kytke paikannillinen ääni</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kytkee paikallisen äänen päälle/pois päältä</translation>
     </message>
     <message>
         <source>SSL error</source>
@@ -7077,7 +7077,70 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttö: mumble [asetukset] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; asettaa URL-osoitteen johon yhdistetään sen sijaan, 
+että yhdistysikkuna näytetään.
+URL-osoitteen muoto on seuraava
+mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;isäntä&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt;  on lista lisäosista, jotka asennetaan.
+&quot;Version&quot; tiedusteluasetus täytyy asettaa, jotta oikea versio
+asiakasohjelmasta käynnistetään. Tällä hetkellä oletus on 1.2.0.
+
+Kelvolliset vaihtoehdot ovat :
+  -h, --help    Näytä tämä aputiedosto ja sulkeudu.
+  --version     Ilmoita versiotiedot ja sulkeudu.
+  -m, --multiple
+                Salli useamman asiakasohjelman käynnistäminen.
+  -c, --config
+                Ilmoita vaihtoehtoinen asetustiedosto.
+                Jos käytät tätä usean Mumble instanssin suorittamiseen,
+                varmista, että asetat vaihtoehtoisen &quot;database&quot; arvon asetuksissa.
+  --default-certificate-dir &lt;dir&gt;
+                Määritä vaihtoehtoinen oletuskansio sertifikaatille.
+                Tätä sijaintia käytetään ainoastaan, 
+                jos sertifikaattia ei ole ladattuasetuksista.
+  -n, --noidentity
+                Estä identiteetti tiedostojen lataaminen (eli sertifikaatit).
+  -jn, --jackname &lt;arg&gt;
+                Aseta mukautettu Jack asiakasnimi.
+  --license
+                Näytä Mumble-lisenssi.
+  --authors
+                Näytä Mumblen tekijät.
+  --third-party-licenses
+                Näytä lisenssitiedot Mumblen käyttämiin kolmannen osapuolen ohjelmitoihin.
+  --window-title-ext &lt;arg&gt;
+                Aseta mukautettu ikkuna otsikko.
+  --dump-input-streams
+                Dumppaa PCM data useissa vaiheissa syöttäketjua
+                (hyödyllinen virheenkorjaussyistä)
+                - raaka mikrofoni syöttö
+                - kaijutin readback kaijunpoistoon
+                - prosessoitu mikrofoni söyttä
+  --print-echocancel-queue
+                Tulosta stdout:iin kaijunposton jonotila
+                (hyödyllinen virheenkorjaussyistä)
+  --translation-dir &lt;dir&gt;
+                Määritä lisäkäännös kansio &lt;dir&gt;
+                josta Mumble etsii tiedostoja, jotka korvaavat
+                mukana tulleet käännökset.
+                Kansiot, jotka lisäätään näin ovat korkeampiarvoisia
+                kuin oletuskansiot joita käytetään jos tätä ei aseteta.
+  --print-translation-dirs
+                Näytä kansiot. josta Mumble etsii korkaavia
+                käännöstiedostoja.
+                (Hyödyllisiä kääntäjille, joka kokeilevat käännöksiään)
+  --locale &lt;paikannus&gt;
+                Korvaa Mumblen pakannusasetukset tietyllä
+                paikannus merkkijonolla.
+                Jos muotoilu on virheellistä, Mumble tuottaa virheen.
+                Muussa tapauksessa paikannus tallennetaan
+                pysyvästi Mumblen asetuksiin
+  --hidden
+                Käynnistä Mumble piilotettuna järjestelmätarjoittimessa.
+</translation>
     </message>
 </context>
 <context>
@@ -8499,7 +8562,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation>Ladataanko varmuuskopioasetukset?</translation>
+        <translation>Lataa asetukset varmuuskopiosta?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
