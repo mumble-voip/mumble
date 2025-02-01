@@ -591,10 +591,10 @@ void ServerHandler::sendPingInternal() {
 	MumbleProto::Ping mpp;
 
 	mpp.set_timestamp(t);
-	mpp.set_good(connection->csCrypt->uiGood);
-	mpp.set_late(connection->csCrypt->uiLate);
-	mpp.set_lost(connection->csCrypt->uiLost);
-	mpp.set_resync(connection->csCrypt->uiResync);
+	mpp.set_good(connection->csCrypt->m_statsLocal.good);
+	mpp.set_late(connection->csCrypt->m_statsLocal.late);
+	mpp.set_lost(connection->csCrypt->m_statsLocal.lost);
+	mpp.set_resync(connection->csCrypt->m_statsLocal.resync);
 
 
 	if (boost::accumulators::count(accUDP)) {
@@ -639,20 +639,20 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			// connection is still OK.
 			iInFlightTCPPings = 0;
 
-			connection->csCrypt->uiRemoteGood   = msg.good();
-			connection->csCrypt->uiRemoteLate   = msg.late();
-			connection->csCrypt->uiRemoteLost   = msg.lost();
-			connection->csCrypt->uiRemoteResync = msg.resync();
+			connection->csCrypt->m_statsRemote.good   = msg.good();
+			connection->csCrypt->m_statsRemote.late   = msg.late();
+			connection->csCrypt->m_statsRemote.lost   = msg.lost();
+			connection->csCrypt->m_statsRemote.resync = msg.resync();
 			accTCP(static_cast< double >(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 
-			if (((connection->csCrypt->uiRemoteGood == 0) || (connection->csCrypt->uiGood == 0)) && bUdp
-				&& (tTimestamp.elapsed() > 20000000ULL)) {
+			if (((connection->csCrypt->m_statsRemote.good == 0) || (connection->csCrypt->m_statsLocal.good == 0))
+				&& bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
 				bUdp = false;
 				if (!NetworkConfig::TcpModeEnabled()) {
-					if ((connection->csCrypt->uiRemoteGood == 0) && (connection->csCrypt->uiGood == 0))
+					if ((connection->csCrypt->m_statsRemote.good == 0) && (connection->csCrypt->m_statsLocal.good == 0))
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
-					else if (connection->csCrypt->uiRemoteGood == 0)
+					else if (connection->csCrypt->m_statsRemote.good == 0)
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
 					else
@@ -661,7 +661,8 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 
 					database->setUdp(qbaDigest, false);
 				}
-			} else if (!bUdp && (connection->csCrypt->uiRemoteGood > 3) && (connection->csCrypt->uiGood > 3)) {
+			} else if (!bUdp && (connection->csCrypt->m_statsRemote.good > 3)
+					   && (connection->csCrypt->m_statsLocal.good > 3)) {
 				bUdp = true;
 				if (!NetworkConfig::TcpModeEnabled()) {
 					Global::get().mw->msgBox(

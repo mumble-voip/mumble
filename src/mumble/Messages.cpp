@@ -1083,7 +1083,7 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
 		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			c->csCrypt->uiResync++;
+			c->csCrypt->m_statsLocal.resync++;
 			if (!c->csCrypt->setDecryptIV(server_nonce)) {
 				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
 			}

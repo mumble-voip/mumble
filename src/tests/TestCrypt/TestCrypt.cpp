@@ -122,11 +122,11 @@ void TestCrypt::ivrecovery() {
 
 	// Wraparound.
 	for (int i = 0; i < 128; i++) {
-		dec.uiLost = 0;
+		dec.m_statsLocal.lost = 0;
 		for (int j = 0; j < 15; j++)
 			enc.encrypt(secret, crypted, 10);
 		QVERIFY(dec.decrypt(crypted, decr, 14));
-		QCOMPARE(dec.uiLost, 14U);
+		QCOMPARE(dec.m_statsLocal.lost, 14U);
 	}
 
 	QVERIFY(enc.getEncryptIV() == dec.getDecryptIV());

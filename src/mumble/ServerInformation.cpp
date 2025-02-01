@@ -164,14 +164,14 @@ void ServerInformation::populateUDPStatistics(const Connection &connection) {
 	constexpr int LOST_ROW        = 2;
 	constexpr int RESYNC_ROW      = 3;
 
-	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteGood));
-	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiGood));
-	QTableWidgetItem *toLateItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteLate));
-	QTableWidgetItem *fromLateItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiLate));
-	QTableWidgetItem *toLostItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteLost));
-	QTableWidgetItem *fromLostItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiLost));
-	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteResync));
-	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->uiResync));
+	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.good));
+	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.good));
+	QTableWidgetItem *toLateItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.late));
+	QTableWidgetItem *fromLateItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.late));
+	QTableWidgetItem *toLostItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.lost));
+	QTableWidgetItem *fromLostItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.lost));
+	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.resync));
+	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.resync));
 
 	connection_udp_statisticsTable->setItem(GOOD_ROW, TO_SERVER_COL, toGoodItem);
 	connection_udp_statisticsTable->setItem(GOOD_ROW, FROM_SERVER_COL, fromGoodItem);

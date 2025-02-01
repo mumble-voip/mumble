@@ -513,6 +513,15 @@ message UserStats {
 		optional uint32 resync = 4;
 	}
 
+	message RollingStats {
+		// Rolling packet statistics time window as defined on the server.
+		optional uint32 time_window = 1;
+		// Rolling packet statistics for packets received from the client.
+		optional Stats from_client = 2;
+		// Rolling packet statistics for packets sent by the server.
+		optional Stats from_server = 3;
+	}
+
 	// User whose stats these are.
 	optional uint32 session = 1;
 	// True if the message contains only mutable stats (packets, ping).
@@ -553,6 +562,9 @@ message UserStats {
 	// True if the user has a strong certificate.
 	optional bool strong_certificate = 18 [default = false];
 	optional bool opus = 19 [default = false];
+
+	// Rolling packet statistics
+	optional RollingStats rolling_stats = 20;
 }
 
 // Used by the client to request binary data from the server. By default large
