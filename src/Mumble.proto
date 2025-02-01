@@ -123,6 +123,8 @@ message ServerSync {
 // a channel has been removed and clients should be notified.
 message ChannelRemove {
 	required uint32 channel_id = 1;
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 2;
 }
 
 // Used to communicate channel properties between the client and the server.
@@ -159,6 +161,8 @@ message ChannelState {
 	optional bool is_enter_restricted = 12;
 	// Whether the receiver of this msg is considered to be able to enter this channel
 	optional bool can_enter = 13;
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 14;
 }
 
 // Used to communicate user leaving or being kicked. May be sent by the client
@@ -175,6 +179,8 @@ message UserRemove {
 	optional string reason = 3;
 	// True if the kick should result in a ban.
 	optional bool ban = 4;
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 5;
 }
 
 // Sent by the server when it communicates new and changed users to client.
@@ -266,6 +272,8 @@ message BanList {
 	// True if the server should return the list, false if it should replace old
 	// ban list with the one provided.
 	optional bool query = 2 [default = false];
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 3;
 }
 
 // Used to send and broadcast text messages.
@@ -282,6 +290,8 @@ message TextMessage {
 	repeated uint32 tree_id = 4;
 	// The UTF-8 encoded message. May be HTML if the server allows.
 	required string message = 5;
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 6;
 }
 
 message PermissionDenied {
@@ -374,6 +384,8 @@ message ACL {
 	repeated ChanACL acls = 4;
 	// True if the message is a query for ACLs instead of setting them.
 	optional bool query = 5 [default = false];
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 6;
 }
 
 // Client may use this message to refresh its registered user information. The
@@ -449,6 +461,8 @@ message UserList {
 	}
 	// A list of registered users.
 	repeated User users = 1;
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 2;
 }
 
 // Sent by the client when it wants to register or clear whisper targets.
@@ -553,6 +567,8 @@ message UserStats {
 	// True if the user has a strong certificate.
 	optional bool strong_certificate = 18 [default = false];
 	optional bool opus = 19 [default = false];
+	// A list of temporary access tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 20;
 }
 
 // Used by the client to request binary data from the server. By default large
