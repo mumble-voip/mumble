@@ -23,6 +23,8 @@ its certificate and it is recommended that the client checks this.
 Once the TLS handshake is completed both sides should transmit their version
 information using the Version message. The message structure is described below.
 
+Note: This `Version` documentation is outdated. Please refer to the current proto definitions for up-to-date information.
+
 | Field        | Type     |
 | ------------ | -------- |
 | `version`    | `uint32` |
