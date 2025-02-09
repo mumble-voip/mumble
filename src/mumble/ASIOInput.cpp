@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -95,7 +95,7 @@ void ASIOInit::initialize() {
 		DWORD keynamelen = 255;
 		WCHAR keyname[255];
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
-			QString name = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
+			QString name = QString::fromUtf16(reinterpret_cast< char16_t * >(keyname), keynamelen);
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
 				WCHAR wclsid[255];
@@ -106,7 +106,7 @@ void ASIOInit::initialize() {
 					if (datasize > 76)
 						datasize = 76;
 					QString qsCls =
-						QString::fromUtf16(reinterpret_cast< ushort * >(wclsid), datasize / 2).toLower().trimmed();
+						QString::fromUtf16(reinterpret_cast< char16_t * >(wclsid), datasize / 2).toLower().trimmed();
 					if (!blacklist.contains(qsCls.toLower()) && !FAILED(CLSIDFromString(wclsid, &clsid))) {
 						bFound = true;
 					}
@@ -154,7 +154,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 		DWORD idx        = 0;
 		DWORD keynamelen = keynamebufsize;
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
-			QString deviceName = QString::fromUtf16(reinterpret_cast< ushort * >(keyname), keynamelen);
+			QString deviceName = QString::fromUtf16(reinterpret_cast< char16_t * >(keyname), keynamelen);
 			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
@@ -165,7 +165,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 					if (datasize > 76)
 						datasize = 76;
 					QString qsCls =
-						QString::fromUtf16(reinterpret_cast< ushort * >(wclsid), datasize / 2).toLower().trimmed();
+						QString::fromUtf16(reinterpret_cast< char16_t * >(wclsid), datasize / 2).toLower().trimmed();
 					CLSID clsid;
 					if (!blacklist.contains(qsCls) && !FAILED(CLSIDFromString(wclsid, &clsid))) {
 						ASIODev ad(std::move(deviceName), qsCls);

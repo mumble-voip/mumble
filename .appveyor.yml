@@ -1,4 +1,4 @@
-# Copyright 2021-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -12,7 +12,7 @@ environment:
   global:
     MUMBLE_BUILD_NUMBER_TOKEN:
       secure: scRizsdwbTWjY7M9RHPT9EXDBxtWvXTsyVq1xXTWF1A=
-    MUMBLE_ENVIRONMENT_SOURCE: 'https://github.com/mumble-voip/vcpkg/releases/download/2024-05/'
+    MUMBLE_ENVIRONMENT_SOURCE: 'https://github.com/mumble-voip/vcpkg/releases/download/2025-02/'
     MUMBLE_ENVIRONMENT_STORE: 'C:/MumbleBuild'
     MUMBLE_ENVIRONMENT_PATH: '%MUMBLE_ENVIRONMENT_STORE%/%MUMBLE_ENVIRONMENT_VERSION%'
     MUMBLE_ENVIRONMENT_TOOLCHAIN: '%MUMBLE_ENVIRONMENT_PATH%/scripts/buildsystems/vcpkg.cmake'
@@ -22,8 +22,8 @@ environment:
     MUMBLE_USE_ELEVATION: 'ON'
 
   matrix:
-    - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md-release'
-      MUMBLE_ENVIRONMENT_VERSION: ' mumble_env.x64-windows-static-md-release.2024-05-19.5eaf0d45f'
+    - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-08.4d858462ac'
 
 install:
   - ps: .ci/install-environment_windows.ps1

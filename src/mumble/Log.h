@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_LOG_H_
 #define MUMBLE_MUMBLE_LOG_H_
 
+#include <QSystemTrayIcon>
 #include <QtCore/QDate>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
@@ -133,8 +134,6 @@ protected:
 	unsigned int uiLastId;
 	QDate qdDate;
 	static const QStringList allowedSchemes();
-	void postNotification(MsgType mt, const QString &plain);
-	void postQtNotification(MsgType mt, const QString &plain);
 
 public:
 	Log(QObject *p = nullptr);
@@ -158,6 +157,13 @@ public slots:
 			 const QString &overrideTTS = QString(), bool ignoreTTS = false);
 	/// Logs LogMessages that have been deferred so far
 	void processDeferredLogs();
+
+signals:
+	/// Signal emitted when there was a message received whose type was configured to spawn a notification
+	void notificationSpawned(QString title, QString body, QSystemTrayIcon::MessageIcon icon);
+
+	/// Signal emitted when there was a message received whose type was configured to highlight the application
+	void highlightSpawned();
 };
 
 class LogMessage {

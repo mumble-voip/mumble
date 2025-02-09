@@ -1,4 +1,4 @@
-// Copyright 2017-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -51,7 +51,7 @@ struct HostAddress {
 
 	void setByte(std::size_t idx, std::uint8_t value);
 
-	friend quint32 qHash(const HostAddress &);
+	friend std::size_t qHash(const HostAddress &);
 
 private:
 	// Binary representation of an IPv6 address

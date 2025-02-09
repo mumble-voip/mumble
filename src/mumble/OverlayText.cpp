@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -11,6 +11,7 @@
 #include <QtGui/QFontMetrics>
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
+#include <QtGui/QTransform>
 
 BasepointPixmap::BasepointPixmap() : qpBasePoint(0, 0), iAscent(-1), iDescent(-1) {
 }
@@ -82,7 +83,7 @@ BasepointPixmap OverlayTextLine::createPixmap(QColor col) {
 			fYCorrection = fEdge - static_cast< float >(qr.top());
 		}
 
-		QMatrix correction;
+		QTransform correction;
 		correction.translate(fXCorrection, fYCorrection);
 		qpp = correction.map(qpp);
 	}
@@ -176,7 +177,7 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 		}
 
 		// translation to "pixmap space":
-		QMatrix correction;
+		QTransform correction;
 		//  * adjust left edge
 		correction.translate(-bb.x() + fEdge, 0.0f);
 		//  * scale overly high text (still on baseline)

@@ -1,5 +1,6 @@
 [Unit]
 Description=Mumble server
+Documentation=man:mumble-server(1)
 After=network.target
 Wants=network-online.target
 
@@ -21,7 +22,7 @@ ProtectKernelLogs=yes
 ProtectKernelModules=yes
 ProtectKernelTunables=yes
 ProtectSystem=full
-RestrictAddressFamilies=~AF_PACKET AF_NETLINK
+RestrictAddressFamilies=~AF_PACKET
 RestrictNamespaces=yes
 RestrictSUIDSGID=yes
 RestrictRealtime=yes

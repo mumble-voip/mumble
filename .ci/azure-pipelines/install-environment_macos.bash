@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 #
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -56,12 +56,18 @@ chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/$MUMBLE_ENVIRONMENT_TRIPLET/tools/I
 
 echo "Configuring PostgreSQL..."
 
+brew install postgresql
+brew services start postgresql
+
+# Give the database some time to start
+sleep 5
+
 # Using brew service start postgresql for some reason does not work so we have
 # to resort to starting PostgreSQL manually.
-postgres_data_dir="$( brew info postgresql | grep -E '^ *initdb' | awk '{print $NF}' )"
-pg_ctl start -D "$postgres_data_dir"
+#postgres_data_dir="$( brew info postgresql | grep -E '^ *initdb' | awk '{print $NF}' )"
+#pg_ctl start -D "$postgres_data_dir"
 
 echo "CREATE DATABASE mumble_test_db; "\
 	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
-	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;" | psql -d postgres
+	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;" | psql -d postgres
 

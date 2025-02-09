@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -28,8 +28,6 @@ struct UpdateWidgetPair {
 /// A helper struct to store a pair of a plugin ID  and an URL corresponding to
 /// the same plugin.
 struct UpdateEntry {
-	UpdateEntry() = default;
-
 	plugin_id_t pluginID = std::numeric_limits< plugin_id_t >::max();
 	QUrl updateURL;
 	QString fileName;
@@ -86,10 +84,17 @@ public:
 public slots:
 	/// Clears the UI from the widgets created for the individual plugins.
 	void clearUI();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	/// Slot triggered if the user changes the state of the selectAll CheckBox.
+	void on_selectAll(Qt::CheckState checkState);
+	/// Slot triggered if the user toggles the CheckBox for any individual plugin.
+	void on_singleSelectionChanged(Qt::CheckState checkState);
+#else
 	/// Slot triggered if the user changes the state of the selectAll CheckBox.
 	void on_selectAll(int checkState);
 	/// Slot triggered if the user toggles the CheckBox for any individual plugin.
 	void on_singleSelectionChanged(int checkState);
+#endif
 	/// Slot triggered when the dialog is being closed.
 	void on_finished(int result);
 	/// Slot that can be triggered to ask for the update process to be interrupted.

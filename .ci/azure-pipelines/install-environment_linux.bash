@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 #
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -12,10 +12,12 @@ sudo apt -y install \
 	g++-multilib \
 	ninja-build \
 	pkg-config \
-	qtbase5-dev \
-	qttools5-dev \
-	qttools5-dev-tools \
-	libqt5svg5-dev \
+	qt6-base-dev \
+	qt6-l10n-tools \
+	qt6-tools-dev \
+	qt6-tools-dev-tools \
+	libqt6svg6-dev \
+	libgl-dev \
 	libboost-dev \
 	libssl-dev \
 	libprotobuf-dev \
@@ -58,4 +60,4 @@ sudo systemctl start postgresql.service
 
 echo "CREATE DATABASE mumble_test_db; "\
 	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
-	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;" | sudo -u postgres psql
+	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;" | sudo -u postgres psql

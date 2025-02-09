@@ -432,51 +432,51 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Posição do canal</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Máximo de utilizadores no canal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição do canal</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione membro para adicionar</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membros do grupo excluídos</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione membro para remover</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de entradas da lista de controle de acesso</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o grupo</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleciona um grupo ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um utilizador são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o utilizador</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleciona um utilizador ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um utilizador são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de permissões disponíveis</translation>
     </message>
 </context>
 <context>
@@ -629,7 +629,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de dispositivos</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
@@ -707,7 +707,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Para uma lista de autores, veja &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1074,7 +1074,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sugestão de áudio ao usar...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
@@ -1086,7 +1086,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Pressionar Para Falar</translation>
+        <translation>Pressionar Para Falar</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
@@ -1170,7 +1170,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Amplificação máxima</translation>
+        <translation>Amplificação máxima</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
@@ -1673,7 +1673,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Se uma fonte de áudio estiver próxima o suficiente, blooming fará com que o áudio seja reproduzido em todos os alto-falantes, mais ou menos, independentemente da sua posição (embora com volume mais baixo)</translation>
     </message>
     <message>
         <source>milliseconds</source>
@@ -2248,7 +2248,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Amplificação máxima do som de entrada</translation>
+        <translation>Amplificação máxima do som de entrada</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
@@ -2264,7 +2264,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Pressionar para falar</translation>
+        <translation>Pressione para falar</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2781,10 +2781,6 @@ Tem certeza de que quer substituir o seu certificado?
 &lt;p&gt;Note que este ficheiro não será encriptado, e se alguém obtiver o acesso a ele, eles serão capazes de se passar por si, então cuide muito bem dele.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;O Mumble pode usar certificados para autenticar com servidores. Usar certificados evita palavras-passe, o que significa que não precisa expor nenhuma palavra-passe com um local remoto. Ele também permite um registo de utilizador muito fácil e uma lista de amigas de cliente que independe dos servidores.&lt;/p&gt;&lt;p&gt;Embora o Mumble possa funcionar sem certificados, a maioria dos servidores suporá que tenha um.&lt;/p&gt;&lt;p&gt;Criar um novo certificado automaticamente é suficiente na maioria dos casos. Mas o Mumble também suporta certificados representando confiança na titulação de um e-mail por parte do utilizador. Esses certificados são emitidos por terceiros. Para mais informações consulte nossa &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;documentação de certificado de utilizador&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2822,6 +2818,10 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3330,7 +3330,7 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished">Servidor</translation>
+        <translation>Servidor</translation>
     </message>
 </context>
 <context>
@@ -3474,7 +3474,7 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizador</translation>
     </message>
     <message>
         <source>Label for server</source>
@@ -3770,7 +3770,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Não-Atribuído</translation>
+        <translation>Não designado</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4375,23 +4375,23 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique aqui para alternar o limite de mensagens para todos os eventos - Se usa esta opção, certifique-se de alterar o limite de utilizador abaixo.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar o comportamento do limite de mensagens para %1 eventos </translation>
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique para ativar o Texto-para-Fala</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Ativar Texto-para-Fala</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique aqui para alternar o limite para %1 evento(s).&lt;br /&gt;Se ativado, as notificações para este tipo de evento não vão ser reproduzidas quando a quantidade de utilizadores no servidor superar o limite definido.</translation>
     </message>
     <message>
         <source>Message Volume</source>
@@ -4431,7 +4431,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4880,7 +4880,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadeia de Hierarquia dos Canais</translation>
     </message>
     <message>
         <source>Search</source>
@@ -4888,7 +4888,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>A ação a ser executada quando um utilizador é ativado (por duplo clique ou Enter) na caixa de pesquisa.</translation>
     </message>
     <message>
         <source>Action (User):</source>
@@ -5070,10 +5070,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble -- %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -5216,10 +5212,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Os erros específicos com esse certificado são:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Quer aceitar o certificado mesmo assim?&lt;br /&gt;(Ele também sera armazenado então não será perguntado novamente.)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>Versões SSL não coincidem</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5441,10 +5433,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Este servidor utiliza um padrão de encriptação antigo, e não é mais aceita por versões modernas do Mumble.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5934,10 +5922,6 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Mensagem de boas-vindas: %1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Foram-lhe negados privilégios de %1 em %2.</translation>
     </message>
@@ -6351,18 +6335,6 @@ do menu de contexto do canal.</translation>
         <translation>&amp;Desenvolvedor</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>&amp;Esconder Mumble</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>Esconde a janela principal do Mumble.</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>Esconde a janela principal do Mumble. Restaure ao clicar no ícone da bandeja ou iniciar novamente o Mumble.</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>Mostrar o Console de Desenvolvedor</translation>
     </message>
@@ -6413,14 +6385,6 @@ do menu de contexto do canal.</translation>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>Alterar &amp;Comentário...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>Mostrar</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>Exibe a janela principal do Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6558,7 +6522,30 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Uso: mumble rpc &lt;ação&gt; [opções]
+
+É possivel controlar uma instância do Mumble em execução usando
+o comando &apos;mumble rpc&apos;.
+
+Ações válidas são:
+  mute
+                Silenciar o próprio áudio
+  unmute
+                Ativar o próprio áudio
+  togglemute
+                Alternar entre mudo/não mudo
+  deaf
+                Ensurdecer áudio
+  undeaf
+                Reativar áudio
+  toggledeaf
+                Alternar entre surdo/não surdo
+  starttalking
+                Começar a falar
+  stoptalking
+                Parar de falar
+
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
@@ -6578,7 +6565,7 @@ Valid actions are:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterna o filtro do canal (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
@@ -6586,24 +6573,24 @@ Valid actions are:
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquise por um utilizador ou canal (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alterna o diálogo de pequisa</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto abrirá ou fechará o diálogo de pesquisa dependendo de se ele já está aberto ou não</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Desmutar-se</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Desensurdecer-se</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
@@ -6615,11 +6602,11 @@ Valid actions are:
     </message>
     <message>
         <source>Mumble - Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Visão Mínima</translation>
     </message>
     <message>
         <source>Invalid settings file encountered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiro de configurações inválido encontrado.</translation>
     </message>
     <message>
         <source>You are currently in minimal view but not connected to a server. Use the context menu to connect to a server or disable minimal view.</source>
@@ -6660,70 +6647,6 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -6736,7 +6659,7 @@ Valid options are:
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Desligar-se do servidor</translation>
+        <translation>Desconectar-se do servidor</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
@@ -6980,7 +6903,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Sobre</translation>
+        <translation>&amp;Sobre</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -7068,6 +6991,93 @@ Valid options are:
     </message>
     <message>
         <source>Filtered channels and users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7207,7 +7217,7 @@ Valid options are:
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Identificar cadeia</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
@@ -7421,11 +7431,11 @@ Evita que o cliente envie informações potencialmente capazes de identificaçã
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Confira por atualizações de plugin ao inicializar</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarregue e instale automaticamente as atualizações de plugin</translation>
     </message>
     <message>
         <source>Proxy type</source>
@@ -8014,23 +8024,23 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Instale um plugin de um ficheiro local</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar plugin...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarrega o plugin atualmente selecionado. Isto irá removê-lo da lista de plugins para a sessão atual.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarregar</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>O plugin foi instalado com sucesso</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
@@ -8261,11 +8271,11 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished">Z</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>Player position</source>
@@ -8293,11 +8303,11 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">Contexto</translation>
+        <translation>Contexto</translation>
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished">Identidade</translation>
+        <translation>Identidade</translation>
     </message>
 </context>
 <context>
@@ -8335,12 +8345,6 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation>Cancelamento de eco não é suportado para a configuração de interface &quot;%1&quot; (entrada) e &quot;%2&quot; (saída).</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se utiliza Linux isso mais provavlemente é devido à versão do repositório de pacotes da sua distribuição, que possuem ciclos de atualização próprios .&lt;/p&gt;&lt;p&gt;Se quer ter sempre a versão mais recente do Mumble, deve considerar utilizar um método alternativo de instalação.
-Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;wiki do Mumble&lt;/a&gt; para conhecer alternativas existentes.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -8495,7 +8499,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregar configurações de backup?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
@@ -8511,7 +8515,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acesso ao microfone foi negado devido a restrições do sistema. Não será capaz de usar o microfone nesta sessão.</translation>
     </message>
     <message>
         <source>Unknown Version</source>
@@ -8611,7 +8615,12 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Adicionar</translation>
+        <translation>Adicionar</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8700,7 +8709,7 @@ You can register them again.</source>
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Nenhum</translation>
+        <translation>Nenhum</translation>
     </message>
     <message>
         <source>Join</source>
@@ -8711,7 +8720,7 @@ You can register them again.</source>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -8719,7 +8728,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Opções</translation>
+        <translation>Opções</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
@@ -8727,7 +8736,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utilizadores</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -8751,11 +8760,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Canais</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar por:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
@@ -8809,51 +8818,51 @@ You can register them again.</source>
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informações do servidor</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informações do Servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Endereço de host:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Porta:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocolo:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Versão:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Sistema operativo:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Áudio</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Permitido:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atual:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Codec:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Pormenores da conexão</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -8861,15 +8870,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Criptografia:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Latência média:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estatísticas</translation>
     </message>
     <message>
         <source>Good</source>
@@ -8889,15 +8898,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Saída</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pacotes de voz estão sendo enviados via TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -8905,11 +8914,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Versão do TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Suíte de cifras:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
@@ -8917,7 +8926,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Desconhecido</translation>
+        <translation>Desconhecido</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -8945,7 +8954,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">&amp;Ver Certificado</translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9140,11 +9149,11 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Tokens</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use as teclas de seta para navegar nesta lista de tokens de acesso. Os tokens são exibidos em texto simples.</translation>
     </message>
 </context>
 <context>
@@ -9198,15 +9207,15 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquise por utilizador</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir modo de filtro de inatividade</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro por inatividade</translation>
     </message>
 </context>
 <context>
@@ -9360,6 +9369,42 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>minutes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9554,7 +9599,7 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>O canal será fixado quando a filtragem estiver ativada</translation>
     </message>
     <message>
         <source>Channel Listener</source>
@@ -9712,7 +9757,7 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>.opus - Lossy compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.opus - Comprimido com perdas</translation>
     </message>
     <message>
         <source>.mp3 - Lossy compressed</source>
@@ -9829,7 +9874,7 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossível iniciar a gravação - a saída de áudio está desconfigurada (0Hz de taxa de amostragem)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -9844,7 +9889,7 @@ Por favor contate seu administrador de servidor para mais informações.</transl
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de Volume</translation>
     </message>
     <message>
         <source>Local volume adjustment</source>

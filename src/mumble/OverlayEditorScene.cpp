@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -18,6 +18,7 @@
 #include "Global.h"
 #include "GlobalShortcut.h"
 
+#include <QActionGroup>
 #include <QtGui/QImageReader>
 #include <QtWidgets/QColorDialog>
 #include <QtWidgets/QFontDialog>
@@ -173,11 +174,12 @@ void OverlayEditorScene::moveAvatar() {
 }
 
 void OverlayEditorScene::moveBox() {
-	QRectF childrenBounds = os.qrfAvatar | os.qrfChannel | os.qrfMutedDeafened | os.qrfUserName;
+	const QRectF childrenBounds = os.qrfAvatar | os.qrfChannel | os.qrfMutedDeafened | os.qrfUserName;
 
-	bool haspen = (os.qcBoxPen != os.qcBoxFill) && (!qFuzzyCompare(os.qcBoxPen.alphaF(), static_cast< qreal >(0.0f)));
-	qreal pw    = haspen ? qMax< qreal >(1.0f, os.fBoxPenWidth * uiSize * uiZoom) : 0.0f;
-	qreal pad   = os.fBoxPad * uiSize * uiZoom;
+	const bool haspen =
+		(os.qcBoxPen != os.qcBoxFill) && (!qFuzzyCompare(static_cast< float >(os.qcBoxPen.alphaF()), 0.0f));
+	const qreal pw  = haspen ? qMax< qreal >(1.0f, os.fBoxPenWidth * uiSize * uiZoom) : 0.0f;
+	const qreal pad = os.fBoxPad * uiSize * uiZoom;
 
 	QPainterPath pp;
 	pp.addRoundedRect(childrenBounds.x() * uiSize * uiZoom + -pw / 2.0f - pad,
@@ -187,7 +189,7 @@ void OverlayEditorScene::moveBox() {
 	qgpiBox->setPath(pp);
 	qgpiBox->setPos(0.0f, 0.0f);
 	qgpiBox->setPen(haspen ? QPen(os.qcBoxPen, pw) : Qt::NoPen);
-	qgpiBox->setBrush(qFuzzyCompare(os.qcBoxFill.alphaF(), static_cast< qreal >(0.0f)) ? Qt::NoBrush : os.qcBoxFill);
+	qgpiBox->setBrush(qFuzzyCompare(static_cast< float >(os.qcBoxFill.alphaF()), 0.0f) ? Qt::NoBrush : os.qcBoxFill);
 	qgpiBox->setOpacity(1.0f);
 
 	qgpiBox->setVisible(os.bBox);

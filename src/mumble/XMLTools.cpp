@@ -1,4 +1,4 @@
-// Copyright 2017-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -18,20 +18,15 @@ void XMLTools::recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, 
 		QMap< QString, QString > style;
 		QMap< QString, QString > pstyle = opstyle;
 
-		QStringRef styleref = a.value(QLatin1String("style"));
+		const auto styleref = a.value(QLatin1String("style"));
 		if (!styleref.isNull()) {
 			QString stylestring = styleref.toString();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-			QStringList styles = stylestring.split(QLatin1String(";"), Qt::SkipEmptyParts);
-#else
-			// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
-			QStringList styles = stylestring.split(QLatin1String(";"), QString::SkipEmptyParts);
-#endif
+			QStringList styles  = stylestring.split(QLatin1String(";"), Qt::SkipEmptyParts);
 			foreach (QString s, styles) {
-				s           = s.simplified();
-				int idx     = s.indexOf(QLatin1Char(':'));
-				QString key = (idx > 0) ? s.left(idx).simplified() : s;
-				QString val = (idx > 0) ? s.mid(idx + 1).simplified() : QString();
+				s                 = s.simplified();
+				const auto idx    = s.indexOf(QLatin1Char(':'));
+				const QString key = (idx > 0) ? s.left(idx).simplified() : s;
+				const QString val = (idx > 0) ? s.mid(idx + 1).simplified() : QString();
 
 				if (!pstyle.contains(key) || (pstyle.value(key) != val)) {
 					style.insert(key, val);

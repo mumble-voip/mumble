@@ -1,4 +1,4 @@
-// Copyright 2014-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -27,7 +27,7 @@ MumbleApplication::MumbleApplication(int &pargc, char **pargv) : QApplication(pa
 
 QString MumbleApplication::applicationVersionRootPath() {
 	QString versionRoot = EnvUtils::getenv(QLatin1String("MUMBLE_VERSION_ROOT"));
-	if (versionRoot.count() > 0) {
+	if (!versionRoot.isEmpty()) {
 		return versionRoot;
 	}
 	return this->applicationDirPath();
@@ -57,7 +57,7 @@ bool MumbleApplication::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
-bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
+bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, qintptr *) {
 	auto gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 	if (!gsw) {
 		return false;

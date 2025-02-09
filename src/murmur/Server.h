@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -38,6 +38,7 @@
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QSocketNotifier>
 #include <QtCore/QStringList>
 #include <QtCore/QThread>
@@ -144,9 +145,10 @@ public:
 	bool bBonjour;
 	bool bAllowPing;
 	bool allowRecording;
+	unsigned int rollingStatsWindow;
 
-	QRegExp qrUserName;
-	QRegExp qrChannelName;
+	QRegularExpression qrUserName;
+	QRegularExpression qrChannelName;
 
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;

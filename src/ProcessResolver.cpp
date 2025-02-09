@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -154,15 +154,15 @@ void ProcessResolver::doResolve() {
 				QByteArray cmdline = f.readAll();
 				f.close();
 
-				int nul = cmdline.indexOf('\0');
+				const auto nul = cmdline.indexOf('\0');
 				if (nul != -1) {
 					cmdline.truncate(nul);
 				}
 
 				QString exe = QString::fromUtf8(cmdline);
 				if (exe.contains(QLatin1String("\\"))) {
-					int lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
-					if (exe.count() > lastBackslash + 1) {
+					const auto lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
+					if (exe.length() > lastBackslash + 1) {
 						baseName = exe.mid(lastBackslash + 1);
 					}
 				}

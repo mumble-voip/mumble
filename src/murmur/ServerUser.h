@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -85,7 +85,7 @@ private:
 	/// (The capacity of the bucket)
 	unsigned int m_maxTokens;
 	/// The amount of tokens currently stored
-	/// (The amount of whater currently in the bucket)
+	/// (The amount of whatever currently is in the bucket)
 	long m_currentTokens;
 	/// A timer that is used to measure time intervals. It is essential
 	/// that this timer uses a monotonic clock (which is why QElapsedTimer is

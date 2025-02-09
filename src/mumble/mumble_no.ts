@@ -2795,10 +2795,6 @@ Er du sikker på at du vil erstatte ditt sertifikat?
 &lt;p&gt;Merk at denne filen ikke er kryptert, slik at alle som får tilgang til den vil kunne opptre som deg, så ta godt vare på den.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kan bruke sertifikater for identitetsbekreftelse ovenfor tjenere. Bruk av sertifikater unngår bruk av passord, som betyr at du ikke må oppgi et passord fra brukersiden. Det gir også veldig enkel brukerregistrering og en venneliste som er uavhengig av tjenere.&lt;/p&gt;&lt;p&gt;Selv om Mumble kan fungere uten sertifikater, forventer de fleste tjenere at du har et. &lt;/p&gt;&lt;p&gt;Automatisk opprettelse av et nytt sertifikat er nok for de fleste brukstilfeller, men Mumble støtter også sertifikater som representerer tillit til brukernes eierforhold til en e-postadresse. Disse sertifikatene utstedes av tredjeparter. Mer info er å finne i &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;brukersertifikatdokumentasjonen&lt;/a&gt;&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2836,6 +2832,10 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5085,10 +5085,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble -- %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>&amp;Vindu</translation>
     </message>
@@ -5231,10 +5227,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Den spesifikke feilen med dette sertifikatet er:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Ønsker du å godta dette sertifikatet likevel?&lt;br /&gt;(dette vil også bli lagret og du vil ikke bli spurt igjen.)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>SSL-versjon samsvarer ikke</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5456,10 +5448,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ADVARSEL:&lt;/b&gt; Tjeneren presenterte et sertifikat som er forskjellig fra det som er lagret.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Denne tjeneren kjører en gammel krypteringsstandard som ikke lenger støttes.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5949,10 +5937,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Velkomstmelding: %1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du ble nektet %1 privilegium i %2.</translation>
     </message>
@@ -6365,18 +6349,6 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
         <translation>&amp;Utvikler</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>&amp;Skjul Mumble</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>Gjemmer hovedvinduet til Mumble.</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>Skjuler hovedvinduet til Mumble. Gjenopprett det ved å klikke på systemkurven eller å starte Mumble igjen.</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>Vis utviklerkonsollen</translation>
     </message>
@@ -6427,14 +6399,6 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
     <message>
         <source>&amp;Change Comment...</source>
         <translation>&amp;Endre kommentar…</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>Vis</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>Viser hovedvinduet i Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6694,70 +6658,6 @@ Mulige handlinger:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7107,6 +7007,93 @@ Valid options are:
         <source>Filtered channels and users</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7264,11 +7251,11 @@ Valid options are:
     <message>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Bruk TCP kompabilitetsmodus</translation>
+        <translation>Bruk TCP-kompatibilitetsmodus</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Skru på TCP kompabilitetsmodus&lt;/b&gt;.&lt;br /&gt;Dette får Mumble til å kommunisere bare ved bruk av TCP mot tjeneren. Dette øker overskuddet og forårsaker pakketap som igjen gir merkbare stopp i kommunikasjonen, så de bør bare brukes hvis du ikke kan bruke forvalget (som bruker UDP for tale og TCP for kontrollsignal).</translation>
+        <translation>&lt;b&gt;Skru på TCP-kompatibilitetsmodus&lt;/b&gt;.&lt;br /&gt;Dette får Mumble til å kommunisere bare ved bruk av TCP mot tjeneren. Dette øker overskuddet og forårsaker pakketap som igjen gir merkbare stopp i kommunikasjonen, så de bør bare brukes hvis du ikke kan bruke forvalget (som bruker UDP for tale og TCP for kontrollsignal).</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
@@ -7344,7 +7331,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Typen mellomtjener Mumble kobler til gjennom.&lt;/b&gt;&lt;br /&gt; for alle utgående tilkoblinger. Merk: Mellomtjenertunnelering tvinger Mumble til å bruke TCP kompabilitetsmodus, slik at all taledata blir sendt gjennom kontrollkanalen.</translation>
+        <translation>&lt;b&gt;Typen mellomtjener Mumble kobler til gjennom.&lt;/b&gt;&lt;br /&gt; for alle utgående tilkoblinger. Merk: Mellomtjenertunnelering tvinger Mumble til å bruke TCP-kompatibilitetsmodus, slik at all taledata blir sendt gjennom kontrollkanalen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
@@ -8374,12 +8361,6 @@ Trykk på knappen nedefor for å oppgradere.</translation>
         <translation>Ekko-kansellering støttes ikke for grensesnittskombinasjonen «%1» (i) og «%2» (ut).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Hvis du bruker Linux er dette antagelig fordi du bruker en versjon fra din distribusjons pakkebrønn, som har egen oppgraderingssyklus.&lt;/p&gt;&lt;p&gt;Hvis du alltid vil ha nyeste Mumble-versjon bør du overveie å bruke en annen installasjonsmetode.
-Du finner tilgjengelige alternativer i &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble-wiki-en&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Lokal forstumming</translation>
     </message>
@@ -8650,6 +8631,11 @@ Du kan registrere dem igjen.</translation>
     <message>
         <source>Add</source>
         <translation type="unfinished">Legg til</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9399,6 +9385,42 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>minutes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

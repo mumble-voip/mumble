@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -20,12 +20,15 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QList>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QUrl>
 #include <QtCore/QVariant>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslKey>
+
+#include <memory>
 
 class Server;
 class QSettings;
@@ -86,8 +89,6 @@ public:
 	bool bSendVersion;
 	bool bAllowPing;
 
-	QString qsDBus;
-	QString qsDBusService;
 	QString qsLogfile;
 	QString qsPid;
 	QString qsIceEndpoint;
@@ -100,8 +101,8 @@ public:
 	QUrl qurlRegWeb;
 	bool bBonjour;
 
-	QRegExp qrUserName;
-	QRegExp qrChannelName;
+	QRegularExpression qrUserName;
+	QRegularExpression qrChannelName;
 
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;
@@ -157,6 +158,9 @@ public:
 	/// A flag indicating whether recording is allowed on this server
 	bool allowRecording;
 
+	/// The number of seconds to keep rolling stats for per client
+	unsigned int rollingStatsWindow;
+
 	/// qsAbsSettingsFilePath is the absolute path to
 	/// the murmur.ini used by this Meta instance.
 	QString qsAbsSettingsFilePath;
@@ -183,7 +187,7 @@ private:
 	Q_DISABLE_COPY(Meta)
 
 public:
-	static MetaParams mp;
+	static std::unique_ptr< MetaParams > mp;
 	QHash< unsigned int, Server * > qhServers;
 	QHash< QHostAddress, QList< Timer > > qhAttempts;
 	QHash< QHostAddress, Timer > qhBans;

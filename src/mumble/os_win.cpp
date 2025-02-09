@@ -1,9 +1,8 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "LogEmitter.h"
 #include "MumbleApplication.h"
 
 #ifdef _MSC_VER
@@ -45,12 +44,9 @@ void mumble_speex_init();
 #define DUMP_BUFFER_SIZE 1024
 
 static wchar_t wcCrashDumpPath[DUMP_BUFFER_SIZE];
-static FILE *fConsole = nullptr;
 
 static wchar_t wcComment[DUMP_BUFFER_SIZE] = L"";
 static MINIDUMP_USER_STREAM musComment;
-
-static QSharedPointer< LogEmitter > le;
 
 static int cpuinfo[4];
 
@@ -58,38 +54,6 @@ bool bIsWin7     = false;
 bool bIsVistaSP1 = false;
 
 HWND mumble_mw_hwnd = 0;
-
-static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
-	char c;
-	switch (type) {
-		case QtDebugMsg:
-			c = 'D';
-			break;
-		case QtWarningMsg:
-			c = 'W';
-			break;
-		case QtFatalMsg:
-			c = 'F';
-			break;
-		default:
-			c = 'X';
-	}
-	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
-	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
-	fprintf(fConsole, "%s\n", qPrintable(fmsg));
-	fflush(fConsole);
-	OutputDebugStringA(qPrintable(fmsg));
-	le->addLogEntry(fmsg);
-	if (type == QtFatalMsg) {
-		::MessageBoxA(nullptr, qPrintable(msg), "Mumble", MB_OK | MB_ICONERROR);
-		exit(0);
-	}
-}
-
-static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
-	Q_UNUSED(ctx);
-	mumbleMessageOutputQString(type, msg);
-}
 
 static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo) {
 	MINIDUMP_EXCEPTION_INFORMATION i;
@@ -255,19 +219,7 @@ void os_init() {
 	enableCrashOnCrashes();
 	mumble_speex_init();
 
-	// Make a copy of the global LogEmitter, such that
-	// os_win.cpp doesn't have to consider the deletion
-	// of the Global object and its LogEmitter object.
-	le = Global::get().le;
-
 #ifdef QT_NO_DEBUG
-	QString console = Global::get().qdBasePath.filePath(QLatin1String("Console.txt"));
-	fConsole        = _wfsopen(console.toStdWString().c_str(), L"a+", _SH_DENYWR);
-
-	if (fConsole) {
-		qInstallMessageHandler(mumbleMessageOutputWithContext);
-	}
-
 	QString hash;
 	QFile f(qApp->applicationFilePath());
 	if (!f.open(QIODevice::ReadOnly)) {

@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -55,11 +55,7 @@ ViewCert::ViewCert(QList< QSslCertificate > cl, QWidget *p) : QDialog(p) {
 	qlwChain->setObjectName(QLatin1String("Chain"));
 
 	// load certs into a set as a hacky fix to #2141
-#if QT_VERSION >= 0x050400
 	QSet< QSslCertificate > qlCertSet;
-#else
-	QList< QSslCertificate > qlCertSet;
-#endif
 	foreach (QSslCertificate c, qlCerts) {
 		if (!qlCertSet.contains(c)) {
 			qlwChain->addItem(certificateFriendlyName(c));

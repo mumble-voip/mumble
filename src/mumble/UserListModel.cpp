@@ -1,4 +1,4 @@
-// Copyright 2013-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -17,6 +17,8 @@
 
 #include <vector>
 
+#include <QtCore/QTimeZone>
+
 UserListModel::UserListModel(const MumbleProto::UserList &userList, QObject *parent_)
 	: QAbstractTableModel(parent_), m_legacyMode(false) {
 	m_userList.reserve(userList.users_size());
@@ -34,7 +36,7 @@ int UserListModel::rowCount(const QModelIndex &parentIndex) const {
 	if (parentIndex.isValid())
 		return 0;
 
-	return m_userList.size();
+	return static_cast< int >(m_userList.size());
 }
 
 int UserListModel::columnCount(const QModelIndex &parentIndex) const {
@@ -296,6 +298,10 @@ QString UserListModel::pathForChannelId(const unsigned int channelId) const {
 
 QDateTime UserListModel::isoUTCToDateTime(const std::string &isoTime) const {
 	QDateTime dt = QDateTime::fromString(u8(isoTime), Qt::ISODate);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	dt.setTimeZone(QTimeZone::UTC);
+#else
 	dt.setTimeSpec(Qt::UTC);
+#endif
 	return dt;
 }

@@ -1,7 +1,24 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+# This function calculates the SHA3-256 hash of the given FILE.
+# The hash is written in numerical form (sum of bytes) into HASH.
+function(get_numerical_file_hash FILE HASH)
+	file(SHA3_256 ${FILE} HEX_HASH)
+
+	# Split the hex hash string into pairs (each one representing a single byte).
+	string(REGEX MATCHALL ".." BYTES ${HEX_HASH})
+
+	set(NUMERICAL 0)
+
+	foreach(BYTE ${BYTES})
+		math(EXPR NUMERICAL "${NUMERICAL} + 0x${BYTE}" OUTPUT_FORMAT DECIMAL)
+	endforeach()
+
+	set(${HASH} ${NUMERICAL} PARENT_SCOPE)
+endfunction()
 
 # This function gets all included subdirectories in the given DIR recursively.
 # It'll write the found subdirs into SUBDIRS.

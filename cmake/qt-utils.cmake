@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -37,7 +37,7 @@ function(include_qt_plugin TARGET SCOPE PLUGIN)
 endfunction()
 
 function(compile_translations OUT_VAR OUT_DIR TS_FILES)
-	find_pkg(Qt5 COMPONENTS LinguistTools REQUIRED)
+	find_pkg(Qt6 COMPONENTS LinguistTools REQUIRED)
 
 	# Create output directory
 	file(MAKE_DIRECTORY "${OUT_DIR}")
@@ -47,7 +47,7 @@ function(compile_translations OUT_VAR OUT_DIR TS_FILES)
 	# Compile the given .ts files into .qm files into the output directory
 	foreach(CURRENT_TS IN LISTS TS_FILES)
 		set_source_files_properties("${CURRENT_TS}" PROPERTIES OUTPUT_LOCATION "${OUT_DIR}")
-		qt5_add_translation(COMPILED_FILES "${CURRENT_TS}")
+		qt6_add_translation(COMPILED_FILES "${CURRENT_TS}")
 	endforeach()
 
 	# return the list of compiled .qm files
@@ -96,7 +96,7 @@ endfunction()
 
 function(query_qmake OUT_VAR PROP)
 	# Get the path to the qmake executable
-	get_target_property(QT_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+	get_target_property(QT_QMAKE_EXECUTABLE Qt6::qmake IMPORTED_LOCATION)
 
 	# Query qmake for the location of the installed Qt translations
 	execute_process(

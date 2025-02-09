@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -513,15 +513,15 @@ void ShortcutTargetWidget::on_qtbEdit_clicked() {
 ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	QItemEditorFactory *factory = new QItemEditorFactory;
 
-	factory->registerEditor(QVariant::List, new QStandardItemEditorCreator< GlobalShortcutButtons >());
-	factory->registerEditor(QVariant::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
-	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
+	factory->registerEditor(QMetaType::QVariantList, new QStandardItemEditorCreator< GlobalShortcutButtons >());
+	factory->registerEditor(QMetaType::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
+	factory->registerEditor(QMetaType::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
 	factory->registerEditor(static_cast< int >(QVariant::fromValue(ShortcutTarget()).userType()),
 							new QStandardItemEditorCreator< ShortcutTargetWidget >());
 	factory->registerEditor(static_cast< int >(QVariant::fromValue(ChannelTarget()).userType()),
 							new QStandardItemEditorCreator< ChannelSelectWidget >());
-	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator< TextEditWidget >());
-	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator< QWidget >());
+	factory->registerEditor(QMetaType::QString, new QStandardItemEditorCreator< TextEditWidget >());
+	factory->registerEditor(QMetaType::UnknownType, new QStandardItemEditorCreator< QWidget >());
 	setItemEditorFactory(factory);
 }
 
@@ -546,9 +546,8 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			return tr("< Unknown Channel >");
 		}
 	}
-
-	switch (item.type()) {
-		case QVariant::Int: {
+	switch (item.typeId()) {
+		case QMetaType::Int: {
 			const auto v = item.toInt();
 			if (v > 0) {
 				return tr("On");
@@ -558,11 +557,11 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 
 			return tr("Toggle");
 		}
-		case QVariant::UInt: {
+		case QMetaType::UInt: {
 			const auto shortcut = GlobalShortcutEngine::engine->qmShortcuts.value(item.toInt());
 			return shortcut ? shortcut->name : tr("Unassigned");
 		}
-		case QVariant::List: {
+		case QMetaType::QVariantList: {
 			const auto buttons = item.value< QList< QVariant > >();
 			if (buttons.count() > 0) {
 				QString text;
@@ -581,7 +580,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 			}
 		}
 		default:
-			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.type());
+			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.typeId());
 	}
 
 	return QStyledItemDelegate::displayText(item, loc);
@@ -638,12 +637,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
-#	else
-	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
-#	endif
 		qpbOpenAccessibilityPrefs->setHidden(true);
 		label->setText(tr("<html><head/><body>"
 						  "<p>"
@@ -680,12 +675,8 @@ bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
 #	if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
-#		if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
-#		else
-	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
-#		endif
 		return !AXIsProcessTrustedWithOptions(nullptr);
 	} else
 #	endif
@@ -850,7 +841,7 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 	::GlobalShortcut *gs  = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 
 	item->setData(0, Qt::DisplayRole, static_cast< unsigned int >(sc.iIndex));
-	if (sc.qvData.isValid() && gs && (sc.qvData.type() == gs->qvDefault.type()))
+	if (sc.qvData.isValid() && gs && (sc.qvData.metaType() == gs->qvDefault.metaType()))
 		item->setData(1, Qt::DisplayRole, sc.qvData);
 	else if (gs)
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
@@ -912,14 +903,7 @@ GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 
 GlobalShortcutEngine::~GlobalShortcutEngine() {
 	QSet< ShortcutKey * > qs;
-	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		qs += QSet< ShortcutKey * >(ql.begin(), ql.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		qs += ql.toSet();
-#endif
-	}
+	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) { qs += QSet< ShortcutKey * >(ql.begin(), ql.end()); }
 
 	foreach (ShortcutKey *sk, qs)
 		delete sk;
@@ -929,14 +913,7 @@ void GlobalShortcutEngine::remap() {
 	bNeedRemap = false;
 
 	QSet< ShortcutKey * > qs;
-	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		qs += QSet< ShortcutKey * >(ql.begin(), ql.end());
-#else
-		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-		qs += ql.toSet();
-#endif
-	}
+	foreach (const QList< ShortcutKey * > &ql, qlShortcutList) { qs += QSet< ShortcutKey * >(ql.begin(), ql.end()); }
 
 	foreach (ShortcutKey *sk, qs)
 		delete sk;
@@ -954,7 +931,7 @@ void GlobalShortcutEngine::remap() {
 			sk->gs          = gs;
 
 			foreach (const QVariant &button, sc.qlButtons) {
-				int idx = qlButtonList.indexOf(button);
+				auto idx = qlButtonList.indexOf(button);
 				if (idx == -1) {
 					qlButtonList << button;
 					qlShortcutList << QList< ShortcutKey * >();
@@ -1027,7 +1004,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 		}
 	}
 
-	int idx = qlButtonList.indexOf(button);
+	const auto idx = qlButtonList.indexOf(button);
 	if (idx == -1)
 		return false;
 

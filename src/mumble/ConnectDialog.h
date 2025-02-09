@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -101,7 +101,7 @@ public:
 	void fixupName(ServerItem *si);
 
 protected:
-	QMimeData *mimeData(const QList< QTreeWidgetItem * >) const Q_DECL_OVERRIDE;
+	QMimeData *mimeData(const QList< QTreeWidgetItem * > &) const Q_DECL_OVERRIDE;
 	QStringList mimeTypes() const Q_DECL_OVERRIDE;
 	Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
 	bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;

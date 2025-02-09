@@ -1,4 +1,4 @@
-// Copyright 2009-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -65,7 +65,7 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
 
 	// resize rect to exclude the icons
-	o.rect = option.rect.adjusted(0, 0, -m_iconTotalDimension * ql.count(), 0);
+	o.rect = option.rect.adjusted(0, 0, static_cast< int >(-m_iconTotalDimension * ql.count()), 0);
 
 	// draw icon
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
@@ -79,8 +79,8 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 						colorRole);
 
 	// draw icons to original rect
-	QRect ps = QRect(option.rect.right() - (ql.size() * m_iconTotalDimension), option.rect.y(),
-					 ql.size() * m_iconTotalDimension, option.rect.height());
+	const QRect ps = QRect(option.rect.right() - (static_cast< int >(ql.size() * m_iconTotalDimension)),
+						   option.rect.y(), static_cast< int >(ql.size() * m_iconTotalDimension), option.rect.height());
 
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
@@ -100,7 +100,7 @@ bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QSt
 		const QModelIndex firstColumnIdx = index.sibling(index.row(), 1);
 		QVariant data                    = m->data(firstColumnIdx);
 		QList< QVariant > iconList       = data.toList();
-		const int offset                 = iconList.size() * -m_iconTotalDimension;
+		const auto offset                = static_cast< int >(iconList.size() * -m_iconTotalDimension);
 		const int firstIconPos           = option.rect.topRight().x() + offset;
 
 		if (evt->pos().x() >= firstIconPos) {
@@ -157,9 +157,9 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 	QModelIndex idx = indexAt(clickPosition);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *userModel   = qobject_cast< UserModel * >(model());
-		ClientUser *clientUser = userModel->getUser(idx);
-		Channel *channel       = userModel->getChannel(idx);
+		UserModel *userModel         = qobject_cast< UserModel * >(model());
+		const ClientUser *clientUser = userModel->getUser(idx);
+		const Channel *channel       = userModel->getChannel(idx);
 
 		// This is the x offset of the _beginning_ of the comment icon starting from the
 		// right.

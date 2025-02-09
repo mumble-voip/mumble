@@ -7,6 +7,6 @@ add_executable(TestCaseInsensitiveQString TestCaseInsensitiveQString.cpp)
 
 set_target_properties(TestCaseInsensitiveQString PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestCaseInsensitiveQString PRIVATE shared Qt5::Test)
+target_link_libraries(TestCaseInsensitiveQString PRIVATE shared Qt6::Test)
 
 add_test(NAME TestCaseInsensitiveQString COMMAND $<TARGET_FILE:TestCaseInsensitiveQString>)

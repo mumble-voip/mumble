@@ -1,4 +1,4 @@
-# Copyright 2022-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,7 +7,7 @@ add_executable(TestAudioReceiverBuffer TestAudioReceiverBuffer.cpp)
 
 set_target_properties(TestAudioReceiverBuffer PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestAudioReceiverBuffer PRIVATE shared Qt5::Test)
+target_link_libraries(TestAudioReceiverBuffer PRIVATE shared Qt6::Test)
 
 target_include_directories(TestAudioReceiverBuffer PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 

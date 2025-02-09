@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -305,7 +305,6 @@ ALSAAudioInput::~ALSAAudioInput() {
 
 void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
-	snd_pcm_sframes_t readblapp;
 
 	QByteArray device_name         = Global::get().s.qsALSAInput.toLatin1();
 	snd_pcm_hw_params_t *hw_params = nullptr;
@@ -379,21 +378,27 @@ void ALSAAudioInput::run() {
 		snd_pcm_status_dump(status, log);
 		snd_pcm_status_free(status);
 #endif
-		readblapp = snd_pcm_readi(capture_handle, inbuff.data(), static_cast< snd_pcm_uframes_t >(wantPeriod));
-		if (readblapp == -ESTRPIPE) {
-			qWarning("ALSAAudioInput: PCM suspended, trying to resume");
-			while (bRunning && snd_pcm_resume(capture_handle) == -EAGAIN)
-				msleep(1000);
-			if ((err = snd_pcm_prepare(capture_handle)) < 0)
-				qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast< int >(readblapp)), snd_strerror(err));
-		} else if (readblapp == -EPIPE) {
-			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast< int >(readblapp)), snd_strerror(err));
-		} else if (readblapp < 0) {
-			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast< int >(readblapp)), snd_strerror(err));
-		} else if (wantPeriod == static_cast< unsigned int >(readblapp)) {
-			addMic(inbuff.data(), static_cast< unsigned int >(readblapp));
+		const snd_pcm_sframes_t ret = snd_pcm_readi(capture_handle, inbuff.data(), wantPeriod);
+		if (ret >= 0) {
+			if (static_cast< snd_pcm_uframes_t >(ret) == wantPeriod) {
+				addMic(inbuff.data(), static_cast< unsigned int >(ret));
+			}
+		} else {
+			err = static_cast< decltype(err) >(ret);
+			switch (err) {
+				case -EINTR:
+				case -EPIPE:
+				case -ESTRPIPE:
+					qWarning("ALSAAudioInput encountered unrecoverable error: %s -> exiting...", snd_strerror(err));
+					while (bRunning && snd_pcm_recover(capture_handle, err, 1) == -EAGAIN) {
+						msleep(1000);
+					}
+
+					break;
+				default:
+					qWarning("ALSAAudioInput: %s, breaking the loop...", snd_strerror(err));
+					bRunning = false;
+			}
 		}
 	}
 

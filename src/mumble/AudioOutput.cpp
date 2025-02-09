@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -31,6 +31,8 @@ QMap< QString, AudioOutputRegistrar * > *AudioOutputRegistrar::qmNew;
 QString AudioOutputRegistrar::current = QString();
 
 AudioOutputRegistrar::AudioOutputRegistrar(const QString &n, int p) : name(n), priority(p) {
+	qRegisterMetaType< AudioOutputBuffer * >("AudioOutputBuffer *");
+
 	if (!qmNew)
 		qmNew = new QMap< QString, AudioOutputRegistrar * >();
 	qmNew->insert(name, this);
@@ -616,12 +618,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					if (speech->bStereo) {
 						// Mix down stereo to mono. TODO: stereo record support
 						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-						for (unsigned int i = 0; i < frameCount; ++i) {
-							recbuff[i] += (pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
+						for (std::size_t i = 0; i < frameCount; ++i) {
+							recbuff.get()[i] +=
+								(pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
 						}
 					} else {
-						for (unsigned int i = 0; i < frameCount; ++i) {
-							recbuff[i] += pfBuffer[i] * volumeAdjustment;
+						for (std::size_t i = 0; i < frameCount; ++i) {
+							recbuff.get()[i] += pfBuffer[i] * volumeAdjustment;
 						}
 					}
 

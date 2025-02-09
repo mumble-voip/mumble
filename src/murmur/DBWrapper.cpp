@@ -1286,12 +1286,12 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 
 	if (password.empty()) {
 	} else {
-		if (Meta::mp.legacyPasswordHash) {
+		if (Meta::mp->legacyPasswordHash) {
 			pwData.passwordHash = getLegacyPasswordHash(password).toStdString();
 		} else {
-			assert(Meta::mp.kdfIterations >= 0);
+			assert(Meta::mp->kdfIterations >= 0);
 			pwData.kdfIterations =
-				kdfIterations > 0 ? kdfIterations : static_cast< unsigned int >(Meta::mp.kdfIterations);
+				kdfIterations > 0 ? kdfIterations : static_cast< unsigned int >(Meta::mp->kdfIterations);
 			pwData.salt         = PBKDF2::getSalt().toStdString();
 			pwData.passwordHash = PBKDF2::getHash(QString::fromStdString(pwData.salt), QString::fromStdString(password),
 												  static_cast< int >(pwData.kdfIterations))

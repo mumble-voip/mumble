@@ -1,4 +1,4 @@
-// Copyright 2008-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -188,12 +188,7 @@ LCD::LCD() : QObject() {
 	}
 	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48, 48).toImage().convertToFormat(QImage::Format_MonoLSB);
 
-#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
-	// Don't invert the logo image when using Qt 5.6.
-	// See mumble-voip/mumble#2429
-#else
 	qiLogo.invertPixels();
-#endif
 
 	updateUserView();
 }
@@ -249,13 +244,7 @@ void LCD::updateUserView() {
 		QPainter painter(img);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, false);
 
-#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
-		// Use Qt::white instead of Qt::color1 on Qt 5.6.
-		// See mumble-voip/mumble#2429
-		painter.setPen(Qt::white);
-#else
 		painter.setPen(Qt::color1);
-#endif
 
 		painter.setFont(qfNormal);
 
@@ -351,7 +340,7 @@ void LCD::updateUserView() {
 		const int iHeight         = size.height();
 		const int iUsersPerColumn = iHeight / iFontHeight;
 		const int iSplitterWidth  = Global::get().s.iLCDUserViewSplitterWidth;
-		const int iUserColumns    = (entries.count() + iUsersPerColumn - 1) / iUsersPerColumn;
+		const int iUserColumns    = static_cast< int >((entries.count() + iUsersPerColumn - 1) / iUsersPerColumn);
 
 		int iColumns     = iUserColumns;
 		int iColumnWidth = 1;

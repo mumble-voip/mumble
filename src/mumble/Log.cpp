@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -24,12 +24,12 @@
 
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
+#include <QtCore/QRegularExpression>
 #include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextDocumentFragment>
 #include <QtNetwork/QNetworkReply>
-#include <QtWidgets/QDesktopWidget>
 
 const QString LogConfig::name = QLatin1String("LogConfig");
 
@@ -421,6 +421,8 @@ Log::Log(QObject *p) : QObject(p) {
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
+
+	QObject::connect(this, &Log::highlightSpawned, Global::get().mw, &MainWindow::highlightWindow);
 }
 
 // Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
@@ -780,7 +782,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		QString fixedNLPlain =
 			plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
 
-		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
+		if (fixedNLPlain.contains(QRegularExpression(QLatin1String("\\n[ \\t]*$")))) {
 			// If the message ends with one or more blank lines (or lines only containing whitespace)
 			// paint a border around the message to make clear that it contains invisible parts.
 			// The beginning of the message is clear anyway (the date and potentially the "To XY" part)
@@ -812,13 +814,58 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if (!(Global::get().mw->isActiveWindow() && Global::get().mw->qdwLog->isVisible())) {
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
-				QApplication::alert(Global::get().mw);
+				emit highlightSpawned();
 			}
 
 			// Message notification with balloon tooltips
 			if (flags & Settings::LogBalloon) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
-				postNotification(mt, plain.replace("\xEF\xBF\xBC", tr("[embedded content]")));
+				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
+
+				QSystemTrayIcon::MessageIcon msgIcon = QSystemTrayIcon::NoIcon;
+				switch (mt) {
+					case DebugInfo:
+					case CriticalError:
+						msgIcon = QSystemTrayIcon::Critical;
+						break;
+					case Warning:
+						msgIcon = QSystemTrayIcon::Warning;
+						break;
+					case TextMessage:
+					case PrivateTextMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
+						break;
+					case Information:
+					case ServerConnected:
+					case ServerDisconnected:
+					case UserJoin:
+					case UserLeave:
+					case Recording:
+					case YouKicked:
+					case UserKicked:
+					case SelfMute:
+					case OtherSelfMute:
+					case YouMuted:
+					case YouMutedOther:
+					case OtherMutedOther:
+					case ChannelJoin:
+					case ChannelLeave:
+					case PermissionDenied:
+					case SelfUnmute:
+					case SelfDeaf:
+					case SelfUndeaf:
+					case UserRenamed:
+					case SelfChannelJoin:
+					case SelfChannelJoinOther:
+					case ChannelJoinConnect:
+					case ChannelLeaveDisconnect:
+					case ChannelListeningAdd:
+					case ChannelListeningRemove:
+					case PluginMessage:
+						msgIcon = QSystemTrayIcon::Information;
+						break;
+				}
+				emit notificationSpawned(msgName(mt), plain, msgIcon);
 			}
 		}
 
@@ -828,7 +875,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 
 		// Message notification with static sounds
-		int connectedUsers = 0;
+		qsizetype connectedUsers = 0;
 		{
 			QReadLocker lock(&ClientUser::c_qrwlUsers);
 			connectedUsers = ClientUser::c_qmUsers.size();
@@ -858,18 +905,19 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"), Qt::CaseInsensitive, QRegExp::RegExp2);
+	const QRegularExpression identifyURL(QRegularExpression::anchoredPattern(QLatin1String("[a-z-]+://[^ <]*")),
+										 QRegularExpression::CaseInsensitiveOption);
 
-	QStringList qslAllowed = allowedSchemes();
+	const QStringList qslAllowed  = allowedSchemes();
+	QRegularExpressionMatch match = identifyURL.match(plain);
+	qsizetype pos                 = 0;
 
-	int pos = 0;
-	while ((pos = identifyURL.indexIn(plain, pos)) != -1) {
-		QUrl url(identifyURL.cap(0).toLower());
-		int len = identifyURL.matchedLength();
+	while (match.hasMatch()) {
+		QUrl url(match.captured(0).toLower());
 		if (url.isValid() && qslAllowed.contains(url.scheme())) {
 			// Replace it appropriately
 			QString replacement;
-			QString host = url.host().replace(QRegExp(QLatin1String("^www.")), QString());
+			QString host = url.host().replace(QRegularExpression(QLatin1String("^www.")), QString());
 
 			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
 				replacement = tr("link to %1").arg(host);
@@ -882,10 +930,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			else
 				replacement = tr("%1 link").arg(url.scheme());
 
-			plain.replace(pos, len, replacement);
+			plain.replace(pos, match.capturedLength(), replacement);
 		} else {
-			pos += len;
+			pos += match.capturedLength();
 		}
+
+		match = identifyURL.match(plain, pos);
 	}
 
 #ifndef USE_NO_TTS
@@ -907,26 +957,6 @@ void Log::processDeferredLogs() {
 		LogMessage msg = qvDeferredLogs.takeFirst();
 
 		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS, msg.ignoreTTS);
-	}
-}
-
-// Post a notification using the MainWindow's QSystemTrayIcon.
-void Log::postQtNotification(MsgType mt, const QString &plain) {
-	if (Global::get().mw->qstiIcon->isSystemTrayAvailable() && Global::get().mw->qstiIcon->supportsMessages()) {
-		QSystemTrayIcon::MessageIcon msgIcon;
-		switch (mt) {
-			case DebugInfo:
-			case CriticalError:
-				msgIcon = QSystemTrayIcon::Critical;
-				break;
-			case Warning:
-				msgIcon = QSystemTrayIcon::Warning;
-				break;
-			default:
-				msgIcon = QSystemTrayIcon::Information;
-				break;
-		}
-		Global::get().mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
 }
 

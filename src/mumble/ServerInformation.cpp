@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -61,7 +61,7 @@ void ServerInformation::updateServerInformation() {
 
 	Global::get().sh->getConnectionInfo(host, port, userName, password);
 
-	const int userCount             = ModelItem::c_qhUsers.count();
+	const auto userCount            = ModelItem::c_qhUsers.count();
 	const unsigned int maxUserCount = Global::get().uiMaxUsers;
 
 	QString release = Global::get().sh->qsRelease;
@@ -149,14 +149,8 @@ void ServerInformation::updateConnectionDetails() {
 	connection_tcp_tls->setText(MumbleSSL::protocolToString(connection->sessionProtocol()).toHtmlEscaped());
 	connection_tcp_latency->setText(latencyString.arg(latency, 0, 'f', 1).arg(deviation, 0, 'f', 1));
 	connection_tcp_cipher->setText(cipher.name().isEmpty() ? m_unknownStr : cipher.name());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
 	connection_tcp_forwardSecrecy->setText(Global::get().sh->connectionUsesPerfectForwardSecrecy ? tr("Yes")
 																								 : tr("No"));
-#else
-	// The Qt function we use to query for PFS inside ServerHandler is only available since Qt 5.7 and if it is
-	// unavailable, the respective boolean flag is never touched and is therefore meaningless.
-	connection_tcp_forwardSecrecy->setText(tr("Unknown"));
-#endif
 
 	qgbTCPParameters->updateAccessibleText();
 }
@@ -170,14 +164,14 @@ void ServerInformation::populateUDPStatistics(const Connection &connection) {
 	constexpr int LOST_ROW        = 2;
 	constexpr int RESYNC_ROW      = 3;
 
-	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteGood));
-	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiGood));
-	QTableWidgetItem *toLateItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteLate));
-	QTableWidgetItem *fromLateItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiLate));
-	QTableWidgetItem *toLostItem     = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteLost));
-	QTableWidgetItem *fromLostItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiLost));
-	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->uiRemoteResync));
-	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->uiResync));
+	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.good));
+	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.good));
+	QTableWidgetItem *toLateItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.late));
+	QTableWidgetItem *fromLateItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.late));
+	QTableWidgetItem *toLostItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.lost));
+	QTableWidgetItem *fromLostItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.lost));
+	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.resync));
+	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.resync));
 
 	connection_udp_statisticsTable->setItem(GOOD_ROW, TO_SERVER_COL, toGoodItem);
 	connection_udp_statisticsTable->setItem(GOOD_ROW, FROM_SERVER_COL, fromGoodItem);

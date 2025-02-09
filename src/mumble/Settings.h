@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -67,7 +67,7 @@ struct ChannelTarget {
 
 Q_DECLARE_METATYPE(ChannelTarget)
 
-quint32 qHash(const ChannelTarget &);
+std::size_t qHash(const ChannelTarget &);
 
 struct ShortcutTarget {
 	bool bCurrentSelection           = false;
@@ -82,14 +82,13 @@ struct ShortcutTarget {
 
 	ShortcutTarget() = default;
 	bool isServerSpecific() const;
-	bool operator<(const ShortcutTarget &) const;
 	bool operator==(const ShortcutTarget &) const;
 };
 
 Q_DECLARE_METATYPE(ShortcutTarget)
 
-quint32 qHash(const ShortcutTarget &);
-quint32 qHash(const QList< ShortcutTarget > &);
+std::size_t qHash(const ShortcutTarget &);
+std::size_t qHash(const QList< ShortcutTarget > &);
 
 struct PluginSetting {
 	QString path                 = {};
@@ -224,7 +223,7 @@ struct Settings {
 	bool audioCueEnabledPTT = true;
 	bool audioCueEnabledVAD = false;
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
-	QString qsTxAudioCueOff = cqsDefaultPushClickOn;
+	QString qsTxAudioCueOff = cqsDefaultPushClickOff;
 
 	bool bTxMuteCue     = true;
 	bool muteCueShown   = false;
@@ -404,7 +403,6 @@ struct Settings {
 	QByteArray qbaMainWindowState        = {};
 	QByteArray qbaMinimalViewGeometry    = {};
 	QByteArray qbaMinimalViewState       = {};
-	QByteArray qbaHeaderState            = {};
 	QByteArray qbaConfigGeometry         = {};
 	WindowLayout wlWindowLayout          = LayoutClassic;
 	ChannelExpand ceExpand               = ChannelsWithUsers;

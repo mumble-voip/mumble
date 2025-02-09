@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,6 +7,7 @@
 #include "OverlayClient.h"
 #include "MainWindow.h"
 #include "Global.h"
+#include "Version.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QXmlStreamReader>
@@ -123,11 +124,6 @@ pid_t getForegroundProcessId() {
 			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
 
 			[app setSendMode:kAENoReply];
-			if (QSysInfo::MacintoshVersion == QSysInfo::MV_LEOPARD) {
-				[app sendEvent:'MUOL' id:'daol' parameters:0];
-			} else if (QSysInfo::MacintoshVersion >= QSysInfo::MV_SNOWLEOPARD) {
-				[app sendEvent:'MUOL' id:'load' parameters:0];
-			}
 		}
 
 		[pool release];
@@ -289,19 +285,15 @@ static bool isInstallerNewer(QString path, NSUInteger curVer) {
 
 		NSUInteger newVer = qsOverlayVer.toUInt();
 
-		QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-		int major, minor, patch;
-		int minmajor, minminor, minpatch;
-		if (! rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION))))
+		Version::component_t major, minor, patch;
+		if (!Version::getComponents(major, minor, patch, QLatin1String(MUMTEXT(MUMBLE_VERSION)))) {
 			goto out;
-		major = rx.cap(1).toInt();
-		minor = rx.cap(2).toInt();
-		patch = rx.cap(3).toInt();
-		if (! rx.exactMatch(qsMinVer))
+		}
+
+		Version::component_t minmajor, minminor, minpatch;
+		if (!Version::getComponents(minmajor, minminor, minpatch, qsMinVer)) {
 			goto out;
-		minmajor = rx.cap(1).toInt();
-		minminor = rx.cap(2).toInt();
-		minpatch = rx.cap(3).toInt();
+		}
 
 		ret = (major >= minmajor) && (minor >= minminor) && (patch >= minpatch) && (newVer > curVer);
 	}

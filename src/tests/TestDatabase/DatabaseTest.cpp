@@ -374,7 +374,7 @@ void DatabaseTest::simpleImport() {
 	// The scheme_version specified in meta-data doesn't match, so we expect the import to fail (before creating any
 	// tables)
 	QVERIFY(db.getTable("test_table") == nullptr);
-	QVERIFY_EXCEPTION_THROWN(db.importFromJSON(serializedDB, true), FormatException);
+	QVERIFY_THROWS_EXCEPTION(FormatException, db.importFromJSON(serializedDB, true));
 	QVERIFY(!db.tableExistsInDB("test_table"));
 
 	serializedDB["meta_data"]["scheme_version"] = db.getSchemeVersion();
@@ -382,7 +382,7 @@ void DatabaseTest::simpleImport() {
 	// Importing into a non-existent table without telling the DB to create the missing tables on-the-fly should
 	// result in an error
 	QVERIFY(db.getTable("test_table") == nullptr);
-	QVERIFY_EXCEPTION_THROWN(db.importFromJSON(serializedDB, false), FormatException);
+	QVERIFY_THROWS_EXCEPTION(FormatException, db.importFromJSON(serializedDB, false));
 	QVERIFY(!db.tableExistsInDB("test_table"));
 
 	// Now with the version_scheme fixed and the necessary flag set, the import should succeed
@@ -503,7 +503,7 @@ void DatabaseTest::constraintFunctionality() {
 	TEST_INSERT_SELECT_ROUNDTRIP(NotNull, "", "blubb");
 
 	// Inserting NULL should error
-	QVERIFY_EXCEPTION_THROWN(table->insertNullInNotNullCol(), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->insertNullInNotNullCol());
 
 
 	// Unique
@@ -513,9 +513,9 @@ void DatabaseTest::constraintFunctionality() {
 	TEST_INSERT_SELECT_ROUNDTRIP(Unique, "", "valueEmpty");
 
 	// Inserting any of the above keys again should error
-	QVERIFY_EXCEPTION_THROWN(table->insertUnique("keyA", "otherA"), AccessException);
-	QVERIFY_EXCEPTION_THROWN(table->insertUnique("keyB", "otherB"), AccessException);
-	QVERIFY_EXCEPTION_THROWN(table->insertUnique("", "otherEmpty"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->insertUnique("keyA", "otherA"));
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->insertUnique("keyB", "otherB"));
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->insertUnique("", "otherEmpty"));
 
 #undef TEST_INSERT_SELECT_ROUNDTRIP
 
@@ -561,7 +561,7 @@ void DatabaseTest::keys() {
 	TEST_INSERT_SELECT_ROUNDTRIP(primaryKeyTable, "keyB", "valueA");
 
 	// Re-inserting an existing key again should result in an error
-	QVERIFY_EXCEPTION_THROWN(primaryKeyTable->insert("keyA", "bla"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, primaryKeyTable->insert("keyA", "bla"));
 
 	primaryKeyTable->dropKey("keyA");
 
@@ -569,7 +569,7 @@ void DatabaseTest::keys() {
 	TEST_INSERT_SELECT_ROUNDTRIP(primaryKeyTable, "keyA", "otherValueA");
 
 	// Since primary keys imply NOT NULL, inserting NULL into it should error
-	QVERIFY_EXCEPTION_THROWN(primaryKeyTable->insertNull(), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, primaryKeyTable->insertNull());
 
 #undef TEST_INSERT_SELECT_ROUNDTRIP
 
@@ -586,7 +586,7 @@ void DatabaseTest::keys() {
 	TEST_INSERT_SELECT_ROUNDTRIP(compositePKTable, "A2", "B2", "value22");
 
 	// Only duplicating a pair of values errors
-	QVERIFY_EXCEPTION_THROWN(compositePKTable->insert("A1", "B1", "other11"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, compositePKTable->insert("A1", "B1", "other11"));
 
 	compositePKTable->dropKey("A1", "B1");
 
@@ -606,11 +606,11 @@ void DatabaseTest::keys() {
 	TEST_INSERT_SELECT_ROUNDTRIP(foreignKeyTable, "keyB", "secondValue");
 
 	// Attempting to insert any key not used in primaryKeyTable should error
-	QVERIFY_EXCEPTION_THROWN(foreignKeyTable->insert("Non-existing primary key", "Bla"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, foreignKeyTable->insert("Non-existing primary key", "Bla"));
 
 	// Deleting a primary key from primaryKeyTable should also remove it from foreignKeyTable
 	primaryKeyTable->dropKey("keyA");
-	QVERIFY_EXCEPTION_THROWN(foreignKeyTable->select("keyA"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, foreignKeyTable->select("keyA"));
 
 	// Inserting duplicates into a FK table should be fine
 	foreignKeyTable->insert("keyB", "anotherValue");
@@ -629,12 +629,12 @@ void DatabaseTest::keys() {
 	TEST_INSERT_SELECT_ROUNDTRIP(compositeFKTable, "A2", "B2", "fvalue22");
 
 	// Inserting anything else should fail
-	QVERIFY_EXCEPTION_THROWN(compositeFKTable->insert("A1", "C1", "Bla"), AccessException);
-	QVERIFY_EXCEPTION_THROWN(compositeFKTable->insert("C1", "A1", "Bla"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, compositeFKTable->insert("A1", "C1", "Bla"));
+	QVERIFY_THROWS_EXCEPTION(AccessException, compositeFKTable->insert("C1", "A1", "Bla"));
 
 	// Deleting a primary key from compositePKTable should also remove the respective rows from compositeFKTable
 	compositePKTable->dropKey("A1", "B1");
-	QVERIFY_EXCEPTION_THROWN(compositeFKTable->select("A1", "B1"), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, compositeFKTable->select("A1", "B1"));
 
 	// Inserting duplicates into a FK table should be fine
 	compositeFKTable->insert("A2", "B2", "anotherValue");
@@ -669,8 +669,8 @@ void DatabaseTest::indices() {
 	table->addIndex(multiIndex, true);
 
 	// Adding the same index again should error
-	QVERIFY_EXCEPTION_THROWN(table->addIndex(singleIndex, true), AccessException);
-	QVERIFY_EXCEPTION_THROWN(table->addIndex(multiIndex, true), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->addIndex(singleIndex, true));
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->addIndex(multiIndex, true));
 
 	// The failed additions shouldn't have changed anything
 	QCOMPARE(table->getIndices().size(), static_cast< std::size_t >(2));
@@ -686,7 +686,7 @@ void DatabaseTest::indices() {
 
 	// Re-adding without applying and the removing with applying should now error with an exception
 	table->addIndex(singleIndex, false);
-	QVERIFY_EXCEPTION_THROWN(table->removeIndex(singleIndex, true), AccessException);
+	QVERIFY_THROWS_EXCEPTION(AccessException, table->removeIndex(singleIndex, true));
 	table->removeIndex(singleIndex, false);
 
 
@@ -729,7 +729,7 @@ void DatabaseTest::triggers() {
 			table->addTrigger(trigger, true);
 
 			// Adding again should error
-			QVERIFY_EXCEPTION_THROWN(table->addTrigger(trigger, true), AccessException);
+			QVERIFY_THROWS_EXCEPTION(AccessException, table->addTrigger(trigger, true));
 
 			QVERIFY(table->removeTrigger(trigger, true));
 
@@ -738,7 +738,7 @@ void DatabaseTest::triggers() {
 
 			// Adding without applying and then removing with applying should error
 			table->addTrigger(trigger, false);
-			QVERIFY_EXCEPTION_THROWN(table->removeTrigger(trigger, true), AccessException);
+			QVERIFY_THROWS_EXCEPTION(AccessException, table->removeTrigger(trigger, true));
 			table->removeTrigger(trigger, false);
 
 			// Now create a trigger with a condition

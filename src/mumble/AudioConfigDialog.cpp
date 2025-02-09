@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -96,16 +96,16 @@ QIcon AudioInputDialog::icon() const {
 }
 
 void AudioInputDialog::load(const Settings &r) {
-	int i;
 	QList< QString > keys;
 
 	if (AudioInputRegistrar::qmNew)
 		keys = AudioInputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i = keys.indexOf(AudioInputRegistrar::current);
-	if (i >= 0)
-		loadComboBox(qcbSystem, i);
+
+	const auto index = keys.indexOf(AudioInputRegistrar::current);
+	if (index >= 0)
+		loadComboBox(qcbSystem, static_cast< int >(index));
 
 	verifyMicrophonePermission();
 
@@ -586,7 +586,7 @@ void AudioInputDialog::showSpeexNoiseSuppressionSlider(bool show) {
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = Global::get().ai;
 
-	if (!ai.get() || !ai->sppPreprocess)
+	if (!ai.get() || !ai->m_preprocessor)
 		return;
 
 	abSpeech->iBelow = qsTransmitMin->value();
@@ -701,16 +701,16 @@ QString AudioOutputDialog::getCurrentlySelectedOutputInterfaceName() const {
 }
 
 void AudioOutputDialog::load(const Settings &r) {
-	int i;
 	QList< QString > keys;
 
 	if (AudioOutputRegistrar::qmNew)
 		keys = AudioOutputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i = keys.indexOf(AudioOutputRegistrar::current);
-	if (i >= 0)
-		loadComboBox(qcbSystem, i);
+
+	const auto index = keys.indexOf(AudioOutputRegistrar::current);
+	if (index >= 0)
+		loadComboBox(qcbSystem, static_cast< int >(index));
 
 	loadCheckBox(qcbExclusive, r.bExclusiveOutput);
 	loadSlider(qsDelay, r.iOutputDelay);

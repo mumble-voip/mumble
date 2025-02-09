@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -9,6 +9,7 @@ if(retracted-plugins)
 	message(STATUS "Including retracted plugins")
 endif()
 
+add_custom_target(plugins ALL)
 
 set(AVAILABLE_PLUGINS "")
 
@@ -123,5 +124,5 @@ foreach(CURRENT_PLUGIN IN LISTS AVAILABLE_PLUGINS)
 		install(TARGETS ${CURRENT_PLUGIN} LIBRARY DESTINATION "${MUMBLE_INSTALL_PLUGINDIR}" COMPONENT mumble_client)
 	endif()
 
-	add_dependencies(mumble ${CURRENT_PLUGIN})
+	add_dependencies(plugins ${CURRENT_PLUGIN})
 endforeach()

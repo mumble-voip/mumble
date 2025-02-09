@@ -1230,7 +1230,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;这显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;这显示从你机器发出的带宽的最大值。 音频比特率只是音频数据的最大比特率。 位置是用于定位信息的最大比特率。开销是我们的架构和 IP 数据包头（ IP 和 UDP 是此开销的 75%）。</translation>
+        <translation>&lt;b&gt;显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;显示从您机器发出的带宽的最大值。音频比特率是音频数据本身的最大比特率。位置是定位信息所用的比特率。开销是我们的帧结构和 IP 数据包头（IP 和 UDP 是开销的 75%）。</translation>
     </message>
 </context>
 <context>
@@ -1336,7 +1336,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>位置音频</translation>
+        <translation>定位音频</translation>
     </message>
     <message>
         <source>Audio Output</source>
@@ -1578,7 +1578,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>位置音频无法在单声道输出设备上使用！</translation>
+        <translation>定位音频无法在单声道输出设备上使用！</translation>
     </message>
     <message>
         <source>Audio output system</source>
@@ -1841,7 +1841,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>这是上个已压缩帧（20 毫秒）的音频比特率。最高比特率可以在“设置”对话框中进行调整。</translation>
+        <translation>这是上一个已压缩帧（20 毫秒）的音频比特率。最高比特率可以在“设置”对话框中调整。</translation>
     </message>
 </context>
 <context>
@@ -1928,7 +1928,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation>启用位置音频</translation>
+        <translation>启用定位音频</translation>
     </message>
     <message>
         <source>Allows positioning of sound</source>
@@ -1945,7 +1945,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>允许 Mumble 根据位置的不同播放位置音频。</translation>
+        <translation>允许 Mumble 使用定位音频放置声音。</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1989,11 +1989,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>位置音频</translation>
+        <translation>定位音频</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>调整位置音频的衰减。</translation>
+        <translation>调整定位音频的衰减。</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
@@ -2208,7 +2208,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 支持在一些游戏中使用位置音频功能，能够根据玩家在游戏中的相对位置来将用户的语音方位化。根据他们的位置，用户之间语音的音量会随着距离和方向而模拟变化。这需要您在操作系统中正确配置扬声器的立体声，此测试就是为了保证这一点。&lt;/p&gt;&lt;p&gt;下方的图像显示了&lt;span style=&quot; color:#56b4e9;&quot;&gt;您&lt;/span&gt;、&lt;span style=&quot; color:#d55e00;&quot;&gt;扬声器&lt;/span&gt;和&lt;span style=&quot; color:#009e73;&quot;&gt;移动的音源&lt;/span&gt;的俯视图。您应该能够听到音频在声道中的移动。&lt;/p&gt;&lt;p&gt;您也可以使用鼠标手动移动&lt;span style=&quot; color:#009e73;&quot;&gt;音源&lt;/span&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 支持在一些游戏中使用定位音频功能，能够根据玩家在游戏中的相对位置来将用户的语音方位化。根据他们的位置，用户之间语音的音量会随着距离和方向而模拟变化。这需要您在操作系统中正确配置扬声器的立体声，此测试就是为了保证这一点。&lt;/p&gt;&lt;p&gt;下方的图像显示了&lt;span style=&quot; color:#56b4e9;&quot;&gt;您&lt;/span&gt;、&lt;span style=&quot; color:#d55e00;&quot;&gt;扬声器&lt;/span&gt;和&lt;span style=&quot; color:#009e73;&quot;&gt;移动的音源&lt;/span&gt;的俯视图。您应该能够听到音频在声道中的移动。&lt;/p&gt;&lt;p&gt;您也可以使用鼠标手动移动&lt;span style=&quot; color:#009e73;&quot;&gt;音源&lt;/span&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2240,7 +2240,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation>Mumble 位置音频系统使用户能够将其语音的相对位置链接到游戏等第三方应用程序。</translation>
+        <translation>Mumble 定位音频系统使用户能够将其语音的相对位置链接到游戏等第三方应用程序。</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
@@ -2280,11 +2280,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>图形化位置音频模拟视图</translation>
+        <translation>图形化定位音频模拟视图</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation>可视化展示当前播放的位置音频</translation>
+        <translation>可视化展示当前播放的定位音频</translation>
     </message>
 </context>
 <context>
@@ -2780,10 +2780,6 @@ Are you sure you wish to replace your certificate?
 &lt;p&gt;注意：这个文件是未加密的，如果其他人获得此文件，他们将可以冒充您，所以请小心保管。&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble 可以使用证书来登录服务器。使用证书代替密码来登录，意味着您无需向远程站点透露密码。这让注册过程更加简单，并且您可以在客户端管理独立于服务端的好友列表。&lt;/p&gt;&lt;p&gt;尽管证书对于 Mumble 不是必须的，但大部分服务器仍然希望您拥有一个证书。&lt;/p&gt;&lt;p&gt;一般来说，直接创建一个新证书即可，但 Mumble 也支持认证由第三方签发的、证明用户电子邮件地址所有权的证书。要获取更多信息，可以查看我们的&lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>显示当前证书</translation>
     </message>
@@ -2822,6 +2818,10 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>您的电子邮件地址。例如：johndoe@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着您无需向远程站点披露任何密码。证书还支持非常简单的用户注册流程，以及与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期望您有一份证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。但 Mumble 还支持以证书表示信任用户对电子邮件地址的所有权。此类证书由第三方签发。更多信息，请查看我们的&lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3834,11 +3834,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>使用密语快捷键时不发送位置音频信息。</translation>
+        <translation>使用密语快捷键时不发送定位音频信息。</translation>
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation>忽略位置语音</translation>
+        <translation>忽略定位音频</translation>
     </message>
     <message>
         <source>Shout to Linked channels</source>
@@ -5069,10 +5069,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble - %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>窗口(&amp;W)</translation>
     </message>
@@ -5215,10 +5211,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;此证书的具体错误为：&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;您仍希望接受此证书吗？&lt;br /&gt;（此信任会被保存，您只会被询问这一次。）&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>SSL 版本不匹配</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5440,10 +5432,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;警告：&lt;/b&gt;服务器现有证书与已保存的证书不一致。</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>此服务器使用了一个早期的加密标准，当前版本 Mumble 已不支持该标准。</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5932,10 +5920,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>欢迎消息：%1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble：%1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>您在 %2 的“%1”权限被拒绝。</translation>
     </message>
@@ -6119,11 +6103,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>The server requests positional audio be enabled.</source>
-        <translation>服务器要求启用位置音频。</translation>
+        <translation>服务器要求启用定位音频。</translation>
     </message>
     <message>
         <source>The server requests positional audio be disabled.</source>
-        <translation>服务器要求禁用位置音频。</translation>
+        <translation>服务器要求禁用定位音频。</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
@@ -6349,18 +6333,6 @@ the channel&apos;s context menu.</source>
         <translation>开发者(&amp;D)</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>隐藏 Mumble (&amp;H)</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>隐藏 Mumble 主窗口。</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>隐藏 Mumble 主窗口。点击系统托盘图标或者再次启动 Mumble 以恢复。</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>显示开发者控制台</translation>
     </message>
@@ -6411,14 +6383,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>修改简介(&amp;C)...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>显示</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>显示 Mumble 主窗口。</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6628,11 +6592,11 @@ Valid actions are:
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
-        <translation>显示位置音频查看器</translation>
+        <translation>显示定位音频查看器</translation>
     </message>
     <message>
         <source>Shows the Positional Audio Viewer. In it the current information used for positional audio can be inspected. Context and identity are also shown.</source>
-        <translation>显示位置音频查看器。可以在其中检查位置音频的当前信息，包括上下文和标识符。</translation>
+        <translation>显示定位音频查看器。可以在其中检查定位音频的当前信息，包括上下文和标识符。</translation>
     </message>
     <message>
         <source>Mumble - Minimal View</source>
@@ -6679,130 +6643,6 @@ Valid actions are:
     <message>
         <source>Channel &amp;Filter</source>
         <translation>频道筛选器(&amp;F)</translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
-
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
-URL 的格式为：
-mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;插件列表&gt; 是需要安装的插件列表
-必须设置 version 请求参数以调用正确的客户端版本，
-当前的默认值为 1.2.0。
-
-可用的选项：
-  -h, --help    显示此帮助信息并退出。
-  --version 显示版本信息并退出
-  -m, --multiple
-                允许启动多个客户端实例。
-  -c, --config
-                指定替代配置文件。
-                如果您使用此参数同时运行多个 Mumble 实例，
-                请确保在配置文件内设置替代“database”选项。
-  --default-certificate-dir &lt;目录&gt;
-                指定替代的默认证书目录。
-                此路径仅在没有从设置中
-                加载证书时生效。
-  -n, --noidentity
-                禁止加载身份认证文件（即证书）。
-  -jn, --jackname &lt;参数&gt;
-                设置自定义 Jack 客户端名称。
-  --license
-                显示 Mumble 许可。
-  --authors
-                显示 Mumble 作者。
-  --third-party-licenses
-                显示 Mumble 使用的第三方软件的许可。
-  --window-title-ext &lt;参数&gt;
-                设置自定义窗口标题后缀名。
-  --dump-input-streams
-                转储输入链上各部分的 PCM 流。
-                （适用于调试目的）
-                - 原始麦克风输入
-                - 扬声器回声消除重读取
-                - 已处理的麦克风输入
-  --print-echocancel-queue
-                向标准输出打印回声消除队列状态。
-                （适用于调试目的）
-  --translation-dir &lt;目录&gt;
-                指定一个额外的目录，
-                Mumble 会在其中搜索翻译文件
-                来覆盖内置的翻译。
-                通过此方式添加的目录比其它情况
-                下的默认位置具有更高的优先级。
-  --print-translation-dirs
-                输出 Mumble 会在哪些目录搜索翻译文件
-                以覆盖内置翻译。
-                （适用于译者测试自己的翻译）
-  --locale &lt;区域语言代码&gt;
-                用指定字符串对应的语言
-                覆盖 Mumble 的语言设置。
-                如果字符串格式无效，Mumble 会出错。
-                否则，指定的语言会
-                永久保存到 Mumble 设置中。
-</translation>
     </message>
     <message>
         <source>Connect to a server</source>
@@ -7057,7 +6897,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation>位置音频查看器(&amp;A)</translation>
+        <translation>定位音频查看器(&amp;A)</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -7151,12 +6991,158 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>Filtered channels and users</source>
         <translation>筛选的频道和用户</translation>
     </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation>开关定位音频</translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation>这会打开/关闭定位音频</translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation>SSL 错误</translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation>Mumble 无法建立到服务器的安全连接（&quot;%1&quot;）</translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>这可能由下列情形之一导致：&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太旧或者要连接到的服务器版本太旧。如果是第一种情况，则应该更新客户端。如果是第二种情况，则应该联系服务器管理员更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的旧版操作系统未提供足够新的加密方法。在这种情况下，您应该考虑更新操作系统，或联系服务器管理员更新服务器的操作系统。&lt;/li&gt;&lt;li&gt;您正在连接的服务器不是 Mumble 服务器。请确保所用的服务器地址确实属于 Mumble 服务器而不是游戏服务器等。&lt;/li&gt;&lt;li&gt;您正在连接的端口不属于 Mumble 服务器，而是绑定到服务端一个完全无关的进程。请再次确认您使用的是正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
+&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
+URL 的格式为：
+mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
+&lt;插件列表&gt; 是需要安装的插件列表
+必须设置 version 请求参数以调用正确的客户端版本，
+当前的默认值为 1.2.0。
+可用的选项：
+  -h, --help    显示此帮助信息并退出。
+  --version     显示版本信息并退出
+  -m, --multiple
+                允许启动多个客户端实例。
+  -c, --config
+                指定替代配置文件。
+                如果您使用此参数同时运行多个 Mumble 实例，
+                请确保在配置文件内设置替代“database”选项。
+  --default-certificate-dir &lt;目录&gt;
+                指定替代的默认证书目录。
+                此路径仅在没有从设置中
+                加载证书时生效。
+  -n, --noidentity
+                禁止加载身份认证文件（即证书）。
+  -jn, --jackname &lt;参数&gt;
+                设置自定义 Jack 客户端名称。
+  --license
+                显示 Mumble 许可。
+  --authors
+                显示 Mumble 作者。
+  --third-party-licenses
+                显示 Mumble 使用的第三方软件的许可。
+  --window-title-ext &lt;参数&gt;
+                设置自定义窗口标题后缀名。
+  --dump-input-streams
+                转储输入链上各部分的 PCM 流。
+                （适用于调试目的）
+                - 原始麦克风输入
+                - 扬声器回声消除重读取
+                - 已处理的麦克风输入
+  --print-echocancel-queue
+                向标准输出打印回声消除队列状态。
+                （适用于调试目的）
+  --translation-dir &lt;目录&gt;
+                指定一个额外的目录，
+                Mumble 会在其中搜索翻译文件
+                来覆盖内置的翻译。
+                通过此方式添加的目录比其它情况
+                下的默认位置具有更高的优先级。
+  --print-translation-dirs
+                输出 Mumble 会在哪些目录搜索翻译文件
+                以覆盖内置翻译。
+                （适用于译者测试自己的翻译）
+  --locale &lt;区域语言代码&gt;
+                用指定字符串对应的语言
+                覆盖 Mumble 的语言设置。
+                如果字符串格式无效，Mumble 会出错。
+                否则，指定的语言会
+                永久保存到 Mumble 设置中。
+  --hidden
+                启动 Mumble 时隐藏到系统托盘。
+</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
     <message>
         <source>Manual Mumble Positional Audio</source>
-        <translation>手动 Mumble 位置音频</translation>
+        <translation>手动 Mumble 定位音频</translation>
     </message>
     <message>
         <source>Position</source>
@@ -7240,11 +7226,11 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>图形化位置音频模拟视图</translation>
+        <translation>图形化定位音频模拟视图</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation>可视化展示当前使用的位置音频配置</translation>
+        <translation>可视化展示当前使用的定位音频配置</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
@@ -8123,11 +8109,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation>是否应该启用此插件的位置音频功能</translation>
+        <translation>是否应该启用此插件的定位音频功能</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation>此插件未提供位置音频支持</translation>
+        <translation>此插件未提供定位音频支持</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
@@ -8155,7 +8141,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation>插件位置音频权限选项</translation>
+        <translation>插件的定位音频权限选项</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
@@ -8330,7 +8316,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation>位置音频查看器</translation>
+        <translation>定位音频查看器</translation>
     </message>
     <message>
         <source>Camera direction</source>
@@ -8416,12 +8402,6 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation>回声消除不支持“%1”输入与“%2”输出接口的组合。</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;如果您正在使用 Linux，这很可能是因为您使用的版本来自发行版的软件包仓库，它们有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您希望始终使用最新版本的 Mumble，就应该考虑使用其他安装方式。
-阅读 &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble Wiki&lt;/a&gt; 了解具体方式。&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -8694,6 +8674,12 @@ You can register them again.</source>
     <message>
         <source>Add</source>
         <translation>添加</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;如果您使用 Linux，那么您很可能正在使用来自发行版包仓库的版本，并且该仓库拥有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您想始终使用最新 Mumble 版本，则应该考虑使用不同的安装方式。
+请看&lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt;了解有哪些其他方式。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9442,6 +9428,42 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Details</source>
         <translation>详情</translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished">秒</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

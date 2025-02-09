@@ -1,4 +1,4 @@
-// Copyright 2024 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -27,6 +27,11 @@ QString AccessibleQGroupBox::textAtPosition(QGridLayout *gridLayout, int y, int 
 		return "";
 	}
 
+	QString accessibleName = label->accessibleName();
+	if (!accessibleName.isEmpty()) {
+		return accessibleName;
+	}
+
 	QString content = Mumble::Accessibility::removeHTMLTags(label->text());
 	if (content.trimmed().isEmpty()) {
 		content = tr("empty");
@@ -47,11 +52,14 @@ void AccessibleQGroupBox::updateAccessibleText() {
 		for (int y = tableMode ? 1 : 0; y < gridLayout->rowCount(); y++) {
 			for (int x = tableMode ? 1 : 0; x < gridLayout->columnCount(); x++) {
 				if (tableMode) {
-					text += textAtPosition(gridLayout, y, 0);
-					text += " ";
-					text += textAtPosition(gridLayout, 0, x);
-					text += ", ";
-					text += textAtPosition(gridLayout, y, x);
+					QString cellContent = textAtPosition(gridLayout, y, x);
+					if (!cellContent.isEmpty()) {
+						text += textAtPosition(gridLayout, y, 0);
+						text += " ";
+						text += textAtPosition(gridLayout, 0, x);
+						text += ", ";
+						text += cellContent;
+					}
 				} else {
 					text += textAtPosition(gridLayout, y, x);
 				}

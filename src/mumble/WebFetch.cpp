@@ -1,4 +1,4 @@
-// Copyright 2011-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -8,6 +8,7 @@
 #include "NetworkConfig.h"
 #include "Global.h"
 
+#include <QtCore/QRegularExpression>
 #include <QtNetwork/QNetworkReply>
 
 WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
@@ -65,8 +66,9 @@ void WebFetch::finished() {
 			if (!name.isEmpty() && !value.isEmpty()) {
 				headers.insert(name, value);
 				if (name == QLatin1String("Use-Service-Prefix")) {
-					QRegExp servicePrefixRegExp(QLatin1String("^[a-zA-Z]+$"));
-					if (servicePrefixRegExp.exactMatch(value)) {
+					const QRegularExpression servicePrefixRegExp(
+						QRegularExpression::anchoredPattern(QLatin1String("^[a-zA-Z]+$")));
+					if (servicePrefixRegExp.match(value).hasMatch()) {
 						Global::get().s.qsServicePrefix = value.toLower();
 					}
 				}

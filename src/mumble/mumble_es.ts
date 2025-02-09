@@ -2781,10 +2781,6 @@ Are you sure you wish to replace your certificate?
 &lt;p&gt;Fíjese en que este archivo no se encriptará, y si alguien consigue acceder a él, podrá hacerse pasar por usted, así que tenga cuidado con él.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble puede usar certificados para autenticarse con los servidores. El uso de certificados evita las contraseñas, lo que significa que no necesita revelar ninguna contraseña al sitio remoto. También permite un registro de usuario muy fácil y una lista de amigos del lado del cliente independiente de los servidores.&lt;/p&gt; &lt;p&gt;Mumble puede funcionar sin certificados, la mayoría de los servidores esperan que tenga uno.&lt;/p&gt; &lt;p&gt;Crear un nuevo certificado automáticamente es suficiente para la mayoría de los casos. Mumble también admite certificados que representan confianza en la propiedad de los usuarios de una dirección de correo electrónico. Estos certificados son emitidos por terceros. Para obtener más información, consulte nuestra &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;documentación de certificado de usuario&lt;/a&gt;. &lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>Muestra el certificado actual</translation>
     </message>
@@ -2823,6 +2819,10 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>Su correo electrónico. Por ejemplo: johndoe@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mumble puede usar certificados para autenticarse con servidores. El uso de certificados evita contraseñas, lo que significa que no necesita revelar ninguna contraseña al sitio remoto. También permite un registro de usuario muy fácil y una lista de amigos del lado cliente independiente de los servidores. &lt;/p&gt;&lt;p&gt;Mientras que Mumble puede funcionar sin certificados, la mayoría de los servidores esperan que tengas uno. &lt;/p&gt;&lt;p&gt;Crear un nuevo certificado automáticamente es suficiente para la mayoría de los casos de uso. Pero Mumble también admite certificados que representan la confianza en la propiedad de los usuarios de una dirección de correo electrónico. Estos certificados son emitidos por terceros. Para más información, consulte nuestra &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;documentación de certificados de usuario&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -5071,10 +5071,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble -- %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>&amp;Ventana</translation>
     </message>
@@ -5217,10 +5213,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Los errores específicos de este certificado son:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;¿Desea aceptar este certificado de todos modos?&lt;br /&gt; (También se almacenará para que no se le vuelva a preguntar.)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>Las versiones de SSL no coinciden</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5442,10 +5434,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ADVERTENCIA:&lt;/b&gt; El servidor presentó un certificado que es diferente del almacenado.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>El servidor usa un estándar de cifrado antiguo y no es soportado por versiones modernas de Mumble.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5934,10 +5922,6 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Mensaje de bienvenida: %1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Se le denegó el privilegio %1 en %2.</translation>
     </message>
@@ -6351,18 +6335,6 @@ en el menu contextual del canal.</translation>
         <translation>&amp;Desarrollador</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>&amp;Ocultar Mumble</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>Ocultar la ventana principal de Mumble.</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>Oculta la ventana principal de Mumble. Restaura haciendo clic en el icono de la bandeja o iniciando Mumble nuevamente.</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>Mostrar la Consola de Desarrollador</translation>
     </message>
@@ -6413,14 +6385,6 @@ en el menu contextual del canal.</translation>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>&amp;Cambiar Comentario...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>Mostrar</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>Mostrar la ventana principal de Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6683,130 +6647,6 @@ Las acciones válidas son:
         <translation>&amp;Filtro de canal</translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>Uso: murmurar [opciones] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; especifica una dirección URL para conectarse después del inicio en lugar de mostrar
-la ventana de conexión, y tiene la siguiente forma:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;xyz&gt;]
-
-&lt;plugin_list&gt; es una lista de los archivos de los complementos que se instalarán
-El parámetro de la consulta de la versión debe configurarse para invocar la
-versión correcta del cliente. Actualmente su valor predeterminado es 1.2.0.
-
-Las opciones válidas son:
-  -h, --ayuda    Muestra este texto de ayuda y sal.
-  --versión     Imprimir información de la versión y salir
-  -m, --múltiple
-                Permitir que se inicien varias instancias del cliente.
-  -c, --config
-                Especifique un archivo de configuración alternativo.
-                Si usas esto para ejecutar múltiples instancias de Mumble a la vez,
-                asegúrese de establecer un valor de &apos;base de datos&apos; alternativo en la configuración.
-  --default-certificate-dir &lt;dir&gt;
-                Especifique una ruta de certificado predeterminada alternativa.
-                Esta ruta sólo se utiliza si no hay ningún certificado cargado
-                desde la configuración.
-  -n, --noidentidad
-                Suprimir la carga de archivos de identidad (es decir, certificados).
-  -jn, --jackname &lt;arg&gt;
-                Establezca un nombre de cliente Jack personalizado.
-  --licencia
-                Muestra la licencia de Mumble.
-  --autores
-                Muestra los autores de Mumble.
-  --licencias-de-terceros
-                Mostrar licencias de software de terceros utilizados por Mumble.
-  --ventana-título-ext &lt;arg&gt;
-                Establece una extensión de título de ventana personalizada.
-  --dump-flujos de entrada
-                Volcar flujos PCM en varias partes de la cadena de entrada
-                (útil para fines de depuración)
-                - entrada de micrófono sin formato
-                - lectura del altavoz para cancelación de eco
-                - entrada de micrófono procesada
-  --print-echocancel-cola
-                Imprimir en stdout el estado de la cola de cancelación de eco
-                (útil para fines de depuración)
-  --translation-dir &lt;dir&gt;
-                Especifica un directorio de traducción adicional &lt;dir&gt;
-                en el que Mumble buscará archivos de traducción que
-                sobrescribir los incluidos
-                Los directorios agregados de esta manera tienen mayor prioridad que
-                las ubicaciones predeterminadas utilizadas de otro modo
-  --imprimir-traducción-dirs
-                Imprime los caminos en los que Mumble buscará
-                archivos de traducción que sobrescriben los incluidos.
-                (Útil para traductores que prueban sus traducciones)
-  --locale &lt;locale&gt;
-                Sobrescribe la configuración regional en la configuración de Mumble con un
-                configuración regional que corresponde a la cadena de configuración regional dada.
-                Si el formato no es válido, Mumble generará un error.
-                De lo contrario, la configuración regional se guardará permanentemente en
-                Configuración de Mumble.
-</translation>
-    </message>
-    <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
         <translation>Conectarse a un servidor</translation>
@@ -7043,7 +6883,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Silenciate</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
@@ -7051,11 +6891,11 @@ Las opciones válidas son:
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajustes</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consola para los desarrolladores</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
@@ -7063,7 +6903,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Acerca de</translation>
+        <translation>&amp;Acerca de</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -7071,7 +6911,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registro…</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
@@ -7083,15 +6923,15 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitar el avatar</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Restablecer el comentario...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar el avatar...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
@@ -7111,7 +6951,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mostrar el comentario</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
@@ -7135,7 +6975,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mover a Mi Canal</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
@@ -7143,7 +6983,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Desactivar la síntesis de voz</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
@@ -7152,6 +6992,93 @@ Las opciones válidas son:
     <message>
         <source>Filtered channels and users</source>
         <translation>Canales filtrados y usuarias</translation>
+    </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation>Activar o desactivar el audio posicional</translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation>Esto activará o desactivará el audio posicional</translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation>Error SSL</translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation>Mumble no puede establecer una conexión segura con el servidor. (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>Esto podría deberse a uno de los siguientes escenarios:&lt;ul&gt;&lt;li&gt;El cliente y el servidor usan estándares de cifrado diferentes. Esto puede deberse a que está utilizando un cliente muy antiguo o el servidor al que se está conectando es muy antiguo. En el primer caso, debe actualizar su cliente y en el segundo caso debe ponerse en contacto con el administrador del servidor para que pueda actualizar su servidor.&lt;/li&gt;&lt;li&gt;El cliente o el servidor utilizan un sistema operativo antiguo que no proporciona métodos de cifrado actualizados. En este caso, debe considerar actualizar su sistema operativo o ponerse en contacto con el administrador del servidor para que pueda actualizar el suyo.&lt;/li&gt;&lt;li&gt;El servidor al que te estás conectando no es en realidad un servidor Mumble. Asegúrese de que la dirección del servidor utilizada pertenezca realmente a un servidor de Mumble y no, por ejemplo, a un servidor de juegos.&lt;/li&gt;&lt;li&gt;El puerto al que se está conectando no pertenece a un servidor Mumble, sino que está vinculado a un proceso completamente no relacionado en el lado del servidor. Por favor, compruebe dos veces que ha utilizado el puerto correcto. &lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7242,7 +7169,7 @@ Las opciones válidas son:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished">Vista gráfica de simulación de audio posicional</translation>
+        <translation>Gráfico de posicionamiento del sonido en la simulación</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -8149,27 +8076,27 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished">nombre del Plugin</translation>
+        <translation>Nombre del plugin</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished">Caja de verificación habilitada</translation>
+        <translation>Casilla para activar y desactivar el plugin</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished">Casilla de verificación del permiso de audio posicional del plugin</translation>
+        <translation>Casilla de autorización del plugin de la posición del audio</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished">Casilla de verificación del permiso de escucha de eventos de teclado del plugin</translation>
+        <translation>Casilla de verificación del permiso de escucha de eventos de teclado del plugin</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished">marcado</translation>
+        <translation>comprobado</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished">sin marcar</translation>
+        <translation>sin comprobar</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -8420,12 +8347,6 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
         <translation>Cancelación de eco no está disponible para la combinación de interfaces &quot;%1&quot; (entrada) y &quot;%2&quot; (salida).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si usted está usando Linux, esto probablemente pasa porque usted está utilizando una versión obtenida del repositorio de paquetes de vuestra distribución de Linux, quienes suelen tener sus propios ciclos de actualización.&lt;/p&gt;&lt;p&gt;Si prefiere tener siempre instalada la última versión de Mumble, debiera considerar utilizar un método distinto de instalación.
-Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la wiki de Mumble&lt;/a&gt; para encontrar alternativas para su sistema.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Mudo localmente</translation>
     </message>
@@ -8623,11 +8544,11 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished">estado</translation>
+        <translation>estado</translation>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished">silenciado y ensordecido</translation>
+        <translation>silenciado y muteado</translation>
     </message>
     <message>
         <source>muted</source>
@@ -8639,7 +8560,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished">no silenciado</translation>
+        <translation>sin silenciar</translation>
     </message>
     <message>
         <source>recording</source>
@@ -8647,11 +8568,11 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished">orador prioritario</translation>
+        <translation>Altavoz prioritario</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished">tiene un comentario lago</translation>
+        <translation>tiene un comentario lago</translation>
     </message>
     <message>
         <source>text messages ignored</source>
@@ -8696,6 +8617,12 @@ Puedes registrarlos otra vez.</translation>
     <message>
         <source>Add</source>
         <translation>Añadir</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Si está utilizando Linux, lo más probable es que esto se deba a que está utilizando una versión del repositorio de paquetes de su distribución que tiene sus propios ciclos de actualización.&lt;/p&gt;&lt;p&gt;Si desea tener siempre la versión más reciente de Mumble, debe considerar usar un método de instalación diferente.
+Consulte &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt; el repositorio del proyecto&lt;/a&gt; para ver qué alternativas existen.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9029,7 +8956,7 @@ Puedes registrarlos otra vez.</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">&amp;Ver certificado</translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9445,6 +9372,42 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <source>Details</source>
         <translation>Detalles</translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished">segundos</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

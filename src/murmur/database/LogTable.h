@@ -45,9 +45,10 @@ namespace server {
 
 			void clearLog(unsigned int serverID);
 
-			std::vector< DBLogEntry > getLogs(unsigned int serverID,
-											  unsigned int maxEntries  = std::numeric_limits< int >::max(),
-											  unsigned int startOffset = 0);
+			std::vector< DBLogEntry >
+				getLogs(unsigned int serverID,
+						unsigned int maxEntries  = static_cast< unsigned int >(std::numeric_limits< int >::max()),
+						unsigned int startOffset = 0);
 
 			std::size_t getLogSize(unsigned int serverID);
 

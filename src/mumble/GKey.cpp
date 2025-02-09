@@ -1,4 +1,4 @@
-// Copyright 2015-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -94,7 +94,7 @@ GKeyLibrary::GKeyLibrary() {
 	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, 0, KEY_READ, &key) == ERROR_SUCCESS) {
 		LONG err = RegQueryValueEx(key, L"", nullptr, &type, reinterpret_cast< LPBYTE >(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
-			QString qsLocation = QString::fromUtf16(reinterpret_cast< ushort * >(wcLocation), len / 2);
+			const auto qsLocation = QString::fromUtf16(reinterpret_cast< char16_t * >(wcLocation), len / 2);
 			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation),
 					 static_cast< unsigned long >(len));
 			alternatives << qsLocation;

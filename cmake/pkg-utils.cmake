@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -49,7 +49,7 @@ endfunction()
 # It also handles multiple package names and searches them with pkg-config if they are not found.
 macro(find_pkg ARG_ALIASES)
 	# We specify "CONFIG", "MODULE" and "NO_MODULE" so that they are not considered unparsed arguments (passed to find_package()).
-	cmake_parse_arguments(FIND_PACKAGE "ARG_ALIASES;CONFIG;MODULE;NO_DEFAULT_PATH;NO_MODULE;REQUIRED;QUIET" "" "COMPONENTS;OPTIONAL_COMPONENTS;PATHS" ${ARGN})
+	cmake_parse_arguments(FIND_PACKAGE "ARG_ALIASES;CONFIG;MODULE;NO_DEFAULT_PATH;NO_MODULE;REQUIRED;QUIET" "VERSION" "COMPONENTS;OPTIONAL_COMPONENTS;PATHS" ${ARGN})
 
 	if(FIND_PACKAGE_PATHS)
 		list(APPEND FIND_PACKAGE_ARGUMENTS "PATHS" ${FIND_PACKAGE_PATHS})
@@ -74,9 +74,9 @@ macro(find_pkg ARG_ALIASES)
 
 		if(FIND_PACKAGE_COMPONENTS)
 			foreach(COMPONENT ${FIND_PACKAGE_COMPONENTS})
-				find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+				find_package(${NAME} ${FIND_PACKAGE_VERSION} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				if(NOT ${NAME}_FOUND)
-					find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+					find_package(${NAME} ${FIND_PACKAGE_VERSION} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				endif()
 
 				if(NOT ${NAME}_FOUND)
@@ -84,11 +84,11 @@ macro(find_pkg ARG_ALIASES)
 						break()
 					else()
 						if(FIND_PACKAGE_REQUIRED)
-							message(FATAL_ERROR "${NAME} component not found: ${COMPONENT}")
+							message(FATAL_ERROR "${NAME} component not found: ${COMPONENT} ${FIND_PACKAGE_VERSION}")
 						endif()
 
 						if(NOT FIND_PACKAGE_QUIET)
-							message(STATUS "${NAME} component not found: ${COMPONENT}")
+							message(STATUS "${NAME} component not found: ${COMPONENT} ${FIND_PACKAGE_VERSION}")
 						endif()
 
 						break()

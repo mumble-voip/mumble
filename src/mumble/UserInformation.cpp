@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -163,8 +163,12 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	qlTCPVar->setText(QString::number(msg.tcp_ping_var() > 0.0f ? sqrtf(msg.tcp_ping_var()) : 0.0f, 'f', 2));
 	qlUDPVar->setText(QString::number(msg.udp_ping_var() > 0.0f ? sqrtf(msg.udp_ping_var()) : 0.0f, 'f', 2));
 
-	if (msg.has_from_client() && msg.has_from_server()) {
-		qgbUDP->setVisible(true);
+	bool hasTotalStats   = msg.has_from_client() && msg.has_from_server();
+	bool hasRollingStats = msg.has_rolling_stats();
+
+	qgbUDP->setVisible(hasTotalStats || hasRollingStats);
+
+	if (hasTotalStats) {
 		const MumbleProto::UserStats_Stats &from = msg.from_client();
 		qlFromGood->setText(QString::number(from.good()));
 		qlFromLate->setText(QString::number(from.late()));
@@ -179,16 +183,66 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 		quint32 allFromPackets = from.good() + from.late() + from.lost();
 		qlFromLatePercent->setText(
-			QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 2));
+			QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 1));
 		qlFromLostPercent->setText(
-			QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 2));
+			QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 1));
 
 		quint32 allToPackets = to.good() + to.late() + to.lost();
-		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0 / allToPackets : 0., 'f', 2));
-		qlToLostPercent->setText(QString::number(allToPackets > 0 ? to.lost() * 100.0 / allToPackets : 0., 'f', 2));
-	} else {
-		qgbUDP->setVisible(false);
+		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0 / allToPackets : 0., 'f', 1));
+		qlToLostPercent->setText(QString::number(allToPackets > 0 ? to.lost() * 100.0 / allToPackets : 0., 'f', 1));
 	}
+
+	if (hasRollingStats) {
+		const MumbleProto::UserStats_RollingStats &rolling = msg.rolling_stats();
+
+		const MumbleProto::UserStats_Stats &from = rolling.from_client();
+		qlFromGoodRolling->setText(QString::number(from.good()));
+		qlFromLateRolling->setText(QString::number(from.late()));
+		qlFromLostRolling->setText(QString::number(from.lost()));
+		qlFromResyncRolling->setText(QString::number(from.resync()));
+
+		const MumbleProto::UserStats_Stats &to = rolling.from_server();
+		qlToGoodRolling->setText(QString::number(to.good()));
+		qlToLateRolling->setText(QString::number(to.late()));
+		qlToLostRolling->setText(QString::number(to.lost()));
+		qlToResyncRolling->setText(QString::number(to.resync()));
+
+		quint32 allFromPackets = from.good() + from.late() + from.lost();
+		qlFromLatePercentRolling->setText(
+			QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 1));
+		qlFromLostPercentRolling->setText(
+			QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 1));
+
+		quint32 allToPackets = to.good() + to.late() + to.lost();
+		qlToLatePercentRolling->setText(
+			QString::number(allToPackets > 0 ? to.late() * 100.0 / allToPackets : 0., 'f', 1));
+		qlToLostPercentRolling->setText(
+			QString::number(allToPackets > 0 ? to.lost() * 100.0 / allToPackets : 0., 'f', 1));
+
+		uint32_t rollingSeconds = rolling.time_window();
+		QString rollingText     = tr("Last %1 %2:");
+		if (rollingSeconds < 120) {
+			qliRolling->setText(rollingText.arg(QString::number(rollingSeconds)).arg(tr("seconds")));
+		} else {
+			qliRolling->setText(rollingText.arg(QString::number(rollingSeconds / 60)).arg(tr("minutes")));
+		}
+	}
+
+	qlFromGoodRolling->setVisible(hasRollingStats);
+	qlFromLateRolling->setVisible(hasRollingStats);
+	qlFromLostRolling->setVisible(hasRollingStats);
+	qlFromResyncRolling->setVisible(hasRollingStats);
+	qlToGoodRolling->setVisible(hasRollingStats);
+	qlToLateRolling->setVisible(hasRollingStats);
+	qlToLostRolling->setVisible(hasRollingStats);
+	qlToResyncRolling->setVisible(hasRollingStats);
+	qlFromLatePercentRolling->setVisible(hasRollingStats);
+	qlFromLostPercentRolling->setVisible(hasRollingStats);
+	qlToLatePercentRolling->setVisible(hasRollingStats);
+	qlToLostPercentRolling->setVisible(hasRollingStats);
+	qliRolling->setVisible(hasRollingStats);
+	qliRollingFrom->setVisible(hasRollingStats);
+	qliRollingTo->setVisible(hasRollingStats);
 
 	if (msg.has_onlinesecs()) {
 		if (msg.has_idlesecs())

@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -172,7 +172,6 @@ if(64_BIT AND MSVC)
 				"-Dversion=${PROJECT_VERSION}"
 				${CMAKE_SOURCE_DIR}/overlay
 			CMAKE_GENERATOR_PLATFORM "Win32"
-			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
 			INSTALL_COMMAND ""
 		)
 	else()
@@ -194,7 +193,6 @@ if(64_BIT AND MSVC)
 				"-Dsymbols=${symbols}"
 				"-Dversion=${PROJECT_VERSION}"
 				${CMAKE_SOURCE_DIR}/overlay
-			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
 			INSTALL_COMMAND ""
 		)
 	endif()

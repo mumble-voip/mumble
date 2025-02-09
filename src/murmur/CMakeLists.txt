@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -16,7 +16,7 @@ include(qt-utils)
 
 option(ice "Build support for Ice RPC." ON)
 
-find_pkg(Qt5 COMPONENTS Sql REQUIRED)
+find_pkg(Qt6 COMPONENTS Sql REQUIRED)
 
 add_library(mumble_server_object_lib OBJECT
 	"AudioReceiverBuffer.cpp"
@@ -90,32 +90,32 @@ target_include_directories(mumble_server_object_lib
 		${SHARED_SOURCE_DIR}
 )
 
-target_link_libraries(mumble_server_object_lib PUBLIC shared Qt5::Sql)
+target_link_libraries(mumble_server_object_lib PUBLIC shared Qt6::Sql)
 
 if(static)
 	# MariaDB and MySQL
-	if(TARGET Qt5::QMYSQLDriverPlugin)
+	if(TARGET Qt6::QMYSQLDriverPlugin)
 		include_qt_plugin(mumble_server_object_lib PRIVATE "QMYSQLDriverPlugin")
-		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QMYSQLDriverPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt6::QMYSQLDriverPlugin)
 	endif()
 	# Open DataBase Connectivity
-	if(TARGET Qt5::QODBCDriverPlugin)
+	if(TARGET Qt6::QODBCDriverPlugin)
 		include_qt_plugin(mumble_server_object_lib PRIVATE "QODBCDriverPlugin")
-		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QODBCDriverPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt6::QODBCDriverPlugin)
 		if(WIN32)
 			find_library(LIB_ODBC32 "odbc32")
 			target_link_libraries(mumble_server_object_lib PRIVATE ${LIB_ODBC32})
 		endif()
 	endif()
 	# PostgreSQL
-	if(TARGET Qt5::QPSQLDriverPlugin)
+	if(TARGET Qt6::QPSQLDriverPlugin)
 		include_qt_plugin(mumble_server_object_lib PRIVATE "QPSQLDriverPlugin")
-		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QPSQLDriverPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt6::QPSQLDriverPlugin)
 	endif()
 	# SQLite
-	if(TARGET Qt5::QSQLiteDriverPlugin)
+	if(TARGET Qt6::QSQLiteDriverPlugin)
 		include_qt_plugin(mumble_server_object_lib PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QSQLiteDriverPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt6::QSQLiteDriverPlugin)
 	endif()
 endif()
 
@@ -137,19 +137,19 @@ if(WIN32)
 			AUTORCC ON
 	)
 
-	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
+	find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
 
 	target_link_libraries(mumble_server_object_lib 
 		PUBLIC 
-			Qt5::Widgets
+			Qt6::Widgets
 			dbghelp.lib
 			shlwapi.lib
 			rpcrt4.lib
 	)
 
-	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
+	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
 		include_qt_plugin(mumble_server_object_lib PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble_server_object_lib PRIVATE Qt5::QWindowsIntegrationPlugin)
+		target_link_libraries(mumble_server_object_lib PRIVATE Qt6::QWindowsIntegrationPlugin)
 	endif()
 else()
 	target_sources(mumble_server_object_lib
@@ -193,19 +193,6 @@ if(zeroconf)
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.cpp"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.h"
 	)
-endif()
-
-if(NOT WIN32 AND NOT APPLE)
-	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
-
-	target_sources(mumble_server_object_lib
-		PRIVATE
-			"DBus.cpp"
-			"DBus.h"
-	)
-
-	target_compile_definitions(mumble_server_object_lib PUBLIC "USE_DBUS")
-	target_link_libraries(mumble_server_object_lib PUBLIC Qt5::DBus)
 endif()
 
 if(ice)
@@ -277,6 +264,12 @@ if(ice)
 
 	target_include_directories(mumble_server_object_lib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
+	if(static)
+		# BZip2 is used by Ice, specifically in ConnectionI.cpp.
+		# We link to the library explicitly because CMake is not aware of the dependency.
+		# TODO: Fix or rewrite the official FindIce.cmake.
+		find_pkg(BZip2 REQUIRED)
+	endif()
 	target_link_libraries(mumble_server_object_lib
 		PUBLIC
 			Ice::Ice
@@ -284,6 +277,7 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
+			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
 	)
 	
 	file(COPY "${ICE_FILE}" DESTINATION ${CMAKE_BINARY_DIR})

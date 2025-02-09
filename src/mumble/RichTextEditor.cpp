@@ -1,4 +1,4 @@
-// Copyright 2009-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -11,6 +11,7 @@
 #include "Global.h"
 
 #include <QtCore/QMimeData>
+#include <QtCore/QRegularExpression>
 #include <QtGui/QImageReader>
 #include <QtGui/QPainter>
 #include <QtWidgets/QColorDialog>
@@ -34,9 +35,9 @@ static QString decodeMimeString(const QByteArray &src) {
 	if (src.isEmpty())
 		return QString();
 
-	if ((src.length() >= 4) && ((static_cast< std::size_t >(src.length()) % sizeof(ushort)) == 0)) {
-		const ushort *ptr = reinterpret_cast< const ushort * >(src.constData());
-		int len           = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(ushort));
+	if ((src.length() >= 4) && ((static_cast< std::size_t >(src.length()) % sizeof(char16_t)) == 0)) {
+		const auto *ptr = reinterpret_cast< const char16_t * >(src.constData());
+		auto len        = static_cast< int >(static_cast< std::size_t >(src.length()) / sizeof(char16_t));
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -64,7 +65,7 @@ static QString decodeMimeString(const QByteArray &src) {
 #	pragma warning(pop)
 #endif
 	const char *ptr = src.constData();
-	int len         = src.length();
+	auto len        = src.length();
 	while (len && (ptr[len - 1] == 0))
 		--len;
 	return QString::fromUtf8(ptr, len);
@@ -76,7 +77,7 @@ static QString decodeMimeString(const QByteArray &src) {
 void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	QString uri;
 	QString title;
-	QRegExp newline(QLatin1String("[\\r\\n]"));
+	QRegularExpression newline(QLatin1String("[\\r\\n]"));
 
 #ifndef QT_NO_DEBUG
 	qWarning() << "RichTextHtmlEdit::insertFromMimeData" << source->formats();

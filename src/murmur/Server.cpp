@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -34,6 +34,7 @@
 #include "murmur/database/UserProperty.h"
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QSet>
 #include <QtCore/QXmlStreamAttributes>
 #include <QtCore/QtEndian>
@@ -49,6 +50,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <vector>
 
 #ifdef Q_OS_WIN
@@ -85,7 +87,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 
 Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *p)
 	: QThread(p), m_dbWrapper(connectionParam) {
-	tracy::SetThreadName("Main");
+	tracy::SetThreadName("mumble-server");
 
 	bValid     = true;
 	iServerNum = snum;
@@ -329,56 +331,52 @@ Server::~Server() {
 }
 
 void Server::readParams() {
-	qsPassword                         = Meta::mp.qsPassword;
-	usPort                             = static_cast< unsigned short >(Meta::mp.usPort + iServerNum);
-	iTimeout                           = Meta::mp.iTimeout;
-	iMaxBandwidth                      = Meta::mp.iMaxBandwidth;
-	iMaxUsers                          = Meta::mp.iMaxUsers;
-	iMaxUsersPerChannel                = Meta::mp.iMaxUsersPerChannel;
-	iMaxTextMessageLength              = Meta::mp.iMaxTextMessageLength;
-	iMaxImageMessageLength             = Meta::mp.iMaxImageMessageLength;
-	bAllowHTML                         = Meta::mp.bAllowHTML;
-	iDefaultChan                       = Meta::mp.iDefaultChan;
-	bRememberChan                      = Meta::mp.bRememberChan;
-	iRememberChanDuration              = Meta::mp.iRememberChanDuration;
-	qsWelcomeText                      = Meta::mp.qsWelcomeText;
-	qsWelcomeTextFile                  = Meta::mp.qsWelcomeTextFile;
-	qlBind                             = Meta::mp.qlBind;
-	qsRegName                          = Meta::mp.qsRegName;
-	qsRegPassword                      = Meta::mp.qsRegPassword;
-	qsRegHost                          = Meta::mp.qsRegHost;
-	qsRegLocation                      = Meta::mp.qsRegLocation;
-	qurlRegWeb                         = Meta::mp.qurlRegWeb;
-	bBonjour                           = Meta::mp.bBonjour;
-	bAllowPing                         = Meta::mp.bAllowPing;
-	allowRecording                     = Meta::mp.allowRecording;
-	bCertRequired                      = Meta::mp.bCertRequired;
-	bForceExternalAuth                 = Meta::mp.bForceExternalAuth;
-	qrUserName                         = Meta::mp.qrUserName;
-	qrChannelName                      = Meta::mp.qrChannelName;
-	iMessageLimit                      = Meta::mp.iMessageLimit;
-	iMessageBurst                      = Meta::mp.iMessageBurst;
-	iPluginMessageLimit                = Meta::mp.iPluginMessageLimit;
-	iPluginMessageBurst                = Meta::mp.iPluginMessageBurst;
-	broadcastListenerVolumeAdjustments = Meta::mp.broadcastListenerVolumeAdjustments;
-	m_suggestVersion                   = Meta::mp.m_suggestVersion;
-	m_suggestPositional                = Meta::mp.suggestPositional;
-	m_suggestPushToTalk                = Meta::mp.suggestPushToTalk;
-	iOpusThreshold                     = Meta::mp.iOpusThreshold;
-	iChannelNestingLimit               = Meta::mp.iChannelNestingLimit;
-	iChannelCountLimit                 = Meta::mp.iChannelCountLimit;
+	qsPassword                         = Meta::mp->qsPassword;
+	usPort                             = static_cast< unsigned short >(Meta::mp->usPort + iServerNum);
+	iTimeout                           = Meta::mp->iTimeout;
+	iMaxBandwidth                      = Meta::mp->iMaxBandwidth;
+	iMaxUsers                          = Meta::mp->iMaxUsers;
+	iMaxUsersPerChannel                = Meta::mp->iMaxUsersPerChannel;
+	iMaxTextMessageLength              = Meta::mp->iMaxTextMessageLength;
+	iMaxImageMessageLength             = Meta::mp->iMaxImageMessageLength;
+	bAllowHTML                         = Meta::mp->bAllowHTML;
+	iDefaultChan                       = Meta::mp->iDefaultChan;
+	bRememberChan                      = Meta::mp->bRememberChan;
+	iRememberChanDuration              = Meta::mp->iRememberChanDuration;
+	qsWelcomeText                      = Meta::mp->qsWelcomeText;
+	qsWelcomeTextFile                  = Meta::mp->qsWelcomeTextFile;
+	qlBind                             = Meta::mp->qlBind;
+	qsRegName                          = Meta::mp->qsRegName;
+	qsRegPassword                      = Meta::mp->qsRegPassword;
+	qsRegHost                          = Meta::mp->qsRegHost;
+	qsRegLocation                      = Meta::mp->qsRegLocation;
+	qurlRegWeb                         = Meta::mp->qurlRegWeb;
+	bBonjour                           = Meta::mp->bBonjour;
+	bAllowPing                         = Meta::mp->bAllowPing;
+	allowRecording                     = Meta::mp->allowRecording;
+	rollingStatsWindow                 = Meta::mp->rollingStatsWindow;
+	bCertRequired                      = Meta::mp->bCertRequired;
+	bForceExternalAuth                 = Meta::mp->bForceExternalAuth;
+	qrUserName                         = Meta::mp->qrUserName;
+	qrChannelName                      = Meta::mp->qrChannelName;
+	iMessageLimit                      = Meta::mp->iMessageLimit;
+	iMessageBurst                      = Meta::mp->iMessageBurst;
+	iPluginMessageLimit                = Meta::mp->iPluginMessageLimit;
+	iPluginMessageBurst                = Meta::mp->iPluginMessageBurst;
+	broadcastListenerVolumeAdjustments = Meta::mp->broadcastListenerVolumeAdjustments;
+	m_suggestVersion                   = Meta::mp->m_suggestVersion;
+	m_suggestPositional                = Meta::mp->suggestPositional;
+	m_suggestPushToTalk                = Meta::mp->suggestPushToTalk;
+	iOpusThreshold                     = Meta::mp->iOpusThreshold;
+	iChannelNestingLimit               = Meta::mp->iChannelNestingLimit;
+	iChannelCountLimit                 = Meta::mp->iChannelCountLimit;
 
 	QString qsHost;
 	m_dbWrapper.getConfigurationTo(iServerNum, "host", qsHost);
 
 	if (!qsHost.isEmpty()) {
 		qlBind.clear();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
-#else
-		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
-#endif
+		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(qsHost)) {
 				qlBind << qhaddr;
@@ -400,7 +398,7 @@ void Server::readParams() {
 		foreach (const QHostAddress &qha, qlBind)
 			log(QString("Binding to address %1").arg(qha.toString()));
 		if (qlBind.isEmpty())
-			qlBind = Meta::mp.qlBind;
+			qlBind = Meta::mp->qlBind;
 	}
 
 	m_dbWrapper.getConfigurationTo(iServerNum, "password", qsPassword);
@@ -454,6 +452,7 @@ void Server::readParams() {
 
 	m_dbWrapper.getConfigurationTo(iServerNum, "suggestpositional", m_suggestPositional);
 	m_dbWrapper.getConfigurationTo(iServerNum, "suggestpushtotalk", m_suggestPushToTalk);
+	m_dbWrapper.getConfigurationTo(iServerNum, "rollingStatsWindow", rollingStatsWindow);
 
 	m_dbWrapper.getConfigurationTo(iServerNum, "opusthreshold", iOpusThreshold);
 
@@ -462,10 +461,10 @@ void Server::readParams() {
 
 	QString regex = qrUserName.pattern();
 	m_dbWrapper.getConfigurationTo(iServerNum, "username", regex);
-	qrUserName = QRegExp(regex);
+	qrUserName = QRegularExpression(QRegularExpression::anchoredPattern(std::move(regex)));
 	regex      = qrChannelName.pattern();
 	m_dbWrapper.getConfigurationTo(iServerNum, "channelname", regex);
-	qrChannelName = QRegExp(std::move(regex));
+	qrChannelName = QRegularExpression(QRegularExpression::anchoredPattern(std::move(regex)));
 
 	m_dbWrapper.getConfigurationTo(iServerNum, "messagelimit", iMessageLimit);
 	if (iMessageLimit < 1) { // Prevent disabling messages entirely
@@ -492,11 +491,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	QString v = value.trimmed().isEmpty() ? QString() : value;
 	int i     = v.toInt();
 	if ((key == "password") || (key == "serverpassword"))
-		qsPassword = !v.isNull() ? v : Meta::mp.qsPassword;
+		qsPassword = !v.isNull() ? v : Meta::mp->qsPassword;
 	else if (key == "timeout")
-		iTimeout = i ? i : Meta::mp.iTimeout;
+		iTimeout = i ? i : Meta::mp->iTimeout;
 	else if (key == "bandwidth") {
-		int length = i ? i : Meta::mp.iMaxBandwidth;
+		int length = i ? i : Meta::mp->iMaxBandwidth;
 		if (length != iMaxBandwidth) {
 			iMaxBandwidth = length;
 			MumbleProto::ServerConfig mpsc;
@@ -504,7 +503,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "users") {
-		unsigned int newmax = i ? static_cast< unsigned int >(i) : Meta::mp.iMaxUsers;
+		unsigned int newmax = i ? static_cast< unsigned int >(i) : Meta::mp->iMaxUsers;
 		if (iMaxUsers == newmax)
 			return;
 
@@ -518,9 +517,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		mpsc.set_max_users(iMaxUsers);
 		sendAll(mpsc);
 	} else if (key == "usersperchannel")
-		iMaxUsersPerChannel = i ? static_cast< unsigned int >(i) : Meta::mp.iMaxUsersPerChannel;
+		iMaxUsersPerChannel = i ? static_cast< unsigned int >(i) : Meta::mp->iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {
-		int length = i ? i : Meta::mp.iMaxTextMessageLength;
+		int length = i ? i : Meta::mp->iMaxTextMessageLength;
 		if (length != iMaxTextMessageLength) {
 			iMaxTextMessageLength = length;
 			MumbleProto::ServerConfig mpsc;
@@ -528,7 +527,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "imagemessagelength") {
-		int length = i ? i : Meta::mp.iMaxImageMessageLength;
+		int length = i ? i : Meta::mp->iMaxImageMessageLength;
 		if (length != iMaxImageMessageLength) {
 			iMaxImageMessageLength = length;
 			MumbleProto::ServerConfig mpsc;
@@ -536,7 +535,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "allowhtml") {
-		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowHTML;
 		if (allow != bAllowHTML) {
 			bAllowHTML = allow;
 			MumbleProto::ServerConfig mpsc;
@@ -544,21 +543,21 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "defaultchannel")
-		iDefaultChan = i ? static_cast< unsigned int >(i) : Meta::mp.iDefaultChan;
+		iDefaultChan = i ? static_cast< unsigned int >(i) : Meta::mp->iDefaultChan;
 	else if (key == "rememberchannel")
-		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRememberChan;
+		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bRememberChan;
 	else if (key == "rememberchannelduration") {
-		iRememberChanDuration = !v.isNull() ? v.toInt() : Meta::mp.iRememberChanDuration;
+		iRememberChanDuration = !v.isNull() ? v.toInt() : Meta::mp->iRememberChanDuration;
 		if (iRememberChanDuration < 0) {
 			iRememberChanDuration = 0;
 		}
 	} else if (key == "welcometext") {
-		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
+		QString text = !v.isNull() ? v : Meta::mp->qsWelcomeText;
 		if (text != qsWelcomeText) {
 			qsWelcomeText = text;
 		}
 	} else if (key == "registername") {
-		QString text = !v.isNull() ? v : Meta::mp.qsRegName;
+		QString text = !v.isNull() ? v : Meta::mp->qsRegName;
 		if (text != qsRegName) {
 			qsRegName = text;
 			if (!qsRegName.isEmpty()) {
@@ -569,19 +568,19 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			}
 		}
 	} else if (key == "registerpassword")
-		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
+		qsRegPassword = !v.isNull() ? v : Meta::mp->qsRegPassword;
 	else if (key == "registerhostname")
-		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
+		qsRegHost = !v.isNull() ? v : Meta::mp->qsRegHost;
 	else if (key == "registerlocation")
-		qsRegLocation = !v.isNull() ? v : Meta::mp.qsRegLocation;
+		qsRegLocation = !v.isNull() ? v : Meta::mp->qsRegLocation;
 	else if (key == "registerurl")
-		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+		qurlRegWeb = !v.isNull() ? v : Meta::mp->qurlRegWeb;
 	else if (key == "certrequired")
-		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bCertRequired;
+		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bCertRequired;
 	else if (key == "forceExternalAuth")
-		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bForceExternalAuth;
+		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bForceExternalAuth;
 	else if (key == "bonjour") {
-		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
+		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bBonjour;
 #ifdef USE_ZEROCONF
 		if (bBonjour && !zeroconf) {
 			initZeroconf();
@@ -590,42 +589,44 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		}
 #endif
 	} else if (key == "allowping")
-		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
+		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowPing;
 	else if (key == "allowrecording")
-		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp.allowRecording;
+		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowRecording;
+	else if (key == "rollingStatsWindow")
+		rollingStatsWindow = i ? static_cast< unsigned int >(i) : Meta::mp->rollingStatsWindow;
 	else if (key == "username")
-		qrUserName = !v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
+		qrUserName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrUserName;
 	else if (key == "channelname")
-		qrChannelName = !v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
+		qrChannelName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrChannelName;
 	else if (key == "suggestversion")
-		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp.m_suggestVersion;
+		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp->m_suggestVersion;
 	else if (key == "suggestpositional")
 		m_suggestPositional =
 			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
-						: Meta::mp.suggestPositional;
+						: Meta::mp->suggestPositional;
 	else if (key == "suggestpushtotalk")
 		m_suggestPushToTalk =
 			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
-						: Meta::mp.suggestPushToTalk;
+						: Meta::mp->suggestPushToTalk;
 	else if (key == "opusthreshold")
-		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
+		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp->iOpusThreshold;
 	else if (key == "channelnestinglimit")
-		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelNestingLimit;
+		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp->iChannelNestingLimit;
 	else if (key == "channelcountlimit")
-		iChannelCountLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelCountLimit;
+		iChannelCountLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp->iChannelCountLimit;
 	else if (key == "messagelimit") {
-		iMessageLimit = (!v.isNull()) ? v.toUInt() : Meta::mp.iMessageLimit;
+		iMessageLimit = (!v.isNull()) ? v.toUInt() : Meta::mp->iMessageLimit;
 		if (iMessageLimit < 1) {
 			iMessageLimit = 1;
 		}
 	} else if (key == "messageburst") {
-		iMessageBurst = (!v.isNull()) ? v.toUInt() : Meta::mp.iMessageBurst;
+		iMessageBurst = (!v.isNull()) ? v.toUInt() : Meta::mp->iMessageBurst;
 		if (iMessageBurst < 1) {
 			iMessageBurst = 1;
 		}
 	} else if (key == "broadcastlistenervolumeadjustments") {
 		broadcastListenerVolumeAdjustments =
-			(!v.isNull() ? QVariant(v).toBool() : Meta::mp.broadcastListenerVolumeAdjustments);
+			(!v.isNull() ? QVariant(v).toBool() : Meta::mp->broadcastListenerVolumeAdjustments);
 	}
 }
 
@@ -1052,12 +1053,7 @@ bool Server::checkDecrypt(ServerUser *u, const unsigned char *encrypt, unsigned 
 void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force) {
 	ZoneScoped;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	if ((u.aiUdpFlag.loadRelaxed() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
-#else
-	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
-	if ((u.aiUdpFlag.load() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
-#endif
 #if defined(__LP64__)
 		static std::vector< char > ebuffer;
 		ebuffer.resize(static_cast< std::size_t >(len + 4 + 16));
@@ -1065,7 +1061,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 			((reinterpret_cast< quint64 >(ebuffer.data()) + 8) & static_cast< quint64 >(~7)) + 4);
 #else
 		std::vector< char > bufVec;
-		bufVec.resize(len + 4);
+		bufVec.resize(static_cast< std::size_t >(len + 4));
 		char *buffer    = bufVec.data();
 #endif
 		{
@@ -1367,7 +1363,7 @@ void Server::log(ServerUser *u, const QString &str) const {
 }
 
 void Server::log(const QString &msg) const {
-	if (Meta::mp.iLogDays >= 0) {
+	if (Meta::mp->iLogDays >= 0) {
 		// New philosophy is that DB access can't be considered const, but old code requires this function
 		// to be const. Thus, we require a const_cast here.
 		const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
@@ -1433,10 +1429,7 @@ void Server::newClient() {
 		sock->setLocalCertificate(qscCert);
 
 		QSslConfiguration config;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 		config = sock->sslConfiguration();
-		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in
-		// QSslSocket
 
 		// Treat the leaf certificate as a root.
 		// This shouldn't strictly be necessary,
@@ -1447,32 +1440,13 @@ void Server::newClient() {
 
 		// Add CA certificates specified via
 		// murmur.ini's sslCA option.
-		config.addCaCertificates(Meta::mp.qlCA);
+		config.addCaCertificates(Meta::mp->qlCA);
 
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		config.addCaCertificates(qlIntermediates);
-#else
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		sock->addCaCertificate(qscCert);
 
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		sock->addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		sock->addCaCertificates(qlIntermediates);
-
-		// Must not get config from socket before setting CA certificates
-		config = sock->sslConfiguration();
-#endif
-
-		config.setCiphers(Meta::mp.qlCiphers);
+		config.setCiphers(Meta::mp->qlCiphers);
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		config.setDiffieHellmanParameters(qsdhpDHParams);
 #endif
@@ -1489,6 +1463,14 @@ void Server::newClient() {
 		u->haAddress  = ha;
 		HostAddress(sock->localAddress()).toSockaddr(&u->saiTcpLocalAddress);
 
+		if (rollingStatsWindow >= 10) {
+			// Note: We use a minimum rolling window of 10 seconds.
+			// Anything lower would be pretty meaningless anyway and
+			// probably increase server load significantly.
+			u->csCrypt->m_rollingStatsEnabled = true;
+			u->csCrypt->m_rollingWindow       = std::chrono::seconds(rollingStatsWindow);
+		}
+
 		connect(u, &ServerUser::connectionClosed, this, &Server::connectionClosed);
 		connect(u, SIGNAL(message(Mumble::Protocol::TCPMessageType, const QByteArray &)), this,
 				SLOT(message(Mumble::Protocol::TCPMessageType, const QByteArray &)));
@@ -1499,14 +1481,10 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= 0x050500
-		sock->setProtocol(QSsl::TlsV1_0OrLater);
-#elif QT_VERSION >= 0x050400
-		// In Qt 5.4, QSsl::SecureProtocols is equivalent
-		// to "TLSv1.0 or later", which we require.
-		sock->setProtocol(QSsl::SecureProtocols);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+		sock->setProtocol(QSsl::TlsV1_2OrLater);
 #else
-		sock->setProtocol(QSsl::TlsV1_0);
+		sock->setProtocol(QSsl::TlsV1_0OrLater);
 #endif
 		sock->startServerEncryption();
 
@@ -1519,7 +1497,7 @@ void Server::encrypted() {
 
 	MumbleProto::Version mpv;
 	MumbleProto::setVersion(mpv, Version::get());
-	if (Meta::mp.bSendVersion) {
+	if (Meta::mp->bSendVersion) {
 		mpv.set_release(u8(Version::getRelease()));
 		mpv.set_os(u8(meta->qsOS));
 		mpv.set_os_version(u8(meta->qsOSVersion));
@@ -1725,8 +1703,8 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
-		int len = qbaMsg.size();
-		if (len < 2 || static_cast< unsigned int >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
+		const auto len = qbaMsg.size();
+		if (len < 2 || static_cast< std::size_t >(len) > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
 			// Drop messages that are too small to be senseful or that are bigger than allowed
 			return;
 		}
@@ -1762,28 +1740,28 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 	}
 
 #ifdef QT_NO_DEBUG
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #else
-#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                      \
-		case Mumble::Protocol::TCPMessageType::name: {                   \
-			MumbleProto::name msg;                                       \
-			if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-				if (type != Mumble::Protocol::TCPMessageType::Ping) {    \
-					printf("== %s:\n", #name);                           \
-					msg.PrintDebugString();                              \
-				}                                                        \
-				msg.DiscardUnknownFields();                              \
-				msg##name(u, msg);                                       \
-			}                                                            \
-			break;                                                       \
+#	define PROCESS_MUMBLE_TCP_MESSAGE(name, value)                                          \
+		case Mumble::Protocol::TCPMessageType::name: {                                       \
+			MumbleProto::name msg;                                                           \
+			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
+				if (type != Mumble::Protocol::TCPMessageType::Ping) {                        \
+					printf("== %s:\n", #name);                                               \
+					msg.PrintDebugString();                                                  \
+				}                                                                            \
+				msg.DiscardUnknownFields();                                                  \
+				msg##name(u, msg);                                                           \
+			}                                                                                \
+			break;                                                                           \
 		}
 #endif
 
@@ -1811,7 +1789,7 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 	Connection *c = qhUsers.value(id);
 	if (c) {
 		QByteArray qba;
-		int len = a.size();
+		const auto len = a.size();
 
 		qba.resize(len + 6);
 		unsigned char *uc = reinterpret_cast< unsigned char * >(qba.data());
@@ -2192,15 +2170,30 @@ void Server::clearWhisperTargetCache() {
 QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 	HostAddress ha(adr);
 
-	if ((Meta::mp.iObfuscate != 0)) {
+	if ((Meta::mp->iObfuscate != 0)) {
 		QCryptographicHash h(QCryptographicHash::Sha1);
-		h.addData(reinterpret_cast< const char * >(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+		h.addData(byteView);
+#else
+		h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+#endif
 		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
 			quint32 num = adr.toIPv4Address();
+			byteView    = { reinterpret_cast< const char * >(&num), sizeof(num) };
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+			h.addData(byteView);
+#else
 			h.addData(reinterpret_cast< const char * >(&num), sizeof(num));
+#endif
 		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
 			Q_IPV6ADDR num = adr.toIPv6Address();
+			byteView       = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+			h.addData(byteView);
+#else
 			h.addData(reinterpret_cast< const char * >(num.c), sizeof(num.c));
+#endif
 		}
 		return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
 	}
@@ -2210,11 +2203,19 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 bool Server::validateUserName(const QString &name) {
 	// We expect the name passed to this function to be fully trimmed already. This way we
 	// prevent "empty" names (at least with the default username restriction).
-	return (name.trimmed().length() == name.length() && qrUserName.exactMatch(name) && (name.length() <= 512));
+	if (name.length() > 512 || name.length() != name.trimmed().length()) {
+		return false;
+	}
+
+	return qrUserName.match(name).hasMatch();
 }
 
 bool Server::validateChannelName(const QString &name) {
-	return (qrChannelName.exactMatch(name) && (name.length() <= 512));
+	if (name.length() > 512) {
+		return false;
+	}
+
+	return qrChannelName.match(name).hasMatch();
 }
 
 void Server::recheckCodecVersions(ServerUser *connectingUser) {
@@ -2340,7 +2341,7 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		}
 		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
 	} else {
-		int length = text.length();
+		auto length = text.length();
 
 		// No limits
 		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))
@@ -2552,13 +2553,13 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						// Password matched
 						userID = knownUserID;
 
-						if (!Meta::mp.legacyPasswordHash) {
+						if (!Meta::mp->legacyPasswordHash) {
 							// Upgrade this user account to the newer hashing system
 							QMap< int, QString > properties;
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
 											  password);
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations),
-											  QString::number(Meta::mp.kdfIterations));
+											  QString::number(Meta::mp->kdfIterations));
 
 							if (!setUserProperties(userID, properties)) {
 								qWarning("Failed to upgrade user account to PBKDF2 hash -> rejecting login");
@@ -2578,7 +2579,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						// Password matched
 						userID = knownUserID;
 
-						if (Meta::mp.legacyPasswordHash) {
+						if (Meta::mp->legacyPasswordHash) {
 							// Downgrade to old SHA1 password hash
 							QMap< int, QString > properties;
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
@@ -2588,13 +2589,13 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 								qWarning("Failed to downgrade user account to legacy hash -> rejecting login");
 								return AUTHENTICATION_FAILED;
 							}
-						} else if (static_cast< int >(userData.password.kdfIterations) != Meta::mp.kdfIterations) {
+						} else if (static_cast< int >(userData.password.kdfIterations) != Meta::mp->kdfIterations) {
 							// User's kdfIterations doesn't match the global setting -> update it
 							QMap< int, QString > properties;
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password),
 											  password);
 							properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations),
-											  QString::number(Meta::mp.kdfIterations));
+											  QString::number(Meta::mp->kdfIterations));
 
 							if (!setUserProperties(userID, properties)) {
 								qWarning("Failed to update user PBKDF2 to new iteration count -> rejecting login");

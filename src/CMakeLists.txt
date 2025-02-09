@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -16,9 +16,10 @@ option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
+option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
 
-
-find_pkg(Qt5
+find_pkg(Qt6
+	VERSION 6.3
 	COMPONENTS
 		Core
 		Network
@@ -85,6 +86,7 @@ set(SHARED_SOURCES
 
 	"crypto/CryptographicHash.cpp"
 	"crypto/CryptographicRandom.cpp"
+	"crypto/CryptState.cpp"
 	"crypto/CryptStateOCB2.cpp"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"
@@ -177,9 +179,9 @@ target_link_libraries(shared
 		protobuf::libprotobuf
 		OpenSSL::Crypto
 		OpenSSL::SSL
-		Qt5::Core
-		Qt5::Network
-		Qt5::Xml
+		Qt6::Core
+		Qt6::Network
+		Qt6::Xml
 )
 
 if(WIN32)
@@ -235,6 +237,13 @@ else()
 
 		target_link_libraries(shared PUBLIC MSGSL::MSGSL)
 	endif()
+endif()
+
+if(bundled-spdlog)
+	target_include_directories(shared SYSTEM PUBLIC "${3RDPARTY_DIR}/spdlog/include")
+else()
+	find_pkg("spdlog")
+	target_link_libraries(shared PUBLIC spdlog::spdlog)
 endif()
 
 if(client)

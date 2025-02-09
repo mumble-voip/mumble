@@ -1,4 +1,4 @@
-// Copyright 2014-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -49,7 +49,7 @@ public:
 
 	bool event(QEvent *e) Q_DECL_OVERRIDE;
 #ifdef Q_OS_WIN
-	bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+	bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) Q_DECL_OVERRIDE;
 #endif
 
 	QUrl quLaunchURL;

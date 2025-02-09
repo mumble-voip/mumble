@@ -1,4 +1,4 @@
-// Copyright 2009-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -18,6 +18,7 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include <QRegularExpression>
 #include <QTimer>
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
@@ -228,8 +229,9 @@ void CertWizard::initializePage(int id) {
 
 bool CertWizard::validateCurrentPage() {
 	if (currentPage() == qwpNew) {
-		QRegExp ereg(QLatin1String("(^$)|((.+)@(.+))"), Qt::CaseInsensitive, QRegExp::RegExp2);
-		if (!ereg.exactMatch(qleEmail->text())) {
+		const QRegularExpression ereg(QRegularExpression::anchoredPattern(QLatin1String("(^$)|((.+)@(.+))")),
+									  QRegularExpression::CaseInsensitiveOption);
+		if (!ereg.match(qleEmail->text()).hasMatch()) {
 			qlError->setText(tr("Unable to validate email.<br />Enter a valid (or blank) email to continue."));
 			qwpNew->setComplete(false);
 			return false;
@@ -434,8 +436,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	Settings::KeyPair kp;
 	int ret = 0;
 
-	mem = BIO_new_mem_buf(data.data(), data.size());
-	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
+	mem  = BIO_new_mem_buf(data.data(), static_cast< int >(data.size()));
 	pkcs = d2i_PKCS12_bio(mem, nullptr);
 	if (pkcs) {
 		ret = PKCS12_parse(pkcs, nullptr, &pkey, &x509, &certs);

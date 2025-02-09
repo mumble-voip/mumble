@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -10,7 +10,6 @@
 #include <QtCore/QtGlobal>
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QSystemTrayIcon>
 
 #include "CustomElements.h"
 #include "MUComboBox.h"
@@ -74,15 +73,14 @@ private:
 	Q_DISABLE_COPY(MainWindow)
 public:
 	UserModel *pmModel;
-	QSystemTrayIcon *qstiIcon;
 	QMenu *qmUser;
 	QMenu *qmChannel;
 	QMenu *qmListener;
 	QMenu *qmDeveloper;
-	QMenu *qmTray;
 	QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer,
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon m_iconInformation;
 	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
@@ -108,6 +106,7 @@ public:
 	GlobalShortcut *gsConfigDialog, *gsAudioWizard, *gsConfigCert;
 	GlobalShortcut *gsAudioTTS;
 	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
+	GlobalShortcut *gsTogglePositionalAudio;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -140,17 +139,19 @@ public:
 	void setOnTop(bool top);
 	void setShowDockTitleBars(bool doShow);
 	void updateAudioToolTips();
-	void updateTrayIcon();
 	void updateUserModel();
 	void focusNextMainWidget();
 	QPair< QByteArray, QImage > openImageFile();
+
+	void loadState(bool minimalView);
+	void storeState(bool minimalView);
 
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
 
 #ifdef Q_OS_WIN
-	bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+	bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) Q_DECL_OVERRIDE;
 	unsigned int uiNewHardware;
 #endif
 protected:
@@ -192,6 +193,8 @@ protected:
 	qt_unique_ptr< MenuLabel > m_localVolumeLabel;
 	qt_unique_ptr< UserLocalVolumeSlider > m_userLocalVolumeSlider;
 	qt_unique_ptr< ListenerVolumeSlider > m_listenerVolumeSlider;
+
+	static constexpr int stateVersion();
 
 	void createActions();
 	void setupGui();
@@ -291,7 +294,6 @@ public slots:
 	void on_qaHelpAboutQt_triggered();
 	void on_qaHelpVersionCheck_triggered();
 	void on_qaQuit_triggered();
-	void on_qaHide_triggered();
 	void on_qteChat_tabPressed();
 	void on_qteChat_backtabPressed();
 	void on_qteChat_ctrlSpacePressed();
@@ -338,9 +340,9 @@ public slots:
 	void on_gsHelpAbout_triggered(bool, QVariant);
 	void on_gsHelpAboutQt_triggered(bool, QVariant);
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
+	void on_gsTogglePositionalAudio_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
-	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 	void on_qaTalkingUIToggle_triggered();
 	void voiceRecorderDialog_finished(int);
 	void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
@@ -357,7 +359,6 @@ public slots:
 	/// or priority speaker flag changes for the gui user
 	void userStateChanged();
 	void destroyUserInformation();
-	void trayAboutToShow();
 	void sendChatbarMessage(QString msg);
 	void sendChatbarText(QString msg, bool plainText = false);
 	void pttReleased();
@@ -387,6 +388,8 @@ public slots:
 	void toggleSearchDialogVisibility();
 	/// Enables or disables the recording feature
 	void enableRecording(bool recordingAllowed);
+	/// Invokes OS native window highlighting
+	void highlightWindow();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
@@ -396,6 +399,18 @@ signals:
 	/// Signal emitted whenever a user removes a ChannelListener
 	void userRemovedChannelListener(ClientUser *user, Channel *channel);
 	void transmissionModeChanged(Settings::AudioTransmit newMode);
+
+	/// Signal emitted when the local user changes their talking status either actively or passively
+	void talkingStatusChanged();
+	/// Signal emitted when the connection was terminated and all cleanup code has been run
+	void disconnectedFromServer();
+
+	/// Signal emitted when the window manager notifies the Mumble MainWindow that the application was just minimized
+	void windowMinimized();
+	/// Signal emitted when the user requested to toggle the MainWindow visibility
+	void windowVisibilityToggled();
+	/// Signal emitted whenever the Mumble MainWindow regains the active state from the window manager
+	void windowActivated();
 
 public:
 	MainWindow(QWidget *parent);
@@ -433,6 +448,7 @@ public:
 	void openAboutDialog();
 	void openAboutQtDialog();
 	void versionCheck();
+	void enablePositionalAudio(bool enable);
 };
 
 #endif

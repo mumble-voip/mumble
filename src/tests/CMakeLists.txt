@@ -1,11 +1,11 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(project-utils)
 
-find_pkg(Qt5 COMPONENTS Test REQUIRED)
+find_pkg(Qt6 COMPONENTS Test REQUIRED)
 
 option(online-tests "Whether or not tests that need a working internet connection should be included" OFF)
 

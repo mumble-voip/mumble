@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -47,11 +47,9 @@
 #	include <sys/resource.h>
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-#	include <QRandomGenerator>
-#endif
+#include <QRandomGenerator>
 
-MetaParams Meta::mp;
+std::unique_ptr< MetaParams > Meta::mp;
 
 #ifdef Q_OS_WIN
 HANDLE Meta::hQoS = nullptr;
@@ -82,7 +80,6 @@ MetaParams::MetaParams() {
 	qsDatabase                 = QString();
 	iSQLiteWAL                 = 0;
 	iDBPort                    = 0;
-	qsDBusService              = "net.sourceforge.mumble.murmur";
 	qsDBDriver                 = "SQLITE";
 	qsLogfile                  = "mumble-server.log";
 
@@ -109,8 +106,8 @@ MetaParams::MetaParams() {
 	iChannelNestingLimit = 10;
 	iChannelCountLimit   = 1000;
 
-	qrUserName    = QRegExp(QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
-	qrChannelName = QRegExp(QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
+	qrUserName    = QRegularExpression(QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
+	qrChannelName = QRegularExpression(QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 
 	iMessageLimit = 1;
 	iMessageBurst = 5;
@@ -126,6 +123,8 @@ MetaParams::MetaParams() {
 	bLogACLChanges   = false;
 
 	allowRecording = true;
+
+	rollingStatsWindow = 300;
 
 	qsSettings = nullptr;
 }
@@ -161,7 +160,7 @@ ReturnType MetaParams::typeCheckedFromSettings(const QString &name, const ValueT
 
 	// Bit convoluted as canConvert<T>() only does a static check without considering whether
 	// say a string like "blub" is actually a valid double (which convert does).
-	if (!cfgVariable.convert(static_cast< int >(QVariant(defaultValue).type()))) {
+	if (!cfgVariable.convert(QMetaType(QVariant(defaultValue).metaType()))) {
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of"
 					<< defaultValue << ".";
 		return static_cast< ReturnType >(defaultValue);
@@ -177,7 +176,7 @@ void MetaParams::read(QString fname) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
-		datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+		datapaths << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
 		QDir appdir = QDir(QDir::fromNativeSeparators(EnvUtils::getenv(QLatin1String("APPDATA"))));
 		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
@@ -225,7 +224,6 @@ void MetaParams::read(QString fname) {
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
 	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-	qsSettings->setIniCodec("UTF-8");
 
 	qsSettings->sync();
 	switch (qsSettings->status()) {
@@ -249,12 +247,7 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
-#else
-		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
-		foreach (const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
-#endif
+		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
 				qlBind << qhaddr;
@@ -320,10 +313,8 @@ void MetaParams::read(QString fname) {
 
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
-	qsDBus        = typeCheckedFromSettings("dbus", qsDBus);
-	qsDBusService = typeCheckedFromSettings("dbusservice", qsDBusService);
-	qsLogfile     = typeCheckedFromSettings("logfile", qsLogfile);
-	qsPid         = typeCheckedFromSettings("pidfile", qsPid);
+	qsLogfile = typeCheckedFromSettings("logfile", qsLogfile);
+	qsPid     = typeCheckedFromSettings("pidfile", qsPid);
 
 	qsRegName     = typeCheckedFromSettings("registerName", qsRegName);
 	qsRegPassword = typeCheckedFromSettings("registerPassword", qsRegPassword);
@@ -350,6 +341,8 @@ void MetaParams::read(QString fname) {
 	bLogACLChanges   = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
 
 	allowRecording = typeCheckedFromSettings("allowRecording", allowRecording);
+
+	rollingStatsWindow = typeCheckedFromSettings("rollingStatsWindow", rollingStatsWindow);
 
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 
@@ -378,8 +371,8 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrUserName    = QRegExp(typeCheckedFromSettings("username", qrUserName.pattern()));
-	qrChannelName = QRegExp(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
+	qrUserName    = QRegularExpression(typeCheckedFromSettings("username", qrUserName.pattern()));
+	qrChannelName = QRegularExpression(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
 
 	iMessageLimit = typeCheckedFromSettings< unsigned int >("messagelimit", 1);
 	iMessageBurst = typeCheckedFromSettings< unsigned int >("messageburst", 5);
@@ -392,12 +385,7 @@ void MetaParams::read(QString fname) {
 	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 		iObfuscate = static_cast< int >(QRandomGenerator::global()->generate());
-#else
-		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		iObfuscate = static_cast< int >(qrand());
-#endif
 	}
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing   = typeCheckedFromSettings("allowping", bAllowPing);
@@ -452,7 +440,6 @@ void MetaParams::read(QString fname) {
 
 bool MetaParams::loadSSLSettings() {
 	QSettings updatedSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-	updatedSettings.setIniCodec("UTF-8");
 
 	QString tmpCiphersStr = typeCheckedFromSettings("sslCiphers", qsCiphers);
 
@@ -542,7 +529,8 @@ bool MetaParams::loadSSLSettings() {
 		}
 		if (ql.size() > 0) {
 			tmpIntermediates = ql;
-			qCritical("MetaParams: Adding %d intermediate certificates from certificate file.", ql.size());
+			qCritical("MetaParams: Adding %lld intermediate certificates from certificate file.",
+					  static_cast< qsizetype >(ql.size()));
 		}
 	}
 
@@ -679,7 +667,7 @@ Meta::~Meta() {
 QString locateDatabase() {
 	QStringList datapaths;
 
-	datapaths << Meta::mp.qdBasePath.absolutePath();
+	datapaths << Meta::mp->qdBasePath.absolutePath();
 	datapaths << QDir::currentPath();
 	datapaths << QCoreApplication::instance()->applicationDirPath();
 	datapaths << QDir::homePath();
@@ -702,31 +690,31 @@ QString locateDatabase() {
 	}();
 
 	if (path.isEmpty()) {
-		path = Meta::mp.qdBasePath.absoluteFilePath("mumble-server.sqlite");
+		path = Meta::mp->qdBasePath.absoluteFilePath("mumble-server.sqlite");
 	}
 
 	return QDir::toNativeSeparators(path);
 }
 
 const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
-	assert(!Meta::mp.qsDBDriver.isEmpty());
+	assert(!Meta::mp->qsDBDriver.isEmpty());
 
-	bool isSQLite = boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qsqlite")
-					|| boost::iequals(Meta::mp.qsDBDriver.toStdString(), "sqlite");
+	bool isSQLite = boost::iequals(Meta::mp->qsDBDriver.toStdString(), "qsqlite")
+					|| boost::iequals(Meta::mp->qsDBDriver.toStdString(), "sqlite");
 
-	if (Meta::mp.qsDatabase.isEmpty()) {
+	if (Meta::mp->qsDatabase.isEmpty()) {
 		if (isSQLite) {
-			Meta::mp.qsDatabase = locateDatabase();
+			Meta::mp->qsDatabase = locateDatabase();
 		} else {
 			qFatal("When using non-SQLite databases, the database name has to be provided explicitly (via the INI)");
 		}
 	}
-	assert(!Meta::mp.qsDatabase.isEmpty());
+	assert(!Meta::mp->qsDatabase.isEmpty());
 
-	if (!Meta::mp.qsDBOpts.isEmpty()) {
+	if (!Meta::mp->qsDBOpts.isEmpty()) {
 		qFatal("dbOpts no longer supported");
 	}
-	if (!Meta::mp.qsDBPrefix.isEmpty()) {
+	if (!Meta::mp->qsDBPrefix.isEmpty()) {
 		qFatal("qsDBPrefix no longer supported");
 	}
 
@@ -736,84 +724,84 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 			   "backend");
 #endif
 
-		if (Meta::mp.iSQLiteWAL == 1) {
+		if (Meta::mp->iSQLiteWAL == 1) {
 			qFatal("SQLite WAL = 1 option no longer supported. Either enable fully (WAL = 2) or disable (WAL = 0)");
 		}
-		if (Meta::mp.iSQLiteWAL > 2) {
+		if (Meta::mp->iSQLiteWAL > 2) {
 			qFatal("Invalid value for sqlite_wal option. Allowed values are 0 or 2.");
 		}
-		if (!Meta::mp.qsDBUserName.isEmpty()) {
+		if (!Meta::mp->qsDBUserName.isEmpty()) {
 			qFatal("When using a SQLite database, specifying a username doesn't make sense");
 		}
-		if (!Meta::mp.qsDBPassword.isEmpty()) {
+		if (!Meta::mp->qsDBPassword.isEmpty()) {
 			qFatal("When using a SQLite database, specifying a password doesn't make sense");
 		}
-		if (!Meta::mp.qsDBHostName.isEmpty()) {
+		if (!Meta::mp->qsDBHostName.isEmpty()) {
 			qFatal("When using a SQLite database, specifying a host doesn't make sense");
 		}
-		if (Meta::mp.iDBPort > 0) {
+		if (Meta::mp->iDBPort > 0) {
 			qFatal("When using a SQLite database, specifying a port doesn't make sense");
 		}
 
-		static ::mumble::db::SQLiteConnectionParameter sqliteConnection(Meta::mp.qsDatabase.toStdString(),
-																		Meta::mp.iSQLiteWAL > 0);
+		static ::mumble::db::SQLiteConnectionParameter sqliteConnection(Meta::mp->qsDatabase.toStdString(),
+																		Meta::mp->iSQLiteWAL > 0);
 
 		return sqliteConnection;
-	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qmysql")
-			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "mysql")) {
+	} else if (boost::iequals(Meta::mp->qsDBDriver.toStdString(), "qmysql")
+			   || boost::iequals(Meta::mp->qsDBDriver.toStdString(), "mysql")) {
 #ifdef MUMBLE_DISABLE_MYSQL
 		qFatal("Your version of the Mumble server has been compiled without support for MySQL - choose a different DB "
 			   "backend");
 #endif
-		if (Meta::mp.qsDatabase.isEmpty()) {
+		if (Meta::mp->qsDatabase.isEmpty()) {
 			qFatal("When using a MySQL database, a database name must be specified");
 		}
 
-		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp.qsDatabase.toStdString());
+		static ::mumble::db::MySQLConnectionParameter mysqlConnection(Meta::mp->qsDatabase.toStdString());
 
-		if (!Meta::mp.qsDBUserName.isEmpty()) {
-			mysqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
+		if (!Meta::mp->qsDBUserName.isEmpty()) {
+			mysqlConnection.userName = Meta::mp->qsDBUserName.toStdString();
 		}
-		if (!Meta::mp.qsDBPassword.isEmpty()) {
-			mysqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		if (!Meta::mp->qsDBPassword.isEmpty()) {
+			mysqlConnection.password = Meta::mp->qsDBPassword.toStdString();
 		}
-		if (!Meta::mp.qsDBHostName.isEmpty()) {
-			mysqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		if (!Meta::mp->qsDBHostName.isEmpty()) {
+			mysqlConnection.host = Meta::mp->qsDBHostName.toStdString();
 		}
-		if (Meta::mp.iDBPort > 0) {
-			mysqlConnection.port = std::to_string(Meta::mp.iDBPort);
+		if (Meta::mp->iDBPort > 0) {
+			mysqlConnection.port = std::to_string(Meta::mp->iDBPort);
 		}
 
 		return mysqlConnection;
-	} else if (boost::iequals(Meta::mp.qsDBDriver.toStdString(), "qpsql")
-			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "psql")
-			   || boost::iequals(Meta::mp.qsDBDriver.toStdString(), "postgresql")) {
+	} else if (boost::iequals(Meta::mp->qsDBDriver.toStdString(), "qpsql")
+			   || boost::iequals(Meta::mp->qsDBDriver.toStdString(), "psql")
+			   || boost::iequals(Meta::mp->qsDBDriver.toStdString(), "postgresql")) {
 #ifdef MUMBLE_DISABLE_POSTGRESQL
 		qFatal("Your version of the Mumble server has been compiled without support for PostgreSQL - choose a "
 			   "different DB backend");
 #endif
-		if (Meta::mp.qsDatabase.isEmpty()) {
+		if (Meta::mp->qsDatabase.isEmpty()) {
 			qFatal("When using a PostgreSQL database, a database name must be specified");
 		}
 
-		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp.qsDatabase.toStdString());
+		static ::mumble::db::PostgreSQLConnectionParameter postgresqlConnection(Meta::mp->qsDatabase.toStdString());
 
-		if (!Meta::mp.qsDBUserName.isEmpty()) {
-			postgresqlConnection.userName = Meta::mp.qsDBUserName.toStdString();
+		if (!Meta::mp->qsDBUserName.isEmpty()) {
+			postgresqlConnection.userName = Meta::mp->qsDBUserName.toStdString();
 		}
-		if (!Meta::mp.qsDBPassword.isEmpty()) {
-			postgresqlConnection.password = Meta::mp.qsDBPassword.toStdString();
+		if (!Meta::mp->qsDBPassword.isEmpty()) {
+			postgresqlConnection.password = Meta::mp->qsDBPassword.toStdString();
 		}
-		if (!Meta::mp.qsDBHostName.isEmpty()) {
-			postgresqlConnection.host = Meta::mp.qsDBHostName.toStdString();
+		if (!Meta::mp->qsDBHostName.isEmpty()) {
+			postgresqlConnection.host = Meta::mp->qsDBHostName.toStdString();
 		}
-		if (Meta::mp.iDBPort > 0) {
-			postgresqlConnection.port = std::to_string(Meta::mp.iDBPort);
+		if (Meta::mp->iDBPort > 0) {
+			postgresqlConnection.port = std::to_string(Meta::mp->iDBPort);
 		}
 
 		return postgresqlConnection;
 	} else {
-		qFatal("Unsupported database driver: %s", Meta::mp.qsDBDriver.toStdString().c_str());
+		qFatal("Unsupported database driver: %s", Meta::mp->qsDBDriver.toStdString().c_str());
 	}
 
 	assert(false);
@@ -822,7 +810,7 @@ const ::mumble::db::ConnectionParameter &Meta::getConnectionParameter() {
 
 bool Meta::reloadSSLSettings() {
 	// Reload SSL settings.
-	if (!Meta::mp.loadSSLSettings()) {
+	if (!Meta::mp->loadSSLSettings()) {
 		return false;
 	}
 
@@ -842,28 +830,28 @@ bool Meta::reloadSSLSettings() {
 }
 
 void Meta::initPBKDF2IterationCount() {
-	if (Meta::mp.kdfIterations <= 0) {
+	if (Meta::mp->kdfIterations <= 0) {
 		// No explicit iteration count given -> load from DB
 		boost::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
 
 		if (storedIterationCount) {
-			Meta::mp.kdfIterations = static_cast< int >(storedIterationCount.get());
+			Meta::mp->kdfIterations = static_cast< int >(storedIterationCount.get());
 		} else {
 			// No stored value -> initialize from scratch
-			Meta::mp.kdfIterations = PBKDF2::benchmark();
+			Meta::mp->kdfIterations = PBKDF2::benchmark();
 
-			qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations
+			qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp->kdfIterations
 					   << "iterations as default";
 
-			assert(Meta::mp.kdfIterations >= 0);
-			dbWrapper.storePBKDF2IterationCount(static_cast< unsigned int >(Meta::mp.kdfIterations));
+			assert(Meta::mp->kdfIterations >= 0);
+			dbWrapper.storePBKDF2IterationCount(static_cast< unsigned int >(Meta::mp->kdfIterations));
 		}
 	}
 
-	assert(Meta::mp.kdfIterations > 0);
+	assert(Meta::mp->kdfIterations > 0);
 
-	if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
-		qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp.kdfIterations
+	if (Meta::mp->kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
+		qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp->kdfIterations
 				   << "is below minimum recommended value of" << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT
 				   << "and could be insecure.";
 	}
@@ -957,7 +945,7 @@ void Meta::killAll() {
 }
 
 void Meta::successfulConnectionFrom(const QHostAddress &addr) {
-	if (!mp.bBanSuccessful) {
+	if (!mp->bBanSuccessful) {
 		QList< Timer > &ql = qhAttempts[addr];
 		// Seems like this is the most efficient way to clear the list, given:
 		// 1. ql.clear() allocates a new array
@@ -970,12 +958,12 @@ void Meta::successfulConnectionFrom(const QHostAddress &addr) {
 }
 
 bool Meta::banCheck(const QHostAddress &addr) {
-	if ((mp.iBanTries <= 0) || (mp.iBanTimeframe <= 0))
+	if ((mp->iBanTries <= 0) || (mp->iBanTimeframe <= 0))
 		return false;
 
 	if (qhBans.contains(addr)) {
 		Timer t = qhBans.value(addr);
-		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp.iBanTime)))
+		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp->iBanTime)))
 			return true;
 		qhBans.remove(addr);
 	}
@@ -983,10 +971,10 @@ bool Meta::banCheck(const QHostAddress &addr) {
 	QList< Timer > &ql = qhAttempts[addr];
 
 	ql.append(Timer());
-	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp.iBanTimeframe))))
+	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp->iBanTimeframe))))
 		ql.removeFirst();
 
-	if (ql.count() > mp.iBanTries) {
+	if (ql.count() > mp->iBanTries) {
 		qhBans.insert(addr, Timer());
 		return true;
 	}

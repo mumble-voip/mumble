@@ -56,6 +56,6 @@ CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword';
 
 3. Grant this new user all privileges on the test database:
 ```sql
-GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;
+ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;
 ```
 

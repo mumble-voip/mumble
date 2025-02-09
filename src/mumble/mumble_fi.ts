@@ -1230,7 +1230,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tämä osoittaa yleisimmin käytettyä kaistanleveyttä.&lt;/b&gt; &lt;br /&gt;Tämä osoittaa, kuinka paljon kaistanleveyttä lähetetään pois koneesta. Audio bitrate on suurin biraatti vain äänidatalle. Sijainti on biraatti, jota käytetään positiaalitietoihin. Yläpuolella on kehys ja IP-pakkausotsikot (IP ja UDP ovat 75 % tästä).</translation>
     </message>
 </context>
 <context>
@@ -1578,7 +1578,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>Sijainninmukainen ääni ei voi toimia mono-ulostulolla!</translation>
+        <translation>Sijainninmukainen ääni ei voi toimia yhden äänikanavan ulostulolla!</translation>
     </message>
     <message>
         <source>Audio output system</source>
@@ -1841,7 +1841,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä on viimeisen pakatun kehyksen äänen bittinopeus (20 ms). Huippubittinopeutta voidaan säätää Asetukset-valintaikkunassa.</translation>
     </message>
 </context>
 <context>
@@ -2781,10 +2781,6 @@ Haluatko varmasti korvata varmenteen?
 &lt;p&gt;Ota huomioon että varmuuskopiotiedosto ei ole salattu ja mikäli joku pääsee siihen käsiksi, he pystyvät esiintymään sinuna, joten pidä varmuuskopiosta hyvää huolta.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimia kohtaan tunnistautumiseen. Varmennetta käyttämällä vältyt salasanan käyttämiseltä, mikä taas tarkoittaa ettei sinun tarvitse lähettää salasanaa etäsivustolle. Varmenne myös mahdollistaa todella helpon käyttäjärekisteröinnin ja sovelluksessa olevan kaverilistan ilman riippuvuutta palvelimiin.&lt;/p&gt;&lt;p&gt;Vaikka Mumble toimii ilman sertifikaatteja, suurin osa palvelimista olettaa sinulla olevan varmenteen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen riittää useimmissa tapauksissa. Mumble tukee myös varmenteen luottosuhteen sidonnaisuuden määrittämistä sähköpostiosoitteeseen. Näitä varmenteita myöntävät kolmannet osapuolet. Lisätietoja on saatavilla &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;käyttäjän varmennedokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>Näyttää varmenteen</translation>
     </message>
@@ -2823,6 +2819,10 @@ Haluatko varmasti korvata varmenteen?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>Sähköpostiosoitteesi. Esimerkiksi: mattimeikalainen@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimien todentamiseen. Varmenteiden käyttäminen välttää salasanoja, mikä tarkoittaa, että sinun ei tarvitse paljastaa salasanaa etäsivustolle. Se mahdollistaa myös erittäin helpon käyttäjien rekisteröinnin ja palvelimista riippumattoman asiakaspuolen ystäväluettelon.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman varmenteita, suurin osa palvelimista odottaa, että sinulla on sellainen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen automaattisesti riittää useimmissa käyttötapauksissa. Mutta Mumble tukee myös varmenteita, jotka edustavat luottamusta siihen, että käyttäjä omistaa sähköpostiosoitteen. Nämä todistukset ovat kolmansien osapuolien myöntämiä. Lisätietoja on &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;käyttäjävarmenteen dokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4387,7 +4387,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation>Käytä tekstistä puheeksi -ominaisuutta</translation>
+        <translation>Kytke teksti-puheeksi -ominaisuus päälle</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -5070,10 +5070,6 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble -- %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>&amp;Ikkuna</translation>
     </message>
@@ -5216,10 +5212,6 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Virheitä varmenteessa on:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Haluatko hyväksyä varmenteen tästä huolimatta?&lt;br /&gt;(Varmenne tullaan tallentamaan, jolloin sinulta ei kysytä tätä uudelleen.)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>SSL-version konflikti</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5441,10 +5433,6 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;VAROITUS:&lt;/b&gt; Palvelin esitti varmenteen, joka on eri kuin tallennettu.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Mumblen nykyinen versio ei tue tätä palvelinta, koska palvelin käyttää vanhempaa salausmenetelmää.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5933,10 +5921,6 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
         <translation>Tervetuloviesti: %1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Sinulla ei ole %1 oikeutta kanavalle %2.</translation>
     </message>
@@ -6350,18 +6334,6 @@ kanavien alivalikosta.</translation>
         <translation>&amp;Kehittäjä</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>&amp;Piilota Mumble</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>Piilottaa Mumblen päänäkymän.</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>Piilottaa Mumblen ikkunan. Palauta se klikkaamalla iconia tehtäväpalkissasi tai käynnistämällä mumble uudelleen.</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>Näytä kehittäjäkonsoli</translation>
     </message>
@@ -6412,14 +6384,6 @@ kanavien alivalikosta.</translation>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>&amp;Muokkaa kommenttia...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>Näytä</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>Näyttää Mumblen pääikkunan.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6640,7 +6604,7 @@ Sallitut toiminnot ovat:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation>Kansiota %1 ei ole olemassa.
+        <translation>Hakemistoa %1 ei ole olemassa.
 </translation>
     </message>
     <message>
@@ -6653,7 +6617,7 @@ Sallitut toiminnot ovat:
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Tämä Mumblen versio ei voi käsitellä URL-osoitteita Mumblen versiolle %1</translation>
+        <translation>Kyseinen Mumble versio ei pysty käsittelemään URL-osoitteita Mumblen versiosta %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
@@ -6680,129 +6644,6 @@ Sallitut toiminnot ovat:
     <message>
         <source>Channel &amp;Filter</source>
         <translation>Kanava&amp;suodatin</translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>Käyttö: mumble [valitsimet] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; määrittää URL-osoitteen johon yhdistetään ilman,
-että näytetään yhdistämis-ikkuna ja se käyttää seuraavaa muotoa:
-mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;palvelin&gt;[:&lt;portti&gt;][/&lt;kanaval&gt;[/&lt;alikanava&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; on luettelo asennettavista laajennustiedostoista.
-Version-kyselyparametri on määritettävä, jotta voidaan kutsua
-oikeaa asiakasversiota. Sen oletusarvo on tällä hetkellä 1.2.0.
-
-Hyväksytyt valinnat ovat
-  -h, --help    Näytä tämä ohjeteksti ja poistu.
-  --version     Tulosta versiotiedot ja poistu.
-  -m, --multiple
-                Sallii monen asiakasohjelman instanssin käynnistämisen
-  -c, --config
-                Määrittää vaihtoehtoisen konfiguraatiotiedoston.
-                Jos käytät tätä useiden Mumblen esiintymien suorittamiseen kerralla,
-                muista asettaa vaihtoehtoinen tietokanta-arvo asetuksissa
-  --default-certificate-dir &lt;dir&gt;
-                Määritä vaihtoehtoinen oletussertifikaattipolku.
-                Tätä polkua käytetään vain, jos varmennetta ei ole
-                ladattu asetuksista
-  -n, --noidentity
-                Estää identiteettitiedostojen (eli varmenteiden) lataamisen
-  -jn, --jackname &lt;arg&gt;
-                Aseta mukautettu Jack-asiakkaan nimi
-  --license
-                Näytä Mumble-lisenssi
-  --authors
-                Näyttää Mumble-tekijät
-  --third-party-licenses
-                Näytä Mumblen käyttämien kolmannen osapuolen
-                ohjelmistojen lisenssit
-  --window-title-ext &lt;arg&gt;
-                 Asettaa mukautetun ikkunan otsikkolaajennuksen
-  --dump-input-streams
-                Tallenna PCM-virrat eri sisääntuloista
-                (hyödyllistä vianselvityksessä)
-                - raaka mikrofonin sisääntulo
-                - kaiuttimen tiedot kaiunpoistoa varten
-                - käsitelty mikrofonin sisääntulo
-  --print-echocancel-queue
-                Tulosta kaiunpoiston jonon tila
-                (hyödyllinen vianselvityksessä)
-  --translation-dir &lt;dir&gt;
-                Määritä vaihtoehtoinen käännös-kansio josta Mumble etsii
-                käännöstiedostoja ja käyttää niitä.
-                Tätä kansiota käytetään ensisijaisesti oletus-kansioiden sijaan
-  --print-translation-dirs
-                äyttää kansiot joista Mumble etsii käännöstiedostoja käytettäväksi
-                oletuksien sijaan.
-                (Hyödyllinen kääntäjille, jotka testaavat käännöksiään
-  --locale &lt;locale&gt;
-                Korvaa kieli-asetus Mumblen asetuksissa, joka vastaa annettua
-                aluemerkkijonoa.
-                Jos muoto on virheellinen, Mumble antaa virheilmoituksen.
-                Muussa tapauksessa lokaliteetti tallennetaan pysyvästi osoitteeseen
-                Mumble-asetuksiin.
-</translation>
     </message>
     <message>
         <source>Connect to a server</source>
@@ -7150,6 +6991,156 @@ Hyväksytyt valinnat ovat
     <message>
         <source>Filtered channels and users</source>
         <translation>Suodatetut kanavat ja käyttäjät</translation>
+    </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation>Kytke paikannillinen ääni</translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation>Tämä kytkee paikallisen äänen päälle/pois päältä</translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation>SSL-virhe</translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation>Mumble ei pysty muodostamaan salattua yhteyttä palvelimeen. (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>Tämä voi johtua jostakin seuraavista tilanteista:&lt;ul&gt;&lt;li&gt;Asiakkaasi ja palvelin käyttävät erilaisia salausstandardeja. Tämä voi johtua siitä, että käytät erittäin vanhaa asiakasta tai palvelin, johon muodostat yhteyden, on hyvin vanha. Ensimmäisessä tapauksessa sinun tulee päivittää asiakasohjelmasi ja toisessa tapauksessa ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta hän voi päivittää palvelimensa.&lt;/li&gt;&lt;li&gt;Joko asiakkaasi tai palvelin käyttää vanhaa käyttöjärjestelmää, joka ei tarjoa ajan tasalla olevia salausmenetelmiä. Tässä tapauksessa sinun kannattaa harkita käyttöjärjestelmän päivittämistä tai ottaa yhteyttä palvelimen järjestelmänvalvojaan, jotta he voivat päivittää omansa.&lt;/li&gt;&lt;li&gt;Palvelin, johon muodostat yhteyden, ei ole itse asiassa Mumble-palvelin. Varmista, että käytetty palvelinosoite todella kuuluu Mumble-palvelimelle eikä esim. pelipalvelimelle.&lt;/li&gt;&lt;li&gt;Portti, johon muodostat yhteyden, ei kuulu Mumble-palvelimelle, vaan se on sidottu täysin asiaankuulumattomaan palvelinpuolen prosessiin. Tarkista, että olet käyttänyt oikeaa porttia.&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation>Käyttö: mumble [asetukset] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; asettaa URL-osoitteen johon yhdistetään sen sijaan, 
+että yhdistysikkuna näytetään.
+URL-osoitteen muoto on seuraava
+mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;isäntä&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt;  on lista lisäosista, jotka asennetaan.
+&quot;Version&quot; tiedusteluasetus täytyy asettaa, jotta oikea versio
+asiakasohjelmasta käynnistetään. Tällä hetkellä oletus on 1.2.0.
+
+Kelvolliset vaihtoehdot ovat :
+  -h, --help    Näytä tämä aputiedosto ja sulkeudu.
+  --version     Ilmoita versiotiedot ja sulkeudu.
+  -m, --multiple
+                Salli useamman asiakasohjelman käynnistäminen.
+  -c, --config
+                Ilmoita vaihtoehtoinen asetustiedosto.
+                Jos käytät tätä usean Mumble instanssin suorittamiseen,
+                varmista, että asetat vaihtoehtoisen &quot;database&quot; arvon asetuksissa.
+  --default-certificate-dir &lt;dir&gt;
+                Määritä vaihtoehtoinen oletuskansio sertifikaatille.
+                Tätä sijaintia käytetään ainoastaan, 
+                jos sertifikaattia ei ole ladattuasetuksista.
+  -n, --noidentity
+                Estä identiteetti tiedostojen lataaminen (eli sertifikaatit).
+  -jn, --jackname &lt;arg&gt;
+                Aseta mukautettu Jack asiakasnimi.
+  --license
+                Näytä Mumble-lisenssi.
+  --authors
+                Näytä Mumblen tekijät.
+  --third-party-licenses
+                Näytä lisenssitiedot Mumblen käyttämiin kolmannen osapuolen ohjelmitoihin.
+  --window-title-ext &lt;arg&gt;
+                Aseta mukautettu ikkuna otsikko.
+  --dump-input-streams
+                Dumppaa PCM data useissa vaiheissa syöttäketjua
+                (hyödyllinen virheenkorjaussyistä)
+                - raaka mikrofoni syöttö
+                - kaijutin readback kaijunpoistoon
+                - prosessoitu mikrofoni söyttä
+  --print-echocancel-queue
+                Tulosta stdout:iin kaijunposton jonotila
+                (hyödyllinen virheenkorjaussyistä)
+  --translation-dir &lt;dir&gt;
+                Määritä lisäkäännös kansio &lt;dir&gt;
+                josta Mumble etsii tiedostoja, jotka korvaavat
+                mukana tulleet käännökset.
+                Kansiot, jotka lisäätään näin ovat korkeampiarvoisia
+                kuin oletuskansiot joita käytetään jos tätä ei aseteta.
+  --print-translation-dirs
+                Näytä kansiot. josta Mumble etsii korkaavia
+                käännöstiedostoja.
+                (Hyödyllisiä kääntäjille, joka kokeilevat käännöksiään)
+  --locale &lt;paikannus&gt;
+                Korvaa Mumblen pakannusasetukset tietyllä
+                paikannus merkkijonolla.
+                Jos muotoilu on virheellistä, Mumble tuottaa virheen.
+                Muussa tapauksessa paikannus tallennetaan
+                pysyvästi Mumblen asetuksiin
+  --hidden
+                Käynnistä Mumble piilotettuna järjestelmätarjoittimessa.
+</translation>
     </message>
 </context>
 <context>
@@ -8418,12 +8409,6 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
         <translation>Kaiunpoisto ei ole tuettu rajapintakombinaatiolle &quot;%1&quot; (sisään) ja &quot;%2&quot; (ulos).</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytössäsi on vanhempi versio Mumblesta jakeluversiosi pakettienhallinnasta, joilla on heidän oma päivitystahtinsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina käyttää uusinta Mumble-versiota, sinun pitää harkita toista asennustapaa.
-Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble wikistä&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Paikallinen mykistys</translation>
     </message>
@@ -8577,7 +8562,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation>Ladataanko varmuuskopioasetukset?</translation>
+        <translation>Lataa asetukset varmuuskopiosta?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>
@@ -8694,6 +8679,12 @@ Voit rekisteröidä ne uudelleen.</translation>
     <message>
         <source>Add</source>
         <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytät versiota jakelusi pakettivarastosta, jolla on omat päivitysjaksonsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina uusimman Mumble-version , sinun tulee harkita toisen asennustavan käyttöä.
+Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin tietovarastoista&lt;/a&gt;, mitä vaihtoehtoja on olemassa.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9222,7 +9213,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Token List</source>
-        <translation>Pääsypoloettilista</translation>
+        <translation>Pääsypolettilista</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
@@ -9443,6 +9434,42 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     <message>
         <source>Details</source>
         <translation>Tiedot</translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished">sekuntia</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

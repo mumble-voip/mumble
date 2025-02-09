@@ -1,4 +1,4 @@
-// Copyright 2009-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -107,11 +107,13 @@ ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setMinimumHeight(0);
-	connect(this, SIGNAL(textChanged()), SLOT(doResize()));
+	connect(this, &ChatbarTextEdit::textChanged, this, &ChatbarTextEdit::doResize);
 
 	bDefaultVisible = true;
 	setDefaultText(tr("<center>Type chat message here</center>"));
 	setAcceptDrops(true);
+
+	m_justPasted = false;
 }
 
 QSize ChatbarTextEdit::minimumSizeHint() const {
@@ -119,10 +121,12 @@ QSize ChatbarTextEdit::minimumSizeHint() const {
 }
 
 QSize ChatbarTextEdit::sizeHint() const {
-	QSize sh                 = QTextEdit::sizeHint();
-	const int minHeight      = minimumSizeHint().height();
-	const int documentHeight = static_cast< int >(document()->documentLayout()->documentSize().height());
-	sh.setHeight(std::max(minHeight, documentHeight));
+	QSize sh                    = QTextEdit::sizeHint();
+	const int minHeight         = minimumSizeHint().height();
+	const int documentHeight    = static_cast< int >(document()->documentLayout()->documentSize().height());
+	const int chatBarLineHeight = QFontMetrics(ChatbarTextEdit::font()).height();
+
+	sh.setHeight(std::max(minHeight, std::min(chatBarLineHeight * 10, documentHeight)));
 	const_cast< ChatbarTextEdit * >(this)->setMaximumHeight(sh.height());
 	return sh;
 }
@@ -142,7 +146,8 @@ void ChatbarTextEdit::doResize() {
 }
 
 void ChatbarTextEdit::doScrollbar() {
-	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+	const int documentHeight = static_cast< int >(document()->documentLayout()->documentSize().height());
+	setVerticalScrollBarPolicy(documentHeight > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 	ensureCursorVisible();
 }
 
@@ -233,11 +238,12 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			const QString msg = toPlainText();
 			if (!msg.isEmpty()) {
 				addToHistory(msg);
-				if (kev->modifiers() & Qt::ControlModifier) {
+				if ((kev->modifiers() & Qt::ControlModifier) && !m_justPasted) {
 					emit ctrlEnterPressed(msg);
 				} else {
 					emit entered(msg);
 				}
+				m_justPasted = false;
 			}
 			return true;
 		}
@@ -256,12 +262,27 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		} else if (kev->key() == Qt::Key_Down && kev->modifiers() == Qt::ControlModifier) {
 			historyDown();
 			return true;
-		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier)
-				   && (kev->modifiers() & Qt::ShiftModifier)) {
-			pasteAndSend_triggered();
-			return true;
+		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier)) {
+			if (kev->modifiers() & Qt::ShiftModifier) {
+				pasteAndSend_triggered();
+				return true;
+			} else {
+				// Remember that we just pasted into the chat field
+				// and allow CTRL+Enter only when we are sure it was
+				// released for at least one GUI cycle.
+				// See #6568
+				m_justPasted = true;
+			}
 		}
 	}
+
+	if (evt->type() == QEvent::KeyRelease) {
+		QKeyEvent *kev = static_cast< QKeyEvent * >(evt);
+		if (kev->key() == Qt::Key_Control) {
+			m_justPasted = false;
+		}
+	}
+
 	return QTextEdit::event(evt);
 }
 
@@ -289,11 +310,11 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 		target = qlsUsernames.first();
 		tc.insertText(target);
 	} else {
-		bool bBaseIsName = false;
-		int iend         = tc.position();
-		int istart       = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
-		QString base     = toPlainText().mid(istart, iend - istart);
-		tc.setPosition(istart);
+		bool bBaseIsName   = false;
+		const int iend     = tc.position();
+		const auto istart  = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
+		const QString base = toPlainText().mid(istart, iend - istart);
+		tc.setPosition(static_cast< int >(istart));
 		tc.setPosition(iend, QTextCursor::KeepAnchor);
 
 		if (qlsUsernames.last() == base) {

@@ -1,4 +1,4 @@
-// Copyright 2017-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -26,12 +26,7 @@ public:
 
 	void run() {
 		unsigned char buf[64];
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 		while (m_running->loadRelaxed() == 1) {
-#else
-		// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
-		while (m_running->load() == 1) {
-#endif
 			for (int i = 0; i < 1024; i++) {
 				if (m_seed) {
 					RAND_seed(buf, sizeof(buf));

@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -92,12 +92,13 @@ void Global::migrateDataDir(const QDir &toDir) {
 }
 
 Global::Global(const QString &qsConfigPath) {
-	mw              = 0;
-	db              = 0;
-	pluginManager   = 0;
-	nam             = 0;
-	c               = 0;
-	talkingUI       = 0;
+	mw              = nullptr;
+	trayIcon        = nullptr;
+	db              = nullptr;
+	pluginManager   = nullptr;
+	nam             = nullptr;
+	c               = nullptr;
+	talkingUI       = nullptr;
 	uiSession       = 0;
 	uiDoublePush    = 1000000;
 	iPushToTalk     = 0;

@@ -267,7 +267,7 @@ void ServerDatabaseTest::serverTable_server_management() {
 	QVERIFY(std::is_permutation(fetchedIDs.begin(), fetchedIDs.end(), expectedIDs.begin()));
 
 	// Server IDs have to be unique, so we expect an error when attempting to add a duplicate ID
-	QVERIFY_EXCEPTION_THROWN(table.addServer(1), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addServer(1));
 
 	MUMBLE_END_TEST_CASE
 }
@@ -283,8 +283,8 @@ void ServerDatabaseTest::logTable_general() {
 	QVERIFY(db.getServerTable().serverExists(existingServerID));
 	QVERIFY(!db.getServerTable().serverExists(nonExistingServerID));
 
-	QVERIFY_EXCEPTION_THROWN(db.getLogTable().logMessage(nonExistingServerID, ::msdb::DBLogEntry("Dummy msg")),
-							 ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException,
+							 db.getLogTable().logMessage(nonExistingServerID, ::msdb::DBLogEntry("Dummy msg")));
 
 	QCOMPARE(db.getLogTable().getLogs(existingServerID).size(), static_cast< std::size_t >(0));
 	QCOMPARE(db.getLogTable().getLogSize(existingServerID), static_cast< std::size_t >(0));
@@ -444,9 +444,9 @@ void ServerDatabaseTest::channelTable_general() {
 	QCOMPARE(fetchedData, rootChannel);
 
 	// Referencing a non-existing server ID should throw an exception (as should using an invalid channel ID)
-	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(nonExistingServerID, Mumble::ROOT_CHANNEL_ID),
-							 ::mdb::NoDataException);
-	QVERIFY_EXCEPTION_THROWN(channelTable.getChannelData(existingServerID, 5), ::mdb::NoDataException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::NoDataException,
+							 channelTable.getChannelData(nonExistingServerID, Mumble::ROOT_CHANNEL_ID));
+	QVERIFY_THROWS_EXCEPTION(::mdb::NoDataException, channelTable.getChannelData(existingServerID, 5));
 
 	QCOMPARE(channelTable.getFreeChannelID(existingServerID), static_cast< unsigned int >(1));
 
@@ -458,7 +458,7 @@ void ServerDatabaseTest::channelTable_general() {
 	other.inheritACL = true;
 
 	// other references a non-existing server, which should result in an exception being thrown
-	QVERIFY_EXCEPTION_THROWN(channelTable.addChannel(other), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, channelTable.addChannel(other));
 
 	other.serverID = existingServerID;
 
@@ -539,15 +539,12 @@ void ServerDatabaseTest::channelPropertyTable_general() {
 	QCOMPARE(table.getProperty< unsigned int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::MaxUsers),
 			 static_cast< unsigned int >(5));
 	// By default, querying non-existing values or using a wrong type will result in an exception
-	QVERIFY_EXCEPTION_THROWN(
-		table.getProperty< int >(nonExistingServerID, existingChannelID, ::msdb::ChannelProperty::Description),
-		::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(
-		table.getProperty< int >(existingServerID, nonExistingChannelID, ::msdb::ChannelProperty::Description),
-		::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(
-		table.getProperty< int >(existingServerID, existingChannelID, ::msdb::ChannelProperty::Position),
-		::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getProperty< int >(nonExistingServerID, existingChannelID,
+																			  ::msdb::ChannelProperty::Description));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getProperty< int >(existingServerID, nonExistingChannelID,
+																			  ::msdb::ChannelProperty::Description));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getProperty< int >(existingServerID, existingChannelID,
+																			  ::msdb::ChannelProperty::Position));
 	// However, we can instead request for a default value to be returned instead
 	int fetchedValue =
 		table.getProperty< int, false >(existingServerID, nonExistingChannelID, ::msdb::ChannelProperty::Position, 42);
@@ -635,15 +632,15 @@ void ServerDatabaseTest::userTable_general() {
 	QCOMPARE(table.getFreeUserID(existingServerID), static_cast< unsigned int >(0));
 
 	// Adding a user with an invalid (empty) name should throw
-	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, 13), {}), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.addUser(::msdb::DBUser(existingServerID, 13), {}));
 	// Adding a user to a non-existing server should throw
-	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(nonExistingServerID, 13), "bob"), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addUser(::msdb::DBUser(nonExistingServerID, 13), "bob"));
 	// Adding a user with an already in-use ID should throw
-	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, testUser.registeredUserID), "bob"),
-							 ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException,
+							 table.addUser(::msdb::DBUser(existingServerID, testUser.registeredUserID), "bob"));
 	// Adding a user with an already in-use name should throw
-	QVERIFY_EXCEPTION_THROWN(table.addUser(::msdb::DBUser(existingServerID, 14), testUserData.name),
-							 ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException,
+							 table.addUser(::msdb::DBUser(existingServerID, 14), testUserData.name));
 
 #define CHECK_USER_DATA(user, data)                                                     \
 	QCOMPARE(table.getData(user), data);                                                \
@@ -705,7 +702,7 @@ void ServerDatabaseTest::userTable_general() {
 
 	table.setLastChannelID(testUser, existingChannelID);
 	QCOMPARE(table.getLastChannelID(testUser), existingChannelID);
-	QVERIFY_EXCEPTION_THROWN(table.setLastChannelID(testUser, nonExistingChannelID), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.setLastChannelID(testUser, nonExistingChannelID));
 
 	table.setTexture(testUser, testUserData.texture);
 	QCOMPARE(table.getTexture(testUser), testUserData.texture);
@@ -716,20 +713,20 @@ void ServerDatabaseTest::userTable_general() {
 	testUserData.name = "Pia";
 	table.setName(testUser, testUserData.name);
 	QCOMPARE(table.getName(testUser), testUserData.name);
-	QVERIFY_EXCEPTION_THROWN(table.setName(testUser, ""), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.setName(testUser, ""));
 
 
 	::msdb::DBUser nonExistingUser(existingServerID, 42);
 	QVERIFY(!table.userExists(nonExistingUser));
 
 	// All get* functions should throw, if given a non-existing user
-	QVERIFY_EXCEPTION_THROWN(table.getData(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getLastDisconnect(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getLastActive(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getLastChannelID(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getTexture(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getPassword(nonExistingUser), ::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getName(nonExistingUser), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getData(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getLastDisconnect(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getLastActive(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getLastChannelID(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getTexture(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getPassword(nonExistingUser));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getName(nonExistingUser));
 
 
 	// Test findUser
@@ -826,13 +823,13 @@ void ServerDatabaseTest::userPropertyTable_general() {
 	QCOMPARE(table.getProperty< unsigned int >(user, ::msdb::UserProperty::kdfIterations),
 			 static_cast< unsigned int >(5));
 	// By default, querying non-existing values or using a wrong type will result in an exception
-	QVERIFY_EXCEPTION_THROWN(
-		table.getProperty< int >(::msdb::DBUser(nonExistingServerID, existingUserID), ::msdb::UserProperty::Email),
-		::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(
-		table.getProperty< int >(::msdb::DBUser(existingServerID, nonExistingUserID), ::msdb::UserProperty::Email),
-		::mdb::AccessException);
-	QVERIFY_EXCEPTION_THROWN(table.getProperty< int >(user, ::msdb::UserProperty::Comment), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(
+		::mdb::AccessException,
+		table.getProperty< int >(::msdb::DBUser(nonExistingServerID, existingUserID), ::msdb::UserProperty::Email));
+	QVERIFY_THROWS_EXCEPTION(
+		::mdb::AccessException,
+		table.getProperty< int >(::msdb::DBUser(existingServerID, nonExistingUserID), ::msdb::UserProperty::Email));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.getProperty< int >(user, ::msdb::UserProperty::Comment));
 	// However, we can instead request for a default value to be returned instead
 	std::string fetchedValue = table.getProperty< std::string, false >(
 		::msdb::DBUser(existingServerID, nonExistingUserID), ::msdb::UserProperty::Comment, "A random comment");
@@ -943,10 +940,10 @@ void ServerDatabaseTest::groupTable_general() {
 
 	// Empty group names are invalid
 	group.name = "";
-	QVERIFY_EXCEPTION_THROWN(table.updateGroup(group), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.updateGroup(group));
 	unsigned int oldID = group.groupID;
 	group.groupID      = table.getFreeGroupID(group.serverID);
-	QVERIFY_EXCEPTION_THROWN(table.addGroup(group), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.addGroup(group));
 
 	group.groupID = oldID;
 
@@ -966,12 +963,12 @@ void ServerDatabaseTest::groupTable_general() {
 	otherGroup.name            = "Other group";
 
 	// Non-existing channel should throw
-	QVERIFY_EXCEPTION_THROWN(table.addGroup(otherGroup), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addGroup(otherGroup));
 
 	otherGroup.channelID = group.channelID;
 	otherGroup.name      = group.name;
 	// Duplicate group name should throw
-	QVERIFY_EXCEPTION_THROWN(table.addGroup(otherGroup), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addGroup(otherGroup));
 
 	otherGroup.name = "Other group";
 	table.addGroup(otherGroup);
@@ -1088,21 +1085,21 @@ void ServerDatabaseTest::groupMemberTable_general() {
 	QVERIFY(!table.entryExists(memberA));
 
 	// Re-adding the same entry should error
-	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberB), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addEntry(memberB));
 
 	// Referencing a non-existent group ID should error
 	memberA.groupID = nonExistingGroupID;
-	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addEntry(memberA));
 
 	// Using a non-existent server ID should error
 	memberA.groupID  = groupA.groupID;
 	memberA.serverID = nonExistingServerID;
-	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addEntry(memberA));
 
 	// Using a non-existent user ID should error
 	memberA.serverID = existingServerID;
 	memberA.userID   = nonExistingUserID;
-	QVERIFY_EXCEPTION_THROWN(table.addEntry(memberA), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addEntry(memberA));
 
 	MUMBLE_END_TEST_CASE
 }
@@ -1170,7 +1167,7 @@ void ServerDatabaseTest::aclTable_general() {
 	QVERIFY(table.aclExists(acl));
 
 	// Duplicating the same ACL should error
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addACL(acl));
 	// Changing the priority should be enough to make the insert successful though
 	::msdb::DBAcl acl2 = acl;
 	acl2.priority += 1;
@@ -1185,31 +1182,31 @@ void ServerDatabaseTest::aclTable_general() {
 
 	// Invalid server should throw
 	acl2.serverID = nonExistingServerID;
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addACL(acl2));
 
 	// Invalid channel should throw
 	acl2.serverID  = existingServerID;
 	acl2.channelID = nonExistingChannelID;
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addACL(acl2));
 
 	// Invalid group should throw
 	acl2.channelID = rootChannel.channelID;
 	acl2.affectedUserID.reset();
 	acl2.affectedGroupID = nonExistingGroupID;
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addACL(acl2));
 
 	// Invalid user should throw
 	acl2.channelID      = rootChannel.channelID;
 	acl2.affectedUserID = nonExistingUserID;
 	acl2.affectedGroupID.reset();
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addACL(acl2));
 
 	// An ACL that doesn't affect anyone should throw
 	acl2.affectedUserID.reset();
 	acl2.affectedGroupID.reset();
 	acl2.affectedMetaGroup.reset();
 	acl2.accessToken.reset();
-	QVERIFY_EXCEPTION_THROWN(table.addACL(acl2), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.addACL(acl2));
 
 	acl2.affectedMetaGroup = ::msdb::DBAcl::MetaGroup::Sub;
 	acl2.channelID         = groupB.channelID;
@@ -1293,19 +1290,19 @@ void ServerDatabaseTest::channelLinkTable_general() {
 
 	// Adding with an invalid server ID should error
 	firstLink.serverID = nonExistingServerID;
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addLink(firstLink));
 
 	// Adding with an invalid channel ID should error
 	firstLink.serverID       = existingServerID;
 	firstLink.firstChannelID = nonExistingChannelID;
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addLink(firstLink));
 	firstLink.firstChannelID  = rootChannel.channelID;
 	firstLink.secondChannelID = nonExistingChannelID;
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addLink(firstLink));
 
 	// Adding a link from a channel to itself should throw
 	firstLink.secondChannelID = rootChannel.channelID;
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::FormatException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::FormatException, table.addLink(firstLink));
 
 	firstLink.secondChannelID = firstChannel.channelID;
 
@@ -1314,12 +1311,12 @@ void ServerDatabaseTest::channelLinkTable_general() {
 	QVERIFY(table.linkExists(firstLink));
 
 	// Re-adding the same link should throw
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addLink(firstLink));
 
 	// Swapping the two channel IDs shouldn't make a difference
 	std::swap(firstLink.firstChannelID, firstLink.secondChannelID);
 	QVERIFY(table.linkExists(firstLink));
-	QVERIFY_EXCEPTION_THROWN(table.addLink(firstLink), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addLink(firstLink));
 
 
 	QVERIFY(table.getAllLinks(nonExistingServerID).empty());
@@ -1434,7 +1431,7 @@ void ServerDatabaseTest::banTable_general() {
 	ban2.duration           = std::chrono::seconds(42);
 
 	// Since we re-used the server ID, base address and prefix length, adding this should error
-	QVERIFY_EXCEPTION_THROWN(table.addBan(ban2), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(ban2));
 
 	ban2.prefixLength++;
 	QVERIFY(!table.banExists(ban2));
@@ -1464,7 +1461,7 @@ void ServerDatabaseTest::banTable_general() {
 	QVERIFY(table.banExists(ban2));
 
 	// Adding to a non-existing server should error
-	QVERIFY_EXCEPTION_THROWN(table.addBan(::msdb::DBBan(nonExistingServerID, {}, 0)), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(::msdb::DBBan(nonExistingServerID, {}, 0)));
 
 	QVERIFY(table.getAllBans(nonExistingServerID).empty());
 
@@ -1524,7 +1521,7 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	QVERIFY(table.getListenersForUser(existingServerID, user1.registeredUserID).empty());
 	QVERIFY(table.getListenersForUser(nonExistingServerID, user1.registeredUserID).empty());
 	QVERIFY(table.getListenersForUser(existingServerID, nonExistingUserID).empty());
-	QVERIFY_EXCEPTION_THROWN(table.getListenerDetails(listener1), ::mdb::NoDataException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::NoDataException, table.getListenerDetails(listener1));
 
 	QVERIFY(!table.listenerExists(listener1));
 	QVERIFY(!table.listenerExists(listener2));
@@ -1572,22 +1569,22 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	QCOMPARE(fetchedListeners, expectedListeners);
 
 	// Double-adding should error
-	QVERIFY_EXCEPTION_THROWN(table.addListener(listener1), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addListener(listener1));
 
 	// Adding to invalid server should error
 	::msdb::DBChannelListener invalid = listener1;
 	invalid.serverID                  = nonExistingServerID;
-	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addListener(invalid));
 
 	// Adding with invalid channel should error
 	invalid.serverID  = existingServerID;
 	invalid.channelID = nonExistingChannelID;
-	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addListener(invalid));
 
 	// Adding with invalid user should error
 	invalid.channelID = rootChannel.channelID;
 	invalid.userID    = nonExistingUserID;
-	QVERIFY_EXCEPTION_THROWN(table.addListener(invalid), ::mdb::AccessException);
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addListener(invalid));
 
 
 	MUMBLE_END_TEST_CASE

@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -351,7 +351,7 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 		return;
 	}
 
-	QDir d(dir, QLatin1String("event*"), 0, QDir::System);
+	QDir d(dir, QLatin1String("event*"), {}, QDir::System);
 	foreach (QFileInfo fi, d.entryInfoList()) {
 		QString path = fi.absoluteFilePath();
 		if (!qmInputDevices.contains(path)) {

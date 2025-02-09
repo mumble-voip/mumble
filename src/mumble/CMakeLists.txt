@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -73,7 +73,7 @@ if(MSVC)
 	option(elevation "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate." OFF)
 endif()
 
-find_pkg(Qt5
+find_pkg(Qt6
 	COMPONENTS
 		Concurrent
 		Sql
@@ -111,6 +111,8 @@ set(MUMBLE_SOURCES
 	"AudioOutputBuffer.cpp"
 	"AudioOutputBuffer.h"
 	"AudioOutputToken.h"
+	"AudioPreprocessor.cpp"
+	"AudioPreprocessor.h"
 	"AudioStats.cpp"
 	"AudioStats.h"
 	"AudioStats.ui"
@@ -168,6 +170,7 @@ set(MUMBLE_SOURCES
 	"Log.cpp"
 	"Log.h"
 	"Log.ui"
+	"Logger.cpp"
 	"LookConfig.cpp"
 	"LookConfig.h"
 	"LookConfig.ui"
@@ -309,6 +312,8 @@ set(MUMBLE_SOURCES
 	"widgets/SearchDialogTree.h"
 	"widgets/SemanticSlider.cpp"
 	"widgets/SemanticSlider.h"
+	"widgets/TrayIcon.cpp"
+	"widgets/TrayIcon.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
@@ -416,9 +421,15 @@ else()
 	endif()
 endif()
 
+# This is used to invalidate the saved widget state if a change in the source is detected.
+get_numerical_file_hash("${CMAKE_CURRENT_SOURCE_DIR}/MainWindow.ui" MAINWINDOW_UI_HASH)
+
+message(STATUS "MAINWINDOW_UI_HASH: ${MAINWINDOW_UI_HASH}")
+
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
 		"MUMBLE"
+		"MUMBLE_MAINWINDOW_UI_HASH=${MAINWINDOW_UI_HASH}"
 		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
@@ -543,24 +554,24 @@ target_link_libraries(mumble_client_object_lib
 	PUBLIC
 		shared
 		utfcpp
-		Qt5::Concurrent
-		Qt5::Sql
-		Qt5::Svg
-		Qt5::Widgets
+		Qt6::Concurrent
+		Qt6::Sql
+		Qt6::Svg
+		Qt6::Widgets
 )
 
 if(static)
-	if(TARGET Qt5::QSQLiteDriverPlugin)
+	if(TARGET Qt6::QSQLiteDriverPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSQLiteDriverPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSQLiteDriverPlugin)
 	endif()
-	if(TARGET Qt5::QSvgIconPlugin)
+	if(TARGET Qt6::QSvgIconPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgIconPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSvgIconPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgIconPlugin)
 	endif()
-	if(TARGET Qt5::QSvgPlugin)
+	if(TARGET Qt6::QSvgPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QSvgPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgPlugin)
 	endif()
 endif()
 
@@ -574,7 +585,6 @@ if(WIN32)
 	target_sources(mumble_client_object_lib PRIVATE
 		"GlobalShortcut_win.cpp"
 		"GlobalShortcut_win.h"
-		"Log_win.cpp"
 		"SharedMemory_win.cpp"
 		"TaskList.cpp"
 		"UserLockFile_win.cpp"
@@ -598,9 +608,9 @@ if(WIN32)
 		REQUIRED
 	)
 
-	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
+	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
 		include_qt_plugin(mumble_client_object_lib PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QWindowsIntegrationPlugin)
+		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
 	add_subdirectory("${3RDPARTY_DIR}/SPSCQueue" "${CMAKE_CURRENT_BINARY_DIR}/SPSCQueue" EXCLUDE_FROM_ALL)
@@ -650,16 +660,15 @@ else()
 			target_compile_definitions(mumble_client_object_lib PUBLIC "NO_XINPUT2")
 		endif()
 
-		if(static AND TARGET Qt5::QXcbIntegrationPlugin)
+		if(static AND TARGET Qt6::QXcbIntegrationPlugin)
 			include_qt_plugin(mumble_client_object_lib PRIVATE QXcbIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QXcbIntegrationPlugin)
+			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QXcbIntegrationPlugin)
 		endif()
 
 		target_sources(mumble_client_object_lib
 			PRIVATE
 				"GlobalShortcut_unix.cpp"
 				"GlobalShortcut_unix.h"
-				"Log_unix.cpp"
 				"os_unix.cpp"
 		)
 
@@ -683,13 +692,12 @@ else()
 				"AppNap.mm"
 				"GlobalShortcut_macx.h"
 				"GlobalShortcut_macx.mm"
-				"Log_macx.mm"
 				"os_macx.mm"
 		)
 
-		if(static AND TARGET Qt5::QCocoaIntegrationPlugin)
+		if(static AND TARGET Qt6::QCocoaIntegrationPlugin)
 			include_qt_plugin(mumble_client_object_lib PRIVATE QCocoaIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt5::QCocoaIntegrationPlugin)
+			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QCocoaIntegrationPlugin)
 		endif()
 
 		target_link_libraries(mumble_client_object_lib
@@ -771,9 +779,9 @@ if(renamenoise)
 endif()
 
 if(qtspeech)
-	find_pkg(Qt5 COMPONENTS TextToSpeech REQUIRED)
+	find_pkg(Qt6 COMPONENTS TextToSpeech REQUIRED)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech.cpp")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::TextToSpeech)
+	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::TextToSpeech)
 elseif(WIN32)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_win.cpp")
 	if(MINGW)
@@ -824,7 +832,7 @@ if(NOT update)
 endif()
 
 if(NOT WIN32 AND NOT APPLE)
-	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
+	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble_client_object_lib
 		PRIVATE
@@ -833,7 +841,7 @@ if(NOT WIN32 AND NOT APPLE)
 	)
 	
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt5::DBus)
+	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::DBus)
 endif()
 
 if(translations)
@@ -883,15 +891,23 @@ if(overlay)
 				"Overlay_win.cpp"
 				"Overlay_win.h"
 		)
+
+		add_dependencies(mumble overlay)
 	else()
 		if(APPLE)
 			target_sources(mumble_client_object_lib PRIVATE "Overlay_macx.mm")
 		else()
 			target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
 		endif()
+
+		add_dependencies(mumble overlay_gl)
 	endif()
 
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_OVERLAY")
+endif()
+
+if(plugins)
+	add_dependencies(mumble plugins)
 endif()
 
 if(xboxinput)
@@ -922,6 +938,7 @@ if(g15)
 				"G15LCDEngine_helper.h"
 		)
 	target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
+	add_dependencies(mumble g15-helper)
 	else()
 		find_library(LIB_G15DAEMON_CLIENT "g15daemon_client")
 		if(LIB_G15DAEMON_CLIENT-NOTFOUND)
@@ -1103,7 +1120,6 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 		set_source_files_properties(
 			"AppNap.mm"
 			"GlobalShortcut_macx.mm"
-			"Log_macx.mm"
 			"os_macx.mm"
 			"TextToSpeech_macx.mm"
 			"Overlay_macx.mm"

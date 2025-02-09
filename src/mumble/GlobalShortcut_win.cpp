@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -196,25 +196,13 @@ void GlobalShortcutWin::registerMetaTypes() {
 		registered = true;
 
 		qRegisterMetaType< InputHid >();
-		qRegisterMetaTypeStreamOperators< InputHid >();
-		QMetaType::registerComparators< InputHid >();
-
 		qRegisterMetaType< InputKeyboard >();
-		qRegisterMetaTypeStreamOperators< InputKeyboard >();
-		QMetaType::registerComparators< InputKeyboard >();
-
 		qRegisterMetaType< InputMouse >();
-		qRegisterMetaTypeStreamOperators< InputMouse >();
-		QMetaType::registerComparators< InputMouse >();
 #ifdef USE_XBOXINPUT
 		qRegisterMetaType< InputXinput >();
-		qRegisterMetaTypeStreamOperators< InputXinput >();
-		QMetaType::registerComparators< InputXinput >();
 #endif
 #ifdef USE_GKEY
 		qRegisterMetaType< InputGkey >();
-		qRegisterMetaTypeStreamOperators< InputGkey >();
-		QMetaType::registerComparators< InputGkey >();
 #endif
 	}
 }

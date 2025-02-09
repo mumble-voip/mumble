@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -106,13 +106,7 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 		return static_cast< Permissions >(All & ~(Speak | Whisper));
 	}
 
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-	// Qt 5.15 introduced a default constructor that initializes the flags to be set to no flags
 	Permissions granted;
-#	else
-	// Before Qt 5.15 we have emulate the default constructor by assigning a literal zero
-	Permissions granted = 0;
-#	endif
 
 	if (cache) {
 		QHash< Channel *, Permissions > *h = cache->value(p);
@@ -139,38 +133,76 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 
 	bool traverse = true;
 	bool write    = false;
-	ChanACL *acl;
 
+	// Iterate over all parent channels from root to the channel the user is in (inclusive)
 	while (!chanstack.isEmpty()) {
 		ch = chanstack.pop();
-		if (!ch->bInheritACL)
+		if (!ch->bInheritACL) {
 			granted = def;
+		}
 
-		foreach (acl, ch->qlACL) {
+		for (const ChanACL *acl : ch->qlACL) {
 			bool matchUser  = (acl->iUserId != -1) && (acl->iUserId == p->iId);
 			bool matchGroup = Group::appliesToUser(*chan, *ch, acl->qsGroup, *p);
+
+			bool applyFromSelf  = (ch == chan && acl->bApplyHere);
+			bool applyInherited = (ch != chan && acl->bApplySubs);
+
+			// Flag indicating whether the current ACL affects the target channel "chan"
+			bool apply = applyFromSelf || applyInherited;
+
+			// "apply" will be true for ACLs set in the reference channel directly (applyHere),
+			// or from a parent channel which hands the ACLs down (applySubs).
+			// However, we have one ACL that needs to be evaluated differently - the Traverse ACL.
+			// Consider this channel layout:
+			// Root
+			// - A (Traverse denied for THIS channel, but not sub channels)
+			//  - B
+			//   - C
+			// If the user tries to enter C, we need to deny Traverse, because the user
+			// should already be blocked from traversing A. But "apply" will be false,
+			// as the "normal" ACL inheritence rules do not apply here.
+			// Therefore, we need applyDenyTraverse which will be true, if any channel
+			// from root to the reference channel denies Traverse without necessarily
+			// handing it down.
+			bool applyDenyTraverse = applyInherited || acl->bApplyHere;
+
 			if (matchUser || matchGroup) {
-				if (acl->pAllow & Traverse)
+				// The "traverse" and "write" booleans do not grant or deny anything here.
+				// We merely check, if we are missing traverse AND write in this
+				// channel and therefore abort without any permissions later on.
+				if (apply && (acl->pAllow & Traverse)) {
 					traverse = true;
-				if (acl->pDeny & Traverse)
-					traverse = false;
-				if (acl->pAllow & Write)
-					write = true;
-				if (acl->pDeny & Write)
-					write = false;
-				if (ch->iId == 0 && chan == ch && acl->bApplyHere) {
-					if (acl->pAllow & Kick)
-						granted |= Kick;
-					if (acl->pAllow & Ban)
-						granted |= Ban;
-					if (acl->pAllow & ResetUserContent)
-						granted |= ResetUserContent;
-					if (acl->pAllow & Register)
-						granted |= Register;
-					if (acl->pAllow & SelfRegister)
-						granted |= SelfRegister;
 				}
-				if ((ch == chan && acl->bApplyHere) || (ch != chan && acl->bApplySubs)) {
+				if (applyDenyTraverse && (acl->pDeny & Traverse)) {
+					traverse = false;
+				}
+
+				write = apply && (acl->pAllow & Write) && !(acl->pDeny & Write);
+
+				// These permissions are only grantable from the root channel
+				// as they affect the users globally. For example: You can not
+				// kick a client from a channel without kicking them from the server.
+				if (ch->iId == 0 && applyFromSelf) {
+					if (acl->pAllow & Kick) {
+						granted |= Kick;
+					}
+					if (acl->pAllow & Ban) {
+						granted |= Ban;
+					}
+					if (acl->pAllow & ResetUserContent) {
+						granted |= ResetUserContent;
+					}
+					if (acl->pAllow & Register) {
+						granted |= Register;
+					}
+					if (acl->pAllow & SelfRegister) {
+						granted |= SelfRegister;
+					}
+				}
+
+				// Every other regular ACL is handled here
+				if (apply) {
 					granted |= (acl->pAllow & ~(Kick | Ban | ResetUserContent | Register | SelfRegister | Cached));
 					granted &= ~acl->pDeny;
 				}

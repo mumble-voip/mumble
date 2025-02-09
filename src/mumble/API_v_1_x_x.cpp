@@ -1,4 +1,4 @@
-// Copyright 2022-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -1213,8 +1213,8 @@ QVariant getMumbleSettingHelper(mumble_settings_key_t key) {
 
 // IS_TYPE actually only checks if the QVariant can be converted to the needed type since that's all that we really care
 // about at the end of the day.
-#define IS_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) == varType
-#define IS_NOT_TYPE(var, varType) static_cast< QMetaType::Type >(var.type()) != varType
+#define IS_TYPE(var, varType) static_cast< QMetaType::Type >(var.typeId()) == varType
+#define IS_NOT_TYPE(var, varType) static_cast< QMetaType::Type >(var.typeId()) != varType
 
 void MumbleAPI::getMumbleSetting_bool_v_1_0_x(mumble_plugin_id_t callerID, mumble_settings_key_t key, bool *outValue,
 											  std::shared_ptr< api_promise_t > promise) {

@@ -1,4 +1,4 @@
-// Copyright 2019-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -37,31 +37,7 @@ namespace Screen {
 		return qApp->primaryScreen();
 	}
 
-	QScreen *screenAt(const QPoint &point) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-		return qApp->screenAt(point);
-#else
-		// Adapted from qguiapplication.cpp (Qt)
-		QVarLengthArray< const QScreen *, 8 > visitedScreens;
-
-		for (const QScreen *screen : qApp->screens()) {
-			if (visitedScreens.contains(screen)) {
-				continue;
-			}
-
-			// The virtual siblings include the screen itself, so iterate directly
-			for (QScreen *sibling : screen->virtualSiblings()) {
-				if (sibling->geometry().contains(point)) {
-					return sibling;
-				}
-
-				visitedScreens.append(sibling);
-			}
-		}
-
-		return nullptr;
-#endif
-	}
+	QScreen *screenAt(const QPoint &point) { return qApp->screenAt(point); }
 
 } // namespace Screen
 } // namespace Mumble

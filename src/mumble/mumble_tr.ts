@@ -2780,10 +2780,6 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
 &lt;p&gt;Bu dosyanın şifrelenmeyeceğini, ve bu dosyayı ele geçiren birinin sizi taklit edebileceğinden ona iyi bakmanız gerektiğini dikkatinize sunarız.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble, sunucularla kimlik doğrulamak için sertifika kullanabilir. Sertifika kullanmak parola kullanımına gerek bırakmaz, yani uzaktaki siteye hiçbir parola ifşa etmeniz gerekmez. Aynı zamanda çok kolay kullanıcı kaydı yapmayı ve sunuculardan bağımsız olarak istemci tarafında arkadaş listelerine imkân verir.&lt;/p&gt;&lt;p&gt;Mumble sertifika olmadan da çalışabilir fakat sunucuların ekseriyeti bir sertifikanız olmasını bekleyecektir.&lt;/p&gt;&lt;p&gt;Çoğu kullanım için otomatik sertifika oluşturmak kafi gelecektir. Ancak Mumble, kullanıcıların e-posta adreslerinin sahipliği konusunda güven temsil eden sertifikaları da destekler. Bu sertifikalar üçüncü taraflar tarafından verilir. Daha fazla bilgi için &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;kullanıcı sertifikaları belgelendirmemize&lt;/a&gt; bakınız.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Displays current certificate</source>
         <translation>Geçerli sertifikayı görüntüler</translation>
     </message>
@@ -2822,6 +2818,10 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
         <translation>E-posta adresiniz. Örneğin: namikkemal@mumble.info</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mumble, sunucularla kimlik doğrulaması yapmak için sertifikaları kullanabilir. Sertifikaları kullanmak parolaları ortadan kaldırır, yani uzak siteye herhangi bir parola vermeniz gerekmez. Ayrıca çok kolay kullanıcı kaydı ve sunuculardan bağımsız bir istemci tarafı arkadaş listesi sağlar.&lt;/p&gt;&lt;p&gt;Mumble sertifikasız çalışabilse de, sunucuların çoğu bir sertifikaya sahip olmanızı bekleyecektir.&lt;/p&gt;&lt;p&gt;Otomatik olarak yeni bir sertifika oluşturmak çoğu kullanım durumu için yeterlidir. Ancak Mumble, kullanıcıların bir e-posta adresine sahip olduğuna dair güveni temsil eden sertifikaları da destekler. Bu sertifikalar üçüncü taraflarca verilir. Daha fazla bilgi için &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;kullanıcı sertifikası belgelerimize&lt;/a&gt; bakın.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -5069,10 +5069,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Mumble</translation>
     </message>
     <message>
-        <source>Mumble -- %1</source>
-        <translation>Mumble -- %1</translation>
-    </message>
-    <message>
         <source>&amp;Window</source>
         <translation>&amp;Pencere</translation>
     </message>
@@ -5215,10 +5211,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Bu sertifikayla ilgili hatalar şunlardır:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Buna rağmen bu sertifikayı kabul etmek istiyor musunuz?&lt;br /&gt;(Sertifika saklanacaktır ve bu soru tekrar sorulmayacaktır.)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>SSL Version mismatch</source>
-        <translation>SSL Sürüm uyumsuzluğu</translation>
     </message>
     <message>
         <source>Server connection failed.</source>
@@ -5440,10 +5432,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;UYARI:&lt;/b&gt; Sunucu sakladığımız sertifikadan değişik bir sertifika sundu.</translation>
-    </message>
-    <message>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Bu sunucu Mumble&apos;ın modern sürümleri tarafından artık desteklenmeyen eski bir şifreleme standardı kullanmaktadır.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -5932,10 +5920,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Hoş geldiniz mesajı: %1</translation>
     </message>
     <message>
-        <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
-    </message>
-    <message>
         <source>You were denied %1 privileges in %2.</source>
         <translation>%2 kanalında %1 izniniz reddedildi.</translation>
     </message>
@@ -6349,18 +6333,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
         <translation>&amp;Geliştirici</translation>
     </message>
     <message>
-        <source>&amp;Hide Mumble</source>
-        <translation>&amp;Mumble&apos;ı Sakla</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window.</source>
-        <translation>Ana Mumble penceresini saklar.</translation>
-    </message>
-    <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation>Ana Mumble penceresini saklar. Geri getirmek için sistem çekmecesi ikonuna tıklayın ya da Mumble&apos;ı tekrar başlatın.</translation>
-    </message>
-    <message>
         <source>Show the Developer Console</source>
         <translation>Geliştirici Konsolünü Göster</translation>
     </message>
@@ -6411,14 +6383,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <source>&amp;Change Comment...</source>
         <translation>Yorumu &amp;Değiştir...</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>Göster</translation>
-    </message>
-    <message>
-        <source>Shows the main Mumble window.</source>
-        <translation>Ana Mumble penceresini gösterir.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6679,132 +6643,6 @@ Geçerli eylemler şunlardır:
     <message>
         <source>Channel &amp;Filter</source>
         <translation>Kanal &amp;Filtresi</translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-</source>
-        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
-
-&lt;url&gt;başlangıçta bağlantı penceresinin gösterilmesi yerine
-bağlanılacak bir URL belirtir ve aşağıdaki biçime sahiptir:
-mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;altsalon&gt;...]][?sürüm=&lt;x.y.z&gt;]
-
-&lt;eklenti_listesi&gt;, kurulması gereken eklenti dosyaları listesidir
-Sürüm sorgulama parametresi doğru istemci sürümünün
-çağrılabilmesi için ayarlanmalıdır. Güncel olarak varsayılan 1.2.0.
-
-Geçerli seçenekler şunlardır:
-  -h, --help    Bu yardımı görüntüle ve çık.
-  --version     Sürüm bilgisini göster ve çık
-  -m, --multiple
-                İstemcinin birden fazla örneklemesinin başlatılmasına izin ver.
-  -c, --config
-                Alternatif bir yapılandırma dosyası belirt.
-                Eğer bunu Mumble birden fazla örneklemesini ayna anda
-                çalıştırmak için kullanıyorsanız, yapılandırmada alternatif bir
-                &apos;database&apos; değeri ayarladığınızdan emin olun.
-  --default-certificate-dir &lt;dizin&gt;
-                Alternatif bir varsayılan sertifika yolu belirt.
-                Bu yol sadece ayarlardan hiçbir sertifika yüklenmedi
-                ise kullanılır.
-  -n, --noidentity
-                Kimlik dosyalarının (yani sertifikaların) yüklenmelerini engelle.
-  -jn, --jackname &lt;arg&gt;
-                Kişiselleştirilmiş bir Jack istemcisi ismi ayarla.
-  --license
-                Mumble&apos;ın lisansını göster.
-  --authors
-                Mumble&apos;ın yazarlarını göster.
-  --third-party-licenses
-                Mumble tarafından kullanılan üçüncü taraf yazılımların
-                lisanslarını göster.
-  --window-title-ext &lt;arg&gt;
-                Kişiselleştirilmiş bir pencere başlığı uzantısı ayarlar.
-  --dump-input-streams
-                Girdi dizelerinin çeşitli bölümlerinden PCM akımlarını dök
-                (hata ayıklama maksadı için yararlıdır)
-                - ham mikrofon girdisi
-                - yankı iptali için hoparlörlerden geri okuma
-                - işlenmiş mikrofon girdisi
-  --print-echocancel-queue
-                stdout üzerinde yankı iptal kuyruğunun durumunu göster
-                (hata ayıklama maksadı için yararlıdır)
-  --translation-dir &lt;dizin&gt;
-                İlave bir &lt;dizin&gt; tercüme dizini belirtir, ki Mumble burada
-                yazılımla gelen tercüme dosyalarının üzerine yazılacak
-                tercüme dosyalarını arayacaktır
-                Bu şekilde eklenen dizinlerin önceliği diğer durumlarda
-                kullanılan varsayılan konumlardan daha yüksektir
-  --print-translation-dirs
-                Mumble&apos;ın yazılımla gelen tercüme dosyalarının üzerine
-                yazılacak tercüme dosyalarını arayacağı yolları göster.
-                (Çevirilerini deneyen tercümanlar için yararlıdır)
-  --locale &lt;locale&gt;
-                Mumble ayarlarındaki yerel ayarın verilen yerel ayar
-                 dizesine karşılık gelen bir yerel ile üzerine yazar.
-                Şayet biçim geçersizse, Mumble bir hata gösterecektir.
-                Yoksa yerel ayar daimi olarak Mumble&apos;ın ayarlarına
-                kaydedilecektir.
-</translation>
     </message>
     <message>
         <source>Connect to a server</source>
@@ -7152,6 +6990,93 @@ Geçerli seçenekler şunlardır:
     <message>
         <source>Filtered channels and users</source>
         <translation>Filtrelenmiş kanallar ve kullanıcılar</translation>
+    </message>
+    <message>
+        <source>Toggle positional audio</source>
+        <comment>Global Shortcut</comment>
+        <translation>Konumsal sesi aç/kapat</translation>
+    </message>
+    <message>
+        <source>This will toggle positional audio on/off</source>
+        <translation>Bu, konumsal sesi açıp kapatacaktır</translation>
+    </message>
+    <message>
+        <source>SSL error</source>
+        <translation>SSL hatası</translation>
+    </message>
+    <message>
+        <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
+        <translation>Mumble sunucuyla güvenli bir bağlantı kuramıyor. (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>Bunun nedeni şu durumlardan biri olabilir:&lt;ul&gt;&lt;li&gt;İstemciniz ve sunucunuz farklı şifreleme standartları kullanmaktadır. Bunun nedeni çok eski bir istemci kullanıyor olmanız veya bağlandığınız sunucunun çok eski olması olabilir. İlk durumda, istemcinizi güncellemelisiniz ve ikinci durumda sunucularını güncelleyebilmeleri için sunucu yöneticisiyle iletişime geçmelisiniz.&lt;/li&gt;&lt;li&gt;Ya istemciniz ya da sunucunuz güncel şifreleme yöntemleri sağlamayan eski bir işletim sistemi kullanıyordur. Bu durumda işletim sisteminizi güncellemeyi düşünmeli ya da sunucu yöneticisiyle iletişime geçerek kendi işletim sistemlerini güncellemelerini sağlamalısınız.&lt;/li&gt;&lt;li&gt;Bağlandığınız sunucu aslında bir Mumble sunucusu değil. Lütfen kullanılan sunucu adresinin gerçekten bir Mumble sunucusuna ait olduğundan ve örneğin bir oyun sunucusuna ait olmadığından emin olun.&lt;/li&gt;&lt;li&gt;Bağlandığınız bağlantı noktası bir Mumble sunucusuna ait değil, bunun yerine sunucu tarafında tamamen ilgisiz bir işleme bağlı. Lütfen doğru bağlantı noktasını kullandığınızı iki kez gözden geçirin.&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  --version     Print version information and exit
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation directory &lt;dir&gt;
+                in which Mumble will search for translation files that
+                overwrite the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Start Mumble hidden in the system tray.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8420,12 +8345,6 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
         <translation>Yankı iptali, &quot;%1&quot; (giriş) ve &quot;%2&quot; (çıkış) arayüz birleşimi için desteklenmez.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
-See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt; Linux kullanıyorsanız, bunun nedeni büyük olasılıkla dağıtımınızın paket havuzundan kendi güncelleme döngüleri olan bir sürümü kullanıyor olmanızdır. &lt;/p&gt;&lt;p&gt;Her zaman en yeni Mumble sürümüne sahip olmak istiyorsanız, farklı bir kurulum yöntemi kullanmayı düşünmelisiniz.
-Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble wiki&lt;/a&gt; sayfasına bakın.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Local Mute</source>
         <translation>Yerel Olarak Sustur</translation>
     </message>
@@ -8696,6 +8615,12 @@ Bunları tekrar kaydedebilirsiniz.</translation>
     <message>
         <source>Add</source>
         <translation>Ekle</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Linux kullanıyorsanız, bunun nedeni büyük olasılıkla dağıtımınızın kendi güncelleme döngülerine sahip paket deposundaki bir sürümü kullanıyor olmanızdır.&lt;/p&gt;&lt;p&gt;Her zaman en güncel Mumble sürümüne sahip olmak istiyorsanız, farklı bir kurulum yöntemi kullanmayı düşünmelisiniz.
+Hangi alternatiflerin olduğunu görmek için &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;proje deposuna&lt;/a&gt; bakın.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9444,6 +9369,42 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <source>Details</source>
         <translation>Ayrıntılar</translation>
+    </message>
+    <message>
+        <source>to client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last X minutes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>from client rolling average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last %1 %2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished">saniye</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

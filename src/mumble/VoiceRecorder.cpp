@@ -1,4 +1,4 @@
-// Copyright 2010-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -13,6 +13,8 @@
 #include "../Timer.h"
 
 #include <boost/make_shared.hpp>
+
+#include <QRegularExpression>
 
 VoiceRecorder::RecordBuffer::RecordBuffer(int recordInfoIndex_, boost::shared_array< float > buffer_, int samples_,
 										  quint64 absoluteStartSample_)
@@ -63,11 +65,12 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 	}
 
 	// Replace < > : " / \ | ? * as well as chr(0) to chr(31)
-	res = res.replace(QRegExp(QLatin1String("[<>:\"/\\\\|\\?\\*\\x00-\\x1F]")), QLatin1String("_"));
+	res = res.replace(QRegularExpression(QLatin1String("[<>:\"/\\\\|\\?\\*\\x00-\\x1F]")), QLatin1String("_"));
 
 	// Prepend reserved filenames CON, PRN, AUX, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT1, LPT2,
 	// LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9
-	res = res.replace(QRegExp(QLatin1String("^((CON|PRN|AUX|NUL|COM[1-9]|LPT1[1-9])(\\.|$))"), Qt::CaseInsensitive),
+	res = res.replace(QRegularExpression(QLatin1String("^((CON|PRN|AUX|NUL|COM[1-9]|LPT1[1-9])(\\.|$))"),
+										 QRegularExpression::CaseInsensitiveOption),
 					  QLatin1String("_\\1"));
 
 	// Make sure we do not exceed 255 characters
@@ -78,7 +81,7 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 	}
 #else
 	// For the rest just make sure the string doesn't contain a \0 or any forward-slashes
-	res           = res.replace(QRegExp(QLatin1String("\\x00|/")), QLatin1String("_"));
+	res           = res.replace(QRegularExpression(QLatin1String("\\x00|/")), QLatin1String("_"));
 #endif
 	return res;
 }
@@ -119,13 +122,13 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 		QString tmp;
 
 		tmp.reserve(str.length() * 2);
-		for (int i = 0; i < str.size(); ++i) {
+		for (decltype(str.size()) i = 0; i < str.size(); ++i) {
 			bool replaced = false;
 			if (str[i] == QLatin1Char('%')) {
 				QHashIterator< const QString, QString > it(vars);
 				while (it.hasNext()) {
 					it.next();
-					if (str.midRef(i + 1, it.key().length()) == it.key()) {
+					if (str.mid(i + 1, it.key().length()) == it.key()) {
 						i += it.key().length();
 						tmp += it.value();
 						replaced     = true;

@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -178,16 +178,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 						 &AudioInput::onUserMuteDeafStateChanged);
 	}
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Mumble::ROOT_CHANNEL_ID)->qsName.toHtmlEscaped()));
-
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
 	qmChannel_aboutToShow();
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
-
-	updateTrayIcon();
 
 
 	Global::get().sh->setServerSynchronized(true);
@@ -703,8 +699,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 								tr("You were unsuppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 					}
 				}
-
-				updateTrayIcon();
 			} else if (pSrc == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					Global::get().l->log(
@@ -1090,7 +1084,7 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
 		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			c->csCrypt->uiResync++;
+			c->csCrypt->m_statsLocal.resync++;
 			if (!c->csCrypt->setDecryptIV(server_nonce)) {
 				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
 			}
@@ -1142,16 +1136,9 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 	QString action = u8(msg.action());
 
 	QSet< QAction * > qs;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	qs += QSet< QAction * >(qlServerActions.begin(), qlServerActions.end());
 	qs += QSet< QAction * >(qlChannelActions.begin(), qlChannelActions.end());
 	qs += QSet< QAction * >(qlUserActions.begin(), qlUserActions.end());
-#else
-	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-	qs += qlServerActions.toSet();
-	qs += qlChannelActions.toSet();
-	qs += qlUserActions.toSet();
-#endif
 
 	foreach (QAction *a, qs) {
 		if (a->data() == action) {

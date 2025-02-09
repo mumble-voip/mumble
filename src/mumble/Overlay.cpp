@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -49,7 +49,7 @@ QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 
 	const QByteArray byteArray = appBundle.readAll();
 	CFDataRef dataCF = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast< const UInt8 * >(byteArray.data()),
-												   byteArray.count(), kCFAllocatorNull);
+												   static_cast< CFIndex >(byteArray.size()), kCFAllocatorNull);
 	if (!dataCF) {
 		return {};
 	}

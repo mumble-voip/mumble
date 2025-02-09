@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -69,9 +69,10 @@ public:
 
 		setChildIndicatorPolicy(QTreeWidgetItem::DontShowIndicator);
 
-		QString matchText =
-			m_result.fullText.replace(m_result.begin, m_result.length,
-									  "<b>" + m_result.fullText.midRef(m_result.begin, m_result.length) + "</b>");
+		const qsizetype begin  = m_result.begin;
+		const qsizetype length = m_result.length;
+		const QString matchText =
+			m_result.fullText.replace(begin, length, "<b>" + m_result.fullText.mid(begin, length) + "</b>");
 
 		setData(MATCH_COLUMN, Qt::DisplayRole, std::move(matchText));
 		setData(MATCH_COLUMN, SearchDialogItemDelegate::CHANNEL_TREE_ROLE, m_result.channelHierarchy);
@@ -262,11 +263,11 @@ void SearchDialog::clearSearchResults() {
 }
 
 SearchResult regularSearch(const QString &source, const QString &searchTerm, SearchType type, bool caseSensitive) {
-	constexpr int FROM = 0;
-	int startIndex     = source.indexOf(searchTerm, FROM, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+	constexpr int FROM    = 0;
+	const auto startIndex = source.indexOf(searchTerm, FROM, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
 	if (startIndex >= 0) {
-		int length = searchTerm.size();
+		const auto length = searchTerm.size();
 
 		return { startIndex, length, type, source, "" };
 	} else {
@@ -280,8 +281,8 @@ SearchResult regexSearch(const QString &source, const QRegularExpression &regex,
 
 	if (match.hasMatch()) {
 		// Found
-		int startIndex = match.capturedStart();
-		int length     = match.capturedEnd() - startIndex;
+		const auto startIndex = match.capturedStart();
+		const auto length     = match.capturedEnd() - startIndex;
 
 		return { startIndex, length, type, source, "" };
 	} else {
@@ -497,13 +498,7 @@ void SearchDialog::keyPressEvent(QKeyEvent *event) {
 		return;
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
 	if (event->matches(QKeySequence::Cancel)) {
-#else
-	// Before Qt 5.6, no standard key for the cancel operation was defined. Thus, in these cases, we hardcode it to be
-	// Escape
-	if (event->key() == Qt::Key_Escape) {
-#endif
 		event->accept();
 		// Mimic behavior of dialogs (close on Esc)
 		close();

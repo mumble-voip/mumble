@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -176,7 +176,7 @@ bool PluginManager::eventFilter(QObject *target, QEvent *event) {
 	return QObject::eventFilter(target, event);
 }
 
-void PluginManager::unloadPlugins() const {
+void PluginManager::unloadPlugins() {
 	QReadLocker lock(&m_pluginCollectionLock);
 
 	auto it = m_pluginHashMap.begin();
@@ -538,7 +538,7 @@ bool PluginManager::loadPlugin(plugin_id_t pluginID) const {
 	return false;
 }
 
-void PluginManager::unloadPlugin(plugin_id_t pluginID) const {
+void PluginManager::unloadPlugin(plugin_id_t pluginID) {
 	plugin_ptr_t plugin;
 	{
 		QReadLocker lock(&m_pluginCollectionLock);
@@ -551,9 +551,20 @@ void PluginManager::unloadPlugin(plugin_id_t pluginID) const {
 	}
 }
 
-void PluginManager::unloadPlugin(Plugin &plugin) const {
+void PluginManager::unloadPlugin(Plugin &plugin) {
 	if (plugin.isLoaded()) {
 		// Only shut down loaded plugins
+
+		bool isActivePosDataPlugin = false;
+		{
+			QWriteLocker lock(&m_activePosDataPluginLock);
+			isActivePosDataPlugin = &plugin == m_activePositionalDataPlugin.get();
+		}
+
+		if (isActivePosDataPlugin) {
+			unlinkPositionalData();
+		}
+
 		plugin.shutdown();
 	}
 }
@@ -996,7 +1007,9 @@ void PluginManager::reportLostLink(mumble_plugin_id_t pluginID) {
 
 	const_plugin_ptr_t plugin = getPlugin(pluginID);
 
-	if (plugin) {
+	// Need to check for the presence of Global::get().l in case we are currently
+	// shutting down Mumble in which case the Log might already have been deleted.
+	if (plugin && Global::get().l) {
 		Global::get().l->log(Log::Information,
 							 PluginManager::tr("%1 lost link").arg(plugin->getName().toHtmlEscaped()));
 	}

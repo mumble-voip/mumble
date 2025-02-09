@@ -1,9 +1,9 @@
-# Copyright 2022-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
+find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
 
 # kpCertificate: We can't create a value for that on-the-fly, so we have to exclude it from the test
 # All other: These settings are not saved
@@ -42,7 +42,7 @@ add_custom_command(
 
 add_executable(TestSettingsJSONSerialization "${TEST_CASE_SOURCE_FILE}")
 target_link_libraries(TestSettingsJSONSerialization PRIVATE mumble_client_object_lib)
-target_link_libraries(TestSettingsJSONSerialization PRIVATE Qt5::Test)
+target_link_libraries(TestSettingsJSONSerialization PRIVATE Qt6::Test)
 
 set_target_properties(TestSettingsJSONSerialization PROPERTIES AUTOMOC ON)
 

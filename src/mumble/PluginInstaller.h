@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -65,6 +65,10 @@ public:
 	/// @returns Whether the provided file could (!) be a plugin source
 	static bool canBePluginFile(const QFileInfo &fileInfo) noexcept;
 
+	/// @param filePath The plugin source to process
+	///
+	/// @throws PluginInstallException If something isn't right or goes wrong
+	PluginInstaller(const QString &filePath, QWidget *p = nullptr);
 	/// @param fileInfo The plugin source to process
 	///
 	/// @throws PluginInstallException If something isn't right or goes wrong

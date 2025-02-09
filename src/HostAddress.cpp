@@ -1,4 +1,4 @@
-// Copyright 2017-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,6 +6,8 @@
 #include "HostAddress.h"
 
 #include "ByteSwap.h"
+
+#include <QRegularExpression>
 
 #ifdef Q_OS_WIN
 #	include "win.h"
@@ -183,7 +185,7 @@ void HostAddress::setByte(std::size_t idx, std::uint8_t value) {
 	m_byteRepresentation[idx] = value;
 }
 
-quint32 qHash(const HostAddress &ha) {
+std::size_t qHash(const HostAddress &ha) {
 	return qHashRange(ha.m_byteRepresentation.begin(), ha.m_byteRepresentation.end());
 }
 
@@ -205,7 +207,7 @@ QString HostAddress::toString(bool bracketEnclosed) const {
 									ntohs(shortArray[4]), ntohs(shortArray[5]), ntohs(shortArray[6]),
 									ntohs(shortArray[7]), squareBracketClose);
 
-			return str.replace(QRegExp(QLatin1String("(:0)+")), QLatin1String(":"));
+			return str.replace(QRegularExpression(QLatin1String("(:0)+")), QLatin1String(":"));
 		} else {
 			return bracketEnclosed ? QLatin1String("[::]") : QLatin1String("::");
 		}

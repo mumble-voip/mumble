@@ -1,4 +1,4 @@
-// Copyright 2009-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -24,18 +24,7 @@ void MumbleSSL::initialize() {
 	SSL_library_init(); // Safe to discard return value, per OpenSSL man pages.
 	SSL_load_error_strings();
 
-	// Determine if a locking callback has not been set.
-	// This should be the case if there are multiple copies
-	// of OpensSSL in the address space. This is mostly due
-	// to Qt dynamically loading OpenSSL when it is not
-	// configured with -openssl-linked.
-	//
-	// If we detect that no locking callback is configured, we
-	// have to set it up ourselves to allow multi-threaded use
-	// of OpenSSL.
-	if (!CRYPTO_get_locking_callback()) {
-		SSLLocks::initialize();
-	}
+	SSLLocks::initialize();
 }
 
 void MumbleSSL::destroy() {
@@ -86,18 +75,10 @@ QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherStri
 		if (!name) {
 			break;
 		}
-#if QT_VERSION >= 0x050300
 		QSslCipher c = QSslCipher(QString::fromLatin1(name));
 		if (!c.isNull()) {
 			chosenCiphers << c;
 		}
-#else
-		foreach (const QSslCipher &c, QSslSocket::supportedCiphers()) {
-			if (c.name() == QString::fromLatin1(name)) {
-				chosenCiphers << c;
-			}
-		}
-#endif
 		++i;
 	}
 
@@ -108,16 +89,11 @@ out:
 }
 
 void MumbleSSL::addSystemCA() {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-	// Qt 5.15 introduced adding certificates to the QSslConfiguration and deprecated doing so on QSslSocket
 	auto config = QSslConfiguration::defaultConfiguration();
 
 	config.addCaCertificates(QSslConfiguration::systemCaCertificates());
 
 	QSslConfiguration::setDefaultConfiguration(config);
-#else
-	QSslSocket::addDefaultCaCertificates(QSslConfiguration::systemCaCertificates());
-#endif
 
 #ifdef Q_OS_WIN
 	// Work around issue #1271.
@@ -155,24 +131,18 @@ void MumbleSSL::addSystemCA() {
 
 QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
 	switch (protocol) {
-		case QSsl::SslV3:
-			return QLatin1String("SSL 3");
-		case QSsl::SslV2:
-			return QLatin1String("SSL 2");
+#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
 		case QSsl::TlsV1_0:
 			return QLatin1String("TLS 1.0");
 		case QSsl::TlsV1_1:
 			return QLatin1String("TLS 1.1");
+#endif
 		case QSsl::TlsV1_2:
 			return QLatin1String("TLS 1.2");
-#if QT_VERSION >= 0x050C00
 		case QSsl::TlsV1_3:
 			return QLatin1String("TLS 1.3");
-#endif
 		case QSsl::AnyProtocol:
 			return QLatin1String("AnyProtocol");
-		case QSsl::TlsV1SslV3:
-			return QLatin1String("TlsV1SslV3");
 		case QSsl::SecureProtocols:
 			return QLatin1String("SecureProtocols");
 		default:

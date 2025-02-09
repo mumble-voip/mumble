@@ -1,4 +1,4 @@
-# Copyright 2021-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -141,7 +141,7 @@ pg_ctl start -D "$env:PGDATA"
 
 Write-Output ("CREATE DATABASE mumble_test_db; " +
 	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; " +
-	"GRANT ALL PRIVILEGES ON DATABASE mumble_test_db TO mumble_test_user;") | psql --username "postgres"
+	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;") | psql --username "postgres"
 
 
 Write-Host "Configuring MySQL..."

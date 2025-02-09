@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -12,6 +12,8 @@
 #include "Global.h"
 
 #include <cassert>
+
+#include <QtCore/QTimeZone>
 
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), maskDefaultValue(32) {
 	setupUi(this);
@@ -28,7 +30,11 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 		b.qsHash     = u8(be.hash());
 		b.qsReason   = u8(be.reason());
 		b.qdtStart   = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+		b.qdtStart.setTimeZone(QTimeZone::UTC);
+#else
 		b.qdtStart.setTimeSpec(Qt::UTC);
+#endif
 		if (!b.qdtStart.isValid())
 			b.qdtStart = QDateTime::currentDateTime();
 		b.iDuration = be.duration();
@@ -121,7 +127,7 @@ void BanEditor::on_qpbAdd_clicked() {
 	if (ok) {
 		qlBans << b;
 		refreshBanList();
-		qlwBans->setCurrentRow(qlBans.indexOf(b));
+		qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
 	}
 
 	qlwBans->setCurrentRow(-1);
@@ -136,7 +142,7 @@ void BanEditor::on_qpbUpdate_clicked() {
 		if (ok) {
 			qlBans.replace(idx, b);
 			refreshBanList();
-			qlwBans->setCurrentRow(qlBans.indexOf(b));
+			qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
 		}
 	}
 }
@@ -174,8 +180,7 @@ void BanEditor::refreshBanList() {
 			qlwBans->addItem(ban.qsUsername);
 	}
 
-	int n = qlBans.count();
-	setWindowTitle(tr("Ban List - %n Ban(s)", "", n));
+	setWindowTitle(tr("Ban List - %n Ban(s)", "", static_cast< int >(qlBans.count())));
 }
 
 void BanEditor::on_qleSearch_textChanged(const QString &match) {

@@ -1,4 +1,4 @@
-// Copyright 2022-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -57,6 +57,7 @@ enum Type {
 	HelpAbout,
 	HelpAboutQt,
 	HelpVersionCheck,
+	TogglePositionalAudio,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending
@@ -65,6 +66,7 @@ static_assert(PushToTalk == 1, "You may only append to the end of the enum!");
 static_assert(ToggleMinimalView == 9, "You may only append to the end of the enum!");
 static_assert(ToggleSearch == 22, "You may only append to the end of the enum!");
 static_assert(HelpVersionCheck == 43, "You may only append to the end of the enum!");
+static_assert(TogglePositionalAudio == 44, "You may only append to the end of the enum!");
 } // namespace GlobalShortcutType
 
 #endif // MUMBLE_MUMBLE_GLOBALSHORTCUTTYPES_H_

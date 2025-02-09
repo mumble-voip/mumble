@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -8,11 +8,13 @@
 
 #include <QCryptographicHash>
 #include <QString>
+#include <QStringList>
 
+#include <filesystem>
 #include <memory>
+#include <type_traits>
 
 class QObject;
-class QStringList;
 
 namespace Mumble {
 namespace QtUtils {
@@ -79,10 +81,18 @@ namespace QtUtils {
 		QString m_str;
 	};
 
+	/**
+	 * Creates a platform agnostic path from a QString
+	 */
+	std::filesystem::path qstring_to_path(const QString &input);
+
 } // namespace QtUtils
 } // namespace Mumble
 
-uint qHash(const Mumble::QtUtils::CaseInsensitiveQString &str, uint seed = 0);
+inline std::size_t qHash(const Mumble::QtUtils::CaseInsensitiveQString &str, std::size_t seed = 0) {
+	const QString &lower = static_cast< const QString & >(str).toLower();
+	return static_cast< std::size_t (*)(const QString &, std::size_t) >(&qHash)(lower, seed);
+}
 
 template< typename T > using qt_unique_ptr = std::unique_ptr< T, decltype(&Mumble::QtUtils::deleteQObject) >;
 

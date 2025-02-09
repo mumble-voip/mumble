@@ -1,4 +1,4 @@
-// Copyright 2015-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,6 +7,7 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QSettings>
 
 QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
@@ -23,7 +24,7 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 
 boost::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig, const QString &styleId,
 															const ThemeInfo &theme, const QDir &themeDir) {
-	QRegExp qssPlatformRegex(QString::fromLatin1("^%1/qss_(.*)").arg(styleId));
+	const QRegularExpression qssPlatformRegex(QString::fromLatin1("^%1/qss_(.*)").arg(styleId));
 
 	ThemeInfo::StyleInfo style;
 
@@ -44,10 +45,9 @@ boost::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConf
 	}
 
 	foreach (const QString &platformQssConfig, themeConfig.allKeys().filter(qssPlatformRegex)) {
-		qssPlatformRegex.indexIn(platformQssConfig);
-		const QString platform = qssPlatformRegex.cap(1);
+		const QString platform = qssPlatformRegex.match(platformQssConfig).captured(1);
 
-		QFileInfo platformQss = (themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
+		const auto platformQss = QFileInfo(themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
 		if (!platformQss.exists() || !platformQss.isFile()) {
 			qWarning() << "Style" << style.name << " of theme " << theme.name << " references invalid qss "
 					   << platformQss.filePath() << " for platform " << platform << ", skipping theme";

@@ -1,4 +1,4 @@
-// Copyright 2019-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -26,8 +26,8 @@ public:
 	quint16 m_origPort;
 
 	QList< QDnsServiceRecord > m_srvQueue;
-	QMap< int, int > m_hostInfoIdToIndexMap;
-	int m_srvQueueRemain;
+	QMap< qsizetype, qsizetype > m_hostInfoIdToIndexMap;
+	qsizetype m_srvQueueRemain;
 
 	QList< ServerResolverRecord > m_resolved;
 
@@ -66,7 +66,7 @@ void ServerResolverPrivate::srvResolved() {
 	m_srvQueueRemain = m_srvQueue.count();
 
 	if (resolver->error() == QDnsLookup::NoError && m_srvQueueRemain > 0) {
-		for (int i = 0; i < m_srvQueue.count(); i++) {
+		for (decltype(m_srvQueue.count()) i = 0; i < m_srvQueue.count(); i++) {
 			QDnsServiceRecord record = m_srvQueue.at(i);
 			int hostInfoId           = QHostInfo::lookupHost(record.target(), this, SLOT(hostResolved(QHostInfo)));
 			m_hostInfoIdToIndexMap[hostInfoId] = i;
@@ -79,8 +79,8 @@ void ServerResolverPrivate::srvResolved() {
 }
 
 void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
-	int lookupId             = hostInfo.lookupId();
-	int idx                  = m_hostInfoIdToIndexMap[lookupId];
+	const int lookupId       = hostInfo.lookupId();
+	const qsizetype idx      = m_hostInfoIdToIndexMap[lookupId];
 	QDnsServiceRecord record = m_srvQueue.at(idx);
 
 	if (hostInfo.error() == QHostInfo::NoError) {

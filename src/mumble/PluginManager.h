@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -85,7 +85,7 @@ protected:
 	bool eventFilter(QObject *target, QEvent *event) Q_DECL_OVERRIDE;
 
 	/// Unloads all plugins that are currently loaded.
-	void unloadPlugins() const;
+	void unloadPlugins();
 	/// Clears the current list of plugins
 	void clearPlugins();
 	/// Iterates over the plugins and tries to select a plugin that currently claims to be able to deliver positional
@@ -145,11 +145,11 @@ public:
 	/// Unloads the plugin with the given ID. Unloading means shutting the plugign down.
 	///
 	/// @param pluginID The ID of the plugin to unload
-	void unloadPlugin(plugin_id_t pluginID) const;
+	void unloadPlugin(plugin_id_t pluginID);
 	/// Unloads the given plugin. Unloading means shutting the plugign down.
 	///
 	/// @param plugin The plugin to unload
-	void unloadPlugin(Plugin &plugin) const;
+	void unloadPlugin(Plugin &plugin);
 	/// Clears the plugin from the list of known plugins
 	///
 	/// @param pluginID The ID of the plugin to forget about

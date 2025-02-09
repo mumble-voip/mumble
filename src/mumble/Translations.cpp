@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -118,15 +118,14 @@ namespace Translations {
 		// existing Qt translations. If not, we try to load the qt-translations installed on the host-machine and if
 		// that fails as well, we try to load translations bundled in Mumble. Note: Resource starting with :/ are
 		// bundled resources specified in a .qrc file
+		const QString translationsPath = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
 		if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qt_")) {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qtbase_")) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qt_", prefix,
-											  QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qt_", prefix, translationsPath)) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qtbase_", prefix,
-											  QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qtbase_", prefix, translationsPath)) {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/qt_")) {
 			app.installTranslator(guard.m_qtTranslator);

@@ -5,9 +5,28 @@ on:
     types: ["labeled", "closed"]
 
 jobs:
+  label_checker:
+    name: Check labels
+    runs-on: ubuntu-latest
+    outputs:
+      state: ${{ steps.check.outputs.label_check }}
+    steps:
+      - id: check
+        uses: agilepathway/label-checker@v1.6.55
+        with:
+          prefix_mode: true
+          any_of: auto-backport-to-
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          allow_failure: true
+      - name: Print status
+        shell: bash
+        run: 'echo "Label detection status: ${{ steps.check.outputs.label_check }}"'
+
+
   backport:
+    needs: [ label_checker ]
     name: Backport PR
-    if: github.event.pull_request.merged == true && !(contains(github.event.pull_request.labels.*.name, 'backport'))
+    if: github.event.pull_request.merged == true && needs.label_checker.outputs.state == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Backport Action

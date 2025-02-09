@@ -1,4 +1,4 @@
-# Copyright 2020-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -45,10 +45,10 @@ list(APPEND CMAKE_MODULE_PATH
 )
 
 if(NOT DEFINED CMAKE_CXX_STANDARD)
-	set(CMAKE_CXX_STANDARD 14)
+	set(CMAKE_CXX_STANDARD 17)
 endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
 
 
 include(pkg-utils)
@@ -168,10 +168,6 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
 add_subdirectory(${3RDPARTY_DIR}/utfcpp)
 
-if(client OR server)
-	add_subdirectory(src)
-endif()
-
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
@@ -197,6 +193,10 @@ endif()
 
 if(plugins AND client)
 	add_subdirectory(plugins)
+endif()
+
+if(client OR server)
+	add_subdirectory(src)
 endif()
 
 add_subdirectory(auxiliary_files)

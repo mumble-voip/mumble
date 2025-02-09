@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -40,7 +40,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	setsockopt(static_cast< int >(qtsSocket->socketDescriptor()), IPPROTO_TCP, TCP_NODELAY,
 			   reinterpret_cast< char * >(&nodelay), static_cast< socklen_t >(sizeof(nodelay)));
 
-	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this,
+	connect(qtsSocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this,
 			SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(encrypted()), this, SIGNAL(encrypted()));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
@@ -243,19 +243,11 @@ QSslCipher Connection::sessionCipher() const {
 }
 
 QSsl::SslProtocol Connection::sessionProtocol() const {
-#if QT_VERSION >= 0x050400
 	return qtsSocket->sessionProtocol();
-#else
-	return QSsl::UnknownProtocol; // Cannot determine session cipher. We only know it's some TLS variant
-#endif
 }
 
 QString Connection::sessionProtocolString() const {
-#if QT_VERSION >= 0x050400
 	return MumbleSSL::protocolToString(sessionProtocol());
-#else
-	return QLatin1String("TLS");  // Cannot determine session cipher. We only know it's some TLS variant
-#endif
 }
 
 #ifdef Q_OS_WIN

@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -17,7 +17,7 @@
 #endif
 #include "LCD.h"
 #include "Log.h"
-#include "LogEmitter.h"
+#include "Logger.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #ifdef USE_ZEROCONF
@@ -51,11 +51,14 @@
 #include "VersionCheck.h"
 #include "Global.h"
 
+#include "widgets/TrayIcon.h"
+
 #include <QLocale>
 #include <QScreen>
 #include <QtCore/QProcess>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QTextBrowser>
 
 #include <iostream>
 #include <memory>
@@ -76,6 +79,8 @@ void throw_exception(std::exception const &) {
 }
 } // namespace boost
 #endif
+
+using namespace mumble;
 
 extern void os_init();
 extern char *os_lang;
@@ -157,13 +162,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-#if QT_VERSION >= 0x050700
 	a.setDesktopFileName("info.mumble.Mumble");
-#endif
-
-#if QT_VERSION >= 0x050100
-	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
 #ifdef Q_OS_WIN
 	a.installNativeEventFilter(&a);
@@ -175,7 +174,7 @@ int main(int argc, char **argv) {
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
 	QString settingsFile;
 	QStringList args = a.arguments();
-	const int index  = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
+	const auto index = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
 	if (index >= 0) {
 		if (index + 1 < args.count()) {
 			QFile inifile(args.at(index + 1));
@@ -195,13 +194,9 @@ int main(int argc, char **argv) {
 		Global::g_global_struct = new Global();
 	}
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
-	qsrand(QDateTime::currentDateTime().toTime_t());
-#endif
-
-	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
-	Global::get().c  = new DeveloperConsole();
+	auto logBox = new QTextBrowser();
+	log::init(logBox);
+	Global::get().c = new DeveloperConsole(logBox);
 
 	os_init();
 
@@ -210,6 +205,7 @@ int main(int argc, char **argv) {
 	bool customJackClientName = false;
 	bool bRpcMode             = false;
 	bool printTranslationDirs = false;
+	bool startHiddenInTray    = false;
 	QString rpcCommand;
 	QUrl url;
 	QDir qdCert(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
@@ -286,7 +282,9 @@ int main(int argc, char **argv) {
 								   "                locale that corresponds to the given locale string.\n"
 								   "                If the format is invalid, Mumble will error.\n"
 								   "                Otherwise the locale will be permanently saved to\n"
-								   "                Mumble's settings."
+								   "                Mumble's settings.\n"
+								   "  --hidden\n"
+								   "                Start Mumble hidden in the system tray."
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -413,13 +411,21 @@ int main(int argc, char **argv) {
 					qCritical("Missing argument for --locale!");
 					return 1;
 				}
+			} else if (args.at(i) == "--hidden") {
+#ifndef Q_OS_MAC
+				startHiddenInTray = true;
+				qInfo("Starting hidden in system tray");
+#else
+				// When Qt addresses hide() on macOS to use native hiding, this can be fixed.
+				qWarning("Can not start Mumble hidden in system tray on macOS");
+#endif
 			} else if (args.at(i) == "--version") {
 				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 				// using e.g. qWarning
 				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
 				return 0;
 			} else {
-				if (PluginInstaller::canBePluginFile(args.at(i))) {
+				if (PluginInstaller::canBePluginFile(QFileInfo(args.at(i)))) {
 					pluginsToBeInstalled << args.at(i);
 				} else {
 					if (!bRpcMode) {
@@ -683,7 +689,9 @@ int main(int argc, char **argv) {
 
 	// Main Window
 	Global::get().mw = new MainWindow(nullptr);
-	Global::get().mw->show();
+	if (!startHiddenInTray) {
+		Global::get().mw->showRaiseWindow();
+	}
 
 	Global::get().talkingUI = new TalkingUI();
 
@@ -710,6 +718,8 @@ int main(int argc, char **argv) {
 	// point, use Log::logOrDefer()
 	Global::get().l = new Log();
 	Global::get().l->processDeferredLogs();
+
+	Global::get().trayIcon = new TrayIcon();
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
@@ -796,7 +806,7 @@ int main(int argc, char **argv) {
 		OpenURLEvent *oue = new OpenURLEvent(a.quLaunchURL);
 		qApp->postEvent(Global::get().mw, oue);
 #endif
-	} else {
+	} else if (!startHiddenInTray || Global::get().s.bAutoConnect) {
 		Global::get().mw->on_qaServerConnect_triggered(true);
 	}
 
@@ -836,6 +846,8 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	log::prepareToExit();
+
 	QCoreApplication::processEvents();
 
 	// Only start deleting items once all pending events have been processed (Audio::stop deletes the audio
@@ -874,7 +886,6 @@ int main(int argc, char **argv) {
 #endif
 
 	delete Global::get().c;
-	Global::get().le.clear();
 
 	DeferInit::run_destroyers();
 

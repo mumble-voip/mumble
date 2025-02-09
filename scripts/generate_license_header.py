@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright 2022-2023 The Mumble Developers. All rights reserved.
+# Copyright The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -57,7 +57,6 @@ licenses = [
     ["licenseSQLite3", "3rdPartyLicenses/sqlite3_license.txt", "SQLite3", "http://sqlite.org", "USE_BUILDENV"],
     ["licenseXar", "3rdPartyLicenses/xar_license.txt", "XAR", "https://opensource.apple.com/source/xar/", "USE_BUILDENV"], # macOS only
     ["licenseAvahi", "3rdPartyLicenses/avahi_license.txt", "Avahi", "https://www.avahi.org/", "USE_BUILDENV"], # Linux only
-    ["licenseDBus", "3rdPartyLicenses/dbus_license.txt", "D-Bus", "https://www.freedesktop.org/wiki/Software/dbus", "USE_BUILDENV"], # Linux only
     ["licenseAppImageRuntime", "3rdPartyLicenses/appimage_runtime_license.txt", "AppImage Runtime", "http://www.appimage.org", "USE_BUILDENV"], # Linux only
     ["licenseSquashfuse", "3rdPartyLicenses/squashfuse_license.txt", "squashfuse", "https://github.com/vasi/squashfuse", "USE_BUILDENV"], # Linux only
     ["licenseLibfuse", "3rdPartyLicenses/libfuse_license.txt", "libfuse", "https://github.com/libfuse/libfuse/", "USE_BUILDENV"], # Linux only

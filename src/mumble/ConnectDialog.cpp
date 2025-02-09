@@ -1,4 +1,4 @@
-// Copyright 2007-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -19,7 +19,9 @@
 #include "Global.h"
 
 #include <QSettings>
+#include <QShortcut>
 #include <QtCore/QMimeData>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QUrlQuery>
 #include <QtCore/QtEndian>
 #include <QtGui/QClipboard>
@@ -29,7 +31,6 @@
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMessageBox>
-#include <QtWidgets/QShortcut>
 #include <QtXml/QDomDocument>
 
 #include <boost/accumulators/statistics/extended_p_square.hpp>
@@ -130,7 +131,7 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > mimeitems) const {
+QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > &mimeitems) const {
 	if (mimeitems.isEmpty())
 		return nullptr;
 
@@ -155,11 +156,12 @@ void ServerView::fixupName(ServerItem *si) {
 
 	int tag = 1;
 
-	QRegExp tmatch(QLatin1String("(.+)\\((\\d+)\\)"));
-	tmatch.setMinimal(true);
-	if (tmatch.exactMatch(name)) {
-		name = tmatch.capturedTexts().at(1).trimmed();
-		tag  = tmatch.capturedTexts().at(2).toInt();
+	const QRegularExpression regex(QRegularExpression::anchoredPattern(QLatin1String("(.+)\\((\\d+)\\)")),
+								   QRegularExpression::InvertedGreedinessOption);
+	const QRegularExpressionMatch match = regex.match(name);
+	if (match.hasMatch()) {
+		name = match.capturedTexts().at(1).trimmed();
+		tag  = match.capturedTexts().at(2).toInt();
 	}
 
 	bool found;
@@ -735,7 +737,7 @@ bool ServerItem::operator<(const QTreeWidgetItem &o) const {
 		QString a = qsName.toLower();
 		QString b = other.qsName.toLower();
 
-		QRegExp re(QLatin1String("[^0-9a-z]"));
+		QRegularExpression re(QLatin1String("[^0-9a-z]"));
 		a.remove(re);
 		b.remove(re);
 		return a < b;
@@ -926,12 +928,12 @@ void ConnectDialogEdit::accept() {
 
 		// If the user accidentally added a schema or path part, drop it now.
 		// We can't do so during editing as that is quite jarring.
-		const int schemaPos = server.indexOf(QLatin1String("://"));
+		const auto schemaPos = server.indexOf(QLatin1String("://"));
 		if (schemaPos != -1) {
 			server.remove(0, schemaPos + 3);
 		}
 
-		const int pathPos = server.indexOf(QLatin1Char('/'));
+		const auto pathPos = server.indexOf(QLatin1Char('/'));
 		if (pathPos != -1) {
 			server.resize(pathPos);
 		}
@@ -1417,13 +1419,8 @@ void ConnectDialog::onResolved(const BonjourRecord record, const QString host, c
 
 void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 	QSet< ServerItem * > items;
-#	if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	QSet< ServerItem * > old =
 		QSet< ServerItem * >(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
-#	else
-	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-	QSet< ServerItem * > old = qtwServers->siLAN->qlChildren.toSet();
-#	endif
 
 	foreach (const BonjourRecord &record, list) {
 		bool found = false;
@@ -1762,12 +1759,7 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port, Vers
 	if (qhPingRand.contains(addr)) {
 		uiRand = qhPingRand.value(addr);
 	} else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 		uiRand = QRandomGenerator::global()->generate64() << 32;
-#else
-		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		uiRand = (static_cast< quint64 >(qrand()) << 32) | static_cast< quint64 >(qrand());
-#endif
 		qhPingRand.insert(addr, uiRand);
 	}
 

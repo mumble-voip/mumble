@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The Mumble Developers. All rights reserved.
+// Copyright The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,6 +6,7 @@
 #include "PluginInstaller.h"
 #include "PluginManager.h"
 #include "PluginManifest.h"
+#include "QtUtils.h"
 #include "Global.h"
 
 #include <QMessageBox>
@@ -49,6 +50,9 @@ bool PluginInstaller::canBePluginFile(const QFileInfo &fileInfo) noexcept {
 
 	// We might also accept a shared library directly
 	return QLibrary::isLibrary(fileInfo.fileName());
+}
+
+PluginInstaller::PluginInstaller(const QString &filePath, QWidget *p) : PluginInstaller(QFileInfo(filePath), p) {
 }
 
 PluginInstaller::PluginInstaller(const QFileInfo &fileInfo, QWidget *p)
@@ -124,7 +128,7 @@ void PluginInstaller::init() {
 
 			zipInput.clear();
 			Poco::Zip::ZipInputStream zipin(zipInput, pluginIt->second);
-			std::ofstream out(tmpPluginPath.toStdString(), std::ios::out | std::ios::binary);
+			std::ofstream out(Mumble::QtUtils::qstring_to_path(tmpPluginPath), std::ios::out | std::ios::binary);
 			Poco::StreamCopier::copyStream(zipin, out);
 
 			m_pluginSource = QFileInfo(tmpPluginPath);
