@@ -62,11 +62,6 @@ brew services start postgresql
 # Give the database some time to start
 sleep 5
 
-# Using brew service start postgresql for some reason does not work so we have
-# to resort to starting PostgreSQL manually.
-#postgres_data_dir="$( brew info postgresql | grep -E '^ *initdb' | awk '{print $NF}' )"
-#pg_ctl start -D "$postgres_data_dir"
-
 echo "CREATE DATABASE mumble_test_db; "\
 	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
 	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;" | psql -d postgres
