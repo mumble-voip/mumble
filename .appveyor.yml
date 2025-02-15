@@ -23,7 +23,7 @@ environment:
 
   matrix:
     - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-08.4d858462ac'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-15.1121a6cf3b'
 
 install:
   - ps: .ci/install-environment_windows.ps1

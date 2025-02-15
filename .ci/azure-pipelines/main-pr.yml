@@ -24,7 +24,7 @@ jobs:
     pool:
       vmImage: 'windows-2022'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-08.4d858462ac'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-15.1121a6cf3b'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
     steps:
     - template: steps_windows.yml
@@ -45,7 +45,7 @@ jobs:
     pool:
       vmImage: 'macOS-14'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-osx.2025-02-08.4d858462ac'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-osx.2025-02-15.1121a6cf3b'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-osx'
     steps:
     - template: steps_macos.yml
