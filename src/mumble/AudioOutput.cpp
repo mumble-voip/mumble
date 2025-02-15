@@ -81,7 +81,7 @@ bool AudioOutputRegistrar::canExclusive() const {
 }
 
 AudioOutput::AudioOutput() {
-	QObject::connect(this, &AudioOutput::bufferInvalidated, this, &AudioOutput::handleInvalidatedBuffer);
+	QObject::connect(this, &AudioOutput::bufferInvalidated, this, [this](const void *buffer) { removeBuffer(buffer); });
 	QObject::connect(this, &AudioOutput::bufferPositionChanged, this, &AudioOutput::handlePositionedBuffer);
 }
 
@@ -149,23 +149,13 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 }
 
 void AudioOutput::wipe() {
-	// We need to remove all buffers from the qmOutputs map.
-	// However, the removeBuffer calls a signal-slot mechanism
-	// asynchronously. Doing that while iterating over the map
-	// will cause a concurrent modification
+	QWriteLocker locker(&qrwlOutputs);
 
-	QList< AudioOutputBuffer * > list;
-
-	{
-		QReadLocker locker(&qrwlOutputs);
-		for (AudioOutputBuffer *buffer : qmOutputs) {
-			list.append(buffer);
-		}
+	for (AudioOutputBuffer *buffer : qmOutputs) {
+		delete buffer;
 	}
 
-	for (AudioOutputBuffer *buffer : list) {
-		removeBuffer(buffer);
-	}
+	qmOutputs.clear();
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
@@ -181,20 +171,25 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 		return;
 	}
 
-	qrwlOutputs.lockForRead();
-	// qmOutputs is a map of users and their AudioOutputSpeech objects, which will be created when audio from that user
-	// is received. It also contains AudioOutputSample objects with various other non-speech sounds.
-	// This map will be iterated in mix(). After the speech or sample audio is finished, the AudioOutputBuffer object
-	// will be removed from this map and deleted.
-	AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(qmOutputs.value(sender));
+	AudioOutputSpeech *speech = nullptr;
+	bool createNew            = false;
+	{
+		QReadLocker lock(&qrwlOutputs);
 
-	if (!speech || (speech->m_codec != audioData.usedCodec)) {
-		qrwlOutputs.unlock();
+		// qmOutputs is a map of users and their AudioOutputSpeech objects, which will be created when audio from that
+		// user is received. It also contains AudioOutputSample objects with various other non-speech sounds. This map
+		// will be iterated in mix(). After the speech or sample audio is finished, the AudioOutputBuffer object will be
+		// removed from this map and deleted.
+		speech = qobject_cast< AudioOutputSpeech * >(qmOutputs.value(sender));
 
-		if (speech) {
-			removeBuffer(static_cast< AudioOutputBuffer * >(speech));
+		createNew = !speech || (speech->m_codec != audioData.usedCodec);
+
+		if (!createNew) {
+			speech->addFrameToBuffer(audioData);
 		}
+	}
 
+	if (createNew) {
 		while ((iMixerFreq == 0) && isAlive()) {
 			QThread::yieldCurrentThread();
 		}
@@ -203,32 +198,46 @@ void AudioOutput::addFrameToBuffer(ClientUser *sender, const Mumble::Protocol::A
 			return;
 		}
 
-		qrwlOutputs.lockForWrite();
+		QWriteLocker lock(&qrwlOutputs);
+		if (speech) {
+			removeBuffer(speech, false);
+		}
 
 		speech = new AudioOutputSpeech(sender, iMixerFreq, audioData.usedCodec, iBufferSize);
 		qmOutputs.replace(sender, speech);
+
+		speech->addFrameToBuffer(audioData);
 	}
-
-	speech->addFrameToBuffer(audioData);
-
-	qrwlOutputs.unlock();
 }
 
-void AudioOutput::handleInvalidatedBuffer(AudioOutputBuffer *buffer) {
-	QWriteLocker locker(&qrwlOutputs);
+void AudioOutput::removeBuffer(const void *buffer, bool acquireWriteLock) {
+	if (!buffer) {
+		return;
+	}
+
+	// Either this function is asked to obtain a write lock, or
+	// the calling scope already holds a **write** lock (which means
+	// that attempting to lock for read access will fail, whereas it
+	// would work if the calling scope only held a read lock).
+	assert(acquireWriteLock || !qrwlOutputs.tryLockForRead(0));
+	QWriteLocker locker(acquireWriteLock ? &qrwlOutputs : nullptr);
+
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
+			delete iter.value();
 			qmOutputs.erase(iter);
-			delete buffer;
+
 			break;
 		}
 	}
 }
 
-void AudioOutput::handlePositionedBuffer(AudioOutputBuffer *buffer, float x, float y, float z) {
+void AudioOutput::handlePositionedBuffer(const void *bufferPtr, float x, float y, float z) {
 	QWriteLocker locker(&qrwlOutputs);
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
-		if (iter.value() == buffer) {
+		if (iter.value() == bufferPtr) {
+			AudioOutputBuffer *buffer = iter.value();
+
 			buffer->fPos[0] = x;
 			buffer->fPos[1] = y;
 			buffer->fPos[2] = z;
@@ -245,7 +254,7 @@ void AudioOutput::setBufferPosition(const AudioOutputToken &token, float x, floa
 	emit bufferPositionChanged(token.m_buffer, x, y, z);
 }
 
-void AudioOutput::removeBuffer(AudioOutputBuffer *buffer) {
+void AudioOutput::invalidateBuffer(const void *buffer) {
 	if (!buffer) {
 		return;
 	}
@@ -254,12 +263,19 @@ void AudioOutput::removeBuffer(AudioOutputBuffer *buffer) {
 }
 
 void AudioOutput::removeUser(const ClientUser *user) {
-	removeBuffer(qmOutputs.value(user));
+	AudioOutputBuffer *buffer = nullptr;
+	{
+		QReadLocker lock(&qrwlOutputs);
+		buffer = qmOutputs.value(user);
+	}
+
+	// We rely on removeBuffer not actually dereferencing the passed pointer.
+	// If it did, releasing the lock before calling the function cries for trouble.
+	removeBuffer(buffer);
 }
 
-void AudioOutput::removeToken(AudioOutputToken &token) {
-	removeBuffer(token.m_buffer);
-	token = {};
+void AudioOutput::invalidateToken(const AudioOutputToken &token) {
+	invalidateBuffer(token.m_buffer);
 }
 
 AudioOutputToken AudioOutput::playSample(const QString &filename, float volume, bool loop) {
@@ -426,368 +442,381 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	positions.clear();
 #endif
 
-	// A list of buffers that have audio to contribute
-	QList< AudioOutputBuffer * > qlMix;
-	// A list of buffers that no longer have any audio to play and can thus be deleted
-	QList< AudioOutputBuffer * > qlDel;
-
 	if (Global::get().s.fVolume < 0.01f) {
 		return false;
 	}
 
-	const float adjustFactor = std::pow(10.f, -18.f / 20);
-	const float mul          = Global::get().s.fVolume;
-	const unsigned int nchan = iChannels;
-	ServerHandlerPtr sh      = Global::get().sh;
-	VoiceRecorderPtr recorder;
-	if (sh) {
-		recorder = Global::get().sh->recorder;
-	}
+	// A list of buffers that no longer have any audio to play and can thus be deleted
+	QList< AudioOutputBuffer * > qlDel;
 
-	qrwlOutputs.lockForRead();
+	bool haveAudio = false;
 
-	bool prioritySpeakerActive = false;
+	{
+		QReadLocker lock(&qrwlOutputs);
 
-	// Get the users that are currently talking (and are thus serving as an audio source)
-	QMultiHash< const ClientUser *, AudioOutputBuffer * >::const_iterator it = qmOutputs.constBegin();
-	while (it != qmOutputs.constEnd()) {
-		AudioOutputBuffer *buffer = it.value();
-		if (!buffer->prepareSampleBuffer(frameCount)) {
-			qlDel.append(buffer);
-		} else {
-			qlMix.append(buffer);
+		// A list of buffers that have audio to contribute
+		QList< AudioOutputBuffer * > qlMix;
 
-			const ClientUser *user = it.key();
-			if (user && user->bPrioritySpeaker) {
-				prioritySpeakerActive = true;
+		const float adjustFactor = std::pow(10.f, -18.f / 20);
+		const float mul          = Global::get().s.fVolume;
+		const unsigned int nchan = iChannels;
+		ServerHandlerPtr sh      = Global::get().sh;
+		VoiceRecorderPtr recorder;
+		if (sh) {
+			recorder = Global::get().sh->recorder;
+		}
+
+		bool prioritySpeakerActive = false;
+
+		// Get the users that are currently talking (and are thus serving as an audio source)
+		QMultiHash< const ClientUser *, AudioOutputBuffer * >::const_iterator it = qmOutputs.constBegin();
+		while (it != qmOutputs.constEnd()) {
+			AudioOutputBuffer *buffer = it.value();
+			if (!buffer->prepareSampleBuffer(frameCount)) {
+				qlDel.append(buffer);
+			} else {
+				qlMix.append(buffer);
+
+				const ClientUser *user = it.key();
+				if (user && user->bPrioritySpeaker) {
+					prioritySpeakerActive = true;
+				}
 			}
-		}
-		++it;
-	}
-
-	if (Global::get().prioritySpeakerActiveOverride) {
-		prioritySpeakerActive = true;
-	}
-
-	// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output.
-	// Otherwise we'll have to use an intermediate buffer which we will convert to an array of shorts later
-	static std::vector< float > fOutput;
-	fOutput.resize(iChannels * frameCount);
-	float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast< float * >(outbuff) : fOutput.data();
-	memset(output, 0, sizeof(float) * frameCount * iChannels);
-
-	if (!qlMix.isEmpty()) {
-		// There are audio sources available -> mix those sources together and feed them into the audio backend
-		static std::vector< float > speaker;
-		speaker.resize(iChannels * 3);
-		static std::vector< float > svol;
-		svol.resize(iChannels);
-
-		bool validListener = false;
-
-		// Initialize recorder if recording is enabled
-		boost::shared_array< float > recbuff;
-		if (recorder) {
-			recbuff = boost::shared_array< float >(new float[frameCount]);
-			memset(recbuff.get(), 0, sizeof(float) * frameCount);
-			recorder->prepareBufferAdds();
+			++it;
 		}
 
-		for (unsigned int i = 0; i < iChannels; ++i)
-			svol[i] = mul * fSpeakerVolume[i];
+		haveAudio = !qlMix.empty();
 
-		if (Global::get().s.bPositionalAudio && (iChannels > 1) && Global::get().pluginManager->fetchPositionalData()) {
-			// Calculate the positional audio effects if it is enabled
+		if (Global::get().prioritySpeakerActiveOverride) {
+			prioritySpeakerActive = true;
+		}
 
-			Vector3D cameraDir = Global::get().pluginManager->getPositionalData().getCameraDir();
+		// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output.
+		// Otherwise we'll have to use an intermediate buffer which we will convert to an array of shorts later
+		static std::vector< float > fOutput;
+		fOutput.resize(iChannels * frameCount);
+		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast< float * >(outbuff) : fOutput.data();
+		memset(output, 0, sizeof(float) * frameCount * iChannels);
 
-			Vector3D cameraAxis = Global::get().pluginManager->getPositionalData().getCameraAxis();
+		if (haveAudio) {
+			// There are audio sources available -> mix those sources together and feed them into the audio backend
+			static std::vector< float > speaker;
+			speaker.resize(iChannels * 3);
+			static std::vector< float > svol;
+			svol.resize(iChannels);
 
-			// Direction vector is dominant; if it's zero we presume all is zero.
+			bool validListener = false;
 
-			if (!cameraDir.isZero()) {
-				cameraDir.normalize();
+			// Initialize recorder if recording is enabled
+			boost::shared_array< float > recbuff;
+			if (recorder) {
+				recbuff = boost::shared_array< float >(new float[frameCount]);
+				memset(recbuff.get(), 0, sizeof(float) * frameCount);
+				recorder->prepareBufferAdds();
+			}
 
-				if (!cameraAxis.isZero()) {
-					cameraAxis.normalize();
+			for (unsigned int i = 0; i < iChannels; ++i)
+				svol[i] = mul * fSpeakerVolume[i];
+
+			if (Global::get().s.bPositionalAudio && (iChannels > 1)
+				&& Global::get().pluginManager->fetchPositionalData()) {
+				// Calculate the positional audio effects if it is enabled
+
+				Vector3D cameraDir = Global::get().pluginManager->getPositionalData().getCameraDir();
+
+				Vector3D cameraAxis = Global::get().pluginManager->getPositionalData().getCameraAxis();
+
+				// Direction vector is dominant; if it's zero we presume all is zero.
+
+				if (!cameraDir.isZero()) {
+					cameraDir.normalize();
+
+					if (!cameraAxis.isZero()) {
+						cameraAxis.normalize();
+					} else {
+						cameraAxis = { 0.0f, 1.0f, 0.0f };
+					}
+
+					const float dotproduct = cameraDir.dotProduct(cameraAxis);
+					const float error      = std::abs(dotproduct);
+					if (error > 0.5f) {
+						// Not perpendicular by a large margin. Assume Y up and rotate 90 degrees.
+
+						float azimuth = 0.0f;
+						if (cameraDir.x != 0.0f || cameraDir.z != 0.0f) {
+							azimuth = atan2f(cameraDir.z, cameraDir.x);
+						}
+
+						float inclination = acosf(cameraDir.y) - static_cast< float >(M_PI) / 2.0f;
+
+						cameraAxis.x = sinf(inclination) * cosf(azimuth);
+						cameraAxis.y = cosf(inclination);
+						cameraAxis.z = sinf(inclination) * sinf(azimuth);
+					} else if (error > 0.01f) {
+						// Not perpendicular by a small margin. Find the nearest perpendicular vector.
+						cameraAxis = cameraAxis - cameraDir * dotproduct;
+
+						// normalize axis again (the orthogonalized vector us guaranteed to be non-zero
+						// as the error (dotproduct) was only 0.5 (and not 1 in which case above operation
+						// would create the zero-vector).
+						cameraAxis.normalize();
+					}
 				} else {
+					cameraDir = { 0.0f, 0.0f, 1.0f };
+
 					cameraAxis = { 0.0f, 1.0f, 0.0f };
 				}
 
-				const float dotproduct = cameraDir.dotProduct(cameraAxis);
-				const float error      = std::abs(dotproduct);
-				if (error > 0.5f) {
-					// Not perpendicular by a large margin. Assume Y up and rotate 90 degrees.
+				// Calculate right vector as front X top
+				Vector3D right = cameraAxis.crossProduct(cameraDir);
 
-					float azimuth = 0.0f;
-					if (cameraDir.x != 0.0f || cameraDir.z != 0.0f) {
-						azimuth = atan2f(cameraDir.z, cameraDir.x);
-					}
-
-					float inclination = acosf(cameraDir.y) - static_cast< float >(M_PI) / 2.0f;
-
-					cameraAxis.x = sinf(inclination) * cosf(azimuth);
-					cameraAxis.y = cosf(inclination);
-					cameraAxis.z = sinf(inclination) * sinf(azimuth);
-				} else if (error > 0.01f) {
-					// Not perpendicular by a small margin. Find the nearest perpendicular vector.
-					cameraAxis = cameraAxis - cameraDir * dotproduct;
-
-					// normalize axis again (the orthogonalized vector us guaranteed to be non-zero
-					// as the error (dotproduct) was only 0.5 (and not 1 in which case above operation
-					// would create the zero-vector).
-					cameraAxis.normalize();
+				/*
+							qWarning("Front: %f %f %f", front[0], front[1], front[2]);
+							qWarning("Top: %f %f %f", top[0], top[1], top[2]);
+							qWarning("Right: %f %f %f", right[0], right[1], right[2]);
+				*/
+				// Rotate speakers to match orientation
+				for (unsigned int i = 0; i < iChannels; ++i) {
+					speaker[3 * i + 0] = fSpeakers[3 * i + 0] * right.x + fSpeakers[3 * i + 1] * cameraAxis.x
+										 + fSpeakers[3 * i + 2] * cameraDir.x;
+					speaker[3 * i + 1] = fSpeakers[3 * i + 0] * right.y + fSpeakers[3 * i + 1] * cameraAxis.y
+										 + fSpeakers[3 * i + 2] * cameraDir.y;
+					speaker[3 * i + 2] = fSpeakers[3 * i + 0] * right.z + fSpeakers[3 * i + 1] * cameraAxis.z
+										 + fSpeakers[3 * i + 2] * cameraDir.z;
 				}
-			} else {
-				cameraDir = { 0.0f, 0.0f, 1.0f };
-
-				cameraAxis = { 0.0f, 1.0f, 0.0f };
+				validListener = true;
 			}
 
-			// Calculate right vector as front X top
-			Vector3D right = cameraAxis.crossProduct(cameraDir);
+			for (AudioOutputBuffer *buffer : qlMix) {
+				// Iterate through all audio sources and mix them together into the output (or the intermediate array)
+				float *RESTRICT pfBuffer = buffer->pfBuffer;
+				float volumeAdjustment   = 1;
 
-			/*
-						qWarning("Front: %f %f %f", front[0], front[1], front[2]);
-						qWarning("Top: %f %f %f", top[0], top[1], top[2]);
-						qWarning("Right: %f %f %f", right[0], right[1], right[2]);
-			*/
-			// Rotate speakers to match orientation
-			for (unsigned int i = 0; i < iChannels; ++i) {
-				speaker[3 * i + 0] = fSpeakers[3 * i + 0] * right.x + fSpeakers[3 * i + 1] * cameraAxis.x
-									 + fSpeakers[3 * i + 2] * cameraDir.x;
-				speaker[3 * i + 1] = fSpeakers[3 * i + 0] * right.y + fSpeakers[3 * i + 1] * cameraAxis.y
-									 + fSpeakers[3 * i + 2] * cameraDir.y;
-				speaker[3 * i + 2] = fSpeakers[3 * i + 0] * right.z + fSpeakers[3 * i + 1] * cameraAxis.z
-									 + fSpeakers[3 * i + 2] * cameraDir.z;
-			}
-			validListener = true;
-		}
-
-		for (AudioOutputBuffer *buffer : qlMix) {
-			// Iterate through all audio sources and mix them together into the output (or the intermediate array)
-			float *RESTRICT pfBuffer = buffer->pfBuffer;
-			float volumeAdjustment   = 1;
-
-			// Check if the audio source is a user speaking or a sample playback and apply potential volume
-			// adjustments
-			AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(buffer);
-			AudioOutputSample *sample = qobject_cast< AudioOutputSample * >(buffer);
-			const ClientUser *user    = nullptr;
-			if (speech) {
-				user = speech->p;
-
-				volumeAdjustment *= user->getLocalVolumeAdjustments();
-
-				if (sh && sh->m_version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION) {
-					// The new protocol supports sending volume adjustments which is used to figure out the correct
-					// volume adjustment for listeners on the server. Thus, we only have to apply that here.
-					volumeAdjustment *= speech->m_suggestedVolumeAdjustment;
-				} else if (user->cChannel
-						   && Global::get().channelListenerManager->isListening(Global::get().uiSession,
-																				user->cChannel->iId)
-						   && (speech->m_audioContext == Mumble::Protocol::AudioContext::LISTEN)) {
-					// We are receiving this audio packet only because we are listening to the channel
-					// the speaking user is in. Thus we receive the audio via our "listener proxy".
-					// Thus we'll apply the volume adjustment for our listener proxy as well
-					volumeAdjustment *= Global::get()
-											.channelListenerManager
-											->getListenerVolumeAdjustment(Global::get().uiSession, user->cChannel->iId)
-											.factor;
-				}
-
-				if (prioritySpeakerActive) {
-					if (user->tsState != Settings::Whispering && !user->bPrioritySpeaker) {
-						volumeAdjustment *= adjustFactor;
-					}
-				}
-			} else if (sample) {
-				volumeAdjustment *= sample->getVolume();
-			}
-
-			// As the events may cause the output PCM to change, the connection has to be direct in any case
-			const int channels = (speech && speech->bStereo) ? 2 : 1;
-			// If user != nullptr, then the current audio is considered speech
-			assert(channels >= 0);
-			emit audioSourceFetched(pfBuffer, frameCount, static_cast< unsigned int >(channels), SAMPLE_RATE,
-									static_cast< bool >(user), user);
-
-			// If recording is enabled add the current audio source to the recording buffer
-			if (recorder) {
+				// Check if the audio source is a user speaking or a sample playback and apply potential volume
+				// adjustments
+				AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(buffer);
+				AudioOutputSample *sample = qobject_cast< AudioOutputSample * >(buffer);
+				const ClientUser *user    = nullptr;
 				if (speech) {
-					if (speech->bStereo) {
-						// Mix down stereo to mono. TODO: stereo record support
-						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-						for (std::size_t i = 0; i < frameCount; ++i) {
-							recbuff.get()[i] +=
-								(pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
-						}
-					} else {
-						for (std::size_t i = 0; i < frameCount; ++i) {
-							recbuff.get()[i] += pfBuffer[i] * volumeAdjustment;
-						}
+					user = speech->p;
+
+					volumeAdjustment *= user->getLocalVolumeAdjustments();
+
+					if (sh && sh->m_version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION) {
+						// The new protocol supports sending volume adjustments which is used to figure out the correct
+						// volume adjustment for listeners on the server. Thus, we only have to apply that here.
+						volumeAdjustment *= speech->m_suggestedVolumeAdjustment;
+					} else if (user->cChannel
+							   && Global::get().channelListenerManager->isListening(Global::get().uiSession,
+																					user->cChannel->iId)
+							   && (speech->m_audioContext == Mumble::Protocol::AudioContext::LISTEN)) {
+						// We are receiving this audio packet only because we are listening to the channel
+						// the speaking user is in. Thus we receive the audio via our "listener proxy".
+						// Thus we'll apply the volume adjustment for our listener proxy as well
+						volumeAdjustment *=
+							Global::get()
+								.channelListenerManager
+								->getListenerVolumeAdjustment(Global::get().uiSession, user->cChannel->iId)
+								.factor;
 					}
 
-					if (!recorder->isInMixDownMode()) {
-						recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
-						recbuff = boost::shared_array< float >(new float[frameCount]);
-						memset(recbuff.get(), 0, sizeof(float) * frameCount);
+					if (prioritySpeakerActive) {
+						if (user->tsState != Settings::Whispering && !user->bPrioritySpeaker) {
+							volumeAdjustment *= adjustFactor;
+						}
 					}
+				} else if (sample) {
+					volumeAdjustment *= sample->getVolume();
+				}
 
-					// Don't add the local audio to the real output
-					if (qobject_cast< RecordUser * >(speech->p)) {
-						continue;
+				// As the events may cause the output PCM to change, the connection has to be direct in any case
+				const int channels = (speech && speech->bStereo) ? 2 : 1;
+				// If user != nullptr, then the current audio is considered speech
+				assert(channels >= 0);
+				emit audioSourceFetched(pfBuffer, frameCount, static_cast< unsigned int >(channels), SAMPLE_RATE,
+										static_cast< bool >(user), user);
+
+				// If recording is enabled add the current audio source to the recording buffer
+				if (recorder) {
+					if (speech) {
+						if (speech->bStereo) {
+							// Mix down stereo to mono. TODO: stereo record support
+							// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+							for (std::size_t i = 0; i < frameCount; ++i) {
+								recbuff.get()[i] +=
+									(pfBuffer[2 * i] / 2.0f + pfBuffer[2 * i + 1] / 2.0f) * volumeAdjustment;
+							}
+						} else {
+							for (std::size_t i = 0; i < frameCount; ++i) {
+								recbuff.get()[i] += pfBuffer[i] * volumeAdjustment;
+							}
+						}
+
+						if (!recorder->isInMixDownMode()) {
+							recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
+							recbuff = boost::shared_array< float >(new float[frameCount]);
+							memset(recbuff.get(), 0, sizeof(float) * frameCount);
+						}
+
+						// Don't add the local audio to the real output
+						if (qobject_cast< RecordUser * >(speech->p)) {
+							continue;
+						}
 					}
 				}
-			}
 
-			if (validListener
-				&& ((buffer->fPos[0] != 0.0f) || (buffer->fPos[1] != 0.0f) || (buffer->fPos[2] != 0.0f))) {
-				// Add position to position map
+				if (validListener
+					&& ((buffer->fPos[0] != 0.0f) || (buffer->fPos[1] != 0.0f) || (buffer->fPos[2] != 0.0f))) {
+					// Add position to position map
 #ifdef USE_MANUAL_PLUGIN
-				if (user) {
-					// The coordinates in the plane are actually given by x and z instead of x and y (y is up)
-					positions.insert(user->uiSession, { buffer->fPos[0], buffer->fPos[2] });
-				}
+					if (user) {
+						// The coordinates in the plane are actually given by x and z instead of x and y (y is up)
+						positions.insert(user->uiSession, { buffer->fPos[0], buffer->fPos[2] });
+					}
 #endif
 
-				// If positional audio is enabled, calculate the respective audio effect here
-				Position3D outputPos = { buffer->fPos[0], buffer->fPos[1], buffer->fPos[2] };
-				Position3D ownPos    = Global::get().pluginManager->getPositionalData().getCameraPos();
+					// If positional audio is enabled, calculate the respective audio effect here
+					Position3D outputPos = { buffer->fPos[0], buffer->fPos[1], buffer->fPos[2] };
+					Position3D ownPos    = Global::get().pluginManager->getPositionalData().getCameraPos();
 
-				Vector3D connectionVec = outputPos - ownPos;
-				float len              = connectionVec.norm();
+					Vector3D connectionVec = outputPos - ownPos;
+					float len              = connectionVec.norm();
 
-				if (len > 0.0f) {
-					// Don't use normalize-func in order to save the re-computation of the vector's length
-					connectionVec.x /= len;
-					connectionVec.y /= len;
-					connectionVec.z /= len;
-				}
-				/*
-								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
-								qWarning("Voice dir: %f %f %f", connectionVec.x, connectionVec.y, connectionVec.z);
-				*/
-				if (!buffer->pfVolume) {
-					buffer->pfVolume = new float[nchan];
-					for (unsigned int s = 0; s < nchan; ++s)
-						buffer->pfVolume[s] = -1.0;
-				}
-
-				if (!buffer->piOffset) {
-					buffer->piOffset = std::make_unique< unsigned int[] >(nchan);
-					for (unsigned int s = 0; s < nchan; ++s) {
-						buffer->piOffset[s] = 0;
+					if (len > 0.0f) {
+						// Don't use normalize-func in order to save the re-computation of the vector's length
+						connectionVec.x /= len;
+						connectionVec.y /= len;
+						connectionVec.z /= len;
 					}
-				}
-
-				const bool isAudible =
-					(Global::get().s.fAudioMaxDistVolume > 0) || (len < Global::get().s.fAudioMaxDistance);
-
-				for (unsigned int s = 0; s < nchan; ++s) {
-					const float dot = bSpeakerPositional[s]
-										  ? connectionVec.x * speaker[s * 3 + 0] + connectionVec.y * speaker[s * 3 + 1]
-												+ connectionVec.z * speaker[s * 3 + 2]
-										  : 1.0f;
-					float channelVol;
-					if (isAudible) {
-						// In the current contex, we know that sound reaches at least one ear.
-						channelVol = svol[s] * calcGain(dot, len) * volumeAdjustment;
-					} else {
-						// The user has set the minimum positional volume to 0 and this sound source
-						// is exceeding the positional volume range. This means that the sound is completely
-						// inaudible at the current position. We therefore set the volume the to 0,
-						// making sure the user really can not hear any audio from that source.
-						channelVol = 0;
-					}
-
-					float *RESTRICT o   = output + s;
-					const float old     = (buffer->pfVolume[s] >= 0.0f) ? buffer->pfVolume[s] : channelVol;
-					const float inc     = (channelVol - old) / static_cast< float >(frameCount);
-					buffer->pfVolume[s] = channelVol;
-
-					// Calculates the ITD offset of the audio data this frame.
-					// Interaural Time Delay (ITD) is a small time delay between your ears
-					// depending on the sound source position on the horizontal plane and the
-					// distance between your ears.
-					//
-					// Offset for ITD is not applied directly, but rather the offset is interpolated
-					// linearly across the entire chunk, between the offset of the last chunk and the
-					// newly calculated offset for this chunk. This prevents clicking / buzzing when the
-					// audio source or camera is moving, because abruptly changing offsets (and thus
-					// abruptly changing the playback position) will create a clicking noise.
-					// Normalize dot to range [0,1] instead [-1,1]
-					const int offset      = static_cast< int >(INTERAURAL_DELAY * (1.0f + dot) / 2.0f);
-					const int oldOffset   = static_cast< int >(buffer->piOffset[s]);
-					const float incOffset = static_cast< float >(offset - oldOffset) / static_cast< float >(frameCount);
-					buffer->piOffset[s]   = static_cast< unsigned int >(offset);
 					/*
-										qWarning("%d: Pos %f %f %f : Dot %f Len %f ChannelVol %f", s, speaker[s*3+0],
-					   speaker[s*3+1], speaker[s*3+2], dot, len, channelVol);
+									qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
+									qWarning("Voice dir: %f %f %f", connectionVec.x, connectionVec.y, connectionVec.z);
 					*/
-					if ((old >= 0.00000001f) || (channelVol >= 0.00000001f)) {
-						for (unsigned int i = 0; i < frameCount; ++i) {
-							unsigned int currentOffset = static_cast< unsigned int >(
-								static_cast< float >(oldOffset) + incOffset * static_cast< float >(i));
-							if (speech && speech->bStereo) {
-								// Mix stereo user's stream into mono
-								// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-								o[i * nchan] += (pfBuffer[2 * i + currentOffset] / 2.0f
-												 + pfBuffer[2 * i + currentOffset + 1] / 2.0f)
-												* (old + inc * static_cast< float >(i));
-							} else {
-								o[i * nchan] += pfBuffer[i + currentOffset] * (old + inc * static_cast< float >(i));
+					if (!buffer->pfVolume) {
+						buffer->pfVolume = new float[nchan];
+						for (unsigned int s = 0; s < nchan; ++s)
+							buffer->pfVolume[s] = -1.0;
+					}
+
+					if (!buffer->piOffset) {
+						buffer->piOffset = std::make_unique< unsigned int[] >(nchan);
+						for (unsigned int s = 0; s < nchan; ++s) {
+							buffer->piOffset[s] = 0;
+						}
+					}
+
+					const bool isAudible =
+						(Global::get().s.fAudioMaxDistVolume > 0) || (len < Global::get().s.fAudioMaxDistance);
+
+					for (unsigned int s = 0; s < nchan; ++s) {
+						const float dot = bSpeakerPositional[s] ? connectionVec.x * speaker[s * 3 + 0]
+																	  + connectionVec.y * speaker[s * 3 + 1]
+																	  + connectionVec.z * speaker[s * 3 + 2]
+																: 1.0f;
+						float channelVol;
+						if (isAudible) {
+							// In the current contex, we know that sound reaches at least one ear.
+							channelVol = svol[s] * calcGain(dot, len) * volumeAdjustment;
+						} else {
+							// The user has set the minimum positional volume to 0 and this sound source
+							// is exceeding the positional volume range. This means that the sound is completely
+							// inaudible at the current position. We therefore set the volume the to 0,
+							// making sure the user really can not hear any audio from that source.
+							channelVol = 0;
+						}
+
+						float *RESTRICT o   = output + s;
+						const float old     = (buffer->pfVolume[s] >= 0.0f) ? buffer->pfVolume[s] : channelVol;
+						const float inc     = (channelVol - old) / static_cast< float >(frameCount);
+						buffer->pfVolume[s] = channelVol;
+
+						// Calculates the ITD offset of the audio data this frame.
+						// Interaural Time Delay (ITD) is a small time delay between your ears
+						// depending on the sound source position on the horizontal plane and the
+						// distance between your ears.
+						//
+						// Offset for ITD is not applied directly, but rather the offset is interpolated
+						// linearly across the entire chunk, between the offset of the last chunk and the
+						// newly calculated offset for this chunk. This prevents clicking / buzzing when the
+						// audio source or camera is moving, because abruptly changing offsets (and thus
+						// abruptly changing the playback position) will create a clicking noise.
+						// Normalize dot to range [0,1] instead [-1,1]
+						const int offset    = static_cast< int >(INTERAURAL_DELAY * (1.0f + dot) / 2.0f);
+						const int oldOffset = static_cast< int >(buffer->piOffset[s]);
+						const float incOffset =
+							static_cast< float >(offset - oldOffset) / static_cast< float >(frameCount);
+						buffer->piOffset[s] = static_cast< unsigned int >(offset);
+						/*
+											qWarning("%d: Pos %f %f %f : Dot %f Len %f ChannelVol %f", s,
+						   speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, channelVol);
+						*/
+						if ((old >= 0.00000001f) || (channelVol >= 0.00000001f)) {
+							for (unsigned int i = 0; i < frameCount; ++i) {
+								unsigned int currentOffset = static_cast< unsigned int >(
+									static_cast< float >(oldOffset) + incOffset * static_cast< float >(i));
+								if (speech && speech->bStereo) {
+									// Mix stereo user's stream into mono
+									// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+									o[i * nchan] += (pfBuffer[2 * i + currentOffset] / 2.0f
+													 + pfBuffer[2 * i + currentOffset + 1] / 2.0f)
+													* (old + inc * static_cast< float >(i));
+								} else {
+									o[i * nchan] += pfBuffer[i + currentOffset] * (old + inc * static_cast< float >(i));
+								}
 							}
 						}
 					}
-				}
-			} else {
-				// Mix the current audio source into the output by adding it to the elements of the output buffer after
-				// having applied a volume adjustment
-				for (unsigned int s = 0; s < nchan; ++s) {
-					const float channelVol = svol[s] * volumeAdjustment;
-					float *RESTRICT o      = output + s;
-					if (buffer->bStereo) {
-						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
-						// direction.
-						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
-						for (unsigned int i = 0; i < frameCount; ++i)
-							o[i * nchan] += (pfBuffer[2 * i] * fStereoPanningFactor[2 * s + 0]
-											 + pfBuffer[2 * i + 1] * fStereoPanningFactor[2 * s + 1])
-											* channelVol;
-					} else {
-						for (unsigned int i = 0; i < frameCount; ++i)
-							o[i * nchan] += pfBuffer[i] * channelVol;
+				} else {
+					// Mix the current audio source into the output by adding it to the elements of the output buffer
+					// after having applied a volume adjustment
+					for (unsigned int s = 0; s < nchan; ++s) {
+						const float channelVol = svol[s] * volumeAdjustment;
+						float *RESTRICT o      = output + s;
+						if (buffer->bStereo) {
+							// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
+							// direction.
+							// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+							for (unsigned int i = 0; i < frameCount; ++i)
+								o[i * nchan] += (pfBuffer[2 * i] * fStereoPanningFactor[2 * s + 0]
+												 + pfBuffer[2 * i + 1] * fStereoPanningFactor[2 * s + 1])
+												* channelVol;
+						} else {
+							for (unsigned int i = 0; i < frameCount; ++i)
+								o[i * nchan] += pfBuffer[i] * channelVol;
+						}
 					}
 				}
 			}
+
+			if (recorder && recorder->isInMixDownMode()) {
+				recorder->addBuffer(nullptr, recbuff, static_cast< int >(frameCount));
+			}
 		}
 
-		if (recorder && recorder->isInMixDownMode()) {
-			recorder->addBuffer(nullptr, recbuff, static_cast< int >(frameCount));
+		bool pluginModifiedAudio = false;
+		emit audioOutputAboutToPlay(output, frameCount, nchan, SAMPLE_RATE, &pluginModifiedAudio);
+
+		haveAudio |= pluginModifiedAudio;
+
+		if (haveAudio) {
+			// Clip the output audio
+			if (eSampleFormat == SampleFloat)
+				for (unsigned int i = 0; i < frameCount * iChannels; i++)
+					output[i] = qBound(-1.0f, output[i], 1.0f);
+			else
+				// Also convert the intermediate float array into an array of shorts before writing it to the outbuff
+				for (unsigned int i = 0; i < frameCount * iChannels; i++)
+					reinterpret_cast< short * >(outbuff)[i] =
+						static_cast< short >(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
 		}
 	}
-
-	bool pluginModifiedAudio = false;
-	emit audioOutputAboutToPlay(output, frameCount, nchan, SAMPLE_RATE, &pluginModifiedAudio);
-
-	if (pluginModifiedAudio || (!qlMix.isEmpty())) {
-		// Clip the output audio
-		if (eSampleFormat == SampleFloat)
-			for (unsigned int i = 0; i < frameCount * iChannels; i++)
-				output[i] = qBound(-1.0f, output[i], 1.0f);
-		else
-			// Also convert the intermediate float array into an array of shorts before writing it to the outbuff
-			for (unsigned int i = 0; i < frameCount * iChannels; i++)
-				reinterpret_cast< short * >(outbuff)[i] =
-					static_cast< short >(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
-	}
-
-	qrwlOutputs.unlock();
 
 	// Delete all AudioOutputBuffer that no longer provide any new audio
+	// Note: invalidateBuffer does not dereference the passed pointers, which is
+	// why it is safe to pass these pointers around while no longer holding
+	// the qrwlOutputs lock.
 	for (AudioOutputBuffer *buffer : qlDel) {
-		removeBuffer(buffer);
+		invalidateBuffer(buffer);
 	}
 
 #ifdef USE_MANUAL_PLUGIN
@@ -795,7 +824,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 #endif
 
 	// Return whether data has been written to the outbuff
-	return (pluginModifiedAudio || (!qlMix.isEmpty()));
+	return haveAudio;
 }
 
 bool AudioOutput::isAlive() const {

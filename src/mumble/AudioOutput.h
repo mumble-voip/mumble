@@ -79,11 +79,11 @@ private:
 	bool *bSpeakerPositional = nullptr;
 	/// Used when panning stereo stream w.r.t. each speaker.
 	float *fStereoPanningFactor = nullptr;
-	void removeBuffer(AudioOutputBuffer *);
+	void invalidateBuffer(const void *);
 
 private slots:
-	void handleInvalidatedBuffer(AudioOutputBuffer *);
-	void handlePositionedBuffer(AudioOutputBuffer *, float x, float y, float z);
+	void removeBuffer(const void *, bool acquireWriteLock = true);
+	void handlePositionedBuffer(const void *, float x, float y, float z);
 
 protected:
 	enum { SampleShort, SampleFloat } eSampleFormat = SampleFloat;
@@ -127,7 +127,7 @@ public:
 	unsigned int getMixerFreq() const;
 	void setBufferSize(unsigned int bufferSize);
 	void setBufferPosition(const AudioOutputToken &, float x, float y, float z);
-	void removeToken(AudioOutputToken &);
+	void invalidateToken(const AudioOutputToken &);
 	void removeUser(const ClientUser *);
 
 signals:
@@ -151,8 +151,8 @@ signals:
 	void audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
 								unsigned int sampleRate, bool *modifiedAudio);
 
-	void bufferInvalidated(AudioOutputBuffer *);
-	void bufferPositionChanged(AudioOutputBuffer *, float x, float y, float z);
+	void bufferInvalidated(const void *);
+	void bufferPositionChanged(const void *, float x, float y, float z);
 };
 
 #endif
