@@ -53,6 +53,11 @@
 #include <unordered_map>
 #include <vector>
 
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
+#	define QVERIFY_THROWS_EXCEPTION(kind, expression) QVERIFY_EXCEPTION_THROWN(expression, kind)
+#endif
+
 namespace mdb  = ::mumble::db;
 namespace msdb = ::mumble::server::db;
 

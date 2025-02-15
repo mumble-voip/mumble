@@ -19,7 +19,7 @@ option(bundled-json "Build the included version of nlohmann_json instead of look
 option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
 
 find_pkg(Qt6
-	VERSION 6.3
+	VERSION 6.2
 	COMPONENTS
 		Core
 		Network

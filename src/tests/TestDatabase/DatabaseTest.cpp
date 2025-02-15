@@ -41,6 +41,10 @@
 
 using namespace mumble::db;
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
+#	define QVERIFY_THROWS_EXCEPTION(kind, expression) QVERIFY_EXCEPTION_THROWN(expression, kind)
+#endif
+
 namespace QTest {
 // Provide an overload of toString for JSON objects so that Qt's macros can properly display
 // these objects to report failing tests
