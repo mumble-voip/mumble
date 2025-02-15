@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 freebsd_instance:
-  image_family: freebsd-14-0
+  image_family: freebsd-14-2
 
 freebsd_task:
   pkg_script:
