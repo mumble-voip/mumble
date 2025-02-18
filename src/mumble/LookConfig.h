@@ -27,6 +27,7 @@ public:
 	virtual QIcon icon() const Q_DECL_OVERRIDE;
 
 public slots:
+	void on_qcbAutoTheme_stateChanged(int state);
 	void accept() const Q_DECL_OVERRIDE;
 	void save() const Q_DECL_OVERRIDE;
 	void load(const Settings &r) Q_DECL_OVERRIDE;

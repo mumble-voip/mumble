@@ -219,6 +219,7 @@ struct Settings {
 	quint64 uiDoublePush     = 0;
 	quint64 pttHold          = 0;
 
+	bool bAutoTheme = false; // Store the state of the auto theme checkbox
 	bool audioCueEnabledPTT = true;
 	bool audioCueEnabledVAD = false;
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
@@ -397,6 +398,8 @@ struct Settings {
 	QString themeName = QStringLiteral("Mumble");
 	/// Name of the style to use from theme. @see Themes
 	QString themeStyleName = QStringLiteral("Lite");
+
+	bool bAutoTheme; // Whether to automatically switch to the system theme
 
 	QByteArray qbaMainWindowGeometry     = {};
 	QByteArray qbaMainWindowState        = {};
