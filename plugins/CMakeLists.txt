@@ -58,6 +58,7 @@ if(WIN32 OR (UNIX AND CMAKE_SYSTEM_NAME STREQUAL "Linux"))
 		"ffxiv"
 		"ffxiv_x64"
 		"gmod"
+		"grounded"
 		"gtaiv"
 		"gtasa"
 		"gtav"
