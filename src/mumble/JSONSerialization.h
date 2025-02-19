@@ -12,12 +12,6 @@
 #include <sstream>
 #include <type_traits>
 
-#include <boost/version.hpp>
-#if BOOST_VERSION >= 106700
-// The is_detected type-trait was only included in Boost 1.67
-#	include <boost/type_traits/is_detected.hpp>
-#endif
-
 #include <nlohmann/json.hpp>
 
 #include <QByteArray>

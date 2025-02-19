@@ -528,8 +528,8 @@ void MumbleAPI::getUsersInChannel_v_1_0_x(mumble_plugin_id_t callerID, mumble_co
 
 	mumble_userid_t *userIDs = reinterpret_cast< mumble_userid_t * >(malloc(sizeof(mumble_userid_t) * amount));
 
-	int index = 0;
-	foreach (const User *currentUser, channel->qlUsers) {
+    int index = 0;
+    for (const User *currentUser : channel->qlUsers) {
 		userIDs[index] = currentUser->uiSession;
 
 		index++;

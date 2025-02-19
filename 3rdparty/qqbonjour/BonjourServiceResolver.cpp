@@ -45,7 +45,7 @@ BonjourServiceResolver::BonjourServiceResolver(QObject *p) : QObject(p) {
 }
 
 BonjourServiceResolver::~BonjourServiceResolver() {
-	foreach(ResolveRecord *rr, qmResolvers)
+    for (ResolveRecord *rr : qmResolvers)
 		delete rr;
 }
 

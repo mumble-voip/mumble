@@ -71,15 +71,6 @@
 #	include <shellapi.h>
 #endif
 
-
-#ifdef BOOST_NO_EXCEPTIONS
-namespace boost {
-void throw_exception(std::exception const &) {
-	qFatal("Boost exception caught!");
-}
-} // namespace boost
-#endif
-
 using namespace mumble;
 
 extern void os_init();
@@ -633,7 +624,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (!pluginsToBeInstalled.isEmpty()) {
-		foreach (QString currentPlugin, pluginsToBeInstalled) {
+        for (const QString& currentPlugin : pluginsToBeInstalled) {
 			try {
 				PluginInstaller installer(currentPlugin);
 				installer.exec();

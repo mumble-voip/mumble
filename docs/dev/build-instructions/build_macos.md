@@ -14,7 +14,6 @@ brew update && brew install \
   cmake \
   pkg-config \
   qt5 \
-  boost \
   libogg \
   libvorbis \
   flac \

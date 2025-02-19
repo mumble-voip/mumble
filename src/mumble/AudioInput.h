@@ -10,9 +10,6 @@
 #include <QObject>
 #include <QThread>
 
-#include <boost/array.hpp>
-#include <boost/shared_ptr.hpp>
-
 #include <cstdint>
 #include <fstream>
 #include <list>
@@ -34,7 +31,7 @@
 class AudioInput;
 struct OpusEncoder;
 struct ReNameNoiseDenoiseState;
-typedef boost::shared_ptr< AudioInput > AudioInputPtr;
+typedef std::shared_ptr< AudioInput > AudioInputPtr;
 
 /**
  * A chunk of audio data to process
@@ -195,7 +192,7 @@ private:
 	bool selectCodec();
 	void selectNoiseCancel();
 
-	typedef boost::array< unsigned char, 960 > EncodingOutputBuffer;
+    typedef std::array< unsigned char, 960 > EncodingOutputBuffer;
 
 	int encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer);
 

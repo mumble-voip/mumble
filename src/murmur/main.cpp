@@ -119,7 +119,7 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 #endif
 	} else {
 		if (!qlErrors.isEmpty()) {
-			foreach (const QString &e, qlErrors) {
+            for (const QString &e : qlErrors) {
 				qfLog->write(e.toUtf8());
 				qfLog->write("\n");
 			}
@@ -556,7 +556,7 @@ int main(int argc, char **argv) {
 
 	if (wipeSsl) {
 		qWarning("Removing all per-server SSL certificates from the database.");
-		foreach (int sid, ServerDB::getAllServers()) {
+        for (int sid : ServerDB::getAllServers()) {
 			ServerDB::setConf(sid, "key");
 			ServerDB::setConf(sid, "certificate");
 			ServerDB::setConf(sid, "passphrase");

@@ -488,7 +488,7 @@ ServerDB::ServerDB() {
 				while (query.next())
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
-				foreach (const qsp &key, qlForeignKeys) {
+                for (const qsp &key : qlForeignKeys) {
 					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT FOREIGN KEY `%2`")
@@ -504,7 +504,7 @@ ServerDB::ServerDB() {
 				while (query.next())
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
-				foreach (const qsp &key, qlIndexes) {
+                for (const qsp &key : qlIndexes) {
 					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT PRIMARY KEY `%2`")
@@ -632,7 +632,7 @@ ServerDB::ServerDB() {
 				while (query.next())
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
-				foreach (const qsp &key, qlForeignKeys) {
+                for (const qsp &key : qlForeignKeys) {
 					if (key.first.startsWith(Meta::mp->qsDBPrefix))
 						ServerDB::exec(query,
 									   QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`")
@@ -806,7 +806,7 @@ ServerDB::ServerDB() {
 					ql << l;
 				}
 				SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) VALUES (?, ?, ?)");
-				foreach (const QList< QVariant > &l, ql) {
+                for (const QList< QVariant > &l : ql) {
 					quint32 addr    = htonl(l.at(1).toUInt());
 					const char *ptr = reinterpret_cast< const char * >(&addr);
 
@@ -1432,7 +1432,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		if (query.next()) {
 			res = query.value(0).toInt();
 		} else if (bStrongCert) {
-			foreach (const QString &email, emails) {
+            for (const QString &email : emails) {
 				if (!email.isEmpty()) {
 					query.addBindValue(iServerNum);
 					query.addBindValue(ServerDB::User_Email);
@@ -1620,7 +1620,7 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 	else
 		tex = texture;
 
-	foreach (ServerUser *u, qhUsers) {
+    for (ServerUser *u : qhUsers) {
 		if (u->iId == id)
 			hashAssign(u->qbaTexture, u->qbaTextureHash, tex);
 	}
@@ -1885,9 +1885,7 @@ void Server::removeChannelDB(const Channel *c) {
 void Server::updateChannel(const Channel *c) {
 	if (c->bTemporary)
 		return;
-	TransactionHolder th;
-	Group *g;
-	ChanACL *acl;
+    TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE `%1channels` SET `name` = ?, `parent_id` = ?, `inheritacl` = ? WHERE `server_id` = ? AND "
@@ -1969,9 +1967,8 @@ void Server::updateChannel(const Channel *c) {
 	query.addBindValue(c->iId);
 	SQLEXEC();
 
-	foreach (g, c->qhGroups) {
-		int id = 0;
-		int pid;
+    for (Group* g : c->qhGroups) {
+        int id = 0;
 
 		if (Meta::mp->qsDBDriver == "QPSQL") {
 			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES "
@@ -2002,7 +1999,7 @@ void Server::updateChannel(const Channel *c) {
 			id = query.lastInsertId().toInt();
 		}
 
-		foreach (pid, g->qsAdd) {
+        for (int pid : g->qsAdd) {
 			SQLPREP("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) VALUES (?, ?, ?, ?)");
 			query.addBindValue(id);
 			query.addBindValue(iServerNum);
@@ -2010,7 +2007,7 @@ void Server::updateChannel(const Channel *c) {
 			query.addBindValue(1);
 			SQLEXEC();
 		}
-		foreach (pid, g->qsRemove) {
+        for (int pid : g->qsRemove) {
 			SQLPREP("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) VALUES (?, ?, ?, ?)");
 			query.addBindValue(id);
 			query.addBindValue(iServerNum);
@@ -2022,7 +2019,7 @@ void Server::updateChannel(const Channel *c) {
 
 	int pri = 5;
 
-	foreach (acl, c->qlACL) {
+    for (const ChanACL* acl : c->qlACL) {
 		SQLPREP("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, "
 				"`apply_sub`, `grantpriv`, `revokepriv`) VALUES (?,?,?,?,?,?,?,?,?)");
 		query.addBindValue(iServerNum);
@@ -2108,8 +2105,7 @@ void Server::readChannelPrivs(Channel *c) {
 }
 
 void Server::readChannels(Channel *p) {
-	QList< Channel * > kids;
-	Channel *c;
+    QList< Channel * > kids;
 	QSqlQuery query;
 	int parentid = -1;
 
@@ -2133,7 +2129,7 @@ void Server::readChannels(Channel *p) {
 		SQLEXEC();
 
 		while (query.next()) {
-			c = new Channel(query.value(0).toUInt(), query.value(1).toString(), p);
+            Channel* c = new Channel(query.value(0).toUInt(), query.value(1).toString(), p);
 			if (!p)
 				c->setParent(this);
 			qhChannels.insert(c->iId, c);
@@ -2144,7 +2140,7 @@ void Server::readChannels(Channel *p) {
 
 	query.clear();
 
-	foreach (c, kids)
+    for (Channel* c : kids)
 		readChannels(c);
 }
 
@@ -2278,9 +2274,6 @@ void Server::setLastDisconnect(const User *p) {
 }
 
 void Server::dumpChannel(const Channel *c) {
-	Group *g;
-	ChanACL *acl;
-	int pid;
 
 	if (!c) {
 		c = qhChannels.value(0);
@@ -2288,14 +2281,14 @@ void Server::dumpChannel(const Channel *c) {
 
 	qWarning("Channel %s (ACLInherit %d)", qPrintable(c->qsName), c->bInheritACL);
 	qWarning("Description: %s", qPrintable(c->qsDesc));
-	foreach (g, c->qhGroups) {
+    for (Group* g : c->qhGroups) {
 		qWarning("Group %s (Inh %d  Able %d)", qPrintable(g->qsName), g->bInherit, g->bInheritable);
-		foreach (pid, g->qsAdd)
+        for (int pid : g->qsAdd)
 			qWarning("Add %d", pid);
-		foreach (pid, g->qsRemove)
+        for (int pid : g->qsRemove)
 			qWarning("Remove %d", pid);
 	}
-	foreach (acl, c->qlACL) {
+    for (ChanACL* acl : c->qlACL) {
 		int allow = static_cast< int >(acl->pAllow);
 		int deny  = static_cast< int >(acl->pDeny);
 		qWarning("ChanACL Here %d Sub %d Allow %04x Deny %04x ID %d Group %s", acl->bApplyHere, acl->bApplySubs, allow,
@@ -2303,7 +2296,7 @@ void Server::dumpChannel(const Channel *c) {
 	}
 	qWarning(" ");
 
-	foreach (c, c->qlChannels) { dumpChannel(c); }
+    for (Channel* c : c->qlChannels) { dumpChannel(c); }
 }
 
 void Server::getBans() {
@@ -2346,7 +2339,7 @@ void Server::saveBans() {
 
 	SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`,`mask`,`name`,`hash`,`reason`,`start`,`duration`) VALUES "
 			"(?,?,?,?,?,?,?,?)");
-	foreach (const Ban &ban, qlBans) {
+    for (const Ban &ban : qlBans) {
 		query.addBindValue(iServerNum);
 		query.addBindValue(ban.haAddress.toByteArray());
 		query.addBindValue(ban.iMask);
@@ -2649,7 +2642,7 @@ QList< int > ServerDB::getBootServers() {
 	QSqlQuery &query = *th.qsqQuery;
 
 	QList< int > bootlist;
-	foreach (int i, ql) {
+    for (int i : ql) {
 		SQLPREP("SELECT `value` FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
 		query.addBindValue(i);
 		query.addBindValue(QLatin1String("boot"));

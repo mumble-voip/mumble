@@ -17,7 +17,7 @@ indent.sh
 *.vcxproj
 *.vcxproj.*
 *~
-*.pro.user
+*.user
 ui_*.h
 *.qm
 *.pb.*
