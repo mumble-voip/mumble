@@ -300,7 +300,7 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 
 	if (ClientUser::c_qmUsers.empty())
 		return id;
-	foreach (ClientUser *usr, ClientUser::c_qmUsers) { qlsUsernames.append(usr->qsName); }
+    for (ClientUser *usr : ClientUser::c_qmUsers) { qlsUsernames.append(usr->qsName); }
 	std::sort(qlsUsernames.begin(), qlsUsernames.end());
 
 	QString target = QString();
@@ -328,7 +328,7 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 				bBaseIsName = true;
 			}
 
-			foreach (QString name, qlsUsernames) {
+            for (const QString& name : qlsUsernames) {
 				if (name.startsWith(base, Qt::CaseInsensitive)) {
 					target = name;
 					break;
@@ -349,7 +349,7 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	if (!target.isEmpty()) {
 		setTextCursor(tc);
 
-		foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+        for (ClientUser *usr : ClientUser::c_qmUsers) {
 			if (usr->qsName == target) {
 				id = usr->uiSession;
 				break;

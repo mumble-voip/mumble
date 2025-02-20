@@ -64,7 +64,7 @@ def generateFunction(className, functionName, wrapArgs, callArgs):
     function += "\t}\n"
     function += "#endif // ACCESS_" + className + "_" + functionName + "_ALL\n"
     function += "\n"
-    function += "\tExecEvent *ie = new ExecEvent(boost::bind(&impl_" + className + "_" + functionName + ", " + ", ".join(callArgs) + "));\n"
+    function += "\tExecEvent *ie = new ExecEvent(std::bind(&impl_" + className + "_" + functionName + ", " + ", ".join(callArgs) + "));\n"
     function += "\tQCoreApplication::instance()->postEvent(mi, ie);\n"
     function += "}\n"
 
@@ -110,10 +110,6 @@ def main():
     iceSpec = iceSpec.replace("\n", "\\n")  # newlines
 
     wrapperContent = create_disclaimerComment()
-
-    # Include boost-bind as we'll need it later
-    wrapperContent += "\n#include <boost/bind/bind.hpp>\n\n"
-
 
     className = ""
     for currentLine in generatedIceHeader.split("\n"):

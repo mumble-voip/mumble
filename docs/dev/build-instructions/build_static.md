@@ -52,9 +52,6 @@ package you want to install and `<triplet>` is the desired target triplet. We re
 | Linux | x64-linux |
 | macOS | x64-osx |
 
-Therefore if you are on Windows, you'd install `boost` as `vcpkg install boost --triplet x64-windows-static-md`.
-
-
 ### Additional dependencies on Linux
 
 Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux (package names match Ubuntu packages):

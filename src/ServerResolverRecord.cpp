@@ -5,26 +5,33 @@
 
 #include "ServerResolverRecord.h"
 
-ServerResolverRecord::ServerResolverRecord() {
+ServerResolverRecord::ServerResolverRecord()
+{
 }
 
-ServerResolverRecord::ServerResolverRecord(QString hostname_, quint16 port_, qint64 priority_,
+ServerResolverRecord::ServerResolverRecord(QString hostname_,
+                                           quint16 port_,
+                                           qint64 priority_,
 										   QList< HostAddress > addresses_)
-	: m_hostname(hostname_), m_port(port_), m_priority(priority_), m_addresses(addresses_) {
+    : m_hostname(hostname_),
+      m_port(port_),
+      m_priority(priority_),
+      m_addresses(addresses_)
+{
 }
 
-qint64 ServerResolverRecord::priority() {
+qint64 ServerResolverRecord::priority() const {
 	return m_priority;
 }
 
-QString ServerResolverRecord::hostname() {
+const QString& ServerResolverRecord::hostname() const {
 	return m_hostname;
 }
 
-quint16 ServerResolverRecord::port() {
+quint16 ServerResolverRecord::port() const {
 	return m_port;
 }
 
-QList< HostAddress > ServerResolverRecord::addresses() {
+const QList< HostAddress >& ServerResolverRecord::addresses() const {
 	return m_addresses;
 }

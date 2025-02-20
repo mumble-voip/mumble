@@ -495,7 +495,7 @@ void MainWindow::setupGui() {
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
 
-	foreach (QWidget *w, qdwLog->findChildren< QWidget * >()) {
+    for (QWidget *w : qdwLog->findChildren< QWidget * >()) {
 		w->installEventFilter(dtbLogDockTitle);
 		w->setMouseTracking(true);
 	}
@@ -1282,7 +1282,7 @@ void MainWindow::findDesiredChannel() {
 			str = elem;
 		else
 			str = str + QLatin1String("/") + elem;
-		foreach (Channel *c, chan->qlChannels) {
+        for (Channel *c : chan->qlChannels) {
 			if (c->qsName.toLower() == str) {
 				str   = QString();
 				found = true;
@@ -1400,7 +1400,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	if (Global::get().s.bShowContextMenuInMenuBar) {
 		bool found = false;
-		foreach (QAction *a, menuBar()->actions()) {
+        for (QAction *a : menuBar()->actions()) {
 			if (a == qmUser->menuAction()) {
 				found = true;
 				break;
@@ -1418,7 +1418,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	if (Global::get().s.bEnableDeveloperMenu) {
 		bool found = false;
-		foreach (QAction *a, menuBar()->actions()) {
+        for (QAction *a : menuBar()->actions()) {
 			if (a == qmDeveloper->menuAction()) {
 				found = true;
 				break;
@@ -1558,7 +1558,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 
 	if (!qlServerActions.isEmpty()) {
 		qmServer->addSeparator();
-		foreach (QAction *a, qlServerActions)
+        for (QAction *a : qlServerActions)
 			qmServer->addAction(a);
 	}
 }
@@ -1680,7 +1680,7 @@ void MainWindow::qmUser_aboutToShow() {
 
 	if (!qlUserActions.isEmpty()) {
 		qmUser->addSeparator();
-		foreach (QAction *a, qlUserActions)
+        for (QAction *a : qlUserActions)
 			qmUser->addAction(a);
 	}
 
@@ -2151,7 +2151,7 @@ void MainWindow::autocompleteUsername() {
 
 void MainWindow::on_qmConfig_aboutToShow() {
 	// Don't remove the config, as that messes up OSX.
-	foreach (QAction *a, qmConfig->actions())
+    for (QAction *a : qmConfig->actions())
 		if (a != qaConfigDialog)
 			qmConfig->removeAction(a);
 	qmConfig->addAction(qaAudioWizard);
@@ -2218,7 +2218,7 @@ void MainWindow::qmChannel_aboutToShow() {
 
 	if (!qlChannelActions.isEmpty()) {
 		qmChannel->addSeparator();
-		foreach (QAction *a, qlChannelActions)
+        for (QAction *a : qlChannelActions)
 			qmChannel->addAction(a);
 	}
 
@@ -2419,7 +2419,7 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(c->iId);
-	foreach (Channel *l, c->qsPermLinks)
+    for (Channel *l : c->qsPermLinks)
 		mpcs.add_links_remove(l->iId);
 	Global::get().sh->sendMessage(mpcs);
 }
@@ -2845,7 +2845,7 @@ void MainWindow::updateTarget() {
 	} else {
 		bool center = false;
 		QList< ShortcutTarget > ql;
-		foreach (const ShortcutTarget &st, qmCurrentTargets.keys()) {
+        for (const ShortcutTarget &st : qmCurrentTargets.keys()) {
 			ShortcutTarget nt;
 			center               = center || st.bForceCenter;
 			nt.bUsers            = st.bUsers;
@@ -2871,7 +2871,7 @@ void MainWindow::updateTarget() {
 					}
 				}
 			} else if (st.bUsers) {
-				foreach (const QString &hash, st.qlUsers) {
+                for (const QString &hash : st.qlUsers) {
 					ClientUser *p = pmModel->getUser(hash);
 					if (p)
 						nt.qlSessions.append(p->uiSession);
@@ -2918,12 +2918,12 @@ void MainWindow::updateTarget() {
 				MumbleProto::VoiceTarget mpvt;
 				mpvt.set_id(static_cast< unsigned int >(idx));
 
-				foreach (const ShortcutTarget &st, ql) {
+                for (const ShortcutTarget &st : ql) {
 					MumbleProto::VoiceTarget_Target *t = mpvt.add_targets();
 					// st.bCurrentSelection has been taken care of at this point already (if it was set) so
 					// we don't have to check for that here.
 					if (st.bUsers) {
-						foreach (unsigned int uisession, st.qlSessions)
+                        for (unsigned int uisession : st.qlSessions)
 							t->add_session(uisession);
 					} else {
 						t->set_channel_id(static_cast< unsigned int >(st.iChannel));
@@ -3456,7 +3456,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qs += QSet< QAction * >(qlChannelActions.begin(), qlChannelActions.end());
 	qs += QSet< QAction * >(qlUserActions.begin(), qlUserActions.end());
 
-	foreach (QAction *a, qs)
+    for (QAction *a : qs)
 		delete a;
 
 	qlServerActions.clear();
@@ -3477,7 +3477,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	enableRecording(false);
 
 	if (!Global::get().sh->qlErrors.isEmpty()) {
-		foreach (QSslError e, Global::get().sh->qlErrors)
+        for (const QSslError& e : Global::get().sh->qlErrors)
 			Global::get().l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString().toHtmlEscaped()));
 		if (!Global::get().sh->qscCert.isEmpty()) {
 			QSslCertificate c = Global::get().sh->qscCert.at(0);
@@ -3495,7 +3495,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				basereason = tr("Server presented a certificate which failed verification.");
 			}
 			QStringList qsl;
-			foreach (QSslError e, Global::get().sh->qlErrors)
+            for (const QSslError& e : Global::get().sh->qlErrors)
 				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString().toHtmlEscaped());
 
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
@@ -3720,7 +3720,10 @@ void MainWindow::customEvent(QEvent *evt) {
 			break;                                                                                       \
 		}
 #endif
-	switch (shme->type) { MUMBLE_ALL_TCP_MESSAGES }
+    switch (shme->type)
+    {
+        MUMBLE_ALL_TCP_MESSAGES
+    }
 
 
 #undef PROCESS_MUMBLE_TCP_MESSAGE

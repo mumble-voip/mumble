@@ -18,15 +18,6 @@ template< typename T > using has_enum_conversion_function = decltype(enumToStrin
 
 template< typename T > struct SaveValueConverter< T, true > {
 	static const char *getValue(const T &enumeration) {
-#if BOOST_VERSION >= 106700
-		// Use the "detection idiom" to provide a proper error message in case there is no conversion function for the
-		// given enum.
-		// boost::is_detected is only available since Boost 1.67 and since we only use it to create a better error
-		// message, we can simply not make use of it, if earlier versions are used.
-		static_assert(boost::is_detected< has_enum_conversion_function, T >::value,
-					  "No viable enum-to-name function found");
-#endif
-
 		return enumToString(enumeration);
 	}
 

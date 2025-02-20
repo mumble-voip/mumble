@@ -34,8 +34,6 @@
 #include <QStandardPaths>
 #include <QSystemTrayIcon>
 
-#include <boost/typeof/typeof.hpp>
-
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -94,7 +92,7 @@ std::size_t qHash(const ShortcutTarget &t) {
 	}
 
 	if (t.bUsers) {
-		foreach (unsigned int u, t.qlSessions)
+        for (unsigned int u : t.qlSessions)
 			h ^= u;
 	} else {
 		h ^= static_cast< unsigned int >(t.iChannel);
@@ -110,7 +108,7 @@ std::size_t qHash(const ShortcutTarget &t) {
 
 std::size_t qHash(const QList< ShortcutTarget > &l) {
 	auto h = static_cast< std::size_t >(l.count());
-	foreach (const ShortcutTarget &st, l)
+    for (const ShortcutTarget& st : l)
 		h ^= qHash(st);
 	return h;
 }
@@ -630,10 +628,7 @@ void OverlaySettings::load(const QString &filename) {
 		qWarning() << "Failed to load overlay settings due to invalid format: " << e.what();
 	}
 }
-
-#include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
-
-
+/*
 BOOST_TYPEOF_REGISTER_TYPE(Qt::Alignment)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::AudioTransmit)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource)
@@ -654,13 +649,15 @@ BOOST_TYPEOF_REGISTER_TYPE(QVariant)
 BOOST_TYPEOF_REGISTER_TYPE(QFont)
 BOOST_TYPEOF_REGISTER_TYPE(EchoCancelOptionID)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
+*/
 
+#define TYPEOF(var) std::remove_reference<decltype(var)>::type
 
-#define LOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
+#define LOAD(var, name) var = qvariant_cast< TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
 #define LOADENUM(var, name) \
-	var = static_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var).toInt())
+    var = static_cast< TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var).toInt())
 #define LOADFLAG(var, name) \
-	var = static_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), static_cast< int >(var)).toInt())
+    var = static_cast< TYPEOF(var) >(settings_ptr->value(QLatin1String(name), static_cast< int >(var)).toInt())
 #define DEPRECATED(name) \
 	do {                 \
 	} while (0)
@@ -1088,14 +1085,14 @@ void Settings::legacyLoad(const QString &path) {
 	settings_ptr->endArray();
 
 	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
-	foreach (const QString &d, settings_ptr->childKeys()) {
+    for (const QString &d : settings_ptr->childKeys()) {
 		qmLCDDevices.insert(d, settings_ptr->value(d, true).toBool());
 	}
 	settings_ptr->endGroup();
 
 	// Plugins
 	settings_ptr->beginGroup(QLatin1String("plugins"));
-	foreach (const QString &pluginKey, settings_ptr->childGroups()) {
+    for (const QString &pluginKey : settings_ptr->childGroups()) {
 		QString pluginHash;
 
 		if (pluginKey.contains(QLatin1String("_"))) {

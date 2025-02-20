@@ -36,7 +36,7 @@ public slots:
 
 private:
 	/// Reload themes combobox and select given configuredStyle in it
-	void reloadThemes(const boost::optional< ThemeInfo::StyleInfo > configuredStyle);
+    void reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle);
 
 	/// Timer to prevent change event floods from triggering theme reloads
 	QTimer *m_themeDirectoryDebouncer;

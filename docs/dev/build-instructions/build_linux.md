@@ -20,7 +20,6 @@ sudo apt install \
   libqt6svg6-dev \
   qt6-l10n-tools \
   libgl-dev \
-  libboost-dev \
   libssl-dev \
   libprotobuf-dev \
   protobuf-compiler \
@@ -58,7 +57,6 @@ sudo apt install \
   g++-multilib \
   libasound2-dev \
   libavahi-compat-libdnssd-dev \
-  libboost-dev \
   libcap-dev \
   libgl-dev \
   libmsgsl-dev \
@@ -115,7 +113,6 @@ avahi-compat-libdns_sd-devel \
 alsa-lib-devel \
 libICE-devel \
 libogg-devel \
-boost-devel \
 libcap-devel \
 poco-devel \
 gcc-toolset-9-gcc-c++ 

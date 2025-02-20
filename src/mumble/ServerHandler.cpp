@@ -151,7 +151,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 		QSslConfiguration::setDefaultConfiguration(config);
 
 		QStringList pref;
-		foreach (QSslCipher c, ciphers) { pref << c.name(); }
+        for (const QSslCipher& c : ciphers) { pref << c.name(); }
 		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
@@ -258,7 +258,7 @@ void ServerHandler::udpReady() {
 				case Mumble::Protocol::UDPMessageType::Ping: {
 					const Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 
-					accUDP(static_cast< double >(tTimestamp.elapsed() - pingData.timestamp) / 1000.0);
+                    accUDP.add(static_cast< double >(tTimestamp.elapsed() - pingData.timestamp) / 1000.0);
 
 					break;
 				}
@@ -368,8 +368,8 @@ void ServerHandler::hostnameResolved() {
 	// that the ServerHandler should try to connect to.
 	QList< ServerAddress > ql;
 	QHash< ServerAddress, QString > qh;
-	foreach (ServerResolverRecord record, records) {
-		foreach (HostAddress addr, record.addresses()) {
+    for (ServerResolverRecord& record : records) {
+        for (const HostAddress& addr : record.addresses()) {
 			auto sa = ServerAddress(addr, record.port());
 			ql.append(sa);
 			qh[sa] = record.hostname();
@@ -518,7 +518,7 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 #ifdef Q_OS_WIN
 	bool bRevalidate = false;
 	QList< QSslError > errorsToRemove;
-	foreach (const QSslError &e, errors) {
+    for (const QSslError &e : errors) {
 		switch (e.error()) {
 			case QSslError::UnableToGetLocalIssuerCertificate:
 			case QSslError::SelfSignedCertificateInChain:
@@ -534,7 +534,7 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 		QByteArray der    = qscCert.first().toDer();
 		DWORD errorStatus = WinVerifySslCert(der);
 		if (errorStatus == CERT_TRUST_NO_ERROR) {
-			foreach (const QSslError &e, errorsToRemove) { newErrors.removeOne(e); }
+            for (const QSslError &e : errorsToRemove) { newErrors.removeOne(e); }
 		}
 		if (newErrors.isEmpty()) {
 			connection->proceedAnyway();
@@ -597,17 +597,21 @@ void ServerHandler::sendPingInternal() {
 	mpp.set_resync(connection->csCrypt->m_statsLocal.resync);
 
 
-	if (boost::accumulators::count(accUDP)) {
-		mpp.set_udp_ping_avg(static_cast< float >(boost::accumulators::mean(accUDP)));
-		mpp.set_udp_ping_var(static_cast< float >(boost::accumulators::variance(accUDP)));
+    if (accUDP.count())
+    {
+        mpp.set_udp_ping_avg(static_cast< float >(accUDP.mean()));
+        mpp.set_udp_ping_var(static_cast< float >(accUDP.variance()));
 	}
-	mpp.set_udp_packets(static_cast< unsigned int >(boost::accumulators::count(accUDP)));
 
-	if (boost::accumulators::count(accTCP)) {
-		mpp.set_tcp_ping_avg(static_cast< float >(boost::accumulators::mean(accTCP)));
-		mpp.set_tcp_ping_var(static_cast< float >(boost::accumulators::variance(accTCP)));
+    mpp.set_udp_packets(static_cast< unsigned int >(accUDP.count()));
+
+    if (accTCP.count())
+    {
+        mpp.set_tcp_ping_avg(static_cast< float >(accTCP.mean()));
+        mpp.set_tcp_ping_var(static_cast< float >(accTCP.variance()));
 	}
-	mpp.set_tcp_packets(static_cast< unsigned int >(boost::accumulators::count(accTCP)));
+
+    mpp.set_tcp_packets(static_cast< unsigned int >(accTCP.count()));
 
 	sendMessage(mpp);
 
@@ -643,7 +647,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			connection->csCrypt->m_statsRemote.late   = msg.late();
 			connection->csCrypt->m_statsRemote.lost   = msg.lost();
 			connection->csCrypt->m_statsRemote.resync = msg.resync();
-			accTCP(static_cast< double >(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+            accTCP.add(static_cast< double >(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 
 			if (((connection->csCrypt->m_statsRemote.good == 0) || (connection->csCrypt->m_statsLocal.good == 0))
 				&& bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
@@ -789,7 +793,7 @@ void ServerHandler::serverConnectionConnected() {
 	mpa.set_password(u8(qsPassword));
 
 	QStringList tokens = database->getTokens(qbaDigest);
-	foreach (const QString &qs, tokens)
+    for (const QString &qs : tokens)
 		mpa.add_tokens(u8(qs));
 
 	mpa.set_opus(true);
@@ -899,7 +903,7 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel,
 	mpus.set_session(uiSession);
 	mpus.set_channel_id(channel);
 
-	foreach (const QString &tmpToken, temporaryAccessTokens) {
+    for (const QString &tmpToken : temporaryAccessTokens) {
 		mpus.add_temporary_access_tokens(tmpToken.toUtf8().constData());
 	}
 
@@ -1080,7 +1084,7 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 
 void ServerHandler::setTokens(const QStringList &tokens) {
 	MumbleProto::Authenticate msg;
-	foreach (const QString &qs, tokens)
+    for (const QString &qs : tokens)
 		msg.add_tokens(u8(qs));
 	sendMessage(msg);
 }

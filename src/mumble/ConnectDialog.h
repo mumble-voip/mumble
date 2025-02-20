@@ -6,11 +6,6 @@
 #ifndef MUMBLE_MUMBLE_CONNECTDIALOG_H_
 #define MUMBLE_MUMBLE_CONNECTDIALOG_H_
 
-#ifndef Q_MOC_RUN
-#	include <boost/accumulators/accumulators.hpp>
-#	include <boost/accumulators/statistics/stats.hpp>
-#endif
-
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtCore/QtGlobal>
@@ -25,6 +20,7 @@
 #	include <dns_sd.h>
 #endif
 
+#include "Accumulator.h"
 #include "HostAddress.h"
 #include "MumbleProtocol.h"
 #include "Net.h"
@@ -65,11 +61,7 @@ public:
 
 	double dPing;
 
-	typedef boost::accumulators::accumulator_set<
-		double,
-		boost::accumulators::stats< boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square > >
-		asQuantileType;
-	asQuantileType *asQuantile;
+    Accumulator* asQuantile;
 
 	void reset();
 

@@ -180,7 +180,7 @@ target_link_libraries(shared
 		OpenSSL::SSL
 		Qt6::Core
 		Qt6::Network
-		Qt6::Xml
+                Qt6::Xml
 )
 
 if(WIN32)

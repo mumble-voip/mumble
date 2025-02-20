@@ -24,10 +24,6 @@
 #include "Version.h"
 #include "VolumeAdjustment.h"
 
-#ifndef Q_MOC_RUN
-#	include <boost/function.hpp>
-#endif
-
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
@@ -42,6 +38,9 @@
 #include <QtNetwork/QSslKey>
 #include <QtNetwork/QSslSocket>
 #include <QtNetwork/QTcpServer>
+
+#include <functional>
+
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 #	include <QtNetwork/QSslDiffieHellmanParameters>
 #endif
@@ -83,10 +82,10 @@ class ExecEvent : public QEvent {
 	Q_DISABLE_COPY(ExecEvent)
 
 protected:
-	boost::function< void() > func;
+    std::function< void() > func;
 
 public:
-	ExecEvent(boost::function< void() >);
+    ExecEvent(std::function< void() >);
 	void execute();
 };
 

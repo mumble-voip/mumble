@@ -44,14 +44,14 @@ Channel::~Channel() {
 	if (cParent)
 		cParent->removeChannel(this);
 
-	foreach (Channel *c, qlChannels)
+    for (Channel *c : qlChannels)
 		delete c;
 
-	foreach (ChanACL *acl, qlACL)
+    for (ChanACL *acl : qlACL)
 		delete acl;
-	foreach (Group *g, qhGroups)
+    for (Group *g : qhGroups)
 		delete g;
-	foreach (Channel *l, qhLinks.keys())
+    for (Channel *l : qhLinks.keys())
 		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
@@ -197,7 +197,7 @@ void Channel::unlink(Channel *l) {
 		l->qsPermLinks.remove(this);
 		l->qhLinks.remove(this);
 	} else {
-		foreach (Channel *c, qhLinks.keys())
+        for (Channel *c : qhLinks.keys())
 			unlink(c);
 	}
 }
@@ -213,7 +213,7 @@ QSet< Channel * > Channel::allLinks() {
 
 	while (!stack.isEmpty()) {
 		Channel *lnk = stack.pop();
-		foreach (Channel *l, lnk->qhLinks.keys()) {
+        for (Channel *l : lnk->qhLinks.keys()) {
 			if (!seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);
@@ -231,7 +231,7 @@ QSet< Channel * > Channel::allChildren() {
 
 		while (!stack.isEmpty()) {
 			Channel *c = stack.pop();
-			foreach (Channel *chld, c->qlChannels) {
+            for (Channel *chld : c->qlChannels) {
 				seen.insert(chld);
 				if (!chld->qlChannels.isEmpty())
 					stack.append(chld);
@@ -294,7 +294,7 @@ size_t Channel::getDepth() const {
 	}
 
 	size_t result = 0;
-	foreach (Channel *child, qlChannels) { result = qMax(result, child->getDepth() + 1); }
+    for (Channel *child : qlChannels) { result = qMax(result, child->getDepth() + 1); }
 
 	return result;
 }

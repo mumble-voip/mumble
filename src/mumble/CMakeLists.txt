@@ -87,6 +87,7 @@ set(MUMBLE_SOURCES
 	"About.h"
 	"Accessibility.cpp"
 	"Accessibility.h"
+        "Accumulator.h"
 	"ACLEditor.cpp"
 	"ACLEditor.h"
 	"ACLEditor.ui"

@@ -12,14 +12,6 @@
 #	include "win.h"
 #endif
 
-#ifndef Q_MOC_RUN
-#	include <boost/accumulators/accumulators.hpp>
-#	include <boost/accumulators/statistics/mean.hpp>
-#	include <boost/accumulators/statistics/stats.hpp>
-#	include <boost/accumulators/statistics/variance.hpp>
-#	include <boost/shared_ptr.hpp>
-#endif
-
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
@@ -32,6 +24,7 @@
 
 #define SERVERSEND_EVENT 3501
 
+#include "Accumulator.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
 #include "ServerAddress.h"
@@ -52,7 +45,7 @@ public:
 	ServerHandlerMessageEvent(const QByteArray &msg, Mumble::Protocol::TCPMessageType type, bool flush = false);
 };
 
-typedef boost::shared_ptr< Connection > ConnectionPtr;
+typedef std::shared_ptr< Connection > ConnectionPtr;
 
 class ServerHandler : public QThread {
 private:
@@ -102,7 +95,7 @@ public:
 	QSslCipher qscCipher;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;
-	boost::shared_ptr< VoiceRecorder > recorder;
+    std::shared_ptr< VoiceRecorder > recorder;
 	QSslSocket *qtsSock;
 	QList< ServerAddress > qlAddresses;
 	QHash< ServerAddress, QString > qhHostnames;
@@ -119,10 +112,7 @@ public:
 	 */
 	bool connectionUsesPerfectForwardSecrecy = false;
 
-	boost::accumulators::accumulator_set<
-		double, boost::accumulators::stats< boost::accumulators::tag::mean, boost::accumulators::tag::variance,
-											boost::accumulators::tag::count > >
-		accTCP, accUDP, accClean;
+    Accumulator accTCP, accUDP, accClean;
 
 	ServerHandler();
 	~ServerHandler();
@@ -208,6 +198,6 @@ public slots:
 	void sendPing();
 };
 
-typedef boost::shared_ptr< ServerHandler > ServerHandlerPtr;
+typedef std::shared_ptr< ServerHandler > ServerHandlerPtr;
 
 #endif
