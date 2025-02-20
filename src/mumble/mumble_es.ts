@@ -9879,6 +9879,14 @@ Por favor, contacte con el administrador de su servidor para más información.<
         <translation>Imposible empezar a grabar - la salida de audio está mal configurada (frecuencia de muestreo de 0Hz)</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>Este campo contiene la ruta del directorio en el que se almacenarán las grabaciones de voz. Utiliza el botón &quot;Examinar&quot; para abrir un cuadro de diálogo de archivos.</translation>
     </message>

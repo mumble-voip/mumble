@@ -9942,6 +9942,14 @@ Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
         <translation>Nie można rozpocząć nagrywania - wyjście audio jest źle skonfigurowane (częstotliwość próbkowania 0 Hz)</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>To pole zawiera ścieżkę katalogu do przechowywania nagrań głosowych. Użyj przycisku „Przeglądaj”, aby otworzyć okno dialogowe pliku.</translation>
     </message>
