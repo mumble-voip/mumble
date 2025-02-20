@@ -304,7 +304,7 @@ void LookConfig::themeDirectoryChanged() {
 }
 
 void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {
-	bool abbreviateNames = state == Qt::Checked;
+	bool abbreviateNames = (state == Qt::Checked) || (state == Qt::PartiallyChecked);
 
 	// Only enable the abbreviation related settings if abbreviation is actually enabled
 	qcbAbbreviateCurrentChannel->setEnabled(abbreviateNames);
