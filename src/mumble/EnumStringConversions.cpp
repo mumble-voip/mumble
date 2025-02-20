@@ -82,9 +82,11 @@
 	PROCESS(Settings::WindowLayout, LayoutHybrid, "Hybrid")   \
 	PROCESS(Settings::WindowLayout, LayoutCustom, "Custom")
 
-#define RECORDING_MODE_VALUES                                     \
-	PROCESS(Settings::RecordingMode, RecordingMixdown, "Mixdown") \
-	PROCESS(Settings::RecordingMode, RecordingMultichannel, "Multichannel")
+#define RECORDING_MODE_VALUES                                                                       \
+	PROCESS(Settings::RecordingMode, RecordingMixdown, "Mixdown")                                   \
+	PROCESS(Settings::RecordingMode, RecordingMultichannel, "Multichannel")                         \
+	PROCESS(Settings::RecordingMode, RecordingMultichannelAndTransport, "MultichannelAndTransport") \
+	PROCESS(Settings::RecordingMode, RecordingTransportStandalone, "TransportStandalone")
 
 #define SEARCH_USER_ACTION_VALUES                           \
 	PROCESS(Search::SearchDialog::UserAction, NONE, "None") \

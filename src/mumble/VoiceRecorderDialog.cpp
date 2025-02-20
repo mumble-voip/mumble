@@ -22,8 +22,16 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p) : QDialog(p), qtTimer(new Q
 
 	qleTargetDirectory->setText(Global::get().s.qsRecordingPath);
 	qleFilename->setText(Global::get().s.qsRecordingFile);
+
+	guardTransportRecording();
+
 	qrbDownmix->setChecked(Global::get().s.rmRecordingMode == Settings::RecordingMixdown);
 	qrbMultichannel->setChecked(Global::get().s.rmRecordingMode == Settings::RecordingMultichannel);
+	qrbMultichannelAndTransport->setChecked(Global::get().s.rmRecordingMode
+											== Settings::RecordingMultichannelAndTransport);
+	qrbTransportStandalone->setChecked(Global::get().s.rmRecordingMode == Settings::RecordingTransportStandalone);
+
+	qgbOutput->setDisabled(qrbTransportStandalone->isChecked());
 
 	QString qsTooltip = QString::fromLatin1("%1"
 											"<table>"
@@ -69,6 +77,18 @@ VoiceRecorderDialog::~VoiceRecorderDialog() {
 	reset();
 }
 
+void VoiceRecorderDialog::guardTransportRecording() {
+	bool aoSupportsTransport = Global::get().ao->supportsTransportRecording();
+	if (aoSupportsTransport) {
+		qrbMultichannelAndTransport->setEnabled(true);
+		qrbTransportStandalone->setEnabled(true);
+	} else {
+		qrbMultichannelAndTransport->setDisabled(true);
+		qrbTransportStandalone->setDisabled(true);
+		Global::get().s.rmRecordingMode = Settings::RecordingMixdown;
+	}
+}
+
 void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 	if (Global::get().sh) {
 		VoiceRecorderPtr recorder(Global::get().sh->recorder);
@@ -91,8 +111,12 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 	Global::get().s.qsRecordingFile = qleFilename->text();
 	if (qrbDownmix->isChecked())
 		Global::get().s.rmRecordingMode = Settings::RecordingMixdown;
-	else
+	else if (qrbMultichannel->isChecked())
 		Global::get().s.rmRecordingMode = Settings::RecordingMultichannel;
+	else if (qrbMultichannelAndTransport->isChecked())
+		Global::get().s.rmRecordingMode = Settings::RecordingMultichannelAndTransport;
+	else if (qrbTransportStandalone->isChecked())
+		Global::get().s.rmRecordingMode = Settings::RecordingTransportStandalone;
 
 	int i                            = qcbFormat->currentIndex();
 	Global::get().s.iRecordingFormat = (i == -1) ? 0 : i;
@@ -101,6 +125,22 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 	evt->accept();
 
 	QDialog::closeEvent(evt);
+}
+
+void VoiceRecorderDialog::on_qrbDownmix_clicked() {
+	qgbOutput->setEnabled(true);
+}
+
+void VoiceRecorderDialog::on_qrbMultichannel_clicked() {
+	qgbOutput->setEnabled(true);
+}
+
+void VoiceRecorderDialog::on_qrbMultichannelAndTransport_clicked() {
+	qgbOutput->setEnabled(true);
+}
+
+void VoiceRecorderDialog::on_qrbTransportStandalone_clicked() {
+	qgbOutput->setDisabled(true);
 }
 
 void VoiceRecorderDialog::on_qpbStart_clicked() {
@@ -161,7 +201,8 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	VoiceRecorder::Config config;
 	config.sampleRate      = static_cast< int >(ao->getMixerFreq());
 	config.fileName        = dir.absoluteFilePath(basename + QLatin1Char('.') + suffix);
-	config.mixDownMode     = qrbDownmix->isChecked();
+	config.mixDownMode     = qrbDownmix->isChecked() || qrbTransportStandalone->isChecked();
+	config.transportEnable = qrbMultichannelAndTransport->isChecked() || qrbTransportStandalone->isChecked();
 	config.recordingFormat = static_cast< VoiceRecorderFormat::Format >(ifm);
 
 	if (config.sampleRate == 0) {
@@ -260,7 +301,9 @@ void VoiceRecorderDialog::reset(bool resettimer) {
 	qpbStop->setText(tr("S&top"));
 
 	qgbMode->setEnabled(true);
-	qgbOutput->setEnabled(true);
+	qgbOutput->setDisabled(qrbTransportStandalone->isChecked());
+
+	guardTransportRecording();
 
 	if (resettimer)
 		qlTime->setText(QLatin1String("00:00:00"));
