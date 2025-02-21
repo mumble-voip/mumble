@@ -234,7 +234,7 @@ if(ice)
 	add_custom_target(generate_murmur_ice_wrapper
 		DEPENDS "MumbleServerIceWrapper.cpp" 
 	)
-	add_dependencies(mumble-server generate_murmur_ice_wrapper)
+	add_dependencies(mumble_server_object_lib generate_murmur_ice_wrapper)
 	add_custom_command(
 		OUTPUT "MumbleServerIceWrapper.cpp"
 		COMMAND ${PYTHON_INTERPRETER}
@@ -244,7 +244,7 @@ if(ice)
 		COMMENT "Generating MumbleServerIceWrapper"
 	)
 	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
-	target_include_directories(mumble-server PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+	target_include_directories(mumble_server_object_lib PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
