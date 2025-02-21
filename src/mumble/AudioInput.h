@@ -33,7 +33,7 @@
 
 class AudioInput;
 struct OpusEncoder;
-struct ReNameNoiseDenoiseState;
+struct DenoiseState;
 typedef boost::shared_ptr< AudioInput > AudioInputPtr;
 
 /**
@@ -189,8 +189,8 @@ private:
 	void resetAudioProcessor();
 
 	OpusEncoder *opusState;
-#ifdef USE_RENAMENOISE
-	ReNameNoiseDenoiseState *denoiseState;
+#ifdef USE_RNNOISE
+	DenoiseState *denoiseState;
 #endif
 	bool selectCodec();
 	void selectNoiseCancel();
