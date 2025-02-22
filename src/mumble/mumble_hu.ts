@@ -88,7 +88,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Sorrend&lt;b&gt;&lt;br/&gt;
+        <translation type="unfinished">&lt;b&gt;Sorrend&lt;b&gt;&lt;br/&gt;
 Ezzel az értékkel módosíthatja azt a sorrendet, ahogy a Mumble egy faszerkezetbe elrendezi a csatornákat. Egy magasabb &lt;i&gt;Sorrend&lt;/i&gt; értékkel rendelkező csatorna mindig lejjebb lesz elhelyezve, mint az alacsonyabb értékkel rendelkezők. Ha a &lt;i&gt;Sorrend&lt;/i&gt; értéke egyforma két csatornánál, akkor az abc sorrendbe kerülnek a nevük alapján.</translation>
     </message>
     <message>
@@ -762,7 +762,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Alapértelmezett&lt;/&gt;&lt;br /&gt;A fájlok elérési útját az alapértelmezettre állítja.</translation>
+        <translation type="unfinished">&lt;b&gt;Alapértelmezett&lt;/&gt;&lt;br /&gt;A fájlok elérési útját az alapértelmezettre állítja.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
@@ -834,7 +834,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Beállítja a tömörítés minőségét.&lt;b/&gt;Meghatározza a Mumble által hangküldésre használható sávszélességet.</translation>
+        <translation type="unfinished">&lt;b&gt;Beállítja a tömörítés minőségét.&lt;b/&gt;Meghatározza a Mumble által hangküldésre használható sávszélességet.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -882,7 +882,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Jel-zaj viszonyon alapuló beszédérzékelést állít be.&lt;/b&gt;Ebben a módban a bemenetet a jel tisztasága szempontjából elemzi és a jel tisztasága fogja kiváltani a beszéd érzékelését.</translation>
+        <translation type="unfinished">&lt;b&gt;Jel-zaj viszonyon alapuló beszédérzékelést állít be.&lt;/b&gt;Ebben a módban a bemenetet a jel tisztasága szempontjából elemzi és a jel tisztasága fogja kiváltani a beszéd érzékelését.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -1372,7 +1372,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;A bejövő beszéd hangerejét állítja.&lt;/p&gt;&lt;br /&gt;Figyelem, ha 100% fölé erősíti, akkor a hang torzítani fog.</translation>
+        <translation type="unfinished">&lt;b&gt;A bejövő beszéd hangerejét állítja.&lt;/p&gt;&lt;br /&gt;Figyelem, ha 100% fölé erősíti, akkor a hang torzítani fog.</translation>
     </message>
     <message>
         <source>Output Delay</source>
@@ -4202,12 +4202,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Kattintson ide a szövegfelolvasó ki/bekapcsolásához a(z) %1 eseményekhez.&lt;br-/&gt;Ha ki van jelölve, a Mumble felolvassa önnek hangosan a(z) %1 eseményeket. A szövegfelolvasó képes elolvasni az események tartalmát, ami nem igaz a hangfájlok esetében. A szövegfelolvasás és a hangfájlok nem használhatóak egy időben.</translation>
+        <translation type="unfinished">Kattintson ide a szövegfelolvasó ki/bekapcsolásához a(z) %1 eseményekhez.&lt;br-/&gt;Ha ki van jelölve, a Mumble felolvassa önnek hangosan a(z) %1 eseményeket. A szövegfelolvasó képes elolvasni az események tartalmát, ami nem igaz a hangfájlok esetében. A szövegfelolvasás és a hangfájlok nem használhatóak egy időben.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Kattintson ide a hangjelzések ki/bekapcsolásához a(z) %1 eseményekhez.&lt;br-/&gt;Ha ki van jelölve, a Mumble az előre kijelölt hangfájlt használja a(z) %1 események jelzésére. A hangfájlok és a szövegfelolvasás nem használhatóak egy időben.</translation>
+        <translation type="unfinished">Kattintson ide a hangjelzések ki/bekapcsolásához a(z) %1 eseményekhez.&lt;br-/&gt;Ha ki van jelölve, a Mumble az előre kijelölt hangfájlt használja a(z) %1 események jelzésére. A hangfájlok és a szövegfelolvasás nem használhatóak egy időben.</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -5482,7 +5482,7 @@ Ha nem ön az, ellenőrizze a felhasználónevét és a tanúsítványt!</transl
     </message>
     <message>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Mutatja a nemrég végrehajtott műveleteket. Itt láthatóak a szerverekhez való kapcsolódások, hiba és egyéb információkat tartalmazó üzenetek.&lt;br./&gt;A &lt;b&gt;Beállítások&lt;b/&gt; menü parancs használatával pontosan testreszabható, hogy mi jelenjen meg ebben az ablakban.</translation>
+        <translation type="unfinished">Mutatja a nemrég végrehajtott műveleteket. Itt láthatóak a szerverekhez való kapcsolódások, hiba és egyéb információkat tartalmazó üzenetek.&lt;br./&gt;A &lt;b&gt;Beállítások&lt;b/&gt; menü parancs használatával pontosan testreszabható, hogy mi jelenjen meg ebben az ablakban.</translation>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
@@ -7198,7 +7198,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Engedélyezi a TCP kompatibilitási módot&lt;/&gt;.&lt;br /&gt;Ez azt eredményezi, hogy a Mumble csak a TCP protokollt használja a szerverrel való kommunikációban. Ez megnöveli a többletterhelést és a beszédben hallható szüneteket okozhat a csomagok elvesztése, ezért csak akkor használja, ha nem tudja az alapértelmezett módot használni (UDP a hangcsatornának és TCP a vezérlő csatornának).</translation>
+        <translation type="unfinished">&lt;b&gt;Engedélyezi a TCP kompatibilitási módot&lt;/&gt;.&lt;br /&gt;Ez azt eredményezi, hogy a Mumble csak a TCP protokollt használja a szerverrel való kommunikációban. Ez megnöveli a többletterhelést és a beszédben hallható szüneteket okozhat a csomagok elvesztése, ezért csak akkor használja, ha nem tudja az alapértelmezett módot használni (UDP a hangcsatornának és TCP a vezérlő csatornának).</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
