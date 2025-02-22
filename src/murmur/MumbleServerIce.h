@@ -20,7 +20,12 @@
 #include <QtCore/QWaitCondition>
 #include <QtNetwork/QSslCertificate>
 
-#include "MumbleServerI.h"
+#ifndef Q_MOC_RUN
+	// When including this header in MOC runs, Qt gets confused and adds every following class to the MumbleServer
+	// namespace, which will lead to compile errors because they don't actually exist in that namespace.
+	// See also https://stackoverflow.com/q/2684508 and https://stackoverflow.com/q/18626146
+#	include "MumbleServerI.h"
+#endif
 
 class Channel;
 class Server;
