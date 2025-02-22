@@ -1,0 +1,68 @@
+{
+	"v6": {
+		"table_name": "channels",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"parent_id",
+			"name",
+			"inheritacl"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"TEXT",
+			"INTEGER"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				null,
+				"Root",
+				null
+			],
+			[
+				1,
+				1,
+				0,
+				"Lounge",
+				1
+			]
+		]
+	},
+	"v10": {
+		"table_name": "channels",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"parent_id",
+			"channel_name",
+			"inherit_acl"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"VARCHAR(255)",
+			"SMALLINT"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				0,
+				"Root",
+				0
+			],
+			[
+				1,
+				1,
+				0,
+				"Lounge",
+				1
+			]
+		]
+	}
+}

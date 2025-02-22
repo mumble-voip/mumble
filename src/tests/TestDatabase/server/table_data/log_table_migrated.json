@@ -1,0 +1,17 @@
+{
+	"v6": {
+		"table_name": "server_logs",
+		"column_names": [
+			"server_id",
+			"message",
+			"message_date"
+		],
+		"rows": [
+			[
+				1,
+				"Test message",
+				1671293390
+			]
+		]
+	}
+}
