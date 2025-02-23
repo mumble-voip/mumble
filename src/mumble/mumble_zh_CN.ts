@@ -9431,39 +9431,39 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>到客户端移动平均值</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>近 X 分钟：</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>丢失 %</translation>
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>来自客户端移动平均值</translation>
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>落后 %</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>总计：</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>近 %1 %2：</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">秒</translation>
+        <translation>秒</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>分钟</translation>
     </message>
 </context>
 <context>
