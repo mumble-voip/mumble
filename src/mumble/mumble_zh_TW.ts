@@ -88,7 +88,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>這個數值讓您改變頻道在 Mumble 清單樹的部署位置。當頻道擁有較小的數值時，將被放在比較上面的位置，如果有多個頻道擁有相同數值時，將依頻道名稱做排序。</translation>
+        <translation type="unfinished">這個數值讓您改變頻道在 Mumble 清單樹的部署位置。當頻道擁有較小的數值時，將被放在比較上面的位置，如果有多個頻道擁有相同數值時，將依頻道名稱做排序。</translation>
     </message>
     <message>
         <source>Position</source>
@@ -933,7 +933,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;預覽&lt;/b&gt;播放目前&lt;i&gt;開始&lt;/i&gt;音效接著播放目前&lt;i&gt;停止&lt;/i&gt;音效。</translation>
+        <translation type="unfinished">&lt;b&gt;預覽&lt;/b&gt;播放目前&lt;i&gt;開始&lt;/i&gt;音效接著播放目前&lt;i&gt;停止&lt;/i&gt;音效。</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
@@ -1950,12 +1950,13 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;
+        <translation type="unfinished">&lt;p&gt;
 為了讓語音的延遲降到最低，我們希望音效卡中的緩衝越低越好。然而很多音效卡在極低的緩衝下看起來依舊在工作， 因此我們只能試出一個音效卡能接受的最小值。
 &lt;/p&gt;
 &lt;p&gt;
 你會聽到一段音效樣本。拉動下方的滑桿，在音效不會中斷破碎或卡住的情況下，盡可能調低。
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
@@ -1973,12 +1974,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;
+        <translation type="unfinished">&lt;p&gt;
 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。
 &lt;/p&gt;
 &lt;p&gt;
 大聲說話，就像你破口大罵時的樣子。接者降低錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但是又不會到達紅色區塊。
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -2156,7 +2158,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation>&lt;p&gt; 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。 &lt;/p&gt; &lt;p&gt; 大聲說話，就像你破口大罵時的樣子。接者降低你錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但又不會到達紅色區塊。 &lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p&gt; 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。 &lt;/p&gt; &lt;p&gt; 大聲說話，就像你破口大罵時的樣子。接者降低你錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但又不會到達紅色區塊。 &lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
@@ -2170,7 +2173,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>選此設定 Mumble 會盡可能降低頻寬的使用量，這將提高音效延遲與降低語音品質，只在你的網路環境差到極點時才選擇此項。(16kbit/s，封包間隔60毫秒)</translation>
+        <translation type="unfinished">選此設定 Mumble 會盡可能降低頻寬的使用量，這將提高音效延遲與降低語音品質，只在你的網路環境差到極點時才選擇此項。(16kbit/s，封包間隔60毫秒)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
@@ -2178,7 +2181,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>此選項只建議使用在頻寬充裕的環境，Mumble將提供最低延遲與最好的品質。(72kbit/s, 封包間隔10毫秒)</translation>
+        <translation type="unfinished">此選項只建議使用在頻寬充裕的環境，Mumble將提供最低延遲與最好的品質。(72kbit/s, 封包間隔10毫秒)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
