@@ -31,7 +31,7 @@ QMap< QString, AudioOutputRegistrar * > *AudioOutputRegistrar::qmNew;
 QString AudioOutputRegistrar::current = QString();
 
 AudioOutputRegistrar::AudioOutputRegistrar(const QString &n, int p) : name(n), priority(p) {
-	qRegisterMetaType< AudioOutputBuffer * >("AudioOutputBuffer *");
+	qRegisterMetaType< const void * >("const void *");
 
 	if (!qmNew)
 		qmNew = new QMap< QString, AudioOutputRegistrar * >();
