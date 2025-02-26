@@ -21,3 +21,33 @@
 @import 'Imports/Base Theme';
 
 // Add or import your own custom QSS below
+
+code {
+    background-color: $code-background-color;
+}
+
+.codeblock > tr > * {
+    background-color: $codeblock-background-color;
+    border: 1px solid $codeblock-border-color;
+    border-right-color: $codeblock-border-right-color;
+    border-bottom-color: $codeblock-border-bottom-color;
+    padding: 8px;
+}
+
+.blockquote > tr > * {
+    background-color: $blockquote-background-color;
+    color: $blockquote-color;
+    border: 3px none $blockquote-border-color;
+    border-left-style: solid;
+    padding: 2px 5px;
+}
+
+.table {
+    border-width: 1px;
+    border-style: solid;
+    vertical-align: middle;
+
+    & > tr > * {
+        padding: 2px;
+    }
+}
