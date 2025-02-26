@@ -17,6 +17,8 @@
 #include <QtCore/QStack>
 #include <QtCore/QTimer>
 
+#include <optional>
+
 const QString LookConfig::name = QLatin1String("LookConfig");
 
 static ConfigWidget *LookConfigNew(Settings &st) {
@@ -39,7 +41,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"), QLatin1String("mumble_*.qm"), QDir::Name, QDir::Files);
-	foreach (const QString &key, d.entryList()) {
+    for (const QString &key : d.entryList()) {
 		QString cc        = key.mid(7, key.indexOf(QLatin1Char('.')) - 7);
 		QLocale tmpLocale = QLocale(cc);
 
@@ -117,7 +119,7 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::reloadThemes(const boost::optional< ThemeInfo::StyleInfo > configuredStyle) {
+void LookConfig::reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle) {
 	const ThemeMap themes = Themes::getThemes();
 
 	int selectedThemeEntry = 0;
@@ -193,7 +195,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 
-	const boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
+    const std::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
 	loadCheckBox(qcbUsersAlwaysVisible, r.talkingUI_UsersAlwaysVisible);
@@ -263,7 +265,7 @@ void LookConfig::save() const {
 
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
-		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
+        Themes::setConfiguredStyle(s, std::nullopt, s.requireRestartToApply);
 	} else {
 		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
 	}
@@ -297,7 +299,7 @@ void LookConfig::themeDirectoryChanged() {
 	qWarning() << "Theme directory changed";
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
-		reloadThemes(boost::none);
+        reloadThemes(std::nullopt);
 	} else {
 		reloadThemes(themeData.value< ThemeInfo::StyleInfo >());
 	}

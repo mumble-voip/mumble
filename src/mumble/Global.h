@@ -7,15 +7,14 @@
 #define MUMBLE_MUMBLE_GLOBAL_H_
 
 #include <QtCore/QDir>
-#include <boost/shared_ptr.hpp>
+
+#include <memory>
 
 #include "ACL.h"
 #include "ChannelListenerManager.h"
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
-
-#include <memory>
 
 // Global helper class to spread variables around across threads.
 
@@ -52,9 +51,9 @@ public:
 	MainWindow *mw;
 	TrayIcon *trayIcon;
 	Settings s;
-	boost::shared_ptr< ServerHandler > sh;
-	boost::shared_ptr< AudioInput > ai;
-	boost::shared_ptr< AudioOutput > ao;
+    std::shared_ptr< ServerHandler > sh;
+    std::shared_ptr< AudioInput > ai;
+    std::shared_ptr< AudioOutput > ao;
 	/**
 	 * @remark Must only be accessed from the main event loop
 	 */

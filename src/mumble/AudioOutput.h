@@ -8,7 +8,8 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QThread>
-#include <boost/shared_ptr.hpp>
+
+#include <memory>
 
 #include "MumbleProtocol.h"
 
@@ -44,7 +45,7 @@ class ClientUser;
 class AudioOutputBuffer;
 class AudioOutputToken;
 
-typedef boost::shared_ptr< AudioOutput > AudioOutputPtr;
+typedef std::shared_ptr< AudioOutput > AudioOutputPtr;
 
 class AudioOutputRegistrar {
 private:
