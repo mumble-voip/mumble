@@ -15,8 +15,8 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "ServerUserInfo.h"
 #include "Timer.h"
-#include "User.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QStringList>
@@ -102,7 +102,7 @@ public:
 	LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens);
 };
 
-class ServerUser : public Connection, public User {
+class ServerUser : public Connection, public ServerUserInfo {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(ServerUser)
@@ -118,17 +118,6 @@ public:
 	float dUDPPingAvg, dUDPPingVar;
 	float dTCPPingAvg, dTCPPingVar;
 	quint32 uiUDPPackets, uiTCPPackets;
-
-	Version::full_t m_version;
-	QString qsRelease;
-	QString qsOS;
-	QString qsOSVersion;
-
-	std::string ssContext;
-	QString qsIdentity;
-
-	bool bVerified;
-	QStringList qslEmail;
 
 	HostAddress haAddress;
 
