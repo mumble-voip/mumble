@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_AUDIOPREPROCESSOR_H_
 #define MUMBLE_MUMBLE_AUDIOPREPROCESSOR_H_
 
+#include <cstddef>
 #include <cstdint>
 #include <vector>
 
