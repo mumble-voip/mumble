@@ -119,7 +119,7 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle) {
+void LookConfig::reloadThemes(const std::optional< ThemeInfo::StyleInfo >& configuredStyle) {
 	const ThemeMap themes = Themes::getThemes();
 
 	int selectedThemeEntry = 0;

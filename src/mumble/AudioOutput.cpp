@@ -58,7 +58,7 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	}
 
 	AudioOutputRegistrar *r = nullptr;
-	foreach (AudioOutputRegistrar *aor, *qmNew)
+    for (AudioOutputRegistrar *aor : *qmNew)
 		if (!r || (aor->priority > r->priority))
 			r = aor;
 	if (r) {
@@ -508,9 +508,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			bool validListener = false;
 
 			// Initialize recorder if recording is enabled
-			boost::shared_array< float > recbuff;
+            std::shared_ptr<float[]> recbuff;
 			if (recorder) {
-				recbuff = boost::shared_array< float >(new float[frameCount]);
+                recbuff = std::make_shared<float[]>(frameCount);
 				memset(recbuff.get(), 0, sizeof(float) * frameCount);
 				recorder->prepareBufferAdds();
 			}
@@ -654,7 +654,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 						if (!recorder->isInMixDownMode()) {
 							recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
-							recbuff = boost::shared_array< float >(new float[frameCount]);
+                            recbuff = std::make_shared<float[]>(frameCount);
 							memset(recbuff.get(), 0, sizeof(float) * frameCount);
 						}
 

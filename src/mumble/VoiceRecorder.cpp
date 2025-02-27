@@ -12,11 +12,9 @@
 
 #include "../Timer.h"
 
-#include <boost/make_shared.hpp>
-
 #include <QRegularExpression>
 
-VoiceRecorder::RecordBuffer::RecordBuffer(int recordInfoIndex_, boost::shared_array< float > buffer_, int samples_,
+VoiceRecorder::RecordBuffer::RecordBuffer(int recordInfoIndex_, std::shared_ptr< float[] > buffer_, int samples_,
 										  quint64 absoluteStartSample_)
 
 	: recordInfoIndex(recordInfoIndex_), buffer(buffer_), samples(samples_), absoluteStartSample(absoluteStartSample_) {
@@ -117,18 +115,29 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 
 	// Reassemble and expand
 	bool first = true;
-	foreach (QString str, comp) {
+
+    for (const QString& str : comp)
+    {
 		bool replacements = false;
+
 		QString tmp;
 
 		tmp.reserve(str.length() * 2);
-		for (decltype(str.size()) i = 0; i < str.size(); ++i) {
+
+        for (decltype(str.size()) i = 0; i < str.size(); ++i)
+        {
 			bool replaced = false;
-			if (str[i] == QLatin1Char('%')) {
+
+            if (str[i] == QLatin1Char('%'))
+            {
 				QHashIterator< const QString, QString > it(vars);
-				while (it.hasNext()) {
+
+                while (it.hasNext())
+                {
 					it.next();
-					if (str.mid(i + 1, it.key().length()) == it.key()) {
+
+                    if (str.mid(i + 1, it.key().length()) == it.key())
+                    {
 						i += it.key().length();
 						tmp += it.value();
 						replaced     = true;
@@ -142,18 +151,19 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 				tmp += str[i];
 		}
 
-		str = tmp;
+        QString part = tmp;
 
 		if (replacements)
-			str = sanitizeFilenameOrPathComponent(str);
+            part = sanitizeFilenameOrPathComponent(part);
 
 		if (first) {
 			first = false;
-			res.append(str);
+            res.append(part);
 		} else {
-			res.append(QLatin1Char('/') + str);
+            res.append(QLatin1Char('/') + part);
 		}
 	}
+
 	return res;
 }
 
@@ -245,7 +255,7 @@ SF_INFO VoiceRecorder::createSoundFileInfo() const {
 	return sfinfo;
 }
 
-bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO &soundFileInfo, boost::shared_ptr< RecordInfo > &ri) {
+bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO &soundFileInfo, std::shared_ptr< RecordInfo > &ri) {
 	if (ri->soundFile) {
 		// Nothing to do
 		return true;
@@ -327,7 +337,7 @@ void VoiceRecorder::run() {
 		}
 
 		while (!m_abort && !m_recordBuffer.isEmpty()) {
-			boost::shared_ptr< RecordBuffer > rb;
+            std::shared_ptr< RecordBuffer > rb;
 			{
 				QMutexLocker l(&m_bufferLock);
 				rb = m_recordBuffer.takeFirst();
@@ -336,7 +346,7 @@ void VoiceRecorder::run() {
 			// Create the file for this RecordInfo instance if it's not yet open.
 
 			Q_ASSERT(m_recordInfo.contains(rb->recordInfoIndex));
-			boost::shared_ptr< RecordInfo > ri = m_recordInfo.value(rb->recordInfoIndex);
+            std::shared_ptr< RecordInfo > ri = m_recordInfo.value(rb->recordInfoIndex);
 
 			if (!ensureFileIsOpenedFor(soundFileInfo, ri)) {
 				return;
@@ -405,7 +415,7 @@ void VoiceRecorder::prepareBufferAdds() {
 	m_absoluteSampleEstimation = (m_timestamp->elapsed() / 1000) * (static_cast< quint64 >(m_config.sampleRate) / 1000);
 }
 
-void VoiceRecorder::addBuffer(const ClientUser *clientUser, boost::shared_array< float > buffer, int samples) {
+void VoiceRecorder::addBuffer(const ClientUser *clientUser, std::shared_ptr<float[]> buffer, int samples) {
 	Q_ASSERT(!m_config.mixDownMode || !clientUser);
 
 	if (!m_recording)
@@ -415,8 +425,7 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser, boost::shared_array<
 	const int index = indexForUser(clientUser);
 
 	if (!m_recordInfo.contains(index)) {
-		boost::shared_ptr< RecordInfo > ri =
-			boost::make_shared< RecordInfo >(m_config.mixDownMode ? QLatin1String("Mixdown") : clientUser->qsName);
+        std::shared_ptr< RecordInfo > ri(new RecordInfo(m_config.mixDownMode ? QLatin1String("Mixdown") : clientUser->qsName));
 
 		m_recordInfo.insert(index, ri);
 	}
@@ -424,8 +433,7 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser, boost::shared_array<
 	{
 		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&m_bufferLock);
-		boost::shared_ptr< RecordBuffer > rb =
-			boost::make_shared< RecordBuffer >(index, buffer, samples, m_absoluteSampleEstimation);
+        std::shared_ptr< RecordBuffer > rb(new RecordBuffer(index, buffer, samples, m_absoluteSampleEstimation));
 
 		m_recordBuffer << rb;
 	}

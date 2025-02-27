@@ -33,7 +33,8 @@
 #include <QtXml/QDomDocument>
 
 #include <boost/accumulators/statistics/extended_p_square.hpp>
-#include <boost/array.hpp>
+
+#include <array>
 
 #ifdef Q_OS_WIN
 #	ifndef NOMINMAX
@@ -61,7 +62,7 @@ PingStats::~PingStats() {
 }
 
 void PingStats::init() {
-	boost::array< double, 3 > probs = { { 0.75, 0.80, 0.95 } };
+    std::array< double, 3 > probs = { { 0.75, 0.80, 0.95 } };
 
 	asQuantile  = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
 	dPing       = 0.0;

@@ -10,10 +10,6 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
 #include <QtCore/QString>
-#ifndef Q_MOC_RUN
-#	include <boost/optional.hpp>
-#endif
-
 class QSettings;
 class QDir;
 
@@ -69,8 +65,8 @@ public:
 	/// Loads the theme description from a given directory
 	///
 	/// @param themeDirectory
-	/// @return Theme if description was correctly loaded. boost::none if not.
-	static boost::optional< ThemeInfo > load(const QDir &themeDirectory);
+    /// @return Theme if description was correctly loaded. std::nullopt if not.
+    static std::optional< ThemeInfo > load(const QDir &themeDirectory);
 
 	/// @return Style with given name or default
 	StyleInfo getStyle(QString name_) const;

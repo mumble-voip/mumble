@@ -63,7 +63,7 @@ paletteupdate_template ="""
 variable_template = """		std::optional<QBrush> m_%(prop)s;
 """
 
-reset_template = """			m_%(prop)s = std::nullopt_t;
+reset_template = """			m_%(prop)s = std::nullopt;
 """
 
 def rolename(role):
