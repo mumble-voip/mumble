@@ -9438,39 +9438,39 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>do średniej kroczącej klienta</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatnie X minut(y):</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% utraconych</translation>
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>od średniej kroczącej klienta</translation>
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% opóźnionych</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Łącznie:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatnie %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">sekundy</translation>
+        <translation>sekundy</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>minuty</translation>
     </message>
 </context>
 <context>
