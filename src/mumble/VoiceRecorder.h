@@ -12,11 +12,6 @@
 #	include "win.h"
 #endif
 
-#ifndef Q_MOC_RUN
-#	include <boost/scoped_ptr.hpp>
-#	include <boost/shared_array.hpp>
-#endif
-
 #include <QtCore/QDateTime>
 #include <QtCore/QHash>
 #include <QtCore/QMutex>
@@ -29,6 +24,8 @@
 #endif
 
 #include <sndfile.h>
+
+#include <memory>
 
 class ClientUser;
 class RecordUser;
@@ -114,7 +111,7 @@ public:
 	/// The audio data will be assumed to be recorded at the time
 	/// prepareBufferAdds was last called.
 	/// @param clientUser User for which to add the audio data. nullptr in mixdown mode.
-	void addBuffer(const ClientUser *clientUser, boost::shared_array< float > buffer, int samples);
+    void addBuffer(const ClientUser *clientUser, std::shared_ptr<float[]> buffer, int samples);
 
 	/// Returns the elapsed time since the recording started.
 	quint64 getElapsedTime() const;
@@ -137,14 +134,14 @@ private:
 	/// Stores information about a recording buffer.
 	struct RecordBuffer {
 		/// Constructs a new RecordBuffer object.
-		RecordBuffer(int recordInfoIndex_, boost::shared_array< float > buffer_, int samples_,
+        RecordBuffer(int recordInfoIndex_, std::shared_ptr<float[]> buffer_, int samples_,
 					 quint64 absoluteStartSample_);
 
 		/// Hashmap index for the user
 		const int recordInfoIndex;
 
 		/// The buffer.
-		boost::shared_array< float > buffer;
+        std::shared_ptr<float[]> buffer;
 
 		/// The number of samples in the buffer.
 		int samples;
@@ -168,7 +165,7 @@ private:
 		quint64 lastWrittenAbsoluteSample;
 	};
 
-	typedef QHash< int, boost::shared_ptr< RecordInfo > > RecordInfoMap;
+    typedef QHash< int, std::shared_ptr< RecordInfo > > RecordInfoMap;
 
 	/// Removes invalid characters in a path component.
 	QString sanitizeFilenameOrPathComponent(const QString &str) const;
@@ -184,20 +181,20 @@ private:
 
 	/// Opens the file for the given recording information
 	/// Helper function for run method. Will abort recording on failure.
-	bool ensureFileIsOpenedFor(SF_INFO &soundFileInfo, boost::shared_ptr< RecordInfo > &ri);
+    bool ensureFileIsOpenedFor(SF_INFO &soundFileInfo, std::shared_ptr< RecordInfo > &ri);
 
 	/// Hash which maps the |uiSession| of all users for which we have to keep a recording state to the corresponding
 	/// RecordInfo object.
 	RecordInfoMap m_recordInfo;
 
 	/// List containing all unprocessed RecordBuffer objects.
-	QList< boost::shared_ptr< RecordBuffer > > m_recordBuffer;
+    QList< std::shared_ptr< RecordBuffer > > m_recordBuffer;
 
 	/// The user which is used to record local audio.
-	boost::scoped_ptr< RecordUser > m_recordUser;
+    std::unique_ptr< RecordUser > m_recordUser;
 
 	/// High precision timer for buffer timestamps.
-	boost::scoped_ptr< Timer > m_timestamp;
+    std::unique_ptr< Timer > m_timestamp;
 
 	/// Protects the buffer list |qlRecordBuffer|.
 	QMutex m_bufferLock;
@@ -222,6 +219,6 @@ private:
 	quint64 m_absoluteSampleEstimation;
 };
 
-typedef boost::shared_ptr< VoiceRecorder > VoiceRecorderPtr;
+typedef std::shared_ptr< VoiceRecorder > VoiceRecorderPtr;
 
 #endif

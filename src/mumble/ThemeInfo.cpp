@@ -22,7 +22,7 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 #endif
 }
 
-boost::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig, const QString &styleId,
+std::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig, const QString &styleId,
 															const ThemeInfo &theme, const QDir &themeDir) {
 	const QRegularExpression qssPlatformRegex(QString::fromLatin1("^%1/qss_(.*)").arg(styleId));
 
@@ -35,23 +35,23 @@ boost::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConf
 
 	if (style.name.isNull()) {
 		qWarning() << "Style " << styleId << " of theme" << theme.name << " has no name, skipping theme";
-		return boost::none;
+        return {};
 	}
 
 	if (!style.defaultQss.exists() || !style.defaultQss.isFile()) {
 		qWarning() << "Style " << style.name << " of theme " << theme.name << " references invalid qss "
 				   << style.defaultQss.filePath() << ", skipping theme";
-		return boost::none;
+        return {};
 	}
 
-	foreach (const QString &platformQssConfig, themeConfig.allKeys().filter(qssPlatformRegex)) {
+    for (const QString &platformQssConfig : themeConfig.allKeys().filter(qssPlatformRegex)) {
 		const QString platform = qssPlatformRegex.match(platformQssConfig).captured(1);
 
 		const auto platformQss = QFileInfo(themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
 		if (!platformQss.exists() || !platformQss.isFile()) {
 			qWarning() << "Style" << style.name << " of theme " << theme.name << " references invalid qss "
 					   << platformQss.filePath() << " for platform " << platform << ", skipping theme";
-			return boost::none;
+            return {};
 		}
 
 		style.qssFiles.insert(platform, platformQss);
@@ -60,14 +60,14 @@ boost::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConf
 	return style;
 }
 
-boost::optional< ThemeInfo > loadLegacyThemeInfo(const QDir &themeDirectory) {
+std::optional< ThemeInfo > loadLegacyThemeInfo(const QDir &themeDirectory) {
 	ThemeInfo theme;
 	theme.name = themeDirectory.dirName();
 
 	QStringList filters;
 	filters << QLatin1String("*.qss");
 
-	foreach (const QFileInfo &qssFile, themeDirectory.entryInfoList(filters, QDir::Files)) {
+    for (const QFileInfo &qssFile : themeDirectory.entryInfoList(filters, QDir::Files)) {
 		ThemeInfo::StyleInfo style;
 		style.name       = qssFile.baseName();
 		style.themeName  = theme.name;
@@ -78,7 +78,7 @@ boost::optional< ThemeInfo > loadLegacyThemeInfo(const QDir &themeDirectory) {
 
 	if (theme.styles.isEmpty()) {
 		qWarning() << themeDirectory.absolutePath() << " does not seem to contain a old-style theme, skipping";
-		return boost::none;
+        return {};
 	}
 
 	theme.defaultStyle = theme.styles.begin()->name;
@@ -86,7 +86,7 @@ boost::optional< ThemeInfo > loadLegacyThemeInfo(const QDir &themeDirectory) {
 	return theme;
 }
 
-boost::optional< ThemeInfo > ThemeInfo::load(const QDir &themeDirectory) {
+std::optional< ThemeInfo > ThemeInfo::load(const QDir &themeDirectory) {
 	QFile themeFile(themeDirectory.absoluteFilePath(QLatin1String("theme.ini")));
 	if (!themeFile.exists()) {
 		qWarning() << "Directory " << themeDirectory.absolutePath() << " has no theme.ini, trying fallback";
@@ -97,7 +97,7 @@ boost::optional< ThemeInfo > ThemeInfo::load(const QDir &themeDirectory) {
 	QSettings themeConfig(themeFile.fileName(), QSettings::IniFormat);
 	if (themeConfig.status() != QSettings::NoError) {
 		qWarning() << "Failed to load theme config from " << themeFile.fileName() << ", skipping";
-		return boost::none;
+        return {};
 	}
 
 	ThemeInfo theme;
@@ -108,19 +108,19 @@ boost::optional< ThemeInfo > ThemeInfo::load(const QDir &themeDirectory) {
 
 	if (theme.name.isNull()) {
 		qWarning() << "Theme in " << themeFile.fileName() << " does not have a name, skipping";
-		return boost::none;
+        return {};
 	}
 
 	if (styleIds.isEmpty()) {
 		qWarning() << "Theme " << theme.name << " doesn't have any styles, skipping";
-		return boost::none;
+        return {};
 	}
 
-	foreach (const QString &styleId, styleIds) {
-		boost::optional< ThemeInfo::StyleInfo > style =
+    for (const QString &styleId : styleIds) {
+        std::optional< ThemeInfo::StyleInfo > style =
 			readStyleFromConfig(themeConfig, styleId, theme, themeDirectory);
 		if (!style) {
-			return boost::none;
+            return {};
 		}
 		theme.styles.insert(style->name, *style);
 	}
@@ -140,10 +140,10 @@ ThemeInfo::StyleInfo ThemeInfo::getStyle(QString name_) const {
 ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 	ThemeMap themes;
 
-	foreach (const QFileInfo &subdirInfo, themesDirectory.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
+    for (const QFileInfo &subdirInfo : themesDirectory.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
 		QDir subdir(subdirInfo.absoluteFilePath());
 
-		boost::optional< ThemeInfo > theme = ThemeInfo::load(subdir);
+        std::optional< ThemeInfo > theme = ThemeInfo::load(subdir);
 		if (!theme) {
 			continue;
 		}
@@ -157,8 +157,8 @@ ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 ThemeMap ThemeInfo::scanDirectories(const QVector< QDir > &themesDirectories) {
 	ThemeMap themes;
 
-	foreach (const QDir &themesDirectory, themesDirectories) {
-		foreach (const ThemeInfo &theme, scanDirectory(themesDirectory)) { themes.insert(theme.name, theme); }
+    for (const QDir &themesDirectory : themesDirectories) {
+        for (const ThemeInfo &theme : scanDirectory(themesDirectory)) { themes.insert(theme.name, theme); }
 	}
 
 	return themes;
