@@ -9885,6 +9885,14 @@ Si us plau, poseu-vos en contacte amb l&apos;administrador del servidor per obte
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
         <translation>Aquest camp conté el nom amb que es desa qualsevol fitxer d&apos;enregistrament de veu. Es poden utilitzar diverses variables per ampliar el nom del fitxer. Per exemple %time per al temps actual.</translation>
     </message>
+    <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VolumeSliderWidgetAction</name>
