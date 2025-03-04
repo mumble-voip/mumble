@@ -116,24 +116,37 @@ public:
 	static constexpr const char *EXAMPLE_TABLE_NAME = "sample_table";
 	using Database::Database;
 	~TestDB() override {
-		// Clear up everything that we have created in our test case
-		try {
-			this->destroyTables();
-		} catch (const Exception &e) {
-			std::cerr << "Exception encountered while destroying tables:" << std::endl;
-			std::cerr << e.what() << std::endl;
+		if (m_connected) {
+			// Clear up everything that we have created in our test case
+			try {
+				this->destroyTables();
+			} catch (const Exception &e) {
+				std::cerr << "Exception encountered while destroying tables:" << std::endl;
+				std::cerr << e.what() << std::endl;
+			}
 		}
 	}
 
 	unsigned int getSchemeVersion() const override { return 42; }
 
-	void connect(const ConnectionParameter &param) { Database::connectToDB(param); }
+	void connect(const ConnectionParameter &param) {
+		Database::connectToDB(param);
+		m_connected = true;
+	}
+
+	void init(const ConnectionParameter &param) override {
+		Database::init(param);
+		m_connected = true;
+	}
 
 	bool tableExistsInDB(const std::string &name) { return Database::tableExistsInDB(name); }
 
 	std::unordered_set< std::string > getExistingTables() { return Database::getExistingTables(); }
 
 	soci::session &getSQLHandle() { return m_sql; }
+
+private:
+	bool m_connected = false;
 };
 
 class DatabaseTest : public QObject {
