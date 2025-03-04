@@ -47,7 +47,6 @@ if (bundled-soci)
 	set(SOCI_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/soci)
 
 	set(SOCI_SHARED OFF CACHE BOOL "" FORCE)
-	set(SOCI_TESTS OFF CACHE BOOL "" FORCE)
 	set(SOCI_LTO ${lto} CACHE BOOL "" FORCE)
 	set(SOCI_DB2 OFF CACHE BOOL "" FORCE)
 	set(SOCI_FIREBIRD OFF CACHE BOOL "" FORCE)
@@ -61,7 +60,6 @@ if (bundled-soci)
 	add_subdirectory("${3RDPARTY_DIR}/soci" "${SOCI_BINARY_DIR}" EXCLUDE_FROM_ALL)
 
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/soci")
-
 else()
 	# Only Soci 4.1 introduces the general BLOB operations that we require
 	set(components "")
