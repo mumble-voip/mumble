@@ -17,8 +17,9 @@
 #	include <boost/accumulators/statistics/mean.hpp>
 #	include <boost/accumulators/statistics/stats.hpp>
 #	include <boost/accumulators/statistics/variance.hpp>
-#	include <boost/shared_ptr.hpp>
 #endif
+
+#include <memory>
 
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
@@ -52,7 +53,7 @@ public:
 	ServerHandlerMessageEvent(const QByteArray &msg, Mumble::Protocol::TCPMessageType type, bool flush = false);
 };
 
-typedef boost::shared_ptr< Connection > ConnectionPtr;
+typedef std::shared_ptr< Connection > ConnectionPtr;
 
 class ServerHandler : public QThread {
 private:
@@ -102,7 +103,7 @@ public:
 	QSslCipher qscCipher;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;
-	boost::shared_ptr< VoiceRecorder > recorder;
+    std::shared_ptr< VoiceRecorder > recorder;
 	QSslSocket *qtsSock;
 	QList< ServerAddress > qlAddresses;
 	QHash< ServerAddress, QString > qhHostnames;
@@ -208,6 +209,6 @@ public slots:
 	void sendPing();
 };
 
-typedef boost::shared_ptr< ServerHandler > ServerHandlerPtr;
+typedef std::shared_ptr< ServerHandler > ServerHandlerPtr;
 
 #endif
