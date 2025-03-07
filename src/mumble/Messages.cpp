@@ -974,6 +974,8 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (updateUI) {
 		this->pmModel->forceVisualUpdate();
 	}
+
+	emit channelStateChanged(c);
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
