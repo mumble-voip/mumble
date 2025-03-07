@@ -358,7 +358,7 @@ public slots:
 	/// Handles state changes like talking mode changes and mute/unmute
 	/// or priority speaker flag changes for the gui user
 	void userStateChanged();
-	void on_channelStateChanged(Channel *channel);
+	void on_channelStateChanged(Channel *channel, bool forceUpdateTree);
 	void destroyUserInformation();
 	void sendChatbarMessage(QString msg);
 	void sendChatbarText(QString msg, bool plainText = false);
@@ -405,7 +405,7 @@ signals:
 	void talkingStatusChanged();
 
 	/// Signal when channel state has been changed
-	void channelStateChanged(Channel *channel);
+	void channelStateChanged(Channel *channel, bool forceUpdateTree);
 
 	/// Signal emitted when the connection was terminated and all cleanup code has been run
 	void disconnectedFromServer();
