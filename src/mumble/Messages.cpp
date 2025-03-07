@@ -958,23 +958,19 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		c->uiMaxUsers = msg.max_users();
 	}
 
-	bool updateUI = false;
+	bool forceUpdateTree = false;
 
 	if (msg.has_is_enter_restricted()) {
 		c->hasEnterRestrictions.store(msg.is_enter_restricted());
-		updateUI = true;
+		forceUpdateTree = true;
 	}
 
 	if (msg.has_can_enter()) {
 		c->localUserCanEnter.store(msg.can_enter());
-		updateUI = true;
+		forceUpdateTree = true;
 	}
 
-	if (updateUI) {
-		this->pmModel->forceVisualUpdate();
-	}
-
-	emit channelStateChanged(c);
+	emit channelStateChanged(c, forceUpdateTree);
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {

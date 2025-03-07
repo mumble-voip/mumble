@@ -2648,9 +2648,13 @@ void MainWindow::userStateChanged() {
 	}
 }
 
-void MainWindow::on_channelStateChanged(Channel *channel) {
+void MainWindow::on_channelStateChanged(Channel *channel, bool forceUpdateTree) {
 	if (channel == pmModel->getChannel(qtvUsers->currentIndex())) {
 		updateChatBar();
+	}
+
+	if (forceUpdateTree) {
+		pmModel->forceVisualUpdate();
 	}
 }
 
