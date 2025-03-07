@@ -361,6 +361,7 @@ public slots:
 	/// Handles state changes like talking mode changes and mute/unmute
 	/// or priority speaker flag changes for the gui user
 	void userStateChanged();
+	void on_channelStateChanged(Channel *channel);
 	void destroyUserInformation();
 	void trayAboutToShow();
 	void sendChatbarMessage(QString msg);
@@ -401,6 +402,9 @@ signals:
 	/// Signal emitted whenever a user removes a ChannelListener
 	void userRemovedChannelListener(ClientUser *user, Channel *channel);
 	void transmissionModeChanged(Settings::AudioTransmit newMode);
+
+	/// Signal when channel state has been changed
+	void channelStateChanged(Channel *channel);
 
 public:
 	MainWindow(QWidget *parent);

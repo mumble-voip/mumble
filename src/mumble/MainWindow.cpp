@@ -198,6 +198,8 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
 
+	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
+
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
 
@@ -2643,6 +2645,12 @@ void MainWindow::userStateChanged() {
 			Global::get().bAttenuateOthers              = false;
 			Global::get().prioritySpeakerActiveOverride = false;
 			break;
+	}
+}
+
+void MainWindow::on_channelStateChanged(Channel *channel) {
+	if (channel == pmModel->getChannel(qtvUsers->currentIndex())) {
+		updateChatBar();
 	}
 }
 
