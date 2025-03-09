@@ -466,12 +466,14 @@ bool MetaParams::loadSSLSettings() {
 	}
 
 	QByteArray crt, key;
+	bool certSpecified = false;
 
 	if (!qsSSLCert.isEmpty()) {
 		QFile pem(qsSSLCert);
 		if (pem.open(QIODevice::ReadOnly)) {
 			crt = pem.readAll();
 			pem.close();
+			certSpecified = true;
 		} else {
 			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLCert));
 			return false;
@@ -482,13 +484,14 @@ bool MetaParams::loadSSLSettings() {
 		if (pem.open(QIODevice::ReadOnly)) {
 			key = pem.readAll();
 			pem.close();
+			certSpecified = true;
 		} else {
 			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLKey));
 			return false;
 		}
 	}
 
-	if (!key.isEmpty() || !crt.isEmpty()) {
+	if (certSpecified) {
 		if (!key.isEmpty()) {
 			tmpKey = Server::privateKeyFromPEM(key, qbaPassPhrase);
 		}
