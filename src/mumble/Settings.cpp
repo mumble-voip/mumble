@@ -805,9 +805,9 @@ void Settings::legacyLoad(const QString &path) {
 
 	LOADENUM(noiseCancelMode, "audio/noiseCancelMode");
 
-#ifndef USE_RENAMENOISE
+#ifndef USE_RNNOISE
 	if (noiseCancelMode == NoiseCancelRNN || noiseCancelMode == NoiseCancelBoth) {
-		// Use Speex instead as this Mumble build was built without support for ReNameNoise
+		// Use Speex instead as this Mumble build was built without support for RNNoise
 		noiseCancelMode = NoiseCancelSpeex;
 	}
 #endif
