@@ -205,7 +205,7 @@ Tato hodnota Vám umožní změnit způsob, jakým Mumble uspořádá kanály ve
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Toto přidá nový záznam, ze záčátku nastaven bez jakýchkoli oprávnění a  použitý na vše.</translation>
+        <translation>Toto přidá nový záznam, ze záčátku nastaven bez jakýchkoli oprávnění a použitý na vše.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -358,7 +358,7 @@ Toto jsou všechny skupiny v současnosti definované pro kanál. Pro vytvořen�
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Členové&lt;/b&gt;&lt;br /&gt;
-Tento seznam obsahuje všechny členy, kteří byli do skupiny přidáni současným kanálem. Nezapomeňte, že toto nezahrnuje členy zděděné vyššími úrovněmi stromu kanálů. Ti můžou být nalezeni v seznamu &lt;i&gt;Zdědění členové&lt;/i&gt;. Aby se zabránilo zdědění tohoto seznamu kanály nižší úrovně, odškrtněte &lt;i&gt;Děditelné&lt;/i&gt; nebo ručně členy přidejte do  seznamu &lt;i&gt;Vyřazení členové&lt;/i&gt;.</translation>
+Tento seznam obsahuje všechny členy, kteří byli do skupiny přidáni současným kanálem. Nezapomeňte, že toto nezahrnuje členy zděděné vyššími úrovněmi stromu kanálů. Ti můžou být nalezeni v seznamu &lt;i&gt;Zdědění členové&lt;/i&gt;. Aby se zabránilo zdědění tohoto seznamu kanály nižší úrovně, odškrtněte &lt;i&gt;Děditelné&lt;/i&gt; nebo ručně členy přidejte do seznamu &lt;i&gt;Vyřazení členové&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
@@ -374,7 +374,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Toto kontroluje, na kterou skupinu uživatelů se tento záznam použije.&lt;br /&gt;Nezapomeňte, že skupina je vyhodnocena v kontextu kanálu, v kterém je záznam použit. Například, výchozí ACL v Kořenovém kanálu dává oprávnění k &lt;i&gt;Zápisu&lt;/i&gt; skupině &lt;i&gt;admin&lt;/i&gt;. Tento záznam, pokud je zděděn kanálem, dá uživateli oprávnění k zápisu, pokud patři do skupiny &lt;i&gt;admin&lt;/i&gt; v onom kanálu, i když do skupiny &lt;i&gt;admin&lt;/i&gt; nepatří v kanále kde ACL vznikl.&lt;br /&gt;Pokud jméno skupiny začíná &apos;!&apos;, její členství je znegováno, a pokud začíná &apos;~&apos;, je vyhodnoceno v kanále, kde byl ACL definováno, spíše než kde je ACL aktivní.&lt;br /&gt;Pokud jméno skupiny začíná &apos;#&apos;,je vyloženo jako znak přístupu. Uživatelé musí zadat cokoliv, co následuje po &apos;#&apos; v jejich seznamu znaků přístupu ke shodě. Toto může být použito pro velmi jednoduchý přístup heslem do kanálů pro neověřené uživatele.&lt;br &gt;Pokud jméno skupiny začíná &apos;$&apos;, skupina se bude shodovat pouze s uživateli, jejichž haš certifikátu se shoduje s tím co následuje po &apos;$&apos;.&lt;br /&gt;Několik speciálních přednastavených skupin je:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;- Shoda se všemi.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Všichni ověření uživatelé se budou shodovat.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Uživatel současně v podkanále minimum &lt;i&gt;a&lt;/i&gt; společných nadřazených, a mezi &lt;i&gt;b&lt;/i&gt; a &lt;i&gt;c&lt;/i&gt; kanály níže v řetězci. Navštivte stránku pro rozsáhlejší dokumentaci této skupiny.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Uživatelé, kteří jsou nyní v kanále se budou shodovat (nemusíte psát &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Uživatelé mimo kanál se budou shodovat (nemusíte psát  &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Nezapomeňte, že záznam bude použit buď na skupinu, nebo na uživatele, ne na obojí.</translation>
+        <translation>Toto kontroluje, na kterou skupinu uživatelů se tento záznam použije.&lt;br /&gt;Nezapomeňte, že skupina je vyhodnocena v kontextu kanálu, v kterém je záznam použit. Například, výchozí ACL v Kořenovém kanálu dává oprávnění k &lt;i&gt;Zápisu&lt;/i&gt; skupině &lt;i&gt;admin&lt;/i&gt;. Tento záznam, pokud je zděděn kanálem, dá uživateli oprávnění k zápisu, pokud patři do skupiny &lt;i&gt;admin&lt;/i&gt; v onom kanálu, i když do skupiny &lt;i&gt;admin&lt;/i&gt; nepatří v kanále kde ACL vznikl.&lt;br /&gt;Pokud jméno skupiny začíná &apos;!&apos;, její členství je znegováno, a pokud začíná &apos;~&apos;, je vyhodnoceno v kanále, kde byl ACL definováno, spíše než kde je ACL aktivní.&lt;br /&gt;Pokud jméno skupiny začíná &apos;#&apos;,je vyloženo jako znak přístupu. Uživatelé musí zadat cokoliv, co následuje po &apos;#&apos; v jejich seznamu znaků přístupu ke shodě. Toto může být použito pro velmi jednoduchý přístup heslem do kanálů pro neověřené uživatele.&lt;br /&gt;Pokud jméno skupiny začíná &apos;$&apos;, skupina se bude shodovat pouze s uživateli, jejichž haš certifikátu se shoduje s tím co následuje po &apos;$&apos;.&lt;br /&gt;Několik speciálních přednastavených skupin je:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;- Shoda se všemi.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Všichni ověření uživatelé se budou shodovat.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Uživatel současně v podkanále minimum &lt;i&gt;a&lt;/i&gt; společných nadřazených, a mezi &lt;i&gt;b&lt;/i&gt; a &lt;i&gt;c&lt;/i&gt; kanály níže v řetězci. Navštivte stránku pro rozsáhlejší dokumentaci této skupiny.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Uživatelé, kteří jsou nyní v kanále se budou shodovat (nemusíte psát &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Uživatelé mimo kanál se budou shodovat (nemusíte psát &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Nezapomeňte, že záznam bude použit buď na skupinu, nebo na uživatele, ne na obojí.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -494,7 +494,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Výchozí  Karta ALSA</translation>
+        <translation>Výchozí Karta ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
@@ -589,7 +589,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Toto nastaví kanály vstupu pro ASIO. Ujistěte se, že vyberete alespoň jeden kanál jako mikrofon a reproduktor. &lt;i&gt;Mikrofon&lt;/i&gt; by měl být tam, kde je Váš mikrofon připojen, a &lt;i&gt;Reproduktor&lt;/i&gt; by měl být kanál, který vzorkuje &apos;&lt;i&gt;To co slyšíte&lt;/i&gt;&apos;.&lt;br /&gt;Například, na Audigy 2 ZS, dobrý výběr pro mikrofon by mohl být &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; zatímco Reproduktor by mohl být  &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; a &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
+        <translation>Toto nastaví kanály vstupu pro ASIO. Ujistěte se, že vyberete alespoň jeden kanál jako mikrofon a reproduktor. &lt;i&gt;Mikrofon&lt;/i&gt; by měl být tam, kde je Váš mikrofon připojen, a &lt;i&gt;Reproduktor&lt;/i&gt; by měl být kanál, který vzorkuje &apos;&lt;i&gt;To co slyšíte&lt;/i&gt;&apos;.&lt;br /&gt;Například, na Audigy 2 ZS, dobrý výběr pro mikrofon by mohl být &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; zatímco Reproduktor by mohl být &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; a &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
@@ -746,7 +746,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>Nastaví, kdy bude Vaše řeč vysílána.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Průběžně&lt;/i&gt; - neustále&lt;br /&gt;&lt;i&gt;Při aktivitě hlasu&lt;/i&gt; - když je zjištěna aktivita hlasu .&lt;br /&gt;&lt;i&gt;Mluvení při stisku tlačítka&lt;/i&gt; - mluvení je vysíláno, pouze když držíte stisknutou určenou klávesu pro mluvení.</translation>
+        <translation type="unfinished">&lt;b&gt;Nastaví, kdy bude Vaše řeč vysílána.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Průběžně&lt;/i&gt; - neustále&lt;br /&gt;&lt;i&gt;Při aktivitě hlasu&lt;/i&gt; - když je zjištěna aktivita hlasu .&lt;br /&gt;&lt;i&gt;Mluvení při stisku tlačítka&lt;/i&gt; - mluvení je vysíláno, pouze když držíte stisknutou určenou klávesu pro mluvení.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -870,7 +870,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Maximální zesílení vstupu.&lt;/b&gt;&lt;br /&gt;Mumble normalizuje hlasitost vstupu před komprimací, a toto nastavuje jak moc je dovoleno zesilovat.&lt;br /&gt;Skutečná úroveň je neustále aktualizována podle Vaši současné řeči, ale nikdy nepřesáhne úroveň zadanou zde.&lt;br /&gt;Pokud  úroveň&lt;i&gt;Hlasitosti Mikrofonu&lt;/i&gt; statistiky zvuku se pohybuje okol 100%, pravděpodobně budete toto chtít nastavit na 2.0 nebo tak nějak, ale pokud, jako většina lidí, nemůžete 100% dosáhnout, tak toto nastavte na mnohem větší úroveň.&lt;br /&gt; Ideálně to nastavte na &lt;i&gt;Hlasitost Mikrofonu * Faktor Zesílení &gt;= 100&lt;/i&gt;, i když mluvíte velmi jemně.&lt;br /&gt;&lt;br /&gt;Nezapomeňte, že neuškodí toto nastavit na maximum, ale Mumble začne zachycovat jiné konverzace, pokud ho necháte toto automaticky nastavit na tuto úroveň.</translation>
+        <translation>&lt;b&gt;Maximální zesílení vstupu.&lt;/b&gt;&lt;br /&gt;Mumble normalizuje hlasitost vstupu před komprimací, a toto nastavuje jak moc je dovoleno zesilovat.&lt;br /&gt;Skutečná úroveň je neustále aktualizována podle Vaši současné řeči, ale nikdy nepřesáhne úroveň zadanou zde.&lt;br /&gt;Pokud úroveň&lt;i&gt;Hlasitosti Mikrofonu&lt;/i&gt; statistiky zvuku se pohybuje okol 100%, pravděpodobně budete toto chtít nastavit na 2.0 nebo tak nějak, ale pokud, jako většina lidí, nemůžete 100% dosáhnout, tak toto nastavte na mnohem větší úroveň.&lt;br /&gt; Ideálně to nastavte na &lt;i&gt;Hlasitost Mikrofonu * Faktor Zesílení &gt;= 100&lt;/i&gt;, i když mluvíte velmi jemně.&lt;br /&gt;&lt;br /&gt;Nezapomeňte, že neuškodí toto nastavit na maximum, ale Mumble začne zachycovat jiné konverzace, pokud ho necháte toto automaticky nastavit na tuto úroveň.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -970,7 +970,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>Maximální propustnost sítě na serveru je %1 kbit/s. Kvalita zvuku byla automaticky upravena na %2 kbit/s (%3 ms) </translation>
+        <translation>Maximální propustnost sítě na serveru je %1 kbit/s. Kvalita zvuku byla automaticky upravena na %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
@@ -1364,7 +1364,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt; Toto povolí jeden z testovacích režimů zpětné smyčky.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Žádná&lt;/i&gt; - Zpětná smyčka zakázána&lt;br /&gt;&lt;i&gt;Místní&lt;/i&gt; - Emulovat místní server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Požádat o zpětnou smyčku ze serveru.&lt;/br&gt; Uvědomte si, prosím, že když je zpětná smyčka zapnuta, ostatní uživatelé neuslyší Váš hlas. Toto nastavení se při ukončení aplikace neukládá.</translation>
+        <translation>&lt;b&gt; Toto povolí jeden z testovacích režimů zpětné smyčky.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Žádná&lt;/i&gt; - Zpětná smyčka zakázána&lt;br /&gt;&lt;i&gt;Místní&lt;/i&gt; - Emulovat místní server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Požádat o zpětnou smyčku ze serveru.&lt;br /&gt; Uvědomte si, prosím, že když je zpětná smyčka zapnuta, ostatní uživatelé neuslyší Váš hlas. Toto nastavení se při ukončení aplikace neukládá.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1769,7 +1769,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Toto je poměr signál-šum mikrofonu v posledním snímku (20 ms). Ukazuje jak je čistý hlas v porovnání s hlukem.&lt;br /&gt;  Pokud je tato hodnota pod 1.0, je šum silnější než hlas a kvalita je tedy snížena. &lt;br /&gt; Neexistuje žádný horní limit pro tuto hodnotu, ale neočekávejte hodnoty větší než 40 nebo 50 bez zvukového studia.</translation>
+        <translation>Toto je poměr signál-šum mikrofonu v posledním snímku (20 ms). Ukazuje jak je čistý hlas v porovnání s hlukem.&lt;br /&gt;Pokud je tato hodnota pod 1.0, je šum silnější než hlas a kvalita je tedy snížena. &lt;br /&gt;Neexistuje žádný horní limit pro tuto hodnotu, ale neočekávejte hodnoty větší než 40 nebo 50 bez zvukového studia.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
@@ -1781,7 +1781,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Toto je pravděpodobnost, že poslední  zvukový rámec (20 ms) byla řeč, ne jenom šum okolního prostředí.&lt;br /&gt; Přenos při hlasová aktivitě ns tomto závisí. Trik je v tom, že prostředek věty je vždy rozpoznána jako řeč; problémem jsou pauzy mezi slovy a začátek mluvení. Je obtížné rozpoznat povzdech od slova, začínajícího na &apos;h&apos;.&lt;br /&gt; Pokud je toto zobrazeno tučně, znamená to, že nyní probíhá přenos.</translation>
+        <translation>Toto je pravděpodobnost, že poslední zvukový rámec (20 ms) byla řeč, ne jenom šum okolního prostředí.&lt;br /&gt;Přenos při hlasová aktivitě ns tomto závisí. Trik je v tom, že prostředek věty je vždy rozpoznána jako řeč; problémem jsou pauzy mezi slovy a začátek mluvení. Je obtížné rozpoznat povzdech od slova, začínajícího na &apos;h&apos;.&lt;br /&gt;Pokud je toto zobrazeno tučně, znamená to, že nyní probíhá přenos.</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
@@ -1793,7 +1793,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Bitrate of last frame</source>
-        <translation>Šířka zvukového pásma </translation>
+        <translation>Šířka zvukového pásma</translation>
     </message>
     <message>
         <source>DoublePush interval</source>
@@ -1837,7 +1837,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Toto zobrazuje váhy rušitele ozvěny s časem zvyšujícím se dolů a frekvencí zvyšující se doprava.&lt;br /&gt; Ideálně by toto mělo být černé, což znamená, že neexistuje žádná ozvěna. Běžně budete mít jednu nebo více vodorovných modrých čar, označující časově zpožděnou ozvěnu. Měli byste vidět, jak jsou váhy aktualizovány ve  skutečném čase.&lt;br /&gt;Uvědomte si, prosím, že dokud nebudete mít něco, od čeho ozvěnu odrážet, tak zde moc užitečná data neuvidíte. Přehrajte nějakou hudbu a věci by se měli ustálit. &lt;br /&gt; Můžete si zvolit k zobrazení skutečné nebo domnělé části vah kmitočtového pásma, nebo jinak vypočítaná modulace a fáze. Z těchto bude asi nejužitečnější modulace, což je amplituda ozvěny, a ukazuje kolik výstupního signálu je v onom časovém kroku odstraněno. Ostatní režimy zobrazení jsou většinou užitečné pro lidi, kteří si chtějí vyladit jejich algoritmy vyrušení ozvěny.&lt;br /&gt; Uvědomte si, prosím, že pokud se celý obrázek hodně mění, když je v režimu modulace, rušitel ozvěny nemůže najít žádnou souvztažnost mezi dvěma vstupními zdroji (reproduktory a mikrofon). Buď máte velmi dlouhou prodlevu ozvěny, nebo jeden ze vstupních zdrojů není správně nastaven.</translation>
+        <translation>Toto zobrazuje váhy rušitele ozvěny s časem zvyšujícím se dolů a frekvencí zvyšující se doprava.&lt;br /&gt;Ideálně by toto mělo být černé, což znamená, že neexistuje žádná ozvěna. Běžně budete mít jednu nebo více vodorovných modrých čar, označující časově zpožděnou ozvěnu. Měli byste vidět, jak jsou váhy aktualizovány ve skutečném čase.&lt;br /&gt;Uvědomte si, prosím, že dokud nebudete mít něco, od čeho ozvěnu odrážet, tak zde moc užitečná data neuvidíte. Přehrajte nějakou hudbu a věci by se měli ustálit. &lt;br /&gt;Můžete si zvolit k zobrazení skutečné nebo domnělé části vah kmitočtového pásma, nebo jinak vypočítaná modulace a fáze. Z těchto bude asi nejužitečnější modulace, což je amplituda ozvěny, a ukazuje kolik výstupního signálu je v onom časovém kroku odstraněno. Ostatní režimy zobrazení jsou většinou užitečné pro lidi, kteří si chtějí vyladit jejich algoritmy vyrušení ozvěny.&lt;br /&gt;Uvědomte si, prosím, že pokud se celý obrázek hodně mění, když je v režimu modulace, rušitel ozvěny nemůže najít žádnou souvztažnost mezi dvěma vstupními zdroji (reproduktory a mikrofon). Buď máte velmi dlouhou prodlevu ozvěny, nebo jeden ze vstupních zdrojů není správně nastaven.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -4540,7 +4540,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Toto nastavuje, který kanál má být automaticky rozšířen. &lt;i&gt;Žádný&lt;i/&gt; a &lt;i&gt;Všechny&lt;/i&gt; rozšíří žádný nebo všechny kanály, zatímco &lt;i&gt;Pouze s uživateli&lt;/i&gt; rozšíří a zúží kanály, jak uživatelé přicházejí a odcházejí.</translation>
+        <translation>Toto nastavuje, který kanál má být automaticky rozšířen. &lt;i&gt;Žádný&lt;/i&gt; a &lt;i&gt;Všechny&lt;/i&gt; rozšíří žádný nebo všechny kanály, zatímco &lt;i&gt;Pouze s uživateli&lt;/i&gt; rozšíří a zúží kanály, jak uživatelé přicházejí a odcházejí.</translation>
     </message>
     <message>
         <source>List users above subchannels (requires restart).</source>
@@ -5675,7 +5675,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Zeslabit/zesílit sám sebe.  Když jste zeslabeni, neposíláte žádná data na server. Zesílením při ohlušení zároveň ohlušení zrušíte.</translation>
+        <translation>Zeslabit/zesílit sám sebe. Když jste zeslabeni, neposíláte žádná data na server. Zesílením při ohlušení zároveň ohlušení zrušíte.</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
@@ -6204,7 +6204,9 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <source>Remote controlling Mumble:
 
 </source>
-        <translation>Vzdálené ovládání Mumble:</translation>
+        <translation>Vzdálené ovládání Mumble:
+
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -7214,7 +7216,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Při odpojení se znovu připojit&lt;b&gt;.&lt;br /&gt;Toto donutí Mumble se automaticky znovu pokusit o připojení po 10 sekundách od selhání připojení k serveru.</translation>
+        <translation>&lt;b&gt;Při odpojení se znovu připojit&lt;/b&gt;.&lt;br /&gt;Toto donutí Mumble se automaticky znovu pokusit o připojení po 10 sekundách od selhání připojení k serveru.</translation>
     </message>
     <message>
         <source>Reconnect automatically</source>
@@ -7639,7 +7641,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
     </message>
     <message>
         <source>Load…</source>
-        <translation>Nahrát...</translation>
+        <translation>Nahrát…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -7647,7 +7649,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
     </message>
     <message>
         <source>Save…</source>
-        <translation>Uložit...</translation>
+        <translation>Uložit…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -9674,7 +9676,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished">Digest ((SHA-1): %1 {256)?}</translation>
+        <translation>Digest (SHA-256): %1</translation>
     </message>
     <message>
         <source>Email: %1</source>
