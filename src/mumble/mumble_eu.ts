@@ -344,7 +344,7 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt; Oinordetza &lt;/ b&gt; &lt;br /&gt; Honek gurasoaren taldeko kide guztiak heredatuko ditu, taldea &lt;i&gt; Heredagarri &lt;/ i&gt; bezala markatua badago.</translation>
+        <translation type="unfinished">&lt;b&gt; Oinordetza &lt;/ b&gt; &lt;br /&gt; Honek gurasoaren taldeko kide guztiak heredatuko ditu, taldea &lt;i&gt; Heredagarri &lt;/ i&gt; bezala markatua badago.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
@@ -369,7 +369,7 @@ Baztertutako kideen zerrendu. Kideen talde-jatorria ez da guraso kanaletik hered
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Heredatutako kideak&lt;/b&gt;&lt;br&gt;
+        <translation type="unfinished">&lt;b&gt;Heredatutako kideak&lt;/b&gt;&lt;br&gt;
 
 Momentuko kanalak heredatutako kideen zerrenda du.
 Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekiditeko.</translation>
@@ -1378,7 +1378,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>Honek sarrera hizketaren bolumena doitzen du.&lt;/b&gt;&lt;br /&gt;Izan kontutan hau %100 gora igotzen baduzu, audioa distortsionatu egingo dela.</translation>
+        <translation type="unfinished">Honek sarrera hizketaren bolumena doitzen du.&lt;/b&gt;&lt;br /&gt;Izan kontutan hau %100 gora igotzen baduzu, audioa distortsionatu egingo dela.</translation>
     </message>
     <message>
         <source>Output Delay</source>
@@ -2590,7 +2590,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>Mumble-k PKCS #12 formatuan gordetako ziurtagiriak inportatu ditzake. Hau da Mumble-tik giltza bat esportatzean erabilitako formatua, baita ere Firefox-etik, Internet Explorer-etik, Opera-tik etab. giltzak esportatzerakoan.&lt;/p&gt;&lt;p&gt;Fitxategia pasahitzaz babestua badago, pasahitza beharko duzu ziurtagiria inportatzeko.&lt;/p&gt;</translation>
+        <translation type="unfinished">Mumble-k PKCS #12 formatuan gordetako ziurtagiriak inportatu ditzake. Hau da Mumble-tik giltza bat esportatzean erabilitako formatua, baita ere Firefox-etik, Internet Explorer-etik, Opera-tik etab. giltzak esportatzerakoan.&lt;/p&gt;&lt;p&gt;Fitxategia pasahitzaz babestua badago, pasahitza beharko duzu ziurtagiria inportatzeko.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
