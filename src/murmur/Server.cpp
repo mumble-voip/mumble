@@ -36,8 +36,6 @@
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslConfiguration>
 
-#include <boost/bind/bind.hpp>
-
 #include "TracyConstants.h"
 #include <tracy/Tracy.hpp>
 #include <tracy/TracyC.h>
@@ -55,7 +53,7 @@
 #	include <poll.h>
 #endif
 
-ExecEvent::ExecEvent(boost::function< void() > f) : QEvent(static_cast< QEvent::Type >(EXEC_QEVENT)) {
+ExecEvent::ExecEvent(std::function< void() > f) : QEvent(static_cast< QEvent::Type >(EXEC_QEVENT)) {
 	func = f;
 }
 
@@ -1652,7 +1650,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty())
 		QCoreApplication::instance()->postEvent(this,
-												new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
+                                                new ExecEvent([&]()->void { this->removeChannel(old->iId);}));
 
 	if (u->uiSession > 0 && u->uiSession < iMaxUsers * 2)
 		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
@@ -1965,7 +1963,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
 		QCoreApplication::instance()->postEvent(this,
-												new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
+                                                new ExecEvent([&]()->void{ this->removeChannel(old->iId);}));
 	}
 
 	sendClientPermission(static_cast< ServerUser * >(p), c);

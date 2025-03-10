@@ -13,9 +13,6 @@
 
 #include <QTimer>
 #include <QWidget>
-#ifndef Q_MOC_RUN
-#	include <boost/optional.hpp>
-#endif
 #include <QApplication>
 #include <QDebug>
 
