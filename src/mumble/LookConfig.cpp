@@ -91,6 +91,9 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
 
+	connect(qcbAutoTheme, SIGNAL(stateChanged(int)), this, SLOT(on_qcbAutoTheme_stateChanged(int)));
+
+
 #define ADD_SEARCH_USERACTION(name)                                                                      \
 	qcbSearchUserAction->addItem(Search::SearchDialog::toString(Search::SearchDialog::UserAction::name), \
 								 static_cast< int >(Search::SearchDialog::UserAction::name))
@@ -103,6 +106,13 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	ADD_SEARCH_CHANNELACTION(NONE);
 	ADD_SEARCH_CHANNELACTION(JOIN);
 #undef ADD_SEARCH_CHANNELACTION
+}
+
+void LookConfig::on_qcbAutoTheme_stateChanged(int state) {
+    if (state == Qt::Checked) {
+		//If the user enabled the "auto theme", detect and apply the system theme
+        Themes::setSystemTheme();
+    }
 }
 
 QString LookConfig::title() const {
@@ -193,6 +203,9 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 
+	qcbAutoTheme->setChecked(r.bAutoTheme);
+	//This ensures that when you open the settings, the checkbox is checked if Auto Theme was enabled before
+
 	const boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
@@ -261,12 +274,19 @@ void LookConfig::save() const {
 	s.bChatBarUseSelection      = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
 
-	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
-	if (themeData.isNull()) {
-		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
-	} else {
-		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
-	}
+    s.bAutoTheme = qcbAutoTheme->isChecked(); 
+
+    if (s.bAutoTheme) {
+		// If Auto Theme is enabled, detect and apply system theme
+        Themes::setSystemTheme();
+    } else {
+        QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
+        if (themeData.isNull()) {
+            Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
+        } else {
+            Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
+        }
+    }
 
 	s.talkingUI_UsersAlwaysVisible        = qcbUsersAlwaysVisible->isChecked();
 	s.bTalkingUI_LocalUserStaysVisible    = qcbLocalUserVisible->isChecked();
