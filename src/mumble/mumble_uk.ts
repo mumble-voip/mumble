@@ -9438,39 +9438,39 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>до ковзного середнього клієнта</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Останні X хвилин:</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% втрачено</translation>
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>від ковзного середнього клієнта</translation>
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% пізно</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Всього:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Останній %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">секунд</translation>
+        <translation>секунд</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>хвилин</translation>
     </message>
 </context>
 <context>

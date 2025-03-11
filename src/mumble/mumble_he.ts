@@ -88,7 +88,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;מיקום&lt;/b&gt;&lt;/br&gt;
+        <translation type="unfinished">&lt;b&gt;מיקום&lt;/b&gt;&lt;/br&gt;
 ערך זה מאפשר לך לשנות את הדרך שבה Mumble מארגנת את הערוצים ברשימת הערוצים. ערוץ בעל ערך &lt;i&gt;מיקום&lt;/i&gt;גדול יותר ימוקם תמיד מתחת לערוץ בעל ערך מיקום נמוך יותר, ולהפך. אם ערך ה&lt;i&gt;מיקום&lt;/i&gt; עבור שני ערוצים זהה, הם ימוקמו לפי סדר אלפבתי.</translation>
     </message>
     <message>
@@ -345,7 +345,7 @@ These are all the groups currently defined for the channel. To create a new grou
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;קבל קבוצות בירושה&lt;/b&gt;&lt;br /&gt;
+        <translation type="unfinished">&lt;b&gt;קבל קבוצות בירושה&lt;/b&gt;&lt;br /&gt;
 מכליל את כל החברים מקבוצת האב, אם קבוצת האב מסומנת כניתנת להורשה.</translation>
     </message>
     <message>
@@ -375,7 +375,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>אפשרות זו שולטת בקבוצת המשתמשים שעבורה תיושם הרשומה הזו.&lt;br /&gt;שימו לב שהיישום יהיה רק על הקבוצה שמוגדרת בערוץ הנבחר. למשל: רשימת ההרשאות ברירת המחדל בערוץ השורש מעניקה הרשאת &lt;i&gt;כתיבה&lt;/i&gt; לקבוצת &lt;i&gt;admin&lt;/i&gt;. הרשומה הזו, אם תועבר בתורשה לערוץ אחר, תיתן למשתמש הרשאת כתיבה אם הוא שייך לקבוצת האדמין של הערוץ הזה, גם אם הוא לא שייך לקבוצת האדמין בערוץ שממנו נורשה ההרשאה.&lt;br /&gt;אם שמה של קבוצה מסוימת מתחיל ב&apos;!&apos;, החברות בה מתהפכת, ואם הוא מתחיל &apos;~&apos;, ההרשאות שלה ייושמו בערוץ שממנו מגיעות ההרשאות, ולא בערוץ שבו הן מופעלות.&lt;br /&gt;אם שם הקבוצה מתחיל ב&apos;#&apos;, היא מפורשת כמפתח גישה. המשתמש חייב להכניס את מה שבא לאחר ה&apos;#&apos; ברשימת הסיסמאות שלהם כדי להתאים. זה יכול לשמש כגישה מבוססת סיסמא בסיסית מאוד לערוצים עבור משתמשים לא רשומים או לא מזוהים.&lt;br /&gt;אם שמה של קבוצה מתחיל &apos;$&apos;, היא תתאים רק למשתמשים שהצפנת תעודות האבטחה שלהם מתאימה למה שבא לאחר ה&apos;$&apos;.&lt;br /&gt;מספר קבוצות מיוחדות הוגדרו מראש, ואלו הן:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - כל המשתמשים נכללים בה.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - כל המשתמשים הרשומים יתאימו לה.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - משתמשים בתת ערוץ בעומק מינמלי של &lt;i&gt;a&lt;/i&gt; ובין &lt;i&gt;b&lt;/i&gt; ל-&lt;i&gt;c&lt;/i&gt; בשרשרת הערוצים. הכנסו לאתר Mumble לעוד מידע על קבוצה זו.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - משתמשים שמצאים ברגע זה בערוץ יתאימו (שימושי עבור קבוצת sub).&lt;br /&gt;&lt;b&gt;&lt;/b&gt; - משתמשים מחוץ לערוץ ברגע זה יתאימו (שימושי עבורי קבוצת sub).&lt;br /&gt;שימו לב שהרשומה תיושם למשתמש או לקבוצה, אך לא לשניהם.</translation>
+        <translation type="unfinished">אפשרות זו שולטת בקבוצת המשתמשים שעבורה תיושם הרשומה הזו.&lt;br /&gt;שימו לב שהיישום יהיה רק על הקבוצה שמוגדרת בערוץ הנבחר. למשל: רשימת ההרשאות ברירת המחדל בערוץ השורש מעניקה הרשאת &lt;i&gt;כתיבה&lt;/i&gt; לקבוצת &lt;i&gt;admin&lt;/i&gt;. הרשומה הזו, אם תועבר בתורשה לערוץ אחר, תיתן למשתמש הרשאת כתיבה אם הוא שייך לקבוצת האדמין של הערוץ הזה, גם אם הוא לא שייך לקבוצת האדמין בערוץ שממנו נורשה ההרשאה.&lt;br /&gt;אם שמה של קבוצה מסוימת מתחיל ב&apos;!&apos;, החברות בה מתהפכת, ואם הוא מתחיל &apos;~&apos;, ההרשאות שלה ייושמו בערוץ שממנו מגיעות ההרשאות, ולא בערוץ שבו הן מופעלות.&lt;br /&gt;אם שם הקבוצה מתחיל ב&apos;#&apos;, היא מפורשת כמפתח גישה. המשתמש חייב להכניס את מה שבא לאחר ה&apos;#&apos; ברשימת הסיסמאות שלהם כדי להתאים. זה יכול לשמש כגישה מבוססת סיסמא בסיסית מאוד לערוצים עבור משתמשים לא רשומים או לא מזוהים.&lt;br /&gt;אם שמה של קבוצה מתחיל &apos;$&apos;, היא תתאים רק למשתמשים שהצפנת תעודות האבטחה שלהם מתאימה למה שבא לאחר ה&apos;$&apos;.&lt;br /&gt;מספר קבוצות מיוחדות הוגדרו מראש, ואלו הן:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - כל המשתמשים נכללים בה.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - כל המשתמשים הרשומים יתאימו לה.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - משתמשים בתת ערוץ בעומק מינמלי של &lt;i&gt;a&lt;/i&gt; ובין &lt;i&gt;b&lt;/i&gt; ל-&lt;i&gt;c&lt;/i&gt; בשרשרת הערוצים. הכנסו לאתר Mumble לעוד מידע על קבוצה זו.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - משתמשים שמצאים ברגע זה בערוץ יתאימו (שימושי עבור קבוצת sub).&lt;br /&gt;&lt;b&gt;&lt;/b&gt; - משתמשים מחוץ לערוץ ברגע זה יתאימו (שימושי עבורי קבוצת sub).&lt;br /&gt;שימו לב שהרשומה תיושם למשתמש או לקבוצה, אך לא לשניהם.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -383,7 +383,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>מראה את כל הרשומות הפעילות בערוץ זה. רשומות שנורשו מערוצי אב יוצגו בכתב נטוי. ההרשאות נקראות מלמעלה למטה, כך שעדיפותן גדלה ככל שמתקדמים ברשימה.</translation>
+        <translation type="unfinished">מראה את כל הרשומות הפעילות בערוץ זה. רשומות שנורשו מערוצי אב יוצגו בכתב נטוי. ההרשאות נקראות מלמעלה למטה, כך שעדיפותן גדלה ככל שמתקדמים ברשימה.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -747,7 +747,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת מתי לשדר את הדיבור שלך.&lt;/b&gt; &lt;br /&gt;&lt;i&gt;מתמשך&lt;/i&gt; - כל הזמן&lt;br /&gt;&lt;i&gt;פעילות קולית&lt;/i&gt; - כאשר אתם מדברים.&lt;br /&gt;&lt;i&gt;לחץ כדי לדבר&lt;/i&gt; - כאשר אתם מחזיקים את מקש הדיבור שנקבע בהגדרות.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת מתי לשדר את הדיבור שלך.&lt;/b&gt; &lt;br /&gt;&lt;i&gt;מתמשך&lt;/i&gt; - כל הזמן&lt;br /&gt;&lt;i&gt;פעילות קולית&lt;/i&gt; - כאשר אתם מדברים.&lt;br /&gt;&lt;i&gt;לחץ כדי לדבר&lt;/i&gt; - כאשר אתם מחזיקים את מקש הדיבור שנקבע בהגדרות.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -759,7 +759,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זמן הלחיצה הכפולה&lt;/b&gt;&lt;br /&gt;אם תלחץ על לחצן הדיבור פעמיים בטווח הזמן שהוגדר הלחצן יינעל. Mumble ימשיך לשדר עד שתלחץ על הלחצן שוב כדי לשחרר את לחצן הדיבור מחדש.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זמן הלחיצה הכפולה&lt;/b&gt;&lt;br /&gt;אם תלחץ על לחצן הדיבור פעמיים בטווח הזמן שהוגדר הלחצן יינעל. Mumble ימשיך לשדר עד שתלחץ על הלחצן שוב כדי לשחרר את לחצן הדיבור מחדש.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -795,7 +795,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>מגדיר את זיהוי הקול למבוסס עוצמ. המצב הזה, העוצמה עצמה של אות הקלט תפעיל את זיהוי הדיבור.</translation>
+        <translation type="unfinished">מגדיר את זיהוי הקול למבוסס עוצמ. המצב הזה, העוצמה עצמה של אות הקלט תפעיל את זיהוי הדיבור.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -839,7 +839,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה&lt;/b&gt;&lt;br /&gt;זה יקבע בכמה רוחב פס מותר ל-Mumble להשתמש עבור שידור שמע.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה&lt;/b&gt;&lt;br /&gt;זה יקבע בכמה רוחב פס מותר ל-Mumble להשתמש עבור שידור שמע.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -1377,7 +1377,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את עוצמת הקול של דיבור נכנס&lt;/b&gt;&lt;br /&gt;שימו לב שאם תעלו ערך זה מעל 100%, איכות הקול כנראה תושפע לרעה.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את עוצמת הקול של דיבור נכנס&lt;/b&gt;&lt;br /&gt;שימו לב שאם תעלו ערך זה מעל 100%, איכות הקול כנראה תושפע לרעה.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Output Delay</source>
@@ -1479,7 +1479,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה תונמך עוצמת הקול של תוכניות אחרות כשאפשרות זו מופעלת.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה תונמך עוצמת הקול של תוכניות אחרות כשאפשרות זו מופעלת.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
@@ -1487,7 +1487,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכנות אחרות בזמן דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכנות אחרות בזמן דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>while other users talk</source>
@@ -1499,7 +1499,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בעת דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בעת דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>while you talk</source>
@@ -1758,7 +1758,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>זה מראה עד כמה קרובה עוצמת הקלט הנוכחית למצב אידאלי. כדי לשנות את עוצמת המיקרופון שלכם, פתחו את ממשק הגדרות הקול שלכם והביטו על הערך שכאן כאשר אתם מדברים.&lt;b&gt;דברו חזק, כאילו אתם עצבניים שאיזה נוב הרג אתכם בצורה משפילה.&lt;/b&gt;&lt;br /&gt;שנו את עוצמת הקול עד שהערך הזה יהיה קרוב ל-100%, אך וודאו שהוא לא עולה על כך. אם הוא כן עולה על כך, רוב הסיכויים שהעוצמה תעבור את הגבול בזמן שתדברו, וזה יגרום לאיכות הקול לרדת.</translation>
+        <translation type="unfinished">זה מראה עד כמה קרובה עוצמת הקלט הנוכחית למצב אידאלי. כדי לשנות את עוצמת המיקרופון שלכם, פתחו את ממשק הגדרות הקול שלכם והביטו על הערך שכאן כאשר אתם מדברים.&lt;b&gt;דברו חזק, כאילו אתם עצבניים שאיזה נוב הרג אתכם בצורה משפילה.&lt;/b&gt;&lt;br /&gt;שנו את עוצמת הקול עד שהערך הזה יהיה קרוב ל-100%, אך וודאו שהוא לא עולה על כך. אם הוא כן עולה על כך, רוב הסיכויים שהעוצמה תעבור את הגבול בזמן שתדברו, וזה יגרום לאיכות הקול לרדת.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
@@ -1897,7 +1897,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור קלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור קלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Cancel echo from headset or speakers</source>
@@ -1925,7 +1925,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור פלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור פלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Enable positional audio</source>
@@ -1978,12 +1978,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;
 פתחו את הגדרות השמע של המחשב שלכם ועברו להגדרות הקלט. וודאו שהמיקרופון שלכם פועל ושעוצמת ההקלטה שלו מקסימלית. אם קיימת אפשרות בשם &quot;הגברת מיקרופון&quot; (Microphone Boost), וודאו שהיא מסומנת גם כן.
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
 כעת דברו בקול רם, כאילו שאתם עצבניים או נרגשים. הנמיכו את עוצמת ההקלטה בהגדרות הקלט של המחשב עד שהפס שבחלון זה מגיע כמה שיותר רחוק באזור הירוק והכחול, אך &lt;b&gt;לא&lt;/b&gt; באזור האדום בזמן שאתם מדברים.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -2161,7 +2162,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;
 פתחו את בקרת עוצמת השמע שלכם ועברו להגדרות ההקלטה. ודאו שהמיקרופון מסומן כקלט הפעיל עם עוצמת ההקלטה המקסימלית. אם קיימת אפשרות בשם &quot;Microphone Boost&quot; (הגברת מיקרופון),ודאו שהיא מסומנת.
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
@@ -2489,7 +2490,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>לא ניתן לאמת את כתובת הדוא&quot;ל. הכניסו כתובת חוקית (או השאר ריק) כדי להמשיך.</translation>
+        <translation type="unfinished">לא ניתן לאמת את כתובת הדוא&quot;ל. הכניסו כתובת חוקית (או השאר ריק) כדי להמשיך.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
@@ -2609,7 +2610,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p dir=&quot;rtl&quot;&gt;Mumble יכול לייבא תעודות שמאוכסנות בפורמט PKCS #12. זהו הפורמט שבשימוש כאשר מייבאים מפתח מתוך Mumble, וגם כאשר מייבאים מפתחות מתוך Firefox, Internet Explorer, Opera ואחרים&lt;/p&gt;&lt;p&gt;במידה והקובץ הינו מוגן סיסמה, יהיה עליך לעשות שימוש בסיסמה כדי לייבא את הסיסמה.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;rtl&quot;&gt;Mumble יכול לייבא תעודות שמאוכסנות בפורמט PKCS #12. זהו הפורמט שבשימוש כאשר מייבאים מפתח מתוך Mumble, וגם כאשר מייבאים מפתחות מתוך Firefox, Internet Explorer, Opera ואחרים&lt;/p&gt;&lt;p&gt;במידה והקובץ הינו מוגן סיסמה, יהיה עליך לעשות שימוש בסיסמה כדי לייבא את הסיסמה.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
@@ -2729,7 +2730,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;rtl&quot;&gt;‫Mumble יחולל כעת תעודה חזקה עבור אימות עם שרתים.&lt;/p&gt;&lt;p&gt;באם רצונך בכך, באפשרותך לספק מידע נוסף לאחסון בתעודה, שיוצג לשרתים בעת התחברותך. אם תסופק כתובת דוא&quot;ל תקפה, תהיה ביכולתך לשדרג אל תעודת דוא&quot;ל מונפקת CA אחר כך, המספקת זהות חזקה.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;rtl&quot;&gt;‫Mumble יחולל כעת תעודה חזקה עבור אימות עם שרתים.&lt;/p&gt;&lt;p&gt;באם רצונך בכך, באפשרותך לספק מידע נוסף לאחסון בתעודה, שיוצג לשרתים בעת התחברותך. אם תסופק כתובת דוא&quot;ל תקפה, תהיה ביכולתך לשדרג אל תעודת דוא&quot;ל מונפקת CA אחר כך, המספקת זהות חזקה.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2774,7 +2775,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;rtl&quot;&gt;אם אי פעם תאובד לך תעודתך הנוכחית, דבר שיקרה אם מחשבך סובל מן כשל קושחה או שמכונתך תותקן מחדש, לא תהיה לך היכולת להתאמת עם אף שרת בו הינך נרשמת אליו. לכן זה &lt;b&gt;מחוייב&lt;/b&gt; שיוכן גיבוי של תעודתך. אנחנו ממליצים בחוזקה לאחסן את גיבוי זה על אחסון בר הזזה, כגון דיסקון USB.&lt;/p&gt;
+        <translation type="unfinished">&lt;p dir=&quot;rtl&quot;&gt;אם אי פעם תאובד לך תעודתך הנוכחית, דבר שיקרה אם מחשבך סובל מן כשל קושחה או שמכונתך תותקן מחדש, לא תהיה לך היכולת להתאמת עם אף שרת בו הינך נרשמת אליו. לכן זה &lt;b&gt;מחוייב&lt;/b&gt; שיוכן גיבוי של תעודתך. אנחנו ממליצים בחוזקה לאחסן את גיבוי זה על אחסון בר הזזה, כגון דיסקון USB.&lt;/p&gt;
 &lt;p dir=&quot;rtl&quot;&gt;לתשומת לבך: קובץ זה לא יהיה מוצפן, ואם מישהו ישיג גישה אליו, תעמוד להם האפשרות להתחזות אליך, ולכן מוטב לשמור על תעודה זו באופן קפדני.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2898,7 +2899,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>מייצג את ההרשאה לקשר ערוצים. משתמשים בערוצים מקושרים שומעים זה את זה, כל עוד למשתמש יש הרשאות דיבור בערוץ המקבל. משתמש צריך הרשאת קישור בשני הערוצים שברצונו לקשר כדי לקשר בינהם, אך רק באחד מהם כדי לבטל קישור.</translation>
+        <translation type="unfinished">מייצג את ההרשאה לקשר ערוצים. משתמשים בערוצים מקושרים שומעים זה את זה, כל עוד למשתמש יש הרשאות דיבור בערוץ המקבל. משתמש צריך הרשאת קישור בשני הערוצים שברצונו לקשר כדי לקשר בינהם, אך רק באחד מהם כדי לבטל קישור.</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
@@ -3048,7 +3049,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יאשר את ההגדרות הנוכחיות ויחזור אל Mumble.&lt;br /&gt;ההגדרות ישמרו לדיסק כשתצא מתוך Mumble.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יאשר את ההגדרות הנוכחיות ויחזור אל Mumble.&lt;br /&gt;ההגדרות ישמרו לדיסק כשתצא מתוך Mumble.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Reject changes</source>
@@ -3056,7 +3057,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יבטל את כל השינויים ויחזור אל Mumble.&lt;br /&gt;ההגדרות יאופסו למצבם הקודם.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יבטל את כל השינויים ויחזור אל Mumble.&lt;br /&gt;ההגדרות יאופסו למצבם הקודם.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Apply changes</source>
@@ -3482,7 +3483,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אנו מאוד מצטערים, אך נראה כי Mumble קרס. האם יש ברצונך לשלוח דיווח קריסה למפתחי Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;דיווח הקריסה מכיל עותק חלקי של מצב התוכנה ברגע הקריסה, ויעזור מאוד למפתחים לתקן את הבעיה.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אנו מאוד מצטערים, אך נראה כי Mumble קרס. האם יש ברצונך לשלוח דיווח קריסה למפתחי Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;דיווח הקריסה מכיל עותק חלקי של מצב התוכנה ברגע הקריסה, ויעזור מאוד למפתחים לתקן את הבעיה.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
@@ -3612,7 +3613,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p dir=&quot;RTL&quot;&gt;Mumble תומך כעת רק בכפתורי עכבר ובכפתורי שליטה במקלדת (Alt, Ctrl, Shift וכו&apos;) עבור קיצורים גלובאליים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו להשתמש בעוד, תוכלו להפעיל את &lt;span style=&quot; font-style:italic;&quot;&gt;גישה להתקני תמיכה&lt;/span&gt; בהגדרות הנגישות של המערכת. למרות זאת, שימו לב שזה עלול לאפשר לתוכנות זדוניות לקרוא את הקשות המקלדת שלכם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p dir=&quot;RTL&quot;&gt;Mumble תומך כעת רק בכפתורי עכבר ובכפתורי שליטה במקלדת (Alt, Ctrl, Shift וכו&apos;) עבור קיצורים גלובאליים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו להשתמש בעוד, תוכלו להפעיל את &lt;span style=&quot; font-style:italic;&quot;&gt;גישה להתקני תמיכה&lt;/span&gt; בהגדרות הנגישות של המערכת. למרות זאת, שימו לב שזה עלול לאפשר לתוכנות זדוניות לקרוא את הקשות המקלדת שלכם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
@@ -3938,7 +3939,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;זוהי רשימת התקני ה-LCD במערכת שלכם. היא מסודרת בצורה אלפאבתית, אבל גם מכילה את גודל הצג. Mumble תומכת בפלט למספר התקני LCD בו זמנית.&lt;/p&gt;
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זוהי רשימת התקני ה-LCD במערכת שלכם. היא מסודרת בצורה אלפאבתית, אבל גם מכילה את גודל הצג. Mumble תומכת בפלט למספר התקני LCD בו זמנית.&lt;/p&gt;
 &lt;h3&gt;גודל:&lt;/h3&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
 שדה זה מתאר את גודלו של התקן ה-LCD. הגודל נתון בתור פיקסלים (התקנים גרפיים) או בתווים (התקנים תוויים).&lt;/p&gt;
@@ -3965,8 +3966,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו קובעת את הגודל המינימלי של טור בתצוגת המשתמשים.&lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;אם יותר מדי אנשים מדברים בו זמנית, תצוגת המשתמשים תחלק את עצמה לטורים. אתם יכולים להשתמש באפשרות זו כדי לבחור איזון בין מספר המשתמשים שנראים בהתקן ה-LCD, וברוחב השם שלהם.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו קובעת את הגודל המינימלי של טור בתצוגת המשתמשים.&lt;/p&gt;
+&lt;p dir=&quot;RTL&quot;&gt;אם יותר מדי אנשים מדברים בו זמנית, תצוגת המשתמשים תחלק את עצמה לטורים. אתם יכולים להשתמש באפשרות זו כדי לבחור איזון בין מספר המשתמשים שנראים בהתקן ה-LCD, וברוחב השם שלהם.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
@@ -5159,7 +5161,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;אתם עומדים לרשום את עצמכם לשרת. אין אפשרות לבטל פעולה זו, ואין אפשרות לשנות את שם המשתמש מרגע שנרשמתם. אתם תמיד תוצגו תחת השם &apos;%1&apos; בשרת הזה, גם אם תשנו אותו בעת ההתחברות. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם להרשם?&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אתם עומדים לרשום את עצמכם לשרת. אין אפשרות לבטל פעולה זו, ואין אפשרות לשנות את שם המשתמש מרגע שנרשמתם. אתם תמיד תוצגו תחת השם &apos;%1&apos; בשרת הזה, גם אם תשנו אותו בעת ההתחברות. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם להרשם?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register user %1</source>
@@ -7266,7 +7268,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;אפשרות זו תמנע שליחה של מידע זיהוי מן הלקוח.&lt;/b&gt;&lt;p dir=&quot;RTL&quot;&gt;הלקוח לא יזהה את עצמו בעזרת תעודת אבטחה, גם אם הוגדרה תעודה כזה, ולא ישמור סיסמאות עבור חיבורים. אפשרות זו היא בעיקר עבור ניפוי שגיאות ולא תשמר בעת יציאה מתוך Mumble.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;b&gt;אפשרות זו תמנע שליחה של מידע זיהוי מן הלקוח.&lt;/b&gt;&lt;p dir=&quot;RTL&quot;&gt;הלקוח לא יזהה את עצמו בעזרת תעודת אבטחה, גם אם הוגדרה תעודה כזה, ולא ישמור סיסמאות עבור חיבורים. אפשרות זו היא בעיקר עבור ניפוי שגיאות ולא תשמר בעת יציאה מתוך Mumble.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate and password storage</source>
@@ -7302,7 +7304,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;שם משתמש לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את שם המשתמש שבו אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
+        <translation type="unfinished">&lt;b&gt;שם משתמש לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את שם המשתמש שבו אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7314,7 +7316,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;סיסמא לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את הסיסמא שבה אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
+        <translation type="unfinished">&lt;b&gt;סיסמא לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את הסיסמא שבה אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
     </message>
     <message>
         <source>Mumble services</source>

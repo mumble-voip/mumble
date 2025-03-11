@@ -436,11 +436,11 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation>Número máximo de usuarios por canal</translation>
+        <translation>Número máximo de usuarios en el canal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation>Descripción del canal</translation>
+        <translation>Descripción de canal</translation>
     </message>
     <message>
         <source>Select member to add</source>
@@ -9379,11 +9379,11 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Últimos X minutos:</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% perdidos</translation>
     </message>
     <message>
         <source>from client rolling average</source>
@@ -9391,23 +9391,23 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% retrasados</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Total:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Últimos %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">segundos</translation>
+        <translation>segundos</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>minutos</translation>
     </message>
 </context>
 <context>
