@@ -9877,6 +9877,14 @@ Bitte kontaktieren Sie den Server-Administrator für weitere Informationen.</tra
         <translation>Starten der Aufnahme fehlgeschlagen – der Audioausgang ist falsch konfiguriert (0 Hz Abtastrate)</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>Dieses Feld enthält den Verzeichnispfad, in dem die Sprachaufnahmen gespeichert werden sollen. Verwenden Sie die Schaltfläche &quot;Durchsuchen&quot;, um einen Dateidialog zu öffnen.</translation>
     </message>
