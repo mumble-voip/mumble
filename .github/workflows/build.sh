@@ -17,6 +17,9 @@ cmake -G Ninja \
 	  $CMAKE_OPTIONS \
       -DCMAKE_UNITY_BUILD=ON \
 	  -Ddisplay-install-paths=ON \
+	  -Ddatabase-sqlite-tests=ON \
+	  -Ddatabase-mysql-tests=ON \
+	  -Ddatabase-postgresql-tests=ON \
 	  $ADDITIONAL_CMAKE_OPTIONS \
 	  $VCPKG_CMAKE_OPTIONS
 

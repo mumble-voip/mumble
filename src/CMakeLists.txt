@@ -15,6 +15,7 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 option(tracy "Enable the tracy profiler." OFF)
 
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
+option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
 
 find_pkg(Qt6
@@ -239,11 +240,12 @@ else()
 endif()
 
 if(bundled-spdlog)
-	target_include_directories(shared SYSTEM PUBLIC "${3RDPARTY_DIR}/spdlog/include")
+	set(SPDLOG_SYSTEM_INCLUDES ON)
+	add_subdirectory("${3RDPARTY_DIR}/spdlog" "${CMAKE_CURRENT_BINARY_DIR}/spdlog" EXCLUDE_FROM_ALL)
 else()
 	find_pkg("spdlog")
-	target_link_libraries(shared PUBLIC spdlog::spdlog)
 endif()
+target_link_libraries(shared PUBLIC spdlog::spdlog)
 
 if(client)
 	add_subdirectory(mumble)
@@ -253,6 +255,8 @@ if(client)
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble_256x256.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/256x256/apps" RENAME "mumble.png")
 	endif()
 endif()
+
+add_subdirectory(database)
 
 if(server)
 	add_subdirectory(murmur)

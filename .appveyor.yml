@@ -12,7 +12,7 @@ environment:
   global:
     MUMBLE_BUILD_NUMBER_TOKEN:
       secure: scRizsdwbTWjY7M9RHPT9EXDBxtWvXTsyVq1xXTWF1A=
-    MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
+    MUMBLE_ENVIRONMENT_SOURCE: 'https://github.com/mumble-voip/vcpkg/releases/download/2025-02/'
     MUMBLE_ENVIRONMENT_STORE: 'C:/MumbleBuild'
     MUMBLE_ENVIRONMENT_PATH: '%MUMBLE_ENVIRONMENT_STORE%/%MUMBLE_ENVIRONMENT_VERSION%'
     MUMBLE_ENVIRONMENT_TOOLCHAIN: '%MUMBLE_ENVIRONMENT_PATH%/scripts/buildsystems/vcpkg.cmake'
@@ -22,8 +22,8 @@ environment:
     MUMBLE_USE_ELEVATION: 'ON'
 
   matrix:
-    - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md-release'
-      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md-release.2024-07-22.9ad0398d8'
+    - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
+      MUMBLE_ENVIRONMENT_VERSION: 'mumble_env.x64-windows-static-md.2025-02-27.fa0adb3ba5'
 
 install:
   - ps: .ci/install-environment_windows.ps1

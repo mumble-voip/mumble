@@ -1,0 +1,2 @@
+Blob migration (how to create blobs in a cross-DB fashion?)
+Make old data contain non-existing server/user/channel/... IDs (should be removed by the migration)

@@ -5,7 +5,7 @@
 
 /**
  *
- * Information and control of the murmur server. Each server has
+ * Information and control of the Mumble server. Each server has
  * one {@link Meta} interface that controls global information, and
  * each virtual server has a {@link Server} interface.
  *
@@ -264,36 +264,40 @@ module MumbleServer
 		UserList users;
 	};
 
-	exception MurmurException {};
+	exception ServerException {};
+	/** Thrown if the server encounters an internal error while processing the request */
+	exception InternalErrorException extends ServerException {};
 	/** This is thrown when you specify an invalid session. This may happen if the user has disconnected since your last call to {@link Server.getUsers}. See {@link User.session} */
-	exception InvalidSessionException extends MurmurException {};
+	exception InvalidSessionException extends ServerException {};
 	/** This is thrown when you specify an invalid channel id. This may happen if the channel was removed by another provess. It can also be thrown if you try to add an invalid channel. */
-	exception InvalidChannelException extends MurmurException {};
+	exception InvalidChannelException extends ServerException {};
 	/** This is thrown when you try to do an operation on a server that does not exist. This may happen if someone has removed the server. */
-	exception InvalidServerException extends MurmurException {};
+	exception InvalidServerException extends ServerException {};
 	/** This happens if you try to fetch user or channel state on a stopped server, if you try to stop an already stopped server or start an already started server. */
-	exception ServerBootedException extends MurmurException {};
+	exception ServerBootedException extends ServerException {};
 	/** This is thrown if {@link Server.start} fails, and should generally be the cause for some concern. */
-	exception ServerFailureException extends MurmurException {};
+	exception ServerFailureException extends ServerException {};
 	/** This is thrown when you specify an invalid userid. */
-	exception InvalidUserException extends MurmurException {};
+	exception InvalidUserException extends ServerException {};
 	/** This is thrown when you try to set an invalid texture. */
-	exception InvalidTextureException extends MurmurException {};
+	exception InvalidTextureException extends ServerException {};
 	/** This is thrown when you supply an invalid callback. */
-	exception InvalidCallbackException extends MurmurException {};
+	exception InvalidCallbackException extends ServerException {};
 	/**  This is thrown when you supply the wrong secret in the calling context. */
-	exception InvalidSecretException extends MurmurException {};
+	exception InvalidSecretException extends ServerException {};
 	/** This is thrown when the channel operation would exceed the channel nesting limit */
-	exception NestingLimitException extends MurmurException {};
+	exception NestingLimitException extends ServerException {};
 	/**  This is thrown when you ask the server to disclose something that should be secret. */
-	exception WriteOnlyException extends MurmurException {};
+	exception WriteOnlyException extends ServerException {};
 	/** This is thrown when invalid input data was specified. */
-	exception InvalidInputDataException extends MurmurException {};
+	exception InvalidInputDataException extends ServerException {};
+	/** This is thrown when the referenced channel listener does not actually exist */
+	exception InvalidListenerException extends ServerException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
-	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  Please note that all callbacks are done asynchronously; the server does not wait for the callback to
 	 *  complete before continuing processing.
 	 *  Note that callbacks are removed when a server is stopped, so you should have a callback for
 	 *  {@link MetaCallback.started} which calls {@link Server.addCallback}.
@@ -342,7 +346,7 @@ module MumbleServer
 
 	/** Callback interface for context actions. You need to supply one of these for {@link Server.addContext}. 
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
-	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  Please note that all callbacks are done asynchronously; the server does not wait for the callback to
 	 *  complete before continuing processing.
 	 */
 	interface ServerContextCallback {
@@ -358,20 +362,20 @@ module MumbleServer
 	/** Callback interface for server authentication. You need to supply one of these for {@link Server.setAuthenticator}.
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
 	 *  Please note that unlike {@link ServerCallback} and {@link ServerContextCallback}, these methods are called
-	 *  synchronously. If the response lags, the entire murmur server will lag.
+	 *  synchronously. If the response lags, the entire server will lag.
 	 *  Also note that, as the method calls are synchronous, making a call to {@link Server} or {@link Meta} will
 	 *  deadlock the server.
 	 */
 	interface ServerAuthenticator {
 		/** Called to authenticate a user. If you do not know the username in question, always return -2 from this
 		 *  method to fall through to normal database authentication.
-		 *  Note that if authentication succeeds, murmur will create a record of the user in it's database, reserving
+		 *  Note that if authentication succeeds, the server will create a record of the user in it's database, reserving
 		 *  the username and id so it cannot be used for normal database authentication.
 		 *  The data in the certificate (name, email addresses etc), as well as the list of signing certificates,
 		 *  should only be trusted if certstrong is true.
 		 *
-		 *  Internally, Murmur treats usernames as case-insensitive. It is recommended
-		 *  that authenticators do the same. Murmur checks if a username is in use when
+		 *  Internally, the server treats usernames as case-insensitive. It is recommended
+		 *  that authenticators do the same. the server checks if a username is in use when
 		 *  a user connects. If the connecting user is registered, the other username is
 		 *  kicked. If the connecting user is not registered, the connecting user is not
 		 *  allowed to join the server.
@@ -379,7 +383,7 @@ module MumbleServer
 		 *  @param name Username to authenticate.
 		 *  @param pw Password to authenticate with.
 		 *  @param certificates List of der encoded certificates the user connected with.
-		 *  @param certhash Hash of user certificate, as used by murmur internally when matching.
+		 *  @param certhash Hash of user certificate, as used by the server internally when matching.
 		 *  @param certstrong True if certificate was valid and signed by a trusted CA.
 		 *  @param newname Set this to change the username from the supplied one.
 		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
@@ -389,7 +393,7 @@ module MumbleServer
 		idempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);
 
 		/** Fetch information about a user. This is used to retrieve information like email address, keyhash etc. If you
-		 *  want murmur to take care of this information itself, simply return false to fall through.
+		 *  want the server to take care of this information itself, simply return false to fall through.
 		 *  @param id User id.
 		 *  @param info Information about user. This needs to include at least "name".
 		 *  @return true if information is present, false to fall through.
@@ -419,7 +423,7 @@ module MumbleServer
 	 *  and account updating.
 	 *  You do not need to implement this if all you want is authentication, you only need this if other scripts
 	 *  connected to the same server calls e.g. {@link Server.setTexture}.
-	 *  Almost all of these methods support fall through, meaning murmur should continue the operation against its
+	 *  Almost all of these methods support fall through, meaning the server should continue the operation against its
 	 *  own database.
 	 */
 	interface ServerUpdatingAuthenticator extends ServerAuthenticator {
@@ -471,7 +475,7 @@ module MumbleServer
 		void start() throws ServerBootedException, ServerFailureException, InvalidSecretException;
 
 		/** Stop server.
-		 * Note: Server will be restarted on Murmur restart unless explicitly disabled
+		 * Note: Server will be restarted on application restart unless explicitly disabled
 		 *       with setConf("boot", false)
 		 */
 		void stop() throws ServerBootedException, InvalidSecretException;
@@ -849,7 +853,7 @@ module MumbleServer
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications
 	 *  when servers are stopped or started.
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
-	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  Please note that all callbacks are done asynchronously; the server does not wait for the callback to
 	 *  complete before continuing processing.
 	 *  @see ServerCallback
 	 *  @see Meta.addCallback
@@ -902,7 +906,7 @@ module MumbleServer
 		 */
 		idempotent ConfigMap getDefaultConf() throws InvalidSecretException;
 
-		/** Fetch version of Murmur. 
+		/** Fetch version of the server. 
 		 * @param major Major version.
 		 * @param minor Minor version.
 		 * @param patch Patchlevel.
@@ -923,8 +927,8 @@ module MumbleServer
 		 */
 		void removeCallback(MetaCallback *cb) throws InvalidCallbackException, InvalidSecretException;
 		
-		/** Get murmur uptime.
-		 * @return Uptime of murmur in seconds
+		/** Get the server's uptime.
+		 * @return Uptime of the server in seconds
 		 */
 		idempotent int getUptime();
 
