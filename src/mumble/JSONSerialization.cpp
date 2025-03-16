@@ -217,9 +217,9 @@ void from_json(const nlohmann::json &j, Settings &settings) {
 		settings.mumbleQuitNormally = json.at(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY);
 	}
 
-#ifndef USE_RENAMENOISE
+#ifndef USE_RNNOISE
 	if (settings.noiseCancelMode == Settings::NoiseCancelRNN || settings.noiseCancelMode == Settings::NoiseCancelBoth) {
-		// Use Speex instead as this Mumble build was built without support for ReNameNoise
+		// Use Speex instead as this Mumble build was built without support for RNNoise
 		settings.noiseCancelMode = Settings::NoiseCancelSpeex;
 	}
 #endif
