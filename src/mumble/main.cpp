@@ -117,7 +117,7 @@ void initLog(QTextBrowser *textBox = nullptr) {
 #endif
 
 	if (textBox) {
-		static constexpr std::size_t maxLines = 1000;
+		static constexpr int maxLines = 1000;
 		log::addSink(std::make_shared< QtLogSink >(textBox, maxLines));
 	}
 }
