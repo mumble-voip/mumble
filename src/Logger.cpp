@@ -6,7 +6,7 @@
 #include "Logger.h"
 
 #include <QString>
-#include <QtLogging>
+#include <QtGlobal>
 
 #include <cstdlib>
 
