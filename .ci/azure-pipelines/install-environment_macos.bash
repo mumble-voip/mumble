@@ -9,6 +9,9 @@
 currentDir=$(pwd)
 cd $AGENT_TEMPDIRECTORY
 
+# Make the brew services command available
+brew tap homebrew/services
+
 brew install ninja
 
 if [ -d $MUMBLE_ENVIRONMENT_PATH ]; then
