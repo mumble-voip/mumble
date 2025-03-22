@@ -170,7 +170,6 @@ set(MUMBLE_SOURCES
 	"Log.cpp"
 	"Log.h"
 	"Log.ui"
-	"Logger.cpp"
 	"LookConfig.cpp"
 	"LookConfig.h"
 	"LookConfig.ui"
@@ -387,7 +386,7 @@ add_custom_command(
 target_sources(mumble PRIVATE "ApplicationPalette.h")
 target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-target_link_libraries(mumble mumble_client_object_lib)
+target_link_libraries(mumble PRIVATE mumble_client_object_lib shared spdlog::spdlog)
 
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
@@ -510,13 +509,15 @@ else()
 endif()
 
 
-if(bundled-json)
-	set(JSON_BuildTests OFF CACHE INTERNAL "")
-	set(JSON_ImplicitConversions ON CACHE INTERNAL "")
-	set(JSON_SystemInclude ON CACHE INTERNAL "")
-	add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
-else()
-	find_pkg("nlohmann_json" REQUIRED)
+if (NOT TARGET nlohmann_json)
+	if(bundled-json)
+		set(JSON_BuildTests OFF CACHE INTERNAL "")
+		set(JSON_ImplicitConversions ON CACHE INTERNAL "")
+		set(JSON_SystemInclude ON CACHE INTERNAL "")
+		add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
+	else()
+		find_pkg("nlohmann_json" REQUIRED)
+	endif()
 endif()
 
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)

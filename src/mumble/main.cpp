@@ -60,8 +60,13 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QTextBrowser>
 
+#include <algorithm>
 #include <iostream>
 #include <memory>
+
+#include <spdlog/sinks/dist_sink.h>
+#include <spdlog/sinks/qt_sinks.h>
+#include <spdlog/sinks/rotating_file_sink.h>
 
 #ifdef USE_DBUS
 #	include <QtDBus/QDBusInterface>
@@ -84,6 +89,71 @@ using namespace mumble;
 
 extern void os_init();
 extern char *os_lang;
+
+using QtLogSink = spdlog::sinks::qt_color_sink_st;
+
+void initLog(QTextBrowser *textBox = nullptr) {
+	// TODO: Ideally we should add a user option, perhaps along with a launch parameter, to set the log level.
+	// However, the messages across the codebase are very inconsistent in terms of right now.
+	// For example, there are a lot of debug messages that should be info instead.
+	// Thus, for the time being let's show all messages regardless of their advertised level.
+	log::init(spdlog::level::trace);
+
+	// Set up file log
+	using FileSink = spdlog::sinks::rotating_file_sink_st;
+	// 5MB
+	static constexpr std::size_t maxSize  = 5 * 1024 * 2024;
+	static constexpr std::size_t maxFiles = 3;
+
+#ifndef Q_OS_MACOS
+	const auto filePath = Global::get().qdBasePath.filePath(QLatin1String("Console.txt")).toStdString();
+	log::addSink(std::make_shared< FileSink >(filePath, maxSize, maxFiles));
+#else
+	std::string filePath = "/Library/Logs/Mumble.log";
+	if (const char *homePath = std::getenv("HOME")) {
+		filePath.insert(0, homePath);
+		log::addSink(std::make_shared< FileSink >(filePath, maxSize, maxFiles));
+	}
+#endif
+
+	if (textBox) {
+		static constexpr int maxLines = 1000;
+		log::addSink(std::make_shared< QtLogSink >(textBox, maxLines));
+	}
+}
+
+void prepareLogForShutdown() {
+	log::debug("Preparing to exit...");
+
+	std::shared_ptr< spdlog::logger > logger = spdlog::get(log::MainLoggerName);
+
+	if (!logger) {
+		return;
+	}
+
+	auto &sinks = logger->sinks();
+
+	// Remove Qt sinks because the widgets they write to are going to be deleted soon
+	auto remove_qt_sinks = [](auto &container) {
+		container.erase(
+			std::remove_if(container.begin(), container.end(),
+						   [](const spdlog::sink_ptr &sink) { return std::dynamic_pointer_cast< QtLogSink >(sink); }),
+			container.end());
+	};
+
+	remove_qt_sinks(sinks);
+	for (spdlog::sink_ptr &sink : sinks) {
+		auto st_dist_sink = std::dynamic_pointer_cast< spdlog::sinks::dist_sink_st >(sink);
+		auto mt_dist_sink = std::dynamic_pointer_cast< spdlog::sinks::dist_sink_mt >(sink);
+
+		if (st_dist_sink) {
+			remove_qt_sinks(st_dist_sink->sinks());
+		}
+		if (mt_dist_sink) {
+			remove_qt_sinks(mt_dist_sink->sinks());
+		}
+	}
+}
 
 QPoint getTalkingUIPosition() {
 	QPoint talkingUIPos = QPoint(0, 0);
@@ -195,7 +265,7 @@ int main(int argc, char **argv) {
 	}
 
 	auto logBox = new QTextBrowser();
-	log::init(logBox);
+	initLog(logBox);
 	Global::get().c = new DeveloperConsole(logBox);
 
 	os_init();
@@ -846,7 +916,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	log::prepareToExit();
+	prepareLogForShutdown();
 
 	QCoreApplication::processEvents();
 

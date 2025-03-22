@@ -20,7 +20,12 @@
 #include <QtCore/QWaitCondition>
 #include <QtNetwork/QSslCertificate>
 
-#include "MumbleServerI.h"
+#ifndef Q_MOC_RUN
+// When including this header in MOC runs, Qt gets confused and adds every following class to the MumbleServer
+// namespace, which will lead to compile errors because they don't actually exist in that namespace.
+// See also https://stackoverflow.com/q/2684508 and https://stackoverflow.com/q/18626146
+#	include "MumbleServerI.h"
+#endif
 
 class Channel;
 class Server;
@@ -40,10 +45,11 @@ protected:
 	void badServerProxy(const ::MumbleServer::ServerCallbackPrx &prx, const ::Server *server);
 	void badAuthenticator(::Server *);
 	QList<::MumbleServer::MetaCallbackPrx > qlMetaCallbacks;
-	QMap< int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
-	QMap< int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > > qmServerContextCallbacks;
-	QMap< int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
-	QMap< int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
+	QMap< unsigned int, QList<::MumbleServer::ServerCallbackPrx > > qmServerCallbacks;
+	QMap< unsigned int, QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > >
+		qmServerContextCallbacks;
+	QMap< unsigned int, ::MumbleServer::ServerAuthenticatorPrx > qmServerAuthenticator;
+	QMap< unsigned int, ::MumbleServer::ServerUpdatingAuthenticatorPrx > qmServerUpdatingAuthenticator;
 
 public:
 	Ice::CommunicatorPtr communicator;
