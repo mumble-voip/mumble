@@ -14,6 +14,9 @@ variables:
   # On Azure we have a secret variable called BUILD_NUMBER_TOKEN that will be referenced in the following
   # YAML files. As it is set there though, we don't have to specify it here.
 
+  # Enable system diagnostics to be able to trace resource usages
+  system.debug: true
+
 jobs:
   - job: Windows_x64
     workspace:

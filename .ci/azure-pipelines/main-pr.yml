@@ -16,6 +16,9 @@ variables:
   # variable is set on Azure itself.
   BUILD_NUMBER_TOKEN: ''
 
+  # Enable system diagnostics to be able to trace resource usages
+  system.debug: true
+
 jobs:
   - job: Windows_x64
     workspace:
