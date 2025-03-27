@@ -9,6 +9,9 @@
 currentDir=$(pwd)
 cd $AGENT_TEMPDIRECTORY
 
+# We need to update Brew in order for brew services to work
+# see https://github.com/actions/runner-images/issues/11855
+brew update
 brew install ninja
 
 if [ -d $MUMBLE_ENVIRONMENT_PATH ]; then
