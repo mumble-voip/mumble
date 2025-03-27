@@ -62,7 +62,8 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-cmake --build .
+:: Restrict to a single core to avoid running out of memory
+cmake --build . --parallel 2
 
 if errorlevel 1 (
 	exit /b %errorlevel%
