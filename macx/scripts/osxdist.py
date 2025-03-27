@@ -162,6 +162,7 @@ class AppBundle(object):
 			print(' * Changing version in Info.plist')
 			p = self.infoplist
 			p['CFBundleVersion'] = self.version
+			p['CFBundleShortVersionString'] = self.version
 			plistlib.dump(p, open(self.infopath, "wb"))
 
 	def set_min_macosx_version(self, version):

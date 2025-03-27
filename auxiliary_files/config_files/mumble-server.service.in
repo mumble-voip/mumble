@@ -8,6 +8,7 @@ Wants=network-online.target
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 ExecStart=@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini @MUMBLE_INSTALL_ABS_SYSCONFDIR@/mumble-server.ini -fg
+ExecReload=kill -s SIGUSR1 $MAINPID
 Group=_mumble-server
 LockPersonality=yes
 MemoryDenyWriteExecute=yes

@@ -329,35 +329,35 @@ Tilføj en ny gruppe.</translation>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Midlertidig&lt;/b&gt;&lt;br &gt;
+        <translation type="unfinished">&lt;b&gt;Midlertidig&lt;/b&gt;&lt;br &gt;
 Hvis denne er markeret, vil kanalen, der oprettes, blive markeret som midlertidig. Dette betyder, at når den sidste bruger forlader kanalen, vil den automatisk blive slettet af serveren.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br &gt;
+        <translation type="unfinished">&lt;b&gt;Gruppe&lt;/b&gt;&lt;br &gt;
 Disse er alle grupperne, der i øjeblikket gælder for kanalen. For at oprette en ny gruppe skal du bare skrive navnet og trykke enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Fjern&lt;/b&gt;&lt;br &gt;Dette fjerner den nuværende valgte gruppe. Hvis gruppen var arvet, vil den ikke blive fjernet fra listen, men alt lokal information om gruppen vil blive slettet.</translation>
+        <translation type="unfinished">&lt;b&gt;Fjern&lt;/b&gt;&lt;br &gt;Dette fjerner den nuværende valgte gruppe. Hvis gruppen var arvet, vil den ikke blive fjernet fra listen, men alt lokal information om gruppen vil blive slettet.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Arv&lt;/b&gt;&lt;br &gt;Dette arver alle medlemmer i gruppen fra forælderen, hvis gruppen er markeret som &lt;i&gt;arvelig&lt;/i&gt; i forælderkanalen.</translation>
+        <translation type="unfinished">&lt;b&gt;Arv&lt;/b&gt;&lt;br &gt;Dette arver alle medlemmer i gruppen fra forælderen, hvis gruppen er markeret som &lt;i&gt;arvelig&lt;/i&gt; i forælderkanalen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Arvelig&lt;/b&gt;&lt;br &gt;Dette gør denne gruppe arvelig for underkanaler. Hvis gruppen ikke er arvelig, kan der i underkanaler oprettes en ny gruppe med samme navn.</translation>
+        <translation type="unfinished">&lt;b&gt;Arvelig&lt;/b&gt;&lt;br &gt;Dette gør denne gruppe arvelig for underkanaler. Hvis gruppen ikke er arvelig, kan der i underkanaler oprettes en ny gruppe med samme navn.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Arvet&lt;/b&gt;&lt;br &gt;Dette indikerer at gruppen er arvet fra forælderkanalen. Du kan ikke ændre dette flag, det er kun til information.</translation>
+        <translation type="unfinished">&lt;b&gt;Arvet&lt;/b&gt;&lt;br &gt;Dette indikerer at gruppen er arvet fra forælderkanalen. Du kan ikke ændre dette flag, det er kun til information.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Medlemmer&lt;/b&gt;&lt;br &gt;
+        <translation type="unfinished">&lt;b&gt;Medlemmer&lt;/b&gt;&lt;br &gt;
 Denne liste inderholder medlemmer, der er blevet tilføjet til gruppen af den nuværende kanal. Vær opmærksom på at listen ikke inkluderer medlemmer arvet fra højere niveauer i kanaltræet. Disse kan findes i listen &lt;i&gt;Arvede medlemmer&lt;/i&gt;. For at forhindre denne liste i at blive arvet til underkanaler, skal du fjerne markeringen &lt;i&gt;Arvelig&lt;/i&gt; eller manuelt tilføje medlemmer til listen &lt;i&gt;Udeladte medlemmer&lt;/i&gt;.</translation>
     </message>
     <message>
@@ -369,7 +369,7 @@ Inderholder en liste over medlemmer hvis gruppemedlemskab ikke vil blive arvet f
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Arvede medlemmer&lt;/b&gt;&lt;br &gt;
+        <translation type="unfinished">&lt;b&gt;Arvede medlemmer&lt;/b&gt;&lt;br &gt;
 Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern markeringen af &lt;i&gt;Arv&lt;/i&gt; for at forhindre, at der kan arves fra kanaler i højere niveauer.</translation>
     </message>
     <message>
@@ -793,7 +793,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Dette indstiller stemmeaktiveringen der skal bruges ved &lt;i&gt;Forstærkning&lt;/i&gt;&lt;/b&gt;&lt;br /&gt;I denne tilstand, bruges den rå kraft fra indspilningssignalet til at detektere tale.</translation>
+        <translation type="unfinished">&lt;b&gt;Dette indstiller stemmeaktiveringen der skal bruges ved &lt;i&gt;Forstærkning&lt;/i&gt;&lt;/b&gt;&lt;br /&gt;I denne tilstand, bruges den rå kraft fra indspilningssignalet til at detektere tale.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -1812,7 +1812,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Dette viser de nuværende stemmeaktiverings-indstillinger.&lt;/b&gt;&lt;br /&gt;Du kan skifte indstillingerne i &lt;i&gt;Indstillinger&lt;/i&gt;-dialogboksen eller  i lydguiden.</translation>
+        <translation type="unfinished">&lt;b&gt;Dette viser de nuværende stemmeaktiverings-indstillinger.&lt;/b&gt;&lt;br /&gt;Du kan skifte indstillingerne i &lt;i&gt;Indstillinger&lt;/i&gt;-dialogboksen eller  i lydguiden.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
