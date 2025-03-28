@@ -8,7 +8,9 @@ include(project-utils)
 find_pkg(Qt6 COMPONENTS Test REQUIRED)
 
 option(online-tests "Whether or not tests that need a working internet connection should be included" OFF)
+option(test-lto "Whether to use LTO when building test cases" ${lto})
 
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${test-lto})
 
 # Set output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
