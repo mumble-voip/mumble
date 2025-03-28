@@ -119,6 +119,20 @@
         </property>
        </widget>
       </item>
+	  <item>
+       <widget class="QRadioButton" name="qrbMultichannelAndTransport">
+        <property name="text">
+         <string>Multichannel + Transport (JACK)</string>
+        </property>
+       </widget>
+      </item>
+	  <item>
+       <widget class="QRadioButton" name="qrbTransportStandalone">
+        <property name="text">
+         <string>Transport (JACK, standalone)</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
