@@ -1590,39 +1590,39 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Output delay of incoming speech</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Jitter buffer time</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Attenuation percentage</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>During speech, the volume of other applications will be reduced by this amount</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Minimum volume</translation>
+        <translation>Minimum volume</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished">Minimum distance</translation>
+        <translation>Minimum distance</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished">Maximum distance</translation>
+        <translation>Maximum distance</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback artificial delay</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback artificial packet loss</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
