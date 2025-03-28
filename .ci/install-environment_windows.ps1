@@ -132,12 +132,14 @@ Write-Host "Build environment successfully installed"
 
 
 # Setup MySQL and PostgreSQL databases for the Mumble tests
+Write-Host "Available services:"
+Get-Service | Format-Table -Auto
+
 Write-Host "Configuring PostgreSQL..."
+Set-Service -Name "postgresql-x64-17" -StartupType Manual -Status Running
 
 $env:PATH += ";$env:PGBIN"
 $env:PGPASSWORD="root"
-
-pg_ctl start -D "$env:PGDATA"
 
 Write-Output ("CREATE DATABASE mumble_test_db; " +
 	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; " +
