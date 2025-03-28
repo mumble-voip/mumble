@@ -12,7 +12,7 @@ steps:
     env:
       MUMBLE_BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
     displayName: 'Build'
-  - script: 'cd $BUILD_BINARIESDIRECTORY; QT_QPA_PLATFORM=offscreen ctest --output-on-failure'
+  - script: 'cd $BUILD_BINARIESDIRECTORY; QT_QPA_PLATFORM=offscreen ctest --verbose'
     displayName: 'Test'
 # - script: .ci/azure-pipelines/package_AppImage.bash
 #   displayName: 'Release'

@@ -1,0 +1,18 @@
+{
+	"v6": {
+		"table_name": "channel_links",
+		"column_names": [
+			"server_id",
+			"first_channel_id",
+			"second_channel_id"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				1
+			]
+		]
+	}
+}
+

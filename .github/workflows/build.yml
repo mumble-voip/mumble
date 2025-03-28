@@ -5,8 +5,7 @@ on: [push, pull_request]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: |
-      -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Ddatabase-mysql-tests=ON -Ddatabase-postgresql-tests=ON
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg/'
 
 

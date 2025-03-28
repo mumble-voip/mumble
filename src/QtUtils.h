@@ -11,8 +11,8 @@
 #include <QStringList>
 
 #include <filesystem>
-
 #include <memory>
+#include <type_traits>
 
 class QObject;
 
@@ -37,12 +37,62 @@ namespace QtUtils {
 	QString decode_first_utf8_qssl_string(const QStringList &list);
 
 	/**
+	 * A wrapper around a QString object that ensures all comparisons and hashes are performed
+	 * in a case-insensitive manner.
+	 */
+	class CaseInsensitiveQString {
+	public:
+		CaseInsensitiveQString()  = default;
+		~CaseInsensitiveQString() = default;
+
+		CaseInsensitiveQString(const CaseInsensitiveQString &) = default;
+		CaseInsensitiveQString(CaseInsensitiveQString &&)      = default;
+		CaseInsensitiveQString &operator=(const CaseInsensitiveQString &) = default;
+		CaseInsensitiveQString &operator=(CaseInsensitiveQString &&) = default;
+
+		CaseInsensitiveQString(const QString &str);
+		CaseInsensitiveQString(QString &&str);
+		CaseInsensitiveQString &operator=(const QString &str);
+		CaseInsensitiveQString &operator=(QString &&str);
+
+		operator const QString &() const;
+		operator QString &();
+
+		friend bool operator==(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator==(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator==(const CaseInsensitiveQString &lhs, const QString &rhs);
+		friend bool operator!=(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator!=(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator!=(const CaseInsensitiveQString &lhs, const QString &rhs);
+		friend bool operator<(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator<(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator<(const CaseInsensitiveQString &lhs, const QString &rhs);
+		friend bool operator<=(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator<=(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator<=(const CaseInsensitiveQString &lhs, const QString &rhs);
+		friend bool operator>(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator>(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator>(const CaseInsensitiveQString &lhs, const QString &rhs);
+		friend bool operator>=(const QString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator>=(const CaseInsensitiveQString &lhs, const CaseInsensitiveQString &rhs);
+		friend bool operator>=(const CaseInsensitiveQString &lhs, const QString &rhs);
+
+	private:
+		QString m_str;
+	};
+
+	/**
 	 * Creates a platform agnostic path from a QString
 	 */
 	std::filesystem::path qstring_to_path(const QString &input);
 
 } // namespace QtUtils
 } // namespace Mumble
+
+inline std::size_t qHash(const Mumble::QtUtils::CaseInsensitiveQString &str, std::size_t seed = 0) {
+	const QString &lower = static_cast< const QString & >(str).toLower();
+	return static_cast< std::size_t (*)(const QString &, std::size_t) >(&qHash)(lower, seed);
+}
 
 template< typename T > using qt_unique_ptr = std::unique_ptr< T, decltype(&Mumble::QtUtils::deleteQObject) >;
 

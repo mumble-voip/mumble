@@ -1,0 +1,42 @@
+{
+	"v6": {
+		"table_name": "slog",
+		"column_names": [
+			"server_id",
+			"msg",
+			"msgtime"
+		],
+		"column_types": [
+			"INTEGER",
+			"TEXT",
+			"TIMESTAMP"
+		],
+		"rows": [
+			[
+				1,
+				"Test message",
+				"2022-12-17 16:09:50"
+			]
+		]
+	},
+	"v10": {
+		"table_name": "server_logs",
+		"column_names": [
+			"server_id",
+			"message",
+			"message_date"
+		],
+		"column_types": [
+			"INTEGER",
+			"TEXT",
+			"BIGINT"
+		],
+		"rows": [
+			[
+				1,
+				"Test message",
+				1671293390
+			]
+		]
+	}
+}

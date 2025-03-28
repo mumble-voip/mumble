@@ -1,0 +1,37 @@
+{
+	"v6": {
+		"table_name": "channel_info",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"key",
+			"value"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"TEXT"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				42,
+				"miau"
+			]
+		]
+	},
+	"v10": {
+		"inherit": {
+			"from": "v6",
+			"substitute": {
+				"table_name": "channel_properties",
+				"column_names": {
+					"key": "property_key",
+					"value": "property_value"
+				}
+			}
+		}
+	}
+}

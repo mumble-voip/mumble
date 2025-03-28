@@ -6,16 +6,18 @@
 #ifndef MUMBLE_LOGGER_H_
 #define MUMBLE_LOGGER_H_
 
-#include <memory>
-
 #include <spdlog/spdlog.h>
+
+#include <memory>
 
 class QTextEdit;
 
 namespace mumble {
 namespace log {
-	void init(QTextEdit *textBox = nullptr);
-	void prepareToExit();
+	constexpr const char *MainLoggerName = "Main";
+
+	void init(spdlog::level::level_enum logLevel = spdlog::level::trace);
+	void addSink(std::shared_ptr< spdlog::sinks::sink > sink);
 
 	template< typename... Args > static void inline trace(spdlog::format_string_t< Args... > fmt, Args &&... args) {
 		spdlog::trace(fmt, std::forward< Args >(args)...);

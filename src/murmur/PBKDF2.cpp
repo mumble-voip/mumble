@@ -55,6 +55,7 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 
+#include <cassert>
 #include <limits>
 
 int PBKDF2::benchmark() {
@@ -92,6 +93,8 @@ int PBKDF2::benchmark() {
 
 QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int iterationCount) {
 	QByteArray hash(DERIVED_KEY_LENGTH, 0);
+
+	assert(iterationCount > 0);
 
 	const QByteArray utf8Password = password.toUtf8();
 	const QByteArray salt         = QByteArray::fromHex(hexSalt.toLatin1());

@@ -38,5 +38,5 @@ QString Ban::toString() const {
 }
 
 std::size_t qHash(const Ban &b) {
-	return qHash(b.qsHash) ^ qHash(b.haAddress) ^ qHash(b.qsUsername) ^ qHash(b.iMask);
+	return std::hash< Ban >{}(b);
 }

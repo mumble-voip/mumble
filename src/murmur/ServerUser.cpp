@@ -14,7 +14,7 @@
 #endif
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
-	: Connection(p, socket), User(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst),
+	: Connection(p, socket), ServerUserInfo(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst),
 	  m_pluginMessageBucket(p->iPluginMessageLimit, p->iPluginMessageBurst) {
 	sState       = ServerUser::Connected;
 	m_clientType = ClientType::REGULAR;

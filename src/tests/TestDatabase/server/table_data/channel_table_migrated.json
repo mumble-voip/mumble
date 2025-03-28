@@ -1,0 +1,28 @@
+{
+	"v6": {
+		"table_name": "channels",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"parent_id",
+			"channel_name",
+			"inherit_acl"
+		],
+		"rows": [
+			[
+				1,
+				0,
+				0,
+				"Root",
+				0
+			],
+			[
+				1,
+				1,
+				0,
+				"Lounge",
+				1
+			]
+		]
+	}
+}
