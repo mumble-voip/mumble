@@ -9936,11 +9936,11 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>多通道 + 传输（JACK）</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>传输（独立 JACK）</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
