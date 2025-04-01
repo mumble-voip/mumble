@@ -2431,7 +2431,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation>Пошук забанених користувачів</translation>
+        <translation>Пошук забаненого користувача</translation>
     </message>
     <message>
         <source>Username to ban</source>
@@ -9951,11 +9951,11 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Багатоканальний + Транспорт (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Транспорт (ДЖЕК, автономний)</translation>
     </message>
 </context>
 <context>
