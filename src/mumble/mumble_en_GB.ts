@@ -1590,47 +1590,47 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Output delay of incoming speech</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Jitter buffer time</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Attenuation percentage</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>During speech, the volume of other applications will be reduced by this amount</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Minimum volume</translation>
+        <translation>Minimum volume</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished">Minimum distance</translation>
+        <translation>Minimum distance</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished">Maximum distance</translation>
+        <translation>Maximum distance</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback artificial delay</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback artificial packet loss</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Loopback test mode</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</translation>
     </message>
 </context>
 <context>
@@ -1677,7 +1677,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished">milliseconds</translation>
+        <translation>milliseconds</translation>
     </message>
     <message>
         <source>meters</source>
@@ -1841,7 +1841,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</translation>
     </message>
 </context>
 <context>
@@ -2110,7 +2110,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -2212,7 +2212,7 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Maximum amplification</translation>
+        <translation>Maximum amplification</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
@@ -2220,71 +2220,71 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished">Audio input system</translation>
+        <translation>Audio input system</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished">Audio input device</translation>
+        <translation>Audio input device</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Select audio output device</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished">Audio output system</translation>
+        <translation>Audio output system</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished">Audio output device</translation>
+        <translation>Audio output device</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Output delay for incoming speech</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Maximum amplification of input sound</translation>
+        <translation>Maximum amplification of input sound</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished">Speech is dynamically amplified by at most this amount</translation>
+        <translation>Speech is dynamically amplified by at most this amount</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation type="unfinished"></translation>
+        <translation>Voice activity detection level</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Push to talk</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the &quot;push to talk shortcut&quot; button to assign a key</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Set push to talk shortcut</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>This will open a shortcut edit dialog</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Graphical positional audio simulation view</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished"></translation>
+        <translation>This visually represents the positional audio that is currently being played</translation>
     </message>
 </context>
 <context>
@@ -2430,7 +2430,7 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for banned user</translation>
     </message>
     <message>
         <source>Username to ban</source>
