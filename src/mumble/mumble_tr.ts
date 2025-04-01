@@ -9876,6 +9876,14 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
         <translation>Kayıt başlatılamıyor - ses çıktısı yanlış yapılandırıldı (0Hz örnekleme hızı)</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>Bu alan, konuşma kayıtlarını saklamak için dizin yolunu içerir. Bir dosya diyaloğu açmak için &quot;tara&quot; düğmesini kullanın.</translation>
     </message>

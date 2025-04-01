@@ -9940,6 +9940,14 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
         <translation>Impossible de commencer l&apos;enregistrement - la sortie audio est mal configurée (taux d&apos;échantillonnage de 0 Hz)</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>Ce champ contient le chemin du répertoire pour stocker tous les enregistrement vocaux. Utilisez le bouton « parcourir » pour ouvrir un dialogue de fichiers.</translation>
     </message>

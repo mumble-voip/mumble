@@ -9935,6 +9935,14 @@ Please contact your server administrator for further information.</source>
         <translation>无法开始录音 - 音频输出配置错误（采样率为 0Hz）</translation>
     </message>
     <message>
+        <source>Multichannel + Transport (JACK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transport (JACK, standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
         <translation>此字段包含存储录音的文件夹路径。使用“浏览”按钮打开文件对话框。</translation>
     </message>
