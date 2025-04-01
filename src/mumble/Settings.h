@@ -33,9 +33,11 @@
 #include <nlohmann/json_fwd.hpp>
 
 #include <array>
+#include <optional>
 
 class QSettings;
 struct MigratedPath;
+struct Settings;
 
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
@@ -183,6 +185,13 @@ struct OverlaySettings {
 
 	friend bool operator==(const OverlaySettings &lhs, const OverlaySettings &rhs);
 	friend bool operator!=(const OverlaySettings &lhs, const OverlaySettings &rhs);
+};
+
+struct Profiles {
+	static const QString s_default_profile_name;
+
+	QString activeProfileName             = s_default_profile_name;
+	QMap< QString, Settings > allProfiles = {};
 };
 
 struct Settings {
@@ -572,6 +581,7 @@ struct Settings {
 	void save(const QString &path) const;
 	void save() const;
 
+	void loadProfile(std::optional< QString > requestedProfile = {});
 	void load(const QString &path);
 	void load();
 
