@@ -21,24 +21,35 @@ private:
 	Q_DISABLE_COPY(LogTextBrowser)
 
 protected:
+	QWidget *widgetInFullScreen;
 	QString queuedNumericInput;
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 
 public:
-	int lastCustomInteractiveItemIndex  = -1;
-	int customInteractiveItemFocusIndex = -1;
+	int lastCustomItemIndex  = -1;
+	int customItemFocusIndex = -1;
+	QList< QObject * > customItems;
 	LogTextBrowser(QWidget *p = nullptr);
 
-	void update();
+	static QRect calcRectScaledToScreen(const QSize &size);
+	bool isWidgetInFullScreen();
+	void toggleFullScreen(QWidget *widget);
+	void highlightSelectedItem(QPainter *painter, const QRect &rect, QObject *propertyHolder);
+	/// Removes the content of the client's log, deletes the objects used by text objects
+	/// and clears the counter for custom interactive items as well as their focus index.
+	void clear();
+	void update(const QRect &rect = QRect());
 	int getScrollX();
 	int getScrollY();
-	void setScrollX(int scroll_pos);
-	void setScrollY(int scroll_pos);
+	QPoint getScrollPos();
+	QRect getLogRect();
+	void setScrollX(int scrollPos);
+	void setScrollY(int scrollPos);
 	void changeScrollX(int change);
 	void changeScrollY(int change);
-	void scrollItemIntoView(QRect rect);
+	void scrollItemIntoView(const QRect &rect);
 	bool isScrolledToBottom();
 };
 
@@ -94,69 +105,106 @@ public:
 	ChatbarTextEdit(QWidget *p = nullptr);
 };
 
-class AnimationTextObject : public QObject, public QTextObjectInterface {
-	Q_OBJECT
-	Q_INTERFACES(QTextObjectInterface)
-
-protected:
-	static const int videoBarHeight        = 4;
-	static const int underVideoBarHeight   = 20;
-	static const int cacheOffsetX          = -170;
-	static const int loopModeOffsetX       = -130;
-	static const int frameTraversalOffsetX = -90;
-	static const int speedOffsetX          = -30;
-	QSizeF intrinsicSize(QTextDocument *doc, int posInDoc, const QTextFormat &fmt) Q_DECL_OVERRIDE;
-	void drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int posInDoc,
-					const QTextFormat &fmt) Q_DECL_OVERRIDE;
-
+class VideoUtils {
 public:
-	static bool areVideoControlsOn;
-	AnimationTextObject();
-	static void mousePress(QAbstractTextDocumentLayout *docLayout, QPoint mouseDocPos, Qt::MouseButton button);
-	static void keyPress(LogTextBrowser *log, bool isItemSelectionChanged, Qt::Key key);
-
-	enum VideoController {
-		VideoBar,
+	enum class VideoControl {
+		None,
 		View,
+		VideoBar,
 		PlayPause,
-		CacheSwitch,
-		LoopSwitch,
+		Cache,
+		Loop,
 		PreviousFrame,
 		NextFrame,
 		ResetSpeed,
 		DecreaseSpeed,
 		IncreaseSpeed,
-		None
+		FullScreen
 	};
-	enum LoopMode { Unchanged, Loop, NoLoop };
+	static const int videoBarHeight           = 4;
+	static const int underVideoBarHeight      = 20;
+	static const int videoControlsHeight      = videoBarHeight + underVideoBarHeight;
+	static const int videoBarMinWidth         = 260;
+	static const int cacheOffsetX             = -180;
+	static const int loopModeOffsetX          = -140;
+	static const int frameTraversalOffsetX    = -100;
+	static const int speedOffsetX             = -70;
+	static const int fullScreenOffsetX        = -15;
+	static const int videoControlsRevertDelay = 1200;
+
+	static bool isInBoundsOnAxis(int posOnAxis, int start, int length);
+	static bool isInBounds(const QPoint &pos, const QRect &bounds);
+	static int calcPosOnAxisFromOffset(int offset, int start, int length);
+	static QRect calcVideoControlsRect(QObject *propertyHolder);
+
+	static VideoControl videoControlAt(const QPoint &pos, const QRect &rect);
+	static double videoBarProportionAt(const QPoint &pos, const QRect &rect);
+	static void drawVideoControls(QPainter *painter, const QRect &rect, QObject *propertyHolder, double opacity = 1);
+	static void drawCenteredPlayIcon(QPainter *painter, const QRect &rect);
+	static void addVideoControlsTransition(QObject *propertyHolder, QWidget *area, bool isIdleCursorHidden = true);
+	static void startOrHoldVideoControlsTransition(QObject *propertyHolder, const QPoint &hoveredPos = QPoint(),
+												   QWidget *cursorArea = nullptr);
+
+	static void updateVideoControls(QObject *propertyHolder, QWidget *area = nullptr);
+	static bool updatePropertyRect(QObject *propertyHolder, const QRect &rect);
+	static QSizeF calcIntrinsicSize(QObject *propertyHolder, const QSize &size, bool areVideoControlsOn);
+	static void setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size);
+};
+
+class AnimationTextObject : public QObject, public QTextObjectInterface {
+	Q_OBJECT
+	Q_INTERFACES(QTextObjectInterface)
+
+protected:
+	QSizeF intrinsicSize(QTextDocument *doc, int charPosInDoc, const QTextFormat &fmt) Q_DECL_OVERRIDE;
+	void drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int charPosInDoc,
+					const QTextFormat &fmt) Q_DECL_OVERRIDE;
+
+public:
+	static bool areVideoControlsOn;
+	AnimationTextObject();
+	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parent, bool &isAnimationCheckOnly);
+	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parent);
+	static void mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
+	static void keyPress(QMovie *animation, const Qt::Key &key, bool isItemSelectionChanged = false);
+
+	enum class LoopMode { Unchanged, Loop, NoLoop };
 	static QString loopModeToString(LoopMode mode);
 
-	static void updateVideoControls(QObject *propertyHolder);
+	static void toggleVideoControls();
+	static void toggleVideoControlsFullScreen(QObject *propertyHolder);
 	static int getTotalTime(QObject *propertyHolder);
 	static int getCurrentTime(QObject *propertyHolder, int frameIndex);
 	static void setFrame(QMovie *animation, int frameIndex);
 	static void setFrameByTime(QMovie *animation, int milliseconds);
 	static void setFrameByProportion(QMovie *animation, double proportion);
+	static void changeFrame(QMovie *animation, int amount);
+	static void changeFrameByTime(QMovie *animation, int milliseconds);
 	static void togglePause(QMovie *animation);
 	static void toggleCache(QMovie *animation);
+	static void toggleFullScreen(QMovie *animation);
+	static void escapeFullScreen(QMovie *animation);
 	static void stopPlayback(QMovie *animation);
 	static void resetPlayback(QMovie *animation);
 	static void setSpeed(QMovie *animation, int percentage);
-	static void changeLoopMode(QMovie *animation, int steps);
-	static void changeFrame(QMovie *animation, int amount);
-	static void changeFrameByTime(QMovie *animation, int milliseconds);
+	static void resetSpeed(QMovie *animation);
+	static void invertSpeed(QMovie *animation);
 	static void changeSpeed(QMovie *animation, int percentageStep);
+	static void setLoopMode(QMovie *animation, LoopMode mode);
+	static void changeLoopMode(QMovie *animation, int steps);
+};
 
-	static bool isInBoundsOnAxis(QPoint pos, bool yInsteadOfX, int start, int length);
-	static bool isInBounds(QPoint pos, QRect bounds);
-	static int getOffset(int offset, int start, int length);
-	static void setRectAndVideoControlPositioning(QObject *propertyHolder, QRect rect);
-	static VideoController mousePressVideoControls(QObject *propertyHolder, QPoint mouseDocPos);
-	static void drawVideoControls(QPainter *painter, QObject *propertyHolder, QPixmap frame, bool wasPaused,
-								  bool wasCached, int frameIndex, int speedPercentage);
+class FullScreenAnimation : public QLabel {
+	Q_OBJECT
 
-	static void updatePropertyRect(QObject *propertyHolder, QRect rect);
-	static void drawCenteredPlayIcon(QPainter *painter, QRect rect);
+protected:
+	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void mouseMoveEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+
+public:
+	FullScreenAnimation(QMovie *animation, LogTextBrowser *parent = nullptr);
 };
 
 class DockTitleBar : public QLabel {
