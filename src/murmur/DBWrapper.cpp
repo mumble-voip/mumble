@@ -1114,9 +1114,9 @@ unsigned int DBWrapper::registerUser(unsigned int serverID, const ServerUserInfo
 			{ static_cast< unsigned int >(::msdb::UserProperty::Email), userInfo.qslEmail.first().toStdString() });
 	}
 
-	if (!userInfo.qsComment.isEmpty()) {
+	if (!userInfo.qsComment().isEmpty()) {
 		properties.push_back(
-			{ static_cast< unsigned int >(::msdb::UserProperty::Comment), userInfo.qsComment.toStdString() });
+			{ static_cast< unsigned int >(::msdb::UserProperty::Comment), userInfo.qsComment().toStdString() });
 	}
 
 	setUserProperties(serverID, userID, properties);

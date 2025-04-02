@@ -1227,20 +1227,27 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 ///
 /// @param msg The message object containing the stats
 void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
-	UserInformation *ui = qmUserInformations.value(msg.session());
-	if (ui) {
-		ui->update(msg);
-	} else {
+	m_UserStats[msg.session()] = msg;
+	const auto &uiIterator     = qmUserInformations.find(msg.session());
+	if (uiIterator != qmUserInformations.end()) {
+		UserInformation *ui = uiIterator.value();
+		if (ui) {
+			ui->update(msg);
+		} else {
 #ifdef USE_OVERLAY
-		ui = new UserInformation(msg, Global::get().ocIntercept ? Global::get().mw : nullptr);
+			ui = new UserInformation(msg, Global::get().ocIntercept ? Global::get().mw : nullptr);
 #else
-		ui = new UserInformation(msg, nullptr);
+			ui = new UserInformation(msg, nullptr);
 #endif
-		ui->setAttribute(Qt::WA_DeleteOnClose, true);
-		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
+			ui->setAttribute(Qt::WA_DeleteOnClose, true);
+			connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
 
-		qmUserInformations.insert(msg.session(), ui);
-		ui->show();
+			qmUserInformations.insert(msg.session(), ui);
+			ui->show();
+		}
+	} else {
+		// the periodic messages from info window contain less info, but msg.has_stats_only() is still false
+		qdwCommentView->updateUserStats(msg);
 	}
 }
 

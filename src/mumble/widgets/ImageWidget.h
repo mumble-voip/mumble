@@ -1,0 +1,24 @@
+// Copyright The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+#ifndef IMAGEWIDGET_H
+#define IMAGEWIDGET_H
+#include <QLabel>
+
+class ImageWidget : public QLabel {
+public:
+	explicit ImageWidget(QWidget *p = nullptr);
+	void resizeEvent(QResizeEvent *event) override;
+	void setImage(const QPixmap &pix);
+
+protected:
+	[[nodiscard]] QSize sizeHint() const override;
+
+private:
+	QSize m_sizeHint;
+	QPixmap m_pix;
+};
+
+#endif // IMAGEWIDGET_H

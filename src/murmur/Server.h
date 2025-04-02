@@ -366,6 +366,7 @@ public:
 	MUMBLE_ALL_TCP_MESSAGES
 #undef PROCESS_MUMBLE_TCP_MESSAGE
 
+	static const QString &hashAssign(QByteArray &hash, const QString &src);
 	static void hashAssign(QString &destination, QByteArray &hash, const QString &str);
 	static void hashAssign(QByteArray &destination, QByteArray &hash, const QByteArray &source);
 	bool isTextAllowed(QString &str, bool &changed);
