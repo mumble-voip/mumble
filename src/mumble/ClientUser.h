@@ -17,7 +17,6 @@ class ClientUser : public QObject, public User {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(ClientUser)
-
 protected:
 	float m_localVolume = 1.0f;
 	QString m_localNickname;
@@ -44,6 +43,17 @@ public:
 	float getLocalVolumeAdjustments() const;
 
 	QString getLocalNickname() const;
+
+	void setComment(const QString &qsComment) override {
+		User::setComment(qsComment);
+
+		emit commentChanged();
+	}
+	void clearComment() override {
+		User::clearComment();
+
+		emit commentChanged();
+	}
 
 	/**
 	 * Determines whether a user is active or not
@@ -92,6 +102,7 @@ signals:
 	void recordingStateChanged();
 	void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 	void localNicknameChanged();
+	void commentChanged();
 };
 
 #endif

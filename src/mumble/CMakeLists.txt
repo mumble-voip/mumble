@@ -293,6 +293,9 @@ set(MUMBLE_SOURCES
 
 	"widgets/AccessibleQGroupBox.cpp"
 	"widgets/AccessibleQGroupBox.h"
+	"widgets/CommentViewWidget.cpp"
+	"widgets/CommentViewWidget.h"
+	"widgets/CommentViewWidget.ui"
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"
 	"widgets/EventFilters.cpp"
@@ -331,6 +334,8 @@ set(MUMBLE_SOURCES
 
 	"mumble.qrc"
 	"${CMAKE_SOURCE_DIR}/themes/DefaultTheme.qrc"
+		widgets/ImageWidget.cpp
+		widgets/ImageWidget.h
 )
 
 add_library(smallft STATIC "${3RDPARTY_DIR}/smallft/smallft.cpp")
