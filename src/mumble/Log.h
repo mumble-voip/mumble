@@ -119,7 +119,10 @@ public:
 	// versions.
 	static const MsgType msgOrder[];
 
-	enum TextObjectType { Animation = QTextFormat::UserObject };
+	enum class TextObjectType { NoCustomObject, Animation = QTextFormat::UserObject };
+	inline static const QHash< TextObjectType, QStringList > txtObjTypeToFileExtsMap = {
+		{ TextObjectType::Animation, { "GIF", "WEBP", "PNG", "MNG", "AVIF" } }
+	};
 
 protected:
 	/// Mutex for qvDeferredLogs
@@ -135,10 +138,10 @@ protected:
 #endif
 	unsigned int uiLastId;
 	QDate qdDate;
+	static bool htmlWithCustomTextObjects(const QString &html, QTextCursor *tc);
 	static const QStringList allowedSchemes();
 	void postNotification(MsgType mt, const QString &plain);
 	void postQtNotification(MsgType mt, const QString &plain);
-	static bool htmlWithAnimations(const QString &html, QTextCursor *tc);
 
 public:
 	Log(QObject *p = nullptr);
@@ -147,7 +150,10 @@ public:
 	void clearIgnore();
 	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
-	static QString imageToImg(QImage img, int maxSize = 0);
+	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "PNG");
+	static bool isFileExt(const QByteArray &ext, const QByteArray &header);
+	static std::tuple< TextObjectType, QString > findTxtObjTypeAndFileExt(const QByteArray &header);
+	static TextObjectType findTxtObjType(const QString &fileExt);
 	static QString msgColor(const QString &text, LogColorType t);
 	static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName = QString());
 	static QString formatChannel(::Channel *c);
