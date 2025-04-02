@@ -413,10 +413,10 @@ QVector< LogMessage > Log::qvDeferredLogs;
 
 
 Log::Log(QObject *p) : QObject(p) {
-	qRegisterMetaType< Log::MsgType >();
+	qRegisterMetaType< MsgType >();
 
 	QAbstractTextDocumentLayout *docLayout = Global::get().mw->qteLog->document()->documentLayout();
-	docLayout->registerHandler(Animation, new AnimationTextObject());
+	docLayout->registerHandler(static_cast< int >(TextObjectType::Animation), new AnimationTextObject());
 
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
@@ -587,39 +587,22 @@ void Log::clearIgnore() {
 
 QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 	QString fmt = QLatin1String(format);
-
 	if (fmt.isEmpty())
 		fmt = QLatin1String("qt");
+	QString img = QLatin1String(image.toBase64());
 
-	QByteArray rawbase = image.toBase64();
-	QByteArray encoded;
-	int i     = 0;
-	int begin = 0, end = 0;
-	do {
-		begin = i * 72;
-		end   = begin + 72;
-
-		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin, 72))));
-		if (end < rawbase.length())
-			encoded.append('\n');
-
-		++i;
-	} while (end < rawbase.length());
-
-	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
+	return QLatin1String("<img src=\"data:image/%1;base64,%2\" />").arg(fmt, img);
 }
 
-QString Log::imageToImg(QImage img, int maxSize) {
+QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 	constexpr int MAX_WIDTH  = 1600;
 	constexpr int MAX_HEIGHT = 1000;
-
-	if ((img.width() > MAX_WIDTH) || (img.height() > MAX_HEIGHT)) {
+	if (img.width() > MAX_WIDTH || img.height() > MAX_HEIGHT) {
 		img = img.scaled(MAX_WIDTH, MAX_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;
-	QByteArray format = "JPEG";
-
+	bool isFallbackOn = false;
 	QByteArray qba;
 	QString result;
 	while (quality > 0) {
@@ -627,9 +610,15 @@ QString Log::imageToImg(QImage img, int maxSize) {
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
 
-		QImageWriter imgwrite(&qb, format);
+		QImageWriter imgwrite(&qb, isFallbackOn ? QByteArray("PNG") : format);
 		imgwrite.setQuality(quality);
-		imgwrite.write(img);
+		if (!imgwrite.write(img)) {
+			if (isFallbackOn) {
+				return imgwrite.errorString();
+			}
+			isFallbackOn = true;
+			continue;
+		}
 		result = imageToImg(format, qba);
 		if (result.length() < maxSize || maxSize == 0) {
 			return result;
@@ -639,204 +628,194 @@ QString Log::imageToImg(QImage img, int maxSize) {
 	return QString();
 }
 
-bool Log::htmlWithAnimations(const QString &html, QTextCursor *tc) {
-	bool isAnyAnimation = false;
-
-	qsizetype htmlEndIndex = html.length() - 1;
-	auto searchForAnimationHeader =
-		[html, htmlEndIndex](qsizetype previousImgEndIndex) -> std::tuple< bool, qsizetype, qsizetype > {
-		bool isCompatibleHeader;
-		qsizetype imgStartIndex = -1;
-		qsizetype base64StartIndex;
-		do {
-			imgStartIndex    = html.indexOf("<img", (imgStartIndex == -1 ? previousImgEndIndex : imgStartIndex) + 1);
-			base64StartIndex = html.indexOf(',', imgStartIndex) + 1;
-			// Get the relevant part of the header through decoding the first 4
-			// characters where each character is 6 bits in base64 encoding
-			// and each decoded character is 1 byte, with 3 bytes consisting of 24 bits:
-			QString imageFirstThreeBytes =
-				base64StartIndex > 0 && htmlEndIndex > base64StartIndex + 2 ? qvariant_cast< QString >(
-					QByteArray::fromBase64(qvariant_cast< QByteArray >(html.sliced(base64StartIndex, 4))))
-																			: "";
-			isCompatibleHeader = imageFirstThreeBytes == "GIF";
-		} while (!isCompatibleHeader && imgStartIndex != -1);
-		return std::make_tuple(isCompatibleHeader, imgStartIndex, base64StartIndex);
-	};
-	auto getIndexOfDoubleOrSingleQuote = [html](qsizetype startIndex) -> qsizetype {
-		qsizetype index = html.indexOf('\"', startIndex);
-		if (index == -1) {
-			index = html.indexOf('\'', startIndex);
+bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
+	qsizetype headerSize = header.size();
+	QByteArray objExt;
+	bool isExtAvif = ext == "AVIF";
+	if (ext == "GIF" && headerSize > 2) {
+		objExt = header.first(3);
+	} else if ((ext == "WEBP" || isExtAvif) && headerSize > 11) {
+		objExt = header.sliced(8, 4);
+		if (isExtAvif) {
+			// The last character in the extension name in the header may be "s" instead of "f"
+			// which stands for "sequence" instead of "file", where the former is for an animation:
+			QByteArray extLower = ext.toLower();
+			return objExt == extLower || objExt == extLower.replace(3, 1, "s");
 		}
-		return index;
+	} else if ((ext == "PNG" || ext == "MNG") && headerSize > 3) {
+		objExt = header.sliced(1, 3);
+	}
+	return objExt == ext;
+}
+
+std::tuple< Log::TextObjectType, QString > Log::findTxtObjTypeAndFileExt(const QByteArray &header) {
+	std::tuple< TextObjectType, QString > txtObjTypeAndFileExt{ TextObjectType::NoCustomObject, "" };
+	bool isCompatibleExt = false;
+	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
+		for (const QString &ext : i.value()) {
+			isCompatibleExt = isFileExt(ext.toUtf8(), header);
+			if (isCompatibleExt) {
+				txtObjTypeAndFileExt = { i.key(), ext };
+				break;
+			}
+		}
+		if (isCompatibleExt) {
+			break;
+		}
+	}
+	return txtObjTypeAndFileExt;
+}
+
+Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
+	TextObjectType txtObjType{};
+	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
+		if (i.value().contains(fileExt, Qt::CaseInsensitive)) {
+			txtObjType = i.key();
+			break;
+		}
+	}
+	return txtObjType;
+}
+
+bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
+	qsizetype htmlEndIndex = html.length() - 1;
+	// Return early if input is empty or too small to contain any tag:
+	if (htmlEndIndex < 2) {
+		return false;
+	}
+
+	struct TextObject {
+		TextObjectType type = TextObjectType::NoCustomObject;
+		QByteArray ba;
+		QString fileExt;
+		qsizetype imgStartIndex;
+		qsizetype imgEndIndex;
+		int overrideWidth;
+		int overrideHeight;
+	};
+	auto findRange = [&html](const QString &start, const QChar &wrapperStart, const QChar &wrapperEnd,
+							 const qsizetype &searchStartIndex,
+							 const qsizetype &searchEndIndex) -> std::tuple< qsizetype, qsizetype > {
+		bool isWrapperStart           = !wrapperStart.isNull();
+		qsizetype startOffset         = start.size() + (isWrapperStart ? 1 : 0);
+		qsizetype startInvalid        = -1 + startOffset;
+		qsizetype endInvalid          = -2;
+		QString startWithWrapperStart = isWrapperStart ? start + wrapperStart : start;
+
+		qsizetype startIndex = html.indexOf(startWithWrapperStart, searchStartIndex) + startOffset;
+		qsizetype endIndex   = startIndex < searchEndIndex ? html.indexOf(wrapperEnd, startIndex) - 1 : -1;
+		return { startIndex != startInvalid && startIndex <= searchEndIndex ? startIndex : -1,
+				 endIndex != endInvalid && endIndex <= searchEndIndex ? endIndex : -1 };
+	};
+	auto findQuoteRange =
+		[&findRange](const QString &start, const qsizetype &searchStartIndex, const qsizetype &searchEndIndex,
+					 bool mayBeUnquotedAndEndWithSpace = false) -> std::tuple< qsizetype, qsizetype > {
+		auto [startIndex, endIndex] = findRange(start, '"', '"', searchStartIndex, searchEndIndex);
+		if (startIndex == -1 || endIndex == -1) {
+			std::tie(startIndex, endIndex) = findRange(start, '\'', '\'', searchStartIndex, searchEndIndex);
+		}
+		if (mayBeUnquotedAndEndWithSpace && (startIndex == -1 || endIndex == -1)) {
+			std::tie(startIndex, endIndex) = findRange(start, '\0', ' ', searchStartIndex, searchEndIndex);
+		}
+		return { startIndex, endIndex };
+	};
+	auto findTxtObjData = [&html, &findQuoteRange](const qsizetype &previousImgEndIndex) -> TextObject {
+		TextObject txtObj;
+		qsizetype imgStartIndex;
+		qsizetype imgEndIndex = previousImgEndIndex;
+		bool isCompatibleExt  = false;
+		do {
+			imgStartIndex                     = html.indexOf("<img ", imgEndIndex + 1);
+			imgEndIndex                       = html.indexOf('>', imgStartIndex);
+			auto [srcStartIndex, srcEndIndex] = findQuoteRange(" src=", imgStartIndex, imgEndIndex, true);
+			qsizetype base64StartIndex        = html.indexOf("base64,", srcStartIndex) + 7;
+			if (srcStartIndex == -1 || srcEndIndex == -1 || base64StartIndex == 6 || base64StartIndex > srcEndIndex) {
+				continue;
+			}
+
+			int width                               = 0;
+			int height                              = 0;
+			auto [widthStartIndex, widthEndIndex]   = findQuoteRange(" width=", imgStartIndex, imgEndIndex, true);
+			auto [heightStartIndex, heightEndIndex] = findQuoteRange(" height=", imgStartIndex, imgEndIndex, true);
+			if (widthStartIndex != -1 && widthEndIndex != -1) {
+				width = html.sliced(widthStartIndex, widthEndIndex - widthStartIndex + 1).toInt();
+			}
+			if (heightStartIndex != -1 && heightEndIndex != -1) {
+				height = html.sliced(heightStartIndex, heightEndIndex - heightStartIndex + 1).toInt();
+			}
+
+			qsizetype base64Size = srcEndIndex - base64StartIndex + 1;
+			QString base64Header = html.sliced(base64StartIndex, std::min((qsizetype) 16, base64Size));
+			QByteArray header    = QByteArray::fromBase64(qvariant_cast< QByteArray >(base64Header));
+			auto [type, fileExt] = findTxtObjTypeAndFileExt(header);
+			isCompatibleExt      = type != TextObjectType::NoCustomObject;
+			if (isCompatibleExt) {
+				QString base64      = html.sliced(base64StartIndex, base64Size);
+				QByteArray txtObjBa = QByteArray::fromBase64(qvariant_cast< QByteArray >(base64));
+				txtObj              = { type, txtObjBa, fileExt, imgStartIndex, imgEndIndex, width, height };
+			}
+		} while (!isCompatibleExt && imgStartIndex != -1);
+		return txtObj;
 	};
 
-	// Track if there are more animations to insert after the current one:
-	bool isAnotherAnimation;
-	// Track the end of the previous animation and thereby where to move forward the start of the search to
-	// as well as what HTML precedes the currently processed animation but succeeds the previous animation:
+	bool isAnyCustomTxtObj = false;
+	TextObject txtObj;
+	// Track the end of the previous custom text object and thereby where to move the start of the search to
+	// as well as what HTML is between the currently processed custom text object and the previous one:
 	qsizetype previousImgEndIndex = -1;
 	do {
-		qsizetype imgStartIndex;
-		qsizetype base64StartIndex;
-		std::tie(isAnotherAnimation, imgStartIndex, base64StartIndex) = searchForAnimationHeader(previousImgEndIndex);
-		qsizetype base64EndIndex = getIndexOfDoubleOrSingleQuote(base64StartIndex) - 1;
-		qsizetype imgEndIndex    = html.indexOf('>', base64EndIndex);
-		bool isImgEndIndex       = imgEndIndex != -1;
-		if (!isAnotherAnimation || base64EndIndex == -2 || !isImgEndIndex) {
-			previousImgEndIndex = isImgEndIndex ? imgEndIndex : -2;
-			continue;
+		auto [txtObjType, txtObjBa, fileExt, imgStartIndex, imgEndIndex, width, height] =
+			previousImgEndIndex == -1 ? findTxtObjData(previousImgEndIndex) : txtObj;
+		bool isAnotherCustomTxtObj = txtObjType != TextObjectType::NoCustomObject;
+		if (!isAnotherCustomTxtObj) {
+			break;
 		}
-		qsizetype base64Size    = base64EndIndex - base64StartIndex + 1;
-		QString animationBase64 = html.sliced(base64StartIndex, base64Size);
-		QByteArray animationBa  = QByteArray::fromBase64(qvariant_cast< QByteArray >(animationBase64));
 
-		QMovie *animation = new QMovie();
-		QBuffer *buffer   = new QBuffer(animation);
-		buffer->setData(animationBa);
-		buffer->open(QIODevice::ReadOnly);
-		animation->setDevice(buffer);
-		if (!animation->isValid()) {
-			delete animation;
+		LogTextBrowser *log = Global::get().mw->qteLog;
+		QObject *obj        = nullptr;
+		switch (txtObjType) {
+			case TextObjectType::Animation:
+				obj = AnimationTextObject::createAnimation(txtObjBa, log);
+				break;
+			case TextObjectType::NoCustomObject:
+				break;
+		}
+		if (obj == nullptr) {
 			previousImgEndIndex = imgEndIndex;
 			continue;
 		}
-		animation->setProperty("LoopMode", QVariant::fromValue(AnimationTextObject::Unchanged));
-		// Track when the animation is playing in reverse instead of using the in-built play-controls which do not
-		// support it:
-		animation->setProperty("isPlayingInReverse", false);
-		// Block further signals during sequential traversal until reaching the preceding frame:
-		animation->setProperty("isTraversingFrames", false);
-		// Load and start the animation but stop or pause it after this when it should not play by default:
-		animation->start();
-
-		int frameCount     = animation->frameCount();
-		int frameCountTest = 0;
-		int totalMs        = 0;
-		QList< QVariant > frameDelays;
-		// Test how many frames there are by index in case the animation format does not support `frameCount`.
-		// Also determine the total play time used for the video controls by gathering the time from each frame.
-		// The current time is determined by a list of the time between frames since each delay until the next
-		// frame may vary:
-		while (animation->jumpToFrame(++frameCountTest)) {
-			int delay = animation->nextFrameDelay();
-			frameDelays.append(QVariant(delay));
-			totalMs += delay;
+		QTextCharFormat fmt = log->currentCharFormat();
+		int objType         = static_cast< int >(txtObjType);
+		fmt.setObjectType(objType);
+		fmt.setProperty(1, QVariant::fromValue(obj));
+		fmt.setProperty(2, fileExt);
+		if (width > 0) {
+			obj->setProperty("overrideWidth", width);
 		}
-		if (frameCount == 0) {
-			frameCount = frameCountTest;
+		if (height > 0) {
+			obj->setProperty("overrideHeight", height);
 		}
-		int lastFrameIndex = frameCount - 1;
-		animation->setProperty("lastFrameIndex", QVariant(lastFrameIndex));
-		animation->setProperty("totalMs", QVariant(totalMs));
-		animation->setProperty("frameDelays", frameDelays);
-		animation->jumpToFrame(0);
-		animation->stop();
+		obj->setProperty("objectType", objType);
+		obj->setProperty("customItemIndex", ++log->lastCustomItemIndex);
+		log->customItems.append(obj);
 
-		LogTextBrowser *log                    = Global::get().mw->qteLog;
-		QAbstractTextDocumentLayout *docLayout = log->document()->documentLayout();
-		animation->setProperty("customInteractiveItemIndex", ++log->lastCustomInteractiveItemIndex);
-
-		qsizetype frameDelayAmount = frameDelays.length();
-		auto refresh               = [animation, docLayout]() {
-            QRect rect = animation->property("posAndSize").toRect();
-            emit docLayout->update(rect);
-		};
-		auto getLoopMode = [animation]() {
-			return qvariant_cast< AnimationTextObject::LoopMode >(animation->property("LoopMode"));
-		};
-		// Refresh the image on change:
-		connect(animation, &QMovie::updated, refresh);
-		// Refresh the image once more when the animation is paused or stopped:
-		connect(animation, &QMovie::stateChanged, [refresh](QMovie::MovieState currentState) {
-			if (currentState != QMovie::Running) {
-				refresh();
-			}
-		});
-		// Start the animation again when it finishes if the loop mode is `Loop`:
-		connect(animation, &QMovie::finished, [animation, getLoopMode]() {
-			if (getLoopMode() == AnimationTextObject::Loop) {
-				animation->start();
-			}
-		});
-		// Stop the animation at the end of the last frame if the loop mode is `NoLoop` and
-		// play the animation in reverse if the property for it is `true`:
-		connect(
-			animation, &QMovie::frameChanged,
-			[animation, getLoopMode, frameDelays, frameDelayAmount, lastFrameIndex](int frameIndex) {
-				auto getFrameDelay = [animation, frameDelays, frameDelayAmount](int targetFrameIndex) -> int {
-					double speed                 = abs(animation->speed() / (double) 100);
-					bool isIndexInBoundsForDelay = targetFrameIndex >= 0 && targetFrameIndex < frameDelayAmount;
-					return (int) round(
-						frameDelays[isIndexInBoundsForDelay ? targetFrameIndex : frameDelayAmount - 1].toInt() / speed);
-				};
-				auto isAtFrameAndRunning = [animation](int targetFrameIndex) -> bool {
-					int currentFrameIndex = animation->currentFrameNumber();
-					bool wasRunning =
-						animation->state() == QMovie::Running || animation->property("isPlayingInReverse").toBool();
-					return currentFrameIndex == targetFrameIndex && wasRunning;
-				};
-				auto isAtFrameAndRunningWithNoLoop = [getLoopMode, isAtFrameAndRunning](int targetFrameIndex) {
-					return isAtFrameAndRunning(targetFrameIndex) && getLoopMode() == AnimationTextObject::NoLoop;
-				};
-				auto stopAtEndOfCurrentFrame = [animation, isAtFrameAndRunningWithNoLoop, getFrameDelay, frameIndex]() {
-					int delay = getFrameDelay(frameIndex);
-					QTimer::singleShot(delay, Qt::PreciseTimer, animation,
-									   [animation, isAtFrameAndRunningWithNoLoop, frameIndex]() {
-										   if (!isAtFrameAndRunningWithNoLoop(frameIndex)) {
-											   return;
-										   }
-										   AnimationTextObject::setFrame(animation, frameIndex);
-										   AnimationTextObject::stopPlayback(animation);
-									   });
-				};
-
-				if (animation->property("isPlayingInReverse").toBool()) {
-					if (animation->property("isTraversingFrames").toBool()) {
-						return;
-					}
-					if (isAtFrameAndRunningWithNoLoop(0)) {
-						stopAtEndOfCurrentFrame();
-						return;
-					}
-					int precedingFrameIndex = frameIndex <= 0 ? lastFrameIndex : frameIndex - 1;
-					int precedingFrameDelay = getFrameDelay(precedingFrameIndex);
-					QTimer::singleShot(precedingFrameDelay, Qt::PreciseTimer, animation,
-									   [animation, isAtFrameAndRunning, frameIndex, precedingFrameIndex]() {
-										   if (!isAtFrameAndRunning(frameIndex)) {
-											   return;
-										   }
-										   bool wasCached = animation->cacheMode() == QMovie::CacheAll;
-										   if (!wasCached) {
-											   animation->setProperty("isTraversingFrames", true);
-										   }
-										   AnimationTextObject::setFrame(animation, precedingFrameIndex);
-										   if (!wasCached) {
-											   animation->setProperty("isTraversingFrames", false);
-											   emit animation->frameChanged(precedingFrameIndex);
-										   }
-									   });
-				} else if (isAtFrameAndRunningWithNoLoop(lastFrameIndex)) {
-					stopAtEndOfCurrentFrame();
-				}
-			});
-
-		QTextCharFormat fmt = Global::get().mw->qteLog->currentCharFormat();
-		fmt.setObjectType(Animation);
-		fmt.setProperty(1, QVariant::fromValue(animation));
-
-		isAnotherAnimation            = std::get< 0 >(searchForAnimationHeader(imgEndIndex));
+		txtObj                        = findTxtObjData(imgEndIndex);
+		isAnotherCustomTxtObj         = txtObj.type != TextObjectType::NoCustomObject;
 		qsizetype htmlBeforeImgLength = imgStartIndex - 1 - previousImgEndIndex;
 		QString htmlBeforeImg =
 			imgStartIndex - 1 > previousImgEndIndex ? html.sliced(previousImgEndIndex + 1, htmlBeforeImgLength) : "";
-		QString htmlAfterImg = !isAnotherAnimation && imgEndIndex < htmlEndIndex ? html.sliced(imgEndIndex + 1) : "";
+		QString htmlAfterImg = !isAnotherCustomTxtObj && imgEndIndex < htmlEndIndex ? html.sliced(imgEndIndex + 1) : "";
 		tc->insertHtml(htmlBeforeImg);
 		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
 		tc->insertHtml(htmlAfterImg);
 
+		isAnyCustomTxtObj = true;
+		if (!isAnotherCustomTxtObj) {
+			break;
+		}
 		previousImgEndIndex = imgEndIndex;
-		isAnyAnimation      = true;
-	} while (isAnotherAnimation);
-	return isAnyAnimation;
+	} while (true);
+	return isAnyCustomTxtObj;
 }
 
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
@@ -853,9 +832,9 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	// allowing our validation checks for things such as
 	// data URL images to run.
 	(void) qtd.documentLayout();
-	// Parse and insert animated image files along with the rest of the HTML
-	// if a tag, a header and valid data for any is detected, otherwise log the HTML as usual:
-	if (!tc || !htmlWithAnimations(html, tc)) {
+	// Parse and insert custom text objects along with the rest of the HTML
+	// if a tag, header and valid data for any is detected, otherwise log the HTML as usual:
+	if (!tc || !htmlWithCustomTextObjects(html, tc)) {
 		qtd.setHtml(html);
 	}
 
