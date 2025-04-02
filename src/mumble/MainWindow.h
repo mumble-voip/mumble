@@ -125,9 +125,9 @@ public:
 	/// Restart the client after shutdown
 	bool restartOnQuit;
 
-	/// Contains the cursor whose position is immediately before the image to
-	/// save when activating the "Save Image As..." context menu item.
-	QTextCursor qtcSaveImageCursor;
+	/// Contains the text object of the image to save
+	/// when activating the "Save Image As..." context menu item.
+	QTextFormat saveImageTextObject;
 
 	QPointer< Channel > cContextChannel;
 	QPointer< ClientUser > cuContextUser;
@@ -366,10 +366,6 @@ public slots:
 	void onResetAudio();
 	void showRaiseWindow();
 	void on_qaFilterToggle_triggered();
-	/// Removes the content of the client's log and deletes the objects used by text objects.
-	void clearDocument();
-	/// Alternates between showing and hiding video controls for animated images.
-	void toggleVideoControls();
 	/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
 	void saveImageAs();
 	/// Returns the path to the user's image directory, optionally with a
