@@ -5,7 +5,7 @@ uses Google's Protocol Buffers[^1] with simple prefixing to
 distinguish the different kinds of packets sent through a TLSv1
 encrypted connection. This makes the protocol very easily expandable.
 
-![resources/mumble_packet.png](Mumble packet)
+![Mumble packet](resources/mumble_packet.png)
 
 The prefix consists out of the two bytes defining the type of the packet
 in the payload and 4 bytes stating the length of the payload in bytes
