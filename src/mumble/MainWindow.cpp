@@ -68,6 +68,7 @@
 #endif
 
 #include <QAccessible>
+#include <QtCore/QSaveFile>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
@@ -991,50 +992,70 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 				   ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value())
 				   : qteLog->horizontalScrollBar()->value(),
 			   qteLog->verticalScrollBar()->value());
-	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
+	QPoint docPos = mpos + contentPosition;
+	QMenu *menu   = qteLog->createStandardContextMenu(docPos);
 
-	QTextCursor cursor  = qteLog->cursorForPosition(mpos);
-	QTextCharFormat fmt = cursor.charFormat();
-
-	// Work around imprecise cursor image identification
-	// Apparently, the cursor is shifted half the characters width to the right on the image
-	// element. This is in contrast to hyperlinks for example, which have correct edge detection.
-	// For the image, we get the right half (plus the left half of the next character) for the
-	// image, and have to move the cursor forward to also detect on the left half of the image
-	// (plus the right half of the previous character).
-	// It is unclear why we have to use NextCharacter instead of PreviousCharacter.
-	if (fmt.objectType() == QTextFormat::NoObject) {
-		cursor.movePosition(QTextCursor::NextCharacter);
-		fmt = cursor.charFormat();
-	}
-	if (cursor.charFormat().isImageFormat()) {
+	QTextFormat fmt  = qteLog->document()->documentLayout()->formatAt(docPos);
+	bool isAnimation = fmt.objectType() == static_cast< int >(Log::TextObjectType::Animation);
+	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
-		menu->addAction(tr("Save Image As..."), this, SLOT(saveImageAs(void)));
+		menu->addAction(tr("Save Image As..."), this, &MainWindow::saveImageAs);
 
-		qtcSaveImageCursor = cursor;
+		saveImageTextObject = fmt;
+	}
+	if (isAnimation) {
+		QString actionFirstWord = AnimationTextObject::areVideoControlsOn ? "Hide" : "Show";
+		menu->addAction(tr("%1 Video Controls").arg(actionFirstWord), this, &AnimationTextObject::toggleVideoControls);
 	}
 
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
+	menu->addAction("Clear", qteLog, &LogTextBrowser::clear);
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
 }
 
 void MainWindow::saveImageAs() {
-	QDateTime now = QDateTime::currentDateTime();
+	bool isAnimation = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::Animation);
+	QString fileExt  = isAnimation ? saveImageTextObject.property(2).toString().toLower() : "jpg";
+	QDateTime now    = QDateTime::currentDateTime();
 	QString defaultFname =
-		QString::fromLatin1("Mumble-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
+		QString::fromLatin1("Mumble-%1.%2").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")), fileExt);
 
-	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), getImagePath(defaultFname),
-												 tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getSaveFileName(
+		this, tr("Save Image File"), getImagePath(defaultFname),
+		tr("Images (*.png *.jpg *.jpeg%1)").arg(isAnimation ? tr(" *.%1").arg(fileExt) : ""));
 	if (fname.isNull()) {
 		return;
 	}
 
-	QString resName = qtcSaveImageCursor.charFormat().toImageFormat().name();
-	QVariant res    = qteLog->document()->resource(QTextDocument::ImageResource, resName);
-	QImage img      = res.value< QImage >();
-	bool ok         = img.save(fname);
+	bool ok = false;
+	QImage img;
+	if (isAnimation) {
+		QMovie *animation  = qvariant_cast< QMovie * >(saveImageTextObject.property(1));
+		QIODevice *device  = animation->device();
+		qint64 previousPos = device->pos();
+		if (device->reset()) {
+			QByteArray fileData = device->readAll();
+			if (fname.endsWith(fileExt.prepend('.'), Qt::CaseInsensitive)) {
+				QSaveFile saveFile(fname);
+				if (saveFile.open(QIODevice::WriteOnly)) {
+					saveFile.write(fileData);
+					ok = saveFile.commit();
+				}
+			} else {
+				ok = img.loadFromData(fileData);
+				if (ok) {
+					ok = img.save(fname);
+				}
+			}
+		}
+		device->seek(previousPos);
+	} else {
+		QString resName = saveImageTextObject.toImageFormat().name();
+		QVariant res    = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+		img             = res.value< QImage >();
+		ok              = img.save(fname);
+	}
 	if (!ok) {
 		// In case fname did not contain a file extension, try saving with an
 		// explicit format.
@@ -1042,7 +1063,6 @@ void MainWindow::saveImageAs() {
 	}
 
 	updateImagePath(fname);
-
 	if (!ok) {
 		Global::get().l->log(Log::Warning, tr("Could not save image: %1").arg(fname.toHtmlEscaped()));
 	}
@@ -3779,8 +3799,8 @@ void MainWindow::context_triggered() {
 QPair< QByteArray, QImage > MainWindow::openImageFile() {
 	QPair< QByteArray, QImage > retval;
 
-	QString fname =
-		QFileDialog::getOpenFileName(this, tr("Choose image file"), getImagePath(), tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), getImagePath(),
+												 tr("Images (*.png *.jpg *.jpeg *.gif)"));
 
 	if (fname.isNull())
 		return retval;
