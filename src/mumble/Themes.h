@@ -33,6 +33,9 @@ public:
 
 	/// Return a theme name to theme map
 	static ThemeMap getThemes();
+	
+	// Add this function to detect & apply system theme
+	static void setSystemTheme(); 
 
 	/// Returns the per user themes directory
 	static QDir getUserThemesDirectory();
