@@ -3009,6 +3009,10 @@ Er du sikker på at du vil erstatte ditt sertifikat?
         <source>This server does not allow sending images.</source>
         <translation>Tjeneren tillater ikke bildeforsendelse.</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5141,10 +5145,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>&lt;center&gt;Ikke tilkoblet&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>Tøm</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>Åpner URL %1</translation>
     </message>
@@ -5492,10 +5492,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Feil tjenerpassord for uregistrert brukerkonto, prøv igjen.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Bilder (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7092,6 +7088,22 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
