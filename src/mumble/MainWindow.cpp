@@ -199,6 +199,8 @@ MainWindow::MainWindow(QWidget *p)
 	// This will, for example, make sure the correct status tray icon is used on connect.
 	QObject::connect(this, &MainWindow::serverSynchronized, this, &MainWindow::userStateChanged);
 
+	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
+
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
 }
 
@@ -2578,6 +2580,16 @@ void MainWindow::userStateChanged() {
 			Global::get().bAttenuateOthers              = false;
 			Global::get().prioritySpeakerActiveOverride = false;
 			break;
+	}
+}
+
+void MainWindow::on_channelStateChanged(Channel *channel, bool forceUpdateTree) {
+	if (channel == pmModel->getChannel(qtvUsers->currentIndex())) {
+		updateChatBar();
+	}
+
+	if (forceUpdateTree) {
+		pmModel->forceVisualUpdate();
 	}
 }
 
