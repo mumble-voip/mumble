@@ -160,6 +160,14 @@ For all available build options, have a look [here](cmake_options.md).
 E.g. if you only want to build the server, use `cmake -Dclient=OFF ..`.
 
 
+## Database backends
+
+When compiling the Mumble server, backends for postgresql and mysql are enabled and compiled by default.
+These require additional development headers to be installed on the system.
+
+Alternatively, you can disable those backends using the respective [CMake options](cmake_options.md).
+
+
 ## Building
 
 By default cmake will create Makefiles if run on Linux, so in order to build, you can simply run `make` in the build directory. If you want to
