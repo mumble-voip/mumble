@@ -1183,15 +1183,17 @@ void JackAudioOutput::prepareOutputBuffers(unsigned int frameCount, QList< Audio
 
 		downMixBuffer.resize(frameCount);
 		if (audio->prepareSampleBuffer(frameCount)) {
-			qlMix.append(audio);
+			if (!user->bLocalMute) {
+				qlMix.append(audio);
 
-			if (audio->bStereo) {
-				for (unsigned int i = 0; i < frameCount; i++) {
-					// Down-mix to mono
-					downMixBuffer[i] = (audio->pfBuffer[i * 2] / 2.0f + audio->pfBuffer[i * 2 + 1] / 2.0f);
+				if (audio->bStereo) {
+					for (unsigned int i = 0; i < frameCount; i++) {
+						// Down-mix to mono
+						downMixBuffer[i] = (audio->pfBuffer[i * 2] / 2.0f + audio->pfBuffer[i * 2 + 1] / 2.0f);
+					}
+				} else {
+					memcpy(downMixBuffer.data(), audio->pfBuffer, sizeof(float) * frameCount);
 				}
-			} else {
-				memcpy(downMixBuffer.data(), audio->pfBuffer, sizeof(float) * frameCount);
 			}
 		} else {
 			qlDel.append(audio);
