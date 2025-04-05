@@ -117,12 +117,12 @@ Set \"uiAccess=true\", required for global shortcuts to work with privileged app
 ### enable-mysql
 
 Whether or not to enable the MySQL database backend
-(Default: ON)
+(Default: ${server})
 
 ### enable-postgresql
 
 Whether or not to enable the PostgreSQL database backend
-(Default: ON)
+(Default: ${server})
 
 ### enable-sqlite
 
