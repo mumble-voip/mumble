@@ -6,8 +6,8 @@
 option(bundled-soci "Build the included version of SOCI instead of looking for one on the system" ON)
 
 option(enable-sqlite "Whether or not to enable the SQLite database backend" ON)
-option(enable-mysql "Whether or not to enable the MySQL database backend" ON)
-option(enable-postgresql "Whether or not to enable the PostgreSQL database backend" ON)
+option(enable-mysql "Whether or not to enable the MySQL database backend" ${server})
+option(enable-postgresql "Whether or not to enable the PostgreSQL database backend" ${server})
 
 add_library(mumble_database STATIC
 	"Backend.cpp"
