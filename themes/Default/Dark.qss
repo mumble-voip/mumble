@@ -1106,8 +1106,7 @@ code {
 }
 
 .table {
-  border-width: 1px;
-  border-style: solid;
+  border: 1px ridge unset;
   vertical-align: middle;
 }
 .table > tr > * {
