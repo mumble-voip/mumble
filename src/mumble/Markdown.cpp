@@ -20,15 +20,15 @@
 namespace Markdown {
 struct Image {
 	QString url;
-	QString altText;
+	QString alt;
 	QString title;
-	QString width;
-	QString height;
+	int width;
+	int height;
 };
 struct Items {
 	const QString &inputStr;
 	qsizetype offset;
-	QString htmlStr;
+	QString html;
 	QList< Markdown::Image > &images;
 	QHash< QString, std::tuple< QString, QString > > &references;
 };
@@ -41,7 +41,7 @@ const QLatin1String referencePlaceholder("%<\\!!reference!!//>@");
 const QString doNoReplacementSign("\\");
 
 /// Just a wrapper for QRegularExpression::match() where it will only match
-/// if the match starts at the specified offset
+/// if the match starts at the given offset
 ///
 /// @param regex The regex to match with
 /// @param items A reference to the items to work on
@@ -58,8 +58,8 @@ static QRegularExpressionMatch regexMatch(const QRegularExpression &regex, Markd
 ///     By default this is that of the first explicit group.
 /// @param groupEndIndex The index of the last group to check for a match.
 ///     By default this limit is disabled and the search continues until the last group has been searched.
-/// @returns The first non-empty group
-QString getFirstMatchedGroup(const QRegularExpressionMatch &match, int groupStartIndex = 1, int groupEndIndex = -1) {
+/// @returns The first non-empty group or else an empty string
+QString findFirstMatchedGroup(const QRegularExpressionMatch &match, int groupStartIndex = 1, int groupEndIndex = -1) {
 	QString firstMatchedGroup = match.captured(groupStartIndex);
 	for (int i = 0; i < match.lastCapturedIndex(); ++i) {
 		int currentGroupIndex = groupStartIndex + i;
@@ -89,10 +89,10 @@ bool regexMatchAndReplace(
 
 	QString replacement = actionOnMatch != nullptr
 							  ? actionOnMatch(match, contentWrapper)
-							  : QLatin1String(contentWrapper).arg(getFirstMatchedGroup(match).toHtmlEscaped());
+							  : QLatin1String(contentWrapper).arg(findFirstMatchedGroup(match).toHtmlEscaped());
 	bool isReplacement = replacement != doNoReplacementSign;
 	if (isReplacement) {
-		items.htmlStr.append(replacement);
+		items.html.append(replacement);
 		items.offset = match.capturedEnd();
 	}
 	return isReplacement;
@@ -106,14 +106,14 @@ bool escapeCharacter(Markdown::Items &items) {
 	qsizetype &offset        = items.offset;
 	const QChar &charToEsc   = items.inputStr[offset];
 	QString escapedChar      = QString(charToEsc).toHtmlEscaped();
-	qsizetype escapedCharLth = escapedChar.size();
-	if (escapedCharLth == 1 && escapedChar[0] == charToEsc) {
+	qsizetype escapedCharLen = escapedChar.size();
+	if (escapedCharLen == 1 && escapedChar[0] == charToEsc) {
 		// Nothing to escape
 		return false;
 	}
 
-	items.htmlStr.append(escapedChar);
-	offset += escapedCharLth;
+	items.html.append(escapedChar);
+	offset += escapedCharLen;
 	return true;
 }
 
@@ -129,7 +129,7 @@ QString unescapeURL(const QString &url) {
 	return doc.toPlainText();
 }
 
-/// Gets the given text with a modification to make it compatible as either a reference or a URL
+/// Makes the given text compatible as either a reference or a URL
 /// depending on the second argument, where `true` is a reference and `false` is a URL.
 /// A reference has a reference placeholder inserted at the start and a URL is replaced with its un-escaped version.
 ///
@@ -154,9 +154,9 @@ bool isSameBracketType(const QString &startBracket, const QString &endBracket) {
 		return true;
 	}
 
-	bool squareBracketsInsteadOfParentheses = endBracket == "]";
-	QString startBracketOfThisType(squareBracketsInsteadOfParentheses ? "[" : "(");
-	QString endBracketOfThisType(squareBracketsInsteadOfParentheses ? "]" : ")");
+	bool isSquareBracketsInsteadOfParentheses = endBracket == "]";
+	QString startBracketOfThisType(isSquareBracketsInsteadOfParentheses ? "[" : "(");
+	QString endBracketOfThisType(isSquareBracketsInsteadOfParentheses ? "]" : ")");
 
 	return startBracket == startBracketOfThisType && endBracket == endBracketOfThisType;
 }
@@ -169,8 +169,8 @@ bool processEscapedChar(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '\\') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\\\(.)"));
-	return regexMatchAndReplace(items, s_regex, "%1");
+	static const QRegularExpression regex(QLatin1String("\\\\(.)"));
+	return regexMatchAndReplace(items, regex, "%1");
 }
 
 /// Tries to match and replace plain linebreaks at exactly the given offset in the string.
@@ -179,12 +179,12 @@ bool processEscapedChar(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processPlainLinebreaks(Markdown::Items &items) {
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '\n' && matchStartCharacter != '\r') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\R{2}"));
-	return regexMatchAndReplace(items, s_regex, "<br/><br/>",
+	static const QRegularExpression regex(QLatin1String("\\R{2}"));
+	return regexMatchAndReplace(items, regex, "<br/><br/>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content   = match.captured(0);
 									bool isOneNewline = content.size() < (content.startsWith("\r\n") ? 3 : 2);
@@ -210,7 +210,7 @@ void processFormatting(Markdown::Items &items, QList< std::function< bool(Markdo
 		}
 		if (!(isReplacementAtOffset || processPlainLinebreaks(items) || processEscapedChar(items)
 			  || escapeCharacter(items))) {
-			items.htmlStr.append(inputStr[offset++]);
+			items.html.append(inputStr[offset++]);
 		}
 	}
 }
@@ -224,7 +224,7 @@ void processFormatting(QString &inputStr, Markdown::Items &items,
 					   QList< std::function< bool(Markdown::Items &) > > formats) {
 	Markdown::Items substringItems = { inputStr, (qsizetype) 0, QLatin1String(), items.images, items.references };
 	processFormatting(substringItems, formats);
-	inputStr = substringItems.htmlStr;
+	inputStr = substringItems.html;
 }
 
 /// Tries to match and replace an HTML comment at exactly the given offset in the string
@@ -236,14 +236,14 @@ bool processHTMLComment(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '<') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("<!-{2,}((?:.|\n)*?)-{2,}>"));
-	return regexMatchAndReplace(items, s_regex, "");
+	static const QRegularExpression regex(QLatin1String("<!--((?:.|\n)*?)-->"));
+	return regexMatchAndReplace(items, regex, "");
 }
 
 /// Tries to match and replace an HTML fixed space at exactly the given offset in the string
 /// Note: Halfwidth Hangul Filler (`&#xFFA0;`) is used instead of the regular non-breaking space (`&nbsp;`) in order
 /// to avoid breaking the detection of image messages which results in using the wrong message character limit.
-/// It is somewhat longer but works the same way in preserving each space instead of collapsing
+/// It is a somewhat longer space but works the same way in preserving each space instead of collapsing
 /// to one space between other characters or none otherwise. Using `&nbsp;` to add a fixed space is still accepted
 /// but it is implemented with said alternative fixed space.
 ///
@@ -254,8 +254,8 @@ bool processHTMLFixedSpace(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '&') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("&nbsp;|&#xFFA0;"));
-	return regexMatchAndReplace(items, s_regex, "&#xFFA0;");
+	static const QRegularExpression regex(QLatin1String("&nbsp;|&#xFFA0;"));
+	return regexMatchAndReplace(items, regex, "&#xFFA0;");
 }
 
 /// Tries to match and replace an HTML linebreak at exactly the given offset in the string
@@ -267,8 +267,8 @@ bool processHTMLBr(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '<') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("<br\\h?/?>"));
-	return regexMatchAndReplace(items, s_regex, "<br/>");
+	static const QRegularExpression regex(QLatin1String("<br\\h?/?>"));
+	return regexMatchAndReplace(items, regex, "<br/>");
 }
 
 /// Tries to match and replace a Markdown linebreak at exactly the given offset in the string
@@ -279,12 +279,12 @@ bool processMarkdownLinebreak(Markdown::Items &items) {
 	// Linebreak in the following format
 	// text\ or text[2+ spaces]
 	// one or more non-whitespace characters somewhere on this line right after the previous one
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '\\' && matchStartCharacter != ' ') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("(?:\\\\|\\h{2,})(?=\n.*\\S)"));
-	return regexMatchAndReplace(items, s_regex, "<br/>");
+	static const QRegularExpression regex(QLatin1String("(?:\\\\|\\h{2,})(?=\n.*\\S)"));
+	return regexMatchAndReplace(items, regex, "<br/>");
 }
 
 /// Tries to match and replace a Markdown- or HTML linebreak at exactly the given offset in the string
@@ -304,11 +304,11 @@ bool processHTMLSpanWithColor(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '<') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("<span style=(?:\"color:\\h?(.+?);\"|'color:\\h?(.+?);')>(.+?)</span>"));
-	return regexMatchAndReplace(items, s_regex, "<span style=\"color: %1;\">%2</span>",
+	return regexMatchAndReplace(items, regex, "<span style=\"color: %1;\">%2</span>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
-									QString color = getFirstMatchedGroup(match, 1, 2).toHtmlEscaped();
+									QString color = findFirstMatchedGroup(match, 1, 2).toHtmlEscaped();
 									QString text  = match.captured(3).toHtmlEscaped();
 									return QLatin1String(contentWrapper).arg(color, text);
 								});
@@ -323,10 +323,10 @@ bool processHTMLFontWithColor(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '<') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("<font color=(?:\"(.+?)\"|'(.+?)')>(.+?)</font>"));
-	return regexMatchAndReplace(items, s_regex, "<font color=\"%1\">%2</font>",
+	static const QRegularExpression regex(QLatin1String("<font color=(?:\"(.+?)\"|'(.+?)')>(.+?)</font>"));
+	return regexMatchAndReplace(items, regex, "<font color=\"%1\">%2</font>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
-									QString color = getFirstMatchedGroup(match, 1, 2).toHtmlEscaped();
+									QString color = findFirstMatchedGroup(match, 1, 2).toHtmlEscaped();
 									QString text  = match.captured(3).toHtmlEscaped();
 									return QLatin1String(contentWrapper).arg(color, text);
 								});
@@ -341,12 +341,12 @@ bool processLaTeXColor(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '$') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\$\\\\color\\{(.+?)\\}(?:\\\\text\\{(.+?)\\}"
-														  "|\\{\\\\text\\{(.+?)\\}\\})\\$"));
-	return regexMatchAndReplace(items, s_regex, "<font color=\"%1\">%2</font>",
+	static const QRegularExpression regex(QLatin1String("\\$\\\\color\\{(.+?)\\}(?:\\\\text\\{(.+?)\\}"
+														"|\\{\\\\text\\{(.+?)\\}\\})\\$"));
+	return regexMatchAndReplace(items, regex, "<font color=\"%1\">%2</font>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString color = match.captured(1).toHtmlEscaped();
-									QString text  = getFirstMatchedGroup(match, 2).toHtmlEscaped();
+									QString text  = findFirstMatchedGroup(match, 2).toHtmlEscaped();
 									return QLatin1String(contentWrapper).arg(color, text);
 								});
 }
@@ -371,9 +371,9 @@ bool processPlainLink(Markdown::Items &items) {
 	if (!items.inputStr[items.offset].isLetter()) {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("([a-zA-Z]{1,10}://|[wW]{3}\\.)([A-Za-z0-9-._~:/?#\\[\\]@!$&'()*+,;=]|%[a-fA-F0-9]{2})+"));
-	return regexMatchAndReplace(items, s_regex, "<a href=\"%1\">%2</a>",
+	return regexMatchAndReplace(items, regex, "<a href=\"%1\">%2</a>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString url = match.captured(0).toHtmlEscaped();
 
@@ -402,16 +402,16 @@ bool processMarkdownLink(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '[') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("(\\[([^\\]\n]+)\\])?(\\(|\\[)(?:<(.+?)>|((?<=\\()[^\\)\\h\n]+|[^\\]\\h\n]+))"
 					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?(\\)|\\])"));
-	return regexMatchAndReplace(items, s_regex, "<a href=\"%1\"%3>%2</a>",
+	return regexMatchAndReplace(items, regex, "<a href=\"%1\"%3>%2</a>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString textWithBrackets = match.captured(1);
 									QString text             = match.captured(2);
 									QString urlStartBracket  = match.captured(3);
-									QString url              = getFirstMatchedGroup(match, 4, 5).toHtmlEscaped();
-									QString title            = getFirstMatchedGroup(match, 6, 8).toHtmlEscaped();
+									QString url              = findFirstMatchedGroup(match, 4, 5).toHtmlEscaped();
+									QString title            = findFirstMatchedGroup(match, 6, 8).toHtmlEscaped();
 									QString urlEndBracket    = match.captured(9);
 									if (!isSameBracketType(urlStartBracket, urlEndBracket)) {
 										return doNoReplacementSign;
@@ -446,19 +446,19 @@ bool processMarkdownLink(Markdown::Items &items) {
 bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 	// Reference definition in format [reference]: URL "tooltip" where the URL may include spaces if wrapped
 	// in angular brackets (<>), the double quotes may be single quotes or parentheses and the tooltip is optional
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '[' && matchStartCharacter != ' ') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("^\\h{,3}\\[([^\\]\n]+)\\]:\\h(?:<(.+?)>|([^\\h\n]+))"
 					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?\\h*\n?\\h*$"),
 		QRegularExpression::MultilineOption);
-	return regexMatchAndReplace(items, s_regex, "",
+	return regexMatchAndReplace(items, regex, "",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString reference = match.captured(1).toHtmlEscaped();
-									QString url       = getFirstMatchedGroup(match, 2, 3).toHtmlEscaped();
-									QString title     = getFirstMatchedGroup(match, 4, 6).toHtmlEscaped();
+									QString url       = findFirstMatchedGroup(match, 2, 3).toHtmlEscaped();
+									QString title     = findFirstMatchedGroup(match, 4, 6).toHtmlEscaped();
 
 									if (!url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
 										url.prepend(QLatin1String("http://"));
@@ -466,7 +466,7 @@ bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 
 									QHash< QString, std::tuple< QString, QString > > &references = items.references;
 									if (!references.contains(reference)) {
-										references[reference] = std::make_tuple(unescapeURL(url), title);
+										references[reference] = { unescapeURL(url), title };
 									}
 									return QLatin1String(contentWrapper);
 								});
@@ -478,13 +478,12 @@ bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 void processQueuedMarkdownReferences(Markdown::Items &items) {
-	QString &htmlStr                               = items.htmlStr;
-	static const QString regexReferencePlaceholder = QString(referencePlaceholder).replace("\\", "\\\\");
-	static const QRegularExpression s_reference(
-		QLatin1String("<a\\h.*?href=\"%1(.+?)\".*?>(.+?)</a>").arg(regexReferencePlaceholder));
+	QString &html                     = items.html;
+	QString regexReferencePlaceholder = QString(referencePlaceholder).replace("\\", "\\\\");
+	QRegularExpression regex(QLatin1String("<a\\h.*?href=\"%1(.+?)\".*?>(.+?)</a>").arg(regexReferencePlaceholder));
 	qsizetype offset = 0;
 	do {
-		QRegularExpressionMatch match = s_reference.match(htmlStr, offset);
+		QRegularExpressionMatch match = regex.match(html, offset);
 		if (!match.hasMatch()) {
 			break;
 		}
@@ -500,7 +499,7 @@ void processQueuedMarkdownReferences(Markdown::Items &items) {
 													  : QLatin1String("[%1]").arg(reference);
 
 		qsizetype matchStartIndex = match.capturedStart();
-		htmlStr.replace(matchStartIndex, match.capturedLength(), replacement);
+		html.replace(matchStartIndex, match.capturedLength(), replacement);
 		offset = matchStartIndex + replacement.size();
 	} while (true);
 }
@@ -510,20 +509,20 @@ void processQueuedMarkdownReferences(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been queued
 bool processMarkdownImage(Markdown::Items &items) {
-	// Image in format ![alt text](URL "tooltip"){width=pxAmount height=pxAmount}
-	// where the URL may include spaces if wrapped in angular brackets (<>) or be a file uri
+	// Image in format ![alt text](URL "tooltip"){width=px-amount height=px-amount}
+	// where the URL may include spaces if wrapped in angular brackets (<>) or be a file URI
 	// (local file path starting with "file:///"), the double quotes may be single quotes or parentheses and
 	// the alt text is recommended for accessibility but not required
 	// A broken image will only be shown if the alt text contains at least one character
 	// The tooltip and size attributes are also optional, where in the latter spaces may be commas and
-	// each value may have up to four digits
+	// each integer may have up to four digits
 	// The parentheses containing the URL may be square brackets containing a reference instead
 	// The image may be wrapt in a Markdown link
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '!' && matchStartCharacter != '[') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("\\[?!\\[([^\\]\n]*)\\](\\(|\\[)(?:<(.+?)>|((?<=\\()[^\\)\\h\n]+|[^\\]\\h\n]+))"
 					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?(\\)|\\])"
 					  "(?:\\{\\h?(?:(?:width=(\\d{1,4})\\d*(?:\\h|,\\h?))?height=(\\d{1,4})\\d*"
@@ -531,44 +530,43 @@ bool processMarkdownImage(Markdown::Items &items) {
 					  "(?:\\](\\(|\\[)(?:<(.+?)>|((?<=\\()[^\\)\\h\n]+|[^\\]\\h\n]+))"
 					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?(\\)|\\]))?"));
 	return regexMatchAndReplace(
-		items, s_regex, "<a href=\"%1\"%3>%2</a>",
+		items, regex, "<a href=\"%1\"%3>%2</a>",
 		[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-			QString altText              = match.captured(1).toHtmlEscaped();
+			QString alt                  = match.captured(1).toHtmlEscaped();
 			QString imageUrlStartBracket = match.captured(2);
-			QString url                  = getFirstMatchedGroup(match, 3, 4).toHtmlEscaped();
-			QString title                = getFirstMatchedGroup(match, 5, 7).toHtmlEscaped();
+			QString url                  = findFirstMatchedGroup(match, 3, 4).toHtmlEscaped();
+			QString title                = findFirstMatchedGroup(match, 5, 7).toHtmlEscaped();
 			QString imageUrlEndBracket   = match.captured(8);
 
-			QString width  = (match.captured(9).isEmpty() ? match.captured(12) : match.captured(9)).toHtmlEscaped();
-			QString height = getFirstMatchedGroup(match, 10, 11).toHtmlEscaped();
+			int width  = (match.captured(9).isEmpty() ? match.captured(12) : match.captured(9)).toInt();
+			int height = findFirstMatchedGroup(match, 10, 11).toInt();
 
-			QString wrapperUrlStartBracket = match.captured(13);
-			QString link                   = getFirstMatchedGroup(match, 14, 15).toHtmlEscaped();
-			QString linkTitle              = getFirstMatchedGroup(match, 16, 18).toHtmlEscaped();
-			QString wrapperUrlEndBracket   = match.captured(19);
+			QString linkStartBracket = match.captured(13);
+			QString link             = findFirstMatchedGroup(match, 14, 15).toHtmlEscaped();
+			QString linkTitle        = findFirstMatchedGroup(match, 16, 18).toHtmlEscaped();
+			QString linkEndBracket   = match.captured(19);
 
 			bool hasLink                 = !link.isEmpty();
 			bool startsWithSquareBracket = match.captured(0).startsWith('[');
-			if ((hasLink && !startsWithSquareBracket) || (!hasLink && startsWithSquareBracket)
-				|| !isSameBracketType(imageUrlStartBracket, imageUrlEndBracket)
-				|| !isSameBracketType(wrapperUrlStartBracket, wrapperUrlEndBracket)) {
+			if (hasLink != startsWithSquareBracket || !isSameBracketType(imageUrlStartBracket, imageUrlEndBracket)
+				|| !isSameBracketType(linkStartBracket, linkEndBracket)) {
 				return doNoReplacementSign;
 			}
 
-			bool isReferenceImage       = imageUrlEndBracket == "]";
-			bool isReferenceWrapperLink = wrapperUrlEndBracket == "]";
+			bool isReferenceImage = imageUrlEndBracket == "]";
+			bool isReferenceLink  = linkEndBracket == "]";
 			if (!isReferenceImage && !url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)
 				&& !url.startsWith(QLatin1String("file:///"), Qt::CaseInsensitive)) {
 				url.prepend(QLatin1String("http://"));
 			}
-			if (!isReferenceWrapperLink && !link.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
+			if (!isReferenceLink && !link.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
 				link.prepend(QLatin1String("http://"));
 			}
 
-			items.images.append({ referenceOrUnescapeURL(url, isReferenceImage), altText, title, width, height });
-			return hasLink ? QLatin1String(contentWrapper)
-								 .arg(referenceOrUnescapeURL(link, isReferenceWrapperLink), imagePlaceholder,
-									  !linkTitle.isEmpty() ? QLatin1String(" title=\"%1\"").arg(linkTitle) : "")
+			items.images.append({ referenceOrUnescapeURL(url, isReferenceImage), alt, title, width, height });
+			QString linkHrefValue      = referenceOrUnescapeURL(link, isReferenceLink);
+			QString linkTitleAttribute = !linkTitle.isEmpty() ? QLatin1String(" title=\"%1\"").arg(linkTitle) : "";
+			return hasLink ? QLatin1String(contentWrapper).arg(linkHrefValue, imagePlaceholder, linkTitleAttribute)
 						   : imagePlaceholder;
 		});
 }
@@ -576,9 +574,9 @@ bool processMarkdownImage(Markdown::Items &items) {
 /// Tries to request and insert queued Markdown images, replacing their placeholders in the string
 /// by order of appearance from start to end. Downloads and loading of local files will be awaited in parallel.
 ///
-/// @param str A reference to the String to work on
+/// @param items A reference to the items to work on
 void processQueuedMarkdownImages(Markdown::Items &items) {
-	QString &htmlStr                 = items.htmlStr;
+	QString &html                    = items.html;
 	QList< Markdown::Image > &images = items.images;
 	qsizetype imageAmount            = images.size();
 	if (imageAmount == 0) {
@@ -589,51 +587,49 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 	QEventLoop loop;
 	QNetworkAccessManager networkManager;
 	int imageMessageLength                = static_cast< int >(Global::get().uiImageLength);
-	qsizetype remainingImageMessageLength = imageMessageLength - htmlStr.size() + imageAmount * imagePlaceholder.size();
+	qsizetype remainingImageMessageLength = imageMessageLength - html.size() + imageAmount * imagePlaceholder.size();
 
 	qsizetype repliesFinished   = 0;
-	QString processingIndicator = "<center><i>%1 image %2/%3 for message...</i></center>";
+	QString processingIndicator = "<center><i>%1 image %2/%3...</i></center>";
 	ChatbarTextEdit *chatbar    = Global::get().mw->qteChat;
 	auto getProcessingFirstWord = [](QString url) {
 		return QLatin1String(url.startsWith("file:///") ? "Loading" : "Downloading");
 	};
-	QObject::connect(
-		&networkManager, &QNetworkAccessManager::finished, &loop,
-		[&base64Images, &repliesFinished, &imageAmount, &processingIndicator, &remainingImageMessageLength, &loop,
-		 &chatbar](QNetworkReply *reply) {
-			if (reply->error() == QNetworkReply::NoError) {
-				QByteArray imageBa = reply->readAll();
-				QImage image;
-				if (image.loadFromData(imageBa)) {
-					int imageIndex = reply->property("index").toInt();
+	QObject::connect(&networkManager, &QNetworkAccessManager::finished, &loop,
+					 [&base64Images, &repliesFinished, &imageAmount, &processingIndicator, &remainingImageMessageLength,
+					  &loop, &chatbar](QNetworkReply *reply) {
+						 if (reply->error() == QNetworkReply::NoError) {
+							 QByteArray imageBa = reply->readAll();
+							 QImage image;
+							 if (image.loadFromData(imageBa)) {
+								 int imageIndex = reply->property("index").toInt();
 
-					qsizetype imageSize       = imageBa.size();
-					qsizetype base64ImageSize = imageSize * 4 / 3;
-					QString imageHeader       = imageSize > 2 ? qvariant_cast< QString >(imageBa.first(3)) : "";
-					bool isAnimation          = imageHeader == "GIF";
-					QString img               = isAnimation ? qvariant_cast< QString >(imageBa.toBase64())
-											  : Log::imageToImg(image, (int) remainingImageMessageLength);
+								 qsizetype imageSize       = imageBa.size();
+								 qsizetype base64ImageSize = imageSize * 4 / 3;
+								 QString imageHeader = imageSize > 2 ? qvariant_cast< QString >(imageBa.first(3)) : "";
+								 bool isAnimation    = imageHeader == "GIF";
+								 QString img         = isAnimation ? qvariant_cast< QString >(imageBa.toBase64())
+														   : Log::imageToImg(image, (int) remainingImageMessageLength);
 
-					base64Images[imageIndex] = std::make_tuple(img, image.size(), isAnimation ? imageHeader : "JPEG");
-					remainingImageMessageLength -= isAnimation ? base64ImageSize : img.size();
-				}
-			}
+								 base64Images[imageIndex] = { img, image.size(), isAnimation ? imageHeader : "JPEG" };
+								 remainingImageMessageLength -= isAnimation ? base64ImageSize : img.size();
+							 }
+						 }
 
-			QString processingFirstWord = reply->property("processingFirstWord").toString();
-			reply->close();
-			reply->deleteLater();
-			if (++repliesFinished == imageAmount) {
-				loop.quit();
-			} else {
-				chatbar->setHtml(processingIndicator.arg(processingFirstWord).arg(repliesFinished).arg(imageAmount));
-			}
-		});
+						 QString firstWord = reply->property("processingFirstWord").toString();
+						 reply->close();
+						 reply->deleteLater();
+						 if (++repliesFinished == imageAmount) {
+							 loop.quit();
+							 return;
+						 }
+						 chatbar->setHtml(processingIndicator.arg(firstWord).arg(repliesFinished).arg(imageAmount));
+					 });
 	for (int i = 0; i < imageAmount; ++i) {
 		Markdown::Image &image = images[i];
 		QString &url           = image.url;
 		if (url.startsWith(referencePlaceholder)) {
-			static const qsizetype referencePlaceholderSize = referencePlaceholder.size();
-			url.remove(0, referencePlaceholderSize);
+			url.remove(0, referencePlaceholder.size());
 			std::tie(url, image.title) = items.references.value(url);
 		}
 		QNetworkReply *reply = networkManager.get(QNetworkRequest(url));
@@ -647,80 +643,75 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 	loop.exec();
 
 	for (int i = 0; i < imageAmount; ++i) {
-		auto [_, altText, title, width, height] = images[i];
-		auto [base64ImageData, imgSize, imgFmt] = base64Images[i];
+		auto [_, alt, title, width, height] = images[i];
+		auto [base64Image, imgSize, imgFmt] = base64Images[i];
 
-		bool isWidth  = !width.isEmpty();
-		bool isHeight = !height.isEmpty();
+		bool isWidth  = width > 0;
+		bool isHeight = height > 0;
 		if (isWidth || isHeight) {
 			// Use the max size if the set image resize is too large, which with a max message area size of
 			// 2048x2048 somehow becomes around 1442x1442 (approximately 70% of the max message area size) for images:
-			static const int allowedEvenLength = (int) round(2048 * 0.7041);
-			static const int allowedSize       = allowedEvenLength * allowedEvenLength;
-			static const int maxBaseWidth      = 600;
-			static const int maxBaseHeight     = 400;
+			int allowedEvenLength = (int) round(2048 * 0.7041);
+			int allowedSize       = allowedEvenLength * allowedEvenLength;
+			int maxBaseWidth      = 600;
+			int maxBaseHeight     = 400;
 			if (imgSize.width() > maxBaseWidth || imgSize.height() > maxBaseHeight) {
 				imgSize.scale(maxBaseWidth, maxBaseHeight, Qt::KeepAspectRatio);
 			}
-			int widthInt  = width.toInt();
-			int heightInt = height.toInt();
 			if (!isWidth) {
 				double widthToHeightRatio = imgSize.width() / (double) imgSize.height();
-				widthInt                  = (int) round(heightInt * widthToHeightRatio);
+				width                     = (int) round(height * widthToHeightRatio);
 			} else if (!isHeight) {
 				double heightToWidthRatio = imgSize.height() / (double) imgSize.width();
-				heightInt                 = (int) round(widthInt * heightToWidthRatio);
+				height                    = (int) round(width * heightToWidthRatio);
 			}
 
-			int imageSize = widthInt * heightInt;
+			int imageSize = width * height;
 			if (imageSize > allowedSize) {
-				bool isWidthGreaterThanHeight = widthInt > heightInt;
-				int &lengthAxisOne            = isWidthGreaterThanHeight ? widthInt : heightInt;
-				int &lengthAxisTwo            = isWidthGreaterThanHeight ? heightInt : widthInt;
-				QString &lengthAxisOneStr     = isWidthGreaterThanHeight ? width : height;
-				QString &lengthAxisTwoStr     = isWidthGreaterThanHeight ? height : width;
+				bool isWidthGreaterThanHeight = width > height;
+				int &lengthAxis1              = isWidthGreaterThanHeight ? width : height;
+				int &lengthAxis2              = isWidthGreaterThanHeight ? height : width;
 
-				while (--lengthAxisOne * lengthAxisTwo > allowedSize && lengthAxisOne > allowedEvenLength) {
+				while (--lengthAxis1 * lengthAxis2 > allowedSize && lengthAxis1 > allowedEvenLength) {
 				}
-				lengthAxisOneStr = QString::number(lengthAxisOne);
-				if (lengthAxisOne * lengthAxisTwo > allowedSize) {
-					while (lengthAxisOne * --lengthAxisTwo > allowedSize && lengthAxisTwo > allowedEvenLength) {
+				if (lengthAxis1 * lengthAxis2 > allowedSize) {
+					while (lengthAxis1 * --lengthAxis2 > allowedSize && lengthAxis2 > allowedEvenLength) {
 					}
-					lengthAxisTwoStr = QString::number(lengthAxisTwo);
 				}
+				isWidth  = width > 0;
+				isHeight = height > 0;
 			}
-			isWidth  = !width.isEmpty();
-			isHeight = !height.isEmpty();
 		}
-		bool isTitle                    = !title.isEmpty();
-		QString imgAdditionalAttributes = QLatin1String("%1%2%3").arg(
-			QLatin1String(isTitle ? "title=\"%1\"" : "").arg(title),
-			QLatin1String(isWidth ? "%2width=\"%1\"" : "").arg(width, QLatin1String(isWidth && isTitle ? " " : "")),
-			QLatin1String(isHeight ? "%2height=\"%1\"" : "")
-				.arg(height, QLatin1String(isHeight && (isTitle || isWidth) ? " " : "")));
+		bool isTitle                            = !title.isEmpty();
+		QStringList imgAdditionalAttributesList = {
+			isTitle ? QLatin1String("title=\"%1\"").arg(title) : "",
+			isWidth ? QLatin1String("width=\"%1\"").arg(QString::number(width)) : "",
+			isHeight ? QLatin1String("height=\"%1\"").arg(QString::number(height)) : ""
+		};
+		imgAdditionalAttributesList.removeAll("");
 
-		qsizetype imageOffset     = htmlStr.indexOf(imagePlaceholder);
+		qsizetype imageOffset     = html.indexOf(imagePlaceholder);
 		qsizetype placeholderSize = imagePlaceholder.size();
-		QString img               = base64ImageData.startsWith("<img")
-						  ? base64ImageData
-						  : QLatin1String("<img src=\"data:image/%2;base64,%1\"/>").arg(base64ImageData, imgFmt);
-		bool isImage = !base64ImageData.isEmpty();
+		QString img               = base64Image.startsWith("<img")
+						  ? base64Image
+						  : QLatin1String("<img src=\"data:image/%2;base64,%1\"/>").arg(base64Image, imgFmt);
+		bool isImage = !base64Image.isEmpty();
 
 		// Do not apply width and height attributes to the broken image icon too:
 		if (isImage) {
-			img.insert(img.size() - 2, imgAdditionalAttributes);
+			img.insert(img.size() - 2, imgAdditionalAttributesList.join(' '));
 		}
 		// Remove a-element wrapper when the image failed to load so that the broken image and alt text may be visible:
-		if (!isImage && imageOffset > 0 && htmlStr[imageOffset - 1] == '>') {
+		if (!isImage && imageOffset > 0 && html[imageOffset - 1] == '>') {
 			// Start with the constant size of the end tag `</a>`:
 			int sizeIncrease = 4;
 			do {
 				++sizeIncrease;
-			} while (imageOffset > 0 && htmlStr[--imageOffset] != '<');
+			} while (imageOffset > 0 && html[--imageOffset] != '<');
 			placeholderSize += sizeIncrease;
 		}
 
-		htmlStr.replace(imageOffset, placeholderSize, isImage ? img : !altText.isEmpty() ? img.append(altText) : "");
+		html.replace(imageOffset, placeholderSize, isImage ? img : !alt.isEmpty() ? img.append(alt) : "");
 	}
 	// Enable chat input again, where the status text is cleared elsewhere when the message is sent:
 	chatbar->setEnabled(true);
@@ -760,12 +751,12 @@ bool processScript(Markdown::Items &items);
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownItalic(Markdown::Items &items) {
-	// Italic text is marked as *italic*
+	// Italic text in format *italic*
 	if (items.inputStr[items.offset] != '*') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\*(?!\\h+\\*)([^*]+)\\*"));
-	return regexMatchAndReplace(items, s_regex, "<i>%1</i>",
+	static const QRegularExpression regex(QLatin1String("\\*(?!\\h+\\*)([^*]+)\\*"));
+	return regexMatchAndReplace(items, regex, "<i>%1</i>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
 									processFormatting(content, items,
@@ -780,13 +771,13 @@ bool processMarkdownItalic(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownBold(Markdown::Items &items) {
-	// Bold text is marked as **bold**
+	// Bold text in format **bold**
 	if (items.inputStr[items.offset] != '*') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\*{2}(?!\\h*\\*{2,})(.+?\\*?)\\*{2}"));
+	static const QRegularExpression regex(QLatin1String("\\*{2}(?!\\h*\\*{2,})(.+?\\*?)\\*{2}"));
 	return regexMatchAndReplace(
-		items, s_regex, "<b>%1</b>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+		items, regex, "<b>%1</b>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
 							  { processMarkdownLine, processMarkdownItalic, processScript, processLink, processColor,
@@ -808,13 +799,13 @@ bool processMarkdownBoldOrItalic(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownStrikethrough(Markdown::Items &items) {
-	// Strikethrough text is marked as ~~text~~ with no more surrounding tildes
+	// Strikethrough text in format ~~text~~ with no more surrounding tildes
 	if (items.inputStr[items.offset] != '~') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("(?<!~)~~(?!\\h+~|~)(.+?)(?<!~)~~(?!~)"));
+	static const QRegularExpression regex(QLatin1String("(?<!~)~~(?!\\h+~|~)(.+?)(?<!~)~~(?!~)"));
 	return regexMatchAndReplace(
-		items, s_regex, "<s>%1</s>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+		items, regex, "<s>%1</s>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
 							  { processMarkdownUnderline, processMarkdownBoldOrItalic, processScript, processLink,
@@ -828,13 +819,13 @@ bool processMarkdownStrikethrough(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownUnderline(Markdown::Items &items) {
-	// Underline text is marked as __text__
+	// Underline text in format __text__
 	if (items.inputStr[items.offset] != '_') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("__(?!\\h+_)(.+?)__"));
+	static const QRegularExpression regex(QLatin1String("__(?!\\h+_)(.+?)__"));
 	return regexMatchAndReplace(
-		items, s_regex, "<u>%1</u>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+		items, regex, "<u>%1</u>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
 							  { processMarkdownStrikethrough, processMarkdownBoldOrItalic, processScript, processLink,
@@ -865,12 +856,12 @@ bool processMarkdownEmphasis(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownSuperscript(Markdown::Items &items) {
-	// Superscript text is marked as ^text^
+	// Superscript text in format ^text^
 	if (items.inputStr[items.offset] != '^') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("\\^(?!\\h+\\^)([^\\^]+)\\^"));
-	return regexMatchAndReplace(items, s_regex, "<sup>%1</sup>",
+	static const QRegularExpression regex(QLatin1String("\\^(?!\\h+\\^)([^\\^]+)\\^"));
+	return regexMatchAndReplace(items, regex, "<sup>%1</sup>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
 									processFormatting(content, items,
@@ -885,12 +876,12 @@ bool processMarkdownSuperscript(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownSubscript(Markdown::Items &items) {
-	// Subscript text is marked as ~text~
+	// Subscript text in format ~text~
 	if (items.inputStr[items.offset] != '~') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("~(?!\\h+~)([^~]+)~"));
-	return regexMatchAndReplace(items, s_regex, "<sub>%1</sub>",
+	static const QRegularExpression regex(QLatin1String("~(?!\\h+~)([^~]+)~"));
+	return regexMatchAndReplace(items, regex, "<sub>%1</sub>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
 									processFormatting(content, items,
@@ -924,8 +915,8 @@ bool processMarkdownHeader(Markdown::Items &items) {
 	// Match a Markdown section heading in one of the following formats, where the "#" may repeat up to 6 times
 	// to generate an h1-h6 element accordingly. If instead triple equals or triple hyphens on the following
 	// line is used, or more of the same character in a row, then the former is h1 and the latter is h2.
-	// If a number of "#" in a row are used at least one space after a header starting with "#" then these are consumed
-	// Also eat up a potential following newline in order to not create a huge spacing after the heading
+	// If a number of "#" in a row are used at least one space after a header starting with "#" then these are consumed.
+	// Also eat up a potential following newline in order to not create a huge spacing after the heading.
 	// # header
 	// or
 	// header
@@ -933,14 +924,14 @@ bool processMarkdownHeader(Markdown::Items &items) {
 	// or
 	// header
 	// ---
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("^\\h{,3}(?:(#+)\\h(?:(.+)\\h+#+\\h*|(.+))|(.+)\n\\h{,3}(={3,}|-{3,})\\h*$)\n?"),
 		QRegularExpression::MultilineOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<h%1>%2</h%1>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+		items, regex, "<h%1>%2</h%1>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			const auto sectionLevel =
 				match.captured(1).isEmpty() ? (match.captured(5).contains('=') ? 1 : 2) : match.captured(1).size();
-			QString sectionName = getFirstMatchedGroup(match, 2, 4).trimmed();
+			QString sectionName = findFirstMatchedGroup(match, 2, 4).trimmed();
 
 			processFormatting(sectionName, items,
 							  { processMarkdownEmphasisOrScript, processMarkdownInlineCode, processImageOrLink,
@@ -954,16 +945,16 @@ bool processMarkdownHeader(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownThematicBreak(Markdown::Items &items) {
-	// Thematic break is marked as *** or --- or ___ and the character used may repeat more than 3 times,
+	// Thematic break in format *** or --- or ___ and the character used may repeat more than 3 times,
 	// as well as with spaces between if the first one is placed 3 spaces in at most
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '*' && matchStartCharacter != '-' && matchStartCharacter != '_') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("^\\h{,3}(\\*(?:\\h*\\*\\h*){2,}|-(?:\\h*-\\h*){2,}|_(?:\\h*_\\h*){2,})(?:\n$|$)"),
 		QRegularExpression::MultilineOption);
-	return regexMatchAndReplace(items, s_regex, "<hr/>");
+	return regexMatchAndReplace(items, regex, "<hr/>");
 }
 
 /// Tries to match and replace a Markdown inline-code-snippet at exactly the given offset in the string
@@ -971,15 +962,15 @@ bool processMarkdownThematicBreak(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownInlineCode(Markdown::Items &items) {
-	// Inline code is marked as `code`{.lang} where the backticks may use additional pairs of backticks
+	// Inline code in format `code`{.lang} where the backticks may use additional pairs of backticks
 	// to escape more backticks in the code and specifying the language is optional
 	if (items.inputStr[items.offset] != '`') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("(`+)(?!\\h*\\1)(.+?)\\1(?!`)(?:\\{\\h?(?:\\.([a-z]+))?\\h?\\})?"),
 		QRegularExpression::CaseInsensitiveOption);
-	return regexMatchAndReplace(items, s_regex, "<code%2>%1</code>",
+	return regexMatchAndReplace(items, regex, "<code%2>%1</code>",
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content  = match.captured(2).toHtmlEscaped();
 									QString language = match.captured(3);
@@ -1000,15 +991,15 @@ bool processMarkdownCodeBlock(Markdown::Items &items) {
 	// Code blocks are marked as ```code``` or ~~~code~~~ or consecutive lines of [4+ spaces]code
 	// Fenced code blocks may use additional signature characters to include more such characters in the text
 	// without indenting it 4 spaces or having another non-whitespace character before it on the same line.
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '`' && matchStartCharacter != '~' && matchStartCharacter != ' ') {
 		return false;
 	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("^\\h{,3}(`{3,}|~{3,})([a-z]*)\n((?:.|\n)+?)\n\\h{,3}\\1(?!`)|(?:(?:\n|^)\\h{4,}.*)++"),
 		QRegularExpression::MultilineOption | QRegularExpression::CaseInsensitiveOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<table class=\"codeblock%2\" width=\"100%\"><tr><td><pre>%1</pre></td></tr></table>",
+		items, regex, "<table class=\"codeblock%2\" width=\"100%\"><tr><td><pre>%1</pre></td></tr></table>",
 		[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			auto trim = [](QString text, qsizetype indentToCut = 0) -> QString {
 				// Trim away leading linebreaks:
@@ -1034,7 +1025,7 @@ bool processMarkdownCodeBlock(Markdown::Items &items) {
 			bool isCodeFenced = !match.captured(3).isEmpty();
 			QString language  = isLanguage ? trim(match.captured(2).toLower().prepend("lang-")).toHtmlEscaped() : "";
 			QString code      = (isCodeFenced ? trim(match.captured(3)) : trim(match.captured(0), 4)).toHtmlEscaped();
-			return QLatin1String(contentWrapper).arg(code, isLanguage ? QLatin1String(" %1").arg(language) : "");
+			return QLatin1String(contentWrapper).arg(code, isLanguage ? language.prepend(' ') : "");
 		});
 }
 
@@ -1053,13 +1044,12 @@ bool processMarkdownBlockQuote(Markdown::Items &items);
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownList(Markdown::Items &items) {
-	// List in one of the following formats, where ordered lists may start from any non-negative number up to 9 digits
-	// and any combination of unordered lists and ordered lists may be nested with 2 additional spaces
-	// past the start of the previous list item marker for each sublist on top of it. Any further spaces will be reduced
-	// to that of the nearest next sublist.
-	// The period in ordered lists may be a closing parenthesis. When another marker is used for a list item
-	// the items will be separated for unordered lists and merged with the first list for ordered lists.
-	// Lists always come separately when there are one or more newlines between them.
+	// List in one of the following formats (case insensitive), where ordered lists may start from
+	// any non-negative integer up to 9 digits and any combination of unordered lists and ordered lists
+	// may be nested with 2 additional spaces past the start of the previous list item marker for each
+	// sublist on top of it. Any further spaces will be reduced to that of the nearest next sublist.
+	// The period in ordered lists may be a closing parenthesis. When another marker is used for a list item the items
+	// will be separated. Lists always come separately when there is at least one line without a list item between them.
 	// Task list checkboxes may be added as `[ ]` or `[x]` (case insensitive) to generate
 	// an unchecked- or checked checkbox respectively.
 	// - one item
@@ -1079,40 +1069,34 @@ bool processMarkdownList(Markdown::Items &items) {
 	// or
 	// a. first item
 	// b. second item
-	QChar matchStartCharacter = items.inputStr[items.offset];
-	if (matchStartCharacter != ' ' && matchStartCharacter != '-' && matchStartCharacter != '+'
-		&& matchStartCharacter != '*' && !matchStartCharacter.isLetter() && !matchStartCharacter.isDigit()) {
-		return false;
-	}
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("(?:^\\h*(?:-|\\+|\\*|(?:[a-z]+|\\d{1,9})(?:\\.|\\)))(?:\\h+.*|$)\n?)++"),
 		QRegularExpression::MultilineOption | QRegularExpression::CaseInsensitiveOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<li>%1</li>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-			auto getLetterOrder = [](const QString &letters, bool isUppercase) -> int {
-				int letterOrder        = 0;
-				char startLetter       = isUppercase ? 'A' : 'a';
-				char endLetter         = isUppercase ? 'Z' : 'z';
-				int pastEndLetterOrder = endLetter - startLetter + 1;
+		items, regex, "<li>%1</li>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+			auto calcLetterOrder = [](const QString &letters, bool isUppercase) -> int {
+				int letterOrder         = 0;
+				char startLetter        = isUppercase ? 'A' : 'a';
+				char endLetter          = isUppercase ? 'Z' : 'z';
+				int afterEndLetterOrder = endLetter - startLetter + 1;
 
-				// Get the letter order, where each letter except the last one represents
+				// Calculate the letter order, where each letter except the last one represents
 				// how many times the range a-z has been repeated, and in turn how many times
 				// the repeats have wrapped, up to the current count:
 				qsizetype lastLetterIndex = letters.size() - 1;
 				std::string lettersStd    = letters.toStdString();
 				for (int i = 0; i <= lastLetterIndex; ++i) {
 					int order = lettersStd[(long unsigned int) i] - startLetter + 1;
-					letterOrder += ((int) std::pow(pastEndLetterOrder, lastLetterIndex - i)) * order;
+					letterOrder += ((int) std::pow(afterEndLetterOrder, lastLetterIndex - i)) * order;
 				}
 				return letterOrder;
 			};
 			auto romanToInt = [](QString roman) -> int {
-				static const QHash< QChar, int > romanToIntMap = { { 'i', 1 },   { 'v', 5 },   { 'x', 10 },
-																   { 'l', 50 },  { 'c', 100 }, { 'd', 500 },
-																   { 'm', 1000 } };
-				roman                                          = roman.toLower();
+				QHash< QChar, int > romanToIntMap = { { 'i', 1 },   { 'v', 5 },   { 'x', 10 },  { 'l', 50 },
+													  { 'c', 100 }, { 'd', 500 }, { 'm', 1000 } };
+				roman                             = roman.toLower();
 
-				// Get the roman numerals as a number, adding the value of each letter,
+				// Convert the roman numerals to an arabic numeral, adding the value of each letter,
 				// where cases of the next letter being greater than the current one are handled
 				// by subtracting the next letter by the current letter and then moving past both.
 				// If any letter is invalid -1 is returned:
@@ -1139,30 +1123,39 @@ bool processMarkdownList(Markdown::Items &items) {
 				}
 				return sum;
 			};
-			auto getSeparatorIndex = [](const QString &item) -> int {
+			auto findSeparatorIndex = [](const QString &item, bool *isOrderedItem = nullptr) -> int {
+				if (isOrderedItem != nullptr) {
+					const QChar &firstCharacter = item[0];
+					bool &refIsOrderedItem      = *isOrderedItem;
+					refIsOrderedItem = firstCharacter != '-' && firstCharacter != '+' && firstCharacter != '*';
+					if (!refIsOrderedItem) {
+						return 0;
+					}
+				}
+
 				qsizetype separatorIndex = item.indexOf('.');
 				if (separatorIndex == -1) {
 					separatorIndex = item.indexOf(')');
 				}
 				return (int) separatorIndex;
 			};
-			auto getIndent = [](QString &item) -> int {
+			auto findIndent = [](const QString &item) -> int {
 				int indent = -1;
 				while (++indent < item.size() && item[indent].isSpace()) {
 				}
 				return indent;
 			};
-			static const int indentPerSublist = 2;
 
-			QStringList allListItems  = match.captured(0).split('\n', Qt::SkipEmptyParts);
-			qsizetype totalItemAmount = allListItems.size();
+			const int indentPerSublist = 2;
+			QStringList allListItems   = match.captured(0).split('\n', Qt::SkipEmptyParts);
+			qsizetype totalItemAmount  = allListItems.size();
 			QList< std::tuple< QStringList, int, int, QChar > > lists;
 
 			int itemIndex              = 0;
 			int currentSublistNumber   = 0;
 			int nextSublistNumber      = 0;
 			int firstRomanAsIntInList  = -2;
-			QChar firstCharacterInList = ' ';
+			QChar firstSeparatorInList = ' ';
 			bool isAnyListItemAdded    = false;
 			while (itemIndex < totalItemAmount) {
 				bool isOrderedList   = false;
@@ -1175,53 +1168,56 @@ bool processMarkdownList(Markdown::Items &items) {
 				int listStartNumber    = 1;
 				int listStartNumberAlt = 1;
 				do {
-					QString item      = allListItems.at(itemIndex);
-					nextSublistNumber = isAnyListItemAdded ? getIndent(item) / indentPerSublist : 0;
+					QString item      = allListItems[itemIndex];
+					nextSublistNumber = isAnyListItemAdded ? findIndent(item) / indentPerSublist : 0;
 					if (currentSublistNumber != nextSublistNumber) {
 						break;
 					}
 					isAnyListItemAdded = true;
 
 					item                        = item.trimmed();
-					QString listStartCharacters = item.first(getSeparatorIndex(item));
-					QChar firstCharacter        = listStartCharacters[0];
+					bool isOrderedItem          = false;
+					QString listStartCharacters = item.first(findSeparatorIndex(item, &isOrderedItem) + 1);
+					QChar separator             = listStartCharacters.back();
+					const QChar &firstCharacter = listStartCharacters[0];
+					listStartCharacters.chop(1);
 
-					bool isItemForOrderedList = firstCharacter != '-' && firstCharacter != '+' && firstCharacter != '*';
-					int romanAsInt            = romanToInt(listStartCharacters);
+					int romanAsInt = romanToInt(listStartCharacters);
 					bool isItemRomanNumerals =
-						isItemForOrderedList && romanAsInt > 0
+						isOrderedItem && romanAsInt > 0
 						&& (firstRomanAsIntInList == -2 || romanAsInt - 1 == firstRomanAsIntInList);
-					bool isItemAlphabetical = isItemForOrderedList && firstCharacter.isLetter();
+					bool isItemAlphabetical = isOrderedItem && firstCharacter.isLetter();
 					bool isItemUppercase    = firstCharacter.isUpper();
 
-					int letterOrder = isItemAlphabetical ? getLetterOrder(listStartCharacters, isItemUppercase) : 1;
-					int itemNumber  = !isItemForOrderedList || !isFirstIteration
+					int letterOrder = isItemAlphabetical ? calcLetterOrder(listStartCharacters, isItemUppercase) : 1;
+					int itemNumber  = !isOrderedItem || !isFirstIteration
 										 ? 1
 										 : isItemRomanNumerals
 											   ? romanAsInt
 											   : isItemAlphabetical ? letterOrder : listStartCharacters.toInt();
 
 					if (isFirstIteration) {
-						isOrderedList   = isItemForOrderedList;
+						isOrderedList   = isOrderedItem;
 						isRomanNumerals = isItemRomanNumerals;
 						isAlphabetical  = isItemAlphabetical;
 						isUppercase     = isItemUppercase;
 
-						firstCharacterInList  = firstCharacter;
+						firstSeparatorInList  = separator;
 						firstRomanAsIntInList = romanAsInt;
 						listStartNumber       = itemNumber;
 						listStartNumberAlt    = letterOrder;
 						isFirstIteration      = false;
 					} else {
-						if ((isOrderedList && !isItemForOrderedList) || (!isOrderedList && isItemForOrderedList)
-							|| (isUppercase && !isItemUppercase) || (!isUppercase && isItemUppercase)
-							|| (!isOrderedList && firstCharacterInList != firstCharacter)) {
+						if (isOrderedList != isOrderedItem || isUppercase != isItemUppercase
+							|| firstSeparatorInList != separator) {
 							break;
 						}
 						if (isRomanNumerals && !isItemRomanNumerals && firstRomanAsIntInList != -2) {
 							listStartNumber = listStartNumberAlt;
 							isRomanNumerals = false;
 						}
+						// Set list items after the second one to be corrected as roman numerals if the first one was
+						// unless it was shown to be alphabetical by the second item:
 						firstRomanAsIntInList = -2;
 					}
 					list.append(item);
@@ -1235,7 +1231,7 @@ bool processMarkdownList(Markdown::Items &items) {
 								  ? 'I'
 								  : isRomanNumerals ? 'i'
 													: isAlphabetical && isUppercase ? 'A' : isAlphabetical ? 'a' : '1';
-					lists.append(std::make_tuple(list, currentSublistNumber, listStartNumber, orderedListType));
+					lists.append({ list, currentSublistNumber, listStartNumber, orderedListType });
 				}
 				int currentSublistNumberPlusOne = currentSublistNumber + 1;
 				int sublistOverflow             = nextSublistNumber - currentSublistNumberPlusOne;
@@ -1249,7 +1245,7 @@ bool processMarkdownList(Markdown::Items &items) {
 				int minTargetSublistIndent = -1;
 				for (int i = itemIndex; i < totalItemAmount; ++i) {
 					QString &item = allListItems[i];
-					int indent    = getIndent(item);
+					int indent    = findIndent(item);
 					if (minTargetSublistIndent == -1) {
 						minTargetSublistIndent = indent;
 					} else if (indent < minTargetSublistIndent) {
@@ -1262,13 +1258,13 @@ bool processMarkdownList(Markdown::Items &items) {
 			QStringList htmlListItems;
 			int previousSublistNumber = 0;
 			for (auto [list, sublistNumber, listStartNumber, orderedListType] : lists) {
-				QString unorderedListType(
-					QLatin1String(sublistNumber < 1 ? "disc" : sublistNumber < 2 ? "circle" : "square"));
+				QString unorderedListType =
+					QLatin1String(sublistNumber < 1 ? "disc" : sublistNumber < 2 ? "circle" : "square");
 				bool isSublist     = sublistNumber > 0;
 				bool isOrderedList = orderedListType != 'u';
 
 				for (QString &item : list) {
-					int contentStartIndex = isOrderedList ? getSeparatorIndex(item) + 2 : 2;
+					int contentStartIndex = isOrderedList ? findSeparatorIndex(item) + 2 : 2;
 					QString itemContent   = item.size() > contentStartIndex ? item.remove(0, contentStartIndex) : "";
 
 					if (itemContent.startsWith("[ ]")) {
@@ -1282,14 +1278,15 @@ bool processMarkdownList(Markdown::Items &items) {
 										processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
 					item = QLatin1String(contentWrapper).arg(!itemContent.isEmpty() ? itemContent : "&#xFFA0;");
 				}
-				QString listStyle(QLatin1String(sublistNumber > 0 ? "margin-left:-10;"
-																  : previousSublistNumber > 0 ? "margin-top:0;" : ""));
+				QString listStyle = QLatin1String(sublistNumber > 0 ? "margin-left:-10;"
+																	: previousSublistNumber > 0 ? "margin-top:0;" : "");
+				QString listStyleAttribute(!listStyle.isEmpty() ? QLatin1String(" style=\"%1\"").arg(listStyle) : "");
 				list.prepend((isOrderedList
-								  ? QLatin1String("<ol type=\"%1\" start=\"%2\" style=\"%3\">")
+								  ? QLatin1String("<ol type=\"%1\" start=\"%2\"%3>")
 										.arg(orderedListType)
 										.arg(listStartNumber)
-										.arg(listStyle)
-								  : QLatin1String("<ul type=\"%1\" style=\"%2\">").arg(unorderedListType, listStyle)));
+										.arg(listStyleAttribute)
+								  : QLatin1String("<ul type=\"%1\"%2>").arg(unorderedListType, listStyleAttribute)));
 				list.append(QLatin1String("</%1l>").arg(isOrderedList ? "o" : "u"));
 
 				if (isSublist) {
@@ -1317,10 +1314,10 @@ bool processMarkdownDescriptionList(Markdown::Items &items) {
 	// multiple terms and details on consecutive rows
 	// term
 	// : details
-	static const QRegularExpression s_regex(QLatin1String("(?:(?:(?:\n|^)(?!:|\\s).+)++(?:\n:\\h+.*$)++)++"),
-											QRegularExpression::MultilineOption);
+	static const QRegularExpression regex(QLatin1String("(?:(?:(?:\n|^)(?!:|\\s).+)++(?:\n:\\h+.*$)++)++"),
+										  QRegularExpression::MultilineOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<dl>%1</dl>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+		items, regex, "<dl>%1</dl>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QStringList termsAndDetails = match.captured(0).split('\n');
 			QStringList htmlListItems;
 
@@ -1368,18 +1365,19 @@ bool processMarkdownTable(Markdown::Items &items) {
 	// -|-
 	// first item | first item
 	// second item | second item
-	static const QRegularExpression s_regex(
+	static const QRegularExpression regex(
 		QLatin1String("^.+\\|+.*\n\\|*\\h*:?-+(?::?\\h*\\|\\h*:?-*:?)++\\h*\\|*(?:\n.+)*"),
 		QRegularExpression::MultilineOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<table class=\"table\">%1</table>",
+		items, regex, "<table class=\"table\" cellspacing=\"0\">%1</table>",
 		[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-			static const QRegularExpression s_unescapedPipes(QLatin1String("(?<!\\\\)\\|"));
+			static const QRegularExpression regexUnescapedPipes(QLatin1String("(?<!\\\\)\\|"));
 			QStringList rowsMarkdown = match.captured(0).split('\n');
 			QStringList columnAlignments;
 			QStringList tableRows;
 
-			QStringList columnAlignmentsMarkdown = rowsMarkdown.takeAt(1).split(s_unescapedPipes, Qt::SkipEmptyParts);
+			QStringList columnAlignmentsMarkdown =
+				rowsMarkdown.takeAt(1).split(regexUnescapedPipes, Qt::SkipEmptyParts);
 			for (QString &column : columnAlignmentsMarkdown) {
 				column = column.trimmed();
 				if (column.isEmpty()) {
@@ -1394,7 +1392,7 @@ bool processMarkdownTable(Markdown::Items &items) {
 			qsizetype columnAmount = columnAlignments.size();
 			bool isHeaderRow       = true;
 			for (QString &rowMarkdown : rowsMarkdown) {
-				QStringList columnsMarkdown = rowMarkdown.split(s_unescapedPipes, Qt::SkipEmptyParts);
+				QStringList columnsMarkdown = rowMarkdown.split(regexUnescapedPipes, Qt::SkipEmptyParts);
 				qsizetype columnEntryAmount = 0;
 
 				QStringList columns;
@@ -1406,11 +1404,13 @@ bool processMarkdownTable(Markdown::Items &items) {
 					if (++columnEntryAmount > columnAmount) {
 						return doNoReplacementSign;
 					}
+					QString &align         = columnAlignments[i];
+					QString alignAttribute = !align.isEmpty() ? QLatin1String(" align=\"%1\"").arg(align) : "";
+					QChar cellType         = isHeaderRow ? 'h' : 'd';
 					processFormatting(column, items,
 									  { processMarkdownEmphasisOrScript, processMarkdownInlineCode, processImageOrLink,
 										processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
-					columns.append(QLatin1String("<t%3 align=\"%2\">%1</t%3>")
-									   .arg(column, columnAlignments[i], isHeaderRow ? "h" : "d"));
+					columns.append(QLatin1String("<t%3%2>%1</t%3>").arg(column, alignAttribute, cellType));
 				}
 				if (isHeaderRow && columnEntryAmount != columnAmount) {
 					return doNoReplacementSign;
@@ -1431,14 +1431,14 @@ bool processMarkdownBlockQuote(Markdown::Items &items) {
 	// Block quotes are (consecutive) lines starting with ">" or "> " where each nested
 	// block quote has an additional ">" and ends on the first otherwise empty line with less ">"
 	// The start may be preceded by 3 spaces at most
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '>' && matchStartCharacter != ' ') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("^\\h{,3}>.*(?:\n.+)*\n?"),
-											QRegularExpression::MultilineOption);
+	static const QRegularExpression regex(QLatin1String("^\\h{,3}>.*(?:\n.+)*\n?"),
+										  QRegularExpression::MultilineOption);
 	return regexMatchAndReplace(
-		items, s_regex, "<table class=\"blockquote\" width=\"100%\"><tr><td>%1</td></tr></table>",
+		items, regex, "<table class=\"blockquote\" width=\"100%\"><tr><td>%1</td></tr></table>",
 		[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString quote     = match.captured(0);
 			QStringList lines = quote.split('\n', Qt::SkipEmptyParts);
@@ -1472,16 +1472,16 @@ bool processMarkdownBlockQuote(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownCenteredBlock(Markdown::Items &items) {
-	// Centered block is marked as -> centered <- where the spaces may be newlines
-	QChar matchStartCharacter = items.inputStr[items.offset];
+	// Centered block in format -> centered <- where the spaces may be newlines
+	const QChar &matchStartCharacter = items.inputStr[items.offset];
 	if (matchStartCharacter != '-' && matchStartCharacter != ' ') {
 		return false;
 	}
-	static const QRegularExpression s_regex(QLatin1String("-> ((?:.|\n)+) <-|^\\h{,3}->\n((?:.|\n)+)\n<-"),
-											QRegularExpression::MultilineOption);
-	return regexMatchAndReplace(items, s_regex, "<center>%1</center>",
+	static const QRegularExpression regex(QLatin1String("-> ((?:.|\n)+) <-|^\\h{,3}->\n((?:.|\n)+)\n<-"),
+										  QRegularExpression::MultilineOption);
+	return regexMatchAndReplace(items, regex, "<center>%1</center>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-									QString content = getFirstMatchedGroup(match);
+									QString content = findFirstMatchedGroup(match);
 									processFormatting(content, items,
 													  {
 														  processMarkdownEmphasisOrScript,
@@ -1513,6 +1513,6 @@ QString markdownToHTML(const QString &markdownInput) {
 	processQueuedMarkdownReferences(items);
 	processQueuedMarkdownImages(items);
 
-	return items.htmlStr;
+	return items.html;
 }
 } // namespace Markdown
