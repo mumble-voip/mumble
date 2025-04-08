@@ -17,8 +17,8 @@
 VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 	: QWidgetAction(parent), m_widget(make_qt_unique< QWidget >(parent)),
 	  m_volumeSlider(new QSlider(Qt::Horizontal, parent)), m_label(new QLabel("0 db", parent)) {
-	m_volumeSlider->setMinimum(-30);
-	m_volumeSlider->setMaximum(30);
+	m_volumeSlider->setMinimum(min());
+	m_volumeSlider->setMaximum(max());
 	m_volumeSlider->setAccessibleName(tr("Local volume adjustment"));
 
 	m_label->setStyleSheet("QLabel { margin-left: 0px; padding: 0px; }");
