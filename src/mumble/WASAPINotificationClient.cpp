@@ -45,8 +45,14 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWS
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device added=" << device;
+
+	if (usedDevices.contains(device)) {
+		restartAudio();
+	}
+
 	return S_OK;
 }
+
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceRemoved(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device removed=" << device;
