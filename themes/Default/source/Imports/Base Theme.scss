@@ -438,11 +438,11 @@ QTreeView::item:selected:active:only-one
 
 QTreeView::branch
 {
+	background-color:$sub-bg;
 	border-image:none;
 	image:none;
-	margin-left:3px;
-	margin-top:1px;
 	padding-left:3px;
+	padding-top:1px;
 }
 
 QTreeView::branch:has-children:closed
