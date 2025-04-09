@@ -4595,14 +4595,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>Clásico</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Apilado</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Híbrido</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Personal</translation>
     </message>
@@ -4616,16 +4608,8 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>Establece la conducta del arrastre de canales, puede ser usada para prevenir arrastres accidentales. &lt;i&gt;Mover&lt;/i&gt; mueve el canal sin avisar. &lt;i&gt;No hacer nada&lt;/i&gt; no hace nada y muestra un mensaje de error. &lt;i&gt;Preguntar&lt;/i&gt; usa un cuadro de mensajes para confirmar si usted realmente deseaba mover el canal.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Expandir</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Cuándo expandir automáticamente los canales</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Arrastre de canales</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4716,20 +4700,12 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>Mostrar desplegable de modo de transmisión en la barra de tareas</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Tema</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Tema para el estilo de la interfaz de usuario</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Configura el tema de la interfaz de usuario de Mumble&lt;/b&gt;&lt;br /&gt;Mumble buscará temas en ciertos directorios y los mostrará en esta lista. El tema seleccionado será empleado para personalizar la apariencia visual de Mumble. Esto incluye colores, iconos y más.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Arrastrar usuario</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4840,10 +4816,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>Tamaño relativo de fuente para usar en la interfaz del habla, en porcentaje.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Tamaño relativo de fuente (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>El string a usar en lugar de la parte cortada de un nombre abreviado.</translation>
     </message>
@@ -4902,10 +4874,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>Action (Channel):</source>
         <translation>Acción (Canal):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Comportamiento al abandonar</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4998,6 +4966,50 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>Channel search action mode</source>
         <translation>Modo de acción de búsqueda de canales</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

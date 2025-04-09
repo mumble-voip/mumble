@@ -4595,14 +4595,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Классический</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Вертикальный</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Гибридный</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Другой</translation>
     </message>
@@ -4616,16 +4608,8 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Это изменит поведение при перемещении каналов. Используется для исключения случайного перемещения канала. &lt;i&gt;Переместить&lt;/i&gt; - перемещает канал без запроса. &lt;i&gt;Ничего не делать&lt;/i&gt; - не перемещать канал и выдать сообщение об ошибке. &lt;i&gt;Спрашивать&lt;/i&gt; - выводит запрос при попытке переместить канал.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Разворачивать</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Когда автоматически разворачивать каналы</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Перетаскивание канала</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4716,20 +4700,12 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Показать выпадающий список режимов передачи на панели инструментов</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Тема</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Тема, используемая для оформления интерфейса</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Настраивает то, как выглядит интерфейс Mumble.&lt;/b&gt;&lt;br /&gt;Mumble будет импортировать темы из определенных каталогов и показывать их в списке. Та тема, которую вы выберете, будет определять визуальный стиль Mumble. Она включает цвета, иконки и другое.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Перетаскивание пользователя</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4840,10 +4816,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Относительный размер шрифта в процентах для использования в интерфейсе диалога.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Относительный размер шрифта (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Строка, которая используется вместо вырезанной части сокращенного названия.</translation>
     </message>
@@ -4902,10 +4874,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Action (Channel):</source>
         <translation>Действие (Канал):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Поведение при выходе</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4997,6 +4965,50 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel search action mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

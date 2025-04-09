@@ -23,6 +23,7 @@ class QLabel;
 class QGroupBox;
 class QTimer;
 class QMouseEvent;
+class QWheelEvent;
 
 class Channel;
 class ClientUser;
@@ -104,6 +105,7 @@ private:
 	bool isSelected(const TalkingUIComponent &component) const;
 
 	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
 public:
 	TalkingUI(QWidget *parent = nullptr);

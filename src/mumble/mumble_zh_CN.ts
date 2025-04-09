@@ -4593,14 +4593,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>经典</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>堆叠</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>混合</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>自定义</translation>
     </message>
@@ -4614,16 +4606,8 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>设置频道被拖动时的行为，用于防止意外的拖动。&lt;i&gt;移动&lt;/i&gt;表示立刻移动频道而不需要任何确认。&lt;i&gt;无动作&lt;/i&gt;表示不做任何改变并显示一条错误消息。&lt;i&gt;询问&lt;/i&gt;表示弹出一个消息框以确认您是否确实要移动频道。</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>频道展开</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>何时自动展开频道</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>频道拖动</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4714,20 +4698,12 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>在工具栏显示传输模式下拉列表</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>主题</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>用于设置界面样式的主题</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;配置 Mumble 界面应该使用哪种主题设置样式&lt;/b&gt;&lt;br /&gt;Mumble 将从特定目录中获取主题并将其显示在此列表中。您选择的主题将用于自定义 Mumble 的外观，包括颜色、图标等。</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>用户拖动</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4838,10 +4814,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>对话界面使用的相对字号（按百分比）。</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>相对字号（%）</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>缩短名称时，用于替换被去掉的字符。</translation>
     </message>
@@ -4900,10 +4872,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Action (Channel):</source>
         <translation>操作（频道）：</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>退出行为</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4996,6 +4964,50 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Channel search action mode</source>
         <translation>频道搜索操作模式</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

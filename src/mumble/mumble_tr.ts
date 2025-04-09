@@ -4593,14 +4593,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Klasik</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Yığılmış</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Kırma</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Özel</translation>
     </message>
@@ -4614,16 +4606,8 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>İstenmeyen kaydırmaların önüne geçmek için kaydırma davranışını belirler. &lt;i&gt;Kaydır&lt;/i&gt; kanalları hiçbir teyit istemeden kaydırır. &lt;i&gt;Hiçbir şey yapma&lt;/i&gt; hiçbir faaliyette bulunmaz ve bir hata mesajı gösterir. &lt;i&gt;Sor&lt;/i&gt; kanalı gerçekten kaydırmak isteyip istemediğinizi sorar.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Genişlet</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Kanalların ne zaman otomatik olarak genişletileceği</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Kanal Kaydırma</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4714,20 +4698,12 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Aktarma kipi menüsünü araç çubuğunda göster</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Tema</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Kullanıcı arayüzünü biçemlendirecek tema</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Mumble kullanıcı arayüzünün hangi temayla biçemlendirileceğini yapılandır&lt;/b&gt;&lt;br /&gt;Mumble temaları bazı klasörlerden alıp bu listede gösterecektir. Seçtiğiniz tema Mumble&apos;ın görünümünü kişiselleştirmek için kullanılacaktır. Bu, renkleri, ikonları ve daha fazlasını içerir.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Kullanıcı Kaydırma</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4838,10 +4814,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Talking UI kullanıcı arayüzünde yüzde olarak kullanılacak göreli yazı tipi boyutu.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Rel. yazı tipi boyutu (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Kısaltılmış bir adın kesik kısmı yerine kullanılan dizge.</translation>
     </message>
@@ -4900,10 +4872,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Action (Channel):</source>
         <translation>Eylem (Kanal):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Çıkış Davranışı</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4996,6 +4964,50 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     <message>
         <source>Channel search action mode</source>
         <translation>Kanal arama eylem kipi</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

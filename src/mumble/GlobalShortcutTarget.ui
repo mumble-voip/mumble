@@ -21,6 +21,34 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="qcbTarget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Current selection</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>List of users</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel</string>
+      </property>
+     </item>
+    </widget>
+   </item>
    <item row="1" column="0" colspan="2">
     <widget class="QStackedWidget" name="qswStack">
      <property name="currentIndex">
@@ -232,34 +260,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="qcbTarget">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <item>
-      <property name="text">
-       <string>Current selection</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>List of users</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Channel</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="3" column="0" colspan="2">

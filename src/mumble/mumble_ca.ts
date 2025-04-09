@@ -4594,14 +4594,6 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
         <translation>Clàssic</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Apilat</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Híbrid</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Personalitzat</translation>
     </message>
@@ -4615,16 +4607,8 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
         <translation>Això permet triar el comportament quan s&apos;arrossega un canal; es pot utilitzar per evitar l&apos;arrossegament accidental. &lt;i&gt;Mou&lt;/i&gt; mou el canal sense preguntar-ho. &lt;i&gt;No facis res&lt;/i&gt; no ho mou i mostra un missatge d’error. &lt;i&gt;Pregunta-ho&lt;/i&gt; demana que confirmeu si realment voleu moure el canal.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Expandeix</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Quan s&apos;expandeixen automàticament els canals</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Arrossegament dels canals</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4715,20 +4699,12 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
         <translation>Desplega el mode de transmissió a la barra d&apos;eines</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Tema</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Tema de la interfície d&apos;usuari</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Trieu al tema de la interfície d&apos;usuari del Mumble&lt;/b&gt;&lt;br /&gt;El Mumble recollirà els temes de certs directoris i els mostrarà en aquesta llista. El que trieu s’utilitzarà per personalitzar l’aspecte visual del Mumble. Això inclou els colors, icones i més.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Arrossegament dels usuaris</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4839,10 +4815,6 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
         <translation>Mida relativa en percentatge, del tipus de lletra de la interfície d&apos;usuari de la parla.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Mida del tipus de la lletra (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Cadena que s&apos;utilitza en lloc de la part retallada d&apos;un nom abreujat.</translation>
     </message>
@@ -4901,10 +4873,6 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     <message>
         <source>Action (Channel):</source>
         <translation>Acció (Canal):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Comportament a la sortida</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4997,6 +4965,50 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     <message>
         <source>Channel search action mode</source>
         <translation>Mode de l&apos;acció de cerca de canals</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

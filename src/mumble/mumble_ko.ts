@@ -4593,14 +4593,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>클래식</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>스택드</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>하이브리드</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>커스텀</translation>
     </message>
@@ -4614,16 +4606,8 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>채널 드래그의 동작을 설정합니다; 실수로 드래그하는 것을 방지하기 위해 사용할 수 있습니다. &lt;i&gt;이동&lt;/i&gt;은 확인 없이 채널을 이동합니다. &lt;i&gt;아무것도 안 함&lt;/i&gt;은 아무 동작도 하지 않고 오류 메시지를 출력합니다. &lt;i&gt;물어보기&lt;/i&gt;는 메시지 박스를 사용하여 채널을 이동할지 여부를 확인합니다.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>확장</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>채널을 자동으로 확장하는 경우</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>채널 드래그</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4714,20 +4698,12 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>툴바에 전송 방법 드롭다운 표시</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>테마</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>유저 인터페이스 스타일을 사용할 테마</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Mumble 유저 인터페이스의 스타일을 지정할 테마를 구성&lt;/b&gt;&lt;br /&gt;Mumble은 특정 디렉터리에서 테마를 선택하여 이 목록에 표시합니다. 선택한 항목은 Mumble의 시각적 모양을 커스텀하는 데 사용됩니다. 여기에는 색상, 아이콘 등이 포함됩니다.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>유저 드래그</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4838,10 +4814,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>대화 UI에서 사용할 상대 글꼴 크기의 백분율입니다.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>상대적 글꼴 크기 (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>축약된 이름의 잘라낸 부분 대신 사용되는 문자열입니다.</translation>
     </message>
@@ -4900,10 +4872,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Action (Channel):</source>
         <translation>작업 (채널):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4995,6 +4963,50 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel search action mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
