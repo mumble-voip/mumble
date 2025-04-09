@@ -14,6 +14,7 @@
 #include <pwd.h>
 #include <semaphore.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,9 +38,6 @@
 
 #	include <link.h>
 
-typedef unsigned char bool;
-#	define true 1
-#	define false 0
 #elif defined(TARGET_MAC)
 #	include <AGL/agl.h>
 #	include <Carbon/Carbon.h>
