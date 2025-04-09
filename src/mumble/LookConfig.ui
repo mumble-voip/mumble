@@ -81,7 +81,7 @@
       <item row="1" column="0">
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -113,7 +113,7 @@
       <item row="1" column="2">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -145,7 +145,7 @@
       <item row="1" column="4">
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -177,7 +177,7 @@
       <item row="1" column="6">
        <spacer name="horizontalSpacer_6">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -187,7 +187,7 @@
         </property>
        </spacer>
       </item>
-     <item row="1" column="7">
+      <item row="1" column="7">
        <widget class="QRadioButton" name="qrbLCustom">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -203,7 +203,7 @@
       <item row="1" column="8">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -213,7 +213,7 @@
         </property>
        </spacer>
       </item>
-      </layout>
+     </layout>
     </widget>
    </item>
    <item row="1" column="0" rowspan="2">
@@ -238,11 +238,11 @@
          <string/>
         </property>
         <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
         </property>
        </widget>
       </item>
-     <item row="1" column="0" colspan="2">
+      <item row="1" column="0" colspan="2">
        <widget class="MUComboBox" name="qcbTheme">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -304,7 +304,7 @@
       <item row="6" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -314,7 +314,7 @@
         </property>
        </spacer>
       </item>
-      </layout>
+     </layout>
     </widget>
    </item>
    <item row="1" column="1">
@@ -549,7 +549,7 @@
       <item row="2" column="0">
        <spacer name="verticalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -562,7 +562,7 @@
      </layout>
     </widget>
    </item>
-  <item row="3" column="1">
+   <item row="3" column="1">
     <widget class="QGroupBox" name="qgbChannel">
      <property name="title">
       <string>Channel Tree</string>
@@ -670,7 +670,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0" colspan="2">
+     <item row="6" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbShowNicknamesOnly">
         <property name="toolTip">
          <string>Hide the username for each user if they have a nickname.</string>
@@ -680,7 +680,7 @@
         </property>
        </widget>
       </item>
-     <item row="7" column="0" colspan="2">
+      <item row="7" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbChatBarUseSelection">
         <property name="text">
          <string>Use selected item as the chat bar target</string>
@@ -728,7 +728,7 @@
         </property>
        </widget>
       </item>
-     <item row="1" column="0">
+      <item row="1" column="0">
        <widget class="QCheckBox" name="qcbLocalUserVisible">
         <property name="toolTip">
          <string>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</string>
@@ -959,7 +959,7 @@
         </property>
        </widget>
       </item>
-      </layout>
+     </layout>
     </widget>
    </item>
    <item row="5" column="1">
@@ -1003,7 +1003,7 @@
    <item row="6" column="0">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -1016,7 +1016,7 @@
    <item row="6" column="1">
     <spacer name="horizontalSpacer">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -1026,7 +1026,7 @@
      </property>
     </spacer>
    </item>
-   </layout>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
