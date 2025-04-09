@@ -201,6 +201,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbAbbreviateChannelNames, r.bTalkingUI_AbbreviateChannelNames);
 	loadCheckBox(qcbAbbreviateCurrentChannel, r.bTalkingUI_AbbreviateCurrentChannel);
 	loadCheckBox(qcbShowLocalListeners, r.bTalkingUI_ShowLocalListeners);
+	loadCheckBox(qcbCtrlScrollLocalVolAdj, r.bCtrlScrollLocalVolAdj);
 	qsbRelFontSize->setValue(r.iTalkingUI_RelativeFontSize);
 	qsbSilentUserLifetime->setValue(r.iTalkingUI_SilentUserLifeTime);
 	qsbChannelHierarchyDepth->setValue(r.iTalkingUI_ChannelHierarchyDepth);
@@ -273,6 +274,7 @@ void LookConfig::save() const {
 	s.bTalkingUI_AbbreviateChannelNames   = qcbAbbreviateChannelNames->isChecked();
 	s.bTalkingUI_AbbreviateCurrentChannel = qcbAbbreviateCurrentChannel->isChecked();
 	s.bTalkingUI_ShowLocalListeners       = qcbShowLocalListeners->isChecked();
+	s.bCtrlScrollLocalVolAdj              = qcbCtrlScrollLocalVolAdj->isChecked();
 	s.iTalkingUI_RelativeFontSize         = qsbRelFontSize->value();
 	s.iTalkingUI_SilentUserLifeTime       = qsbSilentUserLifetime->value();
 	s.iTalkingUI_ChannelHierarchyDepth    = qsbChannelHierarchyDepth->value();

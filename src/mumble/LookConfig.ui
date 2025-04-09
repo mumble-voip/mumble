@@ -670,7 +670,7 @@
         </property>
        </widget>
       </item>
-     <item row="6" column="0" colspan="2">
+      <item row="6" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbShowNicknamesOnly">
         <property name="toolTip">
          <string>Hide the username for each user if they have a nickname.</string>
@@ -687,14 +687,24 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="0" colspan="2">
+      <item row="8" column="0">
+       <widget class="QCheckBox" name="qcbCtrlScrollLocalVolAdj">
+        <property name="toolTip">
+         <string>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</string>
+        </property>
+        <property name="text">
+         <string>CTRL + Scroll to change selected user's volume</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
          <string>Filter automatically hides empty channels</string>
         </property>
        </widget>
       </item>
-      </layout>
+     </layout>
     </widget>
    </item>
    <item row="5" column="0">
@@ -1061,6 +1071,7 @@
   <tabstop>qcbShowVolumeAdjustments</tabstop>
   <tabstop>qcbShowNicknamesOnly</tabstop>
   <tabstop>qcbChatBarUseSelection</tabstop>
+  <tabstop>qcbCtrlScrollLocalVolAdj</tabstop>
   <tabstop>qcbFilterHidesEmptyChannels</tabstop>
   <tabstop>qcbUsersAlwaysVisible</tabstop>
   <tabstop>qcbLocalUserVisible</tabstop>

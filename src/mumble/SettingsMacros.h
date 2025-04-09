@@ -166,6 +166,7 @@
 	PROCESS(ui, DISPLAY_VOLUME_ADJUSTMENTS_KEY, bShowVolumeAdjustments)          \
 	PROCESS(ui, DISPLAY_NICKNAMES_ONLY_KEY, bShowNicknamesOnly)                  \
 	PROCESS(ui, SELECTED_ITEM_AS_CHATBAR_TARGET_KEY, bChatBarUseSelection)       \
+	PROCESS(ui, CTRL_SCROLL_LOCAL_VOLUME_ADJUSTMENT_KEY, bCtrlScrollLocalVolAdj) \
 	PROCESS(ui, FILTER_HIDES_EMPTY_CHANNEL_KEY, bFilterHidesEmptyChannels)       \
 	PROCESS(ui, FILTER_ACTIVE_KEY, bFilterActive)                                \
 	PROCESS(ui, CONTEXT_MENU_ENTRIES_IN_MENU_BAR_KEY, bShowContextMenuInMenuBar) \
