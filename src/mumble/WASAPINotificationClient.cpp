@@ -15,8 +15,8 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EData
 																		   LPCWSTR pwstrDefaultDevice) {
 	const QString device = QString::fromWCharArray(pwstrDefaultDevice);
 
-	qWarning() << "WASAPINotificationClient: Default device changed flow=" << flow << "role=" << role << "device"
-			   << device;
+	qDebug() << "WASAPINotificationClient: Default device changed flow=" << flow << "role=" << role << "device"
+			 << device;
 
 	QMutexLocker lock(&listsMutex);
 	if (!usedDefaultDevices.empty() && role == eCommunications) {
@@ -34,8 +34,8 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWS
 
 	QMutexLocker lock(&listsMutex);
 	if ((formatChanged || channelConfigChanged) && usedDevices.contains(device)) {
-		qWarning() << "WASAPINotificationClient: Property changed device=" << device
-				   << "formatChanged=" << formatChanged << "channelConfigChanged=" << channelConfigChanged;
+		qDebug() << "WASAPINotificationClient: Property changed device=" << device << "formatChanged=" << formatChanged
+				 << "channelConfigChanged=" << channelConfigChanged;
 
 		restartAudio();
 	}
@@ -44,19 +44,19 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWS
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
-	qWarning() << "WASAPINotificationClient: Device added=" << device;
+	qDebug() << "WASAPINotificationClient: Device added=" << device;
 	return S_OK;
 }
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceRemoved(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
-	qWarning() << "WASAPINotificationClient: Device removed=" << device;
+	qDebug() << "WASAPINotificationClient: Device removed=" << device;
 	return S_OK;
 }
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceStateChanged(LPCWSTR pwstrDeviceId, DWORD dwNewState) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 
-	qWarning() << "WASAPINotificationClient: Device state changed newState=" << dwNewState << "device=" << device;
+	qDebug() << "WASAPINotificationClient: Device state changed newState=" << dwNewState << "device=" << device;
 
 	return S_OK;
 }
