@@ -4594,14 +4594,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Klassisch</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Gestapelt</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Hybrid</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
@@ -4615,16 +4607,8 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Dies verändert das Verhalten beim Verschieben von Kanälen. Es kann verwendet werden, um versehentliches Verschieben von Kanälen zu verhindern. &lt;i&gt;Verschieben&lt;/i&gt; verschiebt den Kanal ohne Nachfrage. &lt;i&gt;Nichts tun&lt;/i&gt; tut nichts und gibt eine Fehlermeldung aus. &lt;i&gt;Fragen&lt;/i&gt; fragt in einem Nachrichtenfenster ob der Kanal wirklich verschoben werden soll.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Expandieren</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Wann sollen Kanäle automatisch erweitert werden</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Kanal ziehen</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4715,20 +4699,12 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Übertragungsmodus-Aufklappliste in der Werkzeugliste anzeigen</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Thema</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Stil der Benutzeroberfläche</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Wählt den Stil aus, der auf die Benutzeroberfläche angewendet wird&lt;/b&gt;&lt;br /&gt;Mumble sammelt Stile aus bestimmten Verzeichnissen zusammen und führt diese in dieser Liste auf. Der Stil, den Sie auswählen, wird dazu verwendet das Aussehen der Benutzeroberfläche anzupassen. Dies umfasst Farben, Icons und mehr.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>User ziehen</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4839,10 +4815,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <translation>Relative Schriftgröße, die in der Gesprächsansicht verwendet werden soll.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Rel. Schriftgröße (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Ersatztext, der anstelle des weg gelassenen Teils eines abgekürzten Namens angezeigt wird.</translation>
     </message>
@@ -4901,10 +4873,6 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     <message>
         <source>Action (Channel):</source>
         <translation>Aktion (Kanal):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Verhalten beim Beenden</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4997,6 +4965,50 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     <message>
         <source>Channel search action mode</source>
         <translation>Aktionsmodus Kanalsuche</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

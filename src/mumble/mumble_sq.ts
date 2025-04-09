@@ -1160,7 +1160,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pa maksimum</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
@@ -2217,7 +2217,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Push</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -3272,7 +3272,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shërbyes</translation>
     </message>
 </context>
 <context>
@@ -3404,7 +3404,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Emër përdoruesi</translation>
     </message>
     <message>
         <source>Label for server</source>
@@ -3695,7 +3695,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4510,10 +4510,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Varg zëvendësimi</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Madhësi shkronjash</translation>
-    </message>
-    <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
         <translation type="unfinished"></translation>
     </message>
@@ -4526,16 +4522,8 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Skemë</translation>
     </message>
     <message>
-        <source>Hybrid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Vetjake</translation>
-    </message>
-    <message>
-        <source>Stacked</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Classic</source>
@@ -4552,10 +4540,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation>Temë</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
@@ -4686,20 +4670,8 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User Dragging</source>
-        <translation>Përdorues</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>të kanalit të vet</translation>
-    </message>
-    <message>
         <source>Use selected item as the chat bar target</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Expand</source>
-        <translation>Zgjeroje</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
@@ -4815,10 +4787,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Veprim</translation>
     </message>
     <message>
-        <source>Quit Behavior</source>
-        <translation>&amp;Mbylle</translation>
-    </message>
-    <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4908,6 +4876,50 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel search action mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6777,7 +6789,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Mbi</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -8480,7 +8492,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shtoje</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -8819,7 +8831,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parje:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
