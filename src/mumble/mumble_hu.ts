@@ -2984,6 +2984,10 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
         <source>This server does not allow sending images.</source>
         <translation>A kiszolgáló nem támogatja képfájlok küldését.</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5112,10 +5116,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>&lt;center&gt;Nem kapcsolódik&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>Napló törlése</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>%1 megnyitása</translation>
     </message>
@@ -5463,10 +5463,6 @@ Ha nem ön az, ellenőrizze a felhasználónevét és a tanúsítványt!</transl
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Képfájl (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7035,6 +7031,22 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

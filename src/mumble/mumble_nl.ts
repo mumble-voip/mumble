@@ -2995,6 +2995,10 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
         <source>This server does not allow sending images.</source>
         <translation>Deze server laat het versturen van afbeeldingen niet toe.</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5126,10 +5130,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>&lt;center&gt;Niet verbonden&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>Wissen</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>Adreslink %1 aan het openen</translation>
     </message>
@@ -5477,10 +5477,6 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Verkeerd server-wachtwoord voor ongeregistreerde account, gelieve opnieuw te proberen.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Afbeeldingen (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7077,6 +7073,22 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
