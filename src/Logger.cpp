@@ -55,6 +55,8 @@ void log::addSink(std::shared_ptr< spdlog::sinks::sink > sink) {
 		return;
 	}
 
+	sink->set_pattern("%^<%L>%$%Y-%m-%d %H:%M:%S.%e %v");
+
 	masterSink->add_sink(std::move(sink));
 }
 
@@ -62,14 +64,13 @@ void log::init(spdlog::level::level_enum logLevel) {
 	// Skips the message if the previous one is identical and less than 5 seconds have passed.
 	masterSink = std::make_shared< MasterSink >(std::chrono::seconds(5));
 #ifdef Q_OS_WIN
-	masterSink->add_sink(std::make_shared< DebuggerSink >());
+	addSink(std::make_shared< DebuggerSink >());
 #endif
-	masterSink->add_sink(std::make_shared< StdOutSink >());
+	addSink(std::make_shared< StdOutSink >());
 
 	auto logger = std::make_shared< spdlog::logger >(MainLoggerName, masterSink);
 
 	logger->set_level(logLevel);
-	logger->set_pattern("%^<%L>%$%Y-%m-%d %H:%M:%S.%e %v");
 
 	set_default_logger(std::move(logger));
 
