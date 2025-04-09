@@ -32,7 +32,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system's Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=" font-style:italic;"&gt;Access for assistive devices&lt;/span&gt; in the system's Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="textFormat">
             <enum>Qt::RichText</enum>
@@ -98,7 +98,7 @@
    <item>
     <widget class="QLabel" name="qlWaylandNote">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble's Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble's Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href="https://github.com/mumble-voip/mumble/issues/5257"&gt;&lt;span style=" text-decoration: underline; color:#0057ae;"&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -193,7 +193,7 @@
            <string>Add unassigned shortcut</string>
           </property>
           <property name="accessibleDescription">
-           <string>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</string>
+           <string>This adds a new empty entry to the "Configured Shortcut" tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</string>
           </property>
           <property name="text">
            <string>&amp;Add</string>
@@ -215,7 +215,7 @@
            <string>Remove selected shortcut</string>
           </property>
           <property name="accessibleDescription">
-           <string>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</string>
+           <string>This removes the selected entry from the "Configured Shortcut" tree above</string>
           </property>
           <property name="text">
            <string>&amp;Remove</string>
@@ -249,7 +249,7 @@
          <item>
           <widget class="QCheckBox" name="qcbEnableUIAccess">
            <property name="whatsThis">
-            <string>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+            <string>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as "UIAccess". This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble's global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</string>
            </property>
@@ -261,7 +261,7 @@ Without this option enabled, using Mumble's global shortcuts in privileged appli
          <item>
           <widget class="QCheckBox" name="qcbEnableGKey">
            <property name="whatsThis">
-            <string>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</string>
+            <string>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for "G"-keys found on Logitech keyboards.</string>
            </property>
            <property name="text">
             <string>Enable GKey</string>

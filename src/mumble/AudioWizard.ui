@@ -351,7 +351,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
      <widget class="QLabel" name="qliVolumeTuningText">
       <property name="text">
        <string>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a "Microphone boost" make sure it's checked.
 &lt;/p&gt;
 &lt;p&gt;
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
@@ -370,7 +370,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      <widget class="QLabel" name="qliVolumeTuningTextHC">
       <property name="text">
        <string comment="For high contrast mode">&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a "Microphone boost" make sure it's checked.
 &lt;/p&gt;
 &lt;p&gt;
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
@@ -525,7 +525,73 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
      </widget>
     </item>
-    <item row="5" column="0" colspan="2">
+    <item row="4" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_7">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QRadioButton" name="qrPTT">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="accessibleName">
+           <string>Push to talk</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>Use the "push to talk shortcut" button to assign a key</string>
+          </property>
+          <property name="text">
+           <string>Push To Talk:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="qpbPTT">
+          <property name="toolTip">
+           <string>Set push to talk shortcut</string>
+          </property>
+          <property name="accessibleName">
+           <string>Set push to talk shortcut</string>
+          </property>
+          <property name="accessibleDescription">
+           <string>This will open a shortcut edit dialog</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="qrAmplitude">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Raw amplitude from input</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="qrSNR">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Signal-To-Noise ratio</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   <item row="5" column="0" colspan="2">
      <widget class="QWidget" name="qwVAD" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <property name="leftMargin">
@@ -617,73 +683,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
      </spacer>
     </item>
-    <item row="4" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_7">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QRadioButton" name="qrPTT">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="accessibleName">
-           <string>Push to talk</string>
-          </property>
-          <property name="accessibleDescription">
-           <string>Use the &quot;push to talk shortcut&quot; button to assign a key</string>
-          </property>
-          <property name="text">
-           <string>Push To Talk:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="qpbPTT">
-          <property name="toolTip">
-           <string>Set push to talk shortcut</string>
-          </property>
-          <property name="accessibleName">
-           <string>Set push to talk shortcut</string>
-          </property>
-          <property name="accessibleDescription">
-           <string>This will open a shortcut edit dialog</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="qrAmplitude">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Raw amplitude from input</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="qrSNR">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Signal-To-Noise ratio</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+    </layout>
   </widget>
   <widget class="CompletablePage" name="qwpSettings">
    <property name="title">
@@ -871,7 +871,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <item>
      <widget class="QLabel" name="qliPositionalText">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=" color:#56b4e9;"&gt;you&lt;/span&gt;, the &lt;span style=" color:#d55e00;"&gt;speakers&lt;/span&gt; and a &lt;span style=" color:#009e73;"&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=" color:#009e73;"&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
