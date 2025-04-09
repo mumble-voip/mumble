@@ -58,6 +58,15 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceStateChanged(LPCWSTR
 
 	qDebug() << "WASAPINotificationClient: Device state changed newState=" << dwNewState << "device=" << device;
 
+	switch (dwNewState) {
+		case DEVICE_STATE_ACTIVE:
+			return OnDeviceAdded(pwstrDeviceId);
+		case DEVICE_STATE_DISABLED:
+		case DEVICE_STATE_NOTPRESENT:
+		case DEVICE_STATE_UNPLUGGED:
+			return OnDeviceRemoved(pwstrDeviceId);
+	}
+
 	return S_OK;
 }
 
