@@ -242,6 +242,21 @@ void from_json(const nlohmann::json &j, OverlaySettings &settings) {
 }
 
 
+void to_json(nlohmann::json &j, const Profiles &settings) {
+#define PROCESS(category, key, variable) save(j, SettingsKeys::key, settings.variable);
+
+	PROCESS_ALL_PROFILE_SETTINGS
+
+#undef PROCESS
+}
+
+void from_json(const nlohmann::json &j, Profiles &settings) {
+#define PROCESS(category, key, variable) load(j, SettingsKeys::key, settings.variable, settings.variable, true);
+
+	PROCESS_ALL_PROFILE_SETTINGS
+
+#undef PROCESS
+}
 
 void to_json(nlohmann::json &j, const QString &string) {
 	j = string.toStdString();
