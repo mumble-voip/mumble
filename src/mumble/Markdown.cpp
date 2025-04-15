@@ -103,17 +103,16 @@ bool regexMatchAndReplace(
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool escapeCharacter(Markdown::Items &items) {
-	qsizetype &offset        = items.offset;
-	const QChar &charToEsc   = items.inputStr[offset];
-	QString escapedChar      = QString(charToEsc).toHtmlEscaped();
-	qsizetype escapedCharLen = escapedChar.size();
-	if (escapedCharLen == 1 && escapedChar[0] == charToEsc) {
+	qsizetype &offset      = items.offset;
+	const QChar &charToEsc = items.inputStr[offset];
+	QString escapedChar    = QString(charToEsc).toHtmlEscaped();
+	if (escapedChar.size() == 1 && escapedChar[0] == charToEsc) {
 		// Nothing to escape
 		return false;
 	}
 
 	items.html.append(escapedChar);
-	offset += escapedCharLen;
+	++offset;
 	return true;
 }
 
