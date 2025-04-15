@@ -1085,4 +1085,32 @@ TalkingUI > QFrame {
   border-radius: 2px;
 }
 
+code {
+  background-color: #0d0620;
+}
+
+.codeblock > tr > * {
+  background-color: #0c0d27;
+  border: 1px solid #117d90;
+  border-right-color: #12727c;
+  border-bottom-color: #0a5861;
+  padding: 8px;
+}
+
+.blockquote > tr > * {
+  background-color: #1e1e1e;
+  color: #cbcac9;
+  border: 3px none #6e6e6e;
+  border-left-style: solid;
+  padding: 2px 5px;
+}
+
+.table {
+  border: 1px ridge unset;
+  vertical-align: middle;
+}
+.table > tr > * {
+  padding: 2px;
+}
+
 /*# sourceMappingURL=Dark.qss.map */
