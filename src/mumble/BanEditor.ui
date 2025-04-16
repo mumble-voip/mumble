@@ -14,22 +14,31 @@
    <string>Mumble - Edit Bans</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="qbbButtons">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QGroupBox" name="qgbBanList">
      <property name="title">
       <string>Ban List</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0" colspan="7">
+       <widget class="QListWidget" name="qlwBans">
+        <property name="toolTip">
+         <string>Banned users</string>
+        </property>
+        <property name="whatsThis">
+         <string>This is a list with banned users.</string>
+        </property>
+        <property name="accessibleName">
+         <string>List of banned users</string>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" colspan="7">
        <widget class="QLineEdit" name="qleSearch">
         <property name="font">
@@ -76,6 +85,22 @@
         </property>
         <property name="placeholderText">
          <string>No nickname</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="QPushButton" name="qpbAdd">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>Use this button if you want to add a new ban.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Add</string>
         </property>
        </widget>
       </item>
@@ -154,6 +179,22 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="6">
+       <widget class="QPushButton" name="qpbUpdate">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>Use this button if you want to update ban information.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Update</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="0">
        <widget class="QLabel" name="qlReason">
         <property name="text">
@@ -174,6 +215,19 @@
         </property>
         <property name="placeholderText">
          <string>No reason</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="6">
+       <widget class="QPushButton" name="qpbRemove">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="whatsThis">
+         <string>Use this button if you want to remove user from the ban list.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Remove</string>
         </property>
        </widget>
       </item>
@@ -261,70 +315,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="7">
-       <widget class="QListWidget" name="qlwBans">
-        <property name="toolTip">
-         <string>Banned users</string>
-        </property>
-        <property name="whatsThis">
-         <string>This is a list with banned users.</string>
-        </property>
-        <property name="accessibleName">
-         <string>List of banned users</string>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="6">
-       <widget class="QPushButton" name="qpbAdd">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>Use this button if you want to add a new ban.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Add</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="6">
-       <widget class="QPushButton" name="qpbUpdate">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>Use this button if you want to update ban information.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Update</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="6">
-       <widget class="QPushButton" name="qpbRemove">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="whatsThis">
-         <string>Use this button if you want to remove user from the ban list.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Remove</string>
-        </property>
-       </widget>
-      </item>
       <item row="6" column="6">
        <widget class="QPushButton" name="qpbClear">
         <property name="toolTip">
@@ -341,7 +331,17 @@
      </layout>
     </widget>
    </item>
-  </layout>
+  <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   </layout>
  </widget>
  <resources/>
  <connections>

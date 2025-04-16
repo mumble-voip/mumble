@@ -17,13 +17,6 @@
    <string>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0" colspan="3">
-    <widget class="QDialogButtonBox" name="qdbbButtonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" colspan="3">
     <widget class="ServerView" name="qtwServers">
      <property name="contextMenuPolicy">
@@ -163,7 +156,14 @@
      </layout>
     </widget>
    </item>
-  </layout>
+  <item row="2" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   </layout>
   <action name="qaFavoriteRemove">
    <property name="text">
     <string>Remove from Favorites</string>

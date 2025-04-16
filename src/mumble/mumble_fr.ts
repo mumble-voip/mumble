@@ -4594,14 +4594,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Classique</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Empilée</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Hybride</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Personnalisée</translation>
     </message>
@@ -4615,16 +4607,8 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Définit le comportement en cas de déplacement d&apos;un salon ; peut être utilisé pour prévenir un déplacement accidentel. &lt;i&gt;Déplacer&lt;/i&gt; déplace le salon sans rien demander. &lt;i&gt;Ne rien faire&lt;/i&gt; n&apos;effectue aucune opération et affiche un message d&apos;erreur. &lt;i&gt;Demander&lt;/i&gt; affiche une fenêtre de confirmation pour confirmer le déplacement du salon.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Élargir</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Quand étendre automatiquement les salons</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Faire glisser le salon</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4715,20 +4699,12 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Afficher le sélecteur de mode de transmission dans la barre d&apos;outils</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Thème</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Thème à utiliser pour l&apos;interface utilisateur</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Sélectionne le thème à utiliser pour l&apos;interface de Mumble&lt;/b&gt;&lt;br /&gt;Mumble collecte les thèmes de certains dossiers et les affichent dans cette liste. Le thème sélectionné sera utilisé pour personnaliser l’apparence de Mumble. Cela inclut les couleurs, les icônes et plus encore.</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Faire glisser l&apos;utilisateur</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4839,10 +4815,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Taille relative de la police en mode Tribune.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Taille relative de la police (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Caractère(s) utilisé(s) pour l&apos;ellipse.</translation>
     </message>
@@ -4901,10 +4873,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     <message>
         <source>Action (Channel):</source>
         <translation>Action (Salon) :</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Comportement lors de fermeture</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4997,6 +4965,50 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     <message>
         <source>Channel search action mode</source>
         <translation>Mode d&apos;action de recherche de salons</translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

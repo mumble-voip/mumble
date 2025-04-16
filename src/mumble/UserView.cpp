@@ -7,10 +7,13 @@
 
 #include "Channel.h"
 #include "ClientUser.h"
+#include "Database.h"
 #include "Log.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "UserModel.h"
+#include "VolumeAdjustment.h"
+#include "VolumeSliderWidgetAction.h"
 #include "Global.h"
 
 #include <QtGui/QDesktopServices>
@@ -240,6 +243,46 @@ void UserView::keyPressEvent(QKeyEvent *ev) {
 	if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
 		UserView::nodeActivated(currentIndex());
 	QTreeView::keyPressEvent(ev);
+}
+
+void UserView::wheelEvent(QWheelEvent *event) {
+	if (!event->modifiers().testFlag(Qt::ControlModifier)) {
+		return QWidget::wheelEvent(event);
+	}
+
+	if (!Global::get().s.bCtrlScrollLocalVolAdj) {
+		return;
+	}
+
+	ClientUser *user = Global::get().mw->pmModel->getSelectedUser();
+	if (!user) {
+		return;
+	}
+
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+	if (user == self) {
+		return;
+	}
+
+	int volAdjustment = VolumeAdjustment::toIntegerDBAdjustment(user->getLocalVolumeAdjustments());
+
+	if (event->angleDelta().y() > 0) {
+		if (volAdjustment >= VolumeSliderWidgetAction::max()) {
+			return;
+		}
+
+		volAdjustment += 1;
+	} else {
+		if (volAdjustment <= VolumeSliderWidgetAction::min()) {
+			return;
+		}
+
+		volAdjustment -= 1;
+	}
+
+	user->setLocalVolumeAdjustment(VolumeAdjustment::toFactor(volAdjustment));
+
+	Global::get().db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
 }
 
 void UserView::nodeActivated(const QModelIndex &idx) {

@@ -350,6 +350,16 @@ Add a new group.</string>
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="qliGroupAdd">
+               <property name="text">
+                <string>Members</string>
+               </property>
+               <property name="buddy">
+                <cstring>qlwGroupAdd</cstring>
+               </property>
+              </widget>
+             </item>
              <item row="1" column="0" colspan="2">
               <widget class="QListWidget" name="qlwGroupAdd">
                <property name="toolTip">
@@ -399,16 +409,6 @@ This list contains all members that were added to the group by the current chann
                </property>
               </widget>
              </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="qliGroupAdd">
-               <property name="text">
-                <string>Members</string>
-               </property>
-               <property name="buddy">
-                <cstring>qlwGroupAdd</cstring>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="0" colspan="2">
               <widget class="QPushButton" name="qpbGroupAddRemove">
                <property name="text">
@@ -434,7 +434,17 @@ This list contains all members that were added to the group by the current chann
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="1" column="0" colspan="2">
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="qliGroupRemove">
+               <property name="text">
+                <string>Excluded members</string>
+               </property>
+               <property name="buddy">
+                <cstring>qlwGroupRemove</cstring>
+               </property>
+              </widget>
+             </item>
+            <item row="1" column="0" colspan="2">
               <widget class="QListWidget" name="qlwGroupRemove">
                <property name="toolTip">
                 <string>Contains a list of members whose group membership will not be inherited from the parent channel.</string>
@@ -490,17 +500,7 @@ Contains a list of members whose group membership will not be inherited from the
                </property>
               </widget>
              </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="qliGroupRemove">
-               <property name="text">
-                <string>Excluded members</string>
-               </property>
-               <property name="buddy">
-                <cstring>qlwGroupRemove</cstring>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             </layout>
            </widget>
           </item>
           <item>
@@ -589,7 +589,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
                <string>Inherit ACL of parent?</string>
               </property>
               <property name="whatsThis">
-               <string>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</string>
+               <string>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as "Apply to sub-channels" will be inherited.</string>
               </property>
               <property name="text">
                <string>Inherit ACLs</string>

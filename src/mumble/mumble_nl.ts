@@ -4594,14 +4594,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Klassiek</translation>
     </message>
     <message>
-        <source>Stacked</source>
-        <translation>Gestapeld</translation>
-    </message>
-    <message>
-        <source>Hybrid</source>
-        <translation>Gemengd</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Aangepast</translation>
     </message>
@@ -4615,16 +4607,8 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Bepaalt gedrag van kanaalslepen; kan onbedoeld slepen voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt; verplaatst kanaal zonder te vragen. &lt;i&gt;Niets doen&lt;/i&gt; doet niets (toont foutmelding). &lt;i&gt;Vragen&lt;/i&gt; gebruikt berichtvenster om kanaalverplaatsing te bevestigen.</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Uitvouwen</translation>
-    </message>
-    <message>
         <source>When to automatically expand channels</source>
         <translation>Wanneer kanalen auto-uitvouwen</translation>
-    </message>
-    <message>
-        <source>Channel Dragging</source>
-        <translation>Kanalen Slepen</translation>
     </message>
     <message>
         <source>Always On Top</source>
@@ -4715,20 +4699,12 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Toon selectie voor verzendmodus in werkbalk</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Thema</translation>
-    </message>
-    <message>
         <source>Theme to use to style the user interface</source>
         <translation>Thema om als stijl te gebruiken</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
         <translation>&lt;b&gt;Configureert welk thema Mumble gestijld wordt.&lt;/b&gt;&lt;br /&gt;Mumble leest thema&apos;s (bepaalde mappen) en toont ze in deze lijst. Welke je selecteert neemt Mumble als &apos;look&apos; aan (kleuren, iconen en meer).</translation>
-    </message>
-    <message>
-        <source>User Dragging</source>
-        <translation>Gebruikers Slepen</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
@@ -4839,10 +4815,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
         <translation>Relatieve lettertypegrootte voor de Sprekersweergave, in procent.</translation>
     </message>
     <message>
-        <source>Rel. font size (%)</source>
-        <translation>Rel. lettertypegrootte (%)</translation>
-    </message>
-    <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation>Tekstlap die wordt gebruikt in plaats van het uitgeknipte stuk van afgekorten.</translation>
     </message>
@@ -4901,10 +4873,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Action (Channel):</source>
         <translation>Actie (Kanaal):</translation>
-    </message>
-    <message>
-        <source>Quit Behavior</source>
-        <translation>Gedrag bij afsluiten</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
@@ -4996,6 +4964,50 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Channel search action mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stac&amp;ked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Dra&amp;gging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xpand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font si&amp;ze (%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

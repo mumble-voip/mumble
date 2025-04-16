@@ -668,7 +668,7 @@ the channel's context menu.</string>
     <string>Enter What's This? mode</string>
    </property>
    <property name="whatsThis">
-    <string>Click this to enter &quot;What's This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</string>
+    <string>Click this to enter "What's This?" mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</string>
    </property>
   </action>
   <action name="qaHelpAbout">
