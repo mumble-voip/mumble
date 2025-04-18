@@ -216,6 +216,8 @@ if(packaging)
 		file(COPY
 			${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp
 			${CMAKE_SOURCE_DIR}/installer/dlgbmp.bmp
+			${CMAKE_SOURCE_DIR}/installer/Theme.xml
+			${CMAKE_SOURCE_DIR}/installer/VC_redist.x64.exe
 			DESTINATION
 				${CMAKE_BINARY_DIR}/installer
 		)
