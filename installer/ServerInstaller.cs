@@ -105,11 +105,13 @@ class BuildInstaller
 			var srvInstaller = new ServerInstaller(version, arch);
 			srvInstaller.Version = new Version(version);
 
-			if (isAllLangs) {
-				srvInstaller.BuildMultilanguageMsi();
-			} else {
-				srvInstaller.BuildMsi();
-			}
+			var msiPath = isAllLangs
+			            ? srvInstaller.BuildMultilanguageMsi()
+			            : srvInstaller.BuildMsi();
+
+			srvInstaller.BundleMsi(msiPath)
+			            .Build(msiPath.PathChangeExtension(".exe"));
+
 		} else {
 			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
 			Environment.ExitCode = 0xA0; // Bad argument
