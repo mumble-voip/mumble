@@ -17,6 +17,7 @@ option(tracy "Enable the tracy profiler." OFF)
 option(bundled-gsl "Use the bundled GSL version instead of looking for one on the system" ON)
 option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
+option(bundled-cli11 "Use the bundled CLI11 version instead of looking for one on the system" ON)
 
 find_pkg(Qt6
 	VERSION 6.2
@@ -250,6 +251,12 @@ else()
 	find_pkg("spdlog")
 endif()
 target_link_libraries(shared PUBLIC spdlog::spdlog)
+
+if (bundled-cli11)
+	add_subdirectory("${3RDPARTY_DIR}/CLI11" "${CMAKE_CURRENT_BINARY_DIR}/CLI11" EXCLUDE_FROM_ALL)
+else()
+	find_pkg("CLI11" 2 REQUIRED)
+endif()
 
 if(client)
 	add_subdirectory(mumble)
