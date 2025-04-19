@@ -2994,6 +2994,10 @@ Are you sure you wish to replace your certificate?
         <source>This server does not allow sending images.</source>
         <translation>이 서버는 이미지 보내기를 허용하지 않습니다.</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5125,10 +5129,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>&lt;center&gt;연결되지 않음&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>청소</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>%1 URL 열기</translation>
     </message>
@@ -5476,10 +5476,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>등록되지 않은 유저 계정의 서버 비밀번호가 잘못되었습니다. 다시 시도하세요.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>이미지 (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7076,6 +7072,22 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

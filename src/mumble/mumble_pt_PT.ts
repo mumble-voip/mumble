@@ -2995,6 +2995,10 @@ Tem certeza de que quer substituir o seu certificado?
         <source>This server does not allow sending images.</source>
         <translation>Este servidor não permite o envio de imagens.</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5126,10 +5130,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <translation>&lt;center&gt;Não ligado&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>Limpar</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>A abrir URL %1</translation>
     </message>
@@ -5478,10 +5478,6 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Palavra-passe de servidor errada para conta de utilizador não registado, por favor tente novamente.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Imagens (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7078,6 +7074,22 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

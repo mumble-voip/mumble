@@ -2994,6 +2994,10 @@ Are you sure you wish to replace your certificate?
         <source>This server does not allow sending images.</source>
         <translation>当前服务器不允许发送图片。</translation>
     </message>
+    <message>
+        <source>Unable to read animated image file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -5125,10 +5129,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>&lt;center&gt;未连接&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>清空</translation>
-    </message>
-    <message>
         <source>Opening URL %1</source>
         <translation>打开网址 %1</translation>
     </message>
@@ -5476,10 +5476,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未注册用户输入的密码错误，请重试。</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>图片文件 (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7136,6 +7132,22 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
   --hidden
                 启动 Mumble 时隐藏到系统托盘。
 </translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> *.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
