@@ -759,33 +759,36 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 	};
 
 	bool isAnyCustomTxtObj = false;
-	TextObject txtObj;
 	// Track the end of the previous custom text object and thereby where to move the start of the search to
 	// as well as what HTML is between the currently processed custom text object and the previous one:
 	qsizetype previousImgEndIndex = -1;
 	do {
-		auto [txtObjType, txtObjBa, fileExt, imgStartIndex, imgEndIndex, width, height] =
-			previousImgEndIndex == -1 ? findTxtObjData(previousImgEndIndex) : txtObj;
-		bool isAnotherCustomTxtObj = txtObjType != TextObjectType::NoCustomObject;
-		if (!isAnotherCustomTxtObj) {
+		auto [type, ba, fileExt, imgStartIndex, imgEndIndex, width, height] = findTxtObjData(previousImgEndIndex);
+		if (type == TextObjectType::NoCustomObject) {
 			break;
 		}
+		isAnyCustomTxtObj = true;
 
 		LogTextBrowser *log = Global::get().mw->qteLog;
 		QObject *obj        = nullptr;
-		switch (txtObjType) {
+		switch (type) {
 			case TextObjectType::Animation:
-				obj = AnimationTextObject::createAnimation(txtObjBa, log);
+				obj = AnimationTextObject::createAnimation(ba, log);
 				break;
 			case TextObjectType::NoCustomObject:
 				break;
 		}
-		if (obj == nullptr) {
-			previousImgEndIndex = imgEndIndex;
+		bool isObj                   = obj != nullptr;
+		qsizetype previousHtmlLength = (isObj ? imgStartIndex - 1 : imgEndIndex) - previousImgEndIndex;
+		QString previousHtml = previousHtmlLength > 0 ? html.sliced(previousImgEndIndex + 1, previousHtmlLength) : "";
+		tc->insertHtml(previousHtml);
+		previousImgEndIndex = imgEndIndex;
+		if (!isObj) {
 			continue;
 		}
+
 		QTextCharFormat fmt = log->currentCharFormat();
-		int objType         = static_cast< int >(txtObjType);
+		int objType         = static_cast< int >(type);
 		fmt.setObjectType(objType);
 		fmt.setProperty(1, QVariant::fromValue(obj));
 		fmt.setProperty(2, fileExt);
@@ -799,22 +802,12 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		obj->setProperty("customItemIndex", ++log->lastCustomItemIndex);
 		log->customItems.append(obj);
 
-		txtObj                        = findTxtObjData(imgEndIndex);
-		isAnotherCustomTxtObj         = txtObj.type != TextObjectType::NoCustomObject;
-		qsizetype htmlBeforeImgLength = imgStartIndex - 1 - previousImgEndIndex;
-		QString htmlBeforeImg =
-			imgStartIndex - 1 > previousImgEndIndex ? html.sliced(previousImgEndIndex + 1, htmlBeforeImgLength) : "";
-		QString htmlAfterImg = !isAnotherCustomTxtObj && imgEndIndex < htmlEndIndex ? html.sliced(imgEndIndex + 1) : "";
-		tc->insertHtml(htmlBeforeImg);
 		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
-		tc->insertHtml(htmlAfterImg);
-
-		isAnyCustomTxtObj = true;
-		if (!isAnotherCustomTxtObj) {
-			break;
-		}
-		previousImgEndIndex = imgEndIndex;
 	} while (true);
+	if (isAnyCustomTxtObj) {
+		QString remainingHtml = previousImgEndIndex < htmlEndIndex ? html.sliced(previousImgEndIndex + 1) : "";
+		tc->insertHtml(remainingHtml);
+	}
 	return isAnyCustomTxtObj;
 }
 
