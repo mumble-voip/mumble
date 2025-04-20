@@ -743,7 +743,7 @@ bool processMarkdownUnderline(Markdown::Items &items);
 
 bool processMarkdownLine(Markdown::Items &items);
 
-bool processScript(Markdown::Items &items);
+bool processMarkdownScript(Markdown::Items &items);
 
 /// Tries to match and replace a Markdown italic-text at exactly the given offset in the string
 ///
@@ -754,12 +754,12 @@ bool processMarkdownItalic(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '*') {
 		return false;
 	}
-	static const QRegularExpression regex(QLatin1String("\\*(?!\\h+\\*)([^*]+)\\*"));
+	static const QRegularExpression regex(QLatin1String("\\*(?!\\h+\\*)([^*\n]+)\\*"));
 	return regexMatchAndReplace(items, regex, "<i>%1</i>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
 									processFormatting(content, items,
-													  { processMarkdownLine, processScript, processLink, processColor,
+													  { processMarkdownLine, processMarkdownScript, processLink, processColor,
 														processLinebreak, processHTMLFixedSpace, processHTMLComment });
 									return QLatin1String(contentWrapper).arg(content);
 								});
@@ -779,7 +779,7 @@ bool processMarkdownBold(Markdown::Items &items) {
 		items, regex, "<b>%1</b>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
-							  { processMarkdownLine, processMarkdownItalic, processScript, processLink, processColor,
+							  { processMarkdownLine, processMarkdownItalic, processMarkdownScript, processLink, processColor,
 								processLinebreak, processHTMLFixedSpace, processHTMLComment });
 			return QLatin1String(contentWrapper).arg(content);
 		});
@@ -807,7 +807,7 @@ bool processMarkdownStrikethrough(Markdown::Items &items) {
 		items, regex, "<s>%1</s>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
-							  { processMarkdownUnderline, processMarkdownBoldOrItalic, processScript, processLink,
+							  { processMarkdownUnderline, processMarkdownBoldOrItalic, processMarkdownScript, processLink,
 								processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
 			return QLatin1String(contentWrapper).arg(content);
 		});
@@ -827,7 +827,7 @@ bool processMarkdownUnderline(Markdown::Items &items) {
 		items, regex, "<u>%1</u>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
-							  { processMarkdownStrikethrough, processMarkdownBoldOrItalic, processScript, processLink,
+							  { processMarkdownStrikethrough, processMarkdownBoldOrItalic, processMarkdownScript, processLink,
 								processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
 			return QLatin1String(contentWrapper).arg(content);
 		});
@@ -859,7 +859,7 @@ bool processMarkdownSuperscript(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '^') {
 		return false;
 	}
-	static const QRegularExpression regex(QLatin1String("\\^(?!\\h+\\^)([^\\^]+)\\^"));
+	static const QRegularExpression regex(QLatin1String("\\^(?!\\h+\\^)([^\\^\n]+)\\^"));
 	return regexMatchAndReplace(items, regex, "<sup>%1</sup>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
@@ -879,7 +879,7 @@ bool processMarkdownSubscript(Markdown::Items &items) {
 	if (items.inputStr[items.offset] != '~') {
 		return false;
 	}
-	static const QRegularExpression regex(QLatin1String("~(?!\\h+~)([^~]+)~"));
+	static const QRegularExpression regex(QLatin1String("~(?!\\h+~)([^~\n]+)~"));
 	return regexMatchAndReplace(items, regex, "<sub>%1</sub>",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString content = match.captured(1);
@@ -894,7 +894,7 @@ bool processMarkdownSubscript(Markdown::Items &items) {
 ///
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
-bool processScript(Markdown::Items &items) {
+bool processMarkdownScript(Markdown::Items &items) {
 	return processMarkdownSuperscript(items) || processMarkdownSubscript(items);
 }
 
@@ -903,7 +903,7 @@ bool processScript(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processMarkdownEmphasisOrScript(Markdown::Items &items) {
-	return processMarkdownEmphasis(items) || processScript(items);
+	return processMarkdownEmphasis(items) || processMarkdownScript(items);
 }
 
 /// Tries to match and replace a Markdown section header at exactly the given offset in the string
@@ -1455,10 +1455,10 @@ bool processMarkdownBlockQuote(Markdown::Items &items) {
 			}
 
 			processFormatting(quote, items,
-							  { processMarkdownEmphasisOrScript, processCode, processMarkdownThematicBreak,
-								processMarkdownHeader, processList, processImageOrLink, processMarkdownBlockQuote,
-								processMarkdownTable, processColor, processLinebreak, processHTMLFixedSpace,
-								processHTMLComment });
+							  { processMarkdownThematicBreak, processMarkdownHeader, processList,
+								processMarkdownEmphasisOrScript, processCode,  processImageOrLink,
+								processMarkdownBlockQuote, processMarkdownTable, processColor, processLinebreak,
+								processHTMLFixedSpace, processHTMLComment });
 			// Remove one newline before each block-element used by other formats
 			// and replace the rest with effectual linebreaks in HTML:
 			quote.replace(QRegularExpression(QLatin1String("\n(<(?:table|(?:o|u|d)l))")), "\\1");
@@ -1483,11 +1483,11 @@ bool processMarkdownCenteredBlock(Markdown::Items &items) {
 									QString content = findFirstMatchedGroup(match);
 									processFormatting(content, items,
 													  {
-														  processMarkdownEmphasisOrScript,
-														  processCode,
 														  processMarkdownThematicBreak,
 														  processMarkdownHeader,
 														  processList,
+														  processMarkdownEmphasisOrScript,
+														  processCode,
 														  processImageOrLink,
 														  processMarkdownBlockQuote,
 														  processMarkdownTable,
@@ -1505,10 +1505,10 @@ QString markdownToHTML(const QString &markdownInput) {
 	QHash< QString, std::tuple< QString, QString > > references;
 	Markdown::Items items = { markdownInput, (qsizetype) 0, QLatin1String(), images, references };
 
-	processFormatting(items, { processMarkdownEmphasisOrScript, processCode, processMarkdownThematicBreak,
-							   processMarkdownHeader, processList, processImageOrLink, processMarkdownBlockQuote,
-							   processMarkdownTable, processColor, processLinebreak, processHTMLFixedSpace,
-							   processHTMLComment, processMarkdownCenteredBlock });
+	processFormatting(items, { processMarkdownThematicBreak, processMarkdownHeader, processList,
+		                       processMarkdownEmphasisOrScript, processCode,  processImageOrLink,
+							   processMarkdownBlockQuote, processMarkdownTable, processColor, processLinebreak,
+							   processHTMLFixedSpace, processHTMLComment, processMarkdownCenteredBlock });
 	processQueuedMarkdownReferences(items);
 	processQueuedMarkdownImages(items);
 
