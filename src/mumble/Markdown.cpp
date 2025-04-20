@@ -446,12 +446,12 @@ bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 	// Reference definition in format [reference]: URL "tooltip" where the URL may include spaces if wrapped
 	// in angular brackets (<>), the double quotes may be single quotes or parentheses and the tooltip is optional
 	const QChar &matchStartCharacter = items.inputStr[items.offset];
-	if (matchStartCharacter != '[' && matchStartCharacter != ' ') {
+	if (matchStartCharacter != '[' && matchStartCharacter != ' ' && matchStartCharacter != '\n') {
 		return false;
 	}
 	static const QRegularExpression regex(
-		QLatin1String("^\\h{,3}\\[([^\\]\n]+)\\]:\\h(?:<(.+?)>|([^\\h\n]+))"
-					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?\\h*\n?\\h*$"),
+		QLatin1String("\n*\\h{,3}\\[([^\\]\n]+)\\]:\\h(?:<(.+?)>|([^\\h\n]+))"
+					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?(?:\\h*\n)*\\h*$"),
 		QRegularExpression::MultilineOption);
 	return regexMatchAndReplace(items, regex, "",
 								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
