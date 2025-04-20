@@ -121,7 +121,7 @@ public:
 
 	enum class TextObjectType { NoCustomObject, Animation = QTextFormat::UserObject };
 	inline static const QHash< TextObjectType, QStringList > txtObjTypeToFileExtsMap = {
-		{ TextObjectType::Animation, { "GIF", "WEBP", "PNG", "MNG", "AVIF" } }
+		{ TextObjectType::Animation, { "GIF", "PNG", "APNG", "MNG", "WEBP", "AVIF" } }
 	};
 
 protected:
