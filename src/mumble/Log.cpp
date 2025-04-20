@@ -642,8 +642,11 @@ bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
 			QByteArray extLower = ext.toLower();
 			return objExt == extLower || objExt == extLower.replace(3, 1, "s");
 		}
-	} else if ((ext == "PNG" || ext == "MNG") && headerSize > 3) {
+	} else if ((ext == "PNG" || ext == "APNG" || ext == "MNG") && headerSize > 3) {
 		objExt = header.sliced(1, 3);
+		if (ext.startsWith('A')) {
+			return ext.endsWith(objExt);
+		}
 	}
 	return objExt == ext;
 }
