@@ -247,10 +247,14 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 			return setScrollY(logInternalHeight);
 		case Qt::Key_Return:
 		case Qt::Key_Enter:
-			customItemFocusIndex += itemFocusIndex == lastItemIndex ? -lastItemIndex : 1;
+			if (lastItemIndex != -1) {
+				customItemFocusIndex += itemFocusIndex == lastItemIndex ? -lastItemIndex : 1;
+			}
 			break;
 		case Qt::Key_Backspace:
-			customItemFocusIndex += itemFocusIndex < 1 ? lastItemIndex + (itemFocusIndex == -1 ? 1 : 0) : -1;
+			if (lastItemIndex != -1) {
+				customItemFocusIndex += itemFocusIndex < 1 ? lastItemIndex + (itemFocusIndex == -1 ? 1 : 0) : -1;
+			}
 			break;
 		case Qt::Key_Escape:
 			customItemFocusIndex = -1;
@@ -263,7 +267,7 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 	}
 	bool isItemSelectionChanged = customItemFocusIndex != itemFocusIndex;
 
-	QObject *item = customItems.at(customItemFocusIndex);
+	QObject *item = customItems[customItemFocusIndex];
 	switch (qvariant_cast< Log::TextObjectType >(item->property("objectType"))) {
 		case Log::TextObjectType::Animation: {
 			QMovie *animation = qobject_cast< QMovie * >(item);
@@ -288,7 +292,7 @@ void LogTextBrowser::keyReleaseEvent(QKeyEvent *keyEvt) {
 	customItemFocusIndex = !isItemFocusIndex ? -1 : isItemFocusIndexTooHigh ? lastCustomItemIndex : itemFocusIndex;
 	queuedNumericInput.clear();
 	if (isItemFocusIndex && customItemFocusIndex != -1) {
-		QObject *item = customItems.at(customItemFocusIndex);
+		QObject *item = customItems[customItemFocusIndex];
 		return scrollItemIntoView(item->property("posAndSize").toRect());
 	}
 	update();
