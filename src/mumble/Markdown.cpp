@@ -376,9 +376,9 @@ bool processPlainLink(Markdown::Items &items) {
 								[](const QRegularExpressionMatch &match, const char *contentWrapper) {
 									QString url = match.captured(0).toHtmlEscaped();
 
-									if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
+									if (url.startsWith("www", Qt::CaseInsensitive)) {
 										// Link is missing a protocol specification - use https as the default
-										url.prepend(QStringLiteral("https://"));
+										url.prepend("https://");
 									}
 
 									return QLatin1String(contentWrapper).arg(unescapeURL(url), url);
@@ -417,13 +417,13 @@ bool processMarkdownLink(Markdown::Items &items) {
 									}
 
 									bool isReference = urlEndBracket == "]";
-									if (!isReference && !url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
+									if (!isReference && !url.startsWith("http", Qt::CaseInsensitive)) {
 										// For a Markdown link to work, it has to start with the protocol specification,
 										// e.g. http or https As we can't know for sure that the given website supports
 										// https, we'll have to fall back to http Most browsers will upgrade the request
 										// to https whenever possible anyways though, so this shouldn't be too much of a
 										// problem.
-										url.prepend(QLatin1String("http://"));
+										url.prepend("http://");
 									} else if (isReference && textWithBrackets.isEmpty()) {
 										text = url;
 									}
@@ -459,8 +459,8 @@ bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 									QString url       = findFirstMatchedGroup(match, 2, 3).toHtmlEscaped();
 									QString title     = findFirstMatchedGroup(match, 4, 6).toHtmlEscaped();
 
-									if (!url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
-										url.prepend(QLatin1String("http://"));
+									if (!url.startsWith("http", Qt::CaseInsensitive)) {
+										url.prepend("http://");
 									}
 
 									QHash< QString, std::tuple< QString, QString > > &references = items.references;
@@ -554,12 +554,12 @@ bool processMarkdownImage(Markdown::Items &items) {
 
 			bool isReferenceImage = imageUrlEndBracket == "]";
 			bool isReferenceLink  = linkEndBracket == "]";
-			if (!isReferenceImage && !url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)
-				&& !url.startsWith(QLatin1String("file:///"), Qt::CaseInsensitive)) {
-				url.prepend(QLatin1String("http://"));
+			if (!isReferenceImage && !url.startsWith("http", Qt::CaseInsensitive)
+				&& !url.startsWith("file", Qt::CaseInsensitive)) {
+				url.prepend("http://");
 			}
-			if (!isReferenceLink && !link.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
-				link.prepend(QLatin1String("http://"));
+			if (!isReferenceLink && !link.startsWith("http", Qt::CaseInsensitive)) {
+				link.prepend("http://");
 			}
 
 			items.images.append({ referenceOrUnescapeURL(url, isReferenceImage), alt, title, width, height });
@@ -592,7 +592,7 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 	QString processingIndicator = "<center><i>%1 image %2/%3...</i></center>";
 	ChatbarTextEdit *chatbar    = Global::get().mw->qteChat;
 	auto getProcessingFirstWord = [](QString url) {
-		return QLatin1String(url.startsWith("file:///") ? "Loading" : "Downloading");
+		return QLatin1String(url.startsWith("file") ? "Loading" : "Downloading");
 	};
 	QObject::connect(&networkManager, &QNetworkAccessManager::finished, &loop,
 					 [&base64Images, &repliesFinished, &imageAmount, &processingIndicator, &remainingImageMessageLength,
@@ -755,14 +755,14 @@ bool processMarkdownItalic(Markdown::Items &items) {
 		return false;
 	}
 	static const QRegularExpression regex(QLatin1String("\\*(?!\\h+\\*)([^*\n]+)\\*"));
-	return regexMatchAndReplace(items, regex, "<i>%1</i>",
-								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-									QString content = match.captured(1);
-									processFormatting(content, items,
-													  { processMarkdownLine, processMarkdownScript, processLink, processColor,
-														processLinebreak, processHTMLFixedSpace, processHTMLComment });
-									return QLatin1String(contentWrapper).arg(content);
-								});
+	return regexMatchAndReplace(
+		items, regex, "<i>%1</i>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+			QString content = match.captured(1);
+			processFormatting(content, items,
+							  { processMarkdownLine, processMarkdownScript, processLink, processColor, processLinebreak,
+								processHTMLFixedSpace, processHTMLComment });
+			return QLatin1String(contentWrapper).arg(content);
+		});
 }
 
 /// Tries to match and replace a Markdown bold-text at exactly the given offset in the string
@@ -779,8 +779,8 @@ bool processMarkdownBold(Markdown::Items &items) {
 		items, regex, "<b>%1</b>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
 			QString content = match.captured(1);
 			processFormatting(content, items,
-							  { processMarkdownLine, processMarkdownItalic, processMarkdownScript, processLink, processColor,
-								processLinebreak, processHTMLFixedSpace, processHTMLComment });
+							  { processMarkdownLine, processMarkdownItalic, processMarkdownScript, processLink,
+								processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
 			return QLatin1String(contentWrapper).arg(content);
 		});
 }
@@ -803,14 +803,15 @@ bool processMarkdownStrikethrough(Markdown::Items &items) {
 		return false;
 	}
 	static const QRegularExpression regex(QLatin1String("(?<!~)~~(?!\\h+~|~)(.+?)(?<!~)~~(?!~)"));
-	return regexMatchAndReplace(
-		items, regex, "<s>%1</s>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-			QString content = match.captured(1);
-			processFormatting(content, items,
-							  { processMarkdownUnderline, processMarkdownBoldOrItalic, processMarkdownScript, processLink,
-								processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
-			return QLatin1String(contentWrapper).arg(content);
-		});
+	return regexMatchAndReplace(items, regex, "<s>%1</s>",
+								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+									QString content = match.captured(1);
+									processFormatting(content, items,
+													  { processMarkdownUnderline, processMarkdownBoldOrItalic,
+														processMarkdownScript, processLink, processColor,
+														processLinebreak, processHTMLFixedSpace, processHTMLComment });
+									return QLatin1String(contentWrapper).arg(content);
+								});
 }
 
 /// Tries to match and replace a Markdown underline-text at exactly the given offset in the string
@@ -823,14 +824,15 @@ bool processMarkdownUnderline(Markdown::Items &items) {
 		return false;
 	}
 	static const QRegularExpression regex(QLatin1String("__(?!\\h+_)(.+?)__"));
-	return regexMatchAndReplace(
-		items, regex, "<u>%1</u>", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-			QString content = match.captured(1);
-			processFormatting(content, items,
-							  { processMarkdownStrikethrough, processMarkdownBoldOrItalic, processMarkdownScript, processLink,
-								processColor, processLinebreak, processHTMLFixedSpace, processHTMLComment });
-			return QLatin1String(contentWrapper).arg(content);
-		});
+	return regexMatchAndReplace(items, regex, "<u>%1</u>",
+								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+									QString content = match.captured(1);
+									processFormatting(content, items,
+													  { processMarkdownStrikethrough, processMarkdownBoldOrItalic,
+														processMarkdownScript, processLink, processColor,
+														processLinebreak, processHTMLFixedSpace, processHTMLComment });
+									return QLatin1String(contentWrapper).arg(content);
+								});
 }
 
 /// Tries to match and replace a Markdown strikethrough or underline text at exactly the given offset in the string
@@ -1455,10 +1457,10 @@ bool processMarkdownBlockQuote(Markdown::Items &items) {
 			}
 
 			processFormatting(quote, items,
-							  { processMarkdownThematicBreak, processMarkdownHeader, processList,
-								processMarkdownEmphasisOrScript, processCode,  processImageOrLink,
-								processMarkdownBlockQuote, processMarkdownTable, processColor, processLinebreak,
-								processHTMLFixedSpace, processHTMLComment });
+							  { processCode, processMarkdownThematicBreak, processMarkdownHeader, processList,
+								processMarkdownEmphasisOrScript, processImageOrLink, processMarkdownBlockQuote,
+								processMarkdownTable, processColor, processLinebreak, processHTMLFixedSpace,
+								processHTMLComment });
 			// Remove one newline before each block-element used by other formats
 			// and replace the rest with effectual linebreaks in HTML:
 			quote.replace(QRegularExpression(QLatin1String("\n(<(?:table|(?:o|u|d)l))")), "\\1");
@@ -1483,11 +1485,11 @@ bool processMarkdownCenteredBlock(Markdown::Items &items) {
 									QString content = findFirstMatchedGroup(match);
 									processFormatting(content, items,
 													  {
+														  processCode,
 														  processMarkdownThematicBreak,
 														  processMarkdownHeader,
 														  processList,
 														  processMarkdownEmphasisOrScript,
-														  processCode,
 														  processImageOrLink,
 														  processMarkdownBlockQuote,
 														  processMarkdownTable,
@@ -1505,10 +1507,10 @@ QString markdownToHTML(const QString &markdownInput) {
 	QHash< QString, std::tuple< QString, QString > > references;
 	Markdown::Items items = { markdownInput, (qsizetype) 0, QLatin1String(), images, references };
 
-	processFormatting(items, { processMarkdownThematicBreak, processMarkdownHeader, processList,
-		                       processMarkdownEmphasisOrScript, processCode,  processImageOrLink,
-							   processMarkdownBlockQuote, processMarkdownTable, processColor, processLinebreak,
-							   processHTMLFixedSpace, processHTMLComment, processMarkdownCenteredBlock });
+	processFormatting(items, { processCode, processMarkdownThematicBreak, processMarkdownHeader, processList,
+							   processMarkdownEmphasisOrScript, processImageOrLink, processMarkdownBlockQuote,
+							   processMarkdownTable, processColor, processLinebreak, processHTMLFixedSpace,
+							   processHTMLComment, processMarkdownCenteredBlock });
 	processQueuedMarkdownReferences(items);
 	processQueuedMarkdownImages(items);
 
