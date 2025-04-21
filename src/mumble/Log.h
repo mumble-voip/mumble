@@ -152,8 +152,9 @@ public:
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
 	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "PNG");
 	static bool isFileExt(const QByteArray &ext, const QByteArray &header);
-	static std::tuple< TextObjectType, QString > findTxtObjTypeAndFileExt(const QByteArray &header);
+	static QString findFileExt(const QByteArray &header);
 	static TextObjectType findTxtObjType(const QString &fileExt);
+	static std::tuple< TextObjectType, QString > findTxtObjTypeAndFileExt(const QByteArray &header);
 	static QString msgColor(const QString &text, LogColorType t);
 	static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName = QString());
 	static QString formatChannel(::Channel *c);
