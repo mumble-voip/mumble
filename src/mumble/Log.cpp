@@ -629,12 +629,12 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 }
 
 bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
-	qsizetype headerSize = header.size();
+	qsizetype headerLength = header.size();
 	QByteArray objExt;
 	bool isExtAvif = ext == "AVIF";
-	if (ext == "GIF" && headerSize > 2) {
-		objExt = header.first(3);
-	} else if ((ext == "WEBP" || isExtAvif) && headerSize > 11) {
+	if (ext == "GIF") {
+		return header.startsWith(ext);
+	} else if ((ext == "WEBP" || isExtAvif) && headerLength > 11) {
 		objExt = header.sliced(8, 4);
 		if (isExtAvif) {
 			// The last character in the extension name in the header may be "s" instead of "f"
@@ -642,13 +642,59 @@ bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
 			QByteArray extLower = ext.toLower();
 			return objExt == extLower || objExt == extLower.replace(3, 1, "s");
 		}
-	} else if ((ext == "PNG" || ext == "APNG" || ext == "MNG") && headerSize > 3) {
+	} else if ((ext == "PNG" || ext == "APNG" || ext == "MNG") && headerLength > 3) {
 		objExt = header.sliced(1, 3);
 		if (ext.startsWith('A')) {
 			return ext.endsWith(objExt);
 		}
+	} else if ((ext == "JPG" || ext == "JPEG") && headerLength > 9) {
+		return header.sliced(6, 4) == "JFIF";
+	} else if (ext == "JP2" && headerLength > 5) {
+		return header.sliced(4, 2) == "jp";
+	} else if (ext == "BMP") {
+		return header.startsWith("BM");
+	} else if (ext == "PBM") {
+		return header.startsWith("P4");
+	} else if (ext == "PGM") {
+		return header.startsWith("P5");
+	} else if (ext == "PPM") {
+		return header.startsWith("P6");
+	} else if (ext == "TIFF") {
+		return header.startsWith("MM");
+	} else if (ext == "WBMP" && headerLength > 1) {
+		return header[1] == '0';
+	} else if (ext == "TGA" && headerLength > 2) {
+		return header[2] == '1';
+	} else if (ext == "ICNS") {
+		return header.startsWith(ext.toLower());
+	} else if (ext == "XBM") {
+		return header.startsWith("#define ");
+	} else if (ext == "XPM" && headerLength > 5) {
+		objExt = header.sliced(3, 3);
+	} else if (ext == "SVG") {
+		return header.contains("<svg ");
 	}
 	return objExt == ext;
+}
+
+QString Log::findFileExt(const QByteArray &header) {
+	for (const QByteArray &ext : QImageReader::supportedImageFormats()) {
+		if (isFileExt(ext, header)) {
+			return QString::fromUtf8(ext);
+		}
+	}
+	return QLatin1String();
+}
+
+Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
+	TextObjectType txtObjType{};
+	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
+		if (i.value().contains(fileExt, Qt::CaseInsensitive)) {
+			txtObjType = i.key();
+			break;
+		}
+	}
+	return txtObjType;
 }
 
 std::tuple< Log::TextObjectType, QString > Log::findTxtObjTypeAndFileExt(const QByteArray &header) {
@@ -667,17 +713,6 @@ std::tuple< Log::TextObjectType, QString > Log::findTxtObjTypeAndFileExt(const Q
 		}
 	}
 	return txtObjTypeAndFileExt;
-}
-
-Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
-	TextObjectType txtObjType{};
-	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
-		if (i.value().contains(fileExt, Qt::CaseInsensitive)) {
-			txtObjType = i.key();
-			break;
-		}
-	}
-	return txtObjType;
 }
 
 bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
