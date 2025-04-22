@@ -294,6 +294,7 @@ if(packaging)
 		list(APPEND installer_vars
 			"--version" ${PROJECT_VERSION}
 			"--arch" ${MUMBLE_TARGET_ARCH}
+			"--vc-redist-url" "${VC_REDIST_URL}"
 		)
 
 		file(COPY

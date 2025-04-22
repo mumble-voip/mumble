@@ -195,6 +195,10 @@ if(plugins AND client)
 	add_subdirectory(plugins)
 endif()
 
+if (packaging AND WIN32)
+	set(VC_REDIST_URL "https://download.visualstudio.microsoft.com/download/pr/285b28c7-3cf9-47fb-9be8-01cf5323a8df/8F9FB1B3CFE6E5092CF1225ECD6659DAB7CE50B8BF935CB79BFEDE1F3C895240/VC_redist.x64.exe")
+endif()
+
 if(client OR server)
 	add_subdirectory(src)
 endif()
@@ -217,10 +221,11 @@ if(packaging)
 			${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp
 			${CMAKE_SOURCE_DIR}/installer/dlgbmp.bmp
 			${CMAKE_SOURCE_DIR}/installer/Theme.xml
-			${CMAKE_SOURCE_DIR}/installer/VC_redist.x64.exe
 			DESTINATION
 				${CMAKE_BINARY_DIR}/installer
 		)
+
+		file(DOWNLOAD ${VC_REDIST_URL} ${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe)
 		
 		file(COPY 
 			${CMAKE_SOURCE_DIR}/icons/mumble.ico
