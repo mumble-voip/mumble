@@ -13,6 +13,7 @@ using WixSharp.CommonTasks;
 
 // base class with info across installers
 public class MumbleInstall : Project {
+
 	public MumbleInstall() {
 		var allUsersProp = new Property("ALLUSERS", "1");
 		this.Language = "en-US,cs-CZ,da-DK,de-DE,el-GR,es-ES,fi-FI,fr-FR,it-IT,ja-JP,nb-NO,nl-NL,pl-PL,pt-PT,ru-RU,sv-SE,tr-TR,zh-CN,zh-TW";
@@ -30,7 +31,7 @@ public class MumbleInstall : Project {
 		this.Properties = new Property[] { allUsersProp };
 	}
 
-	public Bundle BundleMsi(string msiPath) {
+	public Bundle BundleMsi(string msiPath, string vcRedistUrl) {
 		var bootstrapper = new Bundle(
 				this.Name,
 				new MsiPackage(msiPath)
@@ -39,21 +40,12 @@ public class MumbleInstall : Project {
 				{
 					Id = "VCREDIST_EXE",
 					Name = "VC_redist.x64.exe",
+					/* The SourceFile is required used by wix to generate a RemotePayload object for
+					 * this ExePackage. It inludes a sha1 hash of the SourceFile in the installer we
+					 * build to validate the download at install time on the user's machine. */
 					SourceFile = @"..\VC_redist.x64.exe",
 					DisplayName = "Microsoft Visual C++ 2015-2022 Redistributable (x64)",
-					/* I couldn't find a page from Microsoft that lists permalinks to particular versions
-					 * of the redistributables. I could only find a link that redirects you to a link for
-					 * the latest redistributable version. The page is at [1] and the link is [2].
-					 *
-					 * The VC_redist.x64.exe downloaded from the `DownloadUrl` value below should be
-					 * placed in the build/installer/client folder, since WixSharp will use the file
-					 * to include a hash in the installer to verify the download at the time of install.
-					 *
-					 * The URL in DownloadUrl is for version 14.42.34438.0
-					 *
-					 * [1] https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version
-					 * [2] https://aka.ms/vs/17/release/vc_redist.x64.exe */
-					DownloadUrl = "https://download.visualstudio.microsoft.com/download/pr/285b28c7-3cf9-47fb-9be8-01cf5323a8df/8F9FB1B3CFE6E5092CF1225ECD6659DAB7CE50B8BF935CB79BFEDE1F3C895240/VC_redist.x64.exe",
+					DownloadUrl = vcRedistUrl,
 					/* This condition being true should mean that it is already installed. */
 					DetectCondition = "VCREDIST_INSTALLED >= VCREDIST_REQUIRED",
 					InstallCommand = "/install /quiet /norestart /ChainingPackage \"[WixBundleName]\"",
@@ -63,7 +55,7 @@ public class MumbleInstall : Project {
 					Compressed = false,
 					/* By default, if the installer does not have an internet connection, the download
 					 * will fail and the entire install will fail. Setting Vital to false means that
-					 * if the install for the redistributables can fail silently and Mumble's install
+					 * the install for the redistributables can fail silently and Mumble's install
 					 * will continue. */
 					Vital = false,
 					/* Permanent just means it won't uninstall this when uninstalling Mumble.
