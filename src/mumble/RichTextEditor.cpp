@@ -238,28 +238,18 @@ void RichTextEditor::on_qaLink_triggered() {
 }
 
 void RichTextEditor::on_qaImage_triggered() {
-	QPair< QByteArray, QImage > choice = Global::get().mw->openImageFile();
-
-	QByteArray &qba = choice.first;
-
-	if (qba.isEmpty())
+	QImage img = Global::get().mw->openImageFile().second;
+	if (img.isNull()) {
 		return;
-
-	if ((Global::get().uiImageLength > 0)
-		&& (static_cast< unsigned int >(qba.length()) > Global::get().uiImageLength)) {
+	}
+	QString processedImage = Log::imageToImg(img, static_cast< int >(Global::get().uiImageLength));
+	if (processedImage.length() > 0) {
+		qteRichText->insertHtml(processedImage);
+	} else {
 		QMessageBox::warning(this, tr("Failed to load image"),
 							 tr("Image file too large to embed in document. Please use images smaller than %1 kB.")
 								 .arg(Global::get().uiImageLength / 1024));
-		return;
 	}
-
-	QBuffer qb(&qba);
-	qb.open(QIODevice::ReadOnly);
-
-	QByteArray format = QImageReader::imageFormat(&qb);
-	qb.close();
-
-	qteRichText->insertHtml(Log::imageToImg(format, qba));
 }
 
 void RichTextEditor::onCurrentChanged(int index) {
