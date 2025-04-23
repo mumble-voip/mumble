@@ -80,6 +80,7 @@
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
+#include <QtWidgets/QTextEdit>
 
 #include "widgets/SemanticSlider.h"
 
@@ -2018,6 +2019,39 @@ void MainWindow::on_qaUserCommentView_triggered() {
 
 	texm->rteMessage->setText(p->qsComment, true);
 	texm->setAttribute(Qt::WA_DeleteOnClose, true);
+
+	QTextEdit *editor = texm->rteMessage->getRichTextEdit();
+
+	editor->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	connect(editor, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
+		QTextCursor cursor = editor->cursorForPosition(pos);
+		QTextCharFormat format = cursor.charFormat();
+
+		QMenu *menu = editor->createStandardContextMenu();
+
+		if (format.isImageFormat()) {
+			menu->addSeparator();
+			menu->addAction("Save Image As...", [=]() {
+				QTextImageFormat imgFmt = format.toImageFormat();
+				QString imgName = imgFmt.name();
+
+				QImage image = editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value<QImage>();
+
+				QString fileName = QFileDialog::getSaveFileName(texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
+
+				if (!fileName.isEmpty()) {
+					if (QFileInfo(fileName).suffix().isEmpty())
+						fileName += ".png";  // ensure valid format
+					image.save(fileName);
+				}
+			});
+		}
+
+		menu->exec(editor->mapToGlobal(pos));
+		delete menu;
+	});
+
 	texm->show();
 }
 
@@ -3967,6 +4001,37 @@ void MainWindow::openSelfCommentDialog() {
 	::TextMessage *texm = new ::TextMessage(this, tr("Change your comment"));
 
 	texm->rteMessage->setText(p->qsComment);
+
+	QTextEdit *editor = texm->rteMessage->getRichTextEdit();
+	editor->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	connect(editor, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
+		QTextCursor cursor = editor->cursorForPosition(pos);
+		QTextCharFormat format = cursor.charFormat();
+
+		QMenu *menu = editor->createStandardContextMenu();
+
+		if (format.isImageFormat()) {
+			menu->addSeparator();
+			menu->addAction("Save Image As...", [=]() {
+				QTextImageFormat imgFmt = format.toImageFormat();
+				QString imgName = imgFmt.name();
+
+				QImage image = editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value<QImage>();
+
+				QString fileName = QFileDialog::getSaveFileName(texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
+				if (!fileName.isEmpty()) {
+					if (QFileInfo(fileName).suffix().isEmpty())
+						fileName += ".png";  // ensure valid format
+					image.save(fileName);
+				}
+			});
+		}
+
+		menu->exec(editor->mapToGlobal(pos));
+		delete menu;
+	});
+
 	int res = texm->exec();
 
 	p = ClientUser::get(session);
