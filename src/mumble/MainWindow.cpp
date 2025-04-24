@@ -1278,7 +1278,7 @@ void MainWindow::findDesiredChannel() {
 	Channel *chan       = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	QString str         = QString();
 	while (chan && qlChans.count() > 0) {
-		QString elem = qlChans.takeFirst().toLower();
+		QString elem = qlChans.takeFirst(); // Removed .toLower() to preserve case
 		if (elem.isEmpty())
 			continue;
 		if (str.isNull())
@@ -1286,7 +1286,7 @@ void MainWindow::findDesiredChannel() {
 		else
 			str = str + QLatin1String("/") + elem;
 		foreach (Channel *c, chan->qlChannels) {
-			if (c->qsName.toLower() == str) {
+			if (c->qsName == str) { //Direct comparison to respect case sensitivity; used to be "if (c->qsName.toLower == str) { "
 				str   = QString();
 				found = true;
 				chan  = c;
