@@ -78,9 +78,9 @@
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QScrollBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
-#include <QtWidgets/QTextEdit>
 
 #include "widgets/SemanticSlider.h"
 
@@ -2025,7 +2025,7 @@ void MainWindow::on_qaUserCommentView_triggered() {
 	editor->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	connect(editor, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
-		QTextCursor cursor = editor->cursorForPosition(pos);
+		QTextCursor cursor     = editor->cursorForPosition(pos);
 		QTextCharFormat format = cursor.charFormat();
 
 		QMenu *menu = editor->createStandardContextMenu();
@@ -2034,15 +2034,17 @@ void MainWindow::on_qaUserCommentView_triggered() {
 			menu->addSeparator();
 			menu->addAction("Save Image As...", [=]() {
 				QTextImageFormat imgFmt = format.toImageFormat();
-				QString imgName = imgFmt.name();
+				QString imgName         = imgFmt.name();
 
-				QImage image = editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value<QImage>();
+				QImage image =
+					editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value< QImage >();
 
-				QString fileName = QFileDialog::getSaveFileName(texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
+				QString fileName = QFileDialog::getSaveFileName(
+					texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
 
 				if (!fileName.isEmpty()) {
 					if (QFileInfo(fileName).suffix().isEmpty())
-						fileName += ".png";  // ensure valid format
+						fileName += ".png"; // ensure valid format
 					image.save(fileName);
 				}
 			});
@@ -4006,7 +4008,7 @@ void MainWindow::openSelfCommentDialog() {
 	editor->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	connect(editor, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
-		QTextCursor cursor = editor->cursorForPosition(pos);
+		QTextCursor cursor     = editor->cursorForPosition(pos);
 		QTextCharFormat format = cursor.charFormat();
 
 		QMenu *menu = editor->createStandardContextMenu();
@@ -4015,14 +4017,16 @@ void MainWindow::openSelfCommentDialog() {
 			menu->addSeparator();
 			menu->addAction("Save Image As...", [=]() {
 				QTextImageFormat imgFmt = format.toImageFormat();
-				QString imgName = imgFmt.name();
+				QString imgName         = imgFmt.name();
 
-				QImage image = editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value<QImage>();
+				QImage image =
+					editor->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value< QImage >();
 
-				QString fileName = QFileDialog::getSaveFileName(texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
+				QString fileName = QFileDialog::getSaveFileName(
+					texm, "Save Image", "", "Images (*.png, *.jpg, *.jpeg, *.bmp, *.ppm, *.xbm, *.xpm)");
 				if (!fileName.isEmpty()) {
 					if (QFileInfo(fileName).suffix().isEmpty())
-						fileName += ".png";  // ensure valid format
+						fileName += ".png"; // ensure valid format
 					image.save(fileName);
 				}
 			});

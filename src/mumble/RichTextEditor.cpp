@@ -471,4 +471,3 @@ bool RichTextImage::isValidImage(const QByteArray &ba, QByteArray &fmt) {
 QTextEdit *RichTextEditor::getRichTextEdit() {
 	return qteRichText;
 }
-
