@@ -275,6 +275,8 @@ set(MUMBLE_SOURCES
 	"UserModel.h"
 	"UserView.cpp"
 	"UserView.h"
+	"UserHistory.cpp"
+	"UserHistory.h"
 	"VersionCheck.cpp"
 	"VersionCheck.h"
 	"ViewCert.cpp"

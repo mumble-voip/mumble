@@ -1086,13 +1086,43 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 }
 
 void UserModel::removeUser(ClientUser *p) {
-	// First remove all listener proxies this user has at the moment
-	removeChannelListener(p);
+	// Store user information in history before removing
+	UserHistory::instance().addUser(
+		p->qsName,
+		p->qsHash,
+		p->qsComment,
+		p->uiSession,
+		p->cChannel ? p->cChannel->qsName : QString(),
+		false  // Not a listener by default
+	);
+
+	ModelItem *item = c_qhUsers.value(p);
+	if (item) {
+		QModelIndex idx = index(item);
+		if (idx.isValid()) {
+			beginRemoveRows(parent(idx), idx.row(), idx.row());
+			item->parent->qlChildren.removeAll(item);
+			delete item;
+			endRemoveRows();
+		}
+	}
+
+	// Also remove any listener entries
+	QList<ModelItem *> proxies = s_userProxies.value(p);
+	foreach (ModelItem *proxy, proxies) {
+		QModelIndex idx = index(proxy);
+		if (idx.isValid()) {
+			beginRemoveRows(parent(idx), idx.row(), idx.row());
+			proxy->parent->qlChildren.removeAll(proxy);
+			delete proxy;
+			endRemoveRows();
+		}
+	}
+	s_userProxies.remove(p);
 
 	if (Global::get().uiSession && p->uiSession == Global::get().uiSession)
 		Global::get().uiSession = 0;
 	Channel *c       = p->cChannel;
-	ModelItem *item  = ModelItem::c_qhUsers.value(p);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	const auto row = static_cast< int >(citem->qlChildren.indexOf(item));

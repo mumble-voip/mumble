@@ -9,9 +9,11 @@
 #include <QtCore/QtGlobal>
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTreeView>
+#include <QtWidgets/QMenu>
 
 #include "QtUtils.h"
 #include "Timer.h"
+#include "UserHistory.h"
 
 class UserDelegate : public QStyledItemDelegate {
 private:
@@ -40,11 +42,13 @@ private:
 	int m_iconTotalDimension;
 	qt_unique_ptr< UserDelegate > m_userDelegate;
 	void adjustIcons();
+	void showContextMenu(const QPoint& pos);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	bool event(QEvent *) Q_DECL_OVERRIDE;
+	void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
 
 public:
 	UserView(QWidget *);
@@ -55,6 +59,7 @@ public:
 public slots:
 	void nodeActivated(const QModelIndex &idx);
 	void updateChannel(const QModelIndex &index);
+	void banUser(const QString& hash);
 };
 
 #endif

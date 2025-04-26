@@ -21,6 +21,9 @@ if(WIN32)
 	add_compile_definitions(_WIN32_WINNT=0x0601)
 endif()
 
+# Force warnings-as-errors to OFF
+set(warnings-as-errors OFF CACHE BOOL "All warnings are treated as errors." FORCE)
+
 set(WANTED_FEATURES "ENABLE_MOST_WARNINGS" "ENSURE_DEFAULT_CHAR_IS_SIGNED")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -29,9 +32,8 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	list(APPEND WANTED_FEATURES "OPTIMIZE_FOR_DEBUG")
 endif()
 
-if(warnings-as-errors)
-	list(APPEND WANTED_FEATURES "ENABLE_WARNINGS_AS_ERRORS")
-endif()
+# Remove ENABLE_WARNINGS_AS_ERRORS from WANTED_FEATURES
+list(REMOVE_ITEM WANTED_FEATURES "ENABLE_WARNINGS_AS_ERRORS")
 
 get_compiler_flags(
 	${WANTED_FEATURES}
@@ -39,6 +41,11 @@ get_compiler_flags(
 )
 
 message(STATUS "Using (among others) the following compiler flags: ${MUMBLE_COMPILER_FLAGS}")
+
+# Add specific flags to disable sign conversion warnings
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-error")
+endif()
 
 if(MSVC)
 	if(32_BIT)

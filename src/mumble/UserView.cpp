@@ -17,6 +17,7 @@
 #include <QtGui/QHelpEvent>
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
+#include <QtWidgets/QMessageBox>
 
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
@@ -288,4 +289,63 @@ void UserView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
 		updateChannel(um->index(i, 0));
 
 	QTreeView::dataChanged(topLeft, bottomRight);
+}
+
+void UserView::contextMenuEvent(QContextMenuEvent *event) {
+	showContextMenu(event->pos());
+}
+
+void UserView::showContextMenu(const QPoint& pos) {
+	QModelIndex idx = indexAt(pos);
+	if (!idx.isValid())
+		return;
+
+	UserModel *userModel = qobject_cast<UserModel *>(model());
+	ClientUser *clientUser = userModel->getUser(idx);
+	Channel *channel = userModel->getChannel(idx);
+
+	QMenu menu(this);
+
+	if (clientUser) {
+		// Active user
+		QAction *banAction = menu.addAction(tr("Ban User"));
+		connect(banAction, &QAction::triggered, [this, clientUser]() {
+			banUser(clientUser->qsHash);
+		});
+	} else {
+		// Check if this is a historical user
+		QString displayName = userModel->data(idx, Qt::DisplayRole).toString();
+		QList<UserHistoryEntry> historicalUsers = UserHistory::instance().getAllUsers();
+		
+		for (const UserHistoryEntry& entry : historicalUsers) {
+			if (entry.username == displayName) {
+				QAction *banAction = menu.addAction(tr("Ban User"));
+				connect(banAction, &QAction::triggered, [this, entry]() {
+					banUser(entry.hash);
+				});
+				break;
+			}
+		}
+	}
+
+	if (!menu.isEmpty()) {
+		menu.exec(mapToGlobal(pos));
+	}
+}
+
+void UserView::banUser(const QString& hash) {
+	UserHistoryEntry* historicalUser = UserHistory::instance().findUser(hash);
+	if (historicalUser) {
+		Ban ban;
+		ban.qsHash = hash;
+		ban.qsUsername = historicalUser->username;
+		ban.qdtStart = QDateTime::currentDateTime();
+		ban.iDuration = 0; // Permanent ban
+		
+		if (Global::get().sh) {
+			Global::get().sh->banUser(ban);
+			QMessageBox::information(this, tr("User Banned"),
+				tr("User %1 has been banned.").arg(historicalUser->username));
+		}
+	}
 }
