@@ -80,13 +80,14 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 						colorRole);
 
 	// draw icons to original rect
-	const QRect ps = QRect(option.rect.right() - (static_cast< int >(ql.size() * m_iconTotalDimension)),
-						   option.rect.y(), static_cast< int >(ql.size() * m_iconTotalDimension), option.rect.height());
+	const QRect ps     = QRect(option.rect.right() - (static_cast< int >(ql.size() * m_iconTotalDimension)),
+                           option.rect.y(), static_cast< int >(ql.size() * m_iconTotalDimension), option.rect.height());
+	const int iconPosY = (option.rect.height() / 2) - (m_iconIconDimension / 2);
 
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
 		r.setSize(QSize(m_iconIconDimension, m_iconIconDimension));
-		r.translate(i * m_iconTotalDimension + m_iconIconPadding, m_iconIconPadding);
+		r.translate(i * m_iconTotalDimension + m_iconIconPadding, iconPosY);
 		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
 		qvariant_cast< QIcon >(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
 	}

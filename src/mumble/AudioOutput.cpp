@@ -442,12 +442,16 @@ void AudioOutput::prepareOutputBuffers(unsigned int frameCount, QList< AudioOutp
 	// Get the users that are currently talking (and are thus serving as an audio source)
 	auto it = qmOutputs.constBegin();
 	for (int i = 0; i < qmOutputs.count(); i++) {
+		const ClientUser *user    = it.key();
+		bool isSample             = user == nullptr;
 		AudioOutputBuffer *buffer = it.value();
+
 		if (!buffer->prepareSampleBuffer(frameCount)) {
 			qlDel.append(buffer);
-		} else {
+		} else if (isSample || !user->bLocalMute) {
 			qlMix.append(buffer);
 		}
+
 		++it;
 	}
 }
@@ -487,7 +491,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		QMultiHash< const ClientUser *, AudioOutputBuffer * >::const_iterator it = qmOutputs.constBegin();
 		while (it != qmOutputs.constEnd()) {
 			const ClientUser *user = it.key();
-			if (user && user->bPrioritySpeaker) {
+			if (user && user->bPrioritySpeaker && !user->bLocalMute) {
 				prioritySpeakerActive = true;
 			}
 			++it;

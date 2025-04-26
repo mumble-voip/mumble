@@ -1158,6 +1158,10 @@ void JackAudioOutput::prepareOutputBuffers(unsigned int frameCount, QList< Audio
 			continue;
 		}
 
+		if (user->bLocalMute) {
+			continue;
+		}
+
 		QString qsPortName = user->qsName;
 		qsPortName         = qsPortName.prepend("user_");
 		if (userPorts.find(qsPortName) == userPorts.end()) {
