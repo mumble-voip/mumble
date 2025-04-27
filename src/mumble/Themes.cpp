@@ -30,6 +30,19 @@ boost::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Setting
 	return *styleIt;
 }
 
+void Themes::setSystemTheme() {
+    // Check if the system is using dark mode
+    bool isDarkMode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+
+    QString detectedTheme = isDarkMode ? "DarkTheme" : "LightTheme";
+
+    if (styles.contains(detectedTheme)) {
+        defaultStyle = detectedTheme;
+    } else {
+        qWarning() << "System theme" << detectedTheme << "not found, using default theme";
+    }
+}
+
 void Themes::setConfiguredStyle(Settings &settings, boost::optional< ThemeInfo::StyleInfo > style, bool &outChanged) {
 	if (style) {
 		if (settings.themeName != style->themeName || settings.themeStyleName != style->name) {
