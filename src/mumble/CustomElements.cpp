@@ -70,14 +70,15 @@ void ChatbarTextEdit::inFocus(bool focus) {
 void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	QMenu *menu = createStandardContextMenu();
 
-	QAction *action = new QAction(tr("Paste and &Send") + QLatin1Char('\t'), menu);
-	action->setShortcut(static_cast< int >(Qt::CTRL) | Qt::Key_Shift | Qt::Key_V);
-	action->setEnabled(!QApplication::clipboard()->text().isEmpty());
+	QAction *action = new QAction(tr("Paste and &Send"), menu);
+	action->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V));
+	action->setEnabled(!QApplication::clipboard()->text().isEmpty() || !QApplication::clipboard()->image().isNull());
 	connect(action, SIGNAL(triggered()), this, SLOT(pasteAndSend_triggered()));
-	if (menu->actions().count() > 6)
+	if (menu->actions().count() > 6) {
 		menu->insertAction(menu->actions()[6], action);
-	else
+	} else {
 		menu->addAction(action);
+	}
 
 	menu->exec(qcme->globalPos());
 	delete menu;
@@ -169,6 +170,10 @@ void ChatbarTextEdit::applyPlaceholder() {
 	Mumble::QtUtils::elideText(*document(), static_cast< uint32_t >(size().width()));
 
 	bDefaultVisible = true;
+}
+
+bool ChatbarTextEdit::canInsertFromMimeData(const QMimeData *source) const {
+	return (QTextEdit::canInsertFromMimeData(source) || source->hasImage() || source->hasUrls());
 }
 
 void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
@@ -395,8 +400,10 @@ void ChatbarTextEdit::historyDown() {
 
 void ChatbarTextEdit::pasteAndSend_triggered() {
 	paste();
-	addToHistory(toPlainText());
-	emit entered(toPlainText());
+	if (!toPlainText().isEmpty()) {
+		addToHistory(toPlainText());
+		emit entered(toPlainText());
+	}
 }
 
 DockTitleBar::DockTitleBar() : QLabel(tr("Drag here")) {

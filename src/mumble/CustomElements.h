@@ -49,6 +49,7 @@ protected:
 	QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 	QSize sizeHint() const Q_DECL_OVERRIDE;
 	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+	bool canInsertFromMimeData(const QMimeData *source) const Q_DECL_OVERRIDE;
 	void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	bool sendImagesFromMimeData(const QMimeData *source);
 	bool emitPastedImage(QImage image);
