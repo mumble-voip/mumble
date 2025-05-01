@@ -121,7 +121,7 @@ public:
 
 	enum class TextObjectType { NoCustomObject, Animation = QTextFormat::UserObject };
 	inline static const QHash< TextObjectType, QStringList > txtObjTypeToFileExtsMap = {
-		{ TextObjectType::Animation, { "GIF", "PNG", "APNG", "MNG", "WEBP", "AVIF" } }
+		{ TextObjectType::Animation, { "gif", "png", "apng", "mng", "webp", "avif" } }
 	};
 
 protected:
@@ -150,7 +150,7 @@ public:
 	void clearIgnore();
 	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
-	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "PNG");
+	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "png");
 	static bool isFileExt(const QByteArray &ext, const QByteArray &header);
 	static QString findFileExt(const QByteArray &header);
 	static TextObjectType findTxtObjType(const QString &fileExt);

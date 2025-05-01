@@ -610,7 +610,7 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
 
-		QImageWriter imgwrite(&qb, isFallbackOn ? QByteArray("PNG") : format);
+		QImageWriter imgwrite(&qb, isFallbackOn ? QByteArray("png") : format);
 		imgwrite.setQuality(quality);
 		if (!imgwrite.write(img)) {
 			if (isFallbackOn) {
@@ -631,50 +631,56 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
 	qsizetype headerLength = header.size();
 	QByteArray objExt;
-	bool isExtAvif = ext == "AVIF";
-	if (ext == "GIF") {
-		return header.startsWith(ext);
-	} else if ((ext == "WEBP" || isExtAvif) && headerLength > 11) {
+	bool isExtAvif = ext == "avif";
+	bool isExtIco  = ext == "ico";
+	bool isExtCur  = ext == "cur";
+	if (ext == "gif") {
+		return header.startsWith(ext.toUpper());
+	} else if ((ext == "webp" || isExtAvif) && headerLength > 11) {
 		objExt = header.sliced(8, 4);
 		if (isExtAvif) {
 			// The last character in the extension name in the header may be "s" instead of "f"
 			// which stands for "sequence" instead of "file", where the former is for an animation:
-			QByteArray extLower = ext.toLower();
-			return objExt == extLower || objExt == extLower.replace(3, 1, "s");
+			return objExt == ext || objExt == QByteArray(ext).replace(3, 1, "s");
 		}
-	} else if ((ext == "PNG" || ext == "APNG" || ext == "MNG") && headerLength > 3) {
+	} else if ((ext == "png" || ext == "apng" || ext == "mng") && headerLength > 3) {
 		objExt = header.sliced(1, 3);
-		if (ext.startsWith('A')) {
-			return ext.endsWith(objExt);
+		if (ext.startsWith('a')) {
+			return ext.endsWith(objExt.toLower());
 		}
-	} else if ((ext == "JPG" || ext == "JPEG") && headerLength > 9) {
-		return header.sliced(6, 4) == "JFIF";
-	} else if (ext == "JP2" && headerLength > 5) {
+	} else if ((ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jfif" || ext == "jif") && headerLength > 9) {
+		objExt = header.sliced(6, 4);
+		return objExt == "JFIF" || objExt == "Exif";
+	} else if (ext == "jp2" && headerLength > 5) {
 		return header.sliced(4, 2) == "jp";
-	} else if (ext == "BMP") {
+	} else if (ext == "bmp") {
 		return header.startsWith("BM");
-	} else if (ext == "PBM") {
+	} else if (ext == "pbm") {
 		return header.startsWith("P4");
-	} else if (ext == "PGM") {
+	} else if (ext == "pgm") {
 		return header.startsWith("P5");
-	} else if (ext == "PPM") {
+	} else if (ext == "ppm") {
 		return header.startsWith("P6");
-	} else if (ext == "TIFF") {
-		return header.startsWith("MM");
-	} else if (ext == "WBMP" && headerLength > 1) {
-		return header[1] == '0';
-	} else if (ext == "TGA" && headerLength > 2) {
-		return header[2] == '1';
-	} else if (ext == "ICNS") {
-		return header.startsWith(ext.toLower());
-	} else if (ext == "XBM") {
+	} else if (ext == "tif" || ext == "tiff") {
+		return header.startsWith("II") || header.startsWith("MM");
+	} else if (ext == "wbmp" && headerLength > 3) {
+		return header[3] == '0';
+	} else if (ext == "tga" && headerLength > 2) {
+		return static_cast< int >(header[2]) == 10;
+	} else if (ext == "icns") {
+		return header.startsWith(ext);
+	} else if (ext == "xbm") {
 		return header.startsWith("#define ");
-	} else if (ext == "XPM" && headerLength > 5) {
+	} else if (ext == "xpm" && headerLength > 5) {
 		objExt = header.sliced(3, 3);
-	} else if (ext == "SVG") {
-		return header.contains("<svg ");
+	} else if (ext == "svg" || ext == "svgz") {
+		return header.contains("<svg ") || header.contains("<svg\n")
+		       || header.contains("<svg\r\n") || header.contains("<svg\r");
+	} else if ((isExtIco || isExtCur) && headerLength > 2) {
+		int imageType = static_cast< int >(header[2]);
+		return (isExtIco && imageType == 1) || (isExtCur && imageType == 2);
 	}
-	return objExt == ext;
+	return objExt.toLower() == ext;
 }
 
 QString Log::findFileExt(const QByteArray &header) {
