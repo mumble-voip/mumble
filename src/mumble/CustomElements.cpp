@@ -483,7 +483,7 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 
 bool ChatbarTextEdit::emitPastedImage(QImage image, QString filePath) {
 	qsizetype fileExtStartIndex = filePath.lastIndexOf('.') + 1;
-	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toUpper();
+	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
 	Log::TextObjectType txtObjType = Log::findTxtObjType(fileExt);
 	if (txtObjType == Log::TextObjectType::Animation) {
