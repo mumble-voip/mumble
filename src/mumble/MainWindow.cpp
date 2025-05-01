@@ -1042,7 +1042,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 
 void MainWindow::saveImageAs() {
 	bool isAnimation = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::Animation);
-	QString fileExt  = isAnimation ? saveImageTextObject.property(2).toString().toLower() : "jpg";
+	QString fileExt  = isAnimation ? saveImageTextObject.property(2).toString() : "jpg";
 	QDateTime now    = QDateTime::currentDateTime();
 	QString defaultFname =
 		QString::fromLatin1("Mumble-%1.%2").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")), fileExt);
@@ -1085,7 +1085,7 @@ void MainWindow::saveImageAs() {
 	if (!ok) {
 		// In case fname did not contain a file extension, try saving with an
 		// explicit format.
-		ok = img.save(fname, "PNG");
+		ok = img.save(fname, "png");
 	}
 
 	updateImagePath(fname);
