@@ -10,6 +10,7 @@
 #include <QtCore/QDate>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
+#include <QtGui/QMovie>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
 
@@ -120,8 +121,8 @@ public:
 	static const MsgType msgOrder[];
 
 	enum class TextObjectType { NoCustomObject, Animation = QTextFormat::UserObject };
-	inline static const QHash< TextObjectType, QStringList > txtObjTypeToFileExtsMap = {
-		{ TextObjectType::Animation, { "gif", "png", "apng", "mng", "webp", "avif" } }
+	inline static const QHash< TextObjectType, std::function< QList< QByteArray >() > > txtObjTypeToFileExtsFuncMap = {
+		{ TextObjectType::Animation, QMovie::supportedFormats }
 	};
 
 protected:
