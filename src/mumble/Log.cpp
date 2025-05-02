@@ -674,8 +674,8 @@ bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
 	} else if (ext == "xpm" && headerLength > 5) {
 		objExt = header.sliced(3, 3);
 	} else if (ext == "svg" || ext == "svgz") {
-		return header.contains("<svg ") || header.contains("<svg\n")
-		       || header.contains("<svg\r\n") || header.contains("<svg\r");
+		return header.contains("<svg ") || header.contains("<svg\n") || header.contains("<svg\r\n")
+			   || header.contains("<svg\r");
 	} else if ((isExtIco || isExtCur) && headerLength > 2) {
 		int imageType = static_cast< int >(header[2]);
 		return (isExtIco && imageType == 1) || (isExtCur && imageType == 2);
@@ -694,8 +694,8 @@ QString Log::findFileExt(const QByteArray &header) {
 
 Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
 	TextObjectType txtObjType{};
-	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
-		if (i.value().contains(fileExt, Qt::CaseInsensitive)) {
+	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
+		if (i.value()().contains(fileExt.toUtf8())) {
 			txtObjType = i.key();
 			break;
 		}
@@ -706,11 +706,11 @@ Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
 std::tuple< Log::TextObjectType, QString > Log::findTxtObjTypeAndFileExt(const QByteArray &header) {
 	std::tuple< TextObjectType, QString > txtObjTypeAndFileExt{ TextObjectType::NoCustomObject, "" };
 	bool isCompatibleExt = false;
-	for (auto i = txtObjTypeToFileExtsMap.cbegin(); i != txtObjTypeToFileExtsMap.cend(); ++i) {
-		for (const QString &ext : i.value()) {
-			isCompatibleExt = isFileExt(ext.toUtf8(), header);
+	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
+		for (const QByteArray &ext : i.value()()) {
+			isCompatibleExt = isFileExt(ext, header);
 			if (isCompatibleExt) {
-				txtObjTypeAndFileExt = { i.key(), ext };
+				txtObjTypeAndFileExt = { i.key(), QString::fromUtf8(ext) };
 				break;
 			}
 		}
