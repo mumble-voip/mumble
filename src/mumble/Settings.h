@@ -282,6 +282,8 @@ struct Settings {
 	QString qsAudioOutput               = {};
 	float fVolume                       = 1.0f;
 	float fOtherVolume                  = 0.5f;
+	float listenerAttenuationFactor     = 1.0f;
+	bool alwaysAttenuateListeners       = false;
 	bool bAttenuateOthersOnTalk         = false;
 	bool bAttenuateOthers               = false;
 	bool bAttenuateUsersOnPrioritySpeak = false;

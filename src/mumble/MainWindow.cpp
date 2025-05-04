@@ -428,6 +428,24 @@ void MainWindow::createActions() {
 	gsMoveBack = new GlobalShortcut(this, GlobalShortcutType::MoveBack, tr("Move back", "Global shortcut"));
 	gsMoveBack->setObjectName("gsMoveBack");
 	gsMoveBack->qsWhatsThis = tr("This will move you back into your previous channel");
+
+	gsCycleListenerAttenuationMode = new GlobalShortcut(this, GlobalShortcutType::CycleListenerAttenuationMode,
+														tr("Cycle listener attenuation mode", "Global shortcut"));
+	gsCycleListenerAttenuationMode->setObjectName("gsCycleListenerAttenuationMode");
+	gsCycleListenerAttenuationMode->qsWhatsThis =
+		tr("This will cycle through the different attenuation modes for channel listeners");
+
+	gsListenerAttenuationUp = new GlobalShortcut(this, GlobalShortcutType::ListenerAttenuationUp,
+												 tr("Listener attenuation up (+10%)", "Global shortcut"));
+	gsListenerAttenuationUp->setObjectName("gsListenerAttenuationUp");
+	gsListenerAttenuationUp->qsWhatsThis =
+		tr("This increases the attenuation of channel listeners by 10 percents points");
+
+	gsListenerAttenuationDown = new GlobalShortcut(this, GlobalShortcutType::ListenerAttenuationDown,
+												   tr("Listener attenuation down (-10%)", "Global shortcut"));
+	gsListenerAttenuationDown->setObjectName("gsListenerAttenuationDown");
+	gsListenerAttenuationDown->qsWhatsThis =
+		tr("This decreases the attenuation of channel listeners by 10 percents points");
 }
 
 void MainWindow::setupGui() {
@@ -3384,6 +3402,29 @@ void MainWindow::on_gsMoveBack_triggered(bool down, QVariant) {
 	on_qaMoveBack_triggered();
 }
 
+void MainWindow::on_gsCycleListenerAttenuationMode_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	Global::get().s.alwaysAttenuateListeners = !Global::get().s.alwaysAttenuateListeners;
+}
+
+void MainWindow::on_gsListenerAttenuationUp_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	Global::get().s.listenerAttenuationFactor = std::min(Global::get().s.listenerAttenuationFactor + 0.1f, 1.0f);
+}
+
+void MainWindow::on_gsListenerAttenuationDown_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	Global::get().s.listenerAttenuationFactor = std::max(Global::get().s.listenerAttenuationFactor - 0.1f, 0.0f);
+}
 
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
