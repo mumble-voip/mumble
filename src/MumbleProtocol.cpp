@@ -17,6 +17,53 @@
 namespace Mumble {
 namespace Protocol {
 
+	std::string messageTypeName(TCPMessageType type) {
+#define PROCESS_MUMBLE_TCP_MESSAGE(name, value) \
+	case TCPMessageType::name:                  \
+		return #name;
+
+		switch (type) { MUMBLE_ALL_TCP_MESSAGES }
+
+#undef PROCESS_MUMBLE_TCP_MESSAGE
+
+		// Should be unreachable
+		assert(false);
+		return "Unknown";
+	}
+
+	std::string messageTypeName(UDPMessageType type) {
+#define PROCESS_MUMBLE_UDP_MESSAGE(name, value) \
+	case UDPMessageType::name:                  \
+		return #name;
+
+		switch (type) { MUMBLE_ALL_UDP_MESSAGES }
+
+#undef PROCESS_MUMBLE_UDP_MESSAGE
+
+		// Should be unreachable
+		assert(false);
+		return "Unknown";
+	}
+
+	std::string messageTypeName(LegacyUDPMessageType type) {
+		switch (type) {
+			case LegacyUDPMessageType::VoiceCELTAlpha:
+				return "VoiceCELTAlpha";
+			case LegacyUDPMessageType::Ping:
+				return "Ping";
+			case LegacyUDPMessageType::VoiceSpeex:
+				return "VoiceSpeex";
+			case LegacyUDPMessageType::VoiceCELTBeta:
+				return "VoiceCELTBeta";
+			case LegacyUDPMessageType::VoiceOpus:
+				return "VoiceOpus";
+		}
+
+		// Should be unreachable
+		assert(false);
+		return "Unknown";
+	}
+
 	bool protocolVersionsAreCompatible(Version::full_t lhs, Version::full_t rhs) {
 		// At this point the protocol version only makes a difference between pre-protobuf and post-protobuf
 		return (lhs < PROTOBUF_INTRODUCTION_VERSION) == (rhs < PROTOBUF_INTRODUCTION_VERSION);

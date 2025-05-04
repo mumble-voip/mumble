@@ -11,6 +11,7 @@
 #include "VolumeAdjustment.h"
 
 #include <cstdint>
+#include <string>
 #include <vector>
 
 #include <gsl/span>
@@ -72,6 +73,9 @@ namespace Protocol {
 	 */
 	enum class TCPMessageType : byte { MUMBLE_ALL_TCP_MESSAGES };
 #undef PROCESS_MUMBLE_TCP_MESSAGE
+
+	std::string messageTypeName(TCPMessageType type);
+
 #define PROCESS_MUMBLE_UDP_MESSAGE(name, value) name = value,
 	/**
 	 * Enum holding all possible UDP message types
@@ -79,7 +83,11 @@ namespace Protocol {
 	enum class UDPMessageType : byte { MUMBLE_ALL_UDP_MESSAGES };
 #undef PROCESS_MUMBLE_UDP_MESSAGE
 
+	std::string messageTypeName(UDPMessageType type);
+
 	enum class LegacyUDPMessageType : byte { VoiceCELTAlpha, Ping, VoiceSpeex, VoiceCELTBeta, VoiceOpus };
+
+	std::string messageTypeName(LegacyUDPMessageType type);
 
 	enum class AudioCodec {
 		Opus,

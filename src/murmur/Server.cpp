@@ -9,6 +9,7 @@
 #include "Channel.h"
 #include "ClientType.h"
 #include "Connection.h"
+#include "DBState.h"
 #include "EnvUtils.h"
 #include "Group.h"
 #include "HTMLFilter.h"
@@ -1363,7 +1364,7 @@ void Server::log(ServerUser *u, const QString &str) const {
 }
 
 void Server::log(const QString &msg) const {
-	if (Meta::mp->iLogDays >= 0) {
+	if (meta->assumedDBState == DBState::Normal && Meta::mp->iLogDays >= 0) {
 		// New philosophy is that DB access can't be considered const, but old code requires this function
 		// to be const. Thus, we require a const_cast here.
 		const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
@@ -1632,7 +1633,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
-	if (u->iId >= 0) {
+	if (meta->assumedDBState == DBState::Normal && u->iId >= 0) {
 		m_dbWrapper.updateLastDisconnect(iServerNum, static_cast< unsigned int >(u->iId));
 	}
 
@@ -1737,6 +1738,48 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 		}
 
 		return;
+	}
+
+	if (meta->assumedDBState == DBState::ReadOnly) {
+		// This serves as a filter block to discard all messages that can cause any writes/changes to
+		// the underlying database.
+		// This is intentionally somewhat coarse, leaning on the side of dropping messages that due to
+		// their specific contents wouldn't actually cause a DB change, in order to make it more likely
+		// for the filtering to remain the same-ish even if the exact handling for a given message type
+		// (slightly) changes.
+		// The overall idea is to only allow messages through that are required for still being able to
+		// allow people on the server to keep switching channels and talking to each other.
+		switch (type) {
+			// The essentials
+			case Mumble::Protocol::TCPMessageType::Ping:
+			case Mumble::Protocol::TCPMessageType::TextMessage:
+			case Mumble::Protocol::TCPMessageType::CryptSetup:
+			case Mumble::Protocol::TCPMessageType::VoiceTarget:
+			case Mumble::Protocol::TCPMessageType::PluginDataTransmission:
+
+			// These are also possible, but not strictly required
+			case Mumble::Protocol::TCPMessageType::QueryUsers:
+			case Mumble::Protocol::TCPMessageType::Version:
+			case Mumble::Protocol::TCPMessageType::PermissionQuery:
+			case Mumble::Protocol::TCPMessageType::UserStats:
+			case Mumble::Protocol::TCPMessageType::RequestBlob:
+				break;
+			// In case the user is authenticated as a registered user, a DB update can occur, which is
+			// why we have to block connections from new clients in read-only mode.
+			case Mumble::Protocol::TCPMessageType::Authenticate: {
+				MumbleProto::Reject mpr;
+				mpr.set_reason("The server is currently in read-only mode and doesn't accept new connections");
+				mpr.set_type(MumbleProto::Reject_RejectType_NoNewConnections);
+				sendMessage(u, mpr);
+				u->disconnectSocket();
+			}
+				[[fallthrough]];
+			default:
+				// TODO: Notify the user that a package has been dropped due to read-only mode
+				log(u, QString::fromLatin1("Dropping TCP message of type %1 in read-only mode")
+						   .arg(QString::fromStdString(messageTypeName(type))));
+				return;
+		}
 	}
 
 #ifdef QT_NO_DEBUG

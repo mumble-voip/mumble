@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MURMUR_META_H_
 #define MUMBLE_MURMUR_META_H_
 
+#include "DBState.h"
 #include "DBWrapper.h"
 #include "Timer.h"
 #include "Version.h"
@@ -195,6 +196,8 @@ public:
 	Timer tUptime;
 
 	DBWrapper dbWrapper;
+
+	DBState assumedDBState = DBState::Normal;
 
 #ifdef Q_OS_WIN
 	static HANDLE hQoS;
