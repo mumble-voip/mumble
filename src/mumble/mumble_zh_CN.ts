@@ -7137,6 +7137,27 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 启动 Mumble 时隐藏到系统托盘。
 </translation>
     </message>
+    <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

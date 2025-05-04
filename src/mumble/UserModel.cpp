@@ -1129,6 +1129,8 @@ void UserModel::moveUser(ClientUser *p, Channel *np) {
 	ModelItem *pi   = ModelItem::c_qhChannels.value(np);
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 
+	emit userMoved(p->uiSession, p->cChannel ? std::optional< unsigned int >(p->cChannel->iId) : std::nullopt, np->iId);
+
 	item = moveItem(opi, pi, item);
 
 	if (p->uiSession == Global::get().uiSession) {

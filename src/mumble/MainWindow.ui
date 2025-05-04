@@ -182,6 +182,8 @@
    <addaction name="qaServerConnect"/>
    <addaction name="qaServerInformation"/>
    <addaction name="separator"/>
+   <addaction name="qaMoveBack"/>
+   <addaction name="separator"/>
    <addaction name="qaAudioMute"/>
    <addaction name="qaAudioDeaf"/>
    <addaction name="qaRecording"/>
@@ -1050,6 +1052,21 @@ the channel's context menu.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="qaMoveBack">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:arrow_left.svg</normaloff>skin:arrow_left.svg</iconset>
+   </property>
+   <property name="text">
+    <string>M&amp;ove back</string>
+   </property>
+   <property name="toolTip">
+    <string>Moves you back to the previous channel</string>
    </property>
   </action>
  </widget>

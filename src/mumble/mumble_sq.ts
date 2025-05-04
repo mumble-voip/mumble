@@ -1160,7 +1160,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pa maksimum</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
@@ -2217,7 +2217,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Push</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -3272,7 +3272,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shërbyes</translation>
     </message>
 </context>
 <context>
@@ -3404,7 +3404,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Emër përdoruesi</translation>
     </message>
     <message>
         <source>Label for server</source>
@@ -3695,7 +3695,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
     </message>
     <message>
         <source>checked</source>
@@ -6777,7 +6777,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Mbi</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -6952,6 +6952,27 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8480,7 +8501,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shtoje</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -8819,7 +8840,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parje:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
