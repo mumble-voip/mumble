@@ -151,7 +151,7 @@ public:
 	void clearIgnore();
 	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
-	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "png");
+	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "jpg");
 	static bool isFileExt(const QByteArray &ext, const QByteArray &header);
 	static QString findFileExt(const QByteArray &header);
 	static TextObjectType findTxtObjType(const QString &fileExt);
