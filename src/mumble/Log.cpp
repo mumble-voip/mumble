@@ -841,13 +841,13 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		int objType         = static_cast< int >(type);
 		fmt.setObjectType(objType);
 		fmt.setProperty(1, QVariant::fromValue(obj));
-		fmt.setProperty(2, fileExt);
 		if (width > 0) {
 			obj->setProperty("overrideWidth", width);
 		}
 		if (height > 0) {
 			obj->setProperty("overrideHeight", height);
 		}
+		obj->setProperty("fileExtension", fileExt);
 		obj->setProperty("objectType", objType);
 		obj->setProperty("customItemIndex", ++log->lastCustomItemIndex);
 		log->customItems.append(obj);

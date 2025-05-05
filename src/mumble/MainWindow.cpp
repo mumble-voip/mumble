@@ -74,6 +74,7 @@
 #include <QtGui/QClipboard>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QImageReader>
+#include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QInputDialog>
@@ -1041,15 +1042,62 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 }
 
 void MainWindow::saveImageAs() {
-	bool isAnimation = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::Animation);
-	QString fileExt  = isAnimation ? saveImageTextObject.property(2).toString() : "jpg";
-	QDateTime now    = QDateTime::currentDateTime();
-	QString defaultFname =
-		QString::fromLatin1("Mumble-%1.%2").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")), fileExt);
+	bool isAnimation     = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::Animation);
+	QMovie *animation    = isAnimation ? qvariant_cast< QMovie * >(saveImageTextObject.property(1)) : nullptr;
+	QString fileExt      = isAnimation ? animation->property("fileExtension").toString() : "jpg";
+	QString now          = QDateTime::currentDateTime().toString("yyyy-MM-dd-HHmmss");
+	QString defaultFname = QLatin1String("Mumble-%1.%2").arg(now, fileExt);
 
-	QString fname = QFileDialog::getSaveFileName(
-		this, tr("Save Image File"), getImagePath(defaultFname),
-		tr("Images (*.png *.jpg *.jpeg%1)").arg(isAnimation ? tr(" *.%1").arg(fileExt) : ""));
+	QByteArray fileExtBa = fileExt.toUtf8();
+	QList< QByteArray > writeSupportedImageFormats = QImageWriter::supportedImageFormats();
+	if (isAnimation && !writeSupportedImageFormats.contains(fileExtBa)) {
+		writeSupportedImageFormats.append(fileExtBa);
+	}
+	QStringList filters;
+	QString defaultFilter;
+	bool isJpgFilter = false;
+	bool isPngFilter = false;
+	bool isTifFilter = false;
+	for (const QByteArray &ext : writeSupportedImageFormats) {
+		QString extStr = QString::fromUtf8(ext);
+		QString name   = ext == "ico"
+						   ? tr("Icons")
+						   : ext == "cur" ? tr("Cursors") : ext == "ani" ? tr("Animated Cursors") : extStr.toUpper();
+		QStringList altExts;
+		if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jfif" || ext == "jif") {
+			if (isJpgFilter) {
+				continue;
+			}
+			altExts.append({ "jpg", "jpeg", "jpe", "jfif", "jif" });
+			isJpgFilter = true;
+		} else if (ext == "png" || ext == "apng") {
+			if (isPngFilter) {
+				continue;
+			}
+			altExts.append({ "png", "apng" });
+			isPngFilter = true;
+		} else if (ext == "tif" || ext == "tiff") {
+			if (isTifFilter) {
+				continue;
+			}
+			altExts.append({ "tif", "tiff" });
+			isTifFilter = true;
+		} else {
+			altExts.append(extStr);
+		}
+		QString filter = QLatin1String("%1 (%2)").arg(name, altExts.join(" *.").prepend("*."));
+		for (const QString &altExt : altExts) {
+			if (fileExt == altExt) {
+				defaultFilter = filter;
+				break;
+			}
+		}
+		filters.append(filter);
+	}
+
+	QString formatOptions = filters.join(";;");
+	QString imagePath     = getImagePath(defaultFname);
+	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), imagePath, formatOptions, &defaultFilter);
 	if (fname.isNull()) {
 		return;
 	}
@@ -1057,12 +1105,11 @@ void MainWindow::saveImageAs() {
 	bool ok = false;
 	QImage img;
 	if (isAnimation) {
-		QMovie *animation  = qvariant_cast< QMovie * >(saveImageTextObject.property(1));
 		QIODevice *device  = animation->device();
 		qint64 previousPos = device->pos();
 		if (device->reset()) {
 			QByteArray fileData = device->readAll();
-			if (fname.endsWith(fileExt.prepend('.'), Qt::CaseInsensitive)) {
+			if (fname.endsWith(QLatin1String(".%1").arg(fileExt), Qt::CaseInsensitive)) {
 				QSaveFile saveFile(fname);
 				if (saveFile.open(QIODevice::WriteOnly)) {
 					saveFile.write(fileData);
