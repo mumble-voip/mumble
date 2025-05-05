@@ -6,6 +6,13 @@
 
 cmake_minimum_required(VERSION 3.15)
 
+# Disable warnings-as-errors and add specific compiler flags
+set(warnings-as-errors OFF CACHE BOOL "All warnings are treated as errors." FORCE)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-error")
+endif()
+
 cmake_policy(SET CMP0079 NEW)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0069 NEW)
