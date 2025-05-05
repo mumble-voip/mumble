@@ -603,18 +603,19 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 
 	int quality       = 100;
 	bool isFallbackOn = false;
+	QByteArray fallbackFormat("jpg");
 	QByteArray qba;
 	QString result;
-	while (quality > 0) {
+	do {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
 
-		QImageWriter imgwrite(&qb, isFallbackOn ? QByteArray("png") : format);
-		imgwrite.setQuality(quality);
-		if (!imgwrite.write(img)) {
+		QImageWriter imageWriter(&qb, isFallbackOn ? fallbackFormat : format);
+		imageWriter.setQuality(quality);
+		if (!imageWriter.write(img)) {
 			if (isFallbackOn) {
-				return imgwrite.errorString();
+				return imageWriter.errorString().prepend("Error: ");
 			}
 			isFallbackOn = true;
 			continue;
@@ -623,8 +624,13 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 		if (result.length() < maxSize || maxSize == 0) {
 			return result;
 		}
+
 		quality -= 10;
-	}
+		if (quality == 0 && imageWriter.format() != fallbackFormat) {
+			quality      = 100;
+			isFallbackOn = true;
+		}
+	} while (quality > 0);
 	return QString();
 }
 
