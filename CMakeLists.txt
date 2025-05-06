@@ -196,6 +196,7 @@ if(plugins AND client)
 endif()
 
 if(client OR server)
+	add_subdirectory(${3RDPARTY_DIR}/CLI11)
 	add_subdirectory(src)
 endif()
 
