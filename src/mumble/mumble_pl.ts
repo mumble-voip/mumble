@@ -7144,24 +7144,24 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>Co&amp;fnij się</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Przenosi z powrotem do poprzedniego kanału</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cofnij się</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Spowoduje to powrót do poprzedniego kanału</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wcześniej odwiedzony kanał nie istnieje już na tym serwerze.</translation>
     </message>
 </context>
 <context>
@@ -9964,11 +9964,11 @@ Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wielokanałowy + Transport (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Transport (JACK, samodzielny)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
