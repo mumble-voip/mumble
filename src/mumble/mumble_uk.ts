@@ -2431,7 +2431,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation>Пошук забанених користувачів</translation>
+        <translation>Пошук забаненого користувача</translation>
     </message>
     <message>
         <source>Username to ban</source>
@@ -7144,24 +7144,24 @@ mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&l
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перемістити назад</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Повертає вас до попереднього каналу</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рухатися назад</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Це поверне вас до попереднього каналу</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал, на якому ви були раніше, більше не існує на цьому сервері.</translation>
     </message>
 </context>
 <context>
@@ -9972,11 +9972,11 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Багатоканальний + Транспорт (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Транспорт (ДЖЕК, автономний)</translation>
     </message>
 </context>
 <context>
