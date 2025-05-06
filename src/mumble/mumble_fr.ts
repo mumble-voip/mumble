@@ -9962,11 +9962,11 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicanal + transport (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Transport (JACK, indépendant)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
