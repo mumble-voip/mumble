@@ -2732,7 +2732,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;&lt;p&gt;Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben. Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt. Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;&lt;p&gt;Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben. Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt. Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungsstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3526,7 +3526,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Abort upload</source>
-        <translation>Hochloaden abbrechen</translation>
+        <translation>Hochladen abbrechen</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
@@ -3534,7 +3534,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation>Interner Fehler in CrashReporter.cpp: Ein Netztwerkpaket wurde ohne HTTP Statuscode erhalten. Bitte informieren Sie einen Entwickler über den Fehlercode %1</translation>
+        <translation>Interner Fehler in CrashReporter.cpp: Ein Netzwerkpaket wurde ohne HTTP Statuscode erhalten. Bitte informieren Sie einen Entwickler über den Fehlercode %1</translation>
     </message>
 </context>
 <context>
@@ -4176,7 +4176,7 @@ Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>De-/Aktiviere Pop-up Benachrichtgungen für %1 Ereignisse</translation>
+        <translation>De-/Aktiviere Pop-up Benachrichtigungen für %1 Ereignisse</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
@@ -4419,7 +4419,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation>Lautstärkeregelung für Benachrichtigstöne</translation>
+        <translation>Lautstärkeregelung für Benachrichtigungstöne</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
@@ -4776,7 +4776,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation>Wie viele Buchstaben des ursprünglichen Namen-Anfangs für einen abkekürzten Namen verwendet werden sollen.</translation>
+        <translation>Wie viele Buchstaben des ursprünglichen Namen-Anfangs für einen abgekürzten Namen verwendet werden sollen.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
@@ -5466,8 +5466,8 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Siesicher sind,
-dass dieser Benutzer mit einem Passwort geschützt ist,versuchen Sie es bitte erneut.
+        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Sie sicher sind,
+dass dieser Benutzer mit einem Passwort geschützt ist, versuchen Sie es bitte erneut.
 Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
     <message>
@@ -5536,7 +5536,7 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
+        <translation>Dies zeigt erweitertet Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
@@ -6536,7 +6536,7 @@ Mögliche Aktionen sind:
   deaf
                     Selbst taub stellen
   undeaf
-                    Eigene Taubsstellung aufheben
+                    Eigene Taubstellung aufheben
   toggledeaf
                     Eigene Taubstellung umschalten
   starttalking
@@ -6946,7 +6946,7 @@ Mögliche Aktionen sind:
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Anheften während des Filterns</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
@@ -7007,11 +7007,11 @@ Mögliche Aktionen sind:
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble kann keine sichere Verbindung zum Server herstellen. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Grund dafür könnte eines der folgenden Szenarien sein:&lt;ul&gt;&lt;li&gt;Ihr Client und der Sever nutzen unterschiedliche Verschlüsselungsstandarts. Das könnte daran liegen, dass der Client oder der Server stark veraltet ist. Im ersten Fall, aktualisieren Sie bitte Ihren Client. Falls der Server veraltet ist, kontaktieren Sie bitte den Server Administrator.&lt;/li&gt;&lt;li&gt;Entweder der Server oder Client nutzt ein altes Betriebssystem welche keine aktuellen Verschlüsselungsmethoden bietet. In diesem Fall sollten Sie Ihr Betriebssystem aktualisieren oder den Serveradministrator kontaktieren damit jener seines aktualisieren kann.&lt;/li&gt;&lt;li&gt;Der Server ist kein Mumble Server. Bitte stellen Sie sicher, dass er tatsächlich zu einem Mumble Server und nicht z.B. einem Videospiel gehört.&lt;/li&gt;&lt;li&gt;Der Port zu dem sie sich verbinden gehört nicht zu einem Mumble Server, sondern zu einem komplett anderen Prozess auf dem Server welcher nichts mit Mumble zu tun hat. Bitte kontrollieren Sie, dass Sie den korrekten Port angegeben haben.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -7077,7 +7077,68 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nutzung: mumble [Optionen] [&lt;url&gt; | &lt;plugin_liste&gt;]
+
+&lt;url&gt; definiert eine URL zu welcher eine Verbindung aufgebaut wird anstatt
+das Verbindungfenster zu zeigen, welche folgende Form hat:
+mumble://[&lt;Nutzername&gt;[:&lt;Passwort&gt;]@]&lt;Host&gt;[:&lt;Port&gt;][/&lt;Kanal&gt;[/&lt;Subkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_liste&gt; Ist eine Liste an Plugin-Dateien welche installiert werden sollen.
+Der Versionsparameter muss gesetzt werden
+Um die korrekte Clientversion zu laden. Standartwert: 1.2.0.
+
+Verfügbare Optionen sind:
+  -h, --help    Zeigt diesen Text.
+  --version     Zeigt Versionsinformationen an.
+  -m, --multiple
+                Erlaubt mehrere Instanzen zeitgleich.
+  -c, --config
+                Definiert eine alternative Konfigurationsdatei.
+                Falls Sie dies nutzen, um mehrere Instanzen zeitgleich zu nutzen,
+                Stellen Sie sicher eine alternativen &apos;database&apos; Wert angegeben zu haben.
+  --default-certificate-dir &lt;dir&gt;
+                Definiert einen alternativen Zertifikatspfad.
+                Dieser Pfad wird nur genutzt wenn kein Zertifikat
+                von den Einstellungen geladen wird.
+  -n, --noidentity
+                Unterdrücken des Ladens von Identitätsdateien (d.h., Zertifikate.)
+  -jn, --jackname &lt;arg&gt;
+                Festlegen eines Benutzerdefinierten JACK names.
+  --license
+                Zeigt die Mumble Lizenz.
+  --authors
+                Zeigt die Mumble Autoren.
+  --third-party-licenses
+                Zeigt die Drittanbieterlizenzen.
+  --window-title-ext &lt;arg&gt;
+                Setzt eine Benutzerdefinierte Fenstertitelerweiterung.
+  --dump-input-streams
+                Dumpen von verschiedenen PCM Streams an versch. Stellen
+                in der Kette.
+                (nützlich für Debugging)
+                - roher Mikrofon input
+                - Sprecher readback für Rückkopplungsunterdrückung
+                - verarbeiteter Mikrofon input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Gibt ein zusätzliches Übersetzungsverzeichnis &lt;dir&gt;
+                an, in welchem Mumble nach Übersetzungen sucht welche
+                die integrierten überschreiben 
+                Hier angegebene Verzeichnisse haben höhere Priorität
+                Als die ansonsten benutzen Verzeichnisse
+  --print-translation-dirs
+                Gibt die Verzeichnisse an, welche für Übersetzungen genutzt werden.
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
+  --hidden
+                Mumble versteckt im Tray starten.
+</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
@@ -7181,7 +7242,7 @@ Valid options are:
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation>Wie lange die Position stummer Benutzer hervorgehoben werden soll, nachdem sie aufeghört haben zu sprechen (in Sekunden).</translation>
+        <translation>Wie lange die Position stummer Benutzer hervorgehoben werden soll, nachdem sie aufgehört haben zu sprechen (in Sekunden).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
@@ -8641,7 +8702,8 @@ Sie können sie jedoch erneut registrieren.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; Wenn Sie Linux verwenden, ist dies wahrscheinlich, weil Sie eine Version aus dem Paket-Repository Ihrer Distribution verwenden, die eigene Update-Zyklen hat.&lt;/p&gt;&lt;p&gt; Wenn Sie immer die neueste Mumble-Version haben möchten, sollten Sie eine andere Methode der Installation erwägen.
+Besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;das Projekt-Repository&lt;/a&gt; für Alternativen.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9394,7 +9456,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>fliessender Durchschnitt zum Client</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
@@ -9406,7 +9468,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>fliessender Durchschnitt vom Client</translation>
     </message>
     <message>
         <source>% late</source>
@@ -9899,11 +9961,11 @@ Bitte kontaktieren Sie den Server-Administrator für weitere Informationen.</tra
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Multikanal + Transport (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Transport (JACK, unabhängig)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
