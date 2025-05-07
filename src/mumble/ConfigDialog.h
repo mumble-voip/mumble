@@ -19,6 +19,8 @@ private:
 	Q_DISABLE_COPY(ConfigDialog)
 
 	void updateTabOrder();
+	void updateProfileList();
+	void switchProfile(const QString &newProfile, bool saveActiveProfile);
 
 protected:
 	static QMutex s_existingWidgetsMutex;
@@ -46,6 +48,10 @@ public slots:
 	void on_pageButtonBox_clicked(QAbstractButton *);
 	void on_dialogButtonBox_clicked(QAbstractButton *);
 	void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+	void on_qcbProfiles_currentIndexChanged(int);
+	void on_qpbProfileAdd_clicked();
+	void on_qpbProfileRename_clicked();
+	void on_qpbProfileDelete_clicked();
 	void apply();
 	void accept() Q_DECL_OVERRIDE;
 };
