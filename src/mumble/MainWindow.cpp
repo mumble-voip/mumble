@@ -1031,12 +1031,13 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		saveImageTextObject = fmt;
 	}
 	if (isAnimation) {
-		QString actionFirstWord = AnimationTextObject::areVideoControlsOn ? "Hide" : "Show";
-		menu->addAction(tr("%1 Video Controls").arg(actionFirstWord), this, &AnimationTextObject::toggleVideoControls);
+		QString firstWord = AnimationTextObject::areVideoControlsOn ? tr("Hide") : tr("Show");
+		menu->addAction(tr("%1 Video Controls").arg(firstWord), qteLog,
+						[&log = qteLog]() { AnimationTextObject::toggleVideoControls(log); });
 	}
 
 	menu->addSeparator();
-	menu->addAction("Clear", qteLog, &LogTextBrowser::clear);
+	menu->addAction(tr("Clear"), qteLog, &LogTextBrowser::clear);
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
 }
@@ -1048,7 +1049,7 @@ void MainWindow::saveImageAs() {
 	QString now          = QDateTime::currentDateTime().toString("yyyy-MM-dd-HHmmss");
 	QString defaultFname = QLatin1String("Mumble-%1.%2").arg(now, fileExt);
 
-	QByteArray fileExtBa = fileExt.toUtf8();
+	QByteArray fileExtBa                           = fileExt.toUtf8();
 	QList< QByteArray > writeSupportedImageFormats = QImageWriter::supportedImageFormats();
 	if (isAnimation && !writeSupportedImageFormats.contains(fileExtBa)) {
 		writeSupportedImageFormats.append(fileExtBa);

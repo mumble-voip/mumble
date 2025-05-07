@@ -28,19 +28,20 @@ protected:
 	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 
 public:
-	int lastCustomItemIndex  = -1;
-	int customItemFocusIndex = -1;
-	QList< QObject * > customItems;
+	int lastCustomObjectIndex  = -1;
+	int customObjectFocusIndex = -1;
+	QList< QObject * > customObjects;
 	LogTextBrowser(QWidget *p = nullptr);
 
 	static QRect calcRectScaledToScreen(const QSize &size);
 	bool isWidgetInFullScreen();
 	void toggleFullScreen(QWidget *widget);
-	void highlightSelectedItem(QPainter *painter, const QRect &rect, QObject *propertyHolder);
+	void highlightSelectedObject(QPainter *painter, const QRect &rect, QObject *propertyHolder);
 	/// Removes the content of the client's log, deletes the objects used by text objects
-	/// and clears the counter for custom interactive items as well as their focus index.
+	/// and clears the counter for custom objects as well as their focus index.
 	void clear();
-	void update(const QRect &rect = QRect());
+	void repaint(const QRect &rect = QRect());
+	void reflow();
 	int getScrollX();
 	int getScrollY();
 	QPoint getScrollPos();
@@ -49,7 +50,7 @@ public:
 	void setScrollY(int scrollPos);
 	void changeScrollX(int change);
 	void changeScrollY(int change);
-	void scrollItemIntoView(const QRect &rect);
+	void scrollObjectIntoView(const QRect &rect);
 	bool isScrolledToBottom();
 };
 
@@ -81,7 +82,7 @@ protected:
 	bool canInsertFromMimeData(const QMimeData *source) const Q_DECL_OVERRIDE;
 	void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	bool sendImagesFromMimeData(const QMimeData *source);
-	bool emitPastedImage(QImage image, QString filePath = "");
+	bool emitPastedImage(const QImage &image, const QString &filePath = "");
 
 public:
 	void setDefaultText(const QString &, bool = false);
@@ -146,8 +147,9 @@ public:
 												   QWidget *cursorArea = nullptr);
 
 	static void updateVideoControls(QObject *propertyHolder, QWidget *area = nullptr);
-	static bool updatePropertyRect(QObject *propertyHolder, const QRect &rect);
-	static QSizeF calcIntrinsicSize(QObject *propertyHolder, const QSize &size, bool areVideoControlsOn);
+	static void updatePropertyRect(QObject *propertyHolder, const QRect &rect);
+	static QSizeF calcIntrinsicSize(const QSize &size, bool areVideoControlsOn);
+	static void setPropertyFullScreen(QObject *propertyHolder, bool on);
 	static void setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size);
 };
 
@@ -163,15 +165,16 @@ protected:
 public:
 	static bool areVideoControlsOn;
 	AnimationTextObject();
-	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parent, bool &isAnimationCheckOnly);
-	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parent);
+	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
+									bool &isAnimationCheckOnly);
+	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog);
 	static void mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
-	static void keyPress(QMovie *animation, const Qt::Key &key, bool isItemSelectionChanged = false);
+	static void keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
 
 	enum class LoopMode { Unchanged, Loop, NoLoop };
 	static QString loopModeToString(LoopMode mode);
 
-	static void toggleVideoControls();
+	static void toggleVideoControls(LogTextBrowser *log);
 	static void toggleVideoControlsFullScreen(QObject *propertyHolder);
 	static int getTotalTime(QObject *propertyHolder);
 	static int getCurrentTime(QObject *propertyHolder, int frameIndex);

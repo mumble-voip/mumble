@@ -849,8 +849,8 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		}
 		obj->setProperty("fileExtension", fileExt);
 		obj->setProperty("objectType", objType);
-		obj->setProperty("customItemIndex", ++log->lastCustomItemIndex);
-		log->customItems.append(obj);
+		obj->setProperty("customObjectIndex", ++log->lastCustomObjectIndex);
+		log->customObjects.append(obj);
 
 		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
 	} while (true);
