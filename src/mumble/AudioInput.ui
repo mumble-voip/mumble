@@ -20,13 +20,13 @@
       <string>Interface</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="3">
-       <widget class="QLabel" name="qliDevice">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliSystem">
         <property name="text">
-         <string>Device</string>
+         <string>System</string>
         </property>
         <property name="buddy">
-         <cstring>qcbDevice</cstring>
+         <cstring>qcbSystem</cstring>
         </property>
        </widget>
       </item>
@@ -49,13 +49,29 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliSystem">
+      <item row="0" column="2">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>24</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="qliDevice">
         <property name="text">
-         <string>System</string>
+         <string>Device</string>
         </property>
         <property name="buddy">
-         <cstring>qcbSystem</cstring>
+         <cstring>qcbDevice</cstring>
         </property>
        </widget>
       </item>
@@ -102,22 +118,6 @@
          <string>Exclusive</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="2">
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>24</width>
-          <height>16</height>
-         </size>
-        </property>
-       </spacer>
       </item>
       <item row="3" column="0" colspan="5">
        <widget class="QLabel" name="qlInputHelp">
@@ -199,42 +199,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="qlDoublePush">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string notr="true">TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="qcbPushWindow">
-            <property name="toolTip">
-             <string>Displays an always on top window with a push to talk button in it</string>
-            </property>
-            <property name="text">
-             <string>Display push to talk window</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item row="0" column="1" colspan="2">
            <widget class="SemanticSlider" name="qsDoublePush">
             <property name="toolTip">
@@ -263,6 +227,19 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="qlDoublePush">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string notr="true">TextLabel</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="qliPTTHold">
             <property name="text">
@@ -270,13 +247,6 @@
             </property>
             <property name="buddy">
              <cstring>qsPTTHold</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLabel" name="qlPTTHold">
-            <property name="text">
-             <string notr="true">TextLabel</string>
             </property>
            </widget>
           </item>
@@ -305,84 +275,40 @@
             </property>
            </widget>
           </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="qwVAD">
-         <layout class="QGridLayout">
-          <item row="1" column="2">
-           <widget class="QLabel" name="qlTransmitHold">
-            <property name="minimumSize">
-             <size>
-              <width>40</width>
-              <height>0</height>
-             </size>
-            </property>
+         <item row="1" column="3">
+           <widget class="QLabel" name="qlPTTHold">
             <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="qliTransmitMin">
-            <property name="text">
-             <string>Silence Below</string>
-            </property>
-            <property name="buddy">
-             <cstring>qsTransmitMin</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="SemanticSlider" name="qsTransmitHold">
-            <property name="toolTip">
-             <string>How long to keep transmitting after silence</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
-            </property>
-            <property name="accessibleName">
-             <string>Voice hold time</string>
-            </property>
-            <property name="minimum">
-             <number>20</number>
-            </property>
-            <property name="maximum">
-             <number>250</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <string notr="true">TextLabel</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="AudioBar" name="abSpeech" native="true">
-            <property name="maximumSize">
+           <widget class="QCheckBox" name="qcbPushWindow">
+            <property name="toolTip">
+             <string>Displays an always on top window with a push to talk button in it</string>
+            </property>
+            <property name="text">
+             <string>Display push to talk window</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>16777215</width>
-              <height>10</height>
+              <width>20</width>
+              <height>40</height>
              </size>
             </property>
-            <property name="toolTip">
-             <string>Current speech detection chance</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
-            </property>
-            <property name="accessibleName">
-             <string>Current speech detection chance</string>
-            </property>
-           </widget>
+           </spacer>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="qliTransmitHold">
-            <property name="text">
-             <string>Voice &amp;Hold</string>
-            </property>
-            <property name="buddy">
-             <cstring>qsTransmitHold</cstring>
-            </property>
-           </widget>
-          </item>
+          </layout>
+        </widget>
+        <widget class="QWidget" name="qwVAD">
+         <layout class="QGridLayout">
           <item row="0" column="0" colspan="3">
            <layout class="QHBoxLayout">
             <item>
@@ -413,13 +339,77 @@
             </item>
            </layout>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="qliTransmitMax">
+          <item row="1" column="0">
+           <widget class="QLabel" name="qliTransmitHold">
             <property name="text">
-             <string>Speech Above</string>
+             <string>Voice &amp;Hold</string>
             </property>
             <property name="buddy">
-             <cstring>qsTransmitMax</cstring>
+             <cstring>qsTransmitHold</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="SemanticSlider" name="qsTransmitHold">
+            <property name="toolTip">
+             <string>How long to keep transmitting after silence</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
+            </property>
+            <property name="accessibleName">
+             <string>Voice hold time</string>
+            </property>
+            <property name="minimum">
+             <number>20</number>
+            </property>
+            <property name="maximum">
+             <number>250</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="qlTransmitHold">
+            <property name="minimumSize">
+             <size>
+              <width>40</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="AudioBar" name="abSpeech" native="true">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>10</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Current speech detection chance</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
+            </property>
+            <property name="accessibleName">
+             <string>Current speech detection chance</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="qliTransmitMin">
+            <property name="text">
+             <string>Silence Below</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsTransmitMin</cstring>
             </property>
            </widget>
           </item>
@@ -429,7 +419,7 @@
              <string>Signal values below this count as silence</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
+             <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below "Silence Below" always count as silence. Values above "Speech Above" always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
             </property>
             <property name="accessibleName">
              <string>Silence below threshold</string>
@@ -454,13 +444,23 @@
             </property>
            </widget>
           </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="qliTransmitMax">
+            <property name="text">
+             <string>Speech Above</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsTransmitMax</cstring>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="1">
            <widget class="SemanticSlider" name="qsTransmitMax">
             <property name="toolTip">
              <string>Signal values above this count as voice</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
+             <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below "Silence Below" always count as silence. Values above "Speech Above" always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
             </property>
             <property name="accessibleName">
              <string>Speech above threshold</string>
@@ -499,6 +499,63 @@
       <string>Compression</string>
      </property>
      <layout class="QGridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliQuality">
+        <property name="text">
+         <string>&amp;Quality</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsQuality</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="SemanticSlider" name="qsQuality">
+        <property name="toolTip">
+         <string>Quality of compression (peak bandwidth)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Audio compression quality</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>This sets the target compression bitrate</string>
+        </property>
+        <property name="minimum">
+         <number>8000</number>
+        </property>
+        <property name="maximum">
+         <number>192000</number>
+        </property>
+        <property name="singleStep">
+         <number>1000</number>
+        </property>
+        <property name="pageStep">
+         <number>5000</number>
+        </property>
+        <property name="value">
+         <number>32000</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="qlQuality">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliFrames">
         <property name="text">
@@ -537,19 +594,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="qlQuality">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="2">
        <widget class="QLabel" name="qlFrames">
         <property name="minimumSize">
@@ -563,41 +607,20 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="SemanticSlider" name="qsQuality">
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbAllowLowDelay">
         <property name="toolTip">
-         <string>Quality of compression (peak bandwidth)</string>
+         <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
         </property>
-        <property name="accessibleName">
-         <string>Audio compression quality</string>
-        </property>
-        <property name="accessibleDescription">
-         <string>This sets the target compression bitrate</string>
-        </property>
-        <property name="minimum">
-         <number>8000</number>
-        </property>
-        <property name="maximum">
-         <number>192000</number>
-        </property>
-        <property name="singleStep">
-         <number>1000</number>
-        </property>
-        <property name="pageStep">
-         <number>5000</number>
-        </property>
-        <property name="value">
-         <number>32000</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="text">
+         <string>Allow low delay mode</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="3">
+     <item row="3" column="0" colspan="3">
        <widget class="QLabel" name="qlBitrate">
         <property name="font">
          <font>
@@ -618,30 +641,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliQuality">
-        <property name="text">
-         <string>&amp;Quality</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsQuality</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbAllowLowDelay">
-        <property name="toolTip">
-         <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
-        </property>
-        <property name="whatsThis">
-         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
-        </property>
-        <property name="text">
-         <string>Allow low delay mode</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+      </layout>
     </widget>
    </item>
    <item>
@@ -650,6 +650,16 @@
       <string>Audio Processing</string>
      </property>
      <layout class="QGridLayout">
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliAmp">
+        <property name="text">
+         <string>Max. Amplification</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsAmp</cstring>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="1">
        <widget class="SemanticSlider" name="qsAmp">
         <property name="toolTip">
@@ -675,16 +685,6 @@
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliAmp">
-        <property name="text">
-         <string>Max. Amplification</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsAmp</cstring>
         </property>
        </widget>
       </item>
@@ -714,7 +714,20 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="3">
+      <item row="3" column="1" colspan="2">
+       <widget class="MUComboBox" name="qcbEcho">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Echo cancellation mode</string>
+        </property>
+       </widget>
+      </item>
+     <item row="4" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox">
         <property name="accessibleName">
          <string>Noise suppression</string>
@@ -837,20 +850,7 @@
         </layout>
        </widget>
       </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="MUComboBox" name="qcbEcho">
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
-        </property>
-        <property name="accessibleName">
-         <string>Echo cancellation mode</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+      </layout>
     </widget>
    </item>
    <item>
@@ -859,6 +859,105 @@
       <string>Misc</string>
      </property>
      <layout class="QGridLayout" name="_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qlAudioCue">
+        <property name="text">
+         <string>Audio cue when using...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="qcbEnableCuePTT">
+          <property name="toolTip">
+           <string>Audible audio cue when starting or stopping to transmit using Push To Talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
+          </property>
+          <property name="text">
+           <string>Push To Talk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbEnableCueVAD">
+          <property name="toolTip">
+           <string>Audible audio cue when starting or stopping to transmit using Voice Activity</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
+          </property>
+          <property name="text">
+           <string>Voice Activity</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     <item row="1" column="3">
+       <widget class="QLabel" name="qlPushClickOn">
+        <property name="text">
+         <string>On</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>qlePushClickPathOn</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="qlePushClickPathOn">
+        <property name="toolTip">
+         <string>Gets played when starting to transmit</string>
+        </property>
+        <property name="accessibleName">
+         <string>Path to audio file</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>Path to audio cue file when starting to speak. Use the "browse" button to open a file dialog.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOn">
+        <property name="toolTip">
+         <string>Browse for on audio file</string>
+        </property>
+        <property name="text">
+         <string>&amp;Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="6">
+       <widget class="QPushButton" name="qpbPushClickPreview">
+        <property name="toolTip">
+         <string>Preview both audio cues</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Preview</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="qlPushClickOff">
+        <property name="text">
+         <string>Off</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>qlePushClickPathOff</cstring>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="4">
        <widget class="QLineEdit" name="qlePushClickPathOff">
         <property name="toolTip">
@@ -868,7 +967,87 @@
          <string>Path to audio file</string>
         </property>
         <property name="accessibleDescription">
-         <string>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</string>
+         <string>Path to audio cue file when stopping to speak. Use the "browse" button to open a file dialog.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOff">
+        <property name="toolTip">
+         <string>Browse for off audio file</string>
+        </property>
+        <property name="text">
+         <string>B&amp;rowse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="QPushButton" name="qpbPushClickReset">
+        <property name="toolTip">
+         <string>Reset audio cue to default</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
+        </property>
+        <property name="text">
+         <string>R&amp;eset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="qcbMuteCue">
+        <property name="accessibleDescription">
+         <string>The mute cue is an audio sample which plays when you are trying to speak while being muted</string>
+        </property>
+        <property name="text">
+         <string>Mute cue</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QLineEdit" name="qleMuteCuePath">
+        <property name="toolTip">
+         <string>Gets played when you are trying to speak while being muted</string>
+        </property>
+        <property name="accessibleName">
+         <string>Path to audio file</string>
+        </property>
+        <property name="accessibleDescription">
+         <string>Path to mute cue file. Use the "browse" button to open a file dialog.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QPushButton" name="qpbMuteCueBrowse">
+        <property name="toolTip">
+         <string>Browse for mute cue audio file</string>
+        </property>
+        <property name="text">
+         <string>Br&amp;owse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QPushButton" name="qpbMuteCuePreview">
+        <property name="toolTip">
+         <string>Preview the mute cue</string>
+        </property>
+        <property name="text">
+         <string>Pre&amp;view</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="qliIdle">
+        <property name="text">
+         <string>Idle action</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLabel" name="qlIdle2">
+        <property name="text">
+         <string>after</string>
         </property>
        </widget>
       </item>
@@ -943,102 +1122,6 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="4">
-       <widget class="QLineEdit" name="qleMuteCuePath">
-        <property name="toolTip">
-         <string>Gets played when you are trying to speak while being muted</string>
-        </property>
-        <property name="accessibleName">
-         <string>Path to audio file</string>
-        </property>
-        <property name="accessibleDescription">
-         <string>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="5">
-       <widget class="QPushButton" name="qpbMuteCueBrowse">
-        <property name="toolTip">
-         <string>Browse for mute cue audio file</string>
-        </property>
-        <property name="text">
-         <string>Br&amp;owse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLineEdit" name="qlePushClickPathOn">
-        <property name="toolTip">
-         <string>Gets played when starting to transmit</string>
-        </property>
-        <property name="accessibleName">
-         <string>Path to audio file</string>
-        </property>
-        <property name="accessibleDescription">
-         <string>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QLabel" name="qliIdle">
-        <property name="text">
-         <string>Idle action</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QLabel" name="qlPushClickOff">
-        <property name="text">
-         <string>Off</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="buddy">
-         <cstring>qlePushClickPathOff</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QLabel" name="qlIdle2">
-        <property name="text">
-         <string>after</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="6">
-       <widget class="QPushButton" name="qpbPushClickReset">
-        <property name="toolTip">
-         <string>Reset audio cue to default</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
-        </property>
-        <property name="text">
-         <string>R&amp;eset</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="6">
-       <widget class="QPushButton" name="qpbMuteCuePreview">
-        <property name="toolTip">
-         <string>Preview the mute cue</string>
-        </property>
-        <property name="text">
-         <string>Pre&amp;view</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOff">
-        <property name="toolTip">
-         <string>Browse for off audio file</string>
-        </property>
-        <property name="text">
-         <string>B&amp;rowse...</string>
-        </property>
-       </widget>
-      </item>
       <item row="5" column="4">
        <widget class="QCheckBox" name="qcbUndoIdleAction">
         <property name="toolTip">
@@ -1049,90 +1132,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="qcbMuteCue">
-        <property name="accessibleDescription">
-         <string>The mute cue is an audio sample which plays when you are trying to speak while being muted</string>
-        </property>
-        <property name="text">
-         <string>Mute cue</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOn">
-        <property name="toolTip">
-         <string>Browse for on audio file</string>
-        </property>
-        <property name="text">
-         <string>&amp;Browse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="6">
-       <widget class="QPushButton" name="qpbPushClickPreview">
-        <property name="toolTip">
-         <string>Preview both audio cues</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Preview</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qlPushClickOn">
-        <property name="text">
-         <string>On</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="buddy">
-         <cstring>qlePushClickPathOn</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="qlAudioCue">
-        <property name="text">
-         <string>Audio cue when using...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QCheckBox" name="qcbEnableCuePTT">
-          <property name="toolTip">
-           <string>Audible audio cue when starting or stopping to transmit using Push To Talk</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
-          </property>
-          <property name="text">
-           <string>Push To Talk</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="qcbEnableCueVAD">
-          <property name="toolTip">
-           <string>Audible audio cue when starting or stopping to transmit using Voice Activity</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
-          </property>
-          <property name="text">
-           <string>Voice Activity</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+      </layout>
     </widget>
    </item>
    <item>

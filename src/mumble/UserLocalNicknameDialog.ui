@@ -23,19 +23,6 @@
    </size>
   </property>
   <layout class="QGridLayout">
-   <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
-    <widget class="QDialogButtonBox" name="qbbUserLocalNickname">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
-     </property>
-     <property name="centerButtons">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QLineEdit" name="qleUserLocalNickname">
      <property name="toolTip">
@@ -49,7 +36,20 @@
      </property>
     </widget>
    </item>
-  </layout>
+  <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
+    <widget class="QDialogButtonBox" name="qbbUserLocalNickname">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   </layout>
  </widget>
  <resources/>
  <connections/>

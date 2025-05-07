@@ -78,6 +78,19 @@
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="0">
+           <widget class="QLabel" name="qlX">
+            <property name="text">
+             <string>X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>qdsbX</cstring>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="1">
            <widget class="QLabel" name="qlY">
             <property name="text">
@@ -88,29 +101,6 @@
             </property>
             <property name="buddy">
              <cstring>qdsbY</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QDoubleSpinBox" name="qdsbZ">
-            <property name="accessibleName">
-             <string>Listener Z coordinate</string>
-            </property>
-            <property name="suffix">
-             <string>m</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QDoubleSpinBox" name="qdsbX">
-            <property name="accessibleName">
-             <string>Listener X coordinate</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="suffix">
-             <string>m</string>
             </property>
            </widget>
           </item>
@@ -127,16 +117,16 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="qlX">
-            <property name="text">
-             <string>X</string>
+          <item row="2" column="0">
+           <widget class="QDoubleSpinBox" name="qdsbX">
+            <property name="accessibleName">
+             <string>Listener X coordinate</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
+            <property name="prefix">
+             <string/>
             </property>
-            <property name="buddy">
-             <cstring>qdsbX</cstring>
+            <property name="suffix">
+             <string>m</string>
             </property>
            </widget>
           </item>
@@ -150,7 +140,17 @@
             </property>
            </widget>
           </item>
-         </layout>
+         <item row="2" column="2">
+           <widget class="QDoubleSpinBox" name="qdsbZ">
+            <property name="accessibleName">
+             <string>Listener Z coordinate</string>
+            </property>
+            <property name="suffix">
+             <string>m</string>
+            </property>
+           </widget>
+          </item>
+          </layout>
         </item>
        </layout>
       </widget>
@@ -207,19 +207,6 @@
           <string>Heading</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="2" column="0">
-           <widget class="QSpinBox" name="qsbAzimuth">
-            <property name="accessibleName">
-             <string>Listener azimuth (in degrees)</string>
-            </property>
-            <property name="suffix">
-             <string>°</string>
-            </property>
-            <property name="maximum">
-             <number>360</number>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="qlAzimuth">
             <property name="sizePolicy">
@@ -236,53 +223,6 @@
             </property>
             <property name="buddy">
              <cstring>qsbAzimuth</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QDial" name="qdElevation">
-            <property name="accessibleName">
-             <string>Listener elevation (in degrees)</string>
-            </property>
-            <property name="minimum">
-             <number>-180</number>
-            </property>
-            <property name="maximum">
-             <number>180</number>
-            </property>
-            <property name="pageStep">
-             <number>30</number>
-            </property>
-            <property name="value">
-             <number>90</number>
-            </property>
-            <property name="sliderPosition">
-             <number>90</number>
-            </property>
-            <property name="wrapping">
-             <bool>true</bool>
-            </property>
-            <property name="notchTarget">
-             <double>6.000000000000000</double>
-            </property>
-            <property name="notchesVisible">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="qsbElevation">
-            <property name="accessibleName">
-             <string>Listener elevation (in degrees)</string>
-            </property>
-            <property name="suffix">
-             <string>°</string>
-            </property>
-            <property name="minimum">
-             <number>-90</number>
-            </property>
-            <property name="maximum">
-             <number>90</number>
             </property>
            </widget>
           </item>
@@ -330,7 +270,67 @@
             </property>
            </widget>
           </item>
-         </layout>
+         <item row="1" column="1">
+           <widget class="QDial" name="qdElevation">
+            <property name="accessibleName">
+             <string>Listener elevation (in degrees)</string>
+            </property>
+            <property name="minimum">
+             <number>-180</number>
+            </property>
+            <property name="maximum">
+             <number>180</number>
+            </property>
+            <property name="pageStep">
+             <number>30</number>
+            </property>
+            <property name="value">
+             <number>90</number>
+            </property>
+            <property name="sliderPosition">
+             <number>90</number>
+            </property>
+            <property name="wrapping">
+             <bool>true</bool>
+            </property>
+            <property name="notchTarget">
+             <double>6.000000000000000</double>
+            </property>
+            <property name="notchesVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QSpinBox" name="qsbAzimuth">
+            <property name="accessibleName">
+             <string>Listener azimuth (in degrees)</string>
+            </property>
+            <property name="suffix">
+             <string>°</string>
+            </property>
+            <property name="maximum">
+             <number>360</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="qsbElevation">
+            <property name="accessibleName">
+             <string>Listener elevation (in degrees)</string>
+            </property>
+            <property name="suffix">
+             <string>°</string>
+            </property>
+            <property name="minimum">
+             <number>-90</number>
+            </property>
+            <property name="maximum">
+             <number>90</number>
+            </property>
+           </widget>
+          </item>
+          </layout>
         </widget>
        </item>
        <item>
@@ -352,16 +352,6 @@
           <string>Meta data</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="qleContext">
-            <property name="accessibleName">
-             <string>Context string</string>
-            </property>
-            <property name="accessibleDescription">
-             <string>Use the &quot;set&quot; button to apply the context string</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="qlContext">
             <property name="text">
@@ -372,13 +362,13 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="qlIdentity">
-            <property name="text">
-             <string>Identity</string>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="qleContext">
+            <property name="accessibleName">
+             <string>Context string</string>
             </property>
-            <property name="buddy">
-             <cstring>qleIdentity</cstring>
+            <property name="accessibleDescription">
+             <string>Use the "set" button to apply the context string</string>
             </property>
            </widget>
           </item>
@@ -392,13 +382,13 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="qpbIdentity">
-            <property name="accessibleName">
-             <string>Apply the identity string</string>
-            </property>
+          <item row="1" column="0">
+           <widget class="QLabel" name="qlIdentity">
             <property name="text">
-             <string>Set</string>
+             <string>Identity</string>
+            </property>
+            <property name="buddy">
+             <cstring>qleIdentity</cstring>
             </property>
            </widget>
           </item>
@@ -408,11 +398,21 @@
              <string>Identity string</string>
             </property>
             <property name="accessibleDescription">
-             <string>Use the &quot;set&quot; button to apply the identity string</string>
+             <string>Use the "set" button to apply the identity string</string>
             </property>
            </widget>
           </item>
-         </layout>
+         <item row="1" column="2">
+           <widget class="QPushButton" name="qpbIdentity">
+            <property name="accessibleName">
+             <string>Apply the identity string</string>
+            </property>
+            <property name="text">
+             <string>Set</string>
+            </property>
+           </widget>
+          </item>
+          </layout>
         </widget>
        </item>
        <item>

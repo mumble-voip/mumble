@@ -168,16 +168,6 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="qliPassword">
-     <property name="text">
-      <string>Password</string>
-     </property>
-     <property name="buddy">
-      <cstring>qlePassword</cstring>
-     </property>
-    </widget>
-   </item>
    <item row="5" column="1">
     <widget class="QLineEdit" name="qleUsername">
      <property name="toolTip">
@@ -195,10 +185,13 @@ Username to send to the server. Be aware that the server can impose restrictions
      </property>
     </widget>
    </item>
-   <item row="9" column="1">
-    <widget class="QDialogButtonBox" name="qdbbButtonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <item row="6" column="0">
+    <widget class="QLabel" name="qliPassword">
+     <property name="text">
+      <string>Password</string>
+     </property>
+     <property name="buddy">
+      <cstring>qlePassword</cstring>
      </property>
     </widget>
    </item>
@@ -216,16 +209,6 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
      <property name="placeholderText">
       <string>Your password</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QCheckBox" name="qcbShowPassword">
-     <property name="toolTip">
-      <string/>
-     </property>
-     <property name="text">
-      <string>Show password</string>
      </property>
     </widget>
    </item>
@@ -256,7 +239,24 @@ Label of the server. This is what the server will be named like in your server l
      </property>
     </widget>
    </item>
-  </layout>
+  <item row="8" column="1">
+    <widget class="QCheckBox" name="qcbShowPassword">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="text">
+      <string>Show password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   </layout>
  </widget>
  <tabstops>
   <tabstop>qleServer</tabstop>

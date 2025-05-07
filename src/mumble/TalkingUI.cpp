@@ -4,12 +4,16 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "TalkingUI.h"
+
 #include "Channel.h"
 #include "ChannelListenerManager.h"
 #include "ClientUser.h"
+#include "Database.h"
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
 #include "UserModel.h"
+#include "VolumeAdjustment.h"
+#include "VolumeSliderWidgetAction.h"
 #include "widgets/MultiStyleWidgetWrapper.h"
 #include "Global.h"
 
@@ -24,6 +28,7 @@
 #include <QScreen>
 #include <QTextDocumentFragment>
 #include <QVBoxLayout>
+#include <QWheelEvent>
 #include <QtCore/QDateTime>
 #include <QtCore/QStringList>
 #include <QtCore/QTimer>
@@ -567,6 +572,46 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	}
 
 	updateUI();
+}
+
+void TalkingUI::wheelEvent(QWheelEvent *event) {
+	if (!event->modifiers().testFlag(Qt::ControlModifier)) {
+		return QWidget::wheelEvent(event);
+	}
+
+	if (!Global::get().s.bCtrlScrollLocalVolAdj) {
+		return;
+	}
+
+	ClientUser *user = Global::get().mw->pmModel->getSelectedUser();
+	if (!user) {
+		return;
+	}
+
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+	if (user == self) {
+		return;
+	}
+
+	int volAdjustment = VolumeAdjustment::toIntegerDBAdjustment(user->getLocalVolumeAdjustments());
+
+	if (event->angleDelta().y() > 0) {
+		if (volAdjustment >= VolumeSliderWidgetAction::max()) {
+			return;
+		}
+
+		volAdjustment += 1;
+	} else {
+		if (volAdjustment <= VolumeSliderWidgetAction::min()) {
+			return;
+		}
+
+		volAdjustment -= 1;
+	}
+
+	user->setLocalVolumeAdjustment(VolumeAdjustment::toFactor(volAdjustment));
+
+	Global::get().db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
 }
 
 void TalkingUI::setVisible(bool visible) {
