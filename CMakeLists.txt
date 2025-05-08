@@ -196,7 +196,27 @@ if(plugins AND client)
 endif()
 
 if (packaging AND WIN32)
-	set(VC_REDIST_URL "https://download.visualstudio.microsoft.com/download/pr/285b28c7-3cf9-47fb-9be8-01cf5323a8df/8F9FB1B3CFE6E5092CF1225ECD6659DAB7CE50B8BF935CB79BFEDE1F3C895240/VC_redist.x64.exe")
+	execute_process(COMMAND
+		powershell -Command "
+			$response = Invoke-WebRequest \
+					-Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' \
+					-Method Head \
+					-MaximumRedirection 0 \
+					-ErrorAction SilentlyContinue
+			$response.Headers.Location"
+		OUTPUT_VARIABLE VC_REDIST_URL
+	)
+	string(STRIP ${VC_REDIST_URL} VC_REDIST_URL)
+
+	file(DOWNLOAD ${VC_REDIST_URL} ${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe)
+
+	execute_process(COMMAND
+		powershell -Command "
+			$exe = (Get-Item -path '${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe')
+			$exe.VersionInfo.ProductVersion"
+		OUTPUT_VARIABLE VC_REDIST_VERSION
+	)
+	string(STRIP ${VC_REDIST_VERSION} VC_REDIST_VERSION)
 endif()
 
 if(client OR server)
@@ -225,8 +245,6 @@ if(packaging)
 				${CMAKE_BINARY_DIR}/installer
 		)
 
-		file(DOWNLOAD ${VC_REDIST_URL} ${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe)
-		
 		file(COPY 
 			${CMAKE_SOURCE_DIR}/icons/mumble.ico
 			${CMAKE_SOURCE_DIR}/icons/murmur.ico

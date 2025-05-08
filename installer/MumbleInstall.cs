@@ -31,7 +31,7 @@ public class MumbleInstall : Project {
 		this.Properties = new Property[] { allUsersProp };
 	}
 
-	public Bundle BundleMsi(string msiPath, string vcRedistUrl) {
+	public Bundle BundleMsi(string msiPath, string vcRedistUrl, string vcRedistRequired) {
 		var bootstrapper = new Bundle(
 				this.Name,
 				new MsiPackage(msiPath)
@@ -64,7 +64,9 @@ public class MumbleInstall : Project {
 					Permanent = true,
 				});
 		bootstrapper.Variables = new[] {
-				new Variable("VCREDIST_REQUIRED", "14.0.0.0")
+				/* Version.ToString() is here to validating the input when the installer is built.
+				 * Otherwise, the installer can fail silently at runtime and that'harder to debug. */
+				new Variable("VCREDIST_REQUIRED", new Version(vcRedistRequired).ToString())
 				{ Type = WixSharp.VariableType.version }
 				};
 		// Visual C++ 14 2015-2022 Redistributable (x64)
