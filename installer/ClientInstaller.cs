@@ -195,6 +195,7 @@ class BuildInstaller
 		string version = "";
 		string arch = "";
 		string vcRedistUrl = "";
+		string vcRedistRequired = "";
 		bool isAllLangs = false;
 		Features features = new Features();
 
@@ -215,6 +216,10 @@ class BuildInstaller
 				vcRedistUrl = args[i + 1];
 			}
 
+			if (args[i] == "--vc-redist-required") {
+				vcRedistRequired = args[i + 1];
+			}
+
 			if (args[i] == "--g15") {
 				features.g15 = true;
 			}
@@ -232,7 +237,7 @@ class BuildInstaller
 			            ? clInstaller.BuildMultilanguageMsi()
 			            : clInstaller.BuildMsi();
 
-			clInstaller.BundleMsi(msiPath, vcRedistUrl)
+			clInstaller.BundleMsi(msiPath, vcRedistUrl, vcRedistRequired)
 			           .Build(msiPath.PathChangeExtension(".exe"));
 		} else {
 			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
