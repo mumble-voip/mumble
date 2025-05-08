@@ -19,6 +19,13 @@ namespace db {
 	class MetaTable : public Table {
 	public:
 		static constexpr const char *NAME = "meta";
+
+		struct column {
+			column()                               = delete;
+			static constexpr const char *key       = "meta_key";
+			static constexpr const char *value     = "meta_value";
+		};
+
 		MetaTable(soci::session &sql, Backend backend);
 
 		unsigned int getSchemeVersion();

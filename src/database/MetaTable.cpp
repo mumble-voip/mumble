@@ -24,8 +24,9 @@ namespace db {
 
 	MetaTable::MetaTable(soci::session &sql, Backend backend) : Table(sql, backend, MetaTable::NAME) {
 		std::vector< Column > columns;
-		columns.push_back(Column("meta_key", DataType(DataType::VarChar, 500), { Constraint(Constraint::NotNull) }));
-		columns.push_back(Column("meta_value", DataType(DataType::VarChar, 5000), { Constraint(Constraint::NotNull) }));
+		columns.push_back(Column(column::key, DataType(DataType::VarChar, 500), { Constraint(Constraint::NotNull) }));
+		columns.push_back(
+			Column(column::value, DataType(DataType::VarChar, 5000), { Constraint(Constraint::NotNull) }));
 
 		setColumns(columns);
 
@@ -44,14 +45,16 @@ namespace db {
 	void MetaTable::setKey(const std::string &key, const std::string &value) {
 		try {
 			int containsKey = false;
-			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE \"meta_key\" = :key", soci::use(key),
+			m_sql << "SELECT 1 FROM \"" << m_name << "\" WHERE \"" << column::key << "\" = :key", soci::use(key),
 				soci::into(containsKey);
 
 			if (containsKey) {
-				m_sql << "UPDATE \"" << m_name << "\" SET \"meta_value\" = :value WHERE \"meta_key\" = :key",
+				m_sql << "UPDATE \"" << m_name << "\" SET \"" << column::value << "\" = :value WHERE \"" << column::key
+					  << "\" = :key",
 					soci::use(value), soci::use(key);
 			} else {
-				m_sql << "INSERT INTO \"" << m_name << "\" (\"meta_key\", \"meta_value\") VALUES (:key, :value)",
+				m_sql << "INSERT INTO \"" << m_name << "\" (\"" << column::key << "\", \"" << column::value
+					  << "\") VALUES (:key, :value)",
 					soci::use(key), soci::use(value);
 			}
 		} catch (const soci::soci_error &e) {
@@ -62,8 +65,8 @@ namespace db {
 	boost::optional< std::string > MetaTable::queryKey(const std::string &key) {
 		try {
 			std::string value;
-			m_sql << "SELECT \"meta_value\" FROM " << m_name << " WHERE \"meta_key\" = :key", soci::use(key),
-				soci::into(value);
+			m_sql << "SELECT \"" << column::value << "\" FROM " << m_name << " WHERE \"" << column::key << "\" = :key",
+				soci::use(key), soci::into(value);
 
 			return m_sql.got_data() ? boost::optional< std::string >(value) : boost::none;
 		} catch (const soci::soci_error &e) {
