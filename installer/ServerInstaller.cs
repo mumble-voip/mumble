@@ -86,6 +86,7 @@ class BuildInstaller
 		string version = "";
 		string arch = "";
 		string vcRedistUrl = "";
+		string vcRedistRequired = "";
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
@@ -104,6 +105,10 @@ class BuildInstaller
 			if (args[i] == "--vc-redist-url") {
 				vcRedistUrl = args[i + 1];
 			}
+
+			if (args[i] == "--vc-redist-required") {
+				vcRedistRequired = args[i + 1];
+			}
 		}
 
 		if (version != null && arch != null) {
@@ -114,7 +119,7 @@ class BuildInstaller
 			            ? srvInstaller.BuildMultilanguageMsi()
 			            : srvInstaller.BuildMsi();
 
-			srvInstaller.BundleMsi(msiPath, vcRedistUrl)
+			srvInstaller.BundleMsi(msiPath, vcRedistUrl, vcRedistRequired)
 			            .Build(msiPath.PathChangeExtension(".exe"));
 
 		} else {
