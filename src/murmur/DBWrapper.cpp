@@ -133,7 +133,7 @@ std::vector< unsigned int > DBWrapper::getBootServers() {
 	std::vector< unsigned int > bootIDs;
 
 	for (unsigned int id : m_serverDB.getServerTable().getAllServerIDs()) {
-		bool boot = false;
+		bool boot = true;
 		getConfigurationTo(id, "boot", boot);
 
 		if (boot) {
