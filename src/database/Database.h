@@ -110,6 +110,8 @@ namespace db {
 
 		virtual void importMetaData(const nlohmann::json &json);
 		virtual nlohmann::json exportMetaData() const;
+
+		virtual void init(const ConnectionParameter &parameter, bool createMeta, unsigned int assumedSchemaVersion);
 	};
 
 } // namespace db

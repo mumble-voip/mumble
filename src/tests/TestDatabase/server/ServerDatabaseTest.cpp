@@ -189,6 +189,8 @@ public:
 // with the setup (e.g. Triggers) of TestDB that PlainDB knows nothing about.
 class PlainDB : public mdb::Database {
 public:
+	friend class ServerDatabaseTest;
+
 	PlainDB(::mdb::Backend backend, unsigned int schemeVersion)
 		: ::mdb::Database(backend), schemeVersion(schemeVersion) {}
 
@@ -1610,7 +1612,7 @@ void ServerDatabaseTest::database_scheme_migration() {
 		db.resetTables();
 
 		PlainDB plainDB(currentBackend, schemeVersion);
-		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
+		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend), false, schemeVersion);
 
 		// Populate the DB with the old data
 		plainDB.importFromJSON(tableData.inputData, true);
