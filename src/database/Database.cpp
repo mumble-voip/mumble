@@ -673,6 +673,11 @@ namespace db {
 		// Rename all existing tables
 		try {
 			for (const std::string &currentTableName : tableNames) {
+				if (currentTableName.find("sqlite_") == 0) {
+					// SQLite creates some internal tables that we don't want to mess with
+					continue;
+				}
+
 				m_sql << "ALTER TABLE \"" << currentTableName << "\" RENAME TO \"" << currentTableName
 					  << OLD_TABLE_SUFFIX << "\"";
 
