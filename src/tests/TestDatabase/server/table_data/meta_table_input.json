@@ -1,0 +1,44 @@
+{
+	"v6": {
+		"table_name": "meta",
+		"column_names": [
+			"keystring",
+			"value"
+		],
+		"column_types": [
+			"TEXT",
+			"TEXT"
+		],
+		"rows": [
+			[
+				"version",
+				"6"
+			],
+			[
+				"test_key",
+				"test_value"
+			]
+		]
+	},
+	"v10": {
+		"table_name": "meta",
+		"column_names": [
+			"meta_key",
+			"meta_value"
+		],
+		"column_types": [
+			"VARCHAR(500)",
+			"VARCHAR(5000)"
+		],
+		"rows": [
+			[
+				"scheme_version",
+				"10"
+			],
+			[
+				"test_key",
+				"test_value"
+			]
+		]
+	}
+}

@@ -39,6 +39,7 @@ macro(add_table_pair input migrated)
 	list(APPEND migrated_table_data_paths "${migrated_path}")
 endmacro()
 
+add_table_pair("meta_table_input.json" "meta_table_migrated.json")
 add_table_pair("server_table_input.json" "server_table_migrated.json")
 add_table_pair("log_table_input.json" "log_table_migrated.json")
 add_table_pair("config_table_input.json" "config_table_migrated.json")
