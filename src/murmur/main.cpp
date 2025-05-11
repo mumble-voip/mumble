@@ -5,19 +5,20 @@
 
 #include "DBWrapper.h"
 #include "EnvUtils.h"
+#include "ExceptionUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
 #include "Meta.h"
 #include "SSL.h"
-#include "Server.h"
 #include "ServerApplication.h"
 #include "Version.h"
 
-#include "database/ConnectionParameter.h"
+#include <QSslSocket>
 
 #include <cassert>
 #include <csignal>
 #include <fstream>
+#include <iostream>
 
 #include <nlohmann/json.hpp>
 
@@ -625,10 +626,11 @@ int main(int argc, char **argv) {
 
 		return res;
 	} catch (const std::exception &e) {
-		std::cerr << "[ERROR]: " << e.what() << std::endl;
+		std::cerr << "[ERROR]: Exiting due to unhandled exception:\n";
+		mumble::printExceptionMessage(std::cerr, e, 2);
 		return 1;
 	} catch (...) {
-		std::cerr << "[ERROR]: Caught unknown error (bug)" << std::endl;
+		std::cerr << "[ERROR]: Caught unknown error (this is a bug, please report it)" << std::endl;
 		return 2;
 	}
 }
