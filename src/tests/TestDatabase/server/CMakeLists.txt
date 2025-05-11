@@ -14,7 +14,7 @@ target_compile_definitions(TestServerDatabase PRIVATE ${MUMBLE_DB_TEST_DEFINES})
 
 set_target_properties(TestServerDatabase PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestServerDatabase PRIVATE Qt6::Test mumble_server_object_lib)
+target_link_libraries(TestServerDatabase PRIVATE Qt6::Test mumble_server_object_lib shared)
 
 # Add parent directory to include path to be able to share helper functions with general DB tests
 target_include_directories(TestServerDatabase PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/..")

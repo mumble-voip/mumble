@@ -6,13 +6,14 @@
 #ifndef MUMBLE_TEST_TESTDATABASE_UTILS_H_
 #define MUMBLE_TEST_TESTDATABASE_UTILS_H_
 
+#include "ExceptionUtils.h"
+
 #include "database/Backend.h"
 #include "database/ConnectionParameter.h"
 
 #include <algorithm>
 #include <array>
 #include <cassert>
-#include <iostream>
 #include <numeric>
 #include <vector>
 
@@ -115,19 +116,6 @@ namespace db {
 
 			const mumble::db::ConnectionParameter &getConnectionParamter(mumble::db::Backend backend);
 
-			/**
-			 * Helper function to print exception messages that can also fully unfold nested exceptions
-			 */
-			inline void print_exception_message(const std::exception &e) {
-				std::cerr << "  " << e.what() << "\n";
-				try {
-					std::rethrow_if_nested(e);
-				} catch (const std::exception &nested) {
-					print_exception_message(nested);
-				}
-			}
-
-
 		} // namespace utils
 	}     // namespace test
 } // namespace db
@@ -145,13 +133,13 @@ namespace db {
 	MUMBLE_BEGIN_TEST_CASE_NO_INIT \
 	db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
 
-#define MUMBLE_END_TEST_CASE                                 \
-	}                                                        \
-	}                                                        \
-	catch (const std::exception &e) {                        \
-		std::cerr << "Caught unexpected exception:\n";       \
-		mumble::db::test::utils::print_exception_message(e); \
-		QFAIL("Aborting due to thrown exception");           \
+#define MUMBLE_END_TEST_CASE                            \
+	}                                                   \
+	}                                                   \
+	catch (const std::exception &e) {                   \
+		std::cerr << "Caught unexpected exception:\n";  \
+		mumble::printExceptionMessage(std::cerr, e, 2); \
+		QFAIL("Aborting due to thrown exception");      \
 	}
 
 #endif // MUMBLE_TEST_TESTDATABASE_UTILS_H_

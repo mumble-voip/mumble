@@ -6,6 +6,8 @@
 #include <QString>
 #include <QtTest>
 
+#include "ExceptionUtils.h"
+
 #include "database/AccessException.h"
 #include "database/ConnectionParameter.h"
 #include "database/Database.h"
@@ -123,7 +125,7 @@ public:
 				this->destroyTables();
 			} catch (const Exception &e) {
 				std::cerr << "Exception encountered while destroying tables:" << std::endl;
-				std::cerr << e.what() << std::endl;
+				mumble::printExceptionMessage(std::cerr, e);
 			}
 		}
 	}

@@ -7,6 +7,7 @@
 #include "ACL.h"
 #include "Channel.h"
 #include "ChannelListenerManager.h"
+#include "ExceptionUtils.h"
 #include "Group.h"
 #include "LegacyPasswordHash.h"
 #include "Meta.h"
@@ -72,23 +73,6 @@ DBWrapper::DBWrapper(const ::mdb::ConnectionParameter &connectionParams)
 	m_serverDB.init(connectionParams);
 }
 
-void printExceptionMessage(std::ostream &stream, const std::exception &e, int indent = 0) {
-	for (int i = 0; i < indent; ++i) {
-		stream << " ";
-	}
-
-	stream << e.what();
-
-	try {
-		std::rethrow_if_nested(e);
-	} catch (const std::exception &nestedExc) {
-		stream << "\n";
-		indent += 2;
-
-		printExceptionMessage(stream, nestedExc, indent);
-	}
-}
-
 /*
  * In many places in our code IDs are represented as signed integers in order to be able to represent an invalid ID
  * by a negative value. If such a value is converted to an unsigned integer, it is mapped to some value bigger than
@@ -113,7 +97,7 @@ void printExceptionMessage(std::ostream &stream, const std::exception &e, int in
 	}                                                                     \
 	catch (const ::mdb::Exception &e) {                                   \
 		std::cerr << "[ERROR]: Encountered database error:" << std::endl; \
-		printExceptionMessage(std::cerr, e, 1);                           \
+		mumble::printExceptionMessage(std::cerr, e, 1);                   \
 		std::cerr << std::endl;                                           \
                                                                           \
 		throw std::runtime_error("Database error");                       \

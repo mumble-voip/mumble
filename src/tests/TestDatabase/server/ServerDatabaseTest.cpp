@@ -177,7 +177,7 @@ public:
 			this->destroyTables();
 		} catch (const ::mdb::Exception &e) {
 			std::cerr << "Exception encountered while destroying tables:" << std::endl;
-			mumble::db::test::utils::print_exception_message(e);
+			mumble::printExceptionMessage(std::cerr, e, 2);
 		}
 	}
 
