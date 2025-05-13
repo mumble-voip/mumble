@@ -26,6 +26,7 @@ protected:
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+	QMimeData *createMimeDataFromSelection() const Q_DECL_OVERRIDE;
 
 public:
 	int lastCustomObjectIndex  = -1;
@@ -158,8 +159,8 @@ class AnimationTextObject : public QObject, public QTextObjectInterface {
 	Q_INTERFACES(QTextObjectInterface)
 
 protected:
-	QSizeF intrinsicSize(QTextDocument *doc, int charPosInDoc, const QTextFormat &fmt) Q_DECL_OVERRIDE;
-	void drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int charPosInDoc,
+	QSizeF intrinsicSize(QTextDocument *doc, int charPos, const QTextFormat &fmt) Q_DECL_OVERRIDE;
+	void drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int charPos,
 					const QTextFormat &fmt) Q_DECL_OVERRIDE;
 
 public:
