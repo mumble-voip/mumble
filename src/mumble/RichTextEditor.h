@@ -55,7 +55,7 @@ public:
 	QString text();
 	bool isModified() const;
 	QTextEdit *getRichTextEdit();
-
+	void addContextMenuToSaveImages();
 signals:
 	/// The accept signal is emitted when Ctrl-Enter is pressed inside the RichTextEditor.
 	void accept();

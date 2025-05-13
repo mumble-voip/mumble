@@ -15,6 +15,7 @@
 #include <QtGui/QImageReader>
 #include <QtGui/QPainter>
 #include <QtWidgets/QColorDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QToolTip>
 
@@ -202,6 +203,7 @@ RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 
 	qteRichText->installEventFilter(this);
 	qptePlainText->installEventFilter(this);
+	addContextMenuToSaveImages();
 }
 
 bool RichTextEditor::isModified() const {
@@ -470,4 +472,38 @@ bool RichTextImage::isValidImage(const QByteArray &ba, QByteArray &fmt) {
 
 QTextEdit *RichTextEditor::getRichTextEdit() {
 	return qteRichText;
+}
+
+void RichTextEditor::addContextMenuToSaveImages() {
+	qteRichText->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	connect(qteRichText, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
+		QTextCursor cursor     = qteRichText->cursorForPosition(pos);
+		QTextCharFormat format = cursor.charFormat();
+
+		QMenu *menu = qteRichText->createStandardContextMenu();
+
+		if (format.isImageFormat()) {
+			menu->addSeparator();
+			menu->addAction(tr("Save Image As…"), [=]() {
+				QTextImageFormat imgFmt = format.toImageFormat();
+				QString imgName         = imgFmt.name();
+
+				QImage image =
+					qteRichText->document()->resource(QTextDocument::ImageResource, QUrl(imgName)).value< QImage >();
+
+				QString fileName = QFileDialog::getSaveFileName(this, "Save Image", "",
+																"Images (*.png *.jpg *.jpeg *.bmp *.ppm *.xbm *.xpm)");
+
+				if (!fileName.isEmpty()) {
+					if (QFileInfo(fileName).suffix().isEmpty())
+						fileName += ".png"; // default to PNG if no extension
+					image.save(fileName);
+				}
+			});
+		}
+
+		menu->exec(qteRichText->mapToGlobal(pos));
+		delete menu;
+	});
 }
