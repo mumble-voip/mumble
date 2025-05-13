@@ -21,6 +21,7 @@
 #include <QtGui/QMovie>
 #include <QtGui/QPainter>
 #include <QtGui/QPainterPath>
+#include <QtGui/QTextDocumentFragment>
 #include <QtWidgets/QScrollBar>
 
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
@@ -51,7 +52,7 @@ void LogTextBrowser::toggleFullScreen(QWidget *widget) {
 		}
 	}
 
-	connect(widget, &QWidget::destroyed, this, [this]() { widgetInFullScreen = nullptr; });
+	connect(widget, &QWidget::destroyed, this, [&wgtInFs = widgetInFullScreen]() { wgtInFs = nullptr; });
 	widget->setAttribute(Qt::WA_DeleteOnClose);
 	widget->setWindowFlag(Qt::Window);
 	widget->showFullScreen();
@@ -301,6 +302,65 @@ void LogTextBrowser::keyReleaseEvent(QKeyEvent *keyEvt) {
 		return scrollObjectIntoView(object->property("posAndSize").toRect());
 	}
 	repaint();
+}
+
+QMimeData *LogTextBrowser::createMimeDataFromSelection() const {
+	QMimeData *mimeData   = QTextEdit::createMimeDataFromSelection();
+	QString html          = mimeData->html();
+	qsizetype htmlLength  = html.size();
+	const QTextCursor &tc = textCursor();
+
+	qsizetype lastObjIndex  = customObjects.size() - 1;
+	qsizetype objIndex      = -1;
+	int selectionStartIndex = tc.selectionStart();
+	int selectionEndIndex   = tc.selectionEnd();
+	qsizetype txtObjIndex   = 0;
+	while (objIndex < lastObjIndex) {
+		QObject *obj = customObjects[++objIndex];
+		int charPos  = obj->property("characterPos").toInt();
+		if (charPos < selectionStartIndex || charPos > selectionEndIndex) {
+			continue;
+		}
+		// Search by marker (zero-width space) for the next custom text object:
+		txtObjIndex = html.indexOf("​", txtObjIndex);
+		if (txtObjIndex == -1) {
+			break;
+		}
+		auto txtObjType = qvariant_cast< Log::TextObjectType >(obj->property("objectType"));
+		if (txtObjType != Log::TextObjectType::Animation) {
+			if (++txtObjIndex == htmlLength) {
+				break;
+			}
+			continue;
+		}
+
+		auto *animation          = qobject_cast< QMovie * >(obj);
+		QIODevice *device        = animation->device();
+		qint64 previousDevicePos = device->pos();
+		device->reset();
+		auto base64Image = qvariant_cast< QString >(device->readAll().toBase64());
+		device->seek(previousDevicePos);
+
+		QStringList attributes;
+		QVariant propertyWidth  = animation->property("overrideWidth");
+		QVariant propertyHeight = animation->property("overrideHeight");
+		if (propertyWidth.isValid()) {
+			attributes.append(QLatin1String("width=\"%1\"").arg(QString::number(propertyWidth.toInt())));
+		}
+		if (propertyHeight.isValid()) {
+			attributes.append(QLatin1String("height=\"%1\"").arg(QString::number(propertyHeight.toInt())));
+		}
+
+		QString attributesStr = attributes.size() > 0 ? QLatin1String(" %1").arg(attributes.join(' ')) : "";
+		QString ext           = animation->property("fileExtension").toString();
+		QString img = QLatin1String("<img src=\"data:image/%2;base64,%1\"%3 />").arg(base64Image, ext, attributesStr);
+
+		html.replace(txtObjIndex, 1, img);
+		txtObjIndex += img.size();
+	}
+
+	mimeData->setHtml(html);
+	return mimeData;
 }
 
 void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
