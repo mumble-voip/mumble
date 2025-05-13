@@ -454,7 +454,6 @@ public:
 	void openAboutQtDialog();
 	void versionCheck();
 	void enablePositionalAudio(bool enable);
-	void enableImageSaveContextMenu(QTextEdit *editor, QWidget *parent);
 };
 
 #endif
