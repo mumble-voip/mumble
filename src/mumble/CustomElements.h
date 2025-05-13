@@ -26,6 +26,7 @@ protected:
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+	QMimeData *createMimeDataFromSelection() const Q_DECL_OVERRIDE;
 
 public:
 	int lastCustomObjectIndex  = -1;

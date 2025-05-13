@@ -847,11 +847,14 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		if (height > 0) {
 			obj->setProperty("overrideHeight", height);
 		}
+		obj->setProperty("charPos", tc->position());
 		obj->setProperty("fileExtension", fileExt);
 		obj->setProperty("objectType", objType);
 		obj->setProperty("customObjectIndex", ++log->lastCustomObjectIndex);
 		log->customObjects.append(obj);
 
+		// Set marker (zero-width space) for custom text object used when copying from selection:
+		tc->insertHtml("&#8203;");
 		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
 	} while (true);
 	if (isAnyCustomTxtObj) {
