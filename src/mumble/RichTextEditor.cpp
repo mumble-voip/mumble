@@ -476,6 +476,7 @@ QTextEdit *RichTextEditor::getRichTextEdit() {
 
 void RichTextEditor::addContextMenuToSaveImages() {
 	qteRichText->setContextMenuPolicy(Qt::CustomContextMenu);
+	QString saveText = tr("Save Image As…");
 
 	connect(qteRichText, &QTextEdit::customContextMenuRequested, this, [=](const QPoint &pos) {
 		QTextCursor cursor     = qteRichText->cursorForPosition(pos);
@@ -485,7 +486,7 @@ void RichTextEditor::addContextMenuToSaveImages() {
 
 		if (format.isImageFormat()) {
 			menu->addSeparator();
-			menu->addAction(tr("Save Image As…"), [=]() {
+			menu->addAction(saveText, [=]() {
 				QTextImageFormat imgFmt = format.toImageFormat();
 				QString imgName         = imgFmt.name();
 
