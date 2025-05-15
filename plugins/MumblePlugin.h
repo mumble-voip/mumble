@@ -444,41 +444,14 @@ struct MumbleStringWrapper {
 	bool needsReleasing;
 };
 
-struct PositionalDataNoQt;
-
-static void freePositionalDataStruct(PositionalDataNoQt *positionalData);
-
 struct PositionalDataNoQt {
-#ifdef __cplusplus
-//    Prevents compilation but generic functions
-//      such as the one below doesn't hinder compilation
-//	~PositionalDataNoQt() {
-//		freePositionalDataStruct(this);
-//	}
-//
-	void freeStruct() {
-		freePositionalDataStruct(this);
-	}
-#endif
-
 	float m_playerPos[3];
 	float m_playerDir[3];
 	float m_playerAxis[3];
 	float m_cameraPos[3];
 	float m_cameraDir[3];
 	float m_cameraAxis[3];
-	char *m_context;
-	char *m_identity;
 };
-
-void freePositionalDataStruct(PositionalDataNoQt *positionalData) {
-	if (positionalData) {
-		free(positionalData->m_context);
-		free(positionalData->m_identity);
-	}
-
-	free(positionalData);
-}
 
 MUMBLE_EXTERN_C_END
 
@@ -1556,13 +1529,41 @@ struct MUMBLE_API_STRUCT_NAME {
      * Gets the currently used positional data
      *
      * @param callerID The ID of the plugin calling this function
-     * @param[out] outPositionalData A pointer to the memory location the PositionalData object should be written to
+     * @param[out] outPositionalData A pointer to the PositionalData object that should be written to
      * @returns The error code. If everything went well, STATUS_OK will be returned.
      *
      * @since Plugin interface v1.3.0
 	 */
-	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalAudioData)(mumble_plugin_id_t callerID,
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalData)(mumble_plugin_id_t callerID,
 																		PositionalDataNoQt *outPositionalData);
+
+	/**
+	 * Gets the currently used positional data context
+	 *
+     * @param callerID The ID of the plugin calling this function
+	 * @param[out] outContext A pointer to the char * that should be written to,
+	 *   please note that the context has 2 null terminators,
+	 *   the first of which will contain the name of the plugin providing the data
+	 *   whereas the second null terminator contains the actual context data returned by the plugin
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 *
+	 * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalContext)(mumble_plugin_id_t callerID,
+	                                                                            char **outContext);
+
+	/**
+	 * Gets the currently used positional data identity
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] outIdentity A pointer to the char * that should be written to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 *
+	 * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalIdentity)(mumble_plugin_id_t callerID,
+																				char **outIdentity);
+
 #endif
 
 
