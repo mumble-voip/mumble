@@ -1562,7 +1562,7 @@ struct MUMBLE_API_STRUCT_NAME {
      * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalAudioData)(mumble_plugin_id_t callerID,
-																		PositionalDataNoQt **outPositionalData);
+																		PositionalDataNoQt *outPositionalData);
 #endif
 
 
