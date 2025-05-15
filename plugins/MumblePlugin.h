@@ -1553,7 +1553,7 @@ struct MUMBLE_API_STRUCT_NAME {
 
 #if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
 	/**
-     * Gets the positional audio data provided by OTHER plugins
+     * Gets the currently used positional data
      *
      * @param callerID The ID of the plugin calling this function
      * @param[out] outPositionalData A pointer to the memory location the PositionalData object should be written to
