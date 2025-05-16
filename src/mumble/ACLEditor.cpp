@@ -852,7 +852,7 @@ void ACLEditor::qcbACLGroup_focusLost() {
 		return;
 	}
 
-	on_qcbACLGroup_activated(qcbACLGroup->currentText());
+	on_qcbACLGroup_textActivated(qcbACLGroup->currentText());
 }
 
 void ACLEditor::qcbACLUser_focusLost() {
@@ -871,7 +871,7 @@ void ACLEditor::qcbACLUser_focusLost() {
 		return;
 	}
 
-	on_qcbACLUser_activated(qcbACLUser->currentText());
+	on_qcbACLUser_textActivated(qcbACLUser->currentText());
 }
 
 void ACLEditor::qcbACLGroup_spacePressed() {
@@ -888,7 +888,7 @@ void ACLEditor::qcbACLUser_spacePressed() {
 	qcbACLUser->showPopup();
 }
 
-void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
+void ACLEditor::on_qcbACLGroup_textActivated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
 		return;
@@ -905,7 +905,7 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	refillACL();
 }
 
-void ACLEditor::on_qcbACLUser_activated(const QString &text) {
+void ACLEditor::on_qcbACLUser_textActivated(const QString &text) {
 	ChanACL *as = currentACL();
 	if (!as || as->bInherited)
 		return;
@@ -986,7 +986,7 @@ void ACLEditor::ACLPermissions_clicked() {
 	as->pDeny  = static_cast< ChanACL::Permissions >(denied);
 }
 
-void ACLEditor::on_qcbGroupList_activated(const QString &text) {
+void ACLEditor::on_qcbGroupList_textActivated(const QString &text) {
 	ACLGroup *gs = currentGroup();
 	if (text.isEmpty())
 		return;
@@ -1013,7 +1013,7 @@ void ACLEditor::on_qcbGroupList_editTextChanged(const QString &text) {
 }
 
 void ACLEditor::on_qpbGroupAdd_clicked() {
-	on_qcbGroupList_activated(qcbGroupList->currentText());
+	on_qcbGroupList_textActivated(qcbGroupList->currentText());
 }
 
 void ACLEditor::on_qpbGroupRemove_clicked() {

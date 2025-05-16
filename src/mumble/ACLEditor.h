@@ -87,15 +87,15 @@ public slots:
 	void on_qcbACLInherit_clicked(bool checked);
 	void on_qcbACLApplyHere_clicked(bool checked);
 	void on_qcbACLApplySubs_clicked(bool checked);
-	void on_qcbACLGroup_activated(const QString &text);
-	void on_qcbACLUser_activated(const QString &text);
+	void on_qcbACLGroup_textActivated(const QString &text);
+	void on_qcbACLUser_textActivated(const QString &text);
 	void ACLPermissions_clicked();
 	void qcbACLGroup_focusLost();
 	void qcbACLUser_focusLost();
 	void qcbACLGroup_spacePressed();
 	void qcbACLUser_spacePressed();
 
-	void on_qcbGroupList_activated(const QString &text);
+	void on_qcbGroupList_textActivated(const QString &text);
 	void on_qcbGroupList_editTextChanged(const QString &text);
 	void on_qpbGroupAdd_clicked();
 	void on_qpbGroupRemove_clicked();
