@@ -44,11 +44,6 @@ Use the bundled GSL version instead of looking for one on the system
 Build the included version of nlohmann_json instead of looking for one on the system
 (Default: ON)
 
-### bundled-json
-
-Build the included version of nlohmann_json instead of looking for one on the system
-(Default: ON)
-
 ### bundled-rnnoise
 
 Build the included version of RNNoise instead of looking for one on the system.
