@@ -46,6 +46,7 @@ namespace server {
 			std::vector< unsigned int > getAllServerIDs();
 
 			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void postMigrationAction(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 		};
 
 	} // namespace db
