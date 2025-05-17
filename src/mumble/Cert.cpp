@@ -423,6 +423,7 @@ void CertWizard::on_qcbWinStore_checkStateChanged(const Qt::CheckState &arg1)
     Global::get().s.useWindowsStore = (arg1 == Qt::CheckState::Checked);
 }
 
+#if WIN32
 Settings::KeyPair CertWizard::PromptCertStore() {
     HCERTSTORE hStore = nullptr;
     PCCERT_CONTEXT CertCtx = nullptr;
@@ -480,6 +481,7 @@ Settings::KeyPair CertWizard::PromptCertStore() {
         CertCloseStore(hStore, NULL);
     return Pair;
 }
+#endif
 
 bool CertWizard::validateCert(const Settings::KeyPair &kp) {
 	bool valid = !kp.second.isNull() && !kp.first.isEmpty();
