@@ -29,6 +29,12 @@
 #include <openssl/pkcs12.h>
 #include <openssl/x509.h>
 
+#if WIN32
+#include <windows.h>
+#include <cryptuiapi.h>
+#include <QCryptographicHash>
+#endif
+
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
 CertView::CertView(QWidget *p) : AccessibleQGroupBox(p) {
@@ -212,6 +218,8 @@ void CertWizard::initializePage(int id) {
 			cvWelcome->setVisible(false);
 			qrbQuick->setChecked(true);
 		}
+
+        qcbWinStore->setChecked(Global::get().s.useWindowsStore);
 	}
 	if (id == 3) {
 		cvExport->setCert(kpNew.first);
@@ -413,6 +421,64 @@ void CertWizard::on_qlIntroText_linkActivated(const QString &url) {
 void CertWizard::on_qcbWinStore_checkStateChanged(const Qt::CheckState &arg1)
 {
     Global::get().s.useWindowsStore = (arg1 == Qt::CheckState::Checked);
+}
+
+Settings::KeyPair CertWizard::PromptCertStore() {
+    HCERTSTORE hStore = nullptr;
+    PCCERT_CONTEXT CertCtx = nullptr;
+    Settings::KeyPair Pair;
+
+    hStore = CertOpenSystemStore(NULL, L"MY");
+    if(hStore != nullptr) {
+        CertCtx = CryptUIDlgSelectCertificateFromStore(
+            hStore,
+            NULL,
+            L"Select a Certificate",
+            L"Choose a certificate from windows store you want to use.",
+            NULL,
+            NULL,
+            NULL
+            );
+
+        if(CertCtx != nullptr) {
+            QByteArray RawCert((char*)CertCtx->pbCertEncoded, CertCtx->cbCertEncoded);
+            QList< QSslCertificate > qlCert = QSslCertificate::fromData(RawCert, QSsl::Der);
+
+            if(!qlCert.empty()) {
+                HCRYPTPROV_OR_NCRYPT_KEY_HANDLE Handle = NULL;
+                DWORD HandleType = 0;
+                BOOL FreeHandle = false;
+
+                if(CryptAcquireCertificatePrivateKey(
+                        CertCtx,
+                        CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG,
+                        NULL,
+                        &Handle,
+                        &HandleType,
+                        &FreeHandle)
+                    ) {
+                    if(HandleType == CERT_NCRYPT_KEY_SPEC)
+                        Pair = Settings::KeyPair(qlCert, QSslKey((Qt::HANDLE) Handle, QSsl::PrivateKey));
+                    else if(FreeHandle)
+                        CryptReleaseContext(Handle, NULL);
+                }
+
+                // CryptAcquire Failed
+                if(Pair.second.isNull() && FreeHandle) {
+                    if(HandleType == CERT_NCRYPT_KEY_SPEC)
+                        NCryptFreeObject(Handle);
+                    else
+                        CryptReleaseContext(Handle, NULL);
+                }
+            }
+        }
+    }
+
+    if(CertCtx != nullptr)
+        CertFreeCertificateContext(CertCtx);
+    if(hStore != nullptr)
+        CertCloseStore(hStore, NULL);
+    return Pair;
 }
 
 bool CertWizard::validateCert(const Settings::KeyPair &kp) {

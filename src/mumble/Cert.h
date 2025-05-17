@@ -53,6 +53,9 @@ public:
 	static bool validateCert(const Settings::KeyPair &);
 	static Settings::KeyPair generateNewCert(QString name = QString(), const QString &email = QString());
 	static QByteArray exportCert(const Settings::KeyPair &cert);
+#if WIN32
+    static Settings::KeyPair PromptCertStore();
+#endif
 	static Settings::KeyPair importCert(QByteArray, const QString & = QString());
 public slots:
 	void on_qleEmail_textChanged(const QString &);
@@ -61,6 +64,7 @@ public slots:
 	void on_qpbImportFile_clicked();
 	void on_qleImportFile_textChanged(const QString &);
 	void on_qlePassword_textChanged(const QString &);
+    void on_qcbWinStore_checkStateChanged(const Qt::CheckState &arg1);
 	void on_qlIntroText_linkActivated(const QString &);
 	void showPage(int);
 };
