@@ -408,7 +408,7 @@ void ServerHandler::run() {
 		qtsSock                 = new QSslSocket(this);
 		qtsSock->setPeerVerifyName(qhHostnames[saTargetServer]);
 
-		if (!Global::get().s.bSuppressIdentity && CertWizard::validateCert(Global::get().s.kpCertificate)) {
+        if (!Global::get().s.bSuppressIdentity && CertWizard::validateCert(Global::get().s.kpCertificate) && !Global::get().s.useWindowsStore) {
 			qtsSock->setPrivateKey(Global::get().s.kpCertificate.second);
 			qtsSock->setLocalCertificate(Global::get().s.kpCertificate.first.at(0));
 			QSslConfiguration config       = qtsSock->sslConfiguration();
@@ -417,6 +417,20 @@ void ServerHandler::run() {
 			config.setCaCertificates(certs);
 			qtsSock->setSslConfiguration(config);
 		}
+#if WIN32
+        if(Global::get().s.useWindowsStore) {
+            Settings::KeyPair pair = CertWizard::PromptCertStore();
+            if(CertWizard::validateCert(pair)) {
+                qtsSock->setPrivateKey(pair.second);
+                qtsSock->setLocalCertificate(pair.first.at(0));
+                QSslConfiguration config       = qtsSock->sslConfiguration();
+                QList< QSslCertificate > certs = config.caCertificates();
+                certs << pair.first;
+                config.setCaCertificates(certs);
+                qtsSock->setSslConfiguration(config);
+            }
+        }
+#endif
 
 		{
 			ConnectionPtr connection(new Connection(this, qtsSock));
