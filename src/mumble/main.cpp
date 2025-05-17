@@ -225,6 +225,11 @@ int main(int argc, char **argv) {
 #	endif
 #endif
 
+#if WIN32
+    // Force schannel on windows to ensure WinStoreCert Support
+    QSslSocket::setActiveBackend("schannel");
+#endif
+
 	// Initialize application object.
 	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));

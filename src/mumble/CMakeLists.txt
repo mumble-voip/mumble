@@ -362,6 +362,8 @@ if(WIN32)
 			"${MUMBLE_RC}"
 	)
 
+        target_link_libraries(mumble_client_object_lib PRIVATE Crypt32 CryptUI)
+
 	if(elevation)
 		set_property(TARGET mumble APPEND_STRING PROPERTY LINK_FLAGS " /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"")
 	endif()
