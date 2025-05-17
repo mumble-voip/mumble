@@ -22,6 +22,7 @@ add_library(mumble_database STATIC
 	"MySQLConnectionParameter.cpp"
 	"PostgreSQLConnectionParameter.cpp"
 	"PrimaryKey.cpp"
+	"Savepoint.cpp"
 	"SQLiteConnectionParameter.cpp"
 	"Table.cpp"
 	"TransactionHolder.cpp"

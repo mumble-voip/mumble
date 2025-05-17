@@ -15,7 +15,7 @@
 		],
 		"rows": [
 			[
-				1,
+				0,
 				0,
 				"Hugo",
 				null,
@@ -27,7 +27,7 @@
 				0
 			],
 			[
-				1,
+				0,
 				1,
 				"Jasmine",
 				"secret",
@@ -46,7 +46,7 @@
 			"append": {
 				"rows": [
 					[
-						1,
+						0,
 						2,
 						"Tiffany",
 						null,

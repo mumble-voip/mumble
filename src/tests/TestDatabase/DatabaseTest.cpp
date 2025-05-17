@@ -6,12 +6,15 @@
 #include <QString>
 #include <QtTest>
 
+#include "ExceptionUtils.h"
+
 #include "database/AccessException.h"
 #include "database/ConnectionParameter.h"
 #include "database/Database.h"
 #include "database/FormatException.h"
 #include "database/Index.h"
 #include "database/MetaTable.h"
+#include "database/Savepoint.h"
 #include "database/Trigger.h"
 #include "database/UnsupportedOperationException.h"
 #include "database/Utils.h"
@@ -122,7 +125,7 @@ public:
 				this->destroyTables();
 			} catch (const Exception &e) {
 				std::cerr << "Exception encountered while destroying tables:" << std::endl;
-				std::cerr << e.what() << std::endl;
+				mumble::printExceptionMessage(std::cerr, e);
 			}
 		}
 	}
@@ -171,6 +174,7 @@ private slots:
 	void unicode();
 	void fetchMinimumFreeID();
 	void dateToEpoch();
+	void savepoints();
 };
 
 void DatabaseTest::hexConversions() {
@@ -945,6 +949,61 @@ void DatabaseTest::dateToEpoch() {
 			QCOMPARE(rowStamp, std::to_string(current.second));
 		}
 	}
+
+	MUMBLE_END_TEST_CASE
+}
+
+void DatabaseTest::savepoints() {
+	MUMBLE_BEGIN_TEST_CASE_NO_INIT
+
+	Database::table_id id = db.addTable(std::make_unique< test::KeyValueTable >(db.getSQLHandle(), currentBackend));
+
+	db.init(test::utils::getConnectionParamter(currentBackend));
+
+	TransactionHolder transaction = db.ensureTransaction();
+
+	test::KeyValueTable *table = static_cast< test::KeyValueTable * >(db.getTable(id));
+
+	const std::string fallback = "dummy";
+	const std::string key      = "my_val";
+	QCOMPARE(table->query(key, fallback), fallback);
+
+	{
+		Savepoint save(db.getSQLHandle(), "this_is_a_test_savepoint");
+
+		table->insert(key, "test");
+
+		QCOMPARE(table->query(key, fallback), "test");
+
+		save.rollback();
+	}
+
+	// We explicitly rolled the savepoint back, so the table should no longer exist
+	QCOMPARE(table->query(key, fallback), fallback);
+
+	{
+		Savepoint save(db.getSQLHandle(), "this_is_a_test_savepoint");
+
+		table->insert(key, "test");
+
+		QCOMPARE(table->query(key, fallback), "test");
+	}
+
+	// Savepoint went out of scope without being released, so it should have rolled back
+	QCOMPARE(table->query(key, fallback), fallback);
+
+	{
+		Savepoint save(db.getSQLHandle(), "this_is_a_test_savepoint");
+
+		table->insert(key, "test");
+
+		QCOMPARE(table->query(key, fallback), "test");
+
+		save.release();
+	}
+
+	QCOMPARE(table->query(key, fallback), "test");
+
 
 	MUMBLE_END_TEST_CASE
 }
