@@ -730,6 +730,14 @@ namespace db {
 									 + " old tables after migration");
 		}
 
+		for (std::unique_ptr< Table > &currentTable : m_tables) {
+			if (!currentTable) {
+				continue;
+			}
+
+			currentTable->postMigrationAction(fromSchemeVersion, toSchemeVersion);
+		}
+
 		transaction.commit();
 	}
 

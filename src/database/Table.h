@@ -56,6 +56,10 @@ namespace db {
 		 * @param toSchemeVersion The scheme version to migrate to
 		 */
 		virtual void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+		/**
+		 * Handler to be called once all tables have been successfully migrated.
+		 */
+		virtual void postMigrationAction(unsigned int fromSchemeVersion, unsigned int toScheme);
 		virtual void destroy();
 		virtual void clear();
 
