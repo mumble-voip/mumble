@@ -145,6 +145,16 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QCheckBox" name="qcbWinStore">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Use Windows Store</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="CompletablePage" name="qwpImport">

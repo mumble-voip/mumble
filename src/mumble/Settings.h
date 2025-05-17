@@ -216,6 +216,8 @@ struct Settings {
 
 	typedef QPair< QList< QSslCertificate >, QSslKey > KeyPair;
 
+    bool useWindowsStore = false;
+
 	static const QString cqsDefaultPushClickOn;
 	static const QString cqsDefaultPushClickOff;
 	static const QString cqsDefaultMuteCue;

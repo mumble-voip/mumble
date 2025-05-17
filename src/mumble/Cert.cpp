@@ -224,6 +224,10 @@ void CertWizard::initializePage(int id) {
 		on_qleImportFile_textChanged(qleImportFile->text());
 	}
 
+#if WIN32
+    qcbWinStore->setEnabled(true);
+#endif
+
 	QWizard::initializePage(id);
 }
 
@@ -406,6 +410,11 @@ void CertWizard::on_qlIntroText_linkActivated(const QString &url) {
 	QDesktopServices::openUrl(QUrl(url));
 }
 
+void CertWizard::on_qcbWinStore_checkStateChanged(const Qt::CheckState &arg1)
+{
+    Global::get().s.useWindowsStore = (arg1 == Qt::CheckState::Checked);
+}
+
 bool CertWizard::validateCert(const Settings::KeyPair &kp) {
 	bool valid = !kp.second.isNull() && !kp.first.isEmpty();
 	foreach (const QSslCertificate &cert, kp.first)
@@ -570,3 +579,4 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 }
 
 #undef SSL_STRING
+
