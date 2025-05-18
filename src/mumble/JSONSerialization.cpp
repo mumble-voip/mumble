@@ -215,11 +215,9 @@ void from_json(const nlohmann::json &j, Settings &settings) {
 		settings.kpCertificate = CertWizard::importCert(json.at(SettingsKeys::CERTIFICATE_KEY));
 	}
 
-#ifdef Q_OS_WIN
     if(json.contains(static_cast< const char *>(SettingsKeys::USE_WIN_CERT_STORE))) {
         settings.useWindowsStore = json.at(SettingsKeys::USE_WIN_CERT_STORE);
     }
-#endif
 
 	if (json.contains(static_cast< const char * >(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY))) {
 		settings.mumbleQuitNormally = json.at(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY);
