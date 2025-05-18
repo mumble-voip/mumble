@@ -2824,6 +2824,10 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble kann Zertifikate verwenden, um sich bei Servern zu authentifizieren. Durch die Verwendung von Zertifikaten entfällt die Notwendigkeit von Passwörtern, was bedeutet, dass du kein Passwort an die entfernte Seite weitergeben musst. Zudem ermöglicht es eine sehr einfache Benutzerregistrierung und eine clientseitige Freundesliste, die unabhängig von den Servern ist.&lt;/p&gt;&lt;p&gt;Obwohl Mumble ohne Zertifikate funktionieren kann, erwarten die meisten Server, dass du eines besitzt.&lt;/p&gt;&lt;p&gt;Das automatische Erstellen eines neuen Zertifikats ist für die meisten Anwendungsfälle ausreichend. Mumble unterstützt jedoch auch Zertifikate, die das Vertrauen in den Besitz einer E-Mail-Adresse durch den Benutzer belegen. Diese Zertifikate werden von Dritten ausgestellt. Weitere Informationen findest du in unserer &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;Dokumentation zu Benutzerzertifikaten&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Use Windows Store</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChanACL</name>

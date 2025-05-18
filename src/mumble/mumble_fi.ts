@@ -2824,6 +2824,10 @@ Haluatko varmasti korvata varmenteen?
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimien todentamiseen. Varmenteiden käyttäminen välttää salasanoja, mikä tarkoittaa, että sinun ei tarvitse paljastaa salasanaa etäsivustolle. Se mahdollistaa myös erittäin helpon käyttäjien rekisteröinnin ja palvelimista riippumattoman asiakaspuolen ystäväluettelon.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman varmenteita, suurin osa palvelimista odottaa, että sinulla on sellainen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen automaattisesti riittää useimmissa käyttötapauksissa. Mutta Mumble tukee myös varmenteita, jotka edustavat luottamusta siihen, että käyttäjä omistaa sähköpostiosoitteen. Nämä todistukset ovat kolmansien osapuolien myöntämiä. Lisätietoja on &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;käyttäjävarmenteen dokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Use Windows Store</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChanACL</name>

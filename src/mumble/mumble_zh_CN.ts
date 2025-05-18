@@ -2823,6 +2823,10 @@ Are you sure you wish to replace your certificate?
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble 可以使用证书与服务器进行身份验证。使用证书避免密码，意味着您无需向远程站点披露任何密码。证书还支持非常简单的用户注册流程，以及与服务器无关的客户端好友列表。&lt;/p&gt;&lt;p&gt;虽然没有证书 Mumble 也能正常工作，但多数服务器都期望您有一份证书。&lt;/p&gt;&lt;p&gt;对于多数使用情况，自动创建新证书已足够。但 Mumble 还支持以证书表示信任用户对电子邮件地址的所有权。此类证书由第三方签发。更多信息，请查看我们的&lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;用户证书文档&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Use Windows Store</source>
+        <translation>使用 Windows 系统的证书库</translation>
+    </message>
 </context>
 <context>
     <name>ChanACL</name>

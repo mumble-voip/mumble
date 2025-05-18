@@ -2825,6 +2825,10 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble może wykorzystywać certyfikaty do uwierzytelniania na serwerach. Używanie certyfikatów pozwala uniknąć haseł, co oznacza, że nie musisz ujawniać hasła zdalnej stronie. Umożliwia to także bardzo prostą rejestrację użytkowników i niezależną od serwerów listę znajomych po stronie klienta.&lt;/p&gt;&lt;p&gt;Mumble może pracować bez certyfikatów, ale licz się z tym, że większość serwerów będzie ich wymagać.&lt;/p&gt;&lt;p&gt;Utworzenie nowego certyfikatu automatycznie wystarcza w większości przypadków użycia. Mumble obsługuje również certyfikaty reprezentujące zaufanie pod postacią własności adresu e -mail użytkownika. Certyfikaty te są wydawane przez strony trzecie. Aby uzyskać więcej informacji, zobacz naszą &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;dokumentację certyfikatów użytkownika&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Use Windows Store</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChanACL</name>
