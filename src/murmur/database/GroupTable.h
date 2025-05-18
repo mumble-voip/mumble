@@ -11,8 +11,6 @@
 #include "database/Backend.h"
 #include "database/Table.h"
 
-#include <boost/optional.hpp>
-
 #include <string>
 #include <vector>
 
@@ -63,7 +61,7 @@ namespace server {
 
 			void clearGroups(unsigned int serverID, unsigned int channelID);
 
-			boost::optional< unsigned int > findGroupID(unsigned int serverID, const std::string &name);
+			std::optional< unsigned int > findGroupID(unsigned int serverID, const std::string &name);
 
 
 			std::size_t countGroups(unsigned int serverID, unsigned int channelID);

@@ -47,7 +47,7 @@ target_compile_definitions(TestDatabase PRIVATE ${MUMBLE_DB_TEST_DEFINES})
 
 set_target_properties(TestDatabase PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestDatabase PRIVATE Qt6::Test mumble_database)
+target_link_libraries(TestDatabase PRIVATE Qt6::Test mumble_database shared)
 
 add_test(NAME TestDatabase COMMAND $<TARGET_FILE:TestDatabase>)
 

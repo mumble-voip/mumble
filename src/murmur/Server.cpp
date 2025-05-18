@@ -43,7 +43,6 @@
 #include <QtNetwork/QSslConfiguration>
 
 #include <boost/bind/bind.hpp>
-#include <boost/optional.hpp>
 
 #include "TracyConstants.h"
 #include <tracy/Tracy.hpp>
@@ -52,6 +51,7 @@
 #include <algorithm>
 #include <cassert>
 #include <chrono>
+#include <optional>
 #include <vector>
 
 #ifdef Q_OS_WIN
@@ -603,11 +603,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp->m_suggestVersion;
 	else if (key == "suggestpositional")
 		m_suggestPositional =
-			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
+			!v.isNull() ? (v.isEmpty() ? std::nullopt : std::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
 						: Meta::mp->suggestPositional;
 	else if (key == "suggestpushtotalk")
 		m_suggestPushToTalk =
-			!v.isNull() ? (v.isEmpty() ? boost::none : boost::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
+			!v.isNull() ? (v.isEmpty() ? std::nullopt : std::optional< bool >(v.compare("true", Qt::CaseInsensitive)))
 						: Meta::mp->suggestPushToTalk;
 	else if (key == "opusthreshold")
 		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp->iOpusThreshold;
@@ -2670,11 +2670,11 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 		if (userID < 0) {
 			// Use certificate-based authentication
-			boost::optional< unsigned int > potentialID =
+			std::optional< unsigned int > potentialID =
 				m_dbWrapper.findRegisteredUserByCert(iServerNum, certhash.toStdString());
 			if (potentialID) {
 				// A user with the given certHash has been found
-				userID = static_cast< int >(potentialID.get());
+				userID = static_cast< int >(potentialID.value());
 			} else if (certificatePassedVerification) {
 				// The certificate match did not yield a match in our DB. However, the user provided us with a strong
 				// certificate (that means that the certificate has passed all verification - that means that this has
@@ -2691,7 +2691,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 
 					potentialID = m_dbWrapper.findRegisteredUserByEmail(iServerNum, currentMail.toStdString());
 					if (potentialID) {
-						userID = static_cast< int >(potentialID.get());
+						userID = static_cast< int >(potentialID.value());
 						break;
 					}
 				}

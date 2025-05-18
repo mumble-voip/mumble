@@ -5,7 +5,7 @@ database flavors: SQLite, MySQL and PostgreSQL. However for the latter two, it i
 program to obtain access to the respective databases.
 
 In order to avoid failing tests due to incorrect (or missing) setup, the tests for MySQL and PostgreSQL are disabled by default, but they can be
-enabled via the `database-mysql-test` and `database-postgresql-test` cmake options (just set these to `ON` when invoking cmake).
+enabled via the `database-mysql-tests` and `database-postgresql-tests` cmake options (just set these to `ON` when invoking cmake).
 
 
 ## Required setup

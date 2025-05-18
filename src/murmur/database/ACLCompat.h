@@ -8,10 +8,9 @@
 
 #include "DBAcl.h"
 
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace mumble {
 namespace server {
@@ -27,7 +26,7 @@ namespace server {
 
 		LegacyGroupData parseLegacyGroupSpecification(std::string groupSpec);
 
-		boost::optional< DBAcl::MetaGroup > parseMetaGroup(const std::string &str);
+		std::optional< DBAcl::MetaGroup > parseMetaGroup(const std::string &str);
 
 		std::string metaGroupName(DBAcl::MetaGroup group);
 

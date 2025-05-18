@@ -20,9 +20,9 @@
 #include "database/SQLiteConnectionParameter.h"
 
 #include <boost/algorithm/string.hpp>
-#include <boost/optional.hpp>
 
 #include <cassert>
+#include <optional>
 
 #include <QDir>
 #include <QFile>
@@ -332,10 +332,10 @@ void MetaParams::read(QString fname) {
 
 	QString strVal = qsSettings->value("suggestpositional").toString();
 	suggestPositional =
-		strVal.trimmed().isEmpty() ? boost::none : boost::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
+		strVal.trimmed().isEmpty() ? std::nullopt : std::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
 	strVal = qsSettings->value("suggestpushtotalk").toString();
 	suggestPushToTalk =
-		strVal.trimmed().isEmpty() ? boost::none : boost::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
+		strVal.trimmed().isEmpty() ? std::nullopt : std::optional< bool >(strVal.compare("true", Qt::CaseInsensitive));
 
 	bLogGroupChanges = typeCheckedFromSettings("loggroupchanges", bLogGroupChanges);
 	bLogACLChanges   = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
@@ -835,10 +835,10 @@ bool Meta::reloadSSLSettings() {
 void Meta::initPBKDF2IterationCount() {
 	if (Meta::mp->kdfIterations <= 0) {
 		// No explicit iteration count given -> load from DB
-		boost::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
+		std::optional< unsigned int > storedIterationCount = dbWrapper.loadPBKDF2IterationCount();
 
 		if (storedIterationCount) {
-			Meta::mp->kdfIterations = static_cast< int >(storedIterationCount.get());
+			Meta::mp->kdfIterations = static_cast< int >(storedIterationCount.value());
 		} else {
 			// No stored value -> initialize from scratch
 			Meta::mp->kdfIterations = PBKDF2::benchmark();

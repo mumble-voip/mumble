@@ -8,14 +8,13 @@
 
 #include <Settings.h>
 #include <ThemeInfo.h>
-#ifndef Q_MOC_RUN
-#	include <boost/optional.hpp>
-#endif
+
+#include <optional>
 
 class Themes {
 public:
 	/// Returns the style configured in the given settings structure
-	static boost::optional< ThemeInfo::StyleInfo > getConfiguredStyle(const Settings &settings);
+	static std::optional< ThemeInfo::StyleInfo > getConfiguredStyle(const Settings &settings);
 
 	/// Updates the given settings object to be configured to the given style
 	///
@@ -24,7 +23,7 @@ public:
 	/// @param settings Settings object to update
 	/// @param style Style to set
 	/// @param outChanged Will be set to true if the style in settings actually changed. Will not be changed otherwise.
-	static void setConfiguredStyle(Settings &settings, boost::optional< ThemeInfo::StyleInfo > style, bool &outChanged);
+	static void setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style, bool &outChanged);
 
 	/// Applies the theme
 	///

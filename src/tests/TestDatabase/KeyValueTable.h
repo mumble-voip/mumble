@@ -26,7 +26,7 @@ namespace db {
 			~KeyValueTable() = default;
 
 			void insert(const std::string &key, const std::string &value);
-			std::string query(const std::string &key);
+			std::string query(const std::string &key, const std::string &defaultValue = {});
 		};
 	} // namespace test
 } // namespace db

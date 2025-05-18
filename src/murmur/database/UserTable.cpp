@@ -26,6 +26,7 @@
 
 #include <cassert>
 #include <exception>
+#include <optional>
 
 namespace mdb = ::mumble::db;
 
@@ -93,6 +94,9 @@ namespace server {
 			::mdb::ForeignKey fk1(serverTable, { serverCol });
 			addForeignKey(fk1);
 
+			::mdb::ForeignKey fk2(channelTable, { serverCol, lastChannelCol });
+			addForeignKey(fk2);
+
 			// Ensure that usernames are unique on a given server
 			::mdb::Index nameIndex(std::string(NAME) + "_unique_" + column::user_name,
 								   std::vector< std::string >{ column::server_id, column::user_name },
@@ -100,36 +104,17 @@ namespace server {
 			addIndex(nameIndex, false);
 
 
-			// Add triggers that shall essentially act as a foreign key constraint. Thus, it shall fail inserts and
-			// updates that attempt to set a user's last channel to a non-existing channel. We don't use an actual
-			// foreign key for this as that would require us to specify a behavior for when a channel gets deleted.
-			// However, what we would like to do in this case (reset the  affected last channel entries to point to the
-			// root channel) is not supported with foreign keys.
-			std::string condition = std::string("NOT EXISTS (SELECT 1 FROM \"") + ChannelTable::NAME + "\" WHERE \""
-									+ ChannelTable::column::server_id + "\" = NEW.\"" + column::server_id + "\" AND \""
-									+ ChannelTable::column::channel_id + "\" = NEW.\"" + column::last_channel_id
-									+ "\")";
-			std::string channelExistsTriggerBody = ::mdb::utils::triggerErrorStatement(
-				m_backend, std::string("Attempted to use a non-existing channel as ") + column::last_channel_id);
-
-			::mdb::Trigger channelExistsConstraintInsert(
-				std::string(NAME) + "_channel_exists_constraint_insert_trigger", ::mdb::Trigger::Timing::Before,
-				::mdb::Trigger::Event::Insert, channelExistsTriggerBody, condition);
-			::mdb::Trigger channelExistsConstraintUpdate(
-				std::string(NAME) + "_channel_exists_constraint_update_trigger", ::mdb::Trigger::Timing::Before,
-				::mdb::Trigger::Event::Update, channelExistsTriggerBody, condition);
-			addTrigger(channelExistsConstraintInsert, false);
-			addTrigger(channelExistsConstraintUpdate, false);
-
 			// Add a trigger to the channel table that ensures that every time a channel is deleted, the corresponding
-			// last channel entries in the users table are reset to point to the root channel
+			// last channel entries in the users table are reset to point to the root channel.
+			// Note: we do this **before** the deletion happens and hence also **before** the foreign key constraint
+			// cascades the delete operation to the user table (thereby preventing the user entry from being deleted).
 			std::string resetChannelTriggerBody =
 				std::string("UPDATE \"") + NAME + "\" SET \"" + column::last_channel_id
 				+ "\" = " + std::to_string(Mumble::ROOT_CHANNEL_ID) + " WHERE \"" + column::server_id + "\" = OLD.\""
 				+ ChannelTable::column::server_id + "\" AND \"" + column::last_channel_id + "\" = OLD.\""
 				+ ChannelTable::column::channel_id + "\";";
 			::mdb::Trigger resetLastChannelOnDelete(std::string(NAME) + "_reset_last_channel_on_delete_trigger",
-													::mdb::Trigger::Timing::After, ::mdb::Trigger::Event::Delete,
+													::mdb::Trigger::Timing::Before, ::mdb::Trigger::Event::Delete,
 													resetChannelTriggerBody);
 			channelTable.addTrigger(resetLastChannelOnDelete, false);
 		}
@@ -634,8 +619,8 @@ namespace server {
 			}
 		}
 
-		boost::optional< unsigned int > UserTable::findUser(unsigned int serverID, const std::string &name,
-															bool caseSensitive) {
+		std::optional< unsigned int > UserTable::findUser(unsigned int serverID, const std::string &name,
+														  bool caseSensitive) {
 			try {
 				unsigned int id;
 
@@ -651,7 +636,7 @@ namespace server {
 
 				transaction.commit();
 
-				return m_sql.got_data() ? id : boost::optional< unsigned int >{};
+				return m_sql.got_data() ? id : std::optional< unsigned int >{};
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at searching for user with name \"" + name + "\""
 															  + " on server with ID " + std::to_string(serverID)));

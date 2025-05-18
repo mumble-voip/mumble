@@ -17,11 +17,9 @@
 #include "Ban.h"
 #include "User.h"
 
-#include <boost/optional.hpp>
-
 #include <nlohmann/json_fwd.hpp>
 
-#include <exception>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -44,7 +42,7 @@ public:
 	void removeServer(unsigned int serverID);
 	bool serverExists(unsigned int serverID);
 	void setServerBootProperty(unsigned int serverID, bool boot);
-	boost::optional< unsigned int > loadPBKDF2IterationCount();
+	std::optional< unsigned int > loadPBKDF2IterationCount();
 	void storePBKDF2IterationCount(unsigned int count);
 
 	void setSuperUserPassword(unsigned int serverID, const std::string &password);
@@ -78,7 +76,7 @@ public:
 	void getConfigurationTo(unsigned int serverID, const std::string &configKey, bool &outVar);
 	void getConfigurationTo(unsigned int serverID, const std::string &configKey, int &outVar);
 	void getConfigurationTo(unsigned int serverID, const std::string &configKey, unsigned int &outVar);
-	void getConfigurationTo(unsigned int serverID, const std::string &configKey, boost::optional< bool > &outVar);
+	void getConfigurationTo(unsigned int serverID, const std::string &configKey, std::optional< bool > &outVar);
 
 	std::vector< std::pair< std::string, std::string > > getAllConfigurations(unsigned int serverID);
 
@@ -118,8 +116,8 @@ public:
 	QMap< int, QString > getRegisteredUserDetails(unsigned int serverID, unsigned int userID);
 	void addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, unsigned int serverID,
 									const std::string &nameFilter);
-	boost::optional< unsigned int > findRegisteredUserByCert(unsigned int serverID, const std::string &certHash);
-	boost::optional< unsigned int > findRegisteredUserByEmail(unsigned int serverID, const std::string &email);
+	std::optional< unsigned int > findRegisteredUserByCert(unsigned int serverID, const std::string &certHash);
+	std::optional< unsigned int > findRegisteredUserByEmail(unsigned int serverID, const std::string &email);
 	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
 									 unsigned int kdfIterations = 0);
 	void storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const std::string &password,

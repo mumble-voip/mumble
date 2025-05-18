@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <optional>
 
 namespace mumble {
 namespace server {
@@ -48,7 +49,7 @@ namespace server {
 			return data;
 		}
 
-		boost::optional< DBAcl::MetaGroup > parseMetaGroup(const std::string &str) {
+		std::optional< DBAcl::MetaGroup > parseMetaGroup(const std::string &str) {
 			if (str == "all") {
 				return DBAcl::MetaGroup::All;
 			} else if (str == "auth") {
@@ -66,7 +67,7 @@ namespace server {
 			}
 
 			// Not a meta group
-			return boost::none;
+			return std::nullopt;
 		}
 
 		std::string metaGroupName(DBAcl::MetaGroup group) {
@@ -94,13 +95,13 @@ namespace server {
 		std::string getLegacyGroupData(const DBAcl &acl, GroupTable &groupTable) {
 			std::string groupData;
 			if (acl.affectedGroupID) {
-				groupData = groupTable.getGroup(acl.serverID, acl.affectedGroupID.get()).name;
+				groupData = groupTable.getGroup(acl.serverID, acl.affectedGroupID.value()).name;
 			} else if (acl.affectedMetaGroup) {
 				// The main ChanACL class doesn't distinguish real groups from meta groups
-				groupData = metaGroupName(acl.affectedMetaGroup.get());
+				groupData = metaGroupName(acl.affectedMetaGroup.value());
 			} else if (acl.accessToken) {
 				// "Group names" containing the # modifier are understood to represent access tokens
-				groupData = '#' + acl.accessToken.get();
+				groupData = '#' + acl.accessToken.value();
 			} else {
 				return {};
 			}

@@ -4,8 +4,21 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerTable.h"
+#include "ACLTable.h"
+#include "BanTable.h"
+#include "ChannelLinkTable.h"
+#include "ChannelListenerTable.h"
+#include "ChannelPropertyTable.h"
+#include "ChannelTable.h"
+#include "ConfigTable.h"
+#include "GroupMemberTable.h"
+#include "GroupTable.h"
+#include "LogTable.h"
+#include "UserPropertyTable.h"
+#include "UserTable.h"
 
 #include "database/AccessException.h"
+#include "database/Backend.h"
 #include "database/Column.h"
 #include "database/Constraint.h"
 #include "database/DataType.h"
@@ -151,6 +164,53 @@ namespace server {
 					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
 					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
 			}
+		}
+
+		void ServerTable::postMigrationAction(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+			assert(fromSchemeVersion < toSchemeVersion);
+			(void) toSchemeVersion;
+
+#define PROCESS_TABLE(Table)                                                                  \
+	m_sql << "UPDATE \"" << Table::NAME << "\" SET \"" << Table::column::server_id << "\"=\"" \
+		  << Table::column::server_id << "\" - 1"
+
+			if (fromSchemeVersion < 10) {
+				// Since v10 server IDs are expected to start at zero. If this is not yet the case (almost certainly),
+				// shift all server IDs down by one.
+				// Since the server ID has influence on the (default) port it listens to, matching this expectation will
+				// ensure servers continuing to listen on the same port as before the migration.
+				int minID = -1;
+				m_sql << "SELECT MIN(\"" << column::server_id << "\") FROM \"" << getName() << "\"", soci::into(minID);
+
+				if (minID > 0) {
+					if (m_backend != ::mdb::Backend::MySQL) {
+						PROCESS_TABLE(ServerTable);
+					} else {
+						// MySQL can't deal with multiple foreign keys sharing a column (as encountered for instance in
+						// the access_control_list table) which is clearly a bug
+						// (https://bugs.mysql.com/bug.php?id=11305) but it seems that they don't care about it and just
+						// advice people to not do this. Hence, we have to do the change manually for all tables.
+						m_sql << "SET FOREIGN_KEY_CHECKS=0";
+
+						PROCESS_TABLE(ACLTable);
+						PROCESS_TABLE(BanTable);
+						PROCESS_TABLE(ChannelLinkTable);
+						PROCESS_TABLE(ChannelListenerTable);
+						PROCESS_TABLE(ChannelPropertyTable);
+						PROCESS_TABLE(ChannelTable);
+						PROCESS_TABLE(ConfigTable);
+						PROCESS_TABLE(GroupMemberTable);
+						PROCESS_TABLE(GroupTable);
+						PROCESS_TABLE(LogTable);
+						PROCESS_TABLE(ServerTable);
+						PROCESS_TABLE(UserPropertyTable);
+						PROCESS_TABLE(UserTable);
+
+						m_sql << "SET FOREIGN_KEY_CHECKS=1";
+					}
+				}
+			}
+#undef PROCESS_TABLE
 		}
 
 	} // namespace db
