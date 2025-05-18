@@ -8,29 +8,31 @@
 #include "MumbleApplication.h"
 #include "Global.h"
 
-boost::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
+#include <optional>
+
+std::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
 	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {
-		return boost::none;
+		return std::nullopt;
 	}
 
 	const ThemeMap themes            = getThemes();
 	ThemeMap::const_iterator themeIt = themes.find(settings.themeName);
 	if (themeIt == themes.end()) {
 		qWarning() << "Could not find configured theme" << settings.themeName;
-		return boost::none;
+		return std::nullopt;
 	}
 
 	ThemeInfo::StylesMap::const_iterator styleIt = themeIt->styles.find(settings.themeStyleName);
 	if (styleIt == themeIt->styles.end()) {
 		qWarning() << "Configured theme" << settings.themeName << "does not have configured style"
 				   << settings.themeStyleName;
-		return boost::none;
+		return std::nullopt;
 	}
 
 	return *styleIt;
 }
 
-void Themes::setConfiguredStyle(Settings &settings, boost::optional< ThemeInfo::StyleInfo > style, bool &outChanged) {
+void Themes::setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style, bool &outChanged) {
 	if (style) {
 		if (settings.themeName != style->themeName || settings.themeStyleName != style->name) {
 			settings.themeName      = style->themeName;
@@ -55,7 +57,7 @@ void Themes::applyFallback() {
 }
 
 bool Themes::applyConfigured() {
-	boost::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(Global::get().s);
+	std::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(Global::get().s);
 	if (!style) {
 		return false;
 	}

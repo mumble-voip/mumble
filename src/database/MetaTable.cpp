@@ -12,11 +12,10 @@
 #include "PrimaryKey.h"
 #include "Table.h"
 
-#include <boost/optional.hpp>
-
 #include <soci/soci.h>
 
 #include <cassert>
+#include <optional>
 #include <string>
 
 namespace mumble {
@@ -37,9 +36,9 @@ namespace db {
 	}
 
 	unsigned int MetaTable::getSchemeVersion() {
-		boost::optional< std::string > strVersion = queryKey("scheme_version");
+		std::optional< std::string > strVersion = queryKey("scheme_version");
 
-		return strVersion ? static_cast< unsigned int >(std::stoi(strVersion.get())) : 0;
+		return strVersion ? static_cast< unsigned int >(std::stoi(strVersion.value())) : 0;
 	}
 
 	void MetaTable::setSchemeVersion(unsigned int version) { setKey("scheme_version", std::to_string(version)); }
@@ -64,7 +63,7 @@ namespace db {
 		}
 	}
 
-	boost::optional< std::string > MetaTable::queryKey(const std::string &key) {
+	std::optional< std::string > MetaTable::queryKey(const std::string &key) {
 		try {
 			std::string value;
 			// Note: We are deliberately not wrapping the column names in double quotes as this prevents errors to be
@@ -75,7 +74,7 @@ namespace db {
 			m_sql << "SELECT " << column::value << " FROM " << m_name << " WHERE " << column::key << " = :key",
 				soci::use(key), soci::into(value);
 
-			return m_sql.got_data() ? boost::optional< std::string >(value) : boost::none;
+			return m_sql.got_data() ? std::optional< std::string >(value) : std::nullopt;
 		} catch (const soci::soci_error &e) {
 			throw AccessException(e.what());
 		}

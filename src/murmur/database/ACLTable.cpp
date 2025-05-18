@@ -27,6 +27,7 @@
 
 #include <cassert>
 #include <exception>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -147,19 +148,19 @@ namespace server {
 
 				if (acl.affectedUserID) {
 					userInd = soci::i_ok;
-					userID  = acl.affectedUserID.get();
+					userID  = acl.affectedUserID.value();
 				}
 				if (acl.affectedGroupID) {
 					groupInd = soci::i_ok;
-					groupID  = acl.affectedGroupID.get();
+					groupID  = acl.affectedGroupID.value();
 				}
 				if (acl.affectedMetaGroup) {
 					metaGroupInd = soci::i_ok;
-					metaGroupID  = static_cast< unsigned int >(acl.affectedMetaGroup.get());
+					metaGroupID  = static_cast< unsigned int >(acl.affectedMetaGroup.value());
 				}
 				if (acl.accessToken) {
 					accessTokenInd = soci::i_ok;
-					accessToken    = acl.accessToken.get();
+					accessToken    = acl.accessToken.value();
 				}
 
 				if (!acl.groupModifiers.empty()) {
@@ -447,10 +448,10 @@ namespace server {
 								accessToken    = std::move(data.name);
 								accessTokenInd = soci::i_ok;
 							} else {
-								boost::optional< DBAcl::MetaGroup > metaGroup = parseMetaGroup(data.name);
+								std::optional< DBAcl::MetaGroup > metaGroup = parseMetaGroup(data.name);
 
 								if (metaGroup) {
-									metaGroupID  = static_cast< int >(metaGroup.get());
+									metaGroupID  = static_cast< int >(metaGroup.value());
 									metaGroupInd = soci::i_ok;
 								} else {
 									// This is a proper group -> look up its ID

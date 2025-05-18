@@ -26,6 +26,7 @@
 
 #include <cassert>
 #include <exception>
+#include <optional>
 
 namespace mdb = ::mumble::db;
 
@@ -618,8 +619,8 @@ namespace server {
 			}
 		}
 
-		boost::optional< unsigned int > UserTable::findUser(unsigned int serverID, const std::string &name,
-															bool caseSensitive) {
+		std::optional< unsigned int > UserTable::findUser(unsigned int serverID, const std::string &name,
+														  bool caseSensitive) {
 			try {
 				unsigned int id;
 
@@ -635,7 +636,7 @@ namespace server {
 
 				transaction.commit();
 
-				return m_sql.got_data() ? id : boost::optional< unsigned int >{};
+				return m_sql.got_data() ? id : std::optional< unsigned int >{};
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at searching for user with name \"" + name + "\""
 															  + " on server with ID " + std::to_string(serverID)));

@@ -9,9 +9,8 @@
 #include "Backend.h"
 #include "Table.h"
 
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace mumble {
 namespace db {
@@ -34,7 +33,7 @@ namespace db {
 		void setSchemeVersion(unsigned int version);
 
 		void setKey(const std::string &key, const std::string &value);
-		boost::optional< std::string > queryKey(const std::string &key);
+		std::optional< std::string > queryKey(const std::string &key);
 
 		void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
 

@@ -50,13 +50,11 @@
 #include "murmur/database/UserPropertyTable.h"
 #include "murmur/database/UserTable.h"
 
-#include <boost/optional.hpp>
-
 #include <nlohmann/json.hpp>
 
-#include <algorithm>
 #include <cassert>
 #include <limits>
+#include <optional>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -230,20 +228,20 @@ void DBWrapper::setServerBootProperty(unsigned int serverID, bool boot) {
 	WRAPPER_END
 }
 
-boost::optional< unsigned int > DBWrapper::loadPBKDF2IterationCount() {
+std::optional< unsigned int > DBWrapper::loadPBKDF2IterationCount() {
 	WRAPPER_BEGIN
 
-	boost::optional< std::string > strIterations = m_serverDB.getMetaTable().queryKey("pbkdf2_iterations");
+	std::optional< std::string > strIterations = m_serverDB.getMetaTable().queryKey("pbkdf2_iterations");
 
 	if (!strIterations) {
-		return boost::none;
+		return std::nullopt;
 	}
 
 	try {
-		return static_cast< unsigned int >(std::stoi(strIterations.get()));
+		return static_cast< unsigned int >(std::stoi(strIterations.value()));
 	} catch (const std::invalid_argument &) {
 		// Conversion to number failed
-		return boost::none;
+		return std::nullopt;
 	}
 
 	WRAPPER_END
@@ -316,13 +314,13 @@ std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 			QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(currentBan.startDate)));
 		ban.haAddress = HostAddress(currentBan.baseAddress);
 		if (currentBan.reason) {
-			ban.qsReason = QString::fromStdString(currentBan.reason.get());
+			ban.qsReason = QString::fromStdString(currentBan.reason.value());
 		}
 		if (currentBan.bannedUserCertHash) {
-			ban.qsHash = QString::fromStdString(currentBan.bannedUserCertHash.get());
+			ban.qsHash = QString::fromStdString(currentBan.bannedUserCertHash.value());
 		}
 		if (currentBan.bannedUserName) {
-			ban.qsUsername = QString::fromStdString(currentBan.bannedUserName.get());
+			ban.qsUsername = QString::fromStdString(currentBan.bannedUserName.value());
 		}
 
 		bans.push_back(std::move(ban));
@@ -441,7 +439,7 @@ void DBWrapper::initializeChannelDetails(Server &server) {
 		for (const ::msdb::DBAcl &currentAcl :
 			 m_serverDB.getACLTable().getAllACLs(server.iServerNum, currentChannel->iId)) {
 			ChanACL *acl = new ChanACL(currentChannel);
-			acl->iUserId = currentAcl.affectedUserID ? static_cast< int >(currentAcl.affectedUserID.get()) : -1;
+			acl->iUserId = currentAcl.affectedUserID ? static_cast< int >(currentAcl.affectedUserID.value()) : -1;
 			acl->qsGroup = QString::fromStdString(::msdb::getLegacyGroupData(currentAcl, m_serverDB.getGroupTable()));
 
 			acl->bApplyHere = currentAcl.applyInCurrentChannel;
@@ -508,8 +506,8 @@ unsigned int DBWrapper::getNextAvailableChannelID(unsigned int serverID) {
 	return dbGroup;
 }
 
-::msdb::DBAcl aclToDB(unsigned int serverID, unsigned int priority, boost::optional< unsigned int > groupID,
-					  boost::optional<::msdb::DBAcl::MetaGroup > metaGroup, boost::optional< std::string > accessToken,
+::msdb::DBAcl aclToDB(unsigned int serverID, unsigned int priority, std::optional< unsigned int > groupID,
+					  std::optional<::msdb::DBAcl::MetaGroup > metaGroup, std::optional< std::string > accessToken,
 					  std::vector< std::string > groupModifiers, const ChanACL &acl) {
 	::msdb::DBAcl dbAcl;
 	assert(acl.c);
@@ -649,9 +647,9 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 	for (const ChanACL *currentACL : channel.qlACL) {
 		assert(currentACL);
 
-		boost::optional< unsigned int > associatedGroupID;
-		boost::optional<::msdb::DBAcl::MetaGroup > metaGroup;
-		boost::optional< std::string > accessToken;
+		std::optional< unsigned int > associatedGroupID;
+		std::optional<::msdb::DBAcl::MetaGroup > metaGroup;
+		std::optional< std::string > accessToken;
 		std::vector< std::string > groupModifiers;
 
 		if (!currentACL->qsGroup.isEmpty()) {
@@ -848,15 +846,14 @@ void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &con
 	WRAPPER_END
 }
 
-void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey,
-								   boost::optional< bool > &outVar) {
+void DBWrapper::getConfigurationTo(unsigned int serverID, const std::string &configKey, std::optional< bool > &outVar) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
 
 	std::string property = m_serverDB.getConfigTable().getConfig(serverID, configKey);
 
-	outVar = property.empty() ? boost::none : boost::optional< bool >(stringToBool(property));
+	outVar = property.empty() ? std::nullopt : std::optional< bool >(stringToBool(property));
 
 	WRAPPER_END
 }
@@ -1136,9 +1133,9 @@ int DBWrapper::registeredUserNameToID(unsigned int serverID, const std::string &
 
 	assertValidID(serverID);
 
-	boost::optional< unsigned int > id = m_serverDB.getUserTable().findUser(serverID, name, false);
+	std::optional< unsigned int > id = m_serverDB.getUserTable().findUser(serverID, name, false);
 
-	return id ? static_cast< int >(id.get()) : -1;
+	return id ? static_cast< int >(id.value()) : -1;
 
 	WRAPPER_END
 }
@@ -1217,8 +1214,7 @@ void DBWrapper::addAllRegisteredUserInfoTo(std::vector< UserInfo > &userInfo, un
 	WRAPPER_END
 }
 
-boost::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int serverID,
-																	const std::string &certHash) {
+std::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int serverID, const std::string &certHash) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
@@ -1230,12 +1226,12 @@ boost::optional< unsigned int > DBWrapper::findRegisteredUserByCert(unsigned int
 	assert(candidates.size() < 2);
 
 	// Only return the client ID, if the chosen client is unique
-	return candidates.size() == 1 ? boost::optional< unsigned int >(candidates[0]) : boost::none;
+	return candidates.size() == 1 ? std::optional< unsigned int >(candidates[0]) : std::nullopt;
 
 	WRAPPER_END
 }
 
-boost::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned int serverID, const std::string &email) {
+std::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned int serverID, const std::string &email) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
@@ -1244,7 +1240,7 @@ boost::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned in
 		m_serverDB.getUserPropertyTable().findUsersWithProperty(serverID, ::msdb::UserProperty::Email, email);
 
 	// Only return the client ID, if the chosen client is unique
-	return candidates.size() == 1 ? boost::optional< unsigned int >(candidates[0]) : boost::none;
+	return candidates.size() == 1 ? std::optional< unsigned int >(candidates[0]) : std::nullopt;
 
 	WRAPPER_END
 }

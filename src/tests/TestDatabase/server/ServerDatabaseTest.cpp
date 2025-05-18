@@ -50,6 +50,7 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -737,9 +738,9 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test findUser
-	boost::optional< unsigned int > userID = table.findUser(existingServerID, testUserData.name);
+	std::optional< unsigned int > userID = table.findUser(existingServerID, testUserData.name);
 	QVERIFY(userID);
-	QCOMPARE(userID.get(), testUser.registeredUserID);
+	QCOMPARE(userID.value(), testUser.registeredUserID);
 
 	userID = table.findUser(existingServerID, "I don't exist");
 	QVERIFY(!userID);
@@ -917,12 +918,12 @@ void ServerDatabaseTest::groupTable_general() {
 	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
 	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
 
-	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >());
+	QCOMPARE(table.findGroupID(existingServerID, group.name), std::optional< unsigned int >());
 
 	table.addGroup(group);
 
-	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >(group.groupID));
-	QCOMPARE(table.findGroupID(nonExistingServerID, group.name), boost::optional< unsigned int >());
+	QCOMPARE(table.findGroupID(existingServerID, group.name), std::optional< unsigned int >(group.groupID));
+	QCOMPARE(table.findGroupID(nonExistingServerID, group.name), std::optional< unsigned int >());
 
 	QVERIFY(table.groupExists(group));
 	QCOMPARE(table.getFreeGroupID(existingServerID), static_cast< unsigned int >(1));

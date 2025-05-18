@@ -14,12 +14,11 @@
 
 #include <chrono>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include <gsl/span>
-
-#include <boost/optional.hpp>
 
 namespace soci {
 class session;
@@ -99,8 +98,8 @@ namespace server {
 
 
 
-			boost::optional< unsigned int > findUser(unsigned int serverID, const std::string &name,
-													 bool caseSensitive = false);
+			std::optional< unsigned int > findUser(unsigned int serverID, const std::string &name,
+												   bool caseSensitive = false);
 
 
 			std::vector< DBUser > getRegisteredUsers(unsigned int serverID, const std::string &filter = "%");
