@@ -791,7 +791,7 @@ int main(int argc, char **argv) {
 	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
 	// before the MainWindow one, does not make sense. if you need logging before this
 	// point, use Log::logOrDefer()
-	Global::get().l = new Log();
+    Global::get().l = new Log();
     Global::get().l->processDeferredLogs();
 
 	Global::get().trayIcon = new TrayIcon();

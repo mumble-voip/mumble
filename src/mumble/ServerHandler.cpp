@@ -397,7 +397,7 @@ void ServerHandler::run() {
 			return;
 		}
 	}
-#include "Log.h"
+
 	QList< ServerAddress > targetAddresses(qlAddresses);
 	bool shouldTryNextTargetServer = true;
 	do {
