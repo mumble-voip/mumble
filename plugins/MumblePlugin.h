@@ -233,6 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
+	MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE,
 };
 
 /**
@@ -444,7 +445,7 @@ struct MumbleStringWrapper {
 	bool needsReleasing;
 };
 
-struct PositionalDataNoQt {
+struct PositionalCoordinates {
 	float m_playerPos[3];
 	float m_playerDir[3];
 	float m_playerAxis[3];
@@ -626,6 +627,8 @@ MUMBLE_PLUGIN_CONSTEXPR inline const char *mumble_errorMessage(int16_t errorCode
 		case MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER:
 			return "The requested API operation depends on server-side functionality, not supported by the server "
 				   "you're connected to";
+		case MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE:
+			return "There is currently no positional data available";
 	}
 
 	return "Unknown error code";
@@ -1529,19 +1532,19 @@ struct MUMBLE_API_STRUCT_NAME {
      * Gets the currently used positional data
      *
      * @param callerID The ID of the plugin calling this function
-     * @param[out] outPositionalData A pointer to the PositionalData object that should be written to
+     * @param[out] positionalCoordinates A pointer to the PositionalCoordinates object that should be written to
      * @returns The error code. If everything went well, STATUS_OK will be returned.
      *
      * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalData)(mumble_plugin_id_t callerID,
-																		PositionalDataNoQt *outPositionalData);
+																		PositionalCoordinates *positionalCoordinates);
 
 	/**
 	 * Gets the currently used positional data context
 	 *
      * @param callerID The ID of the plugin calling this function
-	 * @param[out] outContext A pointer to the char * that should be written to,
+	 * @param[out] context A pointer to the char * that should be written to,
 	 *   please note that the context has 2 null terminators,
 	 *   the first of which will contain the name of the plugin providing the data
 	 *   whereas the second null terminator contains the actual context data returned by the plugin
@@ -1550,19 +1553,19 @@ struct MUMBLE_API_STRUCT_NAME {
 	 * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalContext)(mumble_plugin_id_t callerID,
-	                                                                            char **outContext);
+	                                                                            char **context);
 
 	/**
 	 * Gets the currently used positional data identity
 	 *
 	 * @param callerID The ID of the plugin calling this function
-	 * @param[out] outIdentity A pointer to the char * that should be written to
+	 * @param[out] identity A pointer to the char * that should be written to
 	 * @returns The error code. If everything went well, STATUS_OK will be returned.
 	 *
 	 * @since Plugin interface v1.3.0
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalIdentity)(mumble_plugin_id_t callerID,
-																				char **outIdentity);
+																				char **identity);
 
 #endif
 

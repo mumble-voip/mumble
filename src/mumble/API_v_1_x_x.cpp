@@ -144,6 +144,7 @@ MumbleAPI::MumbleAPI() {
 	REGISTER_METATYPE(mumble_userid_t);
 	REGISTER_METATYPE(std::size_t);
 	REGISTER_METATYPE(uint8_t);
+	REGISTER_METATYPE(PositionalCoordinates);
 
 	// Define additional types that can't be defined using macro REGISTER_METATYPE
 	qRegisterMetaType< std::shared_ptr< api_promise_t > >("std::shared_ptr< api_promise_t >");
@@ -895,12 +896,12 @@ void MumbleAPI::getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumbl
 }
 
 void MumbleAPI::getPositionalData_v_1_3_x(mumble_plugin_id_t callerID,
-											   PositionalDataNoQt *outPositionalData,
+											   PositionalCoordinates *positionalCoordinates,
 											   std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getPositionalData_v_1_3_x", Qt::QueuedConnection,
-								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(PositionalDataNoQt *, outPositionalData),
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(PositionalCoordinates *, positionalCoordinates),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 		return;
 	}
@@ -915,6 +916,10 @@ void MumbleAPI::getPositionalData_v_1_3_x(mumble_plugin_id_t callerID,
 	PluginManager *pluginManager = Global::get().pluginManager;
 	if (!pluginManager) {
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+	}
+
+	if (!pluginManager->isPositionalDataAvailable()) {
+		EXIT_WITH(MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE)
 	}
 
 	const PositionalData &posData = pluginManager->getPositionalData();
@@ -922,24 +927,24 @@ void MumbleAPI::getPositionalData_v_1_3_x(mumble_plugin_id_t callerID,
 	for (int i = 0; i < 3; i++) {
 		Coord coord = static_cast< Coord >(i);
 
-		outPositionalData->m_playerPos[i]  = posData.getPlayerPos()[coord];
-		outPositionalData->m_playerDir[i]  = posData.getPlayerDir()[coord];
-		outPositionalData->m_playerAxis[i] = posData.getPlayerAxis()[coord];
+		positionalCoordinates->m_playerPos[i]  = posData.getPlayerPos()[coord];
+		positionalCoordinates->m_playerDir[i]  = posData.getPlayerDir()[coord];
+		positionalCoordinates->m_playerAxis[i] = posData.getPlayerAxis()[coord];
 
-		outPositionalData->m_cameraPos[i]  = posData.getCameraPos()[coord];
-		outPositionalData->m_cameraDir[i]  = posData.getCameraDir()[coord];
-		outPositionalData->m_cameraAxis[i] = posData.getCameraAxis()[coord];
+		positionalCoordinates->m_cameraPos[i]  = posData.getCameraPos()[coord];
+		positionalCoordinates->m_cameraDir[i]  = posData.getCameraDir()[coord];
+		positionalCoordinates->m_cameraAxis[i] = posData.getCameraAxis()[coord];
 	}
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
-void MumbleAPI::getPositionalContext_v_1_3_x(mumble_plugin_id_t callerID, char **outContext,
+void MumbleAPI::getPositionalContext_v_1_3_x(mumble_plugin_id_t callerID, char **context,
 									std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getPositionalContext_v_1_3_x", Qt::QueuedConnection,
-								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(char **, outContext),
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(char **, context),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 		return;
 	}
@@ -954,24 +959,38 @@ void MumbleAPI::getPositionalContext_v_1_3_x(mumble_plugin_id_t callerID, char *
 	PluginManager *pluginManager = Global::get().pluginManager;
 	if (!pluginManager) {
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+	}
+
+	if (!pluginManager->isPositionalDataAvailable()) {
+		EXIT_WITH(MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE)
 	}
 
 	const PositionalData &posData = pluginManager->getPositionalData();
 	const QString contextQString = posData.getContext();
+	QByteArray contextQByteArray = contextQString.toUtf8();
 
-	char *context = contextQString.toUtf8().data();
+	// TODO: verify if QByteArray#size includes the +1 for NULL terminator
+	// +1 for NULL terminator
+	std::size_t size = static_cast< std::size_t >(contextQByteArray.size() + 1);
 
-	std::memcpy(*outContext, context, static_cast<size_t>(contextQString.size()));
+	char *contextArray = static_cast< char * >(malloc(size * sizeof(char)));
+
+	std::memcpy(contextArray, contextQByteArray.data(), size);
+
+	// save the allocated pointer and how to delete it
+	m_curator.m_entries.insert({ contextArray, { defaultDeleter, callerID, "getPositionalContext" } });
+
+	*context = contextArray;
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
-void MumbleAPI::getPositionalIdentity_v_1_3_x(mumble_plugin_id_t callerID, char **outIdentity,
+void MumbleAPI::getPositionalIdentity_v_1_3_x(mumble_plugin_id_t callerID, char **identity,
 										std::shared_ptr< api_promise_t > promise) {
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(this, "getPositionalIdentity_v_1_3_x", Qt::QueuedConnection,
-								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(char **, outIdentity),
+								  Q_ARG(mumble_plugin_id_t, callerID), Q_ARG(char **, identity),
 								  Q_ARG(std::shared_ptr< api_promise_t >, promise));
 		return;
 	}
@@ -988,12 +1007,26 @@ void MumbleAPI::getPositionalIdentity_v_1_3_x(mumble_plugin_id_t callerID, char 
 		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 	}
 
+	if (!pluginManager->isPositionalDataAvailable()) {
+		EXIT_WITH(MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE)
+	}
+
 	const PositionalData &posData = pluginManager->getPositionalData();
+	const QString identityQString = posData.getPlayerIdentity();
+	QByteArray identityQByteArray = identityQString.toUtf8();
 
-	char *identity = posData.getPlayerIdentity().toUtf8().data();
-	size_t size = strlen(identity) + 1;
+	// TODO: verify if QByteArray#size includes the +1 for NULL terminator
+	// +1 for NULL terminator
+	std::size_t size = static_cast< std::size_t >(identityQByteArray.size() + 1);
 
-	std::memcpy(*outIdentity, identity, size);
+	char *identityArray = static_cast< char * >(malloc(size * sizeof(char)));
+
+	std::memcpy(identityArray, identityQByteArray.data(), size);
+
+	// save the allocated pointer and how to delete it
+	m_curator.m_entries.insert({ identityArray, { defaultDeleter, callerID, "getPositionalIdentity" } });
+
+	*identity = identityArray;
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
@@ -1905,22 +1938,22 @@ C_WRAPPER(getChannelDescription_v_1_0_x)
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-	mumble_plugin_id_t callerID, PositionalDataNoQt *outPositionalData
-#define ARG_NAMES callerID, outPositionalData
+	mumble_plugin_id_t callerID, PositionalCoordinates *positionalCoordinates
+#define ARG_NAMES callerID, positionalCoordinates
 C_WRAPPER(getPositionalData_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-mumble_plugin_id_t callerID, char **outContext
-#define ARG_NAMES callerID, outContext
+mumble_plugin_id_t callerID, char **context
+#define ARG_NAMES callerID, context
 C_WRAPPER(getPositionalContext_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
 #define TYPED_ARGS \
-mumble_plugin_id_t callerID, char **outIdentity
-#define ARG_NAMES callerID, outIdentity
+mumble_plugin_id_t callerID, char **identity
+#define ARG_NAMES callerID, identity
 C_WRAPPER(getPositionalIdentity_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
