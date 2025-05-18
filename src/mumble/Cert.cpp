@@ -460,8 +460,6 @@ Settings::KeyPair CertWizard::PromptCertStore() {
                     ) {
                     if(HandleType == CERT_NCRYPT_KEY_SPEC)
                         Pair = Settings::KeyPair(qlCert, QSslKey((Qt::HANDLE) Handle, QSsl::PrivateKey));
-                    else if(FreeHandle)
-                        CryptReleaseContext(Handle, NULL);
                 }
 
                 // CryptAcquire Failed
