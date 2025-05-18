@@ -410,7 +410,7 @@ void ServerHandler::run() {
 
         if (!Global::get().s.bSuppressIdentity) {
             Settings::KeyPair kPair = Global::get().s.kpCertificate;
-#if WIN32
+#ifdef Q_OS_WIN
             if(Global::get().s.useWindowsStore)
                 kPair = CertWizard::PromptCertStore();
 #endif

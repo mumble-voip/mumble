@@ -29,7 +29,7 @@
 #include <openssl/pkcs12.h>
 #include <openssl/x509.h>
 
-#if WIN32
+#ifdef Q_OS_WIN
 #include <windows.h>
 #include <cryptuiapi.h>
 #include <QCryptographicHash>
@@ -232,7 +232,7 @@ void CertWizard::initializePage(int id) {
 		on_qleImportFile_textChanged(qleImportFile->text());
 	}
 
-#if WIN32
+#ifdef Q_OS_WIN
     qcbWinStore->setEnabled(true);
 #endif
 
@@ -423,7 +423,7 @@ void CertWizard::on_qcbWinStore_checkStateChanged(const Qt::CheckState &arg1)
     Global::get().s.useWindowsStore = (arg1 == Qt::CheckState::Checked);
 }
 
-#if WIN32
+#ifdef Q_OS_WIN
 Settings::KeyPair CertWizard::PromptCertStore() {
     HCERTSTORE hStore = nullptr;
     PCCERT_CONTEXT CertCtx = nullptr;

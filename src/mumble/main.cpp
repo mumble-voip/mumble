@@ -225,7 +225,7 @@ int main(int argc, char **argv) {
 #	endif
 #endif
 
-#if WIN32
+#ifdef Q_OS_WIN
     // Force schannel on windows to ensure WinStoreCert Support
     QSslSocket::setActiveBackend("schannel");
 #endif

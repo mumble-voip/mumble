@@ -53,7 +53,7 @@ public:
 	static bool validateCert(const Settings::KeyPair &);
 	static Settings::KeyPair generateNewCert(QString name = QString(), const QString &email = QString());
 	static QByteArray exportCert(const Settings::KeyPair &cert);
-#if WIN32
+#ifdef Q_OS_WIN
     static Settings::KeyPair PromptCertStore();
 #endif
 	static Settings::KeyPair importCert(QByteArray, const QString & = QString());
