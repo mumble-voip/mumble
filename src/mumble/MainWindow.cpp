@@ -1317,7 +1317,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	Global::get().s.qsLastServer = name;
 	rtLast                       = MumbleProto::Reject_RejectType_None;
 	bRetryServer                 = true;
-	qaServerDisconnect->setEnabled(true);
+    qaServerDisconnect->setEnabled(true);
 	Global::get().l->log(Log::Information,
 						 tr("Connecting to server %1.").arg(Log::msgColor(host.toHtmlEscaped(), Log::Server)));
 	Global::get().sh->setConnectionInfo(host, port, user, pw);

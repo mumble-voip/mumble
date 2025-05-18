@@ -31,6 +31,7 @@
 #include "User.h"
 #include "Utils.h"
 #include "Global.h"
+#include "Log.h"
 
 #include <QPainter>
 #include <QtCore/QtEndian>
@@ -396,7 +397,7 @@ void ServerHandler::run() {
 			return;
 		}
 	}
-
+#include "Log.h"
 	QList< ServerAddress > targetAddresses(qlAddresses);
 	bool shouldTryNextTargetServer = true;
 	do {
@@ -411,8 +412,15 @@ void ServerHandler::run() {
         if (!Global::get().s.bSuppressIdentity) {
             Settings::KeyPair kPair = Global::get().s.kpCertificate;
 #ifdef Q_OS_WIN
-            if(Global::get().s.useWindowsStore)
+            if(Global::get().s.useWindowsStore) {
                 kPair = CertWizard::PromptCertStore();
+                if(!CertWizard::validateCert(kPair)) {
+                    kPair = Global::get().s.kpCertificate;
+                    // @TODO: Add to language pack
+                    Global::get().l->log(Log::MsgType::Warning, "No valid certificate was selected from the Certificate Store, falling back to file certificate (if there's one)");
+                }
+
+            }
 #endif
             if(CertWizard::validateCert(kPair)) {
                 qtsSock->setPrivateKey(kPair.second);
@@ -424,7 +432,6 @@ void ServerHandler::run() {
                 qtsSock->setSslConfiguration(config);
             }
 		}
-
 		{
 			ConnectionPtr connection(new Connection(this, qtsSock));
 			cConnection = connection;
