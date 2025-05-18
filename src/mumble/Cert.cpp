@@ -32,7 +32,6 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include <cryptuiapi.h>
-#include <QCryptographicHash>
 #endif
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
@@ -431,6 +430,7 @@ Settings::KeyPair CertWizard::PromptCertStore() {
 
     hStore = CertOpenSystemStore(NULL, L"MY");
     if(hStore != nullptr) {
+        //@TODO: Add Translation
         CertCtx = CryptUIDlgSelectCertificateFromStore(
             hStore,
             NULL,
