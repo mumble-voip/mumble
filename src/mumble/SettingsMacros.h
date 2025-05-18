@@ -36,6 +36,8 @@
 	PROCESS(audio, LOUDNESS_KEY, iMinLoudness)                                              \
 	PROCESS(audio, VOLUME_KEY, fVolume)                                                     \
 	PROCESS(audio, EXTERNAL_APPLICATIONS_VOLUME_KEY, fOtherVolume)                          \
+	PROCESS(audio, LISTENER_ATTENUATION_FACTOR_KEY, listenerAttenuationFactor)              \
+	PROCESS(audio, ALWAYS_ATTENUATE_LISTENERS_KEY, alwaysAttenuateListeners)                \
 	PROCESS(audio, ATTENUATE_EXTERNAL_APPLICATIONS_KEY, bAttenuateOthers)                   \
 	PROCESS(audio, ATTENUATE_EXTERNAL_APPLICATIONS_ON_TALK_KEY, bAttenuateOthersOnTalk)     \
 	PROCESS(audio, ATTENUATE_USERS_ON_PRIORITY_SPEAKER_KEY, bAttenuateUsersOnPrioritySpeak) \

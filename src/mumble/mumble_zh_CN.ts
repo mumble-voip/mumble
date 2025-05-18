@@ -1632,6 +1632,22 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
         <translation>回放测试可以用于测试您的音频配置。启用回放测试时，其他人无法听到您。</translation>
     </message>
+    <message>
+        <source>at</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>while someone in your channel talks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>always</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attenuate listeners by...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
@@ -7156,6 +7172,33 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -111,6 +111,7 @@ public:
 	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
 	GlobalShortcut *gsTogglePositionalAudio;
 	GlobalShortcut *gsMoveBack;
+	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -349,6 +350,9 @@ public slots:
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
 	void on_gsTogglePositionalAudio_triggered(bool, QVariant);
 	void on_gsMoveBack_triggered(bool, QVariant);
+	void on_gsCycleListenerAttenuationMode_triggered(bool, QVariant);
+	void on_gsListenerAttenuationUp_triggered(bool, QVariant);
+	void on_gsListenerAttenuationDown_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();

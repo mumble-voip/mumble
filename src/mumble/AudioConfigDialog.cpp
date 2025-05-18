@@ -716,11 +716,18 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, static_cast< int >(r.fVolume * 100.0f + 0.5f));
 	loadSlider(qsOtherVolume, static_cast< int >((1.0f - r.fOtherVolume) * 100.0f + 0.5f));
+	loadSlider(qsListenerAttenuation, static_cast< int >((1.0f - r.listenerAttenuationFactor) * 100.0f + 0.5f));
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadCheckBox(qcbAttenuateUsersOnPrioritySpeak, r.bAttenuateUsersOnPrioritySpeak);
 	loadCheckBox(qcbOnlyAttenuateSameOutput, r.bOnlyAttenuateSameOutput);
 	loadCheckBox(qcbAttenuateLoopbacks, r.bAttenuateLoopbacks);
+
+	if (r.alwaysAttenuateListeners) {
+		qrbAttenuateListenerAlways->setChecked(true);
+	} else {
+		qrbAttenuateListenerWhileTalk->setChecked(true);
+	}
 
 	const bool attenuationActive = r.bAttenuateOthers || r.bAttenuateOthersOnTalk;
 	qcbOnlyAttenuateSameOutput->setEnabled(attenuationActive);
@@ -748,6 +755,8 @@ void AudioOutputDialog::save() const {
 	s.iOutputDelay                   = qsDelay->value();
 	s.fVolume                        = static_cast< float >(qsVolume->value()) / 100.0f;
 	s.fOtherVolume                   = 1.0f - (static_cast< float >(qsOtherVolume->value()) / 100.0f);
+	s.listenerAttenuationFactor      = 1.0f - static_cast< float >(qsListenerAttenuation->value()) / 100.0f;
+	s.alwaysAttenuateListeners       = qrbAttenuateListenerAlways->isChecked();
 	s.bAttenuateOthersOnTalk         = qcbAttenuateOthersOnTalk->isChecked();
 	s.bAttenuateOthers               = qcbAttenuateOthers->isChecked();
 	s.bOnlyAttenuateSameOutput       = qcbOnlyAttenuateSameOutput->isChecked();
@@ -835,6 +844,12 @@ void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
 void AudioOutputDialog::on_qsOtherVolume_valueChanged(int v) {
 	qlOtherVolume->setText(tr("%1 %").arg(v));
 	Mumble::Accessibility::setSliderSemanticValue(qsOtherVolume, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
+}
+
+void AudioOutputDialog::on_qsListenerAttenuation_valueChanged(int v) {
+	qlListenerAttenuation->setText(tr("%1 %").arg(v));
+	Mumble::Accessibility::setSliderSemanticValue(qsListenerAttenuation,
+												  Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
 }
 
 void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {
