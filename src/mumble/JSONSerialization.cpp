@@ -141,6 +141,8 @@ void to_json(nlohmann::json &j, const Settings &settings) {
 
 	j[SettingsKeys::CERTIFICATE_KEY] = CertWizard::exportCert(settings.kpCertificate);
 
+    j[SettingsKeys::USE_WIN_CERT_STORE] = settings.useWindowsStore;
+
 	// Save whether Mumble has quit regularly (in contrast to having crashed). This flag is set right before saving the
 	// settings because Mumble is shut down (regularly). In contrast, when saving the settings because the user has made
 	// changes in the UI, this will be false. Thus when loading the settings again and seeing this flag is false, it
@@ -212,6 +214,12 @@ void from_json(const nlohmann::json &j, Settings &settings) {
 	if (json.contains(static_cast< const char * >(SettingsKeys::CERTIFICATE_KEY))) {
 		settings.kpCertificate = CertWizard::importCert(json.at(SettingsKeys::CERTIFICATE_KEY));
 	}
+
+#ifdef Q_OS_WIN
+    if(json.contains(static_cast< const char *>(SettingsKeys::USE_WIN_CERT_STORE))) {
+        settings.useWindowsStore = json.at(SettingsKeys::USE_WIN_CERT_STORE);
+    }
+#endif
 
 	if (json.contains(static_cast< const char * >(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY))) {
 		settings.mumbleQuitNormally = json.at(SettingsKeys::MUMBLE_QUIT_NORMALLY_KEY);

@@ -342,6 +342,7 @@ const SettingsKey OVERLAY_BLACKLIST_EXCLUDE_KEY     = { "blacklist_exclude" };
 
 const SettingsKey SETTINGS_VERSION_KEY     = { "settings_version" };
 const SettingsKey CERTIFICATE_KEY          = { "certificate" };
+const SettingsKey USE_WIN_CERT_STORE       = { "use_win_cert_store" };
 const SettingsKey MUMBLE_QUIT_NORMALLY_KEY = { "mumble_has_quit_normally" };
 
 } // namespace SettingsKeys
