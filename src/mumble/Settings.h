@@ -22,6 +22,7 @@
 #include <QStringList>
 #include <QVariant>
 #include <Qt>
+#include <optional>
 
 #include "Channel.h"
 #include "EchoCancelOption.h"
@@ -382,13 +383,14 @@ struct Settings {
 	bool bTalkingUI_AbbreviateCurrentChannel = false;
 	bool bTalkingUI_ShowLocalListeners       = false;
 	/// relative font size in %
-	int iTalkingUI_RelativeFontSize             = 100;
-	int iTalkingUI_SilentUserLifeTime           = 10;
-	int iTalkingUI_ChannelHierarchyDepth        = 1;
-	int iTalkingUI_MaxChannelNameLength         = 20;
-	int iTalkingUI_PrefixCharCount              = 3;
-	int iTalkingUI_PostfixCharCount             = 2;
-	QString qsTalkingUI_AbbreviationReplacement = QStringLiteral("...");
+	int iTalkingUI_RelativeFontSize                   = 100;
+	int iTalkingUI_SilentUserLifeTime                 = 10;
+	int iTalkingUI_ChannelHierarchyDepth              = 1;
+	int iTalkingUI_MaxChannelNameLength               = 20;
+	int iTalkingUI_PrefixCharCount                    = 3;
+	int iTalkingUI_PostfixCharCount                   = 2;
+	QString qsTalkingUI_AbbreviationReplacement       = QStringLiteral("...");
+	std::optional< QColor > talkingUI_BackgroundColor = std::nullopt;
 
 	QString qsHierarchyChannelSeparator = QStringLiteral("/");
 

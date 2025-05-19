@@ -6,10 +6,11 @@
 #ifndef MUMBLE_MUMBLE_TALKINGUI_H_
 #define MUMBLE_MUMBLE_TALKINGUI_H_
 
+#include <QColor>
+#include <QHash>
+#include <QIcon>
+#include <QSet>
 #include <QWidget>
-#include <QtCore/QHash>
-#include <QtCore/QSet>
-#include <QtGui/QIcon>
 
 #include <memory>
 #include <vector>
@@ -90,6 +91,14 @@ private:
 	/// @param widgetWrapper An instance of MultiStyleWidgetWrapper that wraps the widget whose font size
 	/// 	shall be set
 	void setFontSize(MultiStyleWidgetWrapper &widgetWrapper);
+
+	/// Sets the background color to to a color
+	///
+	/// @param backgroundColor An instance of QColor that will be set as the background color
+	void setBackgroundColor(QColor backgroundColor);
+
+	/// Clears the stylesheet of the TalkingUI window
+	void clearBackgroundColor();
 
 	/// Updates the user's status icons (reflecting e.g. its mut-state)
 	///
