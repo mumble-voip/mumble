@@ -969,9 +969,9 @@ void MumbleAPI::getPositionalContext_v_1_3_x(mumble_plugin_id_t callerID, char *
 	const QString contextQString = posData.getContext();
 	QByteArray contextQByteArray = contextQString.toUtf8();
 
-	// TODO: verify if QByteArray#size includes the +1 for NULL terminator
-	// +1 for NULL terminator
-	std::size_t size = static_cast< std::size_t >(contextQByteArray.size() + 1);
+	// https://doc.qt.io/qt-6/qbytearray.html#size
+	// QByteArray#size includes the null terminator at the end
+	std::size_t size = static_cast< std::size_t >(contextQByteArray.size());
 
 	char *contextArray = static_cast< char * >(malloc(size * sizeof(char)));
 
@@ -1015,9 +1015,7 @@ void MumbleAPI::getPositionalIdentity_v_1_3_x(mumble_plugin_id_t callerID, char 
 	const QString identityQString = posData.getPlayerIdentity();
 	QByteArray identityQByteArray = identityQString.toUtf8();
 
-	// TODO: verify if QByteArray#size includes the +1 for NULL terminator
-	// +1 for NULL terminator
-	std::size_t size = static_cast< std::size_t >(identityQByteArray.size() + 1);
+	std::size_t size = static_cast< std::size_t >(identityQByteArray.size());
 
 	char *identityArray = static_cast< char * >(malloc(size * sizeof(char)));
 
