@@ -634,7 +634,7 @@ QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 	return QString();
 }
 
-bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
+bool Log::isFileExtension(const QByteArray &ext, const QByteArray &header) {
 	qsizetype headerLength = header.size();
 	QByteArray objExt;
 	bool isExtAvif = ext == "avif";
@@ -689,16 +689,16 @@ bool Log::isFileExt(const QByteArray &ext, const QByteArray &header) {
 	return objExt.toLower() == ext;
 }
 
-QString Log::findFileExt(const QByteArray &header) {
+QString Log::findFileExtension(const QByteArray &header) {
 	for (const QByteArray &ext : QImageReader::supportedImageFormats()) {
-		if (isFileExt(ext, header)) {
+		if (isFileExtension(ext, header)) {
 			return QString::fromUtf8(ext);
 		}
 	}
 	return QLatin1String();
 }
 
-Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
+Log::TextObjectType Log::findTextObjectType(const QString &fileExt) {
 	TextObjectType txtObjType{};
 	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
 		if (i.value()().contains(fileExt.toUtf8())) {
@@ -709,12 +709,12 @@ Log::TextObjectType Log::findTxtObjType(const QString &fileExt) {
 	return txtObjType;
 }
 
-std::tuple< Log::TextObjectType, QString > Log::findTxtObjTypeAndFileExt(const QByteArray &header) {
+std::tuple< Log::TextObjectType, QString > Log::findTextObjectTypeAndFileExtension(const QByteArray &header) {
 	std::tuple< TextObjectType, QString > txtObjTypeAndFileExt{ TextObjectType::NoCustomObject, "" };
 	bool isCompatibleExt = false;
 	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
 		for (const QByteArray &ext : i.value()()) {
-			isCompatibleExt = isFileExt(ext, header);
+			isCompatibleExt = isFileExtension(ext, header);
 			if (isCompatibleExt) {
 				txtObjTypeAndFileExt = { i.key(), QString::fromUtf8(ext) };
 				break;
@@ -769,7 +769,7 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		}
 		return { startIndex, endIndex };
 	};
-	auto findTxtObjData = [&html, &findQuoteRange](const qsizetype &previousImgEndIndex) -> TextObject {
+	auto findTextObjectData = [&html, &findQuoteRange](const qsizetype &previousImgEndIndex) -> TextObject {
 		TextObject txtObj;
 		qsizetype imgStartIndex;
 		qsizetype imgEndIndex = previousImgEndIndex;
@@ -797,7 +797,7 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 			qsizetype base64Size = srcEndIndex - base64StartIndex + 1;
 			QString base64Header = html.sliced(base64StartIndex, std::min((qsizetype) 16, base64Size));
 			QByteArray header    = QByteArray::fromBase64(qvariant_cast< QByteArray >(base64Header));
-			auto [type, fileExt] = findTxtObjTypeAndFileExt(header);
+			auto [type, fileExt] = findTextObjectTypeAndFileExtension(header);
 			isCompatibleExt      = type != TextObjectType::NoCustomObject;
 			if (isCompatibleExt) {
 				QString base64      = html.sliced(base64StartIndex, base64Size);
@@ -813,7 +813,7 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 	// as well as what HTML is between the currently processed custom text object and the previous one:
 	qsizetype previousImgEndIndex = -1;
 	do {
-		auto [type, ba, fileExt, imgStartIndex, imgEndIndex, width, height] = findTxtObjData(previousImgEndIndex);
+		auto [type, ba, fileExt, imgStartIndex, imgEndIndex, width, height] = findTextObjectData(previousImgEndIndex);
 		if (type == TextObjectType::NoCustomObject) {
 			break;
 		}

@@ -210,7 +210,7 @@ void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
 	if (obj != nullptr) {
 		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
 			case Log::TextObjectType::Animation: {
-				QMovie *animation = qobject_cast< QMovie * >(obj);
+				QMovie *animation    = qobject_cast< QMovie * >(obj);
 				isCustomScrollAction = AnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp);
 				break;
 			}
@@ -568,7 +568,7 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 	qsizetype fileExtStartIndex = filePath.lastIndexOf('.') + 1;
 	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
-	Log::TextObjectType txtObjType = Log::findTxtObjType(fileExt);
+	Log::TextObjectType txtObjType = Log::findTextObjectType(fileExt);
 	if (txtObjType == Log::TextObjectType::Animation) {
 		QFile file(filePath);
 		if (!file.open(QIODevice::ReadOnly)) {
@@ -1587,10 +1587,10 @@ bool AnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, b
 			isCustomScrollAction = true;
 			switch (videoControl) {
 				case VideoUtils::VideoControl::View:
-				    changeFrameByTime(animation, 1000);
-				    break;
+					changeFrameByTime(animation, 1000);
+					break;
 				default:
-				    isCustomScrollAction = false;
+					isCustomScrollAction = false;
 					break;
 			}
 		}
@@ -1611,17 +1611,17 @@ bool AnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, b
 				changeSpeed(animation, -5);
 				break;
 			default:
-			    isCustomScrollAction = false;
+				isCustomScrollAction = false;
 				break;
 		}
 		if (!isCustomScrollAction && isFullScreen && areVideoControlsOnFullScreen) {
 			isCustomScrollAction = true;
 			switch (videoControl) {
 				case VideoUtils::VideoControl::View:
-				    changeFrameByTime(animation, -1000);
-				    break;
+					changeFrameByTime(animation, -1000);
+					break;
 				default:
-				    isCustomScrollAction = false;
+					isCustomScrollAction = false;
 					break;
 			}
 		}
