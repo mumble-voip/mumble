@@ -167,23 +167,30 @@ bool LogTextBrowser::isScrolledToBottom() {
 	return scrollBar->value() == scrollBar->maximum();
 }
 
-void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
-	QPoint mouseDocPos          = mouseEvt->pos() + getScrollPos();
-	Qt::MouseButton mouseButton = mouseEvt->button();
-
-	QTextFormat fmt = document()->documentLayout()->formatAt(mouseDocPos);
+QObject *LogTextBrowser::customObjectAt(const QPoint &pos) {
+	QTextFormat fmt = document()->documentLayout()->formatAt(pos);
 	if (!fmt.hasProperty(1)) {
-		return;
+		return nullptr;
 	}
 	QObject *obj = qvariant_cast< QObject * >(fmt.property(1));
 	QRect rect   = obj->property("posAndSize").toRect();
 	// Ensure the selection was within the text object's vertical space,
 	// such as if an inline animation is not as tall as the content before it:
-	if (!VideoUtils::isInBoundsOnAxis(mouseDocPos.y(), rect.y(), rect.height())) {
+	if (!VideoUtils::isInBoundsOnAxis(pos.y(), rect.y(), rect.height())) {
+		return nullptr;
+	}
+	return obj;
+}
+
+void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
+	QPoint mouseDocPos          = mouseEvt->pos() + getScrollPos();
+	Qt::MouseButton mouseButton = mouseEvt->button();
+
+	QObject *obj = customObjectAt(mouseDocPos);
+	if (obj == nullptr) {
 		return;
 	}
-
-	switch (qvariant_cast< Log::TextObjectType >(fmt.objectType())) {
+	switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
 		case Log::TextObjectType::Animation: {
 			QMovie *animation = qobject_cast< QMovie * >(obj);
 			AnimationTextObject::mousePress(animation, mouseDocPos, mouseButton);
@@ -191,6 +198,28 @@ void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
 		}
 		case Log::TextObjectType::NoCustomObject:
 			break;
+	}
+}
+
+void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
+	QPoint mouseDocPos = wheelEvt->position().toPoint() + getScrollPos();
+	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
+
+	QObject *obj              = customObjectAt(mouseDocPos);
+	bool isCustomScrollAction = false;
+	if (obj != nullptr) {
+		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
+			case Log::TextObjectType::Animation: {
+				QMovie *animation = qobject_cast< QMovie * >(obj);
+				isCustomScrollAction = AnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp);
+				break;
+			}
+			default:
+				break;
+		}
+	}
+	if (!isCustomScrollAction) {
+		QTextBrowser::wheelEvent(wheelEvt);
 	}
 }
 
@@ -1472,6 +1501,7 @@ void AnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPo
 	}
 
 	QRect rect                            = animation->property("posAndSize").toRect();
+	LogTextBrowser *log                   = qobject_cast< LogTextBrowser * >(animation->parent());
 	VideoUtils::VideoControl videoControl = VideoUtils::videoControlAt(mouseDocPos, rect);
 	if (isLeftMouseButtonPressed) {
 		switch (videoControl) {
@@ -1495,6 +1525,11 @@ void AnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPo
 			case VideoUtils::VideoControl::IncreaseSpeed:
 				return changeSpeed(animation, 10);
 			case VideoUtils::VideoControl::FullScreen:
+				if (animation->property("isFullScreen").toBool()) {
+					VideoUtils::setPropertyFullScreen(animation, false);
+					log->repaint();
+					QApplication::processEvents();
+				}
 				return toggleFullScreen(animation);
 			case VideoUtils::VideoControl::None:
 				return;
@@ -1518,6 +1553,81 @@ void AnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPo
 				return;
 		}
 	}
+}
+
+bool AnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp) {
+	bool isFullScreen                 = animation->property("isFullScreen").toBool();
+	bool areVideoControlsOnFullScreen = animation->property("areVideoControlsOnFullScreen").toBool();
+	if ((!isFullScreen && !areVideoControlsOn) || (isFullScreen && !areVideoControlsOnFullScreen)) {
+		return false;
+	}
+
+	QRect rect                            = animation->property("posAndSize").toRect();
+	VideoUtils::VideoControl videoControl = VideoUtils::videoControlAt(mouseDocPos, rect);
+	bool isCustomScrollAction             = true;
+	if (isScrollingUp) {
+		switch (videoControl) {
+			case VideoUtils::VideoControl::VideoBar:
+				changeFrameByTime(animation, 1000);
+				break;
+			case VideoUtils::VideoControl::Loop:
+				changeLoopMode(animation, 1);
+				break;
+			case VideoUtils::VideoControl::PreviousFrame:
+			case VideoUtils::VideoControl::NextFrame:
+				changeFrame(animation, 1);
+				break;
+			case VideoUtils::VideoControl::DecreaseSpeed:
+			case VideoUtils::VideoControl::IncreaseSpeed:
+				changeSpeed(animation, 5);
+				break;
+			default:
+				isCustomScrollAction = false;
+		}
+		if (!isCustomScrollAction && isFullScreen && areVideoControlsOnFullScreen) {
+			isCustomScrollAction = true;
+			switch (videoControl) {
+				case VideoUtils::VideoControl::View:
+				    changeFrameByTime(animation, 1000);
+				    break;
+				default:
+				    isCustomScrollAction = false;
+					break;
+			}
+		}
+	} else {
+		switch (videoControl) {
+			case VideoUtils::VideoControl::VideoBar:
+				changeFrameByTime(animation, -1000);
+				break;
+			case VideoUtils::VideoControl::Loop:
+				changeLoopMode(animation, -1);
+				break;
+			case VideoUtils::VideoControl::PreviousFrame:
+			case VideoUtils::VideoControl::NextFrame:
+				changeFrame(animation, -1);
+				break;
+			case VideoUtils::VideoControl::DecreaseSpeed:
+			case VideoUtils::VideoControl::IncreaseSpeed:
+				changeSpeed(animation, -5);
+				break;
+			default:
+			    isCustomScrollAction = false;
+				break;
+		}
+		if (!isCustomScrollAction && isFullScreen && areVideoControlsOnFullScreen) {
+			isCustomScrollAction = true;
+			switch (videoControl) {
+				case VideoUtils::VideoControl::View:
+				    changeFrameByTime(animation, -1000);
+				    break;
+				default:
+				    isCustomScrollAction = false;
+					break;
+			}
+		}
+	}
+	return isCustomScrollAction;
 }
 
 void AnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
@@ -1717,6 +1827,15 @@ void FullScreenAnimation::mousePressEvent(QMouseEvent *mouseEvt) {
 
 void FullScreenAnimation::mouseMoveEvent(QMouseEvent *mouseEvt) {
 	VideoUtils::startOrHoldVideoControlsTransition(movie(), mouseEvt->pos(), this);
+}
+
+void FullScreenAnimation::wheelEvent(QWheelEvent *wheelEvt) {
+	QMovie *animation  = movie();
+	QPoint mouseDocPos = wheelEvt->position().toPoint();
+	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
+	if (AnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp)) {
+		VideoUtils::updateVideoControls(animation, this);
+	}
 }
 
 void FullScreenAnimation::keyPressEvent(QKeyEvent *keyEvt) {

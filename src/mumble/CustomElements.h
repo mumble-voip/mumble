@@ -24,6 +24,7 @@ protected:
 	QWidget *widgetInFullScreen;
 	QString queuedNumericInput;
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void wheelEvent(QWheelEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	void keyReleaseEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	QMimeData *createMimeDataFromSelection() const Q_DECL_OVERRIDE;
@@ -38,6 +39,7 @@ public:
 	bool isWidgetInFullScreen();
 	void toggleFullScreen(QWidget *widget);
 	void highlightSelectedObject(QPainter *painter, const QRect &rect, QObject *propertyHolder);
+	QObject *customObjectAt(const QPoint &pos);
 	/// Removes the content of the client's log, deletes the objects used by text objects
 	/// and clears the counter for custom objects as well as their focus index.
 	void clear();
@@ -170,6 +172,7 @@ public:
 									bool &isAnimationCheckOnly);
 	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog);
 	static void mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
+	static bool scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp);
 	static void keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
 
 	enum class LoopMode { Unchanged, Loop, NoLoop };
@@ -204,6 +207,7 @@ class FullScreenAnimation : public QLabel {
 protected:
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void mouseMoveEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void wheelEvent(QWheelEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
