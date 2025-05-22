@@ -1159,10 +1159,10 @@ QObject *AnimationTextObject::createAnimation(const QByteArray &animationBa, Log
 						animation->state() == QMovie::Running || animation->property("isPlayingInReverse").toBool();
 					return currentFrameIndex == targetFrameIndex && wasRunning;
 				};
-				auto isRunningAtFrameWithNoLoop = [&getLoopMode, &isRunningAtFrame](int targetFrameIndex) {
+				auto isRunningAtFrameWithNoLoop = [getLoopMode, isRunningAtFrame](int targetFrameIndex) {
 					return isRunningAtFrame(targetFrameIndex) && getLoopMode() == LoopMode::NoLoop;
 				};
-				auto stopAtEndOfThisFrame = [&animation, &isRunningAtFrameWithNoLoop, &calcFrameDelay, &frameIndex]() {
+				auto stopAtEndOfThisFrame = [&animation, &isRunningAtFrameWithNoLoop, &frameIndex, &calcFrameDelay]() {
 					int delay = calcFrameDelay(frameIndex);
 					QTimer::singleShot(delay, Qt::PreciseTimer, animation,
 									   [animation, isRunningAtFrameWithNoLoop, frameIndex]() {
@@ -1179,8 +1179,7 @@ QObject *AnimationTextObject::createAnimation(const QByteArray &animationBa, Log
 						return;
 					}
 					if (isRunningAtFrameWithNoLoop(0)) {
-						stopAtEndOfThisFrame();
-						return;
+						return stopAtEndOfThisFrame();
 					}
 					int precedingFrameIndex = frameIndex <= 0 ? lastFrameIndex : frameIndex - 1;
 					int precedingFrameDelay = calcFrameDelay(precedingFrameIndex);
