@@ -567,7 +567,7 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 	qsizetype fileExtStartIndex = filePath.lastIndexOf('.') + 1;
 	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
-	Log::TextObjectType txtObjType = Log::findTxtObjType(fileExt);
+	Log::TextObjectType txtObjType = Log::findTextObjectType(fileExt);
 	if (txtObjType == Log::TextObjectType::Animation) {
 		QFile file(filePath);
 		if (!file.open(QIODevice::ReadOnly)) {
