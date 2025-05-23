@@ -2983,16 +2983,16 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;center&gt;여기에 채팅 메시지 입력&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>이미지를 보낼 수 없음: 너무 큽니다.</translation>
+        <source>Unable to read animated image file %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>%1 이미지를 보낼 수 없음: 너무 큽니다.</translation>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This server does not allow sending images.</source>
-        <translation>이 서버는 이미지 보내기를 허용하지 않습니다.</translation>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5478,10 +5478,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>등록되지 않은 유저 계정의 서버 비밀번호가 잘못되었습니다. 다시 시도하세요.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>이미지 (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>구성(&amp;O)</translation>
     </message>
@@ -7097,6 +7093,34 @@ Valid options are:
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
