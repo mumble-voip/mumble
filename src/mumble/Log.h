@@ -120,9 +120,9 @@ public:
 	// versions.
 	static const MsgType msgOrder[];
 
-	enum class TextObjectType { NoCustomObject, Animation = QTextFormat::UserObject };
+	enum class TextObjectType { NoCustomObject, ImageAnimation = QTextFormat::UserObject };
 	inline static const QHash< TextObjectType, std::function< QList< QByteArray >() > > txtObjTypeToFileExtsFuncMap = {
-		{ TextObjectType::Animation, QMovie::supportedFormats }
+		{ TextObjectType::ImageAnimation, QMovie::supportedFormats }
 	};
 
 protected:

@@ -416,7 +416,7 @@ Log::Log(QObject *p) : QObject(p) {
 	qRegisterMetaType< MsgType >();
 
 	QAbstractTextDocumentLayout *docLayout = Global::get().mw->qteLog->document()->documentLayout();
-	docLayout->registerHandler(static_cast< int >(TextObjectType::Animation), new AnimationTextObject());
+	docLayout->registerHandler(static_cast< int >(TextObjectType::ImageAnimation), new ImageAnimationTextObject());
 
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
@@ -822,8 +822,8 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		LogTextBrowser *log = Global::get().mw->qteLog;
 		QObject *obj        = nullptr;
 		switch (type) {
-			case TextObjectType::Animation:
-				obj = AnimationTextObject::createAnimation(ba, log);
+			case TextObjectType::ImageAnimation:
+				obj = ImageAnimationTextObject::createImageAnimation(ba, log);
 				break;
 			case TextObjectType::NoCustomObject:
 				break;
