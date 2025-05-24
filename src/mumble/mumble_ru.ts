@@ -7190,7 +7190,7 @@ Valid options are:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Графическое представление позиционного моделирования звука</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -7959,6 +7959,21 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Pick font</source>
         <translation>Выбрать шрифт</translation>
+    </message>
+</context>
+<context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Пароль</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be stored on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
