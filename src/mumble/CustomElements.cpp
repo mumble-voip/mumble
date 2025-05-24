@@ -191,9 +191,9 @@ void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
 		return;
 	}
 	switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
-		case Log::TextObjectType::Animation: {
+		case Log::TextObjectType::ImageAnimation: {
 			QMovie *animation = qobject_cast< QMovie * >(obj);
-			AnimationTextObject::mousePress(animation, mouseDocPos, mouseButton);
+			ImageAnimationTextObject::mousePress(animation, mouseDocPos, mouseButton);
 			break;
 		}
 		case Log::TextObjectType::NoCustomObject:
@@ -209,9 +209,9 @@ void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
 	bool isCustomScrollAction = false;
 	if (obj != nullptr) {
 		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
-			case Log::TextObjectType::Animation: {
+			case Log::TextObjectType::ImageAnimation: {
 				QMovie *animation    = qobject_cast< QMovie * >(obj);
-				isCustomScrollAction = AnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp);
+				isCustomScrollAction = ImageAnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp);
 				break;
 			}
 			default:
@@ -304,9 +304,9 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 
 	QObject *object = customObjects[customObjectFocusIndex];
 	switch (qvariant_cast< Log::TextObjectType >(object->property("objectType"))) {
-		case Log::TextObjectType::Animation: {
+		case Log::TextObjectType::ImageAnimation: {
 			QMovie *animation = qobject_cast< QMovie * >(object);
-			AnimationTextObject::keyPress(animation, key, isObjectSelectionChanged);
+			ImageAnimationTextObject::keyPress(animation, key, isObjectSelectionChanged);
 			break;
 		}
 		case Log::TextObjectType::NoCustomObject:
@@ -356,7 +356,7 @@ QMimeData *LogTextBrowser::createMimeDataFromSelection() const {
 			break;
 		}
 		auto txtObjType = qvariant_cast< Log::TextObjectType >(obj->property("objectType"));
-		if (txtObjType != Log::TextObjectType::Animation) {
+		if (txtObjType != Log::TextObjectType::ImageAnimation) {
 			if (++txtObjIndex == htmlLength) {
 				break;
 			}
@@ -569,7 +569,7 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
 	Log::TextObjectType txtObjType = Log::findTextObjectType(fileExt);
-	if (txtObjType == Log::TextObjectType::Animation) {
+	if (txtObjType == Log::TextObjectType::ImageAnimation) {
 		QFile file(filePath);
 		if (!file.open(QIODevice::ReadOnly)) {
 			Global::get().l->log(Log::Information, tr("Unable to read animated image file %1").arg(filePath));
@@ -577,7 +577,7 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 		}
 		QByteArray animationBa(file.readAll());
 		bool isAnimation = true;
-		AnimationTextObject::createAnimation(animationBa, nullptr, isAnimation);
+		ImageAnimationTextObject::createImageAnimation(animationBa, nullptr, isAnimation);
 		if (isAnimation) {
 			QString base64Image = qvariant_cast< QString >(animationBa.toBase64());
 			QString img         = QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, fileExt);
@@ -781,14 +781,14 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 	int totalMs         = -1;
 	int currentMs       = -1;
 	switch (objType) {
-		case Log::TextObjectType::Animation: {
+		case Log::TextObjectType::ImageAnimation: {
 			QMovie *animation = qobject_cast< QMovie * >(propertyHolder);
 			int frameIndex    = animation->currentFrameNumber();
 			wasPaused = animation->state() != QMovie::Running && !animation->property("isPlayingInReverse").toBool();
 			wasCached = animation->cacheMode() == QMovie::CacheAll;
 			speedPercentage = animation->speed();
-			totalMs         = AnimationTextObject::getTotalTime(propertyHolder);
-			currentMs       = AnimationTextObject::getCurrentTime(propertyHolder, frameIndex);
+			totalMs         = ImageAnimationTextObject::getTotalTime(propertyHolder);
+			currentMs       = ImageAnimationTextObject::getCurrentTime(propertyHolder, frameIndex);
 			break;
 		}
 		default:
@@ -851,9 +851,9 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 
 	QFont font = painter->font();
 	switch (objType) {
-		case Log::TextObjectType::Animation: {
-			auto loopMode       = qvariant_cast< AnimationTextObject::LoopMode >(propertyHolder->property("LoopMode"));
-			QString loopModeStr = AnimationTextObject::loopModeToString(loopMode);
+		case Log::TextObjectType::ImageAnimation: {
+			auto loopMode = qvariant_cast< ImageAnimationTextObject::LoopMode >(propertyHolder->property("LoopMode"));
+			QString loopModeStr         = ImageAnimationTextObject::loopModeToString(loopMode);
 			qsizetype loopModeStrLength = loopModeStr.size();
 			int loopModeStrOffset       = loopModeStrLength > 7 ? 12 : loopModeStrLength > 4 ? 5 : 0;
 			double fontSizeSmall        = 0.7;
@@ -1061,10 +1061,10 @@ void VideoUtils::setAttributesWidthAndHeight(QObject *propertyHolder, QSize &siz
 }
 
 
-bool AnimationTextObject::areVideoControlsOn = false;
+bool ImageAnimationTextObject::areVideoControlsOn = false;
 
-QObject *AnimationTextObject::createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
-											  bool &isAnimationCheckOnly) {
+QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
+														bool &isAnimationCheckOnly) {
 	QMovie *animation = new QMovie(parentLog);
 	QBuffer *buffer   = new QBuffer(animation);
 	buffer->setData(animationBa);
@@ -1205,12 +1205,12 @@ QObject *AnimationTextObject::createAnimation(const QByteArray &animationBa, Log
 	return animation;
 }
 
-QObject *AnimationTextObject::createAnimation(const QByteArray &animationBa, LogTextBrowser *parent) {
+QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parent) {
 	bool isAnimationCheckOnly = false;
-	return createAnimation(animationBa, parent, isAnimationCheckOnly);
+	return createImageAnimation(animationBa, parent, isAnimationCheckOnly);
 }
 
-QString AnimationTextObject::loopModeToString(LoopMode mode) {
+QString ImageAnimationTextObject::loopModeToString(LoopMode mode) {
 	switch (mode) {
 		case LoopMode::Unchanged:
 			return "Unchanged";
@@ -1222,18 +1222,18 @@ QString AnimationTextObject::loopModeToString(LoopMode mode) {
 	return "Undefined";
 }
 
-void AnimationTextObject::toggleVideoControls(LogTextBrowser *log) {
+void ImageAnimationTextObject::toggleVideoControls(LogTextBrowser *log) {
 	areVideoControlsOn = !areVideoControlsOn;
 	// Update document layout manually when resizing custom text objects:
 	log->reflow();
 }
 
-void AnimationTextObject::toggleVideoControlsFullScreen(QObject *propertyHolder) {
+void ImageAnimationTextObject::toggleVideoControlsFullScreen(QObject *propertyHolder) {
 	bool areVideoControlsOnFullScreen = propertyHolder->property("areVideoControlsOnFullScreen").toBool();
 	propertyHolder->setProperty("areVideoControlsOnFullScreen", !areVideoControlsOnFullScreen);
 }
 
-void AnimationTextObject::setFrame(QMovie *animation, int frameIndex) {
+void ImageAnimationTextObject::setFrame(QMovie *animation, int frameIndex) {
 	int lastFrameIndex       = animation->property("lastFrameIndex").toInt();
 	bool isFrameIndexTooLow  = frameIndex < 0;
 	bool isFrameIndexTooHigh = frameIndex > lastFrameIndex;
@@ -1267,7 +1267,7 @@ void AnimationTextObject::setFrame(QMovie *animation, int frameIndex) {
 	}
 }
 
-void AnimationTextObject::setFrameByTime(QMovie *animation, int milliseconds) {
+void ImageAnimationTextObject::setFrameByTime(QMovie *animation, int milliseconds) {
 	int totalMs            = getTotalTime(animation);
 	bool isTimeAfterEnd    = milliseconds > totalMs;
 	bool isTimeBeforeStart = milliseconds < 0;
@@ -1301,12 +1301,12 @@ void AnimationTextObject::setFrameByTime(QMovie *animation, int milliseconds) {
 	setFrame(animation, frameIndex);
 }
 
-void AnimationTextObject::setFrameByProportion(QMovie *animation, double proportion) {
+void ImageAnimationTextObject::setFrameByProportion(QMovie *animation, double proportion) {
 	int msPassedAtProportion = (int) round(proportion * getTotalTime(animation));
 	setFrameByTime(animation, msPassedAtProportion);
 }
 
-void AnimationTextObject::changeFrame(QMovie *animation, int amount) {
+void ImageAnimationTextObject::changeFrame(QMovie *animation, int amount) {
 	int lastFrameIndex       = animation->property("lastFrameIndex").toInt();
 	int frameIndex           = animation->currentFrameNumber() + amount;
 	int amountOfTimesGreater = (int) abs(floor(frameIndex / (double) lastFrameIndex));
@@ -1318,11 +1318,11 @@ void AnimationTextObject::changeFrame(QMovie *animation, int amount) {
 									   : frameIndex > lastFrameIndex ? frameIndexWrappedForward : frameIndex);
 }
 
-void AnimationTextObject::changeFrameByTime(QMovie *animation, int milliseconds) {
+void ImageAnimationTextObject::changeFrameByTime(QMovie *animation, int milliseconds) {
 	setFrameByTime(animation, getCurrentTime(animation, animation->currentFrameNumber()) + milliseconds);
 }
 
-void AnimationTextObject::togglePause(QMovie *animation) {
+void ImageAnimationTextObject::togglePause(QMovie *animation) {
 	int lastFrameIndex            = animation->property("lastFrameIndex").toInt();
 	QMovie::MovieState state      = animation->state();
 	bool wasStoppedOrNeverStarted = state == QMovie::NotRunning;
@@ -1350,7 +1350,7 @@ void AnimationTextObject::togglePause(QMovie *animation) {
 	}
 }
 
-void AnimationTextObject::toggleCache(QMovie *animation) {
+void ImageAnimationTextObject::toggleCache(QMovie *animation) {
 	int lastFrameIndex                  = animation->property("lastFrameIndex").toInt();
 	bool wasCached                      = animation->cacheMode() == QMovie::CacheAll;
 	QMovie::CacheMode previousCacheMode = wasCached ? QMovie::CacheNone : QMovie::CacheAll;
@@ -1379,32 +1379,32 @@ void AnimationTextObject::toggleCache(QMovie *animation) {
 	VideoUtils::updateVideoControls(animation);
 }
 
-void AnimationTextObject::toggleFullScreen(QMovie *animation) {
+void ImageAnimationTextObject::toggleFullScreen(QMovie *animation) {
 	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(animation->parent());
-	QWidget *fsAnim     = log->isWidgetInFullScreen() ? nullptr : new FullScreenAnimation(animation, log);
+	QWidget *fsAnim     = log->isWidgetInFullScreen() ? nullptr : new FullScreenImageAnimation(animation, log);
 	log->toggleFullScreen(fsAnim);
 }
 
-void AnimationTextObject::escapeFullScreen(QMovie *animation) {
+void ImageAnimationTextObject::escapeFullScreen(QMovie *animation) {
 	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(animation->parent());
 	if (log->isWidgetInFullScreen()) {
 		log->toggleFullScreen(nullptr);
 	}
 }
 
-void AnimationTextObject::stopPlayback(QMovie *animation) {
+void ImageAnimationTextObject::stopPlayback(QMovie *animation) {
 	animation->stop();
 	animation->setProperty("isPlayingInReverse", false);
 }
 
-void AnimationTextObject::resetPlayback(QMovie *animation) {
+void ImageAnimationTextObject::resetPlayback(QMovie *animation) {
 	// Show the first frame that the animation would continue from if started again
 	// without caching anyway, indicating that the animation was reset instead of paused:
 	setFrame(animation, 0);
 	stopPlayback(animation);
 }
 
-void AnimationTextObject::setSpeed(QMovie *animation, int percentage) {
+void ImageAnimationTextObject::setSpeed(QMovie *animation, int percentage) {
 	// Pausing the animation should only be done via the play state to avoid confusion:
 	if (percentage == 0) {
 		return;
@@ -1430,7 +1430,7 @@ void AnimationTextObject::setSpeed(QMovie *animation, int percentage) {
 	}
 }
 
-void AnimationTextObject::resetSpeed(QMovie *animation) {
+void ImageAnimationTextObject::resetSpeed(QMovie *animation) {
 	QVariant propertySpeedAtPreviousSpeedReset = animation->property("speedAtPreviousSpeedReset");
 	bool isSpeedPreviouslyReset                = propertySpeedAtPreviousSpeedReset.isValid();
 	int currentSpeed                           = animation->speed();
@@ -1443,22 +1443,22 @@ void AnimationTextObject::resetSpeed(QMovie *animation) {
 	setSpeed(animation, isOriginalSpeed ? previousSpeed : 100);
 }
 
-void AnimationTextObject::invertSpeed(QMovie *animation) {
+void ImageAnimationTextObject::invertSpeed(QMovie *animation) {
 	setSpeed(animation, animation->speed() * -1);
 }
 
-void AnimationTextObject::changeSpeed(QMovie *animation, int percentageStep) {
+void ImageAnimationTextObject::changeSpeed(QMovie *animation, int percentageStep) {
 	int speed          = animation->speed();
 	int nextPercentage = speed + percentageStep;
 	setSpeed(animation, speed + percentageStep * (nextPercentage != 0 ? 1 : 2));
 }
 
-void AnimationTextObject::setLoopMode(QMovie *animation, LoopMode mode) {
+void ImageAnimationTextObject::setLoopMode(QMovie *animation, LoopMode mode) {
 	animation->setProperty("LoopMode", QVariant::fromValue(mode));
 	VideoUtils::updateVideoControls(animation);
 }
 
-void AnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
+void ImageAnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
 	LoopMode loopMode     = qvariant_cast< LoopMode >(animation->property("LoopMode"));
 	int lastLoopModeInt   = static_cast< int >(LoopMode::NoLoop);
 	int loopModeChangedTo = static_cast< int >(loopMode) + steps;
@@ -1467,11 +1467,11 @@ void AnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
 	setLoopMode(animation, static_cast< LoopMode >(loopModeResult));
 }
 
-int AnimationTextObject::getTotalTime(QObject *propertyHolder) {
+int ImageAnimationTextObject::getTotalTime(QObject *propertyHolder) {
 	return propertyHolder->property("totalMs").toInt();
 }
 
-int AnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameIndex) {
+int ImageAnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameIndex) {
 	int lastFrameIndex            = propertyHolder->property("lastFrameIndex").toInt();
 	QList< QVariant > frameDelays = propertyHolder->property("frameDelays").toList();
 	int msUntilCurrentFrame       = 0;
@@ -1483,7 +1483,8 @@ int AnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameIndex)
 	return msUntilCurrentFrame;
 }
 
-void AnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &mouseButton) {
+void ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPos,
+										  const Qt::MouseButton &mouseButton) {
 	bool isFullScreen                 = animation->property("isFullScreen").toBool();
 	bool areVideoControlsOnFullScreen = animation->property("areVideoControlsOnFullScreen").toBool();
 	bool isLeftMouseButtonPressed     = mouseButton == Qt::LeftButton;
@@ -1554,7 +1555,7 @@ void AnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPo
 	}
 }
 
-bool AnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp) {
+bool ImageAnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp) {
 	bool isFullScreen                 = animation->property("isFullScreen").toBool();
 	bool areVideoControlsOnFullScreen = animation->property("areVideoControlsOnFullScreen").toBool();
 	if ((!isFullScreen && !areVideoControlsOn) || (isFullScreen && !areVideoControlsOnFullScreen)) {
@@ -1629,7 +1630,7 @@ bool AnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, b
 	return isCustomScrollAction;
 }
 
-void AnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
+void ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
 	bool isKeyBoundToAction           = true;
 	Qt::KeyboardModifiers modifiers   = QApplication::keyboardModifiers();
 	LogTextBrowser *log               = qobject_cast< LogTextBrowser * >(animation->parent());
@@ -1766,18 +1767,18 @@ void AnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool i
 	}
 }
 
-AnimationTextObject::AnimationTextObject() : QObject() {
+ImageAnimationTextObject::ImageAnimationTextObject() : QObject() {
 }
 
-QSizeF AnimationTextObject::intrinsicSize(QTextDocument *, int, const QTextFormat &fmt) {
+QSizeF ImageAnimationTextObject::intrinsicSize(QTextDocument *, int, const QTextFormat &fmt) {
 	QMovie *animation = qvariant_cast< QMovie * >(fmt.property(1));
 	QSize size        = animation->frameRect().size();
 	VideoUtils::setAttributesWidthAndHeight(animation, size);
 	return VideoUtils::calcIntrinsicSize(size, areVideoControlsOn);
 }
 
-void AnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int,
-									 const QTextFormat &fmt) {
+void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int,
+										  const QTextFormat &fmt) {
 	QMovie *animation   = qvariant_cast< QMovie * >(fmt.property(1));
 	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(doc->parent());
 	QRect rect          = rectF.toRect();
@@ -1798,7 +1799,7 @@ void AnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF, QTe
 }
 
 
-FullScreenAnimation::FullScreenAnimation(QMovie *animation, LogTextBrowser *parent) : QLabel(parent) {
+FullScreenImageAnimation::FullScreenImageAnimation(QMovie *animation, LogTextBrowser *parent) : QLabel(parent) {
 	// Set the animation viewer to fill all available space:
 	setScaledContents(true);
 	setMovie(animation);
@@ -1807,7 +1808,7 @@ FullScreenAnimation::FullScreenAnimation(QMovie *animation, LogTextBrowser *pare
 		animation->setProperty("areVideoControlsOnFullScreen", true);
 	}
 	VideoUtils::setPropertyFullScreen(animation, true);
-	connect(this, &FullScreenAnimation::destroyed, animation,
+	connect(this, &FullScreenImageAnimation::destroyed, animation,
 			[animation]() { VideoUtils::setPropertyFullScreen(animation, false); });
 	connect(animation, &QMovie::stateChanged, this, [animation, this]() {
 		VideoUtils::updateVideoControls(animation, this);
@@ -1816,35 +1817,35 @@ FullScreenAnimation::FullScreenAnimation(QMovie *animation, LogTextBrowser *pare
 	VideoUtils::addVideoControlsTransition(animation, this);
 }
 
-void FullScreenAnimation::mousePressEvent(QMouseEvent *mouseEvt) {
+void FullScreenImageAnimation::mousePressEvent(QMouseEvent *mouseEvt) {
 	QMovie *animation     = movie();
 	QPoint widgetClickPos = mouseEvt->pos();
-	AnimationTextObject::mousePress(animation, widgetClickPos, mouseEvt->button());
+	ImageAnimationTextObject::mousePress(animation, widgetClickPos, mouseEvt->button());
 	VideoUtils::updateVideoControls(animation, this);
 	VideoUtils::startOrHoldVideoControlsTransition(animation, widgetClickPos, this);
 }
 
-void FullScreenAnimation::mouseMoveEvent(QMouseEvent *mouseEvt) {
+void FullScreenImageAnimation::mouseMoveEvent(QMouseEvent *mouseEvt) {
 	VideoUtils::startOrHoldVideoControlsTransition(movie(), mouseEvt->pos(), this);
 }
 
-void FullScreenAnimation::wheelEvent(QWheelEvent *wheelEvt) {
+void FullScreenImageAnimation::wheelEvent(QWheelEvent *wheelEvt) {
 	QMovie *animation  = movie();
 	QPoint mouseDocPos = wheelEvt->position().toPoint();
 	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
-	if (AnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp)) {
+	if (ImageAnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp)) {
 		VideoUtils::updateVideoControls(animation, this);
 	}
 }
 
-void FullScreenAnimation::keyPressEvent(QKeyEvent *keyEvt) {
+void FullScreenImageAnimation::keyPressEvent(QKeyEvent *keyEvt) {
 	QMovie *animation = movie();
-	AnimationTextObject::keyPress(animation, static_cast< Qt::Key >(keyEvt->key()));
+	ImageAnimationTextObject::keyPress(animation, static_cast< Qt::Key >(keyEvt->key()));
 	VideoUtils::updateVideoControls(animation, this);
 	VideoUtils::startOrHoldVideoControlsTransition(animation);
 }
 
-void FullScreenAnimation::paintEvent(QPaintEvent *) {
+void FullScreenImageAnimation::paintEvent(QPaintEvent *) {
 	QPainter painter(this);
 	QMovie *animation = movie();
 	QPixmap frame     = animation->currentPixmap();

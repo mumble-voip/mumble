@@ -156,7 +156,7 @@ public:
 	static void setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size);
 };
 
-class AnimationTextObject : public QObject, public QTextObjectInterface {
+class ImageAnimationTextObject : public QObject, public QTextObjectInterface {
 	Q_OBJECT
 	Q_INTERFACES(QTextObjectInterface)
 
@@ -167,10 +167,10 @@ protected:
 
 public:
 	static bool areVideoControlsOn;
-	AnimationTextObject();
-	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
-									bool &isAnimationCheckOnly);
-	static QObject *createAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog);
+	ImageAnimationTextObject();
+	static QObject *createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
+										 bool &isAnimationCheckOnly);
+	static QObject *createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog);
 	static void mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
 	static bool scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp);
 	static void keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
@@ -201,7 +201,7 @@ public:
 	static void changeLoopMode(QMovie *animation, int steps);
 };
 
-class FullScreenAnimation : public QLabel {
+class FullScreenImageAnimation : public QLabel {
 	Q_OBJECT
 
 protected:
@@ -212,7 +212,7 @@ protected:
 	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 public:
-	FullScreenAnimation(QMovie *animation, LogTextBrowser *parent = nullptr);
+	FullScreenImageAnimation(QMovie *animation, LogTextBrowser *parent = nullptr);
 };
 
 class DockTitleBar : public QLabel {
