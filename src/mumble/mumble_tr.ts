@@ -7076,28 +7076,90 @@ Valid options are:
   --hidden
                 Start Mumble hidden in the system tray.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
+
+&lt;url&gt;, başlangıçtan sonra bağlantı penceresinin gösterilmesi yerine
+bağlanılacak bir URL belirtir, ve şu şekildedir:
+mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;bağlantı_noktası&gt;][/&lt;kanal&gt;[/&lt;alt_kanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt;, kurulacak eklenti dosyalarının bir listesidir
+Sürüm sorgulama parametresi doğru istemci sürümünün
+çağrılması için ayarlanmalıdır. Güncel olarak varsayılan şudur: 1.2.0.
+
+Geçerli seçenekler şunlardır:
+  -h, --help    Bu yardımı gösterir ve çıkar.
+  --version     Sürüm bilgilerini göster ve çık
+  -m, --multiple
+                İstemcinin çoklu örneklemelerinin başlatılmalarına izin verir.
+  -c, --config
+                Alternatif yapılandırma dosyası belirt.
+                Şayet bunu aynı zamanda Mumble&apos;ın çoklu örneklemelerini çalıştırmak
+                için kullanıyorsanız, yapılandırmada alternatif bir &apos;database&apos; değeri kullanın.
+  --default-certificate-dir &lt;dizin&gt;
+                Alternatif bir varsayılan sertifika yolu belirt.
+                Bu yol sadece ayarlardan hiçbir sertifika yüklenmedi ise
+                kullanılır.
+  -n, --noidentity
+                Kimlik dosyalarının (yani sertifikaların) yüklenmesini bastır.
+  -jn, --jackname &lt;arg&gt;
+                Kişiselleştirilmiş Jack istemci ismi ayarla.
+  --license
+                Mumble lisansını göster.
+  --authors
+                Mumble yazarlarını göster.
+  --third-party-licenses
+                Mumble tarafından kullanılan üçüncü taraf yazılımların lisanslarını göster.
+  --window-title-ext &lt;arg&gt;
+                Kişiselleştirilmiş bir pencere başlık uzantısı ayarla.
+  --dump-input-streams
+                PCM akımlarını girdi zincirinin çeşitli bölümlerine dök
+                (hata ayıklama için faydalıdır)
+                - ham mikrofon girdisi
+                - yankı iptali için hoparlör geri okuması
+                - işlenmiş mikrofon girdisi
+  --print-echocancel-queue
+                stdout üzerinde yankı iptal kuyruğunun durumunu yaz
+                (hata ayıklama için faydalıdır)
+  --translation-dir &lt;dizin&gt;
+                İlave bir tercüme dizini &lt;dizin&gt; belirtir, burada
+                Mumble kendisiyle gelen dosyaların yerine geçecek
+                tercüme dosyalarını arayacaktır.
+                Bu şekilde eklenen dizinler, diğer şartlarda kullanılan
+                varsayılan konumlardan daha yüksek öneliğe sahip olurlar.
+  --print-translation-dirs
+                Mumble&apos;ın kendisiyle gelen tercüme dosyalarını ezecek
+                dosyaları arayacağı yolları yaz.
+                (Tercümanların tercümelerini denemeleri için faydalıdır)
+  --locale &lt;locale&gt;
+                Mumble ayarlarındaki yerellik ayarını girilen yerellik dizesine
+                tekabül eden yerellik ayarıyla ez.
+                Şayet biçim geçersizse, Mumble bir hata gösterecektir.
+                Aksi takdirde yerellik ayarı Mumble ayarlarında daimi olarak
+                kaydedilecektir.
+  --hidden
+                Mumble&apos;ı sistem tepsisinde saklı başlat.
+</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>G&amp;eri git</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sizi bir önceki kanala taşır</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Geri git</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sizi bir önceki kanalınıza taşıyacaktır</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Daha önce içinde bulunduğunuz kanal artık bu sunucuda mevcut değildir.</translation>
     </message>
 </context>
 <context>
@@ -9393,39 +9455,39 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>istemcinin hareketli ortalamasına</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Son X dakika:</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% kayıp</translation>
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>istemcinin hareketli ortalamasından</translation>
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% gecikme</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Toplam:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Son %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">saniye</translation>
+        <translation>saniye</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>dakika</translation>
     </message>
 </context>
 <context>
@@ -9898,11 +9960,11 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Çoklu kanal + Taşıma (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Taşıma (JACK, bağımsız)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
