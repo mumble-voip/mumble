@@ -33,6 +33,7 @@
 #include "Markdown.h"
 #include "MenuLabel.h"
 #include "PTTButtonWidget.h"
+#include "PasswordDialog.h"
 #include "PluginManager.h"
 #include "PositionalAudioViewer.h"
 #include "QtWidgetUtils.h"
@@ -120,7 +121,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -3650,6 +3653,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		Qt::WindowFlags wf;
 
 		bool matched = true;
+		bool save    = true;
 		switch (rtLast) {
 			case MumbleProto::Reject_RejectType_InvalidUsername:
 				uname = QInputDialog::getText(this, tr("Invalid username"),
@@ -3662,23 +3666,23 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 											  QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongUserPW:
-				pw = QInputDialog::getText(this, tr("Wrong certificate or password"),
-										   tr("Wrong certificate or password for registered user. If you are\n"
-											  "certain this user is protected by a password please retry.\n"
-											  "Otherwise abort and check your certificate and username."),
-										   QLineEdit::Password, pw, &ok, wf);
+				pw = PasswordDialog::getPassword(this, tr("Wrong password"),
+												 tr("Wrong certificate or password for registered user. If you are\n"
+													"certain this user is protected by a password please retry.\n"
+													"Otherwise abort and check your certificate and username."),
+												 pw, &ok, &save, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongServerPW:
-				pw = QInputDialog::getText(this, tr("Wrong password"),
-										   tr("Wrong server password for unregistered user account, please try again."),
-										   QLineEdit::Password, pw, &ok, wf);
+				pw = PasswordDialog::getPassword(
+					this, tr("Wrong password"),
+					tr("Wrong server password for unregistered user account, please try again."), pw, &ok, &save, wf);
 				break;
 			default:
 				matched = false;
 				break;
 		}
 		if (ok && matched) {
-			if (!Global::get().s.bSuppressIdentity)
+			if (!Global::get().s.bSuppressIdentity && save)
 				Global::get().db->setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			Global::get().sh->setConnectionInfo(host, port, uname, pw);
