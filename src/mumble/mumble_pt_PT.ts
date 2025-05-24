@@ -711,6 +711,13 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -3041,6 +3048,57 @@ Tem certeza de que quer substituir o seu certificado?
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
         <translation>Ignorar Localmente (Texto-Para-Fala)</translation>
+    </message>
+</context>
+<context>
+    <name>CommentViewWidget</name>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <comment>Users</comment>
+        <translation type="unfinished">Utilizadores</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <comment>Properties</comment>
+        <translation type="unfinished">Propriedades</translation>
+    </message>
+    <message>
+        <source>OS</source>
+        <comment>OS</comment>
+        <translation type="unfinished">SO</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <comment>Version</comment>
+        <translation type="unfinished">Versão</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a test text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Descrição</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7081,6 +7139,10 @@ Valid options are:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>M&amp;ove back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9175,6 +9237,17 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Use as teclas de seta para navegar nesta lista de tokens de acesso. Os tokens são exibidos em texto simples.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
