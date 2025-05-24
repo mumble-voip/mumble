@@ -232,6 +232,10 @@ void TalkingUI::setupUI() {
 	// properly and as the TalkingUI doesn't provide context help anyways, this is not a big loss.
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
+	if (Global::get().s.talkingUI_BackgroundColor.has_value()) {
+		setBackgroundColor(*Global::get().s.talkingUI_BackgroundColor);
+	}
+
 	connect(Global::get().mw->qtvUsers->selectionModel(), &QItemSelectionModel::currentChanged, this,
 			&TalkingUI::on_mainWindowSelectionChanged);
 }
@@ -805,6 +809,13 @@ void TalkingUI::on_settingsChanged() {
 
 	const ClientUser *self = ClientUser::get(Global::get().uiSession);
 
+	// Update Background Color
+	if (Global::get().s.talkingUI_BackgroundColor.has_value()) {
+		setBackgroundColor(*Global::get().s.talkingUI_BackgroundColor);
+	} else {
+		clearBackgroundColor();
+	}
+
 	// Whether or not the current user should always be displayed might also have changed,
 	// so we'll have to update that as well.
 	TalkingUIUser *localUserEntry = findUser(Global::get().uiSession);
@@ -881,4 +892,14 @@ void TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged(unsigned int chan
 	if (listenerEntry && channel && self) {
 		listenerEntry->setDisplayString(UserModel::createDisplayString(*self, true, channel));
 	}
+}
+
+void TalkingUI::setBackgroundColor(QColor backgroundColor) {
+	if (backgroundColor.isValid()) {
+		setStyleSheet(QString("background-color: %1;").arg(backgroundColor.name()));
+	}
+}
+
+void TalkingUI::clearBackgroundColor() {
+	setStyleSheet("");
 }

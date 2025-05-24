@@ -12,6 +12,7 @@
 #include "SearchDialog.h"
 #include "Global.h"
 
+#include <QColorDialog>
 #include <QSystemTrayIcon>
 #include <QtCore/QFileSystemWatcher>
 #include <QtCore/QStack>
@@ -69,6 +70,8 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbUserDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
 
 	connect(qrbLCustom, SIGNAL(toggled(bool)), qcbLockLayout, SLOT(setEnabled(bool)));
+	connect(qbClearBackgroundColor, &QPushButton::clicked, this, &LookConfig::talkinguiBackgroundCleared);
+	connect(qbBackgroundColor, &QPushButton::clicked, this, &LookConfig::qbBackgroundColor_clicked);
 
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
@@ -107,6 +110,27 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 
 QString LookConfig::title() const {
 	return tr("User Interface");
+}
+
+void LookConfig::qbBackgroundColor_clicked() {
+	QColor color = QColorDialog::getColor(Qt::white, this, tr("Choose a Color"));
+	if (color.isValid()) {
+		talkinguiBackgroundSet(color);
+	}
+}
+
+void LookConfig::talkinguiBackgroundSet(QColor color) {
+	selectedBackgroundColor = color;
+	QString style           = QString("background-color: %1;").arg(color.name());
+	qccolorPreview->setStyleSheet(style);
+	swBackgroundColor->setCurrentIndex(0);
+	qlBackgroundColor->setBuddy(qbClearBackgroundColor);
+}
+
+void LookConfig::talkinguiBackgroundCleared() {
+	selectedBackgroundColor = std::nullopt;
+	swBackgroundColor->setCurrentIndex(1);
+	qlBackgroundColor->setBuddy(qbBackgroundColor);
 }
 
 const QString &LookConfig::getName() const {
@@ -208,6 +232,11 @@ void LookConfig::load(const Settings &r) {
 	qsbPrefixCharCount->setValue(r.iTalkingUI_PrefixCharCount);
 	qsbPostfixCharCount->setValue(r.iTalkingUI_PostfixCharCount);
 	qleAbbreviationReplacement->setText(r.qsTalkingUI_AbbreviationReplacement);
+	if (r.talkingUI_BackgroundColor.has_value()) {
+		talkinguiBackgroundSet(*r.talkingUI_BackgroundColor);
+	} else {
+		talkinguiBackgroundCleared();
+	}
 
 	qleChannelSeparator->setText(r.qsHierarchyChannelSeparator);
 
@@ -280,6 +309,7 @@ void LookConfig::save() const {
 	s.iTalkingUI_PrefixCharCount          = qsbPrefixCharCount->value();
 	s.iTalkingUI_PostfixCharCount         = qsbPostfixCharCount->value();
 	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
+	s.talkingUI_BackgroundColor           = selectedBackgroundColor;
 
 	s.qsHierarchyChannelSeparator = qleChannelSeparator->text();
 

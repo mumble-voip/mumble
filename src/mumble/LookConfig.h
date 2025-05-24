@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_LOOKCONFIG_H_
 #define MUMBLE_MUMBLE_LOOKCONFIG_H_
 
+#include <optional>
+
 #include "ConfigDialog.h"
 #include "ThemeInfo.h"
 
@@ -18,6 +20,8 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LookConfig)
+	std::optional< QColor > selectedBackgroundColor;
+
 public:
 	/// The unique name of this ConfigWidget
 	static const QString name;
@@ -30,9 +34,12 @@ public slots:
 	void accept() const Q_DECL_OVERRIDE;
 	void save() const Q_DECL_OVERRIDE;
 	void load(const Settings &r) Q_DECL_OVERRIDE;
+	void talkinguiBackgroundSet(QColor color);
+	void talkinguiBackgroundCleared();
 	void themeDirectoryChanged();
 	void on_qcbAbbreviateChannelNames_stateChanged(int state);
 	void on_qcbUsersAlwaysVisible_stateChanged(int state);
+	void qbBackgroundColor_clicked();
 
 private:
 	/// Reload themes combobox and select given configuredStyle in it

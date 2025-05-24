@@ -104,6 +104,8 @@ def getDefaultValueForType(dataType):
     if dataType in ["int", "short", "long", "float", "double", "qreal"] or dataType.startswith("qint") or dataType.startswith("quint") or \
         dataType.startswith("uint"):
         return "42"
+    elif match := re.search(r"optional<(.*)>", dataType):
+        return getDefaultValueForType(match.group(1))
     elif dataType in ["bool"]:
         return "true"
     elif dataType in ["QString", "std::string"]:
