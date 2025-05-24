@@ -1005,7 +1005,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	QMenu *menu   = qteLog->createStandardContextMenu(docPos);
 
 	QTextFormat fmt  = qteLog->document()->documentLayout()->formatAt(docPos);
-	bool isAnimation = fmt.objectType() == static_cast< int >(Log::TextObjectType::Animation);
+	bool isAnimation = fmt.objectType() == static_cast< int >(Log::TextObjectType::ImageAnimation);
 	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, &MainWindow::saveImageAs);
@@ -1013,9 +1013,9 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		saveImageTextObject = fmt;
 	}
 	if (isAnimation) {
-		QString firstWord = AnimationTextObject::areVideoControlsOn ? tr("Hide") : tr("Show");
+		QString firstWord = ImageAnimationTextObject::areVideoControlsOn ? tr("Hide") : tr("Show");
 		menu->addAction(tr("%1 Video Controls").arg(firstWord), qteLog,
-						[&log = qteLog]() { AnimationTextObject::toggleVideoControls(log); });
+						[&log = qteLog]() { ImageAnimationTextObject::toggleVideoControls(log); });
 	}
 
 	menu->addSeparator();
@@ -1025,7 +1025,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 }
 
 void MainWindow::saveImageAs() {
-	bool isAnimation     = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::Animation);
+	bool isAnimation     = saveImageTextObject.objectType() == static_cast< int >(Log::TextObjectType::ImageAnimation);
 	QMovie *animation    = isAnimation ? qvariant_cast< QMovie * >(saveImageTextObject.property(1)) : nullptr;
 	QString fileExt      = isAnimation ? animation->property("fileExtension").toString() : "jpg";
 	QString now          = QDateTime::currentDateTime().toString("yyyy-MM-dd-HHmmss");
