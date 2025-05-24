@@ -2975,15 +2975,15 @@ Ar tikrai norite pakeisti savo liudijimą?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
+        <source>Unable to read animated image file %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image %1: too large.</source>
+        <source>Unable to send image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This server does not allow sending images.</source>
+        <source>too large</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5448,10 +5448,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Paveikslai (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>K&amp;onfigūruoti</translation>
     </message>
@@ -7039,6 +7035,34 @@ Valid options are:
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

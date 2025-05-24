@@ -2985,16 +2985,16 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;center&gt;Введіть тут повідомлення чату&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Неможливо надіслати зображення: завелике.</translation>
+        <source>Unable to read animated image file %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Неможливо надіслати зображення %1: завелике.</translation>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This server does not allow sending images.</source>
-        <translation>Цей сервер не дозволяє надсилати зображення.</translation>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5480,10 +5480,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Неправильний пароль сервера для незареєстрованого облікового запису користувача, спробуйте ще раз.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Зображення (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>&amp;налаштувати</translation>
     </message>
@@ -7162,6 +7158,34 @@ mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&l
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
         <translation>Канал, на якому ви були раніше, більше не існує на цьому сервері.</translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
