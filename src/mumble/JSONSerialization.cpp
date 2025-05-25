@@ -436,3 +436,19 @@ void from_json(const nlohmann::json &j, QSizeF &size) {
 	size.setWidth(j.at("width").get< qreal >());
 	size.setHeight(j.at("height").get< qreal >());
 }
+
+template< typename T > void to_json(nlohmann::json &j, const std::optional< T > &opt) {
+	if (opt.has_value()) {
+		j = *opt;
+	} else {
+		j = nullptr;
+	}
+}
+
+template< typename T > void from_json(const nlohmann::json &j, std::optional< T > &opt) {
+	if (j.is_null()) {
+		opt = std::nullopt;
+	} else {
+		opt = j.get< T >();
+	}
+}
