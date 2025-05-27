@@ -609,9 +609,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		MumbleProto::setSuggestedVersion(mpsug, m_suggestVersion);
 	}
 	if (m_suggestPositional)
-		mpsug.set_positional(m_suggestPositional.get());
+		mpsug.set_positional(m_suggestPositional.value());
 	if (m_suggestPushToTalk)
-		mpsug.set_push_to_talk(m_suggestPushToTalk.get());
+		mpsug.set_push_to_talk(m_suggestPushToTalk.value());
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
 	if (mpsug.ByteSizeLong() > 0) {
 #else
@@ -2164,7 +2164,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				user->set_user_id(static_cast< unsigned int >(info.user_id));
 				user->set_name(u8(info.name));
 				if (info.last_channel) {
-					user->set_last_channel(static_cast< unsigned int >(info.last_channel.get()));
+					user->set_last_channel(static_cast< unsigned int >(info.last_channel.value()));
 				}
 				user->set_last_seen(u8(info.last_active.toString(Qt::ISODate)));
 			}

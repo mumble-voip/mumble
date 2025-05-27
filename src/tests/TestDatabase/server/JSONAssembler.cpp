@@ -201,6 +201,14 @@ namespace db {
 				// Maybe this should also be a preprocessing step
 				tableRep["column_types"] = versionedData["column_types"];
 			}
+
+			if (tableName == "meta") {
+				// Auto-set the correct scheme version so we don't have to create a new data entry in the meta table
+				// inputs just for changing it
+				nlohmann::json &scheme_version_pair = tableRep.at("rows").at(0);
+				assert(scheme_version_pair.at(0).get< std::string >().find("version") != std::string::npos);
+				scheme_version_pair.at(1) = std::to_string(schemeVersion);
+			}
 		}
 
 

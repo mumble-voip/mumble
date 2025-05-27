@@ -32,8 +32,6 @@
 #	include <boost/function.hpp>
 #endif
 
-#include <boost/optional.hpp>
-
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
@@ -56,6 +54,7 @@
 #	include <winsock2.h>
 #endif
 
+#include <optional>
 #include <vector>
 
 class Zeroconf;
@@ -160,8 +159,8 @@ public:
 
 	Version::full_t m_suggestVersion;
 
-	boost::optional< bool > m_suggestPositional;
-	boost::optional< bool > m_suggestPushToTalk;
+	std::optional< bool > m_suggestPositional;
+	std::optional< bool > m_suggestPushToTalk;
 
 	bool bUsingMetaCert;
 	QSslCertificate qscCert;

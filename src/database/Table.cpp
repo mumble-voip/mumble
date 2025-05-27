@@ -217,6 +217,11 @@ namespace db {
 		}
 	}
 
+	void Table::postMigrationAction(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		(void) fromSchemeVersion;
+		(void) toSchemeVersion;
+	}
+
 	void Table::destroy() {
 		assert(!m_name.empty());
 

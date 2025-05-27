@@ -141,9 +141,18 @@ namespace db {
 						queryPrefix += " END IF; ";
 					}
 
-					// In PostgreSQL a trigger function must always return a value. Returning anything but NEW here,
-					// might alter the original query this trigger was fired for.
-					queryPrefix += "RETURN NEW; ";
+					// In PostgreSQL a trigger function must always return a value. Returning NULL would cancel the
+					// triggering operation whereas returning non-NULL can alter the result of the operation. Hence,
+					// we always return NEW, which will leave the operation unchanged, unless we're dealing with a
+					// delete trigger in which case NEW is actually NULL.
+					switch (m_event) {
+						case Event::Insert:
+						case Event::Update:
+							queryPrefix += "RETURN NEW; ";
+							break;
+						case Event::Delete:
+							queryPrefix += "RETURN OLD; ";
+					}
 
 					queryPrefix += " END; $$; ";
 
@@ -154,7 +163,7 @@ namespace db {
 		}
 
 		return query;
-	}
+	} // namespace db
 
 	std::string Trigger::dropQuery(const Table &table, Backend backend) const {
 		switch (backend) {

@@ -12,10 +12,12 @@
 #include "MySQLConnectionParameter.h"
 #include "PostgreSQLConnectionParameter.h"
 #include "SQLiteConnectionParameter.h"
+#include "Savepoint.h"
 
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
+#include <limits>
 #include <memory>
 #include <unordered_set>
 
@@ -47,55 +49,7 @@ namespace db {
 
 	Database::Database(Backend backend) : m_backend(backend) {}
 
-	void Database::init(const ConnectionParameter &parameter) {
-		assert(parameter.applicability() == m_backend);
-		if (parameter.applicability() != m_backend) {
-			throw InitException("Supplied connection parameter does not apply to chosen database backend");
-		}
-
-		connectToDB(parameter);
-
-		applyBackendSpecificSetup(parameter);
-
-		// Start a transaction to ensure that we don't mess up the DB should anything fail during initialization
-		TransactionHolder transaction = ensureTransaction();
-
-		// Create a meta-table
-		auto metaTable = std::make_unique< MetaTable >(m_sql, m_backend);
-		metaTable->setDatabase(this);
-
-		if (!tableExistsInDB(metaTable->getName())) {
-			metaTable->create();
-		}
-
-		// Get scheme version of already existing DB scheme and then set the version of the scheme we are going to apply
-		// to the DB
-		unsigned int schemeVersion = metaTable->getSchemeVersion();
-		metaTable->setSchemeVersion(getSchemeVersion());
-
-		addTable(std::move(metaTable));
-
-		// Make sure all standard tables are added
-		setupStandardTables();
-
-		if (schemeVersion == 0) {
-			// The scheme version entry does not exist. We assume that this means that this is a freshly created DB
-			createTables();
-		} else if (schemeVersion < getSchemeVersion()) {
-			// The DB is still using an older scheme than we want to use -> perform an upgrade
-			migrateTables(schemeVersion, getSchemeVersion());
-		} else if (schemeVersion > getSchemeVersion()) {
-			// The DB is using a more recent scheme than we want to use -> abort immediately as we don't know how this
-			// could possibly look like and we don't want to risk data loss.
-			throw InitException(std::string("The existing database is using a more recent scheme version (")
-								+ std::to_string(schemeVersion) + ") than the current Mumble instance intends to ("
-								+ std::to_string(getSchemeVersion()) + ")");
-		} else {
-			// The DB's scheme version matches the one we want to use already -> just use as is
-		}
-
-		transaction.commit();
-	}
+	void Database::init(const ConnectionParameter &parameter) { init(parameter, true, 0); }
 
 	Backend Database::getBackend() const { return m_backend; }
 
@@ -719,6 +673,11 @@ namespace db {
 		// Rename all existing tables
 		try {
 			for (const std::string &currentTableName : tableNames) {
+				if (currentTableName.find("sqlite_") == 0) {
+					// SQLite creates some internal tables that we don't want to mess with
+					continue;
+				}
+
 				m_sql << "ALTER TABLE \"" << currentTableName << "\" RENAME TO \"" << currentTableName
 					  << OLD_TABLE_SUFFIX << "\"";
 
@@ -771,6 +730,14 @@ namespace db {
 									 + " old tables after migration");
 		}
 
+		for (std::unique_ptr< Table > &currentTable : m_tables) {
+			if (!currentTable) {
+				continue;
+			}
+
+			currentTable->postMigrationAction(fromSchemeVersion, toSchemeVersion);
+		}
+
 		transaction.commit();
 	}
 
@@ -796,6 +763,84 @@ namespace db {
 
 		return metaData;
 	}
+
+	void Database::init(const ConnectionParameter &parameter, bool createMeta, unsigned int assumedSchemaVersion) {
+		assert(parameter.applicability() == m_backend);
+		if (parameter.applicability() != m_backend) {
+			throw InitException("Supplied connection parameter does not apply to chosen database backend");
+		}
+
+		connectToDB(parameter);
+
+		applyBackendSpecificSetup(parameter);
+
+		// Start a transaction to ensure that we don't mess up the DB should anything fail during initialization
+		TransactionHolder transaction = ensureTransaction();
+
+		unsigned int schemeVersion = assumedSchemaVersion;
+		table_id meta_id           = std::numeric_limits< table_id >::max();
+		if (createMeta) {
+			// Create a meta-table
+			auto metaTable = std::make_unique< MetaTable >(m_sql, m_backend);
+			metaTable->setDatabase(this);
+
+			if (!tableExistsInDB(metaTable->getName())) {
+				metaTable->create();
+			} else {
+				// Get scheme version of already existing DB scheme and then set the version
+				// of the scheme we are going to apply to the DB
+				try {
+					// Savepoints are required as PostgreSQL doesn't like it when there is any kind of error during a
+					// transaction. Afterwards, any further action other than rolling back the transaction yields
+					// "current transaction is aborted" errors. Hence, we need to create a sub-transaction in form of a
+					// savepoint that we can indeed roll back in case of error
+					Savepoint save(m_sql, "scheme_version_fetch");
+
+					schemeVersion = metaTable->getSchemeVersion();
+
+					save.release();
+				} catch (const AccessException &) {
+					// If the above has errored, we assume it's because of a mismatch in column names due to the
+					// existing Meta table being from before scheme version 10 where it used different column names (and
+					// table migration will only happen below).
+					Savepoint save(m_sql, "scheme_version_fetch_legacy");
+
+					schemeVersion = metaTable->getSchemeVersionLegacy();
+
+					save.release();
+				}
+			}
+
+			meta_id = addTable(std::move(metaTable));
+		}
+
+		// Make sure all standard tables are added
+		setupStandardTables();
+
+		if (schemeVersion == 0) {
+			// The scheme version entry does not exist. We assume that this means that this is a freshly created DB
+			createTables();
+		} else if (schemeVersion < getSchemeVersion()) {
+			// The DB is still using an older scheme than we want to use -> perform an upgrade
+			migrateTables(schemeVersion, getSchemeVersion());
+		} else if (schemeVersion > getSchemeVersion()) {
+			// The DB is using a more recent scheme than we want to use -> abort immediately as we don't know how this
+			// could possibly look like and we don't want to risk data loss.
+			throw InitException(std::string("The existing database is using a more recent scheme version (")
+								+ std::to_string(schemeVersion) + ") than the current Mumble instance intends to ("
+								+ std::to_string(getSchemeVersion()) + ")");
+		} else {
+			// The DB's scheme version matches the one we want to use already -> just use as is
+		}
+
+		if (createMeta) {
+			// Store most up-to-date scheme version in table
+			static_cast< MetaTable * >(getTable(meta_id))->setSchemeVersion(getSchemeVersion());
+		}
+
+		transaction.commit();
+	}
+
 
 } // namespace db
 } // namespace mumble

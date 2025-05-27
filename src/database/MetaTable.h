@@ -9,23 +9,36 @@
 #include "Backend.h"
 #include "Table.h"
 
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace mumble {
 namespace db {
 
 	class MetaTable : public Table {
 	public:
+		friend class Database;
+
 		static constexpr const char *NAME = "meta";
+
+		struct column {
+			column()                           = delete;
+			static constexpr const char *key   = "meta_key";
+			static constexpr const char *value = "meta_value";
+		};
+
 		MetaTable(soci::session &sql, Backend backend);
 
 		unsigned int getSchemeVersion();
 		void setSchemeVersion(unsigned int version);
 
 		void setKey(const std::string &key, const std::string &value);
-		boost::optional< std::string > queryKey(const std::string &key);
+		std::optional< std::string > queryKey(const std::string &key);
+
+		void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+
+	private:
+		unsigned int getSchemeVersionLegacy();
 	};
 
 } // namespace db

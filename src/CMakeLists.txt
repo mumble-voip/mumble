@@ -61,6 +61,7 @@ set(SHARED_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(SHARED_SOURCES
 	"Ban.cpp"
 	"EnvUtils.cpp"
+	"ExceptionUtils.cpp"
 	"FFDHE.cpp"
 	"HostAddress.cpp"
 	"HTMLFilter.cpp"
@@ -97,6 +98,7 @@ set(SHARED_HEADERS
 	"Ban.h"
 	"ByteSwap.h"
 	"EnvUtils.h"
+	"ExceptionUtils.h"
 	"FFDHE.h"
 	"HostAddress.h"
 	"HTMLFilter.h"

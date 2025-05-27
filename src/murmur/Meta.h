@@ -17,8 +17,6 @@
 #	include "win.h"
 #endif
 
-#include <boost/optional.hpp>
-
 #include <QtCore/QDir>
 #include <QtCore/QList>
 #include <QtCore/QRegularExpression>
@@ -30,6 +28,7 @@
 #include <QtNetwork/QSslKey>
 
 #include <memory>
+#include <optional>
 
 class Server;
 class QSettings;
@@ -148,8 +147,8 @@ public:
 #endif
 
 	Version::full_t m_suggestVersion;
-	boost::optional< bool > suggestPositional;
-	boost::optional< bool > suggestPushToTalk;
+	std::optional< bool > suggestPositional;
+	std::optional< bool > suggestPushToTalk;
 
 	/// A flag indicating whether changes in groups should be logged
 	bool bLogGroupChanges;

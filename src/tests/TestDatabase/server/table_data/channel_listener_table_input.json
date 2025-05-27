@@ -32,5 +32,38 @@
 				1
 			]
 		]
+	},
+	"v10": {
+		"table_name": "channel_listeners",
+		"column_names": [
+			"server_id",
+			"user_id",
+			"channel_id",
+			"volume_adjustment",
+			"enabled"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"FLOAT",
+			"SMALLINT"
+		],
+		"rows": [
+			[
+				0,
+				0,
+				0,
+				1.25,
+				0
+			],
+			[
+				0,
+				2,
+				1,
+				0.75,
+				1
+			]
+		]
 	}
 }

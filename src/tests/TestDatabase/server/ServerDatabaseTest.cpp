@@ -50,6 +50,7 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -177,7 +178,7 @@ public:
 			this->destroyTables();
 		} catch (const ::mdb::Exception &e) {
 			std::cerr << "Exception encountered while destroying tables:" << std::endl;
-			mumble::db::test::utils::print_exception_message(e);
+			mumble::printExceptionMessage(std::cerr, e, 2);
 		}
 	}
 
@@ -189,6 +190,8 @@ public:
 // with the setup (e.g. Triggers) of TestDB that PlainDB knows nothing about.
 class PlainDB : public mdb::Database {
 public:
+	friend class ServerDatabaseTest;
+
 	PlainDB(::mdb::Backend backend, unsigned int schemeVersion)
 		: ::mdb::Database(backend), schemeVersion(schemeVersion) {}
 
@@ -735,9 +738,9 @@ void ServerDatabaseTest::userTable_general() {
 
 
 	// Test findUser
-	boost::optional< unsigned int > userID = table.findUser(existingServerID, testUserData.name);
+	std::optional< unsigned int > userID = table.findUser(existingServerID, testUserData.name);
 	QVERIFY(userID);
-	QCOMPARE(userID.get(), testUser.registeredUserID);
+	QCOMPARE(userID.value(), testUser.registeredUserID);
 
 	userID = table.findUser(existingServerID, "I don't exist");
 	QVERIFY(!userID);
@@ -915,12 +918,12 @@ void ServerDatabaseTest::groupTable_general() {
 	QCOMPARE(table.countGroups(existingServerID, otherChannel.channelID), static_cast< std::size_t >(0));
 	QCOMPARE(table.countGroups(existingServerID, rootChannel.channelID), static_cast< std::size_t >(0));
 
-	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >());
+	QCOMPARE(table.findGroupID(existingServerID, group.name), std::optional< unsigned int >());
 
 	table.addGroup(group);
 
-	QCOMPARE(table.findGroupID(existingServerID, group.name), boost::optional< unsigned int >(group.groupID));
-	QCOMPARE(table.findGroupID(nonExistingServerID, group.name), boost::optional< unsigned int >());
+	QCOMPARE(table.findGroupID(existingServerID, group.name), std::optional< unsigned int >(group.groupID));
+	QCOMPARE(table.findGroupID(nonExistingServerID, group.name), std::optional< unsigned int >());
 
 	QVERIFY(table.groupExists(group));
 	QCOMPARE(table.getFreeGroupID(existingServerID), static_cast< unsigned int >(1));
@@ -1610,7 +1613,7 @@ void ServerDatabaseTest::database_scheme_migration() {
 		db.resetTables();
 
 		PlainDB plainDB(currentBackend, schemeVersion);
-		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
+		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend), false, schemeVersion);
 
 		// Populate the DB with the old data
 		plainDB.importFromJSON(tableData.inputData, true);

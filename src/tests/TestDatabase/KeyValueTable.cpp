@@ -37,7 +37,7 @@ namespace db {
 			}
 		}
 
-		std::string KeyValueTable::query(const std::string &key) {
+		std::string KeyValueTable::query(const std::string &key, const std::string &defaultValue) {
 			std::string value;
 			try {
 				m_sql << "SELECT \"value_col\" FROM \"" + getName() + "\" WHERE \"key_col\" = :key", soci::use(key),
@@ -46,7 +46,11 @@ namespace db {
 				throw AccessException("Failed at querying value for key \"" + key + "\": " + e.what());
 			}
 
-			db::utils::verifyQueryResultedInData(m_sql);
+			if (defaultValue.empty()) {
+				db::utils::verifyQueryResultedInData(m_sql);
+			} else if (!m_sql.got_data()) {
+				return defaultValue;
+			}
 
 			return value;
 		}

@@ -18,6 +18,8 @@
 #include <QtCore/QStack>
 #include <QtCore/QTimer>
 
+#include <optional>
+
 const QString LookConfig::name = QLatin1String("LookConfig");
 
 static ConfigWidget *LookConfigNew(Settings &st) {
@@ -141,7 +143,7 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::reloadThemes(const boost::optional< ThemeInfo::StyleInfo > configuredStyle) {
+void LookConfig::reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle) {
 	const ThemeMap themes = Themes::getThemes();
 
 	int selectedThemeEntry = 0;
@@ -217,7 +219,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 
-	const boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
+	const std::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
 	loadCheckBox(qcbUsersAlwaysVisible, r.talkingUI_UsersAlwaysVisible);
@@ -292,7 +294,7 @@ void LookConfig::save() const {
 
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
-		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
+		Themes::setConfiguredStyle(s, std::nullopt, s.requireRestartToApply);
 	} else {
 		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
 	}
@@ -327,7 +329,7 @@ void LookConfig::themeDirectoryChanged() {
 	qWarning() << "Theme directory changed";
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
-		reloadThemes(boost::none);
+		reloadThemes(std::nullopt);
 	} else {
 		reloadThemes(themeData.value< ThemeInfo::StyleInfo >());
 	}

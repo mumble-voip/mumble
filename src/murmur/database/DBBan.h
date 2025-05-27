@@ -9,10 +9,10 @@
 #include <array>
 #include <chrono>
 #include <cstdint>
+#include <optional>
 #include <string>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/optional.hpp>
 
 namespace mumble {
 namespace server {
@@ -30,9 +30,9 @@ namespace server {
 			 */
 			ipv6_type baseAddress                                          = {};
 			std::uint8_t prefixLength                                      = {};
-			boost::optional< std::string > bannedUserName                  = {};
-			boost::optional< std::string > bannedUserCertHash              = {};
-			boost::optional< std::string > reason                          = {};
+			std::optional< std::string > bannedUserName                    = {};
+			std::optional< std::string > bannedUserCertHash                = {};
+			std::optional< std::string > reason                            = {};
 			std::chrono::time_point< std::chrono::system_clock > startDate = {};
 			std::chrono::seconds duration                                  = {};
 

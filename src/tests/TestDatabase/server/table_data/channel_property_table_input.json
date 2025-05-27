@@ -23,15 +23,26 @@
 		]
 	},
 	"v10": {
-		"inherit": {
-			"from": "v6",
-			"substitute": {
-				"table_name": "channel_properties",
-				"column_names": {
-					"key": "property_key",
-					"value": "property_value"
-				}
-			}
-		}
+		"table_name": "channel_properties",
+		"column_names": [
+			"server_id",
+			"channel_id",
+			"property_key",
+			"property_value"
+		],
+		"column_types": [
+			"INTEGER",
+			"INTEGER",
+			"INTEGER",
+			"TEXT"
+		],
+		"rows": [
+			[
+				0,
+				0,
+				42,
+				"miau"
+			]
+		]
 	}
 }

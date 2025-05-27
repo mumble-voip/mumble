@@ -7,8 +7,6 @@
 
 #include <cassert>
 
-#include <iostream>
-
 namespace mumble {
 namespace db {
 

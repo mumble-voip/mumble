@@ -14,7 +14,7 @@ target_compile_definitions(TestServerDatabase PRIVATE ${MUMBLE_DB_TEST_DEFINES})
 
 set_target_properties(TestServerDatabase PROPERTIES AUTOMOC ON)
 
-target_link_libraries(TestServerDatabase PRIVATE Qt6::Test mumble_server_object_lib)
+target_link_libraries(TestServerDatabase PRIVATE Qt6::Test mumble_server_object_lib shared)
 
 # Add parent directory to include path to be able to share helper functions with general DB tests
 target_include_directories(TestServerDatabase PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/..")
@@ -39,6 +39,7 @@ macro(add_table_pair input migrated)
 	list(APPEND migrated_table_data_paths "${migrated_path}")
 endmacro()
 
+add_table_pair("meta_table_input.json" "meta_table_migrated.json")
 add_table_pair("server_table_input.json" "server_table_migrated.json")
 add_table_pair("log_table_input.json" "log_table_migrated.json")
 add_table_pair("config_table_input.json" "config_table_migrated.json")

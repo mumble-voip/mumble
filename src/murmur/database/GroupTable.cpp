@@ -24,6 +24,7 @@
 
 #include <cassert>
 #include <exception>
+#include <optional>
 
 namespace mdb = ::mumble::db;
 
@@ -246,7 +247,7 @@ namespace server {
 			}
 		}
 
-		boost::optional< unsigned int > GroupTable::findGroupID(unsigned int serverID, const std::string &name) {
+		std::optional< unsigned int > GroupTable::findGroupID(unsigned int serverID, const std::string &name) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
@@ -258,7 +259,7 @@ namespace server {
 
 				transaction.commit();
 
-				return m_sql.got_data() ? boost::optional< unsigned int >(groupID) : boost::none;
+				return m_sql.got_data() ? std::optional< unsigned int >(groupID) : std::nullopt;
 
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException("Failed at searching for group with name \"" + name

@@ -14,7 +14,6 @@
 #include "database/DataType.h"
 #include "database/Database.h"
 #include "database/ForeignKey.h"
-#include "database/FormatException.h"
 #include "database/MigrationException.h"
 #include "database/PrimaryKey.h"
 #include "database/TransactionHolder.h"
@@ -98,15 +97,15 @@ namespace server {
 				soci::indicator reasonInd = soci::i_null;
 
 				if (ban.bannedUserName) {
-					userName = ban.bannedUserName.get();
+					userName = ban.bannedUserName.value();
 					nameInd  = soci::i_ok;
 				}
 				if (ban.bannedUserCertHash) {
-					userCert = ban.bannedUserCertHash.get();
+					userCert = ban.bannedUserCertHash.value();
 					certInd  = soci::i_ok;
 				}
 				if (ban.reason) {
-					reason    = ban.reason.get();
+					reason    = ban.reason.value();
 					reasonInd = soci::i_ok;
 				}
 
@@ -337,15 +336,15 @@ namespace server {
 					soci::indicator reasonInd = soci::i_null;
 
 					if (currentBan.bannedUserName) {
-						userName = currentBan.bannedUserName.get();
+						userName = currentBan.bannedUserName.value();
 						nameInd  = soci::i_ok;
 					}
 					if (currentBan.bannedUserCertHash) {
-						userCert = currentBan.bannedUserCertHash.get();
+						userCert = currentBan.bannedUserCertHash.value();
 						certInd  = soci::i_ok;
 					}
 					if (currentBan.reason) {
-						reason    = currentBan.reason.get();
+						reason    = currentBan.reason.value();
 						reasonInd = soci::i_ok;
 					}
 
