@@ -548,18 +548,18 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 			if (source->hasUrls()) {
 				// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
 				QList< QUrl > urlList = source->urls();
-				int count             = 0;
+				bool isAnyImage       = false;
 				for (int i = 0; i < urlList.size(); ++i) {
 					QString path = urlList[i].toLocalFile();
 					QImage image(path);
 					if (!image.isNull() && emitPastedImage(image, path)) {
-						++count;
+						isAnyImage = true;
 					}
 				}
-				return count > 0;
+				return isAnyImage;
 			}
 		}
-		Global::get().l->log(Log::Information, "This server does not allow sending images.");
+		Global::get().l->log(Log::Information, tr("This server does not allow sending images."));
 	}
 	return false;
 }
@@ -569,31 +569,36 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
 	Log::TextObjectType txtObjType = Log::findTextObjectType(fileExt);
+	bool isReadError               = false;
 	if (txtObjType == Log::TextObjectType::ImageAnimation) {
 		QFile file(filePath);
-		if (!file.open(QIODevice::ReadOnly)) {
-			Global::get().l->log(Log::Information, tr("Unable to read animated image file %1").arg(filePath));
-			return false;
-		}
-		QByteArray animationBa(file.readAll());
-		bool isAnimation = true;
-		ImageAnimationTextObject::createImageAnimation(animationBa, nullptr, isAnimation);
-		if (isAnimation) {
-			QString base64Image = qvariant_cast< QString >(animationBa.toBase64());
-			QString img         = QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, fileExt);
-			emit pastedImage("<br/>" + img);
-			return true;
+		isReadError = !file.open(QIODevice::ReadOnly);
+		if (!isReadError) {
+			QByteArray animationBa(file.readAll());
+			bool isAnimation = true;
+			ImageAnimationTextObject::createImageAnimation(animationBa, nullptr, isAnimation);
+			if (isAnimation) {
+				QString base64Image = qvariant_cast< QString >(animationBa.toBase64());
+				QString img = QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, fileExt);
+				emit pastedImage("<br/>" + img);
+				return true;
+			}
 		}
 	}
 
 	int maxSize    = static_cast< int >(Global::get().uiImageLength);
 	bool isFileExt = !fileExt.isEmpty();
-	QString img    = isFileExt ? Log::imageToImg(image, maxSize, fileExt.toUtf8()) : Log::imageToImg(image, maxSize);
-	bool isImageTooLarge   = img.size() == 0;
-	bool isImageWriteError = img.startsWith("Error: ");
-	if (isImageTooLarge || isImageWriteError) {
-		QString error             = tr("Unable to send image");
-		QString errorCause        = isImageTooLarge ? tr("too large") : img.remove(0, 7);
+	QString img;
+	if (!isReadError) {
+		img = isFileExt ? Log::imageToImg(image, maxSize, fileExt.toUtf8()) : Log::imageToImg(image, maxSize);
+	}
+	QString errorIndicator("Error: ");
+	bool isTooLarge   = !isReadError && img.size() == 0;
+	bool isWriteError = img.startsWith(errorIndicator);
+	if (isTooLarge || isReadError || isWriteError) {
+		QString error = tr("Unable to send image");
+		QString errorCause =
+			isTooLarge ? tr("too large") : isReadError ? tr("cannot read file") : img.remove(0, errorIndicator.size());
 		QString filePathWithSpace = isFileExt ? QLatin1String(" %1").arg(filePath) : "";
 		Global::get().l->log(Log::Information, QLatin1String("%1%3: %2.").arg(error, errorCause, filePathWithSpace));
 		return false;
