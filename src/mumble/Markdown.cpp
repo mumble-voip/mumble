@@ -195,7 +195,7 @@ bool processPlainLinebreaks(Markdown::Items &items) {
 ///
 /// @param items A reference to the items to work on. This includes an offset for the input text which,
 //      in case a replacement is made, will be set to the index right after the replaced part.
-/// @param formats The functions to try to replace a part of the input with
+/// @param formats The functions to try to replace patterns in the input text with
 void processFormatting(Markdown::Items &items, QList< std::function< bool(Markdown::Items &) > > formats) {
 	const QString &inputStr = items.inputStr;
 	qsizetype &offset       = items.offset;
@@ -218,11 +218,13 @@ void processFormatting(Markdown::Items &items, QList< std::function< bool(Markdo
 ///
 /// @param inputStr A reference to the input text to work on. This will be modified to contain the HTML output.
 /// @param items A reference to the items to work on
-/// @param formats The functions to try to replace with
+/// @param formats The functions to try to replace patterns in the input text with
 void processFormatting(QString &inputStr, Markdown::Items &items,
 					   QList< std::function< bool(Markdown::Items &) > > formats) {
 	Markdown::Items substringItems = { inputStr, (qsizetype) 0, QLatin1String(), items.images, items.references };
+	substringItems.html.reserve(inputStr.size());
 	processFormatting(substringItems, formats);
+	substringItems.html.squeeze();
 	inputStr = substringItems.html;
 }
 
@@ -1506,6 +1508,7 @@ QString markdownToHTML(const QString &markdownInput) {
 	QList< Markdown::Image > images;
 	QHash< QString, std::tuple< QString, QString > > references;
 	Markdown::Items items = { markdownInput, (qsizetype) 0, QLatin1String(), images, references };
+	items.html.reserve(markdownInput.size());
 
 	processFormatting(items, { processCode, processMarkdownThematicBreak, processMarkdownHeader, processList,
 							   processMarkdownEmphasisOrScript, processImageOrLink, processMarkdownBlockQuote,
@@ -1514,6 +1517,7 @@ QString markdownToHTML(const QString &markdownInput) {
 	processQueuedMarkdownReferences(items);
 	processQueuedMarkdownImages(items);
 
+	items.html.squeeze();
 	return items.html;
 }
 } // namespace Markdown
