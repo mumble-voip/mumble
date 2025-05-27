@@ -693,16 +693,16 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 
 		qsizetype imageOffset     = html.indexOf(imagePlaceholder);
 		qsizetype placeholderSize = imagePlaceholder.size();
-		QString img               = base64Image.startsWith("<img")
+		QString img               = base64Image.startsWith("<img ")
 						  ? base64Image
-						  : QLatin1String("<img src=\"data:image/%2;base64,%1\"/>").arg(base64Image, imgFmt);
+						  : QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, imgFmt);
 		bool isImage = !base64Image.isEmpty();
 
 		// Do not apply width and height attributes to the broken image icon too:
 		if (isImage) {
 			img.insert(img.size() - 2, imgAdditionalAttributesList.join(' '));
 		}
-		// Remove a-element wrapper when the image failed to load so that the broken image and alt text may be visible:
+		// Remove a-element wrapper if the image failed to load so that the broken image and alt text may be visible:
 		if (!isImage && imageOffset > 0 && html[imageOffset - 1] == '>') {
 			// Start with the constant size of the end tag `</a>`:
 			int sizeIncrease = 4;
