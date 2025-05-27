@@ -11,7 +11,7 @@
 # * lupdate to update translation strings
 # * Commit the resulting translation file
 #
-# Requires qt5 ; sudo apt-get install libqt5-dev
+# Requires Qt "lupdate" binary; check build requirements
 
 import os, glob, logging, sys, subprocess, re
 import argparse
