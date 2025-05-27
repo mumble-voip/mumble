@@ -455,22 +455,22 @@ bool processMarkdownReferenceDefinition(Markdown::Items &items) {
 		QLatin1String("\n*\\h{,3}\\[([^\\]\n]+)\\]:\\h(?:<(.+?)>|([^\\h\n]+))"
 					  "(?:\\h(?:\"([^\"\n]+)\"|'([^'\n]+)'|\\(([^\\)\n]+)\\)))?(?:\\h*\n)*\\h*$"),
 		QRegularExpression::MultilineOption);
-	return regexMatchAndReplace(items, regex, "",
-								[&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
-									QString reference = match.captured(1).toHtmlEscaped();
-									QString url       = findFirstMatchedGroup(match, 2, 3).toHtmlEscaped();
-									QString title     = findFirstMatchedGroup(match, 4, 6).toHtmlEscaped();
+	return regexMatchAndReplace(
+		items, regex, "", [&items](const QRegularExpressionMatch &match, const char *contentWrapper) {
+			QString reference = match.captured(1).toHtmlEscaped();
+			QString url       = findFirstMatchedGroup(match, 2, 3).toHtmlEscaped();
+			QString title     = findFirstMatchedGroup(match, 4, 6).toHtmlEscaped();
 
-									if (!url.startsWith("http", Qt::CaseInsensitive)) {
-										url.prepend("http://");
-									}
+			if (!url.startsWith("http", Qt::CaseInsensitive) && !url.startsWith("file", Qt::CaseInsensitive)) {
+				url.prepend("http://");
+			}
 
-									QHash< QString, std::tuple< QString, QString > > &references = items.references;
-									if (!references.contains(reference)) {
-										references[reference] = { unescapeURL(url), title };
-									}
-									return QLatin1String(contentWrapper);
-								});
+			QHash< QString, std::tuple< QString, QString > > &references = items.references;
+			if (!references.contains(reference)) {
+				references[reference] = { unescapeURL(url), title };
+			}
+			return QLatin1String(contentWrapper);
+		});
 }
 
 /// Tries to find and insert queued Markdown references, replacing each placeholder and name
