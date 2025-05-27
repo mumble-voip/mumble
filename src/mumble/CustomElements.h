@@ -40,7 +40,7 @@ public:
 	void toggleFullScreen(QWidget *widget);
 	void highlightSelectedObject(QPainter *painter, const QRect &rect, QObject *propertyHolder);
 	QObject *customObjectAt(const QPoint &pos);
-	/// Removes the content of the client's log, deletes the objects used by text objects
+	/// Removes the content of the client's log, deletes the objects used by custom text objects
 	/// and clears the counter for custom objects as well as their focus index.
 	void clear();
 	void repaint(const QRect &rect = QRect());
