@@ -2998,16 +2998,20 @@ Er du sikker på at du vil erstatte ditt sertifikat?
         <translation>&lt;center&gt;Skriv inn sludremelding her&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation type="unfinished">Bildet er for stort til å bli sendt</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished">Kunne ikke sende «%1»-bildet siden det var for stort.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Tjeneren tillater ikke bildeforsendelse.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5526,10 +5530,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Feil tjenerpassord for uregistrert brukerkonto, prøv igjen.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Bilder (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>&amp;Sett opp</translation>
     </message>
@@ -7145,6 +7145,34 @@ Valid options are:
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
