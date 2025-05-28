@@ -31,7 +31,7 @@ public class MumbleInstall : Project {
 		this.Properties = new Property[] { allUsersProp };
 	}
 
-	public Bundle BundleMsi(string msiPath, string vcRedistUrl, string vcRedistRequired) {
+	public Bundle BundleMsi(string msiPath, string vcRedistRequired) {
 		var bootstrapper = new Bundle(
 				this.Name,
 				new MsiPackage(msiPath)
@@ -40,24 +40,14 @@ public class MumbleInstall : Project {
 				{
 					Id = "VCREDIST_EXE",
 					Name = "VC_redist.x64.exe",
-					/* The SourceFile is required used by wix to generate a RemotePayload object for
-					 * this ExePackage. It inludes a sha1 hash of the SourceFile in the installer we
-					 * build to validate the download at install time on the user's machine. */
 					SourceFile = @"..\VC_redist.x64.exe",
 					DisplayName = "Microsoft Visual C++ 2015-2022 Redistributable (x64)",
-					DownloadUrl = vcRedistUrl,
 					/* This condition being true should mean that it is already installed. */
 					DetectCondition = "VCREDIST_INSTALLED >= VCREDIST_REQUIRED",
 					InstallCommand = "/install /quiet /norestart /ChainingPackage \"[WixBundleName]\"",
-					/* I don't think this has anything to do with compression.
-					 * A true value means the exe is "embedded", false means its "external".
-					 * Since this is a download, it is not embedded in the bundle. */
-					Compressed = false,
-					/* By default, if the installer does not have an internet connection, the download
-					 * will fail and the entire install will fail. Setting Vital to false means that
-					 * the install for the redistributables can fail silently and Mumble's install
-					 * will continue. */
-					Vital = false,
+					/* A true value means the exe is "embedded", false means its downloaded at install time 
+					 * using the URL at the `DownloadUrl` property on this object. */
+					Compressed = true,
 					/* Permanent just means it won't uninstall this when uninstalling Mumble.
 					 * This will still show up in Add/Remove Programs and can be removed there,
 					 * even when Permanent is true. */
