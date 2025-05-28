@@ -4944,7 +4944,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation>Toujoers garder les utilisateurs visibles</translation>
+        <translation>Toujours garder les utilisateurs visibles</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
