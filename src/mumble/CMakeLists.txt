@@ -23,7 +23,6 @@ option(bundle-qt-translations "Bundle Qt's translations as well" ${static})
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
-option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
 
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
