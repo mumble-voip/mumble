@@ -586,4 +586,10 @@ private:
 	QString findSettingsLocation(bool legacy = false, bool *foundExistingFile = nullptr) const;
 };
 
+QDataStream &operator<<(QDataStream &qds, const ChannelTarget &target);
+QDataStream &operator>>(QDataStream &qds, ChannelTarget &target);
+
+QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st);
+QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st);
+
 #endif // MUMBLE_MUMBLE_SETTINGS_H_
