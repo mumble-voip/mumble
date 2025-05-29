@@ -607,11 +607,9 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 }
 
 QString Log::imageToImg(QImage img, int maxSize) {
-	constexpr int MAX_WIDTH  = 1600;
-	constexpr int MAX_HEIGHT = 1000;
-
-	if ((img.width() > MAX_WIDTH) || (img.height() > MAX_HEIGHT)) {
-		img = img.scaled(MAX_WIDTH, MAX_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	auto [maxWidth, maxHeight] = Global::get().uiImageAreaSize;
+	if (img.width() > maxWidth || img.height() > maxHeight) {
+		img = img.scaled(maxWidth, maxHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;
@@ -684,8 +682,9 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 		}
 	}
 
-	int messageSize = static_cast< int >(s.width() * s.height());
-	int allowedSize = 2048 * 2048;
+	int allowedEvenLength = static_cast< int >(Global::get().uiMessageEvenAreaLength);
+	int messageSize       = static_cast< int >(s.width() * s.height());
+	int allowedSize       = allowedEvenLength * allowedEvenLength;
 
 	if (messageSize > allowedSize) {
 		QString errorSizeMessage = tr("[[ Text object too large to display ]]");

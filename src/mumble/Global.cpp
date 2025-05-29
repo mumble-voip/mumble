@@ -116,11 +116,13 @@ Global::Global(const QString &qsConfigPath) {
 	bAttenuateOthers              = false;
 	prioritySpeakerActiveOverride = false;
 
-	bAllowHTML       = true;
-	uiMessageLength  = 5000;
-	uiImageLength    = 131072;
-	uiMaxUsers       = 0;
-	recordingAllowed = true;
+	bAllowHTML              = true;
+	uiMessageLength         = 5000;
+	uiMessageEvenAreaLength = 2048;
+	uiImageLength           = 131072;
+	uiImageAreaSize         = QSize(1600, 1000);
+	uiMaxUsers              = 0;
+	recordingAllowed        = true;
 
 	zeroconf = nullptr;
 	lcd      = nullptr;

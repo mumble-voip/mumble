@@ -652,10 +652,9 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 		if (isWidth || isHeight) {
 			// Use the max size if the set image resize is too large, which with a max message area size of
 			// 2048x2048 somehow becomes around 1442x1442 (approximately 70% of the max message area size) for images:
-			int allowedEvenLength = (int) round(2048 * 0.7041);
-			int allowedSize       = allowedEvenLength * allowedEvenLength;
-			int maxBaseWidth      = 600;
-			int maxBaseHeight     = 400;
+			int allowedEvenLength              = (int) round(Global::get().uiMessageEvenAreaLength * 0.7041);
+			int allowedSize                    = allowedEvenLength * allowedEvenLength;
+			auto [maxBaseWidth, maxBaseHeight] = Global::get().uiImageAreaSize;
 			if (imgSize.width() > maxBaseWidth || imgSize.height() > maxBaseHeight) {
 				imgSize.scale(maxBaseWidth, maxBaseHeight, Qt::KeepAspectRatio);
 			}
