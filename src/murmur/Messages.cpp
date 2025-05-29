@@ -1078,7 +1078,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	// Handle channel listening
 	// Note that it is important to handle the listening channels after channel-joins
-	QSet< unsigned int > additionalVolumeAdjustedChannels;
+	std::set< unsigned int > additionalVolumeAdjustedChannels;
 	for (Channel *c : listeningChannelsAdd) {
 		addChannelListener(*pDstServerUser, *c);
 
@@ -1103,7 +1103,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 			// If the message contains a new volume adjustment for this channel anyway, we don't have to
 			// add this adjustment again
-			additionalVolumeAdjustedChannels.erase(additionalVolumeAdjustedChannels.find(channel->iId));
+			additionalVolumeAdjustedChannels.erase(channel->iId);
 		} else {
 			log(uSource, QString::fromLatin1("Invalid channel ID \"%1\" in volume adjustment")
 							 .arg(adjustment.listening_channel()));
@@ -1120,7 +1120,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 					.arg(QString(*c)));
 
 			// If the channel is no longer listened to anyway, we don't need to broadcast its volume adjustment
-			additionalVolumeAdjustedChannels.erase(additionalVolumeAdjustedChannels.find(c->iId));
+			additionalVolumeAdjustedChannels.erase(c->iId);
 		}
 	}
 	// For the channels that are listened to and for which no explicit volume adjustment is part of the message yet,
