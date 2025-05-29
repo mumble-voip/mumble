@@ -102,7 +102,9 @@ public:
 	bool prioritySpeakerActiveOverride;
 	bool bAllowHTML;
 	unsigned int uiMessageLength;
+	unsigned int uiMessageEvenAreaLength;
 	unsigned int uiImageLength;
+	QSize uiImageAreaSize;
 	unsigned int uiMaxUsers;
 	bool recordingAllowed;
 	bool bQuit;
