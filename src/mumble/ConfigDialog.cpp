@@ -13,6 +13,7 @@
 #include <QScrollArea>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
+#include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 
@@ -84,6 +85,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 			restoreGeometry(Global::get().s.qbaConfigGeometry);
 	}
 
+	updateProfileList();
 	updateTabOrder();
 	qlwIcons->setFocus();
 }
@@ -205,6 +207,137 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 	}
 }
 
+void ConfigDialog::updateProfileList() {
+	// Prevent changing the profile unintentionally while filling the ComboBox
+	const QSignalBlocker blocker(qcbProfiles);
+
+	qcbProfiles->clear();
+
+	// Always sort the default profile before anything else
+	qcbProfiles->addItem(Profiles::s_default_profile_name);
+
+	QStringList profiles = Global::get().profiles.allProfiles.keys();
+	profiles.sort();
+	for (const QString &profile : profiles) {
+		if (profile == Profiles::s_default_profile_name) {
+			continue;
+		}
+		qcbProfiles->addItem(profile);
+	}
+
+	qcbProfiles->setCurrentIndex(qcbProfiles->findText(Global::get().profiles.activeProfileName));
+
+	bool isDefault = qcbProfiles->currentText() == Profiles::s_default_profile_name;
+	qpbProfileRename->setEnabled(!isDefault);
+	qpbProfileDelete->setEnabled(!isDefault);
+}
+
+void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfile) {
+	Profiles &profiles = Global::get().profiles;
+
+	if (saveActiveProfile) {
+		profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
+	}
+	Global::get().s.loadProfile(newProfile);
+	s = Global::get().s;
+	for (ConfigWidget *cw : s_existingWidgets.values()) {
+		cw->load(s);
+	}
+
+	updateProfileList();
+}
+
+void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
+	QString selectedProfile = qcbProfiles->currentText();
+
+	Profiles &profiles = Global::get().profiles;
+
+	if (selectedProfile == profiles.activeProfileName) {
+		return;
+	}
+
+	if (!profiles.allProfiles.contains(selectedProfile)) {
+		return;
+	}
+
+	switchProfile(selectedProfile, true);
+}
+
+void ConfigDialog::on_qpbProfileAdd_clicked() {
+	bool ok;
+	QString profileName =
+		QInputDialog::getText(this, tr("Creating settings profile"), tr("Enter new settings profile name"),
+							  QLineEdit::Normal, Global::get().profiles.activeProfileName, &ok);
+
+	if (!ok || profileName.isEmpty()) {
+		return;
+	}
+
+	if (Global::get().profiles.allProfiles.contains(profileName)) {
+		QMessageBox::critical(this, tr("Creating settings profile"),
+							  tr("A settings profile with this name already exists"));
+		return;
+	}
+
+	// Instead of "resetting" when creating a new profile, use the currently
+	// (possibly not applied) settings for the new profile
+	Profiles &profiles                               = Global::get().profiles;
+	profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
+	apply();
+	profiles.allProfiles.insert(profileName, Global::get().s);
+	switchProfile(profileName, false);
+}
+
+void ConfigDialog::on_qpbProfileRename_clicked() {
+	QString oldProfileName = qcbProfiles->currentText();
+
+	if (oldProfileName == Profiles::s_default_profile_name) {
+		return;
+	}
+
+	bool ok;
+	QString profileName =
+		QInputDialog::getText(this, tr("Renaming settings profile"), tr("Enter new settings profile name"),
+							  QLineEdit::Normal, oldProfileName, &ok);
+
+	if (!ok || profileName.isEmpty()) {
+		return;
+	}
+
+	if (Global::get().profiles.allProfiles.contains(profileName)) {
+		QMessageBox::critical(this, tr("Renaming settings profile"),
+							  tr("A settings profile with this name already exists"));
+		return;
+	}
+
+	Global::get().profiles.allProfiles.insert(profileName, Global::get().s);
+	Global::get().profiles.allProfiles.remove(oldProfileName);
+	switchProfile(profileName, false);
+}
+
+void ConfigDialog::on_qpbProfileDelete_clicked() {
+	QString oldProfileName = qcbProfiles->currentText();
+
+	if (oldProfileName == Profiles::s_default_profile_name) {
+		return;
+	}
+
+	if (!Global::get().profiles.allProfiles.contains(oldProfileName)) {
+		return;
+	}
+
+	QMessageBox::StandardButton confirmation = QMessageBox::question(
+		this, tr("Delete settings profile"),
+		tr("Are you sure you want to permanently delete settings profile '%1'").arg(oldProfileName));
+
+	if (confirmation != QMessageBox::Yes) {
+		return;
+	}
+
+	Global::get().profiles.allProfiles.remove(oldProfileName);
+	switchProfile(Profiles::s_default_profile_name, false);
+}
+
 void ConfigDialog::updateTabOrder() {
 	QPushButton *okButton         = dialogButtonBox->button(QDialogButtonBox::Ok);
 	QPushButton *cancelButton     = dialogButtonBox->button(QDialogButtonBox::Cancel);
@@ -228,7 +361,13 @@ void ConfigDialog::updateTabOrder() {
 	}
 
 	setTabOrder(cancelButton, okButton);
-	setTabOrder(okButton, qlwIcons);
+	setTabOrder(okButton, qcbProfiles);
+
+	setTabOrder(qcbProfiles, qpbProfileAdd);
+	setTabOrder(qpbProfileAdd, qpbProfileRename);
+	setTabOrder(qpbProfileRename, qpbProfileDelete);
+	setTabOrder(qpbProfileDelete, qlwIcons);
+
 	setTabOrder(qlwIcons, contentFocusWidget);
 	if (resetButton && restoreButton && restoreAllButton) {
 		setTabOrder(contentFocusWidget, resetButton);
