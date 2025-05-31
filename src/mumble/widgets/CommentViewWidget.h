@@ -23,7 +23,7 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CommentViewWidget)
 
-	void updateCommentContent(const User *user, const Channel *channel) const;
+	void updateCommentContent(const ClientUser *user, const Channel *channel) const;
 
 public:
 	explicit CommentViewWidget(QWidget *parent = nullptr);
