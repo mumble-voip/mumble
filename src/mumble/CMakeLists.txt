@@ -1181,6 +1181,8 @@ if(packaging AND WIN32)
 	list(APPEND installer_vars
 		"--version" ${PROJECT_VERSION}
 		"--arch" "${MUMBLE_TARGET_ARCH}"
+		"--vc-redist-url" "${VC_REDIST_URL}"
+		"--vc-redist-required" "${VC_REDIST_VERSION}"
 	)
 
 	if(overlay)

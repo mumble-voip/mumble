@@ -11,8 +11,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Xml;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using WixSharp;
+using WixSharp.Bootstrapper;
 using WixSharp.CommonTasks;
 
 public struct Features {
@@ -198,6 +201,8 @@ class BuildInstaller
 	public static void Main(string[] args) {
 		string version = "";
 		string arch = "";
+		string vcRedistUrl = "";
+		string vcRedistRequired = "";
 		bool isAllLangs = false;
 		Features features = new Features();
 
@@ -212,6 +217,14 @@ class BuildInstaller
 
 			if (args[i] == "--all-languages") {
 				isAllLangs = true;
+			}
+
+			if (args[i] == "--vc-redist-url") {
+				vcRedistUrl = args[i + 1];
+			}
+
+			if (args[i] == "--vc-redist-required") {
+				vcRedistRequired = args[i + 1];
 			}
 
 			if (args[i] == "--g15") {
@@ -231,11 +244,12 @@ class BuildInstaller
 			var clInstaller = new ClientInstaller(version, arch, features);
 			clInstaller.Version = new Version(version);
 
-			if (isAllLangs) {
-				clInstaller.BuildMultilanguageMsi();
-			} else {
-				clInstaller.BuildMsi();
-			}
+			var msiPath = isAllLangs
+			            ? clInstaller.BuildMultilanguageMsi()
+			            : clInstaller.BuildMsi();
+
+			clInstaller.BundleMsi(msiPath, vcRedistUrl, vcRedistRequired)
+			           .Build(msiPath.PathChangeExtension(".exe"));
 		} else {
 			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
 			Environment.ExitCode = 0xA0; // Bad argument
