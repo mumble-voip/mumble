@@ -11,7 +11,7 @@
 # * lupdate to update translation strings
 # * Commit the resulting translation file
 #
-# Requires qt5 ; sudo apt-get install libqt5-dev
+# Requires Qt "lupdate" binary; check build requirements
 
 import os, glob, logging, sys, subprocess, re
 import argparse
@@ -23,7 +23,7 @@ def FindLupdate(vcpkg_triplet: Optional[str] = None) -> Optional[str]:
     if which('lupdate') is not None:
         return 'lupdate'
     if vcpkg_triplet is not None:
-        vcpkgbin = os.path.join(os.path.expanduser('~'), 'vcpkg', 'installed', vcpkg_triplet, 'tools', 'qt5', 'bin')
+        vcpkgbin = os.path.join(os.path.expanduser('~'), 'vcpkg', 'installed', vcpkg_triplet, 'tools', 'qt6', 'bin')
         logging.debug('Looking for lupdate in %s…', vcpkgbin)
         return which('lupdate', path=vcpkgbin)
     return None

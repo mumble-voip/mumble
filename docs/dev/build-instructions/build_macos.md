@@ -13,7 +13,7 @@ Once homebrew is installed, you can run the following command to install all req
 brew update && brew install \
   cmake \
   pkg-config \
-  qt5 \
+  qt6 \
   boost \
   libogg \
   libvorbis \
