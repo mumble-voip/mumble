@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "CommentViewWidget.h"
+
 #include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -17,6 +18,9 @@
 #include "QtUtils.h"
 #include "ServerHandler.h"
 #include "../Global.h"
+#ifdef USE_OVERLAY
+#include "Overlay.h"
+#endif
 
 
 CommentViewWidget::CommentViewWidget(QWidget *parent)
@@ -26,7 +30,7 @@ CommentViewWidget::CommentViewWidget(QWidget *parent)
 	setTitleBarWidget(qlTitle);
 }
 
-void CommentViewWidget::updateCommentContent(const User *user, const Channel *channel) const {
+void CommentViewWidget::updateCommentContent(const ClientUser *user, const Channel *channel) const {
 	QString comment;
 	if (user) {
 		qlTitle->setText(user->qsName);
@@ -35,7 +39,8 @@ void CommentViewWidget::updateCommentContent(const User *user, const Channel *ch
 
 		QPixmap pix = QPixmap();
 		// pretty sure this is not hardcoded
-		pix.loadFromData(user->qbaTexture, "png");
+
+		pix.loadFromData(user->qbaTexture, user->qbaTextureFormat);
 
 		qlAvatar->setImage(pix);
 		qlAvatar->setVisible(!user->qbaTexture.isEmpty());
@@ -84,6 +89,11 @@ void CommentViewWidget::updateCommentView(ClientUser *user, Channel *channel) {
 		}
 		if (!user->qbaTextureHash.isEmpty() && user->qbaTexture.isEmpty()) {
 			user->qbaTexture = Global::get().db->blob(user->qbaTextureHash);
+			if (!user->qbaTexture.isEmpty()) {
+#ifdef USE_OVERLAY
+				Global::get().o->verifyTexture(user);
+#endif
+			}
 		}
 		updateCommentContent(user, nullptr);
 
