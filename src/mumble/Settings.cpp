@@ -265,17 +265,8 @@ void Settings::load(const QString &path) {
 	nlohmann::json settingsJSON;
 	try {
 		stream >> settingsJSON;
-
-		if (settingsJSON.contains(SettingsKeys::ACTIVE_PROFILE)) {
-			settingsJSON.get_to(Global::get().profiles);
-			loadProfile();
-		} else {
-			// The file does not contain the key "SettingsKeys::ACTIVE_PROFILE"
-			// We assume the JSON file does not contain any profiles, because it is
-			// old. We load the file raw instead and convert it to the s_default_profile_name profile.
-			qWarning("Migrating settings file to 'default' profile");
-			settingsJSON.get_to(*this);
-		}
+		settingsJSON.get_to(Global::get().profiles);
+		loadProfile();
 
 		if (!mumbleQuitNormally) {
 			// These settings were saved without Mumble quitting normally afterwards. In order to prevent loading
@@ -447,6 +438,7 @@ std::size_t qHash(const ChannelTarget &target) {
 }
 
 const QString Profiles::s_default_profile_name = QLatin1String("default");
+const int Profiles::s_current_settings_version = 2;
 
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
