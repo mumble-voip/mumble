@@ -161,7 +161,9 @@ void UserView::selectAllUsersInChannel(const QModelIndex &index,
 			}
 		}
 	}
-
+	if (supressEvent) {
+		return;
+	}
 	selectionModel()->select(selection, selectionFlags);
 }
 std::string getString(UserModel *userModel, QModelIndex index) {
@@ -215,6 +217,9 @@ void UserView::selectAllFromTo(const QModelIndex &from, const QModelIndex &to, b
 		if (!onlySingle && currentIndex == endIndex)
 			break;
 		currentIndex = indexBelow(currentIndex);
+	}
+	if (supressEvent) {
+		return;
 	}
 	selectionModel()->select(selection, selectionFlags);
 }
@@ -374,7 +379,10 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			}
 		}
 	}
+	// Needed because it causes Toggle select to be executed twice
+	supressEvent = true;
 	QTreeView::mouseReleaseEvent(evt);
+	supressEvent = false;
 }
 
 void UserView::keyPressEvent(QKeyEvent *ev) {

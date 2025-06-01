@@ -50,7 +50,7 @@ protected:
 	bool event(QEvent *) Q_DECL_OVERRIDE;
 	QItemSelectionModel::SelectionFlags selectionCommand(const QModelIndex &index,
 														 const QEvent *event) const Q_DECL_OVERRIDE;
-
+	bool supressEvent;
 public:
 	UserView(QWidget *);
 	void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
