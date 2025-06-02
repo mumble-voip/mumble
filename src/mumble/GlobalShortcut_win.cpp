@@ -439,7 +439,7 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	switch (input->header.dwType) {
 		case RIM_TYPEMOUSE: {
 			const RAWMOUSE &mouse = input->data.mouse;
-			m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
+			(void)m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
 			break;
 		}
 		case RIM_TYPEKEYBOARD: {
@@ -455,13 +455,13 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 				return;
 			}
 
-			m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
+			(void)m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
 			break;
 		}
 		case RIM_TYPEHID: {
 			const RAWHID &hid = input->data.hid;
 			MsgHid::RawReports reports(hid.bRawData, hid.dwSizeHid * hid.dwCount);
-			m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
+			(void)m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
 			break;
 		}
 		default:
