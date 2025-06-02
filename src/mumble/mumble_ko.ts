@@ -7131,6 +7131,14 @@ Valid options are:
         <source>The channel you have been in previously no longer exists on this server.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot move a mix of users and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown User Drag mode in UserModel::dropMimeData.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -9621,14 +9629,6 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>플래그</translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
-        <translation>정말 유저를 드래그하시겠습니까?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to drag this channel?</source>
-        <translation>정말 채널을 드래그하시겠습니까?</translation>
-    </message>
-    <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>이동을 자동으로 수행할 수 없습니다. 숫자 정렬 표시기를 초기화하거나 수동으로 조절하세요.</translation>
     </message>
@@ -9658,6 +9658,38 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>, and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channel %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channels %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent user %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent users %2?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
