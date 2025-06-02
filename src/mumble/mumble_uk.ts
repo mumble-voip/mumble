@@ -671,7 +671,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>Про Mumble</translation>
+        <translation>&amp;Про Mumble</translation>
     </message>
     <message>
         <source>&amp;License</source>
@@ -5001,35 +5001,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищає налаштування фону TalkingUI.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити колір фону</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір, який використовується для фону talkingUI.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону, який, якщо встановлено, замінює колір фону теми.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть в колір</translation>
     </message>
 </context>
 <context>

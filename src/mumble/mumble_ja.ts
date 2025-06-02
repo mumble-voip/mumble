@@ -441,7 +441,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルの説明</translation>
     </message>
     <message>
         <source>Select member to add</source>
@@ -622,15 +622,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>マイク一覧</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>スピーカー一覧</translation>
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイス一覧</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
@@ -642,7 +642,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>未使用のデバイス一覧</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
@@ -1031,7 +1031,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>低遅延モードを許可する</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
@@ -1563,7 +1563,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>有効</translation>
     </message>
     <message>
         <source>Attenuation</source>
@@ -1571,11 +1571,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> m</source>
-        <translation type="unfinished"></translation>
+        <translation> m</translation>
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
@@ -2352,7 +2352,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPアドレス</translation>
     </message>
     <message>
         <source>No IP address</source>
@@ -2988,7 +2988,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>このサーバーでは画像を送信できません。</translation>
     </message>
 </context>
 <context>
@@ -4296,7 +4296,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>行</translation>
+        <translation> 行</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -7489,7 +7489,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
+        <translation>オーバレイ: %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
 </context>
 <context>
@@ -9343,7 +9343,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 online (%2 idle)</source>
-        <translation>オンライン時間 %1  (アイドル時間 %2)</translation>
+        <translation>オンライン時間 %1 (アイドル時間 %2)</translation>
     </message>
     <message>
         <source>%1 online</source>
