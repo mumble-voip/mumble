@@ -8055,6 +8055,21 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
 </context>
 <context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Mot de passe</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be saved on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
