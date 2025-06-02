@@ -24,8 +24,9 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 	m_label->setStyleSheet("QLabel { margin-left: 0px; padding: 0px; }");
 	m_volumeSlider->setStyleSheet("QSlider { margin-right: 0px; }");
 
-	KeyEventObserver *keyEventFilter =
-		new KeyEventObserver(this, QEvent::KeyRelease, false, { Qt::Key_Left, Qt::Key_Right });
+	KeyEventObserver *keyEventFilter = new KeyEventObserver(
+		this, QEvent::KeyRelease, false,
+		{ Qt::Key_Left, Qt::Key_Right, Qt::Key_Home, Qt::Key_End, Qt::Key_PageUp, Qt::Key_PageDown });
 	m_volumeSlider->installEventFilter(keyEventFilter);
 
 	// The list of wheel events observed seems odd at first. We have to check for multiple
