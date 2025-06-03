@@ -2984,16 +2984,20 @@ Sei sicuro di voler sostituire il tuo certificato?
         <translation>&lt;center&gt;Inserisci qui il messaggio&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Impossibile inviare immagine: dimensione troppo grande.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Impossibile inviare immagine %1: dimensione troppo grande.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Il server non permette l&apos;invio di immagini.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5511,10 +5515,6 @@ Altrimenti annulla e controlla il tuo certificato ed il nome utente.</translatio
         <translation>Password errata per un account non registrato, prova di nuovo.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Immagini (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>&amp;Impostazioni</translation>
     </message>
@@ -7130,6 +7130,34 @@ Valid options are:
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

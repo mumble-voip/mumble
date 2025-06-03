@@ -2984,16 +2984,20 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;center&gt;Πληκτρολογήστε εδώ το μήνυμα συνομιλίας&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Αδυναμία αποστολής εικόνας: μεγάλο μέγεθος.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Αδυναμία αποστολής εικόνας %1: μεγάλο μέγεθος.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Αυτός ο διακομιστής δεν επιτρέπει αποστολή εικόνων.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5511,10 +5515,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Λάθος κωδικός πρόσβασης διακομιστή για μη εγγραμμένο λογαριασμό χρήστη, δοκιμάστε ξανά.</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Εικόνες (*.png *.jpg *.jpeg)</translation>
-    </message>
-    <message>
         <source>C&amp;onfigure</source>
         <translation>Δ&amp;ιαμόρφωση</translation>
     </message>
@@ -7130,6 +7130,34 @@ Valid options are:
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
