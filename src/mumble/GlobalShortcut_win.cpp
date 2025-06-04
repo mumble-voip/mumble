@@ -439,7 +439,11 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	switch (input->header.dwType) {
 		case RIM_TYPEMOUSE: {
 			const RAWMOUSE &mouse = input->data.mouse;
-			(void)m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
+			[[maybe_unused]] const bool enqueuedMsgMouse = m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
+			if (!enqueuedMsgMouse)
+				{
+				qWarning("GlobalShortcutWin: Failed to enqueue MsgMouse — queue full?");
+				}
 			break;
 		}
 		case RIM_TYPEKEYBOARD: {
@@ -455,13 +459,21 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 				return;
 			}
 
-			(void)m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
+			[[maybe_unused]] const bool enqueuedMsgKeyboard = m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
+			if (!enqueuedMsgKeyboard) 
+				{
+				qWarning("GlobalShortcutWin: Failed to enqueue MsgKeyboard — queue full?");
+				}
 			break;
 		}
 		case RIM_TYPEHID: {
 			const RAWHID &hid = input->data.hid;
 			MsgHid::RawReports reports(hid.bRawData, hid.dwSizeHid * hid.dwCount);
-			(void)m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
+			[[maybe_unused]] const bool enqueuedMsgHid = m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
+			if (!enqueuedMsgHid) 
+				{
+				qWarning("GlobalShortcutWin: Failed to enqueue MsgHid — queue full?");
+				}
 			break;
 		}
 		default:
