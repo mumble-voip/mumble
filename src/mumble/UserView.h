@@ -10,6 +10,7 @@
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTreeView>
 
+#include "ClientUser.h"
 #include "QtUtils.h"
 #include "Timer.h"
 
@@ -24,6 +25,7 @@ private:
 
 public:
 	UserDelegate(QObject *parent);
+	static bool drawAvatarIcon(QPainter *painter, const QRect &rect, ClientUser *user);
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 	void adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension);
 
