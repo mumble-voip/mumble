@@ -21,6 +21,52 @@
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
+bool UserDelegate::drawAvatarIcon(QPainter *painter, const QRect &rect, ClientUser *user) {
+	if (user == nullptr || user->qbaTextureHash.isEmpty() || user->qbaTexture.isEmpty()) {
+		return false;
+	}
+
+	QPixmap avatar;
+	avatar.loadFromData(user->qbaTexture);
+	QPen pen;
+	bool isPassive = false;
+	switch (user->tsState) {
+		case Settings::TalkState::Talking:
+			pen.setColor(QColor(68, 163, 242));
+			break;
+		case Settings::TalkState::Whispering:
+			pen.setColor(QColor(142, 83, 167));
+			break;
+		case Settings::TalkState::Shouting:
+			pen.setColor(QColor(229, 172, 7));
+			break;
+		case Settings::TalkState::MutedTalking:
+			pen.setColor(QColor(113, 113, 113));
+			break;
+		case Settings::TalkState::Passive:
+			isPassive = true;
+			break;
+	}
+	painter->save();
+	painter->setRenderHint(QPainter::Antialiasing);
+	painter->drawPixmap(rect, avatar);
+	if (!isPassive) {
+		pen.setWidth(1);
+		painter->setPen(pen);
+		painter->drawEllipse(rect);
+
+		QRect soundWaveRect      = rect.adjusted(-4, -3, 4, 3);
+		int soundWave16thDegrees = 77 * 16;
+		int soundWaveStartOffset = 40;
+		pen.setWidth(2);
+		painter->setPen(pen);
+		painter->drawArc(soundWaveRect, (180 - soundWaveStartOffset) * 16, soundWave16thDegrees);
+		painter->drawArc(soundWaveRect, soundWaveStartOffset * 16, -soundWave16thDegrees);
+	}
+	painter->restore();
+	return true;
+}
+
 void UserDelegate::adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension) {
 	m_iconTotalDimension = iconTotalDimension;
 	m_iconIconPadding    = iconIconPadding;
@@ -68,8 +114,12 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	o.rect = option.rect.adjusted(0, 0, static_cast< int >(-m_iconTotalDimension * ql.count()), 0);
 
 	// draw icon
+	ModelItem *item      = static_cast< ModelItem * >(index.internalPointer());
+	ClientUser *user     = item->pUser;
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
-	o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
+	if (!drawAvatarIcon(painter, decorationRect.adjusted(-3, 0, -3, 0), user)) {
+		o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
+	}
 
 	// draw text
 	QRect textRect   = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
