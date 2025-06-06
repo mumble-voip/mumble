@@ -6,6 +6,7 @@
 #include "JSONSerialization.h"
 #include "Cert.h"
 #include "SettingsMacros.h"
+#include "Global.h"
 
 
 template< typename T, bool isEnum > struct SaveValueConverter {
@@ -91,11 +92,7 @@ void load(const nlohmann::json &json, const char *category, const SettingsKey &k
 	load(categoryJSON, key, variable, defaultValue, useDefault);
 }
 
-
-
 void to_json(nlohmann::json &j, const Settings &settings) {
-	j[SettingsKeys::SETTINGS_VERSION_KEY] = 1;
-
 	const Settings defaultValues;
 
 #define PROCESS(category, key, variable)                          \
@@ -172,12 +169,10 @@ void migrateSettings(nlohmann::json &json, int settingsVersion) {
 }
 
 void from_json(const nlohmann::json &j, Settings &settings) {
-	int settingsVersion = j.at(SettingsKeys::SETTINGS_VERSION_KEY).get< int >();
-
 	// Copy since we might have to make modifications
 	nlohmann::json json = j;
 
-	migrateSettings(json, settingsVersion);
+	migrateSettings(json, Global::get().profiles.settings_version);
 
 #define PROCESS(category, key, variable) \
 	load(json, #category, SettingsKeys::key, settings.variable, settings.variable, true);
@@ -242,6 +237,45 @@ void from_json(const nlohmann::json &j, OverlaySettings &settings) {
 }
 
 
+void to_json(nlohmann::json &j, const Profiles &profiles) {
+	j[SettingsKeys::SETTINGS_VERSION_KEY] = Profiles::s_current_settings_version;
+
+#define PROCESS(category, key, variable) save(j, SettingsKeys::key, profiles.variable);
+
+	PROCESS_ALL_PROFILE_SETTINGS
+
+#undef PROCESS
+}
+
+void migrateProfiles(nlohmann::json &json, int settingsVersion) {
+	if (settingsVersion < 2) {
+		// The file does not contain profiles yet, because it is old.
+		// We convert the existing json to the s_default_profile_name profile.
+		qWarning("Migrating settings file to default profile");
+
+		nlohmann::json defaultProfile = json;
+		nlohmann::json profiles      = nlohmann::json::object({ { Profiles::s_default_profile_name, defaultProfile } });
+		json[SettingsKeys::PROFILES] = profiles;
+	}
+}
+
+void from_json(const nlohmann::json &j, Profiles &profiles) {
+	profiles.settings_version = 0;
+	if (j.contains(SettingsKeys::SETTINGS_VERSION_KEY)) {
+		profiles.settings_version = j.at(SettingsKeys::SETTINGS_VERSION_KEY).get< int >();
+	}
+
+	// Copy since we might have to make modifications
+	nlohmann::json json = j;
+
+	migrateProfiles(json, Global::get().profiles.settings_version);
+
+#define PROCESS(category, key, variable) load(json, SettingsKeys::key, profiles.variable, profiles.variable, true);
+
+	PROCESS_ALL_PROFILE_SETTINGS
+
+#undef PROCESS
+}
 
 void to_json(nlohmann::json &j, const QString &string) {
 	j = string.toStdString();
