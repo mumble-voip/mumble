@@ -214,25 +214,26 @@ void ConfigDialog::updateProfileList() {
 	qcbProfiles->clear();
 
 	// Always sort the default profile before anything else
-	qcbProfiles->addItem(Profiles::s_default_profile_name);
+	qcbProfiles->addItem(QString::fromStdString(Profiles::s_default_profile_name));
 
-	QStringList profiles = Global::get().profiles.allProfiles.keys();
-	profiles.sort();
-	for (const QString &profile : profiles) {
+	QList< std::string > profiles = Global::get().profiles.allProfiles.keys();
+	std::sort(profiles.begin(), profiles.end());
+	for (const std::string &profile : profiles) {
 		if (profile == Profiles::s_default_profile_name) {
 			continue;
 		}
-		qcbProfiles->addItem(profile);
+		qcbProfiles->addItem(QString::fromStdString(profile));
 	}
 
-	qcbProfiles->setCurrentIndex(qcbProfiles->findText(Global::get().profiles.activeProfileName));
+	qcbProfiles->setCurrentIndex(
+		qcbProfiles->findText(QString::fromStdString(Global::get().profiles.activeProfileName)));
 
-	bool isDefault = qcbProfiles->currentText() == Profiles::s_default_profile_name;
+	bool isDefault = qcbProfiles->currentText().toStdString() == Profiles::s_default_profile_name;
 	qpbProfileRename->setEnabled(!isDefault);
 	qpbProfileDelete->setEnabled(!isDefault);
 }
 
-void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfile) {
+void ConfigDialog::switchProfile(const std::string &newProfile, bool saveActiveProfile) {
 	Profiles &profiles = Global::get().profiles;
 
 	if (saveActiveProfile) {
@@ -248,7 +249,7 @@ void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfi
 }
 
 void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
-	QString selectedProfile = qcbProfiles->currentText();
+	std::string selectedProfile = qcbProfiles->currentText().toStdString();
 
 	Profiles &profiles = Global::get().profiles;
 
@@ -265,11 +266,12 @@ void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
 
 void ConfigDialog::on_qpbProfileAdd_clicked() {
 	bool ok;
-	QString profileName =
+	std::string profileName =
 		QInputDialog::getText(this, tr("Creating settings profile"), tr("Enter new settings profile name"),
-							  QLineEdit::Normal, Global::get().profiles.activeProfileName, &ok);
+							  QLineEdit::Normal, QString::fromStdString(Global::get().profiles.activeProfileName), &ok)
+			.toStdString();
 
-	if (!ok || profileName.isEmpty()) {
+	if (!ok || profileName.empty()) {
 		return;
 	}
 
@@ -289,18 +291,19 @@ void ConfigDialog::on_qpbProfileAdd_clicked() {
 }
 
 void ConfigDialog::on_qpbProfileRename_clicked() {
-	QString oldProfileName = qcbProfiles->currentText();
+	std::string oldProfileName = qcbProfiles->currentText().toStdString();
 
 	if (oldProfileName == Profiles::s_default_profile_name) {
 		return;
 	}
 
 	bool ok;
-	QString profileName =
+	std::string profileName =
 		QInputDialog::getText(this, tr("Renaming settings profile"), tr("Enter new settings profile name"),
-							  QLineEdit::Normal, oldProfileName, &ok);
+							  QLineEdit::Normal, QString::fromStdString(oldProfileName), &ok)
+			.toStdString();
 
-	if (!ok || profileName.isEmpty()) {
+	if (!ok || profileName.empty()) {
 		return;
 	}
 
@@ -316,7 +319,7 @@ void ConfigDialog::on_qpbProfileRename_clicked() {
 }
 
 void ConfigDialog::on_qpbProfileDelete_clicked() {
-	QString oldProfileName = qcbProfiles->currentText();
+	std::string oldProfileName = qcbProfiles->currentText().toStdString();
 
 	if (oldProfileName == Profiles::s_default_profile_name) {
 		return;
@@ -326,9 +329,10 @@ void ConfigDialog::on_qpbProfileDelete_clicked() {
 		return;
 	}
 
-	QMessageBox::StandardButton confirmation = QMessageBox::question(
-		this, tr("Delete settings profile"),
-		tr("Are you sure you want to permanently delete settings profile '%1'").arg(oldProfileName));
+	QMessageBox::StandardButton confirmation =
+		QMessageBox::question(this, tr("Delete settings profile"),
+							  tr("Are you sure you want to permanently delete settings profile '%1'")
+								  .arg(QString::fromStdString(oldProfileName)));
 
 	if (confirmation != QMessageBox::Yes) {
 		return;

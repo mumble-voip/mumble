@@ -20,7 +20,7 @@ private:
 
 	void updateTabOrder();
 	void updateProfileList();
-	void switchProfile(const QString &newProfile, bool saveActiveProfile);
+	void switchProfile(const std::string &newProfile, bool saveActiveProfile);
 
 protected:
 	static QMutex s_existingWidgetsMutex;

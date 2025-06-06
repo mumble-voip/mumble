@@ -156,10 +156,10 @@ void Settings::save(const QString &path) const {
 	nlohmann::json &profilesJSON     = settingsJSON.at(SettingsKeys::PROFILES);
 	nlohmann::json activeProfileJSON = *this;
 
-	qInfo("Saving settings profile '%s'", qUtf8Printable(profiles.activeProfileName));
+	qInfo("Saving settings profile '%s'", qUtf8Printable(QString::fromStdString(profiles.activeProfileName)));
 
 	// Replace the settings loaded from disk with the current (possibly modified) settings
-	profilesJSON.erase(profiles.activeProfileName.toStdString());
+	profilesJSON.erase(profiles.activeProfileName);
 	profilesJSON.push_back({ profiles.activeProfileName, activeProfileJSON });
 
 	QFile tmpFile(QString::fromLatin1("%1/mumble_settings.json.tmp")
@@ -225,10 +225,10 @@ void Settings::save() const {
 	}
 }
 
-void Settings::loadProfile(std::optional< QString > requestedProfile) {
+void Settings::loadProfile(std::optional< std::string > requestedProfile) {
 	Profiles &profiles = Global::get().profiles;
 
-	QString profileName;
+	std::string profileName;
 	if (!requestedProfile) {
 		profileName = profiles.activeProfileName;
 	} else {
@@ -236,17 +236,19 @@ void Settings::loadProfile(std::optional< QString > requestedProfile) {
 	}
 
 	if (!profiles.allProfiles.contains(profileName)) {
-		qWarning("Failed to load settings profile '%s'. Falling back to '%s'...", qUtf8Printable(profileName),
-				 qUtf8Printable(Profiles::s_default_profile_name));
+		qWarning("Failed to load settings profile '%s'. Falling back to '%s'...",
+				 qUtf8Printable(QString::fromStdString(profileName)),
+				 qUtf8Printable(QString::fromStdString(Profiles::s_default_profile_name)));
 		profileName = Profiles::s_default_profile_name;
 
 		if (!profiles.allProfiles.contains(profileName)) {
-			qWarning("Failed to load fallback settings profile '%s'", qUtf8Printable(Profiles::s_default_profile_name));
+			qWarning("Failed to load fallback settings profile '%s'",
+					 qUtf8Printable(QString::fromStdString(Profiles::s_default_profile_name)));
 			return;
 		}
 	}
 
-	qInfo("Loading settings profile '%s'", qUtf8Printable(profileName));
+	qInfo("Loading settings profile '%s'", qUtf8Printable(QString::fromStdString(profileName)));
 
 	*this                      = profiles.allProfiles[profileName];
 	profiles.activeProfileName = profileName;
@@ -437,8 +439,8 @@ std::size_t qHash(const ChannelTarget &target) {
 	return qHash(target.channelID);
 }
 
-const QString Profiles::s_default_profile_name = QLatin1String("default");
-const int Profiles::s_current_settings_version = 2;
+const std::string Profiles::s_default_profile_name = "default";
+const int Profiles::s_current_settings_version     = 2;
 
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
