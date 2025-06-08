@@ -22,6 +22,7 @@
 
 #include <optional>
 #include <string>
+#include <thread>
 #include <vector>
 
 class Server;
@@ -154,6 +155,7 @@ public:
 
 protected:
 	::mumble::server::db::ServerDatabase m_serverDB;
+	const std::thread::id m_threadID = std::this_thread::get_id();
 };
 
 #endif // MUMBLE_SERVER_DBWRAPPER_H_

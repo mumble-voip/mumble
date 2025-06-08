@@ -56,6 +56,7 @@
 #include <limits>
 #include <optional>
 #include <stdexcept>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -87,7 +88,9 @@ DBWrapper::DBWrapper(const ::mdb::ConnectionParameter &connectionParams)
  */
 #define assertValidID(id) assert(id == 0 || (id > 0 && id <= std::numeric_limits< int >::max()));
 
-#define WRAPPER_BEGIN try {
+#define WRAPPER_BEGIN                                 \
+	assert(std::this_thread::get_id() == m_threadID); \
+	try {
 // Our error handling consists in properly printing the encountered error and then throwing
 // a standard std::exception that should be caught in our QCoreApplication's notify function,
 // which we have overridden to exit all event processing and thereby shutting down all servers.
