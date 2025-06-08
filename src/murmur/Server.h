@@ -437,6 +437,10 @@ public:
 	void setListenerVolumeAdjustment(ServerUser *user, const Channel *cChannel,
 									 const VolumeAdjustment &volumeAdjustment);
 	void sendWelcomeMessageTo(ServerUser *user);
+
+	/// @returns Whether the given ID is a valid user ID. That is, whether the given ID corresponds to a registered
+	/// user on this server.
+	bool isValidUserID(int userID);
 signals:
 	void registerUserSig(int &, const QMap< int, QString > &);
 	void unregisterUserSig(int &, int);
