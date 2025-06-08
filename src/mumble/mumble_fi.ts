@@ -7195,6 +7195,14 @@ Kelvolliset vaihtoehdot ovat :
         <source>The channel you have been in previously no longer exists on this server.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot move a mix of users and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown User Drag mode in UserModel::dropMimeData.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -9687,14 +9695,6 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
         <translation>Merkintä</translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
-        <translation>Haluatko varmasti siirtää tämän käyttäjän?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to drag this channel?</source>
-        <translation>Haluatko varmasti siirtää tämän kanavan?</translation>
-    </message>
-    <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Liikettä ei voi suorittaa automaattisesti. Palauta numeeriset lajitteluindikaattorit alkutilaan tai säädä manuaalisesti.</translation>
     </message>
@@ -9725,6 +9725,38 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     <message>
         <source>This channel listener belongs to %1</source>
         <translation>Tämä kanavan kuuntelija kuuluu %1:lle</translation>
+    </message>
+    <message>
+        <source>, and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channel %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channels %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent user %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent users %2?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
