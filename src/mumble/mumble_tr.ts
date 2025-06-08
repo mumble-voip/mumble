@@ -7193,6 +7193,16 @@ Geçerli seçenekler şunlardır:
         <source>The channel you have been in previously no longer exists on this server.</source>
         <translation>Daha önce içinde bulunduğunuz kanal artık bu sunucuda mevcut değildir.</translation>
     </message>
+    <message>
+        <source>Adaptive Push</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action. </source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>

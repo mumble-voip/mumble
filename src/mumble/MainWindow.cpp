@@ -428,6 +428,12 @@ void MainWindow::createActions() {
 	gsMoveBack = new GlobalShortcut(this, GlobalShortcutType::MoveBack, tr("Move back", "Global shortcut"));
 	gsMoveBack->setObjectName("gsMoveBack");
 	gsMoveBack->qsWhatsThis = tr("This will move you back into your previous channel");
+
+	gsAdaptivePush = new GlobalShortcut(this, GlobalShortcutType::AdaptivePush, tr("Adaptive Push", "Global Shortcut"));
+	gsAdaptivePush->setObjectName("gsAdaptivePush");
+	gsAdaptivePush->qsToolTip =
+		tr("When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action. ",
+			"Global Shortcut");
 }
 
 void MainWindow::setupGui() {
@@ -3382,6 +3388,14 @@ void MainWindow::on_gsMoveBack_triggered(bool down, QVariant) {
 	}
 
 	on_qaMoveBack_triggered();
+}
+
+void MainWindow::on_gsAdaptivePush_triggered(bool down, QVariant variant) {
+	if (Global::get().s.atTransmit == Settings::PushToTalk) {
+		on_PushToTalk_triggered(down, std::move(variant));
+	} else {
+		on_PushToMute_triggered(down, std::move(variant));
+	}
 }
 
 

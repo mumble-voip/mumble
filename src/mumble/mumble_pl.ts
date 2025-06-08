@@ -7195,6 +7195,16 @@ Prawidłowe opcje to:
         <source>The channel you have been in previously no longer exists on this server.</source>
         <translation>Wcześniej odwiedzony kanał nie istnieje już na tym serwerze.</translation>
     </message>
+    <message>
+        <source>Adaptive Push</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action. </source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
