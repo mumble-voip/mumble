@@ -2779,7 +2779,7 @@ void Server::loadTexture(ServerUser &user) {
 }
 
 QByteArray Server::getTexture(int userID) {
-	if (userID <= 0) {
+	if (!isValidUserID(userID)) {
 		return {};
 	}
 
@@ -2921,7 +2921,7 @@ bool Server::channelListenerExists(const ServerUser &user, const Channel &channe
 }
 
 QString Server::getRegisteredUserName(int userID) {
-	if (userID < 0) {
+	if (!isValidUserID(userID)) {
 		return {};
 	}
 
@@ -2932,7 +2932,7 @@ QString Server::getRegisteredUserName(int userID) {
 	QString name;
 	emit idToNameSig(name, userID);
 
-	if (name.isEmpty() && m_dbWrapper.registeredUserExists(iServerNum, static_cast< unsigned int >(userID))) {
+	if (name.isEmpty()) {
 		name = QString::fromStdString(m_dbWrapper.getUserName(iServerNum, static_cast< unsigned int >(userID)));
 
 		assert(!name.isEmpty());
@@ -3037,7 +3037,7 @@ int Server::registerUser(const ServerUserInfo &userInfo) {
 }
 
 bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
-	if (userID < 0) {
+	if (!isValidUserID(userID)) {
 		return false;
 	}
 
@@ -3109,7 +3109,7 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 QMap< int, QString > Server::getUserProperties(int userID) {
 	QMap< int, QString > properties;
 
-	if (userID < 0) {
+	if (!isValidUserID(userID)) {
 		return properties;
 	}
 
@@ -3197,6 +3197,14 @@ std::vector< UserInfo > Server::getAllRegisteredUserProperties(QString nameSubst
 	m_dbWrapper.addAllRegisteredUserInfoTo(users, iServerNum, nameSubstring.toStdString());
 
 	return users;
+}
+
+bool Server::isValidUserID(int userID) {
+	return userID >= 0
+		   // We first check the name cache for registered users as this is faster than a DB query but can also yield a
+		   // definitive positive result
+		   && (qhUserNameCache.contains(userID)
+			   || m_dbWrapper.registeredUserExists(iServerNum, static_cast< unsigned int >(userID)));
 }
 
 

@@ -6,6 +6,7 @@
 #ifndef MUMBLE_SERVER_DBWRAPPER_H_
 #define MUMBLE_SERVER_DBWRAPPER_H_
 
+#include "NonCopyable.h"
 #include "murmur/database/DBChannel.h"
 #include "murmur/database/DBLogEntry.h"
 #include "murmur/database/DBUserData.h"
@@ -21,6 +22,7 @@
 
 #include <optional>
 #include <string>
+#include <thread>
 #include <vector>
 
 class Server;
@@ -31,7 +33,7 @@ class ChannelListenerManager;
 
 class QByteArray;
 
-class DBWrapper {
+class DBWrapper : public NonCopyable {
 public:
 	DBWrapper(const ::mumble::db::ConnectionParameter &connectionParams);
 
@@ -153,6 +155,7 @@ public:
 
 protected:
 	::mumble::server::db::ServerDatabase m_serverDB;
+	const std::thread::id m_threadID = std::this_thread::get_id();
 };
 
 #endif // MUMBLE_SERVER_DBWRAPPER_H_
