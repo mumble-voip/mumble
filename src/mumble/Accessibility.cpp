@@ -78,9 +78,9 @@ namespace Accessibility {
 			description += QString("%1,").arg(QObject::tr("priority speaker"));
 		}
 
-		if (!user->qsComment.isEmpty()) {
-			if (user->qsComment.length() <= 20) {
-				description += QString("%1,").arg(user->qsComment);
+		if (!user->qsComment().isEmpty()) {
+			if (user->qsComment().length() <= 20) {
+				description += QString("%1,").arg(user->qsComment());
 			} else {
 				description += QString("%1,").arg(QObject::tr("has a long comment"));
 			}
