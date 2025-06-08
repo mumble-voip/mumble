@@ -8051,6 +8051,21 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
 </context>
 <context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">密码</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be saved on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
@@ -8733,6 +8748,18 @@ You can register them again.</source>
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;如果您使用 Linux，那么您很可能正在使用来自发行版包仓库的版本，并且该仓库拥有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您想始终使用最新 Mumble 版本，则应该考虑使用不同的安装方式。
 请看&lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;项目仓库&lt;/a&gt;了解有哪些其他方式。&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Suppress certificate and password storage setting enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password can&apos;t be saved: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
