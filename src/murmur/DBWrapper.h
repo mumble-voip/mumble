@@ -6,6 +6,7 @@
 #ifndef MUMBLE_SERVER_DBWRAPPER_H_
 #define MUMBLE_SERVER_DBWRAPPER_H_
 
+#include "NonCopyable.h"
 #include "murmur/database/DBChannel.h"
 #include "murmur/database/DBLogEntry.h"
 #include "murmur/database/DBUserData.h"
@@ -31,7 +32,7 @@ class ChannelListenerManager;
 
 class QByteArray;
 
-class DBWrapper {
+class DBWrapper : public NonCopyable {
 public:
 	DBWrapper(const ::mumble::db::ConnectionParameter &connectionParams);
 
