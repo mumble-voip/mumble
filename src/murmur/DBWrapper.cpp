@@ -88,6 +88,14 @@ DBWrapper::DBWrapper(const ::mdb::ConnectionParameter &connectionParams)
  */
 #define assertValidID(id) assert(id == 0 || (id > 0 && id <= std::numeric_limits< int >::max()));
 
+/**
+ * Asserts that the given userID represents a valid ID and belongs to a user that is actually registered on the given
+ * server.
+ */
+#define assertRegisteredUserExists(serverID, userID) \
+	assertValidID(userID);                           \
+	assert(registeredUserExists(serverID, static_cast< unsigned int >(userID)));
+
 #define WRAPPER_BEGIN                                 \
 	assert(std::this_thread::get_id() == m_threadID); \
 	try {
@@ -934,7 +942,7 @@ void DBWrapper::updateLastDisconnect(unsigned int serverID, unsigned int userID)
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -947,7 +955,7 @@ void DBWrapper::addChannelListenerIfNotExists(unsigned int serverID, unsigned in
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 
 	::msdb::DBChannelListener listener(serverID, channelID, userID);
@@ -971,7 +979,7 @@ void DBWrapper::disableChannelListenerIfExists(unsigned int serverID, unsigned i
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 
 	::msdb::DBChannelListener listener(serverID, channelID, userID);
@@ -992,7 +1000,7 @@ void DBWrapper::deleteChannelListener(unsigned int serverID, unsigned int userID
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 
 	m_serverDB.getChannelListenerTable().removeListener(serverID, userID, channelID);
@@ -1005,7 +1013,7 @@ void DBWrapper::loadChannelListenersOf(unsigned int serverID, const ServerUserIn
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userInfo.iId);
+	assertRegisteredUserExists(serverID, userInfo.iId);
 
 	for (const ::msdb::DBChannelListener &currentListener : m_serverDB.getChannelListenerTable().getListenersForUser(
 			 serverID, static_cast< unsigned int >(userInfo.iId))) {
@@ -1024,7 +1032,7 @@ void DBWrapper::storeChannelListenerVolume(unsigned int serverID, unsigned int u
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 	assert(m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID));
 
@@ -1043,7 +1051,7 @@ float DBWrapper::getChannelListenerVolume(unsigned int serverID, unsigned int us
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 	assert(m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID));
 
@@ -1056,7 +1064,7 @@ bool DBWrapper::channelListenerExists(unsigned int serverID, unsigned int userID
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 
 	return m_serverDB.getChannelListenerTable().listenerExists(serverID, userID, channelID);
@@ -1123,7 +1131,7 @@ void DBWrapper::unregisterUser(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 	m_serverDB.getUserTable().removeUser(user);
@@ -1160,7 +1168,7 @@ bool DBWrapper::registeredUserExists(unsigned int serverID, unsigned int userID)
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1173,7 +1181,7 @@ QMap< int, QString > DBWrapper::getRegisteredUserDetails(unsigned int serverID, 
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	QMap< int, QString > details;
 
@@ -1251,7 +1259,7 @@ std::optional< unsigned int > DBWrapper::findRegisteredUserByEmail(unsigned int 
 void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int userID, const QString &password,
 											unsigned int kdfIterations) {
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	storeRegisteredUserPassword(serverID, userID, password.toStdString(), kdfIterations);
 }
@@ -1261,7 +1269,7 @@ void DBWrapper::storeRegisteredUserPassword(unsigned int serverID, unsigned int 
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	const ::msdb::DBUser user(serverID, userID);
 
@@ -1309,7 +1317,7 @@ std::vector< unsigned int > DBWrapper::getRegisteredUserIDs(unsigned int serverI
 
 void DBWrapper::setLastChannel(unsigned int serverID, const ServerUserInfo &userInfo) {
 	assertValidID(serverID);
-	assertValidID(userInfo.iId);
+	assertRegisteredUserExists(serverID, userInfo.iId);
 	assert(userInfo.cChannel);
 	assertValidID(userInfo.cChannel->iId);
 
@@ -1320,7 +1328,7 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 	assertValidID(channelID);
 
 	::msdb::DBUser user(serverID, userID);
@@ -1335,7 +1343,7 @@ unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int use
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1370,7 +1378,7 @@ QByteArray DBWrapper::getUserTexture(unsigned int serverID, unsigned int userID)
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
@@ -1395,7 +1403,7 @@ void DBWrapper::storeUserTexture(unsigned int serverID, const ServerUserInfo &us
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userInfo.iId);
+	assertRegisteredUserExists(serverID, userInfo.iId);
 
 	::msdb::DBUser user(serverID, static_cast< unsigned int >(userInfo.iId));
 	::msdb::DBUserData data = m_serverDB.getUserTable().getData(user);
@@ -1416,7 +1424,7 @@ std::string DBWrapper::getUserProperty(unsigned int serverID, unsigned int userI
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1430,7 +1438,7 @@ void DBWrapper::storeUserProperty(unsigned int serverID, unsigned int userID, ::
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1448,7 +1456,7 @@ void DBWrapper::setUserProperties(unsigned int serverID, unsigned int userID,
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1481,7 +1489,7 @@ std::vector< std::pair< unsigned int, std::string > > DBWrapper::getUserProperti
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	std::vector< std::pair< unsigned int, std::string > > properties;
 
@@ -1530,7 +1538,7 @@ std::string DBWrapper::getUserName(unsigned int serverID, unsigned int userID) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1553,7 +1561,7 @@ void DBWrapper::setUserData(unsigned int serverID, unsigned int userID, const ::
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
-	assertValidID(userID);
+	assertRegisteredUserExists(serverID, userID);
 
 	::msdb::DBUser user(serverID, userID);
 
@@ -1579,3 +1587,4 @@ void DBWrapper::importFromJSON(const nlohmann::json &json, bool createMissingTab
 }
 
 #undef assertValidID
+#undef assertRegisteredUserExists
