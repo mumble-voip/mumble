@@ -168,7 +168,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	updateTriggerWidgets(qrPTT->isChecked());
 	sOldSettings                    = Global::get().s;
-	Global::get().s.lmLoopMode      = Settings::Local;
+	Global::get().s.lmLoopMode      = Settings::LocalOnly;
 	Global::get().s.dPacketLoss     = 0.0;
 	Global::get().s.dMaxPacketDelay = 0.0;
 	Global::get().s.bMute           = true;

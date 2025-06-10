@@ -640,8 +640,10 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
 	qcbLoopback->addItem(tr("None"), Settings::None);
-	qcbLoopback->addItem(tr("Local"), Settings::Local);
-	qcbLoopback->addItem(tr("Server"), Settings::Server);
+	qcbLoopback->addItem(tr("Local (don't send to others)"), Settings::LocalOnly);
+	qcbLoopback->addItem(tr("Local (send to others)"), Settings::LocalRegular);
+	qcbLoopback->addItem(tr("Server (don't send to others)"), Settings::ServerOnly);
+	qcbLoopback->addItem(tr("Server (send to others)"), Settings::ServerRegular);
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
@@ -729,7 +731,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	enablePulseAudioAttenuationOptionsFor(AudioOutputRegistrar::current);
 
 	loadSlider(qsJitter, r.iJitterBufferSize);
-	loadComboBox(qcbLoopback, r.lmLoopMode);
+	loadComboBox(qcbLoopback, QVariant::fromValue(r.lmLoopMode));
 	loadSlider(qsPacketDelay, static_cast< int >(r.dMaxPacketDelay));
 	loadSlider(qsPacketLoss, static_cast< int >(r.dPacketLoss * 100.0f + 0.5f));
 	qsbMinimumDistance->setValue(r.fAudioMinDistance);
@@ -755,7 +757,7 @@ void AudioOutputDialog::save() const {
 	s.bAttenuateUsersOnPrioritySpeak = qcbAttenuateUsersOnPrioritySpeak->isChecked();
 	s.iJitterBufferSize              = qsJitter->value();
 	s.qsAudioOutput                  = qcbSystem->currentText();
-	s.lmLoopMode                     = static_cast< Settings::LoopMode >(qcbLoopback->currentIndex());
+	s.lmLoopMode                     = qcbLoopback->currentData().value< Settings::LoopMode >();
 	s.dMaxPacketDelay                = static_cast< float >(qsPacketDelay->value());
 	s.dPacketLoss                    = static_cast< float >(qsPacketLoss->value()) / 100.0f;
 	s.fAudioMinDistance              = static_cast< float >(qsbMinimumDistance->value());
