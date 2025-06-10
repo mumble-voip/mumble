@@ -424,6 +424,57 @@ void GlobalShortcutWin::run() {
 	} while (!isInterruptionRequested());
 }
 
+static bool isAnalogLikeHidReport(const MsgHid::RawReports &reports) {
+	const std::vector<uint8_t> &data = reports.data;
+	if (data.empty()) {
+		return false;
+	}
+
+	int midrangeCount = 0;
+	std::ostringstream debug;
+
+	debug << "Analog check values:";
+
+	// Check unsigned 8-bit values
+	for (uint8_t byte : data) {
+		debug << " u8:" << static_cast<int>(byte);
+		if (byte > 32 && byte < 224) {
+			++midrangeCount;
+		}
+	}
+
+	// Check signed 8-bit values
+	for (uint8_t byte : data) {
+		int8_t sbyte = static_cast<int8_t>(byte);
+		debug << " s8:" << static_cast<int>(sbyte);
+		if (sbyte > -96 && sbyte < 96) {
+			++midrangeCount;
+		}
+	}
+
+	// Check unsigned 16-bit values
+	for (size_t i = 0; i + 1 < data.size(); i += 2) {
+		uint16_t u16 = static_cast<uint16_t>(data[i]) | (static_cast<uint16_t>(data[i + 1]) << 8);
+		debug << " u16:" << u16;
+		if (u16 > 512 && u16 < 64512) {
+			++midrangeCount;
+		}
+	}
+
+	// Check signed 16-bit values
+	for (size_t i = 0; i + 1 < data.size(); i += 2) {
+		int16_t s16 = static_cast<int16_t>(static_cast<uint16_t>(data[i]) | (static_cast<uint16_t>(data[i + 1]) << 8));
+		debug << " s16:" << s16;
+		if (s16 > -16384 && s16 < 16384) {
+			++midrangeCount;
+		}
+	}
+
+	qDebug("GlobalShortcutWin: HID report analysis: %s", debug.str().c_str());
+
+	return midrangeCount >= 3;
+}
+
 void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	UINT size = 0;
 	if (GetRawInputData(handle, RID_INPUT, nullptr, &size, sizeof(RAWINPUTHEADER)) != 0) {
@@ -439,7 +490,7 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	switch (input->header.dwType) {
 		case RIM_TYPEMOUSE: {
 			const RAWMOUSE &mouse = input->data.mouse;
-			[[maybe_unused]] const bool enqueuedMsgMouse = m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
+			const bool enqueuedMsgMouse = m_msgQueue.try_emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
 			if (!enqueuedMsgMouse)
 				{
 				qWarning("GlobalShortcutWin: Failed to enqueue MsgMouse — queue full?");
@@ -459,7 +510,7 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 				return;
 			}
 
-			[[maybe_unused]] const bool enqueuedMsgKeyboard = m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
+			const bool enqueuedMsgKeyboard = m_msgQueue.try_emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
 			if (!enqueuedMsgKeyboard) 
 				{
 				qWarning("GlobalShortcutWin: Failed to enqueue MsgKeyboard — queue full?");
@@ -469,13 +520,20 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 		case RIM_TYPEHID: {
 			const RAWHID &hid = input->data.hid;
 			MsgHid::RawReports reports(hid.bRawData, hid.dwSizeHid * hid.dwCount);
-			[[maybe_unused]] const bool enqueuedMsgHid = m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
-			if (!enqueuedMsgHid) 
-				{
+
+			if (isAnalogLikeHidReport(reports)) {
+				qDebug("GlobalShortcutWin: Skipping analog HID input");
+			break;
+				}
+
+			const bool enqueuedMsgHid =
+			m_msgQueue.try_emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
+			if (!enqueuedMsgHid) {
 				qWarning("GlobalShortcutWin: Failed to enqueue MsgHid — queue full?");
 				}
 			break;
 		}
+
 		default:
 			return;
 	}
