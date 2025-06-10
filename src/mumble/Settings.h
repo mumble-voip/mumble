@@ -189,7 +189,7 @@ struct OverlaySettings {
 struct Settings {
 	enum AudioTransmit { Continuous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
-	enum LoopMode { None, Local, Server };
+	enum LoopMode { None, LocalOnly, ServerOnly, LocalRegular, ServerRegular };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
@@ -591,5 +591,7 @@ QDataStream &operator>>(QDataStream &qds, ChannelTarget &target);
 
 QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st);
 QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st);
+
+Q_DECLARE_METATYPE(Settings::LoopMode)
 
 #endif // MUMBLE_MUMBLE_SETTINGS_H_

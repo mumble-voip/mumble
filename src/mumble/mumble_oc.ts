@@ -1633,14 +1633,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Local</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Servidor</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Sortida àudio</translation>
     </message>
@@ -1674,6 +1666,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

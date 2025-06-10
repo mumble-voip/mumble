@@ -1640,14 +1640,6 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>Ei mikään</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Paikallinen</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Palvelin</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Äänen ulostulo</translation>
     </message>
@@ -1682,6 +1674,22 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <message>
         <source>meters</source>
         <translation>metriä</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
