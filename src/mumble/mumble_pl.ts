@@ -1640,14 +1640,6 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
         <translation>Brak</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Lokalny</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Serwer</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Wyjście audio</translation>
     </message>
@@ -1682,6 +1674,22 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <message>
         <source>meters</source>
         <translation>metry</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

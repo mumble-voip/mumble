@@ -1629,14 +1629,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1670,6 +1662,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

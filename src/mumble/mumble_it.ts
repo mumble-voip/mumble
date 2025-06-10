@@ -1640,14 +1640,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Disattivato</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Locale</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Server</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Uscita Audio</translation>
     </message>
@@ -1682,6 +1674,22 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>meters</source>
         <translation>metri</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

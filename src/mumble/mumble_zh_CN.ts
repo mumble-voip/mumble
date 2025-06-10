@@ -1640,14 +1640,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>无</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>本地</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>服务器</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>音频输出</translation>
     </message>
@@ -1682,6 +1674,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>meters</source>
         <translation>米</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

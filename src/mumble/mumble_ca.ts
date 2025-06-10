@@ -1640,14 +1640,6 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <translation>Cap</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Local</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Servidor</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Sortida d&apos;àudio</translation>
     </message>
@@ -1682,6 +1674,22 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>meters</source>
         <translation>metres</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

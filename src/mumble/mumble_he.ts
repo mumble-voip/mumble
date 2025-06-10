@@ -1641,14 +1641,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>ללא</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>מקומי</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>שרת</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>פלט שמע</translation>
     </message>
@@ -1682,6 +1674,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

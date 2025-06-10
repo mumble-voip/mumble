@@ -1642,14 +1642,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Bat ere ez</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Lokala</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Zerbitzaria</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Audio Irteera</translation>
     </message>
@@ -1683,6 +1675,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
