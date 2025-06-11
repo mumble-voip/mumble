@@ -18,6 +18,10 @@ HostWindows::~HostWindows() {
 	}
 }
 
+HostWindows::HostWindows(HostWindows &&other) noexcept
+	: m_pid(other.m_pid), m_handle(std::exchange(other.m_handle, nullptr)) {
+}
+
 bool HostWindows::peek(const procptr_t address, void *dst, const size_t size) const {
 	SIZE_T read;
 	const auto ok = ReadProcessMemory(m_handle, reinterpret_cast< void * >(address), dst, size, &read);
