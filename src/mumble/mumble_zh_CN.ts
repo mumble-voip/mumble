@@ -4999,35 +4999,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>清除对话界面背景设置。</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>清除背景颜色</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">清空</translation>
+        <translation>清空</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>用于对话界面背景的颜色。</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>选择</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果设置，则以此背景色覆盖主题的背景色。</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>背景色</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>选择颜色</translation>
     </message>
 </context>
 <context>

@@ -464,7 +464,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished">Выберите группу, к которой применяется эта запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
+        <translation>Выбор группы, к которой применяется данная запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
     </message>
     <message>
         <source>Select user</source>
@@ -472,7 +472,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished">Выберите пользователя, к которому применяется эта запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
+        <translation>Выбор пользователя, к которому применяется данная запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
@@ -633,11 +633,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished">Перенести из неиспользуемых в список микрофонов</translation>
+        <translation>Переместить из неиспользуемого списка в список микрофонов</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished">Переместить из микрофонов в список неиспользуемых</translation>
+        <translation>Переместите микрофон в неиспользуемый список</translation>
     </message>
     <message>
         <source>List of unused devices</source>
