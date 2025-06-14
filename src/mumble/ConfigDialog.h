@@ -11,6 +11,7 @@
 
 #include "ui_ConfigDialog.h"
 
+#include <QMenu>
 #include <QtCore/QMutex>
 
 class ConfigDialog : public QDialog, public Ui::ConfigDialog {
@@ -21,6 +22,11 @@ private:
 	void updateTabOrder();
 	void updateProfileList();
 	void switchProfile(const QString &newProfile, bool saveActiveProfile);
+
+	QMenu *m_profileMenu           = nullptr;
+	QAction *m_profileAddAction    = nullptr;
+	QAction *m_profileRenameAction = nullptr;
+	QAction *m_profileDeleteAction = nullptr;
 
 protected:
 	static QMutex s_existingWidgetsMutex;
@@ -48,10 +54,10 @@ public slots:
 	void on_pageButtonBox_clicked(QAbstractButton *);
 	void on_dialogButtonBox_clicked(QAbstractButton *);
 	void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-	void on_qcbProfiles_currentIndexChanged(int);
-	void on_qpbProfileAdd_clicked();
-	void on_qpbProfileRename_clicked();
-	void on_qpbProfileDelete_clicked();
+	void profile_selected(int);
+	void profile_add();
+	void profile_rename();
+	void profile_delete();
 	void apply();
 	void accept() Q_DECL_OVERRIDE;
 };

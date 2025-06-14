@@ -85,6 +85,24 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 			restoreGeometry(Global::get().s.qbaConfigGeometry);
 	}
 
+	m_profileMenu = new QMenu(this);
+
+	m_profileAddAction = new QAction(tr("Add"), this);
+	QObject::connect(m_profileAddAction, &QAction::triggered, this, &ConfigDialog::profile_add);
+	m_profileMenu->addAction(m_profileAddAction);
+
+	m_profileRenameAction = new QAction(tr("Rename"), this);
+	QObject::connect(m_profileRenameAction, &QAction::triggered, this, &ConfigDialog::profile_rename);
+	m_profileMenu->addAction(m_profileRenameAction);
+
+	m_profileDeleteAction = new QAction(tr("Delete"), this);
+	QObject::connect(m_profileDeleteAction, &QAction::triggered, this, &ConfigDialog::profile_delete);
+	m_profileMenu->addAction(m_profileDeleteAction);
+
+	qtbProfileActions->setMenu(m_profileMenu);
+
+	QObject::connect(qcbProfiles, &QComboBox::currentIndexChanged, this, &ConfigDialog::profile_selected);
+
 	updateProfileList();
 	updateTabOrder();
 	qlwIcons->setFocus();
@@ -214,7 +232,7 @@ void ConfigDialog::updateProfileList() {
 	qcbProfiles->clear();
 
 	// Always sort the default profile before anything else
-	qcbProfiles->addItem(Profiles::s_default_profile_name);
+	qcbProfiles->addItem(tr("Default Profile"), Profiles::s_default_profile_name);
 
 	Profiles &profiles = Global::get().profiles;
 
@@ -227,14 +245,14 @@ void ConfigDialog::updateProfileList() {
 		if (profile == Profiles::s_default_profile_name) {
 			continue;
 		}
-		qcbProfiles->addItem(profile);
+		qcbProfiles->addItem(profile, profile);
 	}
 
-	qcbProfiles->setCurrentIndex(qcbProfiles->findText(profiles.activeProfileName));
+	qcbProfiles->setCurrentIndex(qcbProfiles->findData(profiles.activeProfileName));
 
-	bool isDefault = qcbProfiles->currentText() == Profiles::s_default_profile_name;
-	qpbProfileRename->setEnabled(!isDefault);
-	qpbProfileDelete->setEnabled(!isDefault);
+	bool isDefault = qcbProfiles->currentData().toString() == Profiles::s_default_profile_name;
+	m_profileRenameAction->setEnabled(!isDefault);
+	m_profileDeleteAction->setEnabled(!isDefault);
 }
 
 void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfile) {
@@ -252,8 +270,8 @@ void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfi
 	updateProfileList();
 }
 
-void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
-	QString selectedProfile = qcbProfiles->currentText();
+void ConfigDialog::profile_selected(int) {
+	QString selectedProfile = qcbProfiles->currentData().toString();
 
 	Profiles &profiles = Global::get().profiles;
 
@@ -269,7 +287,7 @@ void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
 	switchProfile(selectedProfile, true);
 }
 
-void ConfigDialog::on_qpbProfileAdd_clicked() {
+void ConfigDialog::profile_add() {
 	Profiles &profiles = Global::get().profiles;
 
 	bool ok;
@@ -296,8 +314,8 @@ void ConfigDialog::on_qpbProfileAdd_clicked() {
 	switchProfile(profileName, false);
 }
 
-void ConfigDialog::on_qpbProfileRename_clicked() {
-	QString oldProfileName = qcbProfiles->currentText();
+void ConfigDialog::profile_rename() {
+	QString oldProfileName = qcbProfiles->currentData().toString();
 
 	if (oldProfileName == Profiles::s_default_profile_name) {
 		return;
@@ -326,8 +344,8 @@ void ConfigDialog::on_qpbProfileRename_clicked() {
 	switchProfile(profileName, false);
 }
 
-void ConfigDialog::on_qpbProfileDelete_clicked() {
-	QString oldProfileName = qcbProfiles->currentText();
+void ConfigDialog::profile_delete() {
+	QString oldProfileName = qcbProfiles->currentData().toString();
 
 	if (oldProfileName == Profiles::s_default_profile_name) {
 		return;
@@ -377,10 +395,8 @@ void ConfigDialog::updateTabOrder() {
 	setTabOrder(cancelButton, okButton);
 	setTabOrder(okButton, qcbProfiles);
 
-	setTabOrder(qcbProfiles, qpbProfileAdd);
-	setTabOrder(qpbProfileAdd, qpbProfileRename);
-	setTabOrder(qpbProfileRename, qpbProfileDelete);
-	setTabOrder(qpbProfileDelete, qlwIcons);
+	setTabOrder(qcbProfiles, qtbProfileActions);
+	setTabOrder(qtbProfileActions, qlwIcons);
 
 	setTabOrder(qlwIcons, contentFocusWidget);
 	if (resetButton && restoreButton && restoreAllButton) {
