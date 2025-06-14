@@ -190,11 +190,10 @@ struct OverlaySettings {
 
 struct Profiles {
 	static const QString s_default_profile_name;
-	static const int s_current_settings_version;
 
-	int settings_version                  = s_current_settings_version;
-	QString activeProfileName             = s_default_profile_name;
-	QMap< QString, Settings > allProfiles = {};
+	int settings_version;
+	QString activeProfileName                 = s_default_profile_name;
+	std::map< QString, Settings > allProfiles = {};
 };
 
 struct Settings {
@@ -585,7 +584,7 @@ struct Settings {
 	void save(const QString &path) const;
 	void save() const;
 
-	void loadProfile(std::optional< QString > requestedProfile = {});
+	void loadProfile(const std::optional< QString > &requestedProfile = {});
 	void load(const QString &path);
 	void load();
 

@@ -8,6 +8,7 @@
 #include "SettingsMacros.h"
 #include "Global.h"
 
+static const int s_current_settings_version = 2;
 
 template< typename T, bool isEnum > struct SaveValueConverter {
 	static const T &getValue(const T &value) { return value; }
@@ -238,7 +239,7 @@ void from_json(const nlohmann::json &j, OverlaySettings &settings) {
 
 
 void to_json(nlohmann::json &j, const Profiles &profiles) {
-	j[SettingsKeys::SETTINGS_VERSION_KEY] = Profiles::s_current_settings_version;
+	j[SettingsKeys::SETTINGS_VERSION_KEY] = s_current_settings_version;
 
 #define PROCESS(category, key, variable) save(j, SettingsKeys::key, profiles.variable);
 
@@ -484,5 +485,19 @@ template< typename T > void from_json(const nlohmann::json &j, std::optional< T 
 		opt = std::nullopt;
 	} else {
 		opt = j.get< T >();
+	}
+}
+
+template< typename Key, typename Value > void to_json(nlohmann::json &j, const std::map< Key, Value > &map) {
+	j = nlohmann::json::object();
+
+	for (auto it = map.cbegin(); it != map.cend(); ++it) {
+		j[details::to_string(it->first)] = it->second;
+	}
+}
+
+template< typename Key, typename Value > void from_json(const nlohmann::json &j, std::map< Key, Value > &map) {
+	for (auto it = j.cbegin(); it != j.cend(); ++it) {
+		map[details::from_string< Key >(it.key())] = it.value().get< Value >();
 	}
 }

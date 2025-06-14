@@ -216,16 +216,21 @@ void ConfigDialog::updateProfileList() {
 	// Always sort the default profile before anything else
 	qcbProfiles->addItem(Profiles::s_default_profile_name);
 
-	QStringList profiles = Global::get().profiles.allProfiles.keys();
-	profiles.sort();
-	for (const QString &profile : profiles) {
+	Profiles &profiles = Global::get().profiles;
+
+	std::vector< QString > profileNames;
+	for (auto it = profiles.allProfiles.begin(); it != profiles.allProfiles.end(); ++it) {
+		profileNames.push_back(it->first);
+	}
+	std::sort(profileNames.begin(), profileNames.end());
+	for (const QString &profile : profileNames) {
 		if (profile == Profiles::s_default_profile_name) {
 			continue;
 		}
 		qcbProfiles->addItem(profile);
 	}
 
-	qcbProfiles->setCurrentIndex(qcbProfiles->findText(Global::get().profiles.activeProfileName));
+	qcbProfiles->setCurrentIndex(qcbProfiles->findText(profiles.activeProfileName));
 
 	bool isDefault = qcbProfiles->currentText() == Profiles::s_default_profile_name;
 	qpbProfileRename->setEnabled(!isDefault);
@@ -256,7 +261,8 @@ void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
 		return;
 	}
 
-	if (!profiles.allProfiles.contains(selectedProfile)) {
+	auto it = profiles.allProfiles.find(selectedProfile);
+	if (it == profiles.allProfiles.end()) {
 		return;
 	}
 
@@ -264,16 +270,19 @@ void ConfigDialog::on_qcbProfiles_currentIndexChanged(int) {
 }
 
 void ConfigDialog::on_qpbProfileAdd_clicked() {
+	Profiles &profiles = Global::get().profiles;
+
 	bool ok;
 	QString profileName =
 		QInputDialog::getText(this, tr("Creating settings profile"), tr("Enter new settings profile name"),
-							  QLineEdit::Normal, Global::get().profiles.activeProfileName, &ok);
+							  QLineEdit::Normal, profiles.activeProfileName, &ok);
 
 	if (!ok || profileName.isEmpty()) {
 		return;
 	}
 
-	if (Global::get().profiles.allProfiles.contains(profileName)) {
+	auto it = profiles.allProfiles.find(profileName);
+	if (it != profiles.allProfiles.end()) {
 		QMessageBox::critical(this, tr("Creating settings profile"),
 							  tr("A settings profile with this name already exists"));
 		return;
@@ -281,10 +290,9 @@ void ConfigDialog::on_qpbProfileAdd_clicked() {
 
 	// Instead of "resetting" when creating a new profile, use the currently
 	// (possibly not applied) settings for the new profile
-	Profiles &profiles                               = Global::get().profiles;
 	profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
 	apply();
-	profiles.allProfiles.insert(profileName, Global::get().s);
+	profiles.allProfiles[profileName] = Global::get().s;
 	switchProfile(profileName, false);
 }
 
@@ -304,14 +312,17 @@ void ConfigDialog::on_qpbProfileRename_clicked() {
 		return;
 	}
 
-	if (Global::get().profiles.allProfiles.contains(profileName)) {
+	Profiles &profiles = Global::get().profiles;
+
+	auto it = profiles.allProfiles.find(profileName);
+	if (it != profiles.allProfiles.end()) {
 		QMessageBox::critical(this, tr("Renaming settings profile"),
 							  tr("A settings profile with this name already exists"));
 		return;
 	}
 
-	Global::get().profiles.allProfiles.insert(profileName, Global::get().s);
-	Global::get().profiles.allProfiles.remove(oldProfileName);
+	profiles.allProfiles[profileName] = Global::get().s;
+	profiles.allProfiles.erase(oldProfileName);
 	switchProfile(profileName, false);
 }
 
@@ -322,7 +333,10 @@ void ConfigDialog::on_qpbProfileDelete_clicked() {
 		return;
 	}
 
-	if (!Global::get().profiles.allProfiles.contains(oldProfileName)) {
+	Profiles &profiles = Global::get().profiles;
+
+	auto it = profiles.allProfiles.find(oldProfileName);
+	if (it == profiles.allProfiles.end()) {
 		return;
 	}
 
@@ -334,7 +348,7 @@ void ConfigDialog::on_qpbProfileDelete_clicked() {
 		return;
 	}
 
-	Global::get().profiles.allProfiles.remove(oldProfileName);
+	profiles.allProfiles.erase(oldProfileName);
 	switchProfile(Profiles::s_default_profile_name, false);
 }
 

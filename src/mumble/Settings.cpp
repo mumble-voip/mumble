@@ -225,22 +225,19 @@ void Settings::save() const {
 	}
 }
 
-void Settings::loadProfile(std::optional< QString > requestedProfile) {
+void Settings::loadProfile(const std::optional< QString > &requestedProfile) {
 	Profiles &profiles = Global::get().profiles;
 
-	QString profileName;
-	if (!requestedProfile) {
-		profileName = profiles.activeProfileName;
-	} else {
-		profileName = requestedProfile.value();
-	}
+	QString profileName = requestedProfile.value_or(profiles.activeProfileName);
 
-	if (!profiles.allProfiles.contains(profileName)) {
+	auto it = profiles.allProfiles.find(profileName);
+	if (it == profiles.allProfiles.end()) {
 		qWarning("Failed to load settings profile '%s'. Falling back to '%s'...", qUtf8Printable(profileName),
 				 qUtf8Printable(Profiles::s_default_profile_name));
 		profileName = Profiles::s_default_profile_name;
 
-		if (!profiles.allProfiles.contains(profileName)) {
+		it = profiles.allProfiles.find(profileName);
+		if (it == profiles.allProfiles.end()) {
 			qWarning("Failed to load fallback settings profile '%s'", qUtf8Printable(Profiles::s_default_profile_name));
 			return;
 		}
@@ -438,7 +435,6 @@ std::size_t qHash(const ChannelTarget &target) {
 }
 
 const QString Profiles::s_default_profile_name = QLatin1String("default");
-const int Profiles::s_current_settings_version = 2;
 
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
