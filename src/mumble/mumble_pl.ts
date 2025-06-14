@@ -5001,35 +5001,35 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść ustawienie tła Interfejsu mówiących.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść kolor tła</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Wyczyść</translation>
+        <translation>Wyczyść</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor używany jako tło Interfejsu mówiących.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor tła, który — jeśli jest ustawiony — zastępuje kolor tła motywu.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor tła</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz kolor</translation>
     </message>
 </context>
 <context>
@@ -5911,7 +5911,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>You suppressed %1.</source>
-        <translation>Wyciszyłeś %1.</translation>
+        <translation>Pozbawiłeś możliwości mowy %1.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
@@ -6161,7 +6161,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>You unsuppressed %1.</source>
-        <translation>Wyłączyłeś wyciszenie %1.</translation>
+        <translation>Wyłączyłeś pozbawienie możliwości mowy %1.</translation>
     </message>
     <message>
         <source>You unmuted %1.</source>
