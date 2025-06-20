@@ -59,6 +59,7 @@ enum Type {
 	HelpVersionCheck,
 	TogglePositionalAudio,
 	MoveBack,
+	SwitchProfile,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending
@@ -68,6 +69,7 @@ static_assert(ToggleMinimalView == 9, "You may only append to the end of the enu
 static_assert(ToggleSearch == 22, "You may only append to the end of the enum!");
 static_assert(HelpVersionCheck == 43, "You may only append to the end of the enum!");
 static_assert(MoveBack == 45, "You may only append to the end of the enum!");
+static_assert(SwitchProfile == 46, "You may only append to the end of the enum!");
 } // namespace GlobalShortcutType
 
 #endif // MUMBLE_MUMBLE_GLOBALSHORTCUTTYPES_H_
