@@ -289,7 +289,7 @@ void PipeWireEngine::start() {
 }
 
 void PipeWireEngine::stop() {
-	if (m_loop) {
+	if (m_thread) {
 		pws->pw_thread_loop_stop(m_thread);
 	}
 }
