@@ -111,6 +111,7 @@ public:
 	GlobalShortcut *gsHelpAbout, *gsHelpAboutQt, *gsHelpVersionCheck;
 	GlobalShortcut *gsTogglePositionalAudio;
 	GlobalShortcut *gsMoveBack;
+	GlobalShortcut *gsSwitchProfile;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -349,6 +350,7 @@ public slots:
 	void on_gsHelpVersionCheck_triggered(bool, QVariant);
 	void on_gsTogglePositionalAudio_triggered(bool, QVariant);
 	void on_gsMoveBack_triggered(bool, QVariant);
+	void on_gsSwitchProfile_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();
@@ -402,6 +404,7 @@ public slots:
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
+	void on_settingsChanged();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
