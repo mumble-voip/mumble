@@ -288,6 +288,7 @@ if(packaging)
 		list(APPEND installer_vars
 			"--version" ${PROJECT_VERSION}
 			"--arch" ${MUMBLE_TARGET_ARCH}
+			"--vc-redist-required" "${VC_REDIST_VERSION}"
 		)
 
 		file(COPY

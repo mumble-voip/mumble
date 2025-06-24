@@ -17,9 +17,9 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-copy installer\client\mumble_client*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
+copy installer\client\mumble_client*.exe %BUILD_ARTIFACTSTAGINGDIRECTORY%
 
-copy installer\server\mumble_server*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
+copy installer\server\mumble_server*.exe %BUILD_ARTIFACTSTAGINGDIRECTORY%
 
 7z a PDBs.7z *.pdb plugins\*.pdb
 copy PDBs.7z %BUILD_ARTIFACTSTAGINGDIRECTORY%
