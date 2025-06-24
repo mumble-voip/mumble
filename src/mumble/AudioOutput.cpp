@@ -19,6 +19,7 @@
 #include "VoiceRecorder.h"
 #include "Global.h"
 
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 
@@ -488,13 +489,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		bool prioritySpeakerActive = false;
 
 		// Detect whether priority speaker is active.
-		QMultiHash< const ClientUser *, AudioOutputBuffer * >::const_iterator it = qmOutputs.constBegin();
-		while (it != qmOutputs.constEnd()) {
+		for (auto it = qmOutputs.constBegin(); it != qmOutputs.constEnd(); ++it) {
 			const ClientUser *user = it.key();
 			if (user && user->bPrioritySpeaker && !user->bLocalMute) {
 				prioritySpeakerActive = true;
+				break;
 			}
-			++it;
 		}
 
 		prepareOutputBuffers(frameCount, qlMix, qlDel);
@@ -600,6 +600,32 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				validListener = true;
 			}
 
+			bool applyListenerAttenuation = Global::get().s.alwaysAttenuateListeners;
+			if (!applyListenerAttenuation && Global::get().s.listenerAttenuationFactor != 1) {
+				unsigned int selfSession = Global::get().uiSession;
+				const ClientUser *self   = ClientUser::get(selfSession);
+				if (self) {
+					// Check if there is at least one user that is currently talking inside the local user's channel. We
+					// iterate the static list of talking users rather than iterating users in the current channel as
+					// the former is lock-protected and thus none of the accessed user pointers will get deleted while
+					// we iterate over them.
+					// Note that what we are looking for here are users we are hearing without the aid of a channel
+					// listener. The current logic treats audio from linked channels the same as audio from listeners
+					// because we don't have a quick (and thread-safe) way of checking whether the given user is in a
+					// channel linked to the channel of the current user.
+					const Channel *selfChannel = self->cChannel;
+					QReadLocker locker(&ClientUser::c_qrwlTalking);
+
+					auto it = std::find_if(
+						ClientUser::c_qlTalking.begin(), ClientUser::c_qlTalking.end(), [&](const ClientUser *user) {
+							return user->uiSession != selfSession
+								   && (user->tsState == Settings::Whispering || user->tsState == Settings::Shouting
+									   || user->cChannel == selfChannel);
+						});
+					applyListenerAttenuation = it != ClientUser::c_qlTalking.end();
+				}
+			}
+
 			for (AudioOutputBuffer *buffer : qlMix) {
 				// Iterate through all audio sources and mix them together into the output (or the intermediate array)
 				float *RESTRICT pfBuffer = buffer->pfBuffer;
@@ -614,6 +640,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					user = speech->p;
 
 					volumeAdjustment *= user->getLocalVolumeAdjustments();
+
+					const bool receivingViaListener = speech->m_audioContext == Mumble::Protocol::AudioContext::LISTEN;
 
 					if (sh && sh->m_version >= Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION) {
 						// The new protocol supports sending volume adjustments which is used to figure out the correct
@@ -631,6 +659,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 								.channelListenerManager
 								->getListenerVolumeAdjustment(Global::get().uiSession, user->cChannel->iId)
 								.factor;
+					}
+
+					if (applyListenerAttenuation && receivingViaListener) {
+						volumeAdjustment *= Global::get().s.listenerAttenuationFactor;
 					}
 
 					if (prioritySpeakerActive) {
