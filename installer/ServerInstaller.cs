@@ -85,6 +85,7 @@ class BuildInstaller
 	public static void Main(string[] args) {
 		string version = "";
 		string arch = "";
+		string vcRedistRequired = "";
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
@@ -99,17 +100,23 @@ class BuildInstaller
 			if (args[i] == "--all-languages") {
 				isAllLangs = true;
 			}
+
+			if (args[i] == "--vc-redist-required") {
+				vcRedistRequired = args[i + 1];
+			}
 		}
 
 		if (version != null && arch != null) {
 			var srvInstaller = new ServerInstaller(version, arch);
 			srvInstaller.Version = new Version(version);
 
-			if (isAllLangs) {
-				srvInstaller.BuildMultilanguageMsi();
-			} else {
-				srvInstaller.BuildMsi();
-			}
+			var msiPath = isAllLangs
+			            ? srvInstaller.BuildMultilanguageMsi()
+			            : srvInstaller.BuildMsi();
+
+			srvInstaller.BundleMsi(msiPath, vcRedistRequired)
+			            .Build(msiPath.PathChangeExtension(".exe"));
+
 		} else {
 			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
 			Environment.ExitCode = 0xA0; // Bad argument

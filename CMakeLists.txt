@@ -195,6 +195,30 @@ if(plugins AND client)
 	add_subdirectory(plugins)
 endif()
 
+if (packaging AND WIN32)
+	execute_process(COMMAND
+		powershell -Command "
+			$response = Invoke-WebRequest \
+					-Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' \
+					-Method Head \
+					-MaximumRedirection 0 \
+					-ErrorAction SilentlyContinue
+			$response.Headers.Location"
+		OUTPUT_VARIABLE VC_REDIST_URL
+	)
+	string(STRIP ${VC_REDIST_URL} VC_REDIST_URL)
+
+	file(DOWNLOAD ${VC_REDIST_URL} ${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe)
+
+	execute_process(COMMAND
+		powershell -Command "
+			$exe = (Get-Item -path '${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe')
+			$exe.VersionInfo.ProductVersion"
+		OUTPUT_VARIABLE VC_REDIST_VERSION
+	)
+	string(STRIP ${VC_REDIST_VERSION} VC_REDIST_VERSION)
+endif()
+
 if(client OR server)
 	add_subdirectory(src)
 endif()
@@ -216,10 +240,11 @@ if(packaging)
 		file(COPY
 			${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp
 			${CMAKE_SOURCE_DIR}/installer/dlgbmp.bmp
+			${CMAKE_SOURCE_DIR}/installer/Theme.xml
 			DESTINATION
 				${CMAKE_BINARY_DIR}/installer
 		)
-		
+
 		file(COPY 
 			${CMAKE_SOURCE_DIR}/icons/mumble.ico
 			${CMAKE_SOURCE_DIR}/icons/murmur.ico
