@@ -1280,6 +1280,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	QString user        = url.userName();
 	QString pw          = url.password();
 	qsDesiredChannel    = url.path();
+	bDesiredListen      = query.hasQueryItem(QLatin1String("listen"));
 	QString name;
 
 	if (query.hasQueryItem(QLatin1String("title")))
@@ -1352,7 +1353,9 @@ void MainWindow::findDesiredChannel() {
 		}
 	}
 	if (found) {
-		if (chan != ClientUser::get(Global::get().uiSession)->cChannel) {
+		if (bDesiredListen) {
+			Global::get().sh->startListeningToChannel(chan->iId);
+		} else if (chan != ClientUser::get(Global::get().uiSession)->cChannel) {
 			Global::get().sh->joinChannel(Global::get().uiSession, chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
