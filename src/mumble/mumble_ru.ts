@@ -464,7 +464,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished">Выберите группу, к которой применяется эта запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
+        <translation>Выбор группы, к которой применяется данная запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
     </message>
     <message>
         <source>Select user</source>
@@ -472,7 +472,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished">Выберите пользователя, к которому применяется эта запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
+        <translation>Выбор пользователя, к которому применяется данная запись ACL. Выбор группы и выбор пользователя являются взаимоисключающими.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
@@ -633,11 +633,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished">Перенести из неиспользуемых в список микрофонов</translation>
+        <translation>Переместить из неиспользуемого списка в список микрофонов</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished">Переместить из микрофонов в список неиспользуемых</translation>
+        <translation>Переместите микрофон в неиспользуемый список</translation>
     </message>
     <message>
         <source>List of unused devices</source>
@@ -649,7 +649,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished">Переместить из динамиков в список неиспользуемых</translation>
+        <translation>Переместить из динамиков в список неиспользуемых</translation>
     </message>
 </context>
 <context>
@@ -1102,7 +1102,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished">Входной интерфейс для аудио</translation>
+        <translation>Входной интерфейс для аудио</translation>
     </message>
     <message>
         <source>Audio input system</source>
@@ -1114,31 +1114,31 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished">Режим передачи</translation>
+        <translation>Режим передачи</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished">Порог блокировки Активации по кнопке</translation>
+        <translation>Порог блокировки активации по кнопке</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключайтесь между режимом активации по кнопке и непрерывным режимом двойным нажатием в этот промежуток времени</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished">&lt;b&gt;Время удержания голоса&lt;/b&gt;&lt;br /&gt;После того как вы отпустите кнопку Нажми-чтобы-говорить, Mumble будет продолжать передачу в течение выбранного времени.</translation>
+        <translation>&lt;b&gt;Время удержания голоса&lt;/b&gt;&lt;br /&gt;После того как вы отпустите кнопку Нажми-чтобы-говорить, Mumble будет продолжать передачу в течение выбранного времени.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished">Порог удержания Активации по кнопке</translation>
+        <translation>Порог удержания активации по кнопке</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished">Продление времени отправки Активации по кнопке, после отпускания клавиши на указанное количество времени</translation>
+        <translation>Продление времени отправки активации по кнопке, после отпускания клавиши на указанное количество времени</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation type="unfinished">Время удержания голоса</translation>
+        <translation>Время удержания голоса</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
@@ -1150,7 +1150,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation type="unfinished">Речь выше порога</translation>
+        <translation>Речь выше порога</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
@@ -1166,15 +1166,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished">Здесь задается конечный битрейт сжатия</translation>
+        <translation>Здесь задается конечный битрейт сжатия</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Макс. усиление</translation>
+        <translation>Макс. усиление</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished">Речь динамически усиливается не более чем на эту величину</translation>
+        <translation>Речь динамически усиливается не более чем на эту величину</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
@@ -1182,7 +1182,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Режим подавления эха</translation>
+        <translation>Режим подавления эха</translation>
     </message>
     <message>
         <source>Path to audio file</source>
@@ -1190,19 +1190,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished">Путь к файлу звуковой подсказки при остановке речи. Используйте кнопку &quot;Обзор&quot;, чтобы открыть диалог с файлом.</translation>
+        <translation>Путь к файлу звуковой подсказки при остановке речи. Используйте кнопку &quot;Обзор&quot;, чтобы открыть диалог с файлом.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished">Пороговое время действия в режиме ожидания (в минутах)</translation>
+        <translation>Пороговое время действия в режиме ожидания (в минутах)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished">Выберите, что делать при бездействии в течение настраиваемого времени. По умолчанию: ничего</translation>
+        <translation>Выберите, что делать при бездействии в течение настраиваемого времени. По умолчанию: ничего</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished">Проигрывается, когда вы пытаетесь говорить, пока микрофон выключен</translation>
+        <translation>Проигрывается, когда вы пытаетесь говорить, пока микрофон выключен</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -1214,7 +1214,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished">Путь к файлу сигнала о начале речи. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
+        <translation>Путь к файлу сигнала о начале речи. Используйте &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
@@ -1230,7 +1230,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished">&lt;b&gt;Это показывает пиковую используемую исходящую полосу пропускания.&lt;/b&gt;&lt;br /&gt;Здесь показан пиковый объем полосы пропускания, передаваемый с вашего компьютера. Битрейт аудио - максимальный битрейт только для аудиоданных. Позиция - битрейт, используемый для позиционной информации. Накладные расходы - это наше кадрирование и заголовки IP-пакетов (на IP и UDP приходится 75 % этих накладных расходов).</translation>
+        <translation>&lt;b&gt;Это показывает пиковую используемую исходящую полосу пропускания.&lt;/b&gt;&lt;br /&gt;Здесь показан пиковый объем полосы пропускания, передаваемый с вашего компьютера. Битрейт аудио - максимальный битрейт только для аудиоданных. Позиция - битрейт, используемый для позиционной информации. Накладные расходы - это наше кадрирование и заголовки IP-пакетов (на IP и UDP приходится 75 % этих накладных расходов).</translation>
     </message>
 </context>
 <context>
@@ -1590,47 +1590,47 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished">Выходная задержка входящей речи</translation>
+        <translation>Выходная задержка входящей речи</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished">Время буфера джиттера</translation>
+        <translation>Время буфера джиттера</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished">Процент затухания</translation>
+        <translation>Процент затухания</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished">Во время речи громкость других приложений будет уменьшена на эту величину</translation>
+        <translation>Во время речи громкость других приложений будет уменьшена на эту величину</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Мин. громкость</translation>
+        <translation>Мин. громкость</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished">Мин. дистанция</translation>
+        <translation>Мин. дистанция</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished">Макс. дистанция</translation>
+        <translation>Макс. дистанция</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Искусственная задержка обратной связи</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Искусственная потеря пакетов с обратной связью</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Тестовый режим обратной связи</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Тест с обратной связью можно использовать для проверки вашей конфигурации звука. Пока тест с обратной связью включен, другие пользователи не смогут вас слышать.</translation>
     </message>
     <message>
         <source>at</source>
@@ -1857,7 +1857,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished">Это битрейт звука последнего сжатого кадра (20 мс). Пиковый битрейт можно настроить в диалоговом окне &quot;Настройки&quot;.</translation>
+        <translation>Это битрейт звука последнего сжатого кадра (20 мс). Пиковый битрейт можно настроить в диалоговом окне &quot;Настройки&quot;.</translation>
     </message>
 </context>
 <context>
@@ -2236,11 +2236,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished">Система аудиовхода</translation>
+        <translation>Система аудиовхода</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished">Устройство аудиоввода</translation>
+        <translation>Устройство аудиоввода</translation>
     </message>
     <message>
         <source>Select audio output device</source>
@@ -2256,19 +2256,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished">Позиционная аудиосистема Mumble позволяет пользователям связывать относительное положение своего голоса со сторонними приложениями, например, играми.</translation>
+        <translation>Позиционная аудиосистема Mumble позволяет пользователям связывать относительное положение своего голоса со сторонними приложениями, например, играми.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished">Задержка выхода для входящей речи</translation>
+        <translation>Задержка выхода для входящей речи</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Максимальное усиление исходящего звука</translation>
+        <translation>Максимальное усиление исходящего звука</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished">Речь динамически усиливается не более чем на эту величину</translation>
+        <translation>Речь динамически усиливается не более чем на эту величину</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
@@ -2284,23 +2284,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished">Чтобы назначить клавишу, воспользуйтесь &quot;ярлык Активации по кнопке&quot;</translation>
+        <translation>Чтобы назначить клавишу, воспользуйтесь &quot;ярлык Активации по кнопке&quot;</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished">Установите ярлык Активации по кнопке</translation>
+        <translation>Установите ярлык Активации по кнопке</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished">Откроется диалог редактирования ярлыка</translation>
+        <translation>Откроется диалог редактирования ярлыка</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished">Графическое представление позиционного моделирования звука</translation>
+        <translation>Графическое представление позиционного моделирования звука</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished">Это визуальное представление позиционного аудио, которое воспроизводится в данный момент</translation>
+        <translation>Это визуальное представление позиционного аудио, которое воспроизводится в данный момент</translation>
     </message>
 </context>
 <context>
