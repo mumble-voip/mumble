@@ -246,6 +246,8 @@ set(MUMBLE_SOURCES
 	"TextMessage.h"
 	"TextMessage.ui"
 	"TextToSpeech.h"
+	"TextureManager.cpp"
+	"TextureManager.h"
 	"ThemeInfo.cpp"
 	"ThemeInfo.h"
 	"Themes.cpp"
