@@ -29,6 +29,7 @@
 #include "ProtoUtils.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
+#include "TextureManager.h"
 #include "User.h"
 #include "UserEdit.h"
 #include "UserInformation.h"
@@ -790,13 +791,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
-		pDst->qbaTexture     = QByteArray();
+		pDst->qbaTexture = Global::get().textureManager->convertTexture(blob(msg.texture()), pDst->qbaTextureFormat);
 #ifdef USE_OVERLAY
-		Global::get().o->verifyTexture(pDst);
+		Global::get().o->updateOverlay();
 #endif
 	}
 	if (msg.has_texture()) {
-		pDst->qbaTexture = blob(msg.texture());
+		pDst->qbaTexture = Global::get().textureManager->convertTexture(blob(msg.texture()), pDst->qbaTextureFormat);
 		if (pDst->qbaTexture.isEmpty()) {
 			pDst->qbaTextureHash = QByteArray();
 		} else {
@@ -804,7 +805,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			Global::get().db->setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
 		}
 #ifdef USE_OVERLAY
-		Global::get().o->verifyTexture(pDst);
+		Global::get().o->updateOverlay();
 #endif
 	}
 	if (msg.has_comment_hash())

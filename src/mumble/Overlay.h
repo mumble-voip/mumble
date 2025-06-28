@@ -100,6 +100,8 @@ protected:
 
 	void createPipe();
 
+	void verifyTexture(ClientUser *cp, bool allowupdate = true);
+
 	QMap< QString, QString > qmOverlayHash;
 	QLocalServer *qlsServer;
 	QList< OverlayClient * > qlClients;
@@ -112,7 +114,6 @@ public:
 	Overlay();
 	~Overlay() Q_DECL_OVERRIDE;
 	bool isActive() const;
-	void verifyTexture(ClientUser *cp, bool allowupdate = true);
 	void requestTexture(ClientUser *);
 
 public slots:

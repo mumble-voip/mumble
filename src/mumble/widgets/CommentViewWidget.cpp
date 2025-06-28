@@ -14,13 +14,14 @@
 #include "../../User.h"
 #include "../ClientUser.h"
 #include "../Database.h"
-#include "ProtoUtils.h"
-#include "QtUtils.h"
-#include "ServerHandler.h"
-#include "../Global.h"
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
+#include "ProtoUtils.h"
+#include "QtUtils.h"
+#include "ServerHandler.h"
+#include "TextureManager.h"
+#include "../Global.h"
 
 
 CommentViewWidget::CommentViewWidget(QWidget *parent)
@@ -91,7 +92,7 @@ void CommentViewWidget::updateCommentView(ClientUser *user, Channel *channel) {
 			user->qbaTexture = Global::get().db->blob(user->qbaTextureHash);
 			if (!user->qbaTexture.isEmpty()) {
 #ifdef USE_OVERLAY
-				Global::get().o->verifyTexture(user);
+				Global::get().o->updateOverlay();
 #endif
 			}
 		}

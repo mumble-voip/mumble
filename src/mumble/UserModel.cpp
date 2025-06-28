@@ -18,6 +18,7 @@
 #endif
 #include "ChannelListenerManager.h"
 #include "ServerHandler.h"
+#include "TextureManager.h"
 #include "Usage.h"
 #include "User.h"
 #include "VolumeAdjustment.h"
@@ -633,14 +634,15 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						QString qsImage;
 						if (!p->qbaTextureHash.isEmpty()) {
 							if (p->qbaTexture.isEmpty()) {
-								p->qbaTexture = Global::get().db->blob(p->qbaTextureHash);
+								p->qbaTexture = Global::get().textureManager->convertTexture(
+									Global::get().db->blob(p->qbaTextureHash), p->qbaTextureFormat);
 								if (p->qbaTexture.isEmpty()) {
 									MumbleProto::RequestBlob mprb;
 									mprb.add_session_texture(p->uiSession);
 									Global::get().sh->sendMessage(mprb);
 								} else {
 #ifdef USE_OVERLAY
-									Global::get().o->verifyTexture(p);
+									Global::get().o->updateOverlay();
 #endif
 								}
 							}
