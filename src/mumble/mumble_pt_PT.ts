@@ -1656,14 +1656,6 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
         <translation>Nenhum</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Local</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Servidor</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Saída de Áudio</translation>
     </message>
@@ -1697,6 +1689,22 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

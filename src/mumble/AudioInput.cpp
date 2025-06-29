@@ -985,10 +985,12 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	bIsSpeech = bIsSpeech || isPTT;
 
-	ClientUser *p          = ClientUser::get(Global::get().uiSession);
+	ClientUser *p            = ClientUser::get(Global::get().uiSession);
+	const bool mutedBySelf   = Global::get().s.bMute || Global::get().bPushToMute;
+	const bool mutedByServer = p && (p->bMute || p->bSuppress);
+
 	bool bTalkingWhenMuted = false;
-	if (Global::get().s.bMute || ((Global::get().s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress))
-		|| Global::get().bPushToMute || (voiceTargetID < 0)) {
+	if (mutedBySelf || (mutedByServer && Global::get().s.lmLoopMode != Settings::LocalOnly) || voiceTargetID < 0) {
 		bTalkingWhenMuted = bIsSpeech;
 		bIsSpeech         = false;
 	}
@@ -1169,8 +1171,18 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32
 		// accordingly once the client whispers for the next time.
 		Global::get().iPrevTarget = 0;
 	}
-	if (Global::get().s.lmLoopMode == Settings::Server) {
-		audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK;
+
+	switch (Global::get().s.lmLoopMode) {
+		case Settings::ServerOnly:
+			audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK_ONLY;
+			break;
+		case Settings::ServerRegular:
+			audioData.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK_REGULAR;
+			[[fallthrough]];
+		case Settings::None:
+		case Settings::LocalOnly:
+		case Settings::LocalRegular:
+			break;
 	}
 
 	audioData.usedCodec = m_codec;
@@ -1211,14 +1223,22 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32
 		}
 	}
 
-	if (Global::get().s.lmLoopMode == Settings::Local) {
-		// Only add audio data to local loop buffer
-		LoopUser::lpLoopy.addFrame(audioData);
-	} else {
-		// Encode audio frame and send out
-		gsl::span< const Mumble::Protocol::byte > encodedAudioPacket = m_udpEncoder.encodeAudioPacket(audioData);
+	switch (Global::get().s.lmLoopMode) {
+		case Settings::LocalOnly:
+			// Only add audio data to local loop buffer
+			LoopUser::lpLoopy.addFrame(audioData);
+			break;
+		case Settings::LocalRegular:
+			LoopUser::lpLoopy.addFrame(audioData);
+			[[fallthrough]];
+		case Settings::None:
+		case Settings::ServerOnly:
+		case Settings::ServerRegular: {
+			// Encode audio frame and send out
+			gsl::span< const Mumble::Protocol::byte > encodedAudioPacket = m_udpEncoder.encodeAudioPacket(audioData);
 
-		sendAudioFrame(encodedAudioPacket);
+			sendAudioFrame(encodedAudioPacket);
+		}
 	}
 
 	qlFrames.clear();
