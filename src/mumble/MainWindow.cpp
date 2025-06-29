@@ -78,6 +78,7 @@
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QScrollBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
 
