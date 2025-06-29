@@ -181,7 +181,15 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 					}
 				}
 
-				write = apply && (acl->pAllow & Write) && !(acl->pDeny & Write);
+				if (apply) {
+					if (acl->pAllow & Write) {
+						write = true;
+					}
+
+					if (acl->pDeny & Write) {
+						write = false;
+					}
+				}
 
 				// These permissions are only grantable from the root channel
 				// as they affect the users globally. For example: You can not
