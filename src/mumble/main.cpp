@@ -53,6 +53,8 @@
 
 #include "widgets/TrayIcon.h"
 
+#include <CLI/CLI.hpp>
+
 #include <QLocale>
 #include <QScreen>
 #include <QtCore/QProcess>
@@ -63,6 +65,8 @@
 #include <algorithm>
 #include <iostream>
 #include <memory>
+#include <optional>
+#include <map>
 
 #include <spdlog/sinks/dist_sink.h>
 #include <spdlog/sinks/qt_sinks.h>
@@ -207,6 +211,171 @@ extern int os_early_init();
 extern HWND mumble_mw_hwnd;
 #endif // Q_OS_WIN
 
+
+class CLIOptions {
+public:
+	bool allowMultiple          = false;
+	bool suppressIdentity       = false;
+	bool rpcMode                = false;
+	bool startHiddenInTray      = false;
+	bool printTranslationDirs   = false;
+	bool quit                   = false;
+	bool showVersion            = false;
+	bool showLicense            = false;
+	bool showAuthors            = false;
+	bool showThirdPartyLicenses = false;
+	bool dumpInputStreams       = false;
+	bool printEchoCancelQueue   = false;
+
+	std::optional< std::string > configFile;
+	std::optional< std::string > jackClientName;
+	std::optional< std::string > windowTitleExt;
+	std::optional< std::string > hyperlink;
+	std::optional< std::string > translationDir;
+	std::optional< std::string > locale;
+	std::optional< std::string > defaultCertDir;
+
+	std::optional< std::string > rpcCommand;
+
+	static constexpr const char *CLI_GENERAL_SECTION  = "General";
+	static constexpr const char *CLI_LANGUAGE_SECTION = "Language";
+	static constexpr const char *CLI_ABOUT_SECTION    = "About";
+	static constexpr const char *CLI_DEBUG_SECTION    = "Debug";
+	static constexpr const char *CLI_REMOTE_SECTION   = "Remote Control";
+
+	static const std::map< std::string, std::string > rpcCommandMap;
+};
+
+const std::map< std::string, std::string > CLIOptions::rpcCommandMap = {
+	{ "mute", "mute" },
+	{ "unmute", "unmute" },
+	{ "togglemute", "togglemute" },
+	{ "deaf", "deaf" },
+	{ "undeaf", "undeaf" },
+	{ "toggledeaf", "toggledeaf" },
+	{ "starttalking", "starttalking" },
+	{ "stoptalking", "stoptalking" }
+};
+
+CLIOptions parseCLI(int argc, char **argv) {
+	CLIOptions options;
+
+	CLI::App app("Mumble Client");
+	app.set_version_flag("--version", "Mumble version " + Version::getRelease().toStdString());
+	app.add_flag("--license", options.showLicense, "Show the Mumble license.")->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--authors", options.showAuthors, "Show the Mumble authors.")->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--third-party-licenses", options.showThirdPartyLicenses,
+				 "Show licenses for third-party software used by Mumble.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+
+	app.add_option("-c,--config", options.configFile,
+				   "Specify an alternative configuration file.\n"
+				   "If you use this to run multiple instances of Mumble at once,\n"
+				   "make sure to se an anterlative 'database' value in the config.")
+		->option_text("<config>")
+		->check(CLI::ExistingFile)
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_option("--default-certificate-dir", options.defaultCertDir,
+				   "Specify an alternative default certificate path.\n"
+				   "This path is only used if there is no certificate loaded\n"
+				   "from the settings.")
+		->option_text("<dir>")
+		->check(CLI::ExistingDirectory)
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_flag("-m,--multiple", options.allowMultiple, "Allow multiple instances of the client to be started.")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_flag("-n,--noidentity", options.suppressIdentity,
+				 "Suppress loading of identity files (i.e., certificates).")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_option("-jn,--jackname", options.jackClientName, "Set custom Jack client name.")
+		->option_text("<name>")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_option("--window-title-ext", options.windowTitleExt, "Set a custom window title extension.")
+		->option_text("<extension>")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+
+
+	app.add_flag("--hidden", options.startHiddenInTray, "Start Mumble hidden in the system tray.")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_option("--locale", options.locale,
+				   "Overwrite the locale in Mumble's settings with a\n"
+				   "locale that corresponds to the given locale string.\n"
+				   "If the format is invalid, Mumble will error.\n"
+				   "Otherwise the locale will be permanently saved to\n"
+				   "Mumble's settings.")
+		->option_text("<locale>")
+		->group(CLIOptions::CLI_LANGUAGE_SECTION);
+	app.add_option("-t,--translation-dir", options.translationDir,
+				   "Specifies an additional translation directory <dir>\n"
+				   "in which Mumble will search for translation files that\n"
+				   "overwrite the bundled ones.\n"
+				   "Directories added this way have higher priority than\n"
+				   "the default locations used otherwise.")
+		->option_text("<dir>")
+		->check(CLI::ExistingDirectory)
+		->group(CLIOptions::CLI_LANGUAGE_SECTION);
+	app.add_flag("--print-translation-dirs", options.printTranslationDirs,
+				 "Print out the paths in which Mumble will search for\n"
+				 "translation files that overwrite the bundled ones.\n"
+				 "(Useful for translators testing their translations)")
+		->group(CLIOptions::CLI_LANGUAGE_SECTION);
+
+	app.add_flag("--dump-input-streams", options.dumpInputStreams,
+				 "Dump PCM streams at various parts of the input chain\n"
+				 " - raw microphone input\n"
+				 " - speaker readback for echo cancelling\n"
+				 " - processed microphone input")
+		->group(CLIOptions::CLI_DEBUG_SECTION);
+	app.add_flag("--print-echocancel-queue", options.printEchoCancelQueue,
+				 "Print on stdout the echo cancellation queue state")
+		->group(CLIOptions::CLI_DEBUG_SECTION);
+
+	app.add_option(
+		   "hyperlink", options.hyperlink,
+		   "<url> specifies a URL to connect to after startup instead of showing\n"
+		   "the connection window, and has the following form:\n"
+		   "mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/"
+		   "<subchannel>...]][?version=<x.y.z>]\n"
+		   "\n"
+		   "<plugin_list> is a list of plugin files that shall be installed"
+		   "\n"
+		   "The version query parameter has to be set in order to invoke the\n"
+		   "correct client version. It currently defaults to 1.2.0.\n"
+		   "\n"
+		   "This allows setup of program associations with mumble to directly connect to servers or run with plugins.")
+		->option_text("<url> | <plugin_list>")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	CLI::App *rpc = app.add_subcommand("rpc", "It is possible to remote control a running instance of Mumble by using\n"
+											  "the 'mumble rpc' command");
+	rpc->add_option("action", options.rpcCommand, "Action to perform")
+		->required()
+		->transform(CLI::CheckedTransformer(options.rpcCommandMap, CLI::ignore_case));
+
+	try {
+		app.parse(argc, argv);
+	} catch (const CLI::ParseError &e) {
+		std::stringstream info_stream, error_stream;
+		app.exit(e, info_stream, error_stream);
+
+		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
+			qFatal("%s", error_stream.str().c_str());
+		} else {
+			qInfo("%s", info_stream.str().c_str());
+		}
+		options.quit = true;
+	}
+
+	return options;
+}
+
 int main(int argc, char **argv) {
 	int res = 0;
 
@@ -239,27 +408,26 @@ int main(int argc, char **argv) {
 #endif
 
 	MumbleSSL::initialize();
+	CLIOptions options = parseCLI(argc, argv);
+
+	if (options.quit) {
+		return 0;
+	}
 
 	// This argument has to be parsed first, since it's value is needed to create the global struct,
 	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
 	QString settingsFile;
-	QStringList args = a.arguments();
-	const auto index = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
-	if (index >= 0) {
-		if (index + 1 < args.count()) {
-			QFile inifile(args.at(index + 1));
+
+	if (options.configFile) {
+			QFile inifile(QString::fromStdString(*options.configFile));
 			if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
-				Global::g_global_struct = new Global(args.at(index + 1));
-				settingsFile            = args.at(index + 1);
+				Global::g_global_struct = new Global(inifile.fileName());
+				settingsFile            = inifile.fileName();
 			} else {
 				printf("%s", qPrintable(MainWindow::tr("Configuration file %1 does not exist or is not writable.\n")
-											.arg(args.at(index + 1))));
+											.arg(inifile.fileName())));
 				return 1;
 			}
-		} else {
-			qCritical("Missing argument for --config!");
-			return 1;
-		}
 	} else {
 		Global::g_global_struct = new Global();
 	}
@@ -270,251 +438,77 @@ int main(int argc, char **argv) {
 
 	os_init();
 
-	bool bAllowMultiple       = false;
-	bool suppressIdentity     = false;
-	bool customJackClientName = false;
-	bool bRpcMode             = false;
-	bool printTranslationDirs = false;
-	bool startHiddenInTray    = false;
-	QString rpcCommand;
 	QUrl url;
 	QDir qdCert(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 	QStringList extraTranslationDirs;
 	QString localeOverwrite;
 
 	QStringList pluginsToBeInstalled;
-	if (a.arguments().count() > 1) {
-		for (int i = 1; i < args.count(); ++i) {
-			if (args.at(i) == QLatin1String("-h") || args.at(i) == QLatin1String("--help")
-#if defined(Q_OS_WIN)
-				|| args.at(i) == QLatin1String("/?")
-#endif
-			) {
-				QString helpMessage =
-					MainWindow::tr("Usage: mumble [options] [<url> | <plugin_list>]\n"
-								   "\n"
-								   "<url> specifies a URL to connect to after startup instead of showing\n"
-								   "the connection window, and has the following form:\n"
-								   "mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/"
-								   "<subchannel>...]][?version=<x.y.z>]\n"
-								   "\n"
-								   "<plugin_list> is a list of plugin files that shall be installed"
-								   "\n"
-								   "The version query parameter has to be set in order to invoke the\n"
-								   "correct client version. It currently defaults to 1.2.0.\n"
-								   "\n"
-								   "Valid options are:\n"
-								   "  -h, --help    Show this help text and exit.\n"
-								   "  --version     Print version information and exit\n"
-								   "  -m, --multiple\n"
-								   "                Allow multiple instances of the client to be started.\n"
-								   "  -c, --config\n"
-								   "                Specify an alternative configuration file.\n"
-								   "                If you use this to run multiple instances of Mumble at once,\n"
-								   "                make sure to set an alternative 'database' value in the config.\n"
-								   "  --default-certificate-dir <dir>\n"
-								   "                Specify an alternative default certificate path.\n"
-								   "                This path is only used if there is no certificate loaded\n"
-								   "                from the settings.\n"
-								   "  -n, --noidentity\n"
-								   "                Suppress loading of identity files (i.e., certificates.)\n"
-								   "  -jn, --jackname <arg>\n"
-								   "                Set custom Jack client name.\n"
-								   "  --license\n"
-								   "                Show the Mumble license.\n"
-								   "  --authors\n"
-								   "                Show the Mumble authors.\n"
-								   "  --third-party-licenses\n"
-								   "                Show licenses for third-party software used by Mumble.\n"
-								   "  --window-title-ext <arg>\n"
-								   "                Sets a custom window title extension.\n"
-								   "  --dump-input-streams\n"
-								   "                Dump PCM streams at various parts of the input chain\n"
-								   "                (useful for debugging purposes)\n"
-								   "                - raw microphone input\n"
-								   "                - speaker readback for echo cancelling\n"
-								   "                - processed microphone input\n"
-								   "  --print-echocancel-queue\n"
-								   "                Print on stdout the echo cancellation queue state\n"
-								   "                (useful for debugging purposes)\n"
-								   "  --translation-dir <dir>\n"
-								   "                Specifies an additional translation directory <dir>\n"
-								   "                in which Mumble will search for translation files that\n"
-								   "                overwrite the bundled ones\n"
-								   "                Directories added this way have higher priority than\n"
-								   "                the default locations used otherwise\n"
-								   "  --print-translation-dirs\n"
-								   "                Print out the paths in which Mumble will search for\n"
-								   "                translation files that overwrite the bundled ones.\n"
-								   "                (Useful for translators testing their translations)\n"
-								   "  --locale <locale>\n"
-								   "                Overwrite the locale in Mumble's settings with a\n"
-								   "                locale that corresponds to the given locale string.\n"
-								   "                If the format is invalid, Mumble will error.\n"
-								   "                Otherwise the locale will be permanently saved to\n"
-								   "                Mumble's settings.\n"
-								   "  --hidden\n"
-								   "                Start Mumble hidden in the system tray."
-								   "\n");
-				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
-													   "\n");
-				QString rpcHelpMessage =
-					MainWindow::tr("Usage: mumble rpc <action> [options]\n"
-								   "\n"
-								   "It is possible to remote control a running instance of Mumble by using\n"
-								   "the 'mumble rpc' command.\n"
-								   "\n"
-								   "Valid actions are:\n"
-								   "  mute\n"
-								   "                Mute self\n"
-								   "  unmute\n"
-								   "                Unmute self\n"
-								   "  togglemute\n"
-								   "                Toggle self-mute status\n"
-								   "  deaf\n"
-								   "                Deafen self\n"
-								   "  undeaf\n"
-								   "                Undeafen self\n"
-								   "  toggledeaf\n"
-								   "                Toggle self-deafen status\n"
-								   "  starttalking\n"
-								   "                Start talking\n"
-								   "  stoptalking\n"
-								   "                Stop talking\n"
-								   "\n");
 
-				QString helpOutput = helpMessage + rpcHelpBanner + rpcHelpMessage;
-				if (bRpcMode) {
-					helpOutput = rpcHelpMessage;
-				}
-
-#if defined(Q_OS_WIN)
-				QMessageBox::information(nullptr, MainWindow::tr("Invocation"), helpOutput);
-#else
-				printf("%s", qPrintable(helpOutput));
-#endif
+	if (options.suppressIdentity) {
+		Global::get().s.bSuppressIdentity = true;
+	} else if (options.jackClientName) {
+			Global::get().s.qsJackClientName = QString::fromStdString(*options.jackClientName);
+	} else if (options.windowTitleExt) {
+			Global::get().windowTitlePostfix = QString::fromStdString(*options.windowTitleExt);
+	} else if (options.showLicense) {
+		printf("%s\n", qPrintable(License::license()));
+		return 0;
+	} else if (options.showAuthors) {
+		printf("%s\n",
+			   "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+		return 0;
+	} else if (options.showThirdPartyLicenses) {
+		printf("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+		return 0;
+	} else if (options.rpcCommand) {
+		options.rpcMode = true;
+	} else if (options.dumpInputStreams) {
+		Global::get().bDebugDumpInput = true;
+	} else if (options.printEchoCancelQueue) {
+		Global::get().bDebugPrintQueue = true;
+	} else if (options.defaultCertDir) {
+			qdCert = QDir(QString::fromStdString(*options.defaultCertDir));
+			// I suppose we should really be checking whether the directory is writable here too,
+			// but there are some subtleties with doing that:
+			// (doc.qt.io/qt-5/qfile.html#platform-specific-issues)
+			// so we can just let things fail down below when this directory is used.
+			if (!qdCert.exists()) { // probably not reached since cli11 checks for existence
+				printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(qdCert.absolutePath())));
 				return 1;
-			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
-				bAllowMultiple = true;
-			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
-				suppressIdentity                  = true;
-				Global::get().s.bSuppressIdentity = true;
-			} else if (args.at(i) == QLatin1String("-jn") || args.at(i) == QLatin1String("--jackname")) {
-				if (i + 1 < args.count()) {
-					Global::get().s.qsJackClientName = QString(args.at(i + 1));
-					customJackClientName             = true;
-					++i;
-				} else {
-					qCritical("Missing argument for --jackname!");
-					return 1;
-				}
-			} else if (args.at(i) == QLatin1String("--window-title-ext")) {
-				if (i + 1 < args.count()) {
-					Global::get().windowTitlePostfix = QString(args.at(i + 1));
-					++i;
-				} else {
-					qCritical("Missing argument for --window-title-ext!");
-					return 1;
-				}
-			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
-				printf("%s\n", qPrintable(License::license()));
-				return 0;
-			} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
-				printf("%s\n",
-					   "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
-				return 0;
-			} else if (args.at(i) == QLatin1String("-third-party-licenses")
-					   || args.at(i) == QLatin1String("--third-party-licenses")) {
-				printf("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
-				return 0;
-			} else if (args.at(i) == QLatin1String("rpc")) {
-				bRpcMode = true;
-				if (args.count() - 1 > i) {
-					rpcCommand = QString(args.at(i + 1));
-				} else {
-					QString rpcError = MainWindow::tr("Error: No RPC command specified");
-#if defined(Q_OS_WIN)
-					QMessageBox::information(nullptr, MainWindow::tr("RPC"), rpcError);
-#else
-					printf("%s\n", qPrintable(rpcError));
-#endif
-					return 1;
-				}
-			} else if (args.at(i) == QLatin1String("--dump-input-streams")) {
-				Global::get().bDebugDumpInput = true;
-			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
-				Global::get().bDebugPrintQueue = true;
-			} else if (args.at(i) == QLatin1String("-c") || args.at(i) == QLatin1String("--config")) {
-				//	We already parsed these arguments above, so just skip over them here
-				++i;
-			} else if (args.at(i) == QLatin1String("--default-certificate-dir")) {
-				if (i + 1 < args.count()) {
-					qdCert = QDir(args.at(i + 1));
-					// I suppose we should really be checking whether the directory is writable here too,
-					// but there are some subtleties with doing that:
-					// (doc.qt.io/qt-5/qfile.html#platform-specific-issues)
-					// so we can just let things fail down below when this directory is used.
-					if (!qdCert.exists()) {
-						printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(args.at(i + 1))));
-						return 1;
-					}
-					++i;
-				} else {
-					qCritical("Missing argument for --default-certificate-dir!");
-					return 1;
-				}
-			} else if (args.at(i) == "--print-translation-dirs") {
-				printTranslationDirs = true;
-			} else if (args.at(i) == "--translation-dir") {
-				if (i + 1 < args.count()) {
-					extraTranslationDirs.append(args.at(i + 1));
-					i++;
-				} else {
-					qCritical("Missing argument for --translation-dir!");
-					return 1;
-				}
-			} else if (args.at(i) == "--locale") {
-				if (i + 1 < args.count()) {
-					localeOverwrite = args.at(i + 1);
-					i++;
-				} else {
-					qCritical("Missing argument for --locale!");
-					return 1;
-				}
-			} else if (args.at(i) == "--hidden") {
+			}
+
+	} else if (options.translationDir) {
+			extraTranslationDirs.append(QString::fromStdString(*options.translationDir));
+	} else if (options.locale) {
+			localeOverwrite = QString::fromStdString(*options.locale);
+	} else if (options.startHiddenInTray) {
 #ifndef Q_OS_MAC
-				startHiddenInTray = true;
-				qInfo("Starting hidden in system tray");
+		qInfo("Starting hidden in system tray");
 #else
-				// When Qt addresses hide() on macOS to use native hiding, this can be fixed.
-				qWarning("Can not start Mumble hidden in system tray on macOS");
+		// When Qt addresses hide() on macOS to use native hiding, this can be fixed.
+		qWarning("Can not start Mumble hidden in system tray on macOS");
 #endif
-			} else if (args.at(i) == "--version") {
-				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
-				// using e.g. qWarning
-				std::cout << "Mumble version " << Version::getRelease().toStdString() << std::endl;
-				return 0;
-			} else {
-				if (PluginInstaller::canBePluginFile(QFileInfo(args.at(i)))) {
-					pluginsToBeInstalled << args.at(i);
+	} else if (options.hyperlink) {
+		if (PluginInstaller::canBePluginFile(QFileInfo(QString::fromStdString(*options.hyperlink)))) {
+			pluginsToBeInstalled << QString::fromStdString(*options.hyperlink);
+		} else {
+			if (!options.rpcMode) {
+				QString qHyperlink = QString::fromStdString(*options.hyperlink);
+				QUrl u = QUrl::fromEncoded(qHyperlink.toUtf8());
+				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
+					url = u;
 				} else {
-					if (!bRpcMode) {
-						QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
-						if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
-							url = u;
-						} else {
-							QFile f(args.at(i));
-							if (f.exists()) {
-								url = QUrl::fromLocalFile(f.fileName());
-							}
-						}
+					QFile f(qHyperlink);
+					if (f.exists()) {
+						url = QUrl::fromLocalFile(f.fileName());
 					}
 				}
 			}
 		}
 	}
 
-	if (printTranslationDirs) {
+	if (options.printTranslationDirs) {
 		QString infoString = QObject::tr("The directories in which Mumble searches for extra translation files are:\n");
 
 		int counter = 1;
@@ -566,9 +560,10 @@ int main(int argc, char **argv) {
 #	endif
 #endif
 
-	if (bRpcMode) {
+	if (options.rpcMode) {
 		bool sent = false;
 		QMap< QString, QVariant > param;
+		QString rpcCommand = QString::fromStdString(*options.rpcCommand);
 		param.insert(rpcCommand, rpcCommand);
 		sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("self"), param);
 		if (sent) {
@@ -578,7 +573,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (!bAllowMultiple) {
+	if (!options.allowMultiple) {
 		if (url.isValid()) {
 #ifndef USE_DBUS
 			QMap< QString, QVariant > param;
@@ -759,7 +754,7 @@ int main(int argc, char **argv) {
 
 	// Main Window
 	Global::get().mw = new MainWindow(nullptr);
-	if (!startHiddenInTray) {
+	if (!options.startHiddenInTray) {
 		Global::get().mw->showRaiseWindow();
 	}
 
@@ -876,7 +871,7 @@ int main(int argc, char **argv) {
 		OpenURLEvent *oue = new OpenURLEvent(a.quLaunchURL);
 		qApp->postEvent(Global::get().mw, oue);
 #endif
-	} else if (!startHiddenInTray || Global::get().s.bAutoConnect) {
+	} else if (!options.startHiddenInTray || Global::get().s.bAutoConnect) {
 		Global::get().mw->on_qaServerConnect_triggered(true);
 	}
 
@@ -992,11 +987,11 @@ int main(int argc, char **argv) {
 	if (res == MUMBLE_EXIT_CODE_RESTART) {
 		QStringList arguments;
 
-		if (bAllowMultiple)
+		if (options.allowMultiple)
 			arguments << QLatin1String("--multiple");
-		if (suppressIdentity)
+		if (options.suppressIdentity)
 			arguments << QLatin1String("--noidentity");
-		if (customJackClientName)
+		if (options.jackClientName)
 			arguments << QLatin1String("--jackname ") + Global::get().s.qsJackClientName;
 		if (!url.isEmpty())
 			arguments << url.toString();
