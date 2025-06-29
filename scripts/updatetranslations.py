@@ -69,7 +69,7 @@ def Update(lupdatebin, tsfile: str, debuglupdate: bool, applyHeuristics = True) 
         , '-no-recursive'
         , '-extensions', 'ui,c,cpp,h,mm'
         # sources
-        , './src', './src/mumble'
+        , './src', './src/mumble', './src/mumble/widgets'
         # target
         , '-ts', tsfile
     ]
