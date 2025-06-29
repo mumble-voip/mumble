@@ -1955,7 +1955,8 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 &lt;p&gt;
 你會聽到一段音效樣本。拉動下方的滑桿，在音效不會中斷破碎或卡住的情況下，盡可能調低。
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
@@ -1978,7 +1979,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 &lt;p&gt;
 大聲說話，就像你破口大罵時的樣子。接者降低錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但是又不會到達紅色區塊。
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -2156,7 +2158,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation>&lt;p&gt; 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。 &lt;/p&gt; &lt;p&gt; 大聲說話，就像你破口大罵時的樣子。接者降低你錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但又不會到達紅色區塊。 &lt;/p&gt;</translation>
+        <translation>&lt;p&gt; 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。 &lt;/p&gt; &lt;p&gt; 大聲說話，就像你破口大罵時的樣子。接者降低你錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但又不會到達紅色區塊。 &lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>

@@ -432,19 +432,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοποθεσία καναλιού</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέγιστος αριθμός χρηστών</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Περιγραφή καναλιού</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Επιλέξτε μέλος για προσθήκη</translation>
     </message>
     <message>
         <source>Excluded group members</source>

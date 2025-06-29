@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Deny %1</source>
-        <translation>Refuza %1</translation>
+        <translation>Refuză %1</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Default server value</source>
-        <translation>Valoarea prestabilita a serverului</translation>
+        <translation>Valoarea prestabilită a serverului</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Acest lucru acordă privilegiul %1. În cazul în care privilegiul este permis si refuzat, este refuzat&lt;br /&gt;%2</translation>
+        <translation>Acest lucru acordă privilegiul %1. În cazul în care privilegiul este atât permis, cât și refuzat, este refuzat&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Acest lucru revocă privilegiul %1. În cazul în care privilegiul este permis si refuzat, este refuzat.&lt;br /&gt;%2</translation>
+        <translation>Acest lucru revocă privilegiul %1. În cazul în care privilegiul este atât permis, cât și refuzat, este refuzat.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>introduceți parola canalului aici.</translation>
+        <translation>Introduceți parola canalului aici.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -117,27 +117,27 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>Preia membrii grupului din sursa</translation>
+        <translation>Moștenește membrii grupului din sursa</translation>
     </message>
     <message>
         <source>Inherit</source>
-        <translation>Preia</translation>
+        <translation>Moștenește</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Permite funcțiile grupului să fie preluate de celelalte canale</translation>
+        <translation>Permite funcțiile grupului să fie moștenite de subcanale</translation>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation>Preluabil</translation>
+        <translation>Moștenibil</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation>Funcțiile grupului au fost preluate de la canalul mamă</translation>
+        <translation>Funcțiile grupului au fost moștenite de la canalul sursă</translation>
     </message>
     <message>
         <source>Inherited</source>
-        <translation>Preluat</translation>
+        <translation>Moștenit</translation>
     </message>
     <message>
         <source>Members</source>
@@ -149,7 +149,7 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Adaugă membrii in grup</translation>
+        <translation>Adaugă membrul in grup</translation>
     </message>
     <message>
         <source>Remove member from group</source>
@@ -165,23 +165,23 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation>Vrei să preiei ACL din sursă?</translation>
+        <translation>Moștentește ACL din sursă?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Aceasta configurează dacă ACLul deasupra liniei de canale mamă sunt aplicate către acest obiect. Numai aceste intrări care sunt marcate în sursă ca &quot;Aplică către restul canalelor&quot; vor fi preluate.</translation>
+        <translation>Aceasta configurează dacă ACLul deasupra liniei de canale mamă sunt aplicate către acest obiect. Numai intrările care sunt marcate în sursă ca &quot;Aplică către restul canalelor&quot; vor fi preluate.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation>Preia ACLuri</translation>
+        <translation>Moștenește ACL-uri</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation>Mută intrarea în sus</translation>
+        <translation>Mută intrarea deasupra</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Acesta mută intrările deasupra în listă. În timp ce intrările sunt evaluate în ordine, aceasta poate schimba permisiunile efective ale utilizatorilor. Nu poți muta o intrare deasupra intrării preluate, dacă chiar ai nevoie de asta trebuie să duplici intrarea preluată.</translation>
+        <translation>Acesta mută intrarea deasupra în listă. Deoarece intrările sunt evaluate în ordine, acest lucru poate schimba permisiunile utilizatorilor. Nu poți muta o intrare deasupra uneia moștenite, dar dacă chiar ai nevoie de asta trebuie să duplici intrarea moștenită.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -189,11 +189,11 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>Move entry down</source>
-        <translation>Muta intrare in jos</translation>
+        <translation>Mută intrarea dedesubt</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Acest lucru se mută de la intrarea mai jos în listă. După cum intrările sunt evaluate în ordine, aceasta poate schimba permisiunile ale utilizatorilor.</translation>
+        <translation>Acest lucru mută intrarea dedesubt în listă. Deoarece intrările sunt evaluate în ordine, acest lucru poate schimba permisiunile utilizatorilor.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -205,7 +205,7 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Aceasta se adaugă o nouă intrare, stabilită inițial fără permisiuni și care se aplică tuturor.</translation>
+        <translation>Adaugă o nouă intrare, stabilită inițial fără permisiuni și care se aplică tuturor.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -217,7 +217,7 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Elimină intrarea selectată în prezent.</translation>
+        <translation>Elimină intrarea selectată.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -230,11 +230,11 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     <message>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>Intrare ar trebui să se aplice pe acest canal.</translation>
+        <translation>Intrarea ar trebui să se aplice pe acest canal.</translation>
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Acest lucru face intrarea sa se aplice pe acest canal.</translation>
+        <translation>Acest lucru face ca intrarea să se aplice pe acest canal.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
@@ -242,7 +242,7 @@ Această valoare vă permite să schimbați modul în care Mumble aranjează can
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Intrare ar trebui să se aplice pe sub-canale.</translation>
+        <translation>Intrarea ar trebui să se aplice pe sub-canale.</translation>
     </message>
     <message>
         <source>Add new group</source>
@@ -260,23 +260,23 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Conține lista membrilor adăugati la grupul de acest canal.</translation>
+        <translation>Conține lista membrilor adăugați la grup de acest canal.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Conține o listă cu membrii în care grup nu va fi preluat de către canalul mamă.</translation>
+        <translation>Conține o listă cu membrii a căror apartenență la grup nu va fi preluată de către canalul sursă.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Conșine o listă cu membrii preluați de către alte canale.</translation>
+        <translation>Conține o listă cu membrii preluați de către alte canale.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Scrie un nume de utilizator pe care vrei sa îl adaugi in grup si apasă Adaugă.</translation>
+        <translation>Scrie numele utilizatorului pe care vrei să îl adaugi în grup și apasă Adaugă.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Scrie un nume de utilizator pe care vrei sa il elimini din grup si apasa Adaugă.</translation>
+        <translation>Scrie numele utilizatorului pe care vrei să îl elimini din grup și apasă Adaugă.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -288,7 +288,7 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Acest lucru face intrarea sa se aplice pe sub-canale ale acestui canal.</translation>
+        <translation>Acest lucru face ca intrarea să se aplice pe sub-canale ale acestui canal.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
@@ -304,7 +304,7 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation>Grupe în care se aplică această intrare</translation>
+        <translation>Grup în care se aplică această intrare</translation>
     </message>
     <message>
         <source>User ID</source>
@@ -312,15 +312,15 @@ Adaugă un grup nou.</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation>Utilizatori în care se aplică această intrare</translation>
+        <translation>Utilizatori la care se aplică această intrare</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Acest lucru controlează cărui utilizator i se aplica intrarea. Trebuie doar să scrieți numele de utilizator și apăsați enter pentru a căuta.</translation>
+        <translation>Controlează cărui utilizator i se aplică intrarea. Scrieți numele de utilizator și apăsați enter pentru a căuta.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Proprietati</translation>
+        <translation>&amp;Proprietăți</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -330,29 +330,29 @@ Adaugă un grup nou.</translation>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Temporar&lt;/b&gt;&lt;br /&gt;
-Când este bifat, canalul va fi marcat ca și temporar. Asta înseamnă când ultimul utilizator iese din canal, server-ul va sterge automat canalul.</translation>
+Când este bifat, canalul va fi marcat ca și temporar. Când ultimul utilizator iese din canal, server-ul va șterge automat canalul.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grup&lt;/b&gt;&lt;br /&gt;
-Aceastea sunt toate grupurile definite în prezent pentru canal. Pentru a crea un grup nou, doar scrieti numele si apasați enter.</translation>
+Acestea sunt toate grupurile definite în prezent pentru canal. Pentru a crea un grup nou, scrieți numele și apăsați enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Elimina&lt;/b&gt;&lt;br /&gt;Acest lucru elimina grupul selectat in prezent. Daca grupul a fost succedat, nu o sa fie eliminat din lista, dar toate informatiile locale despre grup o sa fie curațate.</translation>
+        <translation>&lt;b&gt;Elimină&lt;/b&gt;&lt;br /&gt;Elimină grupul selectat în prezent. Dacă grupul a fost moștenit, nu o să fie eliminat din listă, dar toate informațiile locale despre grup o să fie șterse.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Moștenire&lt;/b&gt;&lt;br /&gt;Aceasta moștenește toți membrii din grup de la părinte, dacă grupul este marcat ca &lt;i&gt;Moștenibil&lt;/i&gt; în canalul părinte.</translation>
+        <translation>&lt;b&gt;Moștenire&lt;/b&gt;&lt;br /&gt;Moștenește toți membrii din grup de la sursă, dacă grupul este marcat ca &lt;i&gt;Moștenibil&lt;/i&gt; în canalul sursă.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Preluabil&lt;/b&gt;&lt;br /&gt;Aceasta face această grupă preluabilă de către celelalte canale. Dacă grupa nu este preluabilă, celelalte canale încă au dreptul de a crea un nou grup cu același nume.</translation>
+        <translation>&lt;b&gt;Preluabil&lt;/b&gt;&lt;br /&gt;Face această grupă moștenibilă de către celelalte canale. Dacă grupa nu este moștenibilă, celelalte canale încă pot crea un nou grup cu același nume.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Moștenit&lt;/b&gt;&lt;br /&gt;Aceasta indică faptul că grupul a fost moștenit din canalul părinte. Nu puteți edita această marcă, ea servește doar ca informație.</translation>
+        <translation>&lt;b&gt;Moștenit&lt;/b&gt;&lt;br /&gt;Indică faptul că grupul a fost moștenit din canalul sursă. Nu puteți edita această marcă, fiind doar informativă.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
@@ -364,7 +364,7 @@ Această listă conține toți membrii care au fost adăugați la grup de către
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>&lt;b&gt;Membri excluși&lt;/b&gt;&lt;br /&gt;
-Conține o listă de membri al căror apartenență la grup nu va fi moștenită din canalul părinte.</translation>
+Conține o listă de membri a căror apartenență la grup nu va fi moștenită din canalul sursă.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
@@ -378,11 +378,11 @@ Conține lista de membri moșteniți de canalul curent. Debifați opțiunea &lt;
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>b&gt;Parolă&lt;/b&gt;&lt;br /&gt;Acest câmp îți permite să setezi și să schimbi ușor parola unui canal. Folosește funcționalitatea de token-uri de acces a Mumble în fundal. Folosește ACL-uri și grupuri dacă ai nevoie de un control mai fin și mai puternic al accesului.</translation>
+        <translation>&lt;b&gt;Parolă&lt;/b&gt;&lt;br /&gt;Acest câmp vă permite să setați și să schimbați cu ușurință parola unui canal. Folosește funcția de tokenuri de acces a Mumble în fundal. Utilizați ACL-uri și grupuri dacă aveți nevoie de un control mai detaliat și puternic asupra accesului.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Aceasta arată toate înregistrările active pe acest canal. Înregistrările moștenite din canalele părinte vor fi afișate în italic.&lt;br /&gt;Listele ACL sunt evaluate de sus în jos, ceea ce înseamnă că prioritatea crește pe măsură ce vă deplasați în josul listei.</translation>
+        <translation>Arată toate intrările active pe acest canal. Înregistrările moștenite din canalele părinte vor fi afișate în italic.&lt;br /&gt;Listele ACL sunt evaluate de sus în jos, ceea ce înseamnă că prioritatea crește pe măsură ce vă deplasați în josul listei.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -394,7 +394,7 @@ Conține lista de membri moșteniți de canalul curent. Debifați opțiunea &lt;
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>Numarul maxim permis de utilizatori pentru acest canal.</translation>
+        <translation>Numărul maxim de utilizatori permis în acest canal</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -412,7 +412,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>Channel password</source>
-        <translation>Parolă de canal</translation>
+        <translation>Parola canalului</translation>
     </message>
     <message>
         <source>Channel name</source>
@@ -432,58 +432,58 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziția canalului</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Numărul maxim de utilizatori ai canalului</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrierea canalului</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege membru de adăugat</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Membri excluși</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege membru de exclus</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista intrărilor ACL</translation>
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege grup</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege un grup la care se aplică intrarea ACL. Nu poți selecta un grup și un utilizator în același timp.</translation>
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege utilizator</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alege un utilizator la care se aplică intrarea ACL. Nu poți selecta un grup și un utilizator în același timp.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista permisiunilor disponibile</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Placa ALSA prestabilita</translation>
+        <translation>Placa ALSA prestabilită</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
@@ -557,7 +557,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Interoghează dispozitivul selectat pentru canale. Fii conștient că multe drivere ASIO sunt extrem de buggy și interogarea lor ar putea provoca un crash al aplicației sau al sistemului.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
@@ -629,7 +629,7 @@ Această valoare vă permite să setați numărul maxim de utilizatori permis î
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista dispozitivelor</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>

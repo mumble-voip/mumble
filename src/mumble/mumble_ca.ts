@@ -7058,7 +7058,7 @@ Les opcions vàlides són:
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation>Visor de l&apos;&amp;àudio posicional</translation>
+        <translation>Visualitzador de l&apos;&amp;àudio posicional</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -8331,7 +8331,7 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
     <name>PositionalAudioViewer</name>
     <message>
         <source>Positional Audio Viewer</source>
-        <translation>Visor de l&apos;àudio posicional</translation>
+        <translation>Visualitzador de l&apos;àudio posicional</translation>
     </message>
     <message>
         <source>Camera direction</source>

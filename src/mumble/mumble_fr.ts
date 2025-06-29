@@ -149,11 +149,11 @@ Cette valeur vous permet de définir comment Mumble arrange les salons dans l&ap
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Ajouter un membre au groupe</translation>
+        <translation>Ajouter un·e membre au groupe</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Retirer le membre du groupe</translation>
+        <translation>Retirer læ membre du groupe</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -2822,7 +2822,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble peut utiliser des certificats d&apos;authentification vis à vis des serveurs. L&apos;utilisation de tels certificats évite l&apos;emploi d&apos;un mot de passe, ce qui signifie que vous n&apos;avez pas à l&apos;envoyer au site distant. Il permet aussi très aisément l&apos;enregistrement d&apos;un utilisateur et d&apos;une liste d&apos;amis coté client indépendante des serveurs.&lt;/p&gt;&lt;p&gt;Bien que Mumble puisse fonctionner sans certificat, la plupart des serveurs en espèrent un de votre part.&lt;/p&gt;&lt;p&gt;La création automatique d&apos;un certificat est suffisante dans la plupart des cas. Mais Mumble permet aussi l&apos;usage de certificats garantissant la confiance dans la possession d&apos;une adresse courriel par les utilisateurs. Ces certificats sont générés par des parties tiers. Pour plus d&apos;information, se référer à &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4944,7 +4944,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation>Toujoers garder les utilisateurs visibles</translation>
+        <translation>Toujours garder les utilisateurs visibles</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
@@ -8700,7 +8700,8 @@ Vous pouvez les enregistrer à nouveau.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si vous utilisez GNU/Linux, c&apos;est le plus probablement parce que vous employez une version du dépôt de paquet de votre distribution qui gère différemment son cycle de mises à jour.&lt;/p&gt;&lt;p&gt;Si vous désirez toujours utiliser la version la plus récente de Mumble, il conviendrait que vous employez une méthode d&apos;installation différente.
+Référez vous à &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; pour les alternatives possibles.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

@@ -1578,7 +1578,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>Sijainninmukainen ääni ei voi toimia mono-ulostulolla!</translation>
+        <translation>Sijainninmukainen ääni ei voi toimia yhden äänikanavan ulostulolla!</translation>
     </message>
     <message>
         <source>Audio output system</source>
@@ -4387,7 +4387,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation>Käytä tekstistä puheeksi -ominaisuutta</translation>
+        <translation>Kytke teksti-puheeksi -ominaisuus päälle</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -6640,7 +6640,7 @@ Sallitut toiminnot ovat:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation>Kansiota %1 ei ole olemassa.
+        <translation>Hakemistoa %1 ei ole olemassa.
 </translation>
     </message>
     <message>
@@ -6653,7 +6653,7 @@ Sallitut toiminnot ovat:
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation>Tämä Mumblen versio ei voi käsitellä URL-osoitteita Mumblen versiolle %1</translation>
+        <translation>Kyseinen Mumble versio ei pysty käsittelemään URL-osoitteita Mumblen versiosta %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
@@ -8571,7 +8571,7 @@ Voit rekisteröidä ne uudelleen.</translation>
     </message>
     <message>
         <source>Load backup settings?</source>
-        <translation>Ladataanko varmuuskopioasetukset?</translation>
+        <translation>Lataa asetukset varmuuskopiosta?</translation>
     </message>
     <message>
         <source>It seems that Mumble did not perform a normal shutdown. If you did not intentionally kill the application, this could mean that the used settings caused a crash. Do you want to load the setting&apos;s backup instead?</source>

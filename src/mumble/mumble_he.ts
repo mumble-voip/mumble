@@ -1983,7 +1983,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
 כעת דברו בקול רם, כאילו שאתם עצבניים או נרגשים. הנמיכו את עוצמת ההקלטה בהגדרות הקלט של המחשב עד שהפס שבחלון זה מגיע כמה שיותר רחוק באזור הירוק והכחול, אך &lt;b&gt;לא&lt;/b&gt; באזור האדום בזמן שאתם מדברים.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -3966,7 +3967,8 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו קובעת את הגודל המינימלי של טור בתצוגת המשתמשים.&lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;אם יותר מדי אנשים מדברים בו זמנית, תצוגת המשתמשים תחלק את עצמה לטורים. אתם יכולים להשתמש באפשרות זו כדי לבחור איזון בין מספר המשתמשים שנראים בהתקן ה-LCD, וברוחב השם שלהם.&lt;/p&gt;</translation>
+&lt;p dir=&quot;RTL&quot;&gt;אם יותר מדי אנשים מדברים בו זמנית, תצוגת המשתמשים תחלק את עצמה לטורים. אתם יכולים להשתמש באפשרות זו כדי לבחור איזון בין מספר המשתמשים שנראים בהתקן ה-LCD, וברוחב השם שלהם.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>

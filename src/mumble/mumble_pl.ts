@@ -5891,7 +5891,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>You suppressed %1.</source>
-        <translation>Wyciszyłeś %1.</translation>
+        <translation>Pozbawiłeś możliwości mowy %1.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
@@ -6145,7 +6145,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>You unsuppressed %1.</source>
-        <translation>Wyłączyłeś wyciszenie %1.</translation>
+        <translation>Wyłączyłeś pozbawienie możliwości mowy %1.</translation>
     </message>
     <message>
         <source>You unmuted %1.</source>

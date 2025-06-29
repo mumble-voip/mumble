@@ -2732,7 +2732,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;&lt;p&gt;Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben. Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt. Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble wird nun ein sicheres Zertifikat zur Authentifikation gegenüber Servern generieren.&lt;/p&gt;&lt;p&gt;Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben. Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt. Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungsstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3526,7 +3526,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Abort upload</source>
-        <translation>Hochloaden abbrechen</translation>
+        <translation>Hochladen abbrechen</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
@@ -3534,7 +3534,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation>Interner Fehler in CrashReporter.cpp: Ein Netztwerkpaket wurde ohne HTTP Statuscode erhalten. Bitte informieren Sie einen Entwickler über den Fehlercode %1</translation>
+        <translation>Interner Fehler in CrashReporter.cpp: Ein Netzwerkpaket wurde ohne HTTP Statuscode erhalten. Bitte informieren Sie einen Entwickler über den Fehlercode %1</translation>
     </message>
 </context>
 <context>
@@ -4176,7 +4176,7 @@ Sie listet die Geräte alphabetisch sortiert, enthält aber auch die Größe des
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>De-/Aktiviere Pop-up Benachrichtgungen für %1 Ereignisse</translation>
+        <translation>De-/Aktiviere Pop-up Benachrichtigungen für %1 Ereignisse</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
@@ -4419,7 +4419,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation>Lautstärkeregelung für Benachrichtigstöne</translation>
+        <translation>Lautstärkeregelung für Benachrichtigungstöne</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
@@ -4776,7 +4776,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation>Wie viele Buchstaben des ursprünglichen Namen-Anfangs für einen abkekürzten Namen verwendet werden sollen.</translation>
+        <translation>Wie viele Buchstaben des ursprünglichen Namen-Anfangs für einen abgekürzten Namen verwendet werden sollen.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
@@ -4992,11 +4992,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionsmodus Benutzersuche</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionsmodus Kanalsuche</translation>
     </message>
 </context>
 <context>
@@ -5478,8 +5478,8 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Siesicher sind,
-dass dieser Benutzer mit einem Passwort geschützt ist,versuchen Sie es bitte erneut.
+        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Sie sicher sind,
+dass dieser Benutzer mit einem Passwort geschützt ist, versuchen Sie es bitte erneut.
 Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
     <message>
@@ -5548,7 +5548,7 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     </message>
     <message>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
+        <translation>Dies zeigt erweitertet Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
@@ -6572,7 +6572,7 @@ Mögliche Aktionen sind:
   deaf
                     Selbst taub stellen
   undeaf
-                    Eigene Taubsstellung aufheben
+                    Eigene Taubstellung aufheben
   toggledeaf
                     Eigene Taubstellung umschalten
   starttalking
@@ -7079,7 +7079,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommen&amp;tar zurücksetzen...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
@@ -7099,7 +7099,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Anheften während des Filterns</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
@@ -7226,7 +7226,7 @@ Gültige Optionen sind:
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation>Wie lange die Position stummer Benutzer hervorgehoben werden soll, nachdem sie aufeghört haben zu sprechen (in Sekunden).</translation>
+        <translation>Wie lange die Position stummer Benutzer hervorgehoben werden soll, nachdem sie aufgehört haben zu sprechen (in Sekunden).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
@@ -8686,7 +8686,8 @@ Sie können sie jedoch erneut registrieren.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; Wenn Sie Linux verwenden, ist dies wahrscheinlich, weil Sie eine Version aus dem Paket-Repository Ihrer Distribution verwenden, die eigene Update-Zyklen hat.&lt;/p&gt;&lt;p&gt; Wenn Sie immer die neueste Mumble-Version haben möchten, sollten Sie eine andere Methode der Installation erwägen.
+Besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;das Projekt-Repository&lt;/a&gt; für Alternativen.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

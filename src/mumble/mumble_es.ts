@@ -436,11 +436,11 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation>Número máximo de usuarios por canal</translation>
+        <translation>Número máximo de usuarios en el canal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation>Descripción del canal</translation>
+        <translation>Descripción de canal</translation>
     </message>
     <message>
         <source>Select member to add</source>
