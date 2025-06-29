@@ -1347,37 +1347,91 @@ void MainWindow::openUrl(const QUrl &url) {
  * directly after server synchronization is completed.
  * @see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
  */
-void MainWindow::findDesiredChannel() {
-	bool found          = false;
-	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
-	Channel *chan       = Channel::get(Mumble::ROOT_CHANNEL_ID);
-	QString str         = QString();
-	while (chan && qlChans.count() > 0) {
-		QString elem = qlChans.takeFirst().toLower();
-		if (elem.isEmpty())
-			continue;
-		if (str.isNull())
-			str = elem;
-		else
-			str = str + QLatin1String("/") + elem;
-		foreach (Channel *c, chan->qlChannels) {
-			if (c->qsName.toLower() == str) {
-				str   = QString();
-				found = true;
-				chan  = c;
-				break;
-			}
-		}
-	}
-	if (found) {
-		if (chan != ClientUser::get(Global::get().uiSession)->cChannel) {
-			Global::get().sh->joinChannel(Global::get().uiSession, chan->iId);
-		}
-		qtvUsers->setCurrentIndex(pmModel->index(chan));
-	} else if (Global::get().uiSession) {
-		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(Global::get().uiSession)->cChannel));
-	}
-	updateMenuPermissions();
+ void MainWindow::findDesiredChannel() {
+    QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
+    Channel *chan = Channel::get(Mumble::ROOT_CHANNEL_ID);
+    QString str = QString();
+    
+    // Try case-sensitive search first (existing behavior)
+    bool found = findChannelWithSensitivity(chan, qlChans, str, true);
+    
+    // If not found, try case-insensitive search
+    if (!found) {
+        // Reset for case-insensitive search
+        chan = Channel::get(Mumble::ROOT_CHANNEL_ID);
+        qlChans = qsDesiredChannel.split(QLatin1String("/"));
+        str = QString();
+        
+        found = findChannelWithSensitivity(chan, qlChans, str, false);
+    }
+    
+    if (found) {
+        if (chan != ClientUser::get(Global::get().uiSession)->cChannel) {
+            Global::get().sh->joinChannel(Global::get().uiSession, chan->iId);
+        }
+        qtvUsers->setCurrentIndex(pmModel->index(chan));
+    } else if (Global::get().uiSession) {
+        qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(Global::get().uiSession)->cChannel));
+    }
+    
+    updateMenuPermissions();
+}
+
+// Helper method to find channel with either case-sensitive or case-insensitive search
+bool MainWindow::findChannelWithSensitivity(Channel *&chan, QStringList &qlChans, QString &str, bool caseSensitive) {
+    while (chan && qlChans.count() > 0) {
+        QString elem = qlChans.takeFirst();
+        
+        if (elem.isEmpty())
+            continue;
+        
+        if (str.isNull())
+            str = elem;
+        else
+            str = str + QLatin1String("/") + elem;
+        
+        if (caseSensitive) {
+            // Case-sensitive search 
+            foreach (Channel *c, chan->qlChannels) {
+                if (c->qsName == str) {
+                    str = QString();
+                    chan = c;
+                    return qlChans.isEmpty(); // Only return true if this was the last part
+                }
+            }
+            // If we get here, no match at this level - can't continue
+            return false;
+        } else {
+            // Case-insensitive search with ambiguity check
+            QList<Channel *> matches;
+            
+            foreach (Channel *c, chan->qlChannels) {
+                if (c->qsName.compare(str, Qt::CaseInsensitive) == 0) {
+                    matches.append(c);
+                }
+            }
+            
+            if (matches.size() == 1) {
+                // Single match found - continue searching
+                str = QString();
+                chan = matches.first();
+                
+                // Only return true if this was the last part
+                if (qlChans.isEmpty()) {
+                    return true;
+                }
+            } else if (matches.size() > 1) {
+                // Multiple matches - ambiguous
+                qWarning() << "Ambiguous channel name:" << str;
+                return false;
+            } else {
+                // No matches
+                return false;
+            }
+        }
+    }
+    
+    return false;
 }
 
 void MainWindow::setOnTop(bool top) {
