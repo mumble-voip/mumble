@@ -14,6 +14,7 @@ public:
 	procptr_t exportedSymbol(const std::string &symbol, const procptr_t module) const override;
 
 	ProcessWindows(const procid_t id, const std::string &name);
+	ProcessWindows(ProcessWindows &&other) = default;
 	virtual ~ProcessWindows();
 };
 
