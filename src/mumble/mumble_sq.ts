@@ -1160,7 +1160,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished">Pa maksimum</translation>
+        <translation>Maksimum amplifikimi</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
@@ -2233,7 +2233,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Push</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -3288,7 +3288,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished">Shërbyes</translation>
+        <translation>Shërbyes</translation>
     </message>
 </context>
 <context>
@@ -3420,7 +3420,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Emër përdoruesi</translation>
+        <translation>Emër përdoruesi</translation>
     </message>
     <message>
         <source>Label for server</source>
@@ -3711,7 +3711,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>checked</source>
@@ -4936,7 +4936,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Spastroje</translation>
+        <translation>Spastroje</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
@@ -6825,7 +6825,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Mbi</translation>
+        <translation>&amp;Mbi</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -8576,7 +8576,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Shtoje</translation>
+        <translation>Shtoje</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -8895,7 +8895,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;PFS:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;PFS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -8915,7 +8915,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">Parje:</translation>
+        <translation>&amp;Shihni Dëshminë</translation>
     </message>
     <message>
         <source>&amp;OK</source>

@@ -1634,19 +1634,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>于</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>当其他人在您所在频道说话时</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>总是</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>减小来自监听的音量...</translation>
     </message>
 </context>
 <context>
@@ -5015,35 +5015,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>清除对话界面背景设置。</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>清除背景颜色</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">清空</translation>
+        <translation>清空</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>用于对话界面背景的颜色。</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>选择</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果设置，则以此背景色覆盖主题的背景色。</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>背景色</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>选择颜色</translation>
     </message>
 </context>
 <context>
@@ -7209,29 +7209,29 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Cycle listener attenuation mode</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>循环切换监听衰减模式</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
+        <translation>这会在频道监听者的不同衰减模式之间切换</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>增大监听者衰减（+10%）</translation>
     </message>
     <message>
         <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>这会将频道监听者衰减增大百分之 10</translation>
     </message>
     <message>
         <source>Listener attenuation down (-10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>减小监听者衰减（-10%）</translation>
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>这会将频道监听者衰减减小百分之 10</translation>
     </message>
 </context>
 <context>

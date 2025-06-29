@@ -149,11 +149,11 @@ Cette valeur vous permet de définir comment Mumble arrange les salons dans l&ap
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Ajouter un membre au groupe</translation>
+        <translation>Ajouter un·e membre au groupe</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Retirer le membre du groupe</translation>
+        <translation>Retirer læ membre du groupe</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -4960,7 +4960,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Always keep users visible</source>
-        <translation>Toujoers garder les utilisateurs visibles</translation>
+        <translation>Toujours garder les utilisateurs visibles</translation>
     </message>
     <message>
         <source>Channel expand mode</source>
@@ -5016,35 +5016,35 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Efface les réglages d&apos;arrière-plan de la Tribune.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer la couleur d&apos;arrière-plan</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Effacer</translation>
+        <translation>Effacer</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>La couleur qui est utilisée pour l&apos;arrière-plan de la Tribune.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur d&apos;arrière-plan qui, si elle est définie, remplace la couleur d&apos;arrière-plan du thème.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur d&apos;arrière-plan</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une couleur</translation>
     </message>
 </context>
 <context>

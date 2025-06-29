@@ -671,7 +671,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>Про Mumble</translation>
+        <translation>&amp;Про Mumble</translation>
     </message>
     <message>
         <source>&amp;License</source>
@@ -1634,19 +1634,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>о</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>поки хтось на вашому каналі розмовляє</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>завжди</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменште рівень шуму слухачів,...</translation>
     </message>
 </context>
 <context>
@@ -5017,35 +5017,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищає налаштування фону TalkingUI.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити колір фону</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір, який використовується для фону talkingUI.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону, який, якщо встановлено, замінює колір фону теми.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть в колір</translation>
     </message>
 </context>
 <context>
@@ -7214,29 +7214,29 @@ mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&l
     <message>
         <source>Cycle listener attenuation mode</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Режим ослаблення прослуховування циклу</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
+        <translation>Це циклічно перемикатиме різні режими ослаблення для прослуховувачів каналу</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Збільшення затухання слухача (+10%)</translation>
     </message>
     <message>
         <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Це збільшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
     </message>
     <message>
         <source>Listener attenuation down (-10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Зменшення затухання слухача (-10%)</translation>
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Це зменшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
     </message>
 </context>
 <context>

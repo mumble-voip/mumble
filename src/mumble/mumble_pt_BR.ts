@@ -641,7 +641,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivos não utilizados</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
@@ -1098,7 +1098,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Atividade de Voz</translation>
     </message>
     <message>
         <source>Input backend for audio</source>
@@ -1106,11 +1106,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Transmission mode</source>
@@ -1162,7 +1162,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualidade de compressão de áudio</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
@@ -1178,7 +1178,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Nível de supressão de ruído</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -1186,7 +1186,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho do arquivo de áudio</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
@@ -1194,7 +1194,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de tempo de inatividade (em minutos)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>

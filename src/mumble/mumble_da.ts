@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Default server value</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard server indstilling</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -181,7 +181,7 @@ Denne værdi gør dig i stand til at ændre måden Mumble arrangerer kanalerne i
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dette flytter reglen op ad listen.  Eftersom regler bliver evalueret i rækkefølge, kan dette ændre de faktiske rettigheder for brugere. Du kan ikke flytte en regel op over arvede regler, men hvis du virkelig behøver dette, så skal du gentage den arvede regel.</translation>
+        <translation>Dette flytter reglen op ad listen. Eftersom regler bliver evalueret i rækkefølge, kan dette ændre de faktiske rettigheder for brugere. Du kan ikke flytte en regel op over arvede regler, men hvis du virkelig behøver dette, så skal du gentage den arvede regel.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -329,35 +329,35 @@ Tilføj en ny gruppe.</translation>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished">&lt;b&gt;Midlertidig&lt;/b&gt;&lt;br &gt;
+        <translation>&lt;b&gt;Midlertidig&lt;/b&gt;&lt;br /&gt;
 Hvis denne er markeret, vil kanalen, der oprettes, blive markeret som midlertidig. Dette betyder, at når den sidste bruger forlader kanalen, vil den automatisk blive slettet af serveren.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished">&lt;b&gt;Gruppe&lt;/b&gt;&lt;br &gt;
+        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br /&gt;
 Disse er alle grupperne, der i øjeblikket gælder for kanalen. For at oprette en ny gruppe skal du bare skrive navnet og trykke enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished">&lt;b&gt;Fjern&lt;/b&gt;&lt;br &gt;Dette fjerner den nuværende valgte gruppe. Hvis gruppen var arvet, vil den ikke blive fjernet fra listen, men alt lokal information om gruppen vil blive slettet.</translation>
+        <translation>&lt;b&gt;Fjern&lt;/b&gt;&lt;br /&gt;Dette fjerner den nuværende valgte gruppe. Hvis gruppen var arvet, vil den ikke blive fjernet fra listen, men alt lokal information om gruppen vil blive slettet.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished">&lt;b&gt;Arv&lt;/b&gt;&lt;br &gt;Dette arver alle medlemmer i gruppen fra forælderen, hvis gruppen er markeret som &lt;i&gt;arvelig&lt;/i&gt; i forælderkanalen.</translation>
+        <translation>&lt;b&gt;Arv&lt;/b&gt;&lt;br /&gt; &gt;Dette arver alle medlemmer i gruppen fra forælderen, hvis gruppen er markeret som &lt;i&gt;arvelig&lt;/i&gt; i forælderkanalen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished">&lt;b&gt;Arvelig&lt;/b&gt;&lt;br &gt;Dette gør denne gruppe arvelig for underkanaler. Hvis gruppen ikke er arvelig, kan der i underkanaler oprettes en ny gruppe med samme navn.</translation>
+        <translation>&lt;b&gt;Arvelig&lt;/b&gt;&lt;br /&gt;Dette gør denne gruppe arvelig for underkanaler. Hvis gruppen ikke er arvelig, kan der i underkanaler oprettes en ny gruppe med samme navn.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished">&lt;b&gt;Arvet&lt;/b&gt;&lt;br &gt;Dette indikerer at gruppen er arvet fra forælderkanalen. Du kan ikke ændre dette flag, det er kun til information.</translation>
+        <translation>&lt;b&gt;Arvet&lt;/b&gt;&lt;br /&gt;Dette indikerer at gruppen er arvet fra forælderkanalen. Du kan ikke ændre dette flag, det er kun til information.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished">&lt;b&gt;Medlemmer&lt;/b&gt;&lt;br &gt;
+        <translation>&lt;b&gt;Medlemmer&lt;/b&gt;&lt;br /&gt;
 Denne liste inderholder medlemmer, der er blevet tilføjet til gruppen af den nuværende kanal. Vær opmærksom på at listen ikke inkluderer medlemmer arvet fra højere niveauer i kanaltræet. Disse kan findes i listen &lt;i&gt;Arvede medlemmer&lt;/i&gt;. For at forhindre denne liste i at blive arvet til underkanaler, skal du fjerne markeringen &lt;i&gt;Arvelig&lt;/i&gt; eller manuelt tilføje medlemmer til listen &lt;i&gt;Udeladte medlemmer&lt;/i&gt;.</translation>
     </message>
     <message>
@@ -369,7 +369,7 @@ Inderholder en liste over medlemmer hvis gruppemedlemskab ikke vil blive arvet f
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished">&lt;b&gt;Arvede medlemmer&lt;/b&gt;&lt;br &gt;
+        <translation>&lt;b&gt;Arvede medlemmer&lt;/b&gt;&lt;br /&gt;
 Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern markeringen af &lt;i&gt;Arv&lt;/i&gt; for at forhindre, at der kan arves fra kanaler i højere niveauer.</translation>
     </message>
     <message>
@@ -386,44 +386,45 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>ID for kanalen</translation>
+        <translation>ID for kanalen.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks. brugere</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks antal brugere tilladt på kanalen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Maks. brugere&lt;/b&gt;&lt;br /&gt;
+Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på kanalen. Hvis værdien er over nul, vil kun det antal brugere være tilladt at tilgå kanalen. Hvis værdien er nul, er det maksimale antal brugere på kanalen styret af serverens standard begrænsning.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette er sorteringsrækkefølgen for kanalen.</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Egenskaber</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalkodeord</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalnavn</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Arvede gruppemedlemmer</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Arvede kanalmedlemmer</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
@@ -757,7 +758,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Dobbelttryk-tid&lt;/b&gt;&lt;br /&gt;Hvis du trykker tryk-for-snak-knappen to gange i løbet af af det konfigurerede tidsinterval, vil den blive låst. Mumble vil fortsætte med at transmittere lyd, indtil du trykker knappen én gang mere, hvilket låser tryk-for-snak-knappen op igen.</translation>
+        <translation>&lt;b&gt;Dobbelttryk-tid&lt;/b&gt;&lt;br /&gt;Hvis du trykker tryk-for-snak-knappen to gange i løbet af det konfigurerede tidsinterval, vil den blive låst. Mumble vil fortsætte med at transmittere lyd, indtil du trykker knappen én gang mere, hvilket låser tryk-for-snak-knappen op igen.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -793,7 +794,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished">&lt;b&gt;Dette indstiller stemmeaktiveringen der skal bruges ved &lt;i&gt;Forstærkning&lt;/i&gt;&lt;/b&gt;&lt;br /&gt;I denne tilstand, bruges den rå kraft fra indspilningssignalet til at detektere tale.</translation>
+        <translation>&lt;b&gt;Dette indstiller stemmeaktiveringen der skal bruges ved Forstærkning&lt;/b&gt;&lt;br /&gt;I denne tilstand, bruges den rå kraft fra indspilningssignalet til at detektere tale.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -1363,7 +1364,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Dette aktiverer én af loopback-testtilstandene.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; - Loopback deaktiveret&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; - Efterlign en lokal server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Anmod om loopback fra server&lt;br /&gt;Vær opmærksom på  at når loopback er aktiveret, vil ingen andre brugere høre din stemme. Denne indstilling bliver ikke gemt, når programmet afsluttes.</translation>
+        <translation>&lt;b&gt;Dette aktiverer én af loopback-testtilstandene.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; - Loopback deaktiveret&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; - Efterlign en lokal server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Anmod om loopback fra server&lt;br /&gt;Vær opmærksom på at når loopback er aktiveret, vil ingen andre brugere høre din stemme. Denne indstilling bliver ikke gemt, når programmet afsluttes.</translation>
     </message>
     <message>
         <source>Volume</source>
