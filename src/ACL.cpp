@@ -168,23 +168,34 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 			// If the user tries to enter C, we need to deny Traverse, because the user
 			// should already be blocked from traversing A. But "apply" will be false,
 			// as the "normal" ACL inheritence rules do not apply here.
-			// Therefore, we need applyDenyTraverse which will be true, if any channel
+			// Therefore, we need applyTraverse which will be true, if any channel
 			// from root to the reference channel denies Traverse without necessarily
 			// handing it down.
-			bool applyDenyTraverse = applyInherited || acl->bApplyHere;
+			bool applyTraverse = applyInherited || acl->bApplyHere;
 
 			if (matchUser || matchGroup) {
 				// The "traverse" and "write" booleans do not grant or deny anything here.
 				// We merely check, if we are missing traverse AND write in this
 				// channel and therefore abort without any permissions later on.
-				if (apply && (acl->pAllow & Traverse)) {
-					traverse = true;
-				}
-				if (applyDenyTraverse && (acl->pDeny & Traverse)) {
-					traverse = false;
+				if (applyTraverse) {
+					if (acl->pAllow & Traverse) {
+						traverse = true;
+					}
+
+					if (acl->pDeny & Traverse) {
+						traverse = false;
+					}
 				}
 
-				write = apply && (acl->pAllow & Write) && !(acl->pDeny & Write);
+				if (apply) {
+					if (acl->pAllow & Write) {
+						write = true;
+					}
+
+					if (acl->pDeny & Write) {
+						write = false;
+					}
+				}
 
 				// These permissions are only grantable from the root channel
 				// as they affect the users globally. For example: You can not
