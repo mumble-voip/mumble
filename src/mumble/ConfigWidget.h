@@ -24,6 +24,7 @@ protected:
 	void loadSlider(QSlider *, int);
 	void loadCheckBox(QAbstractButton *, bool);
 	void loadComboBox(QComboBox *, int);
+	void loadComboBox(QComboBox *, const QVariant &);
 signals:
 	void intSignal(int);
 

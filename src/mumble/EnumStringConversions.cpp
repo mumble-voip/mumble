@@ -14,10 +14,12 @@
 	PROCESS(Settings::VADSource, Amplitude, "Amplitude") \
 	PROCESS(Settings::VADSource, SignalToNoise, "SignalToNoise")
 
-#define LOOP_MODE_VALUES                        \
-	PROCESS(Settings::LoopMode, None, "None")   \
-	PROCESS(Settings::LoopMode, Local, "Local") \
-	PROCESS(Settings::LoopMode, Server, "Server")
+#define LOOP_MODE_VALUES                                      \
+	PROCESS(Settings::LoopMode, None, "None")                 \
+	PROCESS(Settings::LoopMode, LocalOnly, "LocalOnly")       \
+	PROCESS(Settings::LoopMode, ServerOnly, "ServerOnly")     \
+	PROCESS(Settings::LoopMode, LocalRegular, "LocalRegular") \
+	PROCESS(Settings::LoopMode, ServerRegular, "ServerRegular")
 
 #define CHANNEL_EXPAND_VALUES                                                \
 	PROCESS(Settings::ChannelExpand, NoChannels, "NoChannels")               \

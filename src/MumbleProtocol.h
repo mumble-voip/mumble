@@ -97,8 +97,9 @@ namespace Protocol {
 	};
 
 	namespace ReservedTargetIDs {
-		constexpr unsigned int REGULAR_SPEECH  = 0;
-		constexpr unsigned int SERVER_LOOPBACK = 31;
+		constexpr unsigned int REGULAR_SPEECH          = 0;
+		constexpr unsigned int SERVER_LOOPBACK_REGULAR = 30;
+		constexpr unsigned int SERVER_LOOPBACK_ONLY    = 31;
 	} // namespace ReservedTargetIDs
 
 	using audio_context_t = byte;

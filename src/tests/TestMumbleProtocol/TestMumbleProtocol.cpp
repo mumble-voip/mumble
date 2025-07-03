@@ -195,7 +195,7 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 		} else {
 			QVERIFY(encoder.getRole() == Mumble::Protocol::Role::Client);
 
-			data.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK;
+			data.targetOrContext = Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK_ONLY;
 		}
 
 		auto encodedData = encoder.encodeAudioPacket(data);
