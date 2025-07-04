@@ -39,7 +39,7 @@ build_script:
   - cmd: .ci/build_windows.bat
 
 after_build:
-  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins/*.dll plugins/*.pdb installer/client/*client*.msi installer/server/*server*.msi
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins/*.dll plugins/*.pdb installer/client/*client*.exe installer/server/*server*.exe
 
 artifacts:
   - path: 'build/binaries.zip'
