@@ -331,6 +331,15 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 }
 
+void UserView::triggerUpdate() {
+	QPalette previousPalette = palette();
+	QPalette palette;
+	palette.setColor(QPalette::WindowText, previousPalette.color(QPalette::WindowText).darker(101));
+	setPalette(palette);
+	QApplication::processEvents();
+	setPalette(previousPalette);
+}
+
 void UserView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector< int > &) {
 	UserModel *um = static_cast< UserModel * >(model());
 	int nRowCount = um->rowCount();

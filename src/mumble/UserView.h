@@ -50,6 +50,7 @@ protected:
 
 public:
 	UserView(QWidget *);
+	void triggerUpdate();
 	void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
 	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 					 const QVector< int > &roles = QVector< int >()) Q_DECL_OVERRIDE;
