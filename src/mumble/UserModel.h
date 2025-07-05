@@ -71,6 +71,7 @@ private:
 	Q_DISABLE_COPY(UserModel)
 protected:
 	QIcon qiTalkingOn, qiTalkingMuted, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon qiCustomTalkingOn, qiCustomTalkingMuted, qiCustomTalkingWhisper, qiCustomTalkingShout;
 	QIcon qiMutedPushToMute, qiMutedSelf, qiMutedServer, qiMutedLocal, qiIgnoredLocal, qiMutedSuppressed;
 	QIcon qiPrioritySpeaker;
 	QIcon qiRecording;
