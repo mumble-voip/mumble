@@ -235,13 +235,17 @@ QString ModelItem::hash() const {
 }
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOff      = QIcon(QLatin1String("skin:talking_off.svg"));
-	qiTalkingOn       = QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingMuted    = QIcon(QLatin1String("skin:talking_muted.svg"));
-	qiTalkingShout    = QIcon(QLatin1String("skin:talking_alt.svg"));
-	qiTalkingWhisper  = QIcon(QLatin1String("skin:talking_whisper.svg"));
-	qiPrioritySpeaker = QIcon(QLatin1String("skin:priority_speaker.svg"));
-	qiRecording       = QIcon(QLatin1String("skin:actions/media-record.svg"));
+	qiTalkingOff           = QIcon(QLatin1String("skin:talking_off.svg"));
+	qiTalkingOn            = QIcon(QLatin1String("skin:talking_on.svg"));
+	qiTalkingMuted         = QIcon(QLatin1String("skin:talking_muted.svg"));
+	qiTalkingShout         = QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingWhisper       = QIcon(QLatin1String("skin:talking_whisper.svg"));
+	qiPrioritySpeaker      = QIcon(QLatin1String("skin:priority_speaker.svg"));
+	qiCustomTalkingOn      = QIcon(QLatin1String("skin:custom_talking_on.svg"));
+	qiCustomTalkingMuted   = QIcon(QLatin1String("skin:custom_talking_muted.svg"));
+	qiCustomTalkingShout   = QIcon(QLatin1String("skin:custom_talking_alt.svg"));
+	qiCustomTalkingWhisper = QIcon(QLatin1String("skin:custom_talking_whisper.svg"));
+	qiRecording            = QIcon(QLatin1String("skin:actions/media-record.svg"));
 	qiMutedPushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
 	qiMutedSelf       = QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer     = QIcon(QLatin1String("skin:muted_server.svg"));
@@ -438,29 +442,29 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (idx.column() == 0) {
 					if (item->isListener) {
 						return qiEar;
-					} else {
-						// Select the talking-state symbol to display
-						if (p == pSelf && p->bSelfMute) {
-							// This is a workaround for a bug that can lead to the user having muted him/herself but
-							// the talking icon is stuck at qiTalkingOn for some reason.
-							// Until someone figures out how to fix the root of the problem, we'll have this workaround
-							// to cure the symptoms of the bug.
-							return qiTalkingOff;
-						}
+					}
+					// Select the talking-state symbol to display
+					if (p == pSelf && p->bSelfMute) {
+						// This is a workaround for a bug that can lead to the user having muted him/herself but
+						// the talking icon is stuck at qiTalkingOn for some reason.
+						// Until someone figures out how to fix the root of the problem, we'll have this workaround
+						// to cure the symptoms of the bug.
+						return qiTalkingOff;
+					}
 
-						switch (p->tsState) {
-							case Settings::Talking:
-								return qiTalkingOn;
-							case Settings::MutedTalking:
-								return qiTalkingMuted;
-							case Settings::Whispering:
-								return qiTalkingWhisper;
-							case Settings::Shouting:
-								return qiTalkingShout;
-							case Settings::Passive:
-							default:
-								return qiTalkingOff;
-						}
+					bool isUserProvidedAvatar = !p->qbaTextureHash.isEmpty() && !p->qbaTexture.isEmpty();
+					switch (p->tsState) {
+						case Settings::Talking:
+							return isUserProvidedAvatar ? qiCustomTalkingOn : qiTalkingOn;
+						case Settings::MutedTalking:
+							return isUserProvidedAvatar ? qiCustomTalkingMuted : qiTalkingMuted;
+						case Settings::Whispering:
+							return isUserProvidedAvatar ? qiCustomTalkingWhisper : qiTalkingWhisper;
+						case Settings::Shouting:
+							return isUserProvidedAvatar ? qiCustomTalkingShout : qiTalkingShout;
+						case Settings::Passive:
+						default:
+							return qiTalkingOff;
 					}
 				}
 				break;
