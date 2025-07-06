@@ -88,9 +88,10 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	// draw icon
 	ModelItem *item      = static_cast< ModelItem * >(index.internalPointer());
 	ClientUser *user     = item->pUser;
+	const QIcon &icon    = o.icon;
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
-	if (!drawAvatarIcon(*painter, decorationRect.adjusted(-3, 0, -3, 0), user, o.icon)) {
-		o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
+	if (item->isListener || !drawAvatarIcon(*painter, decorationRect.adjusted(-3, 0, -3, 0), user, icon)) {
+		icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
 	}
 
 	// draw text
