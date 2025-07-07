@@ -415,9 +415,6 @@ QVector< LogMessage > Log::qvDeferredLogs;
 Log::Log(QObject *p) : QObject(p) {
 	qRegisterMetaType< MsgType >();
 
-	QAbstractTextDocumentLayout *docLayout = Global::get().mw->qteLog->document()->documentLayout();
-	docLayout->registerHandler(static_cast< int >(TextObjectType::ImageAnimation), new ImageAnimationTextObject());
-
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
 	tts->setVolume(Global::get().s.iTTSVolume);
@@ -727,9 +724,9 @@ std::tuple< Log::TextObjectType, QString > Log::findTextObjectTypeAndFileExtensi
 	return txtObjTypeAndFileExt;
 }
 
-bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
+bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 	qsizetype htmlEndIndex = html.length() - 1;
-	// Return early if input is empty or too small to contain any tag:
+	// Return early if input is too small to contain any tag:
 	if (htmlEndIndex < 2) {
 		return false;
 	}
@@ -808,6 +805,7 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		return txtObj;
 	};
 
+	QTextDocument *doc     = tc->document();
 	bool isAnyCustomTxtObj = false;
 	// Track the end of the previous custom text object and thereby where to move the start of the search to
 	// as well as what HTML is between the currently processed custom text object and the previous one:
@@ -819,11 +817,10 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		}
 		isAnyCustomTxtObj = true;
 
-		LogTextBrowser *log = Global::get().mw->qteLog;
-		QObject *obj        = nullptr;
+		QObject *obj = nullptr;
 		switch (type) {
 			case TextObjectType::ImageAnimation:
-				obj = ImageAnimationTextObject::createImageAnimation(ba, log);
+				obj = ImageAnimationTextObject::createImageAnimation(ba, doc);
 				break;
 			case TextObjectType::NoCustomObject:
 				break;
@@ -837,8 +834,8 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 			continue;
 		}
 
-		QTextCharFormat fmt = log->currentCharFormat();
-		int objType         = static_cast< int >(type);
+		QTextCharFormat fmt;
+		int objType = static_cast< int >(type);
 		fmt.setObjectType(objType);
 		fmt.setProperty(1, QVariant::fromValue(obj));
 		if (width > 0) {
@@ -850,8 +847,13 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		obj->setProperty("characterPos", tc->position());
 		obj->setProperty("fileExtension", fileExt);
 		obj->setProperty("objectType", objType);
-		obj->setProperty("customObjectIndex", ++log->lastCustomObjectIndex);
-		log->customObjects.append(obj);
+		QVariant customObjectsProperty = doc->property("customObjects");
+		auto customObjects             = customObjectsProperty.isValid()
+								 ? qvariant_cast< QList< QObject * > >(customObjectsProperty)
+								 : QList< QObject * >();
+		obj->setProperty("customObjectIndex", customObjects.size());
+		customObjects.append(obj);
+		doc->setProperty("customObjects", QVariant::fromValue(customObjects));
 
 		// Set marker (zero-width space) for custom text object used when copying from selection at least:
 		tc->insertHtml("&#8203;");
@@ -864,7 +866,12 @@ bool Log::htmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 	return isAnyCustomTxtObj;
 }
 
-QString Log::validHtml(const QString &html, QTextCursor *tc) {
+QString Log::setHtml(const QString &html, QTextCursor *tc, std::function< void() > baseClear) {
+	LogTextBrowser::clear(tc->document(), baseClear);
+	return writeHtml(html, tc);
+}
+
+QString Log::writeHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
 	QRectF qr = Mumble::Screen::screenFromWidget(*Global::get().mw)->availableGeometry();
@@ -879,8 +886,9 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	// data URL images to run.
 	(void) qtd.documentLayout();
 	// Parse and insert custom text objects along with the rest of the HTML
-	// if a tag, header and valid data for any is detected, otherwise log the HTML as usual:
-	if (!tc || !htmlWithCustomTextObjects(html, tc)) {
+	// if a tag, header and valid data for any is detected, otherwise write
+	// the HTML in the usual way:
+	if (tc == nullptr || !writeHtmlWithCustomTextObjects(html, tc)) {
 		qtd.setHtml(html);
 	}
 
@@ -1030,9 +1038,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
-		validHtml(console, &tc);
+		writeHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
-		Global::get().mw->qteLog->setTextCursor(tc);
+		tlog->setTextCursor(tc);
 
 		// Set the line height of the trailing blank line to zero
 		tc.setBlockFormat(bf);

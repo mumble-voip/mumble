@@ -21,7 +21,7 @@ private:
 	Q_DISABLE_COPY(LogTextBrowser)
 
 protected:
-	QWidget *widgetInFullScreen;
+	static QWidget *widgetInFullScreen;
 	QString queuedNumericInput;
 	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void wheelEvent(QWheelEvent *) Q_DECL_OVERRIDE;
@@ -30,31 +30,49 @@ protected:
 	QMimeData *createMimeDataFromSelection() const Q_DECL_OVERRIDE;
 
 public:
-	int lastCustomObjectIndex  = -1;
-	int customObjectFocusIndex = -1;
-	QList< QObject * > customObjects;
 	LogTextBrowser(QWidget *p = nullptr);
 
+	static void registerCustomTextObjects(QTextDocument *doc);
+	static void highlightSelectedObject(QTextDocument *doc, QPainter *painter, const QRect &rect,
+										QObject *propertyHolder);
 	static QRect calcRectScaledToScreen(const QSize &size);
-	bool isWidgetInFullScreen();
-	void toggleFullScreen(QWidget *widget);
-	void highlightSelectedObject(QPainter *painter, const QRect &rect, QObject *propertyHolder);
-	QObject *customObjectAt(const QPoint &pos);
-	/// Removes the content of the client's log, deletes the objects used by custom text objects
-	/// and clears the counter for custom objects as well as their focus index.
+	static bool isWidgetInFullScreen();
+	static void toggleFullScreen(QWidget *widget = nullptr);
+
+	static bool mousePressCustomTextObjects(QTextDocument *doc, QMouseEvent *mouseEvt);
+	static bool scrollCustomTextObjects(QTextDocument *doc, QWheelEvent *wheelEvt);
+	static bool keyPressCustomTextObjects(QTextDocument *doc, QKeyEvent *keyEvt, bool isObjSelectionChanged);
+	static QString addedCustomTextObjectsToHtml(const QString &html, QTextCursor *tc, bool isLimitedToSelection = true);
+
+	static void clear(QTextDocument *doc, std::function< void() > baseClear = nullptr);
+	static int getScrollX(QTextDocument *doc);
+	static int getScrollY(QTextDocument *doc);
+	static QPoint getScrollPos(QTextDocument *doc);
+	static QRect getDocumentViewRect(QTextDocument *doc);
+	static void setScrollX(QTextDocument *doc, int scrollPos);
+	static void setScrollY(QTextDocument *doc, int scrollPos);
+	static void changeScrollX(QTextDocument *doc, int change);
+	static void changeScrollY(QTextDocument *doc, int change);
+	static bool isScrolledToBottom(QTextDocument *doc);
+	static void scrollAreaIntoView(QTextDocument *doc, const QRect &rect);
+	static QObject *customObjectAt(QTextDocument *doc, const QPoint &pos);
+	static void update(QTextDocument *doc, const QRect &rect = QRect());
+	static void reflow(QTextDocument *doc);
+
 	void clear();
-	void repaint(const QRect &rect = QRect());
-	void reflow();
 	int getScrollX();
 	int getScrollY();
 	QPoint getScrollPos();
-	QRect getLogRect();
+	QRect getDocumentViewRect();
 	void setScrollX(int scrollPos);
 	void setScrollY(int scrollPos);
 	void changeScrollX(int change);
 	void changeScrollY(int change);
-	void scrollObjectIntoView(const QRect &rect);
 	bool isScrolledToBottom();
+	void scrollAreaIntoView(const QRect &rect);
+	QObject *customObjectAt(const QPoint &pos);
+	void update(const QRect &rect = QRect());
+	void reflow();
 };
 
 class ChatbarTextEdit : public QTextEdit {
@@ -85,7 +103,7 @@ protected:
 	bool canInsertFromMimeData(const QMimeData *source) const Q_DECL_OVERRIDE;
 	void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	bool sendImagesFromMimeData(const QMimeData *source);
-	bool emitPastedImage(const QImage &image, const QString &filePath = "");
+	bool emitPastedImage(const QImage &image, const QString &filePath = "", const QByteArray &imageBa = QByteArray());
 
 public:
 	void setDefaultText(const QString &, bool = false);
@@ -156,7 +174,7 @@ public:
 	static void setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size);
 };
 
-class ImageAnimationTextObject : public QObject, public QTextObjectInterface {
+class ImageAnimationTextObject : public QObject, QTextObjectInterface {
 	Q_OBJECT
 	Q_INTERFACES(QTextObjectInterface)
 
@@ -167,18 +185,18 @@ protected:
 
 public:
 	static bool areVideoControlsOn;
-	ImageAnimationTextObject();
-	static QObject *createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
+	ImageAnimationTextObject(QTextDocument *parentDoc = nullptr);
+	static QObject *createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc,
 										 bool &isAnimationCheckOnly);
-	static QObject *createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog);
-	static void mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
+	static QObject *createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc);
+	static bool mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
 	static bool scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp);
-	static void keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
+	static bool keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
 
 	enum class LoopMode { Unchanged, Loop, NoLoop };
 	static QString loopModeToString(LoopMode mode);
 
-	static void toggleVideoControls(LogTextBrowser *log);
+	static void toggleVideoControls(QTextDocument *doc);
 	static void toggleVideoControlsFullScreen(QObject *propertyHolder);
 	static int getTotalTime(QObject *propertyHolder);
 	static int getCurrentTime(QObject *propertyHolder, int frameIndex);
@@ -190,7 +208,7 @@ public:
 	static void togglePause(QMovie *animation);
 	static void toggleCache(QMovie *animation);
 	static void toggleFullScreen(QMovie *animation);
-	static void escapeFullScreen(QMovie *animation);
+	static void escapeFullScreen();
 	static void stopPlayback(QMovie *animation);
 	static void resetPlayback(QMovie *animation);
 	static void setSpeed(QMovie *animation, int percentage);
@@ -212,7 +230,7 @@ protected:
 	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 public:
-	FullScreenImageAnimation(QMovie *animation, LogTextBrowser *parent = nullptr);
+	FullScreenImageAnimation(QMovie *animation, QWidget *parentWidget = nullptr);
 };
 
 class DockTitleBar : public QLabel {

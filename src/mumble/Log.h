@@ -139,7 +139,7 @@ protected:
 #endif
 	unsigned int uiLastId;
 	QDate qdDate;
-	static bool htmlWithCustomTextObjects(const QString &html, QTextCursor *tc);
+	static bool writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc);
 	static const QStringList allowedSchemes();
 	void postNotification(MsgType mt, const QString &plain);
 	void postQtNotification(MsgType mt, const QString &plain);
@@ -149,7 +149,8 @@ public:
 	QString msgName(MsgType t) const;
 	void setIgnore(MsgType t, int ignore = 1 << 30);
 	void clearIgnore();
-	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
+	static QString setHtml(const QString &html, QTextCursor *tc, std::function< void() > baseClear = nullptr);
+	static QString writeHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
 	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "jpg");
 	static bool isFileExtension(const QByteArray &ext, const QByteArray &header);

@@ -24,8 +24,29 @@
 #include <QtGui/QTextDocumentFragment>
 #include <QtWidgets/QScrollBar>
 
+QWidget *LogTextBrowser::widgetInFullScreen = nullptr;
+
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
-	widgetInFullScreen = nullptr;
+	connect(
+		this, &QTextEdit::textChanged, this, [this]() { registerCustomTextObjects(document()); },
+		Qt::SingleShotConnection);
+}
+
+void LogTextBrowser::registerCustomTextObjects(QTextDocument *doc) {
+	QAbstractTextDocumentLayout *layout = doc->documentLayout();
+	layout->registerHandler(static_cast< int >(Log::TextObjectType::ImageAnimation), new ImageAnimationTextObject(doc));
+	doc->setProperty("customObjectFocusIndex", -1);
+}
+
+void LogTextBrowser::highlightSelectedObject(QTextDocument *doc, QPainter *painter, const QRect &rect,
+											 QObject *propertyHolder) {
+	if (doc->property("customObjectFocusIndex").toInt() != propertyHolder->property("customObjectIndex").toInt()) {
+		return;
+	}
+	painter->save();
+	painter->setPen(QPen(QColor(50, 50, 200), 2));
+	painter->drawRect(rect.adjusted(-1, -1, 1, 1));
+	painter->restore();
 }
 
 QRect LogTextBrowser::calcRectScaledToScreen(const QSize &size) {
@@ -34,6 +55,10 @@ QRect LogTextBrowser::calcRectScaledToScreen(const QSize &size) {
 	QPoint centerPadding((int) round((screenSize.width() - sizeScaled.width()) / (double) 2),
 						 (int) round((screenSize.height() - sizeScaled.height()) / (double) 2));
 	return QRect(centerPadding, sizeScaled);
+}
+
+bool LogTextBrowser::isWidgetInFullScreen() {
+	return widgetInFullScreen != nullptr;
 }
 
 void LogTextBrowser::toggleFullScreen(QWidget *widget) {
@@ -52,42 +77,265 @@ void LogTextBrowser::toggleFullScreen(QWidget *widget) {
 		}
 	}
 
-	connect(widget, &QWidget::destroyed, this, [&wgtInFs = widgetInFullScreen]() { wgtInFs = nullptr; });
+	connect(widget, &QWidget::destroyed, []() { widgetInFullScreen = nullptr; });
 	widget->setAttribute(Qt::WA_DeleteOnClose);
 	widget->setWindowFlag(Qt::Window);
 	widget->showFullScreen();
 	widgetInFullScreen = widget;
 }
 
-bool LogTextBrowser::isWidgetInFullScreen() {
-	return widgetInFullScreen != nullptr;
+bool LogTextBrowser::mousePressCustomTextObjects(QTextDocument *doc, QMouseEvent *mouseEvt) {
+	QPoint mouseDocPos          = mouseEvt->pos() + getScrollPos(doc);
+	Qt::MouseButton mouseButton = mouseEvt->button();
+	bool isAction               = false;
+
+	QObject *obj = customObjectAt(doc, mouseDocPos);
+	if (obj != nullptr) {
+		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
+			case Log::TextObjectType::ImageAnimation:
+				ImageAnimationTextObject::mousePress(qobject_cast< QMovie * >(obj), mouseDocPos, mouseButton);
+				break;
+			case Log::TextObjectType::NoCustomObject:
+				break;
+		}
+	}
+	return isAction;
 }
 
-void LogTextBrowser::highlightSelectedObject(QPainter *painter, const QRect &rect, QObject *propertyHolder) {
-	if (customObjectFocusIndex != propertyHolder->property("customObjectIndex").toInt()) {
-		return;
+bool LogTextBrowser::scrollCustomTextObjects(QTextDocument *doc, QWheelEvent *wheelEvt) {
+	QPoint mouseDocPos = wheelEvt->position().toPoint() + getScrollPos(doc);
+	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
+	bool isAction      = false;
+
+	QObject *obj = customObjectAt(doc, mouseDocPos);
+	if (obj != nullptr) {
+		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
+			case Log::TextObjectType::ImageAnimation:
+				isAction = ImageAnimationTextObject::scroll(qobject_cast< QMovie * >(obj), mouseDocPos, isScrollingUp);
+				break;
+			default:
+				break;
+		}
 	}
-	painter->setPen(QPen(QColor(50, 50, 200), 2));
-	painter->drawRect(rect.adjusted(-1, -1, 1, 1));
+	return isAction;
+}
+
+bool LogTextBrowser::keyPressCustomTextObjects(QTextDocument *doc, QKeyEvent *keyEvt, bool isObjSelectionChanged) {
+	auto key      = static_cast< Qt::Key >(keyEvt->key());
+	bool isAction = false;
+
+	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
+	QObject *obj       = customObjects[doc->property("customObjectFocusIndex").toInt()];
+	switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
+		case Log::TextObjectType::ImageAnimation:
+			isAction = ImageAnimationTextObject::keyPress(qobject_cast< QMovie * >(obj), key, isObjSelectionChanged);
+			break;
+		case Log::TextObjectType::NoCustomObject:
+			break;
+	}
+	return isAction;
+}
+
+QString LogTextBrowser::addedCustomTextObjectsToHtml(const QString &html, QTextCursor *tc, bool isLimitedToSelection) {
+	auto customObjects   = qvariant_cast< QList< QObject * > >(tc->document()->property("customObjects"));
+	qsizetype htmlLength = html.size();
+	QString htmlWithCustomTextObjects;
+	htmlWithCustomTextObjects.reserve(htmlLength);
+
+	qsizetype lastObjIndex      = customObjects.size() - 1;
+	qsizetype objIndex          = -1;
+	int selectionStartIndex     = tc->selectionStart();
+	int selectionEndIndex       = tc->selectionEnd();
+	qsizetype txtObjIndex       = 0;
+	qsizetype previousHtmlIndex = 0;
+	while (objIndex < lastObjIndex) {
+		QObject *obj = customObjects[++objIndex];
+		if (isLimitedToSelection) {
+			int charPos = obj->property("characterPos").toInt();
+			if (charPos < selectionStartIndex || charPos > selectionEndIndex) {
+				continue;
+			}
+		}
+		// Search by marker (zero-width space) for the next custom text object:
+		txtObjIndex = html.indexOf("​", txtObjIndex);
+		if (txtObjIndex == -1) {
+			break;
+		}
+		auto txtObjType = qvariant_cast< Log::TextObjectType >(obj->property("objectType"));
+		if (txtObjType != Log::TextObjectType::ImageAnimation) {
+			if (++txtObjIndex == htmlLength) {
+				break;
+			}
+			continue;
+		}
+
+		auto *animation          = qobject_cast< QMovie * >(obj);
+		QIODevice *device        = animation->device();
+		qint64 previousDevicePos = device->pos();
+		device->reset();
+		auto base64Image = qvariant_cast< QString >(device->readAll().toBase64());
+		device->seek(previousDevicePos);
+
+		QStringList attributes;
+		QVariant propertyWidth  = animation->property("overrideWidth");
+		QVariant propertyHeight = animation->property("overrideHeight");
+		if (propertyWidth.isValid()) {
+			attributes.append(QLatin1String("width=\"%1\"").arg(QString::number(propertyWidth.toInt())));
+		}
+		if (propertyHeight.isValid()) {
+			attributes.append(QLatin1String("height=\"%1\"").arg(QString::number(propertyHeight.toInt())));
+		}
+
+		QString attributesStr = attributes.size() > 0 ? QLatin1String(" %1").arg(attributes.join(' ')) : "";
+		QString ext           = animation->property("fileExtension").toString();
+		QString img = QLatin1String("<img src=\"data:image/%2;base64,%1\"%3 />").arg(base64Image, ext, attributesStr);
+
+		htmlWithCustomTextObjects += html.sliced(previousHtmlIndex, txtObjIndex - previousHtmlIndex) + img;
+		previousHtmlIndex = ++txtObjIndex;
+	}
+	if (previousHtmlIndex != htmlLength) {
+		htmlWithCustomTextObjects += html.sliced(previousHtmlIndex);
+	}
+
+	htmlWithCustomTextObjects.squeeze();
+	return htmlWithCustomTextObjects;
+}
+
+void LogTextBrowser::clear(QTextDocument *doc, std::function< void() > baseClear) {
+	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
+	for (QObject *obj : customObjects) {
+		obj->deleteLater();
+	}
+	customObjects.clear();
+	doc->setProperty("customObjects", QVariant::fromValue(customObjects));
+	doc->setProperty("customObjectFocusIndex", -1);
+	if (baseClear != nullptr) {
+		return baseClear();
+	}
+	doc->clear();
+}
+
+int LogTextBrowser::getScrollX(QTextDocument *doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	return scrollArea != nullptr ? scrollArea->horizontalScrollBar()->value() : -1;
+}
+
+int LogTextBrowser::getScrollY(QTextDocument *doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	return scrollArea != nullptr ? scrollArea->verticalScrollBar()->value() : -1;
+}
+
+QPoint LogTextBrowser::getScrollPos(QTextDocument *doc) {
+	return QPoint(getScrollX(doc), getScrollY(doc));
+}
+
+QRect LogTextBrowser::getDocumentViewRect(QTextDocument *doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	return scrollArea != nullptr ? QRect(getScrollPos(doc), scrollArea->viewport()->size()) : QRect();
+}
+
+void LogTextBrowser::setScrollX(QTextDocument *doc, int scrollPos) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	if (scrollArea != nullptr) {
+		scrollArea->horizontalScrollBar()->setValue(scrollPos);
+	}
+}
+
+void LogTextBrowser::setScrollY(QTextDocument *doc, int scrollPos) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	if (scrollArea != nullptr) {
+		scrollArea->verticalScrollBar()->setValue(scrollPos);
+	}
+}
+
+void LogTextBrowser::changeScrollX(QTextDocument *doc, int change) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	if (scrollArea != nullptr) {
+		QScrollBar *scrollBar = scrollArea->horizontalScrollBar();
+		scrollBar->setValue(scrollBar->value() + change);
+	}
+}
+
+void LogTextBrowser::changeScrollY(QTextDocument *doc, int change) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	if (scrollArea != nullptr) {
+		QScrollBar *scrollBar = scrollArea->verticalScrollBar();
+		scrollBar->setValue(scrollBar->value() + change);
+	}
+}
+
+bool LogTextBrowser::isScrolledToBottom(QTextDocument *doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+	if (scrollArea != nullptr) {
+		QScrollBar *scrollBar = scrollArea->verticalScrollBar();
+		return scrollBar->value() == scrollBar->maximum();
+	}
+	return false;
+}
+
+void LogTextBrowser::scrollAreaIntoView(QTextDocument *doc, const QRect &rect) {
+	QRect viewRect          = getDocumentViewRect(doc);
+	int rectXWithWidth      = rect.x() + rect.width();
+	int viewRectXWithWidth  = viewRect.x() + viewRect.width();
+	int rectYWithHeight     = rect.y() + rect.height();
+	int viewRectYWithHeight = viewRect.y() + viewRect.height();
+
+	bool isAreaToTheRight  = rectXWithWidth > viewRectXWithWidth;
+	bool isAreaToTheLeft   = rect.x() < viewRect.x();
+	bool isAreaBelow       = rectYWithHeight > viewRectYWithHeight;
+	bool isAreaAbove       = rect.y() < viewRect.y();
+	bool isAreaAtAllInView = rect.x() < viewRectXWithWidth && rectXWithWidth > viewRect.x()
+							 && rect.y() < viewRectYWithHeight && rectYWithHeight > viewRect.y();
+
+	int offset          = 20;
+	bool isWithinWidth  = rect.width() <= viewRect.width() - offset;
+	bool isWithinHeight = rect.height() <= viewRect.height() - offset;
+	// Scroll to the area if it fits the viewport and is at all out of view. Otherwise only
+	// scroll to the area if it is entirely out of view. Both ways scroll just far enough, with the set offset as
+	// margin, to show the area at the bottom or top of the viewport if the previous position was above or below the
+	// area respectively. If the area does not fit the viewport then scroll as far as the start or end of the
+	// area is still in view if the previous position was entirely above or below the area respectively. The same
+	// principles apply horizontally, where below is to the right and above is to the left:
+	if ((isWithinWidth && (isAreaToTheRight || isAreaToTheLeft)) || !isAreaAtAllInView) {
+		setScrollX(doc, (isWithinWidth && isAreaToTheRight) || (!isWithinWidth && isAreaToTheLeft)
+							? rectXWithWidth - viewRect.width() + offset
+							: rect.x() - offset);
+	}
+	if ((isWithinHeight && (isAreaBelow || isAreaAbove)) || !isAreaAtAllInView) {
+		setScrollY(doc, (isWithinHeight && isAreaBelow) || (!isWithinHeight && isAreaAbove)
+							? rectYWithHeight - viewRect.height() + offset
+							: rect.y() - offset);
+	}
+	if (getScrollPos(doc) == viewRect.topLeft()) {
+		update(doc);
+	}
+}
+
+QObject *LogTextBrowser::customObjectAt(QTextDocument *doc, const QPoint &pos) {
+	QTextFormat fmt = doc->documentLayout()->formatAt(pos);
+	if (!fmt.hasProperty(1)) {
+		return nullptr;
+	}
+	auto *obj  = qvariant_cast< QObject * >(fmt.property(1));
+	QRect rect = obj->property("posAndSize").toRect();
+	// Ensure the selection was within the text object's vertical space,
+	// such as if an inline animated image is not as tall as the content before it:
+	if (!VideoUtils::isInBoundsOnAxis(pos.y(), rect.y(), rect.height())) {
+		return nullptr;
+	}
+	return obj;
+}
+
+void LogTextBrowser::update(QTextDocument *doc, const QRect &rect) {
+	emit doc->documentLayout()->update(!rect.isEmpty() ? rect : getDocumentViewRect(doc));
+}
+
+void LogTextBrowser::reflow(QTextDocument *doc) {
+	doc->markContentsDirty(0, doc->characterCount());
 }
 
 void LogTextBrowser::clear() {
-	for (QObject *object : customObjects) {
-		object->deleteLater();
-	}
-	lastCustomObjectIndex  = -1;
-	customObjectFocusIndex = -1;
-	customObjects.clear();
-	QTextBrowser::clear();
-}
-
-void LogTextBrowser::repaint(const QRect &rect) {
-	emit document()->documentLayout()->update(!rect.isEmpty() ? rect : getLogRect());
-}
-
-void LogTextBrowser::reflow() {
-	QTextDocument *doc = document();
-	doc->markContentsDirty(0, doc->characterCount());
+	clear(document(), std::bind(&QTextBrowser::clear, this));
 }
 
 int LogTextBrowser::getScrollX() {
@@ -102,7 +350,7 @@ QPoint LogTextBrowser::getScrollPos() {
 	return QPoint(getScrollX(), getScrollY());
 }
 
-QRect LogTextBrowser::getLogRect() {
+QRect LogTextBrowser::getDocumentViewRect() {
 	return QRect(getScrollPos(), size());
 }
 
@@ -115,123 +363,56 @@ void LogTextBrowser::setScrollY(int scrollPos) {
 }
 
 void LogTextBrowser::changeScrollX(int change) {
-	QScrollBar *scrollBar = horizontalScrollBar();
-	scrollBar->setValue(scrollBar->value() + change);
+	changeScrollX(document(), change);
 }
 
 void LogTextBrowser::changeScrollY(int change) {
-	QScrollBar *scrollBar = verticalScrollBar();
-	scrollBar->setValue(scrollBar->value() + change);
+	changeScrollY(document(), change);
 }
 
-void LogTextBrowser::scrollObjectIntoView(const QRect &rect) {
-	QRect logRect          = getLogRect();
-	int rectXWithWidth     = rect.x() + rect.width();
-	int logRectXWithWidth  = logRect.x() + logRect.width();
-	int rectYWithHeight    = rect.y() + rect.height();
-	int logRectYWithHeight = logRect.y() + logRect.height();
-
-	bool isObjectToTheRight  = rectXWithWidth > logRectXWithWidth;
-	bool isObjectToTheLeft   = rect.x() < logRect.x();
-	bool isObjectBelow       = rectYWithHeight > logRectYWithHeight;
-	bool isObjectAbove       = rect.y() < logRect.y();
-	bool isObjectAtAllInView = rect.x() < logRectXWithWidth && rectXWithWidth > logRect.x()
-							   && rect.y() < logRectYWithHeight && rectYWithHeight > logRect.y();
-
-	int offset          = 20;
-	bool isWithinWidth  = rect.width() <= logRect.width() - offset;
-	bool isWithinHeight = rect.height() <= logRect.height() - offset;
-	// Scroll to the object if it fits the log window and is at all out of view. Otherwise only
-	// scroll to the object if it is entirely out of view. Both ways scroll just far enough, with the set offset as
-	// margin, to show the object at the bottom or top of the log window if the previous position was above or below the
-	// object respectively. If the object does not fit the log window then scroll as far as the start or end of the
-	// object is still in view if the previous position was entirely above or below the object respectively. The same
-	// principles apply horizontally, where below is to the right and above is to the left:
-	if ((isWithinWidth && (isObjectToTheRight || isObjectToTheLeft)) || !isObjectAtAllInView) {
-		setScrollX((isWithinWidth && isObjectToTheRight) || (!isWithinWidth && isObjectToTheLeft)
-					   ? rectXWithWidth - logRect.width() + offset
-					   : rect.x() - offset);
-	}
-	if ((isWithinHeight && (isObjectBelow || isObjectAbove)) || !isObjectAtAllInView) {
-		setScrollY((isWithinHeight && isObjectBelow) || (!isWithinHeight && isObjectAbove)
-					   ? rectYWithHeight - logRect.height() + offset
-					   : rect.y() - offset);
-	}
-	if (getScrollPos() == logRect.topLeft()) {
-		repaint();
-	}
+void LogTextBrowser::scrollAreaIntoView(const QRect &rect) {
+	scrollAreaIntoView(document(), rect);
 }
 
 bool LogTextBrowser::isScrolledToBottom() {
-	const QScrollBar *scrollBar = verticalScrollBar();
-	return scrollBar->value() == scrollBar->maximum();
+	return isScrolledToBottom(document());
 }
 
 QObject *LogTextBrowser::customObjectAt(const QPoint &pos) {
-	QTextFormat fmt = document()->documentLayout()->formatAt(pos);
-	if (!fmt.hasProperty(1)) {
-		return nullptr;
-	}
-	QObject *obj = qvariant_cast< QObject * >(fmt.property(1));
-	QRect rect   = obj->property("posAndSize").toRect();
-	// Ensure the selection was within the text object's vertical space,
-	// such as if an inline animation is not as tall as the content before it:
-	if (!VideoUtils::isInBoundsOnAxis(pos.y(), rect.y(), rect.height())) {
-		return nullptr;
-	}
-	return obj;
+	return customObjectAt(document(), pos);
+}
+
+void LogTextBrowser::update(const QRect &rect) {
+	update(document(), rect);
+}
+
+void LogTextBrowser::reflow() {
+	reflow(document());
 }
 
 void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
-	QPoint mouseDocPos          = mouseEvt->pos() + getScrollPos();
-	Qt::MouseButton mouseButton = mouseEvt->button();
-
-	QObject *obj = customObjectAt(mouseDocPos);
-	if (obj == nullptr) {
-		return;
-	}
-	switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
-		case Log::TextObjectType::ImageAnimation: {
-			QMovie *animation = qobject_cast< QMovie * >(obj);
-			ImageAnimationTextObject::mousePress(animation, mouseDocPos, mouseButton);
-			break;
-		}
-		case Log::TextObjectType::NoCustomObject:
-			break;
+	if (mousePressCustomTextObjects(document(), mouseEvt)) {
+		mouseEvt->accept();
 	}
 }
 
 void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
-	QPoint mouseDocPos = wheelEvt->position().toPoint() + getScrollPos();
-	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
-
-	QObject *obj              = customObjectAt(mouseDocPos);
-	bool isCustomScrollAction = false;
-	if (obj != nullptr) {
-		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
-			case Log::TextObjectType::ImageAnimation: {
-				QMovie *animation    = qobject_cast< QMovie * >(obj);
-				isCustomScrollAction = ImageAnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp);
-				break;
-			}
-			default:
-				break;
-		}
-	}
-	if (!isCustomScrollAction) {
+	if (!scrollCustomTextObjects(document(), wheelEvt)) {
 		QTextBrowser::wheelEvent(wheelEvt);
 	}
 }
 
 void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
-	Qt::Key key                     = static_cast< Qt::Key >(keyEvt->key());
+	auto key                        = static_cast< Qt::Key >(keyEvt->key());
 	Qt::KeyboardModifiers modifiers = QApplication::keyboardModifiers();
-	int logWindowHeight             = height();
-	int logInternalHeight           = verticalScrollBar()->maximum();
+	QTextDocument *doc              = document();
+	int viewHeight                  = height();
+	int docHeight                   = verticalScrollBar()->maximum();
+	auto customObjects              = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
 
-	int lastObjectIndex  = lastCustomObjectIndex;
-	int objectFocusIndex = customObjectFocusIndex;
-	int scrollStep       = 15;
+	int lastIndex  = customObjects.size() - 1;
+	int focusIndex = doc->property("customObjectFocusIndex").toInt();
+	int scrollStep = 15;
 	if (modifiers.testFlag(Qt::ControlModifier)) {
 		switch (key) {
 			case Qt::Key_A:
@@ -272,45 +453,35 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 		case Qt::Key_Left:
 			return changeScrollX(-scrollStep);
 		case Qt::Key_PageDown:
-			return changeScrollY(logWindowHeight);
+			return changeScrollY(viewHeight);
 		case Qt::Key_PageUp:
-			return changeScrollY(-logWindowHeight);
+			return changeScrollY(-viewHeight);
 		case Qt::Key_Home:
 			return setScrollY(0);
 		case Qt::Key_End:
-			return setScrollY(logInternalHeight);
+			return setScrollY(docHeight);
 		case Qt::Key_Return:
 		case Qt::Key_Enter:
-			if (lastObjectIndex != -1) {
-				customObjectFocusIndex += objectFocusIndex == lastObjectIndex ? -lastObjectIndex : 1;
+			if (lastIndex != -1) {
+				int indexMovedBy = focusIndex == lastIndex ? -lastIndex : 1;
+				doc->setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
 			}
 			break;
 		case Qt::Key_Backspace:
-			if (lastObjectIndex != -1) {
-				customObjectFocusIndex +=
-					objectFocusIndex < 1 ? lastObjectIndex + (objectFocusIndex == -1 ? 1 : 0) : -1;
+			if (lastIndex != -1) {
+				int indexMovedBy = focusIndex < 1 ? lastIndex + (focusIndex == -1 ? 1 : 0) : -1;
+				doc->setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
 			}
 			break;
 		case Qt::Key_Escape:
-			customObjectFocusIndex = -1;
-			return repaint();
+			doc->setProperty("customObjectFocusIndex", -1);
+			return update();
 		default:
 			break;
 	}
-	if (customObjectFocusIndex == -1) {
-		return;
-	}
-	bool isObjectSelectionChanged = customObjectFocusIndex != objectFocusIndex;
-
-	QObject *object = customObjects[customObjectFocusIndex];
-	switch (qvariant_cast< Log::TextObjectType >(object->property("objectType"))) {
-		case Log::TextObjectType::ImageAnimation: {
-			QMovie *animation = qobject_cast< QMovie * >(object);
-			ImageAnimationTextObject::keyPress(animation, key, isObjectSelectionChanged);
-			break;
-		}
-		case Log::TextObjectType::NoCustomObject:
-			break;
+	int newFocusIndex = doc->property("customObjectFocusIndex").toInt();
+	if (newFocusIndex != -1) {
+		keyPressCustomTextObjects(doc, keyEvt, newFocusIndex != focusIndex);
 	}
 }
 
@@ -320,76 +491,28 @@ void LogTextBrowser::keyReleaseEvent(QKeyEvent *keyEvt) {
 		return;
 	}
 
-	bool isObjectFocusIndex;
-	int objectFocusIndex           = queuedNumericInput.toInt(&isObjectFocusIndex);
-	bool isObjectFocusIndexTooHigh = !isObjectFocusIndex || objectFocusIndex > lastCustomObjectIndex;
+	QTextDocument *doc = document();
+	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
+	int lastIndex      = customObjects.size() - 1;
+	bool isFocusIndex;
+	int inputFocusIndex      = queuedNumericInput.toInt(&isFocusIndex);
+	bool isFocusIndexTooHigh = !isFocusIndex || inputFocusIndex > lastIndex;
 
-	customObjectFocusIndex = isObjectFocusIndexTooHigh ? lastCustomObjectIndex : objectFocusIndex;
+	int focusIndex = isFocusIndexTooHigh ? lastIndex : inputFocusIndex;
+	doc->setProperty("customObjectFocusIndex", focusIndex);
 	queuedNumericInput.clear();
-	if (customObjectFocusIndex != -1) {
-		QObject *object = customObjects[customObjectFocusIndex];
-		return scrollObjectIntoView(object->property("posAndSize").toRect());
+	if (focusIndex != -1) {
+		QObject *obj = customObjects[focusIndex];
+		return scrollAreaIntoView(obj->property("posAndSize").toRect());
 	}
-	repaint();
+	update();
 }
 
 QMimeData *LogTextBrowser::createMimeDataFromSelection() const {
-	QMimeData *mimeData   = QTextEdit::createMimeDataFromSelection();
-	QString html          = mimeData->html();
-	qsizetype htmlLength  = html.size();
-	const QTextCursor &tc = textCursor();
-
-	qsizetype lastObjIndex  = customObjects.size() - 1;
-	qsizetype objIndex      = -1;
-	int selectionStartIndex = tc.selectionStart();
-	int selectionEndIndex   = tc.selectionEnd();
-	qsizetype txtObjIndex   = 0;
-	while (objIndex < lastObjIndex) {
-		QObject *obj = customObjects[++objIndex];
-		int charPos  = obj->property("characterPos").toInt();
-		if (charPos < selectionStartIndex || charPos > selectionEndIndex) {
-			continue;
-		}
-		// Search by marker (zero-width space) for the next custom text object:
-		txtObjIndex = html.indexOf("​", txtObjIndex);
-		if (txtObjIndex == -1) {
-			break;
-		}
-		auto txtObjType = qvariant_cast< Log::TextObjectType >(obj->property("objectType"));
-		if (txtObjType != Log::TextObjectType::ImageAnimation) {
-			if (++txtObjIndex == htmlLength) {
-				break;
-			}
-			continue;
-		}
-
-		auto *animation          = qobject_cast< QMovie * >(obj);
-		QIODevice *device        = animation->device();
-		qint64 previousDevicePos = device->pos();
-		device->reset();
-		auto base64Image = qvariant_cast< QString >(device->readAll().toBase64());
-		device->seek(previousDevicePos);
-
-		QStringList attributes;
-		QVariant propertyWidth  = animation->property("overrideWidth");
-		QVariant propertyHeight = animation->property("overrideHeight");
-		if (propertyWidth.isValid()) {
-			attributes.append(QLatin1String("width=\"%1\"").arg(QString::number(propertyWidth.toInt())));
-		}
-		if (propertyHeight.isValid()) {
-			attributes.append(QLatin1String("height=\"%1\"").arg(QString::number(propertyHeight.toInt())));
-		}
-
-		QString attributesStr = attributes.size() > 0 ? QLatin1String(" %1").arg(attributes.join(' ')) : "";
-		QString ext           = animation->property("fileExtension").toString();
-		QString img = QLatin1String("<img src=\"data:image/%2;base64,%1\"%3 />").arg(base64Image, ext, attributesStr);
-
-		html.replace(txtObjIndex, 1, img);
-		txtObjIndex += img.size();
-	}
-
-	mimeData->setHtml(html);
-	return mimeData;
+	QMimeData *mime = QTextEdit::createMimeDataFromSelection();
+	QTextCursor tc  = textCursor();
+	mime->setHtml(addedCustomTextObjectsToHtml(mime->html(), &tc));
+	return mime;
 }
 
 void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
@@ -542,8 +665,9 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 		if (Global::get().bAllowHTML) {
 			if (source->hasImage()) {
 				// Process the image pasted onto the chatbar.
-				QImage image = qvariant_cast< QImage >(source->imageData());
-				return emitPastedImage(image);
+				QByteArray imageBa = source->data("image/gif");
+				auto image = qvariant_cast< QImage >(source->imageData());
+				return emitPastedImage(image, "", imageBa);
 			}
 			if (source->hasUrls()) {
 				// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
@@ -564,21 +688,26 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 	return false;
 }
 
-bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePath) {
+bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePath, const QByteArray &imageBa) {
 	qsizetype fileExtStartIndex = filePath.lastIndexOf('.') + 1;
 	QString fileExt             = (fileExtStartIndex != 0 ? filePath.sliced(fileExtStartIndex) : "").toLower();
 
-	Log::TextObjectType txtObjType = Log::findTextObjectType(fileExt);
+	bool isImageBa                 = !imageBa.isEmpty();
+	Log::TextObjectType txtObjType = isImageBa ? std::get< 0 >(Log::findTextObjectTypeAndFileExtension(imageBa))
+	                                           : Log::findTextObjectType(fileExt);
 	bool isReadError               = false;
 	if (txtObjType == Log::TextObjectType::ImageAnimation) {
-		QFile file(filePath);
-		isReadError = !file.open(QIODevice::ReadOnly);
-		if (!isReadError) {
-			QByteArray animationBa(file.readAll());
-			bool isAnimation = true;
+		QFile file;
+		if (!isImageBa) {
+			file.setFileName(filePath);
+			isReadError = !file.open(QIODevice::ReadOnly);
+		}
+		if (!isReadError || isImageBa) {
+			QByteArray animationBa = isImageBa ? imageBa : file.readAll();
+			bool isAnimation       = true;
 			ImageAnimationTextObject::createImageAnimation(animationBa, nullptr, isAnimation);
 			if (isAnimation) {
-				QString base64Image = qvariant_cast< QString >(animationBa.toBase64());
+				auto base64Image = qvariant_cast< QString >(animationBa.toBase64());
 				QString img = QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, fileExt);
 				emit pastedImage("<br/>" + img);
 				return true;
@@ -693,6 +822,7 @@ double VideoUtils::videoBarProportionAt(const QPoint &pos, const QRect &rect) {
 }
 
 void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject *propertyHolder, double opacity) {
+	painter->save();
 	auto convertUnit = [](int integer, int exponent, int decimalAmount = 0) -> double {
 		bool noDecimals              = decimalAmount == 0;
 		int exponentForDecimalAmount = exponent < 0 ? exponent + decimalAmount : exponent - decimalAmount;
@@ -765,8 +895,8 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 		return timeStr;
 	};
 
-	Log::TextObjectType objType = qvariant_cast< Log::TextObjectType >(propertyHolder->property("objectType"));
-	bool isFullScreen           = propertyHolder->property("isFullScreen").toBool();
+	auto objType         = qvariant_cast< Log::TextObjectType >(propertyHolder->property("objectType"));
+	bool isFullScreen    = propertyHolder->property("isFullScreen").toBool();
 	auto calcXFromOffset = [&rect](int offsetX) { return calcPosOnAxisFromOffset(offsetX, rect.x(), rect.width()); };
 	int cacheX           = calcXFromOffset(cacheOffsetX);
 	int loopModeX        = calcXFromOffset(loopModeOffsetX);
@@ -787,8 +917,8 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 	int currentMs       = -1;
 	switch (objType) {
 		case Log::TextObjectType::ImageAnimation: {
-			QMovie *animation = qobject_cast< QMovie * >(propertyHolder);
-			int frameIndex    = animation->currentFrameNumber();
+			auto *animation = qobject_cast< QMovie * >(propertyHolder);
+			int frameIndex  = animation->currentFrameNumber();
 			wasPaused = animation->state() != QMovie::Running && !animation->property("isPlayingInReverse").toBool();
 			wasCached = animation->cacheMode() == QMovie::CacheAll;
 			speedPercentage = animation->speed();
@@ -906,9 +1036,11 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 		painter->fillRect(QRect(iconTopPos, pauseBarSize), playIconBrush);
 		painter->fillRect(QRect(QPoint(iconTopPos.x() + 9, iconTopPos.y()), pauseBarSize), playIconBrush);
 	}
+	painter->restore();
 }
 
 void VideoUtils::drawCenteredPlayIcon(QPainter *painter, const QRect &rect) {
+	painter->save();
 	auto [width, height] = rect.size();
 	int centerX          = (int) round(rect.x() + width / (double) 2);
 	int centerY          = (int) round(rect.y() + height / (double) 2);
@@ -943,6 +1075,7 @@ void VideoUtils::drawCenteredPlayIcon(QPainter *painter, const QRect &rect) {
 	painter->setPen(QPen(Qt::black, 0.25));
 	drawCenteredCircle(ringDiameter - ringOutlineOffset);
 	drawCenteredCircle(ringDiameter + ringOutlineOffset);
+	painter->restore();
 }
 
 void VideoUtils::addVideoControlsTransition(QObject *propertyHolder, QWidget *area, bool isIdleCursorHidden) {
@@ -1013,8 +1146,8 @@ void VideoUtils::updateVideoControls(QObject *propertyHolder, QWidget *area) {
 	if (area != nullptr) {
 		emit area->update(videoControlsRect);
 	} else {
-		LogTextBrowser *log = qobject_cast< LogTextBrowser * >(propertyHolder->parent());
-		log->repaint(videoControlsRect);
+		auto *doc = qobject_cast< QTextDocument * >(propertyHolder->parent());
+		LogTextBrowser::update(doc, videoControlsRect);
 	}
 }
 
@@ -1068,10 +1201,13 @@ void VideoUtils::setAttributesWidthAndHeight(QObject *propertyHolder, QSize &siz
 
 bool ImageAnimationTextObject::areVideoControlsOn = false;
 
-QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parentLog,
+ImageAnimationTextObject::ImageAnimationTextObject(QTextDocument *parentDoc) : QObject(parentDoc) {
+}
+
+QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc,
 														bool &isAnimationCheckOnly) {
-	QMovie *animation = new QMovie(parentLog);
-	QBuffer *buffer   = new QBuffer(animation);
+	auto *animation = new QMovie(parentDoc);
+	auto *buffer    = new QBuffer(animation);
 	buffer->setData(animationBa);
 	buffer->open(QIODevice::ReadOnly);
 	animation->setDevice(buffer);
@@ -1093,6 +1229,10 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 	// frame may vary:
 	while (animation->jumpToFrame(++frameCountTest)) {
 		int delay = animation->nextFrameDelay();
+		// Ensure the loop finishes if `jumpToFrame` returns `true` when trying to go past the last frame:
+		if (delay == 0) {
+			break;
+		}
 		frameDelays.append(QVariant(delay));
 		totalMs += delay;
 	}
@@ -1119,7 +1259,7 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 	animation->setProperty("isTraversingFrames", false);
 	animation->setProperty("isFullScreen", false);
 	qsizetype frameDelayAmount = frameDelays.size();
-	auto refresh               = [animation, parentLog](int marginPercentage = 0) {
+	auto refresh               = [animation, parentDoc](int marginPercentage = 0) {
         if (animation->property("isFullScreen").toBool()) {
             return;
         }
@@ -1129,7 +1269,7 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
             int margin           = (int) round((width > height ? width : height) * (marginPercentage / (double) 100));
             rect.adjust(-margin, -margin, margin, margin);
         }
-        parentLog->repaint(rect);
+        LogTextBrowser::update(parentDoc, rect);
 	};
 	auto getLoopMode = [animation]() { return qvariant_cast< LoopMode >(animation->property("LoopMode")); };
 	// Refresh the image on change:
@@ -1210,9 +1350,9 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 	return animation;
 }
 
-QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, LogTextBrowser *parent) {
+QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc) {
 	bool isAnimationCheckOnly = false;
-	return createImageAnimation(animationBa, parent, isAnimationCheckOnly);
+	return createImageAnimation(animationBa, parentDoc, isAnimationCheckOnly);
 }
 
 QString ImageAnimationTextObject::loopModeToString(LoopMode mode) {
@@ -1227,10 +1367,10 @@ QString ImageAnimationTextObject::loopModeToString(LoopMode mode) {
 	return "Undefined";
 }
 
-void ImageAnimationTextObject::toggleVideoControls(LogTextBrowser *log) {
+void ImageAnimationTextObject::toggleVideoControls(QTextDocument *doc) {
 	areVideoControlsOn = !areVideoControlsOn;
 	// Update document layout manually when resizing custom text objects:
-	log->reflow();
+	LogTextBrowser::reflow(doc);
 }
 
 void ImageAnimationTextObject::toggleVideoControlsFullScreen(QObject *propertyHolder) {
@@ -1385,15 +1525,13 @@ void ImageAnimationTextObject::toggleCache(QMovie *animation) {
 }
 
 void ImageAnimationTextObject::toggleFullScreen(QMovie *animation) {
-	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(animation->parent());
-	QWidget *fsAnim     = log->isWidgetInFullScreen() ? nullptr : new FullScreenImageAnimation(animation, log);
-	log->toggleFullScreen(fsAnim);
+	QWidget *fsAnimation = LogTextBrowser::isWidgetInFullScreen() ? nullptr : new FullScreenImageAnimation(animation);
+	LogTextBrowser::toggleFullScreen(fsAnimation);
 }
 
-void ImageAnimationTextObject::escapeFullScreen(QMovie *animation) {
-	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(animation->parent());
-	if (log->isWidgetInFullScreen()) {
-		log->toggleFullScreen(nullptr);
+void ImageAnimationTextObject::escapeFullScreen() {
+	if (LogTextBrowser::isWidgetInFullScreen()) {
+		LogTextBrowser::toggleFullScreen(nullptr);
 	}
 }
 
@@ -1464,7 +1602,7 @@ void ImageAnimationTextObject::setLoopMode(QMovie *animation, LoopMode mode) {
 }
 
 void ImageAnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
-	LoopMode loopMode     = qvariant_cast< LoopMode >(animation->property("LoopMode"));
+	auto loopMode         = qvariant_cast< LoopMode >(animation->property("LoopMode"));
 	int lastLoopModeInt   = static_cast< int >(LoopMode::NoLoop);
 	int loopModeChangedTo = static_cast< int >(loopMode) + steps;
 	int loopModeResult =
@@ -1488,7 +1626,7 @@ int ImageAnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameI
 	return msUntilCurrentFrame;
 }
 
-void ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPos,
+bool ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPos,
 										  const Qt::MouseButton &mouseButton) {
 	bool isFullScreen                 = animation->property("isFullScreen").toBool();
 	bool areVideoControlsOnFullScreen = animation->property("areVideoControlsOnFullScreen").toBool();
@@ -1502,62 +1640,84 @@ void ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouse
 		}
 		// Right mouse button shows the context menu for the text object,
 		// which is handled where the custom context menu for the log is.
-		return;
+		return isLeftMouseButtonPressed || isMiddleMouseButtonPressed;
 	}
 
+	bool isAction                         = true;
 	QRect rect                            = animation->property("posAndSize").toRect();
-	LogTextBrowser *log                   = qobject_cast< LogTextBrowser * >(animation->parent());
+	auto *doc                             = qobject_cast< QTextDocument * >(animation->parent());
 	VideoUtils::VideoControl videoControl = VideoUtils::videoControlAt(mouseDocPos, rect);
 	if (isLeftMouseButtonPressed) {
 		switch (videoControl) {
 			case VideoUtils::VideoControl::VideoBar:
-				return setFrameByProportion(animation, VideoUtils::videoBarProportionAt(mouseDocPos, rect));
+				setFrameByProportion(animation, VideoUtils::videoBarProportionAt(mouseDocPos, rect));
+				break;
 			case VideoUtils::VideoControl::View:
 			case VideoUtils::VideoControl::PlayPause:
-				return togglePause(animation);
+				togglePause(animation);
+				break;
 			case VideoUtils::VideoControl::Cache:
-				return toggleCache(animation);
+				toggleCache(animation);
+				break;
 			case VideoUtils::VideoControl::Loop:
-				return changeLoopMode(animation, 1);
+				changeLoopMode(animation, 1);
+				break;
 			case VideoUtils::VideoControl::PreviousFrame:
-				return changeFrame(animation, -1);
+				changeFrame(animation, -1);
+				break;
 			case VideoUtils::VideoControl::NextFrame:
-				return changeFrame(animation, 1);
+				changeFrame(animation, 1);
+				break;
 			case VideoUtils::VideoControl::ResetSpeed:
-				return resetSpeed(animation);
+				resetSpeed(animation);
+				break;
 			case VideoUtils::VideoControl::DecreaseSpeed:
-				return changeSpeed(animation, -10);
+				changeSpeed(animation, -10);
+				break;
 			case VideoUtils::VideoControl::IncreaseSpeed:
-				return changeSpeed(animation, 10);
+				changeSpeed(animation, 10);
+				break;
 			case VideoUtils::VideoControl::FullScreen:
 				if (animation->property("isFullScreen").toBool()) {
 					VideoUtils::setPropertyFullScreen(animation, false);
-					log->repaint();
+					LogTextBrowser::update(doc);
 					QApplication::processEvents();
 				}
-				return toggleFullScreen(animation);
+				toggleFullScreen(animation);
+				break;
 			case VideoUtils::VideoControl::None:
-				return;
+				isAction = false;
+				break;
 		}
 	} else if (isMiddleMouseButtonPressed) {
 		switch (videoControl) {
 			case VideoUtils::VideoControl::View:
 			case VideoUtils::VideoControl::PlayPause:
-				return resetPlayback(animation);
+				resetPlayback(animation);
+				break;
 			case VideoUtils::VideoControl::Loop:
-				return changeLoopMode(animation, -1);
+				changeLoopMode(animation, -1);
+				break;
 			case VideoUtils::VideoControl::PreviousFrame:
-				return changeFrame(animation, -5);
+				changeFrame(animation, -5);
+				break;
 			case VideoUtils::VideoControl::NextFrame:
-				return changeFrame(animation, 5);
+				changeFrame(animation, 5);
+				break;
 			case VideoUtils::VideoControl::DecreaseSpeed:
-				return changeSpeed(animation, -50);
+				changeSpeed(animation, -50);
+				break;
 			case VideoUtils::VideoControl::IncreaseSpeed:
-				return changeSpeed(animation, 50);
+				changeSpeed(animation, 50);
+				break;
 			default:
-				return;
+				isAction = false;
+				break;
 		}
+	} else {
+		isAction = false;
 	}
+	return isAction;
 }
 
 bool ImageAnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp) {
@@ -1635,12 +1795,12 @@ bool ImageAnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocP
 	return isCustomScrollAction;
 }
 
-void ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
+bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
 	bool isKeyBoundToAction           = true;
 	Qt::KeyboardModifiers modifiers   = QApplication::keyboardModifiers();
-	LogTextBrowser *log               = qobject_cast< LogTextBrowser * >(animation->parent());
-	auto scrollToObjectInteractedWith = [&log, &animation]() {
-		log->scrollObjectIntoView(animation->property("posAndSize").toRect());
+	auto *doc                         = qobject_cast< QTextDocument * >(animation->parent());
+	auto scrollToObjectInteractedWith = [&doc, &animation]() {
+		LogTextBrowser::scrollAreaIntoView(doc, animation->property("posAndSize").toRect());
 	};
 	if (modifiers.testFlag(Qt::NoModifier) || modifiers.testFlag(Qt::KeypadModifier)) {
 		switch (key) {
@@ -1655,7 +1815,7 @@ void ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 				if (animation->property("isFullScreen").toBool()) {
 					toggleVideoControlsFullScreen(animation);
 				} else {
-					toggleVideoControls(log);
+					toggleVideoControls(doc);
 				}
 				break;
 			case Qt::Key_C:
@@ -1745,21 +1905,23 @@ void ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 				if (animation->property("isFullScreen").toBool()) {
 					// Turn off the full screen indicator before the text object is visible:
 					VideoUtils::setPropertyFullScreen(animation, false);
-					log->repaint();
+					LogTextBrowser::update(doc);
 					// Ensure the text object has time to update to the current frame immediately:
 					QApplication::processEvents();
 				} else {
 					// Avoid scrolling to full screen position by scrolling before the switch:
 					scrollToObjectInteractedWith();
 				}
-				return toggleFullScreen(animation);
+				toggleFullScreen(animation);
+				break;
 			case Qt::Key_Escape:
 				if (animation->property("isFullScreen").toBool()) {
 					VideoUtils::setPropertyFullScreen(animation, false);
-					log->repaint();
+					LogTextBrowser::update(doc);
 					QApplication::processEvents();
 				}
-				return escapeFullScreen(animation);
+				escapeFullScreen();
+				break;
 			default:
 				isKeyBoundToAction = false;
 				break;
@@ -1770,23 +1932,20 @@ void ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 	if ((isKeyBoundToAction || isObjectSelectionChanged) && !animation->property("isFullScreen").toBool()) {
 		scrollToObjectInteractedWith();
 	}
-}
-
-ImageAnimationTextObject::ImageAnimationTextObject() : QObject() {
+	return isKeyBoundToAction;
 }
 
 QSizeF ImageAnimationTextObject::intrinsicSize(QTextDocument *, int, const QTextFormat &fmt) {
-	QMovie *animation = qvariant_cast< QMovie * >(fmt.property(1));
-	QSize size        = animation->frameRect().size();
+	auto *animation = qvariant_cast< QMovie * >(fmt.property(1));
+	QSize size      = animation->frameRect().size();
 	VideoUtils::setAttributesWidthAndHeight(animation, size);
 	return VideoUtils::calcIntrinsicSize(size, areVideoControlsOn);
 }
 
 void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int,
 										  const QTextFormat &fmt) {
-	QMovie *animation   = qvariant_cast< QMovie * >(fmt.property(1));
-	LogTextBrowser *log = qobject_cast< LogTextBrowser * >(doc->parent());
-	QRect rect          = rectF.toRect();
+	auto *animation = qvariant_cast< QMovie * >(fmt.property(1));
+	QRect rect      = rectF.toRect();
 	if (!animation->property("isFullScreen").toBool()) {
 		VideoUtils::updatePropertyRect(animation, rect);
 	}
@@ -1794,7 +1953,7 @@ void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF
 	bool wasRunning = animation->state() == QMovie::Running || animation->property("isPlayingInReverse").toBool();
 
 	painter->setRenderHint(QPainter::Antialiasing);
-	log->highlightSelectedObject(painter, rect, animation);
+	LogTextBrowser::highlightSelectedObject(doc, painter, rect, animation);
 	painter->drawPixmap(areVideoControlsOn ? rect.adjusted(0, 0, 0, -VideoUtils::videoControlsHeight) : rect, frame);
 	if (areVideoControlsOn) {
 		VideoUtils::drawVideoControls(painter, rect, animation);
@@ -1804,8 +1963,8 @@ void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF
 }
 
 
-FullScreenImageAnimation::FullScreenImageAnimation(QMovie *animation, LogTextBrowser *parent) : QLabel(parent) {
-	// Set the animation viewer to fill all available space:
+FullScreenImageAnimation::FullScreenImageAnimation(QMovie *animation, QWidget *parentWidget) : QLabel(parentWidget) {
+	// Set the animated image viewer to fill all available space:
 	setScaledContents(true);
 	setMovie(animation);
 

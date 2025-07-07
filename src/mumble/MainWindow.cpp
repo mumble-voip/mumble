@@ -1022,8 +1022,9 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	QPoint docPos = mpos + contentPosition;
 	QMenu *menu   = qteLog->createStandardContextMenu(docPos);
 
-	QTextFormat fmt  = qteLog->document()->documentLayout()->formatAt(docPos);
-	bool isAnimation = fmt.objectType() == static_cast< int >(Log::TextObjectType::ImageAnimation);
+	QTextDocument *doc = qteLog->document();
+	QTextFormat fmt    = doc->documentLayout()->formatAt(docPos);
+	bool isAnimation   = fmt.objectType() == static_cast< int >(Log::TextObjectType::ImageAnimation);
 	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, &MainWindow::saveImageAs);
@@ -1032,12 +1033,12 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	}
 	if (isAnimation) {
 		QString firstWord = ImageAnimationTextObject::areVideoControlsOn ? tr("Hide") : tr("Show");
-		menu->addAction(tr("%1 Video Controls").arg(firstWord), qteLog,
-						[&log = qteLog]() { ImageAnimationTextObject::toggleVideoControls(log); });
+		menu->addAction(tr("%1 Video Controls").arg(firstWord), doc,
+						[doc]() { ImageAnimationTextObject::toggleVideoControls(doc); });
 	}
 
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, &LogTextBrowser::clear);
+	menu->addAction(tr("Clear"), qteLog, qOverload< void >(&LogTextBrowser::clear));
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
 }
