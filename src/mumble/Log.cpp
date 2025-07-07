@@ -797,9 +797,14 @@ bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 			auto [type, fileExt] = findTextObjectTypeAndFileExtension(header);
 			isCompatibleExt      = type != TextObjectType::NoCustomObject;
 			if (isCompatibleExt) {
-				QString base64      = html.sliced(base64StartIndex, base64Size);
-				QByteArray txtObjBa = QByteArray::fromBase64(qvariant_cast< QByteArray >(base64));
-				txtObj              = { type, txtObjBa, fileExt, imgStartIndex, imgEndIndex, width, height };
+				QByteArray base64 = qvariant_cast< QByteArray >(html.sliced(base64StartIndex, base64Size));
+				QByteArray ba;
+				bool isPercentEncoded = base64.contains('%');
+				if (isPercentEncoded) {
+					ba = QByteArray::fromPercentEncoding(base64);
+				}
+				ba     = QByteArray::fromBase64(isPercentEncoded ? ba : base64);
+				txtObj = { type, ba, fileExt, imgStartIndex, imgEndIndex, width, height };
 			}
 		} while (!isCompatibleExt && imgStartIndex != -1);
 		return txtObj;
