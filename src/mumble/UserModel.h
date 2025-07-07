@@ -108,6 +108,9 @@ public:
 	UserModel(QObject *parent = 0);
 	~UserModel() Q_DECL_OVERRIDE;
 
+	static QString mergeIconsToImg(const QList< QPair< QIcon, QRect > > &iconsWithRect, const QSize &fullSize,
+								   const QString &format = "png");
+
 	QModelIndex index(ClientUser *, int column = 0) const;
 	QModelIndex index(Channel *, int column = 0) const;
 	QModelIndex index(ModelItem *) const;
