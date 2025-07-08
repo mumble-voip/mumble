@@ -22,6 +22,11 @@
 # Always quit on encountered errors
 $ErrorActionPreference = 'Stop'
 
+# Pin ninja due to a severe bug in the 1.13.0 release:
+#
+# https://github.com/ninja-build/ninja/issues/2616
+# https://github.com/actions/runner-images/issues/12531
+choco install ninja --allow-downgrade --version 1.12.1
 
 choco install aria2
 
