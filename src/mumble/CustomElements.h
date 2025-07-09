@@ -169,12 +169,12 @@ public:
 
 	static void updateVideoControls(QObject *propertyHolder, QWidget *area = nullptr);
 	static void updatePropertyRect(QObject *propertyHolder, const QRect &rect);
-	static QSizeF calcIntrinsicSize(const QSize &size, bool areVideoControlsOn);
+	static QSizeF calcIntrinsicSize(const QSize &size, bool areVideoControlsShown);
 	static void setPropertyFullScreen(QObject *propertyHolder, bool on);
 	static void setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size);
 };
 
-class ImageAnimationTextObject : public QObject, QTextObjectInterface {
+class ImageAnimationTextObject : public QObject, public QTextObjectInterface {
 	Q_OBJECT
 	Q_INTERFACES(QTextObjectInterface)
 
@@ -184,20 +184,20 @@ protected:
 					const QTextFormat &fmt) Q_DECL_OVERRIDE;
 
 public:
-	static bool areVideoControlsOn;
-	ImageAnimationTextObject(QTextDocument *parentDoc = nullptr);
+	bool areVideoControlsShown = false;
+	ImageAnimationTextObject(QTextDocument *parentDoc);
 	static QObject *createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc,
 										 bool &isAnimationCheckOnly);
 	static QObject *createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc);
-	static bool mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button);
-	static bool scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp);
+	static bool mousePress(QMovie *animation, const QPoint &mouseDocPos, const Qt::MouseButton &button,
+						   bool areVideoControlsShown = false);
+	static bool scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp,
+					   bool areVideoControlsShown = false);
 	static bool keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged = false);
 
 	enum class LoopMode { Unchanged, Loop, NoLoop };
 	static QString loopModeToString(LoopMode mode);
 
-	static void toggleVideoControls(QTextDocument *doc);
-	static void toggleVideoControlsFullScreen(QObject *propertyHolder);
 	static int getTotalTime(QObject *propertyHolder);
 	static int getCurrentTime(QObject *propertyHolder, int frameIndex);
 	static void setFrame(QMovie *animation, int frameIndex);
@@ -217,6 +217,11 @@ public:
 	static void changeSpeed(QMovie *animation, int percentageStep);
 	static void setLoopMode(QMovie *animation, LoopMode mode);
 	static void changeLoopMode(QMovie *animation, int steps);
+	static void toggleVideoControlsFullScreen(QObject *propertyHolder);
+
+	void toggleVideoControls();
+	bool mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie *animation);
+	bool scroll(const QPoint &mouseDocPos, bool isScrollingUp, QMovie *animation);
 };
 
 class FullScreenImageAnimation : public QLabel {

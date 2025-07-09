@@ -1022,9 +1022,11 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	QPoint docPos = mpos + contentPosition;
 	QMenu *menu   = qteLog->createStandardContextMenu(docPos);
 
-	QTextDocument *doc = qteLog->document();
-	QTextFormat fmt    = doc->documentLayout()->formatAt(docPos);
-	bool isAnimation   = fmt.objectType() == static_cast< int >(Log::TextObjectType::ImageAnimation);
+	QTextDocument *doc                     = qteLog->document();
+	QAbstractTextDocumentLayout *docLayout = doc->documentLayout();
+	QTextFormat fmt                        = docLayout->formatAt(docPos);
+	int objType                            = fmt.objectType();
+	bool isAnimation                       = objType == static_cast< int >(Log::TextObjectType::ImageAnimation);
 	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, &MainWindow::saveImageAs);
@@ -1032,9 +1034,11 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		saveImageTextObject = fmt;
 	}
 	if (isAnimation) {
-		QString firstWord = ImageAnimationTextObject::areVideoControlsOn ? tr("Hide") : tr("Show");
+		QTextObjectInterface *objHandler = docLayout->handlerForObject(objType);
+		auto animationHandler            = (ImageAnimationTextObject *) objHandler;
+		QString firstWord                = animationHandler->areVideoControlsShown ? tr("Hide") : tr("Show");
 		menu->addAction(tr("%1 Video Controls").arg(firstWord), doc,
-						[doc]() { ImageAnimationTextObject::toggleVideoControls(doc); });
+						[animationHandler]() { animationHandler->toggleVideoControls(); });
 	}
 
 	menu->addSeparator();
