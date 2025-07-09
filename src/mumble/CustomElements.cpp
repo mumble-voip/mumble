@@ -1775,15 +1775,10 @@ void ImageAnimationTextObject::setFrameByProportion(QMovie *animation, double pr
 }
 
 void ImageAnimationTextObject::changeFrame(QMovie *animation, int amount) {
-	int lastFrameIndex       = animation->property("lastFrameIndex").toInt();
-	int frameIndex           = animation->currentFrameNumber() + amount;
-	int amountOfTimesGreater = (int) abs(floor(frameIndex / (double) lastFrameIndex));
-
-	int lastFrameIndexScaledToInput = lastFrameIndex * amountOfTimesGreater;
-	int frameIndexWrappedBackward   = lastFrameIndexScaledToInput + 1 + frameIndex;
-	int frameIndexWrappedForward    = frameIndex - 1 - lastFrameIndexScaledToInput;
-	setFrame(animation, frameIndex < 0 ? frameIndexWrappedBackward
-									   : frameIndex > lastFrameIndex ? frameIndexWrappedForward : frameIndex);
+	int lastFrameIndex   = animation->property("lastFrameIndex").toInt();
+	int frameIndex       = animation->currentFrameNumber() + amount;
+	int frameIndexResult = frameIndex > lastFrameIndex ? lastFrameIndex : frameIndex < 0 ? 0 : frameIndex;
+	setFrame(animation, frameIndexResult);
 }
 
 void ImageAnimationTextObject::changeFrameByTime(QMovie *animation, int milliseconds) {
