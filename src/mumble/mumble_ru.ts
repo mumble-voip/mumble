@@ -1634,19 +1634,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>на</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>пока кто-то на вашем канале говорит</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>всегда</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ослабьте внимание слушателей с помощью...</translation>
     </message>
 </context>
 <context>
@@ -2451,31 +2451,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя для Бана</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-адрес для Бана</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished">Причина бана</translation>
+        <translation>Причина запрета</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата/время начала Бана</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата/время окончания Бана</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Хэш сертификата для бана</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished">Список забаненных пользователей</translation>
+        <translation>Список забаненных пользователей</translation>
     </message>
 </context>
 <context>
@@ -2799,11 +2799,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished">Отображает текущий сертификат</translation>
+        <translation>Отображает текущий сертификат</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Файл сертификата для импорта</translation>
+        <translation>Файл сертификата для импорта</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
@@ -2811,23 +2811,23 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Пароль сертификата</translation>
+        <translation>Пароль сертификата</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished">Отображает импортированный сертификат</translation>
+        <translation>Отображает импортированный сертификат</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished">Отображение нового сертификата</translation>
+        <translation>Отображение нового сертификата</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Файл для сохранения сертификата</translation>
+        <translation>Файл для сохранения сертификата</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished">Используйте кнопку &quot;Сохранить как&quot;, чтобы выбрать файл с помощью диалогового окна.</translation>
+        <translation>Используйте кнопку &quot;Сохранить как&quot;, чтобы выбрать файл с помощью диалогового окна.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
@@ -3323,15 +3323,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished">Это диалог подключения. Существует два разных способа подключения к серверу Mumble. Если сервер находится в открытом списке, вы можете использовать список серверов, чтобы найти его. Если вы знаете IP-адрес сервера, вы можете вручную добавить новую постоянную запись в избранное.</translation>
+        <translation>Это диалог подключения. Существует два разных способа подключения к серверу Mumble. Если сервер находится в открытом списке, вы можете использовать список серверов, чтобы найти его. Если вы знаете IP-адрес сервера, вы можете вручную добавить новую постоянную запись в избранное.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished">Список серверов содержит ваши избранные и все общедоступные серверы.</translation>
+        <translation>Список серверов содержит ваши избранные и все общедоступные серверы.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished">С помощью этого поискового интерфейса вы можете отфильтровать серверы Mumble, отображаемые в списке серверов.</translation>
+        <translation>С помощью этого поискового интерфейса вы можете отфильтровать серверы Mumble, отображаемые в списке серверов.</translation>
     </message>
     <message>
         <source>Search for servername</source>
@@ -3343,7 +3343,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished">Установите режим фильтрации</translation>
+        <translation>Установите режим фильтрации</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3495,7 +3495,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished">Метка сервера</translation>
+        <translation>Заметка для сервера</translation>
     </message>
 </context>
 <context>
@@ -3692,19 +3692,19 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Настроенные горячие клавиши</translation>
+        <translation>Настроенные ярлыки</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished">Используйте клавиши вверх и вниз для перемещения по добавленным ярлыкам. Используйте клавиши влево и вправо для перемещения между действиями и опциями одного ярлыка. Записи можно добавлять и удалять с помощью кнопок ниже.</translation>
+        <translation>Используйте клавиши вверх и вниз для перемещения по добавленным ярлыкам. Используйте клавиши влево и вправо для перемещения между действиями и опциями одного ярлыка. Записи можно добавлять и удалять с помощью кнопок ниже.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished">Добавить не назначенный ярлык</translation>
+        <translation>Добавить не назначенный ярлык</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished">Это добавит новую пустую запись в дерево &quot;Настроенные ярлыки&quot;, расположенное выше. Дерево будет автоматически сфокусировано. Назначьте клавишу или действие, выбрав запись в дереве выше.</translation>
+        <translation>Это добавит новую пустую запись в дерево &quot;Настроенные ярлыки&quot;, расположенное выше. Дерево будет автоматически сфокусировано. Назначьте клавишу или действие, выбрав запись в дереве выше.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
